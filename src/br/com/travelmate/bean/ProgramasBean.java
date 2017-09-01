@@ -57,6 +57,11 @@ public class ProgramasBean {
 		}
 		venda.setValorcambio(valorCambio);
 		venda.setSituacao(situacao);
+		if (!situacao.equalsIgnoreCase("PROCESSO")){
+			if (venda.getSituacaogerencia().equalsIgnoreCase("P")){
+				venda.setSituacaogerencia("A");
+			}
+		}
 		VendasFacade VendasFacade = new VendasFacade();
 		venda.setCliente(cliente);
 		if(venda.getVendasMatriz()==null || venda.getVendasMatriz().length()==0){

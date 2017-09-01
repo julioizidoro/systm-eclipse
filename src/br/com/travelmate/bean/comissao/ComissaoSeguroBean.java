@@ -5,7 +5,6 @@
  */
 package br.com.travelmate.bean.comissao;
 
-import java.util.Date;
 import java.util.List;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -78,13 +77,14 @@ public class ComissaoSeguroBean {
         vendasComissao.setProdutos(venda.getProdutos());
         vendasComissao.setValorcomissionavel(valorGross);
         vendasComissao.setJuros(valorJuros);
-        vendasComissao.setComissaotm(vendasComissao.getValorcomissionavel()/2);
+        vendasComissao.setComissaotm(valorGross - valorNet);
         vendasComissao.setJurospago(comissaoBean.calcularJurosPagos(listaParcelamento));
         if ((valorJuros<=0) && (vendasComissao.getVendas().getUnidadenegocio().getIdunidadeNegocio()>2)){
         	vendasComissao.setCustofinanceirofranquia(vendasComissao.getDesagio());
         }else {
         	vendasComissao.setCustofinanceirofranquia(0.0f);
         }
+        float percComissao = 0.0f;
         if (venda.getUnidadenegocio().getIdunidadeNegocio()<=2){
         	vendasComissao.setComissaofranquiabruta(0.0f);
             vendasComissao.setComissaofraquia(0.0f);
@@ -92,9 +92,9 @@ public class ComissaoSeguroBean {
         }else {
         	Float valorFraquia = 0.0f;
         	if (vendasComissao.getVendas().getUnidadenegocio().getTipo().equalsIgnoreCase("Premium")){
-        		valorFraquia = (float) (valorGross * 0.45);
+        		valorFraquia = (float) (valorGross * (seguroviagem.getValoresseguro().getComissaopremium()/100));
         	}else {
-        		valorFraquia = (float) (valorGross * 0.225);
+        		valorFraquia = (float) (valorGross * (seguroviagem.getValoresseguro().getComissaoexpress()/100));
         	}
             vendasComissao.setComissaofranquiabruta(valorFraquia);
             vendasComissao.setComissaofraquia(comissaoBean.calcularComissaoFranquia(vendasComissao, 0.0f));
@@ -106,16 +106,13 @@ public class ComissaoSeguroBean {
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
         vendasComissao.setDatainicioprograma(seguroviagem.getDataInicio());
-        float percComissao = 0.0f;
-        if (vendasComissao.getVendas().getUnidadenegocio().getTipo().equalsIgnoreCase("express")){
-        	percComissao = 22.5f;
-        }else percComissao = 45.0f;
         vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percComissao, aplicacaoMB, seguroAvulso, formapagamento);
     }
     
     public void calcularValorComissional(){
         valorGross = venda.getValor() + vendasComissao.getDescontotm() + vendasComissao.getDescontoloja();
-        valorNet = valorGross/2;
+        valorNet = (seguroviagem.getValoresseguro().getValornet() * seguroviagem.getNumeroSemanas()) * venda.getCambio().getValor();
+        //valorNet = valorGross * (venda.getFornecedorcidade().getFornecedorcidadecomissao().getPercentualmatriz()/100);
     }
 
     public Vendascomissao getVendasComissao() {
