@@ -289,8 +289,8 @@ public class ControleDocsVideosMB implements Serializable{
 			arquivoDocsBean.setNome(listaArquivo2.get(i).getNome());
 			arquivoDocsBean.setNomeftp(listaArquivo2.get(i).getNomeftp());
 			arquivoDocsBean.setTipo(listaArquivo2.get(i).getTipo());
-			arquivoDocsBean.setCaminho(listaArquivo2.get(i).getPasta1().getDepartamento().getNome() + "/" + listaArquivo2.get(i).getPasta2().getNome() +
-				"/" + listaArquivo2.get(i).getPasta1().getNome());
+			arquivoDocsBean.setCaminho(listaArquivo2.get(i).getPasta1().getDepartamento().getNome() + "/" + listaArquivo2.get(i).getPasta1().getNome() +
+				"/" + listaArquivo2.get(i).getPasta2().getNome());
 			
 			listaArquivo.add(arquivoDocsBean);
 		}
@@ -312,8 +312,8 @@ public class ControleDocsVideosMB implements Serializable{
 			arquivoDocsBean.setNome(listaArquivo3.get(i).getNome());
 			arquivoDocsBean.setNomeftp(listaArquivo3.get(i).getNomeftp());
 			arquivoDocsBean.setTipo(listaArquivo3.get(i).getTipo());
-			arquivoDocsBean.setCaminho(listaArquivo3.get(i).getPasta1().getDepartamento().getNome() + "/" + listaArquivo3.get(i).getPasta2().getNome() +
-				"/" + listaArquivo3.get(i).getPasta1().getNome());
+			arquivoDocsBean.setCaminho(listaArquivo3.get(i).getPasta1().getDepartamento().getNome() + "/" + listaArquivo3.get(i).getPasta1().getNome() +
+				"/" + listaArquivo3.get(i).getPasta2().getNome() + "/" + listaArquivo3.get(i).getPasta3().getNome());
 			
 			listaArquivo.add(arquivoDocsBean);
 		}
@@ -579,6 +579,13 @@ public class ControleDocsVideosMB implements Serializable{
 		for (int i = 0; i < listaFornecedorCidadeDocs.size(); i++) {
 			listaFornecedorCidadeDocs.get(i).setSelecionado(todosdocumentosfornecedor);
 		}
+	}
+	
+	
+	public void selecionarDocumento(ArquivoDocsBean arquivo){
+		listaArquivo.remove(arquivo);
+		arquivo.setSelecionado(true);
+		listaArquivo.add(arquivo);
 	}
 	
 

@@ -13,18 +13,16 @@
 				<legend id="iUsu2">
 					<b>Documentos do Fornecedor</b>
 				</legend>
-				<h:panelGrid style="margin-left:3%" columns="3"
+				<h:panelGrid style="margin-left:1%;width:98%;" columns="3"
 					columnClasses="tamanho8,tamanho8,tamanho7">
 					<p:outputLabel
 						value="#{documentosFornecedorMB.fornecedorCidade.fornecedor.nome} - #{documentosFornecedorMB.fornecedorCidade.cidade.nome}"
 						class="fontebranca" style="font-size:17px; color:#1F888A" />
 					<p:commandButton value="Voltar" icon="ui-icon-arrowreturn-1-w"
 						action="#{documentosFornecedorMB.voltar()}"
-						style="font-size:12px;margin-left: 75%;" />
+						style="font-size:12px;float:right;" />
 					 
 				</h:panelGrid>
-				<br></br>
-				<br></br>
 				<div style="width: 100%;" align="center">
 					<p:tabView>  
 				        <p:tab title="DOCS">
@@ -109,6 +107,8 @@
 									
 								</h:dataTable>
 							</h:panelGrid>
+							
+							<br/> <br/><br/> <br/><br/> <br/>  <br/> <br/> <br/> <br/> <br/> <br/> 
 				        </p:tab>
 				        <p:tab title="VIDEOS">
 				             <h:panelGrid id="idPanelVideo" width="100%;" >
@@ -198,12 +198,13 @@
 									
 								</h:dataTable>
 							</h:panelGrid>
+							
+							<br/> <br/><br/> <br/><br/> <br/><br/> <br/> <br/> <br/> <br/> <br/> 
 				        </p:tab>
 				    </p:tabView>
 					
 				</div>
 
-				<br></br> <br></br>
 			</div>
 
 		</h:form>

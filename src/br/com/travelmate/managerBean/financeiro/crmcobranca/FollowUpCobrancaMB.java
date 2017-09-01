@@ -355,19 +355,15 @@ public class FollowUpCobrancaMB implements Serializable{
 
 	public String retornarCoresPrioridade(int numeroSituacao) {
 		if (numeroSituacao == 1) {
-			return "#1E90FF;";
-		} else if (numeroSituacao == 2) {
 			return "#9ACD32;";
+		} else if (numeroSituacao == 2) {
+			return "#023502;";
 		} else if (numeroSituacao == 3) {
-			return "#FF8C00;";
+			return "#1E90FF;";
 		} else if (numeroSituacao == 4) {
-			return "#B22222;";
+			return "#FF8C00;";
 		} else if (numeroSituacao == 5) {
-			return "#228B22;";
-		} else if (numeroSituacao == 6) {
-			return "#8B8989;";
-		} else if (numeroSituacao == 7) {
-			return "#9400D3;";
+			return "#B22222;";
 		}
 		return "";
 	}

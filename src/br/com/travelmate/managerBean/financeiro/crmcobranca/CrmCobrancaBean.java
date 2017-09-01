@@ -22,9 +22,11 @@ public class CrmCobrancaBean {
 	public Crmcobrancaconta baixar(Contasreceber conta, Usuario usuario){
 		CrmCobrancaContaFacade crmCobrancaContaFacade = new CrmCobrancaContaFacade();
 		Crmcobrancaconta crmcobrancaconta = conta.getCrmcobrancaconta(); 
-		crmcobrancaconta.setPaga(true);
-		crmcobrancaconta = crmCobrancaContaFacade.salvar(crmcobrancaconta);
-		verificarCobranca(crmcobrancaconta.getCrmcobranca(), usuario);
+		if (conta.getCrmcobrancaconta() != null) {
+			crmcobrancaconta.setPaga(true);
+			crmcobrancaconta = crmCobrancaContaFacade.salvar(crmcobrancaconta);
+			verificarCobranca(crmcobrancaconta.getCrmcobranca(), usuario);
+		}
 		return crmcobrancaconta;
 	}
 	
