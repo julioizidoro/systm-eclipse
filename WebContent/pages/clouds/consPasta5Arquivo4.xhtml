@@ -165,12 +165,12 @@
 					<p:dataTable reflow="true" id="idTabelaArquivos" var="arquivo"
 						styleClass="table-transparent"
 						value="#{pasta5Arquivo4MB.listaArquivo4}"
-						style="border:transparent;margin-left:5%;width:90%;"
-						scrollRows="10" scrollable="true" scrollHeight="300"
+						style="border:transparent;margin-left:1%;width:97%;"
+						scrollRows="10" scrollable="true" scrollHeight="500"
 						rendered="#{pasta5Arquivo4MB.tabelaArquivoLista}">
 		
 						<p:column headerText=""
-							style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{pasta5Arquivo4MB.trocarCorLinhaTabela(arquivo)}"
+							style="font-size:12px; width:5%; text-align:left; color:white; border:none; #{pasta5Arquivo4MB.trocarCorLinhaTabela(arquivo)}"
 							styleClass="alinharCenter">
 							<a
 								href="http://#{pasta5Arquivo4MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
@@ -180,7 +180,7 @@
 							</a>
 						</p:column>
 						<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
-							style="font-size:12px; color:black; border:none;text-align:left; #{pasta5Arquivo4MB.trocarCorLinhaTabela(arquivo)}">
+							style="width:77%;font-size:12px; color:black; border:none;text-align:left; #{pasta5Arquivo4MB.trocarCorLinhaTabela(arquivo)}">
 							<a
 								href="http://#{pasta5Arquivo4MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
 								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
