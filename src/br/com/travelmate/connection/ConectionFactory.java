@@ -63,7 +63,7 @@ public class ConectionFactory {
 	public static Connection getConexao() {
 		Connection conexao = null;
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost:8081/systm", "root", "780920**");
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost:8081/systm", "root", "simples");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
