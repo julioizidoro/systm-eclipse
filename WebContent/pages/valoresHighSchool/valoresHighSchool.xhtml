@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idValoresHigh">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				 <p:accordionPanel class="painel" activeIndex="-1" >
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar" >
+                            <p:outputLabel value="Pais" for="pais" style="font-size:11px;margin-left:7%"/>
+                            <p:outputLabel value="Cidade" for="cidade" class="espacocobranca10" style="font-size:11px;"/>
+                            <p:outputLabel value="Parceiro" for="fornecedor" class="espacocobranca10" style="font-size:11px;"/>
+                            <br></br>
+                            <p:selectOneMenu id="pais" value="#{valoresHighSchoolMB.pais}" style="width:26.5%;font-size: 10px;margin-left:7%" class="espacocampos2" 
+                                             converter="PaisFornecedorConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                                <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idpais" value="#{valoresHighSchoolMB.listaPais}" var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}"/>
+                                <f:attribute name="listaPaisFornecedor" value="#{valoresHighSchoolMB.listaPais}"/>
+                                <p:ajax event="change" update="cidade"/> 
+                            </p:selectOneMenu>
+                            <p:selectOneMenu id="cidade" value="#{valoresHighSchoolMB.cidade}" style="width:29%;font-size: 10px" class="espacocampos" 
+                                             converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idcidade" value="#{valoresHighSchoolMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+                                <f:attribute name="listaCidade" value="#{valoresHighSchoolMB.pais.cidadeList}"/>
+                                <p:ajax event="change" listener="#{valoresHighSchoolMB.listarFornecedorCidade()}" update="fornecedor" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu id="fornecedor" value="#{valoresHighSchoolMB.fornecedorcidade}" style="width:29%;font-size: 10px" class="espacocampos" 
+                                             converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idfornecedor" value="#{valoresHighSchoolMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+                                <f:attribute name="listaFornecedorCidade" value="#{valoresHighSchoolMB.listaFornecedorCidade}"/>
+                            </p:selectOneMenu>
+                             <br></br> <br></br>
+                           <p:outputLabel value="Duração" for="duracao" class="fontebranca" style="margin-left:7%"/> 
+                           <p:outputLabel value="Status" for="status" style="margin-left:26.7%" /> 
+                            <p:outputLabel value="Início" for="inicio" style="margin-left:12.3%" /> 
+                           <br></br>
+                           <h:panelGrid columns="5">
+                       	       <p:inputText id="duracao" value="#{valoresHighSchoolMB.periodo}" style="width:250px;margin-left:21%" />
+	                           <p:selectOneMenu  id="status"  value="#{valoresHighSchoolMB.status}" style="width:95px;margin-left:28%">
+	                              <f:selectItem itemLabel="Todos" itemValue="Todos"  />
+	                              <f:selectItem itemLabel="Ativo" itemValue="Ativo"  />
+	                              <f:selectItem itemLabel="Inativo" itemValue="Inativo"/> 
+	                              <p:ajax event="change"/>   
+	                          </p:selectOneMenu>     
+	                          <p:inputText id="inicio" value="#{valoresHighSchoolMB.inicio}" style="width:250px;margin-left:16%" />
+	                           
+	                          <p:commandButton value="Pesquisar" style="margin-left:20%" icon=" ui-icon-search " update=":idValoresHigh:tabelaValores"  action="#{valoresHighSchoolMB.pesquisar()}"/>
+                         <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idValoresHigh:tabelaValores, inicio, duracao, status, fornecedor, cidade, pais "  action="#{valoresHighSchoolMB.limpar()}"/>
+	                     </h:panelGrid>
+                         
+                     </p:tab>
+                 </p:accordionPanel> 
+				<legend id="iUsu2">   
+					<b>Valores High School</b> 
+				</legend> 
+                 <p:commandButton value="Novo" icon="ui-icon-plus" action="#{valoresHighSchoolMB.novo()}" class="botaoConsulta" style="font-size:12px;margin-left:80%">
+                 	<p:ajax event="dialogReturn" listener="#{valoresHighSchoolMB.retornoDialog()}" update="tabelaValores"/>
+                 </p:commandButton>
+                 
+                     <br></br><br></br> 
+				<p:dataTable id="tabelaValores" var="valores"
+					value="#{valoresHighSchoolMB.listaValores}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px"  editable="true" editMode="cell" rowIndexVar="rowIx">
+					<p:column headerText="Parceiro"  styleClass="alinharCenter" style="width:120px;">
+						<h:outputText value="#{valores.fornecedorcidade.fornecedor.nome}" />  
+					</p:column>
+					<p:column headerText="Pais"  styleClass="alinharCenter" style="width:120px;">
+						<h:outputText value="#{valores.fornecedorcidade.cidade.pais.nome}" />
+					</p:column>
+					<p:column headerText="Cidade"  styleClass="alinharCenter" style="width:120px;">
+						<h:outputText value="#{valores.fornecedorcidade.cidade.nome}" />
+					</p:column>
+					<p:column headerText="Duração"  styleClass="alinharCenter" style="width:100px;">
+						<h:outputText value="#{valores.duracao}" />
+					</p:column> 
+					<p:column headerText="Início"  styleClass="alinharCenter" style="width:100px;">
+						<h:outputText value="#{valores.inicio}" />
+					</p:column> 
+					<p:column headerText="Moeda" style="width:60px;" styleClass="alinharCenter">    
+						<h:outputText value="#{valores.moedas.sigla}" />
+					</p:column>
+					<p:column headerText="Valor NET" style="width:80px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{valores.valornet}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>  
+					<p:column headerText="Valor Gross" style="width:80px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{valores.valorgross}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>    
+					<p:column style="width:43px;" styleClass="alinharCenter" headerText="Editar">
+						<p:commandLink action="#{valoresHighSchoolMB.editarValores(valores)}">
+							<img src="../../resources/img/editaricon.png" style="margin-left:20%" />
+							<p:ajax event="dialogReturn"
+								listener="#{valoresHighSchoolMB.retornoDialog}" process="@this"
+								update=":idValoresHigh:tabelaValores" />
+						</p:commandLink>
+					</p:column>
+                     <p:column headerText="Status" style="width:73px;text-align:center" >
+                     	<p:cellEditor>
+							<f:facet name="output">
+								 <img src="#{valoresHighSchoolMB.bolaStatus(valores.situacao)}" title="Editar Situação"/> 
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="situacao" value="#{valores.situacao}"
+									style="width:95%;">
+									<f:selectItem itemLabel="Ativo" itemValue="Ativo" />
+									<f:selectItem itemLabel="Inativo" itemValue="Inativo" />
+									<f:selectItem itemLabel="Temporário" itemValue="Temporário" /> 
+									<p:ajax event="change" listener="#{valoresHighSchoolMB.mudarSituacao(valores)}"
+										update="tabelaValores" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>    
+                    </p:column>
+				</p:dataTable>      
+				<br></br> <br></br>
+			</div>
+		</h:form> 
+	</ui:define>
+</ui:composition>
+</html>

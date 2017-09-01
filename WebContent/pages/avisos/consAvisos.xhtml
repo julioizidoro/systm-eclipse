@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaAvisos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab
+						titleStyle="font-size:11px;background:#A0C637;"
+						title="Pesquisar">
+						<h:panelGrid columns="5" columnClasses="tamanho12,tamanho10,tamanho8,tamanho8,tamanho8">
+							<p:outputLabel value="Periodo" for="dataIni"/>
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade"/>
+							<p:outputLabel value="Usuário" for="usuario"/>
+							<p:outputLabel value="Situação" for="situacao"/>
+
+							<p:calendar id="dataIni" value="#{avisosMB.dataInicial}"
+								size="12" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{avisosMB.dataFinal}"
+								size="12" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade" value="#{avisosMB.unidadenegocio}"
+								style="width:220px;"
+								converter="UnidadeNegocioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade" value="#{avisosMB.listaUnidade}"
+									var="sUnidade" itemLabel="#{sUnidade.nomerelatorio}"
+									itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{avisosMB.listaUnidade}" />
+								<p:ajax event="change" update="usuario"
+									listener="#{avisosMB.gerarListaUsuario()}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="usuario" value="#{avisosMB.usuario}"
+								style="width:220px;" converter="UsuarioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idusuario" value="#{avisosMB.listaUsuario}"
+									var="usuario" itemLabel="#{usuario.nome}"
+									itemValue="#{usuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{avisosMB.listaUsuario}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao" value="#{avisosMB.situacao}"
+								style="width:110px;">
+								<f:selectItem itemLabel="Ativo" itemValue="Ativo" />
+								<f:selectItem itemLabel="Inativo" itemValue="Inativo" />
+							</p:selectOneMenu>
+						</h:panelGrid><br></br>
+						<p:commandButton value="Pesquisar" style="margin-left:69.4%"
+							icon=" ui-icon-search " update="consultaAvisos:tabelaAvisos"
+							action="#{avisosMB.pesquisar()}" />
+						<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+							class="imgadd"
+							update="consultaAvisos:tabelaAvisos, usuario, unidade, dataFinal, dataIni"
+							action="#{avisosMB.limpar()}" />
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta Avisos</b>
+				</legend>
+				<p:commandButton value="Novo" icon="ui-icon-plus"
+					action="#{avisosMB.novo()}" class="botaoConsulta"
+					style="font-size:12px;margin-left:80%">
+					<p:ajax event="dialogReturn" listener="#{avisosMB.returnNovo}"
+						update="tabelaAvisos" />
+				</p:commandButton>
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabelaAvisos" var="avisos" class="tabela"
+					value="#{avisosMB.listaAviso}" scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px">
+					<p:column style="width:37px;" styleClass="alinharCenter">
+						<p:commandLink action="#{avisosMB.liberar(avisos)}"
+							update="tabelaAvisos">
+							<img src="#{avisosMB.imgLiberados(avisos)}" />
+						</p:commandLink>
+					</p:column>
+
+					<p:column headerText="Descrição">
+						<p:commandLink value="#{avisos.texto}"
+							action="#{avisosMB.editar(avisos)}">
+							<p:ajax event="dialogReturn" listener="#{avisosMB.returnEditar}"
+								update="tabelaAvisos" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Data" style="text-align:center;width:90px;">
+						<h:outputText value="#{avisos.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Tipo" style="width:90px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{avisos.imagem}" />
+					</p:column>
+					<p:column headerText="Usuário" style="width:180px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{avisos.usuario.nome}" />
+					</p:column>
+					<p:column style="width:45px;" styleClass="alinharCenter">
+						<p:commandLink action="#{avisosMB.excluir(avisos)}"
+							update="tabelaAvisos">
+							<img src="../../resources/img/excluir.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

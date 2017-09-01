@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+    </h:head>  
+    <h:body style="background:#DDDDE1;">    
+        <h:form id="consultarNotificacoes" style="text-align:left;font-size: 10px; margin-left: 6.5%;background:#DDDDE1;">    
+         	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog  widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+            	<img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
+          <title>Novidades no SysTM 3.0</title>
+       		    
+       		<div style="margin-left:-7%;">  
+	       		<p:dataScroller id="tabelaNotificacoes" value="#{versoesMB.listaVersoes}" var="versoes" mode="inline" scrollHeight="300" style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight: 100;"  >
+			        <h:panelGrid columns="3" layout="grid" 
+						style="background: transparent;border:none;width:100%"  
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaRS,colunaVendas"> 
+						<br/>
+				        <img src="../../resources/img/finalizarcontrole.png" style="margin-left:2%"/> 
+					        
+				        <p:outputLabel value="#{versoes.versoes.descricao}" style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;"/>
+			        </h:panelGrid>
+			        <p:outputLabel value="-#{versoes.versoes.usuario.nome}" style="font-size:12px;margin-left:8.5%;color:#1F8871;"/>
+			        <p:outputLabel value="(#{versoes.versoes.usuario.departamento.nome})" style="font-size:12px;font-weight:400;margin-left:0.5%;color:#1F8871;"/>
+			      <br></br><br></br><br></br>
+		   	    </p:dataScroller>
+		   	</div>
+        </h:form>     
+    </h:body>
+</html>

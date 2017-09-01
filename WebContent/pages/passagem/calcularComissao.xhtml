@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="idtelaCalcularComissao" style="text-align:left;font-size: 10px; margin-left: 7%; "><br></br>
+
+            <p:outputLabel value="Percentual da comissão" for="idpercentual" style="margin-left:2%"> </p:outputLabel> 
+            <br></br>
+            <p:inputText id="idpercentual" value="#{calcularComissaoMB.percentualComissao}" style="margin-left: 2%;text-align:right;width:85%">
+                <p:ajax event="blur"/>
+            </p:inputText>
+            <br/><br/>
+            <p:commandButton id="btnconfirmar" value="Confirmar" style="margin-left:2%" icon="ui-icon-check" action="#{calcularComissaoMB.valorComissao()}"/>
+            <p:commandButton id="btncancelar"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" action="#{calcularComissaoMB.cancelar()}"/>
+            <br/><br/>
+        </h:form>     
+    </h:body>
+</html>

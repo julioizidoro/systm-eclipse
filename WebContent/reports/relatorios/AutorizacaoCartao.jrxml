@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Autorização de Cartão" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="0.9982500000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="unidade" class="java.lang.String"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bandeira" class="java.lang.String">
+		<fieldDescription><![CDATA[bandeira]]></fieldDescription>
+	</field>
+	<field name="codigoseguranca" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoseguranca]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[cpf]]></fieldDescription>
+	</field>
+	<field name="dataviagem" class="java.lang.String">
+		<fieldDescription><![CDATA[dataviagem]]></fieldDescription>
+	</field>
+	<field name="fone" class="java.lang.String">
+		<fieldDescription><![CDATA[fone]]></fieldDescription>
+	</field>
+	<field name="idautorizacaodebito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idautorizacaodebito]]></fieldDescription>
+	</field>
+	<field name="nometitular" class="java.lang.String">
+		<fieldDescription><![CDATA[nometitular]]></fieldDescription>
+	</field>
+	<field name="numerocartao" class="java.lang.String">
+		<fieldDescription><![CDATA[numerocartao]]></fieldDescription>
+	</field>
+	<field name="numparcelas" class="java.lang.String">
+		<fieldDescription><![CDATA[numparcelas]]></fieldDescription>
+	</field>
+	<field name="numreserva" class="java.lang.String">
+		<fieldDescription><![CDATA[numreserva]]></fieldDescription>
+	</field>
+	<field name="validade" class="java.lang.String">
+		<fieldDescription><![CDATA[validade]]></fieldDescription>
+	</field>
+	<field name="valorcambio" class="java.lang.String">
+		<fieldDescription><![CDATA[valorcambio]]></fieldDescription>
+	</field>
+	<field name="valorparcelado" class="java.lang.String">
+		<fieldDescription><![CDATA[valorparcelado]]></fieldDescription>
+	</field>
+	<field name="valorparcelas" class="java.lang.String">
+		<fieldDescription><![CDATA[valorparcelas]]></fieldDescription>
+	</field>
+	<field name="valortotal" class="java.lang.String">
+		<fieldDescription><![CDATA[valortotal]]></fieldDescription>
+	</field>
+	<field name="moeda" class="java.lang.String">
+		<fieldDescription><![CDATA[moeda]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="135" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="65" width="555" height="4" backcolor="#808080" uuid="3e496cc4-5a10-41f3-b0f6-3b525cebf465"/>
+			</rectangle>
+			<textField>
+				<reportElement x="66" y="69" width="429" height="52" uuid="846bb8d3-2a18-4911-810d-7072f166436b"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AUTORIZAÇÃO DE DÉBITO TRAVEL MATE SERVIÇOS DE VIAGENS"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="121" width="556" height="13" uuid="2c4c9694-9806-4875-9048-93588cadcabf"/>
+				<text><![CDATA[Autorizo e reconheço o débito em minha conta do Cartão de Crédito abaixo:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="322" y="0" width="228" height="65" uuid="d3f3ab99-4070-4480-aad2-126b7aaddd56"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="650" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="171" width="555" height="196" uuid="ad78aebd-0b8e-4f3a-910b-e1a79ad1da33"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="6" width="555" height="142" uuid="65eaac24-7402-43d3-8860-a9c04018f704"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="18" width="49" height="15" uuid="2ec81603-9e9b-4da6-b5ea-3b8f8ba21d06"/>
+				<text><![CDATA[Bandeira:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="67" y="18" width="79" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
+				<textFieldExpression><![CDATA[$F{bandeira}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="315" y="18" width="106" height="13" uuid="6ec4850e-2ea9-4a46-bfe5-8d84c31634fd"/>
+				<text><![CDATA[Cartão de Crédito nº:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="428" y="18" width="114" height="13" uuid="8ad13327-0090-4cf1-ad8b-262dc93a4509"/>
+				<textFieldExpression><![CDATA[$F{numerocartao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="38" width="49" height="13" uuid="627fdb24-9d7d-44d3-a107-26262c2880c7"/>
+				<text><![CDATA[Validade: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="63" y="38" width="108" height="13" uuid="4d7c599f-9957-4ab0-91cf-a0a133e4529e"/>
+				<textFieldExpression><![CDATA[$F{validade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="58" width="140" height="14" uuid="8b632905-cc31-42ad-b2a4-bb5e8ac2d692"/>
+				<text><![CDATA[Nome do Titular do Cartão: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="146" y="58" width="210" height="14" uuid="039d43d4-d590-4ba5-a620-68d32055b1db"/>
+				<textFieldExpression><![CDATA[$F{nometitular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="385" y="58" width="31" height="14" uuid="e72a56fa-55bd-4693-8e4e-d2f75b6376c3"/>
+				<text><![CDATA[CPF :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="58" width="126" height="14" uuid="0d043272-3703-4d64-95c9-bfc6444e938f"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="80" width="34" height="15" uuid="5c7a0898-7ad2-478c-96d7-99e9d7ddd2e7"/>
+				<text><![CDATA[Fone:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="44" y="80" width="116" height="15" uuid="33e12aa2-7650-4884-8e95-7d9fd1e63524"/>
+				<textFieldExpression><![CDATA[$F{fone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="243" y="80" width="103" height="15" uuid="8d697cba-b4f1-429a-ac60-6af8ee4d958d"/>
+				<textFieldExpression><![CDATA[$F{numreserva}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="179" y="80" width="64" height="15" uuid="aa8826d4-7216-4d3f-9c7a-0efd10b385a6"/>
+				<text><![CDATA[Reservas nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="80" width="82" height="15" uuid="50a3403f-fc79-4761-84b7-7c400cbd0666"/>
+				<text><![CDATA[Data da Viagem: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="100" width="87" height="15" uuid="db89a1f3-8d5d-45f3-ac9f-c002ae90989a"/>
+				<textFieldExpression><![CDATA[$F{numparcelas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="266" y="100" width="90" height="15" uuid="bb71556d-2c39-41a9-99c4-90c37575adc7"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{valorparcelas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="100" width="63" height="15" uuid="d1c4d248-153e-4227-9bbe-1bbd5c429d0a"/>
+				<text><![CDATA[Nº Parcelas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="100" width="84" height="15" uuid="62e9c21b-6b89-4782-9319-67dbb630097c"/>
+				<text><![CDATA[Valor da Parcela: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="478" y="100" width="64" height="15" uuid="690a42b9-cfb9-4992-b654-ce9430254f6b"/>
+				<textFieldExpression><![CDATA[$F{valorcambio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="120" width="106" height="15" uuid="ade95167-2eeb-4562-8880-d78f2fb0df3c"/>
+				<text><![CDATA[Valor total parcelado: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="120" width="125" height="15" uuid="e94b8dd5-cddb-49e7-9772-6c3a686ef4d6"/>
+				<textFieldExpression><![CDATA[$F{valorparcelado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="372" y="100" width="47" height="15" uuid="144aea46-6caa-4112-9f05-238c2eebc723"/>
+				<text><![CDATA[Câmbio:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="408" y="120" width="134" height="15" uuid="ce8efa36-57e6-4e9e-98ab-de64b6a400bb"/>
+				<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="296" y="120" width="112" height="15" uuid="4689dae7-f300-4b30-ab86-5f014573db48"/>
+				<text><![CDATA[Valor total da Compra:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="154" width="554" height="13" uuid="b8adba3a-9515-441e-aabe-053f7197781b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ATENÇÃO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="434" y="38" width="108" height="13" uuid="a5b79960-594c-4ab3-8263-664aef92cffc"/>
+				<textFieldExpression><![CDATA[$F{codigoseguranca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="38" width="112" height="13" uuid="6d47fde4-27ec-4071-a706-b01c7348b3bb"/>
+				<text><![CDATA[Código de Segurança:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="178" width="532" height="171" uuid="4a2cdd34-3173-4f34-9803-cde2e0849386"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Qualquer transação realizada fora dos padrões contratuais das administradoras implicará em sansões legais, tanto para o estabelecimento e seus intermediários, quanto para o associado.Ao autorizar o débito no cartão de crédito, associado e estabelecimento declaram estar cientes e concordar com as seguintes condições:
+1 – Questionamentos ou cancelamentos dos serviços adquiridos devem ser resolvidos entre partes, de acordo com as condições gerais do contrato entre Estabelecimento e Cliente.
+2 – O Estabelecimento e seus Intermediários são responsáveis para correta aceitação do cartão de crédito. Conferindo na apresentação do Cartão, sua validade, autenticação e assinatura do Titular.
+3 – Esta autorização é valida por 15 dias e sua transmissão por fax é permitida apenas para agilizar o processo de venda. Em caso de contestação por parte do associado, o Estabelecimento é responsável pela apresentação desde original, cópia do documento oficial que comprove a assinatura do cliente dos bilhetes/vouchers emitidos. Estes documentos podem ser solicitados a qualquer momento pelas Administradoras.
+4 – Caso os serviços sejam prestados em nome de outras pessoas que não o Titular do Cartão, seus nomes deverão ser listados abaixo, para maior segurança do associado.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="381" width="528" height="44" uuid="ffe7c881-816b-41de-82e2-8031fbb316f0"/>
+				<text><![CDATA[CÓPIAS DOS DOCUMENTOS (OBRIGATÓRIO):
+               -Cartão de Crédito (Frente e Verso);
+               -Identidade (Frente e Verso).
+]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="263" y="459" width="215" height="13" uuid="cf8a2bf1-2245-498a-bc9d-23c10770b879"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="79" y="459" width="184" height="13" uuid="22e2b65f-5d26-4126-b43e-0fbbfd97b79f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{cidade} + ", "]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="312" y="555" width="230" height="1" backcolor="#000000" uuid="1de4d5f6-d858-4dbe-ac08-4c7011ede907"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="16" y="555" width="227" height="1" backcolor="#000000" uuid="22bcab1b-4a4b-4e96-a623-27f5d608c2c5"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="16" y="559" width="227" height="14" uuid="a625ecdb-dd54-45ed-be5a-987e3675781b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nometitular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="315" y="559" width="227" height="14" uuid="a38ecafc-4379-4c94-a130-1cb9d6d0ee9a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{unidade}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="419" y="100" width="59" height="15" uuid="487958ed-5777-4d5c-8c5d-e9499c7802d1"/>
+				<textFieldExpression><![CDATA[$F{moeda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="454" y="80" width="88" height="15" uuid="14bfce7c-24a4-49f2-bc6c-1c2722c64af3"/>
+				<textFieldExpression><![CDATA[$F{dataviagem}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

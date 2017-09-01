@@ -1,0 +1,68 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="cadCartao">
+			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<div style="background: #ffffff">
+				<div class="ui-fluid"
+					style="width: 85%; margin-left:15%; font-size: 11px; color: #556575;">
+					<legend id="iUsu3" style="color: #495B6C;">
+						<b>Cartão de Crédito</b>
+					</legend>
+					<h:panelGrid columns="4"
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho6, tamanho8"
+						style="width:85%;">
+						<p:outputLabel value="Número" />
+						<p:outputLabel value="Nome" />      
+						<p:outputLabel value="Validade" />
+						<p:outputLabel value="Código Verificação" />
+
+						<p:inputMask mask="9999-9999-9999-9999" id="numero" style="width:90%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.numero}" maxlength="19" />
+						<p:inputText id="nome" style="width:90%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.nome}" maxlength="45" />
+						<p:inputMask mask="99/99/9999" id="validade" style="width:95%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.validade}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<p:inputMask mask="999" id="cv" maxlength="3" style="width:55%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.cv}" />
+					</h:panelGrid>
+					<br></br>    
+					<h:panelGrid columns="2"
+						columnClasses="colunaVinteoito, colunaVinteoito"
+						style="width:62%;">   
+						<p:outputLabel value="Bandeia" />
+						<p:outputLabel value="Banco" />   
+
+						<p:inputText id="bandeira" style="width:90%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.bandeira}" maxlength="50" />
+						<p:selectOneMenu id="contaDebito"  style="width:231px;"  value="#{cadCartaoCreditoMB.banco}" converter="BancoConverter">
+			                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+			                <f:selectItems value="#{cadCartaoCreditoMB.listaBanco}" var="sbanco" itemLabel="#{sbanco.nome}" itemValue="#{sbanco}"/>
+			                <f:attribute name="listaBanco" value="#{cadCartaoCreditoMB.listaBanco}"/>
+			           </p:selectOneMenu>     
+					</h:panelGrid> 
+				</div>      
+			</div>
+			<br></br>   
+			<div align="center">
+				<p:commandButton id="btnConfirmar" value="Confirmar"
+					action="#{cadCartaoCreditoMB.salvar()}" icon="ui-icon-check"
+					style="font-size:12px;" update="growl" />
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{cadCartaoCreditoMB.cancelar()}" icon="ui-icon-closethick"
+					style="font-size:12px;margin-left:2%" />
+			</div>
+			<br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

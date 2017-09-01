@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina02" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.7513148009015781"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="312" y="11" width="243" height="57" uuid="54e9e2da-36e0-4e82-9172-132843586bd9"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="757" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="90" width="553" height="522" uuid="3121a437-c867-4ced-af43-1aa6fb7be95d"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="2" y="10" width="553" height="729" uuid="0c7f393f-84a4-4543-adf2-91ceaccefea5"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["4. DESISTÊNCIA E/OU CANCELAMENTO DO PROGRAMA \n"+
+"4.1) Após inscrição e antes da entrevista com empregador/confirmação da vaga, o valor equivalente a 30% do valor do programa + Taxa Administrativa da Travelmate não é reembolsável, salvo no seguinte caso: \n" +
+"	4.1.1) Após 3 meses depois da inscrição o estudante não tendo feito nenhuma entrevista com potenciais empregadores. \n"+
+"4.2) Após inscrição e depois da entrevista por telefone com empregador e confirmação da vaga, o valor equivalente a 60% do valor do programa não é reembolsável, salvo nos seguintes casos: \n"+
+"	  4.2.1) Caso a vaga já confirmada seja cancelada por parte do empregador. Neste caso o programa organizador oferecerá uma nova entrevista com outra empresa ao participante. Se o participante não quiser fazer outra entrevista o valor equivalente a 10% será retido. \n"+
+"             4.2.2) Caso o participante não seja aceito na entrevista e não queira participar de novas entrevistas fica retido o valor equivalente a 30% do valor do programa + Taxa Administrativa da Travelmate \n"+
+"4.3) Em caso de visto negado o valor equivalente a US$700,00 será retido e não reembolsado. \n"+
+"4.4) No caso de desistência ou cancelamento do programa após iniciado nenhum valor será devolvido ou reembolsado. \n \n" +
+
+"5. REGRAS GERAIS E OBSERVAÇÕES \n"+
+"5.1) A Travelmate não é responsável pela obtenção do visto de entrada no país em questão, mesmo quando esta intermedie o processo de solicitação do mesmo. O cancelamento do programa por parte do participante devido à não obtenção do visto de entrada do país escolhido, está sujeito às regras de cancelamento já mencionadas. \n"+
+"5.2) A despesa de obtenção do visto, seguros outros além do seguro sáude incluído pelo parceiro internacional contratado, passagem aérea, taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o translado entre o aeroporto e a acomodação não estão incluídos no valor do programa pago à Travelmate, salvo quando especificado no programa. \n"+
+"5.3) O cumprimento das tarefas descritas no Plano de Estágio estabelecido entre estudante e empregador depende de fatores variáveis e imprevisíveis como economia, demanda e condições climáticas (dependência da neve em estações de esqui, por exemplo). Alterações das atividades, carga horária de trabalho e salário previamente determinadas no contrato podem ocorrer em função de fatos desta natureza em qualquer momento e não são de responsabilidade da Travelmate e do parceiro internacional (sponsor) contratado. \n"+
+"5.4) No período que compreende os 20 (vinte) primeiros dias após a chegada do estudante ao local de trabalho nos EUA, o estudante pode não trabalhar as horas mínimas previstas no Plano de Estágio ou até mesmo não trabalhar, pois este período é considerado de adaptação e treinamento, e isto não é de responsabilidade da Travelmate, parceiro internacional contratado e empregador. \n"+
+"5.5) Se por qualquer motivo o participante precisar mudar de vaga já estando nos Estados Unidos, a descrição e característica da nova vaga de estágio no que se refere a empregador, datas, função, salário, benefícios, carga horária de trabalho, cidade, estado e acomodação poderão ser diferentes daquelas previamente descritas no Plano de Estágio inicialmente estabelecido. No caso de haver tal mudança, não há garantia de manutenção das características do estágio inicialmente acordado, sendo que o participante será alocado numa vaga de estágio adequada ao seu perfil de acordo com as possibilidades de recolocação do parceiro internacional. O custeio das despesas referentes a mudanças de vaga ficam a encargo do participante. \n"+
+"5.6) A obtenção do “Social Security” não é de responsabilidade da Travelmate, parceiro internacional e empregador. O processo para obter-se o número e/ou cartão poderá levar de 2 à 8 semanas após entrada do processo em um dos escritórios do “Social Security” nos EUA. \n"+
+"5.7) Após sua chegada nos Estados Unidos, o participante deverá cumprir as regras de chegada (orientação com o coordenador ou “check-in”, por exemplo) estabelecidas pelo programa em questão. O não cumprimento desta regra pode provocar o desligamento do participante perante o programa. Neste caso, o participante terá seu visto cancelado e deverá deixar o país dentro de 15 dias a partir da data de seu desligamento. \n"+
+"5.8) Quaisquer problemas que surjam (incluindo problemas com o empregador, local de trabalho, datas, função, salário, benefícios, carga horária de estágio, transporte, acomodação, entre outros) após a chegada do estudante aos EUA devem ser solucionados pelo participante diretamente com o parceiro internacional contratado pela Travelmate. Não cabe à Travelmate solucionar estes problemas visto que é de responsabilidade do parceiro internacional contratado fazê-lo, portanto, o contato para resolução de problemas enquanto o estudante \n \n"
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="14">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="1adf6af7-9d37-48a1-8eae-bc1f043ec639"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"\\" +  "modelocontratoTraineePagina03.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

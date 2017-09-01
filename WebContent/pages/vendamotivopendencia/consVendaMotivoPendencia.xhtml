@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="consVendaMotivoPendencia">
+                 <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                     <br></br>
+                     
+                     <legend id="iUsu2" ><b>Consulta Motivo  Pendência</b></legend> 
+                     <br/>
+                     
+                     <div align="right" style="width:80%;margin-left:10%;">
+                   	     <p:commandButton value="Novo" title="Novo Cadastro de Motivo de Pendência" icon="ui-icon-plus" action="#{vendaMotivoPendenciaMB.cadastrar()}" class="corBotão">
+	                     	<p:ajax event="dialogReturn" listener="#{vendaMotivoPendenciaMB.returnDialogNovo}" update=":consVendaMotivoPendencia:tabelaMotivoPendencia"/>
+	                     </p:commandButton>
+                      </div>
+                     <br></br>
+                     <div align="right" style="width:80%;margin-left:10%;">
+	                     <p:dataTable id="tabelaMotivoPendencia" var="motivo"  value="#{vendaMotivoPendenciaMB.listaVendaMotivoPencencia}"   
+	                                scrollable="true" scrollHeight="300" style="font-size:11px;margin-bottom:20px" >
+	                         
+	                        
+	                        <p:column headerText="Descrição" style="text-align:left;width:200px;">
+	                            <h:outputText value="#{motivo.descricao}" />
+	                        </p:column> 
+	                        <p:column  style="width:40px;text-align:center;" >
+	                          <p:commandLink  action="#{vendaMotivoPendenciaMB.editar(motivo)}" title="Editar um Motivo de Pendência"> 
+	                          	<img src="../../resources/img/editaricon.png"  /> 
+	                          	<p:ajax event="dialogReturn" listener="#{vendaMotivoPendenciaMB.returnDialogEdicao}" update=":consVendaMotivoPendencia:tabelaMotivoPendencia"/>
+	                          </p:commandLink>
+	                        </p:column>
+	                    </p:dataTable>
+                	</div>
+                    <br></br>
+                    <br></br>
+                </div>
+	                
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

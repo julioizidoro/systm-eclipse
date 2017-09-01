@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/dialogbranca.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;width:100%;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="cadLeadHistorico"
+			style="text-align:left;font-size: 12px; margin-left:2%; ">
+			<p:growl id="growl" showDetail="true" sticky="false"
+				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<title>Encaminhar Lead</title>
+			<h:panelGrid style="width:100%;" columns="2"
+				columnClasses="width37, tamanho11">
+				<h:panelGroup>
+					<div align="center" style="width: 80%;">
+						<p:outputLabel value="Dados Atuais" style="font-size:16px;" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup>
+					<div align="center" style="width: 96%;">
+						<p:outputLabel value="Encaminhar para" style="font-size:16px;" />
+					</div>
+				</h:panelGroup>  
+				<h:panelGroup style="width:96%;margin-left:2%;">
+					<div class="borderSombra">
+						<h:panelGrid style="width:98%;" columns="2"
+							columnClasses="tamanhoavisos, tamanho61">
+							<p:outputLabel value="Nome" />
+							<p:outputLabel value="#{encaminharLeadMB.lead.cliente.nome}"
+								style="font-weight: inherit;" />
+							<p:outputLabel value="Unidade" />
+							<p:outputLabel
+								value="#{encaminharLeadMB.lead.unidadenegocio.nomerelatorio}"
+								style="font-weight: inherit;" />
+							<p:outputLabel value="Consultor" />
+							<p:outputLabel value="#{encaminharLeadMB.lead.usuario.nome}"
+								style="font-weight: inherit;" />
+							<p:outputLabel value="Situação" />
+							<h:outputText value="#{encaminharLeadMB.lead.situacao}"
+								class="badge bg-warning"
+								style="background-color:#{encaminharLeadMB.retornarCoresSituacao(encaminharLeadMB.lead.situacao)};padding: 4px 6px;margin-left:2%;" />
+							<p:outputLabel value="Tipo de Contato" />
+							<p:outputLabel value="#{encaminharLeadMB.lead.tipocontato.tipo}"
+								style="font-weight: inherit;" />
+						</h:panelGrid>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:panelGrid style="width:100%;" columns="2"
+						columnClasses="tamanhoavisos, tamanho61">
+						<p:outputLabel />
+						<p:outputLabel />
+						<p:outputLabel value="Unidade" />
+						<p:selectOneMenu id="unidade"
+							value="#{encaminharLeadMB.unidadenegocio}" style="width:90%;"
+							disabled="#{encaminharLeadMB.habilitarComboUnidade}"
+							converter="UnidadeNegocioConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0" />
+							<f:selectItems id="idunidade"
+								value="#{encaminharLeadMB.listaUnidade}" var="unidade"
+								itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+							<f:attribute name="listaUnidade"
+								value="#{encaminharLeadMB.listaUnidade}" />
+							<p:ajax event="change"
+								listener="#{encaminharLeadMB.gerarListaUsuario()}"
+								update="consultor" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Usuario" />
+						<p:selectOneMenu id="consultor"
+							value="#{encaminharLeadMB.usuario}" style="width:90%;"
+							filter="true" filterMatchMode="startsWith"
+							converter="UsuarioConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idconsultor"
+								value="#{encaminharLeadMB.listaUsuario}" var="sUsuario"
+								itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+							<f:attribute name="listaUsuario"
+								value="#{encaminharLeadMB.listaUsuario}" />
+							<p:ajax event="change" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Situação" />
+						<p:commandLink id="btnSituacao" title="Alterar a situação">
+							<h:outputText value="#{encaminharLeadMB.situacao}"
+								class="badge bg-warning"
+								style="background-color:#{encaminharLeadMB.retornarCoresSituacao(encaminharLeadMB.situacao)};padding:4px 6px;font-size:13px;" />
+						</p:commandLink>
+						<p:outputLabel value="Tipo Contato" />
+						<p:selectOneMenu id="tipo" value="#{encaminharLeadMB.tipocontato}"
+							style="width:90%;" filter="true" converter="TipoContatoConverter"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idTipoContatoHistorico"
+								value="#{encaminharLeadMB.listaTipoContato}"
+								var="tipocontatohistorico"
+								itemLabel="#{tipocontatohistorico.tipo}"
+								itemValue="#{tipocontatohistorico}" />
+							<f:attribute name="listaTipocontato"
+								value="#{encaminharLeadMB.listaTipoContato}" />
+							<p:ajax event="change" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+
+					<p:overlayPanel id="painelSituacao" for="btnSituacao"
+						hideEffect="fade" style="background:#fff;width:110px;"> 
+						<p:commandLink id="btnSituacao1" title="Lead Recebido"  
+							action="#{encaminharLeadMB.mudarSituacao(1)}"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="1" class="badge bg-warning"
+								style="background-color:#1E90FF;padding:4px 6px;font-size:13px;" />
+						</p:commandLink>
+						<p:commandLink id="btnSituacao2" title="Prospect"
+							action="#{encaminharLeadMB.mudarSituacao(2)}"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="2" class="badge bg-warning"
+								style="background-color:#9ACD32;padding:4px 6px;font-size:13px;margin-left:2%;" />
+						</p:commandLink>
+						<p:commandLink id="btnSituacao3" title="Oportunidade Real"
+							action="#{encaminharLeadMB.mudarSituacao(3)}"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="3" class="badge bg-warning"
+								style="background-color:#FF8C00;padding:4px 6px;font-size:13px;margin-left:2%;" />
+						</p:commandLink>
+						<p:commandLink id="btnSituacao4" title="Negociação Final"
+							action="#{encaminharLeadMB.mudarSituacao(4)}"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="4" class="badge bg-warning"
+								style="background-color:#B22222;padding:4px 6px;font-size:13px;margin-left:2%;" />
+						</p:commandLink>
+						<br></br>
+					</p:overlayPanel>
+				</h:panelGroup>
+			</h:panelGrid>
+			<br />
+			<div align="center">
+				<p:commandButton value="Confirmar" icon="ui-icon-check" action="#{encaminharLeadMB.salvar()}"
+					update="growl" style="font-size:12px;" />
+				<p:commandButton style="margin-left: 1%;font-size:12px;"
+					icon="ui-icon-close" value="Cancelar" action="#{encaminharLeadMB.cancelar()}" />
+			</div>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

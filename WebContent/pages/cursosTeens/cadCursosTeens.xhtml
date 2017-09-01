@@ -1,0 +1,920 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idfrmFichaTeens" style="font-size: 10px;">
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Ficha de Cursos Teens"
+					style="font-size: 22px;color:#1F8871; margin-left:40%" />
+				<p:accordionPanel class="painelTeens"
+					style="width: 97%;margin-left: 1.5%">
+					<p:tab title="Curso" class="tab" titleStyle="font-size: 11px">
+						
+						<h:panelGrid columns="3"       
+							style="margin-left:11%;width:69%;" 
+							columnClasses="colunaBotao,colunaNoveDois,colunaVinteoito">
+							<p:outputLabel value="Cliente" for="idcliente"  />
+							<p:outputLabel  />
+							<p:outputLabel value="Tamanho Camiseta"/> 
+							<p:inputText id="idcliente" readonly="true" style="width:95%;"
+								maxlength="100" value="#{cadCursosTeensMB.cliente.nome}" />   
+							<p:commandLink action="#{cadCursosTeensMB.pesquisarCliente()}"
+								style="text-decoration: none;">   
+								<img src="../../resources/img/pesquisar.png" width="70%" />      
+								<p:ajax event="dialogReturn"
+									listener="#{cadCursosTeensMB.retornoDialogCliente}"
+									update="idcliente" />
+							</p:commandLink>
+							<p:selectOneMenu id="tamanhocamisa"
+								value="#{cadCursosTeensMB.programasTeens.tamanhocamisa}" style="width:128px">   
+								<f:selectItem itemValue="Baby Look M" itemLabel="Baby Look M" />
+								<f:selectItem itemValue="Baby Look G" itemLabel="Baby Look G" />
+								<f:selectItem itemValue="Camiseta P" itemLabel="Camiseta M" />
+								<f:selectItem itemValue="Camiseta M" itemLabel="Camiseta M" />
+								<f:selectItem itemValue="Camiseta G" itemLabel="Camiseta G" />
+							</p:selectOneMenu> 
+						</h:panelGrid>
+    
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Escola</b>
+						</legend>
+						<p:outputLabel value="País" for="pais" style="margin-left:11%" />
+						<p:outputLabel value="Cidade" for="cidade"
+							style="margin-left:22.5%" />
+						<p:outputLabel value="Parceiro" for="fornecedor"
+							style="margin-left:20.5%" />
+						<br></br>
+						<p:selectOneMenu id="pais" value="#{cadCursosTeensMB.pais}"
+							style="width:20%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:11%"
+							converter="PaisFornecedorConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{cadCursosTeensMB.listaPais}"
+								var="paises" itemLabel="#{paises.nome}" itemValue="#{paises}" />
+							<f:attribute name="listaPaisFornecedor"
+								value="#{cadCursosTeensMB.listaPais}" />
+							<p:ajax event="change" update="cidade, idvalorcambio, moeda" listener="#{cadCursosTeensMB.selecionarCambio()}"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="cidade" value="#{cadCursosTeensMB.cidade}"
+							style="width:20%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:4%"
+							filter="true" filterMatchMode="startsWith"
+							converter="CidadeConverter" panelStyle="width:180px">
+							<f:selectItem itemLabel="Cidade" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcidade"
+								value="#{cadCursosTeensMB.pais.cidadeList}" var="cidade"
+								itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+							<f:attribute name="listaCidade"
+								value="#{cadCursosTeensMB.pais.cidadeList}" />
+							<p:ajax event="change"
+								listener="#{cadCursosTeensMB.listarFornecedorCidade()}"
+								update="fornecedor" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="fornecedor"
+							value="#{cadCursosTeensMB.fornecedorCidade}"
+							style="width:21.5%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:3.5%"
+							filter="true" filterMatchMode="startsWith"
+							converter="FornecedorCidadeConverter" panelStyle="width:180px">
+							<f:selectItem itemLabel="Escola" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{cadCursosTeensMB.listaFornecedorCidade}"
+								var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedorCidade"
+								value="#{cadCursosTeensMB.listaFornecedorCidade}" />
+							<p:ajax event="change" update="valores"
+								listener="#{cadCursosTeensMB.carregarValores()}" />
+						</p:selectOneMenu>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Valores Teens" for="valores"
+							style="margin-left:11%" />
+						<p:outputLabel value="Valor" for="valorprograma"
+							style="margin-left:18.4%" />
+
+						<br></br>
+						<h:panelGrid columns="2">
+							<p:selectOneMenu id="valores"
+								value="#{cadCursosTeensMB.valoresprogramasteens}"
+								converter="ValoresProgramasTeensConverter"
+								style="width:211px;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:35.4%"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"     
+									noSelectionOption="true" />
+								<f:selectItems id="idvalores"
+									value="#{cadCursosTeensMB.listaValores}" var="valores"
+									itemLabel="#{valores.inicio}" itemValue="#{valores}" />
+								<f:attribute name="listaValoresProgramasTeens"
+									value="#{cadCursosTeensMB.listaValores}" />
+								<p:ajax event="change"
+									listener="#{cadCursosTeensMB.calcularValorProdutos()}"
+									update="valorrr,tabelaprodutos,valorOrca, totalpag, saldoreceber, saldoparcelar, valoraparcelar, valorparcela, formapagamentotabela, valortotal, valorprograma" />
+							</p:selectOneMenu>
+							<p:inputText id="valorprograma"
+								style="width:54%;-moz-border-radius: 5px;border-radius: 5px;margin-left:24%;text-align: right;"
+								readonly="true"
+								value="#{cadCursosTeensMB.valoresprogramasteens.valorgross}">      
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>   
+						<p:outputLabel value="Tipo Programa" for="tipoPrograma"
+							style="margin-left:11%" />
+						<p:outputLabel value="Curso" for="curso" style="margin-left:17.7%" />
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:10.8%">
+							<p:selectOneMenu id="tipoPrograma"
+								value="#{cadCursosTeensMB.programasTeens.tipoPrograma}"
+								class="espacocobranca29" style="width:211px;">
+								<f:selectItem itemLabel="Winter" itemValue="Winter" />
+								<f:selectItem itemLabel="Summer" itemValue="Summer" />
+								<f:selectItem itemLabel="Outros" itemValue="Outros" />
+							</p:selectOneMenu>
+							<p:inputText id="curso" style="width:283%;margin-left: 24%;"
+								maxlength="100"
+								value="#{cadCursosTeensMB.programasTeens.nomeCurso}" />
+						</h:panelGrid>
+						<br></br>    
+						<p:outputLabel value="Data Início" for="dataInicio"
+							style="font-size: 10px;margin-left:11%" />
+						<p:outputLabel value="N°  Semanas (Somente Números)"    
+							for="nSemanas" class="espacocobranca4"
+							style="font-size: 10px;margin-left:12%" />
+						<p:outputLabel value="Data Término" for="dataTermino"
+							class="espacocobranca4" style="font-size: 10px;margin-left:7%" />
+						<p:outputLabel value="Aulas por Semana" for="aulaSemana"
+							class="espacocobranca4" style="font-size: 10px;margin-left:7%" />
+
+						<br></br>
+						<p:calendar id="dataInicio"
+							value="#{cadCursosTeensMB.programasTeens.dataInicioCurso}"
+							style="margin-left:11%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+						<p:inputText id="nSemanas" style="width:15%;margin-left:5%"
+							maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.numeroSemanas}">
+							<p:ajax event="blur"
+								listener="#{cadCursosTeensMB.calcularDataTerminoCurso()}"
+								update="dataTermino" />
+						</p:inputText>
+						<p:calendar id="dataTermino" size="16"
+							value="#{cadCursosTeensMB.programasTeens.dataTerminoCurso}"
+							style="margin-left:6%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<p:inputText id="aulaSemana" style="width:18.5%;margin-left:3%"
+							maxlength="50"
+							value="#{cadCursosTeensMB.programasTeens.aulasSemana}" />
+						<br></br>
+						<br></br>
+
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Contato de Emergência no Brasil</b>
+						</legend>
+						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+							value="#{cadCursosTeensMB.digitosFoneContatoEmergencia}"
+							style="margin-left:61%;">
+							<p:ajax update="telefone" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
+						<p:outputLabel value="Telefone" for="telefone"
+							style="margin-left:47%" />
+						<br></br>
+						<p:inputText id="nome"
+							value="#{cadCursosTeensMB.programasTeens.nomeContatoEmergencia}"
+							style="width:44.6%;margin-left:11.5%" maxlength="100" />
+						<p:inputMask id="telefone"
+							value="#{cadCursosTeensMB.programasTeens.foneContatoEmergencia}"
+							style="width:19%;margin-left: 5%"
+							mask="#{cadCursosTeensMB.validarMascaraFoneContatoEmergencia()}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="E-mail" for="email"
+							style="margin-left: 11.5%" />
+						<p:outputLabel value="Relação" for="relacao"
+							style="margin-left:47%" />
+						<br></br>
+						<p:inputText id="email"
+							value="#{cadCursosTeensMB.programasTeens.emailContatoEmergencia}"
+							style="width:44.6%;margin-left:11.5%" maxlength="100" />
+						<p:inputText id="relacao"
+							value="#{cadCursosTeensMB.programasTeens.relacaoContatoEmergencia}"
+							style="width:19%;margin-left: 5%" />
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab title="Informações Complementares"
+						titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Acomodação</b>
+						</legend>
+						<br></br>
+						<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao"
+							style="margin-left: 11.6%" />
+						<p:outputLabel value="Quarto" for="quarto" style="margin-left:15%" />
+						<p:outputLabel value="Refeição" for="refeicao"
+							style="margin-left:15%" validator="false" />
+						<br></br>
+						<p:selectOneMenu id="tipoacomodacao"
+							value="#{cadCursosTeensMB.programasTeens.tipoAcomodacao}"
+							style="width:18%;margin-left: 11.6%" required="false">
+							<f:selectItem itemLabel="Sem acomodação"
+								itemValue="Sem acomodação" />
+							<f:selectItem itemLabel="Casa de família"
+								itemValue="Casa de família" />
+							<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+							<f:selectItem itemLabel="Residência" itemValue="Residência" />
+							<f:selectItem itemLabel="Outro" itemValue="Outro" />
+							<f:selectItem itemLabel="Studio" itemValue="Studio" />
+							<p:ajax event="change"
+								listener="#{cadCursosTeensMB.carregarCamposAcomodacao()}"
+								update="quarto, refeicao, datachegada, numsemanas, datapartida" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="quarto"
+							value="#{cadCursosTeensMB.programasTeens.tipoQuarto}"
+							style="width:15%;margin-left:4.6%" required="false"
+							disabled="#{cadCursosTeensMB.camposAcomodacao}">
+							<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
+							<f:selectItem itemLabel="Quarto individual"
+								itemValue="Quarto individual" />
+							<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+							<f:selectItem itemLabel="Quarto triplo" itemValue="Quarto triplo" />
+							<f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="refeicao"
+							value="#{cadCursosTeensMB.programasTeens.tipoRefeicao}"
+							required="false" style="width:15%;margin-left:3%"
+							disabled="#{cadCursosTeensMB.camposAcomodacao}">
+							<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+							<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
+							<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+								itemValue="Meia Pensão (2 Refeições)" />
+							<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+								itemValue="Pensão Completa (3 Refeições)" />
+						</p:selectOneMenu>
+
+						<br></br>
+						<br></br>
+						<br></br>
+
+
+						<p:outputLabel value="Data Chegada" for="datachegada"
+							style="margin-left: 11.5%;" />
+						<p:outputLabel value="No. Semanas" for="numsemanas"
+							style="margin-left: 17%" />
+						<p:outputLabel value="Data Partida" for="datapartida"
+							style="margin-left: 12.5%" />
+						<br></br>
+						<p:calendar id="datachegada"
+							value="#{cadCursosTeensMB.programasTeens.dataChegadaAcomodacao}"
+							locale="pt" style="margin-left: 11.5%" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20"
+							disabled="#{cadCursosTeensMB.camposAcomodacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+
+						<p:inputText id="numsemanas" style="width:12%;margin-left:11%"
+							maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.numeroSemanasAcomodacao}"
+							class="espacocobranca29"
+							disabled="#{cadCursosTeensMB.camposAcomodacao}">
+							<p:ajax event="blur"
+								listener="#{cadCursosTeensMB.calcularDataTerminoAcomodacao()}"
+								update="datapartida" />
+						</p:inputText>
+
+						<p:calendar id="datapartida"
+							value="#{cadCursosTeensMB.programasTeens.dataPartidaAcomodacao}"
+							style="margin-left: 6%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20" readonly="true"
+							disabled="#{cadCursosTeensMB.camposAcomodacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3" style="margin-left:11%; width: 50%">
+							<b>Saúde</b>
+						</legend> 
+						<p:outputLabel
+							value="Você é vegetariano?"   
+							for="vegetariano" style="margin-left:11%;font-size:11px;" />
+						<br></br>
+						<h:panelGrid columns="3"   
+							columnClasses="tamanho8, espaco75"
+							style="margin-left:11%;width:75%;"> 
+							<p:selectOneMenu id="vegetariano"
+								value="#{cadCursosTeensMB.programasTeens.vegetariano}"
+								style="width:90%;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:outputLabel/>
+						</h:panelGrid>
+						<br></br>
+						<p:outputLabel
+							value="Tem alergia a algum medicamento ou alimento? Se sim, especifique:"
+							for="alergia" style="margin-left:11%;font-size:11px;" />
+						<br></br>
+						<h:panelGrid columns="3"   
+							columnClasses="tamanho8, espaco75"
+							style="margin-left:11%;width:75%;"> 
+							<p:selectOneMenu id="alergia"
+								value="#{cadCursosTeensMB.programasTeens.alergia}"
+								style="width:90%;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:inputText id="alergiaobs" placeholder="Descreva as Alergias" style="width:90%;"
+								maxlength="55" value="#{cadCursosTeensMB.programasTeens.alergiaobs}" />
+						</h:panelGrid>
+						<br></br>
+						<p:outputLabel
+							value="Toma algum tipo de medicação controlada? Se sim, especifique:"
+							for="medicacao" style="margin-left:11%;font-size:11px;" />
+						<br></br>
+						<h:panelGrid columns="3"   
+							columnClasses="tamanho8, espaco75"
+							style="margin-left:11%;width:75%;"> 
+							<p:selectOneMenu id="medicacao"
+								value="#{cadCursosTeensMB.programasTeens.medicacao}"
+								style="width:90%;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:inputText id="medicacaoobs" placeholder="Descreva as medicações" style="width:90%;"
+								maxlength="55" value="#{cadCursosTeensMB.programasTeens.medicacaoobs}" />
+						</h:panelGrid>
+						<br></br>
+						<p:outputLabel
+							value="Tem ou teve algum distúrbio psicológico ? Se sim, especifique:"
+							for="problemapsicologico" style="margin-left:11%;font-size:11px;" />
+						<br></br>
+						<h:panelGrid columns="3"       
+							columnClasses="tamanho8, espaco75"
+							style="margin-left:11%;width:75%;"> 
+							<p:selectOneMenu id="problemapsicologico"
+								value="#{cadCursosTeensMB.programasTeens.problemapsicologico}"
+								style="width:90%;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:inputText id="problemapsicologicoobs" placeholder="Descreva os distúrbios psicológicos" style="width:90%;"
+								maxlength="55" value="#{cadCursosTeensMB.programasTeens.problemapsicologicoobs}" />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Solicitação de Visto Consular</b>
+						</legend>
+						<h:panelGrid columns="2" style="margin-bottom:10px"
+							cellpadding="5">
+							<p:selectOneRadio id="vistoCancelar"
+								value="#{cadCursosTeensMB.programasTeens.solicitarVisto}"
+								style="width:180%;margin-left: 36%">
+								<f:selectItem itemLabel="Cliente Providenciará"
+									itemValue="Cliente Providenciará" class="espacologin" />
+								<f:selectItem itemLabel="Através da TravelMate"
+									itemValue="Através da TravelMate" class="espacologin" />
+								<p:ajax event="change"
+									listener="#{cadCursosTeensMB.carregarCamposVisto()}"
+									update="dataentregavisto,obs2 " />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+
+						<p:outputLabel value="Entrega dos Documentos"
+							for="dataentregavisto" style="font-size: 10px;margin-left:11.5%" />
+						<p:outputLabel value="Observação" for="obs2"
+							class="espacocobranca4" style="font-size: 10px;margin-left:6.2%" />
+						<br></br>
+						<p:calendar id="dataentregavisto"
+							value="#{cadCursosTeensMB.programasTeens.dataEntragaDocumentosVistos}"
+							style="margin-left:11.5%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20"
+							disabled="#{cadCursosTeensMB.camposVisto}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<p:inputText id="obs2" style="width:47%;margin-left:5%"
+							maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.observacaoVistos}"
+							disabled="#{cadCursosTeensMB.camposVisto}" />
+						<br></br>
+						<br></br>
+
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Informações Pais</b>
+						</legend>
+						<p:outputLabel value="Nº CPF Pai" for="cpfPai"
+							style="font-size: 10px;margin-left:11.5%" />
+						<p:outputLabel value="Nº RG Pai" for="rgPai"
+							class="espacocobranca4" style="font-size: 10px;margin-left:8.6%" />
+						<p:outputLabel value="Data Nascimento Pai" for="nascimentoPai"
+							style="font-size: 10px;margin-left:12.4%" />
+						<br></br>
+						<p:inputMask mask="999.999.999-99" id="cpfPai"
+							style="width:11.5%;margin-left:11%" maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.cpfpai}" />
+						<p:inputText id="rgPai" style="width11%;margin-left:2%"
+							maxlength="100" value="#{cadCursosTeensMB.programasTeens.rgpai}" />
+						<p:inputMask mask="99/99/9999" id="nascimentoPai"
+							style="width:11%;margin-left:5%" maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.datanascimentopai}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Nº CPF Mãe" for="cpfMae"
+							style="font-size: 10px;margin-left:11.5%" />
+						<p:outputLabel value="Nº RG Mãe" for="rgMae"
+							class="espacocobranca4" style="font-size: 10px;margin-left:8%" />
+						<p:outputLabel value="Data Nascimento Mãe" for="nascimentoMae"
+							style="font-size: 10px;margin-left:11.8%" />
+						<br></br>
+						<p:inputMask mask="999.999.999-99" id="cpfMae"
+							style="width:11.5%;margin-left:11%" maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.cpfmae}">
+						</p:inputMask>
+						<p:inputText id="rgMae" style="width11%;margin-left:2%"
+							maxlength="100" value="#{cadCursosTeensMB.programasTeens.rgmae}" />
+						<p:inputMask mask="99/99/9999" id="nascimentoMae"
+							style="width:11%;margin-left:5%" maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.datanascimentomae}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<br></br>
+						<br></br>
+					</p:tab>
+
+
+					<p:tab title="Produtos" titleStyle="font-size: 11px">
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Moeda" />
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Total" for="valortotal" />
+
+							<p:selectOneMenu id="moeda" value="#{cadCursosTeensMB.moeda}"
+								converter="MoedasConverter" style="width:210px;">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadCursosTeensMB.listaMoedas}"
+									var="moeda" itemLabel="#{moeda.sigla}" itemValue="#{moeda}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadCursosTeensMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadCursosTeensMB.consultarCambio()}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, idfrmFichaTeens:growl" />
+							</p:selectOneMenu>
+
+							<p:inputText id="idvalorcambio"
+								value="#{cadCursosTeensMB.orcamento.valorCambio}"
+								style="width:95%; text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadCursosTeensMB.editarcambio(cadCursosTeensMB.orcamento.valorCambio)}"
+								title="Editar Câmbio">
+								<img id="editarcambio" class=""
+									src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadCursosTeensMB.retornoDialogEditarCambio}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar" />
+							</p:commandLink>
+
+							<p:inputText id="valortotal"
+								value="#{cadCursosTeensMB.formaPagamento.valorOrcamento}"
+								style="width:30%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadCursosTeensMB.tituloMoedaEstrangeira()}"
+								for="valorrr" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor R$" for="valoreal" />
+
+							<p:selectOneMenu id="produto"
+								value="#{cadCursosTeensMB.produtosorcamento}"
+								style="width:210px;" converter="ProdutoOrcamentoConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadCursosTeensMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadCursosTeensMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorrr"
+								value="#{cadCursosTeensMB.orcamentoprodutosorcamento.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText id="valoreal"
+								value="#{cadCursosTeensMB.orcamentoprodutosorcamento.valorMoedaNacional}"
+								style="width:30%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="width: 77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+								action="#{cadCursosTeensMB.adicionarProdutos()}"
+								value="Adicionar"
+								update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, idfrmFichaTeens:growl"
+								icon="ui-icon-plusthick" /> 
+						</div>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutos" var="produtos"
+							value="#{cadCursosTeensMB.orcamento.orcamentoprodutosorcamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtos.produtosorcamento.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadCursosTeensMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadCursosTeensMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+							<p:selectOneMenu id="formPag"
+								value="#{cadCursosTeensMB.formaPagamento.condicao}"
+								style="width:130px;">
+								<f:selectItem itemLabel="Á Vista" itemValue="Á Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+							<p:inputText id="valorOrca" style="width:75%;text-align: right;"
+								value="#{cadCursosTeensMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadCursosTeensMB.formaPagamento.possuiJuros}"
+								style="width:130px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadCursosTeensMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, valoreal, valorrr, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:38%;text-align: right;"
+									value="#{cadCursosTeensMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadCursosTeensMB.calcularValorTotalOrcamento()}"
+										update="produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+								</p:inputText>
+								<p:commandLink action="#{cadCursosTeensMB.calcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadCursosTeensMB.retornoValorJuros()}"
+										update="produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+								</p:commandLink>
+							</h:panelGroup>
+
+							<p:inputText id="totalpag" style="width:75%;text-align: right;"
+								value="#{cadCursosTeensMB.formaPagamento.valorTotal}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText
+								value="#{cadCursosTeensMB.formaPagamento.valorTotal}"
+								id="saldoreceber"
+								style="width:30%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento" />
+
+							<p:inputText value="#{cadCursosTeensMB.valorSaldoParcelar}"
+								id="saldoparcelar"
+								style="width:38.5%;font-size: 10px;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:selectOneMenu id="formPag2"
+								value="#{cadCursosTeensMB.parcelamentopagamento.formaPagamento}"
+								style="width:120px;font-size: 10px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão de crédito"
+									itemValue="Cartão de crédito" />
+								<f:selectItem itemLabel="Cartão de crédito autorizado"
+									itemValue="Cartão de crédito autorizado" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<f:selectItem itemLabel="Déposito" itemValue="Depósito" />
+								<f:selectItem itemLabel="Financiamento banco"
+									itemValue="Financiamento Banco" />
+								<p:ajax event="change" listener="#{cadCursosTeensMB.gerarListaTipoParcelamento()}" update="tipoparcelamento"/>
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{cadCursosTeensMB.parcelamentopagamento.tipoParcelmaneto}"
+								style="width:130px;font-size: 10px;">
+								<f:selectItems id="idTipoparcelamento"
+									value="#{cadCursosTeensMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;"
+							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+							<p:outputLabel value="Data 1o. Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+
+							<p:calendar id="primeirovencimento"
+								value="#{cadCursosTeensMB.parcelamentopagamento.diaVencimento}"
+								size="20" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText
+								value="#{cadCursosTeensMB.parcelamentopagamento.valorParcelamento}"
+								id="valoraparcelar"
+								style="font-size: 11px;width:50%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadCursosTeensMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText>
+
+							<p:selectOneMenu id="nparcela"
+								value="#{cadCursosTeensMB.parcelamentopagamento.numeroParcelas}"
+								style="width:100px;font-size: 10px;">
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadCursosTeensMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+
+							<p:inputText
+								value="#{cadCursosTeensMB.parcelamentopagamento.valorParcela}"
+								id="valorparcela"
+								style="font-size: 11px;width:70%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadCursosTeensMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :idfrmFichaTeens:growl"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"  
+								action="#{cadCursosTeensMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{cadCursosTeensMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+							</p:commandButton>
+							<p:commandButton id="btnCalcularBackOffice"
+								action="#" value="Comissão" style="margin-left:3%"
+								icon="ui-icon-calculator" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.btncomissaoficha}"/>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadCursosTeensMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="150"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadCursosTeensMB.excluirFormaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab title="Obs">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3" style="margin-left:19%">
+							<p:inputTextarea id="obs" cols="130" rows="10"
+								class="fontebranca"
+								value="#{cadCursosTeensMB.formaPagamento.observacoes}" />
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="Obs TM">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3">
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas" style="margin-left:23%" />
+							<p:inputTextarea id="obstm" cols="130" rows="10"
+								class="fontebranca"
+								value="#{cadCursosTeensMB.programasTeens.obstm}"
+								style="margin-left:23%" />
+
+						</h:panelGrid>
+					</p:tab>
+
+				</p:accordionPanel>
+				<br></br> <br></br> <br></br>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" onclick="PF('cd').show();" />
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadCursosTeensMB.cancelarCadastro()}"></p:commandButton>
+					<p:confirmDialog
+						message="FINALIZAR FICHA? Ficha será enviada para Gerência."
+						showEffect="fade" hideEffect="fade" header="Confirmação"
+						icon="ui-icon-alert" widgetVar="cd">
+						<p:commandButton value="Sim"
+							action="#{cadCursosTeensMB.finalizarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" style="margin-left:30%" update="growl" />
+						<p:commandButton value="Não"
+							action="#{cadCursosTeensMB.naoEnviarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" update="growl" />
+					</p:confirmDialog>
+					<br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

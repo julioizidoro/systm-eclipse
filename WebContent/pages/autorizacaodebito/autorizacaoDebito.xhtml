@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="pacoteseguroviagem" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />    
+				<br></br> <br></br>
+				<h:panelGrid columns="4" columnClasses="tamanho7, tamanho7, tamanho7, tamanho7" style="width:80%;margin-left:7%;">
+					<p:outputLabel value="Bandeira" for="bandeira" />
+					<p:outputLabel value="No. Cartão de Credito" for="numerocartao" />
+					<p:outputLabel value="Validade" for="validade" />
+					<p:outputLabel value="Código de Segurança" for="codigoseguranca" />
+
+					<p:selectOneMenu id="bandeira"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.bandeira}"
+						style="width:60%;">
+						<f:selectItem itemLabel="Selecione" itemValue="sn"
+							noSelectionOption="true" />
+						<f:selectItem itemLabel="VISA" itemValue="visa" />
+						<f:selectItem itemLabel="MASTER CARD" itemValue="master" />
+					</p:selectOneMenu>
+					<p:inputMask mask="9999.9999.9999.9999" id="numerocartao"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.numerocartao}"
+						style="width:70%;" />
+					<p:inputMask mask="99/99" id="validade"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.validade}"
+						style="width:70%;" />
+					<p:inputMask mask="999" id="codigoseguranca"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.codigoseguranca}"
+						style="width:70%;" />
+				</h:panelGrid>
+				<br></br>
+				<h:panelGrid columns="5" columnClasses="tamanho8, tamanho7, tamanho7, tamanho7, tamanho7" style="width:80%;margin-left:7%;">
+					<p:outputLabel value="Nome do Títular" for="nometitular" />
+					<p:outputLabel value="CPF" for="cpf" />
+					<p:outputLabel value="Telefone" for="telefone"  />
+					<p:outputLabel value="No. Reservas" for="numeroreservas"  />
+					<p:outputLabel value="Data da Viagem" for="dataviagem"  />
+					 
+					<p:inputText id="nometitular"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.nometitular}"
+						style="width:90%;" />
+					<p:inputMask id="cpf"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.cpf}"
+						style="width:90%;" mask="999.999.999-99" />
+					<p:inputText id="telefone"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.fone}"
+						style="width:90%" />
+					<p:inputText id="numeroreservas"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.numreserva}"
+						style="width:90%"/>
+					<p:calendar id="dataviagem"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.dataviagem}"
+						size="14" locale="pt" pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:calendar>
+			    
+			    </h:panelGrid>
+			    
+				<br></br>  
+				<h:panelGrid columns="6" columnClasses="tamanho7, tamanho7, tamanho7, tamanho7, tamanho13, tamanho7" style="width:80%;margin-left:7%;">
+					<p:outputLabel value="No. Parcelas" for="nparcelas"  />
+					<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+					<p:outputLabel value="Valor Total Parcelado" for="totalparcelado" />
+					<p:outputLabel value="Valor Total da Compra" for="valortotal" />
+					<p:outputLabel value="Câmbio" for="moeda"/>
+					<p:outputLabel value="Valor do Câmbio" for="idvalorcambio" /> 
+						
+					<p:inputText id="nparcelas"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.numparcelas}"
+						style="width:90%;" />
+					<p:inputText id="valorparcela"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.valorparcelas}"
+						style="width:90%;text-align: right;">
+					</p:inputText>
+					<p:inputText id="totalparcelado"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.valorparcelado}"
+						style="width:90%;text-align: right;">
+					</p:inputText>
+					<p:inputText id="valortotal"
+						value="#{autorizacaoDebitoMB.autorizacaoDebitoBean.valortotal}"
+						style="width:90%;text-align: right;">
+					</p:inputText>   
+					<p:selectOneMenu  style="width:90px;"
+						id="moeda" value="#{autorizacaoDebitoMB.cambio}"
+						converter="CambioConverter">
+						<f:selectItem itemLabel="Câmbio" itemValue="0" />
+						<f:selectItems
+							value="#{autorizacaoDebitoMB.aplicacaoMB.listaCambio}"
+							var="cambio" itemLabel="#{cambio.moedas.sigla}"
+							itemValue="#{cambio}" />
+						<f:attribute name="listaCambio"  
+							value="#{autorizacaoDebitoMB.aplicacaoMB.listaCambio}" />
+						<p:ajax event="change" update="idvalorcambio" />
+					</p:selectOneMenu>
+					<p:inputText id="idvalorcambio"
+						value="#{autorizacaoDebitoMB.cambio.valor}"
+						style="width:80%;text-align: right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<br></br> <br></br> <br></br>
+
+				<div align="center">
+					<p:commandButton  icon="ui-icon-check"
+						value="Imprimir" action="#{autorizacaoDebitoMB.gerarRelatorioAutorizacao()}"
+						ajax="false" onclick="this.form.target='_blank'"></p:commandButton> 
+				</div>
+				<br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="filtrarpagamentos" style="text-align:left;font-size: 10px; margin-left: 7%; "><br></br>
+
+            <title>Relatório de Pagamentos</title>
+            <p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%"> </p:outputLabel> 
+            <br></br>
+            <p:selectOneMenu id="unidade"  style="width:95.5%;margin-left:-1%"  value="#{relaorioPagamentos.unidadenegocio}" converter="UnidadeNegocioConverter">
+                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                <f:selectItems value="#{relaorioPagamentos.listaUnidadeNegocio}" var="unidade" itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}"/>
+                <f:attribute name="listaUnidade" value="#{relaorioPagamentos.listaUnidadeNegocio}"/>
+            </p:selectOneMenu>
+            <br/><br/>
+            <p:outputLabel value="Banco" for="banco" style="margin-left:-1%"> </p:outputLabel> 
+            <p:outputLabel value="Tipo documento" for="tipoDocumento" style="margin-left:45%"> </p:outputLabel> 
+            <br></br>
+            <p:selectOneMenu id="banco"  style="width:42%;margin-left:-1%" value="#{relaorioPagamentos.banco}" converter="BancoConverter">
+                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                <f:selectItems value="#{relaorioPagamentos.listaBanco}" var="banco" itemLabel="#{banco.nome}" itemValue="#{banco}"/>
+                <f:attribute name="listaBanco" value="#{relaorioPagamentos.listaBanco}"/>
+                <p:ajax event="change"/>
+            </p:selectOneMenu> 
+            <p:selectOneMenu id="tipoDocumento" style="width:42%;margin-left:10%" value="#{relaorioPagamentos.planoConta}" converter="PlanoContaConverter">
+                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                <f:selectItems value="#{cadContasPagarMB.listaPlanoConta}" var="planoConta" itemLabel="#{planoConta.descricao}" itemValue="#{planoConta}"/>
+                <f:attribute name="listaPlanoConta" value="#{cadContasPagarMB.listaPlanoConta}"/>
+            </p:selectOneMenu>  
+            <p:outputLabel value="Período" for="datainicial" style="margin-left:-1%"> </p:outputLabel>
+            <p:outputLabel value="Competência" for="competencia" style="margin-left:57%"> </p:outputLabel><br></br>
+            <p:inputMask id="datainicial"  mask="99/99/9999" value="#{relaorioPagamentos.dataInicio}"  class="espacocobranca29" style="margin-left: -1%;width: 25%">
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            <p:inputMask id="dataFinal"  mask="99/99/9999" value="#{relaorioPagamentos.dataTermino}"  class="espacocobranca29" style="margin-left: 5%;width: 25%">
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            <p:inputMask id="competencia"  mask="99/9999" value="#{relaorioPagamentos.competencia}"  class="espacocobranca29" style="margin-left:12%;width: 28%"/>
+               <br/><br/>
+            
+               <p:commandButton value="Confirmar" style="margin-left:45%" onclick="this.form.target='_blank'" icon="ui-icon-check" action="#{relaorioPagamentos.gerarRelatorio()}" ajax="false"  target="_blank"/>
+               <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{relaorioPagamentos.fechar()}"></p:commandButton>
+            
+        </h:form>     
+    </h:body>
+</html>

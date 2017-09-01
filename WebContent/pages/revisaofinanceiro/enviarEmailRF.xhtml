@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Enviar Email</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="telaEnviarEmail" style="text-align:left;font-size:11px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink>
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
+		<p:outputLabel value="Destinatario" for="idDestinatario"
+			style="font-size: 12px;margin-left:2%" />
+		<p:outputLabel value="Consultor" for="idConsultor"
+			style="font-size: 12px;margin-left:40%" />
+		<br></br>
+		<p:inputText id="idDestinatario" style="width:46%;margin-left:2%"
+			maxlength="100" class="camposs"
+			value="#{enviarEmailRFMB.emailDestinatario}">    
+			<p:ajax event="blur" />
+		</p:inputText>
+		<p:commandButton id="adcEmail" value="" icon="ui-icon-plusthick"
+			action="#{enviarEmailRFMB.adicionarEmail()}" style="margin-left:0.4%;width: 32px;height: 25px;"
+			update="tabelaEmails, idDestinatario" />
+		<p:inputText id="idConsultor" style="width:35%;margin-left:2%"  
+			maxlength="100" class="camposs"
+			value="#{enviarEmailRFMB.emailConsultor}" />
+		<br></br>
+		<br></br>
+		<p:dataTable id="tabelaEmails" var="email"
+			value="#{enviarEmailRFMB.listaEmails}" class="tabelas-responsivas"
+			style="margin-left:2.5%;width:90%;" scrollable="true" scrollHeight="40">
+			<p:column headerText="E-mail">
+				<h:outputText value="#{email}" />
+			</p:column>
+			<p:column headerText="" style="width:55px;"
+				styleClass="alinharCenter">
+				<p:commandLink action="#{enviarEmailRFMB.removerEmail(email)}"
+					update="tabelaEmails" style="text-decoration: none" title="Remover">
+					<img src="../../resources/img/excluir.png" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>   
+		<p:outputLabel value="Assunto " for="assunto" style="margin-left:2%" />
+		<br></br>
+		<p:inputTextarea value="#{enviarEmailRFMB.assunto}" id="assunto"
+			rows="1" style="margin-left:2%;width:90%;" />
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Texto" for="texto" style="margin-left:2%" />
+		<br></br>
+		<p:inputTextarea value="#{enviarEmailRFMB.texto}" id="texto" rows="3"
+			style="margin-left:2%;width:90%;" title="descrição do produto" />
+		<br></br>
+		<p:outputLabel value="Rodapé do Email" for="rodape"
+			style="margin-left:2%" />
+		<br></br>
+		<p:inputTextarea value="#{enviarEmailRFMB.textoRodape}" id="rodape"
+			rows="3" style="margin-left:2%;width:90%;" />
+		<br/><br/>
+		<h:panelGrid columns="2" style="width:98%;margin-left:2%;">
+				<p:outputLabel value="Próximo Contato" for="proximocontato"  />
+				<p:outputLabel value="Motivo da Pendência" for="motivopendencia"  />
+				
+				
+			<p:calendar id="proximocontato" value="#{enviarEmailRFMB.dataProximoContato}"
+				size="20"  locale="pt"
+				pattern="dd/MM/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				<p:ajax event="change" />
+				<p:ajax event="dateSelect" />
+			</p:calendar>
+			<p:selectOneMenu  id="motivopendencia"  style="width: 280px;"  value="#{enviarEmailRFMB.vendamotivopendencia}" converter="VendaMotivoPendenciaConverter"
+                             filter="true" filterMatchMode="contains" panelStyle="width:180px" >
+                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                    <f:selectItems  value="#{enviarEmailRFMB.listaVendaMotivoPencencia}" var="motivopendencia" itemLabel="#{motivopendencia.descricao}" itemValue="#{motivopendencia}"/>
+                    <f:attribute name="listaVendaMotivoPencencia" value="#{enviarEmailRFMB.listaVendaMotivoPencencia}"/>
+                </p:selectOneMenu>
+		</h:panelGrid>
+		<br/>
+		<br/>  
+		<div align="center">
+			<p:commandButton value="Enviar" icon="ui-icon-check"
+				action="#{enviarEmailRFMB.enviarEmail()}"  
+				update="growl" />
+			<p:commandButton value="Cancelar" icon="ui-icon-close"
+				action="#{enviarEmailRFMB.cancelar()}" style="margin-left:2%" />
+		</div>   
+	</h:form>
+</h:body>
+</html>

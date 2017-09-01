@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consUsuario" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<div style="width: 100%;">
+							<h:panelGrid columns="4"
+								columnClasses="tamanhoavisos2,tamanho6,tamanho8,tamanho8">
+								<p:outputLabel value="Nome" for="nome" /> 
+								<p:outputLabel value="Unidade" for="unidade" />
+								<p:outputLabel value="Departamento" for="departamento" />
+								<p:outputLabel value="Situação" for="situacao" />
+
+								<p:inputText id="nome" size="45" value="#{usuarioMB.nome}" />
+								<p:selectOneMenu id="unidade"
+									value="#{usuarioMB.unidadenegocio}" style="width:185px;"
+									converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+									<f:selectItem itemLabel="Unidade" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idunidade"
+										value="#{usuarioMB.listaUnidade}" var="sUnidade"
+										itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+									<f:attribute name="listaUnidade"
+										value="#{usuarioMB.listaUnidade}" /> 
+								</p:selectOneMenu>
+								<p:selectOneMenu id="departamento" value="#{usuarioMB.departamento}"
+									converter="DepartamentoConverter" style="width:185px;" filter="true" filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Departamento" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="iddepartamento"
+										value="#{usuarioMB.listaDepartamento}" var="sdepartamento"
+										itemLabel="#{sdepartamento.nome}" itemValue="#{sdepartamento}" />
+									<f:attribute name="listaDepartamento"
+										value="#{usuarioMB.listaDepartamento}" /> 
+								</p:selectOneMenu> 
+								<p:selectOneMenu id="situacao" value="#{usuarioMB.situacao}" style="width:100px;"
+									filter="true" filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Situação" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Ativo" itemValue="Ativo" />
+									<f:selectItem itemLabel="Inativo" itemValue="Inativo" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+						</div>
+						<br></br>
+						<div align="right" style="width: 88.5%;">
+							<p:commandButton id="btnPesquisar" action="#{usuarioMB.pesquisar()}" value="Pesquisar"
+								icon=" ui-icon-search " update="consUsuario:tabelaUsuario" />
+							<p:commandButton id="btnLimpar" action="#{usuarioMB.limpar()}" value="Limpar"
+								style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
+								update="consUsuario:tabelaUsuario, nome,unidade, departamento, situacao" />
+						</div>
+					</p:tab> 
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Usuários</b>
+				</legend>
+				<div align="right" style="width: 85%; margin-left: 8%;">
+					<p:commandButton id="btnNovo" value="Novo Usuário"
+						icon="ui-icon-plus" action="#{usuarioMB.novoUsuario()}"
+						style="font-size:12px;" />
+				</div>
+				<br></br>
+				<div style="width: 85%; margin-left: 8%;">
+					<p:dataTable id="tabelaUsuario" value="#{usuarioMB.listaUsuario}"  var="usuario"
+						scrollable="true" scrollHeight="300"
+						style="margin-bottom:20px;font-size:11px;">
+						<p:column headerText="Nome" style="width:150px;">
+							<h:outputText value="#{usuario.nome}" />
+						</p:column>
+						<p:column headerText="Usuário" style="width:100px;">
+							<h:outputText value="#{usuario.login}" />
+						</p:column>
+						<p:column headerText="Email" style="width:150px;">
+							<h:outputText value="#{usuario.email}" />
+						</p:column>
+						<p:column headerText="Unidade" style="width:100px;">
+							<h:outputText value="#{usuario.unidadenegocio.nomerelatorio}" />
+						</p:column> 
+						<p:column headerText="Departamento" style="width:120px;">
+							<h:outputText value="#{usuario.departamento.nome}" />
+						</p:column>
+						<p:column headerText="Situação" style="width:120px;">
+							<h:outputText value="#{usuario.situacao}" />
+						</p:column>
+						<p:column style="width:40px;text-align:left;">
+							<p:commandLink action="#{usuarioMB.editarUsuario(usuario)}" title="Editar"
+								style="text-decoration: none">
+								<img src="../../resources/img/editaricon.png" width="30"/>
+							</p:commandLink>
+						</p:column>
+						<p:column style="width:40px;text-align:left;">
+							<p:commandLink action="#{usuarioMB.resetarSenhaUsuario(usuario)}" title="Resetar Senha"
+								style="text-decoration: none" update="consUsuario">
+								<img src="../../resources/img/iconeReset.png" width="30"/>
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

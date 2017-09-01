@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+        <h:form id="consPastas" >
+      			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+        	   <br />
+        	   <p:commandButton value="Adicionar Pasta" icon="ui-icon-plus" rendered="#{pasta1VideoMB.verificarAcesso()}"  styleClass="btn btn-danger" action="#{pasta1VideoMB.cadastroPasta1Videos()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
+        	   		<p:ajax listener="#{pasta1VideoMB.retornoDialogNovo}" event="dialogReturn" update="@form, growl"/>
+        	   </p:commandButton>
+        	   <hr style="width: 98%;"/>
+        	   <legend style="margin-left:1%; width:98%;"> 
+        	   		<p:commandLink ajax="false" action="#{pasta1VideoMB.voltarConsDepartamento()}" value="Departamentos "/> > #{pasta1VideoMB.departamento.nome}
+        	   		
+        	   </legend>
+        	   <p:outputLabel id="semConteudo" rendered="#{pasta1VideoMB.semPastas}" value="Não contém pastas." style="font-size:18px;margin-left:1%;"/>
+        	  
+			<br/><br /><br /><br /><br /><br />   
+	           <ui:repeat var="pastas" value="#{pasta1VideoMB.listaVideoPasta1}" varStatus="statuss">
+	           			
+		        		
+						<div class="col-sm-6 col-md-3">
+								<p:commandLink style="float:right;" rendered="#{pasta1VideoMB.verificarAcesso()}" action="#{pasta1VideoMB.editarVideoPasta1(pastas)}"> 
+									<i class="fa fa-pencil"></i>
+									<p:ajax event="dialogReturn" listener="#{pasta1VideoMB.gerarVideoPastas1()}" update="@form"/>
+								</p:commandLink>
+							<p:commandLink  action="#{pasta1VideoMB.consPasta2Video1(pastas)}">
+								<div class="#{pasta1VideoMB.posicaoInteracaoUiRepeat(statuss.index)}" style="width:95%; height:150px;">
+									<h:outputLabel value="#{pastas.descricao}" style="color:white;"/>
+									<h:panelGrid width="100%" columns="2" style="color:white;">
+										<h:panelGrid columns="1">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pasta1VideoMB.gerarNVideo1(pastas)}
+												<h5>Videos</h5>
+											</h2>
+										</h:panelGrid>
+										<h:panelGrid columns="1" style="margin-left:-50%;">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pasta1VideoMB.gerarTotalPasta2(pastas)}
+												<h5>Pastas</h5>
+												
+											</h2>
+										</h:panelGrid> 
+									</h:panelGrid>
+										<ui:repeat var="video" value="#{pasta1VideoMB.gerarTotalVideo2(pastas)}" >
+											<img src="../../resources/img/video.png" alt="" title="#{video.descricao}" width="20" height="20"/>
+										</ui:repeat> 
+									<div style="float: right; margin-top:-60px;"> 
+										<i>
+											<img src="../../resources/img/#{pasta1VideoMB.departamento.imagem}" alt="" width="60" height="60" style="background:white;border-radius:50px;"/>
+										</i>
+									</div>
+									<div class="refresh-button">
+										<p:commandLink rendered="#{pasta1VideoMB.verificarAcesso()}" ajax="false" action="#{pasta1VideoMB.excluirPasta(pastas)}" update=":consPastas:growl, @form"> 
+											<i class="fa fa-trash-o"></i>
+										</p:commandLink>
+									</div>
+									
+								</div>  
+							</p:commandLink> 
+						</div><!-- /.col --> 
+						
+	        	</ui:repeat>
+	        <br/><br/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/><br/> <br/><br/> <br/>
+	        <br/> <br/><br/> <br/><br/> <br/>
+	      </h:form>  
+    </ui:define> 
+</ui:composition>
+</html>

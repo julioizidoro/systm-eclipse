@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="voluntariadoProjeto"> 
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
+				<br></br> <br></br>
+				<h:panelGrid columns="5" style="width:80%;margin-left:2%;"
+					columnClasses="tamanho10,tamanho10,tamanho10,tamanho6,tamanho10">
+					<p:outputLabel value="Pais" for="pais"
+						style="color:#1F8871;" />
+					<p:outputLabel value="Cidade" for="cidade"    
+						style="color:#1F8871;" />       
+					<p:outputLabel value="Parceiro" for="fornecedor" 
+						style="color:#1F8871;" /> 
+					<p:outputLabel value="Ano" for="ano"
+						style="color:#1F8871;" />
+					<p:outputLabel/>
+
+					<p:selectOneMenu id="pais" value="#{voluntariadoProjetoMB.pais}"
+						style="width:180px;" converter="PaisFornecedorConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{voluntariadoProjetoMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.nome}"  
+							itemValue="#{cpais}" />  
+						<f:attribute name="listaPaisFornecedor" value="#{voluntariadoProjetoMB.listaPais}" />
+						<p:ajax event="change" update="cidade,fornecedor" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="cidade" value="#{voluntariadoProjetoMB.cidade}"
+						style="width:180px;" 
+						converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade2"
+							value="#{voluntariadoProjetoMB.pais.cidadeList}" var="ccidade"
+							itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{voluntariadoProjetoMB.pais.cidadeList}" />
+						<p:ajax event="change" listener="#{voluntariadoProjetoMB.listarFornecedorCidade()}"  update="fornecedor"  />
+					</p:selectOneMenu>
+					 
+					<p:selectOneMenu id="fornecedor"
+						value="#{voluntariadoProjetoMB.fornecedorcidade}" style="width:180px;"
+						converter="FornecedorCidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{voluntariadoProjetoMB.listafornecedorcidade}" var="fornecedorcidade"
+							itemLabel="#{fornecedorcidade.fornecedor.nome}"
+							itemValue="#{fornecedor}" />
+						<f:attribute name="listaFornecedorCidade"
+							value="#{voluntariadoProjetoMB.listafornecedorcidade}" />
+						<p:ajax event="change"
+							update="tabelavoluntariadoprojeto, bntAddProduto,ano"
+							listener="#{voluntariadoProjetoMB.listarVoluntariadoProjeto()}" />
+					</p:selectOneMenu> 
+					<p:inputText id="ano" value="#{voluntariadoProjetoMB.ano}"
+						style="width:80%">
+						<p:ajax event="change" />   
+					</p:inputText>
+					<p:commandLink action="#{voluntariadoProjetoMB.salvarAno()}"
+						title="Salvar ano" update="growl, ano">
+						<img src="../../resources/img/confirmarLogin.png" />
+					</p:commandLink>
+				</h:panelGrid>
+				<br></br>
+				<div align="center">
+					<p:outputLabel value="Orçamento de Voluntariado - Produtos" style="color:#495B6C;font-size:20px;"/>
+				</div>  
+				<br></br>
+				<div style="width: 98%;">  
+					<p:selectBooleanCheckbox id="habilitarorcamento"  
+						value="#{voluntariadoProjetoMB.habilitarorcamento}"
+						class="espacopreto" style="margin-left:3%">
+						<p:ajax event="change" listener="#{voluntariadoProjetoMB.habilitarFornecedorOrcamento()}" />
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Parceiro Finalizado"
+						style="margin-left:0.5%;font-size:13px" />   
+						
+					<p:commandButton id="bntAddProduto" icon="ui-icon-plus" 
+						style="font-size:12px;width:12%;float:right;" value="Novo Projeto"
+						action="#{voluntariadoProjetoMB.cadVoluntariadoProjeto()}" update=":voluntariadoProjeto:growl">   
+						<p:ajax event="dialogReturn"   
+							listener="#{voluntariadoProjetoMB.retornoDialogoNovo}" process="@this"
+							update=":voluntariadoProjeto:tabelavoluntariadoprojeto" />    
+					</p:commandButton> 
+					<p:commandButton id="bntAddProdutoOrcamento" value="Produtos"      
+						action="#{voluntariadoProjetoMB.produtosOrcamento()}"
+						style="font-size:12px;margin-left: 2.5%;width:12%;float:right;" icon="ui-icon-plus" >
+					</p:commandButton>  
+				</div>
+	            <br></br>    
+				<p:dataTable id="tabelavoluntariadoprojeto" var="voluntariadoprojeto"   
+					value="#{voluntariadoProjetoMB.listaVoluntariadoProjeto}" class="tabela"
+					scrollable="true" scrollHeight="350" style="margin-bottom:20px">    
+					<p:column headerText="Descrição"
+						style="width:280px;text-decoration: none">
+						<p:commandLink value="#{voluntariadoprojeto.descricao}"
+							action="#{voluntariadoProjetoMB.editar(voluntariadoprojeto)}">
+							<p:ajax event="dialogReturn"
+								listener="#{voluntariadoProjetoMB.retornoDialogoEditar()}"
+								process="@this" update=":voluntariadoProjeto:tabelavoluntariadoprojeto" />
+						</p:commandLink>
+					</p:column>   
+					<p:column headerText="Transfer" style="width:200px;">   
+						<h:outputText value="#{voluntariadoprojeto.transfer}" />
+					</p:column> 
+					<p:column style="width:72px;text-align: center;" headerText="Curso">
+						<p:commandLink title="Complemento Curso"
+							action="#{voluntariadoProjetoMB.voluntariadoProjetoCurso(voluntariadoprojeto)}" >
+							<img src="../../resources/img/complementocurso.png"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:79px;text-align: center;" headerText="Acomodação">
+						<p:commandLink title="Complemento Acomodação"
+							action="#{voluntariadoProjetoMB.voluntariadoProjetoAcomodacao(voluntariadoprojeto)}" >
+							<img src="../../resources/img/complementoacomodacao.png"/>
+						</p:commandLink>
+					</p:column>    
+					<p:column style="width:72px;text-align: center;" headerText="Valores">
+						<p:commandLink title="Valores"
+							action="#{voluntariadoProjetoMB.consVoluntariadoProjetoValor(voluntariadoprojeto)}" >
+							<img src="../../resources/img/valores.png"/>
+						</p:commandLink>
+					</p:column> 
+				</p:dataTable>
+
+				<br></br> <br></br>
+			</div>  
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

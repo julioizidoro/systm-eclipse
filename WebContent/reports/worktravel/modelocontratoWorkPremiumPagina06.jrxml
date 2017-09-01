@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPremiunPagina06" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.9090909090909095"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="733" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="69" width="542" height="603" uuid="d3989b65-ba9c-4057-aef6-9f790dba6e84"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="2" y="7" width="554" height="716" uuid="46255450-2737-4e71-8189-0f7c0af1e282"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["11. SEGURO-SAÚDE \n \n"+
+
+"11.1 Obrigatoriamente, deverá o(a)  PARTICIPANTE contratar seguro-saúde para que possa participar do programa escolhido. Há um seguro saúde incluso no programa, sendo que a escolha da seguradora cabe ao Sponsor (parceiro internacional da TM) sem que a TM tenha qualquer ingerência ou participação em tal ato e, ainda, deverá obedecer aos seguintes critérios: \n"+
+"a) Deve ser válido em todo o território do país de destino; \n"+
+"b) Caso o(a) PARTICIPANTE ingresse no país de destino antes da data estabelecida no programa, ou permaneça após, deverá adquirir e/ou estender o seu seguro-saúde conforme tais datas, às suas expensas, devendo ainda, comunicar a TM; \n"+
+"c) Deverá o(a) PARTICIPANTE obedecer todas as cláusulas referentes ao contrato de seguro, de acordo com o estabelecido pela seguradora, incluindo, mas não limitado a: \n"+
+"I) pagamento de franquia; \n"+
+"II) pagamento de multa por uso indevido da sala de emergência; \n"+
+"III) não cobertura de doenças ou condições pré-existentes; \n"+
+"IV) fazer contato telefônico com a seguradora antes de qualquer atendimento médico; \n"+
+"V) em caso de emergência, na impossibilidade de fazer contato prévio, fazer contato com a seguradora em no máximo 24 horas após a entrada no estabelecimento prestador de serviços de saúde; \n"+
+"VI) seguir os procedimentos estabelecidos pela seguradora para pagamento e/ou reembolso das despesas médicas e hospitalares. \n"+
+"d) Caso o(a) PARTICIPANTE deixe de contar, por qualquer motivo, com a cobertura do seguro saúde durante sua estada no país de destino, será excluído do programa, sem direito a qualquer reembolso; \n"+
+"e) A decisão sobre eventual extensão do seguro cabe exclusivamente à seguradora, não podendo ser responsabilizada a TM em caso de sua negativa. Da mesma forma, cabe exclusivamente à seguradora tomar decisões sobre o alcance da cobertura do seguro de saúde, definição de doença ou condição pré-existente, definição sobre uso indevido da sala de emergência, dentre outras decisões inerentes ao contrato de seguro, não podendo ser responsabilizada a TM por tais decisões. \n \n"+
+
+"12. PROCEDIMENTO DE CHEGADA NO PAÍS DE DESTINO (CHECK IN) \n \n"+
+
+"12.1 Após sua chegada país de destino, o(a)  PARTICIPANTE deverá cumprir as regras de chegada (orientação de chegada ou “check-in”, por exemplo) estabelecidas pelo programa em questão. No decorrer de sua estadia o(a) PARTICIPANTE deverá realizar “check-ins” periódicos (geralmente mensais) com seu sponsor a fim de manter sua legalidade nos EUA. O não cumprimento desta regra pode provocar o desligamento do(a)  PARTICIPANTE perante o programa. Neste caso, o(a)  PARTICIPANTE terá seu visto cancelado e deverá deixar o país dentro de 5 dias úteis a partir da data de seu desligamento; \n"+
+"12.2 O(A)  PARTICIPANTE deverá levar dinheiro suficiente ao país de destino para cobrir suas despesas por pelo menos 40 dias após sua chegada, no que se refere à alimentação, transporte, acomodação ou quaisquer outras despesas pessoais. O mínimo sugerido é de US$1000 (Um mil dólares americanos); \n"+
+"12.3 O período do visto, estabelecido no DS-2019, não poderá ser estendido ou modificado em qualquer hipótese. Uma vez fornecido o visto J1 ao(à)  PARTICIPANTE, este poderá permanecer no país de destino apenas pelo período autorizado no formulário DS-2019, acrescido de 30 (trinta) dias relativos ao Grace Period, no qual o(a) PARTICIPANTE poderá permanecer no país exclusivamente a turismo; \n"+
+"12.4 O(A)  PARTICIPANTE, ao entrar no país de destino, deverá validar seu visto no prazo máximo de 21 (vinte e um) dias após a data de início estabelecida em seu DS-2019. Na falta de validação, o visto será terminado e o(a) PARTICIPANTE deverá deixar o país imediatamente, podendo encontrar dificuldades no futuro para a obtenção de um novo visto; \n"+
+"12.5 Cabe, ainda, ao(à)  PARTICIPANTE revalidar seu visto sempre que mudar de endereço ou de emprego em, no máximo, 5 (cinco) dias. Caso não o faça, poderá ter o visto terminado, devendo deixar o país imediatamente, podendo, ainda, encontrar dificuldades no futuro para a obtenção de um novo visto; \n"+
+"12.6 O(A)  PARTICIPANTE compromete-se a entrar no país de destino não mais do que 14 (quatorze) dias após a data de início e a deixá-lo não mais do que 30 (trinta) dias após a data do término, ambas estabelecidas no DS-2019. Em nenhuma circunstância, o “status” (tipo) do visto poderá ser alterado. A TM tem a obrigação de comunicar ao Consulado do país de destino, localizado no Brasil e ao Departamento de Segurança Territorial (DHS) do país de destino, responsável pelo Serviço de Imigração e Cidadania (USCIS), o "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="140d3718-b147-41c7-87c8-c9b46d410198"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoWorkPremiumPagina07.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

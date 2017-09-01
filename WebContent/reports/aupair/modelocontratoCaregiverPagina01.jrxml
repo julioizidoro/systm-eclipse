@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.620921323059155"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="7"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="81" width="555" height="15" uuid="ed75f004-f9a7-498c-b84f-777a7971fba2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="96" width="555" height="17" uuid="414a8c81-0b2b-45c8-a49c-bcc56e829101"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Caregiver Nº  000(MODELO)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="726" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="175" width="553" height="421" uuid="f69dbb51-5eb6-4613-9c93-0f972e423a6f"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="2" width="251" height="14" uuid="f77d7e49-a773-4b26-a342-ca94166582d9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTES :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="143" width="251" height="14" uuid="cb2a772a-7730-4e60-9270-91c34289a1b6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. OBJETO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="239" width="486" height="15" uuid="f9cd35a0-3345-491a-95dd-492286de25bf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. OBRIGAÇÕES DA TRAVELMATE INTERCÂMBIO & TURISMO ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="253" width="555" height="131" uuid="4ddb9851-00ef-42c2-a416-e14a7c855830"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[a) Inscrever o(a) PARTICIPANTE no programa internacional para o qual se candidatou, desde que este atenda aos pré-requisitos para participação (vide informativo do programa), desde que recebidos a ficha de inscrição e contrato de prestação de serviços completos e assinados, desde que recebidos os documentos solicitados e o valor estipulado para inscrição e pagamento do referido programa;
+b) Providenciar, junto à organização internacional na qual o(a) PARTICIPANTE foi inscrito, os documentos necessários para a solicitação do visto adequado.  A TM não é responsável e não garante a obtenção do visto, tendo em vista que a concessão de visto é de exclusiva responsabilidade do Consulado ou Embaixada do país de destino, entidade esta que vai analisar o pedido de visto e concedê-lo ou não de acordo com seus próprios critérios;
+d) Proporcionar ao(a) PARTICIPANTE a possibilidade de entrevistas com famílias hospedeiras interessadas em contratar Caregivers devidamente qualificados(as).
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="384" width="281" height="14" uuid="0104f5cf-ffa6-47b9-8349-4ed02df549d8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2.1 OBSERVAÇÕES QUANTO AS OBRIGAÇÕES DA TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="401" width="555" height="155" uuid="5ccc0f93-28d0-4e05-bf43-1a88c593f0b1"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fica o(a)  PARTICIPANTE ciente desde já que:
+a) A TM não se responsabilizará por ato(s) do(a) próprio(a)  PARTICIPANTE que venha(m) a impedir a realização do presente contrato, incluindo ato(s) que ofenda(m) a legislação nacional e/ou do país de destino, bem como casos fortuitos, de força maior e fato do príncipe, que ocorre quando o cumprimento do contrato se torne impossível face a algum ato de governo tanto do país de destino como brasileiro;
+b) A TM não se responsabilizará por qualquer prejuízo causado ao(à) PARTICIPANTE referente ao contrato de transporte aéreo, decorrente da passagem adquirida.
+c) A TM não é responsável e não garante a obtenção do visto, tendo em vista que tal documento é de exclusiva responsabilidade do(a) PARTICIPANTE;
+d) A TM não se responsabilizará caso o(a) PARTICIPANTE seja impedido de ingressar no país de destino pelo setor de imigração, na medida em que, trata-se de uma escolha aleatória e subjetiva dos funcionários estrangeiros da imigração.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="557" width="281" height="14" uuid="0104f5cf-ffa6-47b9-8349-4ed02df549d8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. OBRIGAÇÕES DO(A)  PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="572" width="555" height="135" uuid="5ccc0f93-28d0-4e05-bf43-1a88c593f0b1"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[a) Preencher a ficha de inscrição e apresentar a documentação complementar solicitada para que sua inscrição seja efetivada e aceita.
+b)  Providenciar o visto de entrada do país em questão e o transporte para a entrevista de visto no Consulado ou Embaixada do país de destino e fornecer à TM essas informações com 3 semanas de antecedência da data de embarque.  Sendo de interesse da/do participante, a TM poderá auxiliar neste processo.
+c) Continuar estudando o idioma exigido para participação no programa até o embarque e possuir no mínimo nível avançado do idioma, conforme requisitos do programa.
+d) Assumir os danos e despesas causadas a terceiros durante o programa, sujeitando-se às normas e leis locais do país em questão. Não é responsabilidade da TM e/ou parceiro internacional contratado pela TM prestar assessoria, consultoria ou aconselhamento legal/jurídico ao(à) PARTICIPANTE e seus pais/familiares;
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="160" width="554" height="79" uuid="069f60e3-e6e7-474a-8721-2777929d1e69"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.1 O presente contrato tem como objeto a intermediação da prestação de serviços educacionais de intercâmbio cultural pela TRAVELMATE (intermediadora) e seu parceiro internacional, em favor do(a) PARTICIPANTE, visando sua inscrição no programa de Caregiver, que consiste em um programa de trabalho remunerado, e intercâmbio cultural, com duração prevista de 24 meses (especificado no descritivo/informativo do programa) e início variável conforme aceitação e colocação do(a) PARTICIPANTE em família hospedeira, incluindo todas as atividades descritas neste instrumento.
+
+
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="17" width="472" height="56" uuid="e5690f64-e37b-46c3-87aa-40f16b3d446c"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{razaoSocial} + ", adiante apenas TRAVELMATE ou TM, pessoa jurídica de"
++ " direito privado com sede social na " + $F{tipologradourounidadeNegocio} + " " +
+$F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{complementounidadeNegocio}
++ ", " + $F{bairrounidadeNegocio} + ", " + $F{cidadeunidadeNegocio}
++ ", " + $F{estadounidadeNegocio} + ", CEP : " + $F{cepunidadeNegocio}
++ ", inscrita no CNPJ/MF sob nº " + $F{cnpjunidadeNegocio} + ", neste ato representada pelo consultor ."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="73" width="472" height="71" uuid="9ae795a1-fdb7-4d7d-b776-40f5634244ff"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["Dados do participante, têm entre si justos e acertados a celebração de contrato de prestação de serviços de intercâmbio cultural, nos termos e condições estabelecidas neste contrato."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="17">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="8f165843-3935-4ede-a449-3b4c8040780f"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoCaregiverPagina02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

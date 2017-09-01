@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+        <h:form id="consPastas3Videos2" style="text-align:left;font-size: 10px; margin-left: 1%; "><br></br>
+        	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+        	
+			<p:commandButton value="Adicionar Pasta" rendered="#{pastas3Videos2MB.verificarAcesso()}" icon="ui-icon-plus" styleClass="btn btn-danger" action="#{pastas3Videos2MB.cadastroPastaVideos3()}" style="margin-left:61%;font-size:12px;width:15%;background:green;border:green;">
+				<p:ajax event="dialogReturn" listener="#{pastas3Videos2MB.retornoDialogNovaPasta}" update="@form, growl"/>
+			</p:commandButton>
+            <p:commandButton value="Adicionar Video" rendered="#{pastas3Videos2MB.verificarAcesso()}" icon="ui-icon-document"  styleClass="btn btn-danger" action="#{pastas3Videos2MB.cadastroVideos2()}" style="margin-left:2%;font-size:12px;width:15%;background:green;border:green;">
+            	<p:ajax event="dialogReturn" listener="#{pastas3Videos2MB.retornoDialogNovoVideo}" update="@form, growl"/>
+            </p:commandButton>
+            <hr style="width: 98%;"/>
+            <legend style="width:98%;">
+            	<p:commandLink ajax="false" action="#{pastas3Videos2MB.voltarConsDepartamento()}" value="Departamentos "/>
+            	 > <p:commandLink ajax="false" action="#{pastas3Videos2MB.voltarConsVideoPasta1()}" value="#{pastas3Videos2MB.departamento.nome}"/>
+            	 > <p:commandLink ajax="false" action="#{pastas3Videos2MB.voltarConsVideoPasta2()}" value="#{pastas3Videos2MB.videopasta1.descricao}"/>
+            	 > #{pastas3Videos2MB.videopasta2.descricao}
+            	   
+            </legend>
+            	
+			<br/>
+            	<h:panelGrid width="100%;" id="panelPasta3">
+	              <ui:repeat var="pasta3" value="#{pastas3Videos2MB.listaVideoPasta3}" varStatus="statuss">
+			        		<div class="col-sm-6 col-md-3">
+								<p:commandLink style="float:right;" rendered="#{pastas3Videos2MB.verificarAcesso()}" action="#{pastas3Videos2MB.editarVideoPasta3(pasta3)}"> 
+									<i class="fa fa-pencil"></i>
+									<p:ajax event="dialogReturn" listener="#{pastas3Videos2MB.retornoDialogNovaPasta}" update=":consPastas3Videos2:panelPasta3, :consPastas3Videos2:growl"/>
+								</p:commandLink>
+				        		<p:commandLink ajax="false" action="#{pastas3Videos2MB.consPastas4Videos3(pasta3)}">
+									<div class="#{pastas3Videos2MB.posicaoInteracaoUiRepeat(statuss.index)}" style="width:95%; height:150px;">
+										<h:outputLabel value="#{pasta3.descricao}" style="color:white;"/>
+									  <h:panelGrid columns="2" width="100%;" style="color:white;">
+										<h:panelGrid columns="1">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pastas3Videos2MB.gerarTotalNVideo3(pasta3)}
+												<h5>Videos</h5>
+											</h2>
+										</h:panelGrid>
+										<h:panelGrid columns="1" style="margin-left:-50%;">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pastas3Videos2MB.gerarTotalPasta4(pasta3)}
+												<h5>Pastas</h5>
+												
+											</h2>
+										</h:panelGrid>
+									  </h:panelGrid>
+											<ui:repeat var="video3" value="#{pastas3Videos2MB.gerar3UltimosVideo3(pasta3)}" >
+												<img src="../../resources/img/video.png" alt="" title="#{video3.descricao}" width="20" height="20"/>
+											</ui:repeat> 
+										<div style="float: right; margin-top:-60px;">
+											<i>
+												<img src="../../resources/img/#{pastas3Videos2MB.departamento.imagem}" alt="" width="60" height="60" style="background:white;border-radius:50px;"/>
+											</i>
+										</div>
+										<p:commandLink update=":consPastas3Videos2:panelPasta3, :consPastas3Videos2:growl"  rendered="#{pastas3Videos2MB.verificarAcesso()}" ajax="false" action="#{pastas3Videos2MB.excluirPasta(pasta3)}"> 
+											<div class="refresh-button">
+												<i class="fa fa-trash-o"></i>
+											</div>
+										</p:commandLink>
+									</div> 
+								</p:commandLink>
+							</div><!-- /.col -->
+		        	</ui:repeat>
+		         </h:panelGrid>
+	        	 <h:panelGrid id="idPanelVideo" width="100%;">
+					  
+					
+					<p:dataTable reflow="true" id="idTabelaVideos" var="video2"
+							styleClass="table-transparent"
+							value="#{pastas3Videos2MB.listaVideo2}"
+							style="border:transparent;margin-left:3%;font-size:12px;widht:80%;"
+							scrollRows="10" scrollable="true" scrollHeight="600"
+							>
+			
+			
+							<p:column headerText="Nome" sortBy="#{video2.nome}" 
+								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
+								<a
+									href="http://#{pastas3Videos2MB.ftpDados.host}:82/ftproot/videos/#{video2.host}"
+									title="#{video2.nome}" name="#{video2.nome}" target="_blank">
+									<h:outputText value="#{video2.nome}" style="color:black"/>
+								</a>
+							</p:column> 
+							<p:column headerText="Descrição" sortBy="#{video2.descricao}" 
+								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
+								<a
+									href="http://#{pastas3Videos2MB.ftpDados.host}:82/ftproot/videos/#{video2.host}"
+									title="#{video2.descricao}" name="#{video2.descricao}" target="_blank">
+									<h:outputText value="#{video2.descricao}" style="color:black"/>
+								</a>
+							</p:column> 
+							<p:column headerText="Link" sortBy="#{video2.host}" 
+								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
+								<a
+									href="http://#{pastas3Videos2MB.ftpDados.host}:82/ftproot/videos/#{video2.host}"
+									title="#{video2.host}" name="#{video2.host}" target="_blank">
+									<h:outputText value="#{video2.host}" style="color:black"/>
+								</a>
+							</p:column> 
+							<p:column headerText=""
+								style="width:15%; background:white; font-size:11px; color:black; border:none;"
+								styleClass="alinharCenter">
+								<p:commandLink 
+									
+									title="Descrição do video" action="#{pastas3Videos2MB.descricaoVideo(video2)}">
+									<img src="../../resources/img/verOrcamento.png"  width="30" height="30"/>
+								</p:commandLink>
+								<p:commandLink 
+									
+									title="Editar" rendered="#{pastas3Videos2MB.verificarArquivoLista(video2)}" action="#{pastas3Videos2MB.alterarDescricaoVideo(video2)}">
+									<img src="../../resources/img/editaricon.png"  width="30" height="30"/>
+								</p:commandLink>
+								<p:commandLink  title="Excluir video" rendered="#{pastas3Videos2MB.verificarArquivoLista(video2)}" action="#{pastas3Videos2MB.excluirArquivo(video2)}" update=":consPastas3Videos2:idPanelVideo, :consPastas3Videos2:growl"> 
+										<img src="../../resources/img/excluir.png"  width="30" height="30"/>
+									 </p:commandLink>	
+								<p:commandLink  title="Vincular video a um fornecedor" rendered="#{pastas3Videos2MB.acessoVinculoFornecedor(video2)}" action="#{pastas3Videos2MB.vincularArquivoFornecedor(video2)}" > 
+										<img src="#{pastas3Videos2MB.verificarvinculoFornecedorLista(video2)}"  width="30" height="30"/>
+									</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+                <br/><br/> 
+        </h:form> 
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consTerceiros">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+
+				
+				<legend id="iUsu2">
+					<b>Consulta de Terceiros</b>
+				</legend>
+				<p:commandButton id="bntAddTerceiro" class="espacocobranca21botao" icon="ui-icon-plus" style="font-size:12px;margin-left: 2.5%" value="Novo"
+					action="#{terceirosMB.novo()}">
+				<p:ajax event="dialogReturn" listener="#{terceirosMB.retornoDialog}" process="@this" update="tabelaTerceiros" />
+				</p:commandButton>
+				<br></br><br></br>
+				<p:dataTable id="tabelaTerceiros" var="terceiros" value="#{terceirosMB.listaTerceiros}" class="tabela"
+					scrollable="true" scrollHeight="300" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+					style="margin-bottom:20px;" >
+					<p:column headerText="Nome" >
+						<h:outputText value="#{terceiros.nome}" style="text-align:left;" />
+					</p:column>
+					 <p:column  style="width:38px;" styleClass="alinharCenter" >
+                           <p:commandLink action="#{terceirosMB.editar(terceiros)}" style="text-decoration: none" >
+                                <img src="../../resources/img/editaricon.png"/>
+                                <p:ajax event="dialogReturn" listener="#{terceirosMB.retornoDialog()}" process="@this" update="consTerceiros:tabelaTerceiros"/>
+                            </p:commandLink>
+                    </p:column>
+                    <p:column style="width:38px">
+                           <p:commandLink action="#{terceirosMB.excluir(terceiros)}" style="text-decoration: none" title="Excluir" update="consTerceiros:tabelaTerceiros, consTerceiros:growl">
+                               <img src="../../resources/img/excluir.png"/>
+                           </p:commandLink>
+                      </p:column>
+				</p:dataTable>
+				 <br></br>
+                    <br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

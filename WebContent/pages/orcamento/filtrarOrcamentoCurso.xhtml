@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="filtrarOrcamentocurso" style="font-size:11px;">
+			<script type="text/javascript">
+				function mondayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 1), '' ]
+				} 
+			</script>
+			<div style="margin-top: 20px; background: #ffffff;">
+				<p:ajaxStatus onstart="PF('statusDialog').hide()"
+					onsuccess="PF('statusDialog').hide()" />      
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink>
+						<img src="../../resources/img/ajax-loader.gif" />
+					</p:commandLink>
+				</p:dialog>           
+			</div>
+			<div id="centro">        
+				<br></br> <br></br>  
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<legend id="iUsu2">
+					<b>Orçamento de Curso</b>
+				</legend>
+				<div class="ui-fluid" style="margin-left: 10%;">
+					<legend id="iUsu3">
+						<b>Dados do Cliente</b>
+					</legend>
+					<p:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;"
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaVinteSeis,colunaQuarenta,colunacinco,colunatipovenda,colunaVintenove">
+						<p:outputLabel value="Cliente:" for="idcliente"
+							style="color: #1F8871;" />
+						<p:inputText id="idcliente" style="width:100%;"  readonly="true"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.nome}"/>  
+						<p:outputLabel />
+						<p:outputLabel value="Email:" for="idemail" style="color: #1F8871" />
+						<p:inputText id="idemail" style="width:105%;" maxlength="100"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.email}"/> 
+					</p:panelGrid> 
+				</div> 
+				<div class="ui-fluid">
+					<p:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;margin-top:-15px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaVinteSeis,colunaquatrorze,colunaSeis,dezoito,onze,colunaEspaco">
+						<p:panelGrid></p:panelGrid>
+						<p:panelGrid>
+							<p:selectBooleanCheckbox id="digitosResidencial"
+								value="#{filtrarEscolaMB.digitosFoneResidencial}">
+								<p:ajax update="idfoneresidencial" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="9 Digitos"
+								style="margin-left:1%;color: #1F8871;" />
+						</p:panelGrid>
+						<p:panelGrid></p:panelGrid>
+						<p:panelGrid></p:panelGrid>
+						<p:panelGrid>
+						</p:panelGrid>
+
+					</p:panelGrid>
+					<p:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;margin-top:-15px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaVinteSeis,colunaquatrorze,colunaSeis,dezoito,onze,colunaEspaco">
+						<p:outputLabel value="Fone Residencial:" for="idfoneresidencial"
+							style="color: #1F8871;" />
+						<p:inputMask id="idfoneresidencial"
+							mask="#{filtrarEscolaMB.validarMascaraFoneResidencial()}" 
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.foneResidencial}" />
+
+						<p:outputLabel value="Fone Celular:" for="idfonecelular"
+							style="color: #1F8871" />
+						<p:inputMask id="idfonecelular"
+							mask="(99)99999-9999"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.foneCelular}" />
+
+						<p:outputLabel value="Como conheceu a TravelMate?"
+							for="idconheceutravel" style="color: #1F8871" />
+						<p:selectOneMenu id="idconheceutravel"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.publicidade}"
+							style="width:226px;" converter="PublicidadeConverter"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idPublicidade"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPublicidades}"
+								var="publicidade" itemLabel="#{publicidade.descricao}"
+								itemValue="#{publicidade}" />
+							<f:attribute name="listaPublicidade"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPublicidades}" />
+							<p:ajax event="change" update="cidade" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</div>
+				<br></br>
+				<div class="ui-fluid">
+					<p:panelGrid columns="8" layout="grid"
+						style="background: transparent;border:none;"
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaVintePontoSeis,colunaVinteNoveTres,onze,colunatrintadois,colunacinco,colunadezenove,colunacinco,colunaVintenove">
+						<p:outputLabel value="Data de Nascimento:" for="datanasci"
+							style="color: #1F8871" />
+						<p:inputMask
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.dataNascimento}"
+							mask="99/99/9999" id="datanasci" style="margin-left:-2%">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<p:outputLabel value="Sexo:" for="sexo" style="color: #1F8871" />
+						<p:selectOneMenu id="sexo"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.sexo}"
+							style="width:130px;margin-left:-8%">
+							<f:selectItem itemLabel="Selecione" itemValue="selecione"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+							<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Idioma:" for="idioma" style="color:#1F8871" />
+						<p:selectOneMenu id="idioma"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.idioma}"
+							style="width:100px;" converter="IdiomaConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="ididioma"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaIdiomas}"
+								var="idiomacurso" itemLabel="#{idiomacurso.descricao}"
+								itemValue="#{idiomacurso}" />
+							<f:attribute name="listaIdiomas"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaIdiomas}" />
+							<p:ajax
+								listener="#{filtrarEscolaMB.verificarIdiomaSelecionado()}"
+								update=":filtrarOrcamentocurso:cidade,:filtrarOrcamentocurso:pais,:filtrarOrcamentocurso:growl" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Nível:" for="nivel"
+							style="color: #1F8871;margin-left:-3%" />
+						<p:selectOneMenu id="nivel"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.nivelidioma}"
+							style="width:110px;margin-left:-5%">
+							<f:selectItem itemLabel="Selecione" itemValue="selecione"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Básico" itemValue="Básico" />
+							<f:selectItem itemLabel="Pré-Intermediário"
+								itemValue="Pré-Intermediário" />
+							<f:selectItem itemLabel="Intermediário" itemValue="Intermediário" />
+							<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
+							<f:selectItem itemLabel="Alto" itemValue="Alto" />
+							<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</div>
+				<br></br>
+				<legend id="iUsu3">
+					<b>Dados do Curso</b>
+				</legend>
+				<div class="ui-fluid">
+					<p:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;"
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaVinteSeis,colunaVintePontoSeis,colunatipovenda,colunaVinteoito,tamanho5font,colunaEspaco">
+						<p:outputLabel value="Pais:" for="pais" style="color: #1F8871" />
+						<p:selectOneMenu id="pais"   
+							value="#{filtrarEscolaMB.filtrarEscolaBean.pais}"   
+							style="width:190px;" converter="PaisConverter" filter="true"
+							filterMatchMode="contains" panelStyle="width:180px"
+							disabled="#{filtrarEscolaMB.filtrarEscolaBean.idiomaescolhido}">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPais}"
+								var="cursopais" itemLabel="#{cursopais.pais.nome}"
+								itemValue="#{cursopais.pais}" />
+							<f:attribute name="listaPais"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPais}" />
+							<p:ajax event="change" listener="#{filtrarEscolaMB.listarCidades()}" update="cidade" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Cidade:" for="cidade" style="color: #1F8871" />
+						<p:selectOneMenu id="cidade"       
+							value="#{filtrarEscolaMB.filtrarEscolaBean.cidade}"
+							style="width:200px;margin-left:1%" converter="CidadePaisProdutoConverter"
+							filter="true" filterMatchMode="contains"
+							disabled="#{filtrarEscolaMB.filtrarEscolaBean.idiomaescolhido}">   
+							<f:selectItem itemLabel="Cidade" itemValue="0"     />  
+							<f:selectItems id="idcidade2"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaCidade}"
+								var="cursocidade" itemLabel="#{cursocidade.cidade.nome}"
+								itemValue="#{cursocidade}" />   
+							<f:attribute name="listaCidadePaisProduto"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaCidade}" />  
+							<p:ajax
+								listener="#{filtrarEscolaMB.gerarListaFornecedorCidade()}"
+								update=":filtrarOrcamentocurso:fornecedor, :filtrarOrcamentocurso:tipodecurso" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Parceiro:" for="fornecedor"  
+							style="color: #1F8871" />
+						<p:selectOneMenu id="fornecedor"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.fornecedorcidadeidioma}"
+							style="width:240px;" converter="FornecedorCidadeIdiomaConverter"
+							filter="true" filterMatchMode="contains" effect="fade" var="f"
+							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuifornecedor}">
+							<f:selectItem itemLabel="Escola" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaFornecedorCidadeIdioma}"     
+								var="fornecedor" itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
+								itemValue="#{fornecedor}" />      
+							<p:column style="width:10%">  
+				                <img src="http://systm.com.br:82/ftproot/systm//estrelas/#{filtrarEscolaMB.retornarEstrela(f)}" width="65"/>
+				            </p:column>  
+				            <p:column>
+				                <h:outputText value="#{f.fornecedorcidade.fornecedor.nome}" />
+				            </p:column>
+							<f:attribute name="listaFornecedorCidadeIdioma"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaFornecedorCidadeIdioma}" />
+							<p:ajax event="change" listener="#{filtrarEscolaMB.gerarListaCursos}"
+								update=":filtrarOrcamentocurso:tipodecurso" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</div>
+				<br></br>
+				<div class="ui-fluid">
+					<p:panelGrid id="painel" columns="6" layout="grid"
+						style="background: transparent;border:none;"
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaVinteSeis,colunaVintePontoSeis,colunaSeis,tamanho143,onze,colunaEspaco">
+						<p:outputLabel value="Tipo:" for="tipodecurso"
+							style="color: #1F8871" />
+						<p:selectOneMenu id="tipodecurso"
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.produtosorcamento}"
+							style="width:190px;" converter="OrcamentoProdutoConverter"
+							filter="true" filterMatchMode="startsWith"
+							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuifornecedor}">
+							<f:selectItem itemLabel="Selecione Curso" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idtipocurso"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaProdutosOrcamento}"
+								var="tipocurso" itemLabel="#{tipocurso.descricao}"
+								itemValue="#{tipocurso}" />
+							<f:attribute name="listaProdutosOrcamento"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.listaProdutosOrcamento}" />  
+							<p:ajax event="change" listener="#{filtrarEscolaMB.verificarDatas()}"
+								update=":filtrarOrcamentocurso:tipodecurso,:filtrarOrcamentocurso:datainicio,
+									:filtrarOrcamentocurso:nsemanas,:filtrarOrcamentocurso:idpesquisar, :filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Nº Semanas:" for="nsemanas"
+							style="color: #1F8871;float:right" />
+						<p:inputText id="nsemanas" maxlength="11" size="5" 
+							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.numerosemanas}"
+							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" >
+							<p:ajax event="blur" listener="#{filtrarEscolaMB.verificarDatasNumeroSemana()}"
+								update=":filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel"/>
+						</p:inputText>
+						<p:outputLabel value="Data de Início:" for="datainicio"
+							style="color: #1F8871" />
+						<h:panelGroup id="datainicio" rendered="#{filtrarEscolaMB.calendario}">
+							<p:calendar  size="12"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.datainicio}"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="10"
+								disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}"
+								beforeShowDay="mondayEnabled" >
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+							</p:calendar> 
+						</h:panelGroup>
+						<h:panelGroup id="datas" rendered="#{filtrarEscolaMB.comboDatas}">
+							<p:selectOneMenu value="#{filtrarEscolaMB.datasBean}"
+								style="width:110px;" converter="DataInicioOrcamentoConverter" >
+								<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="dataselecionada" value="#{filtrarEscolaMB.listaDatas}"
+									var="data" itemLabel="#{data.descricao}" itemValue="#{data}" />
+								<f:attribute name="listaData" value="#{filtrarEscolaMB.listaDatas}" />
+								<p:ajax event="change"/>
+							</p:selectOneMenu>
+						</h:panelGroup>
+					</p:panelGrid>    
+				</div>
+				<br></br> <br></br>
+				<div class="ui-fluid">        
+					<p:panelGrid columns="1" layout="grid"
+						style="background: transparent;border:none;"
+						styleClass="panelgrid-noborder" columnClasses="colunaBotao">
+						<p:commandButton id="idpesquisar" value="Pesquisar"
+							icon="ui-icon-search" onstart="PF('dialogcarregar').show()"
+							onsuccess="PF('dialogcarregar').hide()"
+							action="#{filtrarEscolaMB.localizarFornecedorCidade()}"
+							update="growl" style="float:right"   
+							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" />
+					</p:panelGrid>
+				</div>    
+				<p:dialog widgetVar="dialogcarregar" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink> 
+						<img src="../../resources/img/ajax-loader.gif" />     
+					</p:commandLink>
+				</p:dialog>  
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Consulta de Clientes</title>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="telaconsultarOcClientes" style="text-align:left;font-size:11px;">
+              <p:outputLabel value="Nome Cliente" for="idcliente"  style="font-size: 11px;margin-left: 2%"/> <br></br>
+              <p:inputText id="idcliente" size="55" maxlength="100" value="#{consultaOcClienteMB.nome}" style="font-size: 11px;margin-left: 2%" >
+              	<p:ajax event="blur"/>
+              </p:inputText>
+              <p:commandButton value="Pesquisar" action="#{consultaOcClienteMB.carregarListaCliente()}" update="idtabelacliente" style="margin-left: 2%" /> 
+                <br></br>   <br></br> 
+                <p:dataTable id="idtabelacliente" var="cliente"  value="#{consultaOcClienteMB.listaCliente}" class="tabela" 
+                          scrollable="true" scrollHeight="200"  style="margin-bottom:20px" >
+                  
+                  <p:column headerText="Nome"  >
+                      <h:outputText value="#{cliente.nome}" />
+                  </p:column>
+                   <p:column headerText="Data Nascimento"  style="width:90px">
+                       <h:outputText value="#{cliente.datanascimento}" >
+                           <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                       </h:outputText>
+                  </p:column>
+                   <p:column headerText="Fone Celular" style="width:115px">
+                       <h:outputText value="#{cliente.fonecelular}" />
+                  </p:column>
+                   <p:column headerText="Fone Residencial"  style="width:115px" >
+                       <h:outputText value="#{cliente.foneresidencial}" />
+                  </p:column>
+                  <p:column style="width:40px;text-align: center;" >
+                      <p:commandLink action="#{consultaOcClienteMB.selecionarCliente(cliente)}" title="Selecionar Cliente">
+                          <img src="../../resources/img/deposito.png" width="22"/>
+                     </p:commandLink>
+                  </p:column>
+              </p:dataTable>
+               <br></br>  
+         </h:form>     
+    </h:body>
+</html>

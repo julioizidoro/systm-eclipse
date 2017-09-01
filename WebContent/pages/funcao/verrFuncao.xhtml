@@ -1,0 +1,56 @@
+<?xml version='1.0'  encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      lang="pt-br"
+      xml:lang="pt-br">
+<h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+         <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+        
+</h:head>
+		
+		<f:view encoding="ISO-8859-1">
+			<h:form id="cadFuncao" style="font-size:12px;">
+				<p:growl id="messages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+						<title id="iUsu3" ><b>Visualizar Função</b></title>
+						<h:panelGrid columns="2"
+							style="width:100%;">
+							<p:outputLabel value="Departamento" for="departamento" />
+							<p:outputLabel value="Usuario" for="usuario" />
+							
+							<p:inputText id="departamento" rows="8" style="width:90%;" readonly="true"
+								value="#{verrFuncaoMB.usuario.departamento.nome}" />
+							<p:inputText id="usuario" rows="8" style="width:90%;" readonly="true"
+								value="#{verrFuncaoMB.usuario.nome}" />
+								
+							<p:outputLabel value="Email" for="email" />
+							<p:outputLabel value="Unidade" for="unidade" />
+							
+							<p:inputText id="email" rows="8" style="width:90%;" readonly="true"
+								value="#{verrFuncaoMB.usuario.email}" />
+							<p:inputText id="unidade" rows="8" style="width:90%;" readonly="true"
+								value="#{verrFuncaoMB.usuario.unidadenegocio.nomeFantasia}" />
+								
+							<p:outputLabel value="Telefone" for="telefone" />
+							<p:outputLabel/>
+							
+							<p:inputText id="telefone" rows="8" style="width:35%;" readonly="true"
+								value="#{verrFuncaoMB.usuario.unidadenegocio.fone}" />
+							
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="1"
+							style="width:100%;" id="panelInformacoes2">
+							<p:outputLabel value="Função" for="usuario" />
+							
+							<p:inputTextarea id="nome" rows="8" style="width:94%;" readonly="true"
+								value="#{verrFuncaoMB.descricao}" />
+						</h:panelGrid>
+				<br></br>
+			</h:form>
+		</f:view>
+</html>

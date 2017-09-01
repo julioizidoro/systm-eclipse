@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="idtelaalterarvalorcambio" style="text-align:left;font-size: 10px;background:#DDDDE1; ">
+         	<div align="center" style="background:#DDDDE1;">
+	            <p:outputLabel value="Câmbio do dia zerado." style="font-weight:bold;font-size: 14px;"/>  
+	            <br/>
+	            <p:outputLabel value="Deseja Incluir Valores?" style="font-weight:bold;font-size: 18px;"/> 
+	            <br/><br/>   
+	            <p:commandButton id="btnconfirmar" value="Confirmar" icon="ui-icon-check" action="#{cambioMB.gerarcambiodia('Sim')}"/>
+	            <p:commandButton id="btncancelar"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" action="#{cambioMB.gerarcambiodia('Não')}"/>
+            <br/>
+            <br/>
+            </div>
+        </h:form>      
+    </h:body>  
+</html>

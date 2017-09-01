@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="idCadastroVincularTerceiro" style="text-align:left;font-size: 10px;">
+             <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+            <title>Vincular Terceiro</title><br></br>
+            
+            <p:outputLabel value="Nome"  class="fontebranca" style="margin-left:1%"/>
+            <p:outputLabel value="Valor Comissão"  class="fontebranca" style="margin-left:55%"/>  
+            <br></br>
+             <h:panelGrid columns="2" style="margin-left: 1%">
+	             <p:selectOneMenu  id="terceiro"  style="width: 200px;"  value="#{cadVincularTerceirosMB.terceiros}" converter="TerceirosConverter"
+	                             filter="true" filterMatchMode="contains" panelStyle="width:180px">
+	                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+	                    <f:selectItems  value="#{cadVincularTerceirosMB.listaTerceiros}" var="terceirosSelecionado" itemLabel="#{terceirosSelecionado.nome}" itemValue="#{terceirosSelecionado}"/>
+	                    <f:attribute name="listaTerceiros" value="#{cadVincularTerceirosMB.listaTerceiros}"/>
+	             </p:selectOneMenu>
+	             <p:inputText id="comissaoTerceiro" value="#{cadVincularTerceirosMB.comissaoterceiros}" style="width:120px;margin-left:30%;text-align:right">
+	             	<f:convertNumber pattern="##,###,###,###.##"/>
+	             </p:inputText>     
+		     </h:panelGrid>
+             <br/><br/><br/><br/><br/><br/>
+             <p class="botaocadpacote">
+             	<br />
+				<p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cadVincularTerceirosMB.salvarTerceiros()}"/>
+				<p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadVincularTerceirosMB.cancelar()}"></p:commandButton>
+				<br /><br />
+			</p>
+        </h:form>     
+    </h:body>
+</html>

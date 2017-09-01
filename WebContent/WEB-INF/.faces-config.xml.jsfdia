@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="produtoremessa::#pages#produtoremessa#produtoremessa.xhtml"
+    NAME="output" PATH="/pages/produtoremessa/produtoremessa.xhtml"
+    TARGET="rules:#pages#produtoremessa#produtoremessa.xhtml"
+    TITLE="produtoremessa" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:1" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::index.xhtml" NAME="output"
+    PATH="index.xhtml" TARGET="rules:index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:2" PATH="*" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:2" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="paginainicial::inicial.xhtml" NAME="output"
+    PATH="inicial.xhtml" TARGET="rules:inicial.xhtml"
+    TITLE="paginainicial" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:3" PATH="*" SHAPE="32,353,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:3" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="conciliacaobancaria::#pages#filtroRelatorios#relatorioConciliacao.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioConciliacao.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioConciliacao.xhtml"
+    TITLE="conciliacaobancaria" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:4" PATH="*" SHAPE="32,465,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:4" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pagamentos::#pages#filtroRelatorios#relatorioPagamentos.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioPagamentos.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioPagamentos.xhtml"
+    TITLE="pagamentos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:5" PATH="*" SHAPE="32,577,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:5" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="faturafranquia::#pages#faturafranquia#consultaFaturaFranquia.xhtml"
+    NAME="output"
+    PATH="/pages/faturafranquia/consultaFaturaFranquia.xhtml"
+    TARGET="rules:#pages#faturafranquia#consultaFaturaFranquia.xhtml"
+    TITLE="faturafranquia" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:6" PATH="*" SHAPE="32,689,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:6" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="filtrarvendas::#pages#filtroRelatorios#relatorioVendas.xhtml"
+    NAME="output" PATH="/pages/filtroRelatorios/relatorioVendas.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioVendas.xhtml"
+    TITLE="filtrarvendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:7" PATH="*" SHAPE="32,801,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:7" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatoriosComissaoParceiros::#pages#filtroRelatorios#relatoriosComissaoParceiros.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatoriosComissaoParceiros.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatoriosComissaoParceiros.xhtml"
+    TITLE="relatoriosComissaoParceiros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:8" PATH="*" SHAPE="32,913,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:8" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="comissaoconsultor::#pages#filtroRelatorios#relatorioComissaoConsultor.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioComissaoConsultor.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioComissaoConsultor.xhtml"
+    TITLE="comissaoconsultor" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:9" PATH="*" SHAPE="32,1025,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:9" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="comissaogerente::#pages#filtroRelatorios#relatorioGerente.xhtml"
+    NAME="output" PATH="/pages/filtroRelatorios/relatorioGerente.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioGerente.xhtml"
+    TITLE="comissaogerente" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:10" PATH="*" SHAPE="32,1137,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:10" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="comissaoterceiros::#pages#filtroRelatorios#relatorioComissaoTerceiros.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioComissaoTerceiros.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioComissaoTerceiros.xhtml"
+    TITLE="comissaoterceiros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:11" PATH="*" SHAPE="32,1249,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:11" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="terceiros::#pages#terceiros#consTerceiros.xhtml" NAME="output"
+    PATH="/pages/terceiros/consTerceiros.xhtml"
+    TARGET="rules:#pages#terceiros#consTerceiros.xhtml"
+    TITLE="terceiros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:12" PATH="*" SHAPE="32,1361,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:12" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="filtrarcontasreceber::#pages#filtroRelatorios#relatorioContasReceber.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioContasReceber.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioContasReceber.xhtml"
+    TITLE="filtrarcontasreceber" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:13" PATH="*" SHAPE="32,1473,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:13" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="planoconta::#pages#planoconta#cadPlanoConta.xhtml" NAME="output"
+    PATH="/pages/planoconta/cadPlanoConta.xhtml"
+    TARGET="rules:#pages#planoconta#cadPlanoConta.xhtml"
+    TITLE="planoconta" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:14" PATH="*" SHAPE="32,1697,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:14" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consplanoconta::#pages#planoconta#consPlanoConta.xhtml"
+    NAME="output" PATH="/pages/planoconta/consPlanoConta.xhtml"
+    TARGET="rules:#pages#planoconta#consPlanoConta.xhtml"
+    TITLE="consplanoconta" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:15" PATH="*" SHAPE="32,1585,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:15" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultacontasreceber::#pages#contasreceber#consContasReceber.xhtml"
+    NAME="output" PATH="/pages/contasreceber/consContasReceber.xhtml"
+    TARGET="rules:#pages#contasreceber#consContasReceber.xhtml"
+    TITLE="consultacontasreceber" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:16" PATH="*" SHAPE="32,1809,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:16" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="vendas::#pages#vendas#consVendas.xhtml"
+    NAME="output" PATH="/pages/vendas/consVendas.xhtml"
+    TARGET="rules:#pages#vendas#consVendas.xhtml" TITLE="vendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:17" PATH="*" SHAPE="32,1921,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:17" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultapacotesoperadora::#pages#pacoteoperadora#consultapacoteOperadora.xhtml"
+    NAME="output"
+    PATH="/pages/pacoteoperadora/consultapacoteOperadora.xhtml"
+    TARGET="rules:#pages#pacoteoperadora#consultapacoteOperadora.xhtml"
+    TITLE="consultapacotesoperadora" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:18" PATH="*" SHAPE="32,2033,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:18" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="comissaovenda::#pages#comissao#consultacomissaovendas.xhtml"
+    NAME="output" PATH="/pages/comissao/consultacomissaovendas.xhtml"
+    TARGET="rules:#pages#comissao#consultacomissaovendas.xhtml"
+    TITLE="comissaovenda" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:19" PATH="*" SHAPE="32,2145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:19" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultapacotesoperadora::#pages#pacoteoperadora#consultapacoteOperadora.xhtml"
+    NAME="output"
+    PATH="/pages/pacoteoperadora/consultapacoteOperadora.xhtml"
+    TARGET="rules:#pages#pacoteoperadora#consultapacoteOperadora.xhtml"
+    TITLE="consultapacotesoperadora" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:20" PATH="*" SHAPE="32,2257,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:20" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cadpacotesoperadora::#pages#pacoteoperadora#cadPacoteOperadora.xhtml"
+    NAME="output" PATH="/pages/pacoteoperadora/cadPacoteOperadora.xhtml"
+    TARGET="rules:#pages#pacoteoperadora#cadPacoteOperadora.xhtml"
+    TITLE="cadpacotesoperadora" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:21" PATH="*" SHAPE="32,2369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:21" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultapacotesagencia::#pages#pacotes#consultapacote.xhtml"
+    NAME="output" PATH="/pages/pacotes/consultapacote.xhtml"
+    TARGET="rules:#pages#pacotes#consultapacote.xhtml"
+    TITLE="consultapacotesagencia" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:22" PATH="*" SHAPE="32,2481,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:22" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultacontaspagar::#pages#contaspagar#consContasPagar.xhtml"
+    NAME="output" PATH="/pages/contaspagar/consContasPagar.xhtml"
+    TARGET="rules:#pages#contaspagar#consContasPagar.xhtml"
+    TITLE="consultacontaspagar" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:23" PATH="*" SHAPE="32,2593,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:23" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultacliente::#pages#cliente#consCliente.xhtml" NAME="output"
+    PATH="/pages/cliente/consCliente.xhtml"
+    TARGET="rules:#pages#cliente#consCliente.xhtml"
+    TITLE="consultacliente" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:24" PATH="*" SHAPE="32,2705,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:24" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultafornecedor::#pages#fornecedor#consFornecedorPais.xhtml"
+    NAME="output" PATH="/pages/fornecedor/consFornecedorPais.xhtml"
+    TARGET="rules:#pages#fornecedor#consFornecedorPais.xhtml"
+    TITLE="consultafornecedor" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:25" PATH="*" SHAPE="32,2817,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:25" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultafichacurso::#pages#cursos#consCurso.xhtml" NAME="output"
+    PATH="/pages/cursos/consCurso.xhtml"
+    TARGET="rules:#pages#cursos#consCurso.xhtml"
+    TITLE="consultafichacurso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:26" PATH="*" SHAPE="32,2929,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:26" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacotehotel::#pages#pacotes#pacoteHotel.xhtml" NAME="output"
+    PATH="/pages/pacotes/pacoteHotel.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteHotel.xhtml" TITLE="pacotehotel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:27" PATH="*" SHAPE="32,3041,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:27" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacotecarro::#pages#pacotes#pacoteCarro.xhtml" NAME="output"
+    PATH="/pages/pacotes/pacoteCarro.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteCarro.xhtml" TITLE="pacotecarro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:28" PATH="*" SHAPE="32,3153,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:28" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacotecruzeiro::#pages#pacotes#pacoteCruzeiro.xhtml"
+    NAME="output" PATH="/pages/pacotes/pacoteCruzeiro.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteCruzeiro.xhtml"
+    TITLE="pacotecruzeiro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:29" PATH="*" SHAPE="32,3265,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:29" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacotetransfer::#pages#pacotes#pacoteTransfer.xhtml"
+    NAME="output" PATH="/pages/pacotes/pacoteTransfer.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteTransfer.xhtml"
+    TITLE="pacotetransfer" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:30" PATH="*" SHAPE="32,3377,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:30" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="uploadboleto::#pages#contasreceber#uploadBoleto.xhtml"
+    NAME="output" PATH="/pages/contasreceber/uploadBoleto.xhtml"
+    TARGET="rules:#pages#contasreceber#uploadBoleto.xhtml"
+    TITLE="uploadboleto" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:31" PATH="*" SHAPE="32,3489,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:31" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="pacotetrem::#pages#pacotes#pacoteTrem.xhtml"
+    NAME="output" PATH="/pages/pacotes/pacoteTrem.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteTrem.xhtml" TITLE="pacotetrem" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:32" PATH="*" SHAPE="32,3601,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:32" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacoteingresso::#pages#pacotes#pacoteIngresso.xhtml"
+    NAME="output" PATH="/pages/pacotes/pacoteIngresso.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteIngresso.xhtml"
+    TITLE="pacoteingresso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:33" PATH="*" SHAPE="32,3713,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:33" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacotepasseio::#pages#pacotes#pacotePasseio.xhtml" NAME="output"
+    PATH="/pages/pacotes/pacotePasseio.xhtml"
+    TARGET="rules:#pages#pacotes#pacotePasseio.xhtml"
+    TITLE="pacotepasseio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:34" PATH="*" SHAPE="32,3825,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:34" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacoteaereo::#pages#pacotes#pacotePassagem.xhtml" NAME="output"
+    PATH="/pages/pacotes/pacotePassagem.xhtml"
+    TARGET="rules:#pages#pacotes#pacotePassagem.xhtml"
+    TITLE="pacoteaereo" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:35" PATH="*" SHAPE="32,3937,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:35" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="cadpacote::#pages#pacotes#cadPacote.xhtml"
+    NAME="output" PATH="/pages/pacotes/cadPacote.xhtml"
+    TARGET="rules:#pages#pacotes#cadPacote.xhtml" TITLE="cadpacote" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:36" PATH="*" SHAPE="32,4049,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:36" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="pacoteseguro::#pages#pacotes#pacoteSeguroViagem.xhtml"
+    NAME="output" PATH="/pages/pacotes/pacoteSeguroViagem.xhtml"
+    TARGET="rules:#pages#pacotes#pacoteSeguroViagem.xhtml"
+    TITLE="pacoteseguro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:37" PATH="*" SHAPE="32,4161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:37" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="autorizacaodebito::#pages#autorizacaodebito#autorizacaoDebito.xhtml"
+    NAME="output"
+    PATH="/pages/autorizacaodebito/autorizacaoDebito.xhtml"
+    TARGET="rules:#pages#autorizacaodebito#autorizacaoDebito.xhtml"
+    TITLE="autorizacaodebito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:38" PATH="*" SHAPE="32,4273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:38" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="importarpacote::#pages#pacotes#importarPacoteOperadora.xhtml"
+    NAME="output" PATH="/pages/pacotes/importarPacoteOperadora.xhtml"
+    TARGET="rules:#pages#pacotes#importarPacoteOperadora.xhtml"
+    TITLE="importarpacote" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:39" PATH="*" SHAPE="32,4385,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:39" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="importarpacote::#pages#pacotes#importarPacoteOperadora.xhtml"
+    NAME="output" PATH="/pages/pacotes/importarPacoteOperadora.xhtml"
+    TARGET="rules:#pages#pacotes#importarPacoteOperadora.xhtml"
+    TITLE="importarpacote" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:40" PATH="*" SHAPE="32,4497,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:40" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaprodutos::#pages#produtos#consProdutos.xhtml"
+    NAME="output" PATH="/pages/produtos/consProdutos.xhtml"
+    TARGET="rules:#pages#produtos#consProdutos.xhtml"
+    TITLE="consultaprodutos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:41" PATH="*" SHAPE="32,4609,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:41" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="orcamentocurso::#pages#coprodutos#consProdutos.xhtml"
+    NAME="output" PATH="/pages/coprodutos/consProdutos.xhtml"
+    TARGET="rules:#pages#coprodutos#consProdutos.xhtml"
+    TITLE="orcamentocurso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:42" PATH="*" SHAPE="32,4721,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:42" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="filtrarorcamento::#pages#orcamento#filtrarOrcamentoCurso.xhtml"
+    NAME="output" PATH="/pages/orcamento/filtrarOrcamentoCurso.xhtml"
+    TARGET="rules:#pages#orcamento#filtrarOrcamentoCurso.xhtml"
+    TITLE="filtrarorcamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:43" PATH="*" SHAPE="32,4833,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:43" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaProgramasTeens::#pages#programasteens#consProgramaTeens.xhtml"
+    NAME="output" PATH="/pages/programasteens/consProgramaTeens.xhtml"
+    TARGET="rules:#pages#programasteens#consProgramaTeens.xhtml"
+    TITLE="consultaProgramasTeens" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:44" PATH="*" SHAPE="32,4945,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:44" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaLadies::#pages#ladies#consLadies.xhtml" NAME="output"
+    PATH="/pages/ladies/consLadies.xhtml"
+    TARGET="rules:#pages#ladies#consLadies.xhtml" TITLE="consultaLadies" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:45" PATH="*" SHAPE="32,5057,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:45" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaHighSchool::#pages#highSchool#consHighSchool.xhtml"
+    NAME="output" PATH="/pages/highSchool/consHighSchool.xhtml"
+    TARGET="rules:#pages#highSchool#consHighSchool.xhtml"
+    TITLE="consultaHighSchool" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteIngresso.xhtml"
+  PATH="/pages/pacotes/pacoteIngresso.xhtml" SHAPE="240,3281,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cancelamento#consCancelamento.xhtml"
+  PATH="/pages/cancelamento/consCancelamento.xhtml" SHAPE="240,4961,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#consultapacote.xhtml"
+  PATH="/pages/pacotes/consultapacote.xhtml" SHAPE="240,1937,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#autorizacaodebito#autorizacaoDebito.xhtml"
+  PATH="/pages/autorizacaodebito/autorizacaoDebito.xhtml"
+  SHAPE="240,3841,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#ladies#consLadies.xhtml"
+  PATH="/pages/ladies/consLadies.xhtml" SHAPE="240,4625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#coprodutos#consProdutos.xhtml"
+  PATH="/pages/coprodutos/consProdutos.xhtml" SHAPE="240,4289,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioContasReceber.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioContasReceber.xhtml"
+  SHAPE="240,929,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#pacoteoperadora#cadPacoteOperadora.xhtml"
+  PATH="/pages/pacoteoperadora/cadPacoteOperadora.xhtml"
+  SHAPE="240,1825,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteHotel.xhtml"
+  PATH="/pages/pacotes/pacoteHotel.xhtml" SHAPE="240,2497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteCarro.xhtml"
+  PATH="/pages/pacotes/pacoteCarro.xhtml" SHAPE="240,2609,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#orcamento#resultadoFiltroOrcamento.xhtml"
+  PATH="/pages/orcamento/resultadoFiltroOrcamento.xhtml"
+  SHAPE="240,4849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioComissaoTerceiros.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioComissaoTerceiros.xhtml"
+  SHAPE="240,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteSeguroViagem.xhtml"
+  PATH="/pages/pacotes/pacoteSeguroViagem.xhtml" SHAPE="240,3729,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioComissaoConsultor.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioComissaoConsultor.xhtml"
+  SHAPE="240,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteTrem.xhtml"
+  PATH="/pages/pacotes/pacoteTrem.xhtml" SHAPE="240,3169,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cliente#consCliente.xhtml"
+  PATH="/pages/cliente/consCliente.xhtml" SHAPE="240,2161,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#vendas#consVendas.xhtml"
+  PATH="/pages/vendas/consVendas.xhtml" SHAPE="240,1377,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#planoconta#cadPlanoConta.xhtml"
+  PATH="/pages/planoconta/cadPlanoConta.xhtml" SHAPE="240,1041,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#orcamento#filtrarOrcamentoCurso.xhtml"
+  PATH="/pages/orcamento/filtrarOrcamentoCurso.xhtml"
+  SHAPE="240,4401,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#highSchool#consHighSchool.xhtml"
+  PATH="/pages/highSchool/consHighSchool.xhtml" SHAPE="240,4737,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioConciliacao.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioConciliacao.xhtml"
+  SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#comissao#consultacomissaovendas.xhtml"
+  PATH="/pages/comissao/consultacomissaovendas.xhtml"
+  SHAPE="240,1713,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#pacoteoperadora#consultapacoteOperadora.xhtml"
+  PATH="/pages/pacoteoperadora/consultapacoteOperadora.xhtml"
+  SHAPE="256,1489,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cambio#editarcambio.xhtml"
+  PATH="/pages/cambio/editarcambio.xhtml" SHAPE="240,5073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#fornecedor#consFornecedorPais.xhtml"
+  PATH="/pages/fornecedor/consFornecedorPais.xhtml" SHAPE="240,2273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#faturafranquia#consultaFaturaFranquia.xhtml"
+  PATH="/pages/faturafranquia/consultaFaturaFranquia.xhtml"
+  SHAPE="240,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacotePassagem.xhtml"
+  PATH="/pages/pacotes/pacotePassagem.xhtml" SHAPE="240,3505,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacotePasseio.xhtml"
+  PATH="/pages/pacotes/pacotePasseio.xhtml" SHAPE="240,3393,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#programasteens#consProgramaTeens.xhtml"
+  PATH="/pages/programasteens/consProgramaTeens.xhtml"
+  SHAPE="240,4513,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:index.xhtml" PATH="index.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#planoconta#consPlanoConta.xhtml"
+  PATH="/pages/planoconta/consPlanoConta.xhtml" SHAPE="240,1153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#contasreceber#consContasReceber.xhtml"
+  PATH="/pages/contasreceber/consContasReceber.xhtml"
+  SHAPE="240,1265,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cursos#consCurso.xhtml"
+  PATH="/pages/cursos/consCurso.xhtml" SHAPE="240,2385,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioPagamentos.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioPagamentos.xhtml"
+  SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteCruzeiro.xhtml"
+  PATH="/pages/pacotes/pacoteCruzeiro.xhtml" SHAPE="240,2833,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#orcamento#consultaOrcamento.xhtml"
+  PATH="/pages/orcamento/consultaOrcamento.xhtml" SHAPE="240,5185,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#cadPacote.xhtml"
+  PATH="/pages/pacotes/cadPacote.xhtml" SHAPE="240,3617,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#produtos#consProdutos.xhtml"
+  PATH="/pages/produtos/consProdutos.xhtml" SHAPE="240,4177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#pacoteTransfer.xhtml"
+  PATH="/pages/pacotes/pacoteTransfer.xhtml" SHAPE="240,2945,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#contasreceber#uploadBoleto.xhtml"
+  PATH="/pages/contasreceber/uploadBoleto.xhtml" SHAPE="240,3057,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioGerente.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioGerente.xhtml"
+  SHAPE="240,705,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioVendas.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioVendas.xhtml"
+  SHAPE="240,481,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#contaspagar#consContasPagar.xhtml"
+  PATH="/pages/contaspagar/consContasPagar.xhtml" SHAPE="240,2049,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pacotes#importarPacoteOperadora.xhtml"
+  PATH="/pages/pacotes/importarPacoteOperadora.xhtml"
+  SHAPE="240,4065,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:46" PATH="*" SHAPE="32,5169,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:46" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="resultado::#pages#orcamento#resultadoFiltroOrcamento.xhtml"
+    NAME="output" PATH="/pages/orcamento/resultadoFiltroOrcamento.xhtml"
+    TARGET="rules:#pages#orcamento#resultadoFiltroOrcamento.xhtml"
+    TITLE="resultado" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#produtoremessa#produtoremessa.xhtml"
+  PATH="/pages/produtoremessa/produtoremessa.xhtml" SHAPE="240,1601,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:47" PATH="*" SHAPE="32,5281,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:47" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="conscancelamento::#pages#cancelamento#consCancelamento.xhtml"
+    NAME="output" PATH="/pages/cancelamento/consCancelamento.xhtml"
+    TARGET="rules:#pages#cancelamento#consCancelamento.xhtml"
+    TITLE="conscancelamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:48" PATH="*" SHAPE="32,5393,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:48" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="editarcambio::#pages#cambio#editarcambio.xhtml" NAME="output"
+    PATH="/pages/cambio/editarcambio.xhtml"
+    TARGET="rules:#pages#cambio#editarcambio.xhtml" TITLE="editarcambio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#visto#consVistos.xhtml"
+  PATH="/pages/visto/consVistos.xhtml" SHAPE="240,5409,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:49" PATH="*" SHAPE="32,5505,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:49" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="editarCambioOrcamento::#pages#cambio#editarcambioOrcamento.xhtml"
+    NAME="output" PATH="/pages/cambio/editarcambioOrcamento.xhtml"
+    TARGET="rules:#pages#cambio#editarcambioOrcamento.xhtml"
+    TITLE="editarCambioOrcamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#juros#calculaJuros.xhtml"
+  PATH="/pages/juros/calculaJuros.xhtml" SHAPE="240,5521,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:50" PATH="*" SHAPE="32,5617,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:50" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaorcamentocurso::#pages#orcamento#consultaOrcamento.xhtml"
+    NAME="output" PATH="/pages/orcamento/consultaOrcamento.xhtml"
+    TARGET="rules:#pages#orcamento#consultaOrcamento.xhtml"
+    TITLE="consultaorcamentocurso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#auPair#consAuPair.xhtml"
+  PATH="/pages/auPair/consAuPair.xhtml" SHAPE="240,5633,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:51" PATH="*" SHAPE="32,5729,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:51" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaSeguro::#pages#seguroviagem#consSeguro.xhtml"
+    NAME="output" PATH="/pages/seguroviagem/consSeguro.xhtml"
+    TARGET="rules:#pages#seguroviagem#consSeguro.xhtml"
+    TITLE="consultaSeguro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#trainee#consTrainee.xhtml"
+  PATH="/pages/trainee/consTrainee.xhtml" SHAPE="240,5745,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:52" PATH="*" SHAPE="32,5841,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:52" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaVistos::#pages#visto#consVistos.xhtml" NAME="output"
+    PATH="/pages/visto/consVistos.xhtml"
+    TARGET="rules:#pages#visto#consVistos.xhtml" TITLE="consultaVistos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#voluntariado#consVoluntariado.xhtml"
+  PATH="/pages/voluntariado/consVoluntariado.xhtml" SHAPE="240,5857,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:53" PATH="*" SHAPE="32,5953,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:53" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="calculaJuros::#pages#juros#calculaJuros.xhtml" NAME="output"
+    PATH="/pages/juros/calculaJuros.xhtml"
+    TARGET="rules:#pages#juros#calculaJuros.xhtml" TITLE="calculaJuros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#workAndTravel#consWorkandTravel.xhtml"
+  PATH="/pages/workAndTravel/consWorkandTravel.xhtml"
+  SHAPE="240,5969,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#seguroviagem#consSeguro.xhtml"
+  PATH="/pages/seguroviagem/consSeguro.xhtml" SHAPE="240,5297,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:54" PATH="*" SHAPE="32,6065,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:54" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaAuPair::#pages#auPair#consAuPair.xhtml" NAME="output"
+    PATH="/pages/auPair/consAuPair.xhtml"
+    TARGET="rules:#pages#auPair#consAuPair.xhtml" TITLE="consultaAuPair" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:55" PATH="*" SHAPE="32,6177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:55" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaTrainee::#pages#trainee#consTrainee.xhtml" NAME="output"
+    PATH="/pages/trainee/consTrainee.xhtml"
+    TARGET="rules:#pages#trainee#consTrainee.xhtml"
+    TITLE="consultaTrainee" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#passagem#consPassagem.xhtml"
+  PATH="/pages/passagem/consPassagem.xhtml" SHAPE="240,6193,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:56" PATH="*" SHAPE="32,6289,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:56" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaVoluntariado::#pages#voluntariado#consVoluntariado.xhtml"
+    NAME="output" PATH="/pages/voluntariado/consVoluntariado.xhtml"
+    TARGET="rules:#pages#voluntariado#consVoluntariado.xhtml"
+    TITLE="consultaVoluntariado" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#seguroviagem#fichaSeguroViagem.xhtml"
+  PATH="/pages/seguroviagem/fichaSeguroViagem.xhtml"
+  SHAPE="240,6305,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cliente#consultarCliente.xhtml"
+  PATH="/pages/cliente/consultarCliente.xhtml" SHAPE="240,6081,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:57" PATH="*" SHAPE="32,6401,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:57" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaWorkandTravel::#pages#workAndTravel#consWorkandTravel.xhtml"
+    NAME="output" PATH="/pages/workAndTravel/consWorkandTravel.xhtml"
+    TARGET="rules:#pages#workAndTravel#consWorkandTravel.xhtml"
+    TITLE="consultaWorkandTravel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#orcamento#consultarOcCliente.xhtml"
+  PATH="/pages/orcamento/consultarOcCliente.xhtml" SHAPE="240,6417,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:58" PATH="*" SHAPE="32,6513,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:58" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultarCliente::#pages#cliente#consultarCliente.xhtml"
+    NAME="output" PATH="/pages/cliente/consultarCliente.xhtml"
+    TARGET="rules:#pages#cliente#consultarCliente.xhtml"
+    TITLE="consultarCliente" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:inicial.xhtml" PATH="inicial.xhtml"
+  SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:59" PATH="*" SHAPE="32,6625,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:59" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultarCoCliente::#pages#orcamento#consultarOcCliente.xhtml"
+    NAME="output" PATH="/pages/orcamento/consultarOcCliente.xhtml"
+    TARGET="rules:#pages#orcamento#consultarOcCliente.xhtml"
+    TITLE="consultarCoCliente" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#formaPagamento#calculoFormaPagamento.xhtml"
+  PATH="/pages/formaPagamento/calculoFormaPagamento.xhtml"
+  SHAPE="240,6641,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:60" PATH="*" SHAPE="32,6737,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:60" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="passagem::#pages#passagem#consPassagem.xhtml" NAME="output"
+    PATH="/pages/passagem/consPassagem.xhtml"
+    TARGET="rules:#pages#passagem#consPassagem.xhtml" TITLE="passagem" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#avisos#consultaNotificacoes.xhtml"
+  PATH="/pages/avisos/consultaNotificacoes.xhtml" SHAPE="240,6753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:61" PATH="*" SHAPE="32,6849,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:61" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="fichaSeguroViagem::#pages#seguroviagem#fichaSeguroViagem.xhtml"
+    NAME="output" PATH="/pages/seguroviagem/fichaSeguroViagem.xhtml"
+    TARGET="rules:#pages#seguroviagem#fichaSeguroViagem.xhtml"
+    TITLE="fichaSeguroViagem" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#orcamento#adicionarProdutoExtra.xhtml"
+  PATH="/pages/orcamento/adicionarProdutoExtra.xhtml"
+  SHAPE="240,6865,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:62" PATH="*" SHAPE="32,6961,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:62" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="calculoFormaPagamento::#pages#formaPagamento#calculoFormaPagamento.xhtml"
+    NAME="output"
+    PATH="/pages/formaPagamento/calculoFormaPagamento.xhtml"
+    TARGET="rules:#pages#formaPagamento#calculoFormaPagamento.xhtml"
+    TITLE="calculoFormaPagamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#orcamento#importarOrcamento.xhtml"
+  PATH="/pages/orcamento/importarOrcamento.xhtml" SHAPE="240,6977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:63" PATH="*" SHAPE="32,7073,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:63" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="notificacoes::#pages#avisos#consultaNotificacoes.xhtml"
+    NAME="output" PATH="/pages/avisos/consultaNotificacoes.xhtml"
+    TARGET="rules:#pages#avisos#consultaNotificacoes.xhtml"
+    TITLE="notificacoes" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:64" PATH="*" SHAPE="32,7185,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:64" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="notificacoesAviso::#pages#avisos#notificacoesAviso.xhtml"
+    NAME="output" PATH="/pages/avisos/notificacoesAviso.xhtml"
+    TARGET="rules:#pages#avisos#notificacoesAviso.xhtml"
+    TITLE="notificacoesAviso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#invoices#consInvoice.xhtml"
+  PATH="/pages/invoices/consInvoice.xhtml" SHAPE="240,7201,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:65" PATH="*" SHAPE="32,7297,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:65" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="produtosExtra::#pages#orcamento#adicionarProdutoExtra.xhtml"
+    NAME="output" PATH="/pages/orcamento/adicionarProdutoExtra.xhtml"
+    TARGET="rules:#pages#orcamento#adicionarProdutoExtra.xhtml"
+    TITLE="produtosExtra" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#vendas#gerarContasReceber.xhtml"
+  PATH="/pages/vendas/gerarContasReceber.xhtml" SHAPE="240,7313,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:66" PATH="*" SHAPE="32,7409,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:66" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="importarOrcamento::#pages#orcamento#importarOrcamento.xhtml"
+    NAME="output" PATH="/pages/orcamento/importarOrcamento.xhtml"
+    TARGET="rules:#pages#orcamento#importarOrcamento.xhtml"
+    TITLE="importarOrcamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#coprodutos#consultarTodasPromocoes.xhtml"
+  PATH="/pages/coprodutos/consultarTodasPromocoes.xhtml"
+  SHAPE="240,7425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:67" PATH="*" SHAPE="32,7521,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:67" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultamidia::#pages#midia#consFlyers.xhtml" NAME="output"
+    PATH="/pages/midia/consFlyers.xhtml"
+    TARGET="rules:#pages#midia#consFlyers.xhtml" TITLE="consultamidia" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:68" PATH="*" SHAPE="32,7633,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:68" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="consGuias::#pages#midia#consGuias.xhtml"
+    NAME="output" PATH="/pages/midia/consGuias.xhtml"
+    TARGET="rules:#pages#midia#consGuias.xhtml" TITLE="consGuias" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:69" PATH="*" SHAPE="32,7745,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:69" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultainvoice::#pages#invoices#consInvoice.xhtml"
+    NAME="output" PATH="/pages/invoices/consInvoice.xhtml"
+    TARGET="rules:#pages#invoices#consInvoice.xhtml"
+    TITLE="consultainvoice" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:70" PATH="*" SHAPE="32,7857,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:70" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="gerarContasReceber::#pages#vendas#gerarContasReceber.xhtml"
+    NAME="output" PATH="/pages/vendas/gerarContasReceber.xhtml"
+    TARGET="rules:#pages#vendas#gerarContasReceber.xhtml"
+    TITLE="gerarContasReceber" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:71" PATH="*" SHAPE="32,7969,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:71" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="conspromocao::#pages#coprodutos#consultarTodasPromocoes.xhtml"
+    NAME="output" PATH="/pages/coprodutos/consultarTodasPromocoes.xhtml"
+    TARGET="rules:#pages#coprodutos#consultarTodasPromocoes.xhtml"
+    TITLE="conspromocao" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:72" PATH="*" SHAPE="32,8081,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:72" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cadTransferencia::#pages#contaspagar#cadTransferencia.xhtml"
+    NAME="output" PATH="/pages/contaspagar/cadTransferencia.xhtml"
+    TARGET="rules:#pages#contaspagar#cadTransferencia.xhtml"
+    TITLE="cadTransferencia" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:73" PATH="*" SHAPE="32,8193,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:73" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleCurso::#pages#controleCursos#consControleCursos.xhtml"
+    NAME="output" PATH="/pages/controleCursos/consControleCursos.xhtml"
+    TARGET="rules:#pages#controleCursos#consControleCursos.xhtml"
+    TITLE="controleCurso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:74" PATH="*" SHAPE="32,8305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:74" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consVincularTerceiros::#pages#vincularterceiros#consVincularTerceiros.xhtml"
+    NAME="output"
+    PATH="/pages/vincularterceiros/consVincularTerceiros.xhtml"
+    TARGET="rules:#pages#vincularterceiros#consVincularTerceiros.xhtml"
+    TITLE="consVincularTerceiros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:75" PATH="*" SHAPE="32,8417,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:75" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleWorkAndTravel::#pages#controleWork#consControleWork.xhtml"
+    NAME="output" PATH="/pages/controleWork/consControleWork.xhtml"
+    TARGET="rules:#pages#controleWork#consControleWork.xhtml"
+    TITLE="controleWorkAndTravel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatoriosComissaoParceiros.xhtml"
+  PATH="/pages/filtroRelatorios/relatoriosComissaoParceiros.xhtml"
+  SHAPE="240,2721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#controleWork#consControleWork.xhtml"
+  PATH="/pages/controleWork/consControleWork.xhtml" SHAPE="240,7985,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#fornecedorcidadeidiomaproduto#cadFornecedorCidadeIdiomaProduto.xhtml"
+  PATH="/pages/fornecedorcidadeidiomaproduto/cadFornecedorCidadeIdiomaProduto.xhtml"
+  SHAPE="240,8321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#invoices#invoiceControles.xhtml"
+  PATH="/pages/invoices/invoiceControles.xhtml" SHAPE="240,8209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleCursos#consControleCursos.xhtml"
+  PATH="/pages/controleCursos/consControleCursos.xhtml"
+  SHAPE="240,7761,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#vendas#analiticoVendas.xhtml"
+  PATH="/pages/vendas/analiticoVendas.xhtml" SHAPE="240,8097,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#contaspagar#cadTransferencia.xhtml"
+  PATH="/pages/contaspagar/cadTransferencia.xhtml" SHAPE="240,7649,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleSeguroViagem#controleSeguroViagem.xhtml"
+  PATH="/pages/controleSeguroViagem/controleSeguroViagem.xhtml"
+  SHAPE="240,8433,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#vincularterceiros#consVincularTerceiros.xhtml"
+  PATH="/pages/vincularterceiros/consVincularTerceiros.xhtml"
+  SHAPE="240,7873,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:76" PATH="*" SHAPE="32,8529,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:76" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="valoresWork::#pages#valoresWork#valoresWork.xhtml" NAME="output"
+    PATH="/pages/valoresWork/valoresWork.xhtml"
+    TARGET="rules:#pages#valoresWork#valoresWork.xhtml"
+    TITLE="valoresWork" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:77" PATH="*" SHAPE="32,8641,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:77" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="analiticoVendas::#pages#vendas#analiticoVendas.xhtml"
+    NAME="output" PATH="/pages/vendas/analiticoVendas.xhtml"
+    TARGET="rules:#pages#vendas#analiticoVendas.xhtml"
+    TITLE="analiticoVendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:78" PATH="*" SHAPE="32,8753,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:78" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="invoiceControle::#pages#invoices#invoiceControles.xhtml"
+    NAME="output" PATH="/pages/invoices/invoiceControles.xhtml"
+    TARGET="rules:#pages#invoices#invoiceControles.xhtml"
+    TITLE="invoiceControle" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:79" PATH="*" SHAPE="32,8865,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:79" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="fornecedorCidadeIdiomaProduto::#pages#fornecedorcidadeidiomaproduto#cadFornecedorCidadeIdiomaProduto.xhtml"
+    NAME="output"
+    PATH="/pages/fornecedorcidadeidiomaproduto/cadFornecedorCidadeIdiomaProduto.xhtml"
+    TARGET="rules:#pages#fornecedorcidadeidiomaproduto#cadFornecedorCidadeIdiomaProduto.xhtml"
+    TITLE="fornecedorCidadeIdiomaProduto" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:80" PATH="*" SHAPE="32,8977,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:80" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleSeguroViagem::#pages#controleSeguroViagem#controleSeguroViagem.xhtml"
+    NAME="output"
+    PATH="/pages/controleSeguroViagem/controleSeguroViagem.xhtml"
+    TARGET="rules:#pages#controleSeguroViagem#controleSeguroViagem.xhtml"
+    TITLE="controleSeguroViagem" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:81" PATH="*" SHAPE="32,9089,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:81" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consEscolasCadastradas::#pages#fornecedorcidadeidiomaproduto#consEscolasCadastradas.xhtml"
+    NAME="output"
+    PATH="/pages/fornecedorcidadeidiomaproduto/consEscolasCadastradas.xhtml"
+    TARGET="rules:#pages#fornecedorcidadeidiomaproduto#consEscolasCadastradas.xhtml"
+    TITLE="consEscolasCadastradas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:82" PATH="*" SHAPE="32,9201,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:82" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleTrainee::#pages#controleTrainee#consControleTrainee.xhtml"
+    NAME="output"
+    PATH="/pages/controleTrainee/consControleTrainee.xhtml"
+    TARGET="rules:#pages#controleTrainee#consControleTrainee.xhtml"
+    TITLE="controleTrainee" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:83" PATH="*" SHAPE="32,9313,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:83" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consArquivos::#pages#arquivo#consArquivos.xhtml" NAME="output"
+    PATH="/pages/arquivo/consArquivos.xhtml"
+    TARGET="rules:#pages#arquivo#consArquivos.xhtml"
+    TITLE="consArquivos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:84" PATH="*" SHAPE="32,9425,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:84" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="valoresTrainee::#pages#valoresTrainee#valoresTrainee.xhtml"
+    NAME="output" PATH="/pages/valoresTrainee/valoresTrainee.xhtml"
+    TARGET="rules:#pages#valoresTrainee#valoresTrainee.xhtml"
+    TITLE="valoresTrainee" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:85" PATH="*" SHAPE="32,9537,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:85" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="orcamentoVoluntariado::#pages#orcamentoVoluntariado#orcamentoVoluntariado.xhtml"
+    NAME="output"
+    PATH="/pages/orcamentoVoluntariado/orcamentoVoluntariado.xhtml"
+    TARGET="rules:#pages#orcamentoVoluntariado#orcamentoVoluntariado.xhtml"
+    TITLE="orcamentoVoluntariado" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:86" PATH="*" SHAPE="32,9649,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:86" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="valoresSeguro::#pages#valoresSeguro#consValoresSeguro.xhtml"
+    NAME="output" PATH="/pages/valoresSeguro/consValoresSeguro.xhtml"
+    TARGET="rules:#pages#valoresSeguro#consValoresSeguro.xhtml"
+    TITLE="valoresSeguro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#orcamentoVoluntariado#orcamentoVoluntariado.xhtml"
+  PATH="/pages/orcamentoVoluntariado/orcamentoVoluntariado.xhtml"
+  SHAPE="240,8993,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#midia#consFlyers.xhtml"
+  PATH="/pages/midia/consFlyers.xhtml" SHAPE="240,9217,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleVoluntariado#consControleVoluntariado.xhtml"
+  PATH="/pages/controleVoluntariado/consControleVoluntariado.xhtml"
+  SHAPE="240,9441,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cliente#enderecoCliente.xhtml"
+  PATH="/pages/cliente/enderecoCliente.xhtml" SHAPE="240,9665,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#valoresSeguro#consValoresSeguro.xhtml"
+  PATH="/pages/valoresSeguro/consValoresSeguro.xhtml"
+  SHAPE="240,9105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#valoresTrainee#valoresTrainee.xhtml"
+  PATH="/pages/valoresTrainee/valoresTrainee.xhtml" SHAPE="240,8881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleTrainee#consControleTrainee.xhtml"
+  PATH="/pages/controleTrainee/consControleTrainee.xhtml"
+  SHAPE="240,8657,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#valoresHighSchool#valoresHighSchool.xhtml"
+  PATH="/pages/valoresHighSchool/valoresHighSchool.xhtml"
+  SHAPE="240,9329,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#conciliacaobancaria#consConciliacaoBancaria.xhtml"
+  PATH="/pages/conciliacaobancaria/consConciliacaoBancaria.xhtml"
+  SHAPE="240,9553,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#arquivo#consArquivos.xhtml"
+  PATH="/pages/arquivo/consArquivos.xhtml" SHAPE="240,8769,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:87" PATH="*" SHAPE="32,2705,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:87" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="flyers::#pages#midia#consFlyers.xhtml"
+    NAME="output" PATH="/pages/midia/consFlyers.xhtml"
+    TARGET="rules:#pages#midia#consFlyers.xhtml" TITLE="flyers" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioSinteticoVendas.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioSinteticoVendas.xhtml"
+  SHAPE="240,2721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:88" PATH="*" SHAPE="32,2705,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:88" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="valoresHighSchool::#pages#valoresHighSchool#valoresHighSchool.xhtml"
+    NAME="output"
+    PATH="/pages/valoresHighSchool/valoresHighSchool.xhtml"
+    TARGET="rules:#pages#valoresHighSchool#valoresHighSchool.xhtml"
+    TITLE="valoresHighSchool" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleAupair#consControleAupair.xhtml"
+  PATH="/pages/controleAupair/consControleAupair.xhtml"
+  SHAPE="240,3953,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:89" PATH="*" SHAPE="32,3937,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:89" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleVoluntariado::#pages#controleVoluntariado#consControleVoluntariado.xhtml"
+    NAME="output"
+    PATH="/pages/controleVoluntariado/consControleVoluntariado.xhtml"
+    TARGET="rules:#pages#controleVoluntariado#consControleVoluntariado.xhtml"
+    TITLE="controleVoluntariado" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#valoresAupair#valoresAupair.xhtml"
+  PATH="/pages/valoresAupair/valoresAupair.xhtml" SHAPE="240,3953,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:90" PATH="*" SHAPE="32,3937,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:90" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consConciliacaoBancaria::#pages#conciliacaobancaria#consConciliacaoBancaria.xhtml"
+    NAME="output"
+    PATH="/pages/conciliacaobancaria/consConciliacaoBancaria.xhtml"
+    TARGET="rules:#pages#conciliacaobancaria#consConciliacaoBancaria.xhtml"
+    TITLE="consConciliacaoBancaria" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#docs#docsControle.xhtml"
+  PATH="/pages/docs/docsControle.xhtml" SHAPE="240,3953,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:91" PATH="*" SHAPE="32,3937,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:91" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="enderecoCliente::#pages#cliente#enderecoCliente.xhtml"
+    NAME="output" PATH="/pages/cliente/enderecoCliente.xhtml"
+    TARGET="rules:#pages#cliente#enderecoCliente.xhtml"
+    TITLE="enderecoCliente" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:92" PATH="*" SHAPE="32,3937,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:92" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatoriosSinteticoVendas::#pages#filtroRelatorios#relatorioSinteticoVendas.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioSinteticoVendas.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioSinteticoVendas.xhtml"
+    TITLE="relatoriosSinteticoVendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#terceiros#consTerceiros.xhtml"
+  PATH="/pages/terceiros/consTerceiros.xhtml" SHAPE="240,1265,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#valoresWork#valoresWork.xhtml"
+  PATH="/pages/valoresWork/valoresWork.xhtml" SHAPE="240,9777,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:93" PATH="*" SHAPE="32,4049,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:93" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleAupair::#pages#controleAupair#consControleAupair.xhtml"
+    NAME="output" PATH="/pages/controleAupair/consControleAupair.xhtml"
+    TARGET="rules:#pages#controleAupair#consControleAupair.xhtml"
+    TITLE="controleAupair" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#demipair#consDemiPair.xhtml"
+  PATH="/pages/demipair/consDemiPair.xhtml" SHAPE="240,4065,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:94" PATH="*" SHAPE="32,3937,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:94" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="valoresAupair::#pages#valoresAupair#valoresAupair.xhtml"
+    NAME="output" PATH="/pages/valoresAupair/valoresAupair.xhtml"
+    TARGET="rules:#pages#valoresAupair#valoresAupair.xhtml"
+    TITLE="valoresAupair" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleDemipair#consControleDemipair.xhtml"
+  PATH="/pages/controleDemipair/consControleDemipair.xhtml"
+  SHAPE="240,3953,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:95" PATH="*" SHAPE="32,4049,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:95" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="docsControle::#pages#docs#docsControle.xhtml" NAME="output"
+    PATH="/pages/docs/docsControle.xhtml"
+    TARGET="rules:#pages#docs#docsControle.xhtml" TITLE="docsControle" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#avisos#consAvisos.xhtml"
+  PATH="/pages/avisos/consAvisos.xhtml" SHAPE="240,4065,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:96" PATH="*" SHAPE="32,4161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:96" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consultaDemiPair::#pages#demipair#consDemiPair.xhtml"
+    NAME="output" PATH="/pages/demipair/consDemiPair.xhtml"
+    TARGET="rules:#pages#demipair#consDemiPair.xhtml"
+    TITLE="consultaDemiPair" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#vendas#produtoVendas.xhtml"
+  PATH="/pages/vendas/produtoVendas.xhtml" SHAPE="240,4177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:97" PATH="*" SHAPE="32,4161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:97" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleDemipair::#pages#controleDemipair#consControleDemipair.xhtml"
+    NAME="output"
+    PATH="/pages/controleDemipair/consControleDemipair.xhtml"
+    TARGET="rules:#pages#controleDemipair#consControleDemipair.xhtml"
+    TITLE="controleDemipair" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleHighSchool#consControleHighSchool.xhtml"
+  PATH="/pages/controleHighSchool/consControleHighSchool.xhtml"
+  SHAPE="240,4177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:98" PATH="*" SHAPE="32,4161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:98" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="avisos::#pages#avisos#consAvisos.xhtml"
+    NAME="output" PATH="/pages/avisos/consAvisos.xhtml"
+    TARGET="rules:#pages#avisos#consAvisos.xhtml" TITLE="avisos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:99" PATH="*" SHAPE="32,4273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:99" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="produtoVendas::#pages#vendas#produtoVendas.xhtml" NAME="output"
+    PATH="/pages/vendas/produtoVendas.xhtml"
+    TARGET="rules:#pages#vendas#produtoVendas.xhtml"
+    TITLE="produtoVendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:100" PATH="*" SHAPE="32,4385,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:100" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleHighSchool::#pages#controleHighSchool#consControleHighSchool.xhtml"
+    NAME="output"
+    PATH="/pages/controleHighSchool/consControleHighSchool.xhtml"
+    TARGET="rules:#pages#controleHighSchool#consControleHighSchool.xhtml"
+    TITLE="controleHighSchool" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:101" PATH="*" SHAPE="32,6625,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:101" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cursosTeens::#pages#cursosTeens#consCursosTeens.xhtml"
+    NAME="output" PATH="/pages/cursosTeens/consCursosTeens.xhtml"
+    TARGET="rules:#pages#cursosTeens#consCursosTeens.xhtml"
+    TITLE="cursosTeens" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:102" PATH="*" SHAPE="32,6737,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:102" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleTeens::#pages#controleCursosTeens#consControleCursosTeens.xhtml"
+    NAME="output"
+    PATH="/pages/controleCursosTeens/consControleCursosTeens.xhtml"
+    TARGET="rules:#pages#controleCursosTeens#consControleCursosTeens.xhtml"
+    TITLE="controleTeens" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:103" PATH="*" SHAPE="32,6849,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:103" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="valoresTeens::#pages#valoresCursosTeens#valoresCursosTeens.xhtml"
+    NAME="output"
+    PATH="/pages/valoresCursosTeens/valoresCursosTeens.xhtml"
+    TARGET="rules:#pages#valoresCursosTeens#valoresCursosTeens.xhtml"
+    TITLE="valoresTeens" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#clouds#consDepartamentos.xhtml"
+  PATH="/pages/clouds/consDepartamentos.xhtml" SHAPE="240,6753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#valoresCursosTeens#valoresCursosTeens.xhtml"
+  PATH="/pages/valoresCursosTeens/valoresCursosTeens.xhtml"
+  SHAPE="240,6641,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleCursosTeens#consControleCursosTeens.xhtml"
+  PATH="/pages/controleCursosTeens/consControleCursosTeens.xhtml"
+  SHAPE="240,6529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cursosTeens#consCursosTeens.xhtml"
+  PATH="/pages/cursosTeens/consCursosTeens.xhtml" SHAPE="240,4289,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#avisos#notificacoesAviso.xhtml"
+  PATH="/pages/avisos/notificacoesAviso.xhtml" SHAPE="240,7537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#cancelamento#solicitacaocancelamento.xhtml"
+  PATH="/pages/cancelamento/solicitacaocancelamento.xhtml"
+  SHAPE="240,6865,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:104" PATH="*" SHAPE="32,6961,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:104" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consDepartamentos::#pages#clouds#consDepartamentos.xhtml"
+    NAME="output" PATH="/pages/clouds/consDepartamentos.xhtml"
+    TARGET="rules:#pages#clouds#consDepartamentos.xhtml"
+    TITLE="consDepartamentos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleAlteracoes#controleAlteracao.xhtml"
+  PATH="/pages/controleAlteracoes/controleAlteracao.xhtml"
+  SHAPE="240,6977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:105" PATH="*" SHAPE="32,7073,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:105" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancelarVenda::#pages#cancelamento#solicitacaocancelamento.xhtml"
+    NAME="output"
+    PATH="/pages/cancelamento/solicitacaocancelamento.xhtml"
+    TARGET="rules:#pages#cancelamento#solicitacaocancelamento.xhtml"
+    TITLE="cancelarVenda" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:106" PATH="*" SHAPE="32,7185,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:106" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="controleAlteracoes::#pages#controleAlteracoes#controleAlteracao.xhtml"
+    NAME="output"
+    PATH="/pages/controleAlteracoes/controleAlteracao.xhtml"
+    TARGET="rules:#pages#controleAlteracoes#controleAlteracao.xhtml"
+    TITLE="controleAlteracoes" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:107" PATH="*" SHAPE="32,7297,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:107" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cadCloudPastas::#pages#clouds#cadCloudPastas.xhtml"
+    NAME="output" PATH="/pages/clouds/cadCloudPastas.xhtml"
+    TARGET="rules:#pages#clouds#cadCloudPastas.xhtml"
+    TITLE="cadCloudPastas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:108" PATH="*" SHAPE="32,7409,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:108" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cadCloudSubPastas::#pages#clouds#cadCloudSubPastas.xhtml"
+    NAME="output" PATH="/pages/clouds/cadCloudSubPastas.xhtml"
+    TARGET="rules:#pages#clouds#cadCloudSubPastas.xhtml"
+    TITLE="cadCloudSubPastas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#orcamentoManual#consOrcamentoManual.xhtml"
+  PATH="/pages/orcamentoManual/consOrcamentoManual.xhtml"
+  SHAPE="240,7313,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#orcamentoManual#importarOrcamentoManual.xhtml"
+  PATH="/pages/orcamentoManual/importarOrcamentoManual.xhtml"
+  SHAPE="240,7425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:109" PATH="*" SHAPE="32,7521,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:109" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="consPasta1::#pages#clouds#consPasta1.xhtml"
+    NAME="output" PATH="/pages/clouds/consPasta1.xhtml"
+    TARGET="rules:#pages#clouds#consPasta1.xhtml" TITLE="consPasta1" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#reciboAvulso#reciboAvulso.xhtml"
+  PATH="/pages/reciboAvulso/reciboAvulso.xhtml" SHAPE="240,7537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:110" PATH="*" SHAPE="32,7521,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:110" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consPasta2Arquivo1::#pages#clouds#consPasta2Arquivo1.xhtml"
+    NAME="output" PATH="/pages/clouds/consPasta2Arquivo1.xhtml"
+    TARGET="rules:#pages#clouds#consPasta2Arquivo1.xhtml"
+    TITLE="consPasta2Arquivo1" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#clouds#cadCloudPastas.xhtml"
+  PATH="/pages/clouds/cadCloudPastas.xhtml" SHAPE="240,7089,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:111" PATH="*" SHAPE="32,7521,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:111" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="orcamentoManual::#pages#orcamentoManual#consOrcamentoManual.xhtml"
+    NAME="output"
+    PATH="/pages/orcamentoManual/consOrcamentoManual.xhtml"
+    TARGET="rules:#pages#orcamentoManual#consOrcamentoManual.xhtml"
+    TITLE="orcamentoManual" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#clouds#cadCloudSubPastas.xhtml"
+  PATH="/pages/clouds/cadCloudSubPastas.xhtml" SHAPE="240,7201,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:112" PATH="*" SHAPE="32,7521,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:112" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="importarOrcamentoManual::#pages#orcamentoManual#importarOrcamentoManual.xhtml"
+    NAME="output"
+    PATH="/pages/orcamentoManual/importarOrcamentoManual.xhtml"
+    TARGET="rules:#pages#orcamentoManual#importarOrcamentoManual.xhtml"
+    TITLE="importarOrcamentoManual" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:113" PATH="*" SHAPE="32,7633,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:113" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="reciboAvulso::#pages#reciboAvulso#reciboAvulso.xhtml"
+    NAME="output" PATH="/pages/reciboAvulso/reciboAvulso.xhtml"
+    TARGET="rules:#pages#reciboAvulso#reciboAvulso.xhtml"
+    TITLE="reciboAvulso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:114" PATH="*" SHAPE="32,7745,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:114" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="modeloOrcamentoManual::#pages#orcamentoManual#consModeloOrcamentoManual.xhtml"
+    NAME="output"
+    PATH="/pages/orcamentoManual/consModeloOrcamentoManual.xhtml"
+    TARGET="rules:#pages#orcamentoManual#consModeloOrcamentoManual.xhtml"
+    TITLE="modeloOrcamentoManual" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#orcamentoManual#importarModeloOrcamentoManual.xhtml"
+  PATH="/pages/orcamentoManual/importarModeloOrcamentoManual.xhtml"
+  SHAPE="240,9889,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cambio#editarcambioOrcamento.xhtml"
+  PATH="/pages/cambio/editarcambioOrcamento.xhtml" SHAPE="240,5521,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#orcamentoManual#consModeloOrcamentoManual.xhtml"
+  PATH="/pages/orcamentoManual/consModeloOrcamentoManual.xhtml"
+  SHAPE="240,7649,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:115" PATH="*" SHAPE="32,9985,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:115" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="importarModeloOrcamentoManual::#pages#orcamentoManual#importarModeloOrcamentoManual.xhtml"
+    NAME="output"
+    PATH="/pages/orcamentoManual/importarModeloOrcamentoManual.xhtml"
+    TARGET="rules:#pages#orcamentoManual#importarModeloOrcamentoManual.xhtml"
+    TITLE="importarModeloOrcamentoManual" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:116" PATH="*" SHAPE="32,10097,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:116" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="produtosVendas::#pages#vendas#produtosVendas.xhtml"
+    NAME="output" PATH="/pages/vendas/produtosVendas.xhtml"
+    TARGET="rules:#pages#vendas#produtosVendas.xhtml"
+    TITLE="produtosVendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:117" PATH="*" SHAPE="32,10209,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:117" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="visualizarContasReceber::#pages#vendas#visualizarContasReceber.xhtml"
+    NAME="output" PATH="/pages/vendas/visualizarContasReceber.xhtml"
+    TARGET="rules:#pages#vendas#visualizarContasReceber.xhtml"
+    TITLE="visualizarContasReceber" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:118" PATH="*" SHAPE="32,10321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:118" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatoriosCobranca::#pages#filtroRelatorios#relatorioCobranca.xhtml"
+    NAME="output" PATH="/pages/filtroRelatorios/relatorioCobranca.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioCobranca.xhtml"
+    TITLE="relatoriosCobranca" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:119" PATH="*" SHAPE="32,10433,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:119" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorioCobrancaFinal::#pages#filtroRelatorios#relatorioCobrancaFinal.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioCobrancaFinal.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioCobrancaFinal.xhtml"
+    TITLE="relatorioCobrancaFinal" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:120" PATH="*" SHAPE="32,10545,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:120" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="mapaVendas::#pages#filtroRelatorios#relatorioMapaVendas.xhtml"
+    NAME="output"
+    PATH="/pages/filtroRelatorios/relatorioMapaVendas.xhtml"
+    TARGET="rules:#pages#filtroRelatorios#relatorioMapaVendas.xhtml"
+    TITLE="mapaVendas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:121" PATH="*" SHAPE="32,10657,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:121" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="gerarPIN::#pages#cambio#gerarPINcambio.xhtml" NAME="output"
+    PATH="/pages/cambio/gerarPINcambio.xhtml"
+    TARGET="rules:#pages#cambio#gerarPINcambio.xhtml" TITLE="gerarPIN" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:122" PATH="*" SHAPE="32,10769,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:122" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="alteracaofinanceiro::#pages#alteracaofinanceiro#consAlteracaoFinanceiro.xhtml"
+    NAME="output"
+    PATH="/pages/alteracaofinanceiro/consAlteracaoFinanceiro.xhtml"
+    TARGET="rules:#pages#alteracaofinanceiro#consAlteracaoFinanceiro.xhtml"
+    TITLE="alteracaofinanceiro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#cambio#gerarPINcambio.xhtml"
+  PATH="/pages/cambio/gerarPINcambio.xhtml" SHAPE="240,10561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioMapaVendas.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioMapaVendas.xhtml"
+  SHAPE="240,10449,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioCobranca.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioCobranca.xhtml"
+  SHAPE="240,10225,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#vendas#visualizarContasReceber.xhtml"
+  PATH="/pages/vendas/visualizarContasReceber.xhtml"
+  SHAPE="240,10113,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#cancelamento#filtroRelatorioCancelamento.xhtml"
+  PATH="/pages/cancelamento/filtroRelatorioCancelamento.xhtml"
+  SHAPE="240,10785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#alteracaofinanceiro#consAlteracaoFinanceiro.xhtml"
+  PATH="/pages/alteracaofinanceiro/consAlteracaoFinanceiro.xhtml"
+  SHAPE="240,10673,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#vendas#produtosVendas.xhtml"
+  PATH="/pages/vendas/produtosVendas.xhtml" SHAPE="240,10001,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#filtroRelatorios#relatorioCobrancaFinal.xhtml"
+  PATH="/pages/filtroRelatorios/relatorioCobrancaFinal.xhtml"
+  SHAPE="240,10337,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#clouds#consPasta1.xhtml"
+  PATH="/pages/clouds/consPasta1.xhtml" SHAPE="240,7425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#clouds#consPasta2Arquivo1.xhtml"
+  PATH="/pages/clouds/consPasta2Arquivo1.xhtml" SHAPE="240,7537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:123" PATH="*" SHAPE="32,10881,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:123" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorioCancelamento::#pages#cancelamento#filtroRelatorioCancelamento.xhtml"
+    NAME="output"
+    PATH="/pages/cancelamento/filtroRelatorioCancelamento.xhtml"
+    TARGET="rules:#pages#cancelamento#filtroRelatorioCancelamento.xhtml"
+    TITLE="relatorioCancelamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:124" PATH="*" SHAPE="32,10993,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:124" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="consVideos::#pages#midia#consVideos.xhtml"
+    NAME="output" PATH="/pages/midia/consVideos.xhtml"
+    TARGET="rules:#pages#midia#consVideos.xhtml" TITLE="consVideos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:125" PATH="*" SHAPE="32,11105,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:125" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="consCambio::#pages#cambio#consCambio.xhtml"
+    NAME="output" PATH="/pages/cambio/consCambio.xhtml"
+    TARGET="rules:#pages#cambio#consCambio.xhtml" TITLE="consCambio" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="consCambioFranquia::#pages#cambio#consCambioFranquia.xhtml"
+    NAME="output1" PATH="/pages/cambio/consCambioFranquia.xhtml"
+    TARGET="rules:#pages#cambio#consCambioFranquia.xhtml"
+    TITLE="consCambioFranquia" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:126" PATH="*" SHAPE="32,11217,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:126" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="utilizarCredito::#pages#cancelamento#utilizarCredito.xhtml"
+    NAME="output" PATH="/pages/cancelamento/utilizarCredito.xhtml"
+    TARGET="rules:#pages#cancelamento#utilizarCredito.xhtml"
+    TITLE="utilizarCredito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:127" PATH="*" SHAPE="32,11329,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:127" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consMetasFaturamento::#pages#metasfaturamento#consMetasFaturamento.xhtml"
+    NAME="output"
+    PATH="/pages/metasfaturamento/consMetasFaturamento.xhtml"
+    TARGET="rules:#pages#metasfaturamento#consMetasFaturamento.xhtml"
+    TITLE="consMetasFaturamento" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:128" PATH="*" SHAPE="32,11441,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:128" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consRegras::#pages#regrasPontuacao#consRegras.xhtml"
+    NAME="output" PATH="/pages/regrasPontuacao/consRegras.xhtml"
+    TARGET="rules:#pages#regrasPontuacao#consRegras.xhtml"
+    TITLE="consRegras" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:129" PATH="*" SHAPE="32,11553,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:129" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consUsuario::#pages#usuario#consUsuario.xhtml" NAME="output"
+    PATH="/pages/usuario/consUsuario.xhtml"
+    TARGET="rules:#pages#usuario#consUsuario.xhtml" TITLE="consUsuario" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:130" PATH="*" SHAPE="32,11665,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:130" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="calcularJuros::#pages#formaPagamento#calculoJuros.xhtml"
+    NAME="output" PATH="/pages/formaPagamento/calculoJuros.xhtml"
+    TARGET="rules:#pages#formaPagamento#calculoJuros.xhtml"
+    TITLE="calcularJuros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:131" PATH="*" SHAPE="32,11777,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:131" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorioParceiros::#pages#controleCursos#relatorioParceiros.xhtml"
+    NAME="output" PATH="/pages/controleCursos/relatorioParceiros.xhtml"
+    TARGET="rules:#pages#controleCursos#relatorioParceiros.xhtml"
+    TITLE="relatorioParceiros" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:132" PATH="*" SHAPE="32,11889,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:132" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorioVendaFranquias::#pages#controleCursos#relatorioVendaFranquias.xhtml"
+    NAME="output"
+    PATH="/pages/controleCursos/relatorioVendaFranquias.xhtml"
+    TARGET="rules:#pages#controleCursos#relatorioVendaFranquias.xhtml"
+    TITLE="relatorioVendaFranquias" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:133" PATH="*" SHAPE="32,12001,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:133" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorioEmbarque::#pages#controleCursos#relatorioEmbarque.xhtml"
+    NAME="output" PATH="/pages/controleCursos/relatorioEmbarque.xhtml"
+    TARGET="rules:#pages#controleCursos#relatorioEmbarque.xhtml"
+    TITLE="relatorioEmbarque" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:134" PATH="*" SHAPE="32,12113,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:134" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consPromocoes::#pages#promocoes#consPromocoes.xhtml"
+    NAME="output" PATH="/pages/promocoes/consPromocoes.xhtml"
+    TARGET="rules:#pages#promocoes#consPromocoes.xhtml"
+    TITLE="consPromocoes" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:135" PATH="*" SHAPE="32,12225,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:135" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consPromocoesAcomodacao::#pages#promocoes#consPromocoesAcomodacao.xhtml"
+    NAME="output" PATH="/pages/promocoes/consPromocoesAcomodacao.xhtml"
+    TARGET="rules:#pages#promocoes#consPromocoesAcomodacao.xhtml"
+    TITLE="consPromocoesAcomodacao" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:136" PATH="*" SHAPE="32,12337,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:136" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consVendasUsuario::#pages#dashboard#consVendasUsuario.xhtml"
+    NAME="output" PATH="/pages/dashboard/consVendasUsuario.xhtml"
+    TARGET="rules:#pages#dashboard#consVendasUsuario.xhtml"
+    TITLE="consVendasUsuario" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:137" PATH="*" SHAPE="32,12449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:137" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consPromocoesTaxas::#pages#promocaotaxas#consPromocoesTaxas.xhtml"
+    NAME="output" PATH="/pages/promocaotaxas/consPromocoesTaxas.xhtml"
+    TARGET="rules:#pages#promocaotaxas#consPromocoesTaxas.xhtml"
+    TITLE="consPromocoesTaxas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#dashboard#consVendasUsuario.xhtml"
+  PATH="/pages/dashboard/consVendasUsuario.xhtml" SHAPE="240,12353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#fornecedorcidadeidiomaproduto#consEscolasCadastradas.xhtml"
+  PATH="/pages/fornecedorcidadeidiomaproduto/consEscolasCadastradas.xhtml"
+  SHAPE="240,10897,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleCursos#relatorioEmbarque.xhtml"
+  PATH="/pages/controleCursos/relatorioEmbarque.xhtml"
+  SHAPE="240,12017,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cancelamento#utilizarCredito.xhtml"
+  PATH="/pages/cancelamento/utilizarCredito.xhtml" SHAPE="240,11233,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleCursos#relatorioParceiros.xhtml"
+  PATH="/pages/controleCursos/relatorioParceiros.xhtml"
+  SHAPE="240,11793,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#formaPagamento#calculoJuros.xhtml"
+  PATH="/pages/formaPagamento/calculoJuros.xhtml" SHAPE="240,11681,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#regrasPontuacao#consRegras.xhtml"
+  PATH="/pages/regrasPontuacao/consRegras.xhtml" SHAPE="240,11457,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#promocoes#consPromocoesAcomodacao.xhtml"
+  PATH="/pages/promocoes/consPromocoesAcomodacao.xhtml"
+  SHAPE="240,12241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#usuario#consUsuario.xhtml"
+  PATH="/pages/usuario/consUsuario.xhtml" SHAPE="240,11569,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#promocaotaxas#consPromocoesTaxas.xhtml"
+  PATH="/pages/promocaotaxas/consPromocoesTaxas.xhtml"
+  SHAPE="240,12465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#midia#consGuias.xhtml"
+  PATH="/pages/midia/consGuias.xhtml" SHAPE="240,7649,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cambio#consCambio.xhtml"
+  PATH="/pages/cambio/consCambio.xhtml" SHAPE="240,11121,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#controleCursos#relatorioVendaFranquias.xhtml"
+  PATH="/pages/controleCursos/relatorioVendaFranquias.xhtml"
+  SHAPE="240,11905,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#midia#consVideos.xhtml"
+  PATH="/pages/midia/consVideos.xhtml" SHAPE="240,11009,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#promocoes#consPromocoes.xhtml"
+  PATH="/pages/promocoes/consPromocoes.xhtml" SHAPE="240,12129,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#pages#metasfaturamento#consMetasFaturamento.xhtml"
+  PATH="/pages/metasfaturamento/consMetasFaturamento.xhtml"
+  SHAPE="240,11345,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:138" PATH="*" SHAPE="32,12561,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:138" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="consPromocoesBrindes::#pages#promocaobrindes#consPromocoesBrindes.xhtml"
+    NAME="output"
+    PATH="/pages/promocaobrindes/consPromocoesBrindes.xhtml"
+    TARGET="rules:#pages#promocaobrindes#consPromocoesBrindes.xhtml"
+    TITLE="consPromocoesBrindes" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#promocaobrindes#consPromocoesBrindes.xhtml"
+  PATH="/pages/promocaobrindes/consPromocoesBrindes.xhtml"
+  SHAPE="240,12577,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#cambio#consCambioFranquia.xhtml"
+  PATH="/pages/cambio/consCambioFranquia.xhtml" SHAPE="256,12721,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

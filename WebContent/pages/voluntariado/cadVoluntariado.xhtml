@@ -1,0 +1,1342 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadVoluntariado" style="font-size: 10.3px;">
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Ficha de Voluntariado"
+					style="font-size: 22px;color: #1F8871; margin-left:40%" />
+				<p:accordionPanel class="painelVoluntariado"
+					style="width: 97%;margin-left: 1.5%">
+					<p:tab title="Informações" titleStyle="font-size:11px">
+						<h:panelGrid columns="2"
+							columnClasses="colunaBotao,colunaQuarenta"
+							style="margin-left:8%;">
+							<p:outputLabel value="Cliente" for="idcliente" />
+							<p:outputLabel />
+
+							<p:inputText id="idcliente" readonly="true" style="width:97%;"
+								value="#{cadVoluntariadoMB.cliente.nome}" />
+							<p:commandLink style="text-decoration: none"
+								actionListener="#{cadVoluntariadoMB.pesquisarCliente()}">
+								<img src="../../resources/img/pesquisar.png" />
+								<p:ajax event="dialogReturn" process="@this"
+									listener="#{cadVoluntariadoMB.retornoDialogCliente}"
+									update="@all" />
+							</p:commandLink>
+						</h:panelGrid>
+
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 8%; width: 50%">
+							<b>Sponsor</b>
+						</legend>
+						<p:outputLabel value="País" for="pais" style="margin-left:8%" />
+						<p:outputLabel value="Cidade" for="cidade"
+							style="margin-left:20.5%" />
+						<p:outputLabel value="Sponsor" for="fornecedor"
+							style="margin-left:18.5%" />
+						<br></br>
+						<p:selectOneMenu id="pais" value="#{cadVoluntariadoMB.pais}"
+							style="width:18%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
+							converter="PaisFornecedorConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{cadVoluntariadoMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+							<f:attribute name="listaPaisFornecedor"
+								value="#{cadVoluntariadoMB.listaPais}" />  
+							<p:ajax event="change" update="cidade, idvalorcambio, moeda" listener="#{cadVoluntariadoMB.selecionarCambio()}"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="cidade" value="#{cadVoluntariadoMB.cidade}"
+							style="width:18%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:4%"
+							converter="CidadeConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Cidade" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcidade2"
+								value="#{cadVoluntariadoMB.pais.cidadeList}" var="cursocidade"
+								itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
+							<f:attribute name="listaCidade"
+								value="#{cadVoluntariadoMB.pais.cidadeList}" />
+							<p:ajax event="change"
+								listener="#{cadVoluntariadoMB.listarFornecedorCidade()}"
+								update="fornecedor" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="fornecedor"
+							value="#{cadVoluntariadoMB.fornecedorCidade}"
+							style="width:21%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:3.5%"
+							converter="FornecedorCidadeConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{cadVoluntariadoMB.listaFornecedorCidade}"
+								var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedorCidade"
+								value="#{cadVoluntariadoMB.listaFornecedorCidade}" />
+							<p:ajax event="change"
+								listener="#{cadVoluntariadoMB.carregarFornecedorComissao()}" />
+						</p:selectOneMenu>
+						<br />
+						<br />
+						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
+							<b>Escolaridade</b>
+						</legend>
+						<p:outputLabel value="Instituição onde estuda ou graduou"
+							for="instituicao" style="margin-left:8%" />
+						<p:outputLabel value="Curso" for="curso"
+							style="margin-left:27.5%;" />
+						<br></br>
+						<p:inputText id="instituicao"
+							style="width:40%;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.instituicaoEstuda}" />
+						<p:inputText id="curso"
+							style="width:36%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.cursoEstuda}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Data da matricula" for="dataMatricula"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<p:outputLabel value="Data prevista término" for="dataTermino"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 7%" />
+						<p:outputLabel value="Profissão" for="profissao"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:6%" />
+						<p:outputLabel value="Cargo" for="cargo"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:22%" />
+
+						<br />
+						<p:calendar id="dataMatricula"
+							value="#{cadVoluntariadoMB.voluntariado.dataMatriculaCursoEstuda}"
+							size="15" locale="pt" pattern="dd/MM/yyyy"
+							style="margin-left:8%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+						<p:calendar id="dataTermino"
+							value="#{cadVoluntariadoMB.voluntariado.dataEstimadaTerminoCursoEstuda}"
+							size="15" style="margin-left:5%;" locale="pt"
+							pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+						<p:inputText id="profissao"
+							style="width:23%;-moz-border-radius: 5px;border-radius: 5px;margin-left:6%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.profissao}" />
+						<p:inputText id="cargo"
+							style="width:23%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
+							maxlength="100" value="#{cadVoluntariadoMB.voluntariado.cargo}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Duração do curso" for="duracao"
+							style="margin-left:8%" />
+						<p:outputLabel value="Cursando atualmente qual período/ano"
+							for="periodoCurso" style="margin-left:10.5%;" />
+						<p:outputLabel
+							value="Forneça uma breve descrição sobre seu cargo:"
+							for="breveDescricaoEstudos" style="margin-left:8%;" />
+						<br></br>
+						<p:inputText id="duracao"
+							style="width:15%;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.duracaoCursoEstuda}" />
+						<p:inputText id="periodoCurso"
+							style="width:22%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.periodoCursoEstuda}" />
+						<p:inputText id="breveDescricaoEstudos"
+							style="width:36%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.descricaoCargo}" />
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab title="Acomodação/Curso/Projeto"
+						titleStyle="font-size: 11px">
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left:8%;width:70%;"
+							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+							<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao" />
+							<p:outputLabel value="Quarto" for="quarto" />
+							<p:outputLabel value="Refeição" for="refeicao" />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="tipoacomodacao"
+								value="#{cadVoluntariadoMB.voluntariado.tipoAcomodacao}"
+								style="width:91%;">
+								<f:selectItem itemLabel="Sem acomodação" itemValue="Sem acomodação" /> 
+								<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+								<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+								<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+								<f:selectItem itemLabel="Residência" itemValue="Residência" />
+								<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.carregarCamposAcomodacao()}"
+									update="quarto, refeicao, datachegada, numsemanas, datapartida, adicionais, comcrianca, comanimais, fumante, vegetariano" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="quarto"
+								value="#{cadVoluntariadoMB.voluntariado.tipoQuarto}"
+								style="width:82%;" required="false"
+								disabled="#{cadVoluntariadoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
+								<f:selectItem itemLabel="Quarto individual"
+									itemValue="Quarto individual" />
+								<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+								<f:selectItem itemLabel="Quarto triplo"
+									itemValue="Quarto triplo" />
+								<f:selectItem itemLabel="Compartilhado"
+									itemValue="Compartilhado" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="refeicao"
+								value="#{cadVoluntariadoMB.voluntariado.refeicoes}"
+								required="false" style="width:82%;"
+								disabled="#{cadVoluntariadoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+								<f:selectItem itemLabel="Café da Manhã"
+									itemValue="Café da Manhã" />
+								<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+									itemValue="Meia Pensão (2 Refeições)" />
+								<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+									itemValue="Pensão Completa (3 Refeições)" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="3" style="margin-left: 8%;width:50%;"
+							columnClasses="tamanho6, tamanho6, tamanho8">
+							<p:outputLabel value="Data Chegada" for="datachegada" />
+							<p:outputLabel value="No. Semanas" for="numsemanas" />
+							<p:outputLabel value="Data Partida" for="datapartida" />
+
+							<p:calendar id="datachegada"
+								value="#{cadVoluntariadoMB.voluntariado.dataChegadaAcomodacao}"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="20"
+								disabled="#{cadVoluntariadoMB.camposAcomodacao}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+
+							<p:inputText id="numsemanas" style="width:80%;" maxlength="100"
+								value="#{cadVoluntariadoMB.voluntariado.numeroSemanasAcomodacao}"
+								class="espacocobranca29"
+								disabled="#{cadVoluntariadoMB.camposAcomodacao}">
+								<p:ajax event="blur"
+									listener="#{cadVoluntariadoMB.calcularDataTerminoAcomodacao()}"
+									update="datapartida" />
+							</p:inputText>
+
+							<p:calendar id="datapartida"
+								value="#{cadVoluntariadoMB.voluntariado.dataPartidaAcomodacao}"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="20"
+								readonly="true" disabled="#{cadVoluntariadoMB.camposAcomodacao}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="3" style="margin-left:8%;width:80%;"
+							columnClasses="tamanho14, tamanho14, tamanho11">
+							<p:outputLabel value="Família com criança" for="comcrianca" />
+							<p:outputLabel value="Animais de estimação" for="comanimais" />
+							<p:outputLabel value="Adicionais" />
+
+							<p:selectOneMenu id="comcrianca"
+								value="#{cadVoluntariadoMB.voluntariado.familiaCrianca}"
+								style="width:85%;"
+								disabled="#{cadVoluntariadoMB.camposAcomodacaoCasaFamilia}">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="comanimais"
+								value="#{cadVoluntariadoMB.voluntariado.familiaAnimais}"
+								style="width:85%;"
+								disabled="#{cadVoluntariadoMB.camposAcomodacaoCasaFamilia}">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+
+							</p:selectOneMenu>
+
+							<p:inputText id="adicionais" style="width:90%;" maxlength="100"
+								value="#{cadVoluntariadoMB.voluntariado.adicionais}"
+								disabled="#{cadVoluntariadoMB.camposAcomodacao}" />
+						</h:panelGrid>
+						<br />
+						<br />
+						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
+							<b>Curso</b>
+						</legend>
+						<br />
+						<h:panelGrid style="margin-left: 8%">
+							<p:outputLabel value="Curso" />
+							<p:inputText id="cursoAcomodacao" size="149"
+								style="-moz-border-radius: 5px;border-radius: 5px;"
+								maxlength="100" value="#{cadVoluntariadoMB.voluntariado.curso}" />
+							<br />
+							<p:outputLabel value="Data Chegada" for="datachegadaCurso" />
+
+							<p:calendar id="datachegadaCurso"
+								value="#{cadVoluntariadoMB.voluntariado.dataInicio}" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="20">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+						</h:panelGrid>
+						<h:panelGrid style="margin-left: 27%;margin-top:-3.8%;">
+							<p:outputLabel value="Aulas por semana" for="aulassemanas" />
+
+							<p:inputText id="aulassemanas" style="text-align: right;"
+								size="14" maxlength="100"
+								value="#{cadVoluntariadoMB.voluntariado.aulasporSemana}"
+								class="espacocobranca29">
+								<p:ajax event="blur" />
+							</p:inputText>
+						</h:panelGrid>
+						<h:panelGrid style="margin-left: 45%;margin-top:-3.8%;">
+							<p:outputLabel value="No. Semanas" for="numsemanasCurso" />
+							<p:inputText id="numsemanasCurso" style="text-align: right;"
+								size="14" maxlength="100"
+								value="#{cadVoluntariadoMB.voluntariado.numeroSemanas}"
+								class="espacocobranca29">
+								<p:ajax event="blur"
+									listener="#{cadVoluntariadoMB.calcularDataTerminoCurso()}"
+									update="datapartidaCurso" />
+							</p:inputText>
+
+						</h:panelGrid>
+						<h:panelGrid id="habilitar4"
+							style="margin-left: 68.3%;margin-top:-3.8%;">
+							<p:outputLabel value="Data Partida" for="datapartidaCurso" />
+							<p:calendar id="datapartidaCurso"
+								value="#{cadVoluntariadoMB.voluntariado.dataTermino}"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="20"
+								readonly="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						<br />
+						<br />
+						<br />
+
+						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
+							<b>Voluntariado/Programa</b>
+						</legend>
+						<br />
+
+						<p:outputLabel value="Projeto Voluntariado"
+							style="margin-left: 8%" />
+						<br></br>
+						<p:inputText id="projetoVoluntariado" size="149"
+							style="-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.projetoVoluntariado}" />
+						<br />
+						<br />
+
+						<p:outputLabel value="Data Inicio"
+							for="datainicioVoluntariadoPrograma" style="margin-left: 8%;" />
+						<p:outputLabel value="Data término"
+							for="dataterminoVoluntariadoPrograma" style="margin-left: 10.5%" />
+						<p:outputLabel
+							value="Experiência e habilidades relevantes ao projeto escolhido"
+							style="margin-left: 8%" />
+						<br></br>
+
+						<p:calendar id="datainicioVoluntariadoPrograma"
+							value="#{cadVoluntariadoMB.voluntariado.dataInicioVoluntariado}"
+							style="margin-left:8%;" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+
+						<p:calendar id="dataterminoVoluntariadoPrograma"
+							value="#{cadVoluntariadoMB.voluntariado.dataTerminoVoluntariado}"
+							style="margin-left: 3.1%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+
+						<p:inputText id="experienciaRelevante" size="88"
+							style="-moz-border-radius: 5px;border-radius: 5px;margin-left:1.8%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.experienciaVoluntariado}" />
+						<br />
+						<br />
+						<p:outputLabel
+							value="Qual o motivo que o levou a decidir ser voluntário? (exemplifique a sua motivação)"
+							style="margin-left: 8%" />
+						<br></br>
+						<p:inputText id="motivoVoluntariado" size="149"
+							style="-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.motivoVoluntariado}" />
+						<br />
+						<br />
+						<br />
+						<br />
+					</p:tab>
+    
+					<p:tab title="Info Saúde" titleStyle="font-size: 11px">  
+						<br></br>
+						<h:panelGrid columns="3" style="width:65%;margin-left:8%;">
+							<p:outputLabel value="Você tem alguma deficiência fisíca" />
+							<p:outputLabel value="Você é fumante" />
+							<p:outputLabel value="Você é vegetariano" /> 
+							<p:selectOneMenu id="deficienciaFisica" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.deficienciaFisica}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:selectOneMenu id="fumante" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.fumante}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:selectOneMenu id="vegetariano" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.vegetariano}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br />
+						<br />
+
+						<p:outputLabel
+							value="Tem algum problema de saúde que possa prejudicar seu desempenho em funções de emprego pretendido?"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" /> 
+						<br></br> 
+						<h:panelGrid style="margin-left:8%;" columns="2">
+							<p:selectOneMenu id="problemaSaude" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.possuiProblemaSaude}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:inputText id="textoproblemaSaude" size="130"
+								value="#{cadVoluntariadoMB.voluntariado.descricaoProblemaSaude}"  style="margin-left:4%;"/>
+						</h:panelGrid>
+						<br />
+						<br /> 
+						<p:outputLabel
+							value="Você necessita de algum tratamento médico específico ou utiliza algum medicamento controlado? Em caso positivo, especifique"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+
+						<br></br>
+
+						<h:panelGrid style="margin-left:8%;" columns="2">
+							<p:selectOneMenu id="tratamentoMedico" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.tratamentoMedico}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:inputText id="textotratamentoMedico" size="130"
+								value="#{cadVoluntariadoMB.voluntariado.descricaoMedico}" style="margin-left:4%;"/>
+						</h:panelGrid> 
+						<br />
+						<br /> 
+						<p:outputLabel
+							value="Você já teve tratamento devido ao uso de drogas ou utilizou algum medicamento para distpurbios psicológicos? Em caso de positivo, especifique"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" /> 
+						<br></br> 
+						<h:panelGrid style="margin-left:8%;" columns="2">
+							<p:selectOneMenu id="tratamentoDrogas" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.tratamentoDrogas}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+							<p:inputText id="textotratamentoDrogas" size="130"
+								value="#{cadVoluntariadoMB.voluntariado.descricaoDrogas}"  style="margin-left:4%;"/>
+						</h:panelGrid>
+						<br />
+						<br />
+
+						<p:outputLabel
+							value="Você fez alguma cirurgia nos últimos 3 anos? Em caso de positivo, especifique"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+
+						<br></br>
+
+						<h:panelGrid style="margin-left:8%;" columns="2">
+							<p:selectOneMenu id="cirurgia" style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.fezCirurgia}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" /> 
+							</p:selectOneMenu> 
+							<p:inputText id="textocirurgia" size="130"
+								value="#{cadVoluntariadoMB.voluntariado.descricaoCirurgia}" style="margin-left:4%;"/>
+						</h:panelGrid>
+						<br />
+						<br /> 
+						<p:outputLabel
+							value="Tem alguma alegria a medicamento ou alimento? Se sim, especifique"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" /> 
+						<br></br> 
+						<h:panelGrid style="margin-left:8%;" columns="2">
+							<p:selectOneMenu id="alergiaMedicamentoAlimento"
+								style="width:100px;"
+								value="#{cadVoluntariadoMB.voluntariado.possuiAlergia}">
+								<f:selectItem itemLabel="Não" itemValue="Nao" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" /> 
+							</p:selectOneMenu> 
+							<p:inputText id="textoalergiaMedicamentoAlimento" size="130"
+								value="#{cadVoluntariadoMB.voluntariado.quaisAlergias}" style="margin-left:4%;"/>
+						</h:panelGrid>
+						<br />
+						<br />
+
+						<p:outputLabel
+							value="Liste por favor alergias ou dietas especiais caso tenha"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<br></br>
+						<p:inputText id="textoAlergiasDietasEspeciais" size="156"
+							value="#{cadVoluntariadoMB.voluntariado.dietaEspecifica}"
+							style="margin-left:8%" /> 
+						<br />
+						<br />
+
+						<p:outputLabel value="Quais seus interesses e hobbies"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<br></br>
+						<p:inputText id="textoHobbies" size="156"
+							value="#{cadVoluntariadoMB.voluntariado.hobbies}"
+							style="margin-left:8%" />
+
+						<br />
+						<br />
+
+						<p:outputLabel value="Descreva o seu nível de fitness"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<br></br>
+						<p:inputText id="textoFitness" size="156"
+							value="#{cadVoluntariadoMB.voluntariado.nivelFitness}"
+							style="margin-left:8%" />
+
+						<br />
+						<br />
+
+						<p:outputLabel value="Solicitações Especiais"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<br></br>
+						<p:inputText id="textoEspeciais" size="156"
+							value="#{cadVoluntariadoMB.voluntariado.solicitacoesEspeciais}"
+							style="margin-left:8%" />
+						<br />
+						<br />
+						<br />
+						<br />
+
+					</p:tab>
+
+					<p:tab title="VTM/Transfer/Passagem/Visto"
+						titleStyle="font-size: 11px">
+						<legend id="iUsu3">
+							<b>Cartão VTM</b>
+						</legend>
+						<h:panelGrid columns="2" style="margin-left:11.6%;">
+							<p:outputLabel value="Cartão VTM:" for="cartaovtm" />
+							<p:selectOneRadio id="cartaovtm"
+								value="#{cadVoluntariadoMB.voluntariado.cartaoVTM}"
+								style="width:180%;margin-left:5%;">
+								<f:selectItem itemLabel="Sim" itemValue="Sim"
+									class="espacologin" />
+								<f:selectItem itemLabel="Não" itemValue="Não"
+									class="espacologin" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.carregarCamposCartaoVTM()}"
+									update="idmoedas, numerocartao" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:11.6%;">
+							<p:outputLabel value="Moeda" for="idmoedas" />
+							<p:outputLabel value="Número do Cartão" for="numerocartao" />
+
+							<p:selectOneMenu id="idmoedas"
+								value="#{cadVoluntariadoMB.voluntariado.meodaCartaoVTM}"
+								style="width:150px;"
+								disabled="#{cadVoluntariadoMB.camposCartaoVtm}">
+								<f:selectItem itemLabel="Selecione" itemValue="selecione"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Euro" itemValue="Euro" />
+								<f:selectItem itemLabel="Dólar Americano"
+									itemValue="Dólar Americano" />
+								<f:selectItem itemLabel="Dólar Canadense"
+									itemValue="Dólar Canadense" />
+								<f:selectItem itemLabel="Dolár Australiano"
+									itemValue="Dolár Australiano" />
+								<f:selectItem itemLabel="Libra" itemValue="Libra" />
+							</p:selectOneMenu>
+
+
+							<p:inputText id="numerocartao"
+								value="#{cadVoluntariadoMB.voluntariado.numerocartaoVTM}"
+								style="width:70%;margin-left:8%"
+								disabled="#{cadVoluntariadoMB.camposCartaoVtm}" />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Chegada ao Destino (Transfer Aeroporto)</b>
+						</legend>
+						<p:outputLabel value="Transfer In(Chegada)" for="chegada"
+							style="margin-left:11.5%" />
+						<p:outputLabel value="Transfer Out(Partida)" for="partida"
+							style="margin-left:13%" />
+						<br></br>
+						<p:selectOneMenu id="chegada"
+							value="#{cadVoluntariadoMB.voluntariado.transferin}"
+							style="width:14%;margin-left:11.6%">
+							<f:selectItem itemLabel="Não" itemValue="nao" />
+							<f:selectItem itemLabel="Sim" itemValue="sim" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="partida"
+							value="#{cadVoluntariadoMB.voluntariado.transferout}"
+							style="width:13%;margin-left:7.5%">
+							<f:selectItem itemLabel="Não" itemValue="nao" />
+							<f:selectItem itemLabel="Sim" itemValue="sim" />
+						</p:selectOneMenu>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Dia de Chegada" for="diaChegada"
+							style="font-size: 10px;margin-left:11.5%" />
+						<p:outputLabel value="Voo" for="voo" class="espacocobranca4"
+							style="font-size: 10px;margin-left:10.5%" />
+						<p:outputLabel value="Cia Aérea" for="ciaAerea"
+							class="espacocobranca4" style="font-size: 10px;margin-left:14%" />
+						<p:outputLabel value="Horário" for="horarioVoo"
+							class="espacocobranca4" style="font-size: 10px;margin-left:16%" />
+
+						<br></br>
+						<p:calendar id="diaChegada"
+							value="#{cadVoluntariadoMB.voluntariado.dataChegadaTransfer}"
+							style="margin-left:11.5%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<p:inputText id="voo" style="width:11%;margin-left:5%"
+							maxlength="100" value="#{cadVoluntariadoMB.voluntariado.voo}" />
+						<p:inputText id="ciaAerea" style="width:15%;margin-left:5%"
+							maxlength="100" value="#{cadVoluntariadoMB.voluntariado.ciaerea}" />
+						<p:inputMask mask="99:99" id="horarioVoo"
+							style="width:8%;margin-left:5%" maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.horario}" />
+
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Passagem Aérea quando não inclusa no programa</b>
+						</legend>
+
+						<h:panelGrid columns="2" style="margin-bottom:10px"
+							cellpadding="5">
+							<p:selectOneRadio id="passagemInclusa"
+								value="#{cadVoluntariadoMB.voluntariado.passagemAerea}"
+								style="width:180%;margin-left: 36%">
+								<f:selectItem itemLabel="Cliente Providenciará"
+									itemValue="Cliente Providenciará" class="espacologin" />
+								<f:selectItem itemLabel="Através da TravelMate"
+									itemValue="Através da TravelMate" class="espacologin" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.habilitarPassagem()}"
+									update="espaco0p" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+
+						<p:outputLabel value="Observação" for="obs"
+							style="font-size: 10px;margin-left:11.5%" />
+						<br></br>
+						<p:inputText id="espaco0p" style="width:72%;margin-left:11.5%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.observacaoPassagem}"
+							disabled="#{cadVoluntariadoMB.camposPassagem}" />
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Solicitação de Visto Consular</b>
+						</legend>
+						<h:panelGrid columns="2" style="margin-bottom:10px"
+							cellpadding="5">
+							<p:selectOneRadio id="vistoCancelar"
+								value="#{cadVoluntariadoMB.voluntariado.vistoConsular}"
+								style="width:180%;margin-left: 36%">
+								<f:selectItem itemLabel="Cliente Providenciará"
+									itemValue="Cliente Providenciará" class="espacologin" />
+								<f:selectItem itemLabel="Através da TravelMate"
+									itemValue="Através da TravelMate" class="espacologin" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.habilitarVisto()}"
+									update="dataentregavisto,obs2" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+
+						<p:outputLabel value="Entrega dos Documentos"
+							for="dataentregavisto" style="font-size: 10px;margin-left:11.5%" />
+						<p:outputLabel value="Observação" for="obs"
+							class="espacocobranca4" style="font-size: 10px;margin-left:6%" />
+						<br></br>
+						<p:calendar id="dataentregavisto"
+							value="#{cadVoluntariadoMB.voluntariado.dataEntregaDocumentoVisto}"
+							style="margin-left:11.5%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20"
+							disabled="#{cadVoluntariadoMB.camposVisto}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+
+						<p:inputText id="obs2" style="width:56%;margin-left:5%"
+							maxlength="100"
+							value="#{cadVoluntariadoMB.voluntariado.observacaoVistoConsultar}"
+							disabled="#{cadVoluntariadoMB.camposVisto}" />
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+
+					</p:tab>
+
+					<p:tab title="Seguro/Contato" titleStyle="font-size: 11px">
+						<legend id="iUsu3">
+							<b>Seguro Viagem</b>
+						</legend>
+						<h:panelGrid columns="1" style="margin-left:11.6%;">
+							<p:selectOneRadio id="seguro"
+								value="#{cadVoluntariadoMB.seguroViagem.possuiSeguro}"
+								style="width:180%;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.carregarCamposSeguroPrivado()}"
+									update="seguradora, plano, cobranca, datainicio, numsemanas, datatermino, valorseguro, tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,ndias" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;"
+							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+							<p:outputLabel value="Seguradora" for="seguradora" />
+							<p:outputLabel value="Plano" for="plano" />
+							<p:outputLabel value="Tarifario" for="tarifario" />
+							<p:outputLabel value="Cobrança" for="cobranca" />
+
+							<p:selectOneMenu style="width:160px;" id="seguradora"
+								value="#{cadVoluntariadoMB.fornecedorSeguro}"
+								converter="FornecedorCidadeConverter"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:selectItem itemLabel="Seguradora" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idseguradora"
+									value="#{cadVoluntariadoMB.listaFornecedorCidadeSeguro}"
+									var="ccidade" itemLabel="#{ccidade.fornecedor.nome}"
+									itemValue="#{ccidade}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadVoluntariadoMB.listaFornecedorCidadeSeguro}" />
+								<p:ajax event="change" update="plano" listener="#{cadVoluntariadoMB.listarPlanosSeguro()}"/>
+							</p:selectOneMenu>     
+							<p:selectOneMenu id="plano" style="width:163px;"
+								value="#{cadVoluntariadoMB.seguroplanos}" converter="SeguroPlanosConverter"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:selectItem itemLabel="Plano" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idplano"
+									value="#{cadVoluntariadoMB.listaSeguroPlanos}" var="plano"
+									itemLabel="#{plano.nome}" itemValue="#{plano}" />
+								<f:attribute name="listaSeguroPlanos" value="#{cadVoluntariadoMB.listaSeguroPlanos}" />
+								<p:ajax event="change" update="tarifario" listener="#{cadVoluntariadoMB.listarValoresSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="tarifario" style="width:170px;"
+								value="#{cadVoluntariadoMB.seguroViagem.valoresseguro}"
+								converter="ValorSeguroConverter"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idvaloresseguro"
+									value="#{cadVoluntariadoMB.listaValoresSeguro}"
+									var="cvalorseguro" itemLabel="#{cvalorseguro.tarifario}"
+									itemValue="#{cvalorseguro}" />
+								<f:attribute name="listaValorSeguro"
+									value="#{cadVoluntariadoMB.listaValoresSeguro}" />
+								<p:ajax listener="#{cadVoluntariadoMB.carregarCobrancaSeguro()}"
+									update="cobranca" />
+							</p:selectOneMenu>
+
+							<p:inputText id="cobranca"
+								value="#{cadVoluntariadoMB.seguroViagem.valoresseguro.cobranca}"
+								style="width:80%;" maxlength="45"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}" />
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Data inicial" for="datainicio" />
+							<p:outputLabel id="titulosemanasseguro" value="No. dias" />
+							<p:outputLabel value="Data Final" for="datatermino" />
+							<p:outputLabel value="Valor do Seguro" for="valorseguro" />
+
+							<p:calendar id="datainicio"
+								value="#{cadVoluntariadoMB.seguroViagem.dataInicio}" size="20"
+								locale="pt" pattern="dd/MM/yyyy"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+
+							<p:inputText id="ndias"
+								value="#{cadVoluntariadoMB.seguroViagem.numeroSemanas}"
+								style="width:35%;" maxlength="45"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:convertNumber type="number" />
+								<p:ajax event="blur"
+									listener="#{cadVoluntariadoMB.calcularDataTermino()}"
+									update="datatermino, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+							</p:inputText>
+
+							<p:calendar id="datatermino"
+								value="#{cadVoluntariadoMB.seguroViagem.dataTermino}" size="20"
+								locale="pt" pattern="dd/MM/yyyy"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText id="valorseguro"
+								value="#{cadVoluntariadoMB.seguroViagem.valorSeguro}"
+								style="width:80%;text-align: right;" maxlength="45"
+								readonly="true"
+								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+
+						<legend id="iUsu3" style="margin-left: 8%; width: 60%;">
+							<b>Contato de Emergência no Brasil</b>
+						</legend>
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos, tamanhoavisos2"
+							style="width:70%;margin-left:8%;">
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+									value="#{cadVoluntariadoMB.digitosFoneContatoEmergencia}" >
+									<p:ajax update="telefone" />
+								</p:selectBooleanCheckbox>
+								<h:outputText value="9 Digitos"
+									style="margin-left:1%;font-size:11px;" />
+							</h:panelGroup>
+
+							<p:outputLabel value="Nome" for="nome" />
+							<p:outputLabel value="Telefone" for="telefone" />
+
+							<p:inputText id="nome"
+								value="#{cadVoluntariadoMB.voluntariado.nomeContatoEmergencia}"
+								style="width:85%;" />
+							<p:inputMask id="telefone"
+								value="#{cadVoluntariadoMB.voluntariado.foneContatoEmergencia}"
+								style="width:120px;"
+								mask="#{cadVoluntariadoMB.validarMascaraFoneContatoEmergencia()}" />
+
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="E-mail" for="email" />
+							<p:outputLabel value="Relação" for="relacao" />
+
+							<p:inputText id="email"
+								value="#{cadVoluntariadoMB.voluntariado.emailContatoEmergencia}"
+								style="width:85%;" />
+							<p:inputText id="relacao"
+								value="#{cadVoluntariadoMB.voluntariado.relacaoContatoEmergencia}"
+								style="width:120px;" maxlength="50" />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab title="Produtos" titleStyle="font-size: 11px">
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Moeda" />
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Total" for="valortotal" />
+
+							<p:selectOneMenu id="moeda" value="#{cadVoluntariadoMB.moeda}"
+								converter="MoedasConverter" style="width:210px;">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadVoluntariadoMB.listaMoedas}"
+									var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadVoluntariadoMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.consultarCambio()}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar" />
+							</p:selectOneMenu>
+
+							<p:inputText id="idvalorcambio"
+								value="#{cadVoluntariadoMB.orcamento.valorCambio}"
+								style="width:95%; text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadVoluntariadoMB.editarcambio(cadVoluntariadoMB.orcamento.valorCambio)}"
+								title="Editar Câmbio">
+								<img id="editarcambio" src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadVoluntariadoMB.retornoDialogEditarCambio}"
+									update="idvalorcambio" />
+							</p:commandLink>
+
+							<p:inputText id="valortotal"
+								value="#{cadVoluntariadoMB.formaPagamento.valorOrcamento}"
+								style="width:30%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadVoluntariadoMB.tituloMoedaEstrangeira()}"
+								for="valoreal" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor R$" for="valoreal" />
+
+							<p:selectOneMenu id="produto"
+								value="#{cadVoluntariadoMB.produtosorcamento}"
+								style="width:210px;" converter="ProdutoOrcamentoConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadVoluntariadoMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadVoluntariadoMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorrr"
+								value="#{cadVoluntariadoMB.orcamentoprodutosorcamento.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText id="valoreal"
+								value="#{cadVoluntariadoMB.orcamentoprodutosorcamento.valorMoedaNacional}"
+								style="width:30%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="width: 77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+								action="#{cadVoluntariadoMB.adicionarProdutos()}"
+								value="Adicionar"
+								update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar"
+								icon="ui-icon-plusthick" />
+							
+						</div>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutos" var="produtos"
+							value="#{cadVoluntariadoMB.orcamento.orcamentoprodutosorcamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtos.produtosorcamento.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadVoluntariadoMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadVoluntariadoMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+							<p:selectOneMenu id="formPag"
+								value="#{cadVoluntariadoMB.formaPagamento.condicao}"
+								style="width:130px;">
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorOrca" style="width:75%;text-align: right;"
+								value="#{cadVoluntariadoMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadVoluntariadoMB.formaPagamento.possuiJuros}"
+								style="width:130px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, valoreal, valorrr, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+
+
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:38%;text-align: right;"
+									value="#{cadVoluntariadoMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadVoluntariadoMB.calcularValorTotalOrcamento()}"
+										update="totalpag, saldoreceber, valoreal, valorrr, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros" />
+								</p:inputText>
+								<p:commandLink action="#{cadVoluntariadoMB.calcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadVoluntariadoMB.retornoValorJuros()}"
+										update="totalpag, saldoreceber, valoreal, valorrr, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros" />
+								</p:commandLink>
+							</h:panelGroup>
+
+							<p:inputText id="totalpag" style="width:75%;text-align: right;"
+								value="#{cadVoluntariadoMB.formaPagamento.valorTotal}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText
+								value="#{cadVoluntariadoMB.formaPagamento.valorTotal}"
+								id="saldoreceber"
+								style="width:30%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento"
+								for="tipoparcelamento" />
+
+							<p:inputText value="#{cadVoluntariadoMB.valorSaldoParcelar}"
+								id="saldoparcelar"
+								style="width:38.5%;font-size: 10px;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:selectOneMenu id="formPag2"
+								value="#{cadVoluntariadoMB.parcelamentopagamento.formaPagamento}"
+								style="width:120px;font-size: 10px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão de crédito"
+									itemValue="Cartão de crédito" />
+								<f:selectItem itemLabel="Cartão de crédito autorizado"
+									itemValue="Cartão de crédito autorizado" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<f:selectItem itemLabel="Déposito" itemValue="Depósito" />
+								<f:selectItem itemLabel="Financiamento banco"
+									itemValue="Financiamento Banco" />
+								<p:ajax event="change" listener="#{cadVoluntariadoMB.gerarListaTipoParcelamento()}" update="tipoparcelamento"/>
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{cadVoluntariadoMB.parcelamentopagamento.tipoParcelmaneto}"
+								style="width:130px;font-size: 10px;">
+								<f:selectItems id="idTipoparcelamento"
+									value="#{cadVoluntariadoMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;"
+							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+							<p:outputLabel value="Data 1o. Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+
+							<p:calendar id="primeirovencimento"
+								value="#{cadVoluntariadoMB.parcelamentopagamento.diaVencimento}"
+								size="20" locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText
+								value="#{cadVoluntariadoMB.parcelamentopagamento.valorParcelamento}"
+								id="valoraparcelar"
+								style="font-size: 11px;width:50%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVoluntariadoMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText>
+
+							<p:selectOneMenu id="nparcela"
+								value="#{cadVoluntariadoMB.parcelamentopagamento.numeroParcelas}"
+								style="width:100px;font-size: 10px;">
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadVoluntariadoMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+
+							<p:inputText
+								value="#{cadVoluntariadoMB.parcelamentopagamento.valorParcela}"
+								id="valorparcela"
+								style="font-size: 11px;width:70%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadVoluntariadoMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadVoluntariado:growl"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"
+								action="#{cadVoluntariadoMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{cadVoluntariadoMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+							</p:commandButton>
+							<p:commandButton id="btnCalcularBackOffice"
+								action="#" value="Comissão" style="margin-left:3%"
+								icon="ui-icon-calculator" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.btncomissaoficha}"/>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadVoluntariadoMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="150"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadVoluntariadoMB.excluirFormaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab title="Obs">
+						<br></br>
+						<div>
+							<p:inputTextarea id="obs" class="comment-text-area" rows="10"
+								value="#{cadVoluntariadoMB.formaPagamento.observacoes}" />
+						</div>
+					</p:tab>
+
+					<p:tab title="Obs TM">
+						<br></br>
+						<div>
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas" style="margin-left:2.5%" />
+							<br></br>
+							<p:inputTextarea id="obstm" class="comment-text-area" rows="10"
+								value="#{cadVoluntariadoMB.venda.obstm}" />
+						</div>
+					</p:tab>
+
+				</p:accordionPanel>
+				<br></br> <br></br> <br></br>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" onclick="PF('cd').show();" />
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadVoluntariadoMB.cancelarCadastro()}"></p:commandButton>
+					<p:dialog showEffect="fade" hideEffect="fade" header="Confirmação"
+						icon="ui-icon-alert" widgetVar="cd"
+						style="width:30%;font-size:14px">
+						<p:outputLabel
+							value="FINALIZAR FICHA? Ficha será enviada para Gerência." />
+						<br></br>
+						<br></br>
+						<p:commandButton value="Sim"
+							action="#{cadVoluntariadoMB.finalizarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" update="cadVoluntariado:growl"
+							style="margin-left:30%;font-size:12px" />
+						<p:commandButton value="Não"
+							action="#{cadVoluntariadoMB.naoEnviarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" update="cadVoluntariado:growl"
+							style="font-size:12px" />
+					</p:dialog>
+					<br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

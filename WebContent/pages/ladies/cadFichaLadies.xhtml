@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="idfrmFichaLadies" style="font-size: 10px;">
+                <div id="centro"> <br></br> 
+                    
+                    <p:outputLabel value="Ficha de Ladies" style="font-size: 22px;color: #1F8871; margin-left:40%"/>
+                    <p:accordionPanel class="painelhighSchool" style="width: 97%;margin-left: 1.5%" >
+                        <p:tab  title="Curso" class="tab" titleStyle="font-size: 11px" >
+                            <br></br>
+                            <p:outputLabel value="Cliente:" for="cliente" class="espacocobranca5" />
+                             <p:selectOneMenu id="cliente" value="#" style="width:74.5%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;" class="espacocobranca29" 
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idcliente" value="#" var="scliente" itemLabel="#" itemValue="#"/>
+                            </p:selectOneMenu>
+                           <br></br> <br></br>  
+                           <p:fieldset style="width:80%;margin-left: 9%" >
+                            <p:outputLabel value="Nome do Irmão:" for="nomeIrmao1"  class="espacocobranca28" /> 
+                            <p:inputText id="nomeIrmao1" style="width:40%;-moz-border-radius: 5px;border-radius: 5px;" maxlength="100"  value="#" class="espacocobranca29" />
+                            <p:outputLabel value="Data de Nascimento:" for="datanascimento1" style="margin-left: 9%"/>
+                            <p:inputMask id="datanascimento1"  mask="99/99/9999"   class="espacocobranca29" style="-moz-border-radius: 5px;border-radius: 5px;width: 12%">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:inputMask>
+                             <br></br> <br></br>  
+                            <p:outputLabel value="Nome do Irmão:" for="nomeIrmao2"  class="espacocobranca28" /> 
+                            <p:inputText id="nomeIrmao2" style="width:40%;-moz-border-radius: 5px;border-radius: 5px;" maxlength="100"  value="#" class="espacocobranca29" />
+                            <p:outputLabel value="Data de Nascimento:" for="datanascimento2" style="margin-left:9%"/>
+                            <p:inputMask id="datanascimento2"  mask="99/99/9999"   class="espacocobranca29" style="-moz-border-radius: 5px;border-radius: 5px;width: 12%">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:inputMask>
+                             <br></br>   <br></br> 
+                            <p:outputLabel value="Nome do Irmão:" for="nomeIrmao3"  class="espacocobranca28"  /> 
+                            <p:inputText id="nomeIrmao3" style="width:40%;-moz-border-radius: 5px;border-radius: 5px;" maxlength="100"  value="#" class="espacocobranca29" />
+                            <p:outputLabel value="Data de Nascimento:" for="datanascimento3" style="margin-left:9%"/>
+                            <p:inputMask id="datanascimento3"  mask="99/99/9999"   class="espacocobranca29" style="-moz-border-radius: 5px;border-radius: 5px;width: 12%">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:inputMask>
+                             <br></br>   <br></br> 
+                             <p:outputLabel value="Escola onde estuda:" for="escolaEstuda" style="margin-left: 2.4%"  /> 
+                            <p:inputText id="escolaEstuda" style="width:40%;-moz-border-radius: 5px;border-radius: 5px;" maxlength="100"  value="#" class="espacocobranca29" />
+                            <p:outputLabel value="Série/Grau:" for="serie" style="margin-left:14.5%"/>
+                            <p:inputMask id="serie"  mask="99/99/9999"   class="espacocobranca29" style="-moz-border-radius: 5px;border-radius: 5px;width: 12%">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:inputMask>
+                            </p:fieldset>
+                             <br></br>   
+                            <br></br>  
+                        </p:tab>
+
+                        <p:tab  title="Informações Complementares" titleStyle="font-size: 11px">
+                            <br></br>
+                            <p:outputLabel value="Tipo Acomodação:" for="tipoacomodacao" style="margin-left: 8%"/> 
+                            <p:selectOneMenu  id="tipoacomodacao"  value="#" class="espacocobranca29" style="width:18%;">
+                                <f:selectItem itemLabel="Sem acomodação" itemValue="Sem acomodação" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Casa de família" itemValue="Casa de família"/> 
+                                <f:selectItem itemLabel="Alojamento" itemValue="Alojamento"/> 
+                                <f:selectItem itemLabel="Outro" itemValue="Outro"/> 
+                                <f:selectItem itemLabel="Studio" itemValue="Studio"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Quarto:" for="quarto" class="imgadd" />
+                            <p:selectOneMenu  id="quarto"  value="#" class="espacocobranca29" style="width:19%;">
+                                <f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Quarto individual" itemValue="Quarto individual"/> 
+                                <f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo"/> 
+                                <f:selectItem itemLabel="Quarto triplo" itemValue="Quarto triplo"/> 
+                                <f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Refeição:" for="refeicao" class="espacocobranca29" /> 
+                            <p:selectOneMenu  id="refeicao"  value="#" class="espacocobranca29"  style="width:19%;">
+                                <f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã"/> 
+                                <f:selectItem itemLabel="Meia Pensão (2 Refeições)" itemValue="Meia Pensão (2 Refeições)"/> 
+                                <f:selectItem itemLabel="Pensão Completa (3 Refeições)" itemValue="Pensão Completa (3 Refeições)"/> 
+                            </p:selectOneMenu>
+                            <br></br><br></br><br></br>
+                            
+                           
+                            <p:outputLabel value="Data Chegada:" for="datachegada"  style="margin-left: 9.9%" />
+                            <p:calendar id="datachegada"   locale="pt" class="espacocobranca29" pattern="dd/MM/yyyy"  mask="true"  maxlength="15" >
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            <p:outputLabel value="Nº Semanas:" for="numsemanas" style="margin-left: 7.4%" />
+                            <p:inputText id="numsemanas" style="width:11%;" maxlength="100"  value="#" class="espacocobranca29"  />
+                            <p:outputLabel value="Data Partida:" for="datapartida" style="margin-left: 8.5%"  />
+                            <p:calendar id="datapartida" class="espacocobranca29"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" >
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            <br></br><br></br><br></br>
+                            
+                            <p:outputLabel value="Adicionais:" for="adicionais" style="margin-left: 11.4%" /> 
+                            <p:inputText id="adicionais" style="width:72.5%;" maxlength="100"  value="#" class="espacocobranca29" />
+                            <br></br><br></br><br></br>
+                            
+                            
+                            <legend id="iUsu3" ><b>Preferências</b></legend>
+                            <p:outputLabel value="Família com criança:" for="comcrianca" style="margin-left: 7.1%" /> 
+                            <p:selectOneMenu  id="comcrianca"  value="#"  style="width:25%;" class="espacocobranca29">
+                                <f:selectItem itemLabel="Indiferente" itemValue="Indiferente" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/> 
+                                <f:selectItem itemLabel="Não" itemValue="Não"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Animais de estimação:" for="comanimais" class="espacocobranca23"/> 
+                            <p:selectOneMenu  id="comanimais"  value="#" style="width:25%;" class="espacocobranca29">
+                                <f:selectItem itemLabel="Indiferente" itemValue="Indiferente" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/> 
+                                <f:selectItem itemLabel="Não" itemValue="Não"/> 
+                            </p:selectOneMenu>
+                            <br></br><br></br><br></br>
+                            <p:outputLabel value="Você é fumante:" for="fumante" style="margin-left: 9%"/> 
+                            <p:selectOneMenu  id="fumante"  value="#" style="width:25%;" class="espacocobranca29">
+                                <f:selectItem itemLabel="Não" itemValue="Não" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Você é vegetariano:" for="vegetariano" class="espacocobranca33"/> 
+                            <p:selectOneMenu  id="vegetariano"  value="#"  style="width:25%;" class="espacocobranca29">
+                                <f:selectItem itemLabel="Não" itemValue="Não" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/> 
+                            </p:selectOneMenu>
+                            <br></br><br></br>
+                            <p:outputLabel value="Tem alergia a algum medicamento ou alimento? Se sim, especifique:" for="alergia"/> 
+                            <br></br>
+                            <p:selectOneMenu  id="temalergia"  value="#" style="width:10%;margin-left: 18.3%" >
+                                <f:selectItem itemLabel="Não" itemValue="Não" noSelectionOption="true"  />
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/> 
+                               
+                            </p:selectOneMenu>
+                            <br></br><br></br>
+                            <p:inputText id="alergia" style="width:72.5%;margin-left: 18.3%" maxlength="100"  value="#"  />
+                            <br></br><br></br>
+                            
+                            <p:outputLabel value="Solicitações Especiais:" for="solicitacaoespecial" style="margin-left: 6.8%" /> 
+                            <p:inputText id="solicitacaoespecial" style="width:72.5%;" maxlength="100"  value="#"  class="espacocobranca29" />
+                            <br></br><br></br>
+                            
+                            <p:outputLabel value="Quais seus interesses e  hobbies:" for="hobbies" style="margin-left: 2.7%"/> 
+                            <p:inputText id="hobbies" style="width:72.5%;" maxlength="100"  value="#" class="espacocobranca29" />
+                            <br></br><br></br>
+                        </p:tab>
+
+                       
+                        <p:tab  title="Produtos" titleStyle="font-size: 11px">
+                            <br></br><br></br>
+                            <p:outputLabel value="Moeda:" for="moeda" style="margin-left: 7%"/>
+                            <p:selectOneMenu id="moeda" value="#" class="espacocobranca29" style="width:13%;">
+                                <f:selectItem itemLabel="Câmbio" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idmoedas" value="#" var="cambio" itemLabel="#" itemValue="#"/>
+                                <p:ajax event="change" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Valor do Câmbio:" for="idvalorcambio"  class="espacocobranca28" />
+                            <p:inputText id="idvalorcambio" value="" style="width:11%" class="espacocobranca29r">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText> 
+                            <h:commandLink action="#"  title="Editar Câmbio">  
+                                <img id="editarcambio" class="" src="../../resources/img/cambio_1.png"/>
+                            </h:commandLink>
+                            <p:outputLabel value="Valor Total:" for="valortotal"  class="espacocobranca18" />
+                            <p:inputText id="valortotal" value="" style="width:13%" class="espacocobranca29r">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText> 
+                            <br></br> <br></br>
+                            <p:outputLabel value="Produto:" for="produto"  style="font-size: 10px;margin-left: 6%"/>
+                            <p:selectOneMenu id="produto" value="#" style="width:20%;font-size: 10px" class="espacocobranca29"
+                                              filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems id="idproduto" value="#" var="cproduto" itemLabel="#" itemValue="#"/>
+                                
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Valor(Moeda Estrangeira):" for="valor"  style="margin-left: 7%" />
+                            <p:inputText id="valor" value="" style="width:13%" class="espacocobranca29r">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText> 
+                            <p:outputLabel value="Valor R$:" for="valoreal"  style="margin-left: 7.5%" />
+                            <p:inputText id="valoreal" value="" style="width:13%" class="espacocobranca29r">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText> 
+                            <br></br>
+                            <br></br>
+                            <h:panelGrid columns="2">
+                                <p:commandButton id="btnadicionarproduto" value="Adicionar" icon="ui-icon-plusthick" style="margin-left: 85%" />
+                                <p:commandButton id="btnexcluirproduto" value="Excluir" icon=" ui-icon-close" class="espacocobranca26"/>
+                            </h:panelGrid><br></br><br></br>
+                            <p:dataTable id="tabelaprodutoscurso" var="produtoscurso"  value="#" class="tabela6" 
+                                        scrollable="true" scrollHeight="200" style="margin-bottom:20px" >
+                                <p:column headerText="Produto Orçamento" >
+                                    <h:outputText value="#" />
+                                </p:column>
+                                <p:column headerText="Moeda Estrangeira" style="text-align:right;width:130px;" >
+                                    <h:outputText value="#" />
+                                </p:column>
+                                <p:column headerText="Valor R$" style="text-align:right;width:130px;" >
+                                    <h:outputText value="" >
+                                        <f:convertNumber currencySymbol="" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Nº Parcelas" style="text-align:center;" sortBy="#">
+                                    <h:outputText value="#" />
+                                </p:column>
+                                <p:column headerText="Valor Parcela" style="text-align:right;" sortBy="#">
+                                    <h:outputText value="" >
+                                        <f:convertNumber currencySymbol="" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable><br></br><br></br>
+                        </p:tab>
+                        <p:tab  title="Forma de Pagto" titleStyle="font-size: 11px">
+                            <legend id="iUsu3" style="font-size:11px;"><b>Pagamentos</b></legend>
+                            <p:outputLabel value="Forma de Pagamento:" for="formPag"  style="margin-left: 7%"/> 
+                            <p:selectOneMenu id="formPag" value="#" style="width:13%;" class="espacocobranca29" >
+                                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                                <f:selectItem itemLabel="Á Vista" itemValue="avista" /> 
+                                <f:selectItem itemLabel="Parcelado" itemValue="parcelado" /> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Valor Orçamento:" for="valorOrca" class="espacocobranca24" />
+                             <p:inputText id="valorOrca" style="width:10%;" class="espacocobranca29r" value="">
+                                <f:convertNumber currencySymbol="" type="currency"/>
+                            </p:inputText>
+                            <p:outputLabel value="Acrescentar Juros:" for="acrejuros" style="margin-left: 12.5%" /> 
+                            <p:selectOneMenu id="acrejuros" value="#" style="width:10%;font-size: 10px" class="espacocobranca29" >
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/> 
+                                <f:selectItem itemLabel="Não" itemValue="nao" noSelectionOption="true"/> 
+                            </p:selectOneMenu>
+                            <br></br><br></br>
+                            <p:outputLabel value="Valor Juros:" for="valorJuros" style="margin-left: 11.2%" /> 
+                            <p:inputText id="valorJuros" style="width:10%;" class="espacocobranca29r" value="">
+                                <f:convertNumber currencySymbol="" type="currency"/>
+                            </p:inputText>
+                            <p:outputLabel value="Total a Pagar:" for="totalpag" class="espacocobranca2"/> 
+                            <p:inputText id="totalpag" style="width:10%;" class="espacocobranca29r" value="">
+                                <f:convertNumber currencySymbol="" type="currency"/>
+                            </p:inputText>
+
+                            <br></br><br></br>
+                            
+                            <p:selectBooleanCheckbox id="vendamatriz" style="margin-left: 80%" />
+                             
+                            <p:outputLabel value="Venda pela matriz" for="vendamatriz" class="fontebranca" style="font-size: 11px;margin-left: 1.5%"/> 
+                            <br></br><br></br>
+                            <p:outputLabel value="Saldo a Receber:" for="saldoreceber"  style="font-size: 10px;margin-left: 9%"/> 
+                            <p:inputText  value="#" id="saldoreceber" class="espacocobranca29r" style="width:10%;font-size: 10px"/> 
+                             <p:outputLabel value="Saldo a Parcelar:" for="saldoparcelar"  style="font-size: 110x;margin-left:12%"/> 
+                            <p:inputText value="#" id="saldoparcelar" class="espacocobranca29r" style="width:10%;font-size: 10px"/> 
+                            <p:outputLabel value="Forma de Pagamento:" for="formPag2"  style="font-size: 10px;margin-left: 6%"/> 
+                            <p:selectOneMenu id="formPag2" value="#" style="width:15%;font-size: 10px;" class="espacocobranca29r" >
+                                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                                <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" /> 
+                                <f:selectItem itemLabel="Boleto" itemValue="Boleto" /> 
+                                <f:selectItem itemLabel="Cartão de crédito" itemValue="Cartaocredito" /> 
+                                <f:selectItem itemLabel="Cartão de crédito autorizado" itemValue="cartaocreditoautorizado" /> 
+                                <f:selectItem itemLabel="Cartão débito" itemValue="Cartaodebito" /> 
+                                <f:selectItem itemLabel="Cheque" itemValue="Cheque" /> 
+                                <f:selectItem itemLabel="Déposito" itemValue="Deposito" /> 
+                                <f:selectItem itemLabel="Financiamento banco" itemValue="Financiamentobanco" /> 
+                            </p:selectOneMenu>
+
+                            <br></br><br></br>
+
+                            
+                            
+                           
+                            
+                          
+                            <br></br>
+                            <p:outputLabel value="Tipo de Parcelamento:" for="tipoparcelamento"  style="font-size: 10px;margin-left: 6.5%"/> 
+                            <p:selectOneMenu id="tipoparcelamento" value="#" style="width:13.2%;font-size: 10px;" class="espacocobranca29r" >
+                                <f:selectItem itemLabel="Matriz" itemValue="avista" noSelectionOption="true"/> 
+                                <f:selectItem itemLabel="Loja" itemValue="loja" /> 
+                                <f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor" /> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Data 1o. Vencimento:"   style="font-size: 10px;margin-left: 6.8%"/> 
+                            <p:calendar id="primeirovencimento" size="16" class="espacocobranca29r" locale="pt"  pattern="dd/MM/yyyy" />
+                             <p:outputLabel value="Valor a Parcelar:" for="valoraparcelar"  style="font-size: 10px;margin-left: 13.5%"/>
+                            <p:inputText value="#" id="valoraparcelar" class="espacocobranca29r" style="font-size: 10px;width:10%"/> 
+                            <br></br><br></br>
+                            <p:outputLabel value="Nº Parcelas:" for="nparcela" style="font-size: 10px;margin-left: 11%"/>
+                            <p:selectOneMenu id="nparcela" value="#" style="width:13.2%;font-size: 10px;" class="espacocobranca29r" >
+                                <f:selectItem itemLabel="01" itemValue="01" noSelectionOption="true"/> 
+                                <f:selectItem itemLabel="02" itemValue="02" /> 
+                                <f:selectItem itemLabel="03" itemValue="03" /> 
+                                <f:selectItem itemLabel="04" itemValue="04" /> 
+                                <f:selectItem itemLabel="05" itemValue="05" /> 
+                                <f:selectItem itemLabel="06" itemValue="06" /> 
+                                <f:selectItem itemLabel="07" itemValue="07" /> 
+                                <f:selectItem itemLabel="08" itemValue="08" /> 
+                                <f:selectItem itemLabel="09" itemValue="09" /> 
+                                <f:selectItem itemLabel="10" itemValue="10" /> 
+                                <f:selectItem itemLabel="11" itemValue="11" /> 
+                                <f:selectItem itemLabel="12" itemValue="12" /> 
+                                <f:selectItem itemLabel="13" itemValue="13" /> 
+                                <f:selectItem itemLabel="14" itemValue="14" /> 
+                                <f:selectItem itemLabel="15" itemValue="15" /> 
+                                <f:selectItem itemLabel="16" itemValue="16" /> 
+                                <f:selectItem itemLabel="17" itemValue="17" /> 
+                                <f:selectItem itemLabel="18" itemValue="18" /> 
+                                <f:selectItem itemLabel="19" itemValue="19" /> 
+                                <f:selectItem itemLabel="20" itemValue="20" /> 
+                                <f:selectItem itemLabel="21" itemValue="21" /> 
+                                <f:selectItem itemLabel="22" itemValue="22" /> 
+                                <f:selectItem itemLabel="23" itemValue="23" /> 
+                                <f:selectItem itemLabel="24" itemValue="24" /> 
+                            </p:selectOneMenu>
+                             
+                              <p:outputLabel value="Valor Parcela:" for="valorparcela"  style="font-size: 10px;margin-left: 10.5%"/> 
+                            <p:inputText value="#" id="valorparcela" class="espacocobranca29r"  style="font-size: 10px;width:9.5%"/> 
+
+                            <br></br><br></br>
+
+                            <h:panelGrid columns="2">
+                                <p:commandButton id="adicionarpagamento" value="Adicionar" icon="ui-icon-plusthick" style="margin-left: 85%"/>
+                                <p:commandButton id="excluirpagamento" value="Excluir" icon=" ui-icon-close" class="espacocobranca26"/>
+                            </h:panelGrid><br></br><br></br>
+                            <p:dataTable id="formapagamentotabela" var="formapagamento"  value="#" class="tabela6" 
+                                        scrollable="true" scrollHeight="200" style="margin-bottom:20px" >
+                                <p:column headerText="Forma Pagamento" style="text-align:center;" sortBy="#">
+                                    <h:outputText value="#" />
+                                </p:column>
+                                <p:column headerText="Tipo Parcelamento" style="text-align:center;" sortBy="#">
+                                    <h:outputText value="#" />
+                                </p:column>
+                                <p:column headerText="Valor a Parcelar" style="text-align:right;" sortBy="#">
+                                    <h:outputText value="" >
+                                        <f:convertNumber currencySymbol="" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Nº Parcelas" style="text-align:center;" sortBy="#">
+                                    <h:outputText value="#" />
+                                </p:column>
+                                <p:column headerText="Valor Parcela" style="text-align:right;" sortBy="#">
+                                    <h:outputText value="" >
+                                        <f:convertNumber currencySymbol="" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        
+                        <p:tab  title="Obs">
+                            <br></br>
+                            <h:panelGrid columns="1" cellpadding="3" style="margin-left:19%" >
+                                <p:inputTextarea id="obs" cols="130" rows="10" class="fontebranca" value="#"  />
+                            </h:panelGrid>
+                        </p:tab>
+
+                        <p:tab title="Obs TM">
+                            <br></br>
+                            <h:panelGrid columns="1" cellpadding="3">
+                                <p:outputLabel value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate" for="obstm" class="fontepretas"  style="margin-left:21%" /> 
+                                <p:inputTextarea id="obstm" cols="130" rows="10"  class="fontebranca" value="#"  style="margin-left:23%" />
+
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                    <br></br><br></br><br></br>
+                    <p class="botaocadpacote"><br></br>
+                        <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#"></p:commandButton>
+                        <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#"></p:commandButton>
+                        <br></br><br></br>
+                    </p>
+                </div>
+            </h:form>   
+
+        </ui:define>
+    </ui:composition>
+</html>

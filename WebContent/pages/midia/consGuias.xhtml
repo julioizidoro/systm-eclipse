@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:h="http://xmlns.jcp.org/jsf/html"
+ 	xmlns:p="http://primefaces.org/ui"
+ 	xmlns:ui="http://java.sun.com/jsf/facelets"
+ 	xmlns:f="http://xmlns.jcp.org/jsf/core">
+ <ui:composition template="/pages/templates/default.xhtml">
+ 	<ui:define name="corpo">
+ 		<h:form id="consultaMidia">
+ 			<div id="centro">
+ 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+ 				<br></br>
+ 				<legend id="iUsu2">
+ 					<b>#{midiaMB.titulo}</b>
+ 				</legend>
+ 				
+ 				<p:dataTable id="idvideo" var="links" value="#{midiaMB.listaMidia}" class="tabela" 
+ 				scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+ 					<p:column headerText="Titulo" style="width:250px">
+ 						<a href="#{links.link}" target="_blank" >#{links.titulo}</a>
+ 					</p:column>
+ 					<p:column headerText="Descrição" >
+ 						<h:outputText value="#{links.descricao}"/>
+ 					</p:column>
+ 				</p:dataTable>
+ 				<br></br> <br></br>
+ 			</div>
+ 		</h:form>
+ 	</ui:define>
+ </ui:composition>
+ </html>

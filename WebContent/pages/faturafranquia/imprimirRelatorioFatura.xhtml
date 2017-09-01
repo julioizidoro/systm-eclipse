@@ -1,0 +1,59 @@
+<?xml version='1.0'  encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" lang="pt-br" xml:lang="pt-br">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script src="../../resources/js/calendario.js"></script>
+</h:head>
+<f:view encoding="ISO-8859-1">
+	<h:form id="cadFaturaAjuste" style="font-size:11px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title id="iUsu3"><b>Fatura</b></title>
+
+		<h:panelGrid columns="1" style="width:90%;margin-left:5%;">
+			<p:outputLabel value="Unidade" for="unidade" />
+
+			<p:selectOneMenu id="unidade" style="width:90%;" disabled="#{imprimirRelatorioFaturaMB.habilitarunidade}"
+				value="#{imprimirRelatorioFaturaMB.unidadenegocio}"  
+				converter="UnidadeNegocioConverter" filter="true"   
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Selecione" itemValue="0"   
+					noSelectionOption="true" />
+				<f:selectItems value="#{imprimirRelatorioFaturaMB.listaUnidadeNegocio}"
+					var="unidade" itemLabel="#{unidade.nomerelatorio}"
+					itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{imprimirRelatorioFaturaMB.listaUnidadeNegocio}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<h:panelGrid columns="2" style="width:90%;margin-left:5%;"
+			columnClasses="tamanhoavisos2,tamanhoavisos2">
+			<p:outputLabel value="Mês" for="mes" />
+			<p:outputLabel value="Ano" for="ano" />
+
+			<p:inputText id="mes" style="width:70%;"
+				value="#{imprimirRelatorioFaturaMB.mes}" />
+			<p:inputText id="ano" style="width:70%;"
+				value="#{imprimirRelatorioFaturaMB.ano}" />
+		</h:panelGrid>
+		<br></br>
+		<div align="center">
+			<p:commandButton id="btnGerar" value="Visualizar" ajax="false"
+				onclick="this.form.target='_blank'"
+				action="#{imprimirRelatorioFaturaMB.gerarFatura()}"
+				icon="ui-icon-print" style="font-size:12px;" update="growl" />
+			<p:commandButton id="btnFechar" value="Fechar"
+				action="#{imprimirRelatorioFaturaMB.cancelar()}"
+				icon="ui-icon-closethick" style="font-size:12px;margin-left:2%;" />
+		</div>
+	</h:form>
+</f:view>
+</html>

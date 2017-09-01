@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ficha He - Terceira Folha" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.2968712300500012"/>
+	<property name="ireport.x" value="16"/>
+	<property name="ireport.y" value="689"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idvendas" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+   vendas.dataVenda, he.valorinscricao, he.bandeiracartao, he.numerocartao, he.datavlidade,
+   he.nometitular, unidadeNegocio.nomeFantasia, usuario.nome as nomeUsuario,
+   cliente.nome as nomecliente, cliente.cpf as clientecpf, cliente.fonecelular, cambio.valor, moedas.sigla
+from
+     vendas join he on vendas.idvendas = he.vendas_idvendas
+     join cliente on vendas.cliente_idcliente = cliente.idcliente
+     join unidadeNegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadeNegocio.idunidadeNegocio
+     join usuario on vendas.usuario_idusuario = usuario.idusuario
+	 join cambio on vendas.cambio_idcambio = cambio.idcambio
+     join moedas on cambio.moedas_idmoedas = moedas.idmoedas
+where
+    vendas.idvendas = $P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorinscricao" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bandeiracartao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numerocartao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datavlidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nometitular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeUsuario" class="java.lang.String"/>
+	<field name="nomecliente" class="java.lang.String"/>
+	<field name="clientecpf" class="java.lang.String"/>
+	<field name="fonecelular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sigla" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="20" width="49" height="20" uuid="1d127b13-8437-4fb6-9207-f375d54ad4a1"/>
+				<text><![CDATA[Unidade :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="20" width="194" height="20" uuid="770c9369-3ee7-4eab-95cf-021852c53418"/>
+				<textFieldExpression><![CDATA[$F{nomeFantasia}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="359" y="23" width="196" height="54" uuid="93adc564-30eb-4a26-bf21-e874680ef3c9"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="67" y="49" width="268" height="20" uuid="41660c9b-6ea7-46ed-ad80-2c73dfa6926a"/>
+				<textFieldExpression><![CDATA[$F{nomeUsuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="49" width="59" height="20" uuid="1cf7946a-aef3-43ad-b3d1-145f123c8b30"/>
+				<text><![CDATA[Consultor :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="700" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="90" width="555" height="87" uuid="35052a1e-633f-48e1-9fd7-3d32318eb949"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="1" uuid="5632f176-8c27-4268-8362-f558b1793f9c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="11" width="555" height="32" uuid="5e48c20c-ee7c-467b-a148-cb05625893f9"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Autorização de Débito em Cartão de Crédito]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="93" y="664" width="393" height="1" uuid="137f46b3-e3b2-4725-9b69-f87386c1f0e3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="69" width="545" height="13" uuid="46b692bb-f45d-40df-bc5d-c6365c2c14ed"/>
+				<text><![CDATA[Autorizo e reconheço o débito em minha conta do Cartão de Crédito abaixo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="96" width="84" height="15" uuid="94e41611-660a-4c1e-b4f2-5f9fc0f569d9"/>
+				<text><![CDATA[Taxa de Incrição:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="119" width="49" height="15" uuid="f8b154f8-f107-4bf5-8980-86b083fd4cc6"/>
+				<text><![CDATA[Bandeira:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="311" y="96" width="64" height="15" uuid="b0129b61-e77e-4760-9f02-b33f707fbfaa"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="93" y="96" width="90" height="15" uuid="8ef1cc3e-2dad-456a-a55c-1dbf7e2d38dd"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{valorinscricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="159" width="34" height="15" uuid="6ae67bc7-a681-47f3-b47f-aef8002bcb15"/>
+				<text><![CDATA[Fone:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="159" width="119" height="14" uuid="fcc86d68-d69f-437a-b40d-bb457bf71c57"/>
+				<textFieldExpression><![CDATA[$F{clientecpf}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="119" width="104" height="15" uuid="49aafb33-e2f5-4045-bd12-03a897cc8e5a"/>
+				<textFieldExpression><![CDATA[$F{bandeiracartao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="229" y="96" width="47" height="15" uuid="381d65c8-955c-4aaf-b22f-480b43d5d949"/>
+				<text><![CDATA[Câmbio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="119" width="49" height="13" uuid="dc621b01-2596-4b64-b74f-1937c4b967da"/>
+				<text><![CDATA[Validade: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="281" y="119" width="114" height="13" uuid="c303ba45-f3b0-4c06-bc94-0d7fc0fa8862"/>
+				<textFieldExpression><![CDATA[$F{numerocartao}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="276" y="96" width="35" height="15" uuid="03bcb8d1-79bb-494e-8c37-f60145486d11"/>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="142" y="139" width="210" height="14" uuid="b2b00f57-6c2a-4fa5-8f5d-1119dbf0cba9"/>
+				<textFieldExpression><![CDATA[$F{nometitular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="460" y="119" width="75" height="13" uuid="cd605bfd-9c30-4cd5-b499-46e96a491006"/>
+				<textFieldExpression><![CDATA[$F{datavlidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="139" width="140" height="14" uuid="09f33a79-eb6d-4063-80f8-7d2d7c396ff5"/>
+				<text><![CDATA[Nome do Titular do Cartão: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="447" y="159" width="89" height="15" uuid="3eb4763e-ac1a-4b0b-83c1-99d590eed1f6"/>
+				<textFieldExpression><![CDATA[$F{fonecelular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="179" y="119" width="106" height="13" uuid="32b72c54-a04c-4519-a6c1-4ee63dee5b5c"/>
+				<text><![CDATA[Cartão de Crédito nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="159" width="31" height="14" uuid="9a712e54-a620-443f-ace0-12255fc6a3aa"/>
+				<text><![CDATA[CPF :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="159" width="152" height="14" uuid="8d32ad9c-ddc0-44a7-9525-bd91a1a7940a"/>
+				<textFieldExpression><![CDATA[$F{nomecliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="159" width="49" height="14" uuid="323dc44f-b534-478d-8d90-0b0754ca445a"/>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="189" width="531" height="31" uuid="a750e3d0-848e-4355-bfce-a19bebe3541e"/>
+				<textElement textAlignment="Justified">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Autorizo a TravelMATE Intercâmbio & Turismo e a respectiva instituição de ensino superior estrangeira destacada nesta ficha de inscrição a debitar o valor indicado acima para fins de início do processo seletivo.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="8" backcolor="#808080" uuid="f5f44c91-43a0-43b6-ab0c-b89634010895"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="42" width="555" height="17" uuid="43b27159-a8e2-46c0-bb4b-962d84d171fd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVenda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="257" width="526" height="194" uuid="f092f3fa-4414-4096-a8c3-dd8cfdb5de7e"/>
+				<textElement textAlignment="Justified">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Declaro que todas as informações contidas nesta ficha de inscrição são verdadeiras. Compreendo que toda informação falsa ou incompleta pode comprometer o meu processo seletivo perante as instituições de ensino superior estrangeiras. Reconheço que cada instituição de ensino possui um processo específico com termos e condições próprias. Declaro optar pela TravelMATE lntercâmbio & Turismo para me representar perante este processo e me informar dos procedimentos e valores envolvidos.
+
+Declaro estar ciente de gue as taxas de inscrição e de asssessoria não são reembolsáveis independente do resultado do processo seletivo. Resultado cujo processo depende exclusivamente da análise acadêmica da instituição de ensino superior. Declaro estar ciente de que a TravelMATE lntercâmbio & Turismo presta um serviço de orientação e assessoria durante o processo de admissão do ensino superior.
+
+Declaro, igualmente, que se em virtude do resultado do processo consular o meu visto não for concedido por qualquer motivo apontado pela instituição consular não há qualquer processo de reembolso dos valores das taxas de inscrição e da assessoria de Higher Education.
+
+
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="235" width="136" height="22" uuid="a5be2bfd-7651-4d32-8ecc-d0ebaafebb17"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Declaração]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="14" y="523" width="12" height="12" uuid="971c28e2-5235-4aa8-b8a8-66ba3ce9839e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="548" width="12" height="12" uuid="d6b4c02d-00d0-473e-bfa3-33be031daad7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="569" width="12" height="12" uuid="e5d2d1b2-fd87-4518-877b-a7c09de9dcab"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="594" width="12" height="12" uuid="49a5d6ae-686b-41c5-83f3-33b5ecc32bee"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="499" width="12" height="12" uuid="4391465a-6c4f-4a17-b7d7-5a06e4504567"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="32" y="500" width="501" height="13" uuid="f05a2588-5be1-4ac0-8c4c-2651e71133e7"/>
+				<text><![CDATA[Ficha de lnscrição de Higher Education da TravelMATE assinada;
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="524" width="501" height="13" uuid="48edcdbe-ec70-43f9-91d5-e3bb1d4e6d2d"/>
+				<text><![CDATA[Histórico e Certificado de Conclusão do Ensino Médio (Original em Português E Tradução Juramentada);]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="549" width="501" height="13" uuid="c7ce027c-24c6-4456-a7f8-6ef91bf824ed"/>
+				<text><![CDATA[Passaporte com validade de no mínimo de 6 meses da data de término do curso;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="570" width="501" height="13" uuid="fabf1363-e3d7-4635-a4ce-affa6237d27e"/>
+				<text><![CDATA[Assesoria de Higher Education da TravelMATE, não reembolsável;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="595" width="508" height="13" uuid="4d7382de-57e7-4b6a-b994-dae3cc8ecec7"/>
+				<text><![CDATA[Autorização de Débito em Cartão de Crédito assinada no valor da Taxa de lnscrição do Processo Seletivo;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="466" width="136" height="22" uuid="e4322176-5156-4bf3-b976-cc665bfdfd25"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Checklist]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="14" y="619" width="12" height="12" uuid="aed83561-4ea2-4202-a12d-2f43a38a1533"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="33" y="620" width="508" height="13" uuid="66d61b41-a8cb-4429-afb7-c0f88679d3cb"/>
+				<text><![CDATA[Histórico e Certificado de Conclusão da Graduação]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="93" y="665" width="393" height="13" uuid="e447d2bb-eb5a-4084-b123-ea7c08d0d7e5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nomecliente}+" - CPF: "+$F{clientecpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

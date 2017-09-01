@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaPassagem">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<p:outputLabel value="ID Venda" for="idVenda" class="fontebranca"
+							style="margin-left:7.5%" />
+						<p:outputLabel value="Cliente" for="cliente" class="fontebranca"
+							style="margin-left:7.5%" />
+						<p:outputLabel value="Periodo" for="dataIni"
+							style="margin-left:34.5%" />
+						<br></br>
+						<h:panelGrid columns="4">
+							<p:inputText id="idVenda" value="#{passagemMB.idVenda}"
+								style="width:85px;margin-left:45%" />
+							<p:inputText id="cliente" value="#{passagemMB.nome}"
+								style="width:300px;margin-left:8%" />
+							<p:calendar id="dataIni" value="#{passagemMB.dataInicio}" size="12"
+								style="margin-left:60%" locale="pt" pattern="dd/MM/yyyy"
+								mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{passagemMB.dataFinal}"
+								size="12" style="margin-left:75%" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+						</h:panelGrid>
+						<br></br>
+						<p:outputLabel value="Unidade" for="unidade" class="fontebranca"
+							style="margin-left:7.6%" />
+
+						<br></br>
+						<h:panelGrid columns="4">
+							<p:selectOneMenu id="unidade" value="#{passagemMB.unidadeNegocio}"
+								style="width:280px;margin-left:20%"
+								converter="UnidadeNegocioConverter" filter="true"
+								filterMatchMode="startsWith" disabled="#{passagemMB.habilitarUnidade}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idUnidade" value="#{passagemMB.listaUnidade}"
+									var="sUnidade" itemLabel="#{sUnidade.nomerelatorio}"
+									itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{passagemMB.listaUnidade}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							
+							<p:commandButton value="Pesquisar" style="margin-left:73%"
+								icon=" ui-icon-search " action="#{passagemMB.pesquisar()}"
+								update=":consultaPassagem:idTabelaPassagem" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								style="margin-left:20%"
+								action="#{passagemMB.carregarListaPassagem()}"
+								update="idVenda,:consultaPassagem:idTabelaPassagem,unidade, dataFinal, dataIni, cliente" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br> <br></br>
+				<legend id="iUsu2">
+					<b>Consulta de Passagens</b>
+				</legend>
+				<p:commandButton id="bntAddFicha" icon="ui-icon-plus"
+					class="botaoConsulta" style="font-size:12px;margin-left:80%"
+					value="Nova Passagem" action="#{passagemMB.novaPassagem()}" />
+				<br></br> <br></br>
+				<p:dataTable id="idTabelaPassagem" var="passagens"
+					value="#{passagemMB.listaPassagem}" class="tabela" 
+					scrollable="true" scrollHeight="350" style="margin-bottom:20px">
+					<p:column headerText="ID venda" style="width:50px">
+						<h:outputText value="#{passagens.vendas.idvendas}" style="#{passagemMB.cor(passagens)}"/>
+					</p:column>
+					<p:column headerText="Cliente">
+						<h:outputText value="#{passagens.vendas.cliente.nome}" style="#{passagemMB.corNome(passagens)}"/>
+					</p:column>
+					<p:column headerText="Data Inscrição"
+						style="width:110px;text-align:center;">
+						<h:outputText value="#{passagens.vendas.dataVenda}" style="#{passagemMB.cor(passagens)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Unidade" style="width:250px;"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{passagens.vendas.unidadenegocio.nomeFantasia}" style="#{passagemMB.cor(passagens)}"/>
+					</p:column>
+					<p:column headerText="Agente" style="width:250px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{passagens.atendente}"  style="#{passagemMB.cor(passagens)}"/>
+					</p:column>
+					<p:column style="width:42px;" styleClass="alinharCenter">
+						<p:commandLink action="#{passagemMB.editar(passagens)}"
+							style="text-decoration: none" disabled="#{passagemMB.botoesHabilitados(passagens)}">
+							<img src="../../resources/img/editaricon.png" width="30"/>
+							<p:ajax event="dialogReturn" process="@this"
+								update=":consultaPassagem:idTabelaPassagem" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter">
+						<h:commandButton action="#{passagemMB.boletos(passagens)}" disabled="#{passagemMB.botoesHabilitados(passagens)}"
+							title="Boleto" image="../../resources/img/boletoFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:100%;margin-left:4%" >
+						</h:commandButton>  
+					</p:column>  
+					<p:column headerText="Imprimir"
+						style="width:65px;text-align:center;" styleClass="alinharCenter">
+						<h:commandButton
+							action="#{passagemMB.gerarRelatorioRecibo(passagens)}"
+							title="Recibo" image="../../resources/img/imprimiRecibo.png"
+							style="width:55%;margin-left:4%" ajax="false"
+							onclick="this.form.target='_blank'" disabled="#{passagemMB.botoesHabilitados(passagens)}"/>
+					</p:column>
+					<p:column style="width:42px;" styleClass="alinharCenter">
+						<p:commandLink action="#{passagemMB.cancelarVenda(passagens.vendas)}" disabled="#{passagemMB.botoesHabilitados(passagens)}"
+							style="text-decoration: none" title="Cancelar Ficha" update=":consultaPassagem:idTabelaPassagem">
+							<img src="../../resources/img/cancel.png" width="30"/>
+							<p:confirm header="Cancelamento"
+										message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />  
+						</p:commandLink>
+					</p:column>  
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
+			    	<div align="center">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
+			        </div>  
+			    </p:confirmDialog>  
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

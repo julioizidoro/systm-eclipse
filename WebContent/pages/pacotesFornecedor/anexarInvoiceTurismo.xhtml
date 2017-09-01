@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+    </h:head> 
+ 	<h:body style="background:white;" > 
+       <h:form id="anexarInvoiceTurismo" style="text-align:left;font-size: 10px; margin-left: 1%; ">
+           <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+		<title>Anexar Invoice</title>
+		<p:growl id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+           <h:panelGrid>
+			<p:fileUpload multiple="true"  label="Anexar" fileUploadListener="#{anexarInvoiceTurismoMB.fileUploadListener}" value="#{anexarInvoiceTurismoMB.file}"  mode="advanced" 
+                    update="messages" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
+               </p:fileUpload>
+		</h:panelGrid>  
+           <br /><br /><br /> 
+           <h:panelGrid columns="2" style="margin-left:35%;"> 
+			<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar" action="#{anexarInvoiceTurismoMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
+		    <p:commandButton id="btnCancelar" value="Cancelar" action="#{anexarInvoiceTurismoMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
+		</h:panelGrid>  
+       </h:form>
+ 	</h:body>
+</html>

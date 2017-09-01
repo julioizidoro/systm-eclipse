@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="frmidcalculajuros" style="text-align:left;font-size: 10px;">
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+
+		<p:fieldset
+			legend="Opção 3 - Parcelamnto em cartão de crédito em até 12%*"
+			style="width:95%;margin-left: 2.5%">
+			<p:outputLabel value=" % Entrada" for="entrada"
+				class="espacocobranca14" />
+			<p:outputLabel value="Valor da Entrada R$" for="vlrentrada"
+				style="margin-left: 17.5%" />
+			<p:outputLabel value="Nº de Parcelas" for="nParcelas"
+				style="margin-left: 8.5%" />
+			<br></br>
+			<h:panelGrid columns="3">
+				<p:inputText id="entrada" style="width: 70%;margin-left:20%"
+					maxlength="100" value="#" />
+				<p:inputText id="vlrentrada" style="width: 70%; margin-left: 20%"
+					maxlength="100" class="fontebranca" value="#" />
+				<p:selectOneMenu id="nParcelas" value="#"
+					style="width:110px;margin-left:20%">
+					<f:selectItem itemLabel="00" itemValue="00"
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="01" itemValue="01" />
+					<f:selectItem itemLabel="02" itemValue="02" />
+					<f:selectItem itemLabel="03" itemValue="03" />
+					<f:selectItem itemLabel="04" itemValue="04" />
+					<f:selectItem itemLabel="05" itemValue="05" />
+					<f:selectItem itemLabel="06" itemValue="06" />
+					<f:selectItem itemLabel="07" itemValue="07" />
+					<f:selectItem itemLabel="08" itemValue="08" />
+					<f:selectItem itemLabel="09" itemValue="09" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+					<f:selectItem itemLabel="11" itemValue="11" />
+					<f:selectItem itemLabel="12" itemValue="12" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+
+			<br></br>
+
+			<p:outputLabel value=" % Saldo" for="saldo" class="espacocobranca14" />
+			<p:outputLabel value="Saldo Parcelar" for="saldoParcelar"
+				style="margin-left: 20%" />
+			<p:outputLabel value="Valor da Parcela" for="vlrParcela"
+				style="margin-left: 13.5%" />
+
+
+			<br></br>
+
+			<p:inputText id="saldo" style="width: 18%" maxlength="100"
+				class="espacocobranca14" value="#" />
+			<p:inputText id="saldoParcelar" style="width: 18%; margin-left: 8.8%"
+				maxlength="100" class="fontebranca" value="#" />
+			<p:inputText id="vlrParcela" style="width: 18%; margin-left: 8.5%"
+				maxlength="100" class="fontebranca" value="#" />
+			<p:commandButton class="imagemm" onclick="" icon="ui-icon-check"
+				value="Confirmar" action="#"></p:commandButton>
+			<br></br>
+			<br></br>
+		</p:fieldset>
+
+		<br></br>
+		<br></br>
+		<br></br>
+		<p:fieldset
+			legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 24x via financeira*"
+			style="width:95%;margin-left: 2.5%">
+
+			<p:outputLabel value="Nº de Parcelas" for="nParcelas1"
+				class="espacocobranca14" />
+			<p:outputLabel value="Valor da Parcela R$" for="vlrparcela"
+				style="margin-left: 14.2%" />
+			<br></br>
+			<h:panelGrid columns="3">
+				<p:selectOneMenu id="nParcelas1" value="#"
+					style="width:110px;margin-left:22%">
+					<f:selectItem itemLabel="00" itemValue="00"
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="01" itemValue="01" />
+					<f:selectItem itemLabel="02" itemValue="02" />
+					<f:selectItem itemLabel="03" itemValue="03" />
+					<f:selectItem itemLabel="04" itemValue="04" />
+					<f:selectItem itemLabel="05" itemValue="05" />
+					<f:selectItem itemLabel="06" itemValue="06" />
+					<f:selectItem itemLabel="07" itemValue="07" />
+					<f:selectItem itemLabel="08" itemValue="08" />
+					<f:selectItem itemLabel="09" itemValue="09" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+					<f:selectItem itemLabel="11" itemValue="11" />
+					<f:selectItem itemLabel="12" itemValue="12" />
+				</p:selectOneMenu>
+				<p:inputText id="vlrparcela" style="width: 60%; margin-left: 28%"
+					maxlength="100" class="fontebranca" value="#" />
+
+				<p:commandButton style="margin-left: 60%" onclick=""
+					icon="ui-icon-check" value="Confirmar" action="#"></p:commandButton>
+			</h:panelGrid>
+			<br></br>
+			<br></br>
+		</p:fieldset>
+		<br></br>
+		
+		<p:commandButton style="margin-left:43%" onclick="" icon="ui-icon-close"
+			value="Cancelar" action="#"></p:commandButton>
+
+	</h:form>
+</h:body>
+</html>

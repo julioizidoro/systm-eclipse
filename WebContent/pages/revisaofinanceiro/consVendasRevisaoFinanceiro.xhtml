@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaRevisaoFinanceiro" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						
+						<h:panelGrid columns="5" style="width:100%;">
+							<p:outputLabel value="Unidade"/>
+							<p:outputLabel value="Produtos"/>
+							<p:outputLabel value="Periodo Venda"/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							
+							<p:selectOneMenu id="unidades"
+								value="#{revisaoFinanceiroMB.unidadenegocio}"
+								style="width:200px;"
+								converter="UnidadeNegocioConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todas as Unidades" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idnidade"
+									value="#{revisaoFinanceiroMB.listaUnidadeNegocio}"
+									var="unidadeNegocio" itemLabel="#{unidadeNegocio.nomerelatorio}"
+									itemValue="#{unidadeNegocio}" />
+								<f:attribute name="listaUnidade"
+									value="#{revisaoFinanceiroMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							
+							<p:selectOneMenu id="produto"  
+								value="#{revisaoFinanceiroMB.produtos}"
+								style="width:200px;;"
+								converter="ProdutoConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todos os Produtos" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idproduto"
+									value="#{revisaoFinanceiroMB.listaProdutos}"
+									var="produtoSelecionado"
+									itemLabel="#{produtoSelecionado.descricao}"
+									itemValue="#{produtoSelecionado}" />
+								<f:attribute name="listaProdutos"
+									value="#{revisaoFinanceiroMB.listaProdutos}" />
+							</p:selectOneMenu>
+							<p:calendar id="idDataInicial"
+								value="#{revisaoFinanceiroMB.dataInicial}" size="20"
+								 locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>  
+							<p:calendar id="idDataFinal"
+								value="#{revisaoFinanceiroMB.dataFinal}" size="20"
+								 locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+							<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{revisaoFinanceiroMB.pesquisar()}" icon="ui-icon-search" update=":consultaRevisaoFinanceiro:growl, @form" style="font-size:12px;"/>
+						</h:panelGrid>
+
+					</p:tab>  
+				</p:accordionPanel>      
+      
+				<legend id="iUsu2">  
+					<b>Revisão Financeira das Vendas</b>
+				</legend> 
+				<br/><br/>          
+				<p:tabView id="acordionPainel" class="pesquisaVendaPendencia" >    
+					<p:tab title="Venda Nova (#{revisaoFinanceiroMB.nVendaNova})" class="tab" titleStyle="font-size: 11px" id="panelVendaNova">
+						<p:dataTable id="tabelaVendaNova" var="vendas" 
+							value="#{revisaoFinanceiroMB.listaVendaNova}" scrollable="true"  
+							scrollHeight="300"  >        
+							
+							<p:column headerText="ID"  style="width:83px;">
+								
+								<p:commandLink
+									action="#{revisaoFinanceiroMB.cadastroRevisaoFinanceiro(vendas)}"
+									title="ID da Venda"
+									>
+									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;"/>  
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente"  style="width:150px;">
+								<h:outputText value="#{vendas.cliente.nome}"
+									 />
+							</p:column>
+							<p:column headerText="Produto"  style="width:150px;">
+								<h:outputText value="#{vendas.produtos.descricao}"
+									 />
+							</p:column>
+							<p:column headerText="Data Venda"    
+								style="text-align:center;width:105px;">
+								<h:outputText value="#{vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>   
+							</p:column>
+							<p:column headerText="Próximo Contato" 
+								style="text-align:center;width:115px;">
+								<h:outputText value="" >
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />    
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade"  style="width:110px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{vendas.unidadenegocio.nomerelatorio}" />        
+							</p:column>     
+							<p:column headerText="Consultor" style="width:110px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{vendas.usuario.nome}" />
+							</p:column>   
+						</p:dataTable>    
+					</p:tab>
+					 <p:tab title="Pendentes (#{revisaoFinanceiroMB.nPendentes})" id="panelPendentes" class="tab" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaPendentes" var="vendas" 
+							value="#{revisaoFinanceiroMB.listaVendaPendente}" scrollable="true"  
+							scrollHeight="300"  >        
+							
+							<p:column headerText="ID"  style="width:83px;">
+								
+								<p:commandLink
+									action="#{revisaoFinanceiroMB.cadastroRevisaoFinanceiro(vendas)}"
+									title="ID da Venda"
+									>
+									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;"/>  
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente"  style="width:150px;">
+								<h:outputText value="#{vendas.cliente.nome}"
+									 />
+							</p:column>
+							<p:column headerText="Produto"  style="width:150px;">
+								<h:outputText value="#{vendas.produtos.descricao}"
+									 />
+							</p:column>
+							<p:column headerText="Data Venda"    
+								style="text-align:center;width:105px;">
+								<h:outputText value="#{vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>   
+							</p:column>
+							<p:column headerText="Próximo Contato" 
+								style="text-align:center;width:115px;">
+								<h:outputText value="#{vendas.vendapendencia.dataproximocontato}" >
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />    
+								</h:outputText>  
+							</p:column>
+							<p:column headerText="Unidade"  style="width:110px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{vendas.unidadenegocio.nomerelatorio}" />        
+							</p:column>     
+							<p:column headerText="Consultor" style="width:110px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{vendas.usuario.nome}" />
+							</p:column>   
+						</p:dataTable>    
+					</p:tab> 
+				</p:tabView>      
+
+			</div>
+
+		</h:form> 
+	</ui:define>
+</ui:composition>
+</html>

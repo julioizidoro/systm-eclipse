@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="fromplanoconta" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<p:outputLabel value="Descrição" for="descricao"
+							class="fontebranca" style="margin-left:4%" />
+						<br></br>
+						<p:inputText id="descricao" style="width:64%;margin-left:4%" maxlength="100" class="fontebranca" value="#{planoContasMB.descricao}" />
+						<p:commandButton value="Pesquisar" style="margin-left:8%"
+							icon=" ui-icon-search " update="@all"
+							oncomplete="popAprovar.hide();  #{meuBean.objetos}" action="#{planoContasMB.pesquisar()}" />
+						<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+							class="imgadd" update="@all"
+							oncomplete="popAprovar.hide();  #{meuBean.objetos}" action="#{planoContasMB.cancelar()}" />
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+				<legend id="iUsu2">
+					<b>Consulta Plano de Contas</b>
+				</legend>
+
+				<p:commandButton id="bntAddConta" class="espacocobranca21botao"
+					icon="ui-icon-plus" style="font-size:12px;margin-left: 2.5%"
+					value="Novo Plano de Conta" action="#{planoContasMB.novo()}">
+					<p:ajax event="dialogReturn" listener="#{planoContasMB.retornoDialog()}" process="@this" update="fromplanoconta:tabelaplanoconta" />
+				</p:commandButton>
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabelaplanoconta" var="planoconta" value="#{planoContasMB.listaPlanoContas}"
+					class="tabela" scrollable="true" scrollHeight="300"
+					rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+					rowIndexVar="rowIx" style="margin-bottom:20px;">
+
+
+					<p:column headerText="Nº da Conta"
+						style="width:115px;text-align:center;">
+						<h:outputText value="#{planoconta.idplanoconta}">
+							
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Descrição">
+						<h:outputText value="#{planoconta.descricao}" style="text-align:left;" />
+					</p:column>
+					 <p:column  style="width:38px;" styleClass="alinharCenter" >
+                           <p:commandLink action="#{planoContasMB.editar(planoconta)}" style="text-decoration: none" >
+                                <img src="../../resources/img/editaricon.png"/>
+                                <p:ajax event="dialogReturn" listener="#{planoContasMB.retornoDialog()}" process="@this" update="fromplanoconta:tabelaplanoconta"/>
+                            </p:commandLink>
+                    </p:column>
+            	</p:dataTable>
+				 <br></br>
+                    <br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

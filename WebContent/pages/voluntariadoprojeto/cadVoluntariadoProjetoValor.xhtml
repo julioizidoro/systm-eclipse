@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/> 
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="voluntaridoProjetoValor" style="text-align:left;font-size: 10px;">
+            <title>Cadastro de Valores</title>   
+            <h:panelGrid columns="2" columnClasses="tamanhoavisos, tamanhoavisos" style="width:85%;margin-left:7%;">
+	            <p:outputLabel value="Período" for="datainicio" />
+	            <p:outputLabel value="Nº Semanas" for="nsemanasinicial" />    
+	                       
+	            <h:panelGroup>
+		            <p:inputMask id="datainicio"  value="#{cadVoluntariadoProjetoValorMB.voluntariadoprojetovalor.datainicial}" size="10" mask="99/99/9999"  maxlength="15" >
+		                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+		            </p:inputMask>
+		            <p:inputMask id="datafinal" size="10" value="#{cadVoluntariadoProjetoValorMB.voluntariadoprojetovalor.datafinal}" 
+		            	mask="99/99/9999"  maxlength="15" style="margin-left:2%;">
+		                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+		            </p:inputMask>
+	            </h:panelGroup>
+	            <h:panelGroup>
+		            <p:inputText value="#{cadVoluntariadoProjetoValorMB.voluntariadoprojetovalor.numerosemanainicial}" id="nsemanasinicial" 
+		            	style="width:35%;text-align: right;"  title="Nº de Semanas inícial"/>
+		            <p:inputText value="#{cadVoluntariadoProjetoValorMB.voluntariadoprojetovalor.numerosemanafinal}"
+		            	 id="nsemanasfinal" style="width:35%;margin-left:2%;text-align: right;" title="Nº de Semanas final"/>
+           		</h:panelGroup>   
+            </h:panelGrid>     
+            <br></br>          
+            <h:panelGrid columns="2" columnClasses="espacocobranca25, espacocobranca25"
+            	style="width:85%;margin-left:7%;">
+	            <p:outputLabel value="Valor" for="valor" /> 
+	            <p:outputLabel value="Valor Semana Adicional" for="valorSemanaAdicional" />      
+	             
+	            <p:inputText id="valor" value="#{cadVoluntariadoProjetoValorMB.voluntariadoprojetovalor.valor}" 
+	            	style="width:66%;text-align: right;" >
+	                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	            </p:inputText>
+	            <p:inputText id="valorSemanaAdicional" value="#{cadVoluntariadoProjetoValorMB.voluntariadoprojetovalor.valorsemanaadicional}"
+	            	 style="width:66%;text-align: right;" >
+	                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	            </p:inputText>  
+            </h:panelGrid>        
+            <br></br> 
+            <div align="center">
+                <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cadVoluntariadoProjetoValorMB.salvar()}"/>
+                <p:commandButton icon="ui-icon-close" value="Cancelar" action="#{cadVoluntariadoProjetoValorMB.cancelar()}"/>
+            </div> 
+        </h:form>       
+    </h:body>
+</html>

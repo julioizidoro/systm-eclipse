@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="telaerro">
+		<style>
+.ui-draggable .ui-dialog-titlebar {
+	color: #FF0404;
+}
+</style>
+
+		<p:outputLabel value="ATENÇÃO"
+			style="font-size:24px;color:#FF0404;font-weight:bold;margin-left:18%;" />
+		<img src="../../resources/img/crm/atencao.png" width="35"
+			style="top: 5px; position: fixed;" />
+		<div align="center">  
+			<p:outputLabel
+				value="Tarifário desatualizado!"
+				id="mensagem" style="font-size:16px;color:#433F38;" /> 
+				<br/>
+				<p:outputLabel  
+				value="Por favor utilizar o orçamento manual."  style="font-size:16px;color:#433F38;" />
+		</div>
+	</h:form>  
+</h:body>
+</html>

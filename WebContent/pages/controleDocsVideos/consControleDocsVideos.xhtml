@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaDocumentosFornecedor">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<legend id="iUsu2">
+					<b>Documentos Vencidos</b>
+				</legend>
+				<br></br>
+				<div style="width: 100%;" align="center">
+					<p:tabView>
+				        <p:tab title="DOCS">
+				        	<h:panelGrid columns="2" style="width:100%;">
+						        <div  style="width:100%">
+						        	<h:panelGrid columns="2" style="width:5%;float:right;margin-right:1%;">
+										<p:selectBooleanCheckbox value="#{controleDocsVideosMB.todosdocumentos}">
+					            			<p:ajax update="idTabelaArquivos" listener="#{controleDocsVideosMB.selecionarTodosVencidos()}" />
+					        			</p:selectBooleanCheckbox>
+					        			<p:commandLink 
+											update="idTabelaArquivos" action="#{controleDocsVideosMB.excluir()}" title="Excluir">
+											<img src="../../resources/img/excluir.png"  />
+										</p:commandLink>
+									</h:panelGrid>
+								</div>
+					            <p:dataTable reflow="true" id="idTabelaArquivos" var="arquivo"
+									styleClass="table-transparent"
+									value="#{controleDocsVideosMB.listaArquivo}"
+									style="border:transparent;width:100%;"
+									scrollRows="10" scrollable="true" scrollHeight="300"
+									>
+									<p:column headerText=""
+										style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}"
+										styleClass="alinharCenter">
+										<a
+											href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+											<img src="#{controleDocsVideosMB.retornaIconeDocumento(arquivo.nomeftp)}"
+												width="30" height="30" style="font-size: 12px;"> </img>
+										</a>
+									</p:column> 
+									<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
+										style="font-size:12px;width:30%; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
+										<a
+											href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+											<h:outputText value="#{arquivo.nome}" style="color:black"/>
+										</a>
+									</p:column> 
+									<p:column headerText="Caminho" sortBy="#{arquivo.caminho}" 
+										style="font-size:12px;width:40%; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
+										<a
+											href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+											<h:outputText value="#{arquivo.caminho}" style="color:black"/>
+										</a>
+									</p:column>
+									<p:column headerText="Validade" sortBy="#{arquivo.datavalidade}" 
+										style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
+										<h:outputText value="#{arquivo.datavalidade}" 
+											style="#{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="" style="font-size:12px; text-align:right; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}"
+										styleClass="alinharCenter">
+										<p:selectBooleanCheckbox value="#{arquivo.selecionado}">
+										</p:selectBooleanCheckbox>
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+				        </p:tab>
+				        <p:tab title="DOCS PARCEIROS"> 
+					        <h:panelGrid columns="2" style="width:100%;">
+							        <div  style="width:100%">
+							        	<h:panelGrid columns="2" style="width:5%;float:right;margin-right:1%;">
+											<p:selectBooleanCheckbox value="#{controleDocsVideosMB.todosdocumentosfornecedor}">
+						            			<p:ajax update="idTabelaArquivosFornecedor" listener="#{controleDocsVideosMB.selecionarTodosVencidosFornecedor()}" />
+						        			</p:selectBooleanCheckbox>
+						        			<p:commandLink 
+												update="idTabelaArquivosFornecedor" action="#{controleDocsVideosMB.excluirArquivoFornecedor()}" title="Excluir">
+												<img src="../../resources/img/excluir.png"  />
+											</p:commandLink>
+										</h:panelGrid>
+									</div> 
+						            <p:dataTable reflow="true" id="idTabelaArquivosFornecedor" var="arquivoFornecedor"
+										styleClass="table-transparent"
+										value="#{controleDocsVideosMB.listaFornecedorCidadeDocs}"
+										style="border:transparent;width:100%;"
+										scrollRows="10" scrollable="true" scrollHeight="300"
+										>
+										
+										<p:column headerText=""
+											style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}"
+											styleClass="alinharCenter">
+											<a
+												href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
+												title="#{arquivoFornecedor.fornecedordocs.nome}" name="#{arquivoFornecedor.fornecedordocs.nome}" target="_blank">
+												<img src="#{controleDocsVideosMB.retornaIconeDocumento(arquivoFornecedor.fornecedordocs.nomeftp)}"
+													width="30" height="30" style="font-size: 12px;"> </img>
+											</a>
+										</p:column>
+										<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
+											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
+											<a
+												href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
+												title="#{arquivoFornecedor.fornecedordocs.nome}" name="#{arquivoFornecedor.fornecedordocs.nome}" target="_blank">
+												<h:outputText value="#{arquivoFornecedor.fornecedordocs.nome}" style="color:black"/>
+											</a>
+										</p:column> 
+										<p:column headerText="Validade" sortBy="#{arquivoFornecedor.fornecedordocs.datavalidade}" 
+											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
+											<h:outputText value="#{arquivoFornecedor.fornecedordocs.datavalidade}" 
+												style="#{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
+												<f:convertDateTime pattern="dd/MM/yyyy"
+													timeZone="America/Sao_Paulo" />
+											</h:outputText>
+										</p:column>
+										<p:column headerText="" style="font-size:12px; text-align:right; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}"
+											styleClass="alinharCenter">
+											<p:selectBooleanCheckbox value="#{arquivoFornecedor.selecionado}">
+											</p:selectBooleanCheckbox>
+										</p:column>
+									</p:dataTable>
+								</h:panelGrid>
+				        </p:tab>
+				    </p:tabView>
+					
+				</div>
+
+				<br></br> <br></br>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

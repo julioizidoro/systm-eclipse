@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="cadastroPassagem">
+                <div id="centro">
+                 <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                    <br></br><br></br>
+                    <p:outputLabel value="Passagem aérea" style="font-size: 22px;color: #1F8871;margin-left:40%"/>
+                    <p:accordionPanel class="painelhighSchool" style="background:#1F8871;" >
+                        <p:tab  title="Passagem" class="tab"  >
+                        <br></br>   
+                        	<legend id="iUsu3" ><b>Dados do Parceiro</b></legend>
+                            <p:selectOneMenu id="pais" value="#{cadPassagemMB.pais}" style="width:29%;font-size: 10px;margin-left:2%"  
+                                    converter="PaisConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+		                       <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"  />
+		                        <f:selectItems id="idpais" value="#{cadPassagemMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+		                        <f:attribute name="listaPais" value="#{cadPassagemMB.listaPais}"/>
+		                        <p:ajax event="change" update="cidade"/> 
+		                    </p:selectOneMenu>
+		                    <p:selectOneMenu id="cidade" value="#{cadPassagemMB.cidade}" style="width:31%;font-size: 10px" class="espacocampos" 
+	                                     converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+	                        <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+		                        <f:selectItems id="idcidade" value="#{cadPassagemMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+		                        <f:attribute name="listaCidade" value="#{cadPassagemMB.pais.cidadeList}"/>
+		                        <p:ajax event="change" listener="#{cadPassagemMB.listarFornecedorCidade(0)}" update="fornecedor" />
+		                    </p:selectOneMenu>
+		                    <p:selectOneMenu id="fornecedor" value="#{cadPassagemMB.fornecedorCidade}" style="width:30%;font-size: 10px" class="espacocampos" 
+		                                     converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+		                        <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"  />
+		                        <f:selectItems id="idfornecedor" value="#{cadPassagemMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+		                        <f:attribute name="listaFornecedorCidade" value="#{cadPassagemMB.listaFornecedorCidade}"/>
+		                    </p:selectOneMenu>
+		                    <br></br><br></br><br></br>
+                            <p:outputLabel value="Atendente" for="atendente"  style="font-size: 11px;margin-left:2%"/> 
+                            <p:outputLabel value="Cia aérea" for="cia" style="font-size: 11px;margin-left:26.7%"/> 
+                            <p:outputLabel value="Localizador" for="localizador"  style="font-size: 11px;margin-left:29.5%"/> 
+							<br></br>
+                            <p:inputText id="atendente" style="width:29%;margin-left:2%" maxlength="100"  value="#{cadPassagemMB.passagem.atendente}"  />
+                            <p:inputText id="cia" style="width:31%;margin-left:2.7%" maxlength="100"  value="#{cadPassagemMB.passagem.ciaAerea}"  />
+                            <p:inputText id="localizador" style="width:30%;margin-left:3%" maxlength="100" class="campos" value="#{cadPassagemMB.passagem.localizador}"  />
+			                    <br></br><br></br> <br></br><br></br>
+                            <legend id="iUsu3" ><b>Cliente</b></legend>
+                            
+                            <p:outputLabel value="Cliente" for="cliente" style="font-size: 11px;margin-left:2%"/> 
+                            <p:outputLabel value="Data Viagem" for="dataviagem" style="font-size: 11px;margin-left:36%"/> 
+                            <p:outputLabel value="Data Volta" for="datavolta" style="font-size: 11px;margin-left:7.2%"/>
+                           <br></br>
+                            <p:inputText id="cliente" style="width:27%;margin-left:2%" maxlength="100" class="camposs" readonly="true" value="#{cadPassagemMB.cliente.nome}"  />
+                            <p:commandLink actionListener="#{cadPassagemMB.pesquisarCliente()}" style="text-decoration: none;" >
+                                <img src="../../resources/img/pesquisar.png" width="3%" />
+                                <p:ajax event="dialogReturn"  process="@this" listener="#{cadPassagemMB.retornoDialogCliente}" update="cliente"/>
+                            </p:commandLink>
+                            <p:calendar id="dataviagem" size="17"  style="margin-left:9%" value="#{cadPassagemMB.passagem.dataviagem}"  locale="pt"  pattern="dd/MM/yyyy" />
+                            <p:calendar id="datavolta" size="17"  class="imgadd" value="#{cadPassagemMB.passagem.datavolta}"  locale="pt"  pattern="dd/MM/yyyy" />
+
+							 <br></br><br></br> <br></br>
+                        </p:tab>
+                        <p:tab  title="Trecho">
+                        <br></br>
+                            <h:panelGrid columns="1" cellpadding="3" style="margin-left:5%"  >
+                                <p:inputTextarea id="trecho" cols="190" rows="10" class="fontebranca" value="#{cadPassagemMB.passagem.trecho}"  />
+                            </h:panelGrid>
+                            <br></br>
+                        </p:tab>
+                        <p:tab  title="Regras">
+                        <br></br>
+                            <h:panelGrid columns="1" cellpadding="3" style="margin-left:5%"  >
+                                <p:inputTextarea id="regras" cols="190" rows="10" class="fontebranca" value="#{cadPassagemMB.passagem.regras}"  />
+                            </h:panelGrid>
+                            <br></br>
+                         </p:tab>
+                         <p:tab title="Valores">
+                            <legend id="iUsu3" style="font-size:11px;"><b>Valores</b></legend>
+							<p:outputLabel value="Tarifa" class="" style="margin-left:24%;font-size:13px"/>
+		                    <p:outputLabel value="Taxas"  style="margin-left:13.5%;font-size:13px"/>
+		                    <p:outputLabel value="Taxa Emissão"  style="margin-left:10.5%;font-size:13px"/>
+		                    <p:outputLabel value="Comissão"  style="margin-left:9.8%;font-size:13px"/>
+		                    <br></br>
+		                    <p:outputLabel value="ADT"  style="margin-left:15%"/>
+	                        <p:inputText id="idAdtTarifas" value="#{cadPassagemMB.passagem.adttarifa}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>  
+	                        <p:inputText id="idAdtTaxas" value="#{cadPassagemMB.passagem.adttaxas}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>
+	                        <p:inputText id="idAdtEmissao" value="#{cadPassagemMB.passagem.adttaxaemissao}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>
+	                        <p:inputText id="idAdtComissao" value="#{cadPassagemMB.passagem.adtcomissao}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        </p:inputText>
+	                        <p:commandLink style="margin-left:0.5%;text-decoration:none" title="Calcular comissão em %" action="#{cadPassagemMB.calcularComissaoAdt()}"> 
+	                        	<img src="../../resources/img/bolaVerde.png" width="17"/>
+	                        	<p:ajax event="dialogReturn" listener="#{cadPassagemMB.retornoDialogValorComissaoAdt}" process="@this" update="idAdtComissao" />
+	                        </p:commandLink>
+		                    <br></br> <br></br>
+		                    <p:outputLabel value="CHD"  style="margin-left:15%"/>
+	                        <p:inputText id="idChdTarifas" value="#{cadPassagemMB.passagem.chdtarifa}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>  
+	                        <p:inputText id="idChdTaxas" value="#{cadPassagemMB.passagem.chdtaxas}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>
+	                        <p:inputText id="idChdEmissao" value="#{cadPassagemMB.passagem.chdtaxaemissao}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                      		<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>
+	                        <p:inputText id="idChdComissao" value="#{cadPassagemMB.passagem.chdcomissao}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        <p:ajax event="blur"/>
+	                        </p:inputText>
+	                        <p:commandLink style="margin-left:0.5%;text-decoration:none" title="Calcular comissão em %" action="#{cadPassagemMB.calcularComissaoChd()}">
+	                        	<img src="../../resources/img/bolaVerde.png" width="17"/>
+	                        	<p:ajax event="dialogReturn" listener="#{cadPassagemMB.retornoDialogValorComissaoChd}" process="@this" update="idChdComissao" />
+	                        </p:commandLink>
+		                    <br></br> <br></br>
+		                    <p:outputLabel value="INF"  style="margin-left:15.4%"/>
+	                        <p:inputText id="idInfTarifas" value="#{cadPassagemMB.passagem.inftarifa}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>  
+	                        <p:inputText id="idInfTaxas" value="#{cadPassagemMB.passagem.inftaxas}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>
+	                        <p:inputText id="idInfEmissao" value="#{cadPassagemMB.passagem.inftaxaemissao}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur" listener="#{cadPassagemMB.editarValores()}"  update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+	                        </p:inputText>
+	                        <p:inputText id="idInfComissao" value="#{cadPassagemMB.passagem.infcomissao}" style="width:13%;font-size:10px;text-align: right;margin-left:3%" >
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        	<p:ajax event="blur"/>
+	                        </p:inputText>
+	                        <p:commandLink style="margin-left:0.5%;text-decoration:none" title="Calcular comissão em %" action="#{cadPassagemMB.calcularComissaoInf()}">
+	                        	<img src="../../resources/img/bolaVerde.png" width="17"/>
+	                        	<p:ajax event="dialogReturn" listener="#{cadPassagemMB.retornoDialogValorComissaoInf}" process="@this" update="idInfComissao" />
+	                        </p:commandLink>
+		                    <br></br> <br></br> <br></br> <br></br>
+		                    <p:outputLabel value="Comissão Loja" for="comissaoLoja" style="font-size: 11px;margin-left:28%"/> 
+		                    <p:inputText id="comissaoLoja" style="width:13%;text-align: right;margin-left:1%"  value="#{cadPassagemMB.passagem.comissaoloja}" >
+		                        <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+		                    </p:inputText>
+		                    <p:outputLabel value="Unidade" for="unidade" style="font-size: 11px;margin-left:5%"/> 
+		                    <p:selectOneMenu id="unidade" style="width:240px;font-size:10px;margin-left:1%" value="#{cadPassagemMB.unidadeNegocio}" converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+			                     <f:selectItem itemLabel="Unidade" itemValue="0" noSelectionOption="true"/> 
+			                     <f:selectItems id="idnidade" value="#{cadPassagemMB.listaUnidadeNegocio}" var="unidadeNegocio" itemLabel="#{unidadeNegocio.nomeFantasia}" itemValue="#{unidadeNegocio}"/>
+			                     <f:attribute name="listaUnidade" value="#{cadPassagemMB.listaUnidadeNegocio}"/>
+			                     <p:ajax event="change"/>
+			                 </p:selectOneMenu>
+		                    <br></br><br></br>
+                        </p:tab>
+						<p:tab  title="Passageiros">
+                            <legend id="iUsu3" ><b>Passageiro</b></legend>
+                            <p:outputLabel value="Nome" for="nome" class="espaco0p" style="font-size:10px;"/> 
+		                    <p:outputLabel value="Data Nascimento" for="datasnac"  style="font-size:10px;margin-left: 34.7%"/>
+		                    <p:outputLabel value="RG/Passaporte" for="rgPassaporte"  style="font-size:10px;margin-left:6%"/>
+		                    <p:outputLabel value="Categoria" for="idpassageirotipo" style="font-size:10px;margin-left:9%;"/> 
+		                    <br></br>
+		                    <h:panelGrid columns="5">
+		                        <p:inputText id="nome" style="width:260%;" class="camposs" value="#{cadPassagemMB.passagempassageiro.nome}"  />
+		                        <p:inputMask mask="99/99/9999" id="datasnac" style="width:25%;margin-left:69%"  value="#{cadPassagemMB.passagempassageiro.datanascimento}">
+		                            <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+		                        </p:inputMask>
+		                        <p:inputText id="rgPassaporte" style="width:75%;margin-left:14%"  value="#{cadPassagemMB.passagempassageiro.rg}"  />
+		                        <p:selectOneMenu  id="idpassageirotipo"  value="#{cadPassagemMB.passagempassageiro.categoria}" style="width:150px;margin-left:22%">
+		                            <f:selectItem itemLabel="Selecione" itemValue="selecione" noSelectionOption="true"  />
+		                            <f:selectItem itemLabel="ADT" itemValue="ADT"/> 
+		                            <f:selectItem itemLabel="CHD" itemValue="CHD"/> 
+		                            <f:selectItem itemLabel="INF" itemValue="INF"/> 
+		                        </p:selectOneMenu>
+		                         <p:commandButton id="idbtnaddpassageiro" icon="ui-icon-check" value="Add" action="#{cadPassagemMB.adicionarPassageiroBean()}" ajax="false" style="margin-left:7%">
+			                       <p:ajax event="click" update="idlistapassageiros, idTotalPa, valorOrca, totalpag, saldoreceber,valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento"/>
+			                    </p:commandButton>
+		                    </h:panelGrid>
+		                   
+		                    <br></br><br></br>
+		                    <p:dataTable id="idlistapassageiros" var="passageiro"  value="#{cadPassagemMB.listaPassageiros}" class="tabela1" 
+		                                 scrollable="true" scrollHeight="120" style="margin-bottom:20px;font-size: 10px;" rowIndexVar="linha" >
+		
+		                        <p:column headerText="Nome" >
+		                            <h:outputText value="#{passageiro.nome}" />
+		                        </p:column>
+		                        <p:column headerText="Data Nascimento"  style="width:18%">
+		                            <p:outputLabel value="#{passageiro.datanascimento}">
+		                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+		                            </p:outputLabel>
+		                        </p:column>
+		                        <p:column headerText="RG/Passaporte"  style="width:16%">
+		                            <p:outputLabel value="#{passageiro.rg}"/>
+		                        </p:column>
+		                         <p:column headerText="Categoria" style="width:15%">    
+		                            <p:outputLabel value="#{passageiro.categoria}" />
+		                        </p:column>
+		                        <p:column headerText="Valor"  style="width:20%;text-align:right">
+		                            <p:outputLabel value="#{passageiro.valor}">
+		                            	 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+		                            </p:outputLabel>
+		                        </p:column>
+		                        <p:column headerText=""  style="width:8%">
+		                            <p:commandButton value="Excluir" action="#{cadPassagemMB.removerPassageiroBean(linha, passageiro)}" ajax="false">
+		                                <p:ajax event="click" update="@all" />
+		                            </p:commandButton> 
+		                        </p:column>
+		                    </p:dataTable>
+		                    <br></br><br></br>
+		                    <p:outputLabel value="Total da Venda"  style="font-size:12px;"/>
+	                        <p:inputText id="idTotalPa" value="#{cadPassagemMB.totalPagar}" style="width:10%;font-size:10px;text-align: right;margin-left:1%" readonly="true">
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        </p:inputText>  
+                        </p:tab>
+                       
+                        <p:tab  title="Forma de Pagamento">
+                            <legend id="iUsu3" style="font-size:11px;"><b>Pagamentos</b></legend>
+                            <p:outputLabel value="Forma de Pagamento:" for="formPag"  style="margin-left: 14%" /> 
+                            <p:outputLabel value="Valor Orçamento:" for="valorOrca" style="margin-left: 15.5%" />
+                            <p:outputLabel value="Acrescentar Juros:" for="acrejuros" style="margin-left:17%" />
+                            <br></br>
+                            <h:panelGrid columns="3" >
+                            <p:selectOneMenu id="formPag" value="#{cadPassagemMB.formaPagamento.condicao}" style="width:150px;margin-left:50%"  >
+                                <f:selectItem itemLabel="À Vista" itemValue="À Vista" /> 
+                                <f:selectItem itemLabel="Parcelado" itemValue="Parcelado" /> 
+                            </p:selectOneMenu>
+                            
+                            <p:inputText id="valorOrca"  style="width:60%;margin-left:50%"  value="#{cadPassagemMB.formaPagamento.valorOrcamento}" readonly="true">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText>
+                             
+                            <p:selectOneMenu id="acrejuros" value="#{cadPassagemMB.formaPagamento.possuiJuros}" style="width:150px;font-size: 10px;text-align: right;margin-left:48%" >
+                            	<f:selectItem itemLabel="Não" itemValue="Não" />
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/>  
+                                <p:ajax event="change" listener="#{cadPassagemMB.calcularValorTotalOrcamento()}" update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros"/>
+                            </p:selectOneMenu>
+                             </h:panelGrid>
+                            <br></br><br></br>
+                            <p:outputLabel value="Valor Juros:" for="valorJuros" style="margin-left: 14%;"  /> 
+                            <p:outputLabel value="Total a Pagar:" for="totalpag" style="margin-left: 20%;"/> 
+                             <p:outputLabel value="Saldo a Receber:" for="saldoreceber" style="margin-left:18.8%"/> 
+                            <br></br>
+                            <h:panelGroup>
+	                            <p:inputText id="valorJuros" style="width:14%;text-align: right;margin-left:14%" class="espacocobranca29" value="#{cadPassagemMB.valorJuros}">
+	                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                                 <p:ajax event="blur" listener="#{cadPassagemMB.calcularValorTotalOrcamento()}" update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar"/>
+	                            </p:inputText>
+	                            <p:commandLink action="#{cadPassagemMB.calcularJuros()}" style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png"/> 
+									<p:ajax event="dialogReturn" listener="#{cadPassagemMB.retornoValorJuros()}" update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros"/> 
+								</p:commandLink> 
+                            </h:panelGroup> 
+                            
+                            <p:inputText id="totalpag" style="width:14%;text-align: right;margin-left:11%" class="espacocobranca29" value="#{cadPassagemMB.totalPagar}" readonly="true">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText>
+                           
+                            <p:inputText  value="#{cadPassagemMB.totalPagar}" id="saldoreceber" style="width:14%;font-size: 10px;text-align: right;margin-left:10.5%"  readonly="true">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText>
+                            
+                            <br></br><br></br><br></br>
+                            
+                            <p:outputLabel value="Saldo a Parcelar:" for="saldoparcelar" style="margin-left: 14%;" /> 
+                            <p:outputLabel value="Forma de Pagamento:" for="formPag2" style="margin-left:18%" /> 
+                             <p:outputLabel value="Tipo de Parcelamento:" for="tipoparcelamento"  style="margin-left:15.2%;"/> 
+                             
+                            <h:panelGrid columns="3">
+                            <p:inputText value="#{cadPassagemMB.valorSaltoParcelar}" id="saldoparcelar" style="width:55%;font-size: 10px; margin-left:54.7%;text-align: right" readonly="true">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText> 
+                            <p:selectOneMenu id="formPag2" value="#{cadPassagemMB.formaPagamentoString}" style="width:145px;font-size: 10px;margin-left:51.1%"  >
+                                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                                <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" /> 
+                                <f:selectItem itemLabel="Boleto" itemValue="Boleto" /> 
+                                <f:selectItem itemLabel="Cartão de crédito" itemValue="Cartao Credito" /> 
+                                <f:selectItem itemLabel="Cartão de crédito autorizado" itemValue="Cartao Credito Autorizado" /> 
+                                <f:selectItem itemLabel="Cartão débito" itemValue="Cartao Debito" /> 
+                                <f:selectItem itemLabel="Cheque" itemValue="Cheque" /> 
+                                <f:selectItem itemLabel="Déposito" itemValue="Deposito" /> 
+                                <f:selectItem itemLabel="Financiamento banco" itemValue="Financiamento Banco" /> 
+                            </p:selectOneMenu>
+                           	<p:selectOneMenu id="tipoparcelamento" value="#{cadPassagemMB.tipoParcelamento}" style="width:152px;font-size: 10px;margin-left: 45%"  >
+                                <f:selectItem itemLabel="Matriz" itemValue="Matriz"/> 
+                                <f:selectItem itemLabel="Loja" itemValue="loja" /> 
+                                <f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor" /> 
+                            </p:selectOneMenu>
+                            </h:panelGrid>
+                            
+                             <br></br><br></br>
+                             
+                            
+                            <p:outputLabel value="Data 1o. Vencimento:"  style="margin-left:14.5%;" /> 
+                            <p:outputLabel value="Valor a Parcelar:" for="valoraparcelar" style="text-align: right;margin-left: 7%;"  />
+                            <p:outputLabel value="No. Parcelas:" for="nparcela" style="margin-left: 12%;" /> 
+                             <p:outputLabel value="Valor da Parcela:" for="valorparcela" style="margin-left: 10%" /> 
+                            <br></br>
+                            <h:panelGrid columns="4">
+                            <p:calendar id="primeirovencimento" value="#{cadPassagemMB.dataPrimeiroPagamento}" size="20" style="margin-left:125%;" locale="pt"  pattern="dd/MM/yyyy" >
+                            	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            
+                            <p:inputText value="#{cadPassagemMB.valorParcelar}"  id="valoraparcelar" style="font-size: 11px;width:37%;text-align:right;margin-left:62.3%">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                 <p:ajax event="blur" />
+                            </p:inputText> 
+                            
+                            <p:selectOneMenu id="nparcela" value="#{cadPassagemMB.numeroParcelas}" style="width:130px;font-size: 10px;margin-left:36%" >
+                                <f:selectItem itemLabel="00" itemValue="00" /> 
+                                <f:selectItem itemLabel="01" itemValue="01" /> 
+                                <f:selectItem itemLabel="02" itemValue="02" /> 
+                                <f:selectItem itemLabel="03" itemValue="03" /> 
+                                <f:selectItem itemLabel="04" itemValue="04" /> 
+                                <f:selectItem itemLabel="05" itemValue="05" /> 
+                                <f:selectItem itemLabel="06" itemValue="06" /> 
+                                <f:selectItem itemLabel="07" itemValue="07" /> 
+                                <f:selectItem itemLabel="08" itemValue="08" /> 
+                                <f:selectItem itemLabel="09" itemValue="09" /> 
+                                <f:selectItem itemLabel="10" itemValue="10" /> 
+                                <f:selectItem itemLabel="11" itemValue="11" /> 
+                                <f:selectItem itemLabel="12" itemValue="12" /> 
+                                <f:selectItem itemLabel="13" itemValue="13" /> 
+                                <f:selectItem itemLabel="14" itemValue="14" /> 
+                                <f:selectItem itemLabel="15" itemValue="15" /> 
+                                <f:selectItem itemLabel="16" itemValue="16" /> 
+                                <f:selectItem itemLabel="17" itemValue="17" /> 
+                                <f:selectItem itemLabel="18" itemValue="18" /> 
+                                <f:selectItem itemLabel="19" itemValue="19" /> 
+                                <f:selectItem itemLabel="20" itemValue="20" /> 
+                                <f:selectItem itemLabel="21" itemValue="21" /> 
+                                <f:selectItem itemLabel="22" itemValue="22" /> 
+                                <f:selectItem itemLabel="23" itemValue="23" /> 
+                                <f:selectItem itemLabel="24" itemValue="24" /> 
+                                <p:ajax event="change" listener="#{cadPassagemMB.calcularValorParcelas()}" update="valorparcela"/>
+                            </p:selectOneMenu>
+                           
+                            <p:inputText value="#{cadPassagemMB.valorParcela}" id="valorparcela"  style="font-size: 11px;width:82%; text-align: right;margin-left:25%">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText> 
+							</h:panelGrid>
+                            <br></br><br></br><br></br>
+
+                            <h:panelGrid columns="2">
+                                <p:commandButton id="adicionarpagamento" value="Adicionar" action="#{cadPassagemMB.adicionarFormaPagamento()}" update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastroPassagem:growl, primeirovencimento" icon="ui-icon-plusthick" style="margin-left:90.75%"/>
+                            </h:panelGrid><br></br>
+                            <legend id="iUsu3" style="font-size:11px;"><b>Forma de Pagamento</b></legend>
+                            <p:dataTable id="formapagamentotabela" var="formapagamento"  value="#{cadPassagemMB.formaPagamento.parcelamentopagamentoList}" class="tabela6" 
+                                         scrollable="true" scrollHeight="180" style="margin-bottom:20px" rowIndexVar="rowIx">
+                                <p:column headerText="Forma Pagamento" >
+                                    <h:outputText value="#{formapagamento.formaPagamento}" />
+                                </p:column>
+                                <p:column headerText="Data 1º Vencimento" style="text-align:center;width:145px">
+									<h:outputText value="#{formapagamento.diaVencimento}" >
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:column>
+                                <p:column headerText="Tipo Parcelamento" >
+                                    <h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+                                </p:column>
+                                <p:column headerText="Valor a Parcelar" style="text-align:right;width:130px">
+                                    <h:outputText value="#{formapagamento.valorParcelamento}" >
+                                         <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="No. Parcelas" style="text-align:center;width:90px">
+                                    <h:outputText value="#{formapagamento.numeroParcelas}" />
+                                </p:column>
+                                <p:column headerText="Valor Parcela" style="text-align:right;width:130px">
+                                    <h:outputText value="#{formapagamento.valorParcela}" >
+                                         <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column style="width:100px; margin-left:1%;">
+                                	<p:commandButton id="excluirpagamento" value="Excluir" action="#{cadPassagemMB.excluirformaPagamento(rowIx)}" update="@all" icon="ui-icon-close" class="espacocobranca26"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab  title="Obs">
+                        <br></br>
+                            <h:panelGrid columns="1" cellpadding="3" style="margin-left:23%"  >
+                                <p:inputTextarea id="obs" cols="130" rows="10" class="fontebranca" value="#{cadPassagemMB.passagem.observacoes}"  />
+                            </h:panelGrid>
+                            <br></br>
+                        </p:tab>
+						
+                        <p:tab title="Obs TM">
+                        <br></br>
+                            <h:panelGrid columns="1" cellpadding="3" style="margin-left:23%">
+                                <p:outputLabel value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate" for="obstm" class="fontepretas" style="font-size: 11px;"/> 
+                                <p:inputTextarea id="obstm" cols="130" rows="10"  class="fontebranca" value="#{cadPassagemMB.vendas.obstm}"  />
+
+                            </h:panelGrid>
+                            <br></br>
+                        </p:tab>
+                     </p:accordionPanel>
+                     
+                     
+                    <p class="botaocadpacote"><br></br>
+                        <p:commandButton action="#{cadPassagemMB.confirmarFichaPassagem()}" class="imagemm" icon="ui-icon-check" value="Confirmar" update=":cadastroPassagem:growl"></p:commandButton>
+                        <p:commandButton class="espacocampos"  icon="ui-icon-close" value="Cancelar" action="#{cadPassagemMB.cancelar()}"></p:commandButton>
+                        <br></br><br></br>
+                    </p>
+                    
+                </div>
+            </h:form>   
+
+        </ui:define>
+    </ui:composition>
+</html>

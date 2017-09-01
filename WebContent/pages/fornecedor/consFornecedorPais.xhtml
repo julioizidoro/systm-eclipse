@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultafornecedor">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>   
+				<h:panelGrid columns="3" style="margin-left:17%;width:75%;"
+					columnClasses="tamanho6,tamanho6,tamanho6">
+					<p:outputLabel value="Produto" for="produto" style="font-size: 11px;color:#000;" />
+					<p:outputLabel value="Pais" for="pais"   style="font-size: 11px;color:#000;" />
+					<p:outputLabel value="Cidade" for="cidade" style="font-size: 11px;color:#000;" /> 
+
+					<p:selectOneMenu id="produto" value="#{fornecedorMB.produto}"
+						style="width:150px;" converter="ProdutoConverter" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idproduto"
+								value="#{fornecedorMB.listaProdutos}" var="cproduto"
+								itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+							<f:attribute name="listaProdutos"
+								value="#{fornecedorMB.listaProdutos}" />
+							<p:ajax event="change"
+								listener="#{fornecedorMB.listarPaises()}"
+								update=":consultafornecedor:tabelafornecedorpais, pais, cidade" />
+						</p:selectOneMenu> 
+						<p:selectOneMenu id="pais" value="#{fornecedorMB.pais}"
+							style="width:210px;" converter="PaisProdutoConverter"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{fornecedorMB.listaPais}"
+								var="paisselecionado" itemLabel="#{paisselecionado.pais.nome}"
+								itemValue="#{paisselecionado}" />
+							<f:attribute name="listaPaisProduto" value="#{fornecedorMB.listaPais}" /> 
+							<p:ajax event="change" listener="#{fornecedorMB.listarCidade()}" update="cidade" />
+						</p:selectOneMenu> 
+						<p:selectOneMenu id="cidade" value="#{fornecedorMB.cidade}"
+							style="width:210px;" converter="CidadePaisProdutoConverter" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Cidade" itemValue="0"
+								noSelectionOption="true" />      
+							<f:selectItems id="idcidade2"
+								value="#{fornecedorMB.listaCidade}" var="cidade"
+								itemLabel="#{cidade.cidade.nome}" itemValue="#{cidade}" />
+							<f:attribute name="listaCidadePaisProduto"
+								value="#{fornecedorMB.listaCidade}" />  
+							<p:ajax event="change"
+								listener="#{fornecedorMB.listarFornecedorCidade()}"
+								update=":consultafornecedor:tabelafornecedorpais" />
+						</p:selectOneMenu> 
+					</h:panelGrid> 
+				<br></br>    
+				<legend id="iUsu2">
+					<b>Consulta de Parceiros</b>
+				</legend>
+				<div align="center">
+					<p:commandButton id="bntfornecedor"
+						style="font-size:12px;width:14%" value="Parceiros"
+						action="#{fornecedorMB.consFornecedor()}" update="growl">
+						<p:ajax event="dialogReturn"
+							listener="#{fornecedorMB.retornoDialogNovo}" process="@this"
+							update=":consultafornecedor:tabelafornecedorpais" />
+					</p:commandButton>
+					<p:commandButton id="bntpais" style="font-size:12px;width:14%"
+						value="País" action="#{fornecedorMB.consPais()}" />
+					<p:commandButton id="bntfornecedorcomissao"
+						style="font-size:12px;width:14%" value="Parceiro Comissão"
+						action="#{fornecedorMB.cadFornecedorComissao()}" />
+					<p:commandButton id="bntfornecedorProduto"
+						style="font-size:12px;width:14%" value="Parceiros Produtos"
+						action="#{fornecedorMB.cadFornecedorCidadeIdiomaProduto()}" />
+					<p:commandButton id="bntRelatorio" style="font-size:12px;width:14%"
+						value="Relatório" />
+					<p:overlayPanel id="painelRelatorios" for="bntRelatorio"
+						hideEffect="fade" style="background:#fff;">
+						<p:commandLink id="bntFornecedorCadastrados" target="_blank"
+							style="font-size:12px;width:14%;margin-top:4px;"
+							value="Parceiros Cadastrados"
+							action="#{fornecedorMB.gerarRelatorio()}" ajax="false" />
+						<hr style="margin-top: 4px;" />
+
+						<p:commandLink id="bntTop5"
+							style="font-size:12px;width:14%;margin-top:4px;"
+							value="Parceiros vendidos"
+							action="#{fornecedorMB.escolasVendidas()}" />
+						<hr style="margin-top: 4px;" />
+
+						<p:commandLink id="bntTop3"
+							style="font-size:12px;width:14%;margin-top:4px;"
+							value="Países Vendidos" action="#{fornecedorMB.paisesVendidos()}" />
+
+						<hr style="margin-top: 4px;" />
+
+						<p:commandLink id="bntPercentualFornecedor"
+							style="font-size:12px;width:14%;margin-top:4px;"
+							value="Percentual de vendas"
+							action="#{fornecedorMB.percentualFornecedor()}" />
+
+					</p:overlayPanel>
+				</div>
+				<br></br>
+				<div align="center">    
+					<p:dataTable id="tabelafornecedorpais" var="fornecedorcidade" rowIndexVar="posicao" 
+						value="#{fornecedorMB.listaFornecedorCidade}" scrollable="true"
+						scrollHeight="300" style="margin-bottom:10px;width:80%;font-size:12px;">
+
+						<p:column headerText="Parceiro" style="text-align:left;width:400px">
+							<p:outputLabel value="#{fornecedorcidade.fornecedor.nome}" />
+						</p:column>  
+						<p:column headerText="Categoria"   
+							style="text-align:center;width:190px">           
+							<p:dataScroller    
+								value="#{fornecedorMB.retornarListaImagem(fornecedorcidade)}"
+								var="tmstar">
+								<img src="#{tmstar.imagem}" width="26"/>
+							</p:dataScroller>
+						</p:column>        
+						<p:column headerText="Ativo" style="text-align:center;width:80px">
+							<p:selectBooleanCheckbox value="#{fornecedorcidade.ativo}">
+            					<p:ajax update="tabelafornecedorpais" listener="#{fornecedorMB.salvarAtivo(fornecedorcidade, posicao)}" />
+        					</p:selectBooleanCheckbox>
+						</p:column> 
+						<p:column style="text-align:center;width:50px">
+							<p:commandLink  
+								action="#{fornecedorMB.editarFornecedorCidade(fornecedorcidade)}"
+								style="text-decoration: none" title="Editar"   
+								update=":consultafornecedor:growl">
+								<img src="../../resources/img/editaricon.png" />
+								<p:ajax event="dialogReturn" listener="#{fornecedorMB.listarFornecedorCidade()}" update="tabelafornecedorpais"/>
+							</p:commandLink>
+						</p:column>      
+					</p:dataTable>
+				</div>
+				<br></br> <br></br>
+			</div>
+			<style>
+				.ui-datascroller .ui-datascroller-content {
+					padding: 0;
+					background: transparent;      
+					border: none;
+				}    
+				.ui-datascroller .ui-datascroller-item {
+				    border: 0 none;
+				    display: inline;
+				}
+			</style>  
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

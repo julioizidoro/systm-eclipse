@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orcamentocomparativo" columnCount="3" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="267" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e40b30ef-4340-4aa6-a8ae-358425d6284e">
+	<property name="ireport.zoom" value="1.178973845500001"/>
+	<property name="ireport.x" value="1"/>
+	<property name="ireport.y" value="260"/>
+	<parameter name="icon" class="java.awt.Image"/>
+	<parameter name="lista" class="java.util.List" isForPrompting="false"/>
+	<parameter name="orcamento" class="java.awt.Image"/>
+	<parameter name="mascote" class="java.awt.Image"/>
+	<parameter name="logocinza" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cambio1" class="java.lang.String">
+		<fieldDescription><![CDATA[cambio1]]></fieldDescription>
+	</field>
+	<field name="cargahoraria1" class="java.lang.String">
+		<fieldDescription><![CDATA[cargahoraria1]]></fieldDescription>
+	</field>
+	<field name="cidadeEscola1" class="java.lang.String">
+		<fieldDescription><![CDATA[cidadeEscola1]]></fieldDescription>
+	</field>
+	<field name="cidadeUnidade1" class="java.lang.String">
+		<fieldDescription><![CDATA[cidadeUnidade1]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="dataInicio1" class="java.lang.String">
+		<fieldDescription><![CDATA[dataInicio1]]></fieldDescription>
+	</field>
+	<field name="dataOrcamento1" class="java.lang.String">
+		<fieldDescription><![CDATA[dataOrcamento1]]></fieldDescription>
+	</field>
+	<field name="dataTermino1" class="java.lang.String">
+		<fieldDescription><![CDATA[dataTermino1]]></fieldDescription>
+	</field>
+	<field name="duracao1" class="java.lang.String">
+		<fieldDescription><![CDATA[duracao1]]></fieldDescription>
+	</field>
+	<field name="emailConsultor1" class="java.lang.String">
+		<fieldDescription><![CDATA[emailConsultor1]]></fieldDescription>
+	</field>
+	<field name="foneUnidade1" class="java.lang.String">
+		<fieldDescription><![CDATA[foneUnidade1]]></fieldDescription>
+	</field>
+	<field name="instituicao1" class="java.lang.String">
+		<fieldDescription><![CDATA[instituicao1]]></fieldDescription>
+	</field>
+	<field name="localCurso1" class="java.lang.String">
+		<fieldDescription><![CDATA[localCurso1]]></fieldDescription>
+	</field>
+	<field name="nomeCliente1" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeCliente1]]></fieldDescription>
+	</field>
+	<field name="nomeConsultor1" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeConsultor1]]></fieldDescription>
+	</field>
+	<field name="nomeEscola1" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeEscola1]]></fieldDescription>
+	</field>
+	<field name="numeroorcamento1" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroorcamento1]]></fieldDescription>
+	</field>
+	<field name="paisEscola1" class="java.lang.String">
+		<fieldDescription><![CDATA[paisEscola1]]></fieldDescription>
+	</field>
+	<field name="subPacoteme" class="java.lang.String">
+		<fieldDescription><![CDATA[subPacoteme]]></fieldDescription>
+	</field>
+	<field name="subPacoters" class="java.lang.String">
+		<fieldDescription><![CDATA[subPacoters]]></fieldDescription>
+	</field>
+	<field name="tipoCurso1" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoCurso1]]></fieldDescription>
+	</field>
+	<field name="totalCursome1" class="java.lang.String">
+		<fieldDescription><![CDATA[totalCursome1]]></fieldDescription>
+	</field>
+	<field name="totalcursors1" class="java.lang.String">
+		<fieldDescription><![CDATA[totalcursors1]]></fieldDescription>
+	</field>
+	<field name="turno1" class="java.lang.String">
+		<fieldDescription><![CDATA[turno1]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="129" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="18" width="293" height="32" forecolor="#333333" uuid="6af14158-9c7e-4d3c-bab3-35f32f5385a5"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Olá "+$F{nomeCliente1}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="13" y="12" width="44" height="37" uuid="0135b0d3-ea60-4bd3-ad0a-e91cdc2e4d2a"/>
+				<imageExpression><![CDATA[$P{mascote}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="589" y="3" width="136" height="14" forecolor="#333333" uuid="34d86bc9-17ae-4524-9599-37bde2a4d9f7"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeConsultor1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="589" y="27" width="213" height="13" forecolor="#333337" uuid="c780b377-efbf-42f3-b383-d811e13aaf89"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emailConsultor1}+" | "+$F{foneUnidade1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="589" y="18" width="213" height="12" forecolor="#333337" uuid="4d6617a0-e781-4da7-944d-c1a2933d12ea"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Consultor em Intercâmbio | Travelmate "+$F{cidadeUnidade1}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="589" y="40" width="189" height="39" uuid="8ff60256-ae7a-4f37-a27d-31c29b9d8b81"/>
+				<imageExpression><![CDATA[$P{logocinza}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="92" width="230" height="33" uuid="0417b7b1-60c3-4c0b-907e-bc827b0752eb"/>
+				<imageExpression><![CDATA[$P{orcamento}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="62" width="525" height="14" forecolor="#333333" uuid="f1685c8d-07d7-48e4-9c97-a051dde9b5d2"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["A Travelmate busca proporcionar experiências pra vida toda."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="79" width="525" height="13" forecolor="#333333" uuid="9ba404d5-069a-414d-87a6-8aa4559bbc5a"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Confira as opções selecionadas e conte conosco para esclarecer suas dúvidas, sempre com um atendimento personalizado."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="232" y="97" width="216" height="23" forecolor="#333333" uuid="2f6553ec-a3cb-48ea-bb50-f7fbd4ed131f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Franklin Gothic Book" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CURSO DE IDIOMAS"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="125" width="800" height="2" forecolor="#2A8B6F" backcolor="#2A8B6F" uuid="416a2b02-f816-4cf1-9301-bd250aa0eb10"/>
+			</rectangle>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="197" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="1" width="264" height="196" backcolor="#EBECEC" uuid="3d74d1e8-b672-4dea-900f-36a5277dab9d"/>
+				<graphicElement>
+					<pen lineStyle="Double" lineColor="#EBECEC"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="2" y="105" width="260" height="1" forecolor="#A5A6A9" uuid="0b3f95b2-57fe-43d3-813d-de256fd93dc5"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="93" width="96" height="14" forecolor="#333333" uuid="d38840ea-8c57-4c58-9961-da0ee429656c"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Data de Término]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="93" width="153" height="14" forecolor="#333333" uuid="8c862e11-33cf-4cee-9d30-f4ee59d6033e"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataTermino1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="78" width="153" height="14" forecolor="#333333" uuid="aa9bb95b-76d7-49c2-a86b-444c464c2991"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataInicio1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="43" width="96" height="14" forecolor="#333333" uuid="c83766a0-fb1d-4f2f-8578-e302c2ed329b"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Instituição de ensino]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="90" width="260" height="1" forecolor="#A5A6A9" uuid="1e79e31d-53cf-4707-b451-e09bed748949"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="125" width="153" height="14" forecolor="#333333" uuid="326205dd-698f-4922-8cea-95aa86b87305"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargahoraria1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="61" width="153" height="14" forecolor="#333333" uuid="873bfe05-bcee-4fdb-9c64-a54bae04631b"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoCurso1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="73" width="260" height="1" forecolor="#A5A6A9" uuid="ec6aaea7-9132-42d6-b3a0-094e0003587c"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="142" width="153" height="14" forecolor="#333333" uuid="bf4665e1-14d6-4f75-b2a3-fd2a808b11dd"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turno1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="44" width="153" height="14" forecolor="#333333" uuid="aebd265e-a22f-4517-a7b7-85739ec6289a"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instituicao1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="56" width="260" height="1" forecolor="#A5A6A9" uuid="a46e7a8d-b455-4852-bc04-3b5f020951a7"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="128" y="159" width="69" height="16" forecolor="#333333" uuid="e7806384-080d-465e-840f-32df3f7f1ac6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Franklin Gothic Book" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalCursome1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="108" width="153" height="14" forecolor="#333333" uuid="0e513ab3-e1a7-4253-8637-6af9947a71a4"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{duracao1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="61" width="96" height="14" forecolor="#333333" uuid="238c3629-4356-4899-b4be-486dc13ccd2e"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Tipo de Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="108" width="96" height="14" forecolor="#333333" uuid="bc53c345-46fe-4637-a02e-d042a83ea541"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Duração do Curso]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="154" width="260" height="1" forecolor="#A5A6A9" uuid="6b886d5c-a3cd-46df-8f22-31ece64f6c78"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="159" width="61" height="16" forecolor="#333333" uuid="179f12d2-7c9f-4df1-815d-b8f0e53628de"/>
+				<textElement textAlignment="Right">
+					<font fontName="Franklin Gothic Book" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalcursors1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="160" width="77" height="16" forecolor="#333333" uuid="6e867ee1-f7d0-4f08-ac1e-429d5dfaf3ee"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[VALOR TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="125" width="96" height="14" forecolor="#333333" uuid="2c9a8f23-becc-4257-b8aa-9a2c39e6c4ca"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Carga Horária]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="137" width="260" height="1" forecolor="#A5A6A9" uuid="bbcaa352-1eab-4f08-a99d-9a3f84bbd6ff"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="142" width="96" height="14" forecolor="#333333" uuid="da325276-6ad1-4c36-a9d6-5024e3ba81c5"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Turno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="78" width="96" height="14" forecolor="#333333" uuid="8fa58a8d-a337-400b-b80f-26db0003bdec"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Data de Inicio]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="120" width="260" height="1" forecolor="#A5A6A9" uuid="5bf6a6c2-5c86-4c04-b546-88417f9fd756"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="27" width="153" height="14" forecolor="#333333" uuid="e74b146f-a8cd-499e-8df7-3a527710a8ff"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localCurso1}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="159" width="13" height="20" uuid="ef49f5b6-7037-486b-93f4-19019c365495"/>
+				<imageExpression><![CDATA[$P{icon}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="2" y="39" width="260" height="1" forecolor="#A5A6A9" uuid="73cd1470-136b-42f8-9c4e-ca31e1c1fbbd"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="27" width="76" height="14" forecolor="#333333" uuid="2f277e97-1972-4519-a124-df556a543d58"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="10"/>
+				</textElement>
+				<text><![CDATA[Local]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="20" width="262" height="2" forecolor="#2A8B6F" backcolor="#2A8B6F" uuid="2cf0c6cf-b250-44f1-9374-369e31dd928e"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="3" width="155" height="17" forecolor="#333333" uuid="1b355594-22d7-48ff-a9f8-27a18658e5fd"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Orçamento Nº "+$F{numeroorcamento1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="32" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="0" width="263" height="30" forecolor="#A2CF44" backcolor="#A2CF44" uuid="07e45ee1-1825-4754-840e-e77e1ee24fe7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="203" y="8" width="59" height="20" forecolor="#333333" uuid="f4f4f668-3db4-47a1-ad3d-5c16a3155273"/>
+				<textElement textAlignment="Center">
+					<font fontName="Franklin Gothic Book" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subPacoters}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="8" width="60" height="20" forecolor="#333333" uuid="29ea2804-f474-4c63-bdb3-034fc5b6267d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Franklin Gothic Book" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subPacoteme}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="8" width="163" height="20" forecolor="#333333" uuid="a8e2d784-f341-4e57-8b57-05ff2995f53a"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[VALOR TOTAL DO PACOTE* ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="8" width="17" height="20" forecolor="#333333" uuid="7dc9ec71-bcea-48d2-9b62-b26e420eaa8d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Franklin Gothic Book" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["|"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="189" y="0" width="4" height="13" forecolor="#42454A" uuid="e23b9600-0580-4460-bd47-9955ef151717"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="8" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[|]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="248" y="0" width="63" height="13" forecolor="#333333" uuid="04f52c55-f6b3-4dc6-8768-e2292c391064"/>
+				<textElement textAlignment="Left">
+					<font fontName="Franklin Gothic Book" size="9" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cambio1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="0" width="61" height="13" forecolor="#333333" uuid="a09a7d8a-1acc-45ed-a880-55a421c566b6"/>
+				<textElement textAlignment="Left">
+					<font fontName="Franklin Gothic Book" size="9" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataOrcamento1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="4" width="124" height="13" forecolor="#333333" uuid="913d7eae-7151-4661-a2b1-6fa12a0f9b52"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="9" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DATA DO ORÇAMENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="16" width="564" height="33" forecolor="#333333" uuid="ef290b1a-911d-41d8-aca8-d7f8e8372622"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Franklin Gothic Book" size="9" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*Todos os valores e condições de pagamento desse orçamento estão sujeitos a alteração sem aviso prévio. Os valores e formas de pagamento são válidos para o fechamento no dia de hoje - "+ $F{dataOrcamento1}+". Consulte a Travelmate para informações mais detalhadas sobre vistos, documentação para viagens, vacinas, feriados locais e políticas de alteração/cancelamento."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="203" y="0" width="45" height="13" forecolor="#333333" uuid="51740bd6-db60-4c90-9211-930cf3081a34"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="9" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CÂMBIO:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

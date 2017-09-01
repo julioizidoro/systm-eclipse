@@ -1,0 +1,2115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>produtoremessa</from-outcome>
+			<to-view-id>/pages/produtoremessa/produtoremessa.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>paginainicial</from-outcome>
+			<to-view-id>inicial.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>conciliacaobancaria</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioConciliacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>motivoCancelamento</from-outcome>
+			<to-view-id>/pages/crmrelatorios/motivoCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pagamentos</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioPagamentos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>faturafranquia</from-outcome>
+			<to-view-id>/pages/faturafranquia/consultaFaturaFranquia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>filtrarvendas</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatoriosComissaoParceiros</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatoriosComissaoParceiros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>comissaoconsultor</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioComissaoConsultor.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>comissaogerente</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioGerente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>comissaoterceiros</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioComissaoTerceiros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>terceiros</from-outcome>
+			<to-view-id>/pages/terceiros/consTerceiros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>filtrarcontasreceber</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioContasReceber.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>planoconta</from-outcome>
+			<to-view-id>/pages/planoconta/cadPlanoConta.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consplanoconta</from-outcome>
+			<to-view-id>/pages/planoconta/consPlanoConta.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultacontasreceber</from-outcome>
+			<to-view-id>/pages/contasreceber/consContasReceber.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>vendas</from-outcome>
+			<to-view-id>/pages/vendas/consVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultapacotesoperadora</from-outcome>
+			<to-view-id>/pages/pacoteoperadora/consultapacoteOperadora.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>comissaovenda</from-outcome>
+			<to-view-id>/pages/comissao/consultacomissaovendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultapacotesoperadora</from-outcome>
+			<to-view-id>/pages/pacoteoperadora/consultapacoteOperadora.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadpacotesoperadora</from-outcome>
+			<to-view-id>/pages/pacoteoperadora/cadPacoteOperadora.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultapacotesagencia</from-outcome>
+			<to-view-id>/pages/pacotes/consultapacote.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultacontaspagar</from-outcome>
+			<to-view-id>/pages/contaspagar/consContasPagar.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultacliente</from-outcome>
+			<to-view-id>/pages/cliente/consCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultafornecedor</from-outcome>
+			<to-view-id>/pages/fornecedor/consFornecedorPais.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultafichacurso</from-outcome>
+			<to-view-id>/pages/cursos/consCurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacotehotel</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteHotel.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacotecarro</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteCarro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacotecruzeiro</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteCruzeiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacotetransfer</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteTransfer.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>uploadboleto</from-outcome>
+			<to-view-id>/pages/contasreceber/uploadBoleto.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacotetrem</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteTrem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacoteingresso</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteIngresso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacotepasseio</from-outcome>
+			<to-view-id>/pages/pacotes/pacotePasseio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacoteaereo</from-outcome>
+			<to-view-id>/pages/pacotes/pacotePassagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>pacoteseguro</from-outcome>
+			<to-view-id>/pages/pacotes/pacoteSeguroViagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>autorizacaodebito</from-outcome>
+			<to-view-id>/pages/autorizacaodebito/autorizacaoDebito.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importarpacote</from-outcome>
+			<to-view-id>/pages/pacotes/importarPacoteOperadora.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importarpacote</from-outcome>
+			<to-view-id>/pages/pacotes/importarPacoteOperadora.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaprodutos</from-outcome>
+			<to-view-id>/pages/produtos/consProdutos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>orcamentocurso</from-outcome>
+			<to-view-id>/pages/coprodutos/consProdutos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>filtrarorcamento</from-outcome>
+			<to-view-id>/pages/orcamento/filtrarOrcamentoCurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaProgramasTeens</from-outcome>
+			<to-view-id>/pages/programasteens/consProgramaTeens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaLadies</from-outcome>
+			<to-view-id>/pages/ladies/consLadies.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaHighSchool</from-outcome>
+			<to-view-id>/pages/highSchool/consHighSchool.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>resultado</from-outcome>
+			<to-view-id>/pages/orcamento/resultadoFiltroOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>conscancelamento</from-outcome>
+			<to-view-id>/pages/cancelamento/consCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>editarcambio</from-outcome>
+			<to-view-id>/pages/cambio/editarcambio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>editarCambioOrcamento</from-outcome>
+			<to-view-id>/pages/cambio/editarcambioOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaorcamentocurso</from-outcome>
+			<to-view-id>/pages/orcamento/consultaOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaSeguro</from-outcome>
+			<to-view-id>/pages/seguroviagem/consSeguro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaVistos</from-outcome>
+			<to-view-id>/pages/visto/consVistos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>calculaJuros</from-outcome>
+			<to-view-id>/pages/juros/calculaJuros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaAuPair</from-outcome>
+			<to-view-id>/pages/auPair/consAuPair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaTrainee</from-outcome>
+			<to-view-id>/pages/trainee/consTrainee.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaVoluntariado</from-outcome>
+			<to-view-id>/pages/voluntariado/consVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaWorkandTravel</from-outcome>
+			<to-view-id>/pages/workAndTravel/consWorkandTravel.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultarCliente</from-outcome>
+			<to-view-id>/pages/cliente/consultarCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultarCoCliente</from-outcome>
+			<to-view-id>/pages/orcamento/consultarOcCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>passagem</from-outcome>
+			<to-view-id>/pages/passagem/consPassagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaSeguroViagem</from-outcome>
+			<to-view-id>/pages/seguroviagem/fichaSeguroViagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>calculoFormaPagamento</from-outcome>
+			<to-view-id>/pages/formaPagamento/calculoFormaPagamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>notificacoes</from-outcome>
+			<to-view-id>/pages/avisos/consultaNotificacoes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>notificacoesAviso</from-outcome>
+			<to-view-id>/pages/avisos/notificacoesAviso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>produtosExtra</from-outcome>
+			<to-view-id>/pages/orcamento/adicionarProdutoExtra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importarOrcamento</from-outcome>
+			<to-view-id>/pages/orcamento/importarOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultamidia</from-outcome>
+			<to-view-id>/pages/midia/consFlyers.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consGuias</from-outcome>
+			<to-view-id>/pages/midia/consGuias.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultainvoice</from-outcome>
+			<to-view-id>/pages/invoices/consInvoice.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>gerarContasReceber</from-outcome>
+			<to-view-id>/pages/vendas/gerarContasReceber.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>conspromocao</from-outcome>
+			<to-view-id>/pages/coprodutos/consultarTodasPromocoes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadTransferencia</from-outcome>
+			<to-view-id>/pages/contaspagar/cadTransferencia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleCurso</from-outcome>
+			<to-view-id>/pages/controleCursos/consControleCursos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVincularTerceiros</from-outcome>
+			<to-view-id>/pages/vincularterceiros/consVincularTerceiros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleWorkAndTravel</from-outcome>
+			<to-view-id>/pages/controleWork/consControleWork.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresWork</from-outcome>
+			<to-view-id>/pages/valoresWork/valoresWork.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>analiticoVendas</from-outcome>
+			<to-view-id>/pages/vendas/analiticoVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>invoiceControle</from-outcome>
+			<to-view-id>/pages/invoices/invoiceControles.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fornecedorCidadeIdiomaProduto</from-outcome>
+			<to-view-id>/pages/fornecedorcidadeidiomaproduto/cadFornecedorCidadeIdiomaProduto.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleSeguroViagem</from-outcome>
+			<to-view-id>/pages/controleSeguroViagem/controleSeguroViagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id> 
+		<navigation-case>
+			<from-outcome>consEscolasCadastradas</from-outcome>
+			<to-view-id>/pages/fornecedorcidadeidiomaproduto/consEscolasCadastradas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case> 
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleTrainee</from-outcome>
+			<to-view-id>/pages/controleTrainee/consControleTrainee.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consArquivos</from-outcome>
+			<to-view-id>/pages/arquivo/consArquivos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresTrainee</from-outcome>
+			<to-view-id>/pages/valoresTrainee/valoresTrainee.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>orcamentoVoluntariado</from-outcome>
+			<to-view-id>/pages/orcamentoVoluntariado/orcamentoVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresSeguro</from-outcome>
+			<to-view-id>/pages/valoresSeguro/consValoresSeguro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>flyers</from-outcome>
+			<to-view-id>/pages/midia/consFlyers.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresHighSchool</from-outcome>
+			<to-view-id>/pages/valoresHighSchool/valoresHighSchool.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleVoluntariado</from-outcome>
+			<to-view-id>/pages/controleVoluntariado/consControleVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consConciliacaoBancaria</from-outcome>
+			<to-view-id>/pages/conciliacaobancaria/consConciliacaoBancaria.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>enderecoCliente</from-outcome>
+			<to-view-id>/pages/cliente/enderecoCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatoriosSinteticoVendas</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioSinteticoVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleAupair</from-outcome>
+			<to-view-id>/pages/controleAupair/consControleAupair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresAupair</from-outcome>
+			<to-view-id>/pages/valoresAupair/valoresAupair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>docsControle</from-outcome>
+			<to-view-id>/pages/docs/docsControle.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaDemiPair</from-outcome>
+			<to-view-id>/pages/demipair/consDemiPair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleDemipair</from-outcome>
+			<to-view-id>/pages/controleDemipair/consControleDemipair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>avisos</from-outcome>
+			<to-view-id>/pages/avisos/consAvisos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>produtoVendas</from-outcome>
+			<to-view-id>/pages/vendas/produtoVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleHighSchool</from-outcome>
+			<to-view-id>/pages/controleHighSchool/consControleHighSchool.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cursosTeens</from-outcome>
+			<to-view-id>/pages/cursosTeens/consCursosTeens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleTeens</from-outcome>
+			<to-view-id>/pages/controleCursosTeens/consControleCursosTeens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresTeens</from-outcome>
+			<to-view-id>/pages/valoresCursosTeens/valoresCursosTeens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consDepartamentos</from-outcome>
+			<to-view-id>/pages/clouds/consDepartamentos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cancelarVenda</from-outcome>
+			<to-view-id>/pages/cancelamento/solicitacaocancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleAlteracoes</from-outcome>
+			<to-view-id>/pages/controleAlteracoes/controleAlteracao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadCloudPastas</from-outcome>
+			<to-view-id>/pages/clouds/cadCloudPastas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadCloudSubPastas</from-outcome>
+			<to-view-id>/pages/clouds/cadCloudSubPastas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPasta1</from-outcome>
+			<to-view-id>/pages/clouds/consPasta1.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>orcamentoManual</from-outcome>
+			<to-view-id>/pages/orcamentoManual/consOrcamentoManual.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importarOrcamentoManual</from-outcome>
+			<to-view-id>/pages/orcamentoManual/importarOrcamentoManual.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>reciboAvulso</from-outcome>
+			<to-view-id>/pages/reciboAvulso/reciboAvulso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>modeloOrcamentoManual</from-outcome>
+			<to-view-id>/pages/orcamentoManual/consModeloOrcamentoManual.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importarModeloOrcamentoManual</from-outcome>
+			<to-view-id>/pages/orcamentoManual/importarModeloOrcamentoManual.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>produtosVendas</from-outcome>
+			<to-view-id>/pages/vendas/produtosVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>visualizarContasReceber</from-outcome>
+			<to-view-id>/pages/vendas/visualizarContasReceber.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatoriosCobranca</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioCobranca.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioCobrancaFinal</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioCobrancaFinal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>mapaVendas</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioMapaVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>gerarPIN</from-outcome>
+			<to-view-id>/pages/cambio/gerarPINcambio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>alteracaofinanceiro</from-outcome>
+			<to-view-id>/pages/alteracaofinanceiro/consAlteracaoFinanceiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioCancelamento</from-outcome>
+			<to-view-id>/pages/cancelamento/filtroRelatorioCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVideos</from-outcome>
+			<to-view-id>/pages/midia/consVideos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consCambio</from-outcome>
+			<to-view-id>/pages/cambio/consCambio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>consCambioFranquia</from-outcome>
+			<to-view-id>/pages/cambio/consCambioFranquia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>utilizarCredito</from-outcome>
+			<to-view-id>/pages/cancelamento/utilizarCredito.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule> 
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consMetasFaturamento</from-outcome>
+			<to-view-id>/pages/metasfaturamento/consMetasFaturamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consRegras</from-outcome>
+			<to-view-id>/pages/regrasPontuacao/consRegras.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consUsuario</from-outcome> 
+			<to-view-id>/pages/usuario/consUsuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>calcularJuros</from-outcome> 
+			<to-view-id>/pages/formaPagamento/calculoJuros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>relatorioParceiros</from-outcome> 
+			<to-view-id>/pages/controleCursos/relatorioParceiros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>relatorioVendaFranquias</from-outcome> 
+			<to-view-id>/pages/controleCursos/relatorioVendaFranquias.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>relatorioEmbarque</from-outcome> 
+			<to-view-id>/pages/controleCursos/relatorioEmbarque.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consPromocoes</from-outcome> 
+			<to-view-id>/pages/promocoes/consPromocoes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consPromocoesAcomodacao</from-outcome> 
+			<to-view-id>/pages/promocoes/consPromocoesAcomodacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consVendasUsuario</from-outcome> 
+			<to-view-id>/pages/dashboard/consVendasUsuario.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consPromocoesTaxas</from-outcome> 
+			<to-view-id>/pages/promocaotaxas/consPromocoesTaxas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consPromocoesBrindes</from-outcome> 
+			<to-view-id>/pages/promocaobrindes/consPromocoesBrindes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consUnidade</from-outcome> 
+			<to-view-id>/pages/unidadenegocio/consUnidadeNegocio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consBanco</from-outcome> 
+			<to-view-id>/pages/banco/consBanco.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>relatorioEmbarqueUnidade</from-outcome> 
+			<to-view-id>/pages/cursos/relatorioEmbarqueUnidade.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consAcesso</from-outcome> 
+			<to-view-id>/pages/grupoAcesso/consAcesso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consCoeficiente</from-outcome> 
+			<to-view-id>/pages/coeficiente/consCoeficiente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consValoresAcomodacao</from-outcome> 
+			<to-view-id>/pages/valoresacomodacao/consValoresAcomodacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consIntervalos</from-outcome> 
+			<to-view-id>/pages/intervalos/consIntervalos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>pontuacaoescola</from-outcome> 
+			<to-view-id>/pages/pontuacaoescola/pontuacaoescola.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>guiaEscola</from-outcome> 
+			<to-view-id>/pages/guiaescola/guiaEscola.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consGuiaEscola</from-outcome> 
+			<to-view-id>/pages/guiaescola/consGuiaEscola.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case>  
+			<from-outcome>consLogVenda</from-outcome> 
+			<to-view-id>/pages/logVenda/consLogVenda.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPastasVideos</from-outcome>
+			<to-view-id>/pages/pastavideos/consPastasVideos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVideo</from-outcome>
+			<to-view-id>/pages/pastavideos/consVideo.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consTmStar</from-outcome>
+			<to-view-id>/pages/tmstar/consTmStar.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>topTmStar</from-outcome>
+			<to-view-id>/pages/tmstar/topTmStar.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioMateRunners</from-outcome>
+			<to-view-id>/pages/comercial/relatorioMateRunners.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadLead</from-outcome>
+			<to-view-id>/pages/crm/cadLead.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>distribuicaoLeads</from-outcome>
+			<to-view-id>/pages/crm/distribuicaoLeads.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>followUp</from-outcome>
+			<to-view-id>/pages/crm/followUp.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>escolasVendidas</from-outcome>
+			<to-view-id>/pages/crmrelatorios/escolasVendidas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>paisesVendidos</from-outcome>
+			<to-view-id>/pages/crmrelatorios/paisesVendidos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>  
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cidadesVendidas</from-outcome>
+			<to-view-id>/pages/crmrelatorios/cidadesVendidas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>  
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>situacaoContato</from-outcome>
+			<to-view-id>/pages/crmrelatorios/situacaoContato.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>situacaoLead</from-outcome>
+			<to-view-id>/pages/crmrelatorios/situacaoLead.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>origemLeads</from-outcome>
+			<to-view-id>/pages/crmrelatorios/origemLead.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadOrcamentoManual</from-outcome>
+			<to-view-id>/pages/orcamentoManual/cadOrcamentoManual.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>mensagemerro</from-outcome>
+			<to-view-id>/pages/orcamento/mensagemerro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadAuPair</from-outcome>
+			<to-view-id>/pages/auPair/cadAuPair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFichaCurso</from-outcome>
+			<to-view-id>/pages/cursos/cadFichaCurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadDemiPair</from-outcome>
+			<to-view-id>/pages/demipair/cadDemiPair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadCursosTeens</from-outcome>
+			<to-view-id>/pages/cursosTeens/cadCursosTeens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadHighSchool</from-outcome>
+			<to-view-id>/pages/highSchool/cadHighSchool.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadTrainee</from-outcome>
+			<to-view-id>/pages/trainee/cadTrainee.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadVoluntariado</from-outcome>
+			<to-view-id>/pages/voluntariado/cadVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadWorkandTravel</from-outcome>
+			<to-view-id>/pages/workAndTravel/cadWorkandTravel.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>    
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadWorkandTravel</from-outcome>
+			<to-view-id>/pages/workAndTravel/cadWorkandTravel.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadpacote</from-outcome>
+			<to-view-id>/pages/pacotes/cadPacote.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadPassagem</from-outcome>
+			<to-view-id>/pages/passagem/cadPassagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadVistos</from-outcome>
+			<to-view-id>/pages/visto/cadVistos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadCliente</from-outcome>
+			<to-view-id>/pages/cliente/cadCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>valoresHigherEducation</from-outcome>
+			<to-view-id>/pages/valoresHigherEducation/valoresHigherEducation.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>liberacaoDepoimentos</from-outcome>
+			<to-view-id>/pages/fornecedorcidadeidiomaproduto/liberacaoDepoimentos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>questionarioHe</from-outcome>
+			<to-view-id>/pages/he/questionarioHe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consquestionarioHe</from-outcome>
+			<to-view-id>/pages/he/consquestionarioHe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPromocoesAtivas</from-outcome>
+			<to-view-id>/pages/promocoes/consPromocoesAtivas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consMtp</from-outcome>
+			<to-view-id>/pages/mtp/consMtp.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioVendaInvoice</from-outcome>
+			<to-view-id>/pages/controleCursos/relatorioVendaInvoice.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consMotivoCancelamento</from-outcome>
+			<to-view-id>/pages/motivocancelamento/consMotivoCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVersoes</from-outcome>
+			<to-view-id>/pages/versoes/consVersoes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadVersoes</from-outcome>
+			<to-view-id>/pages/versoes/cadVersoes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>historicoCliente</from-outcome>
+			<to-view-id>/pages/crm/historicoCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consDepartamento</from-outcome>
+			<to-view-id>/pages/departamento/consDepartamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFuncao</from-outcome>
+			<to-view-id>/pages/funcao/consFuncao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>visualizarFuncao</from-outcome>
+			<to-view-id>/pages/funcao/visualizarFuncao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consControleVistos</from-outcome>
+			<to-view-id>/pages/controleCursos/consControleVistos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consRecebimento</from-outcome>
+			<to-view-id>/pages/recebimentos/consRecebimento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>controleEmail</from-outcome>
+			<to-view-id>/pages/controleEmail/controleEmail.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consCartaoCredito</from-outcome>
+			<to-view-id>/pages/cartaocredito/consCartaoCredito.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>  
+		<navigation-case>
+			<from-outcome>consLancamentoCartao</from-outcome>
+			<to-view-id>/pages/cartaocreditolancamento/consLancamentoCartao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>  
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>  
+		<navigation-case>
+			<from-outcome>conferenciaLancamentoCartao</from-outcome>
+			<to-view-id>/pages/cartaocreditolancamento/conferenciaLancamentoCartao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>  
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>  
+		<navigation-case>
+			<from-outcome>relatorioConferenciaCartaoCredito</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioConferenciaCartaoCredito.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>  
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>  
+		<navigation-case>
+			<from-outcome>enviarEmail</from-outcome>
+			<to-view-id>/pages/email/enviarEmail.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>  
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>  
+		<navigation-case>
+			<from-outcome>dadosApplication</from-outcome>
+			<to-view-id>/pages/controleCursos/dadosApplication.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>  
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consDepartamentos1Videos</from-outcome>
+			<to-view-id>/pages/videos/consDepartamentos1Videos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPasta1Video</from-outcome>
+			<to-view-id>/pages/videos/consPasta1Video.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioRemessaRetorno</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioRemessaRetorno.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioFatura</from-outcome>
+			<to-view-id>/pages/faturafranquia/relatorioFatura.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>imprimirRelatorioFatura</from-outcome>
+			<to-view-id>/pages/faturafranquia/imprimirRelatorioFatura.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>calcularcomissao</from-outcome>
+			<to-view-id>/pages/comissao/calcularcomissaofranquia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>linkorcamento</from-outcome>
+			<to-view-id>/pages/orcamento/linkorcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFornecedorDocs</from-outcome>
+			<to-view-id>/pages/fornecedordocs/cadFornecedorDocs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fornecedorDocs</from-outcome>
+			<to-view-id>/pages/fornecedordocs/fornecedorDocs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consControleDocsVideos</from-outcome>
+			<to-view-id>/pages/controleDocsVideos/consControleDocsVideos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fornecedorDocs</from-outcome>
+			<to-view-id>/pages/fornecedordocs/cadFornecedorDocs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consControleDocsVideos</from-outcome>
+			<to-view-id>/pages/controleDocsVideos/consControleDocsVideos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPasta2Arquivo1</from-outcome>
+			<to-view-id>/pages/clouds/consPasta2Arquivo1.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPasta3Arquivo2</from-outcome>
+			<to-view-id>/pages/clouds/consPasta3Arquivo2.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPasta4Arquivo3</from-outcome>
+			<to-view-id>/pages/clouds/consPasta4Arquivo3.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPasta5Arquivo4</from-outcome>
+			<to-view-id>/pages/clouds/consPasta5Arquivo4.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consArquivo5</from-outcome>
+			<to-view-id>/pages/clouds/consArquivo5.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPastas2Videos1</from-outcome>
+			<to-view-id>/pages/videos/consPastas2Videos1.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPastas3Videos2</from-outcome>
+			<to-view-id>/pages/videos/consPastas3Videos2.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPastas4Videos3</from-outcome>
+			<to-view-id>/pages/videos/consPastas4Videos3.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPastas5Videos4</from-outcome>
+			<to-view-id>/pages/videos/consPastas5Videos4.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVideos5</from-outcome>
+			<to-view-id>/pages/videos/consVideos5.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consControleVendas</from-outcome>
+			<to-view-id>/pages/controleVendas/consControleVendas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cursospacotes</from-outcome>
+			<to-view-id>/pages/cursospacotes/cursospacotes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPacotesAtivos</from-outcome>
+			<to-view-id>/pages/cursospacotes/consPacotesAtivos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadEstagioAustralia</from-outcome>
+			<to-view-id>/pages/trainee/cadEstagioAustralia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadTrainee</from-outcome>
+			<to-view-id>/pages/trainee/cadTrainee.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFichaHe1</from-outcome>
+			<to-view-id>/pages/he/cadFichaHe1.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFichaHe2</from-outcome>
+			<to-view-id>/pages/he/cadFichaHe2.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>orcamentOcurso</from-outcome>
+			<to-view-id>/pages/orcamento/orcamentOcurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consProdutoOrcamentoGrupo</from-outcome>
+			<to-view-id>/pages/produtoorcamentogrupo/consProdutoOrcamentoGrupo.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>vincularFonecedorDocs</from-outcome>
+			<to-view-id>/pages/clouds/vincularFonecedorDocs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioDocumentosFornecedor</from-outcome>
+			<to-view-id>/pages/fornecedordocs/relatorioDocumentosFornecedor.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVoluntariadoProjeto</from-outcome>
+			<to-view-id>/pages/voluntariadoprojeto/consVoluntariadoProjeto.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>produtosOrcamento</from-outcome>
+			<to-view-id>/pages/coprodutos/produtosOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>gerarOrcamentoPacote</from-outcome>
+			<to-view-id>/pages/cursospacotes/gerarOrcamentoPacote.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>informacoesCursosPacote</from-outcome>
+			<to-view-id>/pages/cursospacotes/informacoesCursosPacote.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consComissaoControle</from-outcome>
+			<to-view-id>/pages/comissaocontrole/consComissaoControle.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVoluntariadoProjetoOrcamento</from-outcome>
+			<to-view-id>/pages/voluntariadoprojetoorcamento/consVoluntariadoProjetoOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>filtrarVoluntariadoProjetoOrcamento</from-outcome>
+			<to-view-id>/pages/voluntariadoprojetoorcamento/filtrarVoluntariadoProjetoOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>resultadoOrcamentoVoluntariado</from-outcome>
+			<to-view-id>/pages/voluntariadoprojetoorcamento/resultadoOrcamentoVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioMediaMatch</from-outcome>
+			<to-view-id>/pages/controleAupair/relatorioMediaMatch.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>graficoMateRunners</from-outcome>
+			<to-view-id>/pages/comercial/graficoMateRunners.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>graficoMateRunnersUnidade</from-outcome>
+			<to-view-id>/pages/comercial/graficoMateRunnersUnidade.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFornecedorCidadeIdiomaProdutoData</from-outcome>
+			<to-view-id>/pages/fornecedorcidadeidiomaproduto/cadFornecedorCidadeIdiomaProdutoData.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFornecedorTurismo</from-outcome>
+			<to-view-id>/pages/fornecedorTurismo/fornecedorTurismo.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consPacotesFornecedor</from-outcome>
+			<to-view-id>/pages/pacotesFornecedor/consPacotesFornecedor.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioGeralHS</from-outcome>
+			<to-view-id>/pages/controleHighSchool/relatorioGeral.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioVistoHS</from-outcome>
+			<to-view-id>/pages/controleHighSchool/relatorioVisto.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioPassagensHS</from-outcome>
+			<to-view-id>/pages/controleHighSchool/relatorioPassagens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>calcularMargem</from-outcome> 
+			<to-view-id>/pages/calculadoraMargem/calcularMargem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>consLeadEncaminhado</from-outcome> 
+			<to-view-id>/pages/crm/consLeadEncaminhado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>consVendasRevisaoFinanceiro</from-outcome> 
+			<to-view-id>/pages/revisaofinanceiro/consVendasRevisaoFinanceiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>cadRevisaoFinanceiro</from-outcome> 
+			<to-view-id>/pages/revisaofinanceiro/cadRevisaoFinanceiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>consHistorico</from-outcome> 
+			<to-view-id>/pages/revisaofinanceiro/consHistorico.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFornecedorCidadeIdioma</from-outcome>
+			<to-view-id>/pages/coprodutos/cadFornecedorCidadeIdioma.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>   
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>consVendaMotivoPendencia</from-outcome> 
+			<to-view-id>/pages/vendamotivopendencia/consVendaMotivoPendencia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>followupCobranca</from-outcome> 
+			<to-view-id>/pages/crmcobranca/followupCobranca.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>visualizarContasReceberCliente</from-outcome> 
+			<to-view-id>/pages/crm/visualizarContasReceberCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<application>
+		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
+		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+		<view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+	</application>
+</faces-config>

@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="contasPagar" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanhoavisos2,tamanho5,tamanho8,tamanho8,tamanho8"
+							style="margin-left: 2.5%">
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Periodo" for="dataInicial" />
+							<p:outputLabel />
+							<p:outputLabel value="Nº de Lançamento" for="id" />
+							<p:outputLabel value="Competência" for="competencia" />
+
+
+							<p:selectOneMenu id="unidade" style="width:250px;"
+								value="#{contasPagarMB.unidadeNegocio}" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+								converter="UnidadeNegocioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{contasPagarMB.listaUnidadeNegocio}"
+									var="unidadenegocio" itemLabel="#{unidadenegocio.nomerelatorio}"
+									itemValue="#{unidadenegocio}" />
+								<f:attribute name="listaUnidade"
+									value="#{contasPagarMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							<p:calendar id="dataInicial" value="#{contasPagarMB.dataInicial}"
+								title="Data Inícial" locale="pt" pattern="dd/MM/yyyy"
+								mask="true" size="10" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{contasPagarMB.dataFinal}"
+								title="Data Final" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								size="10" maxlength="15" style="margin-left:2.5%;">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:inputText id="id" value="#{contasPagarMB.id}" size="10" />
+							<p:inputText id="competencia"
+								value="#{contasPagarMB.competencia}" size="14" />
+
+						</h:panelGrid>
+						<br></br>  
+						<h:panelGrid columns="5"
+							columnClasses="tamanhoavisos2,tamanho5,tamanho8,tamanho6,tamanho8"  
+							style="margin-left: 2.5%">  
+							<p:outputLabel value="Plano de Contas" for="planocontas"/>
+							<p:outputLabel value="Descrição" for="descricao" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+
+							<p:selectOneMenu id="planocontas"
+								style="width:250px"
+								value="#{contasPagarMB.planoConta}"
+								converter="PlanoContaConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{contasPagarMB.listaPlanoConta}"
+									var="planoConta" itemLabel="#{planoConta.descricao}"
+									itemValue="#{planoConta}" />
+								<f:attribute name="listaPlanoConta"
+									value="#{contasPagarMB.listaPlanoConta}" />
+							</p:selectOneMenu>
+							<p:inputText id="descricao" value="#{contasPagarMB.descricao}" size="35"/>
+							<p:outputLabel /> 
+							<p:commandButton id="btnPesquisa"
+								action="#{contasPagarMB.gerarPesquisa()}" value="Pesquisar" icon=" ui-icon-search "
+								update=":contasPagar:tabelacontaPagar" />
+							<p:commandButton id="btnLimpar"
+								action="#{contasPagarMB.limparFiltro()}" value="Limpar"
+								icon="ui-icon-arrowrefresh-1-w" 
+								update=":contasPagar:tabelacontaPagar" /> 
+
+						</h:panelGrid>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Outros Lançamentos</b>
+				</legend>
+				<p:commandButton id="bntAddConta" class="espacocobranca21botao"
+					icon="ui-icon-plus" style="font-size:12px;margin-left: 2.5%"
+					value="Novo Lançcamento"
+					action="#{contasPagarMB.cadastrarContaPagar()}">
+					<p:ajax event="dialogReturn"
+						listener="#{contasPagarMB.retornoDialogNovo}" process="@this"
+						update="tabelacontaPagar" />
+				</p:commandButton>
+				<p:commandButton id="bntAddTransferencia"
+					class="espacocobranca21botao" icon="ui-icon-plus"
+					style="font-size:12px;margin-left: 2.5%" value="Nova Transferência"
+					action="#{contasPagarMB.novaTransferencia()}">
+					<p:ajax event="dialogReturn"
+						listener="#{contasPagarMB.retornoDialogNovaTransferencia}"
+						process="@this" update="tabelacontaPagar" />
+				</p:commandButton>
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabelacontaPagar" var="contasPagar"
+					value="#{contasPagarMB.listaContasPagar}" class="tabela"
+					scrollable="true" scrollHeight="300"
+					rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+					style="margin-bottom:20px;">
+
+					<p:column headerText="ID" style="width:40px;">
+						<h:outputText value="#{contasPagar.idcontaspagar}"
+							style="text-align:left;" />
+					</p:column>
+					<p:column headerText="Descrição" style="width:195px;">
+						<h:outputText value="#{contasPagar.descricao}"
+							style="text-align:left;" />
+					</p:column>
+					<p:column headerText="Plano de Contas" style="width:130px;">
+						<h:outputText value="#{contasPagar.planoconta.descricao}"
+							style="text-align:left;" />
+					</p:column>
+					<p:column headerText="Valor Entrada"
+						style="width:75px;text-align: right;" styleClass="alinharCenter">
+						<h:outputText value="#{contasPagar.valorentrada}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor Saída"
+						style="width:75px;text-align: right;" styleClass="alinharCenter">
+						<h:outputText value="#{contasPagar.valorsaida}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Compensação"
+						style="width:85px;text-align:center;">
+						<h:outputText value="#{contasPagar.datacompensacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Competência" style="width:70px;">
+						<h:outputText value="#{contasPagar.competencia}"
+							style="text-align:left;" />
+					</p:column>
+					<p:column style="width:38px;" styleClass="alinharCenter">
+						<p:commandLink action="#{contasPagarMB.editar(contasPagar)}"
+							style="text-decoration: none">
+							<img src="../../resources/img/editaricon.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{contasPagarMB.cadastrarContaPagar()}"
+								process="@this" update=":contasPagar:tabelacontaPagar" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:38px">
+						<p:commandLink action="#{contasPagarMB.excluir(contasPagar)}"
+							style="text-decoration: none" title="Excluir"
+							update=":contasPagar:tabelacontaPagar">
+							<img src="../../resources/img/excluir.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

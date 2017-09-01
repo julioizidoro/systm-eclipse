@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.5644739300537773"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="312" y="11" width="243" height="57" uuid="728f1f77-8d90-4733-91ab-89cce0a97e6f"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="484" splitType="Stretch">
+			<image>
+				<reportElement x="11" y="22" width="562" height="433" uuid="f975239d-ccfb-44c3-9ee5-0cb66fe2764d"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="5" width="555" height="331" uuid="f77d7e49-a773-4b26-a342-ca94166582d9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[estiver nos EUA deve ser feito pelo estudante diretamente com o parceiro internacional contratado.
+5.9) Providenciar acomodação para o período de realização do programa é de responsabilidade do participante. O parceiro internacional contratado e a Travelmate poderão indicar e/ou auxiliar na reserva da acomodação (gratuitamente ou mediante pagamento por parte do estudante de uma taxa para tal serviço), mas não se responsabilizam por isto. Qualquer custo extra referente a acomodação ou reserva de acomodação, fica a encargo do estudante. Se o participante desejar mudar de acomodação após sua chegada nos Estados Unidos, é de sua responsabilidade procurar uma outra opção. Em caso de mudança de endereço, o participante  deverá informar ao parceiro internacional o seu novo endereço dentro de 3 dias úteis. O não cumprimento desta regra poderá resultar em desligamento do programa e estará sujeito às regras de desligamento mencionadas no item 6.7.
+5.10) O participante deverá cumprir seus horários e funções conforme determinado por seu empregador no Plano de Estágio. O desempenho insatisfatório no estágio por parte do participante ou desrespeito das regras estipuladas pelo empregador e parceiro internacional, podem fazer com que o participante seja despedido e/ou desligado do programa. Em caso de desligamento do programa o participante estará sujeito às regras mencionadas no item 6.5.
+5.11) Se o participante abandonar o programa descrito em seu formulário DS-2019, sem autorização do parceiro internacional em questão, será desligado do programa e estará sujeito às regras de desligamento mencionadas no item 6.7.
+5.12) Se o participante estiver trabalhando menos do que o estipulado no Plano de Estágio por um período superior a 40 (quarenta) dias após sua chegada ao local de estágio devido a algum fator não relacionado ao seu desempenho e/ou conduta no estágio, o parceiro internacional pode auxiliar na procura de um novo estágio, caso seja esta a vontade do estudante. Neste caso, aplicam-se as mesmas regras mencionadas no item 6.5. Não existe obrigatoriedade de garantia de 40 horas semanais de estágio por parte da Travelmate, parceiro internacional contratado e/ou empregador, mas sim o mínimo de 20 horas semanais de estágio.
+5.13) O participante deverá levar dinheiro suficiente aos Estados Unidos para cobrir suas despesas por pelo menos 45 dias após sua chegada nos EUA no que se refere à alimentação, transporte, acomodação ou quaisquer outras despesas pessoais. O mínimo estabelecido pela organização internacional é de US$1000 (mil dólares americanos).
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="366" width="555" height="89" uuid="85b7aa53-eabc-459f-b21e-fa838b6be268"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[6.1) O custo do programa é fixado em dólares americanos e o pagamento do mesmo deve ser feito em Reais de acordo com o câmbio do dólar turismo (flutuante ou venda) do dia de pagamento.
+6.2) O pagamento da Taxa de Inscrição deve ser efetivado no momento do preenchimento e assinatura da ficha de inscrição,
+6.3)O pagamento do Saldo Total do Programa deverá ser quitado conforme plano de pagamento abaixo:
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="340" width="142" height="26" uuid="98bb1590-5162-4d13-93ad-a4280ffdc5d4"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6. PAGAMENTO
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="765a1de7-aa62-47f7-8af7-ef5eb5abdce8"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"\\" +  "modelocontratoTraineePagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

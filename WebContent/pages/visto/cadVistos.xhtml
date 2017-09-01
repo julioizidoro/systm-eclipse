@@ -1,0 +1,442 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idfrmvistos" style="font-size: 10px;">
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Vistos"
+					style="font-size: 22px;color: #1F8871; margin-left:46%" />
+				<p:accordionPanel class="painelhighSchool" style="width:100%;">
+					<br></br>
+					<br></br>
+					<p:tab title="Vistos" titleStyle="font-size: 11px">
+						<h:panelGrid columns="2"
+							columnClasses="tamanhonotificacao2, tamanhonotificacao2"
+							style="margin-left:15%;width:80%;">
+							<p:outputLabel value="Cliente" for="idcliente" />
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:inputText id="idcliente" value="#{cadVistosMB.cliente.nome}"
+									style="width:80%;" />
+								<p:commandLink
+									actionListener="#{cadVistosMB.pesquisarCliente()}"
+									style="text-decoration: none">
+									<img src="../../resources/img/pesquisar.png" width="8%" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadVistosMB.retornoDialogCliente}" process="@this"
+										update="idcliente" />
+								</p:commandLink>
+							</h:panelGroup>
+							<p:outputLabel />
+						</h:panelGrid>
+						<br />
+						<br />
+						<h:panelGrid columns="2" columnClasses="tamanho8,tamanho8"
+							style="margin-left:15%;width:50%;">
+							<p:outputLabel value="Unidade" for="idUnidade" />
+							<p:outputLabel value="Vendedor" for="usuario" />
+
+							<p:selectOneMenu id="idUnidade"
+								value="#{cadVistosMB.unidadenegocio}" style="width:180px;"
+								converter="UnidadeNegocioConverter"
+								disabled="#{cadVistosMB.habilitarUnidade}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{cadVistosMB.listaUnidadeNegocio}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{cadVistosMB.listaUnidadeNegocio}" />
+								<p:ajax event="change"
+									listener="#{cadVistosMB.gerarListaConsultor()}"
+									update="usuario" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu style="width:180px;" id="usuario"
+								value="#{cadVistosMB.usuario}" converter="UsuarioConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0" />
+								<f:selectItems id="idusuario"
+									value="#{cadVistosMB.listaUsuario}" var="usuario"
+									itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{cadVistosMB.listaUsuario}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Escola</b>
+						</legend>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho8,tamanho8,tamanho8,tamanho8"
+							style="margin-left:15%;width:80%;">
+							<p:outputLabel value="Data Embarque" for="dataembarque" />
+							<p:outputLabel value="Categoria de Visto" for="tipoVisto" />
+							<p:outputLabel value="Pais" for="pais" />
+							<p:outputLabel value="Data entrega Documentação" />
+
+							<p:calendar id="dataembarque"
+								value="#{cadVistosMB.vistos.dataembarque}" locale="pt"
+								pattern="dd/MM/yyyy" size="14">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:selectOneMenu id="tipoVisto"
+								value="#{cadVistosMB.vistos.categoria}" style="width:75%;">
+								<f:selectItem itemLabel="Selecione" itemValue="selecione"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Turismo" itemValue="Turismo" />
+								<f:selectItem itemLabel="Estudante" itemValue="Estudante" />
+								<f:selectItem itemLabel="Trabalho" itemValue="Trabalho" />
+								<f:selectItem itemLabel="Dependente" itemValue="Dependente" />
+							</p:selectOneMenu>
+							<p:selectOneMenu value="#{cadVistosMB.pais}"
+								style="width:170px;font-size:11px;" id="pais"
+								converter="PaisVistoConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{cadVistosMB.listaPais}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+								<f:attribute name="listaPais" value="#{cadVistosMB.listaPais}" />
+							</p:selectOneMenu>
+							<p:calendar id="datentrdocumentacao"
+								value="#{cadVistosMB.vistos.dataEntregaDocumentos}" locale="pt"
+								pattern="dd/MM/yyyy" size="22">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Taxa Consular" for="taxaConsular" />
+							<p:outputLabel value="Taxa Extras" for="taxaExtras" />
+							<p:outputLabel value="Taxa TM" for="taxaTM" />
+							<p:outputLabel value="Taxa Loja" for="taxaLoja" />
+
+							<p:inputText id="taxaConsular"
+								value="#{cadVistosMB.vistos.taxaconsular}"
+								style="width: 46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorVisto()}"
+									update="vlrvisto, valorOrca, totalpag, saldoreceber,valoraparcelar, valorparcela,saldoparcelar" />
+							</p:inputText>
+							<p:inputText id="taxaExtras"
+								value="#{cadVistosMB.vistos.taxaextra}"
+								style="width: 46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorVisto()}"
+									update="vlrvisto, valorOrca, totalpag, saldoreceber,valoraparcelar, valorparcela,saldoparcelar" />
+							</p:inputText>
+							<p:inputText id="taxaTM" value="#{cadVistosMB.vistos.taxatm}"
+								style="width: 46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorVisto()}"
+									update="vlrvisto, valorOrca, totalpag, saldoreceber, valoraparcelar, valorparcela,saldoparcelar" />
+							</p:inputText>
+							<p:inputText id="taxaLoja" value="#{cadVistosMB.vistos.taxaloja}"
+								style="width:46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Desconto Matriz" for="descontoMatriz" />
+							<p:outputLabel value="Desconto Loja" for="descontoLoja" />
+							<p:outputLabel value="Valor do Visto" for="vlrvisto" />
+							<p:outputLabel />
+
+							<p:inputText id="descontoMatriz"
+								value="#{cadVistosMB.vistos.descontomatriz}"
+								style="width: 46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorVisto()}"
+									update="vlrvisto, valorOrca, totalpag, saldoreceber,valoraparcelar, valorparcela,saldoparcelar" />
+							</p:inputText>
+							<p:inputText id="descontoLoja"
+								value="#{cadVistosMB.vistos.descontoloja}"
+								style="width: 46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorVisto()}"
+									update="vlrvisto, valorOrca, totalpag, saldoreceber,valoraparcelar, valorparcela,saldoparcelar" />
+							</p:inputText>
+							<p:inputText id="vlrvisto"
+								value="#{cadVistosMB.vistos.valorEmissao}"
+								style="width: 46%;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br />
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="3"
+							columnClasses="tamanho8,tamanho8,tamanho8"
+							style="margin-left:15%;width:80%;">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+							<p:selectOneMenu id="formPag"
+								value="#{cadVistosMB.formaPagamento.condicao}"
+								style="width:50%;">
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorOrca"
+								value="#{cadVistosMB.formaPagamento.valorOrcamento}"
+								style="width:46%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadVistosMB.formaPagamento.possuiJuros}"
+								style="width:50%;font-size: 10px;">
+								<f:selectItem itemLabel="Não" itemValue="nao" />
+								<f:selectItem itemLabel="Sim" itemValue="sim" />
+								<p:ajax event="change" listener="#{cadVistosMB.calcularJuros()}"
+									update="totalpag, saldoreceber, valoraparcelar, valorparcela,saldoparcelar" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									value="#{cadVistosMB.formaPagamento.valorJuros}"
+									style="width:46%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur" listener="#{cadVistosMB.calcularJuros()}"
+										update="totalpag, saldoreceber, valoraparcelar, valorparcela,saldoparcelar" />
+								</p:inputText>
+								<p:commandLink action="#{cadVistosMB.dialogCalcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadVistosMB.retornoValorJuros()}"
+										update="totalpag, saldoreceber, valoraparcelar, valorparcela,saldoparcelar, valorJuros" />
+								</p:commandLink>
+							</h:panelGroup>
+							<p:inputText id="totalpag"
+								value="#{cadVistosMB.formaPagamento.valorTotal}"
+								style="width:46%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:inputText value="#{cadVistosMB.formaPagamento.valorTotal}"
+								id="saldoreceber" style="width:46%;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho8,tamanho8,tamanho8,tamanho8"
+							style="margin-left:15%;width:71.2%;">
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel value="Tipo Parcelamento" for="tipoParcelamento" />
+							<p:outputLabel value="Data 1o. Vencimento"  />   
+						 
+							<p:inputText value="#{cadVistosMB.valorSaltoParcelar}"
+								id="saldoparcelar"
+								style="width:70%;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:selectOneMenu id="formPag2"
+								value="#{cadVistosMB.formaPagamentoString}"
+								style="width:80%;font-size: 10px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Cartão de Crédito"
+									itemValue="Cartão de Crédito" />
+								<f:selectItem itemLabel="Cartão de Crédito Autorizado"
+									itemValue="Cartão de Crédito Autorizado" />
+								<f:selectItem itemLabel="Cartão de Débito"
+									itemValue="Cartão de Débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Depósito" itemValue="Depósito" />
+								<f:selectItem itemLabel="Financiamento Banco"
+									itemValue="Financiamento Banco" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="tipoParcelamento"
+								value="#{cadVistosMB.tipoParcelamento}"
+								style="width:80%;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Matriz" itemValue="Matriz" />
+								<f:selectItem itemLabel="Loja" itemValue="Loja" />
+								<f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:calendar id="primeirovencimento" size="21"
+								value="#{cadVistosMB.dataPrimeiroPagamento}"  locale="pt" pattern="dd/MM/yyyy" />
+						</h:panelGrid>   
+						<br></br>
+						<h:panelGrid columns="3"
+							columnClasses="tamanho8,tamanho8,tamanho8"
+							style="margin-left:15%;width:80%;">
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+						 
+							<p:inputText value="#{cadVistosMB.valorParcelar}"
+								id="valoraparcelar"
+								style="width:46%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText>
+							<p:selectOneMenu id="nparcela"
+								value="#{cadVistosMB.numeroParcelas}"
+								style="width:40%;">  
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadVistosMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+							<p:inputText value="#{cadVistosMB.valorParcela}" id="valorparcela"
+								style="width:46%;text-align:right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid> 
+						<br></br>
+
+						<h:panelGrid columns="2">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadVistosMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, formPag2, saldoparcelar, saldoreceber,idfrmvistos:growl"
+								icon="ui-icon-plusthick" style="margin-left: 91.3%"
+								rowIndexVar="rowIx" />
+						</h:panelGrid>
+						<br></br>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadVistosMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="140"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar" style="text-align:right;">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nº Parcelas" style="text-align:center;">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela" style="text-align:right;">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadVistosMB.excluirformaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab title="Obs">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3" style="margin-left:19%">
+							<p:inputTextarea id="obs1" value="#{cadVistosMB.vendas.obstm}"
+								cols="130" rows="10" class="fontebranca" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" action="#{cadVistosMB.salvar()}"></p:commandButton>
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadVistosMB.cancelar()}"></p:commandButton>
+					<br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

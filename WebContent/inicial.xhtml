@@ -1,0 +1,2091 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+
+<h:body class="overflow-hidden">
+	<h:form id="inicial" style="height:10px;"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://java.sun.com/jsf/html">
+		<div id="overlay" class="transparent"></div>
+		<p:growl id="growl" showDetail="true" sticky="false" life="20000" />
+		<div id="wrapper" class="preload">
+			<div id="top-nav" class="fixed skin-6">
+				<h:panelGroup id="topinicial">
+					<a class="brand"> <img
+						src="resources/img/paginainicial/travelmatelogo.png" width="150"
+						style="margin-top: -2px;" />
+					</a>
+					<button type="button" class="navbar-toggle pull-left"
+						id="sidebarToggle">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<ul class="nav-notification clearfix">
+						<li class="dropdown" style="margin-top: 3%;"><h:panelGroup
+								id="painelImagembtn" rendered="#{dashBoardMB.retornarImagem()}">
+								<p:commandLink id="mudarDashboardImg" class="dropdown-toggle"
+									data-toggle="dropdown" title="Conteúdo"
+									style="font-size:11px;padding: 13px 9px;"
+									action="#{dashBoardMB.mudarDashboard()}" update="@all">
+									<img src="resources/img/paginainicial/conteudo.png" width="27"
+										style="margin-top: 3px;" />
+								</p:commandLink>
+							</h:panelGroup></li>
+						<li class="dropdown" style="margin-top: 3%;"><h:panelGroup
+								id="painelConteudobtn"
+								rendered="#{dashBoardMB.retornarConteudo()}">
+								<p:commandLink id="mudarDashboardConteudo"
+									class="dropdown-toggle" data-toggle="dropdown"
+									title="Atendimento" style="font-size:11px;padding: 13px 9px;"
+									action="#{dashBoardMB.mudarDashboard()}"
+									update=":inicial:topinicial,:inicial:idinicial">
+									<img src="resources/img/paginainicial/atendimento.png"
+										width="26" />
+								</p:commandLink>
+							</h:panelGroup></li>
+						<li class="dropdown"><p:commandLink id="atencao"
+								title="Avisos" class="dropdown-toggle" data-toggle="dropdown"
+								action="#{usuarioLogadoMB.carregarNotificacao('aviso')}">
+								<img src="resources/img/paginainicial/notificacao.png"
+									width="22" />
+								<h:panelGroup rendered="#{pollMB.habilitarNumeroAviso()}">
+									<span id="idAtencao"
+										class="notification-label bounceIn animation-delay6">#{pollMB.numeroAtencao}</span>
+								</h:panelGroup>
+								<p:ajax event="dialogReturn"
+									listener="#{pollMB.gerarListaAviso(n)}" update="atencao" />
+							</p:commandLink></li>
+						<li class="dropdown"><p:commandLink id="notificacaoTeste"
+								title="Notificações" class="dropdown-toggle"
+								data-toggle="dropdown"
+								action="#{usuarioLogadoMB.carregarNotificacaoAviso()}">
+								<img src="resources/img/paginainicial/email.png" width="22" />
+								<h:panelGroup rendered="#{pollMB.habilitarNumeroNotificacao()}">
+									<span id="idNotificacao"
+										class="notification-label bounceIn animation-delay4">#{pollMB.numeroNotificacoes}</span>
+								</h:panelGroup>
+								<p:ajax event="dialogReturn"
+									listener="#{pollMB.gerarListaNotificacao()}"
+									update="notificacaoTeste" />
+							</p:commandLink></li>
+						<li class="dropdown"><p:commandLink id="promocao"
+								title="Promoção" class="dropdown-toggle" data-toggle="dropdown"
+								action="#{usuarioLogadoMB.carregarNotificacao('promocao')}">
+								<img src="resources/img/paginainicial/new.png" width="22" />
+								<h:panelGroup rendered="#{pollMB.habilitarNumeroPromocao()}">
+									<span id="idPromocao"
+										class="notification-label bounceIn animation-delay6">#{pollMB.numeroPromocao}</span>
+								</h:panelGroup>
+								<p:ajax event="dialogReturn"
+									listener="#{pollMB.gerarListaAviso(n)}" update="promocao" />
+							</p:commandLink></li>
+						<li class="dropdown"><p:commandLink id="upload"
+								title="Upload" class="dropdown-toggle" data-toggle="dropdown"
+								action="#{usuarioLogadoMB.carregarNotificacao('Upload')}">
+								<img src="resources/img/paginainicial/upload.png" width="22" />
+								<h:panelGroup rendered="#{pollMB.habilitarNumeroUpload()}">
+									<span id="idUpload"
+										class="notification-label bounceIn animation-delay6">#{pollMB.numeroUpload}</span>
+								</h:panelGroup>
+								<p:ajax event="dialogReturn"
+									listener="#{pollMB.gerarListaAviso(n)}" update="upload" />
+							</p:commandLink></li>
+					</ul>
+				</h:panelGroup>
+			</div>
+
+			<aside class="fixed skin-6">
+			<div class="sidebar-inner scrollable-sidebar">
+				<div class="size-toggle">
+					<a class="btn btn-sm" id="sizeToggle"> <span class="icon-bar"></span>
+						<span class="icon-bar"></span> <span class="icon-bar"></span>
+					</a>
+					<p:commandLink action="#{menuMB.consVersoes()}" value="Versões"
+						style="color:white;float:right;margin-right:15%;"
+						update=":inicial:growl">
+
+					</p:commandLink>
+				</div>
+				<div class="user-block clearfix">
+					<p:commandLink id="imagemUsuario" action="#{menuMB.editarImagem()}">
+						<img
+							src="#{usuarioLogadoMB.getFotoUsuarioLogado(usuarioLogadoMB.usuario)}"
+							width="80%" />
+						<p:ajax event="dialogReturn" update="imagemUsuario" />
+					</p:commandLink>
+					<div class="detail">
+						<h:panelGrid columns="1">
+							<p:outputLabel value="#{usuarioLogadoMB.usuario.nome}"
+								style="font-size:11.7px;color:#ffffff;margin: 1px 7px;font-weight:bold;" />
+							<p:outputLabel
+								value="#{usuarioLogadoMB.usuario.unidadenegocio.nomeFantasia}"
+								style="font-size:10px;color:#ffffff;margin: 1px 7px;font-weight: 300;" />
+							<p:outputLabel
+								value="#{usuarioLogadoMB.usuario.departamento.nome}"
+								style="font-size:10px;color:#ffffff;margin: 1px 7px;font-weight: 300;" />
+						</h:panelGrid>
+					</div>
+
+				</div>
+				<div align="center">
+					<p:commandLink title="Alterar Senha"
+						action="#{usuarioLogadoMB.validarTrocarSenha()}">
+						<img src="resources/img/paginainicial/settings.png" width="20" />
+						<p:ajax event="dialogReturn"
+							listener="#{usuarioLogadoMB.retornoDialogAlteracaoSenha}" />
+					</p:commandLink>
+					<p:commandLink action="#{usuarioLogadoMB.deslogar()}" title="Sair"
+						style="margin-left:5%;">
+						<img src="resources/img/paginainicial/sair.png" width="20" />
+					</p:commandLink>
+				</div>
+				<br></br>
+				<div class="main-menu">
+					<ul>
+						<li class="openable open"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon"> <img
+									src="resources/img/paginainicial/user.png" width="19" />
+								</span>
+								<span class="text"> Cadastro </span>
+								<span class="menu-hover"></span>
+							</p:commandLink>
+							<ul class="submenu">
+								<h:panelGroup>
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Auxiliar <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acesso}">
+												<li><p:commandLink action="#{menuMB.consAcesso()}">
+														<span class="subsubmenu-label">Acesso</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.banco}">
+												<li><p:commandLink action="#{menuMB.consBanco()}">
+														<span class="subsubmenu-label">Banco</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cartaocredito}">
+												<li><p:commandLink
+														action="#{menuMB.consCartaoCredito()}">
+														<span class="subsubmenu-label">Cartão de Crédito</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.unidades}">
+												<li><p:commandLink action="#{menuMB.consUnidade()}">
+														<span class="subsubmenu-label">Unidade Négocio</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.usuarios}">
+												<li><p:commandLink action="#{menuMB.consUsuario()}">
+														<span class="subsubmenu-label">Usuário</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.departamento}">
+												<li><p:commandLink
+														action="#{menuMB.consDepartamento()}">
+														<span class="subsubmenu-label">Departamento</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup rendered="true">
+												<li class="openable open"><p:commandLink>
+														<span class="subsubmenu-label">Funções <i
+															class="fa fa-chevron-down"></i></span>
+													</p:commandLink>
+													<ul class="submenu">
+														<h:panelGroup rendered="true">
+															<li><p:commandLink
+																	action="#{menuMB.visualizarFuncao()}">
+																	<span class="subsubsubmenu-label">Visualizar
+																		Funções</span>
+																</p:commandLink></li>
+														</h:panelGroup>
+													</ul></li>
+											</h:panelGroup>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.avisos}">
+									<li><p:commandLink action="#{menuMB.avisos()}">
+											<span class="submenu-label">Avisos</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cambio}">
+									<li><p:commandLink action="#{menuMB.cambio()}">
+											<span class="submenu-label">Cadastro de Câmbio</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup>
+									<li><p:commandLink action="#{menuMB.cambioFranquia()}">
+											<span class="submenu-label">Consulta de Câmbio</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.produtos}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Produtos <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu"> 
+											<li><p:commandLink action="#{menuMB.pacotes()}">
+												<span class="subsubmenu-label">Pacotes Promocionais</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.produtos()}">
+													<span class="subsubmenu-label">Produtos</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.produtoCurso()}">
+												<span class="subsubmenu-label">Produtos Orçamento Curso</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.produtosOrcamentoVoluntariado()}">
+												<span class="subsubmenu-label">Projetos Voluntariado</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.produtoremessa()}">
+													<span class="subsubmenu-label">Produtos Remessa</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.produtoOrcamentoGrupo()}">
+													<span class="subsubmenu-label">Produtos Familia</span>
+												</p:commandLink></li> 
+											<li><p:commandLink action="#{menuMB.intervalosEscola()}">
+													<span class="subsubmenu-label">Intervalos</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>    
+									<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cliente}">
+									<li><p:commandLink action="#{menuMB.cliente()}">
+											<span class="submenu-label">Cliente</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fornecedor}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Parceiro <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<h:panelGroup rendered="true">
+												<li><p:commandLink action="#{menuMB.fornecedor()}" >
+													<span class="subsubsubmenu-label">Intercâmbio</span>
+												</p:commandLink></li>
+											</h:panelGroup>  
+											<h:panelGroup rendered="true">
+												<li><p:commandLink action="#{menuMB.parceiroTurismo()}" >
+													<span class="subsubsubmenu-label">Turismo</span>
+												</p:commandLink></li>
+											</h:panelGroup>
+										</ul></li>
+								</h:panelGroup> 
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cadmotivocancelamento}">
+									<li><p:commandLink
+											action="#{menuMB.consMotivoCancelamento()}">
+											<span class="submenu-label">Motivo de Cancelamento</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.motivopendencia}">
+									<li><p:commandLink action="#{menuMB.consultarMotivoPendencia()}">
+											<span class="submenu-label">Motivo Pendência</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="true">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Versões <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.cadastroVersoes()}">
+													<span class="submenu-label">Cadastro Versões</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+							</ul></li>
+						<li class="openable"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon"> <img
+									src="resources/img/paginainicial/carrinho.png" width="19" />
+								</span>
+								<span class="text"> Orçamento </span>
+								<span class="menu-hover"></span>
+							</p:commandLink>
+							<ul class="submenu">
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Curso <i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<li><p:commandLink action="#{menuMB.orcamentoCurso()}">
+												<span class="subsubmenu-label">Orçamento Tarifario</span>
+											</p:commandLink></li>
+										<li><p:commandLink action="#{menuMB.orcamentoManual('Curso')}">
+												<span class="subsubmenu-label">Orçamento Manual</span>
+											</p:commandLink></li>
+										<li><p:commandLink
+											action="#{menuMB.modeloOrcamentoManual()}">
+											<span class="subsubmenu-label">Modelo Orçamento Manual</span>
+										</p:commandLink></li>   
+									</ul>
+								</li>
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Voluntariado <i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.voluntariadoProjetoOrcamento()}">
+													<span class="subsubmenu-label">Orçamento Tarifario</span>
+												</p:commandLink></li>
+										</h:panelGroup>  
+										<li><p:commandLink action="#{menuMB.orcamentoManual('Voluntariado')}">
+												<span class="subsubmenu-label">Orçamento Manual</span>
+											</p:commandLink></li>
+									</ul>
+								</li> 
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.promocoes}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Promoções <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink
+													action="#{menuMB.promocoesAcomodacao()}">
+													<span class="subsubmenu-label">Acomodação</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.promocoesBrindes()}">
+													<span class="subsubmenu-label">Brindes</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.promocoes()}">
+													<span class="subsubmenu-label">Curso</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.promocoesTaxas()}">
+													<span class="subsubmenu-label">Taxas</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+							</ul></li>
+						<li class="openable"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon"> <i class="fa fa-list-ul fa-lg" />
+								</span>
+								<span class="text"> Parceiros </span>
+								<span class="menu-hover"></span>
+							</p:commandLink>
+							<ul class="submenu">
+								<li><p:commandLink
+										action="#{menuMB.relatoriosComissaoParceiros()}">   
+										<span class="submenu-label">Comissão Parceiros Cursos</span>
+									</p:commandLink></li>
+								<li><p:commandLink action="#{menuMB.escolas()}">
+										<span class="submenu-label">Destinos</span>
+									</p:commandLink></li>
+								<li><p:commandLink
+										action="#{menuMB.relatorioEscolasTarifario()}" ajax="false"
+										target="_blank">
+										<span class="submenu-label">Tarifário</span>
+									</p:commandLink></li> 
+								<li><p:commandLink action="#{menuMB.promocoesAtivas()}">
+										<span class="submenu-label">Promoções</span>
+									</p:commandLink></li>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.depoimentos}">
+									<li><p:commandLink
+											action="#{menuMB.liberacaoDepoimentos()}">
+											<span class="submenu-label">Liberação de Depoimentos</span>
+										</p:commandLink></li>
+								</h:panelGroup> 
+								
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fornecedordocs}">
+									<li><p:commandLink action="#{menuMB.fornecedorDocs()}">
+											<span class="submenu-label">Documentos</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriodocsparceiro}">
+									<li><p:commandLink action="#{menuMB.relatorioDocsFornecedor()}">
+											<span class="submenu-label">Relatório Docs Fornecedor</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+							</ul></li>
+						<h:panelGroup
+							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menucrm}">
+							<li class="openable"><p:commandLink
+									style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+									<span class="menu-icon"> <i class="fa fa-comments fa-lg"
+										style="font-size: 22px;" />
+									</span>
+									<span class="text"> CRM </span>
+									<span class="menu-hover"></span>
+								</p:commandLink>
+								<ul class="submenu">
+									<li><p:commandLink action="#{menuMB.novoLead()}">
+											<span class="submenu-label">Novo Lead</span>
+										</p:commandLink></li>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.distribuicaolead}">
+										<li><p:commandLink action="#{menuMB.distribuicaoLeads()}">
+												<span class="submenu-label">Distribuição de Lead</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<li><p:commandLink action="#{menuMB.followUp()}">
+											<span class="submenu-label">Follow-Up</span>
+										</p:commandLink></li>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.distribuicaolead}">
+										<li><p:commandLink action="#{menuMB.leadsEncaminhados()}">
+												<span class="submenu-label">Leads Encaminhados</span>
+											</p:commandLink></li>
+									</h:panelGroup> 
+								</ul></li>
+						</h:panelGroup>
+						<li class="openable"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon"> <img
+									src="resources/img/paginainicial/emissao.png" width="19" />
+								</span>
+								<span class="text"> Emissão </span>
+								<span class="menu-hover"></span>
+							</p:commandLink>
+							<ul class="submenu">
+								<h:panelGroup>
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Curso<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.curso()}">
+													<span class="subsubmenu-label">Curso</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.guiaescola()}">
+													<span class="subsubmenu-label">Guia</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.relatorioEmbarqueUnidade()}">
+													<span class="subsubmenu-label">Relatório de Embarque</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup>
+									<li><p:commandLink action="#{menuMB.questionarioHe()}">
+											<span class="submenu-label">Higher Education</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Programas de Trabalho <i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.auPair()}">
+													<span class="subsubmenu-label">Au Pair</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.demiPair()}">
+													<span class="subsubmenu-label">Demi Pair</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.trainee()}">
+													<span class="subsubmenu-label">Trainee</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.voluntariado()}">
+													<span class="subsubmenu-label">Voluntariado</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.workAndTravel()}">
+													<span class="subsubmenu-label">Work &amp; Travel</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+									</ul></li>
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Programas Teens <i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.cursosTeens()}">
+													<span class="subsubmenu-label">Cursos Teens</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.highSchool()}">
+													<span class="subsubmenu-label">High School</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+									</ul></li>
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Produtos <i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.seguroViagem()}">
+													<span class="subsubmenu-label">Seguro Viagem</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.visto()}">
+													<span class="subsubmenu-label">Visto Consular</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.pacote}">
+											<li><p:commandLink action="#{menuMB.pacotesa()}">
+													<span class="subsubmenu-label">Pacotes</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.passagem}">
+											<li><p:commandLink action="#{menuMB.passagem()}">
+													<span class="subsubmenu-label">Passagem Aérea</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+									</ul></li>
+								<h:panelGroup>
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Cancelamento<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.cancelamento()}">
+													<span class="subsubmenu-label">Cancelamento</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.relatorioCancelamento()}">
+													<span class="subsubmenu-label">Relatório de
+														Cancelamento</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<li><p:commandLink
+										action="#{menuMB.relatoriosAutorizacaoDebito()}">
+										<span class="submenu-label">Autorização de Débito</span>
+									</p:commandLink></li>
+								<h:panelGroup>
+									<li><p:commandLink
+											action="#{menuMB.calculoFormaPagamento()}">
+											<span class="submenu-label">Forma de Pagamento</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<li><p:commandLink action="#{menuMB.reciboAvulso()}">
+										<span class="submenu-label">Recibo Avulso</span>
+									</p:commandLink></li>
+								<h:panelGroup>
+									<li><p:commandLink
+											action="#{menuMB.consVincularTerceiros()}">
+											<span class="submenu-label">Vincular Terceiros</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Modelos de Contrato<i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoAuPair()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Au Pair</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoCaregiver()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Caregiver</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoCurso()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Curso</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoCursoTeens()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Curso Teens</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoDemipair()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Demi Pair</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoHighSchool()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">High School</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoHigherEducation()}"
+												ajax="false" target="_blank">
+												<span class="subsubmenu-label">Higher Education</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoEstagioAUS()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Estágio AUS</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoTrainee()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Trainee</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoVoluntariado()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Voluntariado</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoWorkIndependent()}"
+												ajax="false" target="_blank">
+												<span class="subsubmenu-label">Work &amp; Travel -
+													Independent</span>
+											</p:commandLink></li>
+									</ul>
+									<ul class="submenu">
+										<li><p:commandLink
+												action="#{menuMB.modeloContratoWorkPremium()}" ajax="false"
+												target="_blank">
+												<span class="subsubmenu-label">Work &amp; Travel -
+													Premium</span>
+											</p:commandLink></li>
+									</ul></li>
+							</ul></li>
+						<li class="openable">
+							<h:panelGroup >
+							<p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon"> <img
+									src="resources/img/emitirorcamentomanual.png" width="25" />
+								</span>
+								<span class="text">Controle </span>
+								<span class="menu-hover"></span>       
+							</p:commandLink>
+							<ul class="submenu">
+								<h:panelGroup rendered="false">
+									<li><p:commandLink
+											action="#{menuMB.consLancamentoCartao()}" rendered="false">
+											<span class="submenu-label">Cartão de Crédito</span>
+										</p:commandLink></li> 
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">   
+									<li><p:commandLink action="#{menuMB.calculadoraMargem()}"
+											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">
+											<span class="submenu-label">Calculadora </span>
+										</p:commandLink></li>   
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">   
+									<li><p:commandLink action="#{menuMB.imprimirFatura()}"   
+											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">
+											<span class="submenu-label">Fatura </span>         
+										</p:commandLink></li>      
+								</h:panelGroup>   
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.recebimentos}">
+									<li><p:commandLink action="#{menuMB.consRecebimentos()}"
+											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.recebimentos}">
+											<span class="submenu-label">Recebimentos </span>
+										</p:commandLink></li>
+								</h:panelGroup>   
+								<h:panelGroup rendered="true">
+									<li><p:commandLink action="#{menuMB.controleEmail()}">
+											<span class="submenu-label">E-mail</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.controledocumentos}">
+									<li><p:commandLink action="#{menuMB.consControleDocsVideos()}">
+											<span class="submenu-label">Documentos Vencidos</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup>
+									<li><p:commandLink action="#{menuMB.consControleVendas()}">
+											<span class="submenu-label">Vendas</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+							</ul></h:panelGroup></li>
+						<li class="openable"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;"
+								action="#{menuMB.departamentos()}" rendered="true">
+								<span class="menu-icon"> <img
+									src="resources/img/paginainicial/doc.png" width="25" />
+								</span>
+								<span class="text"> Docs </span>
+								<span class="menu-hover"></span>
+							</p:commandLink></li>
+						<li class="openable"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;"
+								rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menugerencial}">
+								<span class="menu-icon"> <img
+									src="resources/img/paginainicial/gerencias.png" width="19" />
+								</span>
+								<span class="text"> Gerências </span>
+								<span class="menu-hover"></span>
+							</p:commandLink>
+							<ul class="submenu">
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasaupair}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Au Pair <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.controleAuPair()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li> 
+											<li><p:commandLink action="#{menuMB.valoresAupair()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.mediaMatch()}">
+													<span class="subsubmenu-label">Relatório Média Match</span>
+												</p:commandLink></li>  
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciascurso}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Curso <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.controleCurso()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<h:panelGroup>
+												<li><p:commandLink
+														action="#{menuMB.consControleVistos()}">
+														<span class="subsubmenu-label">Visto</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<li><p:commandLink action="#{menuMB.invoicesCurso()}">
+													<span class="subsubmenu-label">Invoices</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.relatorioEmbarque()}">
+													<span class="subsubmenu-label">Relatório de Embarque</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.relatorioCursoParceiros()}">
+													<span class="subsubmenu-label">Relatório Parceiros</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.relatorioVendaInvoice()}">
+													<span class="subsubmenu-label">Relatório de Venda
+														Invoices</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.relatorioCursoFranquias()}">
+													<span class="subsubmenu-label">Relatório Venda
+														Franquias</span>
+												</p:commandLink></li>
+
+											<li><p:commandLink action="#{menuMB.consTmStar()}">
+													<span class="subsubmenu-label">TM Star</span>
+												</p:commandLink></li>
+
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasprogramateens}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Cursos Teens <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.controleTeens()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.valoresTeens()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasdemipair}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Demi Pair <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.controleDemiPair()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.highereducation}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Higher Education<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.valoresHigherEducation()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciashighschool}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">High School <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink
+													action="#{menuMB.controleHighSchool()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<h:panelGroup>
+												<li class="openable open"><p:commandLink>
+														<span class="subsubmenu-label">Relatórios <i
+															class="fa fa-chevron-down"></i></span>
+													</p:commandLink>
+													<ul class="submenu">
+														<li><p:commandLink action="#{menuMB.relatorioGeralHS()}">
+																<span class="subsubsubmenu-label">Geral</span>
+															</p:commandLink></li>
+														<li><p:commandLink action="#{menuMB.relatorioVistoHS()}">
+																<span class="subsubsubmenu-label">Visto</span>
+															</p:commandLink></li>
+														<li><p:commandLink action="#{menuMB.relatorioPassagensHS()}">
+																<span class="subsubsubmenu-label">Passagens</span>
+															</p:commandLink></li>
+													</ul></li>
+											</h:panelGroup>
+											<li><p:commandLink
+													action="#{menuMB.valoresHighSchool()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.invoicesCurso()}">
+													<span class="subsubmenu-label">Invoices</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasseguro}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Seguro Viagem<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink
+													action="#{menuMB.controleSeguroViagem()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.valoresSeguro()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciastrainne}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Trainee<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.controleTrainee()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.valoresTrainee()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasturismo}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Turismo<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.pacotesFornecedor()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li> 
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasvoluntariado}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Voluntariado<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink
+													action="#{menuMB.controleVoluntariado()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciaswork}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Work &amp; Travel<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink
+													action="#{menuMB.controleWorkAndTravel()}">
+													<span class="subsubmenu-label">Controle</span>
+												</p:commandLink></li>
+											<li><p:commandLink
+													action="#{menuMB.valoresWorkAndTravel()}">
+													<span class="subsubmenu-label">Valores</span>
+												</p:commandLink></li>
+											<li><p:commandLink action="#{menuMB.invoicesCurso()}">
+													<span class="subsubmenu-label">Invoices</span>
+												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.controlealteracoes}">
+									<li><p:commandLink action="#{menuMB.controleAlteracoes()}">
+											<span class="submenu-label">Controle de Alterações</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+							</ul></li>
+						<h:panelGroup>
+							<li class="openable"><p:commandLink
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menufinanceiro}"
+									style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+									<span class="menu-icon"> <img
+										src="resources/img/paginainicial/calcularora.png" width="22"
+										style="margin-left: -1%;" />
+									</span>
+									<span class="text"> Financeiro </span>
+									<span class="menu-hover"></span>
+								</p:commandLink>
+								<ul class="submenu">
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menufinanceiro}">
+										<li><p:commandLink action="#{menuMB.comissaocontrole()}">
+												<span class="submenu-label">Comissão Controle</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menucontas}">
+										<li class="openable open"><p:commandLink>
+												<span class="submenu-label">Contas <i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+
+												<h:panelGroup
+													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.contasreceber}">
+													<li><p:commandLink action="#{menuMB.contasReceber()}">
+															<span class="subsubmenu-label">Contas a Receber</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.crmcobranca}">
+													<li><p:commandLink actionListener="#{menuMB.mensagemCobranca()}" update=":inicial:growl"
+															action="#{menuMB.followUpCobranca()}">
+															<span class="subsubmenu-label">CRM Cobrança</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup
+													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.outroslancamentos}">
+													<li><p:commandLink action="#{menuMB.contasPagar()}">
+															<span class="subsubmenu-label">Outros Lançamentos</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup
+													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.planoconta}">
+													<li><p:commandLink action="#{menuMB.planoConta()}">
+															<span class="subsubmenu-label">Plano de Contas</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup>
+													<li><p:commandLink
+															action="#{menuMB.pacotesFornecedor()}">
+															<span class="subsubmenu-label">Controle Turismo </span>
+														</p:commandLink></li>
+												</h:panelGroup>
+											</ul></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.vendas}">
+										<li class="openable open"><p:commandLink>
+												<span class="submenu-label">Vendas <i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+												<li><p:commandLink action="#{menuMB.vendas()}">
+														<span class="subsubmenu-label">Consulta</span>
+													</p:commandLink></li>
+												<li><p:commandLink action="#{menuMB.analiticoVendas()}">
+														<span class="subsubmenu-label">Analítico Vendas</span>
+													</p:commandLink></li>
+												<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.revisaofinanceiro}">
+													<li><p:commandLink
+															action="#{menuMB.revisaoFinanceiro()}">
+															<span class="subsubmenu-label">Revisão Financeiro</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+											</ul></li>
+									</h:panelGroup>
+									
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cancelamentofinanceiro}">
+										<li class="openable open"><p:commandLink>
+												<span class="submenu-label">Cancelamento<i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+												<li><p:commandLink action="#{menuMB.cancelamento()}">
+														<span class="subsubmenu-label">Cancelamento</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.relatorioCancelamento()}">
+														<span class="subsubmenu-label">Relatório de
+															Cancelamento</span>
+													</p:commandLink></li>
+											</ul></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.faturafranquia}">
+										<li><p:commandLink action="#{menuMB.faturafranquia()}">
+												<span class="submenu-label">Fatura de Franquia</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.invoice}">
+										<li><p:commandLink action="#{menuMB.invoicesCurso()}">
+												<span class="submenu-label">Invoices</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.terceiros}">
+										<li><p:commandLink action="#{menuMB.terceiros()}">
+												<span class="submenu-label">Terceiros</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriosfinanceiro}">
+										<li class="openable open"><p:commandLink>
+												<span class="submenu-label">Relatórios<i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+												<li class="openable open"><p:commandLink>
+														<span class="subsubmenu-label">Contas a Pagar<i
+															class="fa fa-chevron-down"></i></span>
+													</p:commandLink>
+													<ul class="submenu">
+														<li><p:commandLink
+																action="#{menuMB.conciliacaoBancaria()}">
+																<span class="subsubsubmenu-label">Conciliação
+																	Bancaria</span>
+															</p:commandLink></li>
+														<li><p:commandLink action="#{menuMB.pagamentos()}">
+																<span class="subsubsubmenu-label">Pagamentos</span>
+															</p:commandLink></li>
+													</ul></li>
+												<li><p:commandLink
+														action="#{menuMB.relatorioConferenciaCartao()}">
+														<span class="subsubmenu-label">Conferência Cartão
+															de Crédito</span>
+													</p:commandLink></li>
+												<li><p:commandLink action="#{menuMB.relatorioVendas()}">
+														<span class="subsubmenu-label">Vendas</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.relatorioSinteticoVendas()}">
+														<span class="subsubmenu-label">Sintético de Vendas</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.comissaoconsultor()}">
+														<span class="subsubmenu-label">Comissão de
+															Consultor</span>
+													</p:commandLink></li>
+												<li><p:commandLink action="#{menuMB.comissaogerente()}">
+														<span class="subsubmenu-label">Comissão de Gerente</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.comissaoterceiros()}">
+														<span class="subsubmenu-label">Comissão de
+															Terceiros</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.relatoriosContasReceber()}">
+														<span class="subsubmenu-label">Contas a Receber</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.relatoriosCobranca()}">
+														<span class="subsubmenu-label">Cobrança</span>
+													</p:commandLink></li>
+												<li><p:commandLink action="#{menuMB.mapaVendas()}">
+														<span class="subsubmenu-label">Mapa de Vendas</span>
+													</p:commandLink></li>
+											</ul></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.coeficiente}">
+										<li><p:commandLink action="#{menuMB.consCoeficiente()}">
+												<span class="submenu-label">Coeficiente</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conciliacaobancaria}">
+										<li><p:commandLink
+												action="#{menuMB.consConciliacaoBancaria()}">
+												<span class="submenu-label">Conciliacao Bancaria</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerarpin}">
+										<li><p:commandLink action="#{menuMB.gerarPIN()}">
+												<span class="submenu-label">Gerar PIN</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.controlealteracaofinanceiro}">
+										<li><p:commandLink
+												action="#{menuMB.alteracaofinanceiro()}">
+												<span class="submenu-label">Alterações Vendas</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+								</ul></li>
+						</h:panelGroup>
+						<h:panelGroup
+							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menucomercial}">
+							<li class="openable"><p:commandLink
+									style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+									<span class="menu-icon"> <i
+										class="fa fa-bar-chart-o fa-lg" />
+									</span>
+									<span class="text"> Comercial </span>
+									<span class="menu-hover"></span>
+								</p:commandLink>
+								<ul class="submenu">
+									<h:panelGroup>
+										<li><p:commandLink action="#{menuMB.metasFaturamento()}">
+												<span class="submenu-label">Metas Faturamento</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup>
+										<li><p:commandLink action="#{menuMB.regrasPontuacao()}">
+												<span class="submenu-label">Regras Pontuação</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup>
+										<li><p:commandLink
+												action="#{menuMB.relatorioMateRunners()}">
+												<span class="submenu-label">Relatório MateRunners</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menucrm}">
+										<li class="openable open"><p:commandLink>
+												<span class="submenu-label">Relatórios <i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+												<li class="openable open"><p:commandLink>
+														<span class="subsubmenu-label">Mais vendidos <i
+															class="fa fa-chevron-down"></i></span>
+													</p:commandLink>
+													<ul class="submenu">
+														<li><p:commandLink
+																action="#{menuMB.escolasVendidas()}">
+																<span class="subsubsubmenu-label">Parceiro</span>
+															</p:commandLink></li>
+														<li><p:commandLink
+																action="#{menuMB.paisesVendidos()}">
+																<span class="subsubsubmenu-label">Pais</span>
+															</p:commandLink></li>
+														<li><p:commandLink
+																action="#{menuMB.cidadesVendidas()}">
+																<span class="subsubsubmenu-label">Cidade</span>
+															</p:commandLink></li>
+													</ul></li>
+												<h:panelGroup>
+													<li><p:commandLink
+															action="#{menuMB.situacaoContato()}">
+															<span class="subsubmenu-label">Situação Contato</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup>
+													<li><p:commandLink action="#{menuMB.situacaoLead()}">
+															<span class="subsubmenu-label">Situação Lead</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup>
+													<li><p:commandLink
+															action="#{menuMB.motivoCancelamento()}">
+															<span class="subsubmenu-label">Motivo de
+																Cancelamento</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup>
+													<li><p:commandLink action="#{menuMB.origemLeads()}">
+															<span class="subsubmenu-label">Origem Leads</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+											</ul></li>
+									</h:panelGroup>
+								</ul></li>
+						</h:panelGroup>
+						<li class="openable"><p:commandLink
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon" > <i
+									class="fa fa-video-camera"
+									style="font-size: 20px; color: #737277;" />
+								</span>
+								<span class="text"> Treinamentos </span>
+								<span class="menu-hover"></span>
+							</p:commandLink>
+							<ul class="submenu">       
+								<h:panelGroup rendered="true">
+									<li><p:commandLink action="#{menuMB.mtp()}" style="color:white;">
+											<span class="submenu-label">Agenda</span>
+										</p:commandLink></li>
+								</h:panelGroup>  
+								<h:panelGroup rendered="true">
+									<li><p:commandLink action="#{menuMB.consDepartamentos1Videos()}" style="color:white;">
+											<span class="submenu-label">Vídeos</span>
+										</p:commandLink></li>
+								</h:panelGroup>  
+								<li>  <a target="_blank"
+											href="https://docs.google.com/spreadsheets/d/1I8iTD0rQlMhcT5x-WCTOF13UmKLzSoocU1Ov8lm_7uo/edit?usp=sharing">
+											<span class="submenu-label">Guias</span>
+										</a> </li>
+							</ul></li>  
+						<li class="openable"><p:commandLink
+								onclick="PF('suporte').show();"
+								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+								<span class="menu-icon"> <i class="fa fa-user fa-lg" />
+								</span>
+								<span class="text" style="margin-left: 9%;"> Suporte </span>
+								<span class="menu-hover"></span>
+							</p:commandLink></li>
+						<p:outputLabel />
+						<p:outputLabel />
+						<a
+							href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/condicaomes/condicaomes.pdf"
+							target="_blank"
+							style="color: #ffffff; font-weight: bold; font-family: unset; font-size: 12.5px; margin-left: 6%; margin-top: 3%">
+							<br /> <span class="menu-icon" style="margin-left: 5%;">
+								<img src="resources/img/paginainicial/condicoesmes.png"
+								width="25" />
+						</span> <span class="text" style="margin-left: 3%"> Condições do
+								Mês </span> <span class="menu-hover"></span>
+						</a>
+						<br />
+						<p:outputLabel value="," style="color:#3B4A57;" /> 
+						
+					</ul>
+					<br /><br /> 
+				</div>
+			</div>
+			</aside>
+
+			<div id="main-container" style="background: #F0F0F0">
+				<div class="padding-md">
+					<div class="row">
+
+						<div class="tabelasiglacambio">
+							<table border="0"
+								style="margin-left: 1.5%; width: 100%; font-size: 14px; font-weight: bold;">
+								<tr>
+									<td style="width: 40px; text-align: center"><img
+										src="resources/img/paginainicial/cambio.png" width="34"
+										style="margin-left: 1%;" /></td>
+									<td style="width: 100px; text-align: left; font-size: 18px;"><p:outputLabel
+											value="CÂMBIO" style="margin-left:0.5%;" /></td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">IATA</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">USD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">EUR</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">GBP</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">CAD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">AUD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">NZD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">CHF</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">ZAR</td>
+								</tr>
+							</table>
+						</div>
+						<div class="tabelacambio">
+							<table border="0" style="margin-left: 1.5%; width: 100%;">
+								<tr>
+									<td style="width: 140px; text-align: center;"><p:outputLabel
+											value="#{aplicacaoMB.datacambio}" style="font-size: 16px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.iata}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.uds}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.eur}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.gbp}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.cad}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.aud}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.nzd}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.chf}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+									<td style="width: 100px; text-align: center"><p:outputLabel
+											value="#{aplicacaoMB.zar}" style="font-size: 13px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel></td>
+								</tr>
+							</table>
+						</div>
+						<div class="cambioAdaptavel">
+							<table border="0"
+								style="margin-left: 1.5%; width: 100%; font-size: 14px; font-weight: bold;">
+								<tr>
+									<td style="width: 40px; text-align: center"><img
+										src="resources/img/paginainicial/cambio.png" width="34"
+										style="margin-left: 1%;" /></td>
+									<td style="width: 100px; text-align: left; font-size: 18px;"><p:outputLabel
+											value="CÂMBIO" style="margin-left:0.5%;" /></td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">IATA</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">USD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">EUR</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">GBP</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">CAD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">AUD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">NZD</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">CHF</td>
+									<td style="width: 100px; text-align: center; font-size: 13px;">ZAR</td>
+								</tr>
+							</table>
+						</div>
+						<div style="background: #495B6C;" class="responsivo">
+							<table border="0"
+								style="margin-left: 0.3%; width: 100%; color: #fff;">
+								<tr>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.curso()}">
+											<img src="resources/img/paginainicial/cursos.png" width="50" />
+										</p:commandLink> <p:commandLink action="#{menuMB.curso()}" value="CURSOS"
+											style="color:#fff;font-size:15px;font-weight: bold;" /></td>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.highSchool()}">
+											<img src="resources/img/paginainicial/highschool.png"
+												width="50" />
+										</p:commandLink> <p:commandLink action="#{menuMB.highSchool()}"
+											value="HIGH SCHOOL"
+											style="color:#fff;font-size:15px;font-weight: bold;" /></td>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.cursosTeens()}">
+											<img src="resources/img/paginainicial/teens.png" width="60" />
+										</p:commandLink> <p:commandLink action="#{menuMB.cursosTeens()}" value="TEENS"
+											style="color:#fff;font-size:15px;font-weight: bold;" /></td>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.auPair()}">
+											<img src="resources/img/paginainicial/aupair.png" width="50" />
+										</p:commandLink> <p:commandLink action="#{menuMB.auPair()}" value="AU PAIR"
+											style="color:#fff;font-size:15px;font-weight: bold;" /></td>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.workAndTravel()}">
+											<img src="resources/img/paginainicial/worktravel.png"
+												width="55" />
+										</p:commandLink> <p:commandLink action="#{menuMB.workAndTravel()}"
+											style="color:#fff;font-size:15px;font-weight: bold;">
+											<p:outputLabel value="WORK &amp; TRAVEL" />
+										</p:commandLink></td>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.questionarioHe()}">
+											<img src="resources/img/paginainicial/universidades.png"
+												width="50" />
+										</p:commandLink> <p:commandLink action="#{menuMB.questionarioHe()}"
+											value="HIGHER EDUCATION"
+											style="color:#fff;font-size:15px;font-weight: bold;" /></td>
+									<td style="text-align: center;" class="hoverMenuSuperior"><p:commandLink
+											action="#{menuMB.passagem()}">
+											<img src="resources/img/paginainicial/turismo.png" width="43" />
+										</p:commandLink> <p:commandLink action="#{menuMB.pacotesa()}" value="TURISMO"
+											style="color:#fff;font-size:15px;font-weight: bold;" /></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<br></br>
+					<h:panelGroup id="idinicial">
+						<h:panelGroup id="painelConteudo"
+							rendered="#{dashBoardMB.retornarConteudo()}">
+							<div class="row, topInicial">
+								<div style="width: 98%; margin-left: 2%;">
+									<div id="lado1" class="col-lg-4">
+										<div id="tmstar" class="col-lg-2"
+											style="background: #ffffff; border: 1px #495B6C; height: 75px; padding: 15px 5px; width: 61px;">
+											<p:commandLink action="#{menuMB.topTmStar()}"
+												title="Top TM Star">
+												<img src="resources/img/paginainicial/tmstar.png" width="70" />
+											</p:commandLink>
+										</div>
+										<div id="ultimasvendas" class="col-lg-2"
+											style="background: #ffffff; border: 1px #495B6C; height: 75px; padding: 15px 8px; margin-left: 5px; width: 61px;">
+											<p:commandLink onclick="PF('vendasMes').show();"
+												title="Ultimas Vendas">
+												<img src="resources/img/paginainicial/ultimasVendas.png"
+													width="70" />
+											</p:commandLink>
+										</div>
+										<div id="escolascadastradas" class="col-lg-2"
+											style="background: #ffffff; border: 1px #495B6C; height: 75px; padding: 13px 4px; margin-left: 5px; width: 61px;">
+											<p:commandLink action="#{menuMB.escolas()}"
+												title="Tarifarios cadastrados">
+												<img
+													src="resources/img/paginainicial/fornecedorCadastrado.png"
+													width="50" />
+											</p:commandLink>
+										</div>
+										<div id="clouds" class="col-lg-2"
+											style="background: #ffffff; border: 1px #495B6C; height: 75px; padding: 11px 5px; margin-left: 5px; width: 61px;">
+											<p:commandLink title="Pacotes de Curso"
+												action="#{menuMB.cursosPacotes()}" update=":inicial:growl"> 
+												<img src="resources/img/iconpacote.png" width="60" />      
+											</p:commandLink>  
+										</div>    
+										<div id="clouds" class="col-lg-2"
+											style="background: #ffffff; border: 1px #495B6C; height: 75px; width: 61px; padding: 15px 4px; margin-left: 5px;">
+											<p:commandLink title="TM Race"
+												actionListener="#{mateRunnersMB.carregarListaRunnersEscola()}"
+												action="#{menuMB.pontuacaoescola()}">
+												<img src="resources/img/paginainicial/race.png" width="60" />
+											</p:commandLink>
+										</div>
+										<br></br> <br></br> <br></br> <br></br> <br></br>
+										<div id="faturameento" class="col-lg-12"
+											style="background: #ffffff; border: 1px #495B6C; width: 332px;">
+											<p:outputLabel value="FATURAMENTO DO MÊS"
+												style="font-size:11px;margin-left:5%;margin-top:1.5%;" />
+											<br />
+											<div style="width: 100%;">
+												<div class="col-lg-10" style="margin-left: -5%">
+													<p:outputLabel value=" R$ "
+														style="font-size:29px;margin-left:1%" />
+													<p:outputLabel value="#{dashBoardMB.valorFaturamento}"
+														style="font-size:29px;margin-left:2%" />
+												</div>
+												<img src="resources/img/paginainicial/piggy-bank.png"
+													style="margin-top: -6%;" />
+											</div>
+										</div>
+										<div id="nVendas" class="col-lg-12"
+											style="background: #ffffff; border: 1px #495B6C; width: 332px; margin-top: 3%; height: 83px;">
+											<div class="col-lg-12" style="background: #ffffff;">
+												<p:outputLabel value="Nº DE VENDAS DO MÊS"
+													style="font-size:11px;width:332px;" />
+											</div>
+											<div class="col-lg-12"
+												style="background: #D7D8DC; margin-top: 2%; height: 18px; width: 332px; margin-left: -4.7%;">
+												<p:outputLabel value="INTERCÂMBIO"
+													style="font-size:11px;float:left;" />
+												<p:outputLabel
+													value="#{dashBoardMB.vendaproduto.intercambio}"
+													style="font-size:11px;float:right;" />
+											</div>
+											<div class="col-lg-12"
+												style="background: #ffffff; height: 18px; width: 332px; margin-left: -4.7%;">
+												<p:outputLabel value="TURISMO"
+													style="font-size:11px;float:left;" />
+												<p:outputLabel value="#{dashBoardMB.vendaproduto.turismo}"
+													style="font-size:11px;float:right;" />
+											</div>
+											<div class="col-lg-12"
+												style="background: #D7D8DC; height: 18px; width: 332px; margin-left: -4.7%;">
+												<p:outputLabel value="PRODUTO"
+													style="font-size:11px;float:left;" />
+												<p:outputLabel value="#{dashBoardMB.vendaproduto.produto}"
+													style="font-size:11px;float:right;" />
+											</div>
+										</div>
+										<br></br> <br></br> <br></br>
+									</div>
+									<div id="followup" class="col-lg-2"
+										style="background: #F0F0F0; height: 218px; margin-left: 2%;">
+										<p:commandLink action="#{menuMB.followUpTodos()}"
+											value="FOLLOW UP" title="Visualizar Follow UP"
+											style="font-size:20px;color:#4F4F4F;margin-left: 3%;font-weight: 700;" />
+										<div id="novos" class="col-lg-12"
+											style="background: #D7D8DC; height: 70px; margin-top: 1%; margin-bottom: 3px;">
+											<h:panelGrid columns="2" style="width:100%;"
+												columnClasses="tamanhoavisos, tamanhonotificacao">
+												<img src="resources/img/crm/novosdash.png" width="34" />
+												<p:commandLink value="#{dashBoardMB.novos}"
+													action="#{menuMB.followUpNovos()}" title="Visualizar Novos"
+													style="font-size:37px;color:#4F4F4F;float:right;color:#A0C637;font-weight: 700;" />
+											</h:panelGrid>
+											<p:commandLink value="NOVOS"
+												action="#{menuMB.followUpNovos()}" title="Visualizar Novos"
+												style="font-size:19px;color:#4F4F4F;float:right;color:#A0C637;margin-top: -10px;font-weight: 700;" />
+										</div>
+										<div id="hoje" class="col-lg-12"
+											style="background: #D7D8DC; height: 70px; margin-top: 1%; margin-bottom: 3px;">
+											<h:panelGrid columns="2" style="width:100%;"
+												columnClasses="tamanhoavisos, tamanhonotificacao">
+												<img src="resources/img/crm/hojedash.png" width="34" />
+												<p:commandLink value="#{dashBoardMB.hoje}"
+													action="#{menuMB.followUpHoje()}" title="Visualizar Hoje"
+													style="font-size:37px;color:#4F4F4F;float:right;color:#FF9300;font-weight: 700;" />
+											</h:panelGrid>
+											<p:commandLink value="HOJE" action="#{menuMB.followUpHoje()}"
+												title="Visualizar Hoje"
+												style="font-size:22px;color:#4F4F4F;float:right;color:#FF9300;margin-top: -10px;font-weight: 700;" />
+										</div>
+										<div id="atrasados" class="col-lg-12"
+											style="background: #D7D8DC; height: 70px; margin-top: 1%; border-bottom: 20px;">
+											<h:panelGrid columns="2" style="width:100%;"
+												columnClasses="tamanhoavisos, tamanhonotificacao">
+												<img src="resources/img/crm/atrasadosdash.png" width="34" />
+												<p:commandLink value="#{dashBoardMB.atrasadas}"
+													action="#{menuMB.followUpAtrasadas()}"
+													title="Visualizar Atrasadas"
+													style="font-size:37px;color:#4F4F4F;float:right;color:#FF3030;font-weight: 700;" />
+											</h:panelGrid>
+											<p:commandLink value="ATRASADOS"
+												action="#{menuMB.followUpAtrasadas()}"
+												title="Visualizar Atrasadas"
+												style="font-size:19px;color:#4F4F4F;float:right;color:#FF3030;margin-top: -10px;font-weight: 700;" />
+										</div>
+									</div>
+									<p:outputLabel value="METAS"
+										style="font-size:20px;color:#4F4F4F;margin-left: 2%;" />
+									<div id="metas" class="col-lg-5"
+										style="background: #D7D8DC; height: 218px; margin-left: 2%;">
+										<div class="col-lg-12">
+											<p:outputLabel
+												value="META DO ANO | #{dashBoardMB.pegarAno()}"
+												style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+										</div>
+										<div class="col-lg-12" style="margin-top: -1.2%;">
+											<p:outputLabel value="#{dashBoardMB.retornarMetaAno()}"
+												style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+											<span class="badge badge-info" style="float: right;">#{dashBoardMB.retornarPercentualAno()}%</span>
+										</div>
+										<div class="col-lg-12">
+											<div class="progress progress-striped active"
+												style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+												<div class="progress-bar"
+													style="width: #{dashBoardMB.metaAnual.percentualalcancado}%"></div>
+											</div>
+										</div>
+										<br />
+										<div class="col-lg-12">
+											<p:outputLabel
+												value="META DO MÊS  |  #{dashBoardMB.pegarMes()}"
+												style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+										</div>
+										<div class="col-lg-12" style="margin-top: -1.2%;">
+											<p:outputLabel value="#{dashBoardMB.retornarMetaMes()}"
+												style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+											<span class="badge badge-amarelo" style="float: right;">#{dashBoardMB.retornarPercentualMes()}%</span>
+										</div>
+										<div class="col-lg-12">
+											<div class="progress progress-striped active"
+												style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+												<div class="progress-bar progress-bar-warning"
+													style="width: #{dashBoardMB.metamensal.percentualalcancado}%"></div>
+											</div>
+										</div>
+										<br />
+										<div class="col-lg-12">
+											<p:outputLabel value="META DA SEMANA"
+												style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+										</div>
+										<div class="col-lg-12" style="margin-top: -1.2%;">
+											<p:outputLabel value="#{dashBoardMB.retornarMetaSemana()}"
+												style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+											<span class="badge badge-vermelho" style="float: right;">#{dashBoardMB.retornarPercentualSemana()}%</span>
+										</div>
+										<div class="col-lg-12">
+											<div class="progress progress-striped active"
+												style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+												<div class="progress-bar progress-bar-danger"
+													style="width: #{dashBoardMB.percsemana}%"></div>
+											</div> 
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row" style="margin-top: 1.5%;">
+								<div class="materunss">
+									<div class="col-lg-12"
+										style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+										<div class="col-lg-6">
+											<p:commandLink id="btnRelatorioMateRunners" title="Relatório de MateRunners da Unidade"
+												action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
+												<img src="resources/img/paginainicial/materunners.png" width="390" />   
+											</p:commandLink>
+										</div>    
+										<div class="col-lg-1" style="padding-right: 0px; width: 91px;css:none;">    
+											<p:commandLink action="#{menuMB.vendasUsuario()}">     
+												<img
+													src="#{mateRunnersMB.getFotoUsuarioPonto(usuarioLogadoMB.usuario.idusuario)}"
+													alt="" class="imagemusuario" />
+											</p:commandLink>
+										</div>
+										<div class="col-lg-3"
+											style="padding-left: 0px; padding-right: 0px;">
+											<p:outputLabel
+												value="#{mateRunnersMB.getTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
+												style="font-size:8px;color:#4F4F4F;" />
+											<div class="progress progress-striped active"
+												style="height: 17px; margin: 5px 0 0 0; margin-top: -2%; border-radius: 0px;">
+												<div class="progress-bar " style="width: 100%;"></div>
+											</div>
+											<p:outputLabel
+												value="#{mateRunnersMB.getNomeUnidadeTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
+												style="font-size:9px;color:#4F4F4F;" />
+										</div>
+										<div class="col-lg-1"
+											style="padding-left: 3px; padding-right: 0px; padding-top: 5px;">
+											<p:outputLabel
+												value="#{mateRunnersMB.getPontuacaoTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
+												style="font-size:27px;color:#1F8871;" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 0.5%;">
+								<div style="width: 99%; margin-left: 5%;">
+									<div class="col-lg-11">
+										<div class="panel-body">
+											<div id="chart">
+												<ul id="bars">
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(0)}"
+															title="#{mateRunnersMB.getNumeroVendas(0)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(0)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(0)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(0)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(1)}"
+															title="#{mateRunnersMB.getNumeroVendas(1)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(1)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(1)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(1)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(2)}"
+															title="#{mateRunnersMB.getNumeroVendas(2)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(2)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(2)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(2)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(3)}"
+															title="#{mateRunnersMB.getNumeroVendas(3)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(3)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(3)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(3)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(4)}"
+															title="#{mateRunnersMB.getNumeroVendas(4)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(4)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(4)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(4)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(5)}"
+															title="#{mateRunnersMB.getNumeroVendas(5)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(5)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(5)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(5)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(6)}"
+															title="#{mateRunnersMB.getNumeroVendas(6)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(6)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(6)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(6)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(7)}"
+															title="#{mateRunnersMB.getNumeroVendas(7)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(7)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(7)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(7)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(8)}"
+															title="#{mateRunnersMB.getNumeroVendas(8)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(8)}" alt=""
+															class="imagemMatesRuns" /> <br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(8)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(8)}" /> </span></li>
+
+													<li><div
+															data-percentage="#{mateRunnersMB.getPercentual(9)}"
+															title="#{mateRunnersMB.getNumeroVendas(9)}" class="bar"></div>
+														<span><br /> <br /> <img
+															src="#{mateRunnersMB.getFoto(9)}" alt=""
+															class="imagemMatesRuns" /><br /> <p:outputLabel
+																value="#{mateRunnersMB.getNome(9)}" /><br /> <p:outputLabel
+																style="font-weight:lighter;margin-top:-5%;"
+																value="#{mateRunnersMB.getNomeUnidade(9)}" /> </span></li>
+												</ul>
+												<br /> <br /> <br />
+											</div>
+											<br></br> <br></br> <br></br>
+										</div>
+										<!-- /panel -->
+									</div>
+								</div>
+							</div>
+						</h:panelGroup>
+						<h:panelGroup id="painelImagem"
+							rendered="#{dashBoardMB.retornarImagem()}">
+							<h:panelGroup id="painelPacotes"
+								rendered="#{dashBoardMB.retornarPacotes()}">
+								<ui:insert name="pacotes">
+									<ui:include src="/pages/includes/consPacotesTelaInicial.xhtml" />     
+								</ui:insert>  
+							</h:panelGroup>     
+							<h:panelGroup id="painelImagemAniversario"        
+								rendered="#{dashBoardMB.retornarImagemAniversario()}">
+								<div align="left">   
+									<p:commandButton value="Fechar" action="#{dashBoardMB.fecharImagemAniversario()}" style="font-size:12px;"
+										 update="@all" icon="ui-icon-close" title="Visualizar Pacotes Promocionais" 
+										 onstart="PF('dialog').show()" onsuccess="PF('dialog').hide()"/>    
+								</div>   
+								<p:dialog widgetVar="dialog" modal="true" draggable="false"
+									closable="false" resizable="false" showHeader="false">
+									<p:commandLink>
+										<img src="resources/img/ajax-loader.gif" />
+									</p:commandLink>
+								</p:dialog>           
+								<p:graphicImage   
+									url="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/usuario/#{dashBoardMB.imagem}.png"
+									style="width:102.8%;margin-left: -20px;margin-top:-44px;max-width:102.8%;" />  
+							</h:panelGroup>
+						</h:panelGroup>  
+					</h:panelGroup>
+				</div>
+			</div>
+		</div>
+		<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
+			style="background:#D0E9C9" widgetVar="vendasMes" width="850"
+			header="Ultimas Vendas">
+			<div class="ui-fluid">
+				<h:panelGrid columns="4" layout="grid"
+					style="background: transparent;border:none;width:100%"
+					styleClass="panelgrid-noborder"
+					columnClasses="colunaVendas, ui-grid-col-3, ui-grid-col-1, ui-grid-col-1">
+					<h:outputText value="" style="font-size:20px;color:#1F8871;" />
+					<h:outputText value="Saldo Acumulado: "
+						style="font-size:17px;color:#1F8871;margin-left:-80%" />
+					<h:outputText value=" R$ "
+						style="font-size:17px;color:#000;margin-left:0%" />
+					<h:outputText value="#{listaVendasMB.vendasAcumuladas}"
+						style="font-size:17px;color:#000;margin-left:2%" />
+
+				</h:panelGrid>
+			</div>
+			<p:dataScroller value="#{listaVendasMB.listaVendas}" var="vendas"
+				chunkSize="35" mode="inline" scrollHeight="255"
+				style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight:120;background:#D0E9C9">
+				<div class="ui-fluid">
+					<h:panelGrid columns="7" layout="grid"
+						style="background: transparent;border:none;width:100%;text-align:left"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-1, colunatipovenda, ui-grid-col-2,ui-grid-col-2,colunaRS, colunaValor">
+						<p:outputLabel value="#{vendas.dataVenda}"
+							style="margin-left:1%;font-size:12px;font-weight:400;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:outputLabel>
+						<p:outputLabel value="•#{vendas.produtos.descricao}"
+							style="font-size:12px;font-weight:400;">
+						</p:outputLabel>
+						<p:outputLabel value="•#{usuarioLogadoMB.vendaMatriz(vendas)}"
+							style="font-size:12px;font-weight:400;">
+						</p:outputLabel>
+						<p:outputLabel value="•#{vendas.usuario.nome}"
+							style="font-size:12px;font-weight:400;">
+						</p:outputLabel>
+						<p:outputLabel value="•#{vendas.unidadenegocio.nomeFantasia}"
+							style="font-size:12px;font-weight:400;">
+						</p:outputLabel>
+						<p:outputLabel value="•R$ "
+							style="font-size:12px;font-weight:400;" />
+						<p:outputLabel value="#{vendas.valor}"
+							style="text-aling:right;font-size:12px;font-weight:400;float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGrid>
+				</div>
+				<br></br>
+			</p:dataScroller>
+		</p:dialog>
+
+		<p:dialog header="Suporte" style="background:#D0E9C9;"
+			widgetVar="suporte" width="35%">
+			<div align="center">
+				<h:panelGrid columns="2" style="text-align:center;width:95%;">
+					<h:panelGroup>
+						<p:commandLink onclick="PF('contatojulio').show();">
+							<img src="resources/img/contatoti.png" width="24"
+								style="margin-top: -8px;" />
+						</p:commandLink>
+						<p:commandLink onclick="PF('contatojulio').show();"
+							value="Julio Izidoro"
+							style="font-size:20px;font-weight:600;margin-left:2px;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink onclick="PF('contatokamila').show();">
+							<img src="resources/img/contatoti.png" width="24"
+								style="margin-top: -8px;" />
+						</p:commandLink>
+						<p:commandLink onclick="PF('contatokamila').show();"
+							value="Kamila Rodrigues"
+							style="font-size:20px;font-weight:600;margin-left:2px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<br></br>
+						<img src="resources/img/paginainicial/windows.png" width="45"
+							style="margin-top: -8px;" />
+						<p:commandLink value="Windows"
+							style="font-size:20px;font-weight:600;" />
+						<br></br>
+						<a
+							href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/ti/TeamViewerQS.exe"
+							title="Download Team Viewer"> <img
+							src="resources/img/paginainicial/teamviewer.png" width="100" />
+						</a>
+						<br></br>
+					</h:panelGroup>
+					<h:panelGroup>
+						<br></br>
+						<img src="resources/img/paginainicial/ios.png" width="45"
+							style="margin-top: -8px;" />
+						<p:commandLink value="IOS" style="font-size:20px;font-weight:600;" />
+						<br></br>
+						<a
+							href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/ti/TeamViewerQS.dmg"
+							title="Download Team Viewer"> <img
+							src="resources/img/paginainicial/teamviewer.png" width="100" />
+						</a>
+						<br></br>
+					</h:panelGroup>
+				</h:panelGrid>
+			</div>
+		</p:dialog>
+		<p:dialog style="background:#D0E9C9;" widgetVar="contatokamila"
+			width="23%">
+			<div align="center">
+				<p:commandLink action="#{menuMB.vendasUsuario()}">
+					<img
+						src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/usuario/125.jpg"
+						class="imagemusuarioti" />
+				</p:commandLink>
+				<h:outputLabel value="Kamila Rodrigues"
+					style="font-size:21px;font-weight:500;margin-left:1%;" />
+				<h:panelGrid columns="1" style="margin-top:2%;">
+					<h:panelGroup>
+						<img src="resources/img/iconeemail.png" width="24"
+							style="margin-top: -8px;" />
+						<p:outputLabel value="ti2@travelmate.com.br"
+							style="font-size:18px;font-weight:400;margin-left:4px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<img src="resources/img/iconewhats.png" width="24"
+							style="margin-top: -8px;" />
+						<p:outputLabel value="(48) 99630-0097"
+							style="font-size:18px;font-weight:400;margin-left:4px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<img src="resources/img/iconeskype.png" width="24"
+							style="margin-top: -8px;" />
+						<p:outputLabel value="kamirodriguees"
+							style="font-size:18px;font-weight:400;margin-left:4px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<img src="resources/img/iconefacebook.png" width="24"
+							style="margin-top: -8px;" />
+						<a href="https://www.facebook.com/kamila.rodrigues.5205"
+							target="_blank"
+							style="font-size: 18px; font-weight: 400; margin-left: 2px;">
+							Kamila Rodrigues </a>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>
+			</div>
+		</p:dialog>
+		<p:dialog style="background:#D0E9C9;" widgetVar="contatojulio"
+			width="23%">
+			<div align="center">
+				<p:commandLink action="#{menuMB.vendasUsuario()}">
+					<img
+						src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/usuario/1.jpg"
+						class="imagemusuarioti" />
+				</p:commandLink>
+				<h:outputLabel value="Julio Izidoro"
+					style="font-size:21px;font-weight:500;margin-left:1%;" />
+				<h:panelGrid columns="1" style="margin-top:2%;">
+					<h:panelGroup>
+						<img src="resources/img/iconeemail.png" width="24"
+							style="margin-top: -8px;" />
+						<p:outputLabel value="ti@travelmate.com.br"
+							style="font-size:18px;font-weight:400;margin-left:4px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<img src="resources/img/iconewhats.png" width="24"
+							style="margin-top: -8px;" />
+						<p:outputLabel value="(48) 98404-4409"
+							style="font-size:18px;font-weight:400;margin-left:4px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<img src="resources/img/iconeskype.png" width="24"
+							style="margin-top: -8px;" />
+						<p:outputLabel value="julioizidoro"
+							style="font-size:18px;font-weight:400;margin-left:4px;" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<img src="resources/img/iconefacebook.png" width="24"
+							style="margin-top: -8px;" />
+						<a target="_blank"
+							href="https://www.facebook.com/profile.php?id=100000699476865"
+							style="font-size: 18px; font-weight: 400; margin-left: 2px;">
+							Julio Izidoro </a>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>
+			</div>
+		</p:dialog>
+		<!-- Sparkline -->
+		<script src='resources/js/jquery.sparkline.min.js'></script>
+
+
+		<!-- Pace -->
+		<script src='resources/js/uncompressed/pace.js'></script>
+
+		<!-- Popup Overlay -->
+		<script src='resources/js/jquery.popupoverlay.min.js'></script>
+
+		<!-- Slimscroll -->
+		<script src='resources/js/jquery.slimscroll.min.js'></script>
+
+		<!-- Modernizr -->
+		<script src='resources/js/modernizr.min.js'></script>
+
+		<!-- Cookie -->
+		<script src='resources/js/jquery.cookie.min.js'></script>
+
+		<!-- Endless -->
+		<script src="resources/js/endless/endless.js"></script>
+
+		<script src="resources/js/jquery.nicescroll.js"></script>
+	</h:form>
+
+</h:body>
+</html>

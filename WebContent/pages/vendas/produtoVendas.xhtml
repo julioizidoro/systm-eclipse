@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    </h:head>  
+    <h:body style="background:#DDDDE1;">
+         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
+        <h:form id="produtoVendas" style="text-align:left;font-size: 10px;"><br></br>
+            <br></br> 
+            <title>#{vendasProdutosMB.titulo}</title>
+            	<p:outputLabel value="Unidade " for="unidade" style="margin-left:1%" />
+            	<p:outputLabel value="Data Embarque" for="dataembarque" style="margin-left:71%"/>
+            	<br></br>
+            	<p:inputText id="unidade" style="margin-left:1%;width:70%;" readonly="true" value="#{vendasProdutosMB.orcamento.vendas.unidadenegocio.nomeFantasia}"/>
+                <p:inputText id="dataembarque" style="margin-left:8%;width:17%;text-align: left" readonly="true"  value="#{vendasProdutosMB.orcamento.vendas.cliente.datainicioprograma}"/>
+            	<br></br>
+            	<br></br> 
+                <p:outputLabel value="Moeda" for="moeda" style="margin-left:1%"/>
+                <p:outputLabel value="Valor do Câmbio" for="valorCambio" style="margin-left:8%"/>
+                <p:outputLabel value="Valor do Juros" for="valorJuros" style="margin-left:27%;"/>
+                <p:outputLabel value="Valor Total R$" for="valorReal" style="margin-left:9.5%;"/>
+               
+                <br></br> 
+                <p:inputText id="moeda" style="margin-left:1%;width:10.7%;" readonly="true" value="#{vendasProdutosMB.orcamento.cambio.moedas.sigla}"/>
+                <p:inputText id="valorCambio" style="margin-left:4%;width:17%;text-align: right" readonly="true" value="#{vendasProdutosMB.orcamento.valorCambio}">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <p:inputText id="valorJuros" style="margin-left:25%;width:17%;text-align: right" readonly="true"  value="#{vendasProdutosMB.formaPagamento.valorJuros}">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <p:inputText id="valorReal" style="margin-left:5%;width:17%;text-align: right" readonly="true"  value="#{vendasProdutosMB.orcamento.totalMoedaNacional}">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <br></br> <br></br> 
+                <p:dataTable id="tabelaProdutoVendas" var="produtovendas"  value="#{vendasProdutosMB.orcamento.orcamentoprodutosorcamentoList}"  style="margin-bottom:20px" >
+                    <p:column headerText="Descrição" style="width:80%;">
+                        <h:outputText value="#{produtovendas.produtosorcamento.descricao}"/>
+                    </p:column>
+                    <p:column headerText="Moeda Estrangeira" style="width:34%;text-align: right" >
+                        <h:outputText value="#{produtovendas.valorMoedaEstrangeira}">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                    </p:column>
+                     <p:column headerText="Moeda R$" style="width:20%;text-align: right" >
+                         <h:outputText value="#{produtovendas.valorMoedaNacional}">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                    </p:column>
+                </p:dataTable>
+                 
+                 <p:outputLabel value="Data inicio: #{vendasProdutosMB.orcamento.vendas.cliente.datainicioprograma}" style="font-size:14px;color:#1F8871;margin-left:1%;"/>
+        </h:form>     
+    </h:body>
+</html>

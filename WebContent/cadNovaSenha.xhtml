@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+    </h:head> 
+    
+
+ <h:body> 
+        <h:form id="idFrmCadNovaSenha" class="body2" style="font-size: 12px;" enctype="multipart/form-data">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog  widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+            </p:dialog>
+		
+            <title  >Nova Senha</title>  
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h:panelGrid columns="2">
+                 <p:outputLabel value="Senha Atual" for="senhaAtual"  class="left3"/>
+                 <p:inputText type="password" id="senhaAtual" size="15" style="text-align: left; margin-left:18%;"  class="left3" value="#{usuarioLogadoMB.senhaAtual}"/>
+            </h:panelGrid>
+            <br />
+            <h:panelGrid columns="2">
+                 <p:outputLabel value="Nova Senha" for="novaSenha"  class="left3"/>
+                 <p:inputText type="password" id="novaSenha" size="15" style="text-align: left; margin-left:18%;"  class="left3" value="#{usuarioLogadoMB.novaSenha}"/>
+            </h:panelGrid>
+            <br />
+             <h:panelGrid columns="2">
+                    <p:outputLabel value="Confirmar Senha" for="confirmaSenha" class="left3" />
+                    <p:inputText type="password" size="15" id="confirmaSenha"  class="left3"  value="#{usuarioLogadoMB.confirmaNovaSenha}"/>
+             </h:panelGrid>
+              <br/>
+              <hr />
+              <br />
+              <h:panelGrid columns="2" style="margin-left:10%"> 
+				<p:commandButton id="btnConfirmar" value="Confirmar" action="#{usuarioLogadoMB.confirmaNovaSenha()}"  icon="ui-icon-check" update="@form" style="font-size:12px;"/>
+			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{usuarioLogadoMB.cancelarTrocaSenha()}" icon="ui-icon-closethick" update="@form" style="font-size:12px;margin-left:2%"/>
+			 </h:panelGrid>
+			 <br /><br /><br /><br />  
+        </h:form>
+</h:body>
+</html>

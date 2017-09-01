@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastropais" style="text-align:left;font-size: 10px;">
+		<title>Fornecedor</title>
+		<p:growl id="menssages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<p:outputLabel value="Cidade" style="margin-left:2%;" />
+		<p:outputLabel value="Parceiro" style="margin-left:43%" />
+		<br></br>
+		<p:inputText id="cidade" readonly="true"
+			value="#{editarFornecedorCidadeMB.fornecedorcidade.cidade.nome}"
+			style="width:45%;margin-left:2%;" />
+		<p:inputText id="fornecedor" readonly="true"
+			value="#{editarFornecedorCidadeMB.fornecedorcidade.fornecedor.nome}"
+			style="width:45%;margin-left:5%;" />  
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Núm. de Estrelas" style="margin-left:2%;" />
+		<br></br>
+		<p:inputText id="numEstrelas" value="#{editarFornecedorCidadeMB.fornecedorcidade.numestrelas}"
+			style="width:22%;margin-left:2%;" />
+		<p:selectBooleanCheckbox value="#{editarFornecedorCidadeMB.fornecedorcidade.toptmstar}" style="margin-left:5%;">
+			<p:ajax event="change" />
+		</p:selectBooleanCheckbox>
+		<p:outputLabel value="TOP TM Star" style="margin-left:1%;" />
+		<br></br><br></br>
+		<p:outputLabel value="Descrição" style="margin-left:2%;" />
+		<br></br>
+		<p:inputTextarea style="margin-left:2%;"
+			value="#{editarFornecedorCidadeMB.fornecedorcidade.texto}" id="obs"
+			rows="7" cols="80" placeholder="Digite a descrição.." />
+		<br></br>
+		<br></br>
+		<h:panelGrid columns="3" style="margin-left:2%;">
+			<p:fileUpload multiple="true" label="Anexar"
+				fileUploadListener="#{editarFornecedorCidadeMB.fileUploadListener}"
+				value="#{editarFornecedorCidadeMB.file}" mode="advanced"
+				update="menssages" allowTypes="/(\.|\/)(png|jpg?g)$/">
+			</p:fileUpload>
+			<p:commandButton id="btnExcluir" icon="ui-icon-trash" value="Excluir"
+				action="#{editarFornecedorCidadeMB.excluirArquivoFTP()}"
+				style="margin-left:16%" update="menssages" />
+			<p:commandButton id="btnVisualizar" icon="ui-icon-search"
+				onclick="PF('imagem').show();" value="Visualizar"
+				style="margin-left:2%" />
+
+		</h:panelGrid>
+		<br></br> 
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" style="font-size:13px;"
+				value="Confirmar" action="#{editarFornecedorCidadeMB.salvar()}"></p:commandButton>
+			<p:commandButton icon="ui-icon-close" style="font-size:13px;"
+				value="Cancelar" action="#{editarFornecedorCidadeMB.cancelar()}"></p:commandButton>
+		</div>
+		<p:dialog header="Imagem" style="background:#D0E9C9;"
+			widgetVar="imagem" width="80%">
+			<div align="center">
+				<h:panelGroup id="imagem">
+					<img src="#{editarFornecedorCidadeMB.caminho}" class="imagempais" />
+				</h:panelGroup>
+				<br />
+			</div>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

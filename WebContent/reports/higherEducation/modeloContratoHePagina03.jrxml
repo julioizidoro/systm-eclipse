@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoVoluntariadoPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="225"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="312" y="11" width="243" height="57" uuid="65356d4e-9af9-4bc2-8f3a-26ed56f4f851"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="488" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="73" width="555" height="342" uuid="05e2420a-a4f9-4548-a771-2bd87f474af7"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="415" width="555" height="55" uuid="64565d83-50c8-4629-bce5-5a866bee79e3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="310" width="555" height="74" uuid="28c90a3d-4665-49e9-ad68-67883f383bda"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="14" y="335" width="57" height="14" uuid="f6423d4e-43ab-4f37-a0c4-e30e9a550050"/>
+				<text><![CDATA[Valor R$ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="314" width="125" height="14" uuid="64477802-b548-4c7d-af7f-2284c7ac2b29"/>
+				<text><![CDATA[Condição de Pagamento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="360" width="326" height="13" uuid="fccafc18-25ac-4aed-85e4-bc3822df550c"/>
+				<text><![CDATA[Câmbio da data da inscrição, utilizado para conversão em REAIS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="335" width="67" height="14" uuid="767bccba-df12-46f0-a059-e6e0b495717f"/>
+				<text><![CDATA[Valor Juros :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="388" width="125" height="14" uuid="d6550492-fbe2-4e1f-a1bb-392a8b728af9"/>
+				<text><![CDATA[Parcelamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="447" width="105" height="14" uuid="692d9b86-b1e6-49dc-ad79-14c36a78afbc"/>
+				<text><![CDATA[Data de Vencimento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="447" width="77" height="14" uuid="c7945ad8-38ad-4be1-b291-76fa5d507c0e"/>
+				<text><![CDATA[Valor Parcela :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="424" width="85" height="14" uuid="6049a415-c8b6-4a7e-b5a5-8c9f94434950"/>
+				<text><![CDATA[Forma de Pagto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="447" width="64" height="14" uuid="5407afd8-629b-4d30-8ef6-825d8ba60554"/>
+				<text><![CDATA[Nº Parcelas :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="424" width="83" height="14" uuid="5ed28f67-79d2-43cf-81e3-800899fdbd62"/>
+				<text><![CDATA[Saldo Parcelar :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="52" width="553" height="244" uuid="6af60e69-c05e-470e-919c-df6406ca1489"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["4. PAGAMENTO \n"+
+"4.1. Pelos serviços que serão prestados em favor do INTERCAMBISTA, será devido à TRAVELMATE a quantia estabelecida no Anexo I deste contrato. Salvo acordado pelas partes de forma diversas, o montante estabelecido no Anexo I deverá ser integralmente adimplido de acordo com as datas estipuladas neste contrato. \n"+
+
+"4.2. Todos os pagamentos deverão ser efetuados em moeda corrente nacional, independente de estarem fixados em moeda estrangeira. Neste caso, a quantia em moeda estrangeira será convertida em Reais na data do pagamento, pela cotação média praticada pelo mercado oficial de câmbio, utilizando-se a cotação do dólar turismo. \n"+
+
+"4.3. Os pagamentos deverão ocorrer nas datas estabelecidas no Anexo I, sendo estabelecido como local de pagamento o da sede da TRAVELMATE. Em sendo do interesse das partes, a TRAVELMATE poderá emitir boleto de cobrança bancária para os representantes legais do INTERCAMBISTA, pelo que se encontra desde já autorizada. \n"+
+
+"4.4. As despesas de outra natureza, tais como, por exemplo, inscrição nos exames de proficiência de inglês IELTS, tradução juramentada de documentos escolares, envio do portfólio de apresentação, taxas de matrícula no college, taxas para obtenção do visto consular, passagem aérea, taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, correrão por conta exclusiva do INTERCAMBISTA, não estando incluídas no valor pago a TRAVELMATE."
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="765a1de7-aa62-47f7-8af7-ef5eb5abdce8"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modeloContratoHePagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ficha Curso -Terceira Folha" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="187"/>
+	<subDataset name="dataset1" uuid="f8cafa69-5102-491b-a57e-0fab53caedbe"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+   vendas.dataVenda, vendas.valor as valorVenda,
+   unidadeNegocio.nomeFantasia, formapagamento.observacoes,
+usuario.nome as nomeUsuario, cliente.nome as nomecliente, cliente.cpf
+
+from
+     vendas join usuario on vendas.usuario_idusuario = usuario.idusuario
+     join unidadeNegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadeNegocio.idunidadeNegocio
+     join formapagamento on vendas.idvendas = formapagamento.vendas_idvendas
+     join cliente on vendas.cliente_idcliente = cliente.idcliente
+where
+    vendas.idvendas = $P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorVenda" class="java.lang.Float"/>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacoes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeUsuario" class="java.lang.String"/>
+	<field name="nomecliente" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="37" width="59" height="20" uuid="a2dc6b22-88ed-4853-877f-a86b2f14b3aa"/>
+				<text><![CDATA[Consultor :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="37" width="194" height="20" uuid="cab7ed6b-f24f-4ba1-bb91-a36573e9d61f"/>
+				<textFieldExpression><![CDATA[$F{nomeUsuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="12" width="49" height="20" uuid="312d0727-f402-407d-8ef1-05af5d116874"/>
+				<text><![CDATA[Unidade :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="12" width="194" height="20" uuid="eac76b5c-a036-4fa8-8b35-3d6fdec6edbd"/>
+				<textFieldExpression><![CDATA[$F{nomeFantasia}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="61" width="555" height="8" backcolor="#808080" uuid="3e496cc4-5a10-41f3-b0f6-3b525cebf465"/>
+			</rectangle>
+			<image>
+				<reportElement x="312" y="0" width="243" height="57" uuid="900ac3d8-5934-429d-a8a9-f2a6feaa3511"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="646">
+			<staticText>
+				<reportElement x="5" y="415" width="366" height="14" uuid="530fc295-58cf-4159-940e-188d12c80ff4"/>
+				<text><![CDATA[Assinatura do responsável (aquele que responde pelo participante no Brasil)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="7" width="545" height="306" uuid="220c0e03-1d27-4512-b21d-8d2587a4d309"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição.  O saldo deverá ser quitado conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista.  Não sendo cumprido o plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional organizadora do curso/programa/pacote em questão. A confirmação final do curso/programa/pacote, acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da confirmação final do prestador final do serviço (instituição contratada) no exterior.
+
+Em caso de cancelamento e reembolso:
+•	O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);
+•	Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso dos demais valores;
+•	A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituição do exterior;
+•	A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido de reembolso.
+
+Está é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura de tal Contrato, e entrega do mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não aboradas nesta Ficha de Inscrição. Em caso de dúvidas solicite o CONTRATO DE PRESTAÇÃO DE SERVIÇOS e as regras específicas referentes ao programa de seu interesse.
+
+Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="472" width="113" height="13" uuid="94cbd16b-ed78-4a13-8fd7-b9592e2f8555"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="399" width="113" height="13" uuid="1762f256-8a8f-46aa-ac1d-95adb80bac55"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="2" y="485" width="386" height="1" backcolor="#000000" uuid="56440ff8-0729-47cd-b5ae-170dca409219"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="421" y="335" width="113" height="13" uuid="8c0daf7d-fd74-4f36-b4f4-c33fd4a3bf2f"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="2" y="412" width="386" height="1" backcolor="#000000" uuid="46bad9a4-362e-4c68-8a33-ad8232c56a07"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="2" y="347" width="386" height="1" backcolor="#000000" uuid="fccf289b-546f-4dc8-b1cc-34f6072469fc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="1" backcolor="#000000" uuid="2b97fe97-f6fd-446e-80ea-4ee2cddd002b"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="69" y="536" width="465" height="80" uuid="f6de75a2-bee1-49e2-8e5d-759b8a33e73e"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="536" width="69" height="14" uuid="e825cbb4-a588-4414-86f9-f8e0503bc1c5"/>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="349" width="397" height="13" uuid="c5a99563-2b09-4183-b393-8a66a25b2ea5"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nomecliente}+" - CPF: "+$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="486" width="397" height="13" uuid="1fa975fb-2920-411b-bf00-e8b12debb499"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{nomeUsuario}+" - Representante TM"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

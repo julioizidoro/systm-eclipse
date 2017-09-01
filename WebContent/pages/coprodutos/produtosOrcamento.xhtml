@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="cadastroProdutoOrcamento"
+			style="text-align:left;font-size: 11px;">
+			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
+			<title>Produtos Orçamento</title> 
+			<br></br>
+			<p:outputLabel value="Produto:" style="margin-left:3%;font-size: 14px;" />
+			<p:inputText id="produto" value="#{cadProdutosOrcamentoMB.nomeProduto}" style="width:40%;margin-left:1%" >
+	            <p:ajax event="blur" update="cadastroProdutoOrcamento:tabelaProdutos" listener="#{cadProdutosOrcamentoMB.pesquisar()}"/>
+	        </p:inputText>
+			<br></br>
+			<br></br> 
+			<div align="right">
+				<p:commandButton id="bntAddproduto" icon="ui-icon-plus"
+					class="espacocobranca21botao"
+					style="font-size:12px;margin-left:-2.5%" value="Adicionar" update="cadastroProdutoOrcamento:dialog_cadastro" oncomplete="PF('cadastro').show()">
+					<p:ajax listener="#{cadProdutosOrcamentoMB.gerarListaProdutosOrcamento()}" />
+				</p:commandButton>
+			</div>
+			<p:dataTable id="tabelaProdutos" var="produtos"
+				value="#{cadProdutosOrcamentoMB.listaFiltroorcamentoproduto}"
+				class="tabela" scrollable="true" scrollHeight="280"
+				style="margin-bottom:20px;margin-top:8px">
+				<p:column headerText="Produtos" style="width:140px;">
+					<h:outputText value="#{produtos.produtosorcamento.descricao}" />  
+				</p:column>
+				<p:column style="width:50px;text-align: center" headerText="Pathway">
+					<p:selectBooleanCheckbox value="#{produtos.produtosorcamento.pathway}">  
+						<p:ajax event="change" listener="#{cadProdutosOrcamentoMB.salvarProdutos(produtos.produtosorcamento)}"
+							update=":cadastroProdutoOrcamento:growl"/>
+					</p:selectBooleanCheckbox>
+				</p:column>  
+				<p:column style="width:50px" >   
+	               <p:commandButton value="Editar" action="#{cadProdutosOrcamentoMB.editar(produtos)}" oncomplete="PF('cadastro').show()" update="cadastroProdutoOrcamento:dialog_cadastro"/>
+	            </p:column>
+				<p:column style="width:58px" >   
+	               <p:commandButton value="Excluir" action="#{cadProdutosOrcamentoMB.excluir(produtos)}" update="tabelaProdutos"/>
+	            </p:column>
+			</p:dataTable> 
+			<p class="botaocadpacote">
+				<br></br>
+				<p:commandButton class="espacocampos" icon="ui-icon-close"
+					value="Fechar" action="#{cadProdutosOrcamentoMB.fechar()}"></p:commandButton>
+				<br></br>
+				<br></br>
+			</p>
+			<p:dialog id="dialog_cadastro" header="Cadastro" widgetVar="cadastro" width="90%"
+				style="background:#d0e9c6;text-align: left;"> 
+				<h:panelGrid  style="margin-left:3%" columns="3" columnClasses="tamanho8,tamanho5,tamanho5">
+					<p:outputLabel value="Descrição" style="margin-left:2%;font-size: 11px;" />
+					<p:outputLabel value="Tipo" style="margin-left:2%;font-size: 11px;" /> 
+					<p:outputLabel   /> 
+				
+					<p:inputText id="descricao" value="#{cadProdutosOrcamentoMB.produtosorcamento.descricao}" style="width:90%;margin-left:2%;" />
+					<p:selectOneMenu id="tipo" value="#{cadProdutosOrcamentoMB.produtosorcamento.tipoproduto}" style="width:100px;margin-left:2%" >
+	             		  <f:selectItem itemLabel="Cursos" itemValue="C"/> 
+	             		  <f:selectItem itemLabel="Outros" itemValue="O"/> 
+	             	</p:selectOneMenu>
+	             	<h:panelGroup>
+		             	<p:selectBooleanCheckbox value="#{cadProdutosOrcamentoMB.produtosorcamento.pathway}">
+	            			<p:ajax event="change"/> 
+	        			</p:selectBooleanCheckbox>   
+	             		<p:outputLabel value="Pathway" style="margin-left:1%;font-size: 11px;" /> 
+	             	</h:panelGroup>
+		        </h:panelGrid>
+				<br></br><br></br>
+		         <p:selectOneRadio id="tipoProduto" value="#{cadProdutosOrcamentoMB.produtosorcamento.tipo}" layout="custom">
+	                <f:selectItem itemLabel="Obrigatório" itemValue="O" />
+	                <f:selectItem itemLabel="Opcional" itemValue="D" />
+	                <f:selectItem itemLabel="Acomodação" itemValue="A" />
+	                <f:selectItem itemLabel="Transfer" itemValue="T" />
+	                <f:selectItem itemLabel="Acom. Opcional" itemValue="A" />
+	            </p:selectOneRadio>
+	            <p:radioButton id="tipoProduto1" for="tipoProduto" itemIndex="1" class="espacocobranca29"/>
+	            <h:outputLabel for="tipoProduto1" value="Obrigatório" style="margin-left:0.5%"/>
+	
+	            <p:radioButton id="tipoProduto2" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+	            <h:outputLabel for="tipoProduto2" value="Opcional" style="margin-left:0.5%"/>
+	            
+	            <p:radioButton id="tipoProduto3" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+	            <h:outputLabel for="tipoProduto3" value="Acomodação" style="margin-left:0.5%"/>
+	            
+	            <p:radioButton id="tipoProduto4" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+	            <h:outputLabel for="tipoProduto4" value="Transfer" style="margin-left:0.5%"/>
+	            
+	             <p:radioButton id="tipoProduto5" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+	            <h:outputLabel for="tipoProduto5" value="Acom. Opcional" style="margin-left:0.5%"/>
+	           <br></br>
+				<br></br> 
+				<p:selectBooleanCheckbox id="produtocurso"
+					value="#{cadProdutosOrcamentoMB.curso}"
+					style="margin-left:3%"> 
+					<p:ajax event="change"/>
+				</p:selectBooleanCheckbox>
+				<p:outputLabel value="Curso"
+					style="margin-left:1%;font-size:13px" />
+				<br></br>
+				<br></br> 
+	            <div align="center">
+	            <p:commandButton id="bntSalvarFornecedor" value="Salvar" icon="ui-icon-check" action="#{cadProdutosOrcamentoMB.salvar()}"
+					style="font-size:12px;margin-left:2%" onclick="cadastro.hide()" update="growl"/>
+			    </div>
+				<br></br>
+				
+			</p:dialog>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

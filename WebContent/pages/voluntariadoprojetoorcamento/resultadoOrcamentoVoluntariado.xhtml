@@ -1,0 +1,637 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="resultadoOrcamento" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br/><br/><img
+					src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/logoescola/#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetovalor.voluntariadoprojeto.fornecedorcidade.fornecedor.logo}"
+					width="70" style="margin-left: 5%;" />
+				<h:outputText value="PROJETO DE VOLUNTARIADO"
+					style="font-weight:bold;font-size:21px;color:#312E25;margin-left:1%;" />
+				<p:commandButton id="bntvoltar"
+					style="font-size:12px;float: right;margin-right: 5%;"
+					value="Voltar"
+					action="#{resultadoOrcamentoVoluntariadoMB.voltar()}"
+					icon="ui-icon-arrowreturnthick-1-w" />
+				<br/><br/>
+				<p:fieldset id="idtabelaProjeto" toggleable="true"
+					style="border: 1px solid #dfd9c3;box-shadow: 5px 5px 10px #D7D8DC;-webkit-box-shadow: 5px 5px 10px #D7D8DC;-moz-box-shadow: 5px 5px 10px #0076a3;background:transparent;width:91%;margin-left:4%;">
+					<h:panelGrid columns="3" style="margin-left:2%;width:96%;"
+						columnClasses="imagemTop, tamanho9, colunaVintePontoSeis">
+						<p:outputLabel value="Local"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetovalor.voluntariadoprojeto.fornecedorcidade.cidade.pais.nome}
+								- #{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetovalor.voluntariadoprojeto.fornecedorcidade.cidade.nome}"
+							style="font-size: 15px;font-weight: inherit;" />
+						<h:panelGroup>
+							<h:outputText value="CÂMBIO:"
+								style="font-weight:bold;font-size:12px;color: #312E25;" />
+							<h:outputText
+								value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla} "
+								style="font-weight:bold;font-size:12px;color: #312E25;margin-left:1.5%;" />
+							<p:inputText
+								value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorcambio}"
+								size="3"
+								style="font-weight:bold;font-size:12px;color: #312E25;text-align:right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+							<p:commandLink id="btnRecalcular"
+								action="#{resultadoOrcamentoVoluntariadoMB.recalcularValores()}"
+								update="@all">
+								<img src="../../resources/img/recalcular.png" width="24" />
+							</p:commandLink>
+						</h:panelGroup>
+
+						<p:outputLabel value="Parceiro"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetovalor.voluntariadoprojeto.fornecedorcidade.fornecedor.nome}"
+							style="font-size: 15px;font-weight: inherit;" />
+						<p:outputLabel />
+
+						<p:outputLabel value="Projeto"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetovalor.voluntariadoprojeto.descricao}"
+							style="font-size: 15px;font-weight: inherit;" />
+						<p:outputLabel />
+
+						<p:outputLabel value="Data Inicial"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.datainicial}"
+							style="font-size: 15px;font-weight: inherit;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:outputLabel>
+						<p:outputLabel />
+
+						<p:outputLabel value="Data Final"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.datatermino}"
+							style="font-size: 15px;font-weight: inherit;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:outputLabel>
+						<h:panelGroup>
+							<p:outputLabel
+								value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valor}"
+								style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:2%;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+							<p:outputLabel
+								value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+								style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:1%;" />
+						</h:panelGroup>
+
+						<p:outputLabel value="Duração"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.totalnumerosemanas}"
+							style="font-size: 15px;font-weight: inherit;" />
+						<h:panelGroup>
+							<p:outputLabel
+								value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorRS}"
+								style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:2%;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+							<p:outputLabel value="R$ "
+								style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:1%;" />
+						</h:panelGroup>
+
+						<p:outputLabel value="Tipo de Curso"
+							rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiCurso}"
+							style="font-size: 15px;color:#312E25;font-weight: bold;" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetocurso.produtosorcamento.descricao}"
+							style="font-size: 15px;font-weight: inherit;"
+							rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiCurso}" />
+						<p:outputLabel
+							rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiCurso}" />
+
+						<p:outputLabel value="Carga Horária"
+							style="font-size: 15px;color:#312E25;font-weight: bold;"
+							rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiCurso}" />
+						<p:outputLabel
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetocurso.cargahoraria} 
+								#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetocurso.tipocargahoraria}"
+							style="font-size: 15px;font-weight: inherit;"
+							rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiCurso}" />
+					</h:panelGrid>
+				</p:fieldset>
+				<br /> <br />
+				<p:fieldset id="idtabelaTaxas" legend="Taxas" 
+					toggleable="true" style="font-size: 10px;width:91%;margin-left:4%;">
+					<h:panelGrid columns="2" style="width:96.4%;margin-left:2%;"
+						columnClasses="espaco75, tamanho14">
+						<h:outputText
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.taxatm.descricao}"
+							style="font-weight:bold;font-size: 15px;" />
+						<h:panelGroup>
+							<h:panelGrid columns="1" style="width:100%;">
+								<h:panelGroup>
+									<p:outputLabel
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valortaxatm}"
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:2%;">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:outputLabel>
+									<p:outputLabel
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:outputLabel
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valortaxatmRS}"
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:2%;">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:outputLabel>
+									<p:outputLabel value="R$ "
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;" />
+								</h:panelGroup>
+							</h:panelGrid>  
+						</h:panelGroup>
+					</h:panelGrid>
+					<br />
+				</p:fieldset>
+				<br /> <br />
+				<br /> <br />
+				<p:fieldset id="idtabelaSemanaAdicional" legend="Semanas Adicionais"
+					rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiSemanaAdicional}"
+					toggleable="true" style="font-size: 10px;width:91%;margin-left:4%;">
+					<h:panelGrid columns="2" style="width:96.4%;margin-left:2%;"
+						columnClasses="espaco75, tamanho14">
+						<h:outputText
+							value="#{resultadoOrcamentoVoluntariadoMB.retornarDescricaoSemanaAdicional()}"
+							style="font-weight:bold;font-size: 15px;" />
+						<h:panelGroup>
+							<h:panelGrid columns="1" style="width:100%;">
+								<h:panelGroup>
+									<p:outputLabel
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorSemanaAdc}"
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:2%;">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:outputLabel>
+									<p:outputLabel
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:outputLabel
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorSemanaAdcRS}"
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:2%;">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:outputLabel>
+									<p:outputLabel value="R$ "
+										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</h:panelGroup>
+					</h:panelGrid>
+					<br />
+				</p:fieldset>
+				<br /> <br />
+				<p:fieldset id="idtabelaAcomodacao" legend="Acomodação"
+					rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiAcomodacao}"
+					toggleable="true" style="font-size: 10px;width:91%;margin-left:4%;">
+					<h:panelGrid columns="2" style="width:95%;margin-left:2%;"
+						columnClasses="espaco75, tamanho14">
+						<h:outputText
+							value="#{resultadoOrcamentoVoluntariadoMB.retornarDescricaoAcomodacao()}"
+							style="font-weight:bold;font-size: 15px;" />
+						<h:outputText style="font-size:14px;float:right;" value="INCLUSO" />
+					</h:panelGrid>
+					<br />
+				</p:fieldset>
+				<br /> <br />
+				<p:fieldset id="idtabelaTransfer" legend="Transfer"
+					rendered="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiTransfer}"
+					toggleable="true" style="font-size: 10px;width:91%;margin-left:4%;">
+					<h:panelGrid columns="2" style="width:95%;margin-left:2%;"
+						columnClasses="espaco75, tamanho14">
+						<h:outputText
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.voluntariadoprojetovalor.voluntariadoprojeto.transfer}"
+							style="font-weight:bold;font-size: 15px;" />
+						<h:outputText style="font-size:14px;float:right;" value="INCLUSO" />
+					</h:panelGrid>
+					<br />
+				</p:fieldset>
+				<br /> <br />
+				<p:selectBooleanCheckbox
+					value="#{resultadoOrcamentoVoluntariadoMB.orcamento.possuiSeguroViagem}"
+					style="font-size: 10px;margin-left:5%;">
+					<p:ajax update="tabelaAdicionarSeguro"
+						listener="#{resultadoOrcamentoVoluntariadoMB.selecionarSeguro()}" />
+				</p:selectBooleanCheckbox>
+				<div align="right">
+					<p:outputLabel value="Incluso no Total do Programa" />
+					<p:selectBooleanCheckbox style="margin-left:1%;"
+						value="#{resultadoOrcamentoVoluntariadoMB.orcamento.seguroviagem.somarvalortotal}">
+						<p:ajax
+							listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+							update="resultadoOrcamento:tabelatotal" />
+					</p:selectBooleanCheckbox>
+					<p:outputLabel style="margin-left:6.2%;" />
+				</div>
+				<p:fieldset id="tabelaAdicionarSeguro" legend="Seguro Viagem"
+					toggleable="true" style="font-size: 10px;width:91%;margin-left:4%;">
+					<h:panelGrid columns="6" style="margin-left:1.3%;width:97%"
+						columnClasses="tamanho1, tamanho1, tamanho1, tamanho1, tamanho1, tamanho1">
+						<p:outputLabel value="Seguradora" for="seguradora"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Plano" for="plano"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Tarifario" for="tarifario"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Cobrança" for="cobranca"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Valor" for="valorunitario"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Valor em R$" for="valorunitarioRS"
+							style="font-weight:bold;font-size: 12px;" />
+
+						<p:selectOneMenu style="width:150px;" id="seguradora"
+							value="#{resultadoOrcamentoVoluntariadoMB.fornecedorcidade}"
+							converter="FornecedorCidadeConverter"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:selectItem itemLabel="Seguradora" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idseguradora"
+								value="#{resultadoOrcamentoVoluntariadoMB.listaFornecedorCidade}"
+								var="seguradora" itemLabel="#{seguradora.fornecedor.nome}"
+								itemValue="#{seguradora}" />
+							<f:attribute name="listaFornecedorCidade"
+								value="#{resultadoOrcamentoVoluntariadoMB.listaFornecedorCidade}" />
+							<p:ajax event="change"  update="plano" listener="#{resultadoOrcamentoVoluntariadoMB.listarPlanosSeguro()}"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="plano" style="width:150px;" converter="SeguroPlanosConverter"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}"
+							value="#{resultadoOrcamentoVoluntariadoMB.seguroplanos}">
+							<f:selectItem itemLabel="Plano" itemValue="0"   
+									noSelectionOption="true" />
+								<f:selectItems id="idplano"
+									value="#{resultadoOrcamentoVoluntariadoMB.listaSeguroPlanos}" var="plano"
+									itemLabel="#{plano.nome}" itemValue="#{plano}" />
+								<f:attribute name="listaSeguroPlanos" value="#{resultadoOrcamentoVoluntariadoMB.listaSeguroPlanos}" />
+								<p:ajax event="change" update="tarifario" listener="#{resultadoOrcamentoVoluntariadoMB.listarValoresSeguro()}"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="tarifario" style="width:150px;"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorSeguro}"
+							converter="ValorSeguroConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+								noSelectionOption="true" />
+							<f:selectItems id="idvaloresseguro"
+								value="#{resultadoOrcamentoVoluntariadoMB.listaValoresSeguro}"
+								var="valorseguro" itemLabel="#{valorseguro.tarifario}"
+								itemValue="#{valorseguro}" />
+							<f:attribute name="listaValorSeguro"
+								value="#{resultadoOrcamentoVoluntariadoMB.listaValoresSeguro}" />
+							<p:ajax event="change"
+								update="cobranca, datatermino, valorseguro, valorunitario"
+								listener="#{resultadoOrcamentoVoluntariadoMB.calcularDataTermino()}" />
+							<p:ajax event="change"
+								listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+								update="resultadoOrcamento:tabelatotal" />
+							<p:ajax event="change"
+								listener="#{resultadoOrcamentoVoluntariadoMB.convertendoValoresSeguro()}"
+								update="resultadoOrcamento:tabelatotal, valorunitarioRS, valormoeda" />
+						</p:selectOneMenu>
+						<p:inputText id="cobranca"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorSeguro.cobranca}"
+							style="width:90%;font-size:12px;" maxlength="45" readonly="true"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}" />
+						<p:inputText id="valorunitario"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.seguroviagem.valoresseguro.valorgross}"
+							style="width:80%;margin-left:1%;font-size:12px;text-align:right;"
+							maxlength="45" readonly="true"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="valorunitarioRS"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorUtilitarioRS}"
+							style="width:80%;font-size:12px;text-align:right;" maxlength="45"
+							readonly="true"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="6" style="margin-left:1.3%;width:97%"
+						columnClasses="tamanho1, tamanho1, tamanho1, tamanho1, tamanho1, tamanho1">
+						<p:outputLabel value="Data inicial" for="datainicio"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="No. dias" for="semanas"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Data Final" for="datatermino"
+							style="font-weight:bold;font-size:12px;" />
+						<p:outputLabel value="Valor Total" for="valormoeda"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel value="Valor Total em R$" for="valorseguro"
+							style="font-weight:bold;font-size: 12px;" />
+						<p:outputLabel />
+
+						<p:calendar id="datainicio" size="15"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.seguroviagem.dataInicio}"
+							locale="pt" pattern="dd/MM/yyyy"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+						<p:inputText id="semanas"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.seguroviagem.numeroSemanas}"
+							style="width:45%;margin-left:1%" maxlength="11"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertNumber type="number" />
+							<p:ajax event="blur"
+								update="datatermino, valorseguro, :resultadoOrcamento:valormoeda"
+								listener="#{resultadoOrcamentoVoluntariadoMB.calcularDataTermino()}" />
+							<p:ajax event="blur"
+								listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+								update="resultadoOrcamento:tabelatotal, :resultadoOrcamento:valormoeda , :resultadoOrcamento:valorseguro," />
+							<p:ajax event="change"
+								listener="#{resultadoOrcamentoVoluntariadoMB.convertendoValoresSeguro()}"
+								update="resultadoOrcamento:tabelatotal, valorunitarioRS, valorseguro, valormoeda" />
+						</p:inputText>
+						<p:inputMask id="datatermino"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.seguroviagem.dataTermino}"
+							size="15" mask="99/99/9999"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<p:inputText id="valormoeda"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.valorTotalSeguroDolar}"
+							style="width:80%;text-align:right;" maxlength="45"
+							readonly="true"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="valorseguro"
+							value="#{resultadoOrcamentoVoluntariadoMB.orcamento.seguroviagem.valorSeguro}"
+							style="width:80%;text-align:right;" maxlength="45"
+							readonly="true"
+							disabled="#{resultadoOrcamentoVoluntariadoMB.habilitarSeguro()}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:outputLabel />
+					</h:panelGrid>
+				</p:fieldset>
+				<br /> <br />
+				<p:fieldset id="idtabelaOutrosProdutos" legend="Outros Produtos"
+					toggleable="true" style="width:91%;margin-left:4%;">
+					<p:commandButton id="bntAdiconarProdutos"
+						style="font-size:12px;margin-left:89.5%;margin-top: -5%;"
+						value="Adicionar"
+						action="#{resultadoOrcamentoVoluntariadoMB.adicionarProdutosExtra()}"
+						icon=" ui-icon-check ">
+						<p:ajax event="dialogReturn"
+							listener="#{resultadoOrcamentoVoluntariadoMB.retornoDialogoNovo}"
+							process="@this"
+							update=":resultadoOrcamento:idtabelaOutrosProdutos, resultadoOrcamento:tabelatotal" />
+					</p:commandButton>
+					<br></br>
+					<br></br>
+					<p:dataScroller id="tabelaOutrosProduto"
+						value="#{resultadoOrcamentoVoluntariadoMB.orcamento.listaOutrosProdutos}"
+						var="outrosProdutos" chunkSize="20"
+						style="background:#1F8871;margin-top:1.5%">
+						<p:outputPanel style="text-align: right;width:100%">
+							<h:panelGrid columns="4" style="width:100%;">
+								<p:outputPanel>
+									<h:panelGrid columns="2">
+										<h:outputText value="teste"
+											style="font-weight:bold;font-size: 15px;color:transparent;" />
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:outputText value="#{outrosProdutos.descricao}"
+											style="font-weight:bold;font-size: 15px;" />
+									</h:panelGrid>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:outputPanel>
+						<br></br>
+						<p:outputPanel style="text-align: right;width:90%;margin-top: -5%">
+							<h:panelGrid id="valoresOutrosProdutos" columns="1"
+								cellpadding="5" style="text-align: right;width:100%">
+								<p:commandLink id="valorOriginalOutrosProdutos"
+									value="#{resultadoOrcamentoVoluntariadoMB.retornarValorString(outrosProdutos.valorOrigianl, resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla)}"
+									style="font-weight:bold;font-size:14px;text-align: right;" />
+								<h:outputText id="valorRealOutrosProdutos"
+									value="#{resultadoOrcamentoVoluntariadoMB.retornarValorString(outrosProdutos.valorOriginalRS, R$)}"
+									style="font-weight:bold;font-size:14px;text-align: right;">
+								</h:outputText>
+								<p:overlayPanel id="painelDescricaoOutrosProdutos"
+									for="valorOriginalOutrosProdutos" hideEffect="fade"
+									style="width:30%;background:#CCCCCC">
+									<h:outputText value="Valor Original:" style="font-weight:bold" />
+									<h:outputText
+										value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+										style="font-weight:bold" class="espacocobranca29" />
+									<h:outputText value="#{outrosProdutos.valorOrigianl}"
+										style="font-weight:bold">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+									<br></br>
+									<br></br>
+									<h:outputText value="R$ " style="font-size:9px;"
+										class="espacocobranca29" />
+									<h:outputText value="#{outrosProdutos.valorOriginalRS}"
+										style="font-size:9px;">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</p:overlayPanel>
+								<br></br>
+							</h:panelGrid>
+						</p:outputPanel>
+						<p:outputPanel
+							style="text-align: right;width:100%;margin-top: -3%">
+							<h:panelGrid columns="1" cellpadding="5"
+								style="text-align: right;width:100%">
+								<p:commandButton id="btnExcluir" value="excluir"
+									action="#{resultadoOrcamentoVoluntariadoMB.excluirProdutoExtra(outrosProdutos)}"
+									update="tabelaOutrosProduto">
+									<p:ajax
+										listener="#{resultadoOrcamentoVoluntariadoMB.excluirProdutoExtra(outrosProdutos)}"
+										update="resultadoOrcamento:tabelatotal, resultadoOrcamento:idtabelaOutrosProdutos" />
+								</p:commandButton>
+								<br></br>
+							</h:panelGrid>
+						</p:outputPanel>
+						<div align="right">
+							<p:outputLabel value="Incluso no Total do Programa" />
+							<p:selectBooleanCheckbox style="margin-left:1%;"
+								value="#{outrosProdutos.somarvalortotal}">
+								<p:ajax
+									listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+									update="resultadoOrcamento:tabelatotal" />
+							</p:selectBooleanCheckbox>
+							<p:outputLabel style="margin-left:2%;" />
+						</div>
+						<div class="line_1"></div>
+						<br></br>
+					</p:dataScroller>
+				</p:fieldset>
+				<br></br> <br></br>
+				<p:fieldset legend="Descontos" toggleable="true"
+					style="width:91%;margin-left:4%;" collapsed="true">
+					<p:dataScroller id="idtabelaDesconto"
+						value="#{resultadoOrcamentoVoluntariadoMB.orcamento.listaDesconto}"
+						var="desconto" chunkSize="10" style="background:#1F8871">
+						<p:outputPanel style="text-align: left;width:100%">
+							<p:selectBooleanCheckbox value="#{desconto.selecionado}"
+								disabled="#{desconto.taxaTmSelecionado}">
+								<p:ajax
+									listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+									update="resultadoOrcamento:tabelatotal" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="#{desconto.produtosorcamento.descricao}"
+								style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
+
+							<br></br>
+							<h:outputText value="Valor R$"
+								style="font-weight:bold;font-size: 12px;margin-left:60%" />
+							<p:inputText id="valordesconto"
+								value="#{desconto.valormoedanacional}"
+								readonly="#{desconto.taxaTmSelecionado}"
+								style="font-size:11px;text-align: right;margin-left:1%;width: 10%"
+								placeholder="Valor R$">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+									update="resultadoOrcamento:tabelatotal" />
+								<p:ajax event="blur"
+									listener="#{resultadoOrcamentoVoluntariadoMB.valorDescontoEstrageiro()}"
+									update="valordescontomoedaEstrangueira" />
+							</p:inputText>
+							<h:outputText value="Valor"
+								style="font-weight:bold;font-size: 12px;margin-left:3%" />
+							<h:outputText
+								value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+								style="font-weight:bold;font-size: 12px;margin-left:0.3%" />
+							<p:inputText id="valordescontomoedaEstrangueira"
+								value="#{desconto.valormoedaestrangeira}"
+								readonly="#{desconto.taxaTmSelecionado}"
+								style="font-size:11px;text-align: right;margin-left:1%;width:10%"
+								placeholder="Valor">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{resultadoOrcamentoVoluntariadoMB.valorDescontoReal()}"
+									update="valordesconto" />
+								<p:ajax event="blur"
+									listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
+									update="resultadoOrcamento:tabelatotal" />
+							</p:inputText>
+							<br></br>
+							<br></br>
+							<div class="line_1"></div>
+							<br></br>
+						</p:outputPanel>
+					</p:dataScroller>
+				</p:fieldset>
+				<br></br> <br></br>
+				<p:fieldset id="tabelatotal" legend="Totais" toggleable="true"
+					chunkSize="10" style="width:91%;margin-left:4%;">
+					<h:panelGrid columns="2" style="width:91%;margin-left:4%;"
+						columnClasses="espacocobranca43, tamanhoavisos">
+						<h:panelGrid columns="1" cellpadding="5"
+							style="text-align: right;width:50%;margin-left: 50%">
+							<p:outputPanel style="text-align: right;width:100%">
+								<h:outputText value="Total do Projeto"
+									style="font-weight:bold;font-size: 16px;color:#371547" />
+								<br></br>
+								<h:outputText
+									value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+									style="font-weight:bold;font-size: 14px;" />
+								<h:outputText
+									value="#{resultadoOrcamentoVoluntariadoMB.totalmoedaestrangeira}"
+									style="font-weight:bold;font-size: 15px;"
+									class="espacocobranca29">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+								<br></br>
+								<h:outputText value="R$ "
+									style="font-weight:bold;font-size: 13px;" />
+								<h:outputText
+									value="#{resultadoOrcamentoVoluntariadoMB.totalmoedanacional}"
+									style="font-weight:bold;font-size: 13px;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:outputPanel>
+						</h:panelGrid>
+						<h:panelGrid columns="1" cellpadding="5"
+							style="text-align: right;width:50%;margin-left: 50%">
+							<p:outputPanel style="text-align: right;width:100%">
+								<h:outputText value="Total Custos Extras"
+									style="font-weight:bold;font-size: 16px;color:#371547" />
+								<br></br>
+								<h:outputText value="(Seguro Viagem, Outros Produtos)"
+									style="font-weight:bold;font-size:10px;color:#371547" />
+								<br></br>
+								<h:outputText
+									value="#{resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla}"
+									style="font-weight:bold;font-size: 14px;" />
+								<h:outputText
+									value="#{resultadoOrcamentoVoluntariadoMB.totalextrasmoedaestrangeira}"
+									style="font-weight:bold;font-size: 15px;"
+									class="espacocobranca29">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+								<br></br>
+								<h:outputText value="R$ "
+									style="font-weight:bold;font-size: 13px;" />
+								<h:outputText
+									value="#{resultadoOrcamentoVoluntariadoMB.totalextrasmoedanacional}"
+									style="font-weight:bold;font-size: 13px;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:outputPanel>
+						</h:panelGrid>
+					</h:panelGrid>
+				</p:fieldset>
+				<br />
+				<p:commandButton id="bntfinalizar"
+					style="font-size:12px;float:right;margin-right:5%;"
+					value="Finalizar"
+					action="#{resultadoOrcamentoVoluntariadoMB.formapagamento()}"
+					icon="ui-icon-check" update="growl" />
+				<br />
+				<br />
+				<br />
+				<br />
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

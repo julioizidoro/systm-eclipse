@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="materunners" style="text-align:left;font-size: 10px;  ">
+
+            <title>Relatório MateRunners</title>
+            <h:panelGrid columns="2" columnClasses="tamanho7, tamanho7" style="width:90%;margin-left:7%;">
+				<p:outputLabel value="Mês" for="mes" />
+				<p:outputLabel value="Ano" for="ano" />
+			
+				<p:selectOneMenu id="mes"
+					value="#{relatorioMateRunnersMB.mes}" style="width:85%;"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:180px">  
+					<f:selectItem itemLabel="Selecione" itemValue="Selecione" noSelectionOption="true" />
+					<f:selectItem itemLabel="Janeiro" itemValue="01" />
+					<f:selectItem itemLabel="Fevereiro" itemValue="02" />
+					<f:selectItem itemLabel="Março" itemValue="03" />
+					<f:selectItem itemLabel="Abril" itemValue="04" />
+					<f:selectItem itemLabel="Maio" itemValue="05" />
+					<f:selectItem itemLabel="Junho" itemValue="06" />
+					<f:selectItem itemLabel="Julho" itemValue="07" />
+					<f:selectItem itemLabel="Agosto" itemValue="08" />
+					<f:selectItem itemLabel="Setembro" itemValue="09" />
+					<f:selectItem itemLabel="Outubro" itemValue="10" />
+					<f:selectItem itemLabel="Novembro" itemValue="11" />   
+					<f:selectItem itemLabel="Dezembro" itemValue="12" />
+				</p:selectOneMenu>
+				
+				<p:selectOneMenu id="ano"
+					value="#{relatorioMateRunnersMB.ano}" style="width:80%;"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+					<f:selectItem itemLabel="2016" itemValue="2016" />
+					<f:selectItem itemLabel="2017" itemValue="2017" />    
+					<f:selectItem itemLabel="2018" itemValue="2018" />
+					<f:selectItem itemLabel="2019" itemValue="2019" />
+					<f:selectItem itemLabel="2020" itemValue="2020" />
+					<f:selectItem itemLabel="2021" itemValue="2021" />
+					<f:selectItem itemLabel="2022" itemValue="2022" />
+					<f:selectItem itemLabel="2023" itemValue="2023" />
+					<f:selectItem itemLabel="2024" itemValue="2024" />
+					<f:selectItem itemLabel="2025" itemValue="2025" /> 
+				</p:selectOneMenu>   
+			</h:panelGrid>
+			<br/>    
+			<h:panelGrid columns="1" columnClasses="tamanho7" style="width:90%;margin-left:7%;">         
+				<p:outputLabel value="TOP" style="margin-left:34%;"/>  
+				<p:inputText id="numero" value="#{relatorioMateRunnersMB.numero}" style="width:30%;margin-left:34%;"/>  
+       			<p:slider for="numero" maxValue="15" minValue="0" style="margin-top:2%;width:90%;">
+       				<p:ajax event="slideEnd" />     
+       			</p:slider>  
+			</h:panelGrid>             
+			<br></br><br></br>         
+			<div align="center">       
+	            <p:commandButton value="Relatório" onclick="this.form.target='_blank'" icon="ui-icon-print" action="#{relatorioMateRunnersMB.gerarRelatorio()}" ajax="false"/>
+	            <p:commandButton  value="Gráfico" onclick="this.form.target='_blank'" ajax="false" icon="ui-icon-signal" action="#{relatorioMateRunnersMB.carregarListaRunners()}" style="margin-left: 1%" >
+	             	<p:ajax event="dialogReturn"/>     
+	            </p:commandButton >           
+	            <p:commandButton  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" action="#{relatorioMateRunnersMB.fechar()}"></p:commandButton>
+            </div>  
+            <style>
+            	.ui-slider {
+    position: relative;
+    text-align: left;
+    background: #838688;  
+    border: 0;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;
+}
+            </style>  
+        </h:form>      
+    </h:body>
+</html>

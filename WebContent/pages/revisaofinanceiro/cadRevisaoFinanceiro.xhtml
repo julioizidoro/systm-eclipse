@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<ui:composition template="/pages/templates/default.xhtml">
+		<ui:define name="corpo">
+			<h:form id="cadastroRevisaoFinanceiro" style="font-size:11px;">
+				<div id="centro">
+					<p:growl id="growl" showDetail="true" sticky="false"
+						life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+					<legend style="font-size:20px;margin-left:2%;">Venda N° #{cadRevisaoFinanceiroMB.venda.idvendas} </legend>
+					
+					<h:panelGrid style="margin-left:20%;width:60%;" columns="2">
+						<p:outputLabel value="Parceiro" for="parceiro" class="fontebranca" />
+						<p:outputLabel value="Consultor" for="consultor" class="fontebranca" />
+						<p:inputText id="parceiro" value="#{cadRevisaoFinanceiroMB.venda.fornecedor.nome}" style="width:80%;" />
+						<p:inputText id="consultor" value="#{cadRevisaoFinanceiroMB.venda.usuario.nome}" style="width:80%;" />
+					</h:panelGrid>
+					<br/>
+					<h:panelGrid columns="4" style="width:60%;margin-left:20%;">
+						<p:outputLabel value="Moeda" for="moeda" class="fontebranca" />
+						<p:outputLabel value="Valor do Câmbio" for="valorCambio"
+							class="fontebranca" />
+						<p:outputLabel value="Valor do Juros" for="valorJuros"
+							class="fontebranca" />
+						<p:outputLabel value="Valor Total R$" for="valorTotal"
+							class="fontebranca" />
+	
+						<p:inputText id="moeda" value="#{cadRevisaoFinanceiroMB.venda.cambio.moedas.sigla}" style="width:50%;" />
+						<p:inputText id="valorCambio" value="#{cadRevisaoFinanceiroMB.venda.valorcambio}" style="width:60%;text-align:right;">
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="valorJuros" value="#{cadRevisaoFinanceiroMB.venda.formapagamento.valorJuros}" style="width:60%;text-align:right;">
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="valorTotal" value="#{cadRevisaoFinanceiroMB.venda.valor}" style="width:60%;text-align:right;">
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+	
+					<h:panelGrid columns="1" style="margin-left:20%;width:80%;">
+						<p:outputLabel />
+	
+						<p:dataTable id="tabelaproduto" var="produtos" value="#{cadRevisaoFinanceiroMB.venda.orcamento.orcamentoprodutosorcamentoList}"
+							style="width:67%;" class="tabela6" scrollable="true"
+							 rowIndexVar="rowIx">
+							<p:column headerText="Descrição"
+								style="text-align:left;width:150px;">
+								<h:outputText value="#{produtos.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="Moeda Estrangeira"
+								style="text-align:right;width:110px;">
+								<h:outputText value="#{produtos.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Moeda R$"
+								style="text-align:right;width:80px;">
+								<h:outputText value="#{produtos.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>    
+						</p:dataTable>
+						<p:outputLabel value="Observações" for="obs" class="fontebranca" />
+	
+						<p:inputTextarea id="obs" value="#{cadRevisaoFinanceiroMB.venda.obstm}" rows="3" style="width:67%;" />
+					</h:panelGrid>
+	
+	
+					<br />
+	
+					<h:outputLabel value="Contas a Receber" style="font-size:12px;margin-left:8%;" />
+					<br />
+					<p:dataTable scrollable="true" editMode="cell" editable="true"
+						id="tabelaContasRecebers" var="contasreceber" value="#{cadRevisaoFinanceiroMB.venda.contasreceberList}"
+						style="width:83%;margin-left:8%;" rowIndexVar="rowIx">
+						<p:ajax event="cellEdit" update=":cadastroRevisaoFinanceiro:idValorRecebido"
+							listener="#{cadRevisaoFinanceiroMB.calcularValorTotal()}"/>
+						<p:column headerText="ID" style="width:5%;text-align:left;">
+							<h:outputText value="#{contasreceber.idcontasreceber}" />
+						</p:column>
+						<p:column headerText="Cliente" style="width:23%;text-align:left;">
+							<h:outputText value="#{contasreceber.vendas.cliente.nome}" />
+						</p:column>
+						<p:column headerText="Parcela" style="width:8%;text-align:center;">
+							<h:outputText value="#{contasreceber.numeroparcelas}" />
+						</p:column>
+						<p:column headerText="Vencimento"
+							style="width:10%;text-align:center;">
+							<h:outputText value="#{contasreceber.datavencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Tipo Documento" style="width:17.5%;">
+							<h:outputText value="#{contasreceber.tipodocumento}" />
+						</p:column>
+						<p:column headerText="Valor" style="width:8%;text-align: right">
+							<h:outputText value="#{contasreceber.valorparcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Recebimento" style="width:13%;text-align:center;">
+							<h:outputText value="#{contasreceber.datapagamento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Valor Pago"
+							style="width:80px;text-align: right">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{contasreceber.valorpago}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="valorpago" value="#{contasreceber.valorpago}"
+										style="width:100%;text-align:right">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+										<p:ajax event="blur" update=":cadastroRevisaoFinanceiro:idValorRecebido"
+											listener="#{cadRevisaoFinanceiroMB.calcularValorTotal()}"/>
+									</p:inputText>
+								</f:facet>  
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="" style="width:4%;">
+							<img src="#{cadRevisaoFinanceiroMB.gerarStatusImagem(contasreceber)}" title="#{cadRevisaoFinanceiroMB.gerarTitulo(contasreceber)}" />
+						</p:column>
+					</p:dataTable>
+					<br></br>
+	
+					<h:panelGrid columns="4" style="width:90%;margin-left:8%;">
+						<p:outputLabel value="Data Recebimento"  />
+						<p:outputLabel value="Valor Recebido"  />
+						<p:outputLabel value="Banco"  />
+						<p:outputLabel value=""  />
+	
+						
+						<p:calendar id="dataRecebimento"
+							value="#{cadRevisaoFinanceiroMB.dataPagamento}" size="20"
+							 locale="pt" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+						
+						<p:inputText readonly="true" id="idValorRecebido" value="#{cadRevisaoFinanceiroMB.valorRecebido}" style="width:43%"
+							class="espacocobranca20rig">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+	
+						<p:selectOneMenu id="banco" value="#{cadRevisaoFinanceiroMB.banco}"
+							style="width:200px;" 
+							converter="BancoConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadRevisaoFinanceiroMB.listaBanco}"
+								var="banco" itemLabel="#{banco.nome}" itemValue="#{banco}" />
+							<f:attribute name="listaBanco"
+								value="#{cadRevisaoFinanceiroMB.listaBanco}" />
+						</p:selectOneMenu>
+						
+						<p:commandButton id="bReceber" value="Receber" action="#{cadRevisaoFinanceiroMB.salvar()}"
+							icon="ui-icon-check" style="font-size:12px;" update=":cadastroRevisaoFinanceiro:tabelaContasRecebers, :cadastroRevisaoFinanceiro:growl"/>
+					</h:panelGrid>
+	
+					<br />
+					<h:outputLabel value="Forma de Pagamento" style="font-size:12px;margin-left:8%;" />
+					<p:dataTable id="tabeçaFormaPagamento" var="formapagamento"
+						value="#{cadRevisaoFinanceiroMB.formapagamento.parcelamentopagamentoList}" style="margin-left:8%;width:83%;">
+						<p:column headerText="Forma Pagamento" >
+	                        <h:outputText value="#{formapagamento.formaPagamento}"/>
+	                    </p:column>
+	                     <p:column headerText="1° Vencimento" style="text-align:center;">
+	                         <h:outputText value="#{formapagamento.diaVencimento}">
+	                         	<f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
+	                         </h:outputText>
+	                    </p:column>
+	                     <p:column headerText="Tipo Parcelamento">
+	                         <h:outputText value="#{formapagamento.tipoParcelmaneto}"/>
+	                    </p:column>
+	                    <p:column headerText="Valor a Parcelar" style="text-align: right" >
+	                        <h:outputText value="#{formapagamento.valorParcelamento}">
+	                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText>
+	                    </p:column>
+	                    <p:column headerText="N° Parcelas" style="text-align:center;">
+	                         <h:outputText value="#{formapagamento.numeroParcelas}"/>
+	                    </p:column>
+	                     <p:column headerText="Valor Parcela" style="text-align: right" >
+	                         <h:outputText value="#{formapagamento.valorParcela}">
+	                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText>
+	                    </p:column>
+					</p:dataTable>
+					<br />
+	
+					<h:panelGrid columns="3" style="margin-left:8%;width:92%;">
+						<p:outputLabel value="Valor Matriz"  />
+						<p:outputLabel value="Valor Loja"  />
+						<p:outputLabel value="Valor Total" />
+	
+						<p:inputText value="#{cadRevisaoFinanceiroMB.valorMatriz}" style="width:43%"
+							class="espacocobranca20rig">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText value="#{cadRevisaoFinanceiroMB.valorLoja}" style="width:43%"
+							class="espacocobranca20rig">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText value="#{cadRevisaoFinanceiroMB.valorTotal}" style="width:43%"
+							class="espacocobranca20rig">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+					<br/><hr style="width:83%;margin-left:8%;"/><br/>
+					<h:panelGrid columns="5" style="width:53%;margin-left:23%;">  
+						<p:commandButton id="bLiberar" value="Liberar" action="#{cadRevisaoFinanceiroMB.liberarVenda()}"
+							icon="ui-icon-plus" style="font-size:12px;width:110px;" />
+						<p:commandButton id="bDocumentos" value="Documentos" action="#{cadRevisaoFinanceiroMB.consultarDocumentos()}"
+							icon="ui-icon-plus" style="font-size:12px;width:110px;" />
+						<p:commandButton id="bFechar" value="Fechar" action="#{cadRevisaoFinanceiroMB.fechar()}" 
+							icon="ui-icon-closethick" style="font-size:12px;width:110px;" />
+						<p:commandButton id="bPendencia" value="Pendência" action="#{cadRevisaoFinanceiroMB.cadastroPendencia()}" rendered="#{cadRevisaoFinanceiroMB.habilitarNovaVenda}"
+							icon="ui-icon-plus" style="font-size:12px;width:110px;" >
+							<p:ajax event="dialogReturn" listener="#{cadRevisaoFinanceiroMB.retornoDialogPendencia}" update="bPendencia"/>
+						</p:commandButton>
+						<p:commandButton id="bHistorico" value="Histórico" action="#{cadRevisaoFinanceiroMB.consultarHistorico()}" rendered="#{cadRevisaoFinanceiroMB.habilitarPendencia}"
+							icon="ui-icon-plus" style="font-size:12px;width:110px;" />
+						<p:commandButton id="bEmail" value="E-mail" action="#{cadRevisaoFinanceiroMB.enviarEmailRF()}"
+							icon="ui-icon-plus" style="font-size:12px;width:110px;" >
+							<p:ajax event="dialogReturn" listener="#{cadRevisaoFinanceiroMB.retornoDialogEmail}" update="bPendencia, bHistorico"/>
+						</p:commandButton>
+					</h:panelGrid>
+				</div>
+				<br/><br/><br/>  
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

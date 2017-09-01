@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head> 
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastroFornecedorIdioma"
+		style="text-align:left;font-size: 11px;">
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<title>Cadastro Parceiro - Idioma</title>
+		<br></br>
+		<p:outputLabel
+			value="País: #{cadFornecedorCidadeIdiomaMB.cidade.pais.nome}"
+			style="margin-left:12%;font-size: 14px;" />
+		<p:outputLabel
+			value="Cidade: #{cadFornecedorCidadeIdiomaMB.cidade.nome}"
+			style="margin-left:10%;font-size: 14px;" />
+		<p:outputLabel
+			value="Idioma: #{cadFornecedorCidadeIdiomaMB.idioma.descricao}"
+			style="margin-left:10%;font-size: 14px;" />
+		<br></br>
+		<br></br>
+		<p:commandButton id="bntAddFornecedor" icon="ui-icon-plus"
+			class="espacocobranca21botao"
+			style="font-size:12px;margin-left: 2.5%" value="Adicionar" update="cadastroFornecedorIdioma:dialog_cadastro" oncomplete="PF('cadastro').show()">
+			<p:ajax listener="#{cadFornecedorCidadeIdiomaMB.listarFornecedorCidade()}" />
+		</p:commandButton>
+		<p:dataTable id="tabelaFornecedor" var="fornecedor"
+			value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidadeIdioma}"
+			class="tabela" scrollable="true" scrollHeight="280"
+			style="margin-bottom:20px">
+			<p:column style="width:35px;text-align: center;">
+				 <p:selectBooleanCheckbox id="habilitado" value="#{fornecedor.habilitada}">
+					<p:ajax event="change"  update="tabelaFornecedor" listener="#{cadFornecedorCidadeIdiomaMB.salvarHabilidar(fornecedor)}"/>
+				</p:selectBooleanCheckbox>
+			</p:column>
+			<p:column headerText="Parceiro" >
+				<h:outputText value="#{fornecedor.fornecedorcidade.fornecedor.nome}" />
+			</p:column>
+			<p:column style="width:40px;text-align: center;">
+				<p:commandLink title="Excluir"
+					actionListener="#{cadFornecedorCidadeIdiomaMB.excluir(fornecedor)}" update="tabelaFornecedor">
+					<img src="../../resources/img/excluir.png"  />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<p class="botaocadpacote">
+			<br></br>
+			<p:commandButton class="espacocampos" icon="ui-icon-close"
+				value="Fechar" action="#{cadFornecedorCidadeIdiomaMB.fechar()}"></p:commandButton>
+			<br></br>
+			<br></br>
+		</p>
+		<p:dialog id="dialog_cadastro" header="Cadastro" widgetVar="cadastro"
+			style="background:#d0e9c6;text-align: left">
+			<p:outputLabel value="Parceiro" style="margin-left:2%;font-size: 11px;" />
+			<br></br>
+			<p:selectOneMenu id="fornecedor" value="#{cadFornecedorCidadeIdiomaMB.fornecedorCidade}" style="width:180px;margin-left:2%" 
+                            converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+             	  <f:selectItem itemLabel="Fornecedor" itemValue="0" noSelectionOption="true"/> 
+            	  <f:selectItems id="idfornecedor" value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+            	  <f:attribute name="listaFornecedorCidade" value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidade}"/>
+           	      <p:ajax event="change"/>
+            </p:selectOneMenu> <br></br>
+            <p:commandButton id="bntSalvarFornecedor" value="Salvar" icon="ui-icon-plus" action="#{cadFornecedorCidadeIdiomaMB.salvar()}"
+				style="font-size:12px;margin-left:2%" onclick="cadastro.hide()" update="growl"/>
+			<br></br>
+			<br></br>
+			<br></br>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

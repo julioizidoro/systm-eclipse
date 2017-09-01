@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Forma de Pagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="203"/>
+	<parameter name="idocurso" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="consultor" class="java.lang.String"/>
+	<parameter name="unidade" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numeroParcelas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroParcelas]]></fieldDescription>
+	</field>
+	<field name="obs1" class="java.lang.String">
+		<fieldDescription><![CDATA[obs1]]></fieldDescription>
+	</field>
+	<field name="obs2" class="java.lang.String">
+		<fieldDescription><![CDATA[obs2]]></fieldDescription>
+	</field>
+	<field name="percentualEtnrada" class="java.lang.Double">
+		<fieldDescription><![CDATA[percentualEtnrada]]></fieldDescription>
+	</field>
+	<field name="percentualSaldo" class="java.lang.Double">
+		<fieldDescription><![CDATA[percentualSaldo]]></fieldDescription>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<fieldDescription><![CDATA[titulo]]></fieldDescription>
+	</field>
+	<field name="valorParcela" class="java.lang.Float">
+		<fieldDescription><![CDATA[valorParcela]]></fieldDescription>
+	</field>
+	<field name="valorSaldo" class="java.lang.Float">
+		<fieldDescription><![CDATA[valorSaldo]]></fieldDescription>
+	</field>
+	<field name="valorentrada" class="java.lang.Float">
+		<fieldDescription><![CDATA[valorentrada]]></fieldDescription>
+	</field>
+	<variable name="totalMoedaEstrangeira" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalMoedaNacional" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="174" splitType="Stretch">
+			<textField>
+				<reportElement x="69" y="37" width="194" height="20" uuid="cab7ed6b-f24f-4ba1-bb91-a36573e9d61f"/>
+				<textFieldExpression><![CDATA[$P{consultor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="12" width="194" height="20" uuid="eac76b5c-a036-4fa8-8b35-3d6fdec6edbd"/>
+				<textFieldExpression><![CDATA[$P{unidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="37" width="59" height="20" uuid="a2dc6b22-88ed-4853-877f-a86b2f14b3aa"/>
+				<text><![CDATA[Consultor :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="12" width="49" height="20" uuid="312d0727-f402-407d-8ef1-05af5d116874"/>
+				<text><![CDATA[Unidade :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="61" width="555" height="8" backcolor="#808080" uuid="3e496cc4-5a10-41f3-b0f6-3b525cebf465"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="140" width="555" height="26" uuid="65eaac24-7402-43d3-8860-a9c04018f704"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="123" width="171" height="13" uuid="27cb2a8d-ca5f-4a8f-9ecf-8faa9b4ff29e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Opção 01 - Pagamento á Vista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="145" width="59" height="15" uuid="2ec81603-9e9b-4da6-b5ea-3b8f8ba21d06"/>
+				<text><![CDATA[Valor R$ :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="80" y="145" width="113" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="212" y="145" width="288" height="15" uuid="16272e6e-8fcc-42c7-bd9c-165f548d99d5"/>
+				<text><![CDATA[( não é aceito cartão de crédito/débito para esta opção)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="375" y="0" width="180" height="61" uuid="e8672597-a402-4348-abfd-7aa13a98ecf9"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="80" width="555" height="30" uuid="860ef5a0-6bc3-4f2d-9c04-32ef35a495e1"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cálculo de Pagamento]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="113">
+			<rectangle>
+				<reportElement x="0" y="17" width="556" height="84" uuid="ad78aebd-0b8e-4f3a-910b-e1a79ad1da33"/>
+			</rectangle>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="97" y="23" width="37" height="15" uuid="d5040234-98b8-4e60-af6a-ac59884e84de"/>
+				<textFieldExpression><![CDATA[$F{percentualEtnrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="472" y="23" width="72" height="15" uuid="01094f2e-82b0-4d40-85c3-74efe8e8ae92"/>
+				<textFieldExpression><![CDATA[$F{numeroParcelas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="44" width="78" height="15" uuid="d6d1bfb6-aa99-4584-991a-5e2fc0500d89"/>
+				<text><![CDATA[% de Saldo :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="472" y="44" width="71" height="15" uuid="bffc232f-9fdc-49ad-8867-b5c5bdfb10ea"/>
+				<textFieldExpression><![CDATA[$F{valorParcela}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="277" y="23" width="104" height="15" uuid="a2757f22-600a-44d3-93a0-ec6a80e99b46"/>
+				<textFieldExpression><![CDATA[$F{valorentrada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="154" y="23" width="113" height="15" uuid="2919801c-c697-4b8d-951d-6b7172d5a22d"/>
+				<text><![CDATA[Valor da Entrada R$ :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="277" y="44" width="104" height="15" uuid="be79ca29-0672-46d2-ab51-8353bb597312"/>
+				<textFieldExpression><![CDATA[$F{valorSaldo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="154" y="44" width="110" height="15" uuid="bc7d434c-cade-4347-9b5a-e06326fe1488"/>
+				<text><![CDATA[Saldo  R$ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="44" width="73" height="15" uuid="5904e068-6225-457d-b0e4-4ae8dd0e047b"/>
+				<text><![CDATA[Valor Parcela :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="97" y="44" width="37" height="15" uuid="496bac62-fd5e-4240-b6a6-233aa8aee0fc"/>
+				<textFieldExpression><![CDATA[$F{percentualSaldo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="23" width="79" height="15" uuid="f3969e28-532f-4fa9-9e5b-d9bb9c245ca4"/>
+				<text><![CDATA[% de Entrada :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="23" width="73" height="15" uuid="a59375b2-ee83-4e58-aa4b-04f59fcbed5c"/>
+				<text><![CDATA[Nº Parcelas :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="10" y="2" width="518" height="15" uuid="b480133d-2775-4849-8988-b99c4286c1e3"/>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="12" y="65" width="518" height="15" uuid="33ca8a7f-7000-4ad9-8efa-345eef2a8419"/>
+				<textFieldExpression><![CDATA[$F{obs1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="12" y="83" width="518" height="15" uuid="013b4352-5ab5-40e2-be6a-31e3d0ba09ff"/>
+				<textFieldExpression><![CDATA[$F{obs2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="143">
+			<rectangle>
+				<reportElement x="0" y="7" width="555" height="130" uuid="fcbba437-de4c-43d7-9d74-62d5d2e8d82d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="11" y="10" width="533" height="127" uuid="64ab8947-95b3-43ac-8f93-c4270a21a685"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["Observações" +
+"*Parcelamento com juros e, no caso de cheque, sujeito à aprovação de crédito." +
+"Os preços acima são individuais e variam conforme o tipo de acomodação, tipo de curso, duração, carga horária, número de alunos por sala, etc." +
+"Os valores da passagem aérea poderão variar conforme disponibilidade e data da viagem."+
+"Nenhuma reserva foi efetuada, estando sujeito à disponibilidade. Valores sujeitos à alteração e variação cambial sem aviso prévio."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

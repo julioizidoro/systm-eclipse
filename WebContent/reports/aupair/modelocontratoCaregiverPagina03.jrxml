@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.620921323059155"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="698" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="69" width="555" height="515" uuid="cb0706e3-152a-4e32-8509-21742367e120"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="7" width="281" height="14" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[7. JORNADA DE TRABALHO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="565" height="186" uuid="ed8b27dc-20e2-4d26-ac84-da7ebb39e530"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.1 Por se tratar de um intercâmbio cultural com programa de trabalho remunerado cuidando de crianças, idosos ou pessoas portadoras de necessidades, e também tarefas domésticas, o(a) PARTICIPANTE trabalhará na própria residência da família hospedeira;
+7.2 A rotina de trabalho e as responsabilidades serão variáveis, de acordo com as idades das crianças da família hospedeira ou necessidade do idoso e o estilo da família; além do cuidado com as crianças ou idosos, a o(a) PARTICIPANTE é responsável pelas tarefas domésticas;
+7.3 O(A) PARTICIPANTE deve trabalhar de 40 a 45 horas/semanais e terá direito de 1 (hum) a 2 (dois) dias de folga por semana (dependendo da Província);
+7.4 Não existe um horário fixo de trabalho, devendo ser combinado com a família hospedeira na sua chegada, salientando que a mesma não poderá ultrapassar os limites descritos na cláusula 7.3 acima;
+7.5  No período que compreende aos 30 (trinta) primeiros dias após a chegada do(a) PARTICIPANTE à casa da família hospedeira, as características originais do programa em termos de horas de trabalho e funções podem ser diferentes do previsto no contrato, pois este período é considerado de adaptação/treinamento, não sendo responsabilidade da TM nem do parceiro internacional contratado este período de ajustes;
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="234" width="565" height="144" uuid="ed8b27dc-20e2-4d26-ac84-da7ebb39e530"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.1 O(A) PARTICIPANTE, em contrapartida ao seu trabalho realizado, receberá da família hospedeira um valor próximo ao descrito abaixo, podendo variar de acordo com a província e horas trabalhadas por semana.
+a) Alberta (CAD$ 10,66 por hora) = aproximadamente CAD$ 370,76 (trezentos e setenta dólares canadenses e setenta e seis cents) por semana (Já deduzindo taxas e impostos).
+b) Ontario (CAD$ 11,00 por hora) = aproximadamente CAD$ 348,46 (trezentos e quarenta e oito dólares canadenses e quarenta e seis cents) por semana (Já deduzindo taxas e impostos).
+c) British Columbia (CAD$ 10,50 por hora) = aproximadamente CAD$ 345,35 (trezentos e quarenta e cinco dólares canadenses e trinta e cinco cents) por semana (Já deduzindo taxas e impostos).
+8.2 O(A) PARTICIPANTE, em contrapartida ao seu trabalho realizado, receberá da família hospedeira o benefício de férias remuneradas conforme descrito abaixo:
+a) Férias remuneradas de 2 semanas ao final de cada período de 12 meses de trabalho como Caregiver.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="216" width="281" height="14" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[8. REMUNERAÇÃO E BENEFÍCIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="382" width="281" height="14" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[9. VISTO CONSULAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="400" width="565" height="184" uuid="ed8b27dc-20e2-4d26-ac84-da7ebb39e530"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[9.1 A TM não é responsável pela obtenção do visto de entrada no país/visto para participação no programa, mesmo quando esta intermedeie e oriente no processo de solicitação do mesmo. A emissão do visto adequado depende em última instância, única e exclusivamente, do Consulado do país de destino que analisará o processo de solicitação do(a) PARTICIPANTE e julgará se este deve ou não ter o visto concedido.
+9.2 No caso do visto consular ser negado ao(à) PARTICIPANTE por parte da autoridade consular responsável no Brasil, o valor correspondente a 30% do valor do programa será retido e não reembolsado. Para receber reembolso de demais valores pagos referentes ao visto negado o(a) PARTICIPANTE deverá fornecer toda a documentação solicitada pela TM e pelo parceiro internacional. Qualquer valor será reembolsado entre 45 e 60 dias após negativa do visto;
+9.3 A TM não tem responsabilidade por orientar o participante em processos de mudança, alteração ou solicitação de extensão do visto do participante quando este já esteja no país de destino;
+9.4  As despesas de obtenção do visto (taxas de agendamento, taxas consulares, taxa de emissão de visto, taxa de serviço de assessoria TM para visto e despesas de viagem até o Consulado do país de destino quando necessária entrevista pessoal) não estão incluídas no valor do programa pago à TM e o pagamento das mesmas é de responsabilidade do(a) PARTICIPANTE;
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="628e6336-dc7f-4f59-8ddd-414d1d488408"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoCaregiverPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

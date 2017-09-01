@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.7513148009015777"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="698" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="71" width="555" height="572" uuid="cd2a338a-a6d9-4964-8f8c-818c6e3a498e"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="0" width="550" height="698" uuid="58507199-ca68-4e4c-a977-ef2d33f5966b"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["6.4  O(A) PARTICIPANTE desde já declara estar ciente que em razão de realizar o curso ou programa em país estrangeiro, encontrará situações culturais e estilo de vida totalmente diversos do que está acostumado, o que poderá acarretar diferenças culturais, de tratamento e postura, devendo observar e obedecer ao padrão de vida vigente no país de destino; \n"+
+"6.5  O(A) PARTICIPANTE também deverá observar as regras de conduta e socialização em casa familiar, assim como a estrutura da acomodação, podendo variar de acordo com a residência a ser apresentada, com a colocação em quarto individual ou não, incluindo alimentação conforme padrões da família hospedeira e demais benefícios oferecidos pela mesma. \n \n"+
+
+"7. JORNADA DE TRABALHO \n"+
+"7.1 Por se tratar de um intercâmbio cultural com programa de trabalho remunerado cuidando de crianças e tarefas domésticas leves, o(a) PARTICIPANTE trabalhará na própria residência da família hospedeira; \n"+
+"7.2 A rotina de trabalho e as responsabilidades serão variáveis, de acordo com as idades das crianças da família hospedeira e o estilo da família; além do cuidado com as crianças, a o(a) PARTICIPANTE é responsável por algumas tarefas domésticas, geralmente ligadas às crianças; \n"+
+"7.3  O(A) PARTICIPANTE deve trabalhar em média 45 horas/semanais nos EUA ou 30 horas/semanais nos países da Europa e terá direito a pelo menos 1 (hum) dia de folga por semana e 1 (hum) fim de semana livre por mês (conforme descritivo/informativo do programa/destino em questão); \n" +
+"7.4 Não existe um horário fixo de trabalho, devendo ser combinado com a família hospedeira na sua chegada, salientando que a mesma não poderá ultrapassar os limites descritos na cláusula 8.3 acima; \n"+
+"7.5  No período que compreende aos 30 (trinta) primeiros dias após a chegada do(a) PARTICIPANTE à casa da família hospedeira, as características originais do programa em termos de horas de trabalho e funções podem ser diferentes do previsto no contrato, pois este período é considerado de adaptação/treinamento, não sendo responsabilidade da TM nem do parceiro internacional contratado este período de ajustes; \n \n"+
+
+"8. REMUNERAÇÃO E BENEFÍCIOS \n"+
+"8.1 O(A) PARTICIPANTE, em contrapartida ao seu trabalho realizado, receberá da família hospedeira os seguintes valores a título de remuneração: \n"+
+"a) EUA = US$ 195,75 (cento e noventa e cinco dólares americanos e setenta e cinco cents) por semana. \n" +
+"b) Alemanha = 250,00 Euros (duzentos e cinqüenta euros) por mês. \n"+
+"c) França = 80,00 Euros (oitenta euros) por semana. \n"+
+"8.2 O(A) PARTICIPANTE, em contrapartida ao seu trabalho realizado, receberá da família hospedeira bolsa de estudo conforme valores abaixo: \n"+
+"a) EUA = Bolsa de estudos de US$ 500,00 para os primeiros 12 meses de trabalho como Au Pair. \n"+
+"b) Alemanha = Bolsa de estudos de 50,00 Euros por mês de trabalho como Au Pair. \n"+
+"c) França = Bolsa de estudos de 15,00 Euros incorporada na remuneração semanal de. trabalho como Au Pair. \n"+
+"8.3 O(A) PARTICIPANTE, em contrapartida ao seu trabalho realizado, receberá da família hospedeira o benefício de férias remuneradas conforme descrito abaixo: \n"+
+"a) EUA = Férias remuneradas de 2 semanas ao final de 12 meses de trabalho como Au Pair. \n"+
+"b) Alemanha = Férias remuneradas de 2 a 4 semanas ao final de 12 meses de trabalho como Au Pair (tempo de férias variável conforme negociação entre Au Pair e família hospedeira). \n"+
+"c) França = Férias remuneradas de 2 semanas ao final de 12 meses de trabalho como Au Pair. \n \n"+
+
+"9. VISTO CONSULAR \n"+
+"9.1 A TM não é responsável pela obtenção do visto de entrada no país/visto para participação no programa, mesmo quando esta intermedeie e oriente no processo de solicitação do mesmo. A emissão do visto adequado depende em última instância, única e exclusivamente, do Consulado do país de destino que analisará o processo de solicitação do(a) PARTICIPANTE e julgará se este deve ou não ter o visto concedido. \n"+
+"9.2 No caso do visto consular ser negado ao(à) PARTICIPANTE por parte da autoridade consular responsável no Brasil, o valor correspondente a 30% do valor do programa será retido e não reembolsado. Para receber reembolso de demais valores pagos referentes ao visto negado o(a) PARTICIPANTE deverá fornecer toda a documentação solicitada pela TM e pelo parceiro internacional. Qualquer valor será reembolsado entre 45 e 60 dias após negativa do visto; \n"+
+"9.3 A TM não tem responsabilidade por orientar o participante em processos de mudança, alteração ou solicitação de extensão do visto do participante quando este já esteja no país de destino;"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="cf384f5b-93bc-457e-9c58-1312006cc930"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\" + "modelocontratoAupairPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

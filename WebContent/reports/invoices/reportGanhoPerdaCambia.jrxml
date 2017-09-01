@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ganhe ou Perda Cambial" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="70"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="periodo" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cambioPagamento" class="java.lang.Float">
+		<fieldDescription><![CDATA[cambioPagamento]]></fieldDescription>
+	</field>
+	<field name="cambioVenda" class="java.lang.Float">
+		<fieldDescription><![CDATA[cambioVenda]]></fieldDescription>
+	</field>
+	<field name="cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="ganhoPerda" class="java.lang.Float">
+		<fieldDescription><![CDATA[ganhoPerda]]></fieldDescription>
+	</field>
+	<field name="moeda" class="java.lang.String">
+		<fieldDescription><![CDATA[moeda]]></fieldDescription>
+	</field>
+	<field name="taxa" class="java.lang.Float">
+		<fieldDescription><![CDATA[taxa]]></fieldDescription>
+	</field>
+	<field name="valorPago" class="java.lang.Float">
+		<fieldDescription><![CDATA[valorPago]]></fieldDescription>
+	</field>
+	<field name="iof" class="java.lang.Float">
+		<fieldDescription><![CDATA[iof]]></fieldDescription>
+	</field>
+	<variable name="total" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{ganhoPerda}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="144" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="11" width="267" height="94" uuid="7ec3d677-d665-4c6a-8bfa-55fd4b14ed3d"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="241" y="105" width="314" height="20" uuid="9ccd0a7b-620a-4115-b0b4-c6331bf6d109"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE GANHO / PERDA CÂMBIAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="581" y="27" width="204" height="20" uuid="06a8af77-c392-47ae-b3b8-a4ac521d4e37"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="13" width="186" height="14" uuid="70d34e46-333e-4d3f-aaa0-6000580f63e3"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="5" width="65" height="27" uuid="298b074f-57a9-4be7-962f-d236d2b51b77"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Câmbio da Venda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="13" width="41" height="14" uuid="d13db363-8bb5-4299-843a-8721f2d8ed4c"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Moeda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="586" y="13" width="55" height="14" uuid="3b012a03-290d-4664-99b7-8e5f1b5af9ea"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Taxa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="657" y="13" width="56" height="14" uuid="fd7e9790-681a-4338-bd9d-4a80e60d985c"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[IOF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="5" width="65" height="27" uuid="598b5af0-b160-43df-9a1f-438b1a503ded"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="5" width="46" height="27" uuid="793ef5a9-b4ee-44ef-9c9e-f3d0e1d64474"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="504" y="5" width="65" height="27" uuid="1fac8e81-0b44-461b-aa2f-c0ff7d5f0409"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Câmbio Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="727" y="5" width="65" height="27" uuid="d132da65-a16f-4201-b4f3-f57c26fdf140"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ganho / Perda]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="22">
+			<rectangle>
+				<reportElement x="0" y="1" width="802" height="20" uuid="eaf17c4a-0a65-40f1-8010-58e8dffec7c6"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="5" width="186" height="13" uuid="233fd359-59ab-4ebc-85d6-193b0bc16a52"/>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="727" y="5" width="65" height="13" uuid="7d854875-c65c-4d11-9ad6-9ed557dc3e2b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ganhoPerda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="209" y="5" width="65" height="13" uuid="a09b854a-d003-4760-852a-4ef9f5c35050"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{cambioVenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="287" y="5" width="65" height="13" uuid="67d1445a-ba5c-460d-8bfe-9a1afd979589"/>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="425" y="5" width="66" height="13" uuid="70e2667a-9d54-4707-8f84-5f7d989459b9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorPago}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="504" y="5" width="65" height="13" uuid="72b89535-5d34-40bd-acb2-fe55614b5a89"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{cambioPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="367" y="5" width="41" height="13" uuid="a2af6b07-a4d5-4d43-88e5-2882efc51ed1"/>
+				<textFieldExpression><![CDATA[$F{moeda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="586" y="5" width="55" height="13" uuid="e37a15ab-973c-492b-9f1c-071853962d3c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{taxa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="657" y="5" width="56" height="13" uuid="93ad6a9c-6aaf-4c3f-a228-4d7506ac2dc9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{iof}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="50">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="665" y="11" width="127" height="20" uuid="2d6b0810-3b2b-4b79-9ddb-76a5273ff9f3"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="491" y="11" width="170" height="20" uuid="d979a45e-4daa-4907-840a-ffa67c887e87"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GANHO / PERDA]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

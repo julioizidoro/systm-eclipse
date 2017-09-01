@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="complementoCursoVoluntariado" style="text-align:left;font-size: 11px;">
+		<title>Complemento Curso</title> 
+		<h:panelGrid columns="1" style="margin-left:3%;width:70%;"> 
+			<h:outputLabel value="Curso"/>   
+		<p:selectOneMenu id="idlistaproduto" value="#{voluntariadoProjetoCursoMB.voluntariadoprojetocurso.produtosorcamento}" style="width:92%;"  
+                         converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith" >
+            <f:selectItem itemLabel="Produtos" itemValue="0" noSelectionOption="true"/> 
+            <f:selectItems id="idproduto" value="#{voluntariadoProjetoCursoMB.listaFiltroorcamentoproduto}" var="produtoselecionado" itemLabel="#{produtoselecionado.produtosorcamento.descricao}" itemValue="#{produtoselecionado.produtosorcamento}"/>
+            <f:attribute name="listaProdutos" value="#{voluntariadoProjetoCursoMB.listaFiltroorcamentoproduto}"/>
+            <f:ajax event="change" />
+        </p:selectOneMenu>
+		</h:panelGrid>  
+		<br></br>
+		<h:panelGrid columns="2" columnClasses="colunaVintePontoSeis, tamanho61"
+			style="margin-left:3%;"> 
+			<h:outputLabel value="Carga Horária"/>  
+			<h:outputLabel />   
+			
+			<p:inputText id="cargahoraria2" style="width:80%;" maxlength="100"
+				value="#{voluntariadoProjetoCursoMB.voluntariadoprojetocurso.cargahoraria}"  />
+			<p:selectOneRadio id="porSemana" value="#{voluntariadoProjetoCursoMB.voluntariadoprojetocurso.tipocargahoraria}" style="width:100%;">
+				<f:selectItem itemLabel="Horas por Semana"
+					itemValue="Horas por Semana" />
+				<f:selectItem itemLabel="Aulas por Semana"
+					itemValue="Aulas por Semana" />
+			</p:selectOneRadio>   
+		</h:panelGrid>   
+		<br></br>    
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar" action="#{voluntariadoProjetoCursoMB.salvar}" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar" action="#{voluntariadoProjetoCursoMB.cancelar}"
+				style="margin-left:2%;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

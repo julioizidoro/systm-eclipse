@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <script>
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Começo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o Dia'
+            };
+        </script>  
+    </h:head> 
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+             <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+            <title>Cadastro Produtos</title><br></br>
+            <p:selectOneRadio id="tipoProduto" value="#{cadCoProdutosMB.coprodutos.tipo}" layout="custom">
+                <f:selectItem itemLabel="Obrigatório" itemValue="Obrigatorio" />
+                <f:selectItem itemLabel="Opcional" itemValue="Opcional" />
+                <f:selectItem itemLabel="Acomodação" itemValue="Acomodacao" />
+                <f:selectItem itemLabel="Transfer" itemValue="Transfer" />
+                <f:selectItem itemLabel="Acom. Opcional" itemValue="AcOpcional" />
+                <p:ajax event="change" listener="#{cadCoProdutosMB.gerarListaProdutosOrcamento()}" update="idlistaproduto"/>
+            </p:selectOneRadio>
+            <p:radioButton id="tipoProduto1" for="tipoProduto" itemIndex="1" class="espacocobranca29"/>
+            <h:outputLabel for="tipoProduto1" value="Obrigatório" style="margin-left:0.5%"/>
+
+            <p:radioButton id="tipoProduto2" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+            <h:outputLabel for="tipoProduto2" value="Opcional" style="margin-left:0.5%"/>
+            
+            <p:radioButton id="tipoProduto3" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+            <h:outputLabel for="tipoProduto3" value="Acomodação" style="margin-left:0.5%"/>
+            
+            <p:radioButton id="tipoProduto4" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+            <h:outputLabel for="tipoProduto4" value="Transfer" style="margin-left:0.5%"/>
+            
+             <p:radioButton id="tipoProduto5" for="tipoProduto" itemIndex="2" style="margin-left:4.5%"/>
+            <h:outputLabel for="tipoProduto5" value="Acom. Opcional" style="margin-left:0.5%"/>
+            <br></br><br></br>
+            
+            <p:outputLabel value="Produto" for="idlistaproduto" style="margin-left: 2%"/>
+            <br></br>
+            <p:selectOneMenu id="idlistaproduto" value="#{cadCoProdutosMB.prdutoOrcamento}" style="width:92%;" class="espacocobranca29" 
+                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith" >
+                <f:selectItem itemLabel="Produtos" itemValue="0" noSelectionOption="true"/> 
+                <f:selectItems id="idproduto" value="#{cadCoProdutosMB.listaFiltroorcamentoproduto}" var="produtoselecionado" itemLabel="#{produtoselecionado.produtosorcamento.descricao}" itemValue="#{produtoselecionado.produtosorcamento}"/>
+                <f:attribute name="listaProdutos" value="#{cadCoProdutosMB.listaFiltroorcamentoproduto}"/>
+                <f:ajax event="change" />
+            </p:selectOneMenu>
+            <br></br><br></br>
+            <p:outputLabel value="Nome" for="idnomeproduto" style="margin-left:2%"/>
+            <br></br>
+	        <p:inputText id="idnomeproduto" value="#{cadCoProdutosMB.coprodutos.nome}" style="width:94%;margin-left:2%"/>
+	        <br></br><br></br>
+            <p:outputLabel value="Descrição" for="descricao" style="margin-left: 2%"/>
+            <br></br>
+            <p:inputTextarea value="#{cadCoProdutosMB.coprodutos.descricao}" id="descricao" rows="3" cols="87" class="espacocobranca29"  title="descrição do produto"/>
+            <br></br><br></br>
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.pacote}" class="espacopreto" id="pacote" style="margin-left:2%" >
+            	<p:ajax listener="#{cadCoProdutosMB.habilitarOpcoesPacote()}" update="acomodacao, transfer"/>
+            </p:selectBooleanCheckbox>
+            <p:outputLabel value="Pacote" for="pacote" style="margin-left:1%"/>  
+            
+            <p:outputLabel value="Suplemento Menor de Idade" for="suplementoMenorIdade" style="margin-left:25%"/>
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.suplementemenoridade}" class="espacopreto" id="suplementoMenorIdade" style="margin-left:2%" />
+              
+            <p:outputLabel value="Idade" for="idade" style="margin-left:5%"/>  
+            <p:inputText id="idade" value="#{cadCoProdutosMB.coprodutos.idade}" style="width:10%;margin-left:0.4%"/>
+			<br></br><br></br>  
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.transfer}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="transfer" style="margin-left:2%" />
+            <p:outputLabel value="Translado" for="transfer" style="margin-left:1%"/>
+            
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.acomodacao}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="acomodacao" style="margin-left:5%" />
+            <p:outputLabel value="Acomodação" for="acomodacao" style="margin-left:1%"/>
+            
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.apenaspacote}"  class="espacopreto" id="apenaspacote" style="margin-left:5%" />
+            <p:outputLabel value="Não mostrar no Orçamento Tarifario" for="apenaspacote" style="margin-left:1%"/>
+            
+            <br></br><br></br>   
+            <p class="botaocadpacote"><br></br>
+                <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cadCoProdutosMB.salvarCoProduto()}" update="growl"></p:commandButton>
+                <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadCoProdutosMB.cancelarCoProduto()}"></p:commandButton>
+            <br></br><br></br></p>
+        </h:form>     
+    </h:body>
+</html>

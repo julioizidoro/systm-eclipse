@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>   
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="invoiceControles" style="text-align:left;font-size:11px;">
+            <title>Invoice</title><br></br>
+               <p:outputLabel value="Cliente" for="cliente" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5%;"   />
+         	   <p:outputLabel value="Unidade de Négocio" for="unidade" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:42%;"   />
+               
+               <br></br>  
+               <p:inputText id="cliente" value="#{invoicesControllerMB.invoice.vendas.cliente.nome}" style="width:40%;margin-left:5%;" readonly="true"/>     
+               <p:inputText id="unidade" value="#{invoicesControllerMB.invoice.vendas.unidadenegocio.nomeFantasia}" style="width:40%;margin-left:6.5%;" readonly="true"/>     
+               
+               <br></br><br></br>
+               <p:outputLabel value="Produto" for="produto" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5%;"   />
+         	   <p:outputLabel value="Parceiro" for="fornecedor" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:41%;"   />
+               
+               <br></br>  
+               <p:inputText id="produto" value="#{invoicesControllerMB.invoice.vendas.produtos.descricao}" style="width:40%;margin-left:5%;" readonly="true"/>
+               <p:inputText id="fornecedor" value="#{invoicesControllerMB.invoice.vendas.fornecedorcidade.fornecedor.nome}" style="width:40%;margin-left:6.5%;" readonly="true"/>    
+               <br></br>  <br></br>  
+         		 
+         	   <p:outputLabel value="Data Prevista" for="dataPrevista" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5%;"   />
+         	   <p:outputLabel value="Valor Previsto" for="valorPrevisto" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:13.3%;"   />
+         	   <p:outputLabel value="Data Recebimento Comp" for="dataRecebimento" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:12%;"   />
+               <p:outputLabel value="Valor NET" for="valorNet" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:3%;"   />
+              
+               <br></br>  
+               <p:calendar id="dataPrevista" value="#{invoicesControllerMB.invoice.dataPrevistaPagamento}" size="17" style="margin-left:5%;" locale="pt"  pattern="dd/MM/yyyy">
+                   <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                    <p:ajax event="change" />
+                    <p:ajax event="dateSelect" />
+               </p:calendar>
+               <p:inputText id="valorPrevisto" value="#{invoicesControllerMB.invoice.valorPrevistoInvoice}" style="width:16%;margin-left:5%;text-align:right" >
+               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+               </p:inputText>
+			   <p:calendar id="dataRecebimento" value="#{invoicesControllerMB.invoice.datarecebimentocomprovante}" size="21" style="margin-left:6.5%;" locale="pt"  pattern="dd/MM/yyyy" >
+                   <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+               </p:calendar>
+               <p:inputText id="valorNet" value="#{invoicesControllerMB.invoice.valorPagamentoInvoice}" style="width:14.5%;margin-left:3%;text-align:right" >
+               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+               </p:inputText>	
+               <br></br>  <br></br>  
+         	   <p:outputLabel value="Valor Crédito" for="valorCredito" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5%;"   />
+         	   <br></br>  
+			   <p:inputText id="valorCredito" value="#{invoicesControllerMB.invoice.valorcredito}" style="width:17.7%;margin-left:5%;text-align:right" >
+               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+               </p:inputText>
+               <br></br>  <br></br> 
+         	   <p:outputLabel value="Observação Crédito" for="obs" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5%;"   />
+         	   <br></br>
+         	   <p:inputText id="obs" value="#{invoicesControllerMB.invoice.obscredito}" style="width:89%;margin-left:5%;"/>
+               
+         	    <br></br>
+         	    <br></br>
+	        <p class="botaocadpacote"><br></br>
+	            <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{invoicesControllerMB.salvar()}" style="font-size:11px;"></p:commandButton>
+	            <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{invoicesControllerMB.cancelar()}"></p:commandButton>
+	            <br></br><br></br>
+	        </p>
+        </h:form>     
+    </h:body>
+</html>

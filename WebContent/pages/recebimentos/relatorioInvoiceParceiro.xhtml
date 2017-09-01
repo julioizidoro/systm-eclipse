@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        
+    </h:head>
+    <h:body>
+    	<f:view encoding="ISO-8859-1">
+	        <h:form id="idFormRelatorioInvoiceParceiro"  style="font-size:12px;">
+	
+	            <title>Gerar Relatório de Invoice Parceiro</title>
+	            
+				<p:selectBooleanCheckbox style=" margin-left:1%;" id="habilitarInformacao"   value="#{relatorioInvoiceParceiroMB.habilitarInformacao}">
+					<p:ajax event="change" listener="#{relatorioInvoiceParceiroMB.habilitarCampos()}" update="panelTudo, panelProgamDates, panelStudents, programdates, studentname, studentnumber"/>
+				</p:selectBooleanCheckbox>
+	            <h:panelGroup id="panelTudo">
+					<h:panelGrid columns="1" width="100%" id="panelProgamDates" rendered="#{relatorioInvoiceParceiroMB.informacoes}">
+		          		<p:outputLabel value="Program Dates"  for="programdates"/>  
+						   
+						<p:inputText id="programdates" value="#{relatorioInvoiceParceiroMB.programdate}" 
+										style="width:90%" />
+						
+					</h:panelGrid>
+		          	<h:panelGrid columns="2" width="100%" id="panelStudents" rendered="#{relatorioInvoiceParceiroMB.informacoes}">
+		          		<p:outputLabel value="Student's Name"  for="studentname"/>  
+						<p:outputLabel value="Student Number" for="studentnumber" />
+						
+							<p:inputText id="studentname" value="#{relatorioInvoiceParceiroMB.studantname}"
+										style="width:90%" />
+						<p:inputText id="studentnumber" value="#{relatorioInvoiceParceiroMB.studantnumber}" 
+										style="width:80%" />
+						
+					</h:panelGrid>
+				
+				
+				<h:panelGrid columns="1" width="100%">
+	          		<p:outputLabel value="Information"  for="information"/>  
+					
+					<p:inputTextarea id="information"   rows="4"
+						class="fontebranca" value="#{relatorioInvoiceParceiroMB.information}"
+						style="width:90%;" maxlength="200"/>
+					
+				</h:panelGrid>
+			</h:panelGroup>
+				<br/><br/>
+	               <p:commandButton class="imagemm" style="margin-left: 25%;" ajax="false" onclick="this.form.target='_blank'" icon="ui-icon-check" value="Confirmar" action="#{relatorioInvoiceParceiroMB.confirmar()}"></p:commandButton>
+	               <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{relatorioInvoiceParceiroMB.cancelar()}"></p:commandButton>
+	        </h:form>    
+	     </f:view> 
+    </h:body>
+</html>

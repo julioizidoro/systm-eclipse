@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Termo de Ciência do Visto " pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="periodo" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
+	</field>
+	<field name="escola" class="java.lang.String">
+		<fieldDescription><![CDATA[escola]]></fieldDescription>
+	</field>
+	<field name="idVenda" class="java.lang.String">
+		<fieldDescription><![CDATA[idVenda]]></fieldDescription>
+	</field>
+	<field name="multaCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[multaCliente]]></fieldDescription>
+	</field>
+	<field name="multaEscola" class="java.lang.String">
+		<fieldDescription><![CDATA[multaEscola]]></fieldDescription>
+	</field>
+	<field name="produto" class="java.lang.String">
+		<fieldDescription><![CDATA[produto]]></fieldDescription>
+	</field>
+	<field name="saldoCancelamento" class="java.lang.String">
+		<fieldDescription><![CDATA[saldoCancelamento]]></fieldDescription>
+	</field>
+	<title>
+		<band height="186" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="14" width="267" height="94" uuid="cadcea69-cf56-4082-8e5d-d704416f17ef"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="84" y="116" width="402" height="26" uuid="5e48c20c-ee7c-467b-a148-cb05625893f9"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Cancelamentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="171" width="39" height="13" uuid="eb5e0436-4242-4379-8932-21f58533b727"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="171" width="163" height="13" uuid="916e59ef-f48b-485e-b313-dfb2c952b5d8"/>
+				<text><![CDATA[Nome do Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="171" width="105" height="13" uuid="2fc766db-dc45-4ea0-ab1d-1d0cc11dc3be"/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="171" width="55" height="13" uuid="bbc33691-8489-477a-8eca-05742dcedc3a"/>
+				<text><![CDATA[M Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="171" width="54" height="13" uuid="bd6927e9-0e56-4874-b7ea-7431986cef74"/>
+				<text><![CDATA[M Escola]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="171" width="54" height="13" uuid="039cb9ce-043f-4897-aa96-4d4723bba4c6"/>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="171" width="54" height="13" uuid="d19c425d-222e-48a3-8fde-71d9af3c14ee"/>
+				<text><![CDATA[Escola]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="18">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="17" uuid="be04ee96-fcf7-4849-a370-e887723a5a54"/>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="2" width="45" height="13" uuid="ac009602-9a3d-45a7-ae72-a05ec633e12e"/>
+				<textFieldExpression><![CDATA[$F{idVenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="2" width="163" height="13" uuid="3a0fa1af-cf27-4806-afec-130fa6331970"/>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="2" width="105" height="13" uuid="c9937e63-90dd-403c-9fcb-5d3163ebedcd"/>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="2" width="55" height="13" uuid="9dd0d4ce-9f95-4def-b1ad-cd2be7b4d468"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{multaCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="2" width="55" height="13" uuid="edfbb819-e29c-4f1b-bddd-f5d3eca364c7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{multaEscola}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="2" width="54" height="13" uuid="94f4c4e0-9c98-4d3c-86ef-42964cc8a41f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{saldoCancelamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="2" width="64" height="13" uuid="8e22493d-befb-4046-b83c-ab25c809bb87"/>
+				<textFieldExpression><![CDATA[$F{escola}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="7" y="7" width="100" height="13" uuid="70eeb462-1187-4844-9cc6-39e37bc6de80"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="7" width="100" height="13" uuid="92afeb0b-94a5-405b-b18c-4712d53539f5"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de comissao parceiros" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="feecb075-5a7f-42f6-832b-1a654a7aa009">
+	<property name="ireport.zoom" value="1.128947860107555"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{sql}]]>
+	</queryString>
+	<field name="escola" class="java.lang.String"/>
+	<field name="pais" class="java.lang.String"/>
+	<field name="premium" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="express" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idpais" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idfornecedor" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="pais" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{idpais}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField pattern="">
+					<reportElement mode="Transparent" x="0" y="0" width="552" height="22" uuid="f3d3440c-e411-477b-957d-d4a5cc3f8c1a"/>
+					<textElement>
+						<font size="15" isBold="true" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pais}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="escola">
+		<groupExpression><![CDATA[$F{idfornecedor}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<textField>
+					<reportElement x="8" y="5" width="317" height="16" uuid="d2890542-338f-4922-9d90-a24fb9f50f65"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{escola}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="344" y="8" width="87" height="14" uuid="c9bfe245-d537-42a1-aa9b-5ee2b8c83ac7"/>
+					<text><![CDATA[% Premium]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="469" y="7" width="83" height="14" uuid="22c04091-2c6a-467f-bad6-f06bde6c78f3"/>
+					<text><![CDATA[% Express]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="21" width="554" height="1" uuid="a2660627-9a9e-4d29-906d-eb2b90bf545f"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="144" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="1" y="106" width="553" height="33" uuid="7ab278a3-567e-4655-aabb-0e815544389f"/>
+				<textElement textAlignment="Center">
+					<font size="23" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Comissão Parceiros"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="255" height="94" uuid="44120e79-a716-4d1c-8cf1-2ba645175b59"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="8" y="0" width="317" height="14" forecolor="#333333" uuid="6cd70986-544b-4770-8dea-4835e6e969b2"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="325" y="1" width="73" height="15" forecolor="#333333" uuid="4e98e239-d483-4f79-b399-ee5f68ac2172"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{premium}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="431" y="0" width="77" height="15" forecolor="#333333" uuid="32baa722-33a3-4cc1-ad52-48c0f11e4aaf"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{express}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="15" width="554" height="1" forecolor="#666666" uuid="b9ec124e-9b34-4014-ab2b-9909cd600f6c"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="3" width="127" height="14" uuid="7ae4e633-e737-4a5a-acbf-bd9d128532ca"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="554" height="1" forecolor="#333333" uuid="322a6f90-f07e-48a5-b311-fa594943ceb1"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

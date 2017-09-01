@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idtelaconsultainvoices" style="font-size:11px;">
+			<div id="centro">
+				<br></br> <br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho7,tamanho1, tamanho7,tamanho1,tamanho1">
+							<p:outputLabel value="ID venda" for="idvenda" />
+							<p:outputLabel value="Programa" for="programa" />
+							<p:outputLabel value="Escala" for="escala" />
+							<p:outputLabel value="Parceiro" for="fornecedor" />
+							<p:outputLabel value="Situação" for="situacao" />
+
+							<p:inputText id="idvenda" value="#{consultaInvoiceMB.idVendas}"
+								style="width:90%;" />
+							<p:inputText id="programa" value="#{consultaInvoiceMB.programa}"
+								style="width:95%;" />
+							<p:selectOneMenu id="escala" value="#{consultaInvoiceMB.escala}"
+								style="width:95px;">
+								<f:selectItem itemLabel="Selecione" itemValue="s"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="0" itemValue="0" />
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+								<f:selectItem itemLabel="4" itemValue="4" />
+								<f:selectItem itemLabel="5" itemValue="5" />
+								<f:selectItem itemLabel="6" itemValue="6" />
+								<f:selectItem itemLabel="7" itemValue="7" />
+								<f:selectItem itemLabel="8" itemValue="8" />
+								<f:selectItem itemLabel="9" itemValue="9" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:inputText id="fornecedor"
+								value="#{consultaInvoiceMB.fornecedor}" style="width:95%;" />
+							<p:selectOneMenu id="situacao"
+								value="#{consultaInvoiceMB.situacao}" style="width:95px;">
+								<f:selectItem itemLabel="TODAS" itemValue="TODAS" /> 
+								<f:selectItem itemLabel="PROCESSO" itemValue="PROCESSO" />
+								<f:selectItem itemLabel="ANDAMENTO" itemValue="ANDAMENTO" />
+								<f:selectItem itemLabel="FINALIZADA" itemValue="FINALIZADA" />
+								<f:selectItem itemLabel="PAGAS" itemValue="PAGAS" />
+								<f:selectItem itemLabel="COMPROVANTE" itemValue="COMPROVANTE" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="7"
+							columnClasses="tamanho24, tamanho7,tamanho5,tamanho7,tamanho1,tamanho7,tamanho1">
+							<p:outputLabel value="Nome do Cliente" for="cliente" />
+							<p:outputLabel value="Data Previsão" for="dataPrevisao" />
+							<p:outputLabel />
+							<p:outputLabel value="Data Pagamento" for="dataPagamento" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:inputText id="cliente"
+								value="#{consultaInvoiceMB.nomeCliente}" style="width:225px;" />
+							<p:calendar id="dataPrevisao"
+								value="#{consultaInvoiceMB.dataPrevisaoInicial}" size="11"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="dataPrevisaoFinal"
+								value="#{consultaInvoiceMB.dataPrevisaoFinal}" size="11"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="dataPagamento"
+								value="#{consultaInvoiceMB.dataPagamentoInicial}" size="11"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="dataPagamentoFinal"
+								value="#{consultaInvoiceMB.dataPagamentoFinal}" size="11"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update="idtelaconsultainvoices:idtabelaInvoices"
+								action="#{consultaInvoiceMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="idtelaconsultainvoices:idtabelaInvoices, dataPagamento, dataPrevisao, cliente,fornecedor, situacao, escala, programa,dataPagamentoFinal, dataPrevisaoFinal"
+								action="#{consultaInvoiceMB.limpar()}" />
+						</h:panelGrid>
+						<br></br>
+
+					</p:tab>
+				</p:accordionPanel>
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<br></br>
+				<h:panelGrid columns="3"
+					columnClasses="tamanho9,cadCliente1,cadCliente1"
+					style="margin-left:2%;width:99%;">
+					<h:panelGroup>
+						<h:panelGrid columns="5"  
+						columnClasses="tamanho8,tamanho8,tamanhoavisos2,tamanho8"    
+						style="margin-left:1%;width:75%;">  
+							<p:commandButton id="bntRelatorios" style="font-size:12px;"
+								value="Relatórios" action="#{consultaInvoiceMB.relatorios()}" />
+							<p:commandButton id="btnPagamento" style="font-size:12px;"
+								value="Pagamento" action="#{consultaInvoiceMB.baixaRecebiveis()}" />
+							<p:commandButton id="bntNovaRemessa" style="font-size:12px;"
+								value="Nova Remessa"
+								rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciascurso}"
+								action="#{consultaInvoiceMB.criarNovaRemessa()}" update="remessa"/>
+							<p:selectOneMenu id="remessa" value="#{consultaInvoiceMB.invoiceRemessa}"
+								style="width:180px;" converter="InvoiceRemessaConverter"
+								filter="true" filterMatchMode="startsWith">    
+								<f:selectItem itemLabel="Invoice Remessa" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="idremessa"    
+									value="#{consultaInvoiceMB.listaRemassa}" var="remessaselecionada"
+									itemLabel="#{consultaInvoiceMB.retornarComboBoxRemessa(remessaselecionada)}" itemValue="#{remessaselecionada}" />
+								<f:attribute name="listaInvoiceRemessa"  
+									value="#{consultaInvoiceMB.listaRemassa}" />   
+								<p:ajax event="change" listener="#{consultaInvoiceMB.gerarListaInoiceViaRemessa()}" update="idtabelaInvoices, btnFinalizarInvoiceRemessa, :idtelaconsultainvoices:paineltotal" />  
+							</p:selectOneMenu>
+							<p:commandButton id="btnFinalizarInvoiceRemessa" disabled="#{consultaInvoiceMB.finalizarInvoices}" rendered="#{consultaInvoiceMB.mostrarBtnFinalizar()}" style="font-size:12px;margin-left: 35%;"
+								value="Finalizar" title="Finalizar Invoice Remessa" action="#{consultaInvoiceMB.finalizarInvoiceRemessa()}" update="idtelaconsultainvoices,idtabelaInvoices"/>
+						</h:panelGrid>
+					</h:panelGroup>  
+					<p:commandButton id="bntGerarRelatorio" style="font-size:12px;"
+						value="Gerar Relatório"
+						action="#{consultaInvoiceMB.gerarRelatorio()}" ajax="false"   
+						onclick="this.form.target='_blank'" />
+					<h:panelGrid id="paineltotal"
+						style="width:130px;height:32px;margin-top:-2%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
+						<tt
+							style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$
+							#{consultaInvoiceMB.stringValorTotalSelecionados()}</tt>
+						<br />
+					</h:panelGrid>
+				</h:panelGrid>
+				<br></br>
+				<br></br>
+				<div align="right" style="width: 98%">
+					<p:selectBooleanCheckbox value="#{consultaInvoiceMB.selecionarTodos}">
+            			<p:ajax update="growl, idtabelaInvoices, :idtelaconsultainvoices:paineltotal" listener="#{consultaInvoiceMB.selecionarTodos()}"/> 
+        			</p:selectBooleanCheckbox>
+        			 <p:outputLabel value="Selecionar todas" style="margin-left: 1%"></p:outputLabel>
+				</div> <br></br>
+				<p:dataTable id="idtabelaInvoices" var="invoices"
+					value="#{consultaInvoiceMB.listaInvoices}" class="tabela"
+					scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;margin-top:-1%" editable="true"
+					editMode="cell" rowIndexVar="rowIx">
+  
+					<p:column headerText="Escala" style="width:50px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{invoices.escala}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="escala" value="#{invoices.escala}"
+									style="width:100%;">
+									<f:selectItem itemLabel="0" itemValue="0" />
+									<f:selectItem itemLabel="1" itemValue="1" />
+									<f:selectItem itemLabel="2" itemValue="2" />
+									<f:selectItem itemLabel="3" itemValue="3" />
+									<f:selectItem itemLabel="4" itemValue="4" />
+									<f:selectItem itemLabel="5" itemValue="5" />
+									<f:selectItem itemLabel="6" itemValue="6" />
+									<f:selectItem itemLabel="7" itemValue="7" />
+									<f:selectItem itemLabel="8" itemValue="8" />
+									<f:selectItem itemLabel="9" itemValue="9" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<p:ajax event="change"
+										listener="#{consultaInvoiceMB.editarEscala(invoices)}"
+										update="idtabelaInvoices" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Id Venda" style="width:50px;"
+						sortBy="#{invoices.vendas.idvendas}">
+						<h:outputText value="#{invoices.vendas.idvendas}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+					</p:column>
+					<p:column headerText="Produto" style="width:110px;">
+						<h:outputText
+							value="#{consultaInvoiceMB.gerarProdutoInvoice(invoices)}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+					</p:column>
+					<p:column headerText="Parceiro" style="width:130px;"
+						sortBy="#{invoices.vendas.fornecedorcidade.fornecedor.nome}">
+						<h:outputText
+							value="#{invoices.vendas.fornecedorcidade.fornecedor.nome}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+					</p:column>
+					<p:column headerText="Cidade" style="width:140px;">
+						<h:outputText
+							value="#{invoices.vendas.fornecedorcidade.cidade.nome}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+					</p:column>
+					<p:column headerText="Data Embarque"
+						sortBy="#{invoices.dataEmbarque}"
+						style="text-align:center;width:82px;">
+						<h:outputText value="#{invoices.dataEmbarque}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Nome do Cliente" style="width:150px;">
+						<h:outputText value="#{invoices.vendas.cliente.nome}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+					</p:column>
+					<p:column headerText="Data Previsão"
+						sortBy="#{invoices.dataPrevistaPagamento}"
+						style="text-align:center;width:82px;">
+						<h:outputText value="#{invoices.dataPrevistaPagamento}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Moeda" style="width:65px;">
+						<h:outputText value="#{invoices.vendas.cambio.moedas.sigla}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
+					</p:column>
+					<p:column headerText="Valor NET"
+						style="width:80px;text-align:right">
+						<h:outputText
+							value="#{consultaInvoiceMB.retornarValorNet(invoices)}"
+							style="#{consultaInvoiceMB.corValorNet}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor Crédito"
+						style="width:80px;text-align:right" >
+						<h:outputText value="#{invoices.valorcredito}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>   
+					</p:column>  
+					<p:column style="width:30px;text-align: center">
+						<p:selectBooleanCheckbox value="#{invoices.selecionado}" disabled="#{consultaInvoiceMB.finalizarInvoices}" >
+							<p:ajax event="change"
+								listener="#{consultaInvoiceMB.calcularValorTotalSelecionados(invoices)}"
+								update=":idtelaconsultainvoices:growl,:idtelaconsultainvoices:idtabelaInvoices, :idtelaconsultainvoices:btnFinalizarInvoiceRemessa, :idtelaconsultainvoices:paineltotal" />
+						</p:selectBooleanCheckbox>
+					</p:column>        
+					<p:column style="width:40px;text-align: center;">   
+						<p:commandLink
+							actionListener="#{consultaInvoiceMB.selecionarInvoice(invoices.vendas)}"
+							update=":idtelaconsultainvoices:growl" title="Download Invoices">
+							<img src="../../resources/img/deposito.png" width="22" /> 
+						</p:commandLink>
+					</p:column>   
+					<p:column style="width:41px;text-align: center;">
+						<p:commandLink
+							action="#{consultaInvoiceMB.abrirObsInvoices(invoices)}"
+							update=":idtelaconsultainvoices:growl"
+							title="Observaçao Invoices">
+							<img src="#{consultaInvoiceMB.retornoImagemObsInvoice(invoices)}" width="30" />
+							<p:ajax event="dialogReturn" update=":idtelaconsultainvoices:idtabelaInvoices"/>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

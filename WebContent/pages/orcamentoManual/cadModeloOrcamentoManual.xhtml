@@ -1,0 +1,654 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaCadModeloOrca" style="font-size: 10px;"
+			acceptcharset="ISO-8859-1">
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Orçamento de Curso"
+					style="font-size: 22px;color: #1F8871;margin-left:40%" />
+				<p:accordionPanel class="painelhighSchool"
+					style="background:#1F8871;">
+					<p:tab title="Curso" class="tab" titleStyle="font-size: 11px">
+						<p:outputLabel value="Nome do Modelo (PAIS + CIDADE + ESCOLA + DURAÇÃO + CURSO + DATA ATUAL)" for="nomeCurso"
+							style="margin-left:11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<br></br>
+						<p:inputText id="nomeCurso" style="width:76.8%;margin-left: 11.5%"
+							maxlength="100"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.nome}" />
+						<br></br>
+						<legend id="iUsu3" style="margin-left:11%;width: 50%"><b>Escola</b></legend>
+						<p:outputLabel value="Pais" for="pais"
+							style="margin-left:11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Cidade" for="cidade"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:25.5%" />
+						<p:outputLabel value="Parceiro" for="fornecedor"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 26.9%" />
+						<br></br>
+						<p:selectOneMenu id="pais" value="#{cadModeloOrcaManualMB.pais}"
+							style="width:18%;margin-left:11.5%" converter="PaisConverter"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais"
+								value="#{cadModeloOrcaManualMB.listaPais}" var="cpais"
+								itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
+							<f:attribute name="listaPais"
+								value="#{cadModeloOrcaManualMB.listaPais}" />
+							<p:ajax update="cidade" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="cidade"
+							value="#{cadModeloOrcaManualMB.cidade}"
+							style="width:20%;margin-left:9%" converter="CidadeConverter"
+							filter="true" filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Cidade" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcidade2"
+								value="#{cadModeloOrcaManualMB.pais.cidadeList}"
+								var="cursocidade" itemLabel="#{cursocidade.nome}"
+								itemValue="#{cursocidade}" />
+							<f:attribute name="listaCidade"
+								value="#{cadModeloOrcaManualMB.pais.cidadeList}" />
+							<p:ajax event="change"
+								listener="#{cadModeloOrcaManualMB.listarFornecedorCidade()}"
+								update="fornecedor" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="fornecedor"
+							value="#{cadModeloOrcaManualMB.fornecedorCidade}"
+							style="width:20%;margin-left:9.9%"
+							converter="FornecedorCidadeConverter" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Parceiro" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{cadModeloOrcaManualMB.listaFornecedorCidade}"
+								var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedorCidade"
+								value="#{cadModeloOrcaManualMB.listaFornecedorCidade}" />
+						</p:selectOneMenu>
+
+						<br></br>
+						<legend id="iUsu3" style="margin-left:11%;width: 50%">
+							<b>Curso Principal</b>
+						</legend>
+						<p:outputLabel value="Curso" for="curso"
+							style="margin-left: 11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Data de Válidade" for="validade"
+							style="margin-left:53.2%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="No. Semanas Curso" for="nsemanas"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5.4%" />
+						<br></br>
+						<p:inputText id="curso" style="width:48%;margin-left: 11.5%"
+							maxlength="100"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.curso}" />
+						<p:calendar id="validade"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.dataValidade}"
+							size="12" style="margin-left:7.6%;" locale="pt" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<p:inputText id="nsemanas" style="width:9%;margin-left:4.6%"
+							maxlength="100"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.duracao}">
+						</p:inputText>
+						<br></br>
+						<br></br>
+
+
+						<p:outputLabel value="Carga Horária" for="cargahoraria2"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left: 11.6%"> 
+							<p:inputText id="cargahoraria2"
+								style="width:70%;" maxlength="100"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.aulasSemana}"
+								converterMessage="Digite somente número">
+								<f:convertNumber integerOnly="true" minIntegerDigits="2"
+									pattern="#######" />
+							</p:inputText>
+							<p:selectOneRadio id="porSemana"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.tipoDuracao}"
+								style="width:135%;">
+								<f:selectItem itemLabel="Horas por Semana"
+									itemValue="Horas por Semana" />
+								<f:selectItem itemLabel="Aulas por Semana"
+									itemValue="Aulas por Semana" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
+							<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao" />  
+							<p:outputLabel value="Quarto" for="quarto" />
+							<p:outputLabel value="Refeição" for="refeicao"/>
+							<p:outputLabel value="Nº Semanas" for="numsemanas"/>
+
+							<p:selectOneMenu id="tipoacomodacao"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.tipoAcomodacao}"
+								style="width:120px;">
+								<f:selectItem itemLabel="Sem acomodação"
+									itemValue="Sem acomodação" /> 
+								<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+								<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+								<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+								<f:selectItem itemLabel="Residência" itemValue="Residência" />
+								<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+								<p:ajax event="change"
+									listener="#{cadModeloOrcaManualMB.carregarCamposAcomodacao()}"
+									update="quarto, refeicao, numsemanas" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="quarto"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.tipoQuarto}"
+								style="width:120px;" required="false"
+								disabled="#{cadModeloOrcaManualMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
+								<f:selectItem itemLabel="Quarto individual"
+									itemValue="Quarto individual" />
+								<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+								<f:selectItem itemLabel="Quarto triplo"
+									itemValue="Quarto triplo" />
+								<f:selectItem itemLabel="Compartilhado"
+									itemValue="Compartilhado" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="refeicao"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.refeicoes}"
+								required="false" style="width:120px;"
+								disabled="#{cadModeloOrcaManualMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+								<f:selectItem itemLabel="Café da Manhã"
+									itemValue="Café da Manhã" />
+								<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+									itemValue="Meia Pensão (2 Refeições)" />
+								<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+									itemValue="Pensão Completa (3 Refeições)" />
+							</p:selectOneMenu>
+
+							<p:inputText id="numsemanas" style="width:60%;"
+								maxlength="100"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.duracaoAcomodacao}"
+								class="espacocobranca29"
+								disabled="#{cadModeloOrcaManualMB.camposAcomodacao}" />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab id="tabProduto" title="Produtos"
+						titleStyle="font-size: 11px">
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%" columnClasses="tamanho14, tamanho6, tamanho6, tamanho14"> 
+							<p:outputLabel value="Moeda" for="moeda"/>
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio"/>
+							<p:outputLabel/>
+							<p:outputLabel value="Valor Total" for="valortotal"/>
+
+							<p:selectOneMenu id="moeda" value="#{cadModeloOrcaManualMB.moeda}"
+								style="width:210px;" converter="MoedasConverter">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadModeloOrcaManualMB.listaMoedas}"
+									var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadModeloOrcaManualMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadModeloOrcaManualMB.carregarValorCambio()}"
+									update="idvalorcambio, tabelaprodutoscurso, campomoedaestrangeira, valortotal,idpagamentoavista" />
+							</p:selectOneMenu>
+
+							<p:inputText id="idvalorcambio"
+								value="#{cadModeloOrcaManualMB.valorCambio}"
+								style="width:95%;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadModeloOrcaManualMB.editarcambio(cadModeloOrcaManualMB.valorCambio)}"
+								title="Editar Câmbio" >
+								<img id="editarcambio" class=""
+									src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadModeloOrcaManualMB.retornoDialogEditarCambio}"
+									update="idvalorcambio, valortotal,tabelaprodutoscurso,idpagamentoavista" />
+							</p:commandLink>
+
+							<p:inputText id="valortotal"
+								value="#{cadModeloOrcaManualMB.valorTotal}"
+								style="width:30%;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%" columnClasses="tamanho14, tamanho6, tamanho6, tamanho14"> 
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadModeloOrcaManualMB.tituloMoedaEstrangeira()}"/>
+							<p:outputLabel/>
+							<p:outputLabel value="Valor R$" for="valoreal"/>
+
+							<p:selectOneMenu id="produto"
+								value="#{cadModeloOrcaManualMB.produtosorcamento}"
+								style="width:210px;font-size: 10px;"
+								filter="true" filterMatchMode="startsWith"
+								converter="ProdutoOrcamentoConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadModeloOrcaManualMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadModeloOrcaManualMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valor"
+								value="#{cadModeloOrcaManualMB.modeloProdutos.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;"
+								readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+  							<p:outputLabel/>
+							<p:inputText id="valoreal"
+								value="#{cadModeloOrcaManualMB.modeloProdutos.valorMoedaNacional}"
+								style="width:30%;text-align: right;"
+								readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="width:77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+									action="#{cadModeloOrcaManualMB.adicionarProdutos()}"
+									value="Adicionar"
+									update="tabelaprodutoscurso,produto, telaCadModeloOrca:growl, valortotal, valoreal, valor, idpagamentoavista"
+									icon="ui-icon-plusthick"/>
+						</div> 
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutoscurso" var="produtoscurso"
+							value="#{cadModeloOrcaManualMB.listaProdutos}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtoscurso.produtosorcamento.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadModeloOrcaManualMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtoscurso.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtoscurso.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadModeloOrcaManualMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Observações">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3" style="margin-left: 15%">
+							<p:inputTextarea
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.observacao}"
+								id="obs" cols="150" rows="10" class="fontebranca" />
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Custos Extras">
+						<br></br>
+						<p:outputLabel value="Matérial didatico" style="margin-left:11.5%" />
+						<p:outputLabel value="Seguro viagem" style="margin-left: 24.9%" />
+						<br></br>
+						<p:inputText id="materialDidatico"
+							style="width:25%;margin-left:11.5%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.materialDidatico}" />
+						<p:inputText id="seguroViagem" style="width:25%;margin-left: 7%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.seguroSaude}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Passagem aérea" style="margin-left:11.5%" />
+						<p:outputLabel value="Transfer (Opcional)"
+							style="margin-left: 25.6%" />
+						<br></br>
+						<p:inputText id="passagem" style="width:25%;margin-left:11.5%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.passagemAerea}" />
+						<p:inputText id="transfer" style="width:25%;margin-left: 7%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.transfer}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Visto Consular" style="margin-left:11.5%" />
+						<p:outputLabel value="Courier (Sedex Internacional)"
+							style="margin-left: 26%" />
+						<br></br>
+						<p:inputText id="visto" style="width:25%;margin-left:11.5%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.vistoConsular}" />
+						<p:inputText id="courier" style="width:25%;margin-left: 7%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.sedexInternacional}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Outras Taxas" style="margin-left:11.5%" />
+						<br></br>
+						<p:inputText id="outrastTaxas" style="width:57%;margin-left:11.5%"
+							value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.outrasTaxas}" />
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagamento">
+						<p:fieldset id="idpagamentoavista"
+							legend="Opção 01 - Pagamento á Vista" toggleable="true"
+							style="font-size: 11px;width: 95%;margin-left: 2.5%">
+							<p:outputLabel value="Valor R$:" style="margin-left: 2%" />
+							<p:inputText id="idvalorRS01"
+								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.valor}"
+								style="margin-left:1%;text-align: right" >
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel
+								value="( não é aceito cartão de crédito/débito para esta opção)"
+								style="font-size: 10px;margin-left: 1%" />
+						</p:fieldset>
+						<br></br>
+						<br></br>
+						<br></br>
+						<p:selectBooleanCheckbox
+							value="#{cadModeloOrcaManualMB.formaPagamento.selecionado2}"
+							class="espacocobranca29" >
+							<p:ajax  update="idparcelamentoantesviagem" listener="#{cadModeloOrcaManualMB.verificarFormaPgamento02()}"/>
+						</p:selectBooleanCheckbox>
+						<p:fieldset id="idparcelamentoantesviagem"
+							legend="Opção 02 - Parcelamento antes da viagem"
+							toggleable="true"
+							style="font-size: 10px;width: 95%;margin-left: 2.5%">
+							<h:panelGrid columns="6">
+								<p:outputLabel value="% Entrada:" style="margin-left:30%" />
+								<p:inputText id="idpercentual2"
+									value="#{cadModeloOrcaManualMB.formaPagamento.percentualEntrada2}"
+									style="margin-left:3%;text-align: right"
+									disabled="#{cadModeloOrcaManualMB.habilitarFormaPagamento2}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadModeloOrcaManualMB.calcularParcelamento()}"
+										update="idparcelamentoantesviagem" />
+								</p:inputText>
+
+								<p:outputLabel value="Valor da Entrada R$:"
+									style="margin-left:54%" />
+								<p:inputText id="idvalorentrada2"
+									value="#{cadModeloOrcaManualMB.formaPagamento.valorEntrada2}"
+									style="margin-left:8%;text-align: right"
+									disabled="#{cadModeloOrcaManualMB.habilitarFormaPagamento2}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+
+								<p:outputLabel value="Nº Parcelas:" style="margin-left:74.4%" />
+								<p:selectOneMenu class="espacocobranca29" id="nparcela2"
+									value="#{cadModeloOrcaManualMB.formaPagamento.numeroParcelas02}"
+									style="width:80px;margin-left:8%"
+									disabled="#{cadModeloOrcaManualMB.habilitarFormaPagamento2}">
+									<f:selectItem itemLabel="1" itemValue="1" />
+									<f:selectItem itemLabel="2" itemValue="2" />
+									<f:selectItem itemLabel="3" itemValue="3" />
+									<f:selectItem itemLabel="4" itemValue="4" />
+									<f:selectItem itemLabel="5" itemValue="5" />
+									<f:selectItem itemLabel="6" itemValue="6" />
+									<f:selectItem itemLabel="7" itemValue="7" />
+									<f:selectItem itemLabel="8" itemValue="8" />
+									<f:selectItem itemLabel="9" itemValue="9" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<f:selectItem itemLabel="11" itemValue="11" />
+									<f:selectItem itemLabel="12" itemValue="12" />
+									<f:selectItem itemLabel="13" itemValue="13" />
+									<f:selectItem itemLabel="14" itemValue="14" />
+									<f:selectItem itemLabel="15" itemValue="15" />
+									<f:selectItem itemLabel="16" itemValue="16" />
+									<f:selectItem itemLabel="17" itemValue="17" />
+									<f:selectItem itemLabel="18" itemValue="18" />
+									<f:selectItem itemLabel="19" itemValue="19" />
+									<f:selectItem itemLabel="20" itemValue="20" />
+									<f:selectItem itemLabel="21" itemValue="21" />
+									<f:selectItem itemLabel="22" itemValue="22" />
+									<f:selectItem itemLabel="23" itemValue="23" />
+									<f:selectItem itemLabel="24" itemValue="24" />
+									<p:ajax
+										listener="#{cadModeloOrcaManualMB.calcularParcelamento()}"
+										update="idvalorparcela2" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+							<br></br>
+							<br></br>
+							<p:outputLabel value="% Saldo:" style="margin-left:3%" />
+							<p:inputText id="idpersentualsaldo2"
+								value="#{cadModeloOrcaManualMB.formaPagamento.percentualSaldo2}"
+								style="margin-left:0.4%;text-align: right"
+								disabled="#{cadModeloOrcaManualMB.habilitarFormaPagamento2}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadModeloOrcaManualMB.calcularParcelamento()}"
+									update="idvalorsaldo2, idvalorparcela2" />
+							</p:inputText>
+
+							<p:outputLabel value="Saldo R$:" style="margin-left:16%" />
+							<p:inputText id="idvalorsaldo2"
+								value="#{cadModeloOrcaManualMB.formaPagamento.valorSaldo2}"
+								style="margin-left:0.7%;text-align: right"
+								disabled="#{cadModeloOrcaManualMB.habilitarFormaPagamento2}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel value="Valor da Parcela:" style="margin-left:14%" />
+							<p:inputText id="idvalorparcela2"
+								value="#{cadModeloOrcaManualMB.formaPagamento.valorParcela02}"
+								style="margin-left:0.6%;text-align: right"
+								disabled="#{cadModeloOrcaManualMB.habilitarFormaPagamento2}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</p:fieldset>
+
+						<br></br>
+						<br></br>
+						<br></br>
+						<p:selectBooleanCheckbox
+							value="#{cadModeloOrcaManualMB.formaPagamento.selecionado3}"
+							class="espacocobranca29">
+							<p:ajax event="change"
+								listener="#{cadModeloOrcaManualMB.verificarFormaPgamento03()}"
+								update="idparcelamentoemcartaocredito" />
+						</p:selectBooleanCheckbox>
+						<p:fieldset id="idparcelamentoemcartaocredito"
+							legend="Opção 03 - Parcelamento em cartão de crédito em até 12x"
+							toggleable="true"
+							style="font-size: 10px;width: 95%;margin-left: 2.5%">
+
+							<h:panelGrid columns="6">
+								<p:outputLabel value="% Entrada:" style="margin-left:35%" />
+								<p:inputText id="idpercentualentrada3"
+									value="#{cadModeloOrcaManualMB.formaPagamento.percentualEntrada3}"
+									style="margin-left:1%;text-align: right"
+									disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento03}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadModeloOrcaManualMB.calcularParcelamento()}"
+										update="idvalorentrada3, idvalorsaldo3, idpercentualentrada3" />
+								</p:inputText>
+
+								<p:outputLabel value="Valor da Entrada R$:"
+									style="margin-left:52.3%" />
+								<p:inputText id="idvalorentrada3"
+									value="#{cadModeloOrcaManualMB.formaPagamento.valorEntrada3}"
+									style="margin-left:8%;margin-left:1%;text-align: right"
+									disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento03}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+
+								<p:outputLabel value="Nº Parcelas:" style="margin-left:75%" />
+								<p:selectOneMenu class="espacocobranca29" id="nparcela3"
+									value="#{cadModeloOrcaManualMB.formaPagamento.numeroParcelas03}"
+									style="width:80px;margin-left:8%"
+									disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento03}">
+									<f:selectItem itemLabel="2" itemValue="2" />
+									<f:selectItem itemLabel="3" itemValue="3" />
+									<f:selectItem itemLabel="4" itemValue="4" />
+									<f:selectItem itemLabel="5" itemValue="5" />
+									<f:selectItem itemLabel="6" itemValue="6" />
+									<f:selectItem itemLabel="7" itemValue="7" />
+									<f:selectItem itemLabel="8" itemValue="8" />
+									<f:selectItem itemLabel="9" itemValue="9" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<f:selectItem itemLabel="11" itemValue="11" />
+									<f:selectItem itemLabel="12" itemValue="12" />
+									<p:ajax
+										listener="#{cadModeloOrcaManualMB.calcularParcelamento()}"
+										update="idvalorparcela3" />
+								</p:selectOneMenu>
+
+							</h:panelGrid>
+							<br></br>
+							<br></br>
+							<p:outputLabel value="% Saldo:" style="margin-left:3.3%" />
+							<p:inputText
+								value="#{cadModeloOrcaManualMB.formaPagamento.percentualEntrada3}"
+								style="margin-left:0.3%;text-align: right"
+								disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento03}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel value="Saldo R$:" style="margin-left:15%" />
+							<p:inputText id="idvalorsaldo3"
+								value="#{cadModeloOrcaManualMB.formaPagamento.valorSaldo3}"
+								style="margin-left:0.3%;text-align: right"
+								disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento03}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel value="Valor da Parcela:"
+								style="margin-left:14.6%" />
+							<p:inputText id="idvalorparcela3"
+								value="#{cadModeloOrcaManualMB.formaPagamento.valorParcela03}"
+								style="margin-left:0.3%;text-align: right"
+								disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento03}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</p:fieldset>
+						<br></br>
+						<br></br>
+						<br></br>
+						<p:selectBooleanCheckbox
+							value="#{cadModeloOrcaManualMB.formaPagamento.selecionado4}"
+							class="espacocobranca29">
+							<p:ajax 
+								listener="#{cadModeloOrcaManualMB.verificarFormaPgamento04()}"
+								update="idparcelamentoemcheque" />
+						</p:selectBooleanCheckbox>
+						<p:fieldset id="idparcelamentoemcheque"
+							legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 24X via financeira*"
+							toggleable="true"
+							style="font-size: 10px;width: 95%;margin-left: 2.5%">
+
+							<h:panelGrid columns="4">
+								<p:outputLabel value="Nº Parcelas:" style="margin-left:38%" />
+								<p:selectOneMenu class="espacocobranca29" id="nparcela4"
+									value="#{cadModeloOrcaManualMB.formaPagamento.numeroParcelasFinanciamento}"
+									style="width:80px;margin-left:8%"
+									disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento04}">
+									<f:selectItem itemLabel="2" itemValue="2" />
+									<f:selectItem itemLabel="3" itemValue="3" />
+									<f:selectItem itemLabel="4" itemValue="4" />
+									<f:selectItem itemLabel="5" itemValue="5" />
+									<f:selectItem itemLabel="6" itemValue="6" />
+									<f:selectItem itemLabel="7" itemValue="7" />
+									<f:selectItem itemLabel="8" itemValue="8" />
+									<f:selectItem itemLabel="9" itemValue="9" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<f:selectItem itemLabel="11" itemValue="11" />
+									<f:selectItem itemLabel="12" itemValue="12" />
+									<f:selectItem itemLabel="13" itemValue="13" />
+									<f:selectItem itemLabel="14" itemValue="14" />
+									<f:selectItem itemLabel="15" itemValue="15" />
+									<f:selectItem itemLabel="16" itemValue="16" />
+									<f:selectItem itemLabel="17" itemValue="17" />
+									<f:selectItem itemLabel="18" itemValue="18" />
+									<f:selectItem itemLabel="19" itemValue="19" />
+									<f:selectItem itemLabel="20" itemValue="20" />
+									<f:selectItem itemLabel="21" itemValue="21" />
+									<f:selectItem itemLabel="22" itemValue="22" />
+									<f:selectItem itemLabel="23" itemValue="23" />
+									<f:selectItem itemLabel="24" itemValue="24" />
+									<p:ajax
+										listener="#{cadModeloOrcaManualMB.calcularParcelamento()}"
+										update="idvalorparcela4" />
+								</p:selectOneMenu>
+								<p:outputLabel value="Valor da Parcela:"
+									style="margin-left:40%" />
+								<p:inputText id="idvalorparcela4"
+									value="#{cadModeloOrcaManualMB.formaPagamento.finaciamento}"
+									style="margin-left:4%;text-align: right;"
+									disabled="#{cadModeloOrcaManualMB.habilitaFormaPagamento04}"
+									readonly="true">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</h:panelGrid>
+						</p:fieldset>
+					</p:tab>
+				</p:accordionPanel>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" action="#{cadModeloOrcaManualMB.confirmarOrcamento()}" update="telaCadModeloOrca:growl"/>
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadModeloOrcaManualMB.cancelarOrcamento()}" />
+					<br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

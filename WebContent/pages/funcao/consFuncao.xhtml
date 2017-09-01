@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idFormConsFuncao" style="font-size:11px;">
+			<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<div id="centro">
+				<br></br> <br></br>
+				<p:accordionPanel class="painel" activeIndex="-1" style="width: 85%;margin-left: 7.3%;">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						
+						<h:panelGrid columns="1"
+							columnClasses="tamanho24">
+							<h:panelGrid width="40%" columns="2">
+								<p:outputLabel value="Departamento" for="departamento" />
+								<br/>
+								<p:selectOneMenu id="departamento" disabled="#{funcaoMB.habilitarDepartamento}"
+									value="#{funcaoMB.departamento}"
+									style="width:250px;" converter="DepartamentoConverter"
+									filter="true" filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Departamento" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="iddepartamento"
+										value="#{funcaoMB.listaDepartamento}" var="departamento"
+										itemLabel="#{departamento.nome}" itemValue="#{departamento}" />
+									<f:attribute name="listaDepartamento"
+										value="#{funcaoMB.listaDepartamento}" />
+								</p:selectOneMenu>
+								<p:commandButton value="Pesquisar" disabled="#{funcaoMB.habilitarDepartamento}" icon=" ui-icon-search "
+									update="idFormConsFuncao:idTabelaFuncao"
+									action="#{funcaoMB.pesquisar()}" style="margin-left:5%;"/>
+							</h:panelGrid>  
+						</h:panelGrid>
+						<br></br> 
+
+					</p:tab>
+				</p:accordionPanel>
+				
+				<br></br><br/><br/>
+				
+				<p:commandButton id="bntNovaFuncao" style="font-size:12px;float:right;margin-right:1%;" icon="ui-icon-plus"
+							value="Nova Função"
+							action="#{funcaoMB.cadastroFuncao()}">
+							<p:ajax event="dialogReturn" listener="#{funcaoMB.retornoDialogNovo}" update="idTabelaFuncao, growl"/>
+				</p:commandButton>
+				<p:commandButton  id="bntVoltar" style="font-size:12px;float:right;margin-right:1%;" icon="ui-icon-arrowthick-1-w"
+							value="Voltar"
+							action="#{funcaoMB.voltar()}">
+				</p:commandButton>
+				<br/><br/><br/>
+				<p:dataTable id="idTabelaFuncao" var="funcao"
+					value="#{funcaoMB.listaFuncao}" class="tabela"
+					scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;margin-top:-1%" editable="true"
+					editMode="cell" rowIndexVar="rowIx">
+
+					<p:column headerText="Nome" style="width:90px;"
+						sortBy="#{funcao.usuario.nome}">
+						<h:outputText value="#{funcao.usuario.nome}" />
+					</p:column>
+					<p:column headerText="E-mail" sortBy="#{funcao.usuario.email}" style="width:100px;">
+						<h:outputText value="#{funcao.usuario.email}" />
+					</p:column>
+					<p:column headerText="Unidade" sortBy="#{funcao.usuario.unidadenegocio.nomerelatorio}" style="width:100px;">
+						<h:outputText value="#{funcao.usuario.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Departamento" sortBy="#{funcao.usuario.departamento.nome}" style="width:100px;">
+						<h:outputText value="#{funcao.usuario.departamento.nome}" />
+					</p:column>
+					<p:column style="width:30px;text-align: center;">
+						<p:commandLink
+							action="#{funcaoMB.editarFuncao(funcao)}" 
+							title="Editar">
+							<img src="../../resources/img/editaricon.png" width="30" />
+							<p:ajax event="dialogReturn" listener="#{funcaoMB.retornoDialogEdicao}" update=":idFormConsFuncao:growl"/>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+			<br/><br/><br/><br/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

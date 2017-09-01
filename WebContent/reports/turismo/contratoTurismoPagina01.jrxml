@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoTurismoPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="421"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT distinct vendas.dataVenda, vendas.idvendas, unidadenegocio.razaoSocial, unidadenegocio.tipoLogradouro as tipologradourounidadeNegocio,
+unidadenegocio.logradouro as logradourounidadenegocio, unidadenegocio.numero as numerounidadenegocio, unidadenegocio.complemento as complementounidadenegocio,
+unidadenegocio.bairro as bairrounidadenegocio, unidadenegocio.cidade as cidadeunidadenegocio, unidadenegocio.estado as estadounidadenegocio,
+unidadenegocio.cep as cepunidadenegocio, unidadenegocio.cnpj as unidadenegocio,
+cliente.nome, cliente.rg, cliente.cpf, cliente.tipoLogradouro as tipologradourocliente, cliente.logradouro as logradourocliente,
+cliente.numero as numerocliente, cliente.complemento as complementocliente, cliente.bairro as bairrocliente, cliente.cidade as cidadecliente,
+cliente.estado as estadocliente, cliente.cep as cepcliente, usuario.nome as nomeusuario
+FROM
+	vendas join unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadenegocio.idunidadeNegocio
+    join cliente on vendas.cliente_idcliente= cliente.idcliente
+    join usuario on vendas.usuario_idusuario = usuario.idusuario
+where
+	vendas.idvendas=$P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idvendas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadenegocio" class="java.lang.String"/>
+	<field name="numerounidadenegocio" class="java.lang.String"/>
+	<field name="complementounidadenegocio" class="java.lang.String"/>
+	<field name="bairrounidadenegocio" class="java.lang.String"/>
+	<field name="cidadeunidadenegocio" class="java.lang.String"/>
+	<field name="estadounidadenegocio" class="java.lang.String"/>
+	<field name="cepunidadenegocio" class="java.lang.String"/>
+	<field name="unidadenegocio" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourocliente" class="java.lang.String"/>
+	<field name="logradourocliente" class="java.lang.String"/>
+	<field name="numerocliente" class="java.lang.String"/>
+	<field name="complementocliente" class="java.lang.String"/>
+	<field name="bairrocliente" class="java.lang.String"/>
+	<field name="cidadecliente" class="java.lang.String"/>
+	<field name="estadocliente" class="java.lang.String"/>
+	<field name="cepcliente" class="java.lang.String"/>
+	<field name="nomeusuario" class="java.lang.String"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="76" width="491" height="23" uuid="ed75f004-f9a7-498c-b84f-777a7971fba2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE TURISMO E AQUISIÇÕES DE VIAGENS NACIONAIS E INTERNACIONAIS ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="30" y="98" width="491" height="15" uuid="8e8732b6-8b09-4343-86f0-01b638ad94d5"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[(PARTE INTEGRANTE DA FICHA DE INSCRIÇÃO PARA PRESTAÇÃO DE SERVIÇOS DE TURISMO)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="359" y="12" width="196" height="54" uuid="28210d37-7c71-43e1-8b92-ad2f2793c26a"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="681" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="5" width="251" height="14" uuid="f77d7e49-a773-4b26-a342-ca94166582d9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1)   DAS PARTES: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="21" width="472" height="103" uuid="2d7da95c-5d95-4c24-a616-53130b2a62ec"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{razaoSocial} + ", adiante apenas TRAVELMATE ou TM, pessoa jurídica de direito privado com sede social na " + $F{tipologradourounidadeNegocio} + " " +
+$F{logradourounidadenegocio} + ", " + $F{numerounidadenegocio} + ", " + $F{complementounidadenegocio}
++ ", " + $F{bairrounidadenegocio} + ", " + $F{cidadeunidadenegocio}
++ ", " + $F{estadounidadenegocio} + ", CEP : " + $F{cepunidadenegocio}
++ ", inscrita no CNPJ/MF sob nº " + $F{unidadenegocio} + ", neste ato representada pelo consultor " +
+$F{nomeusuario} + "."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="124" width="472" height="90" uuid="fdeab5ca-65a3-4f10-840b-8406cb733098"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{nome} + ", adiante denominado(a) apenas CONTRATANTE,  Brasileiro(a), " +  ", portador do CI/RG de nº "
++ $F{rg} + " e inscrito no CPF/MF sob o nº " + $F{cpf} + ", residente e domiciliado na "
++ $F{tipologradourocliente} + " " + $F{logradourocliente} + ", " + $F{numerocliente} + ", "+
+$F{complementocliente} + ", " + $F{bairrocliente} + ", " + $F{cidadecliente} + ", " + $F{estadocliente} + ", CEP : " +
+$F{cepcliente} + ", cujos demais dados estão inseridos no “Campo 1 - INFORMAÇÕES DO PASSAGEIRO” da Ficha de Inscrição anexa a este contrato;"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="214" width="555" height="456" uuid="b708198a-297e-4e3f-a975-ac92f6a1de2c"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[2) DO OBJETO - O presente contrato tem como objeto a prestação de serviços de turismo adquirido pelo(a) CONTRATANTE devidamente discriminados no “Campo 10 – DESCRIÇÕES E VALORES” da Ficha de Inscrição anexa.
+
+Parágrafo Único: É importante para o cliente CONTRATANTE, certificar-se atentamente, quanto aos serviços adquiridos, bem como, se está ou não incluso no respectivo preço. Assim, são serviços incluídos, os serviços que estiverem, expressamente mencionados no “Campo 10 – DESCRIÇÕES E VALORES” da Ficha de Inscrição anexa. Quaisquer afirmações, feitas verbalmente, a respeito de que determinados serviços estão inclusos no preço, não podem nem devem ser consideradas ou aceitas pelo CONTRATANTE, tampouco sugestões de passeios opcionais e de outras referências que não se encontrem escritas ou mencionadas no referido “Campo 3” e “Campo 3 – SERVIÇOS OPCIONAIS – PASSEIOS” da Ficha de Inscrição.
+
+3) DO PREÇO -Em contrapartida aos serviços contratados, a CONTRATANTE efetuará o pagamento descrito no “Campo 10 – DESCRIÇÃO E VALORES”, obedecendo o que fora preenchido nos campos “VALOR DE PACOTE”, “TAXAS”, CÂMBIO” e principalmente “FORMA DE PAGAMENTO”, todos inseridos no referido “Campo 10” da Ficha de Inscrição em anexo a este contrato.
+
+Parágrafo Único:  Serão de responsabilidade exclusiva da CONTRATANTE , não fazendo parte dos valores descritos no “Campo 10” da Ficha de Inscrição, as seguintes despesas, bem como outras que poderão ocorrer, e cuja ciência, será previamente levada ao seu conhecimento:  a)  taxas com expedição de documentos para obtenção de vistos consulares; b) taxas de embarques (aeroportos ou portos), c) taxa pró-turismo; d) ingressos de quaisquer natureza; e) taxas com expedição e carregamento de bagagens, malas; f) atrativos como filmes de vídeo e TV a cabo; g) despesas com telefonemas, bebidas, produtos do frigobar, restaurantes e serviços de quarto; h) despesas que, por qualquer motivo, acarretem diárias, refeições e deslocamento, quando excedentes às incluídas no programa;
+
+4) DAS DESISTÊNCIAS, TRANSFERÊNCIAS E CANCELAMENTOS DE PACOTES– Conforme a disposição legal neste sentido, poderá o(a) CONTRATANTE exercer seu direito de arrependimento, por escrito, com devolução dos valores pagos em até 10 dias úteis a partir da comunicação do arrependimento, todavia, lhe sendo cobradas multas percentuais para desistências, transferências e cancelamentos, da seguinte forma:
+• com 90 ou mais dias antes do início da viagem: retenção de 35% (trinta por cento) do valor pago;
+•com 89 até  60 dias antes do início da viagem:  retenção de 40%; (trinta e cinco por cento) do valor pago;
+•com 59 até 30 dias antes do início da viagem:   retenção de 55% (quarenta por cento) do valor pago;
+•com 29 até 16 dias antes do início da viagem:   retenção de 70% (quarenta e cinco por cento) do valor pago;
+•à menos de 16 dias antes do início da viagem:  retenção de 100% (cinquenta por cento) do valor pago;
+
+Parágrafo Primeiro:  Ocorrendo a desistência do(a) CONTRATANTE, em qualquer fase ou etapa da viagem,após iniciada,  não haverá devolução de valores, tampouco qualquer bonificação ao desistente;
+
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="15">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" isPrintInFirstWholeBand="true" uuid="d9f58146-5410-4bd7-9659-162eb9b0c269"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idvendas">
+					<subreportParameterExpression><![CDATA[$F{idvendas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "contratoTurismoPagina02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

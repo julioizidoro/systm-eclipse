@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+        <h:form id="consPastas" >
+      			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+        	   <br />
+        	   <p:commandButton value="Adicionar Pasta" icon="ui-icon-plus" rendered="#{pasta1MB.verificarAcesso()}"  styleClass="btn btn-danger" action="#{pasta1MB.cadastroPasta()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
+        	   		<p:ajax listener="#{pasta1MB.retornoDialogNovo}" event="dialogReturn" update="@form, growl"/>
+        	   </p:commandButton>
+        	   <hr style="width: 98%;"/>
+        	   <legend style="margin-left:1%; width:98%;"> 
+        	   		<p:commandLink ajax="false" action="#{pasta1MB.voltarConsDepartamento()}" value="Departamentos"/> > #{pasta1MB.departamento.nome}
+        	   		
+        	   </legend>
+        	   <p:outputLabel id="semConteudo" rendered="#{pasta1MB.semPastas}" value="Não contém pastas." style="font-size:18px;margin-left:1%;"/>
+        	   <h:panelGrid id="idPanielPesquisa" columns="2" style="float:right;margin-right:2%;">
+				<p:inputText id="nomeArquivo" value="#{pasta1MB.nomeArquivo}"
+					size="30" style="font-size:13px;" placeholder="Nome do Arquivo"/>
+				<p:selectOneMenu id="tipoArquivo"
+					value="#{pasta1MB.tipoArquivo}"
+					style="width:110px;font-size:10px;margin-left:15%;"> 
+					<f:selectItem itemLabel="TODAS" itemValue="todas"/>
+					<f:selectItem itemLabel="PDF" itemValue="pdf" />
+					<f:selectItem itemLabel="JPG" itemValue="jpg" />
+					<f:selectItem itemLabel="XLS" itemValue="xls" />
+					<f:selectItem itemLabel="DOCX" itemValue="docx" />
+					<f:selectItem itemLabel="DOC" itemValue="doc" />
+					<f:selectItem itemLabel="CDR" itemValue="cdr" />
+					<f:selectItem itemLabel="PPTX" itemValue="pptx" />
+					<f:selectItem itemLabel="EPS" itemValue="eps" />
+					<f:selectItem itemLabel="BMP" itemValue="bmp" />
+					<f:selectItem itemLabel="XLSX" itemValue="xlsx" />
+					<f:selectItem itemLabel="TXT" itemValue="txt" />
+					<f:selectItem itemLabel="PNG" itemValue="png" />
+					<f:selectItem itemLabel="PPSX" itemValue="ppsx" />
+					<f:selectItem itemLabel="WMA" itemValue="wma" />
+				</p:selectOneMenu>
+				<br/><br/><br/>
+				<p:commandButton value="Pesquisar" style="float:right;font-size:12px;"
+					icon=" ui-icon-search " action="#{pasta1MB.pesquisar()}" />
+			</h:panelGrid>  
+			<br/><br /><br /><br /><br /><br />   
+	           <ui:repeat var="pastas" value="#{pasta1MB.listaPasta1}" varStatus="statuss">
+	           			
+		        		
+						<div class="col-sm-6 col-md-3">
+								<p:commandLink style="float:right;" rendered="#{pasta1MB.verificarAcesso()}" action="#{pasta1MB.editarPasta1(pastas)}"> 
+									<i class="fa fa-pencil"></i>
+									<p:ajax event="dialogReturn" listener="#{pasta1MB.gerarCloudPastas()}" update="@form"/>
+								</p:commandLink>
+							<p:commandLink  action="#{pasta1MB.cloudPasta2Arquivo1(pastas)}">
+								<div class="#{pasta1MB.posicaoInteracaoUiRepeat(statuss.index)}" style="width:95%; height:150px;">
+									<h:outputLabel value="#{pastas.nome}" style="color:white;"/>
+									<h:panelGrid width="100%" columns="2" style="color:white;">
+										<h:panelGrid columns="1">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pasta1MB.gerarTotalArquivosSubPastas(pastas)}
+												<h5>Arquivos</h5>
+											</h2>
+										</h:panelGrid>
+										<h:panelGrid columns="1" style="margin-left:-50%;">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pasta1MB.gerarTotalSubPastas(pastas)}
+												<h5>Pastas</h5>
+												
+											</h2>
+										</h:panelGrid> 
+									</h:panelGrid>
+										<ui:repeat var="arquivos" value="#{pasta1MB.gerarTotalArquivos(pastas)}" >
+											<img src="#{pasta1MB.retornaIconeArquivo(arquivos.tipo)}" alt="" title="#{arquivos.nome}" width="20" height="20"/>
+										</ui:repeat> 
+									<div style="float: right; margin-top:-60px;"> 
+										<i>
+											<img src="../../resources/img/#{pasta1MB.departamento.imagem}" alt="" width="60" height="60" style="background:white;border-radius:50px;"/>
+										</i>
+									</div>
+									<div class="refresh-button">
+										<p:commandLink rendered="#{pasta1MB.verificarAcesso()}" ajax="false" action="#{pasta1MB.excluirPasta(pastas)}" update=":consPastas:growl, @form"> 
+											<i class="fa fa-trash-o"></i>
+										</p:commandLink>
+									</div>
+									
+								</div>  
+							</p:commandLink> 
+						</div><!-- /.col --> 
+						
+	        	</ui:repeat>
+	        <br/><br/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/><br/> <br/><br/> <br/>
+	        <br/> <br/><br/> <br/><br/> <br/>
+	      </h:form>  
+    </ui:define> 
+</ui:composition>
+</html>

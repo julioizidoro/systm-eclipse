@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="historicoCliente"
+			style="font-size:11px;background:#F0F0F0;">
+			<link href="../../resources/css/dialogbranca.css" rel="stylesheet" type="text/css" />
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<h:panelGrid style="margin-left:2%;width:95%;" columns="2"
+					columnClasses="tamanhoavisos,tamanho11">
+					<h:panelGroup>
+						<p:commandLink id="btnVoltar" style="font-size:13px;"
+							action="#{historicoClienteMB.followUp()}" title="Voltar">
+							<i class="fa fa-mail-reply" />
+							<p:outputLabel value="Follow Up"
+								style="margin-left:1%;text-decoration:underline;font-size:13px;" />
+						</p:commandLink>
+						<p:outputLabel value="> Histórico"
+							style="margin-left:1%;color:#4D5C52;font-size:13px;" />
+						<h:panelGrid style="margin-left:2%;width:95%;" columns="2">
+							<p:outputLabel id="programa"
+								value="Programa de #{historicoClienteMB.lead.produtos.descricao}"
+								style="font-size:16px;" />
+							<p:outputLabel></p:outputLabel>
+
+							<p:outputLabel id="nomeCliente"
+								value="#{historicoClienteMB.lead.cliente.nome}"
+								style="font-size:29px;" />
+							<p:commandLink id="btnSituacao" title="Alterar a situação">
+								<h:outputText value="#{historicoClienteMB.lead.situacao}"
+									class="badge bg-warning"
+									style="background-color:#{historicoClienteMB.retornarCoresSituacao(historicoClienteMB.lead.situacao)};padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+						</h:panelGrid>
+
+						<p:overlayPanel id="painelSituacao" for="btnSituacao"
+							hideEffect="fade" style="background:#fff;">
+							<p:commandLink id="btnSituacao1" title="Lead Recebido"
+								action="#{historicoClienteMB.mudarSituacao(1)}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="1" class="badge bg-warning"
+									style="background-color:#1E90FF;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao2" title="Prospect"
+								action="#{historicoClienteMB.mudarSituacao(2)}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="2" class="badge bg-warning"
+									style="background-color:#9ACD32;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao3" title="Oportunidade Real"
+								action="#{historicoClienteMB.mudarSituacao(3)}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="3" class="badge bg-warning"
+									style="background-color:#FF8C00;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao4" title="Negociação Final"
+								action="#{historicoClienteMB.mudarSituacao(4)}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="4" class="badge bg-warning"
+									style="background-color:#B22222;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao5" title="Venda Finalizada">
+								<h:outputText value="5" class="badge bg-warning"
+									style="background-color:#228B22;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<p:overlayPanel for="btnSituacao5" hideEffect="fade"
+								style="background:#fff;width:135px;">  
+								<p:outputLabel value="ID Venda"
+									style="font-size:12px;color:#777777;" />
+								<p:commandLink update="painelBotoes" style="float:right;">
+									<i class="fa fa-times" />
+								</p:commandLink>
+								<br/>  
+								<p:inputText value="#{historicoClienteMB.idvenda}" style="width:97%;"/>
+								<div align="left">   
+									<p:commandLink id="btnSalvarIdVenda"  
+										style="float:right;margin-top:4%;"
+										action="#{historicoClienteMB.salvarVendaLead()}"
+										update="@form" title="Confirmar Venda Finalizada">
+										<img src="../../resources/img/crm/confirmar.png" width="32" />
+									</p:commandLink>
+								</div>
+							</p:overlayPanel>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao7" title="Stand By"
+								action="#{historicoClienteMB.mudarSituacao(7)}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="7" class="badge bg-warning"
+									style="background-color:#9400D3;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+						</p:overlayPanel>
+
+						<h:panelGrid style="margin-left:2%;width:95%;" columns="1">
+							<p:outputLabel id="email"
+								value="#{historicoClienteMB.lead.cliente.email}"
+								style="font-size:18px;" />
+							<p:outputLabel id="telefone"
+								value="#{historicoClienteMB.lead.cliente.foneCelular}"
+								style="font-size:18px;" />
+							<h:panelGroup>
+								<p:outputLabel value="Data de recebimento:"
+									style="font-size:13px;" />
+								<p:outputLabel id="data"
+									value="#{historicoClienteMB.lead.dataenvio}"
+									style="font-size:13px;margin-left:1%;">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:outputLabel>
+							</h:panelGroup>
+						</h:panelGrid>
+						<br></br>
+						<div style="margin-left: 2%;">
+							<p:outputLabel value="Notas" style="font-size:14px;" />
+							<br></br>
+							<h:inputTextarea value="#{historicoClienteMB.lead.notas}"
+								style="width:85%;background: #ffffff;border: none;font-size: 15px;color:#4C4C4C;"
+								id="notas" rows="8" />
+							<p:commandLink id="btnSalvarNotas" title="Salvar Notas"
+								style="margin-left:1%;"
+								action="#{historicoClienteMB.salvarNotas()}" update="growl">
+								<img src="../../resources/img/crm/confirmar.png" width="38"
+									style="margin-top: -6%;" />
+							</p:commandLink>
+						</div>
+						<br></br>
+						<br></br>
+						<h:panelGroup id="painelBotoes">
+							<h:panelGroup>
+								<h:panelGrid style="width:100%;" columns="6">
+									<p:commandLink id="btnVendas" title="Vendas do cliente"
+										action="#{historicoClienteMB.visualizarVendas()}"
+										update="@form">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/vendas.png" width="50" />
+											<p:outputLabel value="VENDAS" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnContasReceber" style="margin-left:8%;"
+										title="Contas a receber em aberto do cliente"
+										action="#{historicoClienteMB.visualizarContasReceber()}"
+										update="@form">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/contasReceber.png"
+												width="50" />
+											<p:outputLabel value="CONTAS A" style="font-size:11px;" />
+											<p:outputLabel value="RECEBER" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnOrcamentoVoluntariado" rendered="#{historicoClienteMB.camposvoluntariado}"
+										title="Emissão orçamento tarifário de voluntariado"
+										action="#{historicoClienteMB.novoOrcamentoVoluntariado()}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>  
+									<p:commandLink id="btnOrcamentoManualVoluntariado" rendered="#{historicoClienteMB.camposvoluntariado}"
+										title="Emissão orçamento manual de voluntariado"
+										action="#{historicoClienteMB.orcamentoManual('Voluntariado')}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/emitirorcamentomanual.png"
+												width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="MANUAL" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnOrcamento" rendered="#{historicoClienteMB.camposcurso}"
+										title="Emissão de orçamento tarifário curso"
+										action="#{historicoClienteMB.orcamentoTarifario()}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnOrcamentoManual" rendered="#{historicoClienteMB.camposcurso}"
+										title="Emissão de orçamento manual curso"
+										action="#{historicoClienteMB.orcamentoManual('Curso')}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/emitirorcamentomanual.png"
+												width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="MANUAL" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
+										action="#{historicoClienteMB.emitirVenda()}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/emitirvendas.png"
+												width="48" />
+											<p:outputLabel value="EMISSÃO" style="font-size:11px;" />
+											<p:outputLabel value="DE VENDA" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnCancelar" style="margin-left:8%;"
+										title="Cancelamento de lead" oncomplete="PF('cancelarLead').show();" >
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/cancelar.png" width="45" />
+											<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+										</h:panelGrid> 
+									</p:commandLink>
+									<p:dialog id="painelCancelar" modal="true" header="Cancelar Lead"
+											icon="ui-icon-alert" widgetVar="cancelarLead"
+											style="width:40% !important;font-size:14px;margin-left:-17% !important;">   
+										<p:outputLabel value="Motivo cancelamento"
+											style="font-size:12px;color:#777777;" />   <br/>   
+										<p:selectOneMenu id="motivo"      
+											value="#{historicoClienteMB.lead.motivocancelamento1}"
+											style="width:185px;" filter="true"
+											converter="MotivoCancelamentoConverter"
+											filterMatchMode="startsWith" panelStyle="width:180px">
+											<f:selectItem itemLabel="Selecione" itemValue="0"  
+												noSelectionOption="true" />
+											<f:selectItems id="idmotivo"
+												value="#{historicoClienteMB.listaMotivoCancelamento}" 
+												var="motivos" itemLabel="#{motivos.motivo}"
+												itemValue="#{motivos}" />
+											<f:attribute name="listaMotivo"
+												value="#{historicoClienteMB.listaMotivoCancelamento}" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+										<br></br>   
+										<p:outputLabel value="Descrição"
+											style="font-size:12px;color:#777777;" />
+										<div>
+											<h:inputTextarea class="comment-text-area"
+												value="#{historicoClienteMB.lead.motivocancelamento}"
+												style="margin-left: 0%;color:#4C4C4C;background:#D7D8DC;border:none;"
+												id="motivoCancelamento" rows="3" cols="40" onkeyup="limitTextArea(this,100);" onkeydown="limitTextArea(this,100);"/> 
+											<div align="left">  
+												<p:commandLink id="btnSalvarCancelamento"
+													style="float:right;margin-right: 4%;"
+													action="#{historicoClienteMB.cancelarLead()}"
+													update="@form" title="Confirmar cancelamento">
+													<img src="../../resources/img/crm/confirmar.png" width="32" />
+												</p:commandLink>
+											</div>
+										</div>
+									</p:dialog>
+								</h:panelGrid>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>  
+					<h:panelGroup>
+						<h:panelGrid style="width:98%;">
+							<h:panelGrid columns="2" style="width:28%;text-align: right;float: right;">
+								<p:commandLink id="btnLeadAnterior" action="#{historicoClienteMB.historicoClienteAnterior()}" disabled="#{historicoClienteMB.desabilitarBtnAnterior()}">
+									<i class="fa fa-mail-reply" />   
+									<p:outputLabel value="Anterior" style="margin-left:4%;"/> 
+								</p:commandLink>
+								
+								<p:commandLink id="btnLeadProximo" action="#{historicoClienteMB.historicoProximoCliente()}" disabled="#{historicoClienteMB.desabilitarBtnProximo()}">
+									<p:outputLabel value="Próximo"/>  
+									<i class="fa fa-mail-forward" /> 
+								</p:commandLink>  
+							</h:panelGrid> 
+							<p:dataScroller id="tabelaHistorico" var="historico"
+								value="#{historicoClienteMB.listaHistorico}" chunkSize="10"
+								mode="inline" scrollHeight="390">
+								<f:facet name="header">
+									<h:panelGrid style="margin-left:2%;width:98%;" columns="2"
+										columnClasses="tamanhonotificacao2, tamanho50right">
+										<h:panelGroup>
+											<img src="../../resources/img/crm/historico.png" width="28"
+												style="margin-top: -3%;" />
+											<p:outputLabel value="Histórico"
+												style="font-size:22px;color:#3C4A58;" />
+										</h:panelGroup>
+										<p:commandLink id="btnAdd"
+											action="#{historicoClienteMB.cadHistorico()}">
+											<i class="fa  fa-plus-circle"
+												style="font-size: 23px; color: #fff;" />
+											<p:ajax event="dialogReturn"
+												listener="#{historicoClienteMB.gerarListaHistorico()}"
+												update="tabelaHistorico" />
+										</p:commandLink>
+									</h:panelGrid>
+								</f:facet>
+								<p:outputPanel>
+									<h:panelGrid columns="4" style="width:100%;"
+										class="#{historicoClienteMB.retornarCorHistorico(historico.idleadhistorico)}"
+										columnClasses="tamanho11, tamanho8, tamanho2, tamanho6">
+										<h:outputLabel />
+										<h:outputLabel />
+										<h:outputLabel />
+										<h:outputLabel />
+
+										<h:outputLabel value="#{historico.historico}"
+											style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+										<h:outputLabel value="#{historico.tipocontato.tipo}"
+											style="font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+										<h:panelGrid columns="1" style="text-align:center;">
+											<h:outputLabel value="#{historico.datahistorico}"
+												style="font-size: 13px;color:#4C4C4C;font-weight: 500;">
+												<f:convertDateTime pattern="dd/MM/yyyy"
+													timeZone="America/Sao_Paulo" />
+											</h:outputLabel>
+											<h:panelGroup rendered="#{historicoClienteMB.mostrarHora}">
+												<h:outputLabel value="#{historico.horaporximocontato} hr"
+													style="font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+											</h:panelGroup>
+										</h:panelGrid>
+										<h:panelGrid columns="3">
+											<p:commandLink id="btnEditar" title="Editar"
+												actionListener="#{historicoClienteMB.editar(historico)}">
+												<i class="fa fa-pencil"
+													style="color: #3C4A58; font-size: 14px;" />
+												<p:ajax event="dialogReturn"
+													listener="#{historicoClienteMB.gerarListaHistorico()}"
+													update="tabelaHistorico" />
+											</p:commandLink>
+											<p:commandLink id="btnExcluir" title="Excluir"
+												style="margin-left:26%;margin-rigth:2%;"
+												action="#{historicoClienteMB.excluir(historico)}"
+												update="tabelaHistorico, :historicoCliente:growl">
+												<i class="fa fa-trash-o"
+													style="color: #3C4A58; font-size: 14px;" />
+											</p:commandLink>
+											<p:commandLink id="btnGerarOrcamento" title="Orçamento"
+												rendered="#{historicoClienteMB.rederizarBotaoOrcamento(historico)}"
+												style="margin-left:28%;margin-rigth:3%;"
+												action="#{historicoClienteMB.gerarOrcamentoPDF(historico)}"
+												target="_blank" ajax="false">
+												<i class="fa fa-file-pdf-o"
+													style="color: #3C4A58; font-size: 14px;" />
+											</p:commandLink>
+										</h:panelGrid>
+										<h:outputLabel />  
+										<h:outputLabel />
+										<h:outputLabel />
+										<h:outputLabel />
+									</h:panelGrid>
+								</p:outputPanel>
+							</p:dataScroller>
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="margin-right: 2%;">
+							<h:outputText value="1" class="badge bg-warning"
+								style="background-color:#1E90FF;padding: 4px 6px;" />
+							<h:outputText value="Lead Recebido"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="2" class="badge bg-warning"
+								style="background-color:#9ACD32;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Prospect"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="3" class="badge bg-warning"
+								style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Oportunidade Real"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="4" class="badge bg-warning"
+								style="background-color:#B22222;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Negociação Final"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<br /> <br />
+							<h:outputText value="5" class="badge bg-warning"
+								style="background-color:#228B22;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Venda Efetuada"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="6" class="badge bg-warning"
+								style="background-color:#8B8989;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Cancelada"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="7" class="badge bg-warning"
+								style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Stand By"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>
+			</div>
+			<script>
+				function limitTextArea(element, limit) {
+				
+					if (element.value.length > limit) {
+					element.value = element.value.substring(0, limit);
+					}
+				
+				} 
+			</script>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

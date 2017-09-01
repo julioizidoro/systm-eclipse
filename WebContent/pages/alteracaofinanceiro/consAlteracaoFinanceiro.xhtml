@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaAlteracaoFinanceiro">
+			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
+			<br></br>
+			<p:accordionPanel class="painel" activeIndex="-1">
+				<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+					title="Pesquisar">
+					<p:outputLabel value="ID venda" for="idVenda"
+						style="margin-left:4.5%" />
+					<p:outputLabel value="Periodo" for="dataIni"
+						style="margin-left:14%" />
+					<br></br>
+					<p:inputText id="idVenda" value="#{alteracaoFinanceiroMB.idvenda}"
+						style="width:87px;margin-left:4.5%" />
+					<p:calendar id="dataIni"
+						value="#{alteracaoFinanceiroMB.dataInicio}" size="12"
+						style="margin-left:9%" locale="pt" pattern="dd/MM/yyyy"
+						mask="true" maxlength="15">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="blur" /> 
+					</p:calendar>
+					<p:calendar id="dataFinal"
+						value="#{alteracaoFinanceiroMB.dataTermino}" size="12"
+						style="margin-left:3%" locale="pt" pattern="dd/MM/yyyy"
+						mask="true" maxlength="15">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<br></br>
+					<br></br>
+					<p:outputLabel value="Unidade" for="unidade" class="fontebranca"
+						style="margin-left:4.5%" />
+					<p:outputLabel value="Usuário" for="situacao" class="fontebranca"
+						style="margin-left:26%" />
+					<p:outputLabel value="Situação" for="situacao" class="fontebranca"
+						style="margin-left:22%" />
+					<br></br>
+					<h:panelGrid columns="5">
+						<p:selectOneMenu id="unidade" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+							value="#{alteracaoFinanceiroMB.unidadenegocio}"
+							style="width:243px;margin-left:14.5%"
+							converter="UnidadeNegocioConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idunidade"
+								value="#{alteracaoFinanceiroMB.listaUnidadeNegocio}"
+								var="sUnidade" itemLabel="#{sUnidade.nomerelatorio}"
+								itemValue="#{sUnidade}" />
+							<f:attribute name="listaUnidade"
+								value="#{alteracaoFinanceiroMB.listaUnidadeNegocio}" />
+							<p:ajax event="change" listener="#{alteracaoFinanceiroMB.gerarListaConsultor()}" update="consultor"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="consultor" style="width:200px;margin-left:13%"
+							value="#{alteracaoFinanceiroMB.usuario}"
+							converter="UsuarioConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{alteracaoFinanceiroMB.listaConsultor}"
+								var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+							<f:attribute name="listaUsuario"
+								value="#{alteracaoFinanceiroMB.listaConsultor}" />
+							<p:ajax event="change" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="situacao"
+							value="#{alteracaoFinanceiroMB.situacao}"
+							style="width:95px;margin-left: 28%">
+							<f:selectItem itemLabel="Em Processo" itemValue="false" />
+							<f:selectItem itemLabel="Visualizadas" itemValue="true" /> 
+							<p:ajax event="change" />
+						</p:selectOneMenu>
+						<p:commandButton value="Pesquisar" style="margin-left:35.8%;"
+							icon=" ui-icon-search "
+							update="telaAlteracaoFinanceiro:tabelaAlteracao"
+							action="#{alteracaoFinanceiroMB.pesquisar()}" />
+						<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+							class="imgadd"
+							update="telaAlteracaoFinanceiro:tabelaAlteracao, situacao, unidade, dataFinal, dataIni, idVenda,consultor"
+							action="#{alteracaoFinanceiroMB.limpar()}" />
+					</h:panelGrid>
+					<br></br>
+				</p:tab>
+			</p:accordionPanel>
+			<br></br>
+			<div align="center"> 
+				<p:outputLabel value="Consulta de Alterações" style="font-size:21px;color:#258B6F"/>
+			</div>
+			<p:dataTable id="tabelaAlteracao" var="alteracao"
+				value="#{alteracaoFinanceiroMB.listaAlteracao}"
+				class="tabelaHighSchool" scrollable="true" scrollHeight="300"
+				style="margin-bottom:20px">
+				
+				<p:column headerText="ID Venda" style="width:60px;"
+					styleClass="alinharCenter">
+					<h:outputText value="#{alteracao.vendas.idvendas}"/>
+				</p:column>
+				<p:column headerText="Cliente" style="width:150px; ">
+					<h:outputText value="#{alteracao.vendas.cliente.nome}" />
+				</p:column>
+				<p:column headerText="Data Alteração"
+					style="text-align:center;width:90px;">
+					<h:outputText value="#{alteracao.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Unidade" style="width:150px;"
+					styleClass="alinharCenter">
+					<h:outputText
+						value="#{alteracao.usuario.unidadenegocio.nomeFantasia}"/>
+				</p:column>
+				<p:column headerText="Consultor" style="width:150px;"
+					styleClass="alinharCenter">
+					<h:outputText value="#{alteracao.usuario.nome}" />
+				</p:column>
+				<p:column style="width:38px;">
+					<p:commandLink
+						action="#{alteracaoFinanceiroMB.visualizar(alteracao)}"
+						style="text-decoration: none" title="Visualizar">    
+						<img src="../../resources/img/visualizarBola.png" width="24" />
+					</p:commandLink>
+				</p:column>  
+				<p:column style="width:38px;">
+					<p:commandLink
+						action="#{alteracaoFinanceiroMB.salvarSituacao(alteracao)}"
+						style="text-decoration: none" title="Confirmar Visualização" update="tabelaAlteracao">
+						<img src="../../resources/img/confirmarBola.png" width="24" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<br></br>
+			<br></br>
+			<br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

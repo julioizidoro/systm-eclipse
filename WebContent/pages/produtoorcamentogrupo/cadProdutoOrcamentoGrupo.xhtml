@@ -1,0 +1,74 @@
+<?xml version='1.0'  encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" lang="pt-br" xml:lang="pt-br">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href="../../resources/css/cssteste.css" rel="stylesheet"
+		type="text/css" />
+
+</h:head>
+
+<h:form id="adicionarProdutoOrcamento" acceptcharset="ISO-8859-1">
+	<p:growl id="messages" showDetail="true" sticky="false"
+		life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+
+	<title id="iUsu3"><b>Adicionar Produtos Orçamento</b></title>
+
+	<p:outputLabel for="nome" value="Nome do Grupo" style="font-size:12px;" />
+	<br />
+	<p:inputText id="nome"
+		value="#{cadProdutoOrcamentoGrupoMB.produtosorcamentoindice.descricao}"
+		readonly="true" style="font-size:12px;width:94%;" />
+	<br />
+	<br />  
+	<h:panelGroup>
+		<div align="left" style="width: 96%">
+			<p:outputLabel value="Produtos Orçamentos Novos" style="font-size:12px;" />
+			<p:selectBooleanCheckbox value="#{cadProdutoOrcamentoGrupoMB.habilitarNovo}" style="margin-left:1%;">
+				<p:ajax update="@form" event="change"
+					listener="#{cadProdutoOrcamentoGrupoMB.listagemNova()}" />
+			</p:selectBooleanCheckbox>
+			<p:inputText id="pesquisar" placeholder="Pesquisar produto.." value="#{cadProdutoOrcamentoGrupoMB.produtos}"
+				style="float:right;font-size:11px;width:35%;">
+				<p:ajax event="keyup" update="idTabelaPO" listener="#{cadProdutoOrcamentoGrupoMB.pesquisar()}"/>
+			</p:inputText>
+		</div>   
+		<br/>          
+		<p:dataTable id="idTabelaPO" var="po" rendered="#{cadProdutoOrcamentoGrupoMB.tabelaAntiga}"
+			value="#{cadProdutoOrcamentoGrupoMB.listaProdutosOrcamento}"
+			scrollable="true" scrollHeight="200" style="font-size:12px;">
+			<p:column headerText="Descrição" style="text-align:left;">
+				<p:outputLabel value="#{po.descricao}" />
+			</p:column>
+			<p:column headerText="" width="20px;" styleClass="alinharCenter">
+				<p:selectBooleanCheckbox style=" margin-left:1%;" id="poSelecionado"
+					value="#{po.selecionado}" />
+			</p:column>
+		</p:dataTable>
+		<p:dataTable id="idTabelaPONovo" var="po" rendered="#{cadProdutoOrcamentoGrupoMB.tabelaNova}"
+			value="#{cadProdutoOrcamentoGrupoMB.listaProdutosOrcamentoNovo}"
+			scrollable="true" scrollHeight="200" style="font-size:12px;">
+			<p:column headerText="Descrição" style="text-align:left;">
+				<p:outputLabel value="#{po.descricao}" />
+			</p:column>
+			<p:column headerText="" width="20px;" styleClass="alinharCenter">
+				<p:selectBooleanCheckbox style=" margin-left:1%;" id="poSelecionado"
+					value="#{po.selecionado}" />
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+	<br />
+	<p:commandButton id="bConfirmar"
+		update=":adicionarProdutoOrcamento:messages" value="Confirmar"
+		action="#{cadProdutoOrcamentoGrupoMB.salvar()}" icon="ui-icon-check"
+		style="font-size:12px;margin-left:29%" />
+	<p:commandButton id="bCancelar" value="Cancelar"
+		action="#{cadProdutoOrcamentoGrupoMB.cancelar()}"
+		icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />
+
+</h:form>
+</html>

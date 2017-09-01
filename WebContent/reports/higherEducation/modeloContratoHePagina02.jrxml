@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHePagina02" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.8264462809917354"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="267"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="312" y="11" width="243" height="57" uuid="d38b35c4-33e2-4c44-beb8-6b62632675f1"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="667" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="127" width="553" height="413" uuid="f72df42d-c746-45dd-b34f-6ccf78cb901d"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="15" width="553" height="632" uuid="74a6fbbc-10a7-4982-9724-5b1338fe87df"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["3. OBRIGAÇÕES DO(A) PARTICIPANTE \n"+
+"3.1. Para confirmação de sua inscrição no programa o INTERCAMBISTA deverá estar de acordo com os seguintes pré-requisitos: \n"+
+
+"a) Agendar encontro com um membro do TRAVELMATE para realização da avaliação da situação acadêmica do estudante. \n"+
+"b) Mostrar interesse e comportamento adequado para participação em um programa universitário no exterior. \n"+
+"c) Atender aos requerimentos mínimos definidos pelas instituições de ensino superior. \n"+
+"d) Respeitar as diretrizes e prazos das instituições de ensino superior estrangeiras. \n"+
+
+"3.2. São obrigações do INTERCAMBISTA, no âmbito deste contrato: \n"+
+
+"a) Obedecer rigorosamente às regras estabelecidas pela TRAVELMATE, assim como da instituição de ensino superior a ser freqüentada. \n"+
+
+"b) Apresentar a documentação complementar solicitada, conforme segue: \n"+
+
+"- 01 (uma) via original do histórico escolar do ensino médio e do certificado de conclusão do ensino médio; \n"+
+
+"- 01 (uma) via original traduzida e juramentada do histórico escolar do ensino médio e do certificado de conclusão do ensino médio; \n"+
+
+"- 01 (uma) via original do histórico escolar da graduação (se aplicável); \n"+
+
+"- 01 (uma) via original traduzida e juramentada do histórico escolar da graduação (se aplicável); \n"+
+
+"- Resultados oficiais do Exame de Proficiência válido dentro dos padrões exigidos pela instituição do ensino superior (ou a comprovação de contratação de um curso preparatório para o Higher Education) \n"+
+
+"- 01 (uma) cópia do Passaporte válido para a duração total do programa \n"+
+
+"Encaminhar a documentação completa a instituição de ensino superior em negociação toda documentação exigida de acordo com as solicitações da TRAVELMATE e dentro dos prazos apresentados pelo Departamento de Higher Education; \n"+
+
+
+"Observação: Todas as despesas resultantes do processo e execução destas atividades serão de responsabilidade do estudante. \n"+
+
+"c) Cumprir obrigatoriamente as datas fixadas pela instituição. \n"+
+
+"d) Acatar todas as decisões de arbítrio das autoridades responsáveis pelo programa no exterior, quer seja na conduta pessoal do jovem e no seu desempenho acadêmico e conseqüente decisão de permanência ou não no programa. \n"+
+
+"e) Assumir os danos e despesas causadas a terceiros, durante todas as fases do programa. \n"+
+
+"f) Manter, em todos os momentos, boa conduta no país de destino, respeitar as diretrizes sejam elas acadêmicas ou disciplinares. "
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="1adf6af7-9d37-48a1-8eae-bc1f043ec639"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modeloContratoHePagina03.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

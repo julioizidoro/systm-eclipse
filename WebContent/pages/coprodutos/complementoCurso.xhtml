@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="complementoCurso" style="text-align:left;font-size: 11px;">
+		<title>Complemento Curso</title>
+		<br></br> 
+		<h:panelGrid columns="4" columnClasses="tamanho8,tamanho8,tamanho11,tamanho9"
+			style="margin-left:3%;">
+			<h:outputLabel value="Turno" />
+			<h:outputLabel value="Carga Horária"/>
+			<h:outputLabel />
+			<h:outputLabel /> 
+			
+			<p:selectOneMenu id="turno" value="#{complementoCursoMB.complemento.turno}" style="width:100px;">
+				<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
+				<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
+				<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+				<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
+				<f:selectItem itemLabel="Integral" itemValue="Integral" />
+				<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
+			</p:selectOneMenu>
+			<p:inputText id="cargahoraria2" style="width:80%;" maxlength="100"
+				value="#{complementoCursoMB.complemento.cargahoraria}"  />
+			<p:selectOneRadio id="porSemana" value="#{complementoCursoMB.complemento.tipocargahoraria}" style="width:100%;">
+				<f:selectItem itemLabel="Horas por Semana"
+					itemValue="Horas por Semana" />
+				<f:selectItem itemLabel="Aulas por Semana"
+					itemValue="Aulas por Semana" />
+			</p:selectOneRadio>
+			<h:outputLabel />
+		</h:panelGrid>
+
+		<br></br>
+		<br></br>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar" action="#{complementoCursoMB.salvar}" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar" action="#{complementoCursoMB.cancelar}"
+				style="margin-left:2%;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

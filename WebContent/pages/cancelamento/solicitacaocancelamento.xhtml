@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head> 
+<h:body style="background:#DDDDE1;">
+	<h:form id="cancelarVenda" style="text-align:left;font-size: 10px;">
+	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<p:outputLabel value="Nº #{cancelamentoFichaMB.cancelamento.vendas.idvendas}" for="motivo"
+			style="font-size:15px;color:#1F8871" />
+		<p:outputLabel value="Cliente: #{cancelamentoFichaMB.cancelamento.vendas.cliente.nome}" for="motivo"
+			style="font-size:15px;margin-left:5%;color:#1F8871" />  
+		<br></br><br></br>
+		
+		
+		<p:selectOneRadio id="tipo"  value="#{cancelamentoFichaMB.cancelamento.formapagamento}" style="width:100%;" >
+            <f:selectItem itemLabel="Reembolso" itemValue="Reembolso" class="loginButtonn"/> 
+            <f:selectItem itemLabel="Crédito" itemValue="Crédito" style="margin-left:5%" /> 
+            <f:selectItem itemLabel="Reembolso/Crédito" itemValue="Ambos" class="loginButtonn"  /> 
+         </p:selectOneRadio>
+         <br></br>
+		<p:outputLabel value="Motivo" for="motivo"
+			style="font-size: 11px" />
+		<br></br>
+		<p:inputTextarea id="motivo" value="#{cancelamentoFichaMB.cancelamento.motivo}"
+			cols="65" rows="3" />
+		<br></br><br></br>
+		<p:commandButton value="Confirmar" icon="ui-icon-check"
+			action="#{cancelamentoFichaMB.salvar()}"
+			style="font-size:11px;margin-left:50%" />
+		<p:commandButton value="Cancelar" icon="ui-icon-close"
+			action="#{cancelamentoFichaMB.cancelar()}"
+			style="font-size:11px;margin-left:3%" />
+	</h:form>
+</h:body>
+</html>

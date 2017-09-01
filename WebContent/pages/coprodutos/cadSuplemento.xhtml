@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+       
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+            <title>Cadastro de Suplemento</title><br></br>
+            <p:outputLabel value="Produto" for="idproduto" style="margin-left:10%;"/>
+            <p:outputLabel value="Cobrança" for="idcobranca" style="margin-left:35.3%;"/>
+            <br></br>
+            <p:selectOneMenu id="idproduto" value="#{cadCoSuplementosMB.valorcoprodutos.produtosuplemento}" style="width:35%;font-size: 10px;margin-left: 10%;"  >
+                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                <f:selectItem itemLabel="Acomodação" itemValue="Acomodação" /> 
+                <f:selectItem itemLabel="Curso" itemValue="Curso" /> 
+            </p:selectOneMenu>
+            <p:selectOneMenu id="idcobranca" value="#{cadCoSuplementosMB.valorcoprodutos.cobranca}" style="width:35%;font-size: 10px;margin-left:9%;"  >
+                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                <f:selectItem itemLabel="Fixo" itemValue="F" /> 
+                <f:selectItem itemLabel="Semana" itemValue="S" /> 
+                <f:selectItem itemLabel="Dia" itemValue="D" /> 
+            </p:selectOneMenu>
+            <br></br><br></br>
+            
+            <p:outputLabel value="Período" for="datainicio" class="espacocobranca11"/>
+            <p:outputLabel value="Nº Semanas" for="nsemanasinicial" style="margin-left:36%"/>
+            <p:outputLabel value="Até" for="nsemanasfinal" style="margin-left:8%"/>
+            <br></br>
+            <p:inputMask id="datainicio"  value="#{cadCoSuplementosMB.valorcoprodutos.datainicial}" size="9" mask="99/99/9999"  maxlength="15" class="espacocobranca11" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            <p:inputMask id="datafinal" size="9" value="#{cadCoSuplementosMB.valorcoprodutos.datafinal}" mask="99/99/9999"  maxlength="15" style="margin-left:5%" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            
+            <p:inputText value="#{cadCoSuplementosMB.valorcoprodutos.numerosemanainicial}" id="nsemanasinicial" style="width:16%;margin-left:9%"  title="Nº de Semanas inícial"/>
+            
+            <p:inputText value="#{cadCoSuplementosMB.valorcoprodutos.numerosemanafinal}" id="nsemanasfinal" style="width:14%;margin-left:5%;" title="Nº de Semanas final"/>
+            
+            
+            <br></br><br></br><br></br>
+            
+            <p:outputLabel value="Valor" for="valorOriginal" class="espacocobranca11"/>
+            <br></br>
+            <p:inputText id="valorOriginal" value="#{cadCoSuplementosMB.valorcoprodutos.valororiginal}" style="width:21%; text-align: right;" class="espacocobranca11" >
+                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+            </p:inputText>
+            <p:selectOneRadio id="tipo" value="#{cadCoSuplementosMB.valorcoprodutos.tiposuplemento}" layout="custom" style="font-size:12px;">
+                <f:selectItem itemLabel="Verão" itemValue="Verão" />
+                <f:selectItem itemLabel="Inverno" itemValue="Inverno" />
+            </p:selectOneRadio>
+            <p:radioButton id="opt1" for="tipo" itemIndex="1" class="espacocobranca28" style="margin-left:24%;"/>
+            <h:outputLabel for="opt1" value="Verão" style="font-size:12px;margin-left:2%"/>
+
+            <p:radioButton id="opt2" for="tipo" itemIndex="2" class="espacocobranca28"/>
+            <h:outputLabel for="opt2" value="Inverno" style="font-size:12px;margin-left:3%"/>
+			
+            <br></br> <br></br> <br></br>
+            <p:selectOneRadio id="tipodata" value="#{cadCoSuplementosMB.valorcoprodutos.tipodata}" layout="custom">
+                <f:selectItem itemLabel="Data Inscrição" itemValue="DM" />
+                <f:selectItem itemLabel="Data Início" itemValue="DI" />
+                <f:selectItem itemLabel="Data Suplemento" itemValue="DS" />
+            </p:selectOneRadio>
+            <p:radioButton id="data1" for="tipodata" itemIndex="1" style="margin-left:10%"/>
+            <h:outputLabel for="data1" value="Data Inscrição" class="espacocobranca29" style="font-size:12px"/>
+
+            <p:radioButton id="data2" for="tipodata" itemIndex="2" class="espacocobranca28"/>
+            <h:outputLabel for="data2" value="Data Início" class="espacocobranca29"  style="font-size:12px"/>
+
+            <p:radioButton id="data3" for="tipodata" itemIndex="3" class="espacocobranca28"/>
+            <h:outputLabel for="data3" value="Data Suplemento" class="espacocobranca29"  style="font-size:12px"/>
+            <br></br><br></br>
+            <p class="botaocadpacote"><br></br>
+                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{cadCoSuplementosMB.salvarCoSuplemento()}"></p:commandButton>
+                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{cadCoSuplementosMB.cancelarCoSuplemento()}"></p:commandButton>
+            <br></br><br></br></p>
+        </h:form>     
+    </h:body>
+</html>

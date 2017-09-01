@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
+        <h:form id="editarComissao" style="text-align:left;font-size: 10px; margin-left: 7%; ">
+            <title><p:outputLabel value="#{editarValoresComissaoMB.titulo}"/></title>
+            <legend id="iUsu3" style="font-size: 14px;border-color: #000;" ><b>Base de Cálculo</b></legend>
+                
+                <p:outputLabel value="Base de Cálculo" for="baseCalculo" style="margin-left:8%"/>
+                <p:outputLabel value="Percetual" for="percentual" style="margin-left:40%;"/>
+                <p:outputLabel value="Novo Valor" for="novovalor" style="margin-left:14.9%;"/>
+                <br></br> 
+                
+                <h:panelGrid columns="6">
+                    <p:selectOneRadio id="oneRadioEditar" value="#{editarValoresComissaoMB.selecao}" layout="custom">
+                    <f:selectItem  itemValue="basecalculo" />
+                    <f:selectItem itemValue="moeda" />
+                    <f:selectItem  itemValue="manual" />
+                    <p:ajax event="change" />
+                </p:selectOneRadio>
+                    <p:radioButton id="opt1" for="oneRadioEditar" itemIndex="0" />
+                    <p:selectOneMenu id="baseCalculo"  value="#{editarValoresComissaoMB.baseCalculo}" style="margin-left:12.5%;width:300px">  
+                        <f:selectItem itemLabel="Selecione" itemValue="sn" />  
+                        <f:selectItem itemLabel="Valor Comissionável" itemValue="valorcomissionavel" />  
+                        <f:selectItem itemLabel="Valor Total" itemValue="valortotal" />  
+                        <f:selectItem itemLabel="Comissão TM" itemValue="comissaotm" />  
+                        <f:selectItem itemLabel="Comissão TM - Desconto Matriz + Taxa TM - Desagio" itemValue="comTMdescontoMatrizTaxaTMdesagio" />  
+                        <f:selectItem itemLabel="Comissão Franquia - Comissão Terceiros" itemValue="comFranquiaComTerceiros" />  
+                        <p:ajax event="change" />
+                    </p:selectOneMenu> 
+                    <p:inputText id="percentual"  style="margin-left:40%;width:110px;text-align: right" value="#{editarValoresComissaoMB.percentual}">
+                    	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                        <p:ajax event="blur" update="novovalor" listener="#{editarValoresComissaoMB.iniciarCalculo()}"/>
+                    </p:inputText>
+                    <p:inputText id="novovalor" style="margin-left:30%;width:110px;text-align: right" value="#{editarValoresComissaoMB.novoValorBaseCalculo}">
+                        <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                    </p:inputText>
+                </h:panelGrid>
+                <br></br> <br></br> 
+                <legend id="iUsu3" style="font-size: 14px;border-color: #000;" ><b>Moeda</b></legend>
+                
+                <p:outputLabel value="Moeda" for="moeda" style="margin-left:8%"/>
+                <p:outputLabel value="Câmbio do Dia" for="cambiodia" style="margin-left:20.2%;"/>
+                <p:outputLabel value="Valor na Moeda" for="valormoeda" style="margin-left:14.1%;"/>
+                <p:outputLabel value="Novo Valor" for="novovalormoeda" style="margin-left:11.5%;"/>
+                 <br></br>
+                 <h:panelGrid columns="6">
+                    <p:radioButton id="opt2" for="oneRadioEditar" itemIndex="1" />
+                    <p:selectOneMenu id="moeda"  style="margin-left:26%;width:120px" value="#{editarValoresComissaoMB.cambio}"  converter="CambioConverter">
+                        <f:selectItem itemLabel="Câmbio" itemValue="0"/> 
+                        <f:selectItems value="#{editarValoresComissaoMB.listaCambio}" var="cambio" itemLabel="#{cambio.moedas.sigla}" itemValue="#{cambio}"/>
+                        <f:attribute name="listaCambio" value="#{editarValoresComissaoMB.listaCambio}"/>
+                        <p:ajax event="change" update="cambiodia, valormoeda"/>
+                    </p:selectOneMenu>
+                    <p:inputText id="cambiodia" style="margin-left:34%;width:52%;text-align:right" readonly="true" value="#{editarValoresComissaoMB.cambio.valor}">
+                        <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                        <p:ajax event="change" />
+                   </p:inputText>
+                    <p:inputText id="valormoeda" value="#{editarValoresComissaoMB.valorMoeda}" style="margin-left:29%;width:52%;text-align: right" >
+                       <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                       <p:ajax event="blur"  update="novovalormoeda" listener="#{editarValoresComissaoMB.iniciarCalculo()}"/>
+                    </p:inputText>
+                    <p:inputText id="novovalormoeda" style="margin-left:22%;width:69%;text-align: right" value="#{editarValoresComissaoMB.novoValorMoeda}">
+                       <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                   </p:inputText>
+                    </h:panelGrid>
+                   <legend id="iUsu3" style="font-size: 14px;border-color: #000;"><b>Manual</b></legend>
+                   <p:outputLabel value="Novo Valor" for="valormanual" style="margin-left:81%;"/>
+                
+                <br></br>
+                <p:radioButton id="opt3" for="oneRadioEditar" itemIndex="3" />
+                <p:inputText id="valormanual" style="margin-left:79%;width:15%;text-align: right" value="#{editarValoresComissaoMB.novoValorManual}">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                    <p:ajax event="blur" listener="#{editarValoresComissaoMB.iniciarCalculo()}"/>
+                </p:inputText>
+                
+                <br></br><br></br><br></br>
+                <p:commandButton value="Confirmar" icon=" ui-icon-check" action="#{editarValoresComissaoMB.confirmar()}" style="margin-left:70%"/>
+                <p:commandButton value="Cancelar" icon="ui-icon-closethick" action="#{editarValoresComissaoMB.cancalar()}" style="margin-left:3%"/>
+        </h:form>   
+         
+    </h:body>
+</html>

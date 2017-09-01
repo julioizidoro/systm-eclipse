@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaFornecedorCadastrado" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<legend id="iUsu2">
+					<b>Parceiros Cadastrados</b>
+				</legend>         
+				<h:panelGrid columns="1" style="width:30%;margin-left:1%;">
+					<p:outputLabel value="Produto" for="produto" style="font-size:14px;color:#495B6C;" />
+					<p:selectOneMenu id="produto"
+						value="#{consultaFornecedoresCadastradosMB.produtos}"
+						style="width:65%;"
+						converter="ProdutoConverter" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+						<f:selectItems id="idproduto"
+							value="#{consultaFornecedoresCadastradosMB.listaProgramas}" var="produtoSelecionado"
+							itemLabel="#{produtoSelecionado.descricao}" itemValue="#{produtoSelecionado}" />
+						<f:attribute name="listaProdutos" value="#{consultaFornecedoresCadastradosMB.listaProgramas}" />
+						<p:ajax event="change" listener="#{consultaFornecedoresCadastradosMB.habilitarCampos()}"
+							update=":consultaFornecedorCadastrado:painelDados"/>
+					</p:selectOneMenu>
+				</h:panelGrid>    
+				<hr  style="width:98.7%;margin-left:1%;color:#ccc9;border-top-color: #cc;border-bottom-color: #c;"></hr>
+				<br></br>
+				<h:panelGrid columns="4" id="painelDados"
+					columnClasses="tamanho7,tamanho7,tamanho8,tamanho8"  
+					style="width:93%;margin-left:1%;">
+					<p:outputLabel value="País" for="pais" style="font-size:11px;" />
+					<p:outputLabel value="Cidade" for="cidade" style="font-size:11px;" />
+					<h:panelGroup>
+						<p:outputLabel value="Parceiros" for="escolas"
+							style="font-size:11px;" />
+						<p:outputLabel value="Nº de Estrelas"
+							style="font-size:11px;margin-left:28%;" />
+					</h:panelGroup>
+					<p:outputLabel value="Produtos" for="produtos"
+						style="font-size:11px;" />
+					<h:panelGroup>
+						<p:selectOneMenu id="pais" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+							value="#{consultaFornecedoresCadastradosMB.pais}"
+							style="width:160px;font-size:11px;"
+							converter="PaisProdutoConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais"  
+								value="#{consultaFornecedoresCadastradosMB.listaPais}"
+								var="pais" itemLabel="#{pais.pais.nome}" itemValue="#{pais}" />
+							<f:attribute name="listaPaisProduto"
+								value="#{consultaFornecedoresCadastradosMB.listaPais}" />
+							<p:ajax event="change"
+								listener="#{consultaFornecedoresCadastradosMB.selecionarPaisComboBox()}"
+								update="growl, idTabelaPais,cidade, idTabelaCidade,idTabelaProdutos, idTabelaEscola" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="cidade" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+							value="#{consultaFornecedoresCadastradosMB.cidade}"
+							style="width:160px;font-size:11px;" class="espacocampos2"
+							converter="CidadePaisProdutoConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcidade"
+								value="#{consultaFornecedoresCadastradosMB.listaCidade}"
+								var="cidade" itemLabel="#{cidade.cidade.nome}" itemValue="#{cidade}" />
+							<f:attribute name="listaCidadePaisProduto"
+								value="#{consultaFornecedoresCadastradosMB.listaCidade}" />
+							<p:ajax event="change"
+								listener="#{consultaFornecedoresCadastradosMB.selecionarCidadeComboBox()}"
+								update="growl, idTabelaPais, pais,escolas, idTabelaCidade,produtos, idTabelaProdutos, idTabelaEscola" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup id="painelescolas">
+						<p:selectOneMenu id="escolas" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+							value="#{consultaFornecedoresCadastradosMB.fornecedor}"
+							style="width:170px;font-size:11px;" class="espacocampos2"
+							converter="FornecedorConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{consultaFornecedoresCadastradosMB.listaFornecedor}"
+								var="fornecedor" itemLabel="#{fornecedor.nome}"
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedor"
+								value="#{consultaFornecedoresCadastradosMB.listaFornecedor}" />
+							<p:ajax event="change"
+								listener="#{consultaFornecedoresCadastradosMB.gerarListaPaisFornecedor()}"
+								update="growl, idTabelaPais, pais,cidade, idTabelaCidade,produtos, idTabelaProdutos, idTabelaEscola, painelescolas" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="estrelaBean" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+							value="#{consultaFornecedoresCadastradosMB.estrela}"
+							style="width:170px;margin-left:3%;" converter="EstrelaConverter"
+							var="e">
+							<f:selectItems
+								value="#{consultaFornecedoresCadastradosMB.listaEstrela}"
+								var="estrelas" itemValue="#{estrelas}"
+								itemLabel="#{estrelas.numero}" />
+							<p:column style="width:10%">
+								<img src="#{e.caminho}" width="#{e.tamanho}" />
+							</p:column>
+							<f:attribute name="listaEstrela"
+								value="#{consultaFornecedoresCadastradosMB.listaEstrela}" />
+							<p:ajax event="change"
+								listener="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidade()}"
+								update="growl, idTabelaPais, pais,cidade, idTabelaCidade,produtos, idTabelaProdutos, idTabelaEscola, painelescolas" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="produtos" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+							value="#{consultaFornecedoresCadastradosMB.produtosorcamento}"
+							style="width:210px;font-size:11px;" class="espacocampos2"
+							converter="OrcamentoProdutoConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idprodutos"
+								value="#{consultaFornecedoresCadastradosMB.listaProdutos}"
+								var="produtoOrcamento" itemLabel="#{produtoOrcamento.descricao}"
+								itemValue="#{produtoOrcamento}" />
+							<f:attribute name="listaProdutosOrcamento"
+								value="#{consultaFornecedoresCadastradosMB.listaProdutos}" /> 
+							<p:ajax event="change"
+								listener="#{consultaFornecedoresCadastradosMB.gerarListaPaisProduto()}"
+								update="growl, idTabelaPais, pais,cidade, idTabelaCidade, escolas, idTabelaProdutos, idTabelaEscola" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+
+					<p:dataTable id="idTabelaPais" var="pais" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+						value="#{consultaFornecedoresCadastradosMB.listaTabelaPais}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-right:20px;margin-top:11px;"
+						selectionMode="single"
+						selection="#{consultaFornecedoresCadastradosMB.pais}"
+						rowKey="#{pais.idpaisproduto}">
+						<p:ajax event="rowSelect"
+							listener="#{consultaFornecedoresCadastradosMB.gerarListaCidade()}"
+							update="consultaFornecedorCadastrado:idTabelaCidade, consultaFornecedorCadastrado:growl, consultaFornecedorCadastrado:cidade" />
+						<p:column headerText="Pais" style="width:120px;"
+							styleClass="alinharCenter">
+							<p:outputLabel value="#{pais.pais.nome}" />
+						</p:column>
+						<p:column style="width:43px;">
+							<p:commandLink id="btnPais"
+								action="#{consultaFornecedoresCadastradosMB.selecionarPais(pais)}"
+								onclick="PF('descricaoPais').show();"
+								title="Descrição do País Selecionado"
+								update="consultaFornecedorCadastrado:campoDescricaoPais">
+								<img src="../../resources/img/boletoFicha.png"  width="25"/>
+							</p:commandLink>
+						</p:column>
+						<p:column style="width:43px;">
+							<p:commandLink id="btnDocumentoVisto" title="Documentação de Visto"
+								disabled="#{consultaFornecedoresCadastradosMB.habilitarDocumentosVisto(pais)}">
+								<a title="Abrir Documentação de Visto."
+									href="http://#{consultaFornecedoresCadastradosMB.ftpdados.host}:82/ftproot/systm/documentovisto/#{pais.pais.documentovisto}"
+									target="_blank" style="text-decoration: none; color: white; font-size: 18px;" type="button"> 
+									<img src="../../resources/img/arquivosUpload.png" width="25" />
+								</a>
+							</p:commandLink>
+						</p:column>   
+					</p:dataTable>
+					<p:dataTable id="idTabelaCidade" var="cidade" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+						value="#{consultaFornecedoresCadastradosMB.listaTabelaCidade}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-right:20px;margin-top:11px;"
+						selectionMode="single" selection="#{consultaFornecedoresCadastradosMB.cidade}"
+						rowKey="#{cidade.idcidadepaisproduto}">
+						<p:ajax event="rowSelect"
+							listener="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidade()}"
+							update="consultaFornecedorCadastrado:idTabelaEscola,consultaFornecedorCadastrado:idTabelaProdutos, consultaFornecedorCadastrado:growl" />
+						<p:column headerText="Cidade" style="width:150px;"
+							styleClass="alinharCenter">
+							<p:outputLabel value="#{cidade.cidade.nome}" />
+						</p:column>
+					</p:dataTable>
+					<p:dataTable id="idTabelaEscola" var="escolas" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+						value="#{consultaFornecedoresCadastradosMB.listaFornecedorCidade}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-right:20px;margin-top:11px;"
+						selectionMode="single"
+						selection="#{consultaFornecedoresCadastradosMB.fornecedorCidade}"
+						rowKey="#{escolas.idfornecedorcidade}">
+						<p:ajax event="rowSelect"
+							listener="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidadeIdiomaProduto()}"
+							update="consultaFornecedorCadastrado:idTabelaProdutos, consultaFornecedorCadastrado:growl" />
+						<p:column headerText="Parceiro" style="width:150px;">
+							<p:outputLabel value="#{escolas.fornecedor.nome}" />
+						</p:column>
+						<p:column headerText="Categoria"
+							style="text-align:center;width:140px">
+							<p:dataScroller
+								value="#{consultaFornecedoresCadastradosMB.retornarListaImagem(escolas)}"
+								var="tmstar">
+								<img src="#{tmstar.imagem}" width="15" />
+							</p:dataScroller>
+						</p:column>
+						<p:column style="width:41px;">
+							<p:commandLink id="btnEscola"
+								action="#{consultaFornecedoresCadastradosMB.selecionarFornecedorCidade(escolas)}"
+								onclick="PF('descricaoEscolaCidade').show();"
+								title="Descrição Escola"
+								update="consultaFornecedorCadastrado:campoDescricaoEscolaCidade">
+								<img src="../../resources/img/boletoFicha.png" width="25"/>
+							</p:commandLink>
+						</p:column>
+						<p:column style="width:41px;">
+							<p:commandLink id="btnEscolaArquivo"
+								action="#{consultaFornecedoresCadastradosMB.documentosFornecedor(escolas)}"
+								title="Documentos">
+								<img src="../../resources/img/arquivosUpload.png" width="25"/>
+							</p:commandLink>
+						</p:column>
+						<p:column style="width:41px;">
+							<p:commandLink id="btnGuia"
+								action="#{consultaFornecedoresCadastradosMB.guia(escolas)}"
+								title="Guia"
+								disabled="#{consultaFornecedoresCadastradosMB.habilitarGuia(escolas)}">
+								<img src="../../resources/img/guiaescolas.png" width="25"/>
+							</p:commandLink>
+						</p:column>
+						<p:column style="width:43px;">
+							<p:commandLink id="btnDepoimentos"
+								action="#{consultaFornecedoresCadastradosMB.depoimentos(escolas)}"
+								title="Depoimentos">
+								<img src="../../resources/img/depoimentos.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+					<p:dataTable id="idTabelaProdutos" var="produtos" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
+						value="#{consultaFornecedoresCadastradosMB.listaTabelaProduto}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-top:11px;">
+						<p:column headerText="Produtos" style="width:180px;"
+							styleClass="alinharCenter">
+							<p:outputLabel value="#{produtos.produtosorcamento.descricao}" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</div>
+			<br></br>
+			<p:dialog id="dialogPais" showEffect="fade" hideEffect="fade"
+				icon="ui-icon-alert" widgetVar="descricaoPais"
+				style="width:68%;font-size:14px" closable="false">
+				<p:outputLabel value="Descrição" />
+				<br></br>
+				<p:inputTextarea id="campoDescricaoPais"
+					value="#{consultaFornecedoresCadastradosMB.pais.pais.texto}" cols="67"
+					rows="5" readonly="true" />
+				<br></br>
+				<br></br>
+				<div align="right">
+					<p:commandButton value="Fechar"
+						oncomplete="PF('descricaoPais').hide();"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+						style="font-size:11px" />
+				</div>
+				<br></br>
+			</p:dialog>
+			<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
+				widgetVar="descricaoEscolaCidade" style="width:68%;font-size:14px"
+				closable="false">
+				<p:outputLabel value="Descrição" />
+				<br></br>
+				<p:inputTextarea id="campoDescricaoEscolaCidade"
+					value="#{consultaFornecedoresCadastradosMB.fornecedorCidade.texto}"
+					cols="67" rows="5" readonly="true" />
+				<br></br>
+				<br></br>
+				<div align="right">
+					<p:commandButton value="Fechar"
+						oncomplete="PF('descricaoEscolaCidade').hide();"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+						style="font-size:11px" />
+				</div>
+				<br></br>
+			</p:dialog>
+			<style>
+.ui-datascroller .ui-datascroller-content {
+	padding: 0;
+	background: transparent;
+	border: none;
+}
+
+.ui-datascroller .ui-datascroller-item {
+	border: 0 none;
+	display: inline;
+}
+</style>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

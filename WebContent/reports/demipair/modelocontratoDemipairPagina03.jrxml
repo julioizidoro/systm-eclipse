@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.683013455365071"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="191"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="a0975db4-519b-40bd-8ae1-35ec936a4cca"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="723" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="75" width="553" height="576" uuid="9e27b4b6-84dc-45b7-8ad0-b5627df706c0"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="14" width="553" height="696" uuid="25a18fe4-e3cb-4091-aac9-501ef5159ae7"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["7. PASSAGEM AÉREA \n"+
+"7.1 No que se refere à passagem aérea, fica a critério do PARTICIPANTE a sua aquisição, podendo ser efetuada com a TM ou diretamente com a companhia aérea que melhor se adequar a seu roteiro ou ainda com qualquer empresa de turismo que disponibilize a emissão de passagens. \n"+
+"7.2 O PARTICIPANTE declara, pela assinatura deste instrumento, ter ciência de que deverá obedecer a todas as normas referentes ao transporte aéreo internacional, bem como ter conhecimento de ser da Companhia Aérea contratada a responsabilidade referente à prestação deste serviço. \n \n"+
+
+"Parágrafo 1º: O PARTICIPANTE, após a emissão do bilhete, deverá observar todos os procedimentos referentes à categoria de sua passagem, de acordo com as regras do transporte aéreo e do contrato efetuado com a Companhia Aérea, observando, quando houver, cláusulas especiais referentes ao seu tipo de bilhete, especialmente no tocante ao endosso, reembolso, multas por cancelamento, remarcação, reitineração e limite de peso da bagagem; \n \n"+
+
+"Parágrafo 2º: O PARTICIPANTE deverá seguir os procedimentos indicados oportunamente pela TM para efetuar a marcação ou qualquer alteração em sua passagem aérea, sujeitando-se à disponibilidade na mesma classe tarifária, bem como às taxas de remarcação, cancelamento e reitineração estabelecidas pelas companhias aéreas. \n \n"+
+
+"8. REGRAS GERAIS E OBSERVAÇÕES \n"+
+"8.1 A Travelmate não é responsável pela obtenção do visto de entrada no país em questão, mesmo quando esta intermedie o processo de solicitação do mesmo. O cancelamento do programa por parte da/do participante devido à não obtenção do visto de entrada do país escolhido, está sujeito às regras de cancelamento já mencionadas. \n"+
+"8.2 A despesa de obtenção do visto, seguros, passagens aéreas, taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o traslado entre o aeroporto e a acomodação não estão incluídos no valor do programa pago à Travelmate, salvo quando especificado no programa. \n"+
+"8.3 A passagem aérea deverá ser adquirida pela(o) participante conforme as datas do programa informadas pelo parceiro internacional. A Travelmate poderá auxiliar com a reserva da passagem aérea tarifa de estudante, caso seja de interesse da(o) participante. \n"+
+"8.4 No momento do preechimento da Ficha de Inscrição, “Application Form” do programa e demais documentos, a/o participante deverá colocar todas as suas preferências em relação à família e suas características pessoais. Quanto mais solicitações específicas (em relaçao a localização, família, número e idade dos filhos) maiores serão as chances de demora no processo de colocação numa família adequada. O processo de colocação e embarque leva entre 2 e 9 meses contados a partir da entrega de todos os documentos solicitados pela Travelmate, porém este prazo depende das preferências determinadas por parte da/do participante, país de escolha para a realização do programa e de seu perfil.  Desta forma, o processo poderá demorar mais do que 2 meses, dependendo de cada caso, não havendo um limite mínimo ou máximo de tempo para a colocação da/do participante. Quanto maior a qualificação da/do participante e menor forem suas solicitações específicas, menos tempo levará o processo de colocação em uma família. Cabe a/ao participante a escolha final da família, visto que esta(e) receberá ligações, solicitações de famílias interessadas que poderão ser aceitas ou não por parte da/do participante. Caso a/o participante recuse mais de 2 familias, o parceiro internacional poderá cancelar sua vaga sem nenhum reembolso. \n"+
+"8.5 O cumprimento da oferta de trabalho estabelecida entre participante e família depende de fatores variáveis e imprevisíveis. Definição e alterações das atividades, carga horária de trabalho e salário previamente determinadas, devem ser negociados entre participante e família hospedeira, desde que dentro das regras do programa. Isto não é de responsabilidade da Travelmate e do parceiro internacional contratado. \n"+
+"8.6 No período que compreende aos 30 (trinta) primeiros dias após a chegada da/do participante à casa da família hospedeira, as caracterísitcas originais do programa em termos de horas de trabalho e funções podem ser diferentes do previsto no contrato, pois este período é considerado de adaptação/treinamento, e isto não é responsabilidade da Travelmate e parceiro internacional contratado. \n"+
+"8.7 Se por qualquer motivo a/o participante precisar mudar de família já estando no país de destino, as características da nova família, cidade e estado poderão ser diferentes daquelas previamente descritas na oferta de trabalho inicialmente oferecida. No caso de haver tal mudança, não há garantia de manutenção das características da família original, sendo que a/o participante será alocada (o) numa família adequada ao seu perfil de acordo com as possibilidades de recolocação do parceiro internacional. O custeio das despesas referente a mudança de vaga, ficam a encargo da/do participante. \n" +
+"8.8 Após sua chegada no país de destino, a/o participante deverá cumprir as regras de chegada (orientação com o coordenador ou “check-in”, por exemplo) estabelecidas pelo programa em questão. O não cumprimento desta regra pode provocar o desligamento da/o participante perante o programa. Neste caso, a/o participante terá seu visto cancelado e deverá deixar o País dentro do prazo estipulado pela (nome da escola). "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="628e6336-dc7f-4f59-8ddd-414d1d488408"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoDemipairPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

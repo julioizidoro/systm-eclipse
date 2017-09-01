@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/> 
+    </h:head> 
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadVoluntariadoProjeto" style="text-align:left;font-size: 10px;">
+             <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+            <title>Orçamento de Voluntariado - Produtos</title>    
+             <h:panelGrid columns="2" columnClasses="tamanhoavisos, tamanhoavisos" style="width:85%;margin-left:2%;">
+	            <p:outputLabel value="Dia Semana Inicial"/>
+	            <p:outputLabel value="Dia Semana Final"/>    
+	                
+	            <p:selectOneMenu value="#{cadVoluntariadoProjetoMB.voluntariadoprojeto.diasemanainicial}" style="width:80%;"  >
+	                <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/> 
+	                <f:selectItem itemLabel="Domingo" itemValue="0" /> 
+	                <f:selectItem itemLabel="Segunda-Feira" itemValue="1" /> 
+	                <f:selectItem itemLabel="Terça-Feira" itemValue="2" /> 
+	                <f:selectItem itemLabel="Quarta-Feira" itemValue="3" /> 
+	                <f:selectItem itemLabel="Quinta-Feira" itemValue="4" /> 
+	                <f:selectItem itemLabel="Sexta-Feira" itemValue="5" /> 
+	                <f:selectItem itemLabel="Sábado" itemValue="6" /> 
+	            </p:selectOneMenu>
+	            <p:selectOneMenu value="#{cadVoluntariadoProjetoMB.voluntariadoprojeto.diasemanafinal}" style="width:80%;"  >
+	                <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/> 
+	                <f:selectItem itemLabel="Domingo" itemValue="0" /> 
+	                <f:selectItem itemLabel="Segunda-Feira" itemValue="1" /> 
+	                <f:selectItem itemLabel="Terça-Feira" itemValue="2" /> 
+	                <f:selectItem itemLabel="Quarta-Feira" itemValue="3" /> 
+	                <f:selectItem itemLabel="Quinta-Feira" itemValue="4" /> 
+	                <f:selectItem itemLabel="Sexta-Feira" itemValue="5" /> 
+	                <f:selectItem itemLabel="Sábado" itemValue="6" /> 
+	            </p:selectOneMenu>
+	        </h:panelGrid><br></br>
+            <p:outputLabel value="Descrição" for="descricao" style="margin-left: 2%"/>
+            <br></br>
+            <p:inputTextarea value="#{cadVoluntariadoProjetoMB.voluntariadoprojeto.descricao}" id="descricao" rows="3" cols="87" class="espacocobranca29"  title="descrição do voluntariado"/>
+            <br></br><br></br>   
+            <p:outputLabel value="Transfer" for="transfer" style="margin-left:2%"/>
+            <br></br>
+           <p:inputTextarea id="transfer" value="#{cadVoluntariadoProjetoMB.voluntariadoprojeto.transfer}" rows="2" cols="87" class="espacocobranca29" />
+	        <br></br><br></br>
+            <div align="center">
+                <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cadVoluntariadoProjetoMB.salvar()}" update="growl"/>
+                <p:commandButton icon="ui-icon-close" value="Cancelar" action="#{cadVoluntariadoProjetoMB.cancelar()}" style="margin-left:2%;"/>
+            </div>  
+        </h:form>     
+    </h:body>
+</html>

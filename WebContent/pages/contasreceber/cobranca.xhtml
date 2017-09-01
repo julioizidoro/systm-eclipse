@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telacobranca" style="font-size:11px;">
+			<div id="centro">
+				<div style="margin-left: 5%; width: 95%;">
+					<br></br>
+					<p:outputLabel value="Nº Venda" class="" />
+					<p:outputLabel value="Data Venda" style="margin-left: 15%" />
+					<p:outputLabel value="Unidade" style="margin-left: 15%" />
+					<p:outputLabel value="Data Inicio" for="data"
+						style="margin-left:25%" />
+					<br></br>
+					<p:inputText value="#{cobrancaMB.venda.idvendas}" style="width:14%"
+						class="espacocobranca" readonly="true" />
+					<p:inputText value="#{cobrancaMB.venda.dataVenda}"
+						style="margin-left: 7%;" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputText>
+					<p:inputText
+						value="#{cobrancaMB.venda.unidadenegocio.nomeFantasia}"
+						style="width:26%;margin-left:5.5%" readonly="true" />
+					<p:inputText id="data" value="#{cobrancaMB.dataInicio}"
+						title="Data Inicial" style="margin-left:3.5%" size="10" />
+					<br></br> <br></br>
+					<p:selectBooleanCheckbox id="digitosTelefone1"
+						value="#{cobrancaMB.digitosTelefone1}" style="margin-left:63.3%;">
+						<p:ajax update="telefone" />
+					</p:selectBooleanCheckbox>
+					<h:outputText value="9 Digitos"
+						style="margin-left:1%;font-size:11px;" />
+					<br></br>
+					<p:outputLabel value="Nome" class="" />
+					<p:outputLabel value="Consultor" class="espacocobranca32" />
+					<p:outputLabel value="Fone Contato" style="margin-left: 22.5%" />
+					<br></br>
+
+					<p:inputText value="#{cobrancaMB.venda.cliente.nome}"
+						style="width: 33%" class="espacocobranca" readonly="true" />
+					<p:inputText value="#{cobrancaMB.venda.usuario.nome}"
+						style="width: 26%;margin-left: 2.3%;" class="espacocobranca4"
+						readonly="true" />
+					<p:inputMask id="telefone" mask="#{cobrancaMB.validarTelefone1()}"
+						value="#{cobrancaMB.cobranca.fone}"
+						style="width:18%;margin-left: 2%;" class="espacocobranca4" />
+					<br></br> <br></br>
+					<p:selectBooleanCheckbox id="digitosTelefone2"
+						value="#{cobrancaMB.digitosTelefone2}">
+						<p:ajax update="telefone2" />
+					</p:selectBooleanCheckbox>
+					<h:outputText value="9 Digitos"
+						style="margin-left:1%;font-size:11px;" />
+					<br></br>
+					 
+					<h:panelGrid columns="5" columnClasses="tamanhoavisos2, tamanhoavisos,tamanhoavisos2,
+							tamanhoavisos2,tamanhoavisos2" style="width:90%;">
+						<p:outputLabel value="Telefone" class="" />
+						<p:outputLabel value="Email"/>
+						<p:outputLabel value="Status da Cobrança"  />
+						<p:outputLabel/>
+						<p:outputLabel/>
+						
+						<p:inputMask id="telefone2"
+							mask="#{cobrancaMB.validarTelefone2()}"
+							value="#{cobrancaMB.cobranca.fone2}" style="width:75%" />
+						<p:inputText value="#{cobrancaMB.cobranca.email}"
+							style="width:90%;"  />
+						<p:selectOneMenu id="statusCobranca"
+							value="#{cobrancaMB.venda.statuscobranca}"
+							style="width:90%;font-size:10px;">
+							<f:selectItem itemLabel="Dentro do Prazo" itemValue="p" />
+							<f:selectItem itemLabel="Urgente" itemValue="u" />
+							<f:selectItem itemLabel="Alta Prioridade" itemValue="a" />
+						</p:selectOneMenu>
+						<p:commandButton value="Salvar" icon="ui-icon-check"
+							action="#{cobrancaMB.salvarFoneCobranca()}"
+							class="espacocobranca3botao" title="Gravar Telefone"/>
+						<p:commandButton value="Parcelas" icon="ui-icon-bullet"
+							update=":parcelasform:dialog_parcelas"
+							oncomplete="PF('parcelas').show()" class="espacocobranca3botao"
+							title="Todas as Parcelas da Venda."/>
+					</h:panelGrid>
+					<br></br> <br></br>
+
+					<p:contextMenu for="tabelacobranca">
+						<p:menuitem value="Alterar Historico" icon=" ui-icon-pencil"
+							action="#{cobrancaMB.editarHistorico()}"
+							update=":editarcobrancaform:dialog_editar"
+							oncomplete="PF('editarhistorico').show()" />
+						<p:menuitem value="Novo Historico" icon="ui-icon-plus"
+							action="#{cobrancaMB.novoHistorico()}"
+							update=":cobrancaform:dialog_novo"
+							oncomplete="PF('historico').show()" />
+					</p:contextMenu>
+					<p:dataTable id="tabelacobranca" var="cobranca"
+						value="#{cobrancaMB.listaHistorico}" 
+						scrollable="true" scrollHeight="200"
+						style="margin-bottom:20px;font-size: 10px;width:95%;"
+						selection="#{cobrancaMB.historico}" selectionMode="single"
+						rowKey="#{cobranca.idhistoricocobranca}">
+
+						<p:column headerText="Data" style="width:110px">
+							<h:outputText value="#{cobranca.data}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Contato" style="width:180px">
+							<h:outputText value="#{cobranca.contato}" />
+						</p:column>
+						<p:column headerText="Assunto">
+							<h:outputText value="#{cobranca.assunto}" />
+						</p:column>
+						<p:column headerText="Usuário" style="width:180px">
+							<h:outputText value="#{cobranca.usuario.nome}">
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+					<p:commandButton value="Voltar" icon="ui-icon-arrowreturnthick-1-w"
+						action="#{cobrancaMB.cancelar()}" style="margin-left:40%" />
+					<p:commandButton value="Novo Historico" icon="ui-icon-plus"
+						action="#{cobrancaMB.novoHistorico()}"
+						update=":cobrancaform:dialog_novo"
+						oncomplete="PF('historico').show()" style="margin-left:5%" />
+					<br></br> <br></br>
+				</div>
+			</div>
+		</h:form>
+		<h:form id="cobrancaform">
+			<p:dialog id="dialog_novo" header="Novo Historico"
+				widgetVar="historico" width="30%" class="dialog2"
+				style="background:#d0e9c6">
+				<p:outputLabel value="Contato" for="contato"
+					class="espacocobranca28" style="font-size: 11px" />
+				<p:outputLabel value="Data" for="data" class="espacocobranca37"
+					style="font-size: 11px" />
+				<br></br>
+				<p:inputText id="contato" size="34" maxlength="100"
+					class="espacocobranca28" value="#{cobrancaMB.historico.contato}" />
+				<p:calendar id="data" size="16" maxlength="100"
+					class="espacocampos6" value="#{cobrancaMB.historico.data}"
+					locale="pt" pattern="dd/MM/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				<br></br>
+				<br></br>
+				<p:outputLabel value="Assunto" for="assunto"
+					class="espacocobranca28" style="font-size: 11px" />
+				<p:inputTextarea id="assunto" rows="4" cols="60"
+					class="espacocobranca28" value="#{cobrancaMB.historico.assunto}" />
+				<br></br>
+				<br></br>
+				<p:commandButton value="Confirmar" icon="ui-icon-check"
+					actionListener="#{cobrancaMB.salvarHitorico()}"
+					style="margin-left: 25%" onclick="historico.hide();" update="@all" />
+				<p:commandButton value="Cancelar" icon="ui-icon-close"
+					class="espacocampos" onclick="historico.hide();"
+					update=":cobrancaform:dialog_novo" />
+			</p:dialog>
+		</h:form>
+		<h:form id="parcelasform">
+			<p:dialog id="dialog_parcelas" header="Parcelas" widgetVar="parcelas"
+				width="80%" style="background:#d0e9c6">
+				<p:dataTable id="tabelacontasRecebe" var="contasrecebe"
+					value="#{cobrancaMB.listaContas}" class="tabela" scrollable="true"
+					scrollHeight="300" style="margin-bottom:20px">   
+					<p:column headerText="Situação"
+						style="width:80px;text-align: right">
+						<p:graphicImage value="#{contasrecebe.bolinhas.caminho}"
+							style="margin-right: 25%; font-size: 12px;" />
+					</p:column>
+					<p:column headerText="Nº Documento" style="width:70px;">
+						<p:outputLabel value="#{contasrecebe.numerodocumento}" />
+					</p:column>
+					<p:column headerText="ID Vendas" style="width:70px;"
+						sortBy="#{contasrecebe.vendas.idvendas}">
+						<p:outputLabel value="#{contasrecebe.vendas.idvendas}" />
+					</p:column>
+					<p:column headerText="Cliente" styleClass="alinharCenter"
+						sortBy="#{contasrecebe.vendas.cliente.nome}">
+						<p:outputLabel value="#{contasrecebe.vendas.cliente.nome}" />
+					</p:column>
+					<p:column headerText="Nº Parcela" style="width:50px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{contasrecebe.numeroparcelas}" />
+					</p:column>
+					<p:column headerText="Valor" style="width:80px;text-align:right;">
+						<h:outputText value="#{contasrecebe.valorparcela}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Data de Vencimento" style="width:105px;"
+						styleClass="alinharCenter" sortBy="#{contasrecebe.datavencimento}">
+						<h:outputText value="#{contasrecebe.datavencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Tipo de Documento"
+						style="width:75px;text-align: center;" styleClass="alinharCenter">
+						<p:graphicImage
+							value="#{contasReceberMB.retornarTipoDocumento(contasrecebe)}"
+							title="#{contasReceberMB.titleTipoDocumento(contasrecebe)}" />
+					</p:column>
+					<p:column headerText="Data de Recebimento" style="width:105px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{contasrecebe.datapagamento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+				<br></br>
+				<br></br>
+				<p:commandButton value="Fechar" icon="ui-icon-close"
+					class="espacocampos" onclick="parcelas.hide();" />
+			</p:dialog>
+		</h:form>
+		<h:form id="editarcobrancaform">
+			<p:dialog id="dialog_editar" header="Editar Historico"
+				widgetVar="editarhistorico" width="30%" class="dialog2"
+				style="background:#d0e9c6">
+				<p:outputLabel value="Contato" for="contato"
+					class="espacocobranca28" style="font-size: 11px" />
+				<p:outputLabel value="Data" for="data" class="espacocobranca37"
+					style="font-size: 11px" />
+				<br></br>
+				<p:inputText id="contato" size="34" class="espacocobranca28"
+					value="#{cobrancaMB.historico.contato}" />
+				<p:calendar id="data" size="16" class="espacocampos6"
+					value="#{cobrancaMB.historico.data}" locale="pt"
+					pattern="dd/MM/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>  
+				<br></br>
+				<br></br>
+				<p:outputLabel value="Assunto" for="assunto"
+					class="espacocobranca28" style="font-size: 11px" />
+				<p:inputTextarea id="assunto" rows="4" cols="60"
+					class="espacocobranca28" value="#{cobrancaMB.historico.assunto}" />
+				<br></br>
+				<br></br>
+				<p:commandButton value="Confirmar" icon="ui-icon-check"
+					actionListener="#{historicoCobrancaMB.salvarEdicao(cobrancaMB.historico)}"
+					class="espacocobranca28" onclick="editarhistorico.hide();"  update=":telacobranca:tabelacobranca"/>
+				<p:commandButton value="Cancelar" icon="ui-icon-close"  
+					class="espacocampos" onclick="editarhistorico.hide();"    
+					update=":editarcobrancaform:dialog_editar" />
+			</p:dialog>  
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

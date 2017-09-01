@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHePagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="204"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="311" y="11" width="243" height="57" uuid="9ff198f2-00d3-4973-b8be-f6cd9e3a6cb6"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="401" splitType="Stretch">
+			<image>
+				<reportElement x="8" y="12" width="568" height="342" uuid="59edc473-0ce1-4302-85c0-b13c1bb5bca6"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="65" y="203" width="184" height="13" uuid="51fdd288-07c9-491f-9b44-a69092720c56"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{cidadeunidadeNegocio} + ", "]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="251" y="203" width="215" height="13" uuid="abd76dc5-f61b-4911-9d02-dec8561536f6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="22" y="313" width="366" height="14" uuid="375c85e5-9e89-47d7-9218-5ac175e2e24f"/>
+				<text><![CDATA[Assinatura do responsável (aquele que responde pelo participante no Brasil)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="22" y="259" width="386" height="1" backcolor="#000000" uuid="9393e326-10f3-436a-be30-7beafe5e563c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="22" y="310" width="386" height="1" backcolor="#000000" uuid="38550acc-abb9-43d5-8e9c-4e7f16fe10c1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="22" y="264" width="149" height="14" uuid="b8e8db97-62c8-4ea7-b54a-0f02b7528587"/>
+				<text><![CDATA[Assinatura do(a) Participante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="300" width="113" height="13" uuid="83ddc77d-0510-482b-bcfc-b8c84166f435"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="247" width="113" height="13" uuid="6d66fc73-db6c-451d-b9a1-c7feb4fa25b1"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="22" y="366" width="386" height="1" backcolor="#000000" uuid="137bcc48-8dfc-4e70-b45e-ec9af960d43c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="441" y="354" width="113" height="13" uuid="4091615c-6ca7-4223-9c49-8d5d9d8e3549"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="12" width="552" height="176" uuid="174a510e-7203-4f63-b246-caa4030848d2"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["7. DISPOSIÇÕES GERAIS \n"+
+"7.1. Este contrato terá sua vigência iniciada na data de sua assinatura pelas partes e seus representantes legais, extinguindo-se ordinariamente por ocasião do retorno do INTERCAMBISTA ao seu país de origem, desligamento do college canadense ou extraordinariamente nos casos das cláusulas 5 e 6 supra. \n"+
+"7.2. A legislação brasileira deverá ser aplicada para a interpretação deste instrumento, elegendo-se o foro da Comarca de Curitiba, Estado do Paraná, para dirimir quaisquer conflitos que possam advir durante o seu cumprimento. \n \n"+
+
+"Sendo que o INTERCAMBISTA e seus representantes legais afirmam estarem cientes dos termos deste contrato e seus anexos, concordando com as regras e condições para prestação dos serviços tal como proposto pela TRAVELMATE, celebram o presente contrato em 03 (três) vias de igual teor e forma, para um único fim."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="379" width="383" height="13" uuid="a0b30997-1721-4c1b-b769-9d4294398514"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["CNPJ/MF nº " + $F{cnpjunidadeNegocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="367" width="383" height="13" uuid="d9a52f01-d0ff-4e84-8e19-dff553c367b5"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{razaoSocial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

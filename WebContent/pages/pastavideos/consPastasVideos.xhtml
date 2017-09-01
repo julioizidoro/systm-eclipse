@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+    <h:form id="consultaPastasVideos">
+    			<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+        	  	 <br />
+    			<p:commandButton rendered="false" value="Adiconar Pasta" icon="ui-icon-plus" styleClass="btn btn-danger" action="#{pastaVideosMB.cadastroPastaVideos()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
+    				<p:ajax event="dialogReturn" listener="#{pastaVideosMB.retornoDialogNovo}" update="@form, growl"/>
+        	   	</p:commandButton>
+    			 <legend style="margin-left:1%; width:98%;"> 
+        	    	Pastas de Videos 
+        	     </legend>
+	           	<br/> 
+			<ui:repeat var="pastavideo"
+				value="#{pastaVideosMB.listaPastaVideo}" varStatus="status">
+				<div class="col-sm-6 col-md-3">
+					<p:commandLink style="float:right;" rendered="#{pastaVideosMB.verificarAcesso()}"  action="#{pastaVideosMB.editarPastaVideo(pastavideo)}"> 
+						<i class="fa fa-pencil"></i>
+						<p:ajax event="dialogReturn" listener="#{pastaVideosMB.retornoDialogEdicao}" update="@form, :consultaPastasVideos:growl"/>
+					</p:commandLink> 
+					<p:commandLink action="#{pastaVideosMB.videos(pastavideo)}">
+						<div
+							class="#{pastaVideosMB.posicaoInteracaoUiRepeat(status.index)}"
+							style="width: 95%; height: 150px; color: white;">
+							<h:outputLabel value="#{pastavideo.nome}" style="color:white;" />
+							<h2 class="m-top-none" style="color: white; font-size: 40px;"
+								id="userCount">
+								#{pastaVideosMB.retornarNumeroVideos(pastavideo)}
+								<h5 style="color: white;">Videos</h5>
+							</h2>
+							<div style="float: right; margin-top: -60px;">
+								<i> <img src="../../resources/img/iconeVideo.png"
+									alt="" width="60" height="60"
+									style="background: white; border-radius: 50px;" />
+								</i>
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+				<!-- /.col -->
+			</ui:repeat>
+			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      			<br /><br /><br /><br /><br /><br /><br />
+    	<h:outputScript name="/menu.js" />   
+		<h:outputScript name="/bootstrap/js/bootstrap.js" />
+		<h:outputScript name="/bootstrap/template/offcanvas.js" />	      
+    </h:form>
+    </ui:define>
+ </ui:composition>
+</html>

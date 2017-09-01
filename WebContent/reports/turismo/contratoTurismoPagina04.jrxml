@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoTurismoPagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT distinct vendas.dataVenda, vendas.idvendas
+FROM
+	vendas
+where
+	vendas.idvendas=$P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idvendas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="be06d067-b9ba-4d46-85e1-5b50db8d9706"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="717" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="6" width="555" height="706" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Parágrafo Primeiro: As acomodações dos hotéis variam muito, a critério e disponibilidade dos meios de hospedagem, o apartamento duplo poderá ter camas separadas ou de casal e o apartamento triplo ou quádruplo poderá ser constituído de cama dobrável, articulada ou sofá-cama, camas Queen ou King Size. Se necessário, para acomodação das pessoas excedentes, através de camas articuláveis, dobráveis ou sofá-cama, deverá o(a) CONTRATANTE, no ato da aquisição dos serviços, informar à TM, a fim de que esta verifique a disponibilidade perante o hotel contratado.
+
+Parágrafo Segundo: Conforme estabelecido pelo Regulamento Internacional de Hotelaria, a entrada(check in) nos apartamentos inicia-se as 15:00 e saída(check out) deverá ser feita até as 12:00 horas. O não cumprimento das regras internacionais implicará na cobrança de uma nova diária.Os horários de entrada e saída nos apartamentos dos hotéis, não podem variar em razão dos horários de voo (chegada ou partida). Havendo entrada antecipada ou saída posterior, quando disponíveis, deverá o(a) CONTRATANTE assumir os encargos (se houver), diretamente com o hotel.
+
+
+Parágrafo Terceiro: Nas ocasiões, em que por qualquer motivo, possam comprometer a execução dos serviços contratados, poderá aTM alterar os hotéis, devendo acomodar os passageiros em hotel de categoria similar ou superior ao contratado.
+
+Parágrafo Quarto: A TM orienta os clientes para que, as quantias em dinheiro maiores do que aquelas necessárias ao uso diário, documentos importantes, e demais objetos de alta estima ou valor, sejam guardados nos cofres dos hotéis. Na impossibilidade de uso dos cofres (pelo tamanho ou características dos objetos guardados), deverá o cliente informar, por escrito, o objeto (características, acessórios e valor) ao hotel, para que lhe seja facultada outra possibilidade de guarda, estando a TM exonerada de qualquer responsabilidade.
+
+Parágrafo Quinto: O(A)CONTRATANTE está ciente que hotel poderá solicitar o número de um cartão de crédito a fim de garantir eventuais danos patrimoniais e/ou despesas extra, restando claro que tal prática, comum a rede hoteleira de todo o mundo, não tem qualquer relação com o pagamento das diárias, não podendo em qualquer hipótese alegar falta de pagamento por parte da TM em razão de tal fato. Ademais, é de conhecimento do(a)CONTRATANTE que demais taxas decorrentes de serviços acessórios à hospedagem não estão inclusas no valor já pago por este, como por exemplo, estacionamento de veículo automotor, taxas não governamentais, Resort Fee, entre outras taxas que deverão ser pagas diretamente no hotel.
+
+10) DA ALIMENTAÇÃO — A alimentação ocorrerá de acordo com a modalidade contratada. O café da manhã, por exemplo, é comumente incluso nas diárias dos hotéis brasileiros. Na modalidade “meia pensão”, será disponibilizado ao cliente o café da manhã e outra refeição (podendo ser almoço ou jantar). Na modalidade “pensão completa”, é disponibilizado café da manhã, almoço e jantar. As refeições poderão ocorrer dentro do hotel ou em qualquer outro estabelecimento de igual nível. O café da manhã em hotéis internacionais, podem variar de acordo com o meio de hospedagem e os costumes locais. Não existe obrigatoriedade na quantidade e variedade de alimentos oferecidos nesta refeição.
+
+Parágrafo Único: Nos casos de dieta alimentar ou na exigência de qualquer item especial na alimentação, se faz necessário consulta prévia sobre a possibilidade de atendimento. Podendo nestes casos haver cobrança extra.
+
+11)  DOS SERVIÇOS DE TRASLADOS – são serviços regulares ou privativos de turismo, podendo ser compartido com outros passageiros (no caso do traslado regular), e serão realizados em veículos de tamanho proporcional ao número de pessoas. O(A)CONTRATANTE deverá comparecer para o início dos serviços no local e horário determinado, pois o transportador não poderá retardar o traslado somente para aguardá-lo(a), mesmo que o atraso se dê de forma justificada, como nas hipóteses de retenção por autoridades de imigração e alfândega, localização de bagagem, atraso de voo ou qualquer natureza. Nestes casos, o serviço não será realizado e não haverá qualquer reembolso do mesmo.
+
+12) DA RESCISÃO DO CONTRATO POR JUSTA CAUSA –   O presente contrato será rescindido por justa causa, mediante simples notificação a ser enviada ao(à) CONTRATANTE e sem direito a qualquer reembolso ou indenização, em caso de inadimplemento dos valores descritos no “Campo 3 – DESCRIÇÃO E VALORES”, e nos campos “VALOR DE PACOTE”, “TAXAS”, CÂMBIO” e principalmente “FORMA DE PAGAMENTO”, todos inseridos no referido “Campo 3” da Ficha de Inscrição anexa a este contrato.
+
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="12">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="11" uuid="e120ec14-856b-485a-b19d-c73dae003764"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idvendas">
+					<subreportParameterExpression><![CDATA[$P{idvendas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "contratoTurismoPagina05.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

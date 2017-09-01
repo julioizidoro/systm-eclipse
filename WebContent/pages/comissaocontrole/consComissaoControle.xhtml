@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="consLiberarComissao">
+                 <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                     <br></br>
+                     
+                     <legend id="iUsu2" ><b>Consulta Liberação de Comissão</b></legend> 
+                     <br/>
+                     <p:accordionPanel class="painel" activeIndex="-1" style="width:50%; margin-left:25%;">
+						<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+							title="Pesquisar">
+							<h:panelGrid columns="3"
+								style="width:90%;margin-left:2%;">
+								<p:outputLabel value="Unidade" for="unidade" />
+								<p:outputLabel value="Mes" for="mes" />
+								<p:outputLabel value="Ano" for="ano" />
+	
+								<p:selectOneMenu id="unidade" value="#{comissaoControleMB.unidadenegocio}"
+									style="width:200px;" converter="UnidadeNegocioConverter"
+									filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idunidade"
+										value="#{comissaoControleMB.listaUnidade}" var="sUnidade"
+										itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+									<f:attribute name="listaUnidade"
+										value="#{comissaoControleMB.listaUnidade}" />
+								</p:selectOneMenu>
+								<p:inputText id="mes" value="#{comissaoControleMB.mes}"
+									style="width:40px;" />
+								<p:inputText id="ano" value="#{comissaoControleMB.ano}"
+									style="width:60px;" />
+							</h:panelGrid> 
+							<br></br>
+							
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									action="#{comissaoControleMB.pesquisar()}" style="margin-left:50%;" update=":consLiberarComissao:tabelaLiberacaoComissao"/>
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									action="#{comissaoControleMB.limparPesquisa()}" update=":consLiberarComissao:tabelaLiberacaoComissao, mes, ano, unidade" />
+							<br></br>
+	
+						</p:tab>
+					</p:accordionPanel>
+					<br/>
+                     <div align="right" style="width:80%;margin-left:10%;">
+                   	     <p:commandButton value="Novo" icon="ui-icon-plus" action="#{comissaoControleMB.novaComissaoControle()}" class="corBotão">
+	                     	<p:ajax event="dialogReturn" listener="#{comissaoControleMB.retornarDialogNovo}" update=":consLiberarComissao:tabelaLiberacaoComissao"/>
+	                     </p:commandButton>
+                      </div>
+                     <br></br>
+                     <div align="right" style="width:80%;margin-left:10%;">
+	                     <p:dataTable id="tabelaLiberacaoComissao" var="liberacaocomissao"  value="#{comissaoControleMB.listaComissaoControle}"   
+	                                scrollable="true" scrollHeight="300" style="font-size:11px;margin-bottom:20px" >
+	                         
+	                        
+	                        <p:column headerText="Unidade" style="text-align:left;width:200px;">
+	                            <h:outputText value="#{liberacaocomissao.unidadenegocio.nomeFantasia}" />
+	                        </p:column>
+	                        <p:column headerText="Mês" style="width:60px;text-align:center;">
+	                            <h:outputText value="#{liberacaocomissao.mes}" />
+	                        </p:column>
+	                        <p:column headerText="Ano" style="width:60px;text-align:center;">
+	                            <h:outputText value="#{liberacaocomissao.ano}"/>
+	                        </p:column>
+	                        <p:column headerText="" style="font-size:12px;width:30px;" 
+									styleClass="alinharCenter">
+									<div title="Liberado?">
+										<p:selectBooleanCheckbox value="#{liberacaocomissao.situacao}">
+											<p:ajax event="change" listener="#{comissaoControleMB.liberarComissao(liberacaocomissao)}" update=":consLiberarComissao:growl"/>
+										</p:selectBooleanCheckbox>
+									</div>
+							</p:column>
+	                        <p:column  style="width:45px;text-align:center;" >
+	                          <p:commandLink  action="#{comissaoControleMB.editarComissaoControle(liberacaocomissao)}" title="Editar"> 
+	                          	<img src="../../resources/img/editaricon.png"  /> 
+	                          	<p:ajax event="dialogReturn" listener="#{comissaoControleMB.retornarDialogEditar}" update=":consLiberarComissao:tabelaLiberacaoComissao, :consLiberarComissao:growl"/>
+	                          </p:commandLink>
+	                        </p:column>
+	                        <p:column  style="width:45px;text-align:center;" >
+	                          <p:commandLink  action="#{comissaoControleMB.excluir(liberacaocomissao)}" update=":consLiberarComissao:tabelaLiberacaoComissao, :consLiberarComissao:growl" title="Editar"> 
+	                          	<img src="../../resources/img/excluir.png"  /> 
+	                          </p:commandLink>
+	                        </p:column>
+	                    </p:dataTable>
+                	</div>
+                    <br></br>
+                    <br></br>
+                </div>
+	                
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

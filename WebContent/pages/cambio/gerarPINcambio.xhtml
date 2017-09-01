@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;"> 
+	<h:form id="gerarPin"
+		style="text-align:left;font-size: 10px; margin-left: 7%; ">
+		<title>Gerar PIN</title>
+		<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%">
+		</p:outputLabel>
+		<br></br>
+		<p:selectOneMenu id="unidade" style="width:95%;margin-left:-1%"
+			value="#{gerarPinMB.unidadenegocio}"
+			converter="UnidadeNegocioConverter">
+			<f:selectItem itemLabel="Selecione" itemValue="0"
+				noSelectionOption="true" />
+			<f:selectItems value="#{gerarPinMB.listaUnidadeNegocio}"
+				var="unidade" itemLabel="#{unidade.nomerelatorio}"
+				itemValue="#{unidade}" />
+			<f:attribute name="listaUnidade"
+				value="#{gerarPinMB.listaUnidadeNegocio}" />
+			<p:ajax event="change"
+				listener="#{gerarPinMB.gerarListaConsultor()}"
+				update="consultor" />
+		</p:selectOneMenu>
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Consultor" for="consultor"
+			style="margin-left:-1%">
+		</p:outputLabel>
+		<br></br>
+		<h:panelGrid columns="2">
+			<p:selectOneMenu id="consultor" style="width:240px;margin-left:-1%"
+				value="#{gerarPinMB.usuario}" converter="UsuarioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{gerarPinMB.listaConsultor}"
+					var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+				<f:attribute name="listaUsuario"
+					value="#{gerarPinMB.listaConsultor}" />
+				<p:ajax event="change"/> 
+			</p:selectOneMenu>
+			<p:commandButton value="Gerar PIN" style="margin-left:43.4%" 
+				 icon="ui-icon-locked" action="#{gerarPinMB.gerarPIN()}" update=":gerarPin:pin"/>
+		</h:panelGrid>
+		<div align="center" style="width: 90%">  
+			<p:outputLabel  id="pin" value="#{gerarPinMB.numPin}" style="font-size:60px;color:#009356;"/>	
+		</div>  
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.5131581182307067"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Google Drive\\Desenvolvimento\\TravelMate\\SysTM\\SysTM\\src\\telas\\Work\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="720" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="63" width="542" height="604" uuid="aab8a509-90a1-4ab4-bc5e-6cf9b5b8b210"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="293" width="30" height="14" uuid="78a5340a-bb0f-4c53-8595-78b8fd26529c"/>
+				<text><![CDATA[6.1  A ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="585" width="292" height="14" uuid="d87c8a05-9f6d-45e4-8b1b-ec4c72085ab0"/>
+				<text><![CDATA[Os custos decorrentes de tal mudança e processo de busca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="293" width="285" height="14" uuid="325ec601-d420-456c-825b-093becacff39"/>
+				<text><![CDATA[deverá providenciar uma Oferta de Trabalho Temporário ao(à)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="164" width="77" height="14" uuid="2f841990-cbc7-4a15-be3e-7eeefe1c5020"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="233" width="77" height="14" uuid="e8accdea-ee8a-4412-b2d4-5ac8c466ce44"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="612" width="153" height="14" uuid="12adcbc2-4de8-4f8c-aec0-5c0285f188de"/>
+				<text><![CDATA[6.6  Se por qualquer motivo o(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="397" width="269" height="14" uuid="b97d4597-1066-4301-943c-1d723712aab9"/>
+				<text><![CDATA[, do parceiro internacional(Sponsor)contratado e ofertante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="270" width="336" height="23" uuid="b74225a8-e7f6-4055-b6e6-c8cf25a96179"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6. OFERTA DE TRABALHO TEMPORÁRIO (JOB OFFER)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="612" width="337" height="14" uuid="0d45cd8f-8dae-4bbd-a2e2-7137d46d4302"/>
+				<text><![CDATA[precisar mudar de função ou local de trabalho já estando no país de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="191" width="456" height="14" uuid="ae4b9458-154d-46aa-b775-917637d3489a"/>
+				<text><![CDATA[receberá antes de sair do Brasil todas as informações necessárias para tais procedimentos, como ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="307" width="155" height="14" uuid="a29793b0-6898-4dda-92ba-0dac26e320f9"/>
+				<text><![CDATA[ou perca o interesse nesta oferta, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="307" width="411" height="14" uuid="57bd0918-45dd-4f06-8164-3de801019767"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[cabe ao mesmo providenciar outra oferta por conta própria;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="334" width="544" height="63" uuid="1c7dbcb3-429e-482d-8d51-522c7c106726"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[prévio antes ou depois de sua chegada ao país de destino, pois o funcionamento da empresa ofertante do trabalho depende de fatores variáveis e imprevisíveis como economia, greves, demanda, falta de turistas/clientes e condições climáticas (dependência da neve em estações de esqui, por exemplo);
+6.3 Alterações das atividades (função), carga horária de trabalho (redução parcial ou total, ou inclusive aumento) e remuneração (redução ou aumento) mencionados na Oferta de Trabalho Temporário podem ocorrer em qualquer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="529" width="565" height="14" uuid="e51292a8-1a4e-4b4a-82cc-06c795f4974a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[contratado e/ou ofertante do trabalho temporário, existindo apenas uma previsão de carga horária média de trabalho ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="626" width="545" height="64" uuid="72630811-73f2-4dde-8d79-3ba085337846"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[destino, a descrição e característica da nova Oferta de Trabalho Temporário no que se refere a ofertante, datas, função, remuneração, benefícios, carga horária de trabalho, cidade, estado e acomodação poderão ser diferentes daquelas previamente descritas na Oferta de Trabalho Temporário inicial. No caso de haver tal mudança, não há garantia de manutenção das características da Oferta de Trabalho Temporário inicial, bem como da manutenção de grupos de estudantes (3 ou mais estudantes) juntos. O custeio das  despesas referentes à mudanças nesse sentido fica a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="515" width="21" height="14" uuid="ce1ab0e9-dd51-4dda-867a-cee8bfe77e5a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="115" width="330" height="14" uuid="5a6d78d9-487d-44f4-a626-e0adea2d6636"/>
+				<text><![CDATA[e/ou parceiro internacional em questão.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="397" width="21" height="14" uuid="34ec3e30-79af-4d9b-916b-70005dc96393"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="219" width="542" height="14" uuid="ddbbcf7c-3cd0-4e22-807e-4925767fa6aa"/>
+				<text><![CDATA[solucionar estes problemas visto que é de responsabilidade do parceiro internacional contratado fazê-lo, portanto, o ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="502" width="29" height="14" uuid="138b9122-5803-4f0e-94af-0973f61aaae8"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="247" width="566" height="14" uuid="8735cc10-23cc-4194-90e7-f0d4dbf87143"/>
+				<text><![CDATA[com o parceiro internacional contratado. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="585" width="82" height="14" uuid="0d9dd146-9bba-4e7d-a1a7-9a958011cd3a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="115" width="218" height="14" uuid="ea64a60e-66c2-4b7d-9d85-e843d1a55c2c"/>
+				<text><![CDATA[h) Participar das orientações organizadas pela ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="293" width="163" height="14" uuid="f8ce9164-3134-42ab-a6c5-945e81dd6daf"/>
+				<text><![CDATA[, sendo que se este não se adapte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="115" width="18" height="14" uuid="b8f7cd41-e06b-425e-879d-f561c02e97fe"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="543" width="211" height="14" uuid="9cc7d2be-1ea3-44ef-8829-a20d956df52f"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[(vide informativo do programa). Mas caso o(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="321" width="77" height="14" uuid="16e873c8-c570-405b-81e7-8498ee048f8c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="191" width="77" height="14" uuid="450dc7b7-0f2f-4afe-ae02-a4416ea35fac"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="321" width="336" height="14" uuid="ea574d0c-1083-4b4a-807b-73af11ec3322"/>
+				<text><![CDATA[6.2  As características da Oferta de Trabalho Temporário proposta ao(à) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="690" width="65" height="14" uuid="8d228f22-a82a-4a43-ae00-bc55e819b324"/>
+				<text><![CDATA[encargo do(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="599" width="82" height="14" uuid="3b98240d-0efa-4be1-9db7-26cd48fba982"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="178" width="18" height="14" uuid="fc41d813-7d17-4daf-a565-957d0b8068b2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="321" width="153" height="14" uuid="430d0dbc-1630-4ce9-9eb1-967593a0a227"/>
+				<text><![CDATA[podem ser alteradas sem aviso ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="293" width="21" height="14" uuid="566035c9-1683-4629-88a5-121b879f1fbd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="233" width="247" height="14" uuid="5ccc4046-886a-40e8-9a9d-d70f091ae155"/>
+				<text><![CDATA[contato para resolução de problemas enquanto o(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="612" width="81" height="14" uuid="7af3817c-72f5-4dd5-920b-fcae2ce69ba5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="690" width="82" height="14" uuid="7f492945-4626-4073-8d7f-62b30ca925de"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="424" width="544" height="26" uuid="6120f955-cbd2-4ba8-a7c6-2e2c043f4bf7"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Temporário não caracteriza Contrato de Trabalho, mas apenas uma oferta de trabalho temporário que pode sofrer alterações sem aviso prévio a qualquer momento;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="178" width="210" height="14" uuid="92a8e7d6-1c4e-41f8-a66e-6964e1b5f63a"/>
+				<text><![CDATA[solucionados pelo parceiro internacional da]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="411" width="269" height="14" uuid="653173b6-f193-4e0c-bdfa-4966d1b93010"/>
+				<text><![CDATA[do trabalho. A Oferta de Trabalho.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="449" width="583" height="14" uuid="a9cbe9e1-5f5c-48b6-bec6-82961971487c"/>
+				<text><![CDATA[6.4No período que compreende os 30(trinta)primeiros dias após a chegada do participante no país de destino,o(a) participante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="599" width="100" height="14" uuid="26843848-46ef-4363-9978-995954be6377"/>
+				<text><![CDATA[ficam a cargo do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="571" width="566" height="14" uuid="db1512e5-da06-49be-853b-fdac3695c64e"/>
+				<text><![CDATA[e/ou conduta no trabalho, o parceiro internacional contratado pode auxiliá-lo(a)  na procura de uma nova Oferta de Trabalho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="397" width="285" height="14" uuid="9415e862-5cd5-4e7b-ad21-1a8a3585c738"/>
+				<text><![CDATA[momento, sem aviso prévio,e não são de responsabilidade da ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="293" width="77" height="14" uuid="47562b40-6ee6-4216-8451-b410d79aebc7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="177" width="338" height="14" uuid="73c3ecfe-8d1b-45eb-886a-82f1eb6ac925"/>
+				<text><![CDATA[(Sponsor);]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="141" width="281" height="23" uuid="bdde9ad4-6a37-4f9a-a5ff-83207697ab8c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. PARCEIRO INTERNACIONAL DA TM (SPONSOR)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="557" width="99" height="14" uuid="ef247ce4-6fc2-4dca-9905-4529f16e60ff"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Trabalho Temporário, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="585" width="201" height="14" uuid="64595c5f-d584-49d8-86b0-341269c17041"/>
+				<text><![CDATA[Temporário, caso seja esta a vontade do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="515" width="126" height="14" uuid="2f67ca9c-468b-4246-8d71-cf5fae0a0d7d"/>
+				<text><![CDATA[, parceiro internacional ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="233" width="250" height="14" uuid="60e4342c-ff49-4127-9afe-63e16f76d528"/>
+				<text><![CDATA[estiver no país de destino deve ser feito diretamente ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="515" width="423" height="14" uuid="c0578c8f-64ed-4479-8bd2-ebad5da7be7a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[6.5  Não existe garantia de um número mínimo de horas semanais de trabalho por parte da ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="502" width="83" height="14" uuid="c12eab9c-60ea-4ea3-9ab4-a51fdfd8026a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="543" width="74" height="14" uuid="38547d8b-5bbb-46d9-961c-0a5e04188602"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="463" width="543" height="43" uuid="8ec5d532-6a32-4bda-aa40-9e31f3924996"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[pode não trabalhar as horas mínimas previstas na Oferta de Trabalho Temporário ou mesmo não trabalhar. Este período é considerado de adaptação e treinamento e isto não é de responsabilidade da TM, parceiro internacional contratado e ofertante do trabalho. Qualquer custo ou gasto que incorra durante esse período é de responsabilidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="219" width="29" height="14" uuid="6fb61257-c26f-4532-999f-efd676cce7de"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="543" width="285" height="14" uuid="5e680f95-7365-47d6-9684-151c05d311c0"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[esteja trabalhando menos do que o previsto na Oferta de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="164" width="208" height="14" uuid="c335b83d-ef2e-4991-97ea-15601051e3b4"/>
+				<text><![CDATA[ao país de destino do programa, devem ser ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="205" width="21" height="14" uuid="30b6348f-afe9-465b-9025-ed0a5f2d1838"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="191" width="41" height="14" uuid="1b06c053-a6ad-4a6a-aac5-4a1416422451"/>
+				<text><![CDATA[5.2 O(A) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="12" width="544" height="103" uuid="e8680003-7eb7-464f-8345-e8b68534f4e1"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[ providenciar sua acomodação, sob pena de não consegui-la quando de sua chegada, incorrendo em custos extras para hospedar-se em hotel, albergue, pensão etc.
+f) Assumir os danos e despesas causadas a terceiros durante o programa, sujeitando-se às normas e leis locais do país em questão. Não é responsabilidade da TM, de seu parceiro internacional contratado pela TM ou ofertante do trabalho, prestar qualquer assessoria, consultoria ou aconselhamento legal/ jurídico ao(à) PARTICIPANTE e seus pais/familiares;
+g) Respeitar as políticas e procedimentos estipulados pelo parceiro internacional em questão a respeito do programa escolhido, bem como cumprir com as regras determinadas na Oferta de Trabalho Temporário proposta pelo ofertante, sob pena de demissão e/ou desligamento do programa;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="205" width="105" height="14" uuid="389a485a-8192-42cc-aaab-42ab5ee34f0c"/>
+				<text><![CDATA[(Sponsor). Não cabe à ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="164" width="281" height="14" uuid="aa399f70-c0f3-476d-895d-0951001f564f"/>
+				<text><![CDATA[5.1 Quaisquer problemas que surjam após a chegada do(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="557" width="188" height="14" uuid="5e55ba93-2709-45ca-b625-1704c3d817e4"/>
+				<text><![CDATA[por razões alheias ao seu desempenho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="205" width="441" height="14" uuid="d0265793-ddf1-4cfe-9674-707aa644a34c"/>
+				<text><![CDATA[telefones, websites, endereços e pessoas de contato responsáveis no parceiro internacional da ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="557" width="296" height="14" uuid="4825a887-05aa-4b00-af99-6a042bafa3d5"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[por um período superior a 40 (quarenta) dias após sua chegada,]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="94557abe-8287-422b-827c-e73546bab815"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoWorkIndependentPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

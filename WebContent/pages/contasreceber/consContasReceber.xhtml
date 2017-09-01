@@ -1,0 +1,427 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telacontareceber" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+
+				<br></br>
+				<p:accordionPanel id="idtab" class="painel">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="6"
+							columnClasses="tamanho7,tamanho7,tamanho10,tamanho1,tamanho7,tamanho7"
+							style="width:95%;margin-left:4%;">
+							<p:outputLabel value="Nº Documento" for="nDocumento" />
+							<p:outputLabel value="Id da Venda" for="idvenda" />
+							<p:outputLabel value="Cliente" for="idnomecliente" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel value="Status" for="status" />
+							<p:outputLabel value="Status Cobrança" for="situacao" />
+
+							<p:inputText id="nDocumento" style="width:90%;" maxlength="100"
+								class="fontebranca" value="#{contasReceberMB.nDocumento}" />
+							<p:inputText id="idvenda" style="width:90%;" maxlength="100"
+								value="#{contasReceberMB.idVenda}" />
+							<p:inputText id="idnomecliente"
+								value="#{contasReceberMB.nomeCliente}" maxlength="100"
+								style="width:90%;" />
+							<h:panelGroup>
+								<p:calendar id="dataIni" size="11" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15"
+									value="#{contasReceberMB.dataInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:calendar id="dataFinal" size="12" style="margin-left:2%"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15"
+									value="#{contasReceberMB.dataFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+							</h:panelGroup>
+							<p:selectOneMenu id="status" value="#{contasReceberMB.status}"
+								style="width:95px;">
+								<f:selectItem itemLabel="Todas" itemValue="todas" />
+								<f:selectItem itemLabel="Vencida" itemValue="Vencida" />
+								<f:selectItem itemLabel="Vencer" itemValue="Vencer" />
+								<f:selectItem itemLabel="Recebidas" itemValue="Recebidas" />
+								<f:selectItem itemLabel="Canceladas" itemValue="canceladas" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="statuscobranca" style="width:90%;"
+								value="#{contasReceberMB.statusCobranca}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dentro do Prazo" itemValue="p" />
+								<f:selectItem itemLabel="Urgente" itemValue="u" />
+								<f:selectItem itemLabel="Alta Prioridade" itemValue="a" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="6"
+							columnClasses="tamanho8,tamanho7,tamanho1,tamanho7,tamanho4,tamanho4"
+							style="width:98%;margin-left:4%;">
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Situação" for="situacao" />
+							<p:outputLabel value="Tipo Documento" for="situacao" />
+							<p:outputLabel value="Função Boleto" for="boleto"
+								rendered="#{contasReceberMB.comboBoleto}" />
+							<p:outputLabel rendered="#{contasReceberMB.habilitarComboBoleto}" />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="unidade" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+								value="#{contasReceberMB.unidadenegocio}" style="width:90%;"
+								converter="UnidadeNegocioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{contasReceberMB.listaUnidade}"
+									var="unidade" itemLabel="#{unidade.nomerelatorio}"
+									itemValue="#{unidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{contasReceberMB.listaUnidade}" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="situacao"
+								value="#{contasReceberMB.situacao}" style="width:90%">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Verde" itemValue="vd" />
+								<f:selectItem itemLabel="Amarelo" itemValue="am" />
+								<f:selectItem itemLabel="Vermelho" itemValue="vm" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="tipoDocumento" style="width:90%"
+								value="#{contasReceberMB.tipoDocumento}">
+								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Cartão de Crédito"
+									itemValue="Cartão de Crédito" />
+								<f:selectItem itemLabel="Cartão de Crédito Autorizado"
+									itemValue="Cartão de Crédito Autorizado" />
+								<f:selectItem itemLabel="Cartão de Débito"
+									itemValue="Cartão de Débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Deposito" itemValue="Deposito" />
+								<f:selectItem itemLabel="Financiamento Banco"
+									itemValue="Financiamento Banco" />
+								<p:ajax event="change"
+									listener="#{contasReceberMB.verificarComboBoleto()}"
+									update="idtab" />
+							</p:selectOneMenu>
+							<h:panelGroup id="painelBoleto"
+								rendered="#{contasReceberMB.comboBoleto}">
+								<p:selectOneMenu id="boleto"
+									value="#{contasReceberMB.funcaoBotaoBoleto}" style="width:90%">
+									<f:selectItem itemLabel="Selecione" itemValue="Selecione" />
+									<f:selectItem itemLabel="Enviar" itemValue="Enviar" />
+									<f:selectItem itemLabel="Reenviar" itemValue="Reenviar" />
+									<f:selectItem itemLabel="Gerar" itemValue="Gerar" />
+									<f:selectItem itemLabel="2º Via" itemValue="2º Via" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup id="painelBranco"
+								rendered="#{contasReceberMB.habilitarComboBoleto}">
+								<p:outputLabel />
+							</h:panelGroup>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update="@form" action="#{contasReceberMB.executarPesquisa()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update=":telacontareceber:tabelacontasRecebe"
+								action="#{contasReceberMB.limparPesquisa()}" />
+						</h:panelGrid>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+				<legend id="iUsu2">
+					<b>Consulta de Contas a Receber </b>  
+				</legend>
+				<div id="divBotoes" align="center">
+					<p:commandButton id="bntAddConta" style="font-size:12px;"
+						value="Nova Conta"
+						action="#{contasReceberMB.adicionarContasReceber()}">
+						<p:ajax event="dialogReturn"
+							listener="#{contasReceberMB.retornoDialogoNovo}" process="@this"
+							update=":telacontareceber:tabelacontasRecebe" />
+					</p:commandButton>
+					<p:commandButton id="bntreceber" style="font-size:12px;"
+						value="Receber" action="#{contasReceberMB.recebimento()}" />
+					<p:commandButton id="bntreceberCartao" style="font-size:12px;"
+						value="Receber Cartão"
+						action="#{contasReceberMB.recebimentoCartão('Nao')}" />
+					<p:commandButton id="bntnovoCartao" style="font-size:12px;"
+						value="Novo Cartão"
+						action="#{contasReceberMB.recebimentoCartão('Sim')}" />
+					<p:commandButton id="bntcancelar" style="font-size:12px;"
+						value="Cancelar" action="#{contasReceberMB.cancelar()}">  
+						<p:ajax event="dialogReturn"
+							listener="#{contasReceberMB.retornoDialogoEditar}"
+							process="@this" update=":telacontareceber:tabelacontasRecebe" />
+					</p:commandButton>
+					<p:commandButton id="bntcarregarboleto" style="font-size:12px;"
+						value="Retorno" update=":dialogUpload:dialog_uploadboleto"
+						oncomplete="PF('uploadboleto').show()" />
+					<p:commandButton id="bntrelatorio" style="font-size:12px;"  
+						value="Relatorios" 
+						action="#{contasReceberMB.relatoriosContasReceber()}" />  
+					<p:commandButton style="font-size:12px;" value="Boletos" action="#"
+							 onclick="PF('relatorioRemessaRetorno').show();" />      
+					<p:commandButton id="bnttotais" style="font-size:12px;"
+						value="Totais" action="#{contasReceberMB.calcularTotais()}"
+						update=":totais:dialog_totais" oncomplete="PF('totais').show()" />
+
+					<p:commandButton id="bntboleto" style="font-size:12px;"
+						rendered="#{contasReceberMB.btnGerarBoleto}" value="Gerar Boletos"
+						action="#{contasReceberMB.gerarBoleto()}"
+						update=":telacontareceber:growl" ajax="false"
+						onclick="this.form.target='_blank'" />
+					<p:commandButton id="bntSegundaVia" style="font-size:12px;"
+						rendered="#{contasReceberMB.btnGerarSegundaVia}"
+						value="Gerar 2º via"
+						action="#{contasReceberMB.gerarBoletoSegundaVia()}" ajax="false"
+						update="growl" onclick="this.form.target='_blank'" />
+					<p:commandButton id="bntenviarboleto" style="font-size:12px;"
+						rendered="#{contasReceberMB.btnEnviarBoleto}"
+						value="Gerar Remessa" action="#{contasReceberMB.dialogBoletos()}" />
+					<p:commandButton id="bntReenviarBoleto" style="font-size:12px;"
+						rendered="#{contasReceberMB.btnReenviarRemessa}"
+						value="Reenviar Remessa" action="#{contasReceberMB.dialogReenviarBoletos()}" />
+				</div>
+				<br></br> <br></br>
+				<div align="right" style="width: 98%">
+					<p:selectBooleanCheckbox value="#{contasReceberMB.selecionarTodos}">
+            			<p:ajax update="tabelacontasRecebe" listener="#{contasReceberMB.selecionarTodos}" />
+        			</p:selectBooleanCheckbox>
+        			 <p:outputLabel value="Selecionar todas" style="margin-left: 1%"></p:outputLabel>
+				</div>
+				<p:dataTable id="tabelacontasRecebe" var="contasrecebe"
+					value="#{contasReceberMB.listaContas}" class="tabela"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+					editable="true" editMode="cell" rowIndexVar="rowIx">
+
+
+					<p:column style="width:70px;text-align: right">
+						<f:facet name="header">
+							<p:commandLink action="#{contasReceberMB.situacaoTipoDoc()}"
+								value="Situação" title="Editar Situação/Tipo de Documento"
+								style="text-decoration:underline"
+								update=":telacontareceber:growl">
+								<p:ajax event="dialogReturn"
+									listener="#{contasReceberMB.retornoSituacaoTipo}"
+									update="tabelacontasRecebe" />
+							</p:commandLink>
+						</f:facet>
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:graphicImage value="#{contasrecebe.bolinhas.caminho}"
+									style="margin-right: 25%; font-size: 12px;" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="idimgsituacao"
+									value="#{contasrecebe.bolinhas}" style="width:100%"
+									converter="BolinhaConverter" var="b">
+									<f:selectItem itemLabel="" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems value="#{contasReceberMB.listaBolinhas}"
+										var="boli" itemValue="#{boli}" itemLabel="" />
+									<p:column style="width:10%">
+										<p:graphicImage value="#{b.caminho}"
+											style="margin-right: 25%; font-size: 12px;" />
+									</p:column>
+									<f:attribute name="listaBolinha"
+										value="#{contasReceberMB.listaBolinhas}" />
+									<p:ajax event="change"
+										listener="#{contasReceberMB.alterarStatus(rowIx)}"
+										update="tabelacontasRecebe" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Nº Documento" style="width:75px;">
+						<p:outputLabel value="#{contasrecebe.numerodocumento}" />
+					</p:column>
+					<p:column headerText="ID Vendas" style="width:80px;"
+						sortBy="#{contasrecebe.vendas.idvendas}">
+						<p:commandLink
+							action="#{contasReceberMB.produtoVendas(contasrecebe.vendas)}"
+							value="#{contasrecebe.vendas.idvendas}"
+							style="text-decoration:underline;" />
+					</p:column>
+					<p:column headerText="Cliente" styleClass="alinharCenter"
+						sortBy="#{contasrecebe.vendas.cliente.nome}">
+						<p:commandLink value="#{contasrecebe.vendas.cliente.nome}"
+							action="#{contasReceberMB.enderecoCliente(contasrecebe.vendas.cliente)}"
+							title="Dados do Cliente" style="text-decoration: underline" />
+					</p:column>
+					<p:column headerText="Nº Parcela" style="width:58px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{contasrecebe.numeroparcelas}" />
+					</p:column>
+					<p:column headerText="Valor" style="width:80px;text-align:right;">
+						<h:outputText value="#{contasrecebe.valorparcela}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Data de Vencimento" style="width:110px;"
+						styleClass="alinharCenter" sortBy="#{contasrecebe.datavencimento}">
+						<h:outputText value="#{contasrecebe.datavencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+						<p:commandLink
+							actionListener="#{contasReceberMB.openDialogAlterarData(rowIx)}"
+							update=":editarData:dialog_editarDataVencimento"
+							oncomplete="PF('editarData').show()" title="Editar data">
+							<img src="../../resources/img/editardata.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:75px;text-align: center;"
+						styleClass="alinharCenter">
+						<f:facet name="header">
+							<p:commandLink action="#{contasReceberMB.situacaoTipoDoc()}"
+								value="Tipo de Documento"
+								title="Editar Situação/Tipo de Documento"
+								style="text-decoration:underline"
+								update=":telacontareceber:growl">
+								<p:ajax event="dialogReturn"
+									listener="#{contasReceberMB.retornoSituacaoTipo}"
+									update="tabelacontasRecebe" />
+							</p:commandLink>
+						</f:facet>
+						<p:graphicImage
+							value="#{contasReceberMB.retornarTipoDocumento(contasrecebe)}"
+							title="#{contasReceberMB.titleTipoDocumento(contasrecebe)}" />
+					</p:column>
+					<p:column headerText="Data de Recebimento" style="width:110px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{contasrecebe.datapagamento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Status"
+						style="width:63px;text-align: center;" styleClass="alinharCenter">
+						<h:commandLink
+							title="#{contasReceberMB.retornarTitleStatusConta(contasrecebe)}">
+							<img src="#{contasReceberMB.retornarStatusConta(contasrecebe)}" />
+						</h:commandLink>
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter">
+						<p:commandLink action="#{contasReceberMB.editar(contasrecebe)}"
+							style="text-decoration: none">
+							<img src="../../resources/img/editaricon.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{contasReceberMB.retornoDialogoEditar}"
+								process="@this" update=":telacontareceber:tabelacontasRecebe" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:43px">
+						<p:commandLink
+							action="#{contasReceberMB.iniciarCobranca(contasrecebe)}"
+							style="text-decoration: none" title="Cobrança"
+							update=":telacontareceber:tabelacontasRecebe">
+							<img src="#{contasReceberMB.imagemCobranca(contasrecebe.vendas)}" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:32px;text-align: center">
+						<p:selectBooleanCheckbox value="#{contasrecebe.selecionado}" />
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+		<h:form id="totais">
+			<br></br>
+			<p:dialog id="dialog_totais" header="Totais" widgetVar="totais"
+				width="40%" class="dialog2" style="background:#d0e9c6">
+				<br />
+				<br />
+				<p:outputLabel value="Total Contas Vencidas" for="contasVenc"
+					class="espacocobranca20" style="font-size: 12px; margin-left: 9%" />
+				<p:outputLabel value="Total Contas Vencendo" for="contasVencendo"
+					class="espacocobranca20" style="font-size: 12px" />
+				<p:outputLabel value="Total Contas a Vencer" for="contasVencer"
+					class="espacocobranca20" style="font-size: 12px" />
+				<br></br>
+				<p:inputText id="contasVenc"
+					style="width:24%;margin-left: 9%;color:red;font-size:18px;text-align:right"
+					maxlength="100" class="espacocobranca20"
+					value="#{contasReceberMB.contasVencidas}" readonly="true">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="contasVencendo"
+					style="width:24%;color:blue;font-size:18px;text-align:right"
+					maxlength="100" class="espacocobranca20"
+					value="#{contasReceberMB.contasVencendo}" readonly="true">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="contasVencer"
+					style="width:24%;color:green;font-size:18px;text-align:right"
+					maxlength="100" class="espacocobranca20"
+					value="#{contasReceberMB.contasVencer}" readonly="true">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+
+				<br></br>
+				<br />
+				<br />
+			</p:dialog>
+		</h:form>
+		<h:form id="dialogUpload">
+			<p:dialog id="dialog_uploadboleto" header="Carregar Boleto"
+				widgetVar="uploadboleto" style="background:#d0e9c6">
+				<p:fileUpload id="upload"
+					fileUploadListener="#{contasReceberMB.uploadRetorno}"
+					mode="advanced" auto="true" update="@all"     
+					allowTypes="/(\.|\/)(ret|RET)$/" uploadLabel="Abrir"
+					cancelLabel="Cancelar" label="Selecionar"  
+					oncomplete="uploadboleto.hide()">  
+				</p:fileUpload>  
+				<p:growl id="messages" showDetail="true" />   
+			</p:dialog> 
+		</h:form>    
+		<h:form id="editarData">
+			<p:dialog id="dialog_editarDataVencimento" header="Editar Data"
+				widgetVar="editarData" width="20%"
+				style="background:#d0e9c6;text-align: left">
+				<p:outputLabel value="Data de Vencimento" for="dataVencimento"
+					style="font-size: 11px" />
+				<br></br>
+				<p:calendar id="dataVencimento" class="fontebranca"
+					value="#{contasReceberMB.conta.datavencimento}"
+					pattern="dd/MM/yyyy" mask="true" maxlength="15" locale="pt">
+					<f:convertDateTime timeZone="America/Sao_Paulo" />
+					<p:ajax event="change" />
+					<p:ajax event="dateSelect" />
+				</p:calendar>
+				<p:commandButton value="Salvar" icon="ui-icon-check"
+					action="#{contasReceberMB.confirmaAlterarDataVencimento()}"
+					class="espacocobranca23botao" style="font-size:11px;" update="@all"
+					onclick="editarData.hide()" />
+			</p:dialog>
+		</h:form>
+		
+		<p:dialog  widgetVar="relatorioRemessaRetorno"
+				width="23%">
+			<div align="center">
+					<p:outputLabel value="Relatório Remessa ou Retorno ?"/>
+					<br/>
+					<p:commandButton action="#{menuMB.relatorioRemessaRetorno('Remessa')}" value="Remessa" onclick="PF('relatorioRemessaRetorno').hide();"/>
+					<p:commandButton action="#{menuMB.relatorioRemessaRetorno('Retorno')}" value="Retorno" onclick="PF('relatorioRemessaRetorno').hide();"/>
+					<br></br>
+			</div>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

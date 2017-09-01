@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="gerarOrcamentoPacote"    
+			style="text-align:left;font-size: 12px;color:#434A54;">
+			<p:growl id="growl" showDetail="true" sticky="false"
+				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />         
+			<legend id="iUsu2" style="margin-left:3%;width:95%;">    
+					<b>Gerar Orçamento</b>  
+				</legend> 
+			<h:panelGrid columns="3" columnClasses="tamanho61, imagemTop, dezoito" style="margin-left:3%;width:70%;">
+				<p:outputLabel value="Cliente" />
+				<p:outputLabel value="Data de Início"/> 
+				<p:outputLabel value="" />    
+				
+				<p:inputText id="nomeCliente" value="#{gerarOrcamentoPacoteMB.nome}"   
+					style="width:95%;">
+					<p:ajax event="keyup"
+						listener="#{gerarOrcamentoPacoteMB.gerarListaCliente()}"
+						update="idtabelacliente" />
+				</p:inputText>
+				<p:calendar id="data" value="#{gerarOrcamentoPacoteMB.datainicio}"
+					locale="pt" size="14" pattern="dd/MM/yyyy" mask="true"
+					maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				<p:commandButton value="Saiba Mais"  
+						action="#{gerarOrcamentoPacoteMB.saibaMais()}"
+						title="Mais informações sobre este pacote"
+						style="font-size:13px;" icon="ui-icon-info" />
+				<p:overlayPanel id="painelCliente" for="nomeCliente"
+					hideEffect="fade" style="width:62%;">
+					<p:dataTable id="idtabelacliente" var="cliente"
+						style="font-size:11px;"
+						value="#{gerarOrcamentoPacoteMB.listaCliente}" scrollable="true"
+						scrollHeight="190">
+						<p:column headerText="Nome">
+							<h:outputText value="#{cliente.nome}" />
+						</p:column>
+						<p:column headerText="Email">
+							<h:outputText value="#{cliente.email}" />
+						</p:column>
+						<p:column style="width:40px;text-align: center;">  
+							<p:commandLink
+								action="#{gerarOrcamentoPacoteMB.selecionarCliente(cliente)}"
+								title="Selecionar Cliente"
+								update=":gerarOrcamentoPacote:nomeCliente, :gerarOrcamentoPacote:painelCliente">
+								<img src="../../resources/img/deposito.png" width="22" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</p:overlayPanel>
+				<br /> 
+			</h:panelGrid>
+			<br />
+			<br />
+
+			<p:fieldset id="idpagamentoavista"
+				legend="Opção 01 - Pagamento á Vista" toggleable="true"
+				style="font-size: 11px;width: 95%;margin-left: 2.5%">    
+				<h:panelGrid style="margin-left:8%" >
+					<p:outputLabel value="Valor R$" />
+					<p:inputText id="avista"
+						value="#{gerarOrcamentoPacoteMB.cursospacote.valoravista}" style="text-align: right">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur" />
+					</p:inputText>
+				</h:panelGrid>
+			</p:fieldset>
+			<br></br>
+			<br></br>
+			<p:fieldset id="idparcelamentoantesviagem"
+				legend="Opção 02 - Parcelamento antes da viagem" toggleable="true"
+				style="font-size: 10px;width: 95%;margin-left: 2.5%">
+				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+					columnClasses="dezoito,dezoito,dezoito,dezoito">
+					<p:outputLabel value="% Entrada" />
+					<p:outputLabel value="Valor da Entrada R$" />  
+					<p:outputLabel value="Nº Parcelas"/>
+					<p:outputLabel value="Valor da Parcela" />
+					
+					<p:inputText id="idpercentual2" disabled="#{gerarOrcamentoPacoteMB.formapagamento2}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.entradaboleto}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento2()}"
+							update="idparcelamentoantesviagem" />
+					</p:inputText> 
+					<p:inputText id="idvalorentrada2" disabled="#{gerarOrcamentoPacoteMB.formapagamento2}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorentradaboleto}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamentoValorEntrada2()}"
+							update="idparcelamentoantesviagem" />
+					</p:inputText> 
+					<p:selectOneMenu  id="nparcela2" disabled="#{gerarOrcamentoPacoteMB.formapagamento2}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.numeroparcelasboleto}"
+						style="width:80px;">
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />  
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+						<f:selectItem itemLabel="11" itemValue="11" />
+						<f:selectItem itemLabel="12" itemValue="12" />
+						<p:ajax
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento2()}"
+							update="idparcelamentoantesviagem" />
+					</p:selectOneMenu>
+					<p:inputText id="idvalorparcela2" disabled="#{gerarOrcamentoPacoteMB.formapagamento2}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorparcelaboleto}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<br></br> 
+				<h:panelGrid style="margin-left:8%;width:80%;" columns="4" 
+					columnClasses="dezoito,dezoito,dezoito,dezoito">
+					<p:outputLabel value="% Saldo" />
+					<p:outputLabel value="Saldo R$"/>
+					<p:outputLabel value=""/>
+					<p:outputLabel value=""/>   
+					
+					<p:inputText id="idpersentualsaldo2" disabled="#{gerarOrcamentoPacoteMB.formapagamento2}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.saldoboleto}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento2()}"
+							update="idvalorsaldo2, idvalorparcela2" />
+					</p:inputText> 
+					<p:inputText id="idvalorsaldo2"  disabled="#{gerarOrcamentoPacoteMB.formapagamento2}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorsaldoboleto}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+				</h:panelGrid>
+			</p:fieldset>
+			<br></br>
+			<br></br>
+			<p:fieldset id="idparcelamentoemcartaocredito"
+				legend="Opção 03 - Parcelamento em cartão de crédito em até 10x"
+				toggleable="true"
+				style="font-size: 10px;width: 95%;margin-left: 2.5%">
+				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+					columnClasses="dezoito,dezoito,dezoito,dezoito">
+					<p:outputLabel value="% Entrada"/>
+					<p:outputLabel value="Valor da Entrada R$" />
+					<p:outputLabel value="Nº Parcelas"/>
+					<p:outputLabel value="Valor da Parcela" />
+					
+					<p:inputText id="idpercentualentrada3"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.entradacartao}"
+						style="text-align: right;width:60%;"  disabled="#{gerarOrcamentoPacoteMB.formapagamento3}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento3()}"
+							update="idparcelamentoemcartaocredito" />
+					</p:inputText> 
+					<p:inputText id="idvalorentrada3"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorentradacartao}"
+						style="text-align: right;width:60%;"  disabled="#{gerarOrcamentoPacoteMB.formapagamento3}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamentoValorEntrada3()}"
+							update="idparcelamentoemcartaocredito" />
+					</p:inputText> 
+					<p:selectOneMenu id="nparcela3"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.numeroparcelascartao}"
+						 disabled="#{gerarOrcamentoPacoteMB.formapagamento3}" style="width:80px;">
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+						<f:selectItem itemLabel="11" itemValue="11" />
+						<f:selectItem itemLabel="12" itemValue="12" />
+						<p:ajax
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento3()}"
+							update="idvalorparcela3" />
+					</p:selectOneMenu> 
+					<p:inputText id="idvalorparcela3"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorparcelacartao}"
+						 disabled="#{gerarOrcamentoPacoteMB.formapagamento3}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<br></br> 
+				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+					columnClasses="dezoito,dezoito,dezoito,dezoito">
+					<p:outputLabel value="% Saldo" />
+					<p:outputLabel value="Saldo R$" />
+					<p:outputLabel value=""/>
+					<p:outputLabel value=""/>   
+					
+					<p:inputText value="#{gerarOrcamentoPacoteMB.formapagamento.saldocartao}"
+						 disabled="#{gerarOrcamentoPacoteMB.formapagamento3}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<p:inputText id="idvalorsaldo3" disabled="#{gerarOrcamentoPacoteMB.formapagamento3}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorsaldocartao}"
+						style="text-align: right;width:60%;"> 
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid> 
+			</p:fieldset>
+			<br></br>
+			<br></br>
+			<p:fieldset id="idparcelamentoemcheque"
+				legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*"
+				toggleable="true" 
+				style="font-size: 10px;width: 95%;margin-left: 2.5%">
+				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+					columnClasses="dezoito,dezoito,dezoito,dezoito">
+					<p:outputLabel value="% Entrada" />
+					<p:outputLabel value="Valor da Entrada R$" />
+					<p:outputLabel value="Nº Parcelas" />
+					<p:outputLabel value="Valor da Parcela" />
+					
+					<p:inputText id="idpercentualentrada4"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.entradafinanciamento}"
+						style="text-align: right;width:60%;" disabled="#{gerarOrcamentoPacoteMB.formapagamento4}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento4()}"
+							update="idparcelamentoemcheque" />
+					</p:inputText> 
+					<p:inputText id="idvalorentrada4" disabled="#{gerarOrcamentoPacoteMB.formapagamento4}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorentradafinanciamento}"
+						style="width:60%;text-align: right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamentoValorEntrada4()}"
+							update="idparcelamentoemcheque" />
+					</p:inputText> 
+					<p:selectOneMenu class="espacocobranca29" id="nparcela4" disabled="#{gerarOrcamentoPacoteMB.formapagamento4}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.nparcelasfinanciamento}"
+						style="width:80px;">
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+						<f:selectItem itemLabel="11" itemValue="11" />
+						<f:selectItem itemLabel="12" itemValue="12" />
+						<p:ajax
+							listener="#{gerarOrcamentoPacoteMB.calcularParcelamento4()}"
+							update="idvalorparcela4" />
+					</p:selectOneMenu> 
+					<p:inputText id="idvalorparcela4" disabled="#{gerarOrcamentoPacoteMB.formapagamento4}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorparcelafinanciamento}"
+						style="width:60%;text-align: right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid> 
+				<br></br> 
+				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+					columnClasses="dezoito,dezoito,dezoito,dezoito"> 
+					<p:outputLabel value="% Saldo" />
+					<p:outputLabel value="Saldo R$"/>
+					<p:outputLabel value=""/>
+					<p:outputLabel value=""/>
+					
+					<p:inputText id="porcentagemSaldo4" disabled="#{gerarOrcamentoPacoteMB.formapagamento4}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.saldofinanciamento}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<p:inputText id="idvalorsaldo4" disabled="#{gerarOrcamentoPacoteMB.formapagamento4}"
+						value="#{gerarOrcamentoPacoteMB.formapagamento.valorsaldofinanciamento}"
+						style="text-align: right;width:60%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+				</h:panelGrid>  
+			</p:fieldset>
+			<br />
+			<div align="center">
+				<p:commandButton id="btnOrcamento" value="Gerar PDF"
+					title="Imprimir orçamento em PDF." ajax="false"
+					icon="ui-icon-document" style="font-size:12px;"
+					action="#{gerarOrcamentoPacoteMB.salvar()}"
+					update=":gerarOrcamentoPacote:growl"
+					onclick="this.form.target='_blank'"  
+					onstart="PF('dialog').show()"
+					onsuccess="PF('dialog').hide()" />
+				<p:commandButton id="btnFechar" value="Voltar"   
+					action="#{gerarOrcamentoPacoteMB.cancelar()}"
+					icon="ui-icon-arrowreturnthick-1-w" style="margin-left:2%;font-size:12px;"  />
+			</div>
+			<p:dialog widgetVar="dialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:commandLink>
+					<img src="../../resources/img/ajax-loader.gif" />
+				</p:commandLink>
+			</p:dialog>   
+
+			<p:ajaxStatus onstart="PF('carregandoDialog').hide()"
+							onsuccess="PF('carregandoDialog').hide()" />
+			<br />   
+			<br />
+			<br />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

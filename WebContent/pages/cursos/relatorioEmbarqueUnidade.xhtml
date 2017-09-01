@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="relatorioEmbarque"
+		style="text-align:left;font-size: 10px; margin-left:1.5%;">
+		<br></br>
+
+		<title>Relatório Embarque</title>
+		<h:panelGrid columns="3" style="margin-left:2%;"
+			columnClasses="tamanho14,tamanho10,tamanho10">
+			<p:outputLabel value="País" />
+			<p:outputLabel value="Cidade" />
+			<p:outputLabel value="Escola" />
+
+			<p:selectOneMenu id="pais" value="#{relatorioEmbarqueUnidadeMB.pais}"
+				style="width:140px;font-size:11px;"
+				converter="PaisFornecedorConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:210px">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idpais" value="#{relatorioEmbarqueUnidadeMB.listaPais}"
+					var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}" />
+				<f:attribute name="listaPaisFornecedor"
+					value="#{relatorioEmbarqueUnidadeMB.listaPais}" />
+				<p:ajax event="change" update="cidade" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="cidade" value="#{relatorioEmbarqueUnidadeMB.cidade}"
+				style="width:140px;font-size:11px;" class="espacocampos2"
+				converter="CidadeConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:210px">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idcidade"
+					value="#{relatorioEmbarqueUnidadeMB.pais.cidadeList}" var="cidade"
+					itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+				<f:attribute name="listaCidade"
+					value="#{relatorioEmbarqueUnidadeMB.pais.cidadeList}" />
+				<p:ajax event="change"
+					listener="#{relatorioEmbarqueUnidadeMB.gerarListaFornecedor()}"
+					update="escolas" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="escolas"
+				value="#{relatorioEmbarqueUnidadeMB.fornecedorcidade}"
+				style="width:140px;font-size:11px;" class="espacocampos2"
+				converter="FornecedorCidadeConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:210px">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idfornecedor"
+					value="#{relatorioEmbarqueUnidadeMB.listaFornecedorCidade}"
+					var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+					itemValue="#{fornecedor}" />
+				<f:attribute name="listaFornecedorCidade"
+					value="#{relatorioEmbarqueUnidadeMB.listaFornecedorCidade}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel />
+			<p:outputLabel />
+			<p:outputLabel />
+		</h:panelGrid>
+		<h:panelGrid columns="2" style="margin-left:2%;"
+			columnClasses="tamanho11,tamanho11"> 
+			<p:outputLabel value="Periodo de Embarque" />
+			<p:outputLabel value="Período de início do curso" />
+			<h:panelGroup>
+				<p:inputMask id="dataIni" mask="99/99/9999"
+					value="#{relatorioEmbarqueUnidadeMB.dataInicioEmbarque}" style="width:38%">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="dataFim" mask="99/99/9999"
+					value="#{relatorioEmbarqueUnidadeMB.dataTerminoEmbarque}"
+					style="width:38%;margin-left:6%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+			</h:panelGroup>
+			<h:panelGroup>
+				<p:inputMask id="dataIniCurso" mask="99/99/9999"
+					value="#{relatorioEmbarqueUnidadeMB.dataInicioCurso}" style="width:38%">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="dataFimCurso" mask="99/99/9999"
+					value="#{relatorioEmbarqueUnidadeMB.dataTerminoCurso}"
+					style="width:38%;margin-left:6%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+			</h:panelGroup>
+		</h:panelGrid>
+		<br></br>
+		<p:outputLabel value="Ordenar por" for="ordenacao"
+			style="margin-left:2%;">
+		</p:outputLabel>
+		<br />
+		<p:selectOneRadio id="ordenacao"
+			value="#{relatorioEmbarqueUnidadeMB.ordenar}" style="width:70%;margin-left:2%;">
+			<f:selectItem itemLabel="Data de Início"
+				itemValue="Data inicio" /> 
+			<f:selectItem itemLabel="Data de Embarque"
+				itemValue="Data embarque" /> 
+		</p:selectOneRadio>
+		<br />
+		<br></br>
+		<div align="center">
+			<p:commandButton value="Confirmar"
+				onclick="this.form.target='_blank'" icon="ui-icon-check"
+				action="#{relatorioEmbarqueUnidadeMB.confirmar()}" ajax="false" />
+			<p:commandButton style="margin-left: 1%" icon="ui-icon-close"
+				value="Cancelar" action="#{relatorioEmbarqueUnidadeMB.fechar()}"></p:commandButton>
+		</div>
+	</h:form>
+</h:body>
+</html>

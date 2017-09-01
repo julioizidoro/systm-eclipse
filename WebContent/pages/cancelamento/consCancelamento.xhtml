@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idfrmconsCancelamento" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho7, tamanhoavisos,tamanho1,tamanho7, tamanho1"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="Id Venda" for="idvenda" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel value="Período Solicitação" for="dataIni" />
+							<p:outputLabel />
+
+							<p:inputText id="idvenda" style="width:90%" maxlength="6"
+								value="#{consultaCancelamentoMB.idVenda}" />
+							<p:inputText id="cliente" style="width:90%;" maxlength="100"
+								value="#{consultaCancelamentoMB.nomeCliente}" />
+							<p:selectOneMenu id="produto"
+								value="#{consultaCancelamentoMB.produto}" style="width:90%"
+								converter="ProdutoConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todos os Produtos" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idproduto"
+									value="#{consultaCancelamentoMB.listaProduto}"
+									var="produtoSelecionado"
+									itemLabel="#{produtoSelecionado.descricao}"
+									itemValue="#{produtoSelecionado}" />
+								<f:attribute name="listaProdutos"
+									value="#{consultaCancelamentoMB.listaProduto}" />
+							</p:selectOneMenu>
+							<p:calendar id="dataIni" size="10"
+								value="#{consultaCancelamentoMB.dataInicio}" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="dataFinal" size="10"
+								value="#{consultaCancelamentoMB.dataTermino}" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanhoavisos,tamanho1,tamanho7, tamanho1"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="Unidade" for="unidade" class="fontebranca" />
+							<p:outputLabel value="Situação" for="situacao" />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="unidade"
+								value="#{consultaCancelamentoMB.unidadeNegocio}"  
+								style="width:243px;" converter="UnidadeNegocioConverter"
+								filter="true" filterMatchMode="startsWith" disabled="#{consultaCancelamentoMB.habilitarUnidade}">
+								<f:selectItem itemLabel="Todas as Unidades" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idnidade"
+									value="#{consultaCancelamentoMB.listaUnidadeNegocio}"
+									var="unidadeNegocio" itemLabel="#{unidadeNegocio.nomerelatorio}"
+									itemValue="#{unidadeNegocio}" />
+								<f:attribute name="listaUnidade"
+									value="#{consultaCancelamentoMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao"
+								value="#{consultaCancelamentoMB.situacao}" style="width:95px;">
+								<f:selectItem itemLabel="TODAS" itemValue="TODAS" />
+								<f:selectItem itemLabel="CANCELADA" itemValue="PROCESSO" />
+								<f:selectItem itemLabel="PROCESSO" itemValue="FINANCEIRO" />
+								<f:selectItem itemLabel="FINALIZADA" itemValue="FINALIZADA" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update="idfrmconsCancelamento:idtbCancelamento"
+								action="#{consultaCancelamentoMB.pesquisarListaCancelamento()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="idfrmconsCancelamento:idtbCancelamento, situacao, unidade, dataFinal, dataIni, cliente,idvenda,produto"
+								action="#{consultaCancelamentoMB.limparPesquisa()}" />
+						</h:panelGrid>
+
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Cancelamentos</b>
+				</legend>
+				<p:dataTable id="idtbCancelamento" var="cancelamento"
+					value="#{consultaCancelamentoMB.listaCancelamento}" class="tabela"
+					style="margin-bottom:20px" scrollable="true" scrollHeight="300">
+
+					<p:column headerText="ID Venda" style="width:80px;">
+						<p:commandLink style="text-align: center"
+							value="#{cancelamento.vendas.idvendas}"
+							action="#{consultaCancelamentoMB.emissaoCancelamento(cancelamento)}">
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Cliente">
+						<h:outputText value="#{cancelamento.vendas.cliente.nome}" />
+					</p:column>
+					<p:column headerText="Produto" style="width: 150px;">
+						<h:outputText value="#{cancelamento.vendas.produtos.descricao}" />
+					</p:column>
+					<p:column headerText="Data Solicitação"
+						style="width: 100px;text-align:center;">
+						<h:outputText value="#{cancelamento.datasolicitacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Total Reembolso"
+						style="width: 100px;text-align:right;">
+						<h:outputText value="#{cancelamento.totalreembolso}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Saldo de Cancelamento"
+						style="width: 110px;text-align:center;">
+						<h:outputText value="#{cancelamento.saldocancelamento}"
+							style="text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Situação" style="width: 140px;">
+						<h:outputText value="#{cancelamento.situacao}" />
+					</p:column>
+					<p:column style="text-align:center;width:45px;">
+						<p:commandLink action="#" style="text-decoration:none"
+							title="Finalizar">
+							<img src="../../resources/img/confirmarBola.png" width="40" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="text-align:center;width:45px;">
+						<h:commandButton
+							action="#{consultaCancelamentoMB.relatorioTermoQuitacao(cancelamento)}"
+							title="Termo de Quitação"
+							image="../../resources/img/imprimiRecibo.png"
+							style="margin-left:4%;width:100%;">
+						</h:commandButton>
+					</p:column>
+					<p:column headerText="Docs" style="width:45px;text-align:center">
+						<p:commandLink
+							action="#{consultaCancelamentoMB.documentacao(cancelamento)}"
+							title="Upload Termo de Quitação">
+							<img src="../../resources/img/arquivosUpload.png" width="160%" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

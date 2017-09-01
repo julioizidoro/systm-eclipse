@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>  
+<h:body style="background:#DDDDE1;">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<img src="../../resources/img/ajax-loader.gif" />
+	</p:dialog>
+	<h:form id="calcularComissao"   
+		style="text-align:left;font-size: 10px; margin-left:5%; ">
+		<title>Comissão</title>
+   
+		<h:panelGrid columns="2" columnClasses="tamanho14, tamanho14">
+			<p:outputLabel value="Valor Comissionável" /> 
+			<p:outputLabel value="Percentual comissão" />  
+			
+			<p:inputText id="valorcomissionavel" value="#{calcularComissaoFranquiaMB.vendasComissao.valorcomissionavel}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="percentualcomissao" value="#{calcularComissaoFranquiaMB.percentualComissao}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+		</h:panelGrid> 
+		<br></br> 
+		<h:panelGrid columns="2" columnClasses="tamanho14, tamanho14"> 
+			<p:outputLabel value="Comissão Franquia Líquido" /> 
+			<p:outputLabel value="Deságios" />  
+			
+			<p:inputText id="comissaofranquia" value="#{calcularComissaoFranquiaMB.vendasComissao.comissaofraquia}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText> 
+			<p:inputText id="desagios" value="#{calcularComissaoFranquiaMB.desagio}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText> 
+		</h:panelGrid>
+		<br></br>    
+		<p:outputLabel value="*Valores sujeitos a alterações." style="font-size:16px;color:red;"/> 
+		<br></br> 
+		<div align="center">        
+			<p:commandButton value="Fechar" icon="ui-icon-closethick"
+				action="#{calcularComissaoFranquiaMB.fechar()}" style="margin-left:3%" />
+		</div>
+	</h:form>
+
+</h:body>
+</html>

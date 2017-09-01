@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPagina09" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.6830134553650705"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="27"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="447" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="23" width="550" height="392" uuid="c029a3af-bd72-4d35-9cd3-c8500c19b3a7"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="108" width="184" height="13" uuid="51fdd288-07c9-491f-9b44-a69092720c56"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{cidadeunidadeNegocio} + ", "]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="224" y="108" width="215" height="13" uuid="abd76dc5-f61b-4911-9d02-dec8561536f6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="272" width="366" height="14" uuid="375c85e5-9e89-47d7-9218-5ac175e2e24f"/>
+				<text><![CDATA[Assinatura do responsável (aquele que responde pelo participante no Brasil)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="20" y="187" width="386" height="1" backcolor="#000000" uuid="9393e326-10f3-436a-be30-7beafe5e563c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="20" y="269" width="386" height="1" backcolor="#000000" uuid="38550acc-abb9-43d5-8e9c-4e7f16fe10c1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="192" width="149" height="14" uuid="b8e8db97-62c8-4ea7-b54a-0f02b7528587"/>
+				<text><![CDATA[Assinatura do(a) Participante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="259" width="113" height="13" uuid="83ddc77d-0510-482b-bcfc-b8c84166f435"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="175" width="113" height="13" uuid="6d66fc73-db6c-451d-b9a1-c7feb4fa25b1"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="20" y="354" width="386" height="1" backcolor="#000000" uuid="137bcc48-8dfc-4e70-b45e-ec9af960d43c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="439" y="342" width="113" height="13" uuid="4091615c-6ca7-4223-9c49-8d5d9d8e3549"/>
+				<text><![CDATA[_____/_____/_________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="8" width="81" height="15" uuid="103513f3-09cc-4f2f-91dc-df3dd6da6adf"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sendo que o(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="23" width="166" height="15" uuid="df48a2f8-2ec5-4556-91e2-6e34a06a802b"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[, celebram o presente contrato em]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="583" height="15" uuid="751682a1-b9f5-4795-94fe-f1f7847d0243"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[02 vias de igual teor e forma e na presença de 2 (duas) testemunhas. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="555" height="27" uuid="8adf2e57-3cd8-4161-9e82-03a337dc33e3"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[As partes elegem o foro da Comarca de Curitiba para dirimir quaisquer problemas provenientes do presente contrato, renunciando expressamente a qualquer outro por mais privilegiado que seja.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="23" width="347" height="15" uuid="92457f4e-a706-4629-9894-dc42ccae0874"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[com as regras e condições para prestação do serviço tal como proposto pela ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="23" width="69" height="15" uuid="95a15ac7-dd4f-415a-985b-fec2e238b1dd"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRAVELMATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="8" width="434" height="15" uuid="afcf8ae3-288e-475a-938c-a129f59f6d15"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[e seus representantes legais afirmam estarem cientes dos termos deste contrato, concordando ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="8" width="74" height="15" uuid="6ba5f353-20f3-49eb-aba2-a11fd360c8ba"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="23" y="369" width="383" height="13" uuid="1db86605-d2de-4282-b3ab-8720daae9589"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["CNPJ/MF nº " + $F{cnpjunidadeNegocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="23" y="357" width="383" height="13" uuid="f1861223-fcf0-49f1-ae2a-abb2cbe61aab"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{razaoSocial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

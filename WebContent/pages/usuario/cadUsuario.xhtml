@@ -1,0 +1,162 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="cadUsuario">
+			<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+			<div style="background: #ffffff">
+				<div class="ui-fluid"
+					style="width: 85%; margin-left: 9%; font-size: 11px; color: #556575;">
+					<legend id="iUsu3" style="color: #495B6C;">
+						<b>Dados do Usuário</b>
+					</legend>
+					<h:panelGrid columns="4"
+						columnClasses="colunaVinteoito, tamanho8, tamanho8,tamanho8"
+						style="width:90%;">
+						<p:outputLabel value="Nome" for="nome" />
+						<p:outputLabel value="Usuario" for="idusuario" />
+						<p:outputLabel value="Função" for="funcao" />
+						<p:outputLabel value="Situação" for="situacao" />
+
+						<p:inputText id="nome" style="width:90%;"
+							value="#{cadUsuariosMB.usuario.nome}" />
+						<p:inputText id="idusuario" style="width:70%;"
+							value="#{cadUsuariosMB.usuario.login}" />
+						<p:inputText id="funcao" style="width:75%;"
+							value="#{cadUsuariosMB.usuario.funcao}" />
+						<p:selectOneMenu id="situacao"
+							value="#{cadUsuariosMB.usuario.situacao}" style="width:50%;">
+							<f:selectItem itemLabel="Ativo" itemValue="Ativo" />
+							<f:selectItem itemLabel="Inativo" itemValue="Inativo" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="4"
+						columnClasses="colunaVinteoito, tamanho8,tamanho8,tamanho8"
+						style="width:90%;">
+						<p:outputLabel value="Email" for="email" />
+						<p:outputLabel value="Tipo Acesso" for="tipoacesso" />
+						<p:outputLabel value="Efetua Vendas?" for="vende" />
+						<p:outputLabel value="Possui Foto?" for="foto" />
+
+						<p:inputText id="email" style="width:90%;"
+							value="#{cadUsuariosMB.usuario.email}" />
+
+						<p:selectOneMenu id="tipoacesso"
+							value="#{cadUsuariosMB.usuario.tipo}" style="width:70%;">
+							<f:selectItem itemLabel="Unidade" itemValue="Unidade" />
+							<f:selectItem itemLabel="Gerencial" itemValue="Gerencial" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="vende" value="#{cadUsuariosMB.vende}"
+							style="width:50%;">
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="foto" value="#{cadUsuariosMB.foto}"
+							style="width:50%;">
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="4"
+						columnClasses="colunaVinteoito,colunaVinteoito, colunaVinteoito, colunaVinteoito"
+						style="width:79%;">
+						<p:outputLabel value="Unidade" for="unidade" />
+						<p:outputLabel value="Grupo de Acesso" for="grupoAcesso" />
+						<p:outputLabel value="Departamento" for="iddepartamento" />
+						<p:outputLabel value="Data de Nascimento"/>
+
+						<p:selectOneMenu id="unidade"
+							value="#{cadUsuariosMB.usuario.unidadenegocio}"
+							style="width:88%;" converter="UnidadeNegocioConverter"
+							filter="true" filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Unidade" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idunidade"
+								value="#{cadUsuariosMB.listaUnidade}" var="sUnidade"
+								itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+							<f:attribute name="listaUnidade"
+								value="#{cadUsuariosMB.listaUnidade}" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="grupoAcesso"
+							value="#{cadUsuariosMB.usuario.grupoacesso}"
+							converter="GrupoAcessoConverter" style="width:85%;" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Grupo de Acesso" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idgrupo"
+								value="#{cadUsuariosMB.listaGrupoAcesso}" var="sgrupo"
+								itemLabel="#{sgrupo.descricao}" itemValue="#{sgrupo}" />
+							<f:attribute name="listaGrupoAcesso"
+								value="#{cadUsuariosMB.listaGrupoAcesso}" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="iddepartamento"
+							value="#{cadUsuariosMB.usuario.departamento}"
+							converter="DepartamentoConverter" style="width:88%;">
+							<f:selectItem itemLabel="Departamento" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="departamento"
+								value="#{cadUsuariosMB.listaDepartamento}" var="sdepartamento"
+								itemLabel="#{sdepartamento.nome}" itemValue="#{sdepartamento}" />
+							<f:attribute name="listaDepartamento"
+								value="#{cadUsuariosMB.listaDepartamento}" />
+						</p:selectOneMenu>
+						<p:inputMask id="dataNasc" value="#{cadUsuariosMB.usuario.dataaniversario}" mask="99/99/9999" style="width:70%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="5"
+						columnClasses="colunaVinteoito,colunaVinteoito, colunaVinteoito, colunaVinteoito"
+						style="width:79%;">
+						<h:panelGroup style="float:rigth;">
+							<p:selectBooleanCheckbox id="pertencematriz"
+								value="#{cadUsuariosMB.usuario.pertencematriz}" />
+							<p:outputLabel value="Pertence a Matriz"
+								style="margin-left:1%;" />  
+						</h:panelGroup>
+						<h:panelGroup style="float:rigth;">
+							<p:selectBooleanCheckbox id="liberarDepoimentos"
+								value="#{cadUsuariosMB.usuario.depoimentos}" />
+							<p:outputLabel value="Liberação de Depoimentos"
+								style="margin-left:1%;" />
+						</h:panelGroup>
+						<h:panelGroup style="float:rigth;">
+							<p:selectBooleanCheckbox id="responsalvelUnidade"
+								value="#{cadUsuariosMB.responsavelUnidade}" />
+							<p:outputLabel value="Responsável pela unidade"
+								style="margin-left:1%;" />
+						</h:panelGroup>
+						<h:panelGroup style="float:rigth;">
+							<p:selectBooleanCheckbox id="leadautomatizada"
+								value="#{cadUsuariosMB.usuario.recebeleadautomatica}" />
+							<p:outputLabel value="Recebe lead automatizada"
+								style="margin-left:1%;" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</div>
+				<br></br>
+			</div>
+			<br></br>
+			<div align="center">
+				<p:commandButton id="btnConfirmar" value="Confirmar"
+					action="#{cadUsuariosMB.salvar()}" icon="ui-icon-check"
+					style="font-size:12px;" update="growl" />
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{cadUsuariosMB.cancelar()}" icon="ui-icon-closethick"
+					style="font-size:12px;margin-left:2%" />
+			</div>
+			<br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

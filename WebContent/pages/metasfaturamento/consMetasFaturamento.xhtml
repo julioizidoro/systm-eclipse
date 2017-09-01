@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="consMetas">
+                 <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                     <br></br>
+                     
+                     <legend id="iUsu2" ><b>Metas Faturamento</b></legend> 
+                     <br/>
+                     <p:accordionPanel class="painel" activeIndex="-1" style="width:50%; margin-left:25%;">
+						<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+							title="Pesquisar">
+							<h:panelGrid columns="3"
+								style="width:90%;margin-left:2%;">
+								<p:outputLabel value="Unidade" for="unidade" />
+								<p:outputLabel value="Mes" for="mes" />
+								<p:outputLabel value="Ano" for="ano" />
+	
+								<p:selectOneMenu id="unidade" value="#{metasFaturamentoMB.unidade}"
+									style="width:200px;" converter="UnidadeNegocioConverter"
+									filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idunidade"
+										value="#{metasFaturamentoMB.listaUnidade}" var="sUnidade"
+										itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+									<f:attribute name="listaUnidade"
+										value="#{metasFaturamentoMB.listaUnidade}" />
+								</p:selectOneMenu>
+								<p:inputText id="mes" value="#{metasFaturamentoMB.mes}"
+									style="width:40px;" />
+								<p:inputText id="ano" value="#{metasFaturamentoMB.ano}"
+									style="width:60px;" />
+							</h:panelGrid> 
+							<br></br>
+							
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									action="#{metasFaturamentoMB.pesquisar()}" style="margin-left:50%;" update=":consMetas:tabelaConsMetas"/>
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									action="#{metasFaturamentoMB.limparPesquisa()}" update=":consMetas:tabelaConsMetas" />
+							<br></br>
+	
+						</p:tab>
+					</p:accordionPanel>
+					<br/>
+                     <div align="right" style="width:80%;margin-left:10%;">
+                   	     <p:commandButton value="Nova Meta" icon="ui-icon-plus" action="#{metasFaturamentoMB.novaMeta()}" class="corBotão">
+	                     	<p:ajax event="dialogReturn" listener="#{metasFaturamentoMB.returnDialogNovo}" update=":consMetas:tabelaConsMetas"/>
+	                     </p:commandButton>
+                      </div>
+                     <br></br>
+                     <div align="right" style="width:80%;margin-left:10%;">
+	                     <p:dataTable id="tabelaConsMetas" var="metas"  value="#{metasFaturamentoMB.listaMetaFaturamentoMensal}"   
+	                                scrollable="true" scrollHeight="300" style="font-size:11px;margin-bottom:20px" >
+	                         
+	                        
+	                        <p:column headerText="Unidade" style="text-align:left;width:200px;">
+	                            <h:outputText value="#{metas.unidadenegocio.nomeFantasia}" />
+	                        </p:column>
+	                        <p:column headerText="Mês" style="width:60px;text-align:center;">
+	                            <h:outputText value="#{metas.mes}" />
+	                        </p:column>
+	                        <p:column headerText="Ano" style="width:60px;text-align:center;">
+	                            <h:outputText value="#{metas.ano}"/>
+	                        </p:column>
+	                        <p:column headerText="Valor Meta" style="width:14%;text-align: right" >
+	                            <h:outputText value="#{metas.valormeta}" style="text-decoration-line: underline">
+	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText> 
+	                        </p:column>
+	                        <p:column headerText="Valor Alcançado" style="width:14%;text-align: right" >
+	                            <h:outputText value="#{metas.valoralcancado}" style="text-decoration-line: underline">
+	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText>  
+	                        </p:column>
+	                        <p:column  style="width:45px;text-align:center;" >
+	                          <p:commandLink  action="#{metasFaturamentoMB.editarMeta(metas)}" title="Editar"> 
+	                          	<img src="../../resources/img/editaricon.png"  /> 
+	                          	<p:ajax event="dialogReturn" listener="#{metasFaturamentoMB.returnDialogEdicao}" update=":consMetas:tabelaConsMetas"/>
+	                          </p:commandLink>
+	                        </p:column>
+	                    </p:dataTable>
+                	</div>
+                    <br></br>
+                    <br></br>
+                </div>
+	                
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

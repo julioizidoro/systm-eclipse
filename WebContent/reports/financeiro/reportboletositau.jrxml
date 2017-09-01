@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Boletos Itau" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="320dd56b-4281-455e-becf-bdbfae77892b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="tituloColunaData" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codigoOcorrencia" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoOcorrencia]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="inscricao" class="java.lang.String">
+		<fieldDescription><![CDATA[inscricao]]></fieldDescription>
+	</field>
+	<field name="nomePagador" class="java.lang.String">
+		<fieldDescription><![CDATA[nomePagador]]></fieldDescription>
+	</field>
+	<field name="nossoNumero" class="java.lang.String">
+		<fieldDescription><![CDATA[nossoNumero]]></fieldDescription>
+	</field>
+	<field name="valorJuros" class="java.lang.Float">
+		<fieldDescription><![CDATA[valorJuros]]></fieldDescription>
+	</field>
+	<field name="valorTitulo" class="java.lang.Float">
+		<fieldDescription><![CDATA[valorTitulo]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="162" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="0" y="114" width="555" height="33" uuid="8b407713-f5f1-44b0-9223-250f03a69f01"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="11" y="10" width="255" height="94" uuid="39b496d6-ed28-49e5-95cf-cb14934a37b5"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="369" y="3" width="70" height="15" uuid="ca145b00-b653-4579-8cb8-36d22ce41438"/>
+				<text><![CDATA[Valor Titulo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="446" y="3" width="67" height="15" uuid="c636b7a4-e5f5-44ea-b789-31d646af217a"/>
+				<text><![CDATA[Valor Juros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="261" y="3" width="86" height="15" uuid="2ac83b0e-b7cf-483e-958f-f7078049a8ce"/>
+				<text><![CDATA[Nosso numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="8" y="3" width="44" height="15" uuid="95451046-43d3-4c8c-b5d0-77a3bd497a74"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="524" y="3" width="29" height="15" uuid="812e9f96-b73a-487e-8180-25fc14796753"/>
+				<text><![CDATA[Cód.]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="180" y="3" width="70" height="15" forecolor="#666666" uuid="bab750fd-8860-4ae6-b4ff-cae939046def"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tituloColunaData}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="20" uuid="ee86d585-c7cb-4176-b6d0-71932d13f089"/>
+			</rectangle>
+			<textField pattern="">
+				<reportElement style="Detail" x="5" y="4" width="167" height="15" uuid="4167ced3-989a-461d-94be-9bb6e2543f83"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomePagador}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Detail" x="260" y="4" width="84" height="15" uuid="e0df543e-f9a3-4983-8b5f-111cc992c08b"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nossoNumero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="356" y="4" width="83" height="15" uuid="4c0b5781-b7bb-4213-a971-00ea0f01211d"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorTitulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="446" y="4" width="67" height="15" uuid="d4edab43-c0ec-430f-8014-e493b1ff6bcc"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorJuros}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="Detail" x="180" y="4" width="70" height="15" uuid="f200942b-267b-474e-8790-c00da333f4e5"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="524" y="4" width="29" height="15" uuid="431be5c2-7f45-4df3-a003-6568907318ac"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoOcorrencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss Z">
+				<reportElement x="8" y="30" width="128" height="20" uuid="39c772fe-f52c-4195-9974-e33d0e5d06a2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="3" width="72" height="16" uuid="e3bedc54-a953-4c3c-a58d-0de4dcaaf552"/>
+				<text><![CDATA[01 - Remessa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="3" width="125" height="16" uuid="ce11a817-0e79-4d91-9039-956349665c69"/>
+				<text><![CDATA[02 - Remessa confirmada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="3" width="118" height="16" uuid="2e1756b7-83e1-4af5-96be-66db573a70fa"/>
+				<text><![CDATA[03 - Remessao rejeitada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="3" width="127" height="16" uuid="ccfd4c67-c7d1-4244-8b45-b7398eb6989a"/>
+				<text><![CDATA[04 - Alteração de dados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="23" width="127" height="16" uuid="fe23b764-7137-4a1e-98d7-1c61474a1bb9"/>
+				<text><![CDATA[06 - Liquidação normal]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

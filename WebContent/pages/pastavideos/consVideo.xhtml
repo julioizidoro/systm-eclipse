@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaVideos" style="margin-left:1%;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Modo de exibição" style="font-size:10px;"/> 
+	        	<br/>
+	        	<p:commandLink action="#{videoMB.listarArquivoQuadro()}" title="Listagem em ícones" update="consultaVideos, idPanelVideoQuadro, idPanelVideoLista, idTabelaVideos">
+	        		<img src="../../resources/img/iconeQuadro.png" width="20" height="20" style="font-size:12px;margin:0.2%;margin-top:-0.7%;"/>
+	        	</p:commandLink> 
+	            <p:commandLink action="#{videoMB.listarArquivoLista()}" title="Listagem em lista" update="consultaVideos, idPanelVideoQuadro, idPanelVideoLista, idTabelaVideos">
+	        		<img src="../../resources/img/iconeLista.png" width="20" height="20" style="font-size:12px;margin:0.2%;margin-top:-0.7%;"/>
+	        	</p:commandLink> 
+    			<p:commandButton rendered="#{videoMB.verificarAcesso()}" value="Adicionar Vídeo" icon="ui-icon-plus" styleClass="btn btn-danger" action="#{videoMB.adicionarVideo()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
+    				<p:ajax event="dialogReturn" listener="#{videoMB.retornoDialogNovo}" update="@form, growl"/>
+    			</p:commandButton>
+    			<hr/>
+				<legend>
+					<p:commandLink ajax="false" value="Pastas de Videos" action="#{videoMB.voltarPastaVideos()}"/>
+					> <b>#{videoMB.pastavideo.nome}</b>
+				</legend> 
+				<br/>  
+			<br/><br/>
+			<h:panelGrid id="idPanelVideoQuadro" width="100%;" rendered="#{videoMB.tabelaVideoQuadro}">
+				<ui:repeat var="videos" value="#{videoMB.listaVideo}" varStatus="statuss">
+				
+			       <div class="col-sm-6 col-md-3">
+						<p:commandLink style="float:right;margin-right:2%;" title="Descrição do video" action="#{videoMB.consultarDescricao(videos)}"> 
+							<i class="fa fa-eye"></i>
+						</p:commandLink>
+						<p:media id="idVideos" value="#{videos.url}" width="250" height="145" player="flash" style="margin:2%;"/>
+					</div>
+				</ui:repeat>
+			</h:panelGrid> 
+			<h:panelGrid id="idPanelVideoLista" width="100%;" rendered="#{videoMB.tabelaVideoLista}">
+				<p:dataTable reflow="true" id="idTabelaVideos" var="videos"
+						styleClass="table-transparent"
+						value="#{videoMB.listaVideo}"
+						style="border:transparent;margin-left:3%;width:90%;font-size:12px;"
+						scrollRows="10" scrollable="true" scrollHeight="300"
+						rendered="#{videoMB.tabelaVideoLista}">
+		
+						
+						<p:column headerText="Nome" sortBy="#{videos.nome}" 
+							style="font-size:12px; color:black; border:none;text-align:left; #{videoMB.trocarCorLinhaTabela(videos)}">
+							<a
+								href="https://www.youtube.com/watch?v=#{videoMB.pegarLinkYoutube(videos)}"
+								title="#{arquivo.nome}" name="#{videos.nome}" target="_blank">
+								<h:outputText value="#{videos.nome}" style="color:black"/>
+							</a>
+						</p:column> 
+						<p:column headerText="Link" sortBy="#{videos.url}" 
+							style="font-size:12px; color:black; border:none;text-align:left; #{videoMB.trocarCorLinhaTabela(videos)}">
+							<a
+								href="https://www.youtube.com/watch?v=#{videoMB.pegarLinkYoutube(videos)}"
+								title="#{videos.url}" name="#{videos.url}" target="_blank">
+								<h:outputText value="#{videos.url}" style="color:black"/>
+							</a>
+						</p:column> 
+						<p:column headerText=""
+							style="width:10%; background:white; font-size:12px; color:white; border:none;#{videoMB.trocarCorLinhaTabela(videos)}"
+							styleClass="alinharCenter">
+							<p:commandLink 
+								update="@form, idTabelaVideos" action="#{videoMB.consultarDescricao(videos)}"
+								title="Descrição do video">
+								<img src="../../resources/img/verOrcamento.png"  width="30" height="30"/>
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+				<br></br> <br></br>   
+			</div>    
+		</h:form>  
+	</ui:define>
+	
+</ui:composition>
+</html>

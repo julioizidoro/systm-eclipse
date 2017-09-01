@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<title>Qual sua data de nascimento?</title>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadDataAniversario"
+		style="font-size: 11px; background-color:#DDDDE1;">
+		<p:growl id="growl" showDetail="true" sticky="false" life="20000" />
+		 <p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"  
+			closable="false" resizable="false" showHeader="false">
+		</p:dialog>
+		<br/>
+		<div align="left" style="width:80%;margin-left:9%;"> 
+			<p:inputMask mask="99/99/9999" id="data" value="#{usuarioLogadoMB.usuario.dataaniversario}" style="font-size: 12px;width:95%;">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:inputMask>
+			<br/> <br/>
+			<p:commandButton id="btnSalvar" value="Confirmar"
+				action="#{usuarioLogadoMB.salvarUsuario()}" icon="ui-icon-check"
+				style="font-size:12px;float:right;" update="growl"/>
+		</div>
+	</h:form>
+</h:body>
+</html>
+  

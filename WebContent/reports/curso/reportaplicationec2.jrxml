@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Enrolment Form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="515"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="logoescola" class="java.awt.Image"/>
+	<parameter name="carimbo" class="java.awt.Image"/>
+	<parameter name="assinatura" class="java.awt.Image"/>
+	<parameter name="nome" class="java.lang.String"/>
+	<parameter name="sobrenome" class="java.lang.String"/>
+	<parameter name="acomodacao" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[Select distinct
+   vendas.dataVenda, vendas.valor as valorVenda,cursos.tipoAcomodacao as acomodacao,
+   cursos.nomeCurso, cursos.escola, cursos.idcursos,cursos.scurso, cursos.sDataInicio, cursos.sDataTermino,    cursos.sNumeroSemanas, cursos.sTipoCargaHoraria, cursos.sCargaHoraria,
+   cursos.cidade, cursos.pais, cursos.aulassemana, cursos.numerosenamas, cursos.dataInicio,
+   cursos.dataTermino, cursos.numeroSemanasAcamodacao,
+   cursotraducao.refeicao, cursos.adicionais, cursos.datachegada, cursos.dataSaida, cursos.familiacomcrianca, cursos.tipoDuracao, cursotraducao.banheiro,fonecontatoemergencia,
+   cursos.familiacomanimais, cursos.fumante, cursos.vegetariano, cursos.hobbies, cursos.possuiAlergia,
+   cursos.quaisalergias, cursos.solicitacoesespeciais, cursos.caratovtm, cursos.numerocartaovtm,
+   cursos.moedacartaovtm, cursos.transferin, cursos.transferouto, cursos.passagemaerea, cursos.observacaopassagemaerea, cursos.vistoconsular, cursos.dataEntregadocumentosvistos, cursos.observacaovisto, cursos.nomecontatoemergencia,  cursos.emalcontatoemergencia, cursos.relacaocontatoemergencia,
+cursos.datainscricao as dataInscricaCurso, cursos.idioma, cliente.nome, cliente.dataNascimento, cliente.paisnascimento, cliente.cidadenascimento, cliente.rg, cliente.sexo, cliente.numeropassaporte,
+cliente.dataExpedicaopassaporte,
+cliente.validadePassaporte, cliente.tipologradouro as clientetipologradouro, cliente.logradouro as clientelogradouro, cliente.numero as clientenumero,
+cliente.bairro as clientebairro, cliente.cidade as clientecidade, cliente.estado as clienteestado, cliente.cep as clientecep, cliente.cpf as clientecpf, cliente.pais as clientepais, cliente.foneresidencial,
+cliente.fonecelular, cliente.fonecomercial, cliente.profissao,
+cliente.email as emailcliente,cliente.escolaridade,
+cursotraducao.nivelidioma,cursotraducao.turno1,
+   cursotraducao.turno2,cursotraducao.idiomaestudar, cursotraducao.tipoquarto,cursotraducao.tipoacomodacao
+from
+     vendas join cursos on vendas.idvendas = cursos.vendas_idvendas
+     join cliente on vendas.cliente_idcliente = cliente.idcliente
+     join cursotraducao on cursos.idcursos = cursotraducao.curso_idcurso
+where
+    vendas.idvendas = $P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorVenda" class="java.lang.Float"/>
+	<field name="acomodacao" class="java.lang.String"/>
+	<field name="nomeCurso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="escola" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idcursos" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="scurso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sDataInicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sDataTermino" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sNumeroSemanas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sTipoCargaHoraria" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sCargaHoraria" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pais" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aulassemana" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numerosenamas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataInicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataTermino" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSemanasAcamodacao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="refeicao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="adicionais" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datachegada" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataSaida" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="familiacomcrianca" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoDuracao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="banheiro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fonecontatoemergencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="familiacomanimais" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fumante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vegetariano" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hobbies" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="possuiAlergia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quaisalergias" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="solicitacoesespeciais" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="caratovtm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numerocartaovtm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="moedacartaovtm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transferin" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transferouto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="passagemaerea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacaopassagemaerea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vistoconsular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataEntregadocumentosvistos" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacaovisto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomecontatoemergencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emalcontatoemergencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="relacaocontatoemergencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataInscricaCurso" class="java.sql.Date"/>
+	<field name="idioma" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataNascimento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paisnascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cidadenascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeropassaporte" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataExpedicaopassaporte" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="validadePassaporte" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="clientetipologradouro" class="java.lang.String"/>
+	<field name="clientelogradouro" class="java.lang.String"/>
+	<field name="clientenumero" class="java.lang.String"/>
+	<field name="clientebairro" class="java.lang.String"/>
+	<field name="clientecidade" class="java.lang.String"/>
+	<field name="clienteestado" class="java.lang.String"/>
+	<field name="clientecep" class="java.lang.String"/>
+	<field name="clientecpf" class="java.lang.String"/>
+	<field name="clientepais" class="java.lang.String"/>
+	<field name="foneresidencial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fonecelular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fonecomercial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="profissao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emailcliente" class="java.lang.String"/>
+	<field name="escolaridade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nivelidioma" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="turno1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="turno2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idiomaestudar" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoquarto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoacomodacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<image>
+				<reportElement x="8" y="3" width="169" height="44" uuid="499576a2-cb2d-4398-a31c-3a52d1441969"/>
+				<imageExpression><![CDATA[$P{logoescola}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="49" width="555" height="8" backcolor="#808080" uuid="3e496cc4-5a10-41f3-b0f6-3b525cebf465"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="57" width="555" height="20" uuid="846bb8d3-2a18-4911-810d-7072f166436b"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ENROLMENT FORM"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="375" y="3" width="177" height="44" uuid="6b37b61a-d4fa-4cd5-ac09-ddc075bd546b"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="653" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="358" width="555" height="55" uuid="736e953d-eebc-4708-81d9-339ca45f1c26"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="171" y="360" width="86" height="15" uuid="608d599a-9947-4aec-8981-6adf3c6a16f5"/>
+				<text><![CDATA[Language Level:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="525" width="555" height="124" uuid="d4bcede3-c6e9-44d9-a4f0-6631dd309254">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="280" width="555" height="55" uuid="77aee6d7-2256-4a93-9b08-40e655436fa7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="484" width="555" height="20" uuid="f130bb4f-3223-493a-8246-bf34b7d2ef80"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-1" y="15" width="555" height="17" uuid="65eaac24-7402-43d3-8860-a9c04018f704"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="2" width="171" height="13" forecolor="#1F8871" uuid="27cb2a8d-ca5f-4a8f-9ecf-8faa9b4ff29e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Where do you want to study?]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="16" width="247" height="15" uuid="21859776-f554-40a4-8009-a41e9c608a89"/>
+				<textFieldExpression><![CDATA[$F{cidade} + " - " + $F{pais}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="50" width="555" height="212" uuid="f592aabd-743b-4fe6-8467-e9c5272e0378"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="36" width="171" height="13" forecolor="#1F8871" uuid="f4371496-7f4d-4c3d-bca7-102ca2006bd4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[About you]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="53" width="153" height="14" uuid="8a178f2e-531b-49ed-b4b2-5137d823bc16"/>
+				<textFieldExpression><![CDATA[( $F{sexo}.equals( "Masculino" ) ? "Male" : "Female")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="46" y="71" width="164" height="15" uuid="843e4662-9fc5-478a-bc28-3350b618cc28"/>
+				<textFieldExpression><![CDATA[$P{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="71" width="39" height="15" uuid="1db202cc-820e-483d-b8cc-5024a30cc78f"/>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="93" width="67" height="15" uuid="830df1d2-3b10-4fb1-a169-b6eb8115cfc5"/>
+				<text><![CDATA[Date of birth :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="79" y="93" width="57" height="15" uuid="b3f32ea7-5669-4d9e-94b3-0f05a1a878ef"/>
+				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="490" y="73" width="55" height="13" uuid="e7b4cffb-e777-4fad-bb55-6d4ab4553d6d"/>
+				<textFieldExpression><![CDATA["Brazilian"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="429" y="73" width="63" height="13" uuid="4602b54d-5699-4be2-a302-42694270f437"/>
+				<text><![CDATA[Nationality:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="397" y="93" width="145" height="13" uuid="60b5d84f-56b6-420a-a885-79c4c52f02b9"/>
+				<textFieldExpression><![CDATA[$F{paisnascimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="249" y="93" width="142" height="13" uuid="cd18b7e9-674a-4049-acec-737ba32df69c"/>
+				<text><![CDATA[What country do you live in?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="113" width="96" height="15" uuid="50285a8b-eef6-405d-9c74-2cbb8611f0f8"/>
+				<text><![CDATA[Passport number:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="113" width="127" height="15" uuid="55b120bc-e899-4781-b132-b6a3a2332f23"/>
+				<textFieldExpression><![CDATA[$F{numeropassaporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="356" y="113" width="68" height="15" uuid="2f40389a-a0ea-4da9-8323-e76dfba75ee7"/>
+				<text><![CDATA[Expiry date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="420" y="113" width="57" height="15" uuid="e2fcedc9-1fbc-4586-a68c-daf757084eda"/>
+				<textFieldExpression><![CDATA[$F{validadePassaporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="348" y="169" width="43" height="15" uuid="f84c749b-d7b5-42b8-bd30-be28613452a6"/>
+				<text><![CDATA[Phone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="169" width="44" height="15" uuid="ca2c5fb4-ba09-4088-b0cf-da5ad2d6c6e5"/>
+				<text><![CDATA[E-mail :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="131" width="244" height="13" uuid="01055ba1-1b69-4cd8-afba-32ed4d266c6a"/>
+				<text><![CDATA[Emergency contact (name & phone number):]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="386" y="149" width="147" height="15" uuid="36f93cf1-f3e1-4e23-a693-a040f71e0555"/>
+				<textFieldExpression><![CDATA[$F{fonecontatoemergencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="149" width="276" height="15" uuid="af768df9-0e88-4306-b50d-30b088cc0fed"/>
+				<textFieldExpression><![CDATA[$F{nomecontatoemergencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="61" y="169" width="277" height="15" uuid="914c6960-2d07-4f2d-b739-78e642155798"/>
+				<textFieldExpression><![CDATA[$F{emalcontatoemergencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="149" width="44" height="15" uuid="813f12ab-9243-441b-aa87-6995a1c733e7"/>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="210" width="72" height="15" uuid="6be39d8b-8bfa-482c-810b-a3c51bab151a"/>
+				<textFieldExpression><![CDATA[$F{clientecep}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="338" y="210" width="114" height="15" uuid="ede1c5a4-8ac6-4119-a278-71b31bf16b76"/>
+				<textFieldExpression><![CDATA[$F{clientebairro}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="228" width="187" height="15" uuid="11a4e3e3-041d-4453-a397-2cab42d97f99"/>
+				<textFieldExpression><![CDATA[$F{clientecidade} + "/" + $F{clienteestado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="210" width="320" height="15" uuid="bfaa2d99-55ab-4ed7-acd3-434118648160"/>
+				<textFieldExpression><![CDATA[$F{clientetipologradouro} + " " + $F{clientelogradouro} + ", " + $F{clientenumero}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="201" y="228" width="113" height="15" uuid="c2f8da5c-8b9d-430f-834e-e6bca57e1c76"/>
+				<textFieldExpression><![CDATA[$F{clientepais}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="191" width="119" height="15" uuid="7f4546cd-2ff2-471d-a9c8-9bdf16f21242"/>
+				<text><![CDATA[Address in your country:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="246" width="39" height="15" uuid="5c2cb2b6-475c-4e47-aba9-40d387198755"/>
+				<text><![CDATA[E-mail :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="246" width="45" height="15" uuid="84314a57-f17b-4645-9adf-43fb7790801d"/>
+				<text><![CDATA[Mobile :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="74" y="246" width="105" height="15" uuid="d100cbc7-19db-4bb4-962c-26443787dd98"/>
+				<textFieldExpression><![CDATA[$F{foneresidencial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="377" y="246" width="165" height="15" uuid="eb3664b9-a159-458c-af13-22df68f755ce"/>
+				<textFieldExpression><![CDATA[$F{emailcliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="246" width="61" height="15" uuid="9df9f3c8-a8e3-4fb9-b81d-76b78e6bf7e4"/>
+				<text><![CDATA[Telephone :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="240" y="246" width="90" height="15" uuid="12fa2033-b664-4f5d-bfaf-df670161ac11"/>
+				<textFieldExpression><![CDATA[$F{fonecelular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="259" y="282" width="121" height="15" uuid="f4a67614-6b7b-4837-b087-a02a291bd75a"/>
+				<textFieldExpression><![CDATA[$F{nivelidioma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="471" width="187" height="13" forecolor="#1F8871" uuid="8dd97098-de2d-4974-ab03-abfc69ddbff2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transfers & Flight Information]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="81" y="487" width="77" height="15" uuid="a86a33f8-ad1a-4672-85a0-753b54be2943"/>
+				<textFieldExpression><![CDATA[( $F{transferin}.equals( "Sim" ) ? "Yes" : "No" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="487" width="61" height="15" uuid="f9692026-e489-47b2-a3c2-119f9e4590f8"/>
+				<text><![CDATA[Transfer in :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="487" width="66" height="15" uuid="c68949cd-20b4-459c-a8c2-a19ea4ac824a"/>
+				<text><![CDATA[Transfer out :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="253" y="487" width="113" height="15" uuid="b5aecc8f-d6f3-4a0f-8e3d-c168ea41497f"/>
+				<textFieldExpression><![CDATA[( $F{transferouto}.equals( "Sim" ) ? "Yes" : "No" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="416" y="282" width="90" height="15" uuid="aa55c68a-f80f-4dd0-9c9e-515406021e71"/>
+				<text><![CDATA[Number of weeks:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="94" y="300" width="57" height="15" uuid="2502b8ad-5591-4555-9168-aafe4f31a392"/>
+				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="510" y="282" width="35" height="15" uuid="edbff41f-369e-4be1-92a5-1a8112d83d35"/>
+				<textFieldExpression><![CDATA[$F{numerosenamas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="341" y="300" width="85" height="15" uuid="b54131f0-3d08-4e94-8dbe-dc3399cf16d7"/>
+				<text><![CDATA[Course end date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="425" y="300" width="57" height="15" uuid="292de969-420a-4b19-baa2-55c6a9531445"/>
+				<textFieldExpression><![CDATA[$F{dataTermino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="300" width="91" height="15" uuid="ce677d9a-fa16-47a8-b698-9c03b99ac45b"/>
+				<text><![CDATA[Course start date: ]]></text>
+			</staticText>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="116" y="319" width="55" height="15" uuid="12a803c4-4cb3-4829-99ff-4ec22e5a66af"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{aulassemana}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="184" y="524" width="30" height="15" uuid="3d14822e-92cc-4ed9-802b-bdfd6220c40f">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[( $F{tipoacomodacao}.equals( "Sem acomodação" ) ? "No" : "Yes" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="524" width="169" height="15" uuid="0de5fda7-2515-49ef-8b78-7400f400f166">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Do you require accommodation?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="510" width="187" height="13" forecolor="#1F8871" uuid="48f660dd-9ebd-47c5-8a3f-b8f303f207cb">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Your Accommodation]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="74" y="542" width="57" height="15" uuid="0c9f8e6d-6ce1-40c4-bfd0-7129db4d5b3e">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{datachegada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="252" y="542" width="77" height="15" uuid="fdbc8224-ba40-40ac-b27a-4ff064fb3bac">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Departure Date: ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="328" y="542" width="57" height="15" uuid="e68f8fb3-d0dd-4465-98be-ebc48883d844">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dataSaida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="542" width="61" height="15" uuid="c24a85ee-94c0-4f9b-b5f0-dd81db8429d5">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Arrival Date:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="224" y="560" width="90" height="15" uuid="cb0f2ed2-559a-4e93-9b30-7d694ea3801b">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{tipoacomodacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="560" width="219" height="15" uuid="18c0c922-ae16-4fc8-b1fe-4b5c29f4e199">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[What type of accommodation would you like?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="560" width="68" height="15" uuid="75ca7328-a7b1-4f3b-a80a-39cc4076c58d">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Room Type :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="391" y="560" width="140" height="15" uuid="ecb4cfec-fbf3-4f99-8aca-ae39c91c6668">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{tipoquarto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="60" y="579" width="189" height="15" uuid="417243d1-19b2-4020-8b0a-4b23de733edd">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{refeicao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="579" width="42" height="15" uuid="6359af76-cb4e-47c6-815c-0e1690be862c">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Board :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="430" width="555" height="34" uuid="a27b532e-af27-40c1-9753-c468604839b6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="417" width="187" height="13" forecolor="#1F8871" uuid="61f081a3-569c-45c0-8a88-996b56b8665a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Special Requests]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="613" width="88" height="15" uuid="99ff14d1-7ada-4865-a55a-08d979c06002">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[( $F{fumante}.equals( "Não" ) ? "No" : "Yes" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="613" width="128" height="15" uuid="4199ed29-a329-4d05-b65d-669caeaad099">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Do you smoke?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="613" width="104" height="15" uuid="3eba4d2f-c0e5-4588-93c7-8d98490ff461">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Are you a vegetarian?]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="345" y="613" width="88" height="15" uuid="c481678e-b6e2-47fd-b5ad-2b6384a65f03">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[( $F{vegetariano}.equals( "Não" ) ? "No" : "Yes" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="632" width="140" height="15" uuid="797a41de-95af-41e6-9f1c-4ddbfe595432">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Can you live with dogs/cats?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="632" width="143" height="15" uuid="dc6c53d2-b103-4e50-a8c6-9c8bf74efb34">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Can you live with children?]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="154" y="632" width="88" height="15" uuid="44e5ac05-4f67-4542-b283-d6e363694ba6">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[( $F{familiacomanimais}.equals( "Não" ) ? "No" : "Yes" )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="443" y="632" width="88" height="15" uuid="b766a4f6-f06b-4ef5-b18f-d0fdce72fc10">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[( $F{familiacomcrianca}.equals( "Não" ) ? "No" : "Yes" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="430" width="532" height="15" uuid="96547f10-a569-4daa-ac13-d536fd84f5f1"/>
+				<text><![CDATA[Special requirements (allergies, medical conditions, dietary requirements):]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="9" y="445" width="532" height="15" uuid="5e329636-1fc2-4362-a47e-f78013fee35d"/>
+				<textFieldExpression><![CDATA[$F{quaisalergias} + " | " + $F{solicitacoesespeciais}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="14" y="597" width="517" height="15" uuid="f00f0673-14e8-490c-baa1-e52dc21c4ef7">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{adicionais}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="263" y="579" width="268" height="15" uuid="4d2b6da8-6782-4ec6-be10-841e8babf6a0">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Type or name of chosen accommodation]]></text>
+			</staticText>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="174" y="319" width="82" height="15" uuid="0bfda824-c647-4b53-b813-ffde95945992"/>
+				<textFieldExpression><![CDATA[( $F{tipoDuracao}.equals( "Aulas por semana" ) ? "lessons" : "hours" )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="93" width="64" height="15" uuid="5e473608-5605-4433-8382-c857ca24c578"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="113" width="64" height="15" uuid="7c45f40a-09f4-4be0-907a-19ab9c0e9bda"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="481" y="300" width="64" height="15" uuid="04469411-07c0-4c7e-8e9b-170e135747e3"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="300" width="64" height="15" uuid="a01d42fd-57d3-4f44-9fed-82a09cc2ebf8"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="132" y="542" width="82" height="15" uuid="43e6919d-a865-42bd-94fb-18cda7c95c0b">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="386" y="542" width="64" height="15" uuid="c33f8766-6213-4af7-bf6f-1acef88b0494">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="71" width="159" height="15" uuid="0b43c646-e48d-4546-8ca6-c8492d76849a"/>
+				<textFieldExpression><![CDATA[$P{sobrenome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="71" width="59" height="15" uuid="027d7716-db80-4816-b65d-d29d77e36126"/>
+				<text><![CDATA[Last Name :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="11" y="264" width="238" height="15" forecolor="#1F8871" uuid="117ca56f-20ec-48b0-8c9a-a5d981ae3cda"/>
+				<textFieldExpression><![CDATA[$F{nomeCurso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="174" y="282" width="85" height="15" uuid="e1ce3989-96c5-4d86-8877-b97a51aeebcd"/>
+				<text><![CDATA[Language Level:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="282" width="54" height="15" uuid="58ae602c-c085-4052-b253-df8229e636f2"/>
+				<text><![CDATA[Language :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="282" width="89" height="15" uuid="fd53c15b-e499-48eb-b7ad-1180cfd26135"/>
+				<textFieldExpression><![CDATA[$F{idiomaestudar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="319" width="105" height="15" uuid="c0164f84-61b1-4600-8ec7-98a81982ff49"/>
+				<text><![CDATA[Classes/hours a week: ]]></text>
+			</staticText>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="380" y="319" width="90" height="15" uuid="b71c1c72-d582-4e2f-bd0e-734e12dbd1ea"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{turno1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="342" y="319" width="38" height="15" uuid="f59c7665-b193-4a9c-a7b9-db665ec775f6"/>
+				<text><![CDATA[Period:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="378" width="64" height="15" uuid="9a4be1e0-0883-442f-a257-ffa255e9c95a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="341" y="378" width="85" height="15" uuid="bded0716-8173-43d9-8c3f-07955e16676d"/>
+				<text><![CDATA[Course end date:]]></text>
+			</staticText>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="380" y="397" width="90" height="15" uuid="3740642f-a23c-4a3e-95bb-a58b40bd92a7"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{turno2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="342" y="397" width="38" height="15" uuid="9a58bdb3-f399-4c5f-97be-c29bb0b94faf"/>
+				<text><![CDATA[Period:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="397" width="105" height="15" uuid="14a8b11b-0f55-4ca0-bbf4-eefec83bbbee"/>
+				<text><![CDATA[Classes/hours a week: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="11" y="340" width="238" height="15" forecolor="#1F8871" uuid="fac63d8d-5493-41c2-966e-403154582374"/>
+				<textFieldExpression><![CDATA[$F{scurso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="94" y="378" width="57" height="15" uuid="be1cd9a0-9b72-4a05-9935-253ed6e9a678"/>
+				<textFieldExpression><![CDATA[$F{sDataInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="510" y="360" width="35" height="15" uuid="eadc8ca5-fcb2-4f99-a9f3-498f4a43f500"/>
+				<textFieldExpression><![CDATA[$F{sNumeroSemanas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="416" y="360" width="90" height="15" uuid="8d12946e-ba55-4842-9d80-2aa045175b63"/>
+				<text><![CDATA[Number of weeks:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="482" y="378" width="64" height="15" uuid="f6f016f6-d6fb-44b3-bf14-3a1cfa397dbd"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="177" y="397" width="82" height="15" uuid="9c9d322e-59f3-40d6-95d7-3b178645ad48"/>
+				<textFieldExpression><![CDATA[$F{sTipoCargaHoraria} + ": " + $F{sCargaHoraria}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="378" width="91" height="15" uuid="8f72389b-d973-4dad-8b4a-bee1d9b39a19"/>
+				<text><![CDATA[Course start date: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="360" width="89" height="15" uuid="f41662cb-7b11-4633-884f-1a371f20b6c9"/>
+				<textFieldExpression><![CDATA[$F{idiomaestudar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="116" y="397" width="55" height="15" uuid="958e56c3-2ad8-44cf-a43b-46df8109fd85"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{sCargaHoraria}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="360" width="54" height="15" uuid="1706d1a1-5a98-49bf-ace5-92505d9667f3"/>
+				<text><![CDATA[Language :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="425" y="378" width="57" height="15" uuid="aeaeceec-53f9-4d9f-8b6c-1d361cedf000"/>
+				<textFieldExpression><![CDATA[$F{sDataTermino}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="259" y="360" width="138" height="15" uuid="a7d63092-ee25-467b-97bf-661632f29263"/>
+				<textFieldExpression><![CDATA[$F{nivelidioma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="439" y="613" width="31" height="15" uuid="37357956-6a69-4a5d-ae13-d206f6e5ef06">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[WC :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="472" y="613" width="59" height="15" uuid="8e60ba75-160d-4fb5-ad35-cdd987ccb88d">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{banheiro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="244" y="526" width="90" height="15" uuid="36eda6c3-b394-4c37-a30a-3609af26d5b4">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Number of weeks:]]></text>
+			</staticText>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement x="338" y="526" width="47" height="15" uuid="c0e07860-d359-48c8-9186-d1d81e5c531f">
+					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{numeroSemanasAcamodacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="69">
+			<rectangle>
+				<reportElement x="0" y="63" width="249" height="1" backcolor="#000000" uuid="18b5b9ca-2597-4433-92fd-4d0b6ed26ba8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="295" y="62" width="249" height="1" backcolor="#000000" uuid="8c40900c-d0d2-4e2b-90f2-551f00c8b975"/>
+			</rectangle>
+			<image>
+				<reportElement x="304" y="2" width="212" height="60" uuid="211c109d-eac3-4df9-ba00-854bb645ca21"/>
+				<imageExpression><![CDATA[$P{assinatura}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="14" y="1" width="225" height="60" uuid="11c1d1f4-ff74-4655-997c-77599815feda"/>
+				<imageExpression><![CDATA[$P{carimbo}]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>

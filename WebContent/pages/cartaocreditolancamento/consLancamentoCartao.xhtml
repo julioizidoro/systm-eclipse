@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consLancamentoCartao" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							columnClasses="tamanhoavisos, tamanhoavisos, tamanho7,tamanho1"
+							style="width:70%;margin-left:4%;">
+							<p:outputLabel value="Descrição" for="nome" />
+							<p:outputLabel value="Cartão" for="cartao" />    
+							<p:outputLabel value="Data" for="data" />
+							<p:outputLabel />
+
+							<p:inputText id="nome" value="#{cartaoCreditoLancamentoMB.descricao}"
+								style="width:90%;" /> 
+							<p:selectOneMenu id="cartao" value="#{cartaoCreditoLancamentoMB.cartaocredito}"
+								style="width:90%;" converter="CartaoCreditoConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Cartão de Crédito" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcartao"
+									value="#{cartaoCreditoLancamentoMB.listaCartaoCredito}" var="cartaocredito"
+									itemLabel="#{cartaocredito.nome}" itemValue="#{cartaocredito}" />
+								<f:attribute name="listaCartaoCredito"
+									value="#{cartaoCreditoLancamentoMB.listaCartaoCredito}" />
+							</p:selectOneMenu>
+							<p:calendar id="data" value="#{cartaoCreditoLancamentoMB.dataLancamento}" size="14" locale="pt" pattern="dd/MM/yyyy">  
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>  
+							<p:outputLabel />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanhoavisos, tamanho11, tamanho7,tamanho1"
+							style="width:70%;margin-left:4%;">  
+							<p:outputLabel value="Usuario" for="usuario" />  
+							<p:outputLabel value="Plano de Conta" for="planocontas" />  
+							<p:outputLabel />
+							<p:outputLabel />    
+							    
+							<p:selectOneMenu id="usuario" style="width:90%;"  
+								value="#{cartaoCreditoLancamentoMB.usuario}"
+								converter="UsuarioConverter" filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{cartaoCreditoLancamentoMB.listaUsuario}"
+									var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{cartaoCreditoLancamentoMB.listaUsuario}" />
+								<p:ajax event="change" />  
+							</p:selectOneMenu>      
+							<p:selectOneMenu id="planocontas"       
+								style="width:87%;" value="#{cartaoCreditoLancamentoMB.planoconta}"
+								converter="PlanoContaConverter" filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"  
+									noSelectionOption="true" />
+								<f:selectItems value="#{cartaoCreditoLancamentoMB.listaPlanoConta}"
+									var="planoConta" itemLabel="#{planoConta.descricao}"
+									itemValue="#{planoConta}" />
+								<f:attribute name="listaPlanoConta"
+									value="#{cartaoCreditoLancamentoMB.listaPlanoConta}" />
+							</p:selectOneMenu> 
+							<p:commandButton id="btnPesquisar"
+								action="#{cartaoCreditoLancamentoMB.pesquisar()}"
+								value="Pesquisar" icon=" ui-icon-search "
+								update="consLancamentoCartao:tabelaCartaoCredito" />
+							<p:commandButton id="btnLimpar"
+								action="#{cartaoCreditoLancamentoMB.limpar()}" value="Limpar"
+								icon="ui-icon-arrowrefresh-1-w" update="@form" />
+						</h:panelGrid>
+						<br></br>
+					</p:tab>        
+				</p:accordionPanel>
+				<legend id="iUsu2">
+					<b>Lançamento Cartão de Crédito</b>
+				</legend>
+				<div align="right" style="width: 85%; margin-left: 8%;">
+					<p:commandButton id="btnNovo" value="Novo Lançamento"
+						icon="ui-icon-plus" action="#{cartaoCreditoLancamentoMB.novo()}"
+						style="font-size:12px;" title="Novo lançamento de despesas efetudas com cartão de crédito" >
+						<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update="tabelaCartaoCredito"/>
+					</p:commandButton>
+				</div>
+				<br></br>
+				<div style="width: 85%; margin-left: 8%;">
+					<p:dataTable id="tabelaCartaoCredito"
+						value="#{cartaoCreditoLancamentoMB.listaLancamento}"
+						var="lancamento" scrollable="true" scrollHeight="300"
+						style="margin-bottom:20px;font-size:11px;">
+						<p:column headerText="Data" style="width:45px;text-align:center;">
+							<h:outputText value="#{lancamento.data}">   
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Descrição" style="width:150px;">    
+							<h:outputText value="#{lancamento.descricao}" />
+						</p:column>
+						<p:column headerText="Valor Informado" style="width:65px;text-align:right;">
+							<h:outputText value="#{lancamento.valorinformado}" >
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Observação" style="width:150px;">
+							<h:outputText value="#{lancamento.observacao}" />
+						</p:column>
+						<p:column headerText="Conferência" style="width:58px;text-align:center;"
+							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+							<p:commandLink
+								action="#{cartaoCreditoLancamentoMB.conferencia(lancamento)}"
+								title="Conferência" style="text-decoration: none" update=":consLancamentoCartao:growl">
+								<img
+									src="../../resources/img/#{cartaoCreditoLancamentoMB.imagemConferencia(lancamento)}" />
+								<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito"/>
+							</p:commandLink>
+						</p:column>
+						<p:column headerText="Lançado" style="width:45px;text-align:center;"
+							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+							<p:commandLink
+								action="#{cartaoCreditoLancamentoMB.lancarContasPagar(lancamento)}"
+								title="Lançar contas a pagar" style="text-decoration: none"
+								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">
+								<img
+									src="../../resources/img/#{cartaoCreditoLancamentoMB.imagemLancado(lancamento)}" />
+							</p:commandLink>
+						</p:column>   
+						<p:column style="width:35px;text-align:center;">
+							<p:commandLink disabled="#{cartaoCreditoLancamentoMB.vefirificarBotaoEditar(lancamento)}"
+								action="#{cartaoCreditoLancamentoMB.editar(lancamento)}" title="Editar" style="text-decoration: none" >  
+								<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update=":consLancamentoCartao:tabelaCartaoCredito"/>
+								<img src="../../resources/img/editaricon.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>     
+				</div>
+				<br></br> <br></br>
+			</div>  
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

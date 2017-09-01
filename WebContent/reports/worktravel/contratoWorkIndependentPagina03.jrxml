@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+   vendas.dataVenda, vendas.valor as valorVenda,
+worktravel.idworkTravel, worktravel.tipo, worktravel.nomeContatoEmergencia, worktravel.foneContatoEmergencia,
+worktravel.emailContatoEmergencia, worktravel.relacaoContatoEmergencia, worktravel.intituicaoEstuda, worktravel.cursoEstuda,
+worktravel.duracaoCurso, worktravel.periodoCurso,worktravel.peirodoEstuda, worktravel.dataMatricula,
+worktravel.dataEstimadaTermino, worktravel.idioma01,worktravel.nivelidioma01,
+worktravel.tempoidioma01,worktravel.idioma02,worktravel.nivelidioma02,worktravel.tempoidioma02,
+worktravel.idioma03,worktravel.nivelidioma03,worktravel.tempoidioma03,worktravel.dataInicioPretendida01,
+worktravel.dataInicioPretendida02,worktravel.dataTerminoPretendida01,worktravel.dataTerminoPretendida02,
+worktravel.camareira,worktravel.cozinha,worktravel.salvavidas,worktravel.recepcao,worktravel.garcon,
+worktravel.trabalhosexternos,worktravel.lavadeira,worktravel.indiferenteocupacao,worktravel.outraocupacao,
+worktravel.especificarOutraOcupacao,worktravel.programaidependente,worktravel.parquetematico,
+worktravel.hotel,worktravel.restaurante,worktravel.lojas,worktravel.cassino,
+worktravel.piscina,worktravel.estacaoesqui,worktravel.indiferentelocal,
+worktravel.outrolocal,worktravel.especificaroutraLocal,worktravel.programaodependente01,
+worktravel.clima,worktravel.adicionais,worktravel.sabernadar,
+worktravel.treinamentosalvavidas,worktravel.sabeesquiar,worktravel.carteiraHabilitacao,
+worktravel.dirigirEua,worktravel.nomePais01,worktravel.motivoEstadia01,worktravel.periodoEstadia01,
+worktravel.nomePais02,worktravel.motivoEstadia02,worktravel.periodoEstadia02,worktravel.nomePais03,
+worktravel.motivoEstadia03,worktravel.peirodoEstadia03,worktravel.campanheiroViagem01,worktravel.companheiroViagem02,
+worktravel.companheiroViagem03,worktravel.trabalhoVistoJ1,worktravel.quantoVistoj1,worktravel.numeroSocialSecurity,
+worktravel.tipoProgramaEua,worktravel.agenciaBrasil,worktravel.posicaoExcercida,worktravel.opcaoIndependente,
+worktravel.possuiOfertaTrabalho,worktravel.nomeEmpregador,worktravel.possicarqueiraExercer,
+worktravel.possuiDeficienciaFisica,worktravel.problemaSaude,worktravel.especifiqueProblemaSaude,
+worktravel.tratamentoMedico,worktravel.especifiqueTratamentoMedico,worktravel.tratamentoUsoDrogas,
+worktravel.especifiqueTratamentoUsoDrogas,worktravel.listaAlergias,worktravel.cartaoVTM,
+worktravel.numeroCartaoVTM,worktravel.moedaCartaoVTM,worktravel.passagemAerea,worktravel.tipoEmissaoPassagem,
+worktravel.observacaoPassagem,worktravel.tipoVisto,worktravel.tipoEmissaoVisto,worktravel.observacaoVisto,
+worktravel.dataEntragaDocumentosVisto,worktravel.fuma,worktravel.dataInscricao,worktravel.vendas_idvendas,worktravel.inicioPrevisto,
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio,
+unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+cliente.nome, cliente.dataNascimento, cliente.paisnascimento, cliente.cidadenascimento, cliente.rg,
+ cliente.sexo, cliente.numeropassaporte, cliente.dataExpedicaoPassaporte,
+cliente.validadePassaporte, cliente.tipologradouro as clientetipologradouro, cliente.logradouro as clientelogradouro, cliente.numero as clientenumero, cliente.estadoCivil,
+cliente.bairro as clientebairro, cliente.cidade as clientecidade, cliente.estado as clienteestado, cliente.cep as clientecep, cliente.cpf as clientecpf, cliente.pais as clientepais, cliente.foneresidencial,
+cliente.fonecelular, cliente.fonecomercial, cliente.profissao,
+cliente.email,cliente.escolaridade, cliente.nomePai, cliente.profissaopai, cliente.fonepai, cliente.nomemae,
+cliente.profissaomae, cliente.fonemae,
+usuario.nome as nomeUsuario,
+unidadeNegocio.nomeFantasia, orcamento.dataCambio, orcamento.valorCambio, orcamento.totalMoedaEstrangeira,
+orcamento.totalmoedanacional, orcamento.TaxaTm, formapagamento.condicao, formapagamento.valortotal,
+formapagamento.condicao, formapagamento.valortotal,
+formapagamento.valorjuros, moedas.descricao as descricaoMoedas, cambio.idcambio, moedas.sigla, parcelamentopagamento.idparcemlamentoPagamento,
+parcelamentopagamento.formaPagamento,
+parcelamentopagamento.tipoParcelmaneto,
+parcelamentopagamento.valorParcelamento,
+parcelamentopagamento.diaVencimento,
+parcelamentopagamento.numeroParcelas,
+parcelamentopagamento.valorParcela,
+parcelamentopagamento.formaPagamento_idformaPagamento
+from
+     vendas join workTravel on vendas.idvendas = workTravel.vendas_idvendas
+     join usuario on vendas.usuario_idusuario = usuario.idusuario
+     join cliente on vendas.cliente_idcliente = cliente.idcliente
+     join unidadeNegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadeNegocio.idunidadeNegocio
+     join orcamento on vendas.idvendas = orcamento.vendas_idvendas
+     join formaPagamento on vendas.idvendas = formapagamento.vendas_idvendas
+     join cambio on orcamento.cambio_idcambio = cambio.idcambio
+     join moedas on cambio.moedas_idmoedas = moedas.idmoedas
+join parcelamentopagamento on formapagamento.idformapagamento = parcelamentopagamento.formapagamento_idformaPagamento
+where
+    vendas.idvendas = $P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorVenda" class="java.lang.Float"/>
+	<field name="formaPagamento_idformaPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="b156bf29-86f2-492d-bd64-bffed87b1415"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="734" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="719" uuid="cbdfe7ad-80da-44f0-8294-6717b875c1eb"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[sem providenciar sua acomodação, sob pena de não consegui-la quando de sua chegada, incorrendo em custos extras para hospedar-se em hotel, albergue, pensão etc.
+g) Assumir os danos e despesas causadas a terceiros durante o programa, sujeitando-se às normas e leis locais do país em questão. Não é responsabilidade da TM, de seu parceiro internacional contratado pela TM ou ofertante do trabalho, prestar qualquer assessoria, consultoria ou aconselhamento legal/ jurídico ao(à) PARTICIPANTE e seus pais/familiares;
+h) Respeitar as políticas e procedimentos estipulados pelo parceiro internacional em questão a respeito do programa escolhido, bem como cumprir com as regras determinadas na Oferta de Trabalho Temporário proposta pelo ofertante, sob pena de demissão e/ou desligamento do programa;
+i) Participar das orientações organizadas pela TM e/ou parceiro internacional em questão.
+
+5. PARCEIRO INTERNACIONAL DA TM (SPONSOR)
+
+5.1 Quaisquer problemas que surjam após a chegada do(a) PARTICIPANTE ao país de destino do programa, devem ser solucionados pelo parceiro internacional da TM (Sponsor);
+5.2 O(A) PARTICIPANTE receberá antes de sair do Brasil todas as informações necessárias para tais procedimentos, como telefones, websites, endereços e pessoas de contato responsáveis no parceiro internacional da TM (Sponsor). Não cabe à TM solucionar estes problemas visto que é de responsabilidade do parceiro internacional contratado fazê-lo, portanto, o contato para resolução de problemas enquanto o(a) PARTICIPANTE estiver no país de destino deve ser feito diretamente com o parceiro internacional contratado.
+
+6. OFERTA DE TRABALHO TEMPORÁRIO (JOB OFFER)
+
+6.1  A TM não tem responsabilidade por providenciar uma Oferta de Trabalho Temporário ao(à) PARTICIPANTE , sendo que é deste tal responsabilidade, sendo assim, caso este não se adapte ou perca o interesse nesta oferta, cabe ao mesmo providenciar outra oferta por conta própria; toda e qualquer oferta de trabalho precisa ser avaliada e aprovada pelo parceiro internacional da TM conforme regras do programa e leis de imigração dos EUA. O parceiro internacional da TM tem total autonomia para aprovar ou não qualquer oferta de trabalho providenciada pelo PARTICIPANTE;
+6.2  As características da Oferta de Trabalho Temporário proposta ao(à) PARTICIPANTE podem ser alteradas sem aviso prévio antes ou depois de sua chegada ao país de destino, pois o funcionamento da empresa ofertante do trabalho depende de fatores variáveis e imprevisíveis como economia, greves, demanda, falta de turistas/clientes e condições climáticas (dependência da neve em estações de esqui, por exemplo);
+6.3 Alterações das atividades (função), carga horária de trabalho (redução parcial ou total, ou inclusive aumento) e remuneração (redução ou aumento) mencionados na Oferta de Trabalho Temporário podem ocorrer em qualquer momento, sem aviso prévio,e não são de responsabilidade da TM , do parceiro internacional(Sponsor)contratado e ofertante do trabalho. A Oferta de Trabalho.
+Temporário não caracteriza Contrato de Trabalho, mas apenas uma oferta de trabalho temporário que pode sofrer alterações sem aviso prévio a qualquer momento;
+6.4No período que compreende os 30(trinta)primeiros dias após a chegada do participante no país de destino,o(a) participante pode não trabalhar as horas mínimas previstas na Oferta de Trabalho Temporário ou mesmo não trabalhar. Este período é considerado de adaptação e treinamento e isto não é de responsabilidade da TM, parceiro internacional contratado e ofertante do trabalho. Qualquer custo ou gasto que incorra durante esse período é de responsabilidade do(a) PARTICIPANTE;
+6.5  Não existe garantia de um número mínimo de horas semanais de trabalho por parte da TM , parceiro internacional contratado e/ou ofertante do trabalho temporário, existindo apenas uma previsão de carga horária média de trabalho (vide informativo do programa). Mas caso o(a) PARTICIPANTE esteja trabalhando menos do que o previsto na Oferta de Trabalho Temporário, por um período superior a 40 (quarenta) dias após sua chegada, por razões alheias ao seu desempenho e/ou conduta no trabalho, o parceiro internacional contratado pode auxiliá-lo(a)  na procura de uma nova Oferta de Trabalho Temporário, caso seja esta a vontade do(a) PARTICIPANTE. Os custos decorrentes de tal mudança e processo de busca ficam a cargo do(a)  PARTICIPANTE;
+6.6  Se por qualquer motivo o(a) PARTICIPANTE precisar mudar de função ou local de trabalho já estando no país de destino, a descrição e característica da nova Oferta de Trabalho Temporário no que se refere a ofertante, datas, função, remuneração, benefícios, carga horária de trabalho, cidade, estado e acomodação poderão ser diferentes daquelas previamente descritas na Oferta de Trabalho Temporário inicial. No caso de haver tal mudança, não há garantia de manutenção das características da Oferta de Trabalho Temporário inicial, bem como da manutenção de grupos de estudantes (3 ou mais estudantes) juntos. O custeio das  despesas referentes à mudanças nesse sentido fica a encargo do(a)  PARTICIPANTE;]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="14">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="77b40a7b-cc67-4b99-952e-fbcd2ad59236"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idvendas">
+					<subreportParameterExpression><![CDATA[$P{idvendas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "contratoWorkIndependentPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

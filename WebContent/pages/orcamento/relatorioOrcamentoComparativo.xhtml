@@ -1,0 +1,414 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" style="background:#ffffff;">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Relatório Comparativo</title>
+	<link href="http://systm.com.br:82/ftproot/systm/elementosOrcamento/cssOrcamentoComparativo.css"
+		rel="stylesheet" type="text/css" media="print"/>
+	<link href="http://systm.com.br:82/ftproot/systm/elementosOrcamento/cssOrcamentoComparativo.css"
+		rel="stylesheet" type="text/css"/>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<link href="http://systm.com.br:82/ftproot/systm/elementosOrcamento/bootstrap.min.css"
+		rel="stylesheet" />
+	<link href="http://systm.com.br:82/ftproot/systm/elementosOrcamento/bootstrap.min.css"
+		rel="stylesheet" media="print" /> 
+</h:head>  
+<h:body style="background:#ffffff;">
+	<h:form id="relatorioComparativo" style="background:#ffffff;">  
+		<div align="center">   
+			<div style="width: 96%;">
+				<h:panelGrid columns="2" style="width:100%;margin-bottom: -14px;">
+					<h:panelGroup>
+						<h:panelGrid columns="2" style="margin-bottom: -5px;">
+							<img id="imgMate"  src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/mate.png"
+								width="40" />
+							<p:outputLabel id="lblCliente"
+								value="Olá #{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).nomeCliente1}"
+								style="font-size:20px;" />
+						</h:panelGrid>
+						<p:outputLabel
+							value="A Travelmate busca proporcionar experiências pra vida toda."
+							style="font-weight: 300;font-size:13px;" />
+						<br />
+						<p:outputLabel
+							value="Confira as opções selecionadas e conte conosco para esclarecer suas dúvidas, sempre com um atendimento personalizado."
+							style="font-weight: 300;font-size:13px;" />
+						<br />
+						<br />
+						<h:panelGrid columns="2" style="margin-left:-0.5%;">
+							<img id="imgOrcamento"
+								src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/orcamento.png" />
+							<p:outputLabel value="CURSO DE IDIOMAS" style="font-size:23px;" />
+						</h:panelGrid>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel id="lblConsultor"
+							value="#{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).nomeConsultor1}"
+							style="font-weight: bold;font-size:12px;" />
+						<br />
+						<h:outputLabel id="lblUnidade"
+							value="Consultor em Intercâmbio | TravelMate #{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).cidadeUnidade1}"
+							style="font-style: italic;font-size:13px;" />
+						<br />
+						<h:outputLabel id="lblEmailFone"
+							value="#{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).emailConsultor1} | #{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).foneUnidade1}"
+							style="font-style: italic;font-size:13px;" />
+						<br />
+						<img id="imgLogoTM" src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg"
+							width="160" style="margin-left: -5.8%;" />
+					</h:panelGroup>
+				</h:panelGrid>  
+				<hr class="linhaOrcamento"/>   
+				<div class="row">
+					<h:panelGroup
+						rendered="#{relatorioOrcamentoComparativoMB.tresorcamentos}">
+						<ui:repeat var="orcamento"
+							value="#{relatorioOrcamentoComparativoMB.listaOrcamento}">
+							<div class="col-md-4">
+								<h:panelGroup>
+									<div align="center" class="coresFundoOrcamento">
+										<div align="left" style="width: 95%;">
+											<h:panelGrid columns="2"
+												style="margin-left:-0.5%;margin-bottom: -9px;">
+												<img id="imgIcon"
+													src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/iconCinza.png" />
+												<p:outputLabel
+													value="ORÇAMENTO #{orcamento.numeroorcamento1}"
+													style="font-weight: bold;font-size:12px;" />
+											</h:panelGrid>
+											<hr class="linhaOrcamento"/>
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Local"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.localCurso1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Instituição de ensino"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.instituicao1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Tipo de Curso"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.tipoCurso1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Data de Início"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.dataInicio1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Data de Término"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.dataTermino1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Duração do Curso"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.duracao1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Carga Horária"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.cargahoraria1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Turno"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.turno1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="width:100%;">
+												<p:outputLabel value="VALOR TOTAL"
+													style="font-weight: bold;font-size:12px;" />
+												<h:panelGroup>
+													<p:outputLabel value="#{orcamento.totalCursome1}"
+														style="font-weight: bold;font-size:12px;" />
+													<p:outputLabel value="|"
+														style="font-weight: bold;margin-left:2%;" />
+													<p:outputLabel value="#{orcamento.totalcursors1}"
+														style="font-weight: bold;font-size:12px;margin-left:2%;" />
+												</h:panelGroup>
+											</h:panelGrid>
+											<p:dataScroller id="tabelaProdutos"
+												value="#{orcamento.listaProdutos}" var="produtos"
+												chunkSize="10">
+												<h:panelGrid columns="2"
+													style="margin-left:-0.5%;margin-bottom: -9px;">
+													<img id="imgIcon"
+														src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/iconCinza.png" />
+													<p:outputLabel value="#{produtos.tituloLista}"
+														style="font-weight: bold;font-size:12px;" />
+												</h:panelGrid>    
+												<hr  class="linhaOrcamento"/>
+												<p:dataScroller id="tabelaListaProdutos"
+													value="#{produtos.listaProdutosOrcamento}" var="listaProdutos"
+													chunkSize="10">
+													<h:panelGrid columns="2"
+														columnClasses="tamanho50,tamanho50rig"
+														style="margin-bottom: -8px;width:100%;">
+														<p:outputLabel value="#{listaProdutos.descricaolista}"
+															style="font-weight: bold;font-size:11px;" />
+														<h:panelGroup>
+															<p:outputLabel value="#{listaProdutos.valorme}"
+																style="font-weight: bold;font-size:11px;" />
+															<p:outputLabel value="#{listaProdutos.valorrs}"
+																style="font-weight: bold;font-size:11px;margin-left:2%;" />
+														</h:panelGroup>
+													</h:panelGrid>  
+													<hr
+														style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F; margin-bottom: 2px;" />
+												</p:dataScroller>
+												<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50rig"
+													style="width:100%;">
+													<p:outputLabel value="VALOR TOTAL"
+														style="font-weight: bold;font-size:12px;" />
+													<h:panelGroup>   
+														<p:outputLabel value="#{produtos.totalmelista}"
+															style="font-weight: bold;font-size:12px;" />
+														<p:outputLabel value="|"
+															style="font-weight: bold;margin-left:2%;" />
+														<p:outputLabel value="#{produtos.totalrslista}"
+															style="font-weight: bold;font-size:12px;margin-left:2%;" />
+													</h:panelGroup>
+												</h:panelGrid>
+											</p:dataScroller>  
+											<div class="coresFundoValorOrcamento" >
+												<p:outputLabel value="VALOR TOTAL DO PACOTE*" />
+												<br />
+												<p:outputLabel
+													value="#{orcamento.subPacoteme} | #{orcamento.subPacoters}" />
+											</div>
+										</div>
+									</div>
+								</h:panelGroup>
+							</div>
+						</ui:repeat>   
+					</h:panelGroup>
+					<h:panelGroup
+						rendered="#{relatorioOrcamentoComparativoMB.doisorcamentos}">
+						<ui:repeat var="orcamento"
+							value="#{relatorioOrcamentoComparativoMB.listaOrcamento}">
+							<div class="col-md-6">
+								<h:panelGroup>  
+									<div align="center" class="coresFundoOrcamento">
+										<div align="left" style="width: 95%;">
+											<h:panelGrid columns="2"
+												style="margin-left:-0.5%;margin-bottom: -9px;">
+												<img id="imgIcon"
+													src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/iconCinza.png" />
+												<p:outputLabel
+													value="ORÇAMENTO #{orcamento.numeroorcamento1}"
+													style="font-weight: bold;font-size:12px;" />
+											</h:panelGrid>
+											<hr
+												style="height: 2px; color: #4C816D; border: none; background: #4C816D; margin-top: 9px;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Local"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.localCurso1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Instituição de ensino"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.instituicao1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Tipo de Curso"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.tipoCurso1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Data de Início"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.dataInicio1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Data de Término"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.dataTermino1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Duração do Curso"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.duracao1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Carga Horária"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.cargahoraria1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="margin-bottom: -8px;width:100%;">
+												<p:outputLabel value="Turno"
+													style="font-weight: bold;font-size:11px;" />
+												<p:outputLabel value="#{orcamento.turno1}"
+													style="font-weight: bold;font-size:11px;" />
+											</h:panelGrid>
+											<hr
+												style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;" />
+
+											<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50"
+												style="width:100%;">
+												<p:outputLabel value="VALOR TOTAL"
+													style="font-weight: bold;font-size:12px;" />
+												<h:panelGroup>
+													<p:outputLabel value="#{orcamento.totalCursome1}"
+														style="font-weight: bold;font-size:12px;" />
+													<p:outputLabel value="|"
+														style="font-weight: bold;margin-left:2%;" />
+													<p:outputLabel value="#{orcamento.totalcursors1}"
+														style="font-weight: bold;font-size:12px;margin-left:2%;" />
+												</h:panelGroup>
+											</h:panelGrid>
+											<p:dataScroller id="tabelaProdutos"
+												value="#{orcamento.listaProdutos}" var="produtos"
+												chunkSize="10">
+												<h:panelGrid columns="2"
+													style="margin-left:-0.5%;margin-bottom: -9px;">
+													<img id="imgIcon"
+														src="http://systm.com.br:82/ftproot/systm/elementosOrcamento/iconCinza.png" />
+													<p:outputLabel value="#{produtos.tituloLista}"
+														style="font-weight: bold;font-size:12px;" />
+												</h:panelGrid>
+												<hr
+													style="height: 2px; color: #4C816D; border: none; background: #4C816D; margin-top: 9px; margin-bottom: -1px;" />
+												<p:dataScroller id="tabelaListaProdutos"
+													value="#{produtos.listaProdutosOrcamento}" var="listaProdutos"
+													chunkSize="10">
+													<h:panelGrid columns="2"
+														columnClasses="tamanho50,tamanho50rig"
+														style="margin-bottom: -8px;width:100%;">
+														<p:outputLabel value="#{listaProdutos.descricaolista}"
+															style="font-weight: bold;font-size:11px;" />
+														<h:panelGroup>
+															<p:outputLabel value="#{listaProdutos.valorme}"
+																style="font-weight: bold;font-size:11px;" />
+															<p:outputLabel value="#{listaProdutos.valorrs}"
+																style="font-weight: bold;font-size:11px;margin-left:2%;" />
+														</h:panelGroup>
+													</h:panelGrid>  
+													<hr
+														style="color: #E0E0E0; background: #4F4F4F; margin-bottom: -1px; margin-top: 9px; border-top: 1px solid #4F4F4F;"/>
+												</p:dataScroller>
+												<h:panelGrid columns="2" columnClasses="tamanho50,tamanho50rig"
+													style="width:100%;">
+													<p:outputLabel value="VALOR TOTAL"
+														style="font-weight: bold;font-size:12px;" />
+													<h:panelGroup>   
+														<p:outputLabel value="#{produtos.totalmelista}"
+															style="font-weight: bold;font-size:12px;" />
+														<p:outputLabel value="|"
+															style="font-weight: bold;margin-left:2%;" />
+														<p:outputLabel value="#{produtos.totalrslista}"
+															style="font-weight: bold;font-size:12px;margin-left:2%;" />
+													</h:panelGroup>
+												</h:panelGrid>  
+											</p:dataScroller>  
+											<div  class="coresFundoValorOrcamento" >
+												<p:outputLabel value="VALOR TOTAL DO PACOTE*"
+													style="margin-left:5%;font-size:13px;" />
+												<br />
+												<p:outputLabel
+													value="#{orcamento.subPacoteme} | #{orcamento.subPacoters}"
+													style="margin-left:5%;font-size:13px;" />
+											</div>
+										</div>
+									</div>
+								</h:panelGroup>  
+							</div>
+						</ui:repeat>
+					</h:panelGroup>
+				</div>
+				<div align="left">
+				<br />  
+					<p:outputLabel
+						value="DATA DO ORÇAMENTO: #{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).dataOrcamento1}"
+						style="font-weight: 300;font-size:13px;" />
+					<p:outputLabel value="|"
+						style="margin-left:2%;font-weight: 300;font-size:13px;" />
+					<p:outputLabel
+						value="CÂMBIO DO DIA: #{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).cambio1}"
+						style="margin-left:2%;font-weight: 300;font-size:13px;" />
+					<br/>   
+					<p:outputLabel
+						value="*Todos os valores e condições de pagamento desse orçamento estão sujeitos a alteração sem aviso prévio.
+						 Os valores e formas de pagamento são válidos para o fechamento no dia de hoje - 
+						 #{relatorioOrcamentoComparativoMB.listaOrcamento.get(0).dataOrcamento1} Consulte a Travelmate para 
+						 informações mais detalhadas sobre vistos, documentação para viagens, vacinas, feriados locais e políticas 
+						 de alteração/cancelamento."
+						style="font-weight: 300;font-size:13px;" />
+					<br/><br/><br/>   
+				</div>  
+			</div>
+		</div> 
+	</h:form> 
+</h:body>
+</html>

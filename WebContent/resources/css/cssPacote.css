@@ -1,0 +1,96 @@
+body{
+	height: 100%;
+}
+ 
+.tituloPacote {
+    color: #A0C637;
+	font-size: 25px;         
+    font-weight: bold;
+}   
+
+hr {
+    border-top-color: #A0C637;
+    border-bottom-color: #A0C637;
+    color: #A0C637;
+    background: #A0C637;    
+    width:90%;
+    margin-left:7%;       
+}
+
+
+.borderSombra {
+    box-shadow: 5px 5px 10px #D7D8DC;
+    -webkit-box-shadow: 5px 5px 10px #D7D8DC;
+    -moz-box-shadow: 5px 5px 10px #0076a3; 
+    background: #f5f3e5;
+} 
+
+.btn {
+    border-radius: 50px;     
+    padding-right: 6px;
+}    
+              
+.ui-widget-content { 
+    background: #ffffff !important;       
+}    
+   
+#divImagem{
+	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotecurso.jpg') repeat 0 0;
+	background-repeat: no-repeat;
+    background-size:100%;    
+	width:100%;                 
+	height: 220px;    
+}
+
+#divImagem:hover{ 
+		background: linear-gradient(to bottom, rgba(255,255,280,0.4) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotecurso.jpg') repeat 0 0;
+	    background-repeat: no-repeat;
+   		background-size:100%;
+		width:100%;        
+		height: 220px;    
+        box-shadow:
+                1px 1px #8B8682,    
+                2px 2px #8B8682,
+                3px 3px #8B8682;     
+}    
+
+#divImagemHS{
+	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotehs.jpg') repeat 0 0;
+	background-repeat: no-repeat;
+    background-size:100%;
+	width:100%;
+	height: 220px;
+}
+
+#divImagemHS:hover{ 
+		background: linear-gradient(to bottom, rgba(255,255,280,0.4) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotehs.jpg') repeat 0 0;
+	    background-repeat: no-repeat;
+   		background-size:100%;
+		width:100%;   
+		height: 220px;    
+        box-shadow:   
+                1px 1px #8B8682,    
+                2px 2px #8B8682,
+                3px 3px #8B8682; 
+}
+
+#divImagemTrabalho{
+	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.6) 112%), url('../../resources/img/paginainicial/pacotetrabalho.jpg') repeat 0 0;
+    background-repeat: no-repeat;
+    background-size:100%;
+	width:100%;            
+	height: 220px;
+}
+
+#divImagemTrabalho:hover{ 
+		background: linear-gradient(to bottom, rgba(255,255,280,0.4) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotetrabalho.jpg') repeat 0 0;
+   		background-repeat: no-repeat;
+   		background-size:100%;
+		width:100%;   
+		height: 220px;    
+        box-shadow:
+                1px 1px #8B8682,    
+                2px 2px #8B8682,
+                3px 3px #8B8682;     
+}   
+ 

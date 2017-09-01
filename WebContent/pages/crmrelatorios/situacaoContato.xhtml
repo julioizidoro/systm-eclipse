@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="top5" style="text-align:left;font-size: 10px;">
+		<title>Situação Contato</title>
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+
+		<h:panelGrid columns="2" style="margin-left:2%;width:95%;"
+			columnClasses="tamanho50, tamanho50">
+			<p:outputLabel value="Unidade" />
+			<p:outputLabel value="Consultor" />
+
+			<p:selectOneMenu id="unidade"
+				value="#{situacaoContatoMB.unidadenegocio}" style="width:180px;"
+				converter="UnidadeNegocioConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Todos" itemValue="0" />
+				<f:selectItems id="idunidade"
+					value="#{situacaoContatoMB.listaUnidade}" var="unidade"
+					itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{situacaoContatoMB.listaUnidade}" />
+				<p:ajax event="change" listener="#{situacaoContatoMB.gerarListaConsultor()}" update="consultor"/>
+			</p:selectOneMenu>   
+			<p:selectOneMenu id="consultor" converter="UsuarioConverter"
+				value="#{situacaoContatoMB.consultor}" style="width:180px;"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Todos" itemValue="0" />
+				<f:selectItems id="idconsultor"
+					value="#{situacaoContatoMB.listaConsultor}" var="consultor"
+					itemLabel="#{consultor.nome}" itemValue="#{consultor}" />
+				<f:attribute name="listaUsuario"
+					value="#{situacaoContatoMB.listaConsultor}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu> 
+		</h:panelGrid>
+		<br></br> 
+		<div align="center">
+			<p:commandButton icon="ui-icon-search" value="Pesquisar"
+				action="#{situacaoContatoMB.pesquisar()}"
+				update="resultadoPesquisa, growl" />
+			<p:commandButton icon="ui-icon-close" value="Fechar"
+				action="#{situacaoContatoMB.fechar()}"></p:commandButton>
+		</div>
+		<br></br> 
+		<h:panelGroup id="resultadoPesquisa">
+			<h:panelGrid columns="5" style="margin-left:1%;width:98%;"
+				columnClasses="tamanho20center,tamanho20center,tamanho20center,tamanho20center,tamanho20center">
+				<p:outputLabel value="Novos" style="color:#4C816D;font-size:16px;"/>
+				<p:outputLabel value="Hoje" style="color:#4C816D;font-size:16px;"/>
+				<p:outputLabel value="Atrasados" style="color:#4C816D;font-size:16px;"/>
+				<p:outputLabel value="Próx 7 dias" style="color:#4C816D;font-size:16px;"/>
+				<p:outputLabel value="Todos" style="color:#4C816D;font-size:16px;"/>
+
+				<p:outputLabel value="#{situacaoContatoMB.retornarNumeroNovos()}" style="color:#4C816D;font-size:30px;"/>
+				<p:outputLabel value="#{situacaoContatoMB.retornarNumeroHoje()}" style="color:#4C816D;font-size:30px;"/>
+				<p:outputLabel
+					value="#{situacaoContatoMB.retornarNumeroAtrasados()}" style="color:#4C816D;font-size:30px;"/>
+				<p:outputLabel value="#{situacaoContatoMB.retornarNumero7dias()}" style="color:#4C816D;font-size:30px;"/>
+				<p:outputLabel value="#{situacaoContatoMB.retornarNumeroTodos()}" style="color:#4C816D;font-size:30px;"/>
+			</h:panelGrid>
+		</h:panelGroup>  
+		<br></br>
+	</h:form>
+</h:body>
+</html>

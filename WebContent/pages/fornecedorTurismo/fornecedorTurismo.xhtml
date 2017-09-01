@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">   
+		<h:form id="consFornecedorTurismo" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+			 
+				<legend id="iUsu2">
+					<b>Parceiros Turismo</b>
+				</legend>
+				<div align="right" style="width: 97%;">
+					<p:commandButton id="bntfornecedor" style="font-size:12px;" value="Novo"
+						action="#{fornecedorTurismoMB.novoFornecedor()}" update="growl" icon="ui-icon-plus">
+						<p:ajax event="dialogReturn" listener="#{fornecedorMB.retornoDialogNovo}" process="@this"
+							update=":consFornecedorTurismo:tabelaFornecedorTurismo" />
+					</p:commandButton>   
+				</div>
+				<br></br>
+				<div align="center">       
+					<p:dataTable id="tabelaFornecedorTurismo" var="fornecedor"
+						value="#{fornecedorTurismoMB.listaFornecedor}" scrollable="true"
+						scrollHeight="300" style="width:95%;font-size:12px;"> 
+						<p:column headerText="Nome" style="width:150px;">             
+							<p:outputLabel value="#{fornecedor.fornecedor.nome}" />
+						</p:column>    
+						<p:column headerText="Cidade" style="width:100px;">
+							<p:outputLabel value="#{fornecedor.cidade.nome}" />
+						</p:column>        
+						<p:column headerText="CNPJ" style="width:150px;">
+							<p:outputLabel value="#{fornecedor.cnpj}" />
+						</p:column> 
+						<p:column headerText="Agencia" style="width:100px;">
+							<p:outputLabel value="#{fornecedor.agencia}" />
+						</p:column> 
+						<p:column headerText="Conta" style="width:100px;">
+							<p:outputLabel value="#{fornecedor.conta}" />
+						</p:column>    
+						<p:column style="text-align:center;width:65px;" headerText="Editar">
+							<p:commandLink action="#{fornecedorTurismoMB.editar(fornecedor)}" 
+								style="text-decoration: none" title="Editar dados parceiro." update=":consFornecedorTurismo:growl">
+								<img src="../../resources/img/editaricon.png" width="25"/>
+								<p:ajax event="dialogReturn" listener="#{fornecedorTurismoMB.gerarListaFornecedor()}" update="tabelaFornecedorTurismo"/>
+							</p:commandLink>
+						</p:column> 
+						<p:column style="text-align:center;width:65px;" headerText="Produtos">
+							<p:commandLink action="#{fornecedorTurismoMB.adicionarProdutos(fornecedor)}" 
+								style="text-decoration: none" title="Adicionar produtos do parceiro." update=":consFornecedorTurismo:growl">
+								<img src="../../resources/img/iconeAdicionar.png" width="25"/>
+							</p:commandLink>
+						</p:column> 
+					</p:dataTable>
+				</div>     
+				<br></br> <br></br>   
+			</div> 
+		</h:form>         
+	</ui:define>
+</ui:composition>
+</html>

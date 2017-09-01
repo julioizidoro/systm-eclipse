@@ -1,0 +1,74 @@
+<?xml version='1.0'  encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" lang="pt-br" xml:lang="pt-br">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script src="../../resources/js/calendario.js"></script>
+</h:head>
+<f:view encoding="ISO-8859-1">
+	<h:form id="cadFaturaAjuste" style="font-size:11px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title id="iUsu3"><b>Fatura Ajuste</b></title>
+   
+		<h:panelGrid columns="4" style="width:90%;margin-left:5%;"  
+			columnClasses="tamanhoavisos2,tamanhoavisos2,tamanhoavisos2,tamanhoavisos2">
+			<p:outputLabel value="Mês Cobrança" for="mescobranca" />
+			<p:outputLabel value="Ano Cobrança" for="anocobranca" />
+			<p:outputLabel value="Data Lançamento" for="datalancamento" />
+			<p:outputLabel value="Crédito/Débito" for="creditodebito" />
+
+			<p:inputMask mask="99" id="mescobranca" style="width:74.5%;"   
+				value="#{cadFaturaAjusteMB.faturaajuste.mes}" />      
+			<p:inputMask mask="9999" id="anocobranca" style="width:74.5%;"      
+				value="#{cadFaturaAjusteMB.faturaajuste.ano}" />
+			<p:calendar id="datalancamento"
+				value="#{cadFaturaAjusteMB.faturaajuste.datalancamento}"
+				title="Data Lançamento" locale="pt" pattern="dd/MM/yyyy" mask="true"
+				size="13" maxlength="15">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<p:selectOneMenu id="creditodebito"
+				value="#{cadFaturaAjusteMB.faturaajuste.creditodebito}"
+				style="width:137px;">      
+				<f:selectItem itemLabel="Crédito" itemValue="C" />
+				<f:selectItem itemLabel="Débito" itemValue="D" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="1" style="width:90%;margin-left:5%;">
+			<p:outputLabel value="Descrição" for="descricao" />
+
+			<p:inputText id="descricao" style="width:94.5%;"   
+				value="#{cadFaturaAjusteMB.faturaajuste.descricao}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2" style="width:90%;margin-left:5%;"   
+			columnClasses="espaco75,tamanho14">
+			<p:outputLabel value="Item" for="item" />      
+			<p:outputLabel value="Valor" for="valor" />   
+
+			<p:inputText id="item" style="width:70%;"
+				value="#{cadFaturaAjusteMB.faturaajuste.item}" />
+			<p:inputText id="valor" style="width:77%;text-align:right;"
+				value="#{cadFaturaAjusteMB.faturaajuste.valor}">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>   
+		</h:panelGrid>
+		<br></br>
+		<div align="center">
+			<p:commandButton id="btnConfirmar" value="Confirmar"
+				action="#{cadFaturaAjusteMB.salvarFaturaAjuste()}"
+				icon="ui-icon-check" style="font-size:12px;" update="growl" />
+			<p:commandButton id="btnFechar" value="Cancelar"
+				action="#{cadFaturaAjusteMB.cancelar()}" icon="ui-icon-closethick"
+				style="font-size:12px;margin-left:2%;" />
+		</div>
+	</h:form>
+</f:view>
+</html>

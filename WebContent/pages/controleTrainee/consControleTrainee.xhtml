@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idControleTrainee" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho1, tamanhoavisos,tamanho7, tamanho1,tamanhoavisos"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="ID Vendas" for="idvenda" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" />
+
+
+							<p:inputText id="idvenda" value="#{controleTraineeMB.idVenda}"
+								style="width:90%" />
+							<p:inputText id="cliente"
+								value="#{controleTraineeMB.nomeCliente}" style="width:90%" />
+							<p:calendar id="dataIni"
+								value="#{controleTraineeMB.iniDataEmbarque}" size="10"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal"
+								value="#{controleTraineeMB.finalDataEmbarque}" size="10"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+								value="#{controleTraineeMB.unidadenegocio}" style="width:90%;"
+								converter="UnidadeNegocioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{controleTraineeMB.listaUnidadeNegocio}"
+									var="unidade" itemLabel="#{unidade.nomerelatorio}"
+									itemValue="#{unidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{controleTraineeMB.listaUnidadeNegocio}" />
+								<p:ajax event="change"
+									listener="#{controleTraineeMB.gerarListaConsultor()}"
+									update="consultor"></p:ajax>
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+
+						<h:panelGrid columns="5"
+							columnClasses="tamanhoavisos, tamanho1,tamanho1, tamanho7,tamanho1"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="Consultor" for="consultor" />
+							<p:outputLabel value="Status do Processo" for="situacao" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="consultor"
+								value="#{controleTraineeMB.usuario}" style="width:200px;"
+								converter="UsuarioConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{controleTraineeMB.listaConsultor}"
+									var="consultor" itemLabel="#{consultor.nome}"
+									itemValue="#{consultor}" />
+								<f:attribute name="listaUsuario"
+									value="#{controleTraineeMB.listaConsultor}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao"
+								value="#{controleTraineeMB.situacao}" style="width:130px;">
+								<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+								<f:selectItem itemLabel="Processo" itemValue="Processo" />
+								<f:selectItem itemLabel="Empregado" itemValue="Empregado" />
+								<f:selectItem itemLabel="Visto" itemValue="Visto" />
+								<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+								<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:outputLabel/>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update=":idControleTrainee:tabelaControleTrainee"
+								action="#{controleTraineeMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="idControleTrainee:tabelaControleTrainee, unidade, dataFinal, dataIni, cliente,idvenda, situacao"
+								action="#{controleTraineeMB.limpar()}" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Controle Trainee</b>
+				</legend>
+				<br></br> <br></br>
+				<p:dataTable id="tabelaControleTrainee" var="trainee"
+					value="#{controleTraineeMB.listaControle}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+					editable="true" editMode="cell">
+					<p:column style="width:35px;text-align:center">
+						<p:cellEditor>
+							<f:facet name="output">
+								<img src="#{controleTraineeMB.imagemSituacao(trainee)}"
+									title="#{trainee.statusprocesso}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="situacao" value="#{trainee.statusprocesso}"
+									style="width:95%;">
+									<f:selectItem itemLabel="Processo" itemValue="Processo" />
+									<f:selectItem itemLabel="Empregado" itemValue="Empregado" />
+									<f:selectItem itemLabel="Visto" itemValue="Visto" />
+									<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+									<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+									<p:ajax event="change"
+										listener="#{controleTraineeMB.salvarStatus(trainee)}"
+										update="tabelaControleTrainee" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="ID venda" style="width:65px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{trainee.vendas.idvendas}" />
+					</p:column>
+					<p:column headerText="Data Inscrição"
+						style="text-align:center;width:95px;">
+						<h:outputText value="#{trainee.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Cliente" style="width:210px;">
+						<p:commandLink value="#{trainee.vendas.cliente.nome}"
+							style="text-decoration:underline"
+							action="#{controleTraineeMB.atualizarControle(trainee)}">
+							<p:ajax event="dialogReturn"
+								listener="#{controleTraineeMB.retornoDialogAtualizar}"
+								update="tabelaControleTrainee" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Unidade" style="width:170px;"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{trainee.vendas.unidadenegocio.nomeFantasia}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:150px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{trainee.vendas.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Docs" style="width:50px;text-align:center">
+						<img src="#{controleTraineeMB.imagemDocs(trainee)}"
+							title="Situação dos Documentos Obrigatorios" />
+					</p:column>
+					<p:column headerText="Arquivos"
+						style="width:85px;text-align:center">
+						<p:commandLink action="#{controleTraineeMB.documentacao(trainee)}"
+							title="Invoice">
+							<img src="../../resources/img/boletoFicha.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Invoice" style="width:53px;text-align:center">
+						<p:commandLink action="#{controleTraineeMB.invoice(trainee)}"
+							title="Invoice">
+							<img src="../../resources/img/controleInvoice.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Finalizar"
+						style="width:61px;text-align:center">
+						<p:commandLink action="#{controleTraineeMB.finalizar(trainee)}"
+							title="Finalizar" update="tabelaControleTrainee">
+							<img src="../../resources/img/controleFinalizar.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:32px;">
+						<p:selectBooleanCheckbox value="#{trainee.selecionado}" />
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+		<h:form id="cancelar">
+			<p:dialog id="dialog_cancelar" header="Cancelar" widgetVar="cancelar"
+				width="31%" style="background:#d0e9c6;text-align: left">
+				<p:outputLabel value="Motivo do Cancelamento" for="motivo"
+					style="font-size: 11px" />
+				<br></br>
+				<p:inputTextarea id="motivo"
+					value="#{controleTraineeMB.motivoCancelamento}" cols="70" rows="3" />
+				<br></br>
+				<br></br>
+				<p:commandButton value="Salvar" icon="ui-icon-check"
+					action="#{controleTraineeMB.cancelar()}"
+					class="espacocobranca23botao"
+					style="font-size:11px;margin-left:70%" update="@all"
+					onclick="cancelar.hide()" />
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

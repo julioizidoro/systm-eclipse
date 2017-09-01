@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idValoresSeguro">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				 <p:accordionPanel class="painel" activeIndex="-1" >
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar" >
+                           <p:outputLabel value="Periodo" for="periodo" class="fontebranca" style="margin-left:7.6%"/> 
+                           <p:outputLabel value="Status" for="status" style="margin-left:28.8%" /> 
+                            <p:outputLabel value="Tipo" for="tipo" style="margin-left:13%" /> 
+                           <br></br>
+                           <h:panelGrid columns="5">
+                       	       <p:inputText id="periodo" value="#{valoresSeguroMB.periodo}" style="width:250px;margin-left:22%" />
+	                           <p:selectOneMenu  id="status"  value="#{valoresSeguroMB.status}" style="width:95px;margin-left:36%">
+	                              <f:selectItem itemLabel="Todos" itemValue="Todos"  />
+	                              <f:selectItem itemLabel="Ativo" itemValue="Ativo"  />
+	                              <f:selectItem itemLabel="Inativo" itemValue="Inativo"/> 
+	                              <p:ajax event="change"/>   
+	                          </p:selectOneMenu>
+	                          <p:selectOneMenu  id="tipo"  value="#{valoresSeguroMB.tipo}" style="width:95px;margin-left:36%">
+	                           	  <f:selectItem itemLabel="Todos" itemValue="Todos"  />
+	                              <f:selectItem itemLabel="EUA" itemValue="EUA"  />
+	                              <f:selectItem itemLabel="Australia" itemValue="Australia"/> 
+	                              <p:ajax event="change"/>
+	                          </p:selectOneMenu>
+	                          <p:commandButton value="Pesquisar" style="margin-left:45%" icon=" ui-icon-search " update=":idValoresSeguro:tabelaValoresSeguro"  action="#{valoresSeguroMB.pesquisar()}"/>
+                         <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idValoresSeguro:tabelaValoresSeguro,tipo, periodo, status"  action="#{valoresSeguroMB.limpar()}"/>
+	                     </h:panelGrid>
+                         
+                     </p:tab>
+                 </p:accordionPanel> 
+				<legend id="iUsu2">   
+					<b>Valores Seguro Viagem</b> 
+				</legend> 
+                 <p:commandButton value="Novo" icon="ui-icon-plus" action="#{valoresSeguroMB.novo()}" class="botaoConsulta" style="font-size:12px;margin-left:80%">
+                 	<p:ajax event="dialogReturn" listener="#{valoresSeguroMB.retornoDialog()}" update="tabelaValoresSeguro"/>
+                 </p:commandButton>
+                 
+                     <br></br><br></br> 
+				<p:dataTable id="tabelaValoresSeguro" var="valores"    
+					value="#{valoresSeguroMB.listaValores}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+					<p:column headerText="Plano"  styleClass="alinharCenter" style="width:160px;">
+						<h:outputText value="#{valores.seguroplanos.nome}" />   
+					</p:column> 
+					<p:column headerText="Tarifario" style="width:160px;" styleClass="alinharCenter">
+						<h:outputText value="#{valores.tarifario}" />
+					</p:column>    
+					<p:column headerText="Moeda" style="width:80px;" styleClass="alinharCenter">
+						<h:outputText value="#{valores.moedas.sigla}" />
+					</p:column>
+					<p:column headerText="Valor" style="width:100px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{valores.valornet}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column headerText="Valor" style="width:100px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{valores.valorgross}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter" headerText="Editar">
+						<p:commandLink action="#{valoresSeguroMB.editarValores(valores)}">
+							<img src="../../resources/img/editaricon.png" style="margin-left:20%" />
+							<p:ajax event="dialogReturn"
+								listener="#{valoresSeguroMB.retornoDialog}" process="@this"
+								update=":idValoresSeguro:tabelaValoresSeguro" />
+						</p:commandLink>
+					</p:column>
+                     <p:column headerText="Desativar" style="width:100px;text-align:center" >
+                    	<p:commandLink action="#{valoresSeguroMB.desativar(valores)}" title="Desativar" update="tabelaValoresSeguro">
+                      	 	 <img src="../../resources/img/bolaVermelha.png"/> 
+                        </p:commandLink>
+                    </p:column>
+				</p:dataTable>   
+				<br></br> <br></br>
+			</div>
+		</h:form> 
+	</ui:define>
+</ui:composition>
+</html>

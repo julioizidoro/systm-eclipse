@@ -1,0 +1,62 @@
+body {
+	font-size: 10px;
+	font-family: tahoma;
+	color: #333;
+}
+
+.corpo {
+	background: #EDEEF0;
+	width: 280px;
+}
+
+input {
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	background: #fff;
+}
+
+.tamanho33 {
+	width: 33%;
+}
+
+.tamanho50 {
+	width: 33%;
+}
+
+.tamanho50rig {
+	width: 33%;
+	text-align: right;
+}
+
+.ui-widget-content {
+	border: none;
+	background: transparent;
+	color: #312e25;
+}
+
+.ui-datascroller .ui-datascroller-content {
+	padding: 4px;
+}
+
+.coresFundoOrcamento {
+	background: #EDEEF0 !important;
+	-webkit-print-color-adjust: exact;
+	color-adjust: exact;
+}
+
+.coresFundoValorOrcamento {
+	background: #95D92C !important;
+	-webkit-print-color-adjust: exact;
+	color-adjust: exact;
+}
+
+.linhaOrcamento {
+	height: 2px;
+	color: #4C816D;
+	border: none;
+	background: #4C816D !important;
+	-webkit-print-color-adjust: exact; color-adjust : exact;
+	margin-top: 14px;
+	color-adjust: exact;
+}

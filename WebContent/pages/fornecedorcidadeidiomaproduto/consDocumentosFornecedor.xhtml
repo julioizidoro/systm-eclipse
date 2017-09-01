@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaDocumentosFornecedor">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<legend id="iUsu2">
+					<b>Documentos do Fornecedor</b>
+				</legend>
+				<h:panelGrid style="margin-left:3%" columns="3"
+					columnClasses="tamanho8,tamanho8,tamanho7">
+					<p:outputLabel
+						value="#{documentosFornecedorMB.fornecedorCidade.fornecedor.nome} - #{documentosFornecedorMB.fornecedorCidade.cidade.nome}"
+						class="fontebranca" style="font-size:17px; color:#1F888A" />
+					<p:commandButton value="Voltar" icon="ui-icon-arrowreturn-1-w"
+						action="#{documentosFornecedorMB.voltar()}"
+						style="font-size:12px;margin-left: 75%;" />
+					 
+				</h:panelGrid>
+				<br></br>
+				<br></br>
+				<div style="width: 100%;" align="center">
+					<p:tabView>  
+				        <p:tab title="DOCS">
+				            <h:panelGrid  width="100%;" id="idPanelArquivos">
+								<h:dataTable id="tabelaArquivo" styleClass="table-transparent"  value="#{documentosFornecedorMB.listaAquivo}" 
+									var="arquivo" style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:100%;" >
+									<h:column>
+										<h:panelGrid columns="1" style="with:100%;" rendered="#{documentosFornecedorMB.verificarDocsVideo(arquivo.fornecedordocs1)}">
+											<h:panelGroup rendered="#{documentosFornecedorMB.verificarDocsVideo(arquivo.fornecedordocs1)}">
+												  <h:panelGrid columns="4" style="width:100%;">
+												  			<h:panelGroup>
+														  		<a href="http://#{documentosFornecedorMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.fornecedordocs1.nomeftp}"  title="#{arquivo.fornecedordocs1.nome}" name="#{arquivo.fornecedordocs1.nome}" target="_blank" style="margin:20px;">
+												        		
+																    <img src="#{documentosFornecedorMB.retornaIconeDocumento(arquivo.fornecedordocs1.nomeftp)}" width="40" height="40" style="font-size:12px;">
+													        			
+													        		</img>
+												        			<p:outputLabel value="#{arquivo.fornecedordocs1.nome}"/>
+												        			
+												       			</a>
+												       		</h:panelGroup>
+														    <p:commandLink action="#{documentosFornecedorMB.editarDocumentoFornecedor(arquivo.fornecedordocs1)}" title="Editar">
+											        			<i class="fa fa-pencil"></i>
+											        			<p:ajax event="dialogReturn" listener="#{documentosFornecedorMB.retornoDialogEditar}" update=":consultaDocumentosFornecedor:growl, @form"/>
+											        		</p:commandLink>
+											        		<p:commandLink update="@form" action="#{documentosFornecedorMB.excluir(arquivo.fornecedordocs1)}" title="Excluir">
+											        			<i class="fa fa-trash-o"></i>
+											        		</p:commandLink> 
+											        	</h:panelGrid>
+										        		<br/><br/>
+										    </h:panelGroup>
+							        	</h:panelGrid>
+									</h:column>
+									<h:column>
+										<h:panelGrid columns="1" style="width:100%;" rendered="#{documentosFornecedorMB.verificarDocsVideo(arquivo.fornecedordocs2)}">
+											<h:panelGroup rendered="#{documentosFornecedorMB.verificarDocsVideo(arquivo.fornecedordocs2)}">
+														<h:panelGrid columns="4" style="width:100%;">
+															<h:panelGroup>
+																<a href="http://#{documentosFornecedorMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.fornecedordocs2.nomeftp}" title="#{arquivo.fornecedordocs2.nome}" name="#{arquivo.fornecedordocs2.nome}" target="_blank" style="margin:20px;">
+												        		 	<img src="#{documentosFornecedorMB.retornaIconeDocumento(arquivo.fornecedordocs2.nomeftp)}" width="40" height="40" style="font-size:12px;">
+													        			
+													        		</img>
+													        		<p:outputLabel value="#{arquivo.fornecedordocs2.nome}"/>
+												       			</a>
+												       		</h:panelGroup>
+														    <p:commandLink action="#{documentosFornecedorMB.editarDocumentoFornecedor(arquivo.fornecedordocs2)}" title="Editar">
+											        			<i class="fa fa-pencil"></i>
+											        			<p:ajax event="dialogReturn" listener="#{documentosFornecedorMB.retornoDialogEditar}" update=":consultaDocumentosFornecedor:growl, @form"/>
+											        		</p:commandLink>
+											        		<p:commandLink update="@form" action="#{documentosFornecedorMB.excluir(arquivo.fornecedordocs2)}" title="Excluir">
+											        			<i class="fa fa-trash-o"></i>
+											        		</p:commandLink> 
+											        	</h:panelGrid>
+										        		<br/><br/>
+										    </h:panelGroup>
+								        </h:panelGrid>
+									</h:column>
+									<h:column>
+										<h:panelGrid columns="1" style="width:100%;" rendered="#{documentosFornecedorMB.verificarDocsVideo(arquivo.fornecedordocs3)}">
+											<h:panelGroup rendered="#{documentosFornecedorMB.verificarDocsVideo(arquivo.fornecedordocs3)}">
+									        		<h:panelGrid columns="4" style="width:100%;">
+									        			<h:panelGroup>
+										        			<a href="http://#{documentosFornecedorMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.fornecedordocs3.nomeftp}" title="#{arquivo.fornecedordocs3.nome}" name="#{arquivo.fornecedordocs3.nome}" target="_blank" style="margin:20px;">
+										        		
+														      	<img src="#{documentosFornecedorMB.retornaIconeDocumento(arquivo.fornecedordocs3.nomeftp)}" width="40" height="40" style="font-size:12px;">
+												        			
+												        		</img>
+												        		<p:outputLabel value="#{arquivo.fornecedordocs3.nome}"/>
+										        			</a>
+										        		</h:panelGroup>
+													    <p:commandLink action="#{documentosFornecedorMB.editarDocumentoFornecedor(arquivo.fornecedordocs3)}" title="Editar">
+										        			<i class="fa fa-pencil"></i>
+										        			<p:ajax event="dialogReturn" listener="#{documentosFornecedorMB.retornoDialogEditar}" update=":consultaDocumentosFornecedor:growl, @form"/>
+										        		</p:commandLink>
+										        		<p:commandLink update="@form" action="#{documentosFornecedorMB.excluir(arquivo.fornecedordocs3)}" title="Excluir">
+										        			<i class="fa fa-trash-o"></i>
+										        		</p:commandLink> 
+										        	</h:panelGrid>
+									        		<br/><br/>
+									      	</h:panelGroup>
+								        </h:panelGrid>
+									</h:column>
+									
+								</h:dataTable>
+							</h:panelGrid>
+				        </p:tab>
+				        <p:tab title="VIDEOS">
+				             <h:panelGrid id="idPanelVideo" width="100%;" >
+								<h:dataTable id="tabelaVideo" styleClass="table-transparent"   value="#{documentosFornecedorMB.listaVideos}"
+									var="videos" style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:90%;" >
+									<h:column>
+										<br/>
+										<h:panelGroup rendered="#{documentosFornecedorMB.verificarDocsVideo(videos.fornecedordocs1)}">
+											<div class="col-sm-6 col-md-3">
+												<h:panelGrid columns="1" style="width:100%;">
+													
+													<h:panelGroup>
+														<p:outputLabel value="#{videos.fornecedordocs1.nome}" style="font-size:14px;"/>	
+														<h:panelGroup>
+														    <p:commandLink action="#{documentosFornecedorMB.editarDocumentoFornecedor(videos.fornecedordocs1)}" title="Editar">
+											        			<i class="fa fa-pencil"></i>
+											        			<p:ajax event="dialogReturn" listener="#{documentosFornecedorMB.retornoDialogEditar}" update=":consultaDocumentosFornecedor:growl, @form"/>
+											        		</p:commandLink>
+											        		<p:commandLink update="@form" action="#{documentosFornecedorMB.excluir(videos.fornecedordocs1)}" title="Excluir">
+											        			<i class="fa fa-trash-o"></i>
+											        		</p:commandLink> 
+											        	</h:panelGroup>
+													</h:panelGroup>	
+													<h:panelGroup>
+														<video width="320" src="http://#{documentosFornecedorMB.ftpDados.host}:82/ftproot/videos/#{videos.fornecedordocs1.nomeftp}"  height="240" controls="controls" type="video/mp4">
+											
+														</video> 
+													</h:panelGroup>
+												</h:panelGrid> 
+											</div>  
+										</h:panelGroup>
+									</h:column>
+									<h:column>
+										<br/>
+										<h:panelGroup rendered="#{documentosFornecedorMB.verificarDocsVideo(videos.fornecedordocs2)}">
+											<div class="col-sm-6 col-md-3">
+												<h:panelGrid columns="1" style="width:100%;">
+													  
+													<h:panelGroup >
+												 		<p:outputLabel value="#{videos.fornecedordocs2.nome}" style="font-size:14px;"/>	
+												 		<h:panelGroup>
+														    <p:commandLink action="#{documentosFornecedorMB.editarDocumentoFornecedor(videos.fornecedordocs2)}" title="Editar">
+											        			<i class="fa fa-pencil"></i>
+											        			<p:ajax event="dialogReturn" listener="#{documentosFornecedorMB.retornoDialogEditar}" update=":consultaDocumentosFornecedor:growl, @form"/>
+											        		</p:commandLink>
+											        		<p:commandLink update="@form" action="#{documentosFornecedorMB.excluir(videos.fornecedordocs2)}" title="Excluir">
+											        			<i class="fa fa-trash-o"></i>
+											        		</p:commandLink> 
+											        	</h:panelGroup>
+													</h:panelGroup>	
+													<h:panelGroup>
+														<video width="320" src="http://#{documentosFornecedorMB.ftpDados.host}:82/ftproot/videos/#{videos.fornecedordocs2.nomeftp}"  height="240" controls="controls" type="video/mp4">
+											
+														</video>
+													</h:panelGroup>
+												</h:panelGrid>
+											</div> 
+										</h:panelGroup>
+									</h:column> 
+									<h:column>
+										<br/>
+										<h:panelGroup rendered="#{documentosFornecedorMB.verificarDocsVideo(videos.fornecedordocs3)}">
+								        	<div class="col-sm-6 col-md-3">
+								        		<h:panelGrid>
+								        			
+													<h:panelGroup>
+														<p:outputLabel value="#{videos.fornecedordocs3.nome}" style="font-size:14px;"/>	
+														<h:panelGroup>
+														    <p:commandLink action="#{documentosFornecedorMB.editarDocumentoFornecedor(videos.fornecedordocs3)}" title="Editar">
+											        			<i class="fa fa-pencil"></i>
+											        			<p:ajax event="dialogReturn" listener="#{documentosFornecedorMB.retornoDialogEditar}" update=":consultaDocumentosFornecedor:growl, @form"/>
+											        		</p:commandLink>
+											        		<p:commandLink update="@form" action="#{documentosFornecedorMB.excluir(videos.fornecedordocs3)}" title="Excluir">
+											        			<i class="fa fa-trash-o"></i>
+											        		</p:commandLink> 
+											        	</h:panelGroup>
+													</h:panelGroup>
+													<h:panelGroup>		
+														<video width="320" src="http://#{documentosFornecedorMB.ftpDados.host}:82/ftproot/videos/#{videos.fornecedordocs3.nomeftp}"  height="240" controls="controls" type="video/mp4">
+										
+														</video>
+													</h:panelGroup>
+												</h:panelGrid> 
+											</div> 
+										</h:panelGroup> 
+									</h:column>
+									
+								</h:dataTable>
+							</h:panelGrid>
+				        </p:tab>
+				    </p:tabView>
+					
+				</div>
+
+				<br></br> <br></br>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

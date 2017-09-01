@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoProgramasTeensPagina02" pageWidth="595" pageHeight="842" columnWidth="560" leftMargin="15" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.42409761837248483"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="11"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="720" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="60" width="553" height="550" uuid="c3411351-cc7a-4d2c-aa7a-abc1b3c79b05"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="707" uuid="011fe755-f1a6-49bf-bbb0-cdaa18d3f464"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[3. OBRIGAÇÕES DO(A) PARTICIPANTE
+
+a) Preencher a ficha de inscrição e apresentar a documentação complementar solicitada para que sua inscrição seja efetivada e aceita;
+b) Contratar seguro saúde (quando não incluso no programa/pacote) e fornecer à TM essas informações.  Sendo de interesse do(a)PARTICIPANTE, a TM poderá auxiliar a providenciar este item;
+c) Providenciar o transporte de ida e volta (quando não incluso no programa/pacote) e o visto de entrada do país onde será realizado o programa (quando exigido) e fornecer à TM essas informações com 2 semanas de antecedência da data de embarque.  Sendo de interesse do(a)PARTICIPANTE, a TM poderá auxiliar no processo de solicitação de visto consular oferecendo o serviço de assessoria para aplicação de visto, o qual pode ser contratado mediante pagamento de taxa específica;
+d) Providenciar acomodação para o período de realização do programa (quando não inclusa no programa/pacote) e fornecer seu endereço à TM até 2 semanas antes do embarque. Sendo de interesse do(a) PARTICIPANTE, a TM poderá auxiliar a providenciar este item (quando não inclusa no programa/pacote);
+e) Assumir os danos e despesas causadas a terceiros durante o programa, sujeitando-se às normas e leis locais do país em questão. Não é responsabilidade da TM e/ou parceiro internacional contratado pela TM prestar assessoria, consultoria ou aconselhamento legal/jurídico ao(à) PARTICIPANTE e seus pais/familiares;
+f) Respeitar as políticas e procedimentos estipulados pela instituição internacional, escola ou entidade responsável a respeito do programa escolhido, bem como cumprir com as regras determinadas neste, sob pena de desligamento do programa, tais como:
+- freqüência mínima exigida pela instituição promotora do curso ou programa;
+- observar as regras de comportamento da instituição, curso ou programa;
+g) Participar das orientações organizadas pela TM e/ou parceiro internacional em questão.
+h) No caso de acomodação em casa de família, respeitar a política, costumes, horários e principalmente os membros da casa família onde irá ficar hospedado(a), não sendo admitido qualquer forma de agressão, xingamentos ou atos que tornem o convívio insustentável, sendo motivo justo para a rescisão antecipada do contrato, com as consequências previstas na Cláusula 9 abaixo;
+i) No caso de acomodação em residência de estudante ou alojamento, respeitar a política, regras e horários estipulados;
+
+4. PARCEIRO INTERNACIONAL DA TM
+
+4.1 Quaisquer problemas que surjam após a chegada do(a) PARTICIPANTE ao país de destino do programa, devem ser solucionados pelo parceiro internacional) da TM , a empresa/escola/instituição citada no Objeto deste contrato e cujos dados de contato são fornecidos ao(à) PARTICIPANTE após confirmação de sua inscrição no programa/pacote contratado.
+4.2 O(A) PARTICIPANTE receberá antes de sair do Brasil todas as informações necessárias para tais procedimentos, como telefones, websites, endereços e pessoas de contato. Não cabe à TM solucionar estes problemas visto que é de responsabilidade do parceiro internacional contratado fazê-lo, portanto, o contato para resolução de problemas enquanto o(a) PARTICIPANTE estiver no país de destino deve ser feito diretamente com o parceiro internacional contratado.
+
+5. SEGURO-SAÚDE
+
+5.1 O(A) PARTICIPANTE deverá contratar seguro-saúde ou assistência viagem que inclua seguro-saúde para que possa participar do programa escolhido. Optando pela não contratação deste serviço (quando o mesmo não for obrigatório), o participante deverá assinar um TERMO DE ISENÇÃO DE RESPONSABILIDADE, no qual o mesmo se responsabilizará por todos os eventuais gastos que o seguro cobre e/ou assessora. Sendo de interesse do(a) PARTICIPANTE, a TM poderá auxiliar a providenciar este item. O seguro-saúde deverá obedecer aos seguintes critérios:
+a) Deve ser válido em todo o território do país de destino;
+b) Caso o(a)PARTICIPANTE ingresse no país de destino antes da data estabelecida no programa, ou permaneça após, deverá adquirir e/ou estender o seu seguro-saúde conforme tais datas, às suas expensas, devendo ainda, comunicar a TM;
+c) Deverá o(a)PARTICIPANTE obedecer todas as cláusulas referentes ao contrato de seguro, de acordo com o estabelecido pela seguradora, incluindo, mas não limitado a:
+I) pagamento de franquia;
+II) pagamento de multa por uso indevido da sala de emergência;
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="-16" y="3" width="200" height="10" uuid="d1dca0ff-41da-48c6-865a-bd1b86c8fc39"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoTeensPagina03.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

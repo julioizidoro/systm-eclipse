@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <script src="../../resources/js/calendario.js"></script>
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="faturaContasReceber" style="text-align:left;font-size: 10px; margin-left: 7%; "><br></br>
+			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+            <title>Adicionar Outros Lançamentos</title>
+                 
+           <p:outputLabel value="Data Emissão" for="dataEmi" > </p:outputLabel> 
+           <p:outputLabel value="Competência" for="competencia" style="margin-left:55.5%"> </p:outputLabel> 
+           <br></br>
+           <p:inputText id="dataEmi" value="#{faturaContasPagarMB.conta.dataEmissao}" readonly="true" style="width:19%;margin-left:0%" maxlength="14" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputText>   
+           <p:inputMask id="competencia" value="#{faturaContasPagarMB.conta.competencia}" mask="99/9999" style="margin-left:50%;width: 19.5%"/>
+            <br/><br/>
+
+            <p:outputLabel value="Unidade de negócio" for="unidadeNegocio" /> 
+            <br></br>
+            <p:selectOneMenu id="unidadeNegocio"  style="width:88.5%"  value="#{faturaContasPagarMB.unidadenegocio}" converter="UnidadeNegocioConverter">
+                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                <f:selectItems value="#{faturaContasPagarMB.listaUnidadeNegocio}" var="unidadenegocio" itemLabel="#{unidadenegocio.nomerelatorio}" itemValue="#{unidadenegocio}"/>
+                <f:attribute name="listaUnidade" value="#{faturaContasPagarMB.listaUnidadeNegocio}"/>
+            </p:selectOneMenu>                   
+                      <br></br><br></br>          
+            <p:outputLabel value="Plano de Contas" for="planoConta" />    
+            <br></br>
+            <p:selectOneMenu id="planoConta"  style="width:88.5%"  value="#{faturaContasPagarMB.conta.planoconta}" converter="PlanoContaConverter">
+                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                <f:selectItems value="#{faturaContasPagarMB.listaPlanoConta}" var="planoConta" itemLabel="#{planoConta.descricao}" itemValue="#{planoConta}"/>
+                <f:attribute name="listaPlanoConta" value="#{faturaContasPagarMB.listaPlanoConta}"/>
+            </p:selectOneMenu>  
+             <br></br><br></br>    
+            <p:outputLabel value="Descrição" > </p:outputLabel>     
+            <br></br>       
+            <p:inputTextarea id="historico" rows="3" style="width:88.5%;" value="#{faturaContasPagarMB.conta.descricao}"/>
+            <br></br> <br></br>
+                    <p:fieldset style="width:88%" >
+                        <p:outputLabel value="Data Vencimento" for="dataVenc" style="margin-left: 2.5%"/>
+                        <p:outputLabel value="Valor Entrada" style="margin-left:15%"/>
+                        <p:outputLabel value="Valor Saída" style="margin-left:15%"/>
+                            <br></br>
+                            <p:calendar id="dataVenc" value="#{faturaContasPagarMB.conta.datavencimento}" locale="pt" pattern="dd/MM/yyyy" mask="true" size="14" maxlength="14" style="margin-left: 10px;" >
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                 <p:ajax event="blur" listener="#{faturaContasPagarMB.preencherDataCompensacao()}" />
+                            </p:calendar>
+                            <p:inputText id="valorentrada" style="margin-left:13%; width:22%; text-align: right"  value="#{faturaContasPagarMB.conta.valorentrada}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText>
+                            <p:inputText id="valorsaida" style="margin-left:9.5%; width:25%; text-align: right"  value="#{faturaContasPagarMB.conta.valorsaida}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </p:inputText>   
+                            <br></br> <br></br>
+                            <p:outputLabel value="Data Compensação" for="dataPag" style="margin-left:  2.5%"/>
+                            <p:outputLabel value="Conta" for="banco" style="margin-left:14%;"/> 
+                            <br></br>
+                            <h:panelGrid columns="2">
+                                <p:calendar id="dataPag" value="#{faturaContasPagarMB.conta.datacompensacao}" locale="pt" pattern="dd/MM/yyyy" mask="true" size="15" maxlength="14" style="margin-left: 10px;">
+                                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+                                </p:calendar>   
+                                 <p:selectOneMenu id="banco"  style="width:237px; margin-left:19.5%;"  value="#{faturaContasPagarMB.conta.banco}" converter="BancoConverter">
+                                       <f:selectItems value="#{faturaContasPagarMB.listaBanco}" var="conta" itemLabel="#{conta.nome}" itemValue="#{conta}"/>
+                                       <f:attribute name="listaBanco" value="#{faturaContasPagarMB.listaBanco}"/>
+                                    </p:selectOneMenu> 
+                            </h:panelGrid>
+                    </p:fieldset>
+                            
+                <p class="botaoeditareceber" style="width: 87.5%;"><br></br>
+                    <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{faturaContasPagarMB.salvar()}" update="growl"></p:commandButton>
+                    <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{faturaContasPagarMB.cancelar()}"></p:commandButton>
+                </p>
+        </h:form>     
+    </h:body>
+</html>

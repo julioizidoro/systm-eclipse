@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+     <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+         <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+         <script>  
+                PrimeFaces.locales['pt'] = {  
+                    closeText: 'Fechar',  
+                    prevText: 'Anterior',  
+                    nextText: 'Próximo',  
+                    currentText: 'Começo',  
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],  
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],  
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],  
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],  
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],  
+                    weekHeader: 'Semana',  
+                    firstDay: 0,  
+                    isRTL: false,  
+                    showMonthAfterYear: false,  
+                    yearSuffix: '',  
+                    timeOnlyTitle: 'Só Horas',  
+                    timeText: 'Tempo',  
+                    hourText: 'Hora',  
+                    minuteText: 'Minuto',  
+                    secondText: 'Segundo',  
+                    ampm: false,  
+                    month: 'Mês',  
+                    week: 'Semana',  
+                    day: 'Dia',  
+                    allDayText: 'Todo o Dia'  
+                };  
+            </script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastropacotepassagem" style="text-align:left;font-size: 10px;">
+            <title>Passagem</title>
+            <p:tabView>
+                <p:tab titleStyle="font-size:10px;" title="Passagem" class="tab">
+                    <legend id="iUsu3" style="font-size:11px;" ><b>Consolidador</b></legend>
+                    
+        			<h:panelGrid columns="4" style="width:100%;">
+	                    <p:outputLabel value="Pais" for="pais" style="font-size:10px;"/>
+	                    <p:outputLabel value="Cidade" for="cidade"  style="font-size:10px;"/>
+	                    <p:outputLabel value="Parceiro" for="fornecedor" style="font-size:10px;"/>
+	        			<p:outputLabel value="Data Pagamento" for="datapagamentoparceiro" style="font-size: 10px;" />
+	                    
+	                    <p:selectOneMenu id="pais" value="#{pacotePassagemMB.pais}" style="width:100px;font-size: 10px"
+	                                     converter="PaisConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+	                       <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"  />
+	                        <f:selectItems id="idpais" value="#{pacotePassagemMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+	                        <f:attribute name="listaPais" value="#{pacotePassagemMB.listaPais}"/>
+	                        <p:ajax event="change" update="cidade"/> 
+	                    </p:selectOneMenu>
+	                    <p:selectOneMenu id="cidade" value="#{pacotePassagemMB.cidade}" style="width:120px;font-size: 10px"
+	                                     converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+	                        <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+	                        <f:selectItems id="idcidade" value="#{pacotePassagemMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+	                        <f:attribute name="listaCidade" value="#{pacotePassagemMB.pais.cidadeList}"/>
+	                        <p:ajax event="change" listener="#{pacotePassagemMB.listarFornecedorCidade(0)}" update="fornecedor" />
+	                    </p:selectOneMenu>
+	                    <p:selectOneMenu id="fornecedor" value="#{pacotePassagemMB.fornecedorcidade}" style="width:200px;font-size: 10px"
+	                                     converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+	                        <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"  />
+	                        <f:selectItems id="idfornecedor" value="#{pacotePassagemMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+	                        <f:attribute name="listaFornecedorCidade" value="#{pacotePassagemMB.listaFornecedorCidade}"/>
+	                    </p:selectOneMenu>
+						<p:calendar id="datapagamentoparceiro" value="#{pacotePassagemMB.pacotepassagem.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+							<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+						</p:calendar>
+	                </h:panelGrid>
+                    <br></br> <br></br>
+                    <p:outputLabel value="Cia aérea" for="cia"  style="font-size:10px;"/> 
+                    <p:outputLabel value="Localizador" for="localizador"  style="font-size:10px;margin-left:47%"/> 
+                    <br></br>
+                    <p:inputText id="cia" style="width:44%;" maxlength="100"  value="#{pacotePassagemMB.pacotepassagem.ciaAerea}"  />
+                    <p:inputText id="localizador" style="width:44%;" maxlength="100" class="campos" value="#{pacotePassagemMB.pacotepassagem.localizador}"  />
+
+                    <br></br><br></br>
+                    <p:outputLabel value="Data Viagem" for="dataviagem"  style="font-size:10px;"/> 
+                    <p:outputLabel value="Data Volta" for="datavolta" class="espacocobranca11" style="font-size:10px;"/>
+                    <br></br>
+                    <p:calendar id="dataviagem" size="14"  class="espaco0p" value="#{pacotePassagemMB.pacotepassagem.dataEmbarque}"  locale="pt"  pattern="dd/MM/yyyy" />
+                    <p:calendar id="datavolta" size="14" class="imgadd" value="#{pacotePassagemMB.pacotepassagem.dataVolta}"  locale="pt"  pattern="dd/MM/yyyy" />
+                  <br></br><br></br> <br></br><br></br> <br></br> <br></br> <br></br> <br></br>
+                    
+                </p:tab>
+                
+                
+                <p:tab title="Valores">
+                    <legend id="iUsu3" style="font-size:11px;"><b>Valores</b></legend>
+					<p:outputLabel value="Tarifa" class="" style="margin-left:21%;font-size:13px"/>
+                    <p:outputLabel value="Taxas"  style="margin-left:12%;font-size:13px"/>
+                    <p:outputLabel value="Taxa Emissão"  style="margin-left:8.3%;font-size:13px"/>
+                    <p:outputLabel value="Comissão"  style="margin-left:6.5%;font-size:13px"/>
+                    <br></br>
+                    <p:outputLabel value="ADT"  style="margin-left:10%"/>
+                      <p:inputText id="idAdtTarifas" value="#{pacotePassagemMB.pacotepassagem.adttarifa}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>  
+                      <p:inputText id="idAdtTaxas" value="#{pacotePassagemMB.pacotepassagem.adttaxas}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>
+                      <p:inputText id="idAdtEmissao" value="#{pacotePassagemMB.pacotepassagem.adttaxaemissao}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>
+                      <p:inputText id="idAdtComissao" value="#{pacotePassagemMB.pacotepassagem.adtcomissao}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      </p:inputText>
+                      <p:commandLink style="margin-left:0.5%;text-decoration:none" title="Calcular comissão em %" oncomplete="PF('dialogcalcularComissao').show()"> 
+                      	<img src="../../resources/img/bolaVerde.png" width="17"/>
+                      </p:commandLink>
+                   <br></br> <br></br>
+                   <p:outputLabel value="CHD"  style="margin-left:10%"/>
+                      <p:inputText id="idChdTarifas" value="#{pacotePassagemMB.pacotepassagem.chdtarifa}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>  
+                      <p:inputText id="idChdTaxas" value="#{pacotePassagemMB.pacotepassagem.chdtaxas}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>
+                      <p:inputText id="idChdEmissao" value="#{pacotePassagemMB.pacotepassagem.chdtaxaemissao}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                    		<p:ajax event="blur" />
+                      </p:inputText>
+                      <p:inputText id="idChdComissao" value="#{pacotePassagemMB.pacotepassagem.chdcomissao}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      <p:ajax event="blur"/>
+                      </p:inputText>
+                      <p:commandLink style="margin-left:0.5%;text-decoration:none" title="Calcular comissão em %"  oncomplete="PF('dialogcalcularComissaoChd').show()">
+                      	<img src="../../resources/img/bolaVerde.png" width="17"/>
+                      </p:commandLink>
+                   <br></br> <br></br>
+                   <p:outputLabel value="INF"  style="margin-left:10.7%"/>
+                      <p:inputText id="idInfTarifas" value="#{pacotePassagemMB.pacotepassagem.inftarifa}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>  
+                      <p:inputText id="idInfTaxas" value="#{pacotePassagemMB.pacotepassagem.inftaxas}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>
+                      <p:inputText id="idInfEmissao" value="#{pacotePassagemMB.pacotepassagem.inftaxaemissao}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur" />
+                      </p:inputText>
+                      <p:inputText id="idInfComissao" value="#{pacotePassagemMB.pacotepassagem.infcomissao}" style="width:15%;font-size:10px;text-align: right;margin-left:3%" >
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      	<p:ajax event="blur"/>
+                      </p:inputText>
+                      <p:commandLink style="margin-left:0.5%;text-decoration:none" title="Calcular comissão em %"  oncomplete="PF('dialogcalcularComissaoInf').show()">
+                      		<img src="../../resources/img/bolaVerde.png" width="17"/>
+                      </p:commandLink>
+	                  <br></br> <br></br> <br></br>
+	                  <p:outputLabel value="Comissão Parceiro" for="comissaofornecedor" style="font-size: 11px;margin-left:51%"/> 
+	                  <p:inputText id="comissaofornecedor" style="width:15%;text-align: right;margin-left:1%"  value="#{pacotePassagemMB.pacotepassagem.comissaofornecedor}" >
+	                       <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                  </p:inputText>
+	                  <br></br><br></br>
+	                  
+            </p:tab>
+		   	<p:tab  title="Passageiros">
+                   <p:outputLabel value="Nome" for="nome" class="espaco0p" style="font-size:10px;"/> 
+                   <p:outputLabel value="Data Nascimento" for="datasnac"  style="font-size:10px;margin-left: 36.5%"/>
+                   <p:outputLabel value="RG/Passaporte" for="rgPassaporte"  style="font-size:10px;margin-left:4%"/>
+                   <p:outputLabel value="Categoria" for="idpassageirotipo" style="font-size:10px;margin-left:7%;"/> 
+                   <br></br>
+                   <h:panelGrid columns="4">
+                       <p:inputText id="nome" style="width:240%;" class="camposs" value="#{pacotePassagemMB.pacotepassagempassageiro.nome}"  />
+                       <p:inputMask mask="99/99/9999" id="datasnac" style="width:35%;margin-left:64%"  value="#{pacotePassagemMB.pacotepassagempassageiro.datanascimento}">
+                           <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                       </p:inputMask>
+                       <p:inputText id="rgPassaporte" style="width:75%;margin-left:14%"  value="#{pacotePassagemMB.pacotepassagempassageiro.rg}"  />
+                       <p:selectOneMenu  id="idpassageirotipo"  value="#{pacotePassagemMB.pacotepassagempassageiro.categoria}" style="width:150px;margin-left:10%">
+                           <f:selectItem itemLabel="Selecione" itemValue="selecione" noSelectionOption="true"  />
+                           <f:selectItem itemLabel="ADT" itemValue="ADT"/> 
+                           <f:selectItem itemLabel="CHD" itemValue="CHD"/> 
+                           <f:selectItem itemLabel="INF" itemValue="INF"/> 
+                       </p:selectOneMenu>
+                        
+                   </h:panelGrid>
+                   <p:commandButton id="idbtnaddpassageiro" icon="ui-icon-check" value="Add" action="#{pacotePassagemMB.adicionarPassageiroBean()}" ajax="false" style="margin-left:91%">
+                       <p:ajax event="click" update="idlistapassageiros, idTotalPa"/>
+                    </p:commandButton>
+                   <br></br><br></br>
+                   <p:dataTable id="idlistapassageiros" var="passageiro"  value="#{pacotePassagemMB.listaPassageiros}" class="tabela1" 
+                                scrollable="true" scrollHeight="120" style="margin-bottom:20px;font-size: 10px;" rowIndexVar="linha" >
+
+                       <p:column headerText="Nome" >
+                           <h:outputText value="#{passageiro.nome}" />
+                       </p:column>
+                       <p:column headerText="Data Nascimento"  style="width:17%">
+                           <p:outputLabel value="#{passageiro.datanascimento}">
+                               <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                           </p:outputLabel>
+                       </p:column>
+                       <p:column headerText="RG/Passaporte"  style="width:14%">
+                           <p:outputLabel value="#{passageiro.rg}"/>
+                       </p:column>
+                        <p:column headerText="Categoria" style="width:12%">    
+                           <p:outputLabel value="#{passageiro.categoria}" />
+                       </p:column>
+                       <p:column headerText="Valor"  style="width:15%;text-align:right">
+                           <p:outputLabel value="#{passageiro.valor}">
+                           	 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                           </p:outputLabel>
+                       </p:column>
+                       <p:column headerText=""  style="width:12%">
+                           <p:commandButton value="Excluir" action="#{pacotePassagemMB.removerPassageiroBean(linha, passageiro)}" ajax="false">
+                               <p:ajax event="click" update="@all" />
+                           </p:commandButton> 
+                       </p:column>
+                   </p:dataTable>
+                   <p:outputLabel value="Total da Venda"  style="font-size:12px;"/>
+                      <p:inputText id="idTotalPa" value="#{pacotePassagemMB.totalPagar}" style="width:15%;font-size:10px;text-align: right;margin-left:1%" readonly="true">
+                          <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                      </p:inputText>  
+                     </p:tab>
+              
+            </p:tabView>
+            <p class="botaocadpacote"><br></br>
+                <p:commandButton class="imagemm"  icon="ui-icon-check" value="Confirmar" action="#{pacotePassagemMB.salvarPassagem()}"></p:commandButton>
+                <p:commandButton class="espacocampos"  icon="ui-icon-close" value="Cancelar" action="#{pacotePassagemMB.cancelar()}"></p:commandButton>
+                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-trash" value="Excluir" action="#{pacotePassagemMB.excluir()}"></p:commandButton>
+                
+            </p>
+            
+           <p:dialog id="calcularComissao" hideEffect="fade" widgetVar="dialogcalcularComissao" width="400" >
+                <p:ajax event="close"  />
+                <p:outputLabel value="Percentual da comissão" for="idpercentualAdt" style="margin-left:2%"> </p:outputLabel> 
+	            <br></br>
+	            <p:inputText id="idpercentualAdt" value="#{pacotePassagemMB.percentualComissaoAdt}" style="margin-left: 2%;text-align:right;width:85%">
+	                <p:ajax event="blur"/>
+	            </p:inputText>
+	            <br/><br/>
+	            <p:commandButton id="btnconfirmaradt" value="Confirmar" style="margin-left:2%" icon="ui-icon-check" action="#{pacotePassagemMB.calcularComissaoAdt()}" onsuccess="PF('dialogcalcularComissao').hide()" update="@all"/>
+	            <p:commandButton id="btncancelaradt"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" onclick="dialogcalcularComissao.hide()"/>
+	            <br/><br/>
+           </p:dialog>
+           
+           <p:dialog id="calcularComissaoChd" hideEffect="fade" widgetVar="dialogcalcularComissaoChd" width="400" >
+                <p:ajax event="close"  />
+                <p:outputLabel value="Percentual da comissão" for="idpercentualChd" style="margin-left:2%"> </p:outputLabel> 
+	            <br></br>
+	            <p:inputText id="idpercentualChd" value="#{pacotePassagemMB.percentualComissaoChd}" style="margin-left: 2%;text-align:right;width:85%">
+	                <p:ajax event="blur"/>
+	            </p:inputText>
+	            <br/><br/>
+	            <p:commandButton id="btnconfirmarchd" value="Confirmar" style="margin-left:2%" icon="ui-icon-check" action="#{pacotePassagemMB.calcularComissaoChd()}" onsuccess="PF('dialogcalcularComissaoChd').hide()" update="@all"/>
+	            <p:commandButton id="btncancelarchd"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" onclick="dialogcalcularComissaoChd.hide()"/>
+	            <br/><br/>
+           </p:dialog>
+           
+           <p:dialog id="calcularComissaoInf" hideEffect="fade" widgetVar="dialogcalcularComissaoInf" width="400" >
+                <p:ajax event="close"  />
+                <p:outputLabel value="Percentual da comissão" for="idpercentualInf" style="margin-left:2%"> </p:outputLabel> 
+	            <br></br>
+	            <p:inputText id="idpercentualInf" value="#{pacotePassagemMB.percentualComissaoInf}" style="margin-left: 2%;text-align:right;width:85%">
+	                <p:ajax event="blur"/>
+	            </p:inputText>
+	            <br/><br/>
+	            <p:commandButton id="btnconfirmarinf" value="Confirmar" style="margin-left:2%" icon="ui-icon-check" action="#{pacotePassagemMB.calcularComissaoInf()}" onsuccess="PF('dialogcalcularComissaoInf').hide()" update="@all"/>
+	            <p:commandButton id="btncancelarinf"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" onclick="dialogcalcularComissaoInf.hide()"/>
+	            <br/><br/>
+           </p:dialog>
+      </h:form>     
+    </h:body>
+</html>

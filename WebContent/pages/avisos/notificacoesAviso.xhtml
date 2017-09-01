@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="notificacoesAviso"
+		style="text-align:left;font-size: 10px; margin-left: 6.5%;background:#DDDDE1;">
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+        <p:dialog  widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+        	<img src="../../resources/img/ajax-loader.gif" />
+        </p:dialog>  
+		<div style="margin-left: -7%;">
+			<h:panelGrid style="width:100%;text-align:right">
+				<p:commandButton icon="ui-icon-closethick"
+					action="#{notificacaoVendasMB.fechar()}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2" style="margin-left:86%">
+				<p:commandLink value="Todas"
+					action="#{notificacaoVendasMB.limparTodasNotificacoes()}"
+					style="text-decoration:underline;color:#49A006;font-size:19px"
+					update="tabelaNotificacoes" />
+				<p:commandLink action="#{notificacaoVendasMB.limparTodasNotificacoes()}"
+					style="text-decoration:none;margin-left:0.7%"
+					update="tabelaNotificacoes">
+					<img src="../../resources/img/limpar.png" width="25" />
+				</p:commandLink>
+			</h:panelGrid>
+			<p:dataTable id="tabelaNotificacoes"
+				value="#{notificacaoVendasMB.listaNotificacoes}" var="notificacoes"
+				mode="inline" scrollable="true" scrollHeight="380"
+				class="tabelanotificacao"
+				style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight: 100;">
+				<p:column style="width:12px;border:none;">
+					<p:rowToggler />
+				</p:column>
+				<p:column style="width:12px;border:none;">
+					<img src="#{notificacaoVendasMB.imagem(notificacoes)}" width="22"
+						title="#{notificacoes.titulo}"></img>
+				</p:column>
+				<p:column style="width:80px;border:none;">
+					<p:outputLabel value="#{notificacoes.data}"
+						style="width:85%;font-size:14px;font-weight:400;text-align:rigth;">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+				</p:column>
+				<p:column style="border:none;">
+					<p:outputLabel value="#{notificacoes.titulo}"
+						style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;" />
+				</p:column>
+
+				<p:column style="width:100px;text-align:right;border:none;">
+					<p:outputLabel value="R$"
+						style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;" />
+					<p:outputLabel value="#{notificacoes.valorvenda}"
+						style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+				<p:column style="width:27px;border:none;">
+					<p:commandLink action="#{notificacaoVendasMB.limpar(notificacoes)}"
+						style="text-decoration:none" title="Visualizado"
+						update="tabelaNotificacoes">
+						<img src="../../resources/img/limpar.png" width="25" />
+					</p:commandLink>
+				</p:column>
+				<p:rowExpansion>
+					<h:panelGrid columns="2" layout="grid"
+						style="background: transparent;border:none;width:94%;margin-left:4.6%;"
+						styleClass="panelgrid-noborder"
+						columnClasses="tamanhoavisos, tamanhoavisos2">
+						<p:outputLabel value="Unidade: #{notificacoes.unidade}"
+							style="font-size:15px;color:#1F8871;" />
+						<p:outputLabel value="Consultor: #{notificacoes.consultor}"
+							style="font-size:15px;margin-left:5.8%;color:#1F8871;" />
+					</h:panelGrid>
+					<p:outputLabel value="Cliente: #{notificacoes.cliente}"
+						style="font-size:15px;margin-left:5.8%;" />
+					<br></br>
+					<h:panelGrid columns="2" layout="grid"
+						style="background: transparent;border:none;width:94%;margin-left:4.6%;"
+						styleClass="panelgrid-noborder"
+						columnClasses="tamanhoavisos, tamanhoavisos2">
+						<p:outputLabel value="Parceiro #{notificacoes.fornecedor}"
+							style="font-size:15px;" />
+						<p:outputLabel value="Data Inicio: #{notificacoes.datainicio}"
+							style="font-size:15px;margin-left:6%;"
+							rendered="#{notificacaoVendasMB.mostrarData(notificacoes)}" />
+					</h:panelGrid>
+					<p:outputLabel value="Câmbio:  #{notificacoes.moeda}"
+						style="font-size:15px;margin-left:6%;" />
+					<p:outputLabel value="#{notificacoes.cambio}"
+						style="font-size:15px;margin-left:1%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:rowExpansion>
+				<br></br>
+				<br></br>
+				<br></br>
+			</p:dataTable>
+
+
+		</div>
+	</h:form>
+</h:body>
+</html>

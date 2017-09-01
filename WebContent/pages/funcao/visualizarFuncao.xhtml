@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idFormConsViewsFuncao" style="font-size:11px;">
+			<div id="centro">
+				<br />
+				<h:panelGrid columns="2" style="width:98%;margin-left:2%;">
+					<h:panelGrid id="panelDepartamentos"
+						style="width:100%; border-right: 2px solid;border-color: black;">
+						<p:outputLabel value="Departamentos" />
+						<br />
+						<ui:repeat var="departamento"
+							value="#{visualizarFuncaoMB.listaDepartamento}"
+							varStatus="status">
+							<p:commandLink update=":idFormConsViewsFuncao:panelFuncionarios"
+								action="#{visualizarFuncaoMB.gerarListaUsuarios(departamento)}"
+								value="#{departamento.nome}" style="font-size:15px;">
+
+							</p:commandLink>
+							<br />
+						</ui:repeat>
+					</h:panelGrid>
+					<h:panelGrid id="panelFuncionarios"
+						style="width:100%;margin-left:2%;">
+						<h:dataTable id="tabelaArquivo" styleClass="table-transparent"
+							value="#{visualizarFuncaoMB.listaUsuarioBean}" var="usuario"
+							style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:90%;">
+							<h:column>
+								<h:panelGrid columns="2" style="width:98%;"
+									columnClasses="espaco75,tamanho24">
+									<h:panelGroup>
+										<img id="imagemUsuario"
+											style="border-radius: 100px; height: 55px; width: 55px;"
+											src="#{visualizarFuncaoMB.getFotoUsuarioLogado(usuario.usuario1)}">
+											<p:commandLink
+												action="#{visualizarFuncaoMB.visualizarFuncao(usuario.usuario1)}"
+												value="#{usuario.usuario1.nome}"
+												style="font-size:15px;margin-left:2%;" /> </img>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.usuario1)}">
+										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.usuario1)}">
+											<img src="../../resources/img/vincularUnidade.png" width="25" />
+										</p:commandLink>
+									</h:panelGroup>
+								</h:panelGrid>      
+								<br />
+								<br />
+							</h:column>
+							<h:column>
+								<h:panelGrid columns="2" style="width:98%;"
+									columnClasses="espaco75,tamanho24">
+									<h:panelGroup>
+										<img id="imagemUsuario2"
+											style="border-radius: 100px; height: 55px; width: 55px;"
+											src="#{visualizarFuncaoMB.getFotoUsuarioLogado(usuario.usuario2)}">
+											<p:commandLink
+												action="#{visualizarFuncaoMB.visualizarFuncao(usuario.usuario2)}"
+												value="#{usuario.usuario2.nome}"
+												style="font-size:15px;margin-left:2%;" /> </img>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.usuario2)}">
+										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.usuario2)}">
+											<img src="../../resources/img/vincularUnidade.png" width="25" />
+										</p:commandLink>
+									</h:panelGroup>
+								</h:panelGrid>
+								<br />
+								<br />
+							</h:column>
+							<h:column>
+								<h:panelGrid columns="2" style="width:98%;"
+									columnClasses="espaco75,tamanho24">
+									<h:panelGroup>
+										<img id="imagemUsuario3"
+											style="border-radius: 100px; height: 55px; width: 55px;"
+											src="#{visualizarFuncaoMB.getFotoUsuarioLogado(usuario.usuario3)}">
+											<p:commandLink
+												action="#{visualizarFuncaoMB.visualizarFuncao(usuario.usuario3)}"
+												value="#{usuario.usuario3.nome}"
+												style="font-size:15px;margin-left:2%;" /> </img>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.usuario3)}">
+										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.usuario3)}">
+											<img src="../../resources/img/vincularUnidade.png" width="25" />
+										</p:commandLink>
+									</h:panelGroup>   
+								</h:panelGrid>
+								<br />      
+								<br />
+							</h:column>
+						</h:dataTable>
+					</h:panelGrid> 
+				</h:panelGrid> 
+			</div>
+			<br />
+			<br />
+			<br />
+			<br />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

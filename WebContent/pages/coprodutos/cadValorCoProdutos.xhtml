@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <script>
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Começo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o Dia'
+            };
+        </script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+            <title>Cadastro de Valores</title><br></br>
+            
+            <p:outputLabel value="Cobrança" for="idcobranca" class="espacocobranca11"/>
+            <br></br>
+            <p:selectOneMenu id="idcobranca" value="#{cadValorCoProdutosMB.valorcoprodutos.cobranca}" style="width:13%;font-size: 10px;margin-left: 10%;"  >
+                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                <f:selectItem itemLabel="Fixo" itemValue="F" /> 
+                <f:selectItem itemLabel="Semana" itemValue="S" /> 
+                <f:selectItem itemLabel="Dia" itemValue="D" /> 
+            </p:selectOneMenu>
+            <p:selectOneRadio id="tipodata" value="#{cadValorCoProdutosMB.valorcoprodutos.tipodata}" layout="custom">
+                <f:selectItem itemLabel="Data Inscrição" itemValue="DM" />
+                <f:selectItem itemLabel="Data Início" itemValue="DI" />
+                <f:selectItem itemLabel="Data Suplemento" itemValue="DS" />
+            </p:selectOneRadio>
+            <p:radioButton id="opt1" for="tipodata" itemIndex="1" class="espacocobranca28"/>
+            <h:outputLabel for="opt1" value="Data Inscrição" class="espacocobranca29"/>
+
+            <p:radioButton id="opt2" for="tipodata" itemIndex="2" class="espacocobranca28"/>
+            <h:outputLabel for="opt2" value="Data Início" class="espacocobranca29"/>
+
+            <p:radioButton id="opt3" for="tipodata" itemIndex="3" class="espacocobranca28"/>
+            <h:outputLabel for="opt3" value="Data Suplemento" class="espacocobranca29"/>
+            <br></br><br></br>
+            
+            <p:outputLabel value="Período" for="datainicio" class="espacocobranca11"/>
+            <p:outputLabel value="Nº Semanas" for="nsemanasinicial" class="espacocobranca21"/>
+            <p:outputLabel value="Até" for="nsemanasfinal" style="margin-left: 9%"/>
+            <br></br>
+            <p:inputMask id="datainicio"  value="#{cadValorCoProdutosMB.valorcoprodutos.datainicial}" size="10" mask="99/99/9999"  maxlength="15" class="espacocobranca11" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            <p:inputMask id="datafinal" size="10" value="#{cadValorCoProdutosMB.valorcoprodutos.datafinal}" mask="99/99/9999"  maxlength="15" style="margin-left: 7%" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            
+            <p:inputText value="#{cadValorCoProdutosMB.valorcoprodutos.numerosemanainicial}" id="nsemanasinicial" style="width:11%;margin-left: 10%"  title="Nº de Semanas inícial"/>
+            <p:inputText value="#{cadValorCoProdutosMB.valorcoprodutos.numerosemanafinal}" id="nsemanasfinal" style="width:11%;" class="espacocobranca24"  title="Nº de Semanas final"/>
+            <br></br><br></br><br></br>
+            
+            <p:outputLabel value="Valor" for="valorOriginal" class="espacocobranca11"/> 
+            <br></br>
+            <p:inputText id="valorOriginal" value="#{cadValorCoProdutosMB.valorcoprodutos.valororiginal}" style="width:13.2%; text-align: right;" class="espacocobranca11" >
+                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+            </p:inputText> 
+            <p:selectBooleanCheckbox value="#{cadValorCoProdutosMB.valorcoprodutos.datalimite}"  class="espacopreto" id="datalimite" style="margin-left:5%" />
+            <p:outputLabel value="Respeitar data límite" for="datalimite" style="margin-left:1%"/>
+             
+            <br></br><br></br><br></br>
+            <p class="botaocadpacote"><br></br>
+                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{cadValorCoProdutosMB.salvar()}"></p:commandButton>
+                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{cadValorCoProdutosMB.cancelar()}"></p:commandButton>
+            <br></br><br></br></p>
+        </h:form>     
+    </h:body>
+</html>

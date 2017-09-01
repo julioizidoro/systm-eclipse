@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina06" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="493"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="720" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="33" width="555" height="572" uuid="dee103c0-b0a9-4093-8d57-5ce72fed1f19"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="4" width="555" height="570" uuid="ed8b27dc-20e2-4d26-ac84-da7ebb39e530"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[à disponibilidade da organização internacional.
+13.3 Em todos os casos de desistência, por quaisquer motivos e em qualquer momento do processo, a devolução do valor pago pelo programa segue as normas da organização internacional contratada pela TM.
+13.4 Em caso de cancelamento do curso/programa devido à não obtenção do visto de entrada do país escolhido, o participante está sujeito às regras já mencionadas no item 13.1
+13.5 Após o embarque do(a) PARTICIPANTE, não há reembolso ou devolução de qualquer valor pago à TM ou ao parceiro internacional referente ao curso, acomodação, taxas consulares e demais serviços contratados.
+13.6 A devolução de qualquer quantia, por parte da TM, será efetuada em Reais, de acordo com o câmbio utilizado no dia do pagamento.
+
+14.  DA RESCISÃO POR JUSTA CAUSA
+
+O presente contrato será rescindido por justa causa, mediante simples notificação ao(à) PARTICIPANTE, sem direito a qualquer reembolso ou indenização, quando:
+a)  Ocorrer um desempenho insatisfatório no trabalho por parte do(a) PARTICIPANTE  ou desrespeito das regras estipuladas pela família e/ou parceiro internacional, no tocante a horários, saídas sem consentimentos, desrespeito com terceiros e aos próprios familiares, bem como tomar atitudes contrárias a um convívio harmonioso junto à família hospedeira e as crianças;
+b)  O(a) PARTICIPANTE receber reclamações comportamentais no ambiente escolar, cuja gravidade será analisada pelo parceiro internacional responsável pelo programa;
+c)  Cometer qualquer tipo de ilícito penal sob as normas do direito do país no qual o programa se realiza;
+d)  O(a) PARTICIPANTE  abandonar a família original sem autorização do parceiro internacional em questão. Neste caso,  o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento.
+e) Após sua chegada no país de destino, o(a) PARTICIPANTE deixar de cumprir as regras de chegada (orientação com o parceiro internacional ou “check-in”, por exemplo) estabelecidas pelo programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento.
+
+15. DISPOSIÇÕES FINAIS E OBSERVAÇÕES
+
+15.1 A despesa de obtenção do visto, seguros outros (além do seguro sáude incluído pelo parceiro internacional contratado), passagens aéreas (outras não inclusas no valor do programa), taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o traslado entre o aeroporto e a acomodação não estão incluídos no valor do programa pago à TM, salvo quando especificado no programa.
+15.2  O(A) PARTICIPANTE deverá levar dinheiro suficiente para cobrir suas despesas por pelo menos 40 (quarenta) dias após sua chegada no país de destino, no que se refere à transporte e gastos pessoais. O mínimo estabelecido pelos parceiros internacionais da TM é de US$500 (quinhentos Dólares Americanos) nos EUA e 500,00 (quinhentos Euros) Euros nos países da Europa.
+15.3 Custos ou despesas para despesas diárias são de responsabilidade do PARTICIPANTE;
+15.4 Custos de transporte durante a realização do programa e uniformes ára realização do programa (quando houver necessidade e solicitação por parte da família hospedeira) não  estão incluídos mo valor do prgrama. Excepcionalmente no caso da França, a família hospedeira arca com os custos de transporte público do(a) PARTICIPANTE enquanto estiver trabalhando (dentro de sua jornada de trabalho diária).
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="cc49a186-6b93-42f0-b8f6-26d09312c96b"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoAupairPagina07.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="consultaArquivos">
+                 <div id="centro">
+                    <p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+                     <br></br>
+                     
+                     
+                     <legend id="iUsu2" ><b>Consulta Arquivos</b></legend>
+                     <h:panelGrid  style="margin-left:3%" columns="4" width="100%;">
+                   	 	<p:outputLabel value="#{arquivoMB.vendas.idvendas} - #{arquivoMB.vendas.cliente.nome}" class="fontebranca" style="font-size:14px; color:#1F888A"/> 
+                   	 	<br></br>
+                   	 	
+                      </h:panelGrid>  
+                      <h:panelGrid columns="3" style="margin-left:72%;" >
+                      	 <p:commandButton value="Voltar" icon="ui-icon-arrowreturn-1-w" action="#{arquivoMB.voltarTela()}"  style="font-size:12px;width:67px;"/>
+		                 <p:commandButton rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.enviaremail}" value="Enviar E-mail" icon="ui-icon-mail-closed" action="#{arquivoMB.gerarListaSelecionada()}"  style="font-size:12px;width:111px;"/>
+                   	 	 <p:commandButton value="Novo Arquivo" icon="ui-icon-plus" action="#{arquivoMB.novoArquivo()}"  style="font-size:12px;width:117px;">
+	                     	<p:ajax listener="#{arquivoMB.retornoDialog}" event="dialogReturn" update="tabelaConsultaArquivos"/>
+	                     </p:commandButton>
+	                  </h:panelGrid> 
+	                  <h:panelGroup id="painelkitviagem" rendered="#{arquivoMB.rendererBotaoKitiViagem()}" style="margin-left:2.7%;">
+	                  	<p:selectBooleanCheckbox id="idkitviagem" value="#{arquivoMB.vendas.arquivoskitviagem.completo}" disabled="#{arquivoMB.botaoKitViagem()}">
+        			    	<p:ajax listener="#{arquivoMB.salvarKitViagem()}" />
+        				</p:selectBooleanCheckbox> 
+	                  	<h:outputText value=" Kit Viagem Completo" style="font-size:14px;"/> 
+	                  </h:panelGroup>
+                     <br/> <br/>
+                     <p:dataTable editable="true" id="tabelaConsultaArquivos" var="arquivo"  class="tabela" value="#{arquivoMB.listarArquivos}"
+                                scrollable="true" scrollHeight="300" style="margin-bottom:20px" >
+                              
+                        <p:ajax event="rowEdit" listener="#{arquivoMB.editar}" 
+							update=":consultaArquivos:growl, :consultaArquivos:tabelaConsultaArquivos" />
+						<p:ajax event="rowEditCancel"
+							listener="#{arquivoMB.cancelarEdicao}" 
+							update=":consultaArquivos:growl, :consultaArquivos:tabelaConsultaArquivos" />
+                        
+                        <p:column headerText="Tipo Arquivo" style="text-align:left;width:250px;">
+                            <p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{arquivo.tipoarquivo.descricao}" style="#{arquivoMB.corArquivo(arquivo)}"/>
+								</f:facet>
+								<f:facet name="input">
+									<p:selectOneMenu  id="tipoArquivo"  style="width: 250px;margin-left: 2%"  value="#{arquivoMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
+					                             filter="true" filterMatchMode="contains" panelStyle="width:250px" >
+					                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+					                    <f:selectItems  value="#{arquivoMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
+					                    <f:attribute name="listaTipoArquivoProduto" value="#{arquivoMB.listaTipoArquivo}"/>
+					                </p:selectOneMenu>
+								</f:facet>
+							</p:cellEditor>   
+                        </p:column>
+                        <p:column headerText="Data Inclusão" style="width:90px;text-align:center;"> 
+                            <h:outputText value="#{arquivo.dataInclusao}" style="#{arquivoMB.corArquivo(arquivo)}">
+                             	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column>
+                         <p:column headerText="Usuário" style="text-align:left; width:115px;" >
+                            <h:outputText value="#{arquivo.usuario.nome}" style="#{arquivoMB.corArquivo(arquivo)}"/>
+                        </p:column>
+                        <p:column headerText="Nome Arquivo" style="text-align:left; width:240px;" >
+                            <p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{arquivo.nomeArquivo}" style="#{arquivoMB.corArquivo(arquivo)}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{arquivo.nomeArquivo}" style="width:98%;" />
+								</f:facet>
+							</p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Obs" style="text-align:left;width:240px;" >
+                            <h:outputText value="#{arquivo.observacao}" style="#{arquivoMB.corArquivo(arquivo)}"/>
+                        </p:column>
+                        <p:column style="width:30px" rendered="#{arquivoMB.desabilitarEdicaoArquivo}">
+							<p:rowEditor title="Editar" />   
+						</p:column>
+                        <p:column headerText="Env. Cliente" style="text-align:center;width:50px;" >
+                            <p:commandLink rendered="#{arquivo.tipoarquivo.enviarcliente}"  action="#" title="Enviar documento para cliente ?" > 
+                          		<img src="../../resources/img/confirmarBola.png" width="30" />
+                          	</p:commandLink> 
+                        </p:column>
+                        <p:column  style="width:50px;" styleClass="alinharCenter" >
+                          <p:commandLink  action="#{arquivoMB.excluir(arquivo)}" title="excluir"  update="tabelaConsultaArquivos, :consultaArquivos:growl"> 
+                          	<img src="../../resources/img/excluir.png"  />
+                          </p:commandLink>
+                        </p:column>
+                        <p:column  style="width:50px;" styleClass="alinharCenter" >
+                          <a title="Download" name="download" href="http://#{arquivoMB.ftpdados.host}:82/ftproot/systm/arquivos/#{arquivo.nomesalvos}" target="_blank" style="text-decoration:none; color:white; font-size:18px;" type="button"> 
+                          <img src="../../resources/img/iconeDownload.png"  /></a>
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+							<p:selectBooleanCheckbox value="#{arquivo.selecionado}" />
+						</p:column>
+                    </p:dataTable>
+                
+                    <br></br>
+                    <br></br>
+                </div>
+	                
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,33 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="../../resources/css/cssteste.css" rel="stylesheet"
+		type="text/css" />
+	
+</h:head>
+<h:body>
+	<h:form id="cadastroPastas">
+
+		<title>Cadastro de Pasta</title>
+
+		<p:outputLabel value="Nome " for="nome" style="font-size:12px;"/>
+		<p:inputText id="nome" value="#{cadPastasVideosMB.pastavideo.nome}"
+			size="55" style="font-size:12px; margin-left:2%;" />
+
+		<br/><br/>
+				<p:commandButton id="bConfirmar" value="Confirmar"
+					action="#{cadPastasVideosMB.salvar()}" icon="ui-icon-check"
+					style="font-size:12px;margin-left:20%" />
+				<p:commandButton id="bCancelar" value="Cancelar"
+					action="#{cadPastasVideosMB.cancelar()}" icon="ui-icon-closethick"
+					style="font-size:12px;margin-left:2%" />
+		<br></br>
+	</h:form>
+</h:body>
+</html>

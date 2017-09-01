@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consPromocoesAtivas" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<legend id="iUsu2">
+					<b>Promoções Válidas</b>
+				</legend> 
+				<br></br>
+				<h:panelGrid columns="4"
+					columnClasses="tamanho10,tamanho10,tamanho10,tamanho11"   
+					style="width:95%;margin-left:1%;">
+					<p:outputLabel value="País" for="pais" style="font-size:11px;" />
+					<p:outputLabel value="Escolas" for="escolas" style="font-size:11px;" /> 
+					<p:outputLabel/>  
+					<p:outputLabel/>  
+						     
+					<h:panelGroup>
+						<p:selectOneMenu id="pais"
+							value="#{consPromocoesAtivasMB.pais}"  
+							style="width:150px;font-size:11px;"
+							converter="PaisFornecedorConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais"
+								value="#{consPromocoesAtivasMB.listaTabelaPais}"
+								var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}" />
+							<f:attribute name="listaPaisFornecedor"   
+								value="#{consPromocoesAtivasMB.listaTabelaPais}" />
+							<p:ajax event="change"
+								listener="#{consPromocoesAtivasMB.selecionarPaisComboBox()}"
+								update="growl, idTabelaPais,idTabelaCidade,idTabelaPromocoes, idTabelaEscola" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<p:selectOneMenu id="escolas"
+							value="#{consPromocoesAtivasMB.fornecedor}"
+							style="width:160px;font-size:11px;" class="espacocampos2"
+							converter="FornecedorConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{consPromocoesAtivasMB.listaFornecedor}"
+								var="fornecedor" itemLabel="#{fornecedor.nome}"   
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedor"
+								value="#{consPromocoesAtivasMB.listaFornecedor}" />
+							<p:ajax event="change"  
+								listener="#{consPromocoesAtivasMB.gerarListaPaisPromocao()}"
+								update="growl, idTabelaPais, pais, idTabelaCidade, idTabelaPromocoes, idTabelaEscola" />
+						</p:selectOneMenu>
+					<h:panelGroup>
+						<p:outputLabel/>
+					</h:panelGroup> 
+					<p:outputLabel/>  
+
+					<p:dataTable id="idTabelaPais" var="pais"
+						value="#{consPromocoesAtivasMB.listaTabelaPais}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-right:20px;margin-top:11px;"
+						selectionMode="single"
+						selection="#{consPromocoesAtivasMB.pais}"
+						rowKey="#{pais.idpais}">
+						<p:ajax event="rowSelect"
+							listener="#{consPromocoesAtivasMB.selecionarPaisComboBox()}"
+							update="consPromocoesAtivas:idTabelaEscola, consPromocoesAtivas:growl, consPromocoesAtivas:escolas, consPromocoesAtivas:idTabelaCidade, consPromocoesAtivas:idTabelaPromocoes" />
+						<p:column headerText="Pais" styleClass="alinharCenter">
+							<p:outputLabel value="#{pais.nome}" />
+						</p:column>  
+					</p:dataTable>
+					<p:dataTable id="idTabelaEscola" var="escolas"
+						value="#{consPromocoesAtivasMB.listaFornecedorCidade}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-right:20px;margin-top:11px;"
+						selectionMode="single"
+						selection="#{consPromocoesAtivasMB.fornecedorCidade}"
+						rowKey="#{escolas.idfornecedorcidade}">
+						<p:ajax event="rowSelect" 
+							update="consPromocoesAtivas:idTabelaPromocoes, consPromocoesAtivas:growl, consPromocoesAtivas:idTabelaCidade, consPromocoesAtivas:escolas" 
+							listener="#{consPromocoesAtivasMB.gerarListaCidades()}"/>
+						<p:column headerText="Escola" >
+							<p:outputLabel value="#{escolas.fornecedor.nome}" />
+						</p:column>      
+					</p:dataTable>   
+					<p:dataTable id="idTabelaCidade" var="cidade"
+						value="#{consPromocoesAtivasMB.listaTabelaCidade}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-right:20px;margin-top:11px;"
+						selectionMode="single"
+						selection="#{consPromocoesAtivasMB.cidade}"      
+						rowKey="#{cidade.idcidade}">
+						<p:ajax event="rowSelect"  listener="#{consPromocoesAtivasMB.gerarListaPromocoes()}"
+							update="consPromocoesAtivas:idTabelaEscola,consPromocoesAtivas:idTabelaPromocoes, consPromocoesAtivas:growl" />
+						<p:column headerText="Cidade" style="width:160px;"
+							styleClass="alinharCenter">
+							<p:outputLabel value="#{cidade.nome}" />
+						</p:column>
+					</p:dataTable> 
+					<p:dataTable id="idTabelaPromocoes" var="promocoes"
+						value="#{consPromocoesAtivasMB.listaPromocao}"
+						scrollable="true" scrollHeight="230"
+						style="margin-bottom:20px;margin-top:11px;">
+						<p:column headerText="Promoções" style="width:180px;"
+							styleClass="alinharCenter">
+							<p:outputLabel value="#{promocoes.promocao}" />
+						</p:column>
+					</p:dataTable>  
+				</h:panelGrid> 
+			</div>  
+			<br></br>
+			<br></br>
+			<br></br> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

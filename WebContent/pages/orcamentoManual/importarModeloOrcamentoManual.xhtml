@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Importar Modelo de Orçamento</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="telaImportarModelo" style="text-align:left;font-size:11px;">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink action="#{usuarioLogadoMB.paginaPrincipal()}">
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
+		<p:outputLabel value="Nome Modelo" for="nome"
+			style="font-size: 11px;margin-left: 2%" />
+		<br></br>
+		<p:inputText id="nome" size="55" maxlength="100"
+			value="#{modeloOrcamentoManualMB.nomeModelo}"
+			style="font-size: 11px;margin-left: 2%" />
+		<p:commandButton value="Pesquisar"
+			actionListener="#{modeloOrcamentoManualMB.gerarListaModelos()}"
+			update="idTabelaModelo" style="margin-left: 2%" />
+		<br></br>
+		<br></br>
+		<p:dataTable id="idTabelaModelo" var="modelo"
+			value="#{modeloOrcamentoManualMB.listaOrcamento}" class="tabela"
+			scrollable="true" scrollHeight="260" style="margin-bottom:20px">
+			<p:column headerText="Nome">
+				<h:outputText value="#{modelo.nome}" />
+			</p:column>
+			<p:column headerText="Usuario" style="width:142px">
+				<h:outputText value="#{modelo.usuario.nome}" />
+			</p:column>
+			<p:column headerText="Unidade" style="width:142px">
+				<h:outputText value="#{modelo.unidadenegocio.nomerelatorio}" />
+			</p:column>
+			<p:column style="width:37px;text-align: center;">
+				<p:commandLink action="#{modeloOrcamentoManualMB.importar(modelo)}"
+					title="Importar Modelo">
+					<img src="../../resources/img/deposito.png" width="22" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+		<p:selectBooleanCheckbox value="#{modeloOrcamentoManualMB.matriz}"
+			class="espacopreto" id="matriz" style="margin-left:3%">
+			<p:ajax event="change"
+				listener="#{modeloOrcamentoManualMB.gerarListaModelos()}"
+				update="telaImportarModelo" />
+		</p:selectBooleanCheckbox>
+		<p:outputLabel value="Modelos da Matriz" style="margin-left:0.8%" />
+		<br></br>
+	</h:form>
+</h:body>
+</html>

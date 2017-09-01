@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadFornecedorDocs" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2" style="margin-left:16%;width:62.2%;">  
+					<b>Upload de Documentos</b>
+				</legend>    
+				<h:panelGrid columns="2"   
+					columnClasses="tamanhonotificacao2,tamanhonotificacao2"
+					style="margin-left:16%;width:62.2%;">     
+					<p:outputLabel value="Escola" />
+					<p:outputLabel value="Nome" />        
+
+					<p:selectOneMenu id="fornecedor" value="#{cadFornecedorDocsMB.fornecedor}"
+						style="width:85%;font-size:11px;" converter="FornecedorConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:450px">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor" value="#{cadFornecedorDocsMB.listaFornecedor}"
+							var="fornecadorselecionado" itemLabel="#{fornecadorselecionado.nome}" itemValue="#{fornecadorselecionado}" />
+						<f:attribute name="listaFornecedor" value="#{cadFornecedorDocsMB.listaFornecedor}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+					<p:inputText id="nome" value="#{cadFornecedorDocsMB.fornecedordocs.nome}" style="width:95%;" >
+						<p:ajax event="blur"/>
+					</p:inputText>  
+				</h:panelGrid>
+				<br />   
+				<h:panelGrid columns="3"
+					columnClasses="tamanhonotificacao2,tamanhoavisos2,tamanhoavisos2"
+					style="margin-left:16%;width:62.2%;">
+					<p:outputLabel value="Período de Validade" />
+					<p:outputLabel value="Tipo" />
+					<p:outputLabel />   
+
+					<h:panelGroup>
+						<p:calendar id="datainicio" value="#{cadFornecedorDocsMB.fornecedordocs.datainicio}" size="12" locale="pt"
+							pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change"/>
+						</p:calendar>
+						<p:calendar id="datafinal" style="margin-left:1%;" value="#{cadFornecedorDocsMB.fornecedordocs.datavalidade}"
+							size="12" locale="pt" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change"/>
+						</p:calendar>
+					</h:panelGroup>
+					<p:selectOneMenu id="tipo" value="#{cadFornecedorDocsMB.fornecedordocs.tipo}" style="width:85%;">
+						<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/>
+						<f:selectItem itemLabel="Documento" itemValue="Documento" />
+						<f:selectItem itemLabel="Vídeo" itemValue="Vídeo" /> 
+						<p:ajax event="change"/>
+					</p:selectOneMenu>   
+					<h:panelGroup>
+						<p:selectBooleanCheckbox value="#{cadFornecedorDocsMB.fornecedordocs.restrito}" id="restrito" />
+						<p:outputLabel for="restrito" value="Restrito" style="margin-left:2%;font-size:14px;"/>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br /> 
+				<h:panelGrid style="margin-left:16%;width:80%;">
+					<p:outputLabel value="Descrição"/>
+					<p:inputTextarea id="descricao" cols="130" rows="6" placeholder="Informe a descrição deste arquivo."
+						class="fontebranca" value="#{cadFornecedorDocsMB.fornecedordocs.descricao}" >
+						<p:ajax event="blur"/>
+					</p:inputTextarea>  
+  				</h:panelGrid>  
+  				<br/><br/>
+  				<h:panelGrid style="margin-left:16%;width:62.2%;">     
+					<p:fileUpload style="width:97.6%;" multiple="true"  label="Anexar" fileUploadListener="#{cadFornecedorDocsMB.fileUploadListener}" value="#{cadFornecedorDocsMB.file}"  mode="advanced" 
+                     update="growl" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
+               		</p:fileUpload>
+				</h:panelGrid>     
+				<br/>  
+				<div align="center" style="margin-left:16%;width:62.2%;">
+					<p:commandButton id="btnConfirmar" value="Confirmar" action="#{cadFornecedorDocsMB.salvar()}"
+						icon="ui-icon-check" style="font-size:12px;" update="growl" />
+					<p:commandButton id="btnCancelar" value="Cancelar" action="#{cadFornecedorDocsMB.cancelar()}"
+						icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />     
+				</div>    
+				<br></br> <br></br><br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

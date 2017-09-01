@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastropais" style="text-align:left;font-size: 10px;">
+		<title>País</title>
+		<p:growl id="menssages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<p:outputLabel value="Nome" style="margin-left:2%;" />
+		<br></br>
+		<p:inputText id="nome" value="#{cadPaisMB.pais.nome}"
+			style="width:94.5%;margin-left:2%;" />
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Sigla" style="margin-left:2%;" />
+		<p:outputLabel value="Moeda" style="margin-left:23%" />
+		<br></br>
+
+		<h:panelGrid columns="2">
+			<p:inputText id="sigla" value="#{cadPaisMB.pais.sigla}"
+				style="width:60%;margin-left:5%" />
+			<p:selectOneMenu class="espacocampos5"
+				style="width:100px;font-size:11px;margin-left:-14%" id="moeda"
+				value="#{cadPaisMB.moedas}" converter="MoedasConverter">
+				<f:selectItem itemLabel="Câmbio" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{cadPaisMB.listaMoedas}" var="moedas"
+					itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+				<f:attribute name="listaMoedas" value="#{cadPaisMB.listaMoedas}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br></br>
+		<h:panelGrid columns="3">
+			<p:fileUpload multiple="true" label="Anexar"
+				fileUploadListener="#{cadPaisMB.fileUploadListener}"
+				value="#{cadPaisMB.file}" mode="advanced" update="menssages"
+				allowTypes="/(\.|\/)(png|jpg?g)$/">
+			</p:fileUpload>
+			<p:commandButton id="btnExcluir" icon="ui-icon-trash"
+				value="Excluir" action="#{cadPaisMB.excluirArquivoFTP()}"
+				style="margin-left:15%" update="menssages" />
+			<p:commandButton id="btnVisualizar" icon="ui-icon-search"
+				onclick="PF('imagem').show();" value="Visualizar"
+				style="margin-left:2%" />
+		</h:panelGrid>
+		<br></br>
+		<p:outputLabel value="Descrição" style="margin-left:2%;" />
+		<br></br>
+		<p:inputTextarea style="margin-left:2%;"
+			value="#{cadPaisMB.pais.texto}" id="obs" rows="10" cols="68"
+			placeholder="Digite a descrição deste pais.." />
+		<br></br>
+		<p class="botaoeditareceber">
+			<br></br>
+			<p:commandButton class="imagemm" icon="ui-icon-check"
+				value="Confirmar" action="#{cadPaisMB.salvar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" icon="ui-icon-close"
+				value="Cancelar" action="#{cadPaisMB.cancelarCadastro()}"></p:commandButton>
+		</p>
+		<p:dialog header="Imagem" style="background:#D0E9C9;" 
+			widgetVar="imagem" width="80%">
+			<div align="center">
+				<h:panelGroup id="imagem">
+					<img src="#{cadPaisMB.caminho}" class="imagempais" />
+				</h:panelGroup>
+				<br />
+			</div>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

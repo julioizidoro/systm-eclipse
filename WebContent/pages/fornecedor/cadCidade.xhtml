@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+       
+    </h:head>
+    <h:body style="background:#DDDDE1;"> 
+        <h:form id="cadastrocidade" style="text-align:left;font-size: 10px;">
+            <title>Cadastro Cidade</title>
+                <br></br>
+                <p:outputLabel value="Nome:" class="espacocobranca11"/>
+                <br></br>
+                <p:inputText value="#{cadCidadeMB.cidade.nome}" style="width:65%" class="espacocobranca11"/>
+                <br></br> <br></br>
+                <p class="botaoeditareceber"><br></br>
+                    <p:commandButton class="imagemm"  icon="ui-icon-check" value="Confirmar" action="#{cadCidadeMB.salvar()}"></p:commandButton>
+                    <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadCidadeMB.cancelarCadastro()}"></p:commandButton>
+                </p>
+        </h:form>     
+    </h:body>
+</html>

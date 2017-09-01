@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoTurismoPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="316"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT distinct vendas.dataVenda, vendas.idvendas
+FROM
+	vendas
+where
+	vendas.idvendas=$P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idvendas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="7b213e71-f4f1-4fd8-ac8a-a3c3fd9815e8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="711" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="555" height="701" uuid="f77d7e49-a773-4b26-a342-ca94166582d9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Parágrafo Segundo– Se, por motivos técnicos ou operacionais, e ainda, em razão de condições climáticas, o vôo não se iniciar, aplicar-se-ão as disposições legais pertinentes.
+
+Parágrafo Terceiro – O Contratante fica, desde já, ciente de que a responsabilidade civil e criminal, decorrente do contrato do contrato de transporte, é exclusivamente da empresa transportadora. Ainda, o Contratante, reconhecendo a contratada como mera intermediária, nomeia-a, em caráter irrevogável e irretratável, como condição ligada ao presente contrato, como sua mandatária.
+
+Parágrafo Quarto – Os transportes utilizados pelos passageiros para deslocamento ao aeroporto de embarque, quando não adquiridos junto à TM, tampouco com a sua interveniência, excluem qualquer tipo de responsabilidade desta.
+
+Parágrafo Quinto – De acordo com as normas técnicas do Departamento de Aviação Civil, existe tolerância de atraso nos embarque de até, no máximo, 4 (quatro) horas. Ultrapassado este período, é facultado ao passageiro, perante a empresa de transporte contratada, a escolha de remanejamento e recolocação (endosso de bilhete) para outra empresa aérea ou devolução do valor pago, correndo por conta exclusiva da empresa transportadora qualquer despesa proveniente de hospedagem, locomoção e alimentação conforme art. 231, Código Brasileiro de Aeronáutica.
+
+7) DAS BAGAGENS – Tanto nos trechos nacionais como internacionais, opera-se no sistema de franquia para transporte de bagagem, podendo variar de acordo com a empresa transportadora contratada. Para que não ocorram problemas com a bagagem, recomenda-se verificar as condições de franquia indicadas no bilhete da passagem. A TM não poderá ser responsabilizada pelo extravio de bagagens, nem pelo excesso de peso porventura ocorrido.
+Parágrafo Primeiro – A TM recomenda que documentos, jóias, máquinas fotográficas, filmadoras, objetos frágeis e afins, sejam portados na bagagem de mão, sob vigilância direto do passageiro.
+
+
+8) DO EMBARQUE –
+
+Parágrafo Primeiro – Entende-se como documento pessoal necessário ao embarque o documento de identidade (RG) e passaporte (para voos internacionais), não sendo permitida a apresentação de cópias autenticadas, devendo o(a) CONTRATANTE sempre se atentar para o prazo de validade dos referidos documentos, bem como se os mesmos não se encontram rasgados e/ou rasurados. A não apresentação dos documentos na forma devida implicará no não embarque, posto que vedado pelas empresas transportadoras e/ou pelo serviço de fiscalização competente (Polícia Federal, D.A.C, etc.), isentando a TM de qualquer responsabilidade sobre o caso.
+
+Parágrafo Segundo–Para embarque de menores de 12 anos, desacompanhado dos pais e/ou responsáveis (detentores do pátrio poder, tutor ou curador), é necessário alvará judicial, concedido perante a Vara da Infância e Juventude, tanto para viagens nacionais como internacionais. Na ausência de um dos pais, é necessário o consentimento do outro, por autorização com firma reconhecida. A não observância destas regras, poderá fazer com o passageiro menor não embarque, não podendo ser a TM responsabilidade posteriormente sobre este fato.
+
+Parágrafo Terceiro – A TM aconselha o(a) CONTRATANTE, em caso de dúvida, a se informar sobre as documentações necessárias também através dos sites dos órgãos competentes, tais como: infraero (www.infraero.gov.br), Departamento de Aviação Civil – DAC (www.dac.gov.br) ou Polícia Federal (www.dpf.gov.br).
+
+9) DA HOSPEDAGEM - O nome do hotel, o tipo de acomodação adquirida e demais peculiaridades do pacote adquirido, devem constar no “voucher” entregue pela TM ao(à) CONTRATANTE., juntamente com informações contidas na Ficha de Inscrição “Campo 10 – DESCRIÇÃO E VALORES”. Para categoria do apartamento diferenciada daquela adquirida e/ou localização especial, caberá ao(à) CONTRATANTE verificar sua disponibilidade e, havendo, quaisquer diferenças de preço serão suportadas exclusivamente por ela e tratar diretamente com hotel.
+
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="765a1de7-aa62-47f7-8af7-ef5eb5abdce8"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idvendas">
+					<subreportParameterExpression><![CDATA[$P{idvendas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "contratoTurismoPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

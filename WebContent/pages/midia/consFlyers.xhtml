@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="flyers">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Flyers</b> 
+				</legend>
+				
+				<p:dataTable id="idflyers" var="links" value="#{flyersMB.listaMidia}" class="tabela" 
+				scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+					<p:column headerText="Titulo" style="width:250px">
+						 <p:commandLink action="#{flyersMB.carregarImagem(links)}" update="flyers:dialog_flyers"  oncomplete="PF('flyers').show()">  
+				        	<p:outputLabel value="#{links.titulo}"/>
+				        </p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<p:dialog id="dialog_flyers" header="Flyers" widgetVar="flyers"  modal="true" style="background:#d0e9c6;text-align: left" >
+                       <br></br>
+                      <img src="#{flyersMB.flyers}" width="850"/>
+              		 <br></br><br></br><br></br>
+                </p:dialog>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

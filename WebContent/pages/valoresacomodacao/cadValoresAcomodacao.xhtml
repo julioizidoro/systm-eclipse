@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadValoresAcomodacao" style="font-size:12px;">  
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
+				<br></br> 
+				<h:panelGrid columns="4" style="width:90%;margin-left:4%;"
+					columnClasses="tamanho12, tamanho12,tamanho12,tamanho12">
+					<p:outputLabel value="Pais" for="pais" />
+					<p:outputLabel value="Cidade" for="cidade" /> 
+					<p:outputLabel value="Fornecedor" for="fornecedor"  /> 
+					<p:outputLabel value="Tipo de Acomodação" for="tipo" /> 
+					 
+					<p:selectOneMenu id="pais" value="#{cadValoresAcomodacaoMB.pais}"
+						style="width:220px;" converter="PaisConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{cadValoresAcomodacaoMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.pais.nome}"
+							itemValue="#{cpais.pais}" />
+						<f:attribute name="listaPais" value="#{cadValoresAcomodacaoMB.listaPais}" />
+						<p:ajax event="change" update="cidade" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="cidade" value="#{cadValoresAcomodacaoMB.cidade}"
+						style="width:220px;" 
+						converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade"
+							value="#{cadValoresAcomodacaoMB.pais.cidadeList}" var="ccidade"
+							itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{cadValoresAcomodacaoMB.pais.cidadeList}" />
+						<p:ajax event="change" listener="#{cadValoresAcomodacaoMB.gerarListaFornecedor()}"  update="fornecedor"  />
+					</p:selectOneMenu> 
+					
+					<p:selectOneMenu id="fornecedor" value="#{cadValoresAcomodacaoMB.valoresacomodacao.fornecedorcidade}"
+						style="width:230px;" 
+						converter="FornecedorCidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{cadValoresAcomodacaoMB.listaFornecedor}" var="fornecedor"
+							itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}" />
+						<f:attribute name="listaFornecedorCidade"
+							value="#{cadValoresAcomodacaoMB.listaFornecedor}" />
+					</p:selectOneMenu> 
+					
+					<p:selectOneMenu id="tipo" value="#{cadValoresAcomodacaoMB.valoresacomodacao.tipoacomodacao}"
+						style="width:230px;" 
+						converter="TipoAcomodacaoConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Tipo de Acomodação" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idtipo"
+							value="#{cadValoresAcomodacaoMB.listaTipoAcomodacao}" var="tipo"
+							itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+						<f:attribute name="listaTipoAcomodacao"
+							value="#{cadValoresAcomodacaoMB.listaTipoAcomodacao}" />
+					</p:selectOneMenu> 
+				</h:panelGrid>
+				<br></br> <br></br>
+				<h:panelGrid columns="4" style="width:90%;margin-left:4%;"
+					columnClasses="tamanho12,tamanho12,tamanho12,tamanho12"> 
+					<p:outputLabel value="Residência"/>
+					<p:outputLabel value="Período de Validade"/>
+					<p:outputLabel value="Período Nº de Semanas"/>
+					<p:outputLabel value="Moeda"/>
+					
+					<p:inputText id="residencia" value="#{cadValoresAcomodacaoMB.valoresacomodacao.residencia}" style="width:90%;"/>
+					<h:panelGroup>
+						<p:calendar id="dataValidadeInicial"
+							value="#{cadValoresAcomodacaoMB.valoresacomodacao.datavalidadeinicial}" locale="pt"
+							size="11" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						
+						<p:calendar id="dataValidadeFinal"
+							value="#{cadValoresAcomodacaoMB.valoresacomodacao.datavalidadefinal}" locale="pt"
+							size="11" pattern="dd/MM/yyyy" mask="true" maxlength="15" style="margin-left:2%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText id="nSemanasInicial" value="#{cadValoresAcomodacaoMB.valoresacomodacao.numerosemanainicial}" style="width:30%"/>
+						<p:inputText id="nSemanasFinal" value="#{cadValoresAcomodacaoMB.valoresacomodacao.numerosemanafinal}" style="width:30%;margin-left:2%;"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="moeda" value="#{cadValoresAcomodacaoMB.valoresacomodacao.moedas}"
+							converter="MoedasConverter" style="width:90px;">
+							<f:selectItem itemLabel="Moedas" itemValue="0" />
+							<f:selectItems value="#{cadValoresAcomodacaoMB.listaMoedas}" var="moeda"
+								itemLabel="#{moeda.sigla}" itemValue="#{moeda}" />
+							<f:attribute name="listaMoedas"
+								value="#{cadValoresAcomodacaoMB.listaMoedas}" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br> <br></br>
+				<h:panelGrid columns="5" style="width:90%;margin-left:4%;"
+					columnClasses="tamanho12,tamanho12,tamanho12,tamanho12,tamanho12"> 
+					<p:outputLabel value="Valor da Acomodação"/>
+					<p:outputLabel value="Taxa de Matricula"/>
+					<p:outputLabel value="Valor TM"/>
+					<p:outputLabel value="Valor Franquia"/>
+					<p:outputLabel value="Valor Parceiro"/>
+					
+					<p:inputText id="valor" value="#{cadValoresAcomodacaoMB.valoresacomodacao.valor}" style="width:60%;text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<p:inputText id="taxamatricula" value="#{cadValoresAcomodacaoMB.valoresacomodacao.taxamatricula}" style="width:60%;text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<p:inputText id="valortm" value="#{cadValoresAcomodacaoMB.valoresacomodacao.valortm}" style="width:60%;text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<p:inputText id="valorfranquia" value="#{cadValoresAcomodacaoMB.valoresacomodacao.valorfranquia}" style="width:60%;text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<p:inputText id="valorparceiro" value="#{cadValoresAcomodacaoMB.valoresacomodacao.valorparceiro}" style="width:60%;text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+				</h:panelGrid>
+				<br></br><br></br>
+				<h:panelGrid columns="4" style="width:90%;margin-left:4%;"
+					columnClasses="tamanho5,tamanho5,tamanho5,tamanho8"> 
+					<p:outputLabel value="Tipo de Refeição"/>
+					<p:outputLabel value="Valor menor de idade"/>
+					<p:outputLabel value="Período Suplemento"/>
+					<p:outputLabel value="Valor Suplemento"/> 
+					
+					<p:selectOneMenu id="refeicao"
+						value="#{cadValoresAcomodacaoMB.valoresacomodacao.tiporefeicao}" required="false"
+						style="width:160px;" >
+						<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+						<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
+						<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+							itemValue="Meia Pensão (2 Refeições)" />
+						<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+							itemValue="Pensão Completa (3 Refeições)" />
+					</p:selectOneMenu>
+					<p:inputText id="valormenor" value="#{cadValoresAcomodacaoMB.valoresacomodacao.menoridadevalor}" style="width:60%;text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText> 
+					<h:panelGroup>
+						<p:calendar id="dataSuplementoInicial"
+							value="#{cadValoresAcomodacaoMB.valoresacomodacao.datasumplementoinicial}" locale="pt"
+							size="11" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						
+						<p:calendar id="dataSuplementoFinal"
+							value="#{cadValoresAcomodacaoMB.valoresacomodacao.datasuplementofinal}" locale="pt"
+							size="11" pattern="dd/MM/yyyy" mask="true" maxlength="15" style="margin-left:2%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText id="valorsuplemento" value="#{cadValoresAcomodacaoMB.valoresacomodacao.valorsuplemento}" style="width:30%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText> 
+					
+						<p:selectBooleanCheckbox id="pagardeposito" style="margin-left:8%;" 
+							value="#{cadValoresAcomodacaoMB.valoresacomodacao.pagardeposito}"/> 
+						<p:outputLabel value="Pagar Depósito"
+							style="margin-left:1%;" />
+					</h:panelGroup> 
+				</h:panelGrid>
+				<br></br><br></br>
+				<div align="center">
+					<div align="center" style="width:65%;">
+						<legend style="color:#495B6C;font-size:15px;">
+							<b>Extras</b>
+						</legend> 
+						<h:panelGrid columns="4" style="width:100%;margin-left:3%;"
+							columnClasses="tamanho12, tamanho12,tamanho12,tamanho12">
+							<p:outputLabel value="Produtos"/>
+							<p:outputLabel value="Cobrança"/>
+							<p:outputLabel value="Valor"/>
+							<p:outputLabel/>
+							
+							<p:selectOneMenu id="produto"
+								value="#{cadValoresAcomodacaoMB.extras.produtosorcamento}"
+								style="width:210px;font-size: 10px;"
+								filter="true" filterMatchMode="startsWith"
+								converter="OrcamentoProdutoConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadValoresAcomodacaoMB.listaProdutos}"
+									var="produtosorcamento"
+									itemLabel="#{produtosorcamento.descricao}" 
+									itemValue="#{produtosorcamento}" />
+								<f:attribute name="listaProdutosOrcamento"
+									value="#{cadValoresAcomodacaoMB.listaProdutos}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="formaPagamento"
+								value="#{cadValoresAcomodacaoMB.extras.formapagamento}" required="false"
+								style="width:110px;" >
+								<f:selectItem itemLabel="Semana" itemValue="S" />
+								<f:selectItem itemLabel="Dia" itemValue="D" />
+								<f:selectItem itemLabel="Fixo" itemValue="F" /> 
+							</p:selectOneMenu>
+							<p:inputText id="valorextra" value="#{cadValoresAcomodacaoMB.extras.valor}" style="width:80%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</p:inputText> 
+							<p:commandButton id="btnAdicionar"
+								action="#{cadValoresAcomodacaoMB.adicionarExtras()}" value="Adicionar"
+								icon="ui-icon-check" update="growl, tabelaExtras"/>
+						</h:panelGrid>
+						<br></br>
+						<p:dataTable id="tabelaExtras" var="extras"
+							value="#{cadValoresAcomodacaoMB.listaExtras}" class="tabela"
+							scrollable="true" scrollHeight="150" style="margin-bottom:5px">  
+							<p:column headerText="Produto" style="width:250px;">
+								<h:outputText value="#{extras.produtosorcamento.descricao}" />
+							</p:column>  
+							<p:column headerText="Valor" style="width:90px;">
+								<h:outputText value="#{extras.valor}" >
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								</h:outputText>
+							</p:column> 
+							<p:column style="width:90px;text-align: center;">
+								<p:commandButton value="Excluir"
+									action="#{cadValoresAcomodacaoMB.excluir(extras)}" update="@all"/>
+							</p:column>
+						</p:dataTable> 
+					</div>
+				</div>
+				<br></br>
+				<div align="center">
+					<p:commandButton id="btnConfirmar"
+						action="#{cadValoresAcomodacaoMB.salvar()}" value="Confirmar"
+						icon="ui-icon-check" update="growl"/>
+					<p:commandButton id="btnCancelar" value="Cancelar"
+						icon="ui-icon-close"
+						action="#{cadValoresAcomodacaoMB.fechar()}"
+						style="margin-left:2%;" />	
+				</div>
+				 <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

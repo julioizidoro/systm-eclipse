@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="formRelatorioDocsParceiro" style="font-size: 10px;">
+
+            <title>Relatório de Documentos dos Parceiros</title>
+            
+           	<h:panelGrid columns="1" style="width:100%;">
+           		<p:outputLabel value="Parceiro" />        
+				<p:selectOneMenu id="fornecedor" value="#{relatorioFornecedorDocsMB.fornecedor}"
+					style="width:250px;font-size:11px;" converter="FornecedorConverter"
+					filter="true" filterMatchMode="startsWith"
+					panelStyle="width:250px">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idfornecedor" value="#{relatorioFornecedorDocsMB.listaFornecedor}"
+						var="fornecadorselecionado" itemLabel="#{fornecadorselecionado.nome}" itemValue="#{fornecadorselecionado}" />
+					<f:attribute name="listaFornecedor" value="#{relatorioFornecedorDocsMB.listaFornecedor}" />
+					<p:ajax event="change" />
+				</p:selectOneMenu>
+           	</h:panelGrid>
+           	<br></br>	<br></br><br></br>	<br></br>
+           	<div style="margin-left:20%;">
+				<p:commandButton value="Confirmar"
+					onclick="this.form.target='_blank'" icon="ui-icon-check"
+					action="#{relatorioFornecedorDocsMB.gerarRelatorio()}" ajax="false" />
+				<p:commandButton style="margin-left: 2%" icon="ui-icon-close"
+					value="Cancelar" action="#{relatorioFornecedorDocsMB.fechar()}"></p:commandButton>
+			</div> 
+        </h:form>     
+    </h:body>
+</html>

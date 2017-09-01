@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="filtroCancelamento"
+		style="text-align:left;font-size: 10px; margin-left: 7%; ">
+		<br></br>
+
+		<title>Relatório de Cancelamentos</title>
+
+		<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%" />
+		<p:outputLabel value="Programa" for="programa"
+			style="margin-left:43.5%" />
+		<br></br>
+		<p:selectOneMenu id="unidade" style="width:44%;margin-left:-1%"
+			value="#{relatorioCancelamentoMB.unidade}" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+			converter="UnidadeNegocioConverter" disabled="#{relatorioCancelamentoMB.habilitarUnidade}">
+			<f:selectItem itemLabel="Selecione" itemValue="0"
+				noSelectionOption="true" />
+			<f:selectItems value="#{relatorioCancelamentoMB.listaUnidade}"
+				var="unidade" itemLabel="#{unidade.nomerelatorio}"
+				itemValue="#{unidade}" />
+			<f:attribute name="listaUnidade"
+				value="#{relatorioCancelamentoMB.listaUnidade}" /> 
+		</p:selectOneMenu>
+		<p:selectOneMenu id="programa" style="width:44%;margin-left:8%"
+			value="#{relatorioCancelamentoMB.produtos}"
+			converter="ProdutoConverter">
+			<f:selectItem itemLabel="Selecione" itemValue="0"
+				noSelectionOption="true" />
+			<f:selectItems value="#{relatorioCancelamentoMB.listaProdutos}"
+				var="produtos" itemLabel="#{produtos.descricao}"
+				itemValue="#{produtos}" />
+			<f:attribute name="listaProdutos"
+				value="#{relatorioCancelamentoMB.listaProdutos}" />
+			<p:ajax event="change" />
+		</p:selectOneMenu> 
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Período" for="datainicial" style="margin-left:-1%" />
+		<p:outputLabel value="Parceiro" for="parceiro" style="margin-left:44%" />
+		<br></br>
+		<h:panelGrid columns="3" style="margin-left:-1%;">
+			<p:inputMask id="datainicial" mask="99/99/9999"
+				value="#{relatorioCancelamentoMB.dataInicial}"
+				class="espacocobranca29" style="margin-left: -1%;width:60%">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:inputMask>
+			<p:inputMask id="dataFinal" mask="99/99/9999"
+				value="#{relatorioCancelamentoMB.dataFinal}"
+				class="espacocobranca29" style="margin-left:-7%;width:60%">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:inputMask>
+			
+			 <p:selectOneMenu id="parceiro"  style="width:210px;margin-left:-12%" value="#{relatorioCancelamentoMB.fornecedor}" converter="FornecedorConverter"
+	       		 filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		            <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		            <f:selectItems value="#{relatorioCancelamentoMB.listaFornecedor}" var="fornecedor" itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor}"/>
+		            <f:attribute name="listaFornecedor" value="#{relatorioCancelamentoMB.listaFornecedor}"/>
+		            <p:ajax event="change"/>
+	        </p:selectOneMenu> 
+	    </h:panelGrid>
+	    <br/> <br/>
+		<div align="center"  style="margin-left:-8%;">
+			<p:commandButton value="Confirmar"  
+				onclick="this.form.target='_blank'" icon="ui-icon-check"
+				action="#{relatorioCancelamentoMB.gerarRelatorio()}" ajax="false" />
+			<p:commandButton style="margin-left: 1%" icon="ui-icon-close"
+				value="Cancelar" action="#{relatorioCancelamentoMB.fechar()}"></p:commandButton>
+		</div>
+	</h:form>
+</h:body>
+</html>

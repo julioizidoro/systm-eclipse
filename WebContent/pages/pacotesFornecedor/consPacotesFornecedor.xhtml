@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">   
+		<h:form id="consPacotesFornecedor" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
+				<legend id="iUsu2">
+					<b>Pacotes Turisticos</b>
+				</legend>  
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar"> 
+						<h:panelGrid columns="3"    
+							columnClasses="tamanho8, tamanho8, tamanho8"  
+							style="width:89%;margin-left:8%;">          
+							<p:outputLabel value="Parceiro"/>   
+							<p:outputLabel value="Periodo da Vencimento" />       
+							<p:outputLabel value="Situação"/>  
+							
+							<p:inputText id="fornecedor" value="#{pacoteFornecedorMB.fornecedor}" style="width:90%;font-size:11px;"/>
+							<h:panelGroup>
+								<p:calendar id="dataIni" value="#{pacoteFornecedorMB.dataInicioVencimento}" size="10"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{pacoteFornecedorMB.dataFinalVencimento}"
+									size="10" locale="pt" pattern="dd/MM/yyyy" mask="true" style="margin-left:2%;"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />     
+								</p:calendar>
+							</h:panelGroup> 
+							<p:selectOneMenu id="situacao" value="#{pacoteFornecedorMB.situacao}"
+								style="width:95px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn" />
+								<f:selectItem itemLabel="Pagas" itemValue="Pagas" />
+								<f:selectItem itemLabel="Vencidas" itemValue="Vencidas" /> 
+								<p:ajax event="change" />   
+							</p:selectOneMenu>    
+						</h:panelGrid>
+						<br/>
+						<h:panelGrid columns="3"    
+							columnClasses="tamanho8, tamanho8,tamanho8"     
+							style="width:77%;margin-left:8%;"> 
+							<p:outputLabel value="Produto"/>      
+							<p:outputLabel value="Nº Reserva"/>   
+							<p:outputLabel />       
+							 
+							<p:selectOneMenu id="produto" value="#{pacoteFornecedorMB.produto}"
+								style="width:95px;">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItem itemLabel="Carro" itemValue="Carro" />
+								<f:selectItem itemLabel="Circuito" itemValue="Circuito" /> 
+								<f:selectItem itemLabel="Cruzeiro" itemValue="Cruzeiro" /> 
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel" />  
+								<f:selectItem itemLabel="Ingresso" itemValue="Ingresso" /> 
+								<f:selectItem itemLabel="Passagem" itemValue="Passagem" /> 
+								<f:selectItem itemLabel="Passeio" itemValue="Passeio" /> 
+								<f:selectItem itemLabel="Transfer" itemValue="Transfer" /> 
+								<f:selectItem itemLabel="Trem/Onibus" itemValue="Trem/Onibus" />  
+								<p:ajax event="change" />   
+							</p:selectOneMenu>    
+							<p:inputText id="reserva" value="#{pacoteFornecedorMB.reserva}" style="width:40%;"/>  
+							<h:panelGroup>
+								<p:commandButton value="Pesquisar" icon="ui-icon-search "
+									update=":consPacotesFornecedor:tabelaPacotes"
+									action="#{pacoteFornecedorMB.pesquisar()}" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="margin-left:2%;"
+									update="situacao, dataIni, dataFinal, fornecedor, reserva, produto, :consPacotesFornecedor:tabelaPacotes"
+									action="#{pacoteFornecedorMB.limpar()}" />
+							</h:panelGroup>
+						</h:panelGrid>
+						<br></br> 
+					</p:tab>  
+				</p:accordionPanel>  
+				<br></br>   
+				<div align="right" style="width:100%;">
+					<h:panelGrid columns="3" style="width:60%;">
+						<p:outputLabel value="Vencidas"/>
+						<p:outputLabel value="Vencer"/>
+						<p:outputLabel value="À vencer"/> 
+						 
+						<h:panelGrid id="paineltotalvencidas"
+							style="width:130px;height:32px;margin-top:-0.5%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
+							<tt style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$ #{pacoteFornecedorMB.valorVencidas()}</tt>
+							<br />
+						</h:panelGrid>    
+						<h:panelGrid id="paineltotalvencer"
+							style="width:130px;height:32px;margin-top:-0.5%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
+							<tt style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$ #{pacoteFornecedorMB.valorVencer()}</tt>
+							<br />
+						</h:panelGrid>
+						<h:panelGrid id="paineltotalprazo"
+							style="width:130px;height:32px;margin-top:-0.5%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
+							<tt style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$ #{pacoteFornecedorMB.valorPrazo()}</tt>
+							<br />
+						</h:panelGrid>   
+					</h:panelGrid>
+				</div> 
+				<br/>
+				<div align="center">       
+					<p:dataTable id="tabelaPacotes" var="pacotes"  
+						value="#{pacoteFornecedorMB.listaPacotesFornecedor}" scrollable="true"
+						scrollHeight="300" style="width:95%;font-size:12px;"> 
+						<p:column headerText="ID Venda" style="width:80px;">             
+							<p:outputLabel value="#{pacotes.pacotes.vendas.idvendas}" />
+						</p:column> 
+						<p:column headerText="Parceiro" style="width:200px;">             
+							<p:outputLabel value="#{pacotes.fornecedor.nome}" />
+						</p:column> 
+						<p:column headerText="Data Vencimento" style="width:105px;text-align:center;">             
+							<p:outputLabel value="#{pacotes.datapagamento}" >
+								<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+							</p:outputLabel>  
+						</p:column>  
+						<p:column headerText="Valor" style="width:110px;text-align:right;">             
+							<p:outputLabel value="#{pacotes.valor}" >
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</p:outputLabel>
+						</p:column>
+						<p:column headerText="Produto" style="width:130px;">             
+							<p:outputLabel value="#{pacotes.tipoprodutotrecho}" />
+						</p:column>    
+						<p:column headerText="Nº Reserva" style="width:150px;">             
+							<p:outputLabel value="#{pacotes.numeroreserva}" />
+						</p:column>      
+						<p:column style="text-align:center;width:85px;" headerText="Comprovante">
+							<p:commandLink action="#{pacoteFornecedorMB.anexarComprovante(pacotes)}"  rendered="#{pacoteFornecedorMB.btnVermelhoComprovante(pacotes)}"
+								style="text-decoration: none" title="Anexar Comprovante de Pagamento" update=":consPacotesFornecedor:growl">
+								<img src="../../resources/img/uploadVermelho.png" width="25"/>
+								<p:ajax event="dialogReturn" listener="#{pacoteFornecedorMB.retornoDialogComprovante}" update=":consPacotesFornecedor:tabelaPacotes"/>
+							</p:commandLink> 
+							<p:commandLink action="#{pacoteFornecedorMB.visualizarComprovante(pacotes)}"  rendered="#{pacoteFornecedorMB.btnVerdeComprovante(pacotes)}"
+								style="text-decoration: none" title="Visualizar Comprovante de Pagamento"
+								ajax="false" target="_blank" >
+								<img src="../../resources/img/arquivosUpload.png" width="25"/>
+							</p:commandLink>    
+						</p:column>  
+						<p:column style="text-align:center;width:80px;" headerText="E-mail">  
+							<p:commandLink action="#{pacoteFornecedorMB.emailEnviado(pacotes)}" 
+								style="text-decoration: none" title="Enviar E-mail ao parceiro." update=":consPacotesFornecedor:growl">
+								<img src="#{pacoteFornecedorMB.corBtnEmail(pacotes)}" width="25"/>
+								<p:ajax event="dialogReturn" listener="#{pacoteFornecedorMB.retornoDialogEmail}" update=":consPacotesFornecedor:tabelaPacotes"/>
+							</p:commandLink>
+						</p:column> 
+						<p:column style="text-align:center;width:85px;" headerText="Invoice">
+							<p:commandLink action="#{pacoteFornecedorMB.anexarInvoice(pacotes)}"  rendered="#{pacoteFornecedorMB.btnVermelhoInvoice(pacotes)}"
+								style="text-decoration: none" title="Anexar Invoice" update=":consPacotesFornecedor:growl">
+								<img src="../../resources/img/cobrancaVermelha.png" width="25"/>
+								<p:ajax event="dialogReturn" listener="#{pacoteFornecedorMB.retornoDialogInvoice}" update=":consPacotesFornecedor:tabelaPacotes"/>
+							</p:commandLink>
+							<p:commandLink action="#{pacoteFornecedorMB.visualizarInvoice(pacotes)}"  rendered="#{pacoteFornecedorMB.btnVerdeInvoice(pacotes)}"
+								style="text-decoration: none" title="Visualizar Invoice"
+								ajax="false" target="_blank" >  
+								<img src="../../resources/img/cobrancaVerde.png" width="25"/>
+							</p:commandLink>    
+						</p:column> 
+					</p:dataTable>
+				</div>   
+				<br></br> <br></br>
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

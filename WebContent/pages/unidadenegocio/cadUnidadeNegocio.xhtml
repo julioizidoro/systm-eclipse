@@ -1,0 +1,196 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="cadUnidade">
+			<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+			<div style="background: #ffffff">
+				<div class="ui-fluid"
+					style="width: 85%; margin-left: 9%; font-size: 11px; color: #556575;">
+					<legend id="iUsu3" style="color: #495B6C;">
+						<b>Dados da Unidade</b>
+					</legend>
+					<h:panelGrid columns="3"
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho8"
+						style="width:94%;">
+						<p:outputLabel value="Razão Social" />
+						<p:outputLabel value="Nome Fantasia" />
+						<p:outputLabel value="CNPJ" />
+
+						<p:inputText id="razaosocial" style="width:90%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.razaoSocial}" />
+						<p:inputText id="nomefantasia" style="width:90%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.nomeFantasia}" />
+						<p:inputMask id="cnpj" mask="99.999.999/9999-99"
+							style="width:58%;" value="#{cadUnidadeNegocioMB.unidadenegocio.cnpj}" />
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"  
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho8"
+						style="width:94%;">
+						<p:outputLabel />
+						<p:outputLabel />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+								value="#{cadUnidadeNegocioMB.digitosTelefone}">
+								<p:ajax update="telefone" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="9 Digitos"
+								style="margin-left:1%;font-size:11px;" />
+						</h:panelGroup>
+
+						<p:outputLabel value="Email" />
+						<p:outputLabel value="Nome Relatório" />
+						<p:outputLabel value="Telefone Comercial" />
+
+
+						<p:inputText id="email" style="width:90%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.email}" />
+						<p:inputText id="nomerelatorio" style="width:90%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.nomerelatorio}" />
+						<p:inputMask id="telefone" value="#{cadUnidadeNegocioMB.unidadenegocio.fone}" mask="#{cadUnidadeNegocioMB.validarMascaraFone()}" style="width:58%;" />
+						<p:outputLabel />
+					</h:panelGrid> 
+					<h:panelGrid columns="4"
+						columnClasses="tamanho6, colunaVintenove,tamanho6, tamanho8"
+						style="width:94%;">
+						<p:outputLabel value="Tipo" />
+						<p:outputLabel value="Endereço" />
+						<p:outputLabel value="Número" />
+						<p:outputLabel value="Complemento" />
+
+						<p:selectOneMenu id="tipoLogradouro" value="#{cadUnidadeNegocioMB.unidadenegocio.tipoLogradouro}"
+							style="width:120px;">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItem itemLabel="Avenida" itemValue="Avenida" />
+							<f:selectItem itemLabel="BR" itemValue="BR" />
+							<f:selectItem itemLabel="Estrada" itemValue="Estrada" />
+							<f:selectItem itemLabel="Rodovia" itemValue="Rodovia" />
+							<f:selectItem itemLabel="Rua" itemValue="Rua" />
+							<f:selectItem itemLabel="Servidão" itemValue="Servidão" />
+							<f:selectItem itemLabel="Parque" itemValue="Parque" />
+							<f:selectItem itemLabel="Travessa" itemValue="Travessa" />
+						</p:selectOneMenu>
+						<p:inputText id="endereco" style="width:90%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.logradouro}" />
+						<p:inputText id="numero" style="width:80%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.numero}" />
+						<p:inputText id="complemento" style="width:59%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.complemento}" />
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="4"
+						columnClasses="tamanho6,dezoito, dezoito, tamanho8"
+						style="width:94%;">
+						<p:outputLabel value="CEP" /> 
+						<p:outputLabel value="Bairro" />
+						<p:outputLabel value="Cidade" />
+						<p:outputLabel value="Estado" />
+						
+						<p:inputMask id="cep" style="width:90%;" mask="99999-999"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.cep}" />
+						<p:inputText id="bairro" style="width:90%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.bairro}" />
+						<p:inputText id="cidade" style="width:80%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.cidade}" />
+						<p:selectOneMenu id="estado" value="#{cadUnidadeNegocioMB.unidadenegocio.estado}">
+							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Acre" itemValue="AC" />
+							<f:selectItem itemLabel="Alagoas" itemValue="AL" />
+							<f:selectItem itemLabel="Amapá" itemValue="AP" />
+							<f:selectItem itemLabel="Amazonas" itemValue="AM" />
+							<f:selectItem itemLabel="Bahia" itemValue="BA" />
+							<f:selectItem itemLabel="Ceará" itemValue="CE" />
+							<f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+							<f:selectItem itemLabel="Espirito Santo" itemValue="ES" />
+							<f:selectItem itemLabel="Goiás" itemValue="GO" />
+							<f:selectItem itemLabel="Maranhão" itemValue="MA" />
+							<f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+							<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+							<f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+							<f:selectItem itemLabel="Pará" itemValue="PA" />
+							<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+							<f:selectItem itemLabel="Paraná" itemValue="PR" />
+							<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+							<f:selectItem itemLabel="Piauí" itemValue="PI" />
+							<f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+							<f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+							<f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+							<f:selectItem itemLabel="Rondônia" itemValue="RO" />
+							<f:selectItem itemLabel="Roraima" itemValue="RR" />
+							<f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+							<f:selectItem itemLabel="São Paulo" itemValue="SP" />
+							<f:selectItem itemLabel="Sergipe" itemValue="SE" />
+							<f:selectItem itemLabel="Tocantins" itemValue="TO" />
+						</p:selectOneMenu> 
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="5"
+						columnClasses="tamanho6, tamanho6,tamanho6,tamanho6,tamanho8"
+						style="width:98%;">
+						<p:outputLabel value="Tipo" />
+						<p:outputLabel value="Comissão Consultor" />
+						<p:outputLabel value="Banco" />
+						<p:outputLabel value="Nº mês pagamento" />
+						<p:outputLabel value="Fundo Marketing"  />
+						
+						<p:selectOneMenu id="tipo" value="#{cadUnidadeNegocioMB.unidadenegocio.tipo}" style="width:110px;">
+							<f:selectItem itemLabel="Premium" itemValue="Premium" />
+							<f:selectItem itemLabel="Express" itemValue="Express" />
+						</p:selectOneMenu>
+						<p:inputText id="comissaoconsultor" style="width:90%;text-align: right;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.perconsultor}" >
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:selectOneMenu id="banco"  style="width:130px;"  value="#{cadUnidadeNegocioMB.unidadenegocio.banco}" converter="BancoConverter">
+                           <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
+                           <f:selectItems value="#{cadUnidadeNegocioMB.listaBanco}" var="conta" itemLabel="#{conta.nome}" itemValue="#{conta}"/>
+                           <f:attribute name="listaBanco" value="#{cadUnidadeNegocioMB.listaBanco}"/>
+                        </p:selectOneMenu> 
+						<p:inputText id="mespagamento" style="width:80%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.mespagamento}" />   
+						<p:inputText id="fundoMarketing" style="width:53%;text-align: right;"   
+							value="#{cadUnidadeNegocioMB.unidadenegocio.fundomarketing}" >    
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						
+					</h:panelGrid> 
+					<br />
+					<h:panelGrid columns="2" style="width:40%">
+						<h:panelGroup> 
+							<p:selectBooleanCheckbox id="parcelamentoLoja"
+								value="#{cadUnidadeNegocioMB.unidadenegocio.parcelamentojoja}"/> 
+							<h:outputText value="Parcelamento pela Loja"
+								style="margin-left:1%;font-size:12px;font-weight: bold;" />  
+						</h:panelGroup>
+						<h:panelGroup> 
+							<p:selectBooleanCheckbox id="idleadautomatica"
+								value="#{cadUnidadeNegocioMB.unidadenegocio.leadautomatica}" style="background:white !important; color:white !important;"/> 
+							<h:outputText value="Distribuição automatizada das lead"
+								style="margin-left:1%;font-size:12px;font-weight: bold;" />  
+						</h:panelGroup>
+					</h:panelGrid>
+				</div>
+				<br></br>  
+			</div>
+			<br></br>
+			<div align="center">
+				<p:commandButton id="btnConfirmar" value="Confirmar"
+					action="#{cadUnidadeNegocioMB.salvar()}" icon="ui-icon-check"
+					style="font-size:12px;" update="growl" />
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{cadUnidadeNegocioMB.cancelar()}"
+					icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />
+			</div>
+			<br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

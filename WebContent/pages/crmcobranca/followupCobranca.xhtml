@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="followUpCobranca" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:accordionPanel id="painelPesquisal" class="painel" activeIndex="-1" >
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"  
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							columnClasses="tamanho8, tamanho8,tamanho8,tamanho8"
+							style="width:100%;"> 
+							<p:outputLabel value="Nome"/>  
+							<p:outputLabel value="Unidade" style="margin-left:2%;"/>   
+							<p:outputLabel value="Consultor" />  
+							<p:outputLabel value="Programa"/>
+   
+							<p:inputText value="#{followUpCobrancaMB.nomeCliente}" style="width:92%;" title="Nome do Cliente">
+								<p:ajax event="blur"/>
+							</p:inputText>
+							<p:selectOneMenu id="unidade"
+								value="#{followUpCobrancaMB.unidadenegocio}" style="width:90%;margin-left:2%;" 
+								converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItems id="idunidade"  
+									value="#{followUpCobrancaMB.listaUnidade}" var="unidade"
+									itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{followUpCobrancaMB.listaUnidade}" />
+								<p:ajax event="change" listener="#{followUpCobrancaMB.gerarListaConsultor()}" update="consultor"/>
+							</p:selectOneMenu>   
+							<p:selectOneMenu id="consultor" value="#{followUpCobrancaMB.usuario}"
+								style="width:90%;" filter="true" filterMatchMode="startsWith"
+								converter="UsuarioConverter" >
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idconsultor"
+									value="#{followUpCobrancaMB.listaUsuario}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{followUpCobrancaMB.listaUsuario}" />
+								<p:ajax event="change"/>   
+							</p:selectOneMenu>   
+							<p:selectOneMenu id="produto" value="#{followUpCobrancaMB.programas}"
+								style="width:90%;" converter="ProdutoConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItems id="idproduto"
+									value="#{followUpCobrancaMB.listaProgramas}" var="cproduto"
+									itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+								<f:attribute name="listaProdutos"
+									value="#{followUpCobrancaMB.listaProgramas}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="5"
+							columnClasses="tamanho8,tamanho8,tamanho8, tamanho8, tamanho8"
+							style="width:99.5%;">
+							<p:outputLabel value="ID da venda" />  
+							<p:outputLabel value="Prioridade"/>  
+							<p:outputLabel value="Período Próximo Contato" />
+							<p:outputLabel value="Período Inicio" />
+							<p:outputLabel value="Status"/>
+ 
+							<p:inputText value="#{followUpCobrancaMB.idvenda}" style="width:50%;" title="ID da venda">
+								<p:ajax event="blur"/>
+							</p:inputText>
+							<p:selectOneMenu id="situacaolead" style="width:160px;" 
+								value="#{followUpCobrancaMB.prioridade}">
+								<f:selectItem itemLabel="Selecione" itemValue="0" />
+								<f:selectItem itemLabel="Até 5 dias" itemValue="1" />
+								<f:selectItem itemLabel="6 - 15 dias" itemValue="2" />
+								<f:selectItem itemLabel="16 - 30 dias" itemValue="3" />
+								<f:selectItem itemLabel="31  45 dias" itemValue="4" />
+								<f:selectItem itemLabel="+50 dias ou 30 para inicio" itemValue="5" />
+							</p:selectOneMenu>
+							<h:panelGroup>
+								<p:calendar id="dataProxIni"
+									value="#{followUpCobrancaMB.dataProxInicio}" size="9" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataProxFinal"
+									value="#{followUpCobrancaMB.dataProxFinal}" size="9" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15"
+									style="margin-left:5%;">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup style="width:100%">
+								<p:calendar id="dataUltIni" value="#{followUpCobrancaMB.dataUltInicio}"
+									size="9" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">  
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataUltFinal" value="#{followUpCobrancaMB.dataUltFinal}"
+									size="9" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									style="margin-left:5%;" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />  
+								</p:calendar>
+							</h:panelGroup> 
+							<p:selectOneMenu id="status" style="width:160px;" 
+								value="#{followUpCobrancaMB.status}">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItem itemLabel="Atrasados" itemValue="Atrasados" />
+								<f:selectItem itemLabel="Novos" itemValue="Novos" />
+								<f:selectItem itemLabel="Hoje" itemValue="Hoje" />
+								<f:selectItem itemLabel="Prox. 7 Dias" itemValue="Prox. 7 Dias" />
+							</p:selectOneMenu>   
+							
+						</h:panelGrid>
+						<br/>
+						<h:panelGrid columns="2" style="width:22%;float:right;"> 
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
+									action="#{followUpCobrancaMB.limparPesquisa()}" update="@form" />
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									action="#{followUpCobrancaMB.pesquisar()}" update="@form" style="font-size:11px;float:right;"/>
+							</h:panelGrid>   
+					</p:tab>     
+				</p:accordionPanel>
+				<br></br>
+				<br></br>
+				<h:panelGrid style="margin-left:3%;width:90%;" columns="2"
+					columnClasses="tamanho9, tamanhoavisos">
+					<h:panelGroup id="painelBotoes">
+						<h:panelGrid style="width:45%;margin-left: 2%;" columns="6">
+							<p:commandLink id="btnNovos" style="margin-left:1%;"
+								action="#{followUpCobrancaMB.mudarCoresBotoes('novos')}" update="@form">
+								<h:panelGrid columns="1" style="text-align:center;">
+									<img
+										src="../../resources/img/crm/#{followUpCobrancaMB.imagemNovos}.png"
+										width="40" />
+									<p:outputLabel value="NOVOS" style="font-size:12px;" />
+									<p:outputLabel value="(#{followUpCobrancaMB.novos})"
+										style="font-size:12px;margin-bottom: -12px;" />
+								</h:panelGrid>
+							</p:commandLink>
+							<p:commandLink id="btnAtrasados" style="margin-left:2%;"
+								action="#{followUpCobrancaMB.mudarCoresBotoes('atrasados')}"
+								update="@form">
+								<h:panelGrid columns="1" style="text-align:center;">
+									<img
+										src="../../resources/img/crm/#{followUpCobrancaMB.imagemAtrasados}.png"
+										width="40" />
+									<p:outputLabel value="ATRASADOS" style="font-size:12px;" />
+									<p:outputLabel value="(#{followUpCobrancaMB.atrasados})"
+										style="font-size:12px;margin-bottom: -12px;" />
+								</h:panelGrid>
+							</p:commandLink>
+							<p:commandLink id="btnHoje" style="margin-left:2%;"
+								action="#{followUpCobrancaMB.mudarCoresBotoes('hoje')}" update="@form">
+								<h:panelGrid columns="1" style="text-align:center;">
+									<img src="../../resources/img/crm/#{followUpCobrancaMB.imagemHoje}.png"
+										width="40" />
+									<p:outputLabel value="HOJE" style="font-size:12px;" />
+									<p:outputLabel value="(#{followUpCobrancaMB.hoje})"
+										style="font-size:12px;margin-bottom: -12px;" />
+								</h:panelGrid>
+							</p:commandLink>
+							<p:commandLink id="btnProx" style="margin-left:2%;"
+								action="#{followUpCobrancaMB.mudarCoresBotoes('prox')}" update="@form">
+								<h:panelGrid columns="1" style="text-align:center;">
+									<img src="../../resources/img/crm/#{followUpCobrancaMB.imagemProx}.png"
+										width="40" />
+									<p:outputLabel value="PROX" style="font-size:12px;" />
+									<p:outputLabel value="7 DIAS (#{followUpCobrancaMB.prox7})"
+										style="font-size:12px;margin-bottom: -12px;" />
+								</h:panelGrid>
+							</p:commandLink>
+							<p:commandLink id="btnTodos" style="margin-left:2%;"
+								action="#{followUpCobrancaMB.mudarCoresBotoes('todos')}" update="@form">
+								<h:panelGrid columns="1" style="text-align:center;">
+									<img
+										src="../../resources/img/crm/#{followUpCobrancaMB.imagemTodos}.png"
+										width="40" />
+									<p:outputLabel value="TODOS" style="font-size:12px;" />
+									<p:outputLabel value="(#{followUpCobrancaMB.todos})"
+										style="font-size:12px;margin-bottom: -12px;" />
+								</h:panelGrid>
+							</p:commandLink>  
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>  
+				<h:panelGrid style="width:98%;margin-left:1%;" columns="1">
+					<p:dataTable id="tabelaCobranca" var="cobranca" scrollable="true" scrollHeight="400"
+						value="#{followUpCobrancaMB.listaCrmCobranca}" style="font-size:11px;"
+						 rowIndexVar="rowIndex">
+
+   
+						<p:column headerText="ID" style="text-align:left;"
+							width="50" >
+							<h:outputText value="#{cobranca.vendas.idvendas}" />
+						</p:column>       
+						<p:column headerText="Nome" style="text-align:left;" width="150">   
+							<h:outputText value="#{cobranca.vendas.cliente.nome}" />   
+						</p:column>
+						<p:column headerText="Unidade" style="text-align:left;"
+							width="95" >
+							<h:outputText value="#{cobranca.vendas.unidadenegocio.nomerelatorio}" />
+						</p:column>    
+						<p:column headerText="Consultor" style="text-align:left;"
+							width="130" >
+							<h:outputText value="#{cobranca.vendas.usuario.nome}" />
+						</p:column>
+						<p:column headerText="Prioridade" width="60"  
+							style="text-align:center;">
+							<h:outputText value="#{cobranca.prioridade}" class="badge bg-warning"
+								style="background-color:#{followUpCobrancaMB.retornarCoresPrioridade(cobranca.prioridade)};padding: 6px 8px;" />
+						</p:column>
+						<p:column headerText="Inicio" width="65"
+							style="text-align:center;">
+							<h:outputText value="12/08/2017">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>   
+						<p:column headerText="Programa" style="text-align:left;" width="120">
+							<h:outputText value="#{cobranca.vendas.produtos.descricao}" />
+						</p:column>
+						<p:column headerText="Próximo Contato" width="65"
+							style="text-align:center;">
+							<h:outputText value="#{cobranca.proximocontato}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>         
+						<p:column headerText="Histórico" width="55"    
+							style="text-align:center;">
+							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
+								action="#{followUpCobrancaMB.historicoCobrancaCliente(cobranca)}">
+								<img src="../../resources/img/crm/historico.png" width="30" />
+							</p:commandLink>
+						</p:column> 
+					</p:dataTable>
+				</h:panelGrid>
+				<br></br>
+				
+			</div>
+			<br></br><br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

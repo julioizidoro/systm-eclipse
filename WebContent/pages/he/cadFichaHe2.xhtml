@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadHeFinal" style="font-size:12px;">  
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Ficha de Higher Education"
+					style="font-size: 22px;color: #1F8871; margin-left:30%" />
+				<br/><br/>   
+				<p:accordionPanel> 
+					<p:tab title="Produtos" titleStyle="font-size: 11px">
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Moeda" />
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Total" for="valortotal" />
+
+							<p:selectOneMenu id="moeda" value="#{cadHeFinalMB.moeda}"
+								converter="MoedasConverter" style="width:210px;">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadHeFinalMB.listaMoedas}"
+									var="moeda" itemLabel="#{moeda.sigla}" itemValue="#{moeda}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadHeFinalMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadHeFinalMB.consultarCambio()}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutoshe,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadHeFinal:growl" />
+							</p:selectOneMenu>
+							<p:inputText id="idvalorcambio"
+								value="#{cadHeFinalMB.orcamento.valorCambio}"
+								style="width:95%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadHeFinalMB.editarcambio(cadHeFinalMB.orcamento.valorCambio)}"
+								title="Editar Câmbio">
+								<img id="editarcambio" src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadHeFinalMB.retornoDialogEditarCambio}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutoshe,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar,  cadHeFinal:growl" />
+							</p:commandLink>
+							<p:inputText id="valortotal"
+								value="#{cadHeFinalMB.formaPagamento.valorOrcamento}"
+								style="width:30%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadHeFinalMB.tituloMoedaEstrangeira()}" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor R$" for="valoreal" />
+
+							<p:selectOneMenu id="produto"
+								value="#{cadHeFinalMB.produtosorcamento}"
+								style="width:210px;" converter="ProdutoOrcamentoConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadHeFinalMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadHeFinalMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valor"
+								value="#{cadHeFinalMB.orcamentoprodutosorcamento.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText id="valoreal"
+								value="#{cadHeFinalMB.orcamentoprodutosorcamento.valorMoedaNacional}"
+								style="width:30%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<div align="right" style="width: 77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+								icon="ui-icon-plusthick"
+								action="#{cadHeFinalMB.adicionarProdutos()}"
+								value="Adicionar"
+								update="tabelaprodutoshe,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadHeFinal:growl" />
+							<p:commandButton id="btnCalcularBackOffice"
+								action="#" value="Comissão"
+								icon="ui-icon-calculator" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.btncomissaoficha}"/>
+						</div>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutoshe" var="produtos"
+							value="#{cadHeFinalMB.orcamento.orcamentoprodutosorcamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtos.produtosorcamento.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadHeFinalMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadHeFinalMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+							<p:selectOneMenu id="formPag"
+								value="#{cadHeFinalMB.formaPagamento.condicao}"
+								style="width:150px;">
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+							<p:inputText id="valorOrca" style="width:60%;text-align: right;"
+								value="#{cadHeFinalMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadHeFinalMB.formaPagamento.possuiJuros}"
+								style="width:150px;font-size: 10px;text-align: right;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadHeFinalMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros, cadHeFinal:growl" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:45%;text-align: right;"
+									value="#{cadHeFinalMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadHeFinalMB.calcularValorTotalOrcamento()}"
+										update="produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+								</p:inputText>
+								<p:commandLink action="#{cadHeFinalMB.calcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadHeFinalMB.retornoValorJuros()}"
+										update="produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros, cadHeFinal:growl" />
+								</p:commandLink>
+							</h:panelGroup>
+
+							<p:inputText id="totalpag" style="width:60%;text-align: right;"
+								value="#{cadHeFinalMB.formaPagamento.valorTotal}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText
+								value="#{cadHeFinalMB.formaPagamento.valorTotal}"
+								id="saldoreceber"
+								style="width:45%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento"
+								for="tipoparcelamento" />
+
+							<p:inputText value="#{cadHeFinalMB.valorSaldoParcelar}"
+								id="saldoparcelar" style="width:45%;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:selectOneMenu id="formPag2"
+								value="#{cadHeFinalMB.parcelamentopagamento.formaPagamento}"
+								style="width:145px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão de crédito"
+									itemValue="Cartão de crédito" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<f:selectItem itemLabel="Déposito" itemValue="Déposito" />
+								<p:ajax event="change"
+									listener="#{cadHeFinalMB.gerarListaTipoParcelamento()}"
+									update="tipoparcelamento" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{cadHeFinalMB.parcelamentopagamento.tipoParcelmaneto}"
+								style="width:147px;">
+								<f:selectItems id="idTipoparcelamento"
+									value="#{cadHeFinalMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Data 1º Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+
+							<p:calendar id="primeirovencimento"
+								value="#{cadHeFinalMB.parcelamentopagamento.diaVencimento}"
+								size="20" locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText
+								value="#{cadHeFinalMB.parcelamentopagamento.valorParcelamento}"
+								id="valoraparcelar"
+								style="font-size: 10px;width:60%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadHeFinalMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText>
+
+							<p:selectOneMenu id="nparcela"
+								value="#{cadHeFinalMB.parcelamentopagamento.numeroParcelas}"
+								style="width:80px;">
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadHeFinalMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+
+							<p:inputText
+								value="#{cadHeFinalMB.parcelamentopagamento.valorParcela}"
+								id="valorparcela" style="width:45%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+
+						<br></br>
+						<br></br>
+
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadHeFinalMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, cadHeFinal:growl"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"
+								action="#{cadHeFinalMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{cadHeFinalMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,  cadHeFinal:growl" />
+							</p:commandButton>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadHeFinalMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="150"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadHeFinalMB.excluirFormaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab> 
+					<p:tab title="Obs TM">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3">
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas"
+								style="margin-left: 17%;font-size: 11px" />
+							<p:inputTextarea id="obstm" cols="150" rows="10"
+								class="fontebranca" value="#{cadHeFinalMB.venda.obstm}"
+								style="margin-left: 17%" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<div align="center" style="width: 85%;">
+					<p:commandButton onclick="PF('cd').show();" icon="ui-icon-check"
+						value="Confirmar" style="font-size:13px;" update="growl" />
+					<p:commandButton action="#{cadHeFinalMB.cancelar()}"
+						style="margin-left:2%;font-size:13px;" icon="ui-icon-close"
+						value="Cancelar" />
+				</div>
+				<p:confirmDialog
+					message="FINALIZAR FICHA? Ficha será enviada para Gerência."
+					showEffect="fade" hideEffect="fade" header="Confirmação"
+					icon="ui-icon-alert" widgetVar="cd">
+					<p:commandButton value="Sim"
+						action="#{cadHeFinalMB.enviarficha()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check" style="margin-left:30%" update="cadHeFinal:growl" />
+					<p:commandButton value="Não"
+						action="#{cadHeFinalMB.naoEnviarficha()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+						icon="ui-icon-close" update="cadHeFinal:growl" />
+				</p:confirmDialog>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

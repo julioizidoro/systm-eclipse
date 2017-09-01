@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoProgramasTeensPagina03" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="20" rightMargin="10" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.46650738020973337"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="44"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="714" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="67" width="553" height="565" uuid="d8f23ff1-97aa-4e73-b2ad-7405852eece8"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="701" uuid="a16c0a0c-4f05-4d09-af41-fc1f5679665b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[III) não cobertura de doenças ou condições pré-existentes;
+IV) fazer contato telefônico com a seguradora antes de qualquer atendimento médico;
+V) em caso de emergência, na impossibilidade de fazer contato prévio, fazer contato com a seguradora em no máximo 24 horas após a entrada no estabelecimento prestador de serviços de saúde;
+VI) seguir os procedimentos estabelecidos pela seguradora para pagamento e/ou reembolso das despesas médicas e hospitalares.
+d) Caso o(a) PARTICIPANTE deixe de contar, por qualquer motivo, com a cobertura do seguro saúde durante sua estada no destino, poderá ser excluído do programa, sem direito a qualquer reembolso;
+e) A decisão sobre eventual extensão do seguro cabe exclusivamente à seguradora, não podendo ser responsabilizada à TM em caso de sua negativa. Da mesma forma, cabe exclusivamente à seguradora tomar decisões sobre o alcance da cobertura do seguro de saúde, definição de doença ou condição pré-existente, definição sobre uso indevido da sala de emergência, dentre outras decisões inerentes ao contrato de seguro, não podendo ser responsabilizada a TM por tais decisões.
+
+6. ACOMODAÇÃO
+
+6.1 Providenciar acomodação para o período de realização do programa/pacote é de responsabilidade do(a) PARTICIPANTE, salvo quando a mesma já esteja inclusa no programa/pacote e/ou contratada junto à Travelmate. O parceiro internacional contratado ou a TM poderão indicar e/ou auxiliar na reserva de uma acomodação (gratuitamente ou mediante pagamento por parte do participante de uma taxa para tal serviço), mas não se responsabilizam por isto nos casos em que esta não tenha sido inclusa no programa/pacote ou contratada junto à Travelmate. Qualquer custo referente a acomodação ou reserva de acomodação fica a encargo doa(a) PARTICIPANTE;
+6.2 No caso de acomodação inclusa no programa/pacote e e/ou vinculada ao parceiro internacional responsável pelo curso/programa/pacote ou empresa intermediadora da acomodação, o PARTICIPANTE deve respeitar as regras estabelecidas por estes ou pelos locatários de tais acomodações referentes à acomodação oferecida, sendo estas regras regidas pela legislação do país de destino. Em caso de celebração de contrato adendo ou extra de locação entre PARTICIPANTE e parceiro internacional responsável pelo curso ou programa ou terceiro locador, a TM não tem responsabilidade sobre isso;
+6.3 A acomodação a ser oferecida e indicada pelo parceiro internacional poderá representar a colocação em casa de família, residência estudantil, casa/apartamento compartilhado, alojamento ou albergues oferecidos por terceiros ou empresas especializadas, havendo na maioria dos casos a necessidade de uso de transporte coletivo local para cobrir a distância entre a moradia e o local do curso ou programa. É prática comum nestas acomodações a cobrança de taxa caução antecipada (antes da ocupação da acomodação), sendo que o reembolso deste valor dá-se somente depois desocupação da acomodação, em prazo indeterminado, mediante entrega do imóvel nas mesmas condições em que se encontrava no momento da ocupação. A avaliação do reembolso de tal taxa cabe exclusivamente ao locatário, o qual levará em consideração vários pontos, tais como cumprimento do contrato, manutenção da acomodação, limpeza, entre outros. Não pode ser responsabilizada a TM pelo valor que será reembolsado (integral ou parcial) ou não, bem como pela avaliação do imóvel após desocupação;
+6.4 Se o(a) PARTICIPANTE desejar mudar de acomodação após sua chegada no país de destino ou estiver insatisfeito com sua acomodação, é de sua responsabilidade tratar do assunto com o locador/prestador de serviço local e/ou procurar uma outra opção;
+6.5 Em caso de mudança de endereço por sua conta, o(a)PARTICIPANTE deverá informar ao parceiro internacional o seu novo endereço dentro de 3 dias úteis. O não cumprimento desta regra poderá resultar em desligamento do curso ou programa e o(a)PARTICIPANTE deverá deixar o país de destino em até 5 dias úteis, não tendo direito a reembolso de valores pagos de qualquer natureza;
+6.6 O(A)PARTICIPANTE desde já declara estar ciente que em razão de realizar o curso ou programa em país estrangeiro, encontrará situações culturais e estilo de vida totalmente diversos do que está acostumado, o que poderá acarretar diferenças culturais, de tratamento e postura, devendo observar e obedecer ao padrão de vida vigente no país de destino;
+6.7 O(A)PARTICIPANTE também deverá observar as regras de conduta e socialização em caso de ser acomodado em casa familiar, assim como a estrutura da acomodação, podendo variar de acordo com a residência a ser apresentada, com a colocação em quarto individual, coletivo com outros estudantes, incluindo alimentação ou não, em casa de família de origem de outro país que não o país de destino, dependendo da oferta que lhe fora apresentada.
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="-16" y="0" width="200" height="15" uuid="fb094786-f7a1-47d3-b7ab-40e5400228fb"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoTeensPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

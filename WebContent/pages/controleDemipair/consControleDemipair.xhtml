@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idControleDemipair" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho1, tamanhoavisos,tamanho7, tamanho1,tamanhoavisos"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="ID Venda" for="idVenda" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" />
+
+
+							<p:inputText id="idVenda" value="#{controleDemiPairMB.idVenda}"
+								style="width:90%" />
+							<p:inputText id="cliente"
+								value="#{controleDemiPairMB.nomeCliente}" style="width:90%" />
+							<p:calendar id="dataIni"
+								value="#{controleDemiPairMB.iniDataEmbarque}" size="10"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal"
+								value="#{controleDemiPairMB.finalDataEmbarque}" size="10"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+								value="#{controleDemiPairMB.unidadenegocio}" style="width:90%"
+								converter="UnidadeNegocioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{controleDemiPairMB.listaUnidadeNegocio}"
+									var="unidade" itemLabel="#{unidade.nomerelatorio}"
+									itemValue="#{unidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{controleDemiPairMB.listaUnidadeNegocio}" />
+								<p:ajax event="change"
+									listener="#{controleDemiPairMB.gerarListaConsultor()}"
+									update="consultor"></p:ajax>
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="5"
+							columnClasses="tamanhoavisos, tamanho1,tamanho1, tamanho7,tamanho1"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="Consultor" for="consultor"  />
+							<p:outputLabel value="Situação" for="situacao"  />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="consultor"
+								value="#{controleDemiPairMB.usuario}"
+								style="width:279px;"
+								converter="UsuarioConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{controleDemiPairMB.listaConsultor}"
+									var="consultor" itemLabel="#{consultor.nome}"
+									itemValue="#{consultor}" />
+								<f:attribute name="listaUsuario"
+									value="#{controleDemiPairMB.listaConsultor}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao"
+								value="#{controleDemiPairMB.situacao}"
+								style="width:95px;">
+								<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+								<f:selectItem itemLabel="Processo" itemValue="Processo" />
+								<f:selectItem itemLabel="Visto" itemValue="Visto" />
+								<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+								<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:commandButton value="Pesquisar"  icon=" ui-icon-search "
+								update=":idControleDemipair:tabelaControleDemipair"
+								action="#{controleDemiPairMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" 
+								update="idControleDemipair:tabelaControleDemipair, unidade, dataFinal, dataIni, cliente,idVenda"
+								action="#{controleDemiPairMB.limpar()}" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Demi Pair</b>
+				</legend>
+
+				<p:dataTable id="tabelaControleDemipair" var="demipair"
+					value="#{controleDemiPairMB.listaControle}"
+					class="tabelaHighSchool" scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px" editable="true" editMode="cell">
+					<p:column style="width:35px;text-align:center">
+						<p:cellEditor>
+							<f:facet name="output">
+								<img src="#{controleDemiPairMB.imagemSituacao(demipair)}"
+									title="#{demipair.statusprocesso}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="situacao"
+									value="#{demipair.statusprocesso}" style="width:95%;">
+									<f:selectItem itemLabel="Processo" itemValue="Processo" />
+									<f:selectItem itemLabel="Visto" itemValue="Visto" />
+									<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+									<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+									<p:ajax event="change"
+										listener="#{controleDemiPairMB.salvarStatus(demipair)}"
+										update="tabelaControleDemipair" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="ID venda" style="width:53px;">
+						<h:outputText value="#{demipair.vendas.idvendas}" />
+					</p:column>
+					<p:column headerText="Data Inscrição"
+						style="text-align:center;width:85px;">
+						<h:outputText value="#{demipair.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Cliente" style="width:220px;">
+						<p:commandLink value="#{demipair.vendas.cliente.nome}"
+							action="#{controleDemiPairMB.atualizarInformacoes(demipair)}"
+							title="Atualizar informações" style="text-decoration: underline">
+							<p:ajax event="dialogReturn"
+								listener="#{controleDemiPairMB.retornoDialogAtualizar}"
+								update="tabelaControleDemipair" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Agencia" style="width:220px;"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{demipair.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:150px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{demipair.vendas.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Documentação"
+						style="width:92px;text-align:center">
+						<img src="#{controleDemiPairMB.documentosDemiPair(demipair)}" />
+					</p:column>
+					<p:column headerText="Arquivos"
+						style="width:92px;text-align:center">
+						<p:commandLink
+							action="#{controleDemiPairMB.documentacao(demipair)}"
+							title="Invoice">
+							<img src="../../resources/img/boletoFicha.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Finalizar"
+						style="width:61px;text-align:center">
+						<p:commandLink action="#{controleDemiPairMB.finalizar(demipair)}"
+							title="Finalizar" update="tabelaControleDemipair">
+							<img src="../../resources/img/controleFinalizar.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Invoice" style="width:53px;text-align:center">
+						<p:commandLink action="#{controleDemiPairMB.invoice(demipair)}"
+							title="Invoice">
+							<img src="../../resources/img/controleInvoice.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br> <br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

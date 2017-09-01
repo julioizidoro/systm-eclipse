@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="filtrarcontasreceber"
+		style="text-align:left;font-size: 10px; margin-left: 7%; ">
+		<br></br>
+
+		<title>Relatório Contas a Receber</title>
+		<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%">
+		</p:outputLabel>
+		<br></br>
+		<p:selectOneMenu id="unidade" style="width:95%;margin-left:-1%"
+			value="#{relatorioContasReceberMB.unidadenegocio}"
+			converter="UnidadeNegocioConverter" filter="true"
+			filterMatchMode="startsWith" panelStyle="width:180px">
+			<f:selectItem itemLabel="Selecione" itemValue="0"
+				noSelectionOption="true" />
+			<f:selectItems
+				value="#{relatorioContasReceberMB.listaUnidadeNegocio}"
+				var="unidade" itemLabel="#{unidade.nomerelatorio}"
+				itemValue="#{unidade}" />
+			<f:attribute name="listaUnidade"
+				value="#{relatorioContasReceberMB.listaUnidadeNegocio}" />
+		</p:selectOneMenu>
+		<br />
+		<br />
+		<p:outputLabel value="Banco" for="banco" style="margin-left:-1%">
+		</p:outputLabel>
+		<p:outputLabel value="Tipo documento" for="tipoDocumento"
+			style="margin-left:45%">
+		</p:outputLabel>
+		<br></br>
+		<p:selectOneMenu id="banco" style="width:42%;margin-left:-1%"
+			value="#{relatorioContasReceberMB.banco}" converter="BancoConverter">
+			<f:selectItem itemLabel="Selecione" itemValue="0"
+				noSelectionOption="true" />
+			<f:selectItems value="#{relatorioContasReceberMB.listaBanco}"
+				var="banco" itemLabel="#{banco.nome}" itemValue="#{banco}" />
+			<f:attribute name="listaBanco"
+				value="#{relatorioContasReceberMB.listaBanco}" />
+			<p:ajax event="change" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="tipoDocumento" style="width:42%;margin-left:10%"
+			value="#{relatorioContasReceberMB.tipoDocumento}">
+			<f:selectItem itemLabel="Selecione" itemValue="sn"
+				noSelectionOption="true" />
+			<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+			<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+			<f:selectItem itemLabel="Cartão de Crédito"
+				itemValue="Cartão de Crédito" />
+			<f:selectItem itemLabel="Cartão de Crédito Autorizado"
+				itemValue="Cartão de Crédito Autorizado" />
+			<f:selectItem itemLabel="Cartão de Débito"
+				itemValue="Cartão de Débito" />
+			<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+			<f:selectItem itemLabel="Deposito" itemValue="Deposito" />
+			<f:selectItem itemLabel="Financiamento Banco"
+				itemValue="Financiamento Banco" />
+		</p:selectOneMenu>
+		<br />
+		<br />
+
+		<p:outputLabel value="Período" for="datainicial"
+			style="margin-left:-1%">
+		</p:outputLabel>
+		<br />
+		<p:inputMask id="datainicial" mask="99/99/9999"
+			value="#{relatorioContasReceberMB.dataInicio}"
+			class="espacocobranca29" style="margin-left: -1%;width: 20%">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:inputMask>
+		<p:inputMask id="dataFinal" mask="99/99/9999"
+			value="#{relatorioContasReceberMB.dataTermino}"
+			class="espacocobranca29" style="margin-left: 5%;width: 20%">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:inputMask>
+		<br />
+		<br />
+		<p:outputLabel value="Tipo de Relatório" for="tiporelatorio"
+			style="margin-left:-1%">
+		</p:outputLabel>
+		<br />
+		<p:selectOneRadio id="tiporelatorio"
+			value="#{relatorioContasReceberMB.tipoRelatorio}" style="width:100%"
+			layout="grid" columns="2">
+			<f:selectItem itemLabel="Contas Recebidas"
+				itemValue="Contas Recebidas" />
+			<f:selectItem itemLabel="Contas em Aberto"
+				itemValue="Contas em Aberto" />
+			<f:selectItem itemLabel="Todas as Contas" itemValue="Todas as Contas" />
+			<f:selectItem itemLabel="Contas Canceladas"
+				itemValue="Contas Canceladas" />
+		</p:selectOneRadio>
+		<br />
+		<p:commandButton value="Confirmar" onclick="this.form.target='_blank'"
+			style="margin-left:52%" icon="ui-icon-check"
+			action="#{relatorioContasReceberMB.gerarRelatorio()}" ajax="false" />
+		<p:commandButton style="margin-left: 1%" icon="ui-icon-close"
+			value="Cancelar" action="#{relatorioContasReceberMB.fechar()}"></p:commandButton>
+
+	</h:form>
+</h:body>
+</html>

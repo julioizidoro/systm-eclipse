@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.6830134553650705"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="81" width="555" height="15" uuid="ed75f004-f9a7-498c-b84f-777a7971fba2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="96" width="555" height="17" uuid="414a8c81-0b2b-45c8-a49c-bcc56e829101"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Demi Pair Nº 000"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="0fcadfee-a6b6-4fb7-98f2-045c7dddb8ea"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="715" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="99" width="553" height="522" uuid="92d1d4e7-cabc-4040-b3a1-ae1fd51caee9"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="1" y="212" width="554" height="40" uuid="b5513c87-053f-456f-a5b9-9dfb9f179c22"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="217" width="31" height="14" uuid="8e981e75-5b92-42c2-bb40-7f83dfc948d7"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="217" width="58" height="14" uuid="8e62dfd7-b724-4559-a11d-262de909c50e"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Instituição:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="233" width="31" height="14" uuid="21d6a739-3d08-495f-a2c6-681d1852695a"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[País:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="233" width="43" height="14" uuid="a3e2e95e-ab9f-4863-908a-4604b0a21c3a"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="11" width="553" height="201" uuid="f033e725-cf6b-4e94-98eb-1d1a296daa16"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["PARTES : \n"+
+$F{razaoSocial} + ", adiante apenas TRAVELMATE ou TM, pessoa jurídica de direito privado com sede social na " + $F{tipologradourounidadeNegocio} + " " +$F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{complementounidadeNegocio}+ ", " + $F{bairrounidadeNegocio} + ", " + $F{cidadeunidadeNegocio}+ ", " + $F{estadounidadeNegocio} + ", CEP : " + $F{cepunidadeNegocio}+ ", inscrita no CNPJ/MF sob nº " + $F{cnpjunidadeNegocio} + ", neste ato representada pelo consultor de intercâmbio NOME DO CONSULTOR. \n \n"+
+
+"Dados do participante, têm entre si justos e acertados a celebração de contrato de prestação de serviços de intercâmbio cultural, nos termos e condições estabelecidas neste contrato. \n \n"+
+
+"1. OBJETO \n"+
+"1.1 O presente contrato tem como objeto a intermediação da prestação de serviços educacionais de intercâmbio cultural pela TRAVELMATE (intermediadora) e seu parceiro internacional, a instituição mencionada abaixo, em favor do PARTICIPANTE, visando sua inscrição no seguinte programa, visando a participação deste no programa de Demi Pair com duração de 0 semanas e início previsto para 00/00/0000."
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="262" width="553" height="450" uuid="2f9c0da0-43c8-4de9-bfe3-084e5ea1d96a"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["2. OBRIGAÇÕES DA TRAVELMATE INTERCÂMBIO & TURISMO \n"+
+"a) Inscrever o participante no programa/pacote para o qual se candidatou, programa/pacote este que está descrito no Objeto deste Contrato, desde que recebida a ficha de inscrição completa, o contrato assinado, os documentos solicitados e o valor estipulado como mandatório para inscrição no referido programa/pacote; \n"+
+"b) Providenciar e fornecer ao participante os documentos comprovantes de sua inscrição junto à organização internacional descrita no Objeto deste Contrato, bem como documentos comprovantes da contratação dos demais serviços constantes no Objeto deste Contrato. \n"+
+"2.1 OBSERVAÇÕES QUANTO AS OBRIGAÇÕES DA TM \n"+
+"Fica o PARTICIPANTE desde já advertido e ciente que o serviço prestado pela TM destina-se meramente a viabilizar sua inscrição no programa de intercâmbio cultural, dando orientações pertinentes ao mesmo conforme disposto nos termos do presente contrato, devendo ainda constar o seguinte: \n"+
+"a) A TM não se responsabilizará por ato(s) do próprio PARTICIPANTE que venha(m) a impedir a realização do presente contrato, incluindo ato(s) que ofenda(m) a legislação nacional e/ou do país de destino, bem como casos fortuitos, de força maior e fato do príncipe, que ocorre quando o cumprimento do contrato se torne impossível face a algum ato de governo tanto do país de destino como brasileiro; \n"+
+"b) A TM não se responsabilizará por qualquer prejuízo causado ao PARTICIPANTE referente ao contrato de transporte aéreo, decorrente da passagem adquirida. \n \n"+
+
+"3. OBRIGAÇÕES DO(A)  PARTICIPANTE \n"+
+"3.1 Preencher a ficha de inscrição e apresentar a documentação complementar solicitada para que sua inscrição seja efetivada e aceita. \n"+
+"3.2 Providenciar a passagem aérea e o visto de entrada do país em questão e fornecer à Travelmate essas informações com 3 semanas de antecedência da data de embarque.  Sendo de interesse da/do participante, a Travelmate poderá auxiliar neste processo. \n"+
+"3.3 Continuar estudando o idioma do país de destino até o embarque e possuir no mínimo nível intermediário deste idioma, conforme requisitos. \n"+
+"3.4 Assumir os danos e despesas causados a terceiros durante o programa, sujeitando-se às normas e leis locais do país em questão. Não é responsabilidade da Travelmate, parceiro internacional contratado pela Travelmate ou família hospedeira prestar assessoria, consultoria ou aconselhamento legal/ jurídico a/ao participante e seus familiares. \n"+
+"3.5 Respeitar as políticas e procedimentos estipulados pela instituição internacional em questão a respeito do programa escolhido. \n"+
+"3.6 Respeitar as políticas e procedimentos estipulados de acordo com as regras de imigração do país aonde o programa será realizado. \n"+
+"3.7 Participar das orientações organizadas pela Travelmate e/ou parceiro internacional em questão."
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="17">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="8f165843-3935-4ede-a449-3b4c8040780f"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"\\"+ "modelocontratoDemipairPagina02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

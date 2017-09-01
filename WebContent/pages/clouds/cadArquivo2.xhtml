@@ -1,0 +1,66 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+         <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+         
+</h:head>
+		
+		
+		<h:form id="cadastroArquivo2">
+			<p:growl id="messages"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			
+			<title id="iUsu3" ><b>Cadastro de Arquivo</b></title>
+			<h:panelGrid columns="4" style="width:100%;">
+				<p:outputLabel for="nome" value="Nome do Arquivo" style="font-size:12px;"/>
+				<p:outputLabel value="Data Inicio " for="datainicio" style="font-size:12px;"/>
+				<p:outputLabel value="Validade " for="validade" style="font-size:12px;"/>
+				<p:outputLabel value="Restrito" for="restrito" style="font-size:12px;"/>
+				
+				<p:inputText id="nome" value="#{cadArquivo2MB.nomeArquivo}" style="font-size:12px;" size="40"/>
+				<p:inputMask id="datainicio" mask="99/99/9999" size="15" class="form-control" value="#{cadArquivo2MB.dataInicio}" style="font-size: 12px;">
+	             	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	        	</p:inputMask>
+				<p:inputMask id="validade" mask="99/99/9999" size="15" class="form-control" value="#{cadArquivo2MB.dataValidade}" style="font-size: 12px;">
+	             	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	        	</p:inputMask>
+	        	<p:selectBooleanCheckbox style=" margin-left:2%;" id="restrito" value="#{cadArquivo2MB.restrito}"/>
+	        </h:panelGrid>
+			<br />
+			<p:fileUpload multiple="true" dragDropSupport="false" fileLimit="#{aplicacaoMB.parametrosprodutos.numeroupload}" style="font-size:12px; width:95%;" label="Anexar" fileUploadListener="#{cadArquivo2MB.fileUploadListener}" value="#{cadArquivo2MB.file}"  mode="advanced" 
+                     update="messages"  allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" >
+            </p:fileUpload>
+				
+			<br/><br/><br/>
+			<p:commandButton id="bConfirmar" value="Confirmar" oncomplete="PF('arquivoExistente').show()" action="#{cadArquivo2MB.confirmaArquivo()}" icon="ui-icon-check" style="font-size:12px;margin-left:35%;"/>
+			<p:commandButton id="bCancelar" value="Cancelar" action="#{cadArquivo2MB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
+			<br></br>
+			<br/><br/>
+		</h:form>
+		<h:form id="confirmacaoSubstituto" acceptcharset="ISO-8859-1" >
+			<p:dialog showEffect="fade" hideEffect="fade" header="Confirmação"
+				icon="ui-icon-alert" widgetVar="arquivoExistente"
+				style="width:30%;font-size:14px">
+				<p:outputLabel
+					value="Este arquivo ja existe, deseja substituir ?" />
+				<br></br>  
+				<br></br>
+				<p:commandButton value="Sim" action="#{cadArquivo2MB.salvar()}" 
+					onclick="PF('arquivoExistente').hide();"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+					style="margin-left:30%;font-size:12px">
+					<p:ajax />  
+				</p:commandButton>  
+				<p:commandButton value="Não" action="#{cadArquivo2MB.cancelar()}" oncomplete="PF('arquivoExistente').hide();"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+					style="font-size:12px" >
+					<p:ajax/>
+				</p:commandButton>    
+			</p:dialog>
+		</h:form>
+</html>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+        <h:form id="telaEnderecoCliente" style="text-align:left;font-size:11px;">
+            <title>Dados do Cliente</title> 
+		<h:panelGrid columns="2" columnClasses="tamanhoavisos, tamanhoavisos2" style="margin-left:4%;">
+			<p:outputLabel value="Nome" for="nome"  />
+			<p:outputLabel value="CPF" for="cpf"  /> 
+			 
+			<p:inputText id="nome" value="#{enderecoClienteMB.cliente.nome}" readonly="true"
+				style="width:95%" /> 
+			<p:inputMask id="cpf" mask="999.999.999-99" value="#{enderecoClienteMB.cliente.cpf}" 
+				readonly="true" style="width:60%"/> 
+		</h:panelGrid>
+		<br></br>
+		<h:panelGrid columns="3" columnClasses="tamanho8, tamanhoavisos, tamanho8" style="margin-left:4%;width:90%;">
+			<p:outputLabel value="Tipo Logradouro" for="tipoLogradouro"/>
+			<p:outputLabel value="Logradouro" for="logradouro"/>
+			<p:outputLabel value="Número" for="numero"/> 
+	 
+			<p:inputText id="tipoLogradouro" value="#{enderecoClienteMB.cliente.tipologradouro}" readonly="true"  style="width:90%;"/>
+			<p:inputText id="logradouro" value="#{enderecoClienteMB.cliente.logradouro}" readonly="true" style="width:90%;"/>
+			<p:inputText id="numero" value="#{enderecoClienteMB.cliente.numero}"  readonly="true" style="width:90%;"/>
+		</h:panelGrid> 
+		<br></br>
+		<h:panelGrid columns="3" columnClasses="tamanho8, tamanhoavisos, tamanho8" style="margin-left:4%;width:90%;">
+			<p:outputLabel value="Complemento" for="complemento" />
+			<p:outputLabel value="Bairro" for="bairro" />
+			<p:outputLabel value="CEP" for="cep" />
+	 
+			<p:inputText id="complemento" value="#{enderecoClienteMB.cliente.complemento}"   readonly="true" style="width:90%;"/>
+			<p:inputText id="bairro" value="#{enderecoClienteMB.cliente.bairro}" readonly="true" style="width:90%;"/>
+			<p:inputMask id="cep" mask="99999-999" value="#{enderecoClienteMB.cliente.cep}" readonly="true" style="width:90%;"/>
+		</h:panelGrid>
+		<br></br> 
+		<h:panelGrid columns="3" columnClasses="tamanho8, tamanhoavisos, tamanho8" style="margin-left:4%;width:90%;">
+			<p:outputLabel value="Pais" for="pais" style="margin-left:6.5%;" />
+			<p:outputLabel value="Cidade" for="cidade" style="margin-left:30%"/>
+			<p:outputLabel value="Estado" for="estado" style="margin-left:24%"/>
+			 
+			<p:inputText id="pais" value="#{enderecoClienteMB.cliente.pais}" readonly="true" style="width:90%;"/>
+			<p:inputText id="cidade" value="#{enderecoClienteMB.cliente.cidade}" readonly="true" style="width:90%;"/>
+			<p:inputText id="estado" value="#{enderecoClienteMB.cliente.estado}"  readonly="true" style="width:90%;"/>
+		</h:panelGrid>
+		<br></br> 
+		<div align="center">
+			<p:commandButton icon="ui-icon-close" value="Fechar" action="#{enderecoClienteMB.fechar()}"></p:commandButton>
+		</div>
+	</h:form>
+</h:body>
+</html>

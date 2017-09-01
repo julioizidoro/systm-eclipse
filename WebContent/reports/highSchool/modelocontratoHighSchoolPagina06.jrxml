@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina06" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.8264462809917358"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="107"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="390" splitType="Stretch">
+			<image>
+				<reportElement x="13" y="50" width="542" height="340" uuid="76818f58-f965-409f-b02c-4fc3f3432f12"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="26" y="289" width="555" height="74" uuid="8bf47f13-929c-4ab6-acca-3cf0bc229c4d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="40" y="314" width="57" height="14" uuid="7a384ac9-e676-48d4-bba8-a5790acec8de"/>
+				<text><![CDATA[Valor R$ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="293" width="125" height="14" uuid="8575a975-fcdb-4091-b5e2-301a073c00cd"/>
+				<text><![CDATA[Condição de Pagamento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="314" width="67" height="14" uuid="afe6be1e-fff4-4922-ad2e-7f5f09db103a"/>
+				<text><![CDATA[Valor Juros :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="339" width="326" height="13" uuid="9354b7e9-ec6e-486d-8ce0-ee41d46f34f8"/>
+				<text><![CDATA[Câmbio da data da inscrição, utilizado para conversão em REAIS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="369" width="125" height="14" uuid="0b7f8c68-6ed8-4bd4-8d6a-b385d0c631bc"/>
+				<text><![CDATA[Parcelamento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="26" width="552" height="263" uuid="d9caa150-dd04-4915-afba-0df6ed9a1305"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10.3 O PARTICIPANTE autoriza o uso de minha imagem e depoimento no material de divulgação da Travelmate  para ser utilizado no site da empresa, redes sociais bem como em materiais impressos. Somente a empresa Travelmate tem o direito do uso das referidas imagens para exibição nos moldes propostos, não possuindo o direito de ceder ou vendê-las a terceiros. \n \n"+
+
+"11. PAGAMENTO \n"+
+"11.1 Pelos serviços que serão prestados em favor do(a) PARTICIPANTE, será devido à TM a quantia estabelecida abaixo, a qual irá variar conforme o país de escolha e o tempo de duração do programa. Salvo acordado pelas partes de forma diversa, o montante estabelecido abaixo deverá ser integralmente adimplido antes da data do embarque do(a) PARTICIPANTE; \n"+
+"11.2  Todos os pagamentos deverão ser efetuados em moeda corrente nacional, independente de estarem fixados em moeda estrangeira. Neste caso, a quantia em moeda estrangeira será convertida em Reais na data do pagamento, pela cotação média praticada pelo mercado oficial de câmbio, utilizando-se o dólar turismo. \n"+
+"11.3  Os pagamentos deverão ocorrer nas datas estabelecidas abaixo, sendo estabelecido como local de pagamento o da sede da TM. Em sendo do interesse das partes, a TM poderá emitir boleto de cobrança bancária para os representantes legais do(a) PARTICIPANTE, pelo que se encontra desde já autorizada, ou eventualmente pagamento em cartão de crédito. \n"+
+"11.4  O valor estabelecido abaixo inclui os custos com seguro-saúde em favor do(a) PARTICIPANTE assim como a programação de reuniões prévias de orientação conduzida pela TM."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="71">
+			<rectangle>
+				<reportElement x="26" y="2" width="555" height="55" uuid="d6d52951-91e0-486f-bfe4-6dcc5cf7c1d6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="37" y="13" width="85" height="14" uuid="e962c212-2498-42c6-85d8-22734b7439a8"/>
+				<text><![CDATA[Forma de Pagto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="33" width="77" height="14" uuid="790d32c6-a104-4c72-bad4-d4909850ee70"/>
+				<text><![CDATA[Valor Parcela :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="13" width="83" height="14" uuid="02792607-e501-44dc-94a8-a72652dadf98"/>
+				<text><![CDATA[Saldo Parcelar :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="33" width="64" height="14" uuid="5481cbde-1b80-45dd-9c5b-2ae19bc93728"/>
+				<text><![CDATA[Nº Parcelas :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="33" width="105" height="14" uuid="c69ffdaf-9af3-47d1-bcd5-c024eaf64bbd"/>
+				<text><![CDATA[Data de Vencimento :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="32">
+			<break>
+				<reportElement x="0" y="6" width="100" height="1" uuid="4e595cc4-de98-4b6c-95b9-facd02810556"/>
+			</break>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="6" width="200" height="15" uuid="c10c709f-8b2e-4ef3-ba72-2af62d0a60aa"/>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+"modelocontratoHighSchoolPagina07.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

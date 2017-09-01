@@ -1,0 +1,735 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadHe" style="font-size:12px;">  
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Ficha de Higher Education"
+					style="font-size: 22px;color: #1F8871; margin-left:30%" />
+				<br /> <br />   
+				<p:accordionPanel>
+					<p:tab title="Informações Higher Education">
+						<h:panelGrid columns="2" style="margin-left:8%;width:32%;">
+							<p:outputLabel value="Cliente" for="idcliente" />
+							<p:outputLabel />
+
+							<p:inputText id="idcliente" readonly="true" style="width:84.5%;"
+								maxlength="100" value="#{cadHeInscricaoMB.cliente.nome}" />
+						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Pais" for="pais" />
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:outputLabel value="Parceiro" for="fornecedor" />
+
+							<p:selectOneMenu id="pais" value="#{cadHeInscricaoMB.pais}"
+								style="width:85%;" filter="true" filterMatchMode="startsWith"
+								converter="PaisFornecedorConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{cadHeInscricaoMB.listaPais}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+								<f:attribute name="listaPaisFornecedor"
+									value="#{cadHeInscricaoMB.listaPais}" />
+								<p:ajax event="change" update="cidade, moeda, idvalorcambio" listener="#{cadHeInscricaoMB.selecionarCambio()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade" value="#{cadHeInscricaoMB.cidade}"
+								style="width:85%;" converter="CidadeConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">  
+								<f:selectItem itemLabel="Cidade" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade2"
+									value="#{cadHeInscricaoMB.pais.cidadeList}" var="cidade"
+									itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+								<f:attribute name="listaCidade"
+									value="#{cadHeInscricaoMB.pais.cidadeList}" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.listarFornecedorCidade()}"
+									update="fornecedor" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="fornecedor"
+								value="#{cadHeInscricaoMB.fornecedorCidade}" style="width:85%;"
+								filter="true" filterMatchMode="startsWith"
+								converter="FornecedorCidadeConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{cadHeInscricaoMB.listaFornecedorCidade}"
+									var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadHeInscricaoMB.listaFornecedorCidade}" />
+							</p:selectOneMenu>
+							
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />   
+							
+							<p:outputLabel value="Primeira Língua" for="lingua1" />
+							<p:outputLabel value="Segunda Língua" for="lingua2" />
+							<p:outputLabel />     
+
+							<p:inputText id="lingua1" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.primeiralingua}" />
+							<p:inputText id="lingua2" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.segundalingua}" /> 
+						</h:panelGrid>
+						<br /><br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:64%;margin-left:8%;"> 
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway}">
+									<p:ajax event="change" update="datainicio, nsemanas, datatermino" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Inglês para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
+							</h:panelGroup>
+						</h:panelGrid>  
+						<br/>
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"  
+							style="width:37.5%;margin-left:8%;">
+
+							<p:outputLabel value="Data Início" for="datainicio" />
+							<p:outputLabel value="Nº Semanas" for="nsemanas" />
+							<p:outputLabel value="Data Término" for="datatermino" />
+
+							<p:calendar id="datainicio" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}"
+								value="#{cadHeInscricaoMB.he.datainicio}" size="14" locale="pt"
+								pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+							<p:inputText id="nsemanas" style="width:60%;" maxlength="100"
+								value="#{cadHeInscricaoMB.he.numerosemanas}" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}">
+								<p:ajax event="blur"
+									listener="#{cadHeInscricaoMB.calcularDataTermino()}"
+									update="datatermino" />
+							</p:inputText>
+							<p:calendar id="datatermino" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}"
+								value="#{cadHeInscricaoMB.he.datatermino}" size="14" locale="pt"
+								pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						<br />
+						<br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe}">
+									<p:ajax event="change" update="curso1, codigo1, mesano1, curso2, codigo2, mesano2, curso3, codigo3, mesano3" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Programas de Higher Education" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
+							</h:panelGroup>    
+						</h:panelGrid>
+						<br />   
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;"> 
+							<p:outputLabel value="1º Opção" style="font-size:13px;" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Curso" />
+							<h:panelGroup>
+								<p:outputLabel value="Código" />
+								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
+							</h:panelGroup>
+							<p:outputLabel />
+
+							<p:inputText id="curso1" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.curso1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							<h:panelGroup>
+								<p:inputText id="codigo1" style="width:40%;"
+									value="#{cadHeInscricaoMB.he.codigo1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+								<p:inputMask mask="99/9999" id="mesano1" style="width:40%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.he.mesano1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							</h:panelGroup>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="2º Opção" style="font-size:13px;" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Curso" />
+							<h:panelGroup>
+								<p:outputLabel value="Código" />
+								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
+							</h:panelGroup>
+							<p:outputLabel />
+
+							<p:inputText id="curso2" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.curso2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							<h:panelGroup>
+								<p:inputText id="codigo2" style="width:40%;"
+									value="#{cadHeInscricaoMB.he.codigo2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+								<p:inputText id="mesano2" style="width:40%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.he.mesano2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							</h:panelGroup>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="3º Opção" style="font-size:13px;" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Curso" />
+							<h:panelGroup>
+								<p:outputLabel value="Código" />
+								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
+							</h:panelGroup>
+							<p:outputLabel />
+
+							<p:inputText id="curso3" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.curso3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							<h:panelGroup>
+								<p:inputText id="codigo3" style="width:40%;"
+									value="#{cadHeInscricaoMB.he.codigo3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+								<p:inputText id="mesano3" style="width:40%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.he.mesano3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							</h:panelGroup>
+							<p:outputLabel />
+
+							<p:outputLabel />  
+							<p:outputLabel />
+							<p:outputLabel />
+							<legend id="iUsu3">
+								<b style="color: #458871;">Informações Academicas</b>
+							</legend>
+						</h:panelGrid>
+						<h:panelGrid columns="3"
+							columnClasses="colunaQuarenta, colunadezenove, colunaQuarenta"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Instituição e conclusão do Ensino Médio" />
+							<p:outputLabel value="Ano de Conclusão" />
+							<p:outputLabel value="Local de Conclusão" />    
+							
+							<p:inputText id="Instituicaoensinomedio" style="width:85%;" maxlength="100"
+								value="#{cadHeInscricaoMB.he.instituicaoensinomedio}" />
+							<p:inputText id="anoconclusao" style="width:75%;" maxlength="4"
+								value="#{cadHeInscricaoMB.he.anoconclusao}" />
+							<p:inputText id="localconclusao" style="width:85%;" maxlength="100"
+								value="#{cadHeInscricaoMB.he.localconclusaoensinomedo}" />
+						</h:panelGrid>	<br/>	 
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Você possui alguem exame de proeficiência?" />
+							<p:outputLabel value="Pretende cursar um programa de Pathway?" />
+							
+							<p:selectOneMenu id="proeficiencia"
+								value="#{cadHeInscricaoMB.he.possuiexame}" style="width:280px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" /> 
+								<p:ajax event="change" update="nomeexame, notaexame, dataexame" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="programaPathway"
+								value="#{cadHeInscricaoMB.he.cursarparhaway}"
+								style="width:280px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" /> 
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Nome do exame" />
+							<h:panelGroup>
+								<p:outputLabel value="Nota do exame" />
+								<p:outputLabel value="Data do exame" style="margin-left:5%;" />
+							</h:panelGroup>
+
+							<p:inputText id="nomeexame" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.nomeexame}"
+								disabled="#{cadHeInscricaoMB.habilitarCamposExame()}" />
+							<h:panelGroup>
+								<p:inputText id="notaexame" style="width:20%;"
+									value="#{cadHeInscricaoMB.he.notaexame}"
+									disabled="#{cadHeInscricaoMB.habilitarCamposExame()}" />
+								<p:inputMask id="dataexame" style="width:20%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.he.dataexame}" mask="99/99/9999"
+									disabled="#{cadHeInscricaoMB.habilitarCamposExame()}" >
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:inputMask>
+							</h:panelGroup>
+
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Nome da última instituição em que estudou" />
+							<p:outputLabel value="Maior grau de formação adquirido" />
+
+							<p:inputText id="ultimainstituicao" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.nomeinstituicaoestudou}" />
+							<p:inputText id="maiorformacao" style="width:63%;"
+								value="#{cadHeInscricaoMB.he.maiorgrauformacao}" />
+
+							<p:outputLabel />
+							<p:outputLabel />
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Produtos" titleStyle="font-size: 11px">
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Moeda" />
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Total" for="valortotal" />
+
+							<p:selectOneMenu id="moeda" value="#{cadHeInscricaoMB.moeda}"
+								converter="MoedasConverter" style="width:210px;">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadHeInscricaoMB.listaMoedas}"
+									var="moeda" itemLabel="#{moeda.sigla}" itemValue="#{moeda}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadHeInscricaoMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.consultarCambio()}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutoshe,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadHe:growl" />
+							</p:selectOneMenu>
+							<p:inputText id="idvalorcambio"
+								value="#{cadHeInscricaoMB.orcamento.valorCambio}"
+								style="width:95%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadHeInscricaoMB.editarcambio(cadHeInscricaoMB.orcamento.valorCambio)}"
+								title="Editar Câmbio">
+								<img id="editarcambio" src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadHeInscricaoMB.retornoDialogEditarCambio}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutoshe,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar,  cadHe:growl" />
+							</p:commandLink>
+							<p:inputText id="valortotal"
+								value="#{cadHeInscricaoMB.formaPagamento.valorOrcamento}"
+								style="width:30%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadHeInscricaoMB.tituloMoedaEstrangeira()}" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor R$" for="valoreal" />
+
+							<p:selectOneMenu id="produto"
+								value="#{cadHeInscricaoMB.produtosorcamento}"
+								style="width:210px;" converter="ProdutoOrcamentoConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadHeInscricaoMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadHeInscricaoMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valor"
+								value="#{cadHeInscricaoMB.orcamentoprodutosorcamento.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText id="valoreal"
+								value="#{cadHeInscricaoMB.orcamentoprodutosorcamento.valorMoedaNacional}"
+								style="width:30%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<div align="right" style="width: 77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+								icon="ui-icon-plusthick"
+								action="#{cadHeInscricaoMB.adicionarProdutos()}"
+								value="Adicionar"
+								update="tabelaprodutoshe,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadHe:growl" />
+						</div>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutoshe" var="produtos"
+							value="#{cadHeInscricaoMB.orcamento.orcamentoprodutosorcamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtos.produtosorcamento.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadHeInscricaoMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadHeInscricaoMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+							<p:selectOneMenu id="formPag"
+								value="#{cadHeInscricaoMB.formaPagamento.condicao}"
+								style="width:150px;">
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+							<p:inputText id="valorOrca" style="width:60%;text-align: right;"
+								value="#{cadHeInscricaoMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadHeInscricaoMB.formaPagamento.possuiJuros}"
+								style="width:150px;font-size: 10px;text-align: right;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros, cadHe:growl" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:45%;text-align: right;"
+									value="#{cadHeInscricaoMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadHeInscricaoMB.calcularValorTotalOrcamento()}"
+										update="produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+								</p:inputText>
+								<p:commandLink action="#{cadHeInscricaoMB.calcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadHeInscricaoMB.retornoValorJuros()}"
+										update="produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros, cadHe:growl" />
+								</p:commandLink>
+							</h:panelGroup>
+
+							<p:inputText id="totalpag" style="width:60%;text-align: right;"
+								value="#{cadHeInscricaoMB.formaPagamento.valorTotal}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText
+								value="#{cadHeInscricaoMB.formaPagamento.valorTotal}"
+								id="saldoreceber"
+								style="width:45%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento"
+								for="tipoparcelamento" />
+
+							<p:inputText value="#{cadHeInscricaoMB.valorSaldoParcelar}"
+								id="saldoparcelar" style="width:45%;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:selectOneMenu id="formPag2"
+								value="#{cadHeInscricaoMB.parcelamentopagamento.formaPagamento}"
+								style="width:145px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<f:selectItem itemLabel="Déposito" itemValue="Déposito" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.gerarListaTipoParcelamento()}"
+									update="tipoparcelamento" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{cadHeInscricaoMB.parcelamentopagamento.tipoParcelmaneto}"
+								style="width:147px;">
+								<f:selectItems id="idTipoparcelamento"
+									value="#{cadHeInscricaoMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Data 1º Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+
+							<p:calendar id="primeirovencimento"
+								value="#{cadHeInscricaoMB.parcelamentopagamento.diaVencimento}"
+								size="20" locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText
+								value="#{cadHeInscricaoMB.parcelamentopagamento.valorParcelamento}"
+								id="valoraparcelar"
+								style="font-size: 10px;width:60%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadHeInscricaoMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText>
+
+							<p:selectOneMenu id="nparcela"
+								value="#{cadHeInscricaoMB.parcelamentopagamento.numeroParcelas}"
+								style="width:80px;">
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+
+							<p:inputText
+								value="#{cadHeInscricaoMB.parcelamentopagamento.valorParcela}"
+								id="valorparcela" style="width:45%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+
+						<br></br>
+						<br></br>
+
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadHeInscricaoMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, cadHe:growl"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"
+								action="#{cadHeInscricaoMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{cadHeInscricaoMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,  cadHe:growl" />
+							</p:commandButton>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadHeInscricaoMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="150"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadHeInscricaoMB.excluirFormaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Dados do Cartão de Crédito">
+						<h:panelGrid columns="4"
+							columnClasses="tamanhoavisos2,tamanho1,cadCliente2,cadCliente2"
+							style="width:75%;margin-left:8%;">
+							<p:selectOneRadio id="bandeiracartao"
+								value="#{cadHeInscricaoMB.he.bandeiracartao}" style="width:70%;">
+								<f:selectItem itemLabel="MasterCard" itemValue="MasterCard" />
+								<f:selectItem itemLabel="Visa" itemValue="Visa" />
+							</p:selectOneRadio>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />   
+
+							<p:outputLabel value="Nome do Titular" />
+							<p:outputLabel value="Nº do Cartão" />
+							<p:outputLabel value="Data de Validade" />
+							<p:outputLabel value="Código de segurança" />
+
+							<p:inputText id="nometitular" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.nometitular}" />
+							<p:inputText id="numerocartao" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.numerocartao}" />
+							<p:inputMask mask="99/9999" id="datavlidade" style="width:70%;"
+								value="#{cadHeInscricaoMB.he.datavlidade}" />
+							<p:inputMask mask="999" id="codigoseguranca" style="width:74%;"
+								value="#{cadHeInscricaoMB.he.codigoseguranca}" />
+						</h:panelGrid>   
+					</p:tab>
+					<p:tab title="Obs TM">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3">
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas"
+								style="margin-left: 17%;font-size: 11px" />
+							<p:inputTextarea id="obstm" cols="150" rows="10"
+								class="fontebranca" value="#{cadHeInscricaoMB.venda.obstm}"
+								style="margin-left: 17%" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<div align="center" style="width: 85%;">
+					<p:commandButton onclick="PF('cd').show();" icon="ui-icon-check"
+						value="Confirmar" style="font-size:13px;" update="growl" />
+					<p:commandButton action="#{cadHeInscricaoMB.cancelar()}"
+						style="margin-left:2%;font-size:13px;" icon="ui-icon-close"
+						value="Cancelar" />
+				</div>
+				<p:confirmDialog
+					message="FINALIZAR FICHA? Ficha será enviada para Gerência."
+					showEffect="fade" hideEffect="fade" header="Confirmação"
+					icon="ui-icon-alert" widgetVar="cd">
+					<p:commandButton value="Sim"
+						action="#{cadHeInscricaoMB.enviarficha()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check" style="margin-left:30%" update="cadHe:growl" />
+					<p:commandButton value="Não"
+						action="#{cadHeInscricaoMB.naoEnviarficha()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+						icon="ui-icon-close" update="cadHe:growl" />
+				</p:confirmDialog>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

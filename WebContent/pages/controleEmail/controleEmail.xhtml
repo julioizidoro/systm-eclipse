@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idControleEmail" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar"> 
+						
+						<h:panelGrid columns="6"
+							columnClasses="tamanho7, tamanho1,tamanho8,tamanho8,tamanho7, tamanho1"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="Periodo do Envio" for="dataEnv" />
+							<p:outputLabel />
+							<p:outputLabel value="Destinatário" for="destinatario" />
+							<p:outputLabel value="Assunto" for="assunto" />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:calendar id="dataEnv" value="#{controleEmailMB.dataInicial}" size="12"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{controleEmailMB.dataFinal}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							
+							
+							<p:inputText id="destinatario" value="#{controleEmailMB.destinatario}" title="Destinatário" style="width:95%;"/>
+							<p:inputText id="assunto" value="#{controleEmailMB.assunto}" title="Assunto" style="width:95%;"/>
+							
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								
+								action="#{controleEmailMB.pesquisar()}"  update=":idControleEmail:tabelaControleEmail"/>
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								
+								action="#{controleEmailMB.limpar()}" update=":idControleEmail:tabelaControleEmail, destinatario, dataEnv, dataFinal"/>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Controle Email</b>
+				</legend>
+
+				<p:dataTable id="tabelaControleEmail" var="email"
+					value="#{controleEmailMB.listaControleEmail}"
+					class="tabelaControleEmail" scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;width:90%;margin-left:5%;" > 
+					<p:column headerText="Data" sortBy="#{email.data}"
+						style="text-align:center;width:20px;">
+						<p:commandLink id="btnData" action="#{controleEmailMB.visualizarEmail(email)}">
+							<h:outputText value="#{email.data}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"  
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Hora" sortBy="#{email.hora}" style="width:20px;text-align:center;">
+						<p:commandLink id="btnHora" action="#{controleEmailMB.visualizarEmail(email)}" target="_blank"  ajax="false">
+							<h:outputText value="#{email.hora}" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Assunto" sortBy="#{email.assunto}" style="width:120px;">
+						<p:commandLink id="btnAssunto" action="#{controleEmailMB.visualizarEmail(email)}" target="_blank"  ajax="false">
+							<h:outputText value="#{email.assunto}"  />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Destinatário" sortBy="#{email.destinatarios}" style="width:170px;">
+						<p:commandLink id="btnDestinatario" action="#{controleEmailMB.visualizarEmail(email)}" target="_blank"  ajax="false">
+							<h:outputText value="#{email.destinatarios}"  />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br> <br></br> <br></br>
+			</div>
+		</h:form>
+		<h:form>
+			<p:dialog id="dialog_corpo"  header="CORPO DO E-MAIL" widgetVar="corpoemail" resizable="false" >
+				<div align="center">
+	                    <h:panelGrid columns="1" style="width:100%;">
+	                    	<p:outputLabel value="Assunto"/>
+	                    	<p:inputText value="#{controleEmailMB.controleemail.assunto}" style="width:100%;"/>
+	                    </h:panelGrid>
+	                </div>  
+	        </p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

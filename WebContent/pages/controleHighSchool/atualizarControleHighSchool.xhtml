@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="atualizarControleHighSchool"
+		style="text-align:left;font-size:11px;">
+		<title>Atualizar Controle High School</title>
+		<br></br>  
+		<p:tabView>
+			<p:tab title="Informações">
+				<h:panelGrid columns="4" columnClasses="colunaVintePontoSeis, colunaVintePontoSeis, onze, onze"> 
+					<p:outputLabel value="Unidade Negócio" for="unidadeNegocio"  />
+					<p:outputLabel value="Consultor" for="consultor" />
+					<p:outputLabel value="ID Venda" for="nControle" />
+					<p:outputLabel value="Data Inscrição" for="dataIncricao" />
+			  
+					<p:inputText id="unidadeNegocio"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.unidadenegocio.nomeFantasia}"
+						style="width:90%;" readonly="true" />
+					<p:inputText id="consultor" value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.usuario.nome}"
+						style="width:90%;" readonly="true" />
+					<p:inputText id="nControle" value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.idvendas}"
+						style="width:90%;" readonly="true" />
+					<p:inputText id="dataIncricao"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.dataVenda}"
+						style="width:90%;" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:inputText>
+				</h:panelGrid>
+				<br></br> 
+				<h:panelGrid columns="4" columnClasses="colunaVintePontoSeis, colunaVintePontoSeis, onze, onze">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:outputLabel value="E-mail" for="email" />
+					<p:outputLabel value="Fone Celular" for="numeroCelular"/>
+					<p:outputLabel value="País de Destino" for="paisDestino"/>
+		 
+					<p:inputText id="nome"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.cliente.nome}"
+						style="width:90%;" readonly="true" />
+					<p:inputText id="email"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.cliente.email}"
+						style="width:90%;" readonly="true" />
+					<p:inputText id="numeroCelular" value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.cliente.foneCelular}"
+						style="width:90%;" readonly="true" />
+					<p:inputText id="paisDestino" value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.fornecedorcidade.cidade.pais.nome}"
+						style="width:90%;" readonly="true" />
+				</h:panelGrid> 
+				<br></br> 
+				<h:panelGrid columns="3" columnClasses="colunaVintePontoSeis, colunaVintePontoSeis, colunaVintePontoSeis">
+					<p:outputLabel value="Data Embarque" for="dataembarque" />  
+					<p:outputLabel value="Cidade de destino" for="cidadeDestino"  />
+					<p:outputLabel value="Data envio app" for="dataenvioapp" />  
+						
+					<p:calendar id="dataembarque"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.dataEmbarque}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar> 
+					<p:inputText id="cidadeDestino" style="width:90%;" maxlength="100" readonly="true"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.fornecedorcidade.cidade.nome}" /> 
+					<p:calendar id="dataenvioapp" readonly="true"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.dataEnvioApp}"  maxlength="20">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:calendar>
+				</h:panelGrid>
+				<br></br>
+				<h:panelGrid columns="3" columnClasses="colunaVintePontoSeis, colunaVintePontoSeis, colunaVintePontoSeis"> 
+					<p:outputLabel value="Família" for="familia"  />
+					<p:outputLabel value="Data Retorno" for="dataretorno"  />  
+					<p:outputLabel/>
+		
+					<p:inputText id="familia" readonly="true" style="width:70%;" maxlength="100"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.familia}" /> 
+					<p:calendar id="dataretorno" readonly="true"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.dataRetorno}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>  
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Dados Complementares">
+				<h:panelGrid columns="4" columnClasses="colunaVintePontoSeis, colunaVintePontoSeis, onze, onze">
+					<p:outputLabel value="Cidade Embarque"/>
+					<p:outputLabel value="Cia Aérea"/>
+					<p:outputLabel value="Nº Vôo"/>
+					<p:outputLabel value="Hórario Vôo"/>
+					
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.embarquecidade}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.embarqueciaaerea}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.embarquenumerovoo}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.embarquehorariovoo}" style="width:80%;"/>
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid columns="4" columnClasses="colunaVintePontoSeis, colunaVintePontoSeis, onze, onze">
+					<p:outputLabel value="Cidade Conexão"/>
+					<p:outputLabel value="Cia Aérea"/>
+					<p:outputLabel value="Nº Vôo"/>
+					<p:outputLabel value="Hórario Vôo"/>
+					
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.conexaocidade}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.conexaociaarea}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.conexaonumerovoo}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.conexaohorariovoo}" style="width:80%;"/>
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid columns="4" columnClasses="colunaVintePontoSeis, onze, colunaVintePontoSeis, onze">
+					<p:outputLabel value="Cidade Chegada"/> 
+					<p:outputLabel value="Hórario Vôo"/>
+					<p:outputLabel />
+					<p:outputLabel />
+					
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.chegadacidade}" style="width:80%;"/>
+					<p:inputText value="#{atualizarControleHighSchoolMB.controlehighschool.chegadahorario}" style="width:80%;"/> 
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid columns="4" columnClasses="colunaVintePontoSeis, onze, colunaVintePontoSeis, onze">
+					<p:outputLabel value="Documentação Visto"/> 
+					<p:outputLabel value="Aplicação do Visto"/>
+					<p:outputLabel value="Comprovante de Pagamento"/>
+					<p:outputLabel value="Envio Passagem"/>
+					
+					<p:calendar 
+						value="#{atualizarControleHighSchoolMB.controlehighschool.datadocumentacaovisto}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>  
+					<p:calendar
+						value="#{atualizarControleHighSchoolMB.controlehighschool.dataaplicacaovisto}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>  
+					<p:calendar 
+						value="#{atualizarControleHighSchoolMB.controlehighschool.datacomprovantepagamento}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />  
+						<p:ajax event="dateSelect" />     
+					</p:calendar>  
+					<p:calendar
+						value="#{atualizarControleHighSchoolMB.controlehighschool.dataenviopassagem}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>  
+				</h:panelGrid>
+			</p:tab>
+		</p:tabView>  
+		<br></br><br></br>
+		<div align="center">  
+			<p:commandButton style="margin-left:2%;" icon="ui-icon-check" value="Confirmar"
+				action="#{atualizarControleHighSchoolMB.salvar()}"/> 
+			<p:commandButton style="margin-left:2%;" icon="ui-icon-close" value="Fechar"
+				action="#{atualizarControleHighSchoolMB.cancelar()}"/> 
+		</div>
+	</h:form>  
+</h:body>
+</html>

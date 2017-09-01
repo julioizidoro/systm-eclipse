@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaSeguro" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+
+				<p:outputLabel value="Seguros"
+					style="font-size: 22px;color: #1F8871; margin-left:40%" />
+				<p:accordionPanel class="painelhighSchool" style="width: 100%">
+
+					<p:tab title="Cadastro" titleStyle="font-size: 11px">
+						<h:panelGrid columns="3" style="margin-left:5%;width:72%"
+							columnClasses="tamanho1,tamanho7,tamanho2">
+							<p:outputLabel value="Cliente" for="idcliente" />
+							<p:outputLabel />
+							<p:outputLabel value="Pais Destino" for="idpais" />
+
+							<p:inputText id="idcliente" readonly="true" style="width:94%;"
+								maxlength="100" value="#{fichaSeguroViagemMB.cliente.nome}" />
+							<p:commandLink
+								actionListener="#{fichaSeguroViagemMB.pesquisarCliente()}"
+								style="text-decoration: none">
+								<img src="../../resources/img/pesquisar.png" />
+								<p:ajax event="dialogReturn" process="@this"
+									listener="#{fichaSeguroViagemMB.retornoDialogCliente}"
+									update="idcliente, :telaSeguro:growl" />
+							</p:commandLink>
+							<p:inputText id="idpais" style="width:80%;" maxlength="100"
+								value="#{fichaSeguroViagemMB.seguro.paisDestino}" />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left:5%;width:90%"
+							columnClasses="tamanho2,tamanho2,tamanho2,tamanho2">
+							<p:outputLabel value="Seguradora" for="seguradora" />
+							<p:outputLabel value="Plano" for="plano" />
+							<p:outputLabel value="Tarifario" for="tarifario" />
+							<p:outputLabel value="Cobrança" for="cobranca" />
+
+							<p:selectOneMenu style="width:155px;" id="seguradora"
+								value="#{fichaSeguroViagemMB.fornecedorcidade}"
+								converter="FornecedorCidadeConverter">
+								<f:selectItem itemLabel="Seguradora" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade"
+									value="#{fichaSeguroViagemMB.listaFornecedorCidade}"
+									var="ccidade" itemLabel="#{ccidade.fornecedor.nome}"
+									itemValue="#{ccidade}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{fichaSeguroViagemMB.listaFornecedorCidade}" />
+								<p:ajax event="change" update="plano" listener="#{fichaSeguroViagemMB.listarPlanosSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="plano" style="width:163px;" converter="SeguroPlanosConverter"
+								value="#{fichaSeguroViagemMB.seguroplanos}"> 
+								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Plano" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idplano"
+									value="#{fichaSeguroViagemMB.listaSeguroPlanos}" var="plano"
+									itemLabel="#{plano.nome}" itemValue="#{plano}" />
+								<f:attribute name="listaSeguroPlanos" value="#{fichaSeguroViagemMB.listaSeguroPlanos}" />
+								<p:ajax event="change" update="tarifario" listener="#{fichaSeguroViagemMB.listarValoresSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="tarifario" style="width:230px;"
+								value="#{fichaSeguroViagemMB.valoresseguro}"
+								converter="ValorSeguroConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+									noSelectionOption="true" />
+								<f:selectItems id="idvaloresseguro"
+									value="#{fichaSeguroViagemMB.listaValoresSeguro}"
+									var="cvalorseguro" itemLabel="#{cvalorseguro.tarifario}"
+									itemValue="#{cvalorseguro}" />
+								<f:attribute name="listaValorSeguro"
+									value="#{fichaSeguroViagemMB.listaValoresSeguro}" />
+								<p:ajax event="change" update="cobranca" />
+							</p:selectOneMenu>
+							<p:inputText id="cobranca"
+								value="#{fichaSeguroViagemMB.valoresseguro.cobranca}"
+								style="width:78%;" maxlength="45" readonly="true" />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="7" style="margin-left:5%;width:94%"
+							columnClasses="tamanho4,tamanho4,tamanho2,tamanho2,tamanho2,tamanho2,tamanho2">
+							<p:outputLabel value="Data inicial" for="datainicio" />
+							<p:outputLabel id="titulosemanasseguro" value="No. dias"
+								for="semanas" />
+							<p:outputLabel value="Data Final" for="datatermino" />
+							<p:outputLabel value="Valor do seguro"
+								for="valorDoSeguroSemDesconto" />
+							<p:outputLabel value="Desconto Loja" for="descontoLoja" />
+							<p:outputLabel value="Desconto Matriz" for="descontoMatriz" />
+							<p:outputLabel value="Valor do Seguro" for="valorseguro" />
+
+							<p:calendar id="datainicio"
+								value="#{fichaSeguroViagemMB.seguro.dataInicio}" size="11"
+								locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+
+							<p:inputText id="semanas"
+								value="#{fichaSeguroViagemMB.seguro.numeroSemanas}"
+								style="width:80%;" maxlength="45">
+								<f:convertNumber type="number" />
+								<p:ajax event="blur"
+									update="datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
+									listener="#{fichaSeguroViagemMB.calcularDataTermino()}" />
+							</p:inputText>
+
+							<p:calendar id="datatermino"
+								value="#{fichaSeguroViagemMB.seguro.dataTermino}" size="11"
+								locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect"
+									update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
+									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
+
+							</p:calendar>
+							<p:inputText id="valorDoSeguroSemDesconto"
+								value="#{fichaSeguroViagemMB.valorSemDesconto}"
+								style="width:80%;text-align:right" maxlength="45">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:inputText id="descontoLoja"
+								value="#{fichaSeguroViagemMB.seguro.descontoloja}"
+								style="width:80%;text-align:right" maxlength="45">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
+									listener="#{fichaSeguroViagemMB.aplicarDesconto()}" />
+							</p:inputText>
+							<p:inputText id="descontoMatriz"
+								value="#{fichaSeguroViagemMB.seguro.descontomatriz}"
+								style="width:80%;text-align:right" maxlength="45">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
+									listener="#{fichaSeguroViagemMB.aplicarDesconto()}" />
+							</p:inputText>
+							<p:inputText id="valorseguro"
+								value="#{fichaSeguroViagemMB.seguro.valorSeguro}"
+								style="width:80%;text-align:right" maxlength="45"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Contato Emergência</b>
+						</legend>
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos, tamanhoavisos2"
+							style="width:70%;margin-left:5%;">
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+									value="#{fichaSeguroViagemMB.digitosFoneContatoEmergencia}">
+									<p:ajax update="telefone" />
+								</p:selectBooleanCheckbox>
+								<h:outputText value="9 Digitos"
+									style="margin-left:1%;font-size:11px;" />
+							</h:panelGroup>
+
+							<p:outputLabel value="Nome" for="contatoEmergencia" />
+							<p:outputLabel value="Telefone" for="telefone" />
+
+							<p:inputText id="contatoEmergencia"
+								value="#{fichaSeguroViagemMB.seguro.nomeContatoEmergencia}"
+								style="width:85%;" />
+							<p:inputMask id="telefone"
+								value="#{fichaSeguroViagemMB.seguro.foneContatoEmergencia}"
+								style="width:110px;"
+								mask="#{fichaSeguroViagemMB.validarMascaraFoneContatoEmergencia()}" />
+
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+
+					</p:tab>
+					<p:tab title="Forma de Pagamento">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+
+							<p:selectOneMenu id="formPag"
+								value="#{fichaSeguroViagemMB.formaPagamento.condicao}"
+								style="width:150px;">
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorOrca" style="width:60%;text-align:right"
+								value="#{fichaSeguroViagemMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:selectOneMenu id="acrejuros"
+								value="#{fichaSeguroViagemMB.formaPagamento.possuiJuros}"
+								style="width:150px;font-size: 10px;text-align: right;">							>
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="sim" />
+								<p:ajax event="change"
+									listener="#{fichaSeguroViagemMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+
+							<h:panelGroup>
+								<p:inputText id="valorJuros" style="width:45%;text-align: right;"
+									value="#{fichaSeguroViagemMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur" />
+									<p:ajax event="blur"
+										listener="#{fichaSeguroViagemMB.calcularValorTotalOrcamento()}"
+										update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
+								</p:inputText>
+								<p:commandLink action="#{fichaSeguroViagemMB.calcularJuros()}" style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png"/> 
+									<p:ajax event="dialogReturn" listener="#{fichaSeguroViagemMB.retornoValorJuros()}" update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros"/> 
+								</p:commandLink> 
+							</h:panelGroup>  
+
+							<p:inputText id="totalpag" style="width:60%;text-align: right;"
+								value="#{fichaSeguroViagemMB.totalPagar}" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText value="#{fichaSeguroViagemMB.totalPagar}"
+								id="saldoreceber"
+								style="width:45%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento"
+								for="tipoparcelamento" />
+
+							<p:inputText value="#{fichaSeguroViagemMB.valorSaltoParcelar}"
+								id="saldoparcelar"
+								style="width:45%;font-size: 10px;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:selectOneMenu id="formPag2"
+								value="#{fichaSeguroViagemMB.formaPagamentoString}"
+								style="width:145px;font-size: 10px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão de crédito"
+									itemValue="Cartão de crédito" />
+								<f:selectItem itemLabel="Cartão de crédito autorizado"
+									itemValue="Cartão de crédito autorizado" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Crédito" itemValue="Credito" />
+								<f:selectItem itemLabel="Déposito" itemValue="Depósito" />
+								<f:selectItem itemLabel="Financiamento banco"
+									itemValue="Financiamento Banco" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{fichaSeguroViagemMB.tipoParcelamento}"
+								style="width:147px;font-size: 10px;">
+								<f:selectItem itemLabel="Matriz" itemValue="Matriz" />
+								<f:selectItem itemLabel="Loja" itemValue="loja" />
+								<f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Data 1o. Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+
+							<p:calendar id="primeirovencimento"
+								value="#{fichaSeguroViagemMB.dataPrimeiroPagamento}" size="20"
+								locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText value="#{fichaSeguroViagemMB.valorParcelar}"
+								id="valoraparcelar"
+								style="font-size: 11px;width:60%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+
+							<p:selectOneMenu id="nparcela"
+								value="#{fichaSeguroViagemMB.numeroParcelas}"
+								style="width:80px;font-size: 10px;">
+								<f:selectItem itemLabel="00" itemValue="00" />
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{fichaSeguroViagemMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+
+							<p:inputText value="#{fichaSeguroViagemMB.valorParcela}"
+								id="valorparcela"
+								style="font-size: 11px;width:45%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+ 
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{fichaSeguroViagemMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,:telaSeguro:growl"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"
+								action="#{fichaSeguroViagemMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{fichaSeguroViagemMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,primeirovencimento, :telaSeguro:growl" />
+							</p:commandButton>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{fichaSeguroViagemMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{fichaSeguroViagemMB.excluirformaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab title="Obs">
+						<br></br>
+						<div>
+							<p:inputTextarea id="obs" class="comment-text-area" rows="10"
+								value="#{fichaSeguroViagemMB.seguro.obstm}" />
+						</div>
+						<br></br>
+					</p:tab>
+					<p:tab title="Obs TM">
+						<br></br>
+						<div>
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas" style="margin-left:2.5%" />
+							<br></br>
+							<p:inputTextarea id="obstm" class="comment-text-area" rows="10"
+								 value="#{fichaSeguroViagemMB.vendas.obstm}" />
+						</div>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" action="#{fichaSeguroViagemMB.finalizarficha()}" update="growl"/>
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{fichaSeguroViagemMB.cancelar()}"></p:commandButton>
+
+					<br></br> <br></br> <br></br>
+				</p>
+
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

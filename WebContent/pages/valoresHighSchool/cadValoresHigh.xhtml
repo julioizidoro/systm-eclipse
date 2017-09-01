@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="valoresHighSchool" style="text-align:left;font-size:11px;">
+		<title>Cadastro</title>
+		<br></br>
+		<h:panelGrid columns="3" columnClasses="tamanho14,tamanho14,tamanho14"
+			style="margin-left:3%;width:92%;">
+			<p:outputLabel value="Pais" for="pais" />
+			<p:outputLabel value="Cidade" for="cidade" />
+			<p:outputLabel value="Parceiro" for="fornecedor" />
+
+			<p:selectOneMenu id="pais" value="#{cadValoresHighSchoolMB.pais}"
+				style="width:85%;" converter="PaisConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="País" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idpais"
+					value="#{cadValoresHighSchoolMB.listaPais}" var="cpais"
+					itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
+				<f:attribute name="listaPais"
+					value="#{cadValoresHighSchoolMB.listaPais}" />
+				<p:ajax event="change" update="cidade" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="cidade" value="#{cadValoresHighSchoolMB.cidade}"
+				style="width:90%;" converter="CidadeConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Cidade" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idcidade"
+					value="#{cadValoresHighSchoolMB.pais.cidadeList}" var="ccidade"
+					itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+				<f:attribute name="listaCidade"
+					value="#{cadValoresHighSchoolMB.pais.cidadeList}" />
+				<p:ajax event="change"
+					listener="#{cadValoresHighSchoolMB.listarFornecedorCidade()}"
+					update="fornecedor" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="fornecedor"
+				value="#{cadValoresHighSchoolMB.fornecedorcidade}"
+				style="width:85%;" converter="FornecedorCidadeConverter"
+				filter="true" filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Parceiro" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idfornecedor"
+					value="#{cadValoresHighSchoolMB.listaFornecedorCidade}"
+					var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+					itemValue="#{fornecedor}" />
+				<f:attribute name="listaFornecedorCidade"
+					value="#{cadValoresHighSchoolMB.listaFornecedorCidade}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="4"
+			columnClasses="tamanho14,tamanho143,tamanho143,tamanho14"
+			style="margin-left:3%;width:93%;">
+			<p:outputLabel value="Duração" for="duracao" />
+			<p:outputLabel value="Início" for="inicio" />
+			<p:outputLabel value="Ano" for="ano" />
+			<p:outputLabel value="Data Valídade" for="datavalidade"  style="margin-left:-3.5%;" />
+			<p:selectOneMenu id="duracao"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.duracao}"
+				style="width:85%">
+				<f:selectItem itemLabel="1 Semestre" itemValue="1 Semetre" />
+				<f:selectItem itemLabel="2 Semestre" itemValue="2 Semestre" />
+				<f:selectItem itemLabel="1 Termo" itemValue="1 Termo" />
+				<f:selectItem itemLabel="2 Termos" itemValue="2 Termos" />
+				<f:selectItem itemLabel="3 Termos" itemValue="3 Termos" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="inicio"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.inicio}"
+				style="width:85%">
+				<f:selectItem itemLabel="JAN/FEV" itemValue="JAN/FEV" />
+				<f:selectItem itemLabel="JUL/AGO" itemValue="JUL/AGO" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="ano"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.anoinicio}"
+				style="width:74%">  
+				<f:selectItem itemLabel="2017" itemValue="2017" />
+				<f:selectItem itemLabel="2018" itemValue="2018" />
+				<f:selectItem itemLabel="2019" itemValue="2019" />
+				<f:selectItem itemLabel="2020" itemValue="2020" />
+			</p:selectOneMenu>
+			<p:calendar id="datavalidade"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.datavalidade}"
+				size="13" locale="pt" pattern="dd/MM/yyyy" style="margin-left:-3.5%;">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+		</h:panelGrid>
+		<h:panelGrid columns="3"
+			columnClasses="tamanho14, tamanho14, tamanho14"
+			style="margin-left:3%;width:92%;">
+			<p:outputLabel value="Valor Net" for="valornet" />
+			<p:outputLabel value="Valor Gross" for="valorgross" />
+			<p:outputLabel value="Data Início" for="dataInicio"/>   
+			<p:inputText id="valornet"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.valornet}"
+				style="width:65%;text-align:right">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="valorgross"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.valorgross}"
+				style="width:65%;text-align:right">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:calendar id="dataInicio" value="#{cadValoresHighSchoolMB.valoresHighSchool.datainicio}"
+				size="13" locale="pt" pattern="dd/MM/yyyy" >
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+		</h:panelGrid> 
+		<h:panelGrid columns="4" columnClasses="tamanho14,tamanho14,tamanho14,tamanho14"
+			style="margin-left:3%;width:92%;">
+			<p:outputLabel value="Moeda" /> 
+			<p:outputLabel value="Moeda Comissão" for="moedaComissao"  />
+			<p:outputLabel value="Comissão Premium" for="comissaoPremium" />
+			<p:outputLabel value="Comissão Express" for="comissaoExpress" /> 
+			<p:selectOneMenu id="moeda" value="#{cadValoresHighSchoolMB.moedas}"
+				converter="MoedasConverter" style="width:85%">
+				<f:selectItem itemLabel="Moedas" itemValue="0" />
+				<f:selectItems value="#{cadValoresHighSchoolMB.listaMoedas}"
+					var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+				<f:attribute name="listaMoedas"
+					value="#{cadValoresHighSchoolMB.listaMoedas}" />
+			</p:selectOneMenu>  
+			<p:selectOneMenu id="moedaComissao"
+				value="#{cadValoresHighSchoolMB.moedas1}"
+				converter="MoedasConverter" style="width:85%">
+				<f:selectItem itemLabel="Moedas" itemValue="0" />
+				<f:selectItems value="#{cadValoresHighSchoolMB.listaMoedas}"
+					var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+				<f:attribute name="listaMoedas"
+					value="#{cadValoresHighSchoolMB.listaMoedas}" />
+			</p:selectOneMenu>
+			<p:inputText id="comissaoPremium"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.comissaopremium}"
+				style="width:65%;text-align:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="comissaoExpress"
+				value="#{cadValoresHighSchoolMB.valoresHighSchool.comissaoexpress}"
+				style="width:85%;text-align:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+		</h:panelGrid>
+		<br></br>
+		<br></br>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check"
+				value="Confirmar" action="#{cadValoresHighSchoolMB.salvar()}" ></p:commandButton>
+			<p:commandButton icon="ui-icon-close" style="margin-left:2%;"
+				value="Cancelar" action="#{cadValoresHighSchoolMB.cancelar()}"/> 
+		</div>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="followUp" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+			    <p:accordionPanel id="painelPesquisaGerencial" class="painel">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"  
+						title="Pesquisar">
+						<h:panelGrid columns="3"
+							columnClasses="tamanho8,tamanho8,tamanho8"
+							style="width:90%;margin-left:5%;">  
+							<p:outputLabel value="Unidade"/>      
+							<p:outputLabel value="De" />  
+							<p:outputLabel value="Para"/>
+    
+							<p:selectOneMenu id="unidade"
+								value="#{consLeadEncaminhadoMB.unidadenegocio}" style="width:84%;" disabled="#{consLeadEncaminhadoMB.habilitarComboUnidade}"
+								converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItems id="idunidade"  
+									value="#{consLeadEncaminhadoMB.listaUnidade}" var="unidade" 
+									itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{consLeadEncaminhadoMB.listaUnidade}" />
+								<p:ajax event="change" listener="#{consLeadEncaminhadoMB.gerarListaConsultor()}" update="de, para"/>
+							</p:selectOneMenu>   
+							<p:selectOneMenu id="de" value="#{consLeadEncaminhadoMB.usuarioDe}"
+								style="width:84%;" filter="true" filterMatchMode="startsWith"
+								converter="UsuarioConverter" >
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idde"
+									value="#{consLeadEncaminhadoMB.listaUsuarioDe}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{consLeadEncaminhadoMB.listaUsuarioDe}" />
+								<p:ajax event="change"/>   
+							</p:selectOneMenu>   
+							<p:selectOneMenu id="para" value="#{consLeadEncaminhadoMB.usuarioPara}"
+								style="width:84%;" filter="true" filterMatchMode="startsWith"
+								converter="UsuarioConverter" > 
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpara"
+									value="#{consLeadEncaminhadoMB.listaUsuarioPara}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{consLeadEncaminhadoMB.listaUsuarioPara}" />
+								<p:ajax event="change"/>   
+							</p:selectOneMenu>   
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="2"
+							columnClasses="tamanho8,tamanho8"
+							style="width:87%;margin-left:5%;"> 
+							<p:outputLabel value="Período de Envio" /> 
+							<p:outputLabel value="" /> 
+  
+							<h:panelGroup>
+								<p:calendar id="dataEnvioIni"
+									value="#{consLeadEncaminhadoMB.dataEnvioInicio}" size="11" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" /> 
+								</p:calendar>  
+								<p:calendar id="dataEnvioFinal"
+									value="#{consLeadEncaminhadoMB.dataEnvioFinal}" size="11" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15"
+									style="margin-left:2.5%;">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup> 
+							<h:panelGroup> 
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
+									action="#{consLeadEncaminhadoMB.limparPesquisa()}" update="@form" />
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									action="#{consLeadEncaminhadoMB.pesquisar()}" update="@form" style="font-size:11px;float:right;"/>
+							</h:panelGroup>
+						</h:panelGrid>   
+					</p:tab>     
+				</p:accordionPanel>
+				<br></br> 
+				<br></br>  
+				<h:panelGrid style="width:98%;margin-left:1%;" columns="1">
+					<p:dataTable id="tabelaLeads" var="encaminhado" scrollable="true" scrollHeight="400"
+						value="#{consLeadEncaminhadoMB.listaLead}" style="font-size:11px;"  rowIndexVar="rowIndex"> 
+						<p:column headerText="Nome" style="text-align:left;" width="150">   
+							<h:outputText value="#{encaminhado.lead.cliente.nome}" />   
+						</p:column>
+						<p:column headerText="Consultor" style="text-align:left;" width="100">
+							<h:outputText id="outputConsultor" value="#{encaminhado.lead.usuario.nome}" /> 
+						</p:column>   
+						<p:column headerText="Programa" style="text-align:left;" width="100">
+							<h:outputText id="outputProduto" value="#{encaminhado.lead.produtos.descricao}" />
+						</p:column>
+						<p:column headerText="País" style="text-align:left;" width="100">
+							<h:outputText id="outputPais" value="#{encaminhado.lead.pais.nome}" /> 
+						</p:column>    
+						<p:column headerText="Situação" width="60"  
+							style="text-align:center;">
+							<h:outputText value="#{encaminhado.lead.situacao}" class="badge bg-warning"
+								style="background-color:#{consLeadEncaminhadoMB.retornarCoresSituacao(encaminhado.lead.situacao)};padding: 6px 8px;" />
+						</p:column> 
+						<p:column headerText="Tipo" width="95" style="text-align:left;">
+							<h:outputText value="#{encaminhado.lead.tipocontato.tipo}" />  
+						</p:column>   
+						<p:column headerText="Data Receb." width="80" style="text-align:center;">
+							<h:outputText value="#{encaminhado.lead.dataenvio}" title="Data de Recimento">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+							</h:outputText>   
+						</p:column>
+						<p:column headerText="Último Contato" width="80"  
+							style="text-align:center;">
+							<h:outputText value="#{encaminhado.lead.dataultimocontato}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Próximo Contato" width="85"
+							style="text-align:center;">
+							<h:outputText value="#{encaminhado.lead.dataproximocontato}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>    
+						<p:column headerText="Histórico" width="75"    
+							style="text-align:center;">
+							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
+								action="#{consLeadEncaminhadoMB.historicoCliente(encaminhado)}">
+								<img src="../../resources/img/crm/historico.png" width="30" />
+							</p:commandLink>
+						</p:column>     
+					</p:dataTable>
+				</h:panelGrid>
+				<br></br>
+				<h:outputText value="1" class="badge bg-warning"
+					style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;" />
+				<h:outputText value="Lead Recebido"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+				<h:outputText value="2" class="badge bg-warning"
+					style="background-color:#9ACD32;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Prospect"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+				<h:outputText value="3" class="badge bg-warning"
+					style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Oportunidade Real"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+				<h:outputText value="4" class="badge bg-warning"
+					style="background-color:#B22222;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Negociação Final"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+					
+				<h:outputText value="5" class="badge bg-warning"
+					style="background-color:#228B22;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Venda Efetuada"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+					
+				<h:outputText value="6" class="badge bg-warning"
+					style="background-color:#8B8989;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Cancelada"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+					
+				<h:outputText value="7" class="badge bg-warning"
+					style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Stand By"
+					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+			</div>
+			<br></br><br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

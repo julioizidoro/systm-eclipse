@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="351"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+   vendas.idvendas, vendas.dataVenda, vendas.valor as valorVenda,vistos.paisDestino,
+   vistos.categoria as tipovisto, cliente.nome, cliente.dataNascimento, cliente.paisnascimento,
+   cliente.cidadenascimento, cliente.rg, cliente.sexo, cliente.numeropassaporte,
+   cliente.dataExpedicaoPassaporte,
+cliente.validadePassaporte, cliente.tipologradouro as clientetipologradouro, cliente.logradouro as
+ clientelogradouro, cliente.numero as clientenumero,
+cliente.bairro as clientebairro, cliente.cidade as clientecidade, cliente.estado as clienteestado,
+cliente.cep as clientecep, cliente.cpf as clientecpf, cliente.pais as clientepais,
+cliente.foneresidencial, cliente.estadoCivil,
+cliente.fonecelular, cliente.fonecomercial, cliente.profissao,
+cliente.email,cliente.escolaridade,
+usuario.nome as nomeUsuario,unidadeNegocio.razaoSocial,
+unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio, formapagamento.condicao, formapagamento.valortotal,
+formapagamento.valorjuros,
+moedas.descricao as descricaoMoedas, cambio.idcambio, moedas.sigla,
+parcelamentopagamento.idparcemlamentoPagamento,
+parcelamentopagamento.formaPagamento,
+parcelamentopagamento.tipoParcelmaneto,
+parcelamentopagamento.valorParcelamento,
+parcelamentopagamento.diaVencimento,
+parcelamentopagamento.numeroParcelas,
+parcelamentopagamento.valorParcela
+from
+     vendas join vistos on vendas.idvendas = vistos.vendas_idvendas
+     join usuario on vendas.usuario_idusuario = usuario.idusuario
+     join cliente on vendas.cliente_idcliente = cliente.idcliente
+     join unidadeNegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadeNegocio.idunidadeNegocio
+     join formaPagamento on vendas.idvendas = formapagamento.vendas_idvendas
+     join cambio on vendas.cambio_idcambio = cambio.idcambio
+     join moedas on cambio.moedas_idmoedas = moedas.idmoedas
+     join parcelamentopagamento on formapagamento.idformapagamento = parcelamentopagamento.formapagamento_idformaPagamento
+where
+    vendas.idvendas =  $P{idvendas}]]>
+	</queryString>
+	<field name="idvendas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorVenda" class="java.lang.Float"/>
+	<field name="paisDestino" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipovisto" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataNascimento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paisnascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cidadenascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeropassaporte" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataExpedicaoPassaporte" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="validadePassaporte" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="clientetipologradouro" class="java.lang.String"/>
+	<field name="clientelogradouro" class="java.lang.String"/>
+	<field name="clientenumero" class="java.lang.String"/>
+	<field name="clientebairro" class="java.lang.String"/>
+	<field name="clientecidade" class="java.lang.String"/>
+	<field name="clienteestado" class="java.lang.String"/>
+	<field name="clientecep" class="java.lang.String"/>
+	<field name="clientecpf" class="java.lang.String"/>
+	<field name="clientepais" class="java.lang.String"/>
+	<field name="foneresidencial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estadoCivil" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fonecelular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fonecomercial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="profissao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="escolaridade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeUsuario" class="java.lang.String"/>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<field name="condicao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valortotal" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorjuros" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoMoedas" class="java.lang.String"/>
+	<field name="idcambio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sigla" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idparcemlamentoPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="formaPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoParcelmaneto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorParcelamento" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="diaVencimento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroParcelas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorParcela" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="81" width="555" height="15" uuid="ed75f004-f9a7-498c-b84f-777a7971fba2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE ASSESSORIA PARA SOLICITAÇÃO DE VISTO ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="313" y="0" width="243" height="57" uuid="3d067686-1d77-4ca8-b4dd-df5053699b88"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="659" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="217" width="554" height="21" uuid="64b271ac-564d-44bf-9b32-84c7d58ec81d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="255" width="556" height="392" uuid="b708198a-297e-4e3f-a975-ac92f6a1de2c"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[1)  É de responsabilidade exclusiva da autoridade consular a concessão ou não do visto consular por mim solicitado.
+
+2)  Os prazos para análise de meu processo de solicitação de visto são estimados e dependem exclusivamente do Consulado/Embaixada em questão, podendo o processo demorar mais do que originalmente previsto.
+
+3)  É de minha exclusiva responsabilidade a autenticidade das informações contidas nos documentos apresentados. Estou ciente também que devo atender prontamente a qualquer solicitação de documentação complementar feita pela autoridade consular, sob pena de atraso na análise do processo de solicitação do visto ou até indeferimento do mesmo.
+
+4)  Em não havendo garantia da concessão do visto, é de minha exclusiva responsabilidade arcar com despesas relativas ao cancelamento ou multas no caso de troca de passagem aérea e/ou pacote de viagens, cursos no exterior e programas de intercâmbio em geral.
+
+5)  Em caso de negativa de visto, as taxas consulares e de serviço de assessoria não serão reembolsadas.
+
+6)  Entendo que a responsabilidade da assessoria da Travelmate compreende apenas o processo de visto para o país solicitado. Qualquer informação referente a exigências do Departamento de Imigração de outros países de visitação, escala ou conexão, são de minha inteira responsabilidade.
+
+7)  Tive a oportunidade de fazer perguntas e tirar dúvidas, as quais foram respondidas satisfatoriamente.
+
+8)  Estou ciente de que os valores das taxas consulares estão sujeitas à alteração sem aviso prévio e, no caso de haver mudança antes da entrada do meu processo na Embaixada / Consulado competente, serei o responsável pelo pagamento da diferença.
+
+
+Declaro estar ciente que a empresa TravelMate Intercâmbio e Turismo LTDA, contratada para dar entrada e acompanhar meu processo de solicitação de visto consular, não tem nenhuma responsabilidade sobre os prazos demandados pela Embaixada/Consulado, nem pela aprovação ou negativa do mesmo.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="554" height="217" uuid="640b28b0-d7d3-4c8e-947b-3d004d32eb19"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PARTE : \n"+
+$F{razaoSocial} + ", adiante apenas    TRAVELMATE ou TM ,pessoa jurídica de direito privado com sede social na " + $F{tipologradourounidadeNegocio} + " " + $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{complementounidadeNegocio}
++ ", " + $F{bairrounidadeNegocio} + ", " + $F{cidadeunidadeNegocio} + ", " + $F{estadounidadeNegocio} + ", CEP : " + $F{cepunidadeNegocio} + ", inscrita no CNPJ/MF sob nº " + $F{cnpjunidadeNegocio} + ", neste ato representada pelo consultor " +$F{nomeUsuario} + ". \n \n" +
+
+$F{nome} + ", adiante apenas   PARTICIPANTE   , " + $F{paisnascimento}  + ", "  + $F{estadoCivil}+ ", " + $F{profissao} + ","+" portador" + "do CI/RG de nº " + $F{rg} + " e inscrito no CPF/MF sob o nº " + $F{clientecpf} + ", residente e domiciliado na "+ $F{clientetipologradouro} + " " + $F{clientelogradouro} + ", " + $F{clientenumero} + ", "+$F{clientebairro} + ", " + $F{clientecidade} + ", " + $F{clienteestado} + ", CEP : " +$F{clientecep} + ", têm entre si justos e acertados a celebração de contrato de prestação de serviços de intercâmbio cultural, nos termos e condições estabelecidas neste contrato."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="220" width="221" height="15" uuid="767fc9ba-805c-4053-aac7-6b5d5ff51be1"/>
+				<textFieldExpression><![CDATA["Pais: "+ $F{paisDestino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="220" width="221" height="15" uuid="132d2d54-8e86-4bc3-9b44-62b766258731"/>
+				<textFieldExpression><![CDATA["Tipo de Visto: "+$F{tipovisto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="15">
+			<subreport>
+				<reportElement x="0" y="2" width="200" height="10" isPrintInFirstWholeBand="true" uuid="d9f58146-5410-4bd7-9659-162eb9b0c269"/>
+				<subreportParameter name="idvendas">
+					<subreportParameterExpression><![CDATA[$F{idvendas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "contratovisto2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

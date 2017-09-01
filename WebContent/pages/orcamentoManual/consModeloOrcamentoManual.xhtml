@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaModeloOrcaManual" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="3" columnClasses="tamanho7,tamanho13,tamanho11">
+							<p:outputLabel value="Nome do Modelo" for="nome"/>
+							<p:outputLabel/>
+							<p:outputLabel/>  
+							 
+							<p:inputText id="nome"
+								value="#{modeloOrcamentoManualMB.nomeModelo}"
+								style="width:275px;"/>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update=":telaModeloOrcaManual:tabelaModeloOrcaManual"
+								action="#{modeloOrcamentoManualMB.gerarListaModelos()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="telaModeloOrcaManual:tabelaModeloOrcaManual,  nome"
+								action="#{modeloOrcamentoManualMB.limparPesquisa()}" />
+						</h:panelGrid>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Modelo Orçamento Manual</b>
+				</legend>
+				<p:selectBooleanCheckbox value="#{modeloOrcamentoManualMB.matriz}"
+					class="espacopreto" id="matriz" style="margin-left:3%">
+					<p:ajax event="change"
+						listener="#{modeloOrcamentoManualMB.gerarListaModelos()}"
+						update="tabelaModeloOrcaManual" />
+				</p:selectBooleanCheckbox>
+				<p:outputLabel value="Modelos da Matriz" style="margin-left:0.8%;font-size:13px;" />
+				<p:commandButton id="bntnovo" icon="ui-icon-plus" 
+					style="font-size:12px;margin-left:69%;"
+					value="Novo Orçamento"
+					action="#{modeloOrcamentoManualMB.novo()}" />
+				<br></br> <br></br>
+				<br></br>
+				<p:dataTable id="tabelaModeloOrcaManual" var="modelo"
+					value="#{modeloOrcamentoManualMB.listaOrcamento}" class="tabela"
+					scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;margin-top: -1%">
+					<p:column headerText="Nome do Modelo">
+						<h:outputText value="#{modelo.nome}" />
+					</p:column>
+					<p:column headerText="Unidade" style="width:200px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{modelo.unidadenegocio.nomeFantasia}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:200px;"  
+						styleClass="alinharCenter">
+						<h:outputText value="#{modelo.usuario.nome}" />
+					</p:column>
+					<p:column style="width:41px;" styleClass="alinharCenter">
+						<p:commandLink action="#{modeloOrcamentoManualMB.editar(modelo)}"
+							style="text-decoration: none" title="Editar" update=":telaModeloOrcaManual:growl">
+							<img src="../../resources/img/editaricon.png" width="65" />
+						</p:commandLink>
+					</p:column> 
+					<p:column style="width:60px;text-align:center;" headerText="Situação" styleClass="alinharCenter">
+						<p:commandLink action="#{modeloOrcamentoManualMB.desativar(modelo)}"
+							style="text-decoration: none;" title="#{modele.situacao}" update=":telaModeloOrcaManual:growl, tabelaModeloOrcaManual">
+							<img src="#{modeloOrcamentoManualMB.imagemSituacao(modelo)}"/>
+						</p:commandLink> 
+					</p:column>      
+				</p:dataTable>  
+
+				
+				<br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

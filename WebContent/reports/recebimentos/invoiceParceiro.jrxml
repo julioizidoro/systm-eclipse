@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Enrolment Form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="fornecedor" class="java.lang.String"/>
+	<parameter name="studentname" class="java.lang.String"/>
+	<parameter name="studentnumber" class="java.lang.String"/>
+	<parameter name="programdate" class="java.lang.String"/>
+	<parameter name="datavencimento" class="java.util.Date"/>
+	<parameter name="sigla" class="java.lang.String"/>
+	<parameter name="valor" class="java.lang.Float">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="sql" class="java.lang.String"/>
+	<parameter name="information" class="java.lang.String"/>
+	<parameter name="idrecebimento" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[$P!{sql}]]>
+	</queryString>
+	<field name="accountwith" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="swiftcode" class="java.lang.String"/>
+	<field name="accountnr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accountname" class="java.lang.String"/>
+	<field name="swiftcodebr" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="61" width="555" height="8" backcolor="#808080" uuid="3e496cc4-5a10-41f3-b0f6-3b525cebf465"/>
+			</rectangle>
+			<textField pattern="###0.0000">
+				<reportElement x="0" y="69" width="555" height="28" uuid="846bb8d3-2a18-4911-810d-7072f166436b"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["INVOICE #" + $P{idrecebimento}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="171" y="4" width="196" height="54" uuid="6b37b61a-d4fa-4cd5-ac09-ddc075bd546b"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="196" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="35" width="555" height="50" uuid="f592aabd-743b-4fe6-8467-e9c5272e0378"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="9" y="67" width="542" height="15" uuid="e68f8fb3-d0dd-4465-98be-ebc48883d844"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Program Dates: " + $P{programdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="88" width="58" height="13" uuid="557691ca-3480-4f16-81bc-9890d4e21679"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Due Date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="62" y="87" width="108" height="15" uuid="8fdd5b42-440f-45ce-bd57-07828734a8f9"/>
+				<textFieldExpression><![CDATA[$P{datavencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="207" y="88" width="58" height="13" uuid="fe36bae9-e201-4c76-979a-456bd47c206a"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="262" y="88" width="45" height="15" uuid="73f38976-42fb-4a8a-85fd-f53f72b4fd1f"/>
+				<textFieldExpression><![CDATA[$P{sigla}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="180" width="144" height="13" uuid="eb6b1a8a-f7b6-4949-9e64-a30ea59a69db"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Bank Wire Information:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="6" y="108" width="544" height="62" uuid="8aab5b75-90fa-417e-a265-342a1b351b22"/>
+				<textFieldExpression><![CDATA[$P{information}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5" y="17" width="144" height="15" uuid="9101079e-0cd4-4a0a-ba42-b8eebc42a292"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TO: " + $P{fornecedor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5" y="38" width="272" height="15" uuid="d490d2c6-bc59-4d4f-82c9-767f3c1727ce"/>
+				<textElement>
+					<font fontName="Verdana" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Student's Name: " + $P{studentname}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="310" y="38" width="245" height="15" uuid="aa3ea45f-4233-497c-86f1-e3c08af45d76"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Student Number: " + $P{studentnumber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="307" y="88" width="45" height="15" uuid="ba47bdd8-78f8-4717-82da-4fd36548b1b4"/>
+				<textFieldExpression><![CDATA[$P{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="408">
+			<rectangle>
+				<reportElement x="-1" y="3" width="556" height="285" uuid="3d22056c-4ca3-4419-ad8a-f42a8d379f11"/>
+			</rectangle>
+			<line>
+				<reportElement x="1" y="53" width="554" height="1" uuid="10df3d13-630b-492a-9373-3909a896a098"/>
+			</line>
+			<staticText>
+				<reportElement x="7" y="18" width="93" height="13" uuid="b887262f-b530-415b-a89e-8f2e70536a68"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contact Person:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="18" width="160" height="13" uuid="613b1ec2-a47c-4029-be6b-538cd9bcbce0"/>
+				<text><![CDATA[ALEXANDRE ARGENTA - CEO
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="181" width="554" height="1" uuid="3f7cc3b2-7659-4409-a3ee-c3654d701ed1"/>
+			</line>
+			<staticText>
+				<reportElement x="313" y="18" width="41" height="13" uuid="bb76494c-0eea-48de-91b5-0f1911aa0880"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Phone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="18" width="102" height="13" uuid="f81f5c58-6447-40f7-9752-75e916609b5f"/>
+				<text><![CDATA[++55-41-3014-4199]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="37" width="41" height="13" uuid="d47bdf41-3180-435d-bec7-eda114841dcf"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="37" width="159" height="13" uuid="00825ab0-0a10-45c4-8dca-f5fc14c7ec67"/>
+				<text><![CDATA[alex@travelmate.com.br]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="157" width="554" height="1" uuid="15960e7a-9b4d-4975-a130-6b6cf4693d3e"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="61" width="221" height="13" uuid="80654b23-2a57-4e3f-9a7c-79af2c6c4621"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intermediary Bank Name (in the USA):]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="229" y="61" width="289" height="15" uuid="374b87ef-da62-4837-922a-268f5534bc67"/>
+				<textFieldExpression><![CDATA[$F{accountwith}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="82" width="163" height="13" uuid="84cd39f9-f8f9-4be2-b70f-1bd0030df62f"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intermediary SWIFT Code:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="82" width="275" height="15" uuid="a2dbd862-9fec-4bcc-b1d0-58fb66dc75d3"/>
+				<textFieldExpression><![CDATA[$F{swiftcode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="103" width="166" height="13" uuid="5f570412-e361-4689-b72c-730d9abfe0db"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intermediary Account name:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="101" width="275" height="15" uuid="c6b19b62-4536-4293-afe1-3f3871d7f44a"/>
+				<textFieldExpression><![CDATA[$F{accountname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="119" width="221" height="13" uuid="00dcfb45-f25a-4013-b6be-02c23d56d289"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intermediary Bank Account Number:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="119" width="300" height="15" uuid="62b33bd7-da5d-440e-ae34-2c465ed56422"/>
+				<textFieldExpression><![CDATA[$F{accountnr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="139" width="140" height="13" uuid="fc61a939-e434-4d59-aa33-bed0a8b69e19"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiary Swift Code:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="137" width="272" height="15" uuid="bf7c28de-8723-4c26-a99b-144aadc5089d"/>
+				<textFieldExpression><![CDATA[$F{swiftcodebr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="104" y="162" width="362" height="17" uuid="19561549-a02a-4a2c-acdc-0bf3df181319"/>
+				<textElement>
+					<font fontName="Verdana" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOR FURTHER CREDIT IN BRAZIL TO THE BENEFICIARY:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="186" width="547" height="13" uuid="14803341-0bfb-4617-b9ed-7f291a81fc01"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiary Account Name (in BRAZIL):   TRAVELMATE INTERCÂMBIO & TURISMO LTDA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="205" width="545" height="13" uuid="b2e5b931-0d75-4633-95ca-2e5bfde5884d"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiary Branch Number (in BRAZIL):  0655]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="244" width="545" height="13" uuid="d91bd7a5-cfe8-47b7-a97b-ce9118080edc"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiary Account Number (in BRAZIL): 40.830-0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="264" width="545" height="13" uuid="882d8d55-c3ed-4e0f-9ff3-80e649225587"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IBAN CODE:  BR41 6070 1190 0065 5000 0408 300C 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="225" width="546" height="13" uuid="b9afec6a-3d3a-47dd-8d4f-23ad65a95a9c"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiary Branch Address (in BRAZIL): Rua Visconde de Nacar, 1300- Centro- Curitiba, PR- 80.410-201- Brazil]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="49">
+			<staticText>
+				<reportElement x="77" y="10" width="423" height="13" uuid="34e6b7a3-9c5b-4ee6-9d3e-aa92621dce19"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Headoffice - Rua Benjamin Lins - 609 - Sobeloja - Curitiba - PR - 80420-100 - Brazil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="23" width="126" height="13" uuid="31efd746-e534-4ebe-b714-c2e0e1698cb5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[www.travelmate.com.br]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="5" width="554" height="1" uuid="a270aedd-05a0-4028-b5d9-7e383cde8955"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

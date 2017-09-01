@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>   
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body>
+        <h:form id="valoresTrainee" style="text-align:left;font-size:11px;">
+            <title>Cadastro</title><br></br><br></br><br></br><br></br><br></br>
+               <p:outputLabel value="Pais" for="pais" style="font-size:11px;margin-left: 3%"/>
+               <p:outputLabel value="Cidade" for="cidade" style="font-size:11px;margin-left:28.5%;"/>
+               <p:outputLabel value="Parceiro" for="fornecedor" style="font-size:11px;margin-left:28.5%;"/>
+               <br></br>
+               <p:selectOneMenu id="pais" value="#{cadValoresTraineeMB.pais}" style="width:26.5%;font-size: 10px;margin-left: 3%" class="espacocampos2" 
+                                converter="PaisConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                   <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"/> 
+                   <f:selectItems id="idpais" value="#{cadValoresTraineeMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+                   <f:attribute name="listaPais" value="#{cadValoresTraineeMB.listaPais}"/>
+                   <p:ajax event="change" update="cidade"/> 
+               </p:selectOneMenu>
+               <p:selectOneMenu id="cidade" value="#{cadValoresTraineeMB.cidade}" style="width:29%;font-size: 10px;margin-left:5%;"
+                                converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+                   <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+                   <f:selectItems id="idcidade" value="#{cadValoresTraineeMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+                   <f:attribute name="listaCidade" value="#{cadValoresTraineeMB.pais.cidadeList}"/>
+                   <p:ajax event="change" listener="#{cadValoresTraineeMB.listarFornecedorCidade()}" update="fornecedor" />
+               </p:selectOneMenu>
+               <p:selectOneMenu id="fornecedor" value="#{cadValoresTraineeMB.fornecedorcidade}" style="width:30%;font-size: 10px" class="espacocampos" 
+                                converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+                   <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"/> 
+                   <f:selectItems id="idfornecedor" value="#{cadValoresTraineeMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+                   <f:attribute name="listaFornecedorCidade" value="#{cadValoresTraineeMB.listaFornecedorCidade}"/>
+               </p:selectOneMenu>
+               <br></br><br></br>
+               
+         	   <p:outputLabel value="Período" for="periodo" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:3%;"   />
+         	   <p:outputLabel value="Valor Net" for="valornet" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:55%;"   />
+         	   <p:outputLabel value="Valor Gross" for="valorgross" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:11%;"   />
+              
+               <br></br>  
+               <p:inputText id="periodo" value="#{cadValoresTraineeMB.valorestrainee.descricao}" style="width:50%;margin-left:3%;" />
+			   <p:inputText id="valornet" value="#{cadValoresTraineeMB.valorestrainee.valornet}" style="width:14%;margin-left:10%;text-align:right" >
+               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+               </p:inputText>	
+               <p:inputText id="valorgross" value="#{cadValoresTraineeMB.valorestrainee.valorgross}" style="width:14.5%;margin-left:3%;text-align:right" >
+               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+               </p:inputText>
+               <br></br>  <br></br>     
+               <p:outputLabel value="Moeda" style="margin-left:3%" />
+               <p:outputLabel value="Produto" for="produto" class="fontebranca" style="font-size: 11px;margin-left:19%"/>
+               <p:outputLabel value="Tipo" for="tipo" class="fontebranca" style="font-size: 11px;margin-left:42.5%"/>
+                    
+               <br></br> 
+         	   <p:selectOneMenu id="moeda" value="#{cadValoresTraineeMB.moedas}"
+					 converter="MoedasConverter"	style="width:100px;margin-left: 3%">
+					<f:selectItem itemLabel="Moedas" itemValue="0" />
+                    <f:selectItems value="#{cadValoresTraineeMB.listaMoedas}" var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}"/>
+                    <f:attribute name="listaMoedas" value="#{cadValoresTraineeMB.listaMoedas}"/>
+               </p:selectOneMenu>   
+               <p:selectOneMenu id="produto" value="#{cadValoresTraineeMB.produtos}" style="width:250px;margin-left:8%" 
+	                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
+	                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+	                <f:selectItems id="idproduto" value="#{cadValoresTraineeMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
+	                <f:attribute name="listaProdutos" value="#{cadValoresTraineeMB.listaProdutos}"/>
+	           </p:selectOneMenu>
+	           <p:selectOneMenu id="tipo" value="#{cadValoresTraineeMB.valorestrainee.tipotrainee}" style="width:127px;margin-left:8%">
+					<f:selectItem itemLabel="EUA" itemValue="EUA" />
+                    <f:selectItem itemLabel="Australia" itemValue="Australia"/> 
+			   </p:selectOneMenu>
+			   <br></br><br></br>
+               
+         	   <p:outputLabel value="Moeda Comissão" for="moedaComissao" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:3%;"   />
+         	   <p:outputLabel value="Comissão Premium" for="comissaoPremium" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:10%;"   />
+         	   <p:outputLabel value="Comissão Express" for="comissaoExpress" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:6%;"   />
+              
+               <br></br> 
+               <h:panelGrid columns="3">
+               		<p:selectOneMenu id="moedaComissao" value="#{cadValoresTraineeMB.moedas1}"
+						 converter="MoedasConverter"	style="width:100px;margin-left:12.5%">
+						<f:selectItem itemLabel="Moedas" itemValue="0" />
+	                    <f:selectItems value="#{cadValoresTraineeMB.listaMoedas}" var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}"/>
+	                    <f:attribute name="listaMoedas" value="#{cadValoresTraineeMB.listaMoedas}"/>
+	               </p:selectOneMenu>
+	               <p:inputText id="comissaoPremium" value="#{cadValoresTraineeMB.valorestrainee.comissaopremium}" style="width:55%;margin-left:26%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               </p:inputText>	
+	               <p:inputText id="comissaoExpress" value="#{cadValoresTraineeMB.valorestrainee.comissaoexpress}" style="width:77%;margin-left:3%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               </p:inputText>	
+               </h:panelGrid>
+         	   <br></br><br></br><br></br><br></br><br></br>
+	           <p class="botaocadpacote"><br></br>
+	           	    <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cadValoresTraineeMB.salvar()}" style="font-size:11px;"></p:commandButton>
+	            	<p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadValoresTraineeMB.cancelar()}"></p:commandButton>
+	            <br></br><br></br>
+	      	   </p>
+        </h:form>     
+    </h:body>
+</html>

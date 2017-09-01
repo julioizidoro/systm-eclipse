@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoTurismoPagina02" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT distinct vendas.dataVenda, vendas.idvendas
+FROM
+	vendas
+where
+	vendas.idvendas=$P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idvendas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="76" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="13" width="196" height="54" uuid="5acfca13-3f37-476d-b53a-b1858016341e"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="719" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="555" height="707" uuid="f77d7e49-a773-4b26-a342-ca94166582d9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Parágrafo Segundo:Em todos os casos, se o bilhete aéreo já tiver sido emitido, ficará o contratante responsável pela multa aplicada pela companhia aérea, além da multa citada acima;
+
+Parágrafo Terceiro: Havendo motivo justo, aceito pela TM, poderá ocorrer substituição do passageiro, até 6 (seis) dias antes do início da viagem (início da execução dos serviços);
+
+Parágrafo Quarto:  Quando a execução dos serviços adquiridos depender de um número mínimo de participantes e, não sendo esse número atingido, reserva-se a TM o direito de cancelar a viagem, comunicando ao(à)CONTRATANTE com antecedência mínima de 72 (setenta e duas) horas. Ocorrendo o cancelamento, ficará a escolha do(a)CONTRATANTE outra viagem nessa mesma ocasião ou programação em outra data. Não optando por nenhuma das possibilidades, será devolvido pela TM, integralmente o valor pago, no prazo de até 5 dias úteis.
+
+Parágrafo Quinto: Somente em casos de efetiva ameaça de ocorrência de fenômenos da natureza com possíveis riscos aos participantes, situação de calamidade pública, perturbação da ordem, acidentes ou de greves prejudiciais aos serviços de viagem, poderá a TM cancelar a viagem, antes do seu início, ou em qualquer fase ou etapa, devendo a TM restituir os valores correspondentes aos serviços não utilizados, sem acréscimo de multa, juros ou qualquer outro encargo.
+
+Parágrafo Sexto: A TM não se responsabiliza, não garante e não intercede pela permanência, tampouco pelo não ingresso do(a) CONTRATANTE em país estrangeiro, haja vista que se insere no poder abrangido pela soberania de um Estado, poder este de natureza discricionária, independente que o passageiro se encontre apto com a documentação. Neste caso específico, não lhe será ressarcido nenhum valor pago.
+
+Parágrafo Sétimo: Caso o(a) CONTRATANTE venha a causar perturbação ou cuja presença possa oferecer risco à saúde, à integridade física ou moral, de quem quer que seja, este(a) será desligado(a) da viagem, sem qualquer redução do preço daquilo que vier a não utilizar em razão desse motivo. Os desligamentos poderão ser feitos pelos guias turísticos, bem como por autoridades competentes (comandantes de navio, avião e outros).
+
+
+5) DA RESPONSABILIDADE CIVIL DA CONTRATADA - “TM”— A TM é prestadora de serviços de agenciamento de viagens, dependendo, para execução final das mesmas da atuação de terceiros, para execução específica de serviços de transportes, hospedagem, atendimento receptivo no local de destino e/ou escalas das viagens contratadas, entre outros serviços diversos. Desta forma, resta por demonstrada a total e completa exclusão de qualquer responsabilidade solidária à ela imputada, junto aos seus clientes, na eventual ocorrência de dano decorrentes destes serviços de terceiros. A escolha e contratação de terceiros prestadores de serviços é realizada dentro do mais rígido critério de avaliação de mercado onde são observadas todas as especificações legais referentes a qualidade dos equipamentos, utilizados ou não, necessários ou não, na execução dos serviços contratados, cabendo qualquer responsabilidade decorrente do mau uso, desgaste e/ou qualquer danificação (resguardada as hipóteses ocasionadas por caso fortuito e/ou força maior), aos terceiros contratados. Assim as questões ou dúvidas que surgirem relativamente a esses serviços devem ser resolvidas entre os clientes e os terceiros prestadores de serviço, exclusivamente.
+
+6) DOS MEIOS DE TRANSPORTE – Independentemente do destino (nacional ou internacional) e de suas condições (regulares ou fretados), a TM somente procederá a contratação de transportadora que encontre-se devidamente autorizada pelo Departamento de Aviação Civil (D.A.C.) e pelo Ministério da Defesa, observadas as prerrogativas constantes no Código Brasileiro de Aeronáutica (Lei nº 7.565/86), bem como as demais normas vigentes e aplicáveis à espécie, fazendo constar os nomes dessas empresas transportadoras nos bilhetes de passagens, números dos vôos, local de partida, escala e destino, os trechos a serem voados, os horários, o nome dos passageiros e outros informes de ordem técnica (classe, poltrona, categoria, etc).
+
+Parágrafo Primeiro – Fica o contratante, desde já, ciente que poderão ocorrer alterações nos vôos previstos, tais como mudanças de horários, de rotas e/ou conexões (tanto na ida quanto na volta) e nos equipamentos, podendo alterar de vôo fretado para regular ou vice-versa, inclusive nos aeroportos de destino, que poderão alterar para aeroportos alternativos.
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="1adf6af7-9d37-48a1-8eae-bc1f043ec639"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idvendas">
+					<subreportParameterExpression><![CDATA[$P{idvendas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "contratoTurismoPagina03.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

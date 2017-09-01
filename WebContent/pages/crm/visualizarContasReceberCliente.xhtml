@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
+        <h:form id="contasReceber" style="text-align:left;font-size: 10px;">
+            <title>Contas a Receber</title>
+                <br></br> 
+                <p:dataTable id="tabelaContasReceber" var="contasreceber" value="#{visualizarContasReceberMB.listaContasReceber}"  
+                	scrollable="true" scrollHeight="350" style="margin-bottom:20px" >
+                    <p:column headerText="ID" style="width:8%;">
+                        <h:outputText value="#{contasreceber.numerodocumento}"/>
+                    </p:column>
+                     <p:column headerText="Cliente" style="width:42%;">
+                         <h:outputText value="#{contasreceber.vendas.cliente.nome}"/>
+                    </p:column>
+                     <p:column headerText="Parcela" style="width:13%;">
+                         <h:outputText value="#{contasreceber.numeroparcelas}"/>
+                    </p:column>
+                    <p:column headerText="Vencimento" style="width:17%;text-align: right" >
+                        <h:outputText value="#{contasreceber.datavencimento}">
+                                 <f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                    </p:column>
+                    <p:column headerText="Tipo Documento" style="width:16.5%;">
+                         <h:outputText value="#{contasreceber.tipodocumento}"/>
+                    </p:column>
+                     <p:column headerText="Valor" style="width:17%;text-align: right" >
+                         <h:outputText value="#{contasreceber.valorparcela}">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                    </p:column>
+                     <p:column headerText="Recebimento" style="width:16.5%;">
+                         <h:outputText value="#{contasreceber.datapagamento}">
+                         	<f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
+                         </h:outputText>
+                    </p:column> 
+                </p:dataTable>
+                <br></br> 
+        </h:form>     
+    </h:body>
+</html>

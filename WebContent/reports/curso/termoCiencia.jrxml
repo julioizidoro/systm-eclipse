@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Termo de Ciência do Visto " pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idcliente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cidade" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct cliente.nome, cliente.numeroPassaporte, cliente.cpf, cliente.rg
+from cliente
+where cliente.idcliente=$P{idcliente}]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroPassaporte" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="108" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="14" width="267" height="94" uuid="cadcea69-cf56-4082-8e5d-d704416f17ef"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="660" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="1" uuid="5632f176-8c27-4268-8362-f558b1793f9c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="69" y="8" width="402" height="50" uuid="5e48c20c-ee7c-467b-a148-cb05625893f9"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TERMO DE CIÊNCIA DAS REGRAS DE ENTRADA EM PAÍS ESTRANGEIRO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="101" width="532" height="55" uuid="c1a1be96-3f7d-423e-a6ac-c70a80ea5720"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Eu, " + $F{nome} + ", portador do passaporte nº " + $F{numeroPassaporte} + ", cpf Nº " +
+$F{cpf} + " e RG nº " + $F{rg} + " declaro: "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="192" width="532" height="15" uuid="992d29c8-1762-4361-9838-4f3cd48ab43f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[1) Estar ciente sobre os prazos e regras de entrada em país estrangeiro de meu destino.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="214" width="532" height="46" uuid="0f8a6a43-c991-48e7-a087-b7df35792d7d"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[2) Estou ciente dos fundos e comprovantes financeiros necessários que devo ter e apresentar, bem como documentos que me serão solicitados para o eventual pedido posterior ao visto consular e/ou permissão de entrada em país estrangeiro de meu destino.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="264" width="532" height="16" uuid="a220ebb0-7bec-4190-95e8-2e7b82ab7fbe"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[3) Tive a oportunidade de fazer perguntas e tirar dúvidas, as quais foram respondidas satisfatoriamente.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="287" width="532" height="45" uuid="3d2ad3d4-7f02-4cc7-b6a9-9ed9c1bbcfad"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[4) Recebi as regras de entrada no país de meu destino e/ou informativo com as orientações para solicitação de visto consular no país de meu destino.
+
+]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="97" y="488" width="349" height="1" uuid="137f46b3-e3b2-4725-9b69-f87386c1f0e3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="97" y="492" width="349" height="17" uuid="e34b2ff5-5611-4d19-952b-26a548a6e013"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Assinatura do Requerente]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="261" y="354" width="215" height="13" uuid="2ed37630-f08a-42f2-8639-bda0cf9e1ee2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="75" y="354" width="184" height="13" uuid="b95ad939-ffba-446b-a926-90b132076ea5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{cidade} + ", "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="74">
+			<staticText>
+				<reportElement x="0" y="5" width="555" height="45" uuid="7e0187c0-e3d6-4053-a7fd-4e2909e6c0a8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[____________________________________________________________________________________________
+TRAVELMATE INTERCAMBIO & TURISMO
+www.travelmate.com.br]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

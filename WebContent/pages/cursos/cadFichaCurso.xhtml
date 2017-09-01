@@ -1,0 +1,1583 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+<ui:composition template="/pages/templates/default.xhtml">
+	
+	<ui:define name="corpo">
+		<h:form id="telaFichaCurso" style="font-size: 10px;"
+			acceptcharset="ISO-8859-1">
+			<script type="text/javascript">
+				function sundayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 0), '' ]
+				}  
+				   
+				function saturdayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 6), '' ]   
+				} 
+			</script>
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Ficha de Curso"
+					style="font-size: 22px;color: #1F8871;margin-left:40%" />
+				<p:accordionPanel id="acordionPainel" class="painelhighSchool"
+					style="background:#1F8871;">
+					<p:tab title="Curso" class="tab" titleStyle="font-size: 11px">
+						<br></br>
+						<div class="ui-fluid" style="margin-left: 11.6%;">
+							<h:panelGrid columns="2"
+								columnClasses="colunaBotao,colunaQuarenta">
+								<p:outputLabel value="Cliente" for="idcliente"
+									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+								<p:outputLabel />
+
+								<p:inputText id="idcliente" readonly="true" style="width:97%;"
+									maxlength="100" value="#{cadCursoMB.cliente.nome}" />
+								<p:commandLink actionListener="#{cadCursoMB.pesquisarCliente()}"
+									style="text-decoration: none">
+									<img src="../../resources/img/pesquisar.png" width="85%" />
+									<p:ajax event="dialogReturn" process="@this"
+										listener="#{cadCursoMB.retornoDialogCliente}" update="@all" />
+								</p:commandLink>
+							</h:panelGrid>
+						</div>
+						<br></br>
+						<br></br>
+
+						<p:outputLabel value="Idioma que irá Estudar" for="idioma"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Nível Conhecimento" for="nivel"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:15.6%" />
+						<br></br>
+						<p:selectOneMenu id="idioma"
+							value="#{cadCursoMB.curso.indiomaEstudar}"
+							style="width:18%;margin-left:11.6%">
+							<f:selectItem itemLabel="Selecione" itemValue="selecione"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Alemão" itemValue="Alemão" />
+							<f:selectItem itemLabel="Espanhol" itemValue="Espanhol" />
+							<f:selectItem itemLabel="Francês" itemValue="Francês" />
+							<f:selectItem itemLabel="Inglês" itemValue="Inglês" />
+							<f:selectItem itemLabel="Outro" itemValue="Outro" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="nivel"
+							value="#{cadCursoMB.curso.nivelIdiomaEstudar}"
+							style="width:22.7%;margin-left:7%">
+							<f:selectItem itemLabel="Selecione" itemValue="selecione"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Básico" itemValue="Básico" />
+							<f:selectItem itemLabel="Iniciante" itemValue="Iniciante" />
+							<f:selectItem itemLabel="Pré-Intermediário"
+								itemValue="Pré-Intermediário" />
+							<f:selectItem itemLabel="Intermediário" itemValue="Intermediário" />
+							<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
+							<f:selectItem itemLabel="Alto" itemValue="Alto" />
+							<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
+						</p:selectOneMenu>
+						<p:commandButton id="btnImportarOrcamentoManual"
+							value="Orçamento Manual"
+							action="#{cadCursoMB.importarOrcamentoManual()}"
+							title="Importar Orçamento" style="margin-left:5.4%;height:30px"
+							icon="ui-icon-arrowthickstop-1-s"
+							disabled="#{cadCursoMB.clienteselecionado}">
+							<p:ajax event="dialogReturn" process="@this"
+								listener="#{cadCursoMB.retornoDialogOrcamentoManual}"
+								update="@all" />
+						</p:commandButton>
+						<p:commandButton id="btnImportarOrcamento"
+							value="Orçamento Tarifario"
+							action="#{cadCursoMB.importarOrcamento()}"
+							title="Importar Orçamento" style="margin-left:2%;height:30px"
+							icon="ui-icon-arrowthickstop-1-s"
+							disabled="#{cadCursoMB.clienteselecionado}">
+							<p:ajax event="dialogReturn" process="@this"
+								listener="#{cadCursoMB.retornoDialogOrcamento}" update="@all" />
+						</p:commandButton>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Escola</b>
+						</legend>
+						<p:outputLabel value="Pais" for="pais"
+							style="margin-left:11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Cidade" for="cidade"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:25.5%" />
+						<p:outputLabel value="Escola" for="fornecedor"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 26.9%" />
+						<br></br>
+						<p:selectOneMenu id="pais" value="#{cadCursoMB.pais}"
+							style="width:18%;margin-left:11.5%" converter="PaisConverter"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px" disabled="#{cadCursoMB.editarEscola}">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{cadCursoMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.pais.nome}"
+								itemValue="#{cpais.pais}" />
+							<f:attribute name="listaPais" value="#{cadCursoMB.listaPais}" />
+							<p:ajax event="change" update="cidade, moeda, idvalorcambio" listener="#{cadCursoMB.selecionarCambio()}"/>
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="cidade" value="#{cadCursoMB.cidade}"
+							style="width:20%;margin-left:9%" converter="CidadeConverter"
+							filter="true" filterMatchMode="startsWith"
+							disabled="#{cadCursoMB.editarEscola}">
+							<f:selectItem itemLabel="Cidade" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcidade2"
+								value="#{cadCursoMB.pais.cidadeList}" var="cursocidade"
+								itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
+							<f:attribute name="listaCidade"
+								value="#{cadCursoMB.pais.cidadeList}" />
+							<p:ajax event="change"
+								listener="#{cadCursoMB.listarFornecedorCidade()}"
+								update="fornecedor" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="fornecedor"
+							value="#{cadCursoMB.fornecedorCidade}"
+							style="width:20%;margin-left:9.9%"
+							converter="FornecedorCidadeConverter" filter="true"
+							filterMatchMode="startsWith"
+							disabled="#{cadCursoMB.editarEscola}">
+							<f:selectItem itemLabel="Escola" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{cadCursoMB.listaFornecedorCidade}" var="fornecedor"
+								itemLabel="#{fornecedor.fornecedor.nome}"
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedorCidade"
+								value="#{cadCursoMB.listaFornecedorCidade}" />
+							<p:ajax event="change"
+								listener="#{cadCursoMB.carregarFornecedorComissao()}"
+								update=":telaFichaCurso:acordionPainel:moeda, :telaFichaCurso:acordionPainel:idvalorcambio, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:campomoedaestrangeira" />
+						</p:selectOneMenu>
+
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Curso Principal</b>
+						</legend>
+						<p:outputLabel value="Curso" for="curso"
+							style="margin-left: 11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<br></br>
+						<p:inputText id="curso" style="width:76.8%;margin-left: 11.5%"
+							maxlength="62" value="#{cadCursoMB.curso.nomeCurso}" />
+						<br></br>
+						<br></br>
+
+						<p:outputLabel value="Data de Início" for="datainicio3"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
+						<p:outputLabel value="No. Semanas" for="nsemanas"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 12.2%" />
+						<p:outputLabel value="Data Término" for="datatermino2"
+							style="margin-left: 13.5%" />
+						<br></br>
+
+						<p:calendar id="datainicio3"
+							value="#{cadCursoMB.curso.dataInicio}" size="20"
+							style="margin-left:11.5%;" locale="pt" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="change" />
+							<p:ajax event="dateSelect" />
+						</p:calendar>
+
+						<p:inputText id="nsemanas" style="width:12%;margin-left: 7%"
+							maxlength="100" value="#{cadCursoMB.curso.numeroSenamas}">
+							<p:ajax event="blur"
+								listener="#{cadCursoMB.calcularDataTerminoCurso()}"
+								update="datatermino2" />
+						</p:inputText>
+
+						<p:calendar id="datatermino2"
+							value="#{cadCursoMB.curso.dataTermino}" size="20"
+							style="margin-left:7%;" locale="pt" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<br></br>
+						<br></br>
+
+
+						<p:outputLabel value="Carga Horária" for="cargahoraria2"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
+							
+						<p:outputLabel value="Turno" for="turno"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:36.5%" />
+						<br></br>
+						<h:panelGrid columns="3" style="margin-left: 11.6%"> 
+							<p:inputText id="cargahoraria2" style="width:95%;"
+								maxlength="100" value="#{cadCursoMB.curso.aulassemana}"
+								converterMessage="Digite somente número">
+								<f:convertNumber integerOnly="true" minIntegerDigits="1"  
+									pattern="#######" />
+							</p:inputText>
+							<p:selectOneRadio id="porSemana"
+								value="#{cadCursoMB.curso.tipoDuracao}" style="width:150%;">
+								<f:selectItem itemLabel="Horas por Semana"
+									itemValue="Horas por semana" />
+								<f:selectItem itemLabel="Aulas por Semana"
+									itemValue="Aulas por semana" />
+							</p:selectOneRadio>
+							
+							<p:selectOneMenu id="turno" value="#{cadCursoMB.curso.turno1}" style="width:100px;margin-left:50%;">
+								<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
+								<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
+								<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+								<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
+								<f:selectItem itemLabel="Integral" itemValue="Integral" />
+								<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+
+
+						<legend id="iUsu3">
+							<b>Segundo Curso <p:selectBooleanCheckbox
+									value="#{cadCursoMB.checkBoxSegundoCurso}" class="espacopreto"
+									id="habilitarsegundocurso" style="margin-left: 65%">
+									<p:ajax event="change"
+										listener="#{cadCursoMB.carregarCamposSegundoCurso()}"
+										update="formularioSegundoCurso, porSemana2, cargahoraria, datatermino3, nsemanas2, datainicio2, curso2" />
+								</p:selectBooleanCheckbox> <p:outputLabel value="Habilitar Segundo Curso"
+									for="habilitarsegundocurso" class="loginButton2"
+									style="font-size: 10px;" /></b>
+						</legend>
+						<h:panelGroup id="formularioSegundoCurso">
+							<h:panelGroup rendered="#{cadCursoMB.habiltarSegundoCurso}">
+								<p:outputLabel value="Curso:" for="curso2"
+									style="margin-left: 11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+								<br></br>
+								<p:inputText id="curso2" style="width:76.8%;margin-left: 11.6%"
+									maxlength="62" value="#{cadCursoMB.curso.SCurso}"
+									disabled="#{cadCursoMB.camposSegundoCurso}" />
+								<br></br>
+								<br></br>
+
+								<p:outputLabel value="Data de Início" for="datainicio2"
+									style="margin-left: 11.6%" />
+								<p:outputLabel value="No. Semanas" for="nsemanas2"
+									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 12.2%" />
+								<p:outputLabel value="Data Término" for="datatermino3"
+									style="margin-left: 13.5%" />
+								<br></br>
+
+								<p:calendar id="datainicio2"
+									value="#{cadCursoMB.curso.SDataInicio}" maxlength="20"
+									locale="pt" style="margin-left:11.5%"
+									disabled="#{cadCursoMB.camposSegundoCurso}"
+									pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+									<p:ajax event="dateSelect" />
+								</p:calendar>
+
+								<p:inputText id="nsemanas2" style="width:12%;margin-left:7%"
+									maxlength="100" value="#{cadCursoMB.curso.SNumeroSemanas}"
+									disabled="#{cadCursoMB.camposSegundoCurso}">
+									<p:ajax event="blur"
+										listener="#{cadCursoMB.calcularDataTerminoCurso2()}"
+										update="datatermino3" />
+								</p:inputText>
+
+								<p:calendar id="datatermino3"
+									value="#{cadCursoMB.curso.SDataTermino}" style="margin-left:7%"
+									maxlength="20" locale="pt"
+									disabled="#{cadCursoMB.camposSegundoCurso}"
+									pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<br></br>
+								<br></br>
+
+
+								<p:outputLabel value="Carga Horária" for="cargahoraria"
+									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
+								<p:outputLabel value="Turno" for="turno2"
+									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:36.5%" />
+								<br></br>
+								<h:panelGrid columns="3" style="margin-left: 11.6%"> 
+									<p:inputText id="cargahoraria"
+										style="width:95%;" maxlength="100"
+										value="#{cadCursoMB.curso.SCargaHoraria}"   
+										disabled="#{cadCursoMB.camposSegundoCurso}">
+									</p:inputText>
+									<p:selectOneRadio id="porSemana2"
+										value="#{cadCursoMB.curso.STipoCargaHoraria}"
+										style="width:150%;"
+										disabled="#{cadCursoMB.camposSegundoCurso}">
+										<f:selectItem itemLabel="Horas por Semana"
+											itemValue="hrsporsemana2" />
+										<f:selectItem itemLabel="Aulas por Semana"
+											itemValue="aulasporsemana2" />
+									</p:selectOneRadio>
+									   
+									<p:selectOneMenu id="turno2" value="#{cadCursoMB.curso.turno2}" style="width:100px;margin-left:50%;">
+										<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
+										<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
+										<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+										<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
+										<f:selectItem itemLabel="Integral" itemValue="Integral" />
+										<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
+									</p:selectOneMenu>
+								</h:panelGrid>
+							</h:panelGroup>
+						</h:panelGroup>
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab id="idTabPais" title="Dados dos Pais" class="tab"
+						titleStyle="font-size: 11px"
+						rendered="#{cadCursoMB.visualizarDadosPais}">
+						<br></br>
+						<legend id="iUsu3">
+							<b>Dados da Mãe</b>
+						</legend>
+						<p:outputLabel value="Nome" for="nomeMae"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Data Nascimento" for="dataNascMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:53.3%" />
+						<br></br>
+						<p:inputText id="nomeMae" style="width:50%;margin-left: 11.5%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.nomemae}" />
+						<p:inputMask id="dataNascMae" style="margin-left:6%"
+							mask="99/99/9999" maxlength="100"
+							value="#{cadCursoMB.dadosPais.datanascimentomae}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<br></br>
+						<br></br>
+						<p:selectBooleanCheckbox id="digitosFoneMae"
+							value="#{cadCursoMB.digitosTelefoneMae}"
+							style="margin-left:67.5%;">
+							<p:ajax update="telefoneMae" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Email" for="emailMae"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Telefone" for="telefoneMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:53.8%" />
+						<br></br>
+						<p:inputText id="emailMae" style="width:50%;margin-left: 11.5%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.emailmae}" />
+						<p:inputMask id="telefoneMae" style="margin-left:6%"
+							mask="#{cadCursoMB.validarMascaraFoneMae()}"
+							value="#{cadCursoMB.dadosPais.telefonemae}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Tipo Logradouro" for="tipoLogradouroMae"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Logradouro" for="logradouroMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<p:outputLabel value="Número" for="numeroMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:36%" />
+						<br></br>
+						<p:selectOneMenu id="tipoLogradouroMae"
+							value="#{cadCursoMB.dadosPais.tipologradouromae}"
+							style="width:110px;margin-left:11.6%">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItem itemLabel="Avenida" itemValue="Avenida" />
+							<f:selectItem itemLabel="BR" itemValue="BR" />
+							<f:selectItem itemLabel="Estrada" itemValue="Estrada" />
+							<f:selectItem itemLabel="Rodovia" itemValue="Rodovia" />
+							<f:selectItem itemLabel="Rua" itemValue="Rua" />
+							<f:selectItem itemLabel="Servidão" itemValue="Servidão" />
+							<f:selectItem itemLabel="Parque" itemValue="Parque" />
+							<f:selectItem itemLabel="Travessa" itemValue="Travessa" />
+						</p:selectOneMenu>
+						<p:inputText id="logradouroMae" style="margin-left:5%;width: 35%;"
+							maxlength="100" value="#{cadCursoMB.dadosPais.logradouromae}" />
+						<p:inputText id="numeroMae" style="margin-left:6%;"
+							maxlength="100" value="#{cadCursoMB.dadosPais.numerromae}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Complemento" for="complementoMae"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Bairro" for="bairroMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
+						<p:outputLabel value="CEP" for="cepMae"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
+						<br></br>
+						<p:inputText id="complementoMae"
+							style="width:26%;margin-left: 11.5%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.complementomae}" />
+						<p:inputText id="bairroMae" style="margin-left:3%;width:20%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.bairromae}" />
+						<p:inputMask id="cepMae" mask="99999-999"
+							style="margin-left: 6%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.cepmae}" />
+						
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Cidade" for="cidadeMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Estado" for="estadoMae"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:26.5%" />
+						<br></br>
+						<p:inputText id="cidadeMae" style="width:26%;margin-left:11.5%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.cidademae}" />
+						<p:selectOneMenu id="estadoMae"
+							value="#{cadCursoMB.dadosPais.estadomae}" style="margin-left:3%;width:20%">
+							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Acre" itemValue="AC" />
+							<f:selectItem itemLabel="Alagoas" itemValue="AL" />
+							<f:selectItem itemLabel="Amapá" itemValue="AP" />
+							<f:selectItem itemLabel="Amazonas" itemValue="AM" />
+							<f:selectItem itemLabel="Bahia" itemValue="BA" />
+							<f:selectItem itemLabel="Ceará" itemValue="CE" />
+							<f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+							<f:selectItem itemLabel="Espirito Santo" itemValue="ES" />
+							<f:selectItem itemLabel="Goiás" itemValue="GO" />
+							<f:selectItem itemLabel="Maranhão" itemValue="MA" />
+							<f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+							<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+							<f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+							<f:selectItem itemLabel="Pará" itemValue="PA" />
+							<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+							<f:selectItem itemLabel="Paraná" itemValue="PR" />
+							<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+							<f:selectItem itemLabel="Piauí" itemValue="PI" />
+							<f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+							<f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+							<f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+							<f:selectItem itemLabel="Rondônia" itemValue="RO" />
+							<f:selectItem itemLabel="Roraima" itemValue="RR" />
+							<f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+							<f:selectItem itemLabel="São Paulo" itemValue="SP" />
+							<f:selectItem itemLabel="Sergipe" itemValue="SE" />
+							<f:selectItem itemLabel="Tocantins" itemValue="TO" />
+						</p:selectOneMenu>
+						
+						
+						<br></br>
+						<br></br>
+						<legend id="iUsu3" style="width: 79%">
+							<b>Dados do Pai</b>
+							<p:commandButton value="Repetir Endereço"
+								title="Repetir endereço da mãe para o pai."
+								icon="ui-icon-arrowthickstop-1-s"
+								action="#{cadCursoMB.repetirEnderecoMae()}"
+								style="font-size:11px;float:right" onclick="dialog.hide()"
+								update="telaFichaCurso:growl" />
+						</legend>
+
+						<p:outputLabel value="Nome" for="nomePai"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel for="dataNascPai" value="Data Nascimento"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:53.3%" />
+						<br></br>
+						<p:inputText id="nomePai" style="width:50%;margin-left: 11.5%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.nomepai}">
+							<p:ajax event="blur" listener="#{cadCursoMB.validarCampoPai()}"
+								update="dataNascPai, emailPai, telefonePai, tipoLogradouroPai, numeroPai, logradouroPai, complementoPai, estadoPai, cidadePai, cepPai, bairroPai" />
+						</p:inputText>
+						<p:inputMask id="dataNascPai" mask="99/99/9999"
+							style="margin-left:6%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.datanascimentopai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<br></br>
+						<br></br>
+						<p:selectBooleanCheckbox id="digitosFonePai"
+							value="#{cadCursoMB.digitosTelefonePai}"
+							style="margin-left:67.5%;">
+							<p:ajax update="telefonePai" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Email" for="emailPai"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Telefone" for="telefonePai"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:53.8%" />
+						<br></br>
+						<p:inputText id="emailPai" style="width:50%;margin-left: 11.5%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.emailpai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<p:inputMask id="telefonePai" style="margin-left:6%"
+							mask="#{cadCursoMB.validarMascaraFonePai()}"
+							value="#{cadCursoMB.dadosPais.telefonepai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Tipo Logradouro" for="tipoLogradouroPai"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Logradouro" for="logradouroPai"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%" />
+						<p:outputLabel value="Número" for="numeroPai"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:36%" />
+						<br></br>
+						<p:selectOneMenu id="tipoLogradouroPai"
+							value="#{cadCursoMB.dadosPais.tipologradouropai}"
+							style="width:110px;margin-left:11.6%"
+							disabled="#{cadCursoMB.habilitarDadosPai}">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItem itemLabel="Avenida" itemValue="Avenida" />
+							<f:selectItem itemLabel="BR" itemValue="BR" />
+							<f:selectItem itemLabel="Estrada" itemValue="Estrada" />
+							<f:selectItem itemLabel="Rodovia" itemValue="Rodovia" />
+							<f:selectItem itemLabel="Rua" itemValue="Rua" />
+							<f:selectItem itemLabel="Servidão" itemValue="Servidão" />
+							<f:selectItem itemLabel="Parque" itemValue="Parque" />
+							<f:selectItem itemLabel="Travessa" itemValue="Travessa" />
+						</p:selectOneMenu>
+						<p:inputText id="logradouroPai" style="margin-left:5%;width: 35%;"
+							maxlength="100" value="#{cadCursoMB.dadosPais.logradouropai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<p:inputText id="numeroPai" style="margin-left:6%;"
+							maxlength="100" value="#{cadCursoMB.dadosPais.numeropai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Complemento" for="complementoPai"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Bairro" for="bairroPai"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
+						<p:outputLabel value="CEP" for="cepPai"
+							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
+						<br></br>
+						<p:inputText id="complementoPai"
+							style="width:26%;margin-left: 11.5%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.complementopai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						
+						<p:inputText id="bairroPai" style="margin-left:3.0%;width:20%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.bairropai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<p:inputMask id="cepPai" mask="99999-999"
+							style="margin-left: 6%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.ceppai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Cidade" for="cidadePai"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
+						<p:outputLabel value="Estado" for="estadoPai"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:26.5%" />
+						
+						
+						<br></br>
+						<p:inputText id="cidadePai" style="width:26%;margin-left:11.5%"
+							maxlength="100" value="#{cadCursoMB.dadosPais.cidadepai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						<p:selectOneMenu id="estadoPai"
+							value="#{cadCursoMB.dadosPais.estadopai}" style="margin-left:3%;width:20%"
+							disabled="#{cadCursoMB.habilitarDadosPai}">
+							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Acre" itemValue="AC" />
+							<f:selectItem itemLabel="Alagoas" itemValue="AL" />
+							<f:selectItem itemLabel="Amapá" itemValue="AP" />
+							<f:selectItem itemLabel="Amazonas" itemValue="AM" />
+							<f:selectItem itemLabel="Bahia" itemValue="BA" />
+							<f:selectItem itemLabel="Ceará" itemValue="CE" />
+							<f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+							<f:selectItem itemLabel="Espirito Santo" itemValue="ES" />
+							<f:selectItem itemLabel="Goiás" itemValue="GO" />
+							<f:selectItem itemLabel="Maranhão" itemValue="MA" />
+							<f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+							<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+							<f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+							<f:selectItem itemLabel="Pará" itemValue="PA" />
+							<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+							<f:selectItem itemLabel="Paraná" itemValue="PR" />
+							<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+							<f:selectItem itemLabel="Piauí" itemValue="PI" />
+							<f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+							<f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+							<f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+							<f:selectItem itemLabel="Rondônia" itemValue="RO" />
+							<f:selectItem itemLabel="Roraima" itemValue="RR" />
+							<f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+							<f:selectItem itemLabel="São Paulo" itemValue="SP" />
+							<f:selectItem itemLabel="Sergipe" itemValue="SE" />
+							<f:selectItem itemLabel="Tocantins" itemValue="TO" />
+						</p:selectOneMenu>
+						
+						
+
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab title="Acomodação" titleStyle="font-size: 11px">
+						<br></br> 
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
+							<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao"/>
+							<p:outputLabel value="Quarto" for="quarto" />
+							<p:outputLabel value="Refeição" for="refeicao" />
+							<p:outputLabel value="Banheiro Privado" for="banheiroPrivado"/>
+							
+							<p:selectOneMenu id="tipoacomodacao"
+								value="#{cadCursoMB.curso.tipoAcomodacao}"
+								style="width:91%;">
+								<f:selectItem itemLabel="Selecione" itemValue="Sem acomodação" />
+								<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+								<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+								<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+								<f:selectItem itemLabel="Residência" itemValue="Residência" />
+								<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+								<p:ajax event="change"
+									listener="#{cadCursoMB.carregarCamposAcomodacao()}"
+									update="quarto, refeicao, datachegada, numsemanas, datapartida, adicionais, comcrianca, comanimais, fumante, vegetariano, banheiroPrivado" />
+							</p:selectOneMenu>
+	
+							<p:selectOneMenu id="quarto"
+								value="#{cadCursoMB.curso.tipoQuarto}"
+								style="width:82%;" required="false"
+								disabled="#{cadCursoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
+								<f:selectItem itemLabel="Quarto individual"
+									itemValue="Quarto individual" />
+								<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+								<f:selectItem itemLabel="Quarto triplo" itemValue="Quarto triplo" />
+								<f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado" />
+								<f:selectItem itemLabel="Dois Quartos" itemValue="Dois quartos" />
+							</p:selectOneMenu>
+	
+							<p:selectOneMenu id="refeicao"
+								value="#{cadCursoMB.curso.refeicoes}" required="false"
+								style="width:82%;"
+								disabled="#{cadCursoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+								<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
+								<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+									itemValue="Meia Pensão (2 Refeições)" />
+								<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+									itemValue="Pensão Completa (3 Refeições)" />
+							</p:selectOneMenu>
+	
+							<p:selectOneMenu id="banheiroPrivado"
+								value="#{cadCursoMB.curso.banheiroprivativo}" required="false"
+								style="width:100%;"
+								disabled="#{cadCursoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu> 
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="3" style="margin-left: 11.6%;width:50%;" columnClasses="tamanho6, tamanho6, tamanho8"> 
+							<p:outputLabel value="Data Chegada" for="datachegada"/>
+							<p:outputLabel value="No. Semanas" for="numsemanas"/>
+							<p:outputLabel value="Data Partida" for="datapartida"/> 
+							
+							<p:calendar id="datachegada"
+								value="#{cadCursoMB.curso.dataChegada}" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="20" disabled="#{cadCursoMB.camposAcomodacao}" beforeShowDay="sundayEnabled">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />  
+							</p:calendar>
+							<p:inputText id="numsemanas" style="width:80%;"
+								maxlength="100" value="#{cadCursoMB.curso.numeroSemanasAcamodacao}"
+								class="espacocobranca29"
+								disabled="#{cadCursoMB.camposAcomodacao}">
+								<p:ajax event="blur"
+									listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
+									update="datapartida" />
+							</p:inputText>
+							<p:calendar id="datapartida" value="#{cadCursoMB.curso.dataSaida}"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="10"
+								disabled="#{cadCursoMB.camposAcomodacao}" 
+								beforeShowDay="saturdayEnabled">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />    
+							</p:calendar>   
+						</h:panelGrid>
+						<br></br>
+
+						<p:outputLabel value="Adicionais" for="adicionais"
+							style="margin-left: 11.6%;" />
+						<br></br>
+						<p:inputText id="adicionais"
+							style="width:76.2%;margin-left: 11.5%" maxlength="100"
+							value="#{cadCursoMB.curso.adicionais}" class="espacocobranca29"
+							disabled="#{cadCursoMB.camposAcomodacao}" />
+						<br></br>
+						<br></br>
+						<br></br>
+
+
+						<legend id="iUsu3">
+							<b>Preferências</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
+							<p:outputLabel value="Família com criança" for="comcrianca"/>
+							<p:outputLabel value="Animais de estimação" for="comanimais" />
+							<p:outputLabel value="Você é fumante" for="fumante"/>
+							<p:outputLabel value="Você é vegetariano" for="vegetariano" />
+							
+							<p:selectOneMenu id="comcrianca"
+								value="#{cadCursoMB.curso.familiacomCrianca}"
+								style="width:85%;"
+								disabled="#{cadCursoMB.camposAcomodacaoCasaFamilia}">
+								<f:selectItem itemLabel="Indiferente" itemValue="Indiferente" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+							</p:selectOneMenu>
+	
+							<p:selectOneMenu id="comanimais"
+								value="#{cadCursoMB.curso.familiacomAnimais}"
+								style="width:85%;"
+								disabled="#{cadCursoMB.camposAcomodacaoCasaFamilia}">
+								<f:selectItem itemLabel="Indiferente" itemValue="Indiferente" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+							</p:selectOneMenu>
+	
+							<p:selectOneMenu id="fumante" value="#{cadCursoMB.curso.fumante}"
+								style="width:85%;"
+								disabled="#{cadCursoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu>
+	
+							<p:selectOneMenu id="vegetariano"
+								value="#{cadCursoMB.curso.vegetariano}"
+								style="width:85%;"
+								disabled="#{cadCursoMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						
+						<br></br>
+						<p:outputLabel
+							value="Tem alergia a algum medicamento ou alimento? Se sim, especifique:"
+							for="alergia" style="margin-left:11.5%" />
+
+						<p:selectOneMenu id="temalergia"
+							value="#{cadCursoMB.curso.possuiAlergia}"
+							style="width:10%;margin-left: 2%;">
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+						</p:selectOneMenu>
+						<br></br>
+						<br></br>
+						<p:inputText id="alergia" style="width:76.2%;margin-left: 11.5%;"
+							maxlength="100" value="#{cadCursoMB.curso.quaisAlergias}" />
+						<br></br>
+						<br></br>
+
+						<p:outputLabel value="Solicitações Especiais:"
+							for="solicitacaoespecial" style="margin-left: 11.6%" />
+						<br></br>
+						<p:inputText id="solicitacaoespecial"
+							style="width:76.2%;margin-left:11.5%" maxlength="100"
+							value="#{cadCursoMB.curso.solicitacoesEspeciais}" />
+						<br></br>
+						<br></br>
+
+						<p:outputLabel value="Quais seus interesses e  hobbies:"
+							for="hobbies" style="margin-left: 11.6%" />
+						<br></br>
+						<p:inputText id="hobbies" style="width:76.2%;margin-left: 11.5%"
+							maxlength="100" value="#{cadCursoMB.curso.hobbies}" />
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab title="VTM/Transfer/Passagem/Visto"
+						titleStyle="font-size: 11px">
+						<legend id="iUsu3">
+							<b>Cartão VTM</b>
+						</legend>
+						<h:panelGrid columns="2" style="margin-left:11.6%;">
+							<p:outputLabel value="Cartão VTM:" for="cartaovtm" />
+							<p:selectOneRadio id="cartaovtm"
+								value="#{cadCursoMB.curso.caratoVTM}" 
+								style="width:180%;margin-left:5%;">
+								<f:selectItem itemLabel="Sim" itemValue="Sim"
+									class="espacologin" />
+								<f:selectItem itemLabel="Não" itemValue="Não"
+									class="espacologin" />
+								<p:ajax event="change"
+									listener="#{cadCursoMB.carregarCamposCartaoVTM()}"
+									update="idmoedas, numerocartao" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:11.6%;">
+							<p:outputLabel value="Moeda" for="idmoedas" />
+							<p:outputLabel value="Número do Cartão" for="numerocartao" style="margin-left:8%"/>
+							
+							<p:selectOneMenu id="idmoedas"
+								value="#{cadCursoMB.curso.moedaCartaoVTM}"
+								style="width:150px;"
+								disabled="#{cadCursoMB.camposCartaoVtm}">
+								<f:selectItem itemLabel="Selecione" itemValue="selecione"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Euro" itemValue="Euro" />
+								<f:selectItem itemLabel="Dólar Americano"
+									itemValue="Dólar Americano" />
+								<f:selectItem itemLabel="Dólar Canadense"
+									itemValue="Dólar Canadense" />
+								<f:selectItem itemLabel="Dolár Australiano"
+									itemValue="Dolár Australiano" />
+								<f:selectItem itemLabel="Libra" itemValue="Libra" />
+							</p:selectOneMenu>
+							<p:inputText id="numerocartao"
+								value="#{cadCursoMB.curso.numeroCartaoVTM}"
+								style="width:70%;margin-left:8%"
+								disabled="#{cadCursoMB.camposCartaoVtm}" />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Chegada ao Destino (Transfer Aeroporto)</b>
+						</legend>
+						<p:outputLabel value="Transfer In(Chegada)" for="chegada"
+							style="margin-left:11.5%" />
+						<p:outputLabel value="Transfer Out(Partida)" for="partida"
+							style="margin-left:13%" />
+						<br></br>
+						<p:selectOneMenu id="chegada"
+							value="#{cadCursoMB.curso.transferin}"
+							style="width:14%;margin-left:11.6%">
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<p:ajax event="change"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="partida"
+							value="#{cadCursoMB.curso.transferouto}"
+							style="width:13%;margin-left:7.5%">
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<p:ajax event="change"/>
+						</p:selectOneMenu>
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Passagem Aérea quando não inclusa no programa</b>
+						</legend>
+
+						<h:panelGrid columns="2" style="margin-bottom:10px"
+							cellpadding="5">
+							<p:selectOneRadio id="passagemInclusa"
+								value="#{cadCursoMB.curso.passagemAerea}"
+								style="width:180%;margin-left: 36%">
+								<f:selectItem itemLabel="Cliente Providenciará"
+									itemValue="Cliente Providenciará" class="espacologin" />
+								<f:selectItem itemLabel="Através da TravelMate"
+									itemValue="Através da TravelMate" class="espacologin" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+
+						<p:outputLabel value="Observação" for="obs"
+							style="font-size: 10px;margin-left:11.5%" />
+						<br></br>
+						<p:inputText id="espaco0p" style="width:72%;margin-left:11.5%"
+							maxlength="100"
+							value="#{cadCursoMB.curso.observacaoPassagemAerea}" />
+						<br></br>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Solicitação de Visto Consular</b>
+						</legend>
+						<h:panelGrid columns="2" style="margin-bottom:10px"
+							cellpadding="5">
+							<p:selectOneRadio id="vistoCancelar"
+								value="#{cadCursoMB.curso.vistoConsular}"
+								style="width:180%;margin-left: 36%">
+								<f:selectItem itemLabel="Cliente Providenciará"
+									itemValue="Cliente Providenciará" class="espacologin" />
+								<f:selectItem itemLabel="Através da TravelMate"
+									itemValue="Através da TravelMate" class="espacologin" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>
+						<p:outputLabel value="Tipo de visto" for="tipoVisto"
+							style="font-size: 10px;margin-left:11.5%" />
+						<p:outputLabel value="Entrega dos Documentos"
+							for="dataentregavisto" style="font-size: 10px;margin-left:6.8%" />
+						<p:outputLabel value="Observação" for="obs"
+							class="espacocobranca4" style="font-size: 10px;margin-left:4.6%" />
+						<br></br>
+						<p:selectOneMenu id="tipoVisto"
+							value="#{cadCursoMB.cliente.tipovisto}"
+							style="width:100px;margin-left: 11.5%" title="Campo obrigatório">
+							<f:selectItem itemLabel="Selecione" itemValue="sn"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Estudante" itemValue="Estudante" />
+							<f:selectItem itemLabel="Turismo" itemValue="Turismo" />
+							<p:ajax event="change"
+								listener="#{cadCursoMB.verificarRegraVisto()}"
+								update="telaFichaCurso:growl" />
+						</p:selectOneMenu>
+						<p:calendar id="dataentregavisto" size="17"
+							value="#{cadCursoMB.curso.dataEntregaDocumentosVistos}"
+							style="margin-left:3%" locale="pt" pattern="dd/MM/yyyy"
+							mask="true" maxlength="20">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+
+						<p:inputText id="obs2" style="width:45%;margin-left:5%"
+							maxlength="100" value="#{cadCursoMB.curso.observacaoVisto}" />
+						<br></br>
+					</p:tab>
+					<p:tab title="Seguro/Contato" titleStyle="font-size: 11px">
+						<legend id="iUsu3">
+							<b>Seguro Viagem</b>
+						</legend>
+						<h:panelGrid columns="1" style="margin-left:11.6%;">
+							<p:selectOneRadio id="seguro"  disabled="#{cadCursoMB.desabilitarSeguro}"
+								value="#{cadCursoMB.seguroViagem.possuiSeguro}"
+								style="width:180%;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadCursoMB.carregarCamposSeguroPrivado()}"
+									update="seguradora, plano, cobranca, datainicio, semanas, datatermino, valorseguro, tabelaprodutoscurso ,formapagamentotabela, telaFichaCurso:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+						<br></br>   
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
+							<p:outputLabel value="Seguradora" for="seguradora"/>
+							<p:outputLabel value="Plano" for="plano"/>
+							<p:outputLabel value="Tarifario" for="tarifario"/>
+							<p:outputLabel value="Cobrança" for="cobranca"/>
+							
+							<p:selectOneMenu style="width:160px;" 
+								id="seguradora" value="#{cadCursoMB.fornecedorSeguro}"
+								converter="FornecedorCidadeConverter"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:selectItem itemLabel="Seguradora" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idseguradora"
+									value="#{cadCursoMB.listaFornecedorCidadeSeguro}" var="ccidade"
+									itemLabel="#{ccidade.fornecedor.nome}" itemValue="#{ccidade}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadCursoMB.listaFornecedorCidadeSeguro}" />
+								<p:ajax event="change" update="plano" listener="#{cadCursoMB.listarPlanosSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="plano" style="width:163px;" 
+								value="#{cadCursoMB.seguroplanos}" converter="SeguroPlanosConverter"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:selectItem itemLabel="Plano" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idplano"
+									value="#{cadCursoMB.listaSeguroPlanos}" var="plano"
+									itemLabel="#{plano.nome}" itemValue="#{plano}" />
+								<f:attribute name="listaSeguroPlanos" value="#{cadCursoMB.listaSeguroPlanos}" />
+								<p:ajax event="change" update="tarifario" listener="#{cadCursoMB.listarValoresSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="tarifario" 
+								style="width:170px;"
+								value="#{cadCursoMB.seguroViagem.valoresseguro}"
+								converter="ValorSeguroConverter"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idvaloresseguro"
+									value="#{cadCursoMB.listaValoresSeguro}" var="cvalorseguro"
+									itemLabel="#{cvalorseguro.tarifario}"
+									itemValue="#{cvalorseguro}" />
+								<f:attribute name="listaValorSeguro"
+									value="#{cadCursoMB.listaValoresSeguro}" />
+								<p:ajax listener="#{cadCursoMB.carregarCobrancaSeguro()}"
+									update="cobranca" />
+							</p:selectOneMenu>
+
+							<p:inputText id="cobranca" 
+								value="#{cadCursoMB.seguroViagem.valoresseguro.cobranca}"
+								style="width:80%;" maxlength="45"
+								readonly="true" disabled="#{cadCursoMB.camposSeguroViagem}" />
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							
+							<p:outputLabel value="Data inicial" for="datainicio"/>
+							<p:outputLabel id="titulosemanasseguro" value="No. dias"/>
+							<p:outputLabel value="Data Final" for="datatermino"/>
+							<p:outputLabel value="Valor do Seguro" for="valorseguro"/>
+							
+							<p:calendar id="datainicio" 
+								value="#{cadCursoMB.seguroViagem.dataInicio}" size="20"
+								 locale="pt" pattern="dd/MM/yyyy"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+	
+							<p:inputText id="semanas" 
+								value="#{cadCursoMB.seguroViagem.numeroSemanas}"
+								style="width:35%;" maxlength="45"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:convertNumber type="number" />
+								<p:ajax event="blur"
+									update="datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"
+									listener="#{cadCursoMB.calcularDataTermino()}" />
+							</p:inputText>
+	
+							<p:calendar id="datatermino" 
+								value="#{cadCursoMB.seguroViagem.dataTermino}" size="20" locale="pt" pattern="dd/MM/yyyy"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur"
+									update="semanas, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"
+									listener="#{cadCursoMB.calcularNumeroDiasSeguro()}" />
+							</p:calendar>
+	
+							<p:inputText id="valorseguro" 
+								value="#{cadCursoMB.seguroViagem.valorSeguro}"
+								style="width:80%;text-align: right;"
+								maxlength="45" readonly="true"
+								disabled="#{cadCursoMB.camposSeguroViagem}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Seguro Obrigatório - Fornecido/Exigido pela escola</b>
+						</legend>
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:11.6%;">
+							<p:selectOneRadio id="possuiSeguroGovernamental"
+								value="#{cadCursoMB.curso.possuiSeguroGovernamental}"
+								style="width:180%;">
+								<f:selectItem itemLabel="Não" itemValue="N" class="loginButtonn" />
+								<f:selectItem itemLabel="Sim" itemValue="S" class="loginButtonn" />
+								<p:ajax event="change"
+									listener="#{cadCursoMB.carregarCamposSeguroGovernamental()}"
+									update="seguradoraGovernamental,numeroMeses,valorSeguroGovernamental" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+
+						<br></br>
+						<br></br>
+
+						<p:outputLabel value="Seguradora" for="seguradoraGovernamental"
+							style="margin-left: 11.5%" />
+						<p:outputLabel value="No. de Meses" for="numeroMeses"
+							style="margin-left: 36.4%" />
+						<p:outputLabel value="Valor Seguro" for="valorSeguroGovernamental"
+							style="margin-left: 17%" />
+						<br></br>
+						<p:inputText id="seguradoraGovernamental"
+							value="#{cadCursoMB.curso.seguradoraGovernamental}"
+							style="width:30%;margin-left: 11.5%" maxlength="45"
+							disabled="#{cadCursoMB.camposSeguroGovernamental}" />
+						<p:inputText id="numeroMeses"
+							value="#{cadCursoMB.curso.numeroMeses}"
+							style="width:11%;margin-left: 11.1%" maxlength="45"
+							disabled="#{cadCursoMB.camposSeguroGovernamental}" />
+						<p:inputText id="valorSeguroGovernamental"
+							value="#{cadCursoMB.curso.valorSeguroGovernamental}"
+							style="width:11.8%;text-align: right;margin-left: 11.7%"
+							maxlength="45" disabled="#{cadCursoMB.camposSeguroGovernamental}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+
+						<br></br>
+						<br></br>
+
+						<legend id="iUsu3">
+							<b>Contato de Emergência no Brasil</b>
+						</legend>
+						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+							value="#{cadCursoMB.digitosTelefoneContatoEmergencia}"
+							style="margin-left:68.5%;">
+							<p:ajax update="telefone" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
+						<p:outputLabel value="Telefone" for="telefone"
+							style="margin-left:54.7%" />
+						<br></br>
+						<p:inputText id="nome"
+							value="#{cadCursoMB.curso.nomeContatoEmergencia}"
+							style="width:52%;margin-left:11.5%" maxlength="45" />
+						<p:inputMask id="telefone"
+							value="#{cadCursoMB.curso.foneContatoEmergencia}"
+							mask="#{cadCursoMB.validarMascaraFoneContatoEmergencia()}"
+							style="width:19%;margin-left: 5%" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="E-mail" for="email"
+							style="margin-left: 11.5%" />
+						<p:outputLabel value="Relação" for="relacao"
+							style="margin-left:54.4%" />
+						<br></br>
+						<p:inputText id="email"
+							value="#{cadCursoMB.curso.emalContatoEmergencia}"
+							style="width:52%;margin-left:11.5%" maxlength="45" />
+						<p:inputText id="relacao"
+							value="#{cadCursoMB.curso.relacaoContatoEmergencia}"
+							style="width:19%;margin-left: 5%" />
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab id="tabProduto" title="Produtos"
+						titleStyle="font-size: 11px">
+						<h:panelGrid columns="4" style="margin-left: 11.6%" columnClasses="tamanho14, tamanho6, tamanho6, tamanho14"> 
+							<p:outputLabel value="Moeda" for="moeda"/>
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio"/>
+							<p:outputLabel/>
+							<p:outputLabel value="Valor Total" for="valortotal"/>
+						
+							<p:selectOneMenu id="moeda" value="#{cadCursoMB.moeda}"
+								style="width:210px;" converter="MoedasConverter">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadCursoMB.listaMoedas}" var="moedas"
+									itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadCursoMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadCursoMB.carregarValorCambio()}"
+									update="idvalorcambio, tabelaprodutoscurso, campomoedaestrangeira" />
+							</p:selectOneMenu>
+
+							<p:inputText id="idvalorcambio" value="#{cadCursoMB.valorCambio}"
+								style="width:95%;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadCursoMB.editarcambio(cadCursoMB.valorCambio)}"
+								title="Editar Câmbio" >
+								<img id="editarcambio" 
+									src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadCursoMB.retornoDialogEditarCambio}"
+									update="idvalorcambio, tabelaprodutoscurso,produto, telaFichaCurso:growl, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar" />
+							</p:commandLink> 
+							<p:inputText id="valortotal" value="#{cadCursoMB.valorTotal}"
+								style="width:30%;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%" columnClasses="tamanho14, tamanho6, tamanho6, tamanho14"> 
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadCursoMB.tituloMoedaEstrangeira()}" for="valor"/>
+							<p:outputLabel/>
+							<p:outputLabel value="Valor R$" for="valoreal" />
+							
+							<p:selectOneMenu id="produto"
+								value="#{cadCursoMB.produtosorcamento}"
+								style="width:210px;font-size: 10px;"
+								filter="true" filterMatchMode="startsWith"
+								converter="ProdutoOrcamentoConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadCursoMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadCursoMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valor"
+								value="#{cadCursoMB.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;"
+								readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel/>
+							<p:inputText id="valoreal" value="#{cadCursoMB.valorMoedaReal}"
+								style="width:30%;text-align: right;"
+								readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="width:77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+								action="#{cadCursoMB.adicionarProdutos()}" value="Adicionar"
+								update="tabelaprodutoscurso,produto, telaFichaCurso:growl, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar"
+								icon="ui-icon-plusthick"/> 
+						</div>
+						
+						<br></br>   
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutoscurso" var="produtoscurso"
+							value="#{cadCursoMB.orcamento.orcamentoprodutosorcamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtoscurso.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadCursoMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtoscurso.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtoscurso.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadCursoMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%" columnClasses="tamanho14, tamanho6, tamanho6, tamanho14"> 
+							<p:outputLabel value="Forma de Pagamento" for="formPag"/>
+							<p:outputLabel value="Valor Orçamento" for="valorOrca"/>
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+							
+							<p:selectOneMenu id="formPag"
+								value="#{cadCursoMB.formaPagamento.condicao}"
+								style="width:130px;"> 
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorOrca"
+								style="width:75%;text-align: right;"
+								value="#{cadCursoMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadCursoMB.formaPagamento.possuiJuros}"
+								style="width:130px;text-align: right;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadCursoMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, :telaFichaCurso:growl" />
+							</p:selectOneMenu>
+						
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+						
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag"/>
+								<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber"/>
+							
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:38%;text-align: right;"
+									value="#{cadCursoMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur" />
+									<p:ajax event="blur"
+										listener="#{cadCursoMB.calcularValorTotalOrcamento()}"
+										update="totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
+								</p:inputText>
+								<p:commandLink action="#{cadAupairMB.calcularJuros()}" style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png"/> 
+									<p:ajax event="dialogReturn" listener="#{cadAupairMB.retornoValorJuros()}" update="valorJuros,totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"/> 
+								</p:commandLink>
+							</h:panelGroup> 
+	
+							<p:inputText id="totalpag"
+								style="width:75%;text-align: right;"
+								value="#{cadCursoMB.totalPagar}" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+	
+							<p:inputText value="#{cadCursoMB.totalPagar}" id="saldoreceber"
+								style="width:30%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						   
+						    <p:outputLabel />
+						    <p:outputLabel />
+						    <p:outputLabel />
+						    <p:outputLabel />
+						    
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento" for="tipoparcelamento" />
+						
+							<p:inputText value="#{cadCursoMB.valorSaltoParcelar}"
+								id="saldoparcelar"
+								style="width:38.5%;font-size: 10px;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:selectOneMenu id="formPag2"
+								value="#{cadCursoMB.formaPagamentoString}"
+								style="width:120px;font-size: 10px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão de crédito"
+									itemValue="Cartão de crédito" />
+								<f:selectItem itemLabel="Cartão de crédito autorizado"
+									itemValue="Cartão de crédito autorizado" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<f:selectItem itemLabel="Déposito" itemValue="Déposito" />
+								<f:selectItem itemLabel="Financiamento banco"
+									itemValue="Financiamento Banco" />
+								<p:ajax event="change" listener="#{cadCursoMB.gerarListaTipoParcelamento()}" update="tipoparcelamento"/>
+							</p:selectOneMenu>
+							<p:outputLabel />	
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{cadCursoMB.tipoParcelamento}"
+								style="width:130px;font-size: 10px;">
+								<f:selectItems id="idTipoparcelamento"
+									value="#{cadCursoMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 	
+							<p:outputLabel value="Data 1o. Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela"/>
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+							
+						
+							<p:calendar id="primeirovencimento"
+								value="#{cadCursoMB.dataPrimeiroPagamento}" size="20"
+								locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:inputText value="#{cadCursoMB.valorParcelar}"
+								id="valoraparcelar"
+								style="font-size: 11px;width:50%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadCursoMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText>
+
+							<p:selectOneMenu id="nparcela"
+								value="#{cadCursoMB.numeroParcelas}"
+								style="width:100px;font-size: 10px;">
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadCursoMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu>
+
+							<p:inputText value="#{cadCursoMB.valorParcela}" id="valorparcela"
+								style="font-size: 11px;width:70%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+
+						<br></br>
+						<br></br>
+						<br></br>
+
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadCursoMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, telaFichaCurso:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"
+								action="#{cadCursoMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{cadCursoMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, telaFichaCurso:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+							</p:commandButton>
+							<p:commandButton id="btnCalcularBackOffice" style="margin-left:3%"
+								action="#{cadCursoMB.calcularComissaoFranquia()}" value="Comissão"
+								icon="ui-icon-calculator" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.btncomissaoficha}"/>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadCursoMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento" style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}" >
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadCursoMB.excluirFormaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Obs">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3" style="margin-left: 15%">
+							<p:inputTextarea value="#{cadCursoMB.formaPagamento.observacoes}"
+								id="obs" cols="150" rows="10" class="fontebranca" />
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="Obs TM">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3">
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas"
+								style="margin-left: 17%;font-size: 11px" />
+							<p:inputTextarea id="obstm" cols="150" rows="10"
+								class="fontebranca" value="#{cadCursoMB.venda.obstm}"
+								style="margin-left: 17%" />
+
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" onclick="PF('cd').show();" />
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadCursoMB.cancelarCadastro()}"></p:commandButton>
+					<p:dialog showEffect="fade" hideEffect="fade" header="Confirmação"
+						icon="ui-icon-alert" widgetVar="cd"
+						style="width:30%;font-size:14px">
+						<p:outputLabel
+							value="FINALIZAR FICHA? Ficha será enviada para Gerência." />
+						<br></br>
+						<br></br>
+						<p:commandButton value="Sim"
+							action="#{cadCursoMB.finalizarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" update="telaFichaCurso:growl"
+							style="margin-left:30%;font-size:12px" />
+						<p:commandButton value="Não"
+							action="#{cadCursoMB.naoEnviarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" update="telaFichaCurso:growl"
+							style="font-size:12px" />
+					</p:dialog>
+					<br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

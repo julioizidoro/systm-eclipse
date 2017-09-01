@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="carregaboleto" style="text-align:left;font-size: 10px;">
+            <title>Carregar Boleto</title>
+
+            <p:fileUpload id="upload" fileUploadListener="#{contasReceberMB.uploadRetorno}" mode="advanced" update="@all"   style="font-size: 12px;"
+                          auto="true"  allowTypes="/(\.|\/)(ret|RET)$/" uploadLabel="Abrir" cancelLabel="Cancelar" label="Selecionar">
+                <p:ajax listener="#{contasReceberMB.voltar()}" />
+            </p:fileUpload>                               
+            <p:growl id="messages"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+            <br></br><br></br><br></br>
+        </h:form>
+
+    </h:body>
+</html>

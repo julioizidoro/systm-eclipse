@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="idtelafinalizarorcamento">
+                <div id="centro">
+              <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                    <br></br><br></br> 
+                    <p:fieldset id="idpagamentoavista" legend="Opção 01 - Pagamento á Vista" toggleable="true" style="font-size: 11px;width: 95%;margin-left: 2.5%" >
+                       <h:panelGrid style="margin-left:8%" >
+	                        <p:outputLabel value="Valor R$"/>
+	                        <p:inputText id="idvalorRS01" value="#{finalizarOrcamentoCursoMB.ocurso.totalmoedanacional}" style="text-align: right;width:60%;" readonly="true">
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        </p:inputText>
+	                    </h:panelGrid>
+                    </p:fieldset>
+                    <br></br> <br></br><br></br>
+                    <p:selectBooleanCheckbox value="#{finalizarOrcamentoCursoMB.formaPagamento02.selecionado}" class="espacocobranca29">
+                    	<p:ajax event="change" listener="#{finalizarOrcamentoCursoMB.verificarFormaPgamento02()}" update=":idtelafinalizarorcamento:idparcelamentoantesviagem" />
+                    </p:selectBooleanCheckbox> 
+                    <p:fieldset id="idparcelamentoantesviagem" legend="Opção 02 - Parcelamento antes da viagem" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
+                         <h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+							columnClasses="dezoito,dezoito,dezoito,dezoito">
+							<p:outputLabel value="% Entrada" />
+							<p:outputLabel value="Valor da Entrada R$" />  
+							<p:outputLabel value="Nº Parcelas"/>
+							<p:outputLabel value="Valor da Parcela" />
+							
+                            <p:inputText id="idpercentual2" value="#{finalizarOrcamentoCursoMB.formaPagamento02.percentualEntrada}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento02}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idparcelamentoantesviagem"/>
+                            </p:inputText> 
+                        	<p:inputText id="idvalorentrada2" value="#{finalizarOrcamentoCursoMB.formaPagamento02.valorEntrada}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento02}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamentoValorEntrada()}" update="idparcelamentoantesviagem"/>
+                            </p:inputText> 
+                        	<p:selectOneMenu class="espacocobranca29" id="nparcela2"  value="#{finalizarOrcamentoCursoMB.formaPagamento02.numeroparcela}"  style="width:80px;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento02}">
+                                <f:selectItems id="idfornecedor"
+								value="#{finalizarOrcamentoCursoMB.listaNumeroParcelas}" var="selnumeroparcelas"
+								itemLabel="#{selnumeroparcelas.titulo}"
+								itemValue="#{selnumeroparcelas.numero}" />
+                                <p:ajax listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idparcelamentoantesviagem"/>
+                            </p:selectOneMenu>
+                            <p:inputText id="idvalorparcela2" value="#{finalizarOrcamentoCursoMB.formaPagamento02.valorparcela}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento02}" readonly="true">
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        </p:inputText>
+                        </h:panelGrid>
+                        <br></br> 
+					    <h:panelGrid style="margin-left:8%;width:80%;" columns="4" 
+							columnClasses="dezoito,dezoito,dezoito,dezoito">
+							<p:outputLabel value="% Saldo" />
+							<p:outputLabel value="Saldo R$"/>
+							<p:outputLabel value=""/>
+							<p:outputLabel value=""/>    
+							
+	                        <p:inputText id="idpersentualsaldo2" value="#{finalizarOrcamentoCursoMB.formaPagamento02.percentualSaldo}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento02}" readonly="true">
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idvalorsaldo2, idvalorparcela2"/>
+						    </p:inputText> 
+	                        <p:inputText id="idvalorsaldo2" value="#{finalizarOrcamentoCursoMB.formaPagamento02.valorSaldo}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento02}" readonly="true">
+	                            <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                        </p:inputText> 
+	                     </h:panelGrid> 
+                    </p:fieldset>
+                    
+                    <br></br><br></br><br></br>
+                    <p:selectBooleanCheckbox value="#{finalizarOrcamentoCursoMB.formaPagamento03.selecionado}" class="espacocobranca29">
+                    	<p:ajax event="change" listener="#{finalizarOrcamentoCursoMB.verificarFormaPgamento03()}" update=":idtelafinalizarorcamento:idparcelamentoemcartaocredito" />
+                    </p:selectBooleanCheckbox> 
+                    <p:fieldset id="idparcelamentoemcartaocredito" legend="Opção 03 - Parcelamento em cartão de crédito em até 12x" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
+                       <h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+							columnClasses="dezoito,dezoito,dezoito,dezoito">
+							<p:outputLabel value="% Entrada"/>
+							<p:outputLabel value="Valor da Entrada R$" />
+							<p:outputLabel value="Nº Parcelas"/>
+							<p:outputLabel value="Valor da Parcela" />
+							 
+                            <p:inputText id="idpercentualentrada3" value="#{finalizarOrcamentoCursoMB.formaPagamento03.percentualEntrada}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento03}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idparcelamentoemcartaocredito"/>
+                            </p:inputText> 
+                            <p:inputText id="idvalorentrada3" value="#{finalizarOrcamentoCursoMB.formaPagamento03.valorEntrada}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento03}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamentoValorEntrada()}" update="idparcelamentoemcartaocredito"/>
+                            </p:inputText> 
+                            <p:selectOneMenu id="nparcela3"  value="#{finalizarOrcamentoCursoMB.formaPagamento03.numeroparcela}"  style="width:80px;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento03}">
+                                <f:selectItem itemLabel="2" itemValue="2"/> 
+                                <f:selectItem itemLabel="3" itemValue="3"/> 
+                                <f:selectItem itemLabel="4" itemValue="4"/> 
+                                <f:selectItem itemLabel="5" itemValue="5"/> 
+                                <f:selectItem itemLabel="6" itemValue="6"/> 
+                                <f:selectItem itemLabel="7" itemValue="7"/> 
+                                <f:selectItem itemLabel="8" itemValue="8"/> 
+                                <f:selectItem itemLabel="9" itemValue="9"/> 
+                                <f:selectItem itemLabel="10" itemValue="10"/> 
+                                <f:selectItem itemLabel="11" itemValue="11"/> 
+                                <f:selectItem itemLabel="12" itemValue="12"/>
+                                <p:ajax listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idvalorparcela3"/>
+                             </p:selectOneMenu> 
+	                         <p:inputText id="idvalorparcela3" value="#{finalizarOrcamentoCursoMB.formaPagamento03.valorparcela}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento03}" readonly="true">
+	                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                         </p:inputText>
+                        </h:panelGrid>
+                        <br></br> 
+					    <h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+							columnClasses="dezoito,dezoito,dezoito,dezoito">
+							  <p:outputLabel value="% Saldo" />
+							  <p:outputLabel value="Saldo R$" />
+							  <p:outputLabel value=""/>
+							  <p:outputLabel value=""/>   
+
+	                          <p:inputText value="#{finalizarOrcamentoCursoMB.formaPagamento03.percentualSaldo}" style="text-align: right" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento03}" readonly="true">
+	                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                          </p:inputText> 
+	                          <p:inputText id="idvalorsaldo3" value="#{finalizarOrcamentoCursoMB.formaPagamento03.valorSaldo}" style="text-align: right" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento03}" readonly="true">
+	                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                          </p:inputText>
+                       </h:panelGrid>   
+                     </p:fieldset>
+                     <br></br> <br></br> <br></br> 
+                     <p:selectBooleanCheckbox value="#{finalizarOrcamentoCursoMB.formaPagamento04.selecionado}" class="espacocobranca29">
+                     	<p:ajax event="change" listener="#{finalizarOrcamentoCursoMB.verificarFormaPgamento04()}" update=":idtelafinalizarorcamento:idparcelamentoemcheque" />	
+                     </p:selectBooleanCheckbox> 
+                     <p:fieldset id="idparcelamentoemcheque" legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
+                       		<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+								columnClasses="dezoito,dezoito,dezoito,dezoito">
+								<p:outputLabel value="% Entrada" />
+								<p:outputLabel value="Valor da Entrada R$" />
+								<p:outputLabel value="Nº Parcelas" />
+								<p:outputLabel value="Valor da Parcela" />
+                         
+ 	                            <p:inputText id="idpercentualentrada4" value="#{finalizarOrcamentoCursoMB.formaPagamento04.percentualEntrada}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento04}">
+ 	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+ 	                                <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idparcelamentoemcheque"/>
+ 	                            </p:inputText> 
+ 	                            <p:inputText id="idvalorentrada4" value="#{finalizarOrcamentoCursoMB.formaPagamento04.valorEntrada}"  style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento04}">
+ 	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+ 	                                <p:ajax event="blur" listener="#{finalizarOrcamentoCursoMB.calcularParcelamentoValorEntrada()}" update="idparcelamentoemcheque"/>
+ 	                            </p:inputText> 
+	                            <p:selectOneMenu id="nparcela4"  value="#{finalizarOrcamentoCursoMB.formaPagamento04.numeroparcela}"  style="width:80px;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento04}">
+	                                <f:selectItem itemLabel="2" itemValue="2"/> 
+	                                <f:selectItem itemLabel="3" itemValue="3"/> 
+	                                <f:selectItem itemLabel="4" itemValue="4"/> 
+	                                <f:selectItem itemLabel="5" itemValue="5"/> 
+	                                <f:selectItem itemLabel="6" itemValue="6"/> 
+	                                <f:selectItem itemLabel="7" itemValue="7"/> 
+	                                <f:selectItem itemLabel="8" itemValue="8"/> 
+	                                <f:selectItem itemLabel="9" itemValue="9"/> 
+	                                <f:selectItem itemLabel="10" itemValue="10"/> 
+	                                <f:selectItem itemLabel="11" itemValue="11"/> 
+	                                <f:selectItem itemLabel="12" itemValue="12"/>
+	                                <p:ajax listener="#{finalizarOrcamentoCursoMB.calcularParcelamento()}" update="idvalorparcela4"/>
+	                             </p:selectOneMenu> 
+		                          <p:inputText id="idvalorparcela4" value="#{finalizarOrcamentoCursoMB.formaPagamento04.valorparcela}" style="text-align: right;width:60%" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento04}" readonly="true">
+		                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+		                          </p:inputText> 
+                          </h:panelGrid>
+                          <br></br> 
+						  <h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+								columnClasses="dezoito,dezoito,dezoito,dezoito"> 
+							  <p:outputLabel value="% Saldo" />
+							  <p:outputLabel value="Saldo R$"/>
+							  <p:outputLabel value=""/>
+						      <p:outputLabel value=""/>
+                           
+	                          <p:inputText id="porcentagemSaldo4" value="#{finalizarOrcamentoCursoMB.formaPagamento04.percentualSaldo}"  style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento04}" readonly="true">
+	                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                          </p:inputText> 
+	                          <p:inputText id="idvalorsaldo4" value="#{finalizarOrcamentoCursoMB.formaPagamento04.valorSaldo}" style="text-align: right;width:60%;" disabled="#{finalizarOrcamentoCursoMB.habilitaFormaPagamento04}" readonly="true">
+	                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                          </p:inputText> 
+	                      </h:panelGrid>
+                    </p:fieldset>
+                    <br></br> <br></br> <br></br> 
+                    <p:fieldset id="idObs" legend="Obs" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
+                        <p:outputLabel value="Observações Obrigatórias" style="margin-left:3%"/>
+                        <br></br> 
+                        <p:inputTextarea value="#{finalizarOrcamentoCursoMB.resultadoOrcamentoBean.ocurso.observacao}" id="descricao" rows="3" cols="140" style="margin-left:3%"/>
+                    </p:fieldset>
+                    <br></br> 
+                    <p:commandButton id="bntconfirmar" style="font-size:12px;margin-left: 34%" value="Confirmar"  action="#{finalizarOrcamentoCursoMB.adicionarDestinarios()}"  icon="ui-icon-check" update="growl"/> 
+                    <p:commandButton id="bntvoltar" style="font-size:12px;margin-left: 5%" value="Voltar" action="#{finalizarOrcamentoCursoMB.voltar()}" icon="ui-icon-arrowreturnthick-1-w" />
+                    <br></br><br></br>
+                </div>
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

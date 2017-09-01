@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+          
+    </h:head> 
+    <h:body style="background:#DDDDE1;">
+        <h:form id="idtelaconsultafornecedor" style="text-align:left;font-size: 10px;"><br></br>
+            <title>Nome</title>
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
+                    <p:inputText id="nomeFornecedor" value="#{consultaFornecedorMB.nomefornecedor}"  style="margin-left:2%;width:50%"/> 
+                    <p:commandButton id="bntpesquisar"  icon="ui-icon-search" style="font-size:12px;margin-left:2.6%" value="Pesquisar" update="idtabelafornecedor" action="#{consultaFornecedorMB.gerarListaFornecedor()}"/>
+                   <p:commandButton id="bntnovo"  icon="ui-icon-plus" style="font-size:12px;margin-left:12%" value="Novo" update=":formAdicionar:dialog_adicionarFornecedor" oncomplete="PF('novofornecedor').show()"/>
+                    <br/><br/>
+                    <p:dataTable id="idtabelafornecedor" var="fornecedor"  value="#{consultaFornecedorMB.listaFornecedor}" class="tabela5" 
+                                 scrollable="true" scrollHeight="280" style="margin-bottom:20px;margin-left:2%;width:97%;" >
+                        <p:column headerText="Parceiro"  >
+                            <p:outputLabel value="#{fornecedor.nome}" />
+                        </p:column>
+                        <p:column headerText="Systm"  width="50px;">
+                            <p:outputLabel value="#{fornecedor.anotarifario}" />
+                        </p:column>
+                        <p:column headerText="Curso"  width="50px;">
+                            <p:outputLabel value="#{fornecedor.anotarifariocurso}" />
+                        </p:column>    
+                        <p:column style="text-align:center;width: 35px" >
+	                        <p:commandLink action="#{consultaFornecedorMB.receberFornecedor(fornecedor)}" style="text-decoration: none" update=":formAdicionar:dialog_adicionarFornecedor" oncomplete="PF('novofornecedor').show()" title="Editar">
+	                            <img src="../../resources/img/editaricon.png"/>
+	                        </p:commandLink>
+	                    </p:column>  
+                        <p:column style="text-align:center;width: 30px" >
+                            <p:selectBooleanCheckbox value="#{fornecedor.selecionado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton class="espacocobranca34"  icon="ui-icon-check" value="Adicionar" action="#{consultaFornecedorMB.salvarFornecedor()}"> </p:commandButton>
+                    <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{consultaFornecedorMB.cancelar()}"></p:commandButton>
+                 
+            </h:form> 
+            <h:form id="formAdicionar">
+                <p:dialog id="dialog_adicionarFornecedor" header="Fornecedor" widgetVar="novofornecedor" width="60%" style="background:#d0e9c6;text-align: left;font-size: 11px;" >
+                    <br></br>
+                    <p:outputLabel value="Nome do Parceiro" style="margin-left: 2%"/> <br></br>
+                    <p:inputText value="#{consultaFornecedorMB.fornecedor.nome}" style="width:94%;" class="espacocobranca29"/>
+                    <br></br><br></br>
+                    <p:outputLabel value="Ano" style="margin-left: 2%"/>
+                    <p:outputLabel value="Site" style="margin-left: 18%"/> <br></br>
+                    <p:inputText value="#{consultaFornecedorMB.fornecedor.anotarifariocurso}" style="width:20%;" class="espacocobranca29"/>
+                    <p:inputText value="#{consultaFornecedorMB.fornecedor.site}" style="width:69%;margin-left: 5%;" class="espacocobranca29"/>
+                    <br></br><br></br>
+                    <p:commandButton id="bntconfirmar" actionListener="#{consultaFornecedorMB.salvar()}" action="#{consultaFornecedorMB.gerarListaFornecedor()}" oncomplete="novofornecedor.hide()" update=":idtelaconsultafornecedor:idtabelafornecedor" icon="ui-icon-check" class="espacocobranca24botao" style="font-size:11px;margin-left:35%;width:30%;" value="Confirmar"   ajax="false"/>
+                    <p:commandButton id="bntcancelar" actionListener="#{consultaFornecedorMB.cancelarCadastro()}" icon="ui-icon-close" class="espacocobranca24botao" style="font-size:11px;width:30%;" value="Cancelar" onclick="novofornecedor.hide()"/>
+                    <br></br><br/>
+                </p:dialog>
+               
+        </h:form>     
+    </h:body>
+</html>

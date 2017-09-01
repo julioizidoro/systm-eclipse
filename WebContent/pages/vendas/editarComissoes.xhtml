@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="editarComissao" style="font-size:11px;">
+			<div id="centro">
+				<br></br> <br></br>
+				<legend id="iUsu3"
+					style="font-size: 13px; margin-left: 4%; border-color: #cccccc; width: 92%; text-align: center">
+					<b style="color: #1F8871;">#{vendasFinanceiroComissaoMB.venda.idvendas}
+						- #{vendasFinanceiroComissaoMB.venda.cliente.nome}</b>
+				</legend>
+				<legend id="iUsu3"
+					style="font-size: 12px; margin-left: 4%; border-color: #1F8871; width: 92%">
+					<b style="color: #1F8871">Parceiro</b>
+				</legend>
+
+				<h:panelGrid columns="6"
+					columnClasses="tamanho5, tamanho7, tamanho13, tamanho7, tamanho7, tamanho7"
+					style="width:90%;margin-left:4%;">
+					<p:outputLabel value="Parceiro" for="fornecedor" />
+					<p:outputLabel value="Comissão TM" for="comissaotm" />
+					<p:outputLabel />
+					<p:outputLabel value="Valor Previsto" for="valorprevisto" />
+					<p:outputLabel value="Prev. de Pgto" for="prePagamento" />
+					<p:outputLabel />
+
+					<p:inputText id="fornecedor" style="width:90%" readonly="true"
+						value="#{vendasFinanceiroComissaoMB.venda.fornecedorcidade.fornecedor.nome}" />
+					<p:inputText id="comissaotm" style="width:90%;text-align:right"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.comissaotm}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:commandLink
+						action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarcomissaotm)}"
+						style="text-decoration:none;">
+						<img src="../../resources/img/editardata.png" />
+						<p:ajax event="dialogReturn"
+							listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+							process="@this"
+							update=":editarComissao:comissaotm, :editarComissao:liquidovenda, :editarComissao:comissaogerente, :editarComissao:valorprevisto" />
+					</p:commandLink>
+					<p:inputText id="valorprevisto" style="width:85%;text-align: right"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.valorfornecedor}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputMask id="prePagamento" style="width:90%;" mask="99/99/9999"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.previsaopagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+					<p:commandLink style="text-decoration:none;width:90%;"
+						update="dialog_editarDataVencimento"
+						oncomplete="PF('editarData').show()" title="Editar data">
+						<img src="../../resources/img/editardata.png" />
+					</p:commandLink>
+				</h:panelGrid>
+				<br></br> <br></br>
+				<legend id="iUsu3"
+					style="font-size: 12px; margin-left: 4%; border-color: #fff; width: 92%">
+					<b style="">Informações Adicionais</b>
+				</legend>
+				<h:panelGrid columns="6"
+					columnClasses="tamanho7, tamanho7, tamanho13, tamanho7, tamanho7, tamanho7"
+					style="width:90%;margin-left:4%;">
+					<p:outputLabel value="Taxa TM" for="taxatm" />
+					<p:outputLabel value="Deságio" for="desagio" />
+					<p:outputLabel />
+					<p:outputLabel value="Juros" for="juros" />
+					<p:outputLabel value="Desconto Matriz" for="descontomatriz" />
+					<p:outputLabel value="Desconto Loja" for="descontoloja" />
+
+					<p:inputText id="taxatm" style="width:75%;text-align:right"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.taxatm}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputText id="desagio" style="width:90%;text-align: right"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.desagio}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:commandLink style="text-decoration:none;"
+						action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editardesagio)}">
+						<img src="../../resources/img/editardata.png" />
+						<p:ajax event="dialogReturn"
+							listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+							process="@this"
+							update=":editarComissao:desagio, :editarComissao:comissaofranquia, :editarComissao:liquidofrq, :editarComissao:comissaoconsultor , :editarComissao:comissaogerente, :editarComissao:liquidovenda" />
+					</p:commandLink>
+
+					<p:inputText id="juros" style="width:75%;text-align: right"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.juros}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+
+					<p:inputText id="descontomatriz"
+						style="width:75%;text-align: right" readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.descontotm}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputText id="descontoloja" style="width:75%;text-align: right"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.descontoloja}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<br></br> <br></br>
+				<legend id="iUsu3"
+					style="font-size: 12px; margin-left: 4%; border-color: #fff; width: 92%">
+					<b style="">Franquia</b>
+				</legend>
+				<h:panelGrid columns="5"
+					columnClasses="tamanho7, tamanho7, tamanho7, tamanho7, tamanho7"
+					style="width:90%;margin-left:4%;">
+					<p:outputLabel value="Unidade" for="unidade" />
+					<p:outputLabel value="Comissão" for="comissaofranquia" /> 
+					<p:outputLabel value="Incentivo" for="incentivofranquia" />
+					<p:outputLabel value="Custo Financeiro"/>
+					<p:outputLabel value="Líquido FRQ" for="liquidofrq" />
+
+					<p:inputText id="unidade" style="width:90%" readonly="true"
+						value="#{vendasFinanceiroComissaoMB.venda.unidadenegocio.nomerelatorio}" />
+					<h:panelGroup>
+						<p:inputText id="comissaofranquia"
+							style="width:70%;text-align:right" readonly="true"
+							value="#{vendasFinanceiroComissaoMB.vendascomissao.comissaofranquiabruta}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:commandLink style="text-decoration:none;"
+							action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarcomissaofranquia)}">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+								process="@this"
+								update=":editarComissao:comissaofranquia, :editarComissao:liquidofrq, :editarComissao:comissaoconsultor, :editarComissao:comissaogerente, :editarComissao:liquidovenda" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText id="incentivofranquia"
+							style="width:70%;text-align:right" readonly="true"
+							value="#{vendasFinanceiroComissaoMB.vendascomissao.incentivo}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:commandLink style="text-decoration:none;"
+							action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarincentivo)}">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+								process="@this"
+								update=":editarComissao:incentivofranquia, :editarComissao:liquidofrq, :editarComissao:comissaoconsultor, :editarComissao:comissaogerente, :editarComissao:liquidovenda" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText id="custofinanceiro"
+							style="width:70%;text-align:right" readonly="true"
+							value="#{vendasFinanceiroComissaoMB.vendascomissao.custofinanceirofranquia}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
+						<p:commandLink style="text-decoration:none;"
+							action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarcustofinanceiro)}">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+								process="@this"
+								update=":editarComissao:custofinanceiro, :editarComissao:incentivofranquia, :editarComissao:liquidofrq, :editarComissao:comissaoconsultor, :editarComissao:comissaogerente, :editarComissao:liquidovenda" />
+						</p:commandLink>
+					</h:panelGroup>
+					<p:inputText id="liquidofrq" style="width:70%;text-align:right"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.liquidofranquia}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<br></br>
+				<legend id="iUsu3"
+					style="font-size: 12px; margin-left: 4%; border-color: #fff; width: 92%">
+					<b style="">Comissão</b>
+				</legend>
+				<h:panelGrid columns="3"  style="margin-left:4%;">
+					<p:outputLabel value="Terceiros" for="terceiros" />
+					<p:outputLabel value="Comissão" for="comissaoterceiros"  style="margin-left:8%;"/>
+					<p:outputLabel/>
+
+					<p:selectOneMenu id="terceiros" style="width:250px"
+						value="#{vendasFinanceiroComissaoMB.terceiros}"
+						converter="TerceirosConverter" filter="true" filterMatchMode="startsWith">
+						<f:selectItems id="idterceiros"
+							value="#{vendasFinanceiroComissaoMB.listaTerceiros}"
+							var="terceirosSelecionado"
+							itemLabel="#{terceirosSelecionado.nome}"
+							itemValue="#{terceirosSelecionado}" />
+						<f:attribute name="listaTerceiros"
+							value="#{vendasFinanceiroComissaoMB.listaTerceiros}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+					<p:inputText id="comissaoterceiros" 
+						style="width:90%;text-align:right;margin-left:8%;" readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.comissaoterceiros}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:commandLink style="text-decoration:none;"
+						action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarcomissaoterceiros)}">
+						<img src="../../resources/img/editardata.png" />
+						<p:ajax event="dialogReturn"
+							listener="#{vendasFinanceiroComissaoMB.retornoDialog}" process="@this"
+							update=":editarComissao:comissaoterceiros, :editarComissao:liquidovenda" />
+					</p:commandLink>
+				</h:panelGrid> 
+				<br></br>
+				<h:panelGrid columns="3"  style="margin-left:4%;">
+					<p:outputLabel value="Consultor" for="consultor"/>
+					<p:outputLabel value="Comissão" for="comissaoconsultor" style="margin-left:8%;"/>
+					<p:outputLabel/>
+					 
+					<p:inputText id="consultor" style="width:250px"
+						readonly="true"
+						value="#{vendasFinanceiroComissaoMB.venda.usuario.nome}" />
+					<p:inputText id="comissaoconsultor"
+						style="width:90%;text-align:right;margin-left:8%;" readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.comissaoemissor}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:commandLink style="text-decoration:none;"
+						action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarComissaoConsultor)}">
+						<img src="../../resources/img/editardata.png" />
+						<p:ajax event="dialogReturn"
+							listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+							process="@this"
+							update=":editarComissao:comissaoconsultor, :editarComissao:liquidovenda" />
+					</p:commandLink>
+				</h:panelGrid>
+				<br></br>
+				<h:panelGrid columns="3"  style="margin-left:4%;">
+					<p:outputLabel value="Gerente" for="gerente" />
+					<p:outputLabel value="Comissão" for="comissaogerente"
+						style="margin-left:8%;" />
+					<br></br>
+					<p:inputText id="gerente" style="width:250px"
+						readonly="true" value="#{vendasFinanceiroComissaoMB.nomeGerente()}" />
+					<p:inputText id="comissaogerente"
+						style="width:90%;text-align:right;margin-left:8%;" readonly="true"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.comissaogerente}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:commandLink style="text-decoration:none;"
+						action="#{vendasFinanceiroComissaoMB.editarInformacoes(vendasFinanceiroComissaoMB.editarcomissaogerente)}">
+						<img src="../../resources/img/editardata.png" />
+						<p:ajax event="dialogReturn"
+							listener="#{vendasFinanceiroComissaoMB.retornoDialog}"
+							process="@this"
+							update=":editarComissao:comissaogerente, :editarComissao:liquidovenda" />
+					</p:commandLink>
+				</h:panelGrid>
+				<br></br> <br></br>
+				<legend id="iUsu3"
+					style="font-size: 12px; margin-left: 4%; border-color: #fff; width: 92%">
+					<b style="">Líquido da Venda</b>
+				</legend>
+				<p:inputText id="liquidovenda"
+					style="margin-left:4%;width:13%;text-align:right;" readonly="true"
+					value="#{vendasFinanceiroComissaoMB.vendascomissao.liquidovendas}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<div align="right" style="width: 100%;">
+					<p:commandButton value="Confirmar" icon=" ui-icon-check"
+						action="#{vendasFinanceiroComissaoMB.confirmar()}"/>
+					<p:commandButton value="Recálculo" icon="ui-icon-refresh"
+						action="#{vendasFinanceiroComissaoMB.recalcular()}"
+						style="margin-left:2%" update="@all" />
+					<p:commandButton value="Produtos" icon="ui-icon-search"
+						action="#{vendasFinanceiroComissaoMB.produtoVendas()}"
+						style="margin-left:2%" title="Visualizar Produtos da Venda" />
+					<p:commandButton value="Cancelar" icon="ui-icon-closethick"
+						action="#{vendasFinanceiroComissaoMB.cancelar()}"
+						style="margin-left:2%" /> 
+				</div>   
+				<br></br> <br></br> <br></br>
+				<p:dialog id="dialog_editarDataVencimento" header="Editar Data"
+					widgetVar="editarData" width="20%"
+					style="background:#d0e9c6;text-align: left">
+					<p:outputLabel value="Data de Vencimento" for="dataVencimento"
+						style="font-size: 11px" />
+					<br></br>
+					<p:calendar id="dataVencimento" class="fontebranca"
+						value="#{vendasFinanceiroComissaoMB.vendascomissao.previsaopagamento}"
+						pattern="dd/MM/yyyy" mask="true" maxlength="15" locale="pt">
+						<f:convertDateTime timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>
+					<p:commandButton value="Salvar" icon="ui-icon-check"
+						action="#{vendasFinanceiroComissaoMB.confirmarAlterarData()}"
+						class="espacocobranca23botao" style="font-size:11px;"
+						update=":editarComissao:prePagamento" onclick="dialog.hide()" />
+				</p:dialog>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

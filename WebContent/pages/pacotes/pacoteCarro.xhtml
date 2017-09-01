@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>   
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastropacotecarro" style="text-align:left;font-size:11px;">
+            <title>Carro</title><br></br>
+            
+           	 	<h:panelGrid columns="4" width="100%" style="margin-left:3%;">
+                            <p:outputLabel value="Pais" for="pais" style="font-size:11px;"/>
+                            <p:outputLabel value="Cidade" for="cidade" style="font-size:11px;"/>
+                            <p:outputLabel value="Parceiro" for="fornecedor" style="font-size:11px;"/>
+	            			<p:outputLabel value="Data Pagamento" for="datapagamentoparceiro" style="font-size:11px;" />
+	            			
+                            <p:selectOneMenu id="pais" value="#{pacoteCarroMB.pais}" style="width:100px;font-size: 10px;" 
+                                             converter="PaisConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                                <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idpais" value="#{pacoteCarroMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+                                <f:attribute name="listaPais" value="#{pacoteCarroMB.listaPais}"/>
+                                <p:ajax event="change" update="cidade"/> 
+                            </p:selectOneMenu>
+                            <p:selectOneMenu id="cidade" value="#{pacoteCarroMB.cidade}" style="font-size: 10px;width:120px;" 
+                                             converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idcidade" value="#{pacoteCarroMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+                                <f:attribute name="listaCidade" value="#{pacoteCarroMB.pais.cidadeList}"/>
+                                <p:ajax event="change" listener="#{pacoteCarroMB.listarFornecedorCidade(0)}" update="fornecedor" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu id="fornecedor" value="#{pacoteCarroMB.fornecedorcidade}" style="font-size: 10px;width:200px;"
+                                             converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idfornecedor" value="#{pacoteCarroMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+                                <f:attribute name="listaFornecedorCidade" value="#{pacoteCarroMB.listaFornecedorCidade}"/>
+                            </p:selectOneMenu>
+				            <p:calendar id="datapagamentoparceiro" value="#{pacoteCarroMB.pacotecarro.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+				                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+				            </p:calendar>
+                   </h:panelGrid>
+                            <br/>
+                            <p:outputLabel value="Localizador" for="localizador" style="font-size:11px;margin-left: 3%"/>
+                            <p:outputLabel value="Local Retirada" for="locaretirada" class="espacocobranca16" style="font-size:11px;"/>
+                            <p:outputLabel value="Data Retirada" for="dataretirada"  style="font-size:11px;margin-left: 23.4%"/>
+                            <p:outputLabel value="Hora Retirada" for="horaretirada" class="espacocobranca15" style="font-size:11px;"/>
+                            <br></br>
+                            <p:inputText id="localizador" value="#{pacoteCarroMB.pacotecarro.localizador}" style="width:25%;margin-left: 3%" maxlength="45" class="espacocampos2"/>
+                            <p:inputText id="locaretirada" value="#{pacoteCarroMB.pacotecarro.locaretirada}" style="width:30%;" maxlength="100" class="espacocampos"/>
+                            <p:calendar id="dataretirada" value="#{pacoteCarroMB.pacotecarro.dataretirada}" size="12"  class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" >
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            <p:inputMask id="horaretirada" value="#{pacoteCarroMB.pacotecarro.horaritirada}" style="width:13%;" mask="99:99" class="espacocampos"/>
+                            <br></br><br></br>
+                            <p:outputLabel value="Local Devolução" for="localdevolucao" style="font-size:11px;margin-left: 3%"/>
+                            <p:outputLabel value="Data Devolução" for="datadevolucao" style="font-size:11px;margin-left:17.2%"/>
+                            <p:outputLabel value="Hora Devolução" for="horadevolucao" class="espacocobranca14" style="font-size:11px;"/>
+                            <p:outputLabel value="Categoria" for="categoria" class="espacocobranca20" style="font-size:11px;"/>
+                            <br></br>
+                            <p:inputText id="localdevolucao" value="#{pacoteCarroMB.pacotecarro.localdevolucao}" style="width:25%;margin-left: 3%" maxlength="45" class="espacocampos2"/>
+                            <p:calendar id="datadevolucao" value="#{pacoteCarroMB.pacotecarro.datadevolucao}" size="13"  class="espacocampos2" locale="pt"  pattern="dd/MM/yyyy" style="margin-left: 4.5%">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            <p:inputMask id="horadevolucao" value="#{pacoteCarroMB.pacotecarro.horadevolucao}" style="width:12.5%;" mask="99:99" class="espacocampos"/>
+                            <p:inputText id="categoria" value="#{pacoteCarroMB.pacotecarro.categoria}" style="width:30%;" maxlength="15" class="espacocampos"/>
+                            <br></br><br></br>
+                            <p:outputLabel value="Câmbio" for="moeda" class="" style="font-size:11px;margin-left: 3%"/>
+                            <p:outputLabel value="Valor do Câmbio" for="idvalorcambio" class="espacocobranca33" style="font-size:11px;"/>
+                            <p:outputLabel value="Tarifas" for="tarifas"  style="font-size:11px;margin-left:8%"/>  
+                            <p:outputLabel value="Taxas" for="taxas" class="espacocobranca2" style="font-size:11px;margin-left: 14%;"/>
+                            <p:outputLabel value="Comissão Parceiro" for="comissaoFornecedor" class="espacocobranca33" style="font-size:11px;margin-left:14.5%;"/>
+                            
+                            <br></br>
+                            <h:panelGrid columns="5">
+                                <p:selectOneMenu class="espacocampos5" style="width:90px;font-size:11px;margin-left:19%" id="moeda"  value="#{pacoteCarroMB.cambio}" converter="CambioConverter">
+                                    <f:selectItem itemLabel="Câmbio" itemValue="0"/> 
+                                    <f:selectItems value="#{aplicacaoMB.listaCambio}" var="cambio" itemLabel="#{cambio.moedas.sigla}" itemValue="#{cambio}"/>
+                                    <f:attribute name="listaCambio" value="#{aplicacaoMB.listaCambio}"/>
+                                    <p:ajax event="change" listener="#{pacoteCarroMB.carregarValorCambio()}" update="idvalorcambio" />
+                                </p:selectOneMenu>
+                                <p:inputText id="idvalorcambio" value="#{pacoteCarroMB.valorCambio}" style="width:60%;font-size:11px;text-align: right" class="espacocampos">
+                                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                </p:inputText>  
+                                <p:inputText id="tarifas" value="#{pacoteCarroMB.pacotecarro.tarifa}" style="width:70%;font-size:11px;margin-left:11%"  >
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </p:inputText>
+	                            <p:inputText id="taxas" value="#{pacoteCarroMB.pacotecarro.taxa}" style="width:70%;font-size:11px;margin-left:3%"  >
+	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </p:inputText>
+	                            <p:inputText id="comissaoFornecedor" value="#{pacoteCarroMB.pacotecarro.comissaofornecedor}" style="width:100%;font-size:11px;margin-left:2%" maxlength="15"  >
+	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </p:inputText>
+                            </h:panelGrid>
+                            <br></br>
+                            <p:outputLabel value="Descritivo" for="descritivo" style="font-size:11px;margin-left: 3%"/>
+                            <br></br>
+                            <p:inputText id="descritivo" value="#{pacoteCarroMB.pacotecarro.descritivo}" style="width:94%;margin-left: 3%" class="espacocampos2"/>
+                            <br></br><br></br>
+                            <p class="botaocadpacote"><br></br>
+                                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{pacoteCarroMB.salvarCarro()}" style="font-size:11px;"></p:commandButton>
+                                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{pacoteCarroMB.cancelar()}"></p:commandButton>
+                                 <p:commandButton class="espacocampos" onclick="" icon="ui-icon-trash" value="Excluir" action="#{pacoteCarroMB.excluir()}"></p:commandButton>
+                                <br></br><br></br>
+                            </p>
+            </h:form>     
+    </h:body>
+</html>

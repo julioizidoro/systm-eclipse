@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="situacaoTipoDoc"
+		style="text-align:left;font-size: 10px; margin-left: 7%; ">
+		<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
+		<title>Situação / Tipo de Documento</title>
+		<p:outputLabel value="Situação" style="margin-left:3%;" />
+		<br></br>  
+		<p:selectOneMenu id="idimgsituacao"
+			value="#{editarSituacaoTipoDocMB.bolinhas}"
+			style="width:88%;margin-left:3%;" converter="BolinhaConverter"
+			var="b">
+			<f:selectItem itemLabel="" itemValue="0" noSelectionOption="true" />
+			<f:selectItems value="#{editarSituacaoTipoDocMB.listaBolinhas}"
+				var="boli" itemValue="#{boli}" itemLabel="" />
+			<p:column style="width:10%">
+				<p:graphicImage value="#{b.caminho}"
+					style="margin-right:25%;font-size:12px;" />
+			</p:column>
+			<f:attribute name="listaBolinha"
+				value="#{editarSituacaoTipoDocMB.listaBolinhas}" />
+			<p:ajax event="change" />
+		</p:selectOneMenu>
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Tipo de Documento" style="margin-left:3%;" />
+		<br></br>
+		<p:selectOneMenu id="tipoDocumento" style="width:88%;margin-left:3%;"  
+			value="#{editarSituacaoTipoDocMB.tipodocumento}">
+			<f:selectItem itemLabel="Selecione" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+			<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+			<f:selectItem itemLabel="Cartão de Crédito"
+				itemValue="Cartão de Crédito" />
+			<f:selectItem itemLabel="Cartão de Crédito Autorizado"
+				itemValue="Cartão de Crédito Autorizado" />
+			<f:selectItem itemLabel="Cartão de Débito"
+				itemValue="Cartão de Débito" />
+			<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+			<f:selectItem itemLabel="Déposito" itemValue="Déposito" />
+			<f:selectItem itemLabel="Financiamento Banco"
+				itemValue="Financiamento Banco" />
+		</p:selectOneMenu>
+		<br></br> 
+		<br></br>
+		<p:commandButton style="margin-left:52.5%;" update="growl" icon="ui-icon-check"
+			value="Confirmar" action="#{editarSituacaoTipoDocMB.salvar()}" />
+	</h:form>
+</h:body>
+</html>

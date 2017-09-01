@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<script type="text/javascript" src="../../resources/js/calendario.js"/>
+	<link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" /> 
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="relatorioGeralHS"
+			style="text-align:left;font-size: 10px; margin-left: 7%; ">
+			<br></br>
+
+			<title>Relatório Geral</title>
+
+			<p:outputLabel value="Período" for="datainicial"
+				style="margin-left:-1%">
+			</p:outputLabel>
+			<br />
+			<p:calendar id="datainicial"
+				value="#{relatorioGeralHighSchoolMB.dataInicio}" size="12"
+				style="margin-left: -1%;width: 20%" locale="pt" pattern="dd/MM/yyyy"
+				mask="true" maxlength="15">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<p:calendar id="dataFinal"
+				value="#{relatorioGeralHighSchoolMB.dataTermino}" size="12"
+				style="margin-left:5%;width: 20%" locale="pt" pattern="dd/MM/yyyy"
+				mask="true" maxlength="15">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<br></br>
+			<br></br>
+			<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%">
+			</p:outputLabel>
+			<br></br>
+			<p:selectOneMenu id="unidade" style="width:95%;margin-left:-1%"
+				value="#{relatorioGeralHighSchoolMB.unidadenegocio}"
+				converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{relatorioGeralHighSchoolMB.listaUnidadeNegocio}"
+					var="unidade" itemLabel="#{unidade.nomerelatorio}"
+					itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{relatorioGeralHighSchoolMB.listaUnidadeNegocio}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu> 
+			<br /> <br />
+			<div align="center">
+				<p:commandButton value="Confirmar"    
+					onclick="this.form.target='_blank'" icon="ui-icon-check"
+					action="#{relatorioGeralHighSchoolMB.gerarRelatorio()}" ajax="false" />
+				<p:commandButton style="margin-left: 1%" icon="ui-icon-close"
+					value="Cancelar" action="#{relatorioGeralHighSchoolMB.fechar()}"/>
+			</div>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

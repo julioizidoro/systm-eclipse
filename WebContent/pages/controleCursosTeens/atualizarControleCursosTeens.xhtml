@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="atualizarControleTeens"
+		style="text-align:left;font-size:11px;">
+		<title>Atualizar Controle Cursos Teens</title>
+		<br></br>
+		<p:accordionPanel class="painelControleCursos"
+			style="background:#1F8871;">
+
+			<p:tab title="Dados da Ficha" class="tab"
+				titleStyle="font-size: 11px">
+				<br />
+				<p:outputLabel value="ID Venda" for="nControle"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
+				<p:outputLabel value="Data Inscrição" for="dataIncricao"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:9.5%;" />
+				<p:outputLabel value="Unidade Negócio" for="unidadeNegocio"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:6.4%;" />
+				<p:outputLabel value="Consultor" for="consultor"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:24.3%;" />
+
+				<br></br>
+				<p:inputText id="nControle"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.idvendas}"
+					style="width:11%;margin-left:1%;margin-top:1%;" disabled="true" />
+				<p:inputText id="dataIncricao"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.dataVenda}"
+					style="width:11%;margin-left:4%;" disabled="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputText>
+				<p:inputText id="unidadeNegocio"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.unidadenegocio.nomeFantasia}"
+					style="width:30%;margin-left:5%;" disabled="true" />
+				<p:inputText id="consultor" value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.usuario.nome}"
+					style="width:25%;margin-left:6.5%;" disabled="true" />
+				<br></br>
+				<br></br>
+
+				<p:outputLabel value="Nome" for="nome"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
+				<p:outputLabel value="E-mail" for="email"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:51.2%;" />
+
+				<br></br>
+				<p:inputText id="nome"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.cliente.nome}"
+					style="width:41%;margin-left:1%;margin-top:1%;" disabled="true" />
+				<p:inputText id="email"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.cliente.email}"
+					style="width:41%;margin-left:13.3%;" disabled="true" />
+				<br></br>
+				<br></br>
+
+				<p:outputLabel value="Fone Celular" for="numeroCelular"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
+				<p:outputLabel value="País de Destino" for="paisDestino"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:21.9%;" />
+				<br></br>
+				<p:inputText id="numeroCelular"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.cliente.foneCelular}"
+					style="width:18.3%;margin-left:1%;margin-top:1%;" disabled="true" />
+				<p:inputText id="paisDestino"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.vendas.fornecedorcidade.cidade.pais.nome}"
+					style="width:30.4%;margin-left:11.8%;" disabled="true" />
+					<br></br><br></br>
+				<p:outputLabel value="Data Embarque" for="dataembarque"
+					style="margin-left: 1%;" />  
+				<p:outputLabel value="Cidade de destino" for="cidadeDestino"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 20%" />
+				<p:outputLabel value="Data envio app" for="dataenvioapp"
+					style="margin-left: 32%" />
+				<br></br>
+
+				<p:calendar id="dataembarque"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataEmbarque}"
+					maxlength="20" locale="pt" style="margin-left:1%;"
+					pattern="dd/MM/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="change" />
+					<p:ajax event="dateSelect" />
+				</p:calendar>
+
+				<p:inputText id="cidadeDestino"
+					style="width:30%;margin-left:12.3%;margin-top:1%;" maxlength="100"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.cidadeDestino}" />
+
+
+				<p:calendar id="dataenvioapp"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataEnvioApp}"
+					style="margin-left:14.9%" maxlength="20">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+
+				<br></br>
+				<br></br>
+
+				<p:outputLabel value="Bônus" for="bonus"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 1%" />
+				<p:outputLabel value="Data Retorno" for="dataretorno"
+					style="margin-left: 39%;" />
+				<p:outputLabel value="Data aplicou visto" for="dataaplicouvisto"
+					style="margin-left: 24%" />
+				<br></br>
+
+				<p:inputText id="bonus"
+					style="width:30%;margin-left:1%;margin-top:1%;" maxlength="100"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.bonus}" />
+
+				<p:calendar id="dataretorno"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataRetorno}"
+					maxlength="20" locale="pt" style="margin-left:12.3%;"
+					pattern="dd/MM/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="change" />
+					<p:ajax event="dateSelect" />
+				</p:calendar>
+
+				<p:calendar id="dataaplicouvisto"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataAplicouVisto}"
+					style="margin-left:14.9%" maxlength="20">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+			</p:tab>
+
+			<p:tab title="Dados de Controle" class="tab"
+				titleStyle="font-size: 11px">
+				<br></br>
+
+				<p:outputLabel value="Visto" for="visto" class="fontebranca"
+					style="margin-left:7.5%" />
+				<p:outputLabel value="Contrato" for="contrato" class="fontebranca"
+					style="margin-left:18.6%" />
+				<p:outputLabel value="Documentação" for="doc" class="fontebranca"
+					style="margin-left:14.6%" />
+				<p:outputLabel value="Família" for="familia" class="fontebranca"
+					style="margin-left:9.8%" />
+				<br></br>
+				<p:selectOneMenu id="visto"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.visto}"
+					style="width:83px;margin-left: 7.5%">
+					<f:selectItem itemLabel="Não" itemValue="Não" />
+					<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="contrato"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.contrato}"
+					style="width:80px;margin-left:9.5%">
+					<f:selectItem itemLabel="Não" itemValue="Não" />
+					<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="doc"
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.documentacao}"
+					style="width:80px;margin-left:9%">
+					<f:selectItem itemLabel="Não" itemValue="Não" />
+					<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				</p:selectOneMenu>      
+				<p:selectOneMenu id="familia"  
+					value="#{atualizarControleCursosTeensMB.controleprogramasteen.familia}"
+					style="width:80px;margin-left:9%">
+					<f:selectItem itemLabel="Não" itemValue="Não" />
+					<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				</p:selectOneMenu>
+				<br></br>
+				<br></br>
+				<p:outputLabel value="Observação" for="obs"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 1%" />
+				<br></br>
+				<h:panelGrid columns="1" cellpadding="3" style="margin-left:0.5%">
+					<p:inputTextarea id="obs" cols="120" rows="10" class="fontebranca"
+						value="#{atualizarControleCursosTeensMB.controleprogramasteen.observacoes}" />
+				</h:panelGrid>
+				<br></br>
+			</p:tab>
+
+		</p:accordionPanel>
+		<p class="botaocadpacote">
+			<br></br>
+			<p:commandButton class="imagemm" icon="ui-icon-check"
+				value="Confirmar"
+				action="#{atualizarControleCursosTeensMB.salvar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" icon="ui-icon-close"
+				value="Cancelar"
+				action="#{atualizarControleCursosTeensMB.cancelar()}"></p:commandButton>
+			<br></br> <br></br>
+		</p>
+	</h:form>
+</h:body>
+</html>

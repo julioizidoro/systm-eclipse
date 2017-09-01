@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idfrmCancelamento" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<p:accordionPanel id="panelcancelamento" class="painelhighSchool"
+					style="background:#1F8871;">
+					<p:tab title="Dados da Venda">
+						<p:outputLabel value="Cliente" style="margin-left:8%;" />
+						<p:outputLabel value="Produto" style="margin-left:50.3%;" />
+						<br></br>
+						<p:inputText id="cliente" value="#{emissaoCancelamentoMB.cancelamento.vendas.cliente.nome}"
+							style="width:45%;margin-left:8%;" readonly="true" />
+						<p:inputText id="produto" value="#{emissaoCancelamentoMB.cancelamento.vendas.produtos.descricao}"
+							style="width:19%;margin-left:8%;" readonly="true" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Fornecedor" style="margin-left:8%;" />
+						<p:outputLabel value="País" style="margin-left:21.4%;" />
+						<p:outputLabel value="Cidade" style="margin-left:25.4%;" />
+						<br></br>
+						<p:inputText id="fornecedor" value="#{emissaoCancelamentoMB.cancelamento.vendas.fornecedorcidade.fornecedor.nome}"
+							style="width:19%;margin-left:8%;" readonly="true" />
+						<p:inputText id="pais" value="#{emissaoCancelamentoMB.cancelamento.vendas.fornecedorcidade.cidade.pais.nome}" style="width:19%;margin-left:7%;"
+							readonly="true" />
+						<p:inputText id="cidade" value="#{emissaoCancelamentoMB.cancelamento.vendas.fornecedorcidade.cidade.nome}"
+							style="width:19%;margin-left:8%;" readonly="true" />
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Total da Venda" style="margin-left:8%;" />
+						<p:outputLabel value="Recebido Matriz" style="margin-left:12%;" />
+						<p:outputLabel value="Recebido Loja" style="margin-left:10.7%;" />
+						<p:outputLabel value="Total Recebido" style="margin-left:11.8%;" />
+						<br></br>
+						<p:inputText id="totalVenda" value="#{emissaoCancelamentoMB.cancelamento.vendas.valor}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="recebidoMatriz" value="#{emissaoCancelamentoMB.cancelamento.totalrecebidomatriz}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:commandLink style="margin-left:0.4%;text-decoration:none;"
+							action="#{emissaoCancelamentoMB.editarValoresCancelamento('recebidomatriz')}">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn" listener="#{emissaoCancelamentoMB.retornoEditarValoresCancelamento}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+						</p:commandLink>
+						<p:inputText id="recebidoLoja" value="#{emissaoCancelamentoMB.cancelamento.totalrecebidoloja}"
+							style="width:10%;margin-left:5.6%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:commandLink style="margin-left:0.4%;text-decoration:none;"
+							action="#{emissaoCancelamentoMB.editarValoresCancelamento('recebidoloja')}">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn" listener="#{emissaoCancelamentoMB.retornoEditarValoresCancelamento}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+						</p:commandLink>
+						<p:inputText id="totalRece" value="#{emissaoCancelamentoMB.cancelamento.totalrecebido}"
+							style="width:10%;margin-left:5.7%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<br></br><br></br><br></br>
+					</p:tab>
+					<p:tab title="Dados Cancelamento">
+						<p:selectOneRadio id="tipo"  value="#{emissaoCancelamentoMB.cancelamento.formapagamento}" style="width:40%;margin-left:8%;" >
+				            <f:selectItem itemLabel="Reembolso" itemValue="Reembolso" class="loginButtonn"/> 
+				            <f:selectItem itemLabel="Crédito" itemValue="Crédito" style="margin-left:5%" /> 
+				            <f:selectItem itemLabel="Reembolso/Crédito" itemValue="Ambos" class="loginButtonn"  /> 
+				        </p:selectOneRadio><br></br>
+						<p:outputLabel value="Data Solicitação" style="margin-left:8%;" />
+						<p:outputLabel value="Hora" style="margin-left:4.5%;" />
+						<p:outputLabel value="Condição" style="margin-left:12.5%;" />
+						<br></br>
+						<h:panelGrid columns="3">
+							<p:calendar id="dataSolicitacao" size="16" value="#{emissaoCancelamentoMB.cancelamento.datasolicitacao}"
+								style="margin-left:74%" locale="pt" pattern="dd/MM/yyyy"
+								mask="true" maxlength="15" readonly="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:inputText id="hora"  value="#{emissaoCancelamentoMB.cancelamento.hora}" style="margin-left:45%;" /> 
+							<p:selectOneMenu id="condicao" value="#{emissaoCancelamentoMB.cancelamento.condicaocancelamento}" converter="CondicaoCancelamentoConverter"
+                             filter="true" filterMatchMode="contains" style="width:310px;margin-left:10%">
+								<f:selectItems  value="#{emissaoCancelamentoMB.listaCondicao}" var="condicaoSelecionada" itemLabel="#{condicaoSelecionada.descricao}" itemValue="#{condicaoSelecionada}"/>
+								<f:attribute name="listaCondicao" value="#{emissaoCancelamentoMB.listaCondicao}"/>
+								<p:ajax  listener="#{emissaoCancelamentoMB.calcularMultaCliente}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Motivo" style="margin-left:8%;" />
+						<br></br>
+						<p:inputTextarea id="motivo" value="#{emissaoCancelamentoMB.cancelamento.motivo}" style="margin-left:8%;" rows="4" cols="60"/>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Total Recebido" style="margin-left:8%;" />
+						<p:outputLabel value="Multa Cliente" style="margin-left:11.8%;" />
+						<br></br>
+						<p:inputText id="totalRecebido" value="#{emissaoCancelamentoMB.cancelamento.totalrecebido}"
+							style="width:10.6%;margin-left:8%;text-align:right;" readonly="#{emissaoCancelamentoMB.habilitarTotalRecebido}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur" listener="#{emissaoCancelamentoMB.calcularTotal}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+						</p:inputText>
+						<p:inputText id="multaCliente" value="#{emissaoCancelamentoMB.cancelamento.multacliente}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:commandLink style="margin-left:0.4%;text-decoration:none;text-align:right;"
+							action="#{emissaoCancelamentoMB.editarValoresCancelamento('multacliente')}" update="multaCliente">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn" listener="#{emissaoCancelamentoMB.retornoEditarValoresCancelamento}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Total Reembolso" style="margin-left:8%;" />
+						<p:outputLabel value="Valor Reembolso" style="margin-left:11%;" />
+						<p:outputLabel value="Data Reembolso" style="margin-left:10.25%;" />
+						<br></br>
+						<p:inputText id="totalReembolso" value="#{emissaoCancelamentoMB.cancelamento.totalreembolso}"
+							style="width:10.6%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="valorReembolso" value="#{emissaoCancelamentoMB.cancelamento.valorreembolso}"
+							style="width:10%;margin-left:8%;text-align:right;" >
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:calendar id="dataReembolso" size="16" style="margin-left:8%" value="#{emissaoCancelamentoMB.cancelamento.datareembolso}"
+							locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Valor do Crédito" style="margin-left:26.6%;" />
+						<p:outputLabel value="ID Nova Venda" style="margin-left:10.7%;" />
+						<br></br>
+						<p:inputText id="valorCredito" value="#{emissaoCancelamentoMB.cancelamento.valorcredito}"
+							style="width:10%;margin-left:26.6%;text-align:right;" >
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="idNovaVenda" value=""
+							style="width:10.6%;margin-left:8%;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<br></br>
+						<br></br>
+
+					</p:tab>
+					<p:tab title="Cálculo do Cancelamento">
+						<p:outputLabel value="Multa Cliente" style="margin-left:8%;" />
+						<p:outputLabel value="Comissão" style="margin-left:12.8%;" />
+						<p:outputLabel value="Taxa TM" style="margin-left:14.1%;" />
+						<p:outputLabel value="Estorno Loja" style="margin-left:14.3%;" />
+						<br></br>
+						<p:inputText id="multa" value="#{emissaoCancelamentoMB.cancelamento.multacliente}" style="width:10%;margin-left:8%;text-align:right;"
+							readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="comissao" value="#{emissaoCancelamentoMB.cancelamento.vendas.vendascomissao.comissaotm}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+
+						<p:inputText id="taxatm" value="#{emissaoCancelamentoMB.cancelamento.vendas.vendascomissao.taxatm}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+
+						<p:inputText id="estorno" value="#{emissaoCancelamentoMB.cancelamento.estornoloja}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+								<p:ajax event="blur"/>
+						</p:inputText>
+						<p:commandLink style="margin-left:0.4%;text-decoration:none;text-align:right;"
+							action="#{emissaoCancelamentoMB.editarValoresCancelamento('estornoloja')}">
+							<img src="../../resources/img/editardata.png" />
+							<p:ajax event="dialogReturn" listener="#{emissaoCancelamentoMB.retornoEditarValoresCancelamento}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Multa Fornecedor" style="margin-left:8%;" />
+						<p:outputLabel value="Multa Fornecedor R$"
+							style="margin-left:10.5%;" />
+						<p:outputLabel value="Saldo Cancelamento"
+							style="margin-left:9.1%;" />
+						<br></br>
+						<p:inputText id="multaFornecedor"  value="#{emissaoCancelamentoMB.cancelamento.multafornecedor}"
+							style="width:10%;margin-left:8%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur" listener="#{emissaoCancelamentoMB.calcularMultaFornecedorReais}" update="recebidoMatriz, recebidoLoja, totalRece, multaCliente, totalReembolso, valorReembolso, valorCredito, multa, estorno, multaFornecedor, multaFornecedorReal, saldoCancelamento"/>
+						</p:inputText>
+						<p:inputText id="multaFornecedorReal" value="#{emissaoCancelamentoMB.multaFornecedorReais}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+
+						<p:inputText id="saldoCancelamento" value="#{emissaoCancelamentoMB.cancelamento.saldocancelamento}"
+							style="width:10%;margin-left:8%;text-align:right;" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText><br></br><br></br>
+					</p:tab>
+				</p:accordionPanel>
+
+				<br></br>
+				<p:commandButton class="imagemm" icon="ui-icon-check"
+					value="Confirmar" action="#{emissaoCancelamentoMB.confirmar}" update="growl" style="margin-left: 40%"></p:commandButton>
+				<p:commandButton class="espacocampos"
+					icon="ui-icon-close" value="Cancelar" action="#{emissaoCancelamentoMB.cancelar}" update="growl"
+					style="margin-left: 2%"></p:commandButton><br></br><br></br><br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

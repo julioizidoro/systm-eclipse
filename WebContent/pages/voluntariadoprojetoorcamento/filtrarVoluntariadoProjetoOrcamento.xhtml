@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="orcamentovoluntariado" style="font-size:11px;">
+			<script type="text/javascript">
+				function sundayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 0), '' ]
+				} 
+				function mondayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 1), '' ]
+				} 
+				function tuesdayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 2), '' ]
+				} 
+				function wednesdayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 3), '' ]
+				} 
+				function thursdayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 4), '' ]
+				} 
+				function fridayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 5), '' ]
+				} 
+				function saturdayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 6), '' ]
+				} 
+			</script>
+			<div id="centro">   
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<legend id="iUsu2">
+					<b>Orçamento de Voluntariado</b>
+				</legend>
+				<legend id="iUsu3" style="margin-left: 12%; width: 85%;">
+					<b>Dados do Cliente</b>
+				</legend>
+				<h:panelGrid columns="3" style="margin-left:12%;width:85%;"
+					columnClasses="colunaVintenove,colunaVintenove,dezoito">
+					<p:outputLabel value="Cliente" for="idcliente"
+						style="color: #495B6C;" />
+					<p:outputLabel value="Email" for="idemail" style="color: #495B6C" />
+					<p:outputLabel value="Data de Nascimento" for="datanasci"
+						style="color: #495B6C" />
+
+					<p:inputText id="idcliente" style="width:90%;" readonly="true"
+						value="#{voluntariadoProjetoOrcamentoMB.cliente.nome}" />
+					<p:inputText id="idemail" style="width:90%;" maxlength="100"
+						value="#{voluntariadoProjetoOrcamentoMB.cliente.email}" />
+					<p:inputMask
+						value="#{voluntariadoProjetoOrcamentoMB.cliente.dataNascimento}"
+						mask="99/99/9999" id="datanasci">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+				</h:panelGrid>
+				<br />
+				<h:panelGrid columns="3" style="margin-left:12%;width:85%;"
+					columnClasses="colunaVintenove,colunaVintenove,dezoito">
+					<p:panelGrid>
+						<p:selectBooleanCheckbox id="digitosResidencial"
+							value="#{voluntariadoProjetoOrcamentoMB.digitosFoneResidencial}">
+							<p:ajax update="idfoneresidencial" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;color: #495B6C;" />
+					</p:panelGrid>
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel value="Fone Residencial" for="idfoneresidencial"
+						style="color: #495B6C;" />
+					<p:outputLabel value="Fone Celular" for="idfonecelular"
+						style="color: #495B6C" />
+					<p:outputLabel value="Sexo" for="sexo" style="color: #495B6C" />
+
+					<p:inputMask id="idfoneresidencial"
+						mask="#{voluntariadoProjetoOrcamentoMB.validarMascaraFoneResidencial()}"
+						value="#{voluntariadoProjetoOrcamentoMB.cliente.foneResidencial}" />
+					<p:inputMask id="idfonecelular" mask="(99)99999-9999"
+						value="#{voluntariadoProjetoOrcamentoMB.cliente.foneCelular}" />
+					<p:selectOneMenu id="sexo"
+						value="#{voluntariadoProjetoOrcamentoMB.cliente.sexo}"
+						style="width:130px;">
+						<f:selectItem itemLabel="Selecione" itemValue="selecione"
+							noSelectionOption="true" />
+						<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+						<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<br />
+				<legend id="iUsu3" style="margin-left: 12%; width: 85%;">
+					<b>Dados do Projeto</b>
+				</legend>
+				<h:panelGrid columns="4" style="width:80%;margin-left:12%;"
+					columnClasses="tamanho10,tamanho10,tamanho10,tamanho10">
+					<p:outputLabel value="Pais" for="pais" style="color:#495B6C;" />
+					<p:outputLabel value="Projetos" for="projetovoluntariado" style="color:#495B6C;" />
+					<p:outputLabel value="Cidade" for="cidade" style="color:#495B6C;" />
+					<p:outputLabel value="Parceiro" for="fornecedor"
+						style="color:#495B6C;" /> 
+   
+					<p:selectOneMenu id="pais"
+						value="#{voluntariadoProjetoOrcamentoMB.pais}"
+						style="width:180px;" converter="PaisConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"   
+							noSelectionOption="true" />
+						<f:selectItems id="idpais"
+							value="#{voluntariadoProjetoOrcamentoMB.listaPais}" var="cpais"
+							itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
+						<f:attribute name="listaPais"
+							value="#{voluntariadoProjetoOrcamentoMB.listaPais}" />
+						<p:ajax event="change" update="projetovoluntariado,cidade,fornecedor" listener="#{voluntariadoProjetoOrcamentoMB.listarVoluntariadoProjeto()}"/>
+					</p:selectOneMenu> 
+					<p:selectOneMenu id="projetovoluntariado"
+						value="#{voluntariadoProjetoOrcamentoMB.voluntariadoprojeto}"
+						style="width:250px;" converter="VoluntariadoProjetoConverter"
+						filter="true" filterMatchMode="startsWith" beforeShowDay="mondayEnabled">
+						<f:selectItem itemLabel="Projetos" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idprojeto"
+							value="#{voluntariadoProjetoOrcamentoMB.listaVoluntariadoProjeto}"
+							var="voluntariadoprojeto"
+							itemLabel="#{voluntariadoprojeto.voluntariadoprojeto.descricao}"
+							itemValue="#{voluntariadoprojeto}" />
+						<f:attribute name="listaVoluntariadoValor"
+							value="#{voluntariadoProjetoOrcamentoMB.listaVoluntariadoProjeto}" />
+						<p:ajax event="change"
+							listener="#{voluntariadoProjetoOrcamentoMB.listarCidade()}"
+							update="cidade,fornecedor" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="cidade"
+						value="#{voluntariadoProjetoOrcamentoMB.cidade}"
+						style="width:180px;" converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade2"
+							value="#{voluntariadoProjetoOrcamentoMB.listaCidade}"
+							var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{voluntariadoProjetoOrcamentoMB.listaCidade}" />   
+						<p:ajax event="change"
+							listener="#{voluntariadoProjetoOrcamentoMB.listarFornecedorCidade()}"
+							update="fornecedor" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="fornecedor"
+						value="#{voluntariadoProjetoOrcamentoMB.fornecedorcidade}"
+						style="width:180px;" converter="FornecedorCidadeConverter"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{voluntariadoProjetoOrcamentoMB.listafornecedorcidade}"
+							var="fornecedorcidade"
+							itemLabel="#{fornecedorcidade.fornecedor.nome}"
+							itemValue="#{fornecedor}" />
+						<f:attribute name="listaFornecedorCidade"
+							value="#{voluntariadoProjetoOrcamentoMB.listafornecedorcidade}" /> 
+						<p:ajax event="change"
+							listener="#{voluntariadoProjetoOrcamentoMB.gerarListaValores()}"
+							update="data,nsemanas,semanaadicional" /> 
+					</p:selectOneMenu> 
+				</h:panelGrid>
+				<br></br>
+				<h:panelGrid columns="4" style="width:60%;margin-left:12%;"
+					columnClasses="tamanho143, tamanho143, tamanho143, tamanho24"> 
+					<p:outputLabel value="Data de Início" for="data"
+						style="color:#495B6C;" />
+					<p:outputLabel value="Nº de Semanas" for="nsemanas"
+						style="color:#495B6C;" />
+					<p:outputLabel value="Semanas Adicionais" for="semanaadicional"
+						style="color:#495B6C;" />
+					<p:outputLabel />
+ 
+					<p:calendar id="data" beforeShowDay="#{voluntariadoProjetoOrcamentoMB.habilitarCalendario()}"
+						value="#{voluntariadoProjetoOrcamentoMB.datainicial}" locale="pt"
+						pattern="dd/MM/yyyy" mask="true" maxlength="10" size="14">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" /> 
+						<p:ajax event="blur" listener="#{voluntariadoProjetoOrcamentoMB.gerarListaValores()}"
+							update="nsemanas"/>
+						<p:ajax event="dateSelect" listener="#{voluntariadoProjetoOrcamentoMB.gerarListaValores()}"
+							update="nsemanas"/>
+					</p:calendar>   
+					<p:selectOneMenu id="nsemanas"  
+						value="#{voluntariadoProjetoOrcamentoMB.voluntariadoprojetovalor}"
+						style="width:100px;" converter="VoluntariadoProjetoValorConverter"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idvalores"
+							value="#{voluntariadoProjetoOrcamentoMB.listaValor}"
+							var="voluntariadoprojeto"
+							itemLabel="#{voluntariadoProjetoOrcamentoMB.retornarDescricao(voluntariadoprojeto)}"
+							itemValue="#{voluntariadoprojeto}" />
+						<f:attribute name="listaVoluntariadoProjetoValor"
+							value="#{voluntariadoProjetoOrcamentoMB.listaValor}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="semanaadicional"
+						value="#{voluntariadoProjetoOrcamentoMB.nsemanaadicional}"
+						style="width:100px;">
+						<f:selectItem itemLabel="0" itemValue="0" noSelectionOption="true" />
+						<f:selectItem itemLabel="1" itemValue="1" />
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+						<f:selectItem itemLabel="11" itemValue="11" />
+						<f:selectItem itemLabel="12" itemValue="12" />
+					</p:selectOneMenu>
+
+					<p:commandButton id="btnGerarOrcamento" value="Buscar Orçamento"
+						title="Buscar Orçamento de Voluntariado"
+						action="#{voluntariadoProjetoOrcamentoMB.gerarOrcamento()}"
+						icon="ui-icon-search" />
+				</h:panelGrid>
+				<br></br> <br></br> <br></br>
+			</div>
+			<style>
+.ui-selectonemenu-panel .ui-selectonemenu-list-item {
+	border: 0px none;
+	margin: 1px 0;
+	padding: 3px 5px;
+	text-align: left;
+	white-space: normal;
+} 
+</style>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

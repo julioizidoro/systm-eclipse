@@ -1,0 +1,779 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadDemipair" style="font-size: 10.3px;">
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:outputLabel value="Ficha de Demi Pair"
+					style="font-size: 22px;color: #1F8871; margin-left:40%" />
+				<p:accordionPanel class="painelhighSchool"
+					style="width: 97%;margin-left: 1.5%">
+					<p:tab title="Informações" class="tab">
+						<p:outputLabel value="Cliente" for="idcliente"
+							style="margin-left:14%" />     
+						<h:panelGrid columns="2"     
+							style="margin-left:14%;width:50%;" 
+							columnClasses="espaco75,tamanho14">
+							<p:inputText id="idcliente" readonly="true" style="width:95%;"   
+								maxlength="100" value="#{cadDemiPairMB.cliente.nome}" />
+							<p:commandLink style="text-decoration: none"
+								action="#{cadDemiPairMB.pesquisarCliente()}">
+								<img src="../../resources/img/pesquisar.png" width="27%" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadDemiPairMB.retornoDialogCliente}"
+									update="idcliente" />
+							</p:commandLink>
+						</h:panelGrid>
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
+							<b>Sponsor</b>
+						</legend>
+						<p:outputLabel value="País" for="pais" style="margin-left:14%" />
+						<p:outputLabel value="Cidade" for="cidade"
+							style="margin-left:20.5%" />
+						<p:outputLabel value="Sponsor" for="fornecedor"
+							style="margin-left:18.5%" />
+						<br></br>
+						<p:selectOneMenu id="pais" value="#{cadDemiPairMB.pais}"
+							style="width:18%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+							converter="PaisConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{cadDemiPairMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.pais.nome}"  
+								itemValue="#{cpais.pais}" />
+							<f:attribute name="listaPais" value="#{cadDemiPairMB.listaPais}" />
+							<p:ajax event="change" update="cidade, idvalorcambio, moeda" listener="#{cadDemiPairMB.selecionarCambio()}"/>
+						</p:selectOneMenu>
+						<p:selectOneMenu id="cidade" value="#{cadDemiPairMB.cidade}"  
+							converter="CidadeConverter"
+							style="width:18%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:4%"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="Cidade" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcidade2"
+								value="#{cadDemiPairMB.pais.cidadeList}" var="cidade"
+								itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+							<f:attribute name="listaCidade"
+								value="#{cadDemiPairMB.pais.cidadeList}" />
+							<p:ajax listener="#{cadDemiPairMB.listarFornecedorCidade()}"
+								update="fornecedor" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="fornecedor"
+							value="#{cadDemiPairMB.fornecedorCidade}"
+							style="width:18%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:3.5%"
+							filter="true" filterMatchMode="startsWith"
+							converter="FornecedorCidadeConverter" panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idfornecedor"
+								value="#{cadDemiPairMB.listaFornecedorCidade}" var="fornecedor"
+								itemLabel="#{fornecedor.fornecedor.nome}"
+								itemValue="#{fornecedor}" />
+							<f:attribute name="listaFornecedorCidade"
+								value="#{cadDemiPairMB.listaFornecedorCidade}" />
+						</p:selectOneMenu>
+
+						<br></br>
+						<br></br>
+
+						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
+							<b>Dados do Aluno</b>
+						</legend>
+						<p:outputLabel value="Nível de Estudo" for="nivel"
+							style="margin-left:14%" />
+						<p:outputLabel value="Ocupação" for="ocupacao"
+							style="margin-left:21.3%" />
+						<br></br>
+						<p:inputText id="nivel"
+							style="width:24%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+							maxlength="100" value="#{cadDemiPairMB.demipair.nivelEstudo}" />
+						<p:inputText id="ocupacao"
+							style="width:33.4%;-moz-border-radius: 5px;border-radius: 5px;margin-left:4%"
+							maxlength="100" value="#{cadDemiPairMB.demipair.ocupacao}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Possui CNH permanente?" for="cnh"
+							style="margin-left:14%" />
+						<p:outputLabel value="Quanto tempo de CNH?" for="tempocnh"
+							style="margin-left:30.5%" />
+						<br></br>
+						<p:inputText id="cnh"
+							style="width:27%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+							maxlength="100" value="#{cadDemiPairMB.demipair.possuicnh}" />
+						<p:inputText id="tempocnh"
+							style="width:20%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14.5%"
+							maxlength="100" value="#{cadDemiPairMB.demipair.tempocnh}" />
+						<br></br>
+						<br></br>
+
+						<p:outputLabel
+							value="Você tem amigos ou Familiares no país que deseja ir?"
+							for="familiares" style="margin-left:14%" />
+						<br></br>
+						<p:selectOneMenu id="familiares"
+							value="#{cadDemiPairMB.demipair.possuiAmigosPais}"
+							style="width:26.7%;margin-left:14%" class="espacocobranca29">
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<p:ajax event="change"
+								listener="#{cadDemiPairMB.habilitarAmigo()}"
+								update="nome, telefone, endereco, relacao" />
+						</p:selectOneMenu>
+						<br></br>
+						<br></br>
+						<p:selectBooleanCheckbox id="digitosFoneAmigo"
+							value="#{cadDemiPairMB.digitosTelefoneAmigo}"
+							style="margin-left:56.7%;">
+							<p:ajax update="telefone" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Nome" for="nome" style="margin-left:14%" />
+						<p:outputLabel value="Telefone" for="telefone"
+							style="margin-left:40.7%" />
+						<br></br>
+						<p:inputText id="nome"
+							style="width:40.7%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+							maxlength="100" value="#{cadDemiPairMB.demipair.nomeAmigo}"
+							disabled="#{cadDemiPairMB.camposAmigo}" />
+						<p:inputMask id="telefone"
+							style="width:19%;-moz-border-radius: 5px;border-radius: 5px;margin-left:2%;"
+							mask="#{cadDemiPairMB.validarMascaraFoneAmigo()}"
+							value="#{cadDemiPairMB.demipair.foneAmigo}"
+							class="espacocobranca29" disabled="#{cadDemiPairMB.camposAmigo}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Endereço" for="endereco"
+							style="margin-left:14%" />
+						<p:outputLabel value="Relação" for="relacao"
+							style="margin-left:39%" />
+						<br></br>
+						<p:inputText id="endereco"
+							style="width:40.7%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+							maxlength="100" value="#{cadDemiPairMB.demipair.endercoAmigo}"
+							disabled="#{cadDemiPairMB.camposAmigo}" />
+						<p:inputText id="relacao"
+							style="width:19%;-moz-border-radius: 5px;border-radius: 5px;margin-left:2%;"
+							maxlength="100" value="#{cadDemiPairMB.demipair.relacaoAmigo}"
+							class="espacocobranca29" disabled="#{cadDemiPairMB.camposAmigo}" />
+						<br></br>
+						<br></br>
+					</p:tab>
+
+					<p:tab title="Nível Idioma/Passagem/Contato"
+						titleStyle="font-size: 11px">
+						<br></br>
+						<p:outputLabel value="Idioma" for="idioma" style="margin-left:14%" />
+						<p:outputLabel value="Nível" for="nivel3"
+							style="margin-left:30.5%" />
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:12%">
+							<p:inputText id="idioma"
+								style="width:200%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+								maxlength="100" value="#{cadDemiPairMB.demipair.idioma01}" />
+							<p:selectOneMenu id="nivel3"
+								value="#{cadDemiPairMB.demipair.nivelIdioma01}"
+								style="width:280px;margin-left:45%">
+								<f:selectItem itemLabel="Selecione" itemValue=" "
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Intermediário baixo"
+									itemValue="Intermediário baixo" />
+								<f:selectItem itemLabel="Intermediário alto"
+									itemValue="Intermediário alto" />
+								<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
+								<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Idioma" for="idioma2"
+							style="margin-left:14%" />
+						<p:outputLabel value="Nível" for="nivel2"
+							style="margin-left:30.5%" />
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:12%">
+							<p:inputText id="idioma2"
+								style="width:200%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+								maxlength="100" value="#{cadDemiPairMB.demipair.idioma02}" />
+							<p:selectOneMenu id="nivel2"
+								value="#{cadDemiPairMB.demipair.nivelIdioma02}"
+								style="width:280px;margin-left:45%">
+								<f:selectItem itemLabel="Selecione" itemValue=" "
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Intermediário baixo"
+									itemValue="Intermediário baixo" />
+								<f:selectItem itemLabel="Intermediário alto"
+									itemValue="Intermediário alto" />
+								<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
+								<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Idioma" for="idioma1"
+							style="margin-left:14%" />
+						<p:outputLabel value="Nível" for="nivel1"
+							style="margin-left:30.5%" />
+						<br></br>
+						<h:panelGrid columns="2" style="margin-left:12%">
+							<p:inputText id="idioma1"
+								style="width:200%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+								maxlength="100" value="#{cadDemiPairMB.demipair.idioma03}" />
+							<p:selectOneMenu id="nivel1"
+								value="#{cadDemiPairMB.demipair.nivelIdioma03}"
+								style="width:280px;margin-left:45%">
+								<f:selectItem itemLabel="Selecione" itemValue=" "
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Intermediário baixo"
+									itemValue="Intermediário baixo" />
+								<f:selectItem itemLabel="Intermediário alto"
+									itemValue="Intermediário alto" />
+								<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
+								<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
+							<b>Curso</b>
+						</legend>
+
+						<p:outputLabel value="Curso" for="curso" style="margin-left:14%" />
+						<br></br>
+						<p:inputText id="curso" value="#{cadDemiPairMB.demipair.curso}"
+							style="margin-left:14%;width:59.5%" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Data de Início" for="datainicio"
+							style="margin-left:14%" />
+						<p:outputLabel value="Nº de Semanas" for="numSemanas"
+							style="margin-left:14%" />
+						<br></br>
+						<p:calendar id="datainicio"
+							value="#{cadDemiPairMB.demipair.datainicio}" locale="pt"
+							size="25" pattern="dd/MM/yyyy" mask="true" maxlength="15"
+							style="margin-left:14%">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+						<p:inputText id="numSemanas"
+							value="#{cadDemiPairMB.demipair.numerosemanas}"
+							style="margin-left:5.6%;width:8%" maxlength="5">
+							<p:ajax event="blur"
+								listener="#{cadDemiPairMB.verificarNumSemanas()}"
+								update="cadDemipair:growl" />
+						</p:inputText>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
+							<b>Passagem Aérea quando não inclusa no programa</b>
+						</legend>
+
+						<h:panelGrid columns="2" style="margin-bottom:10px"
+							cellpadding="5">
+							<p:selectOneRadio id="passagemInclusa"
+								value="#{cadDemiPairMB.demipair.tipoPassagem}"
+								style="width:180%;margin-left: 38%">
+								<f:selectItem itemLabel="Cliente Providenciará"
+									itemValue="Cliente Providenciará" class="espacologin" />
+								<f:selectItem itemLabel="Através da TravelMate"
+									itemValue="Através da TravelMate" class="espacologin" />
+								<p:ajax event="change"
+									listener="#{cadDemiPairMB.habilitarPassagem()}"
+									update="obsPassagem" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+
+						<p:outputLabel value="Observação" for="obsPassagem"
+							style="font-size: 10px;margin-left:14%" />
+						<br></br>
+						<p:inputText id="obsPassagem" maxlength="100"
+							value="#{cadDemiPairMB.demipair.observacaoPassagem}"
+							style="width:60%;margin-left:14%"
+							disabled="#{cadDemiPairMB.camposPassagem}" />
+						<br></br>
+						<br></br>
+
+						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
+							<b>Contato de Emergência no Brasil</b>
+						</legend>
+						<p:selectBooleanCheckbox id="digitosContatoEmergencia"
+							value="#{cadDemiPairMB.digitosTelefoneContatoEmergencia}"
+							style="margin-left:55%;">
+							<p:ajax update="espaco0p" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Nome" for="nome1"
+							style="font-size: 10px;margin-left:14%" />
+						<p:outputLabel value="Telefone" for="espaco0p"
+							style="font-size: 10px;margin-left:38.7%" />
+						<br></br>
+						<p:inputText id="nome1" style="width:35%;margin-left:14%"
+							maxlength="100"
+							value="#{cadDemiPairMB.demipair.nomeContatoEmergencia}" />
+						<p:inputMask id="espaco0p" style="width:19%;margin-left:6%"
+							mask="#{cadDemiPairMB.validarMascaraFoneAmigo()}"
+							value="#{cadDemiPairMB.demipair.foneContatoEmergencia}" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="Email" for="email"
+							style="font-size: 10px;margin-left:14%" />
+						<p:outputLabel value="Relação" for="relacaoEmergencia"
+							style="font-size: 10px;margin-left:38.7%" />
+						<br></br>
+						<p:inputText id="email" style="width:35%;margin-left:14%"
+							maxlength="100"
+							value="#{cadDemiPairMB.demipair.emailContatoEmergencia}"
+							class="espacocobranca29" />
+						<p:inputText id="relacaoEmergencia"
+							style="width:19%;margin-left:6%" maxlength="100"
+							value="#{cadDemiPairMB.demipair.relacaoContatoEmergencia}" />
+						<br></br>
+						<br></br>
+					</p:tab>
+
+
+
+					<p:tab title="Produtos" titleStyle="font-size: 11px">
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Moeda" />
+							<p:outputLabel value="Valor do Câmbio" for="idvalorcambio" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor Total" for="valortotal" />
+
+
+							<p:selectOneMenu id="moeda" value="#{cadDemiPairMB.moeda}"
+								converter="MoedasConverter" style="width:210px;">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadDemiPairMB.listaMoedas}" var="moeda"
+									itemLabel="#{moeda.sigla}" itemValue="#{moeda}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadDemiPairMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadDemiPairMB.consultarCambio()}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutosdemipair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadDemipair:growl" />
+							</p:selectOneMenu>
+
+							<p:inputText id="idvalorcambio"
+								value="#{cadDemiPairMB.orcamento.valorCambio}"
+								style="width:95%; text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:commandLink
+								action="#{cadDemiPairMB.editarcambio(cadDemiPairMB.orcamento.valorCambio)}"
+								title="Editar Câmbio">
+								<img id="editarcambio" class=""
+									src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadDemiPairMB.retornoDialogEditarCambio}"
+									update="idvalorcambio, campomoedaestrangeira, tabelaprodutosdemipair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadDemipair:growl" />
+							</p:commandLink>
+
+							<p:inputText id="valortotal"
+								value="#{cadDemiPairMB.formaPagamento.valorOrcamento}"
+								style="width:30%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Produto" for="produto" />
+							<p:outputLabel id="campomoedaestrangeira"
+								value="#{cadDemiPairMB.tituloMoedaEstrangeira()}" for="valorrr" />
+							<p:outputLabel />
+							<p:outputLabel value="Valor R$" for="valoreal" />
+
+							<p:selectOneMenu id="produto"
+								value="#{cadDemiPairMB.produtosorcamento}" style="width:210px;"
+								converter="ProdutoOrcamentoConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadDemiPairMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadDemiPairMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<p:inputText id="valorrr"
+								value="#{cadDemiPairMB.orcamentoprodutosorcamento.valorMoedaEstrangeira}"
+								style="width:100%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText id="valoreal"
+								value="#{cadDemiPairMB.orcamentoprodutosorcamento.valorMoedaNacional}"
+								style="width:30%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="width: 77.3%;">
+							<p:commandButton id="btnadicionarproduto"
+								action="#{cadDemiPairMB.adicionarProdutos()}" value="Adicionar"
+								update="tabelaprodutosdemipair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadDemipair:growl"
+								icon="ui-icon-plusthick" />
+						</div>
+						<br></br>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutosdemipair" var="produtos"
+							value="#{cadDemiPairMB.orcamento.orcamentoprodutosorcamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="180"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtos.produtosorcamento.descricao}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadDemiPairMB.tituloMoedaEstrangeira()}"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$"
+								style="text-align:right;width:130px;">
+								<h:outputText value="#{produtos.valorMoedaNacional}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:90px;">
+								<p:commandButton id="btnexcluirproduto" value="Excluir"
+									action="#{cadDemiPairMB.excluirProdutoOrcamento(rowIx)}"
+									update="@all" icon=" ui-icon-close" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>
+						</legend>
+						<h:panelGrid columns="4" style="margin-left: 11.6%"
+							columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+							<p:outputLabel value="Forma de Pagamento" for="formPag" />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+							<p:outputLabel />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+
+							<p:selectOneMenu id="formPag"
+								value="#{cadDemiPairMB.formaPagamento.condicao}"
+								style="width:130px;">
+								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+							</p:selectOneMenu>
+							<p:inputText id="valorOrca" style="width:75%;text-align: right;"
+								value="#{cadDemiPairMB.formaPagamento.valorOrcamento}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:selectOneMenu id="acrejuros"
+								value="#{cadDemiPairMB.formaPagamento.possuiJuros}"
+								style="width:130px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"
+									listener="#{cadDemiPairMB.calcularValorTotalOrcamento()}"
+									update="totalpag, saldoreceber, valoreal, valorrr, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Valor Juros" for="valorJuros" />
+							<p:outputLabel value="Total a Pagar" for="totalpag" />
+							<p:outputLabel />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:38%;text-align: right;"
+									value="#{cadDemiPairMB.formaPagamento.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadDemiPairMB.calcularValorTotalOrcamento()}"
+										update="produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+								</p:inputText>
+								<p:commandLink action="#{cadDemiPairMB.calcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadDemiPairMB.retornoValorJuros()}"
+										update="produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+								</p:commandLink>
+							</h:panelGroup>
+
+							<p:inputText id="totalpag" style="width:75%;text-align: right;"
+								value="#{cadDemiPairMB.formaPagamento.valorTotal}"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:outputLabel />
+							<p:inputText value="#{cadDemiPairMB.formaPagamento.valorTotal}"
+								id="saldoreceber"
+								style="width:30%;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+							<p:outputLabel />
+							<p:outputLabel value="Tipo de Parcelamento" />
+
+							<p:inputText value="#{cadDemiPairMB.valorSaldoParcelar}"
+								id="saldoparcelar"
+								style="width:38.5%;font-size: 10px;text-align: right"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:selectOneMenu id="formPag2"
+								value="#{cadDemiPairMB.parcelamentopagamento.formaPagamento}"
+								style="width:120px;font-size: 10px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+								<f:selectItem itemLabel="Cartão de crédito"
+									itemValue="Cartão de crédito" />
+								<f:selectItem itemLabel="Cartão de crédito autorizado"
+									itemValue="Cartão de crédito autorizado" />
+								<f:selectItem itemLabel="Cartão débito"
+									itemValue="Cartão débito" />
+								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Credito" itemValue="Credito" />
+								<f:selectItem itemLabel="Depósito" itemValue="Depósito" />
+								<f:selectItem itemLabel="Financiamento banco"
+									itemValue="Financiamento Banco" />
+								<p:ajax event="change" listener="#{cadDemiPairMB.gerarListaTipoParcelamento()}" update="tipoparcelamento"/>
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="tipoparcelamento"
+								value="#{cadDemiPairMB.parcelamentopagamento.tipoParcelmaneto}"
+								style="width:130px;font-size: 10px;">
+								<f:selectItems id="idTipoparcelamento"
+									value="#{cadDemiPairMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;"
+							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+							<p:outputLabel value="Data 1o. Vencimento" />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+							<p:outputLabel value="No. Parcelas" for="nparcela" />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+
+							<p:calendar id="primeirovencimento"
+								value="#{cadDemiPairMB.parcelamentopagamento.diaVencimento}"
+								size="20" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar> 
+							<p:inputText
+								value="#{cadDemiPairMB.parcelamentopagamento.valorParcelamento}"
+								id="valoraparcelar"
+								style="font-size: 11px;width:50%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadDemiPairMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:inputText> 
+							<p:selectOneMenu id="nparcela"
+								value="#{cadDemiPairMB.parcelamentopagamento.numeroParcelas}"
+								style="width:100px;font-size: 10px;">
+								<f:selectItem itemLabel="01" itemValue="01" />
+								<f:selectItem itemLabel="02" itemValue="02" />
+								<f:selectItem itemLabel="03" itemValue="03" />
+								<f:selectItem itemLabel="04" itemValue="04" />
+								<f:selectItem itemLabel="05" itemValue="05" />
+								<f:selectItem itemLabel="06" itemValue="06" />
+								<f:selectItem itemLabel="07" itemValue="07" />
+								<f:selectItem itemLabel="08" itemValue="08" />
+								<f:selectItem itemLabel="09" itemValue="09" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="11" itemValue="11" />
+								<f:selectItem itemLabel="12" itemValue="12" />
+								<f:selectItem itemLabel="13" itemValue="13" />
+								<f:selectItem itemLabel="14" itemValue="14" />
+								<f:selectItem itemLabel="15" itemValue="15" />
+								<f:selectItem itemLabel="16" itemValue="16" />
+								<f:selectItem itemLabel="17" itemValue="17" />
+								<f:selectItem itemLabel="18" itemValue="18" />
+								<f:selectItem itemLabel="19" itemValue="19" />
+								<f:selectItem itemLabel="20" itemValue="20" />
+								<f:selectItem itemLabel="21" itemValue="21" />
+								<f:selectItem itemLabel="22" itemValue="22" />
+								<f:selectItem itemLabel="23" itemValue="23" />
+								<f:selectItem itemLabel="24" itemValue="24" />
+								<p:ajax event="change"
+									listener="#{cadDemiPairMB.calcularValorParcelas()}"
+									update="valorparcela" />
+							</p:selectOneMenu> 
+							<p:inputText
+								value="#{cadDemiPairMB.parcelamentopagamento.valorParcela}"
+								id="valorparcela"
+								style="font-size: 11px;width:70%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid> 
+						<br></br>
+						<br></br> 
+						<div align="center">
+							<p:commandButton id="adicionarpagamento" value="Adicionar"
+								action="#{cadDemiPairMB.adicionarFormaPagamento()}"
+								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadDemipair:growl"
+								icon="ui-icon-plusthick" />
+							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+								value="Crédito"
+								action="#{cadDemiPairMB.selecionarCreditoCancelamento()}"
+								style="margin-left:3%">
+								<p:ajax event="dialogReturn"
+									listener="#{cadDemiPairMB.retornoSelecionarCancelamento}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+							</p:commandButton>
+						</div>
+						<br></br>
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Forma de Pagamento</b>
+						</legend>
+						<p:dataTable id="formapagamentotabela" var="formapagamento"
+							value="#{cadDemiPairMB.formaPagamento.parcelamentopagamentoList}"
+							class="tabela6" scrollable="true" scrollHeight="150"
+							style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Forma Pagamento">
+								<h:outputText value="#{formapagamento.formaPagamento}" />
+							</p:column>
+							<p:column headerText="Data 1º Vencimento"
+								style="text-align:center;width:145px">
+								<h:outputText value="#{formapagamento.diaVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Parcelamento">
+								<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+							</p:column>
+							<p:column headerText="Valor a Parcelar"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcelamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="No. Parcelas"
+								style="text-align:center;width:90px">
+								<h:outputText value="#{formapagamento.numeroParcelas}" />
+							</p:column>
+							<p:column headerText="Valor Parcela"
+								style="text-align:right;width:130px">
+								<h:outputText value="#{formapagamento.valorParcela}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:100px">
+								<p:commandButton id="excluirpagamento" value="Excluir"
+									action="#{cadDemiPairMB.excluirFormaPagamento(rowIx)}"
+									update="@all" icon="ui-icon-close" class="espacocobranca26" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab title="Obs">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3" style="margin-left:19%">
+							<p:inputTextarea id="obs" cols="130" rows="10"
+								class="fontebranca"
+								value="#{cadDemiPairMB.formaPagamento.observacoes}" />
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="Obs TM">
+						<br></br>
+						<h:panelGrid columns="1" cellpadding="3">
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas" style="margin-left:23%" />
+							<p:inputTextarea id="obstm" cols="130" rows="10"
+								class="fontebranca" value="#{cadDemiPairMB.demipair.obstm}"
+								style="margin-left:23%" />
+
+						</h:panelGrid>
+					</p:tab>
+
+				</p:accordionPanel>
+				<br></br> <br></br> <br></br>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" onclick="PF('cd').show();" />
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadDemiPairMB.cancelarCadastro()}"></p:commandButton>
+					<p:confirmDialog
+						message="FINALIZAR FICHA? Ficha será enviada para Gerência."
+						showEffect="fade" hideEffect="fade" header="Confirmação"
+						icon="ui-icon-alert" widgetVar="cd">
+						<p:commandButton value="Sim"
+							action="#{cadDemiPairMB.finalizarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" style="margin-left:30%" update="growl" />
+						<p:commandButton value="Não"
+							action="#{cadDemiPairMB.naoEnviarficha()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" update="growl" />
+					</p:confirmDialog>
+					<br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

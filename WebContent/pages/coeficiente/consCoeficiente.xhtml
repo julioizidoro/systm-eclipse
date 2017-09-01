@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consCoeficiente">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" /> 
+				<legend id="iUsu2">  
+					<b  style="font-size:18px;">Coeficiente Juros</b>  
+				</legend>   
+				
+				<h:panelGrid columns="2" style="width:59%;margin-left:27%;">
+					<p:outputLabel value="Tipo de visto" for="tipoVisto"
+								style="font-size: 10px;" />
+					<h:panelGroup/>
+					<p:selectOneMenu id="tipoVisto"
+								value="#{coeficienteMB.tipo}"
+								style="width:150px;" title="Campo obrigatório">
+								<f:selectItem itemLabel="Selecione" itemValue="sn"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Juros Cartão" itemValue="Juros Cartão" />
+								<f:selectItem itemLabel="Juros Franquia" itemValue="Juros Franquia" />
+								<f:selectItem itemLabel="Juros Fin" itemValue="Juros Fin" />
+								<f:selectItem itemLabel="Desagio Matriz" itemValue="Desagio Matriz" />
+								<p:ajax event="change" listener="#{coeficienteMB.gerarlistaCoeficiente()}" update="tabelaCoeficiente"/>
+							</p:selectOneMenu>
+					<p:commandButton id="btnNovo" value="Novo" icon="ui-icon-plus" action="#{coeficienteMB.novo()}" style="font-size:12px;">
+						<p:ajax listener="#{coeficienteMB.retornoDialogNovo}" event="dialogReturn" update="tabelaCoeficiente, growl"/>
+					</p:commandButton>
+				</h:panelGrid>
+				<div align="center">
+					<p:dataTable id="tabelaCoeficiente" var="coeficiente" 
+						value="#{coeficienteMB.listaCoeficiente}"  editable="true" 
+						editMode="cell" rowIndexVar="rowIx" scrollable="true" 
+						scrollHeight="300" style="width:46%;">  
+						<p:column headerText="Nº Parcela" style="text-align:right;width:30px;">
+							<h:outputText value="#{coeficiente.numeroParcelas}" /> 
+						</p:column>
+						<p:column headerText="Coeficiente" style="text-align: right;width:100px;"> 
+							<h:outputText value="#{coeficiente.coeficiente}" 
+								style="text-align:right">
+								<f:convertNumber pattern="##,###,###,###.#####"  
+									minFractionDigits="5" />
+							</h:outputText> 
+						</p:column>
+						<p:column style="width:10px;" >
+						<p:commandLink action="#{coeficienteMB.editar(coeficiente)}" style="text-decoration: none" >
+                             <img src="../../resources/img/editaricon.png"/>
+                             <p:ajax listener="#{coeficienteMB.retornoDialogNovo}" event="dialogReturn" update="tabelaCoeficiente, :consCoeficiente:growl"/>
+                         </p:commandLink>
+					</p:column>
+					</p:dataTable>
+				</div> 
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

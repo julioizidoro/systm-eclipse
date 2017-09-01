@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="idtelaconsultaorcamento">
+                <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                    <br></br> 
+                     <p:accordionPanel class="painel" activeIndex="-1" >
+                        <p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar" >
+                             <p:outputLabel value="Cliente" for="cliente" class="fontebranca" style="margin-left:7.6%"/> 
+                                <p:outputLabel value="Periodo" for="dataIni" style="margin-left:28.8%" /> 
+                                <br></br>
+                                <h:panelGrid columns="6">
+	                                  <p:inputText id="cliente" value="#" style="width:280px;margin-left:20%" />
+	                                   <p:calendar id="dataIni" value="" size="12" style="margin-left:20%" locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" >
+	                                       <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	                                       <p:ajax event="blur"/>
+	                                   </p:calendar>
+	                                   <p:calendar id="dataFinal" value="" size="12" style="margin-left:40%"  locale="pt"  pattern="dd/MM/yyyy"  mask="true" maxlength="15">
+	                                       <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	                                       <p:ajax event="blur"/>
+	                                   </p:calendar>
+								</h:panelGrid><br></br>
+                                <p:commandButton value="Pesquisar" style="margin-left:72.5%" icon=" ui-icon-search " update=":idtelaconsultaorcamento:idtabelaconsultaorcamento"  action="#"/>
+                                <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idtelaconsultaorcamento:idtabelaconsultaorcamento,dataFinal, dataIni, cliente"  action="#"/>
+                        </p:tab>
+                    </p:accordionPanel>
+
+                    <br></br>
+                    <legend id="iUsu2" ><b>Consulta Orçamento de Voluntariado</b></legend>
+                      
+                    <p:commandButton id="bntnovo" icon="ui-icon-plus" class="botaoConsulta" style="font-size:12px;margin-left:85.5%;width: 12%" value="Novo Orçamento" action="#" />
+                    <br></br> <br></br>
+                    <p:dataTable id="idtabelaconsultaorcamento" var="orcamento"  value="#" class="tabela" 
+                                 scrollable="true" scrollHeight="300" style="margin-bottom:20px;margin-top: -1%" >
+
+                       <p:column headerText="Cliente" style="width:150px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Curso"  style="width:120px;" styleClass="alinharCenter" >
+                            <h:outputText value="#"/>
+                        </p:column>
+                        <p:column headerText="Unidade"  style="width:140px;" styleClass="alinharCenter" >
+                            <h:outputText value="#"/>
+                        </p:column>
+                        <p:column headerText="Consultor"  style="width:140px;" styleClass="alinharCenter" >
+                            <h:outputText value="#"/>
+                        </p:column>
+                        <p:column headerText="Escola"  style="width:120px;" styleClass="alinharCenter" >
+                            <h:outputText value="#"/>
+                        </p:column>
+                        <p:column headerText="País"  style="width:120px;" styleClass="alinharCenter" >
+                            <h:outputText value="#"/>
+                        </p:column>
+                        <p:column headerText="Cidade"  style="width:120px;" styleClass="alinharCenter" >
+                            <h:outputText value="#"/>
+                        </p:column>
+                        <p:column headerText="Total"  style="width:80px;text-align:right" styleClass="alinharCenter" >
+                            <h:outputText value="">
+                            	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="width:40px;" styleClass="alinharCenter" >
+                        	 <h:commandButton   action="#" title="Salvar em PDF"  image="../../resources/img/pdf.png"  ajax="false" onclick="this.form.target='_blank'" style="width:120%;" >
+						     </h:commandButton>  
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

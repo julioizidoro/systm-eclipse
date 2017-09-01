@@ -1,0 +1,2179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idControleAupair">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />    
+				 <p:accordionPanel class="painel" activeIndex="-1" style="font-size:11px;">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar">
+						<h:panelGrid columns="4" style="width:95%;margin-left:3%;" 
+							columnClasses="tamanho12, tamanho10, tamanho10, tamanho10"> 
+							<p:outputLabel value="ID Vendas" for="idvenda" />     
+              			    <p:outputLabel value="Cliente" for="cliente" /> 
+                            <p:outputLabel value="Periodo" for="dataIni" />     
+                            <p:outputLabel value="Unidade" for="unidade" /> 
+                            
+                            <p:inputText id="idvenda" value="#{controleAupairMB.idvenda}" style="width:70%" />
+                            <p:inputText id="cliente" value="#{controleAupairMB.nomeCliente}" style="width:90%" />
+                            <h:panelGroup>
+                            	<p:calendar id="dataIni" value="#{controleAupairMB.iniDataEmbarque}" size="11" 
+                            		locale="pt" pattern="dd/MM/yyyy"  mask="true"  maxlength="15" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>    
+                                    <p:ajax event="blur"/>
+                                </p:calendar>
+                                <p:calendar id="dataFinal" value="#{controleAupairMB.finalDataEmbarque}" size="12"
+                                	 locale="pt"  pattern="dd/MM/yyyy"  mask="true" maxlength="15" style="margin-left:5%;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>   
+                                    <p:ajax event="blur"/>
+                                </p:calendar>
+                            </h:panelGroup>
+                            <p:selectOneMenu  id="unidade"  value="#{controleAupairMB.unidadenegocio}" style="width:200px;" converter="UnidadeNegocioConverter"
+                                filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+                                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+				                <f:selectItems value="#{controleAupairMB.listaUnidadeNegocio}" var="unidade" itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}"/>
+				                <f:attribute name="listaUnidade" value="#{controleAupairMB.listaUnidadeNegocio}"/>
+				                <p:ajax event="change" listener="#{controleAupairMB.gerarListaConsultor()}" update="consultor"/>
+				            </p:selectOneMenu> 
+						</h:panelGrid>  
+						<br></br>
+						<h:panelGrid columns="3" style="width:85%;margin-left:3%;" 
+							columnClasses="tamanho8, tamanho10, tamanho50right">   
+							 <p:outputLabel value="Consultor" for="consultor"/>      
+	                         <p:outputLabel value="Situação" for="situacao"/>   
+	                         <p:outputLabel  /> 
+                         
+	                         <p:selectOneMenu  id="consultor"  value="#{controleAupairMB.usuario}"  style="width:200px;" converter="UsuarioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+				                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+				                <f:selectItems value="#{controleAupairMB.listaConsultor}" var="consultor" itemLabel="#{consultor.nome}" itemValue="#{consultor}"/>
+				                <f:attribute name="listaUsuario" value="#{controleAupairMB.listaConsultor}"/>
+				             </p:selectOneMenu>
+	                         <p:selectOneMenu  id="situacao"  value="#{controleAupairMB.situacao}" style="width:150px;"> 
+	                             <f:selectItem itemLabel="TODOS" itemValue="TODOS"  />  
+	                             <f:selectItem itemLabel="Processo" itemValue="Processo" />
+								<f:selectItem itemLabel="On line" itemValue="On line" />
+								<f:selectItem itemLabel="Match" itemValue="Match" />
+								<f:selectItem itemLabel="Visto Pendente"
+									itemValue="Visto Pendente" />  
+								<f:selectItem itemLabel="Visto Negado"
+									itemValue="Visto Negado" />
+								<f:selectItem itemLabel="Visto Aprovado"
+									itemValue="Visto Aprovado" />
+								<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+								<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+								<f:selectItem itemLabel="Transition" itemValue="Transition" />
+								<f:selectItem itemLabel="Suspenso" itemValue="Suspenso" />
+								<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+	                             <p:ajax event="change"/>
+	                         </p:selectOneMenu>
+	                         <h:panelGroup>
+	                         	<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":idControleAupair:tabelas" 
+									action="#{controleAupairMB.pesquisar()}"/>
+                        		<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" action="#{controleAupairMB.limpar()}"
+                        			update="idControleAupair:tabelas, unidade, dataFinal, dataIni, cliente,idvenda"  style="margin-left:3%;"/>
+                    		 </h:panelGroup>
+                         </h:panelGrid> 
+                     </p:tab>
+                 </p:accordionPanel>  <br/>  
+				<div align="center" style="width: 100%;">
+					<p:outputLabel value="Controle Aupair" style="color:#495B6C;font-size:18px;"/>
+				</div>      
+				<p:tabView style="background:#ffffff;" id="tabelas">          
+					<p:tab title="Todos" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaControleAupair" var="aupair"     
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControle}" scrollable="true"
+							scrollHeight="350" editable="true">  
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupair)}"   
+								update="tabelaControleAupair" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupair)}"
+											title="#{aupair.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupair.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Suspenso" itemValue="Suspenso" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupair.vendas.idvendas}" />
+							</p:column>        
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupair.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupair)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaControleAupair" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupair.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupair.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupair.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:70px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupair.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupair.dataretormo}" size="8" locale="pt"
+											pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupair.dataonline}" size="8" locale="pt"
+											pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupair.datamatch}" size="8" locale="pt"
+											pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>   
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupair.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">      
+								<p:rowEditor />
+							</p:column>  
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupair)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupair)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column>           
+							<p:column headerText="Com. EX" style="width:40px;text-align:center">
+								<p:commandLink id="btnComissaoEX" action="#{controleAupairMB.receberComissaoEX(aupair)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupair)}" update="btnComissaoEX">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupair)}"
+										width="28" title="Situação comissão InterExchange" />
+								</p:commandLink>      
+							</p:column>          
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink action="#{controleAupairMB.documentacao(aupair)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Processo (#{controleAupairMB.numeroProcesso})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaControleAupairProcesso"  
+							var="aupairProcesso"
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleProcesso}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairProcesso)}"
+								update="tabelaControleAupairProcesso" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairProcesso)}"
+											title="#{aupairProcesso.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairProcesso.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairProcesso.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairProcesso.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairProcesso)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaControleAupairProcesso" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairProcesso.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairProcesso.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairProcesso.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairProcesso.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairProcesso.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairProcesso.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairProcesso.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairProcesso.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairProcesso.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>       
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairProcesso.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairProcesso.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairProcesso.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairProcesso.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairProcesso)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairProcesso)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column>       
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXProcesso" action="#{controleAupairMB.receberComissaoEX(aupairProcesso)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairProcesso)}"  update="btnComissaoEXProcesso">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairProcesso)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>   
+							</p:column>
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairProcesso)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="On line (#{controleAupairMB.numeroOnline})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaAuPairOnline"  
+							var="aupairOnline"
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleOnline}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairOnline)}"
+								update="tabelaAuPairOnline" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairOnline)}"
+											title="#{aupairOnline.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairOnline.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairOnline.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairOnline.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairOnline)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaAuPairOnline" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairOnline.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairOnline.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairOnline.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairOnline.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairOnline.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairOnline.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairOnline.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairOnline.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairOnline.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairOnline.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairOnline.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairOnline.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairOnline.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairOnline)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairOnline)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXOnline" action="#{controleAupairMB.receberComissaoEX(aupairOnline)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairOnline)}"  update="btnComissaoEXOnline">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairOnline)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>     
+							</p:column>
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairOnline)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>   
+					<p:tab title="Match (#{controleAupairMB.numeroMatch})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaaupairMatch"  
+							var="aupairMatch"
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleMatch}" 
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairMatch)}"
+								update="tabelaaupairMatch" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairMatch)}"
+											title="#{aupairMatch.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairMatch.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairMatch.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairMatch.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairMatch)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaaupairMatch" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairMatch.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairMatch.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairMatch.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairMatch.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairMatch.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairMatch.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairMatch.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairMatch.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairMatch.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairMatch.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairMatch.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairMatch.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairMatch.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairMatch)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairMatch)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXMatch" action="#{controleAupairMB.receberComissaoEX(aupairMatch)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairMatch)}" update="btnComissaoEXMatch">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairMatch)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairMatch)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Visto Pend. (#{controleAupairMB.numeroVistoPen})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaaupairVistoPen"  
+							var="aupairVistoPen"
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleVistoPen}"
+							scrollable="true" scrollHeight="350" editable="true">      
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairVistoPen)}"
+								update="tabelaaupairVistoPen" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairVistoPen)}"
+											title="#{aupairVistoPen.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairVistoPen.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairVistoPen.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairVistoPen.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairVistoPen)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaaupairVistoPen" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairVistoPen.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairVistoPen.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairVistoPen.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoPen.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoPen.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoPen.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoPen.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoPen.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoPen.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoPen.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoPen.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoPen.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairVistoPen.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairVistoPen)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairVistoPen)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXPen" action="#{controleAupairMB.receberComissaoEX(aupairVistoPen)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairVistoPen)}"  update="btnComissaoEXPen">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairVistoPen)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>   
+							</p:column>
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink  
+									action="#{controleAupairMB.documentacao(aupairVistoPen)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>      
+					<p:tab title="Visto Neg.(#{controleAupairMB.numeroVistoNeg})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaaupairVistoNeg"  
+							var="aupairVistoNeg"  
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleVistoNeg}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairVistoNeg)}"
+								update="tabelaaupairVistoNeg" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairVistoNeg)}"
+											title="#{aupairVistoNeg.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairVistoNeg.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairVistoNeg.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairVistoNeg.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairVistoNeg)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaaupairVistoNeg" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairVistoNeg.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairVistoNeg.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairVistoNeg.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoNeg.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoNeg.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoNeg.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoNeg.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoNeg.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoNeg.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoNeg.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoNeg.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoNeg.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairVistoNeg.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairVistoNeg)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairVistoNeg)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXNeg" action="#{controleAupairMB.receberComissaoEX(aupairVistoNeg)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairVistoNeg)}"  update="btnComissaoEXNeg">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairVistoNeg)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>   
+							</p:column>
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairVistoNeg)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Visto Apro. (#{controleAupairMB.numeroVistoApro})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaaupairVistoApro"  
+							var="aupairVistoApro"
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleVistoApro}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairVistoApro)}"
+								update="tabelaaupairVistoApro" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairVistoApro)}"
+											title="#{aupairVistoApro.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairVistoApro.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairVistoApro.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairVistoApro.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairVistoApro)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaaupairVistoApro" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairVistoApro.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairVistoApro.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairVistoApro.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoApro.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoApro.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoApro.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoApro.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoApro.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoApro.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoApro.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairVistoApro.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairVistoApro.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairVistoApro.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairVistoApro)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairVistoApro)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXApro" action="#{controleAupairMB.receberComissaoEX(aupairVistoApro)}"  
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairVistoApro)}" update="btnComissaoEXApro">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairVistoApro)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>    
+							</p:column>   
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairVistoApro)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>      
+						</p:dataTable>
+					</p:tab>   
+					<p:tab title="Embarcado (#{controleAupairMB.numeroEmbarcado})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaAupairEmbarcado"  
+							var="aupairEmbarcado"
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleEmbarcado}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairEmbarcado)}"
+								update="tabelaAupairEmbarcado" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairEmbarcado)}"
+											title="#{aupairEmbarcado.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairEmbarcado.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairEmbarcado.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairEmbarcado.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairEmbarcado)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaAupairEmbarcado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairEmbarcado.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairEmbarcado.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairEmbarcado.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairEmbarcado.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairEmbarcado.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairEmbarcado.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairEmbarcado.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairEmbarcado.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairEmbarcado.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairEmbarcado.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairEmbarcado.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairEmbarcado.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairEmbarcado.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairEmbarcado)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairEmbarcado)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXApro" action="#{controleAupairMB.receberComissaoEX(aupairEmbarcado)}"  
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairEmbarcado)}" update="btnComissaoEXApro">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairEmbarcado)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>    
+							</p:column>   
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairEmbarcado)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>      
+						</p:dataTable>
+					</p:tab>      
+					<p:tab title="Finalizado (#{controleAupairMB.numeroFinalizado})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaaupairFinalizado"  
+							var="aupairFinalizado"
+							style="width:103%;margin-left:-1%;font-size:11px;" 
+							value="#{controleAupairMB.listaControleFinalizado}"
+							scrollable="true" scrollHeight="350" editable="true">       
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairFinalizado)}"
+								update="tabelaaupairFinalizado" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairFinalizado)}"
+											title="#{aupairFinalizado.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairFinalizado.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairFinalizado.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairFinalizado.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairFinalizado)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaaupairFinalizado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairFinalizado.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairFinalizado.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairFinalizado.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairFinalizado.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairFinalizado.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairFinalizado.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairFinalizado.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairFinalizado.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairFinalizado.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairFinalizado.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairFinalizado.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairFinalizado.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairFinalizado.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairFinalizado)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairFinalizado)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXFinalizado" action="#{controleAupairMB.receberComissaoEX(aupairFinalizado)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairFinalizado)}"  update="btnComissaoEXFinalizado">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairFinalizado)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>    
+							</p:column>
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairFinalizado)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>    
+					<p:tab title="Cancelado (#{controleAupairMB.numeroCancelado})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaAupairCancelado"  
+							var="aupairCancelado"       
+							style="width:103%;margin-left:-1%;font-size:11px;"
+							value="#{controleAupairMB.listaControleCancelado}"  
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairCancelado)}"
+								update="tabelaAupairCancelado" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairCancelado)}"
+											title="#{aupairCancelado.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairCancelado.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairCancelado.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairCancelado.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairCancelado)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaAupairCancelado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairCancelado.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairCancelado.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairCancelado.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairCancelado.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairCancelado.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairCancelado.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairCancelado.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairCancelado.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairCancelado.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairCancelado.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairCancelado.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairCancelado.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairCancelado.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairCancelado)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairCancelado)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column> 
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXCancelado" action="#{controleAupairMB.receberComissaoEX(aupairCancelado)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairCancelado)}"  update="btnComissaoEXCancelado">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairCancelado)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>     
+							</p:column>
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairCancelado)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column> 
+						</p:dataTable>   
+					</p:tab>  
+					<p:tab title="Suspenso (#{controleAupairMB.numeroSuspenso})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaAupairSuspenso"  
+							var="aupairSuspenso"
+							style="width:103%;margin-left:-1%;font-size:11px;"   
+							value="#{controleAupairMB.listaControleSuspenso}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"  
+								listener="#{controleAupairMB.salvarAlteracoes(aupairSuspenso)}"
+								update="tabelaAupairSuspenso" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairSuspenso)}"
+											title="#{aupairSuspenso.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairSuspenso.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairSuspenso.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairSuspenso.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairSuspenso)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaAupairSuspenso" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairSuspenso.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairSuspenso.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairSuspenso.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairSuspenso.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairSuspenso.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairSuspenso.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairSuspenso.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairSuspenso.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairSuspenso.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairSuspenso.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairSuspenso.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairSuspenso.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairSuspenso.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairSuspenso)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairSuspenso)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column>    
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXSuspenso" action="#{controleAupairMB.receberComissaoEX(aupairSuspenso)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairSuspenso)}"  update="btnComissaoEXSuspenso">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairSuspenso)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>  
+							</p:column>  
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairSuspenso)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>   
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Transition (#{controleAupairMB.numeroTransaction})" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaAupairTransition"  
+							var="aupairTransition"
+							style="width:103%;margin-left:-1%;font-size:11px;"   
+							value="#{controleAupairMB.listaControleTransaction}"
+							scrollable="true" scrollHeight="350" editable="true">
+							<p:ajax event="rowEdit"
+								listener="#{controleAupairMB.salvarAlteracoes(aupairTransition)}"
+								update="tabelaAupairTransition" />
+							<p:column style="width:35px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleAupairMB.imagemSituacao(aupairTransition)}"
+											title="#{aupairTransition.statusprocesso}" width="13" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao"
+											value="#{aupairTransition.statusprocesso}" style="width:95%;">
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="On line" itemValue="On line" />
+											<f:selectItem itemLabel="Match" itemValue="Match" />
+											<f:selectItem itemLabel="Visto Pendente"
+												itemValue="Visto Pendente" />
+											<f:selectItem itemLabel="Visto Negado"
+												itemValue="Visto Negado" />
+											<f:selectItem itemLabel="Visto Aprovado"
+												itemValue="Visto Aprovado" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<f:selectItem itemLabel="Transition" itemValue="Transition" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<p:ajax event="change" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="ID venda" style="width:46px;">
+								<h:outputText value="#{aupairTransition.vendas.idvendas}" />
+							</p:column> 
+							<p:column headerText="Cliente" style="width:130px;">
+								<p:commandLink value="#{aupairTransition.vendas.cliente.nome}"
+									action="#{controleAupairMB.atualizarInformacoes(aupairTransition)}"
+									title="Atualizar informações"
+									style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										
+										update="tabelaAupairTransition" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Unidade" style="width:95px;"
+								styleClass="alinharCenter">   
+								<h:outputText
+									value="#{aupairTransition.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:95px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{aupairTransition.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Sponsor" style="width:90px;"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairTransition.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Embarque" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairTransition.dataembarque}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairTransition.dataembarque}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Retorno" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairTransition.dataretormo}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairTransition.dataretormo}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairTransition.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairTransition.dataonline}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairTransition.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupairTransition.datamatch}" size="8"
+											locale="pt" pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupairTransition.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupairTransition.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Child Training" style="width:59px;text-align:center">
+								<p:commandLink id="btnChildTraining" action="#{controleAupairMB.efetuarTreinamento(aupairTransition)}" 
+								    update="btnChildTraining">
+									<img src="#{controleAupairMB.imagemSituacaoChildTraining(aupairTransition)}"
+										width="24" title="Situação Child Training" />     
+								</p:commandLink>              
+							</p:column>    
+							<p:column headerText="Com. EX"
+								style="width:45px;text-align:center">
+								<p:commandLink id="btnComissaoEXTransition" action="#{controleAupairMB.receberComissaoEX(aupairTransition)}" 
+								    disabled="#{controleAupairMB.desabilitarComissaoEX(aupairTransition)}"  update="btnComissaoEXTransition">
+									<img src="#{controleAupairMB.imagemSituacaoComissaoEX(aupairTransition)}"
+									width="23" title="Situação comissão InterExchange" />
+								</p:commandLink>  
+							</p:column>  
+							<p:column headerText="Docs" style="width:45px;text-align:center">
+								<p:commandLink
+									action="#{controleAupairMB.documentacao(aupairTransition)}"
+									title="Documentos Anexados">
+									<img src="../../resources/img/boletoFicha.png" width="25" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
+				<br></br> <br></br> 
+			</div>           
+		</h:form>    
+	</ui:define>
+</ui:composition>
+</html>   

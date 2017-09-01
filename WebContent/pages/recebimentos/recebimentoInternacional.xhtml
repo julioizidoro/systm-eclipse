@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        
+    </h:head>
+    <h:body>
+        <h:form id="idFormRecebimentoInternacional"  style="font-size:12px;">
+
+            <title>Recebimento Internacional</title>
+          	<h:panelGrid columns="2" width="100%">
+          		<p:outputLabel value="Data Rec."  for="datarecebimento"/>  
+				<p:outputLabel value="Banco" for="banco" />
+				
+				<p:inputMask id="datarecebimento"    mask="99/99/9999"  style="width:43%;" value="#{recebimentoInternacionalMB.recinternacional.datarecebimento}">
+                    <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                </p:inputMask>
+				<p:selectOneMenu id="banco" 
+						value="#{recebimentoInternacionalMB.banco}" style="width:250px;"
+						converter="BancoConverter" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:180px">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{recebimentoInternacionalMB.listaBanco}"
+							var="banco" itemLabel="#{banco.nome}"
+							itemValue="#{banco}" />
+						<f:attribute name="listaBanco"
+							value="#{recebimentoInternacionalMB.listaBanco}" />
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+			<h:panelGrid columns="3" width="100%"> 
+          		<p:outputLabel value="Tarifa"  for="tarifa"/>  
+				<p:outputLabel value="Valor na Moeda - #{recebimentoInternacionalMB.siglaMoeda}" for="valormoeda" />
+				<p:outputLabel value="Valor em reais" for="valorreais" />
+				
+				<p:inputText id="tarifa" value="#{recebimentoInternacionalMB.recinternacional.tarifa}"  style="width:50%;text-align:right;" title="Valor">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+				<p:inputText id="valormoeda" value="#{recebimentoInternacionalMB.recinternacional.valormeodaestrangeira}"  style="width:50%;text-align:right;" title="Valor">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <p:inputText id="valorreais" value="#{recebimentoInternacionalMB.recinternacional.valorreais}"  style="width:50%;text-align:right;" title="Valor">
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                
+			</h:panelGrid>
+			<br/><br/>
+               <p:commandButton class="imagemm" style="margin-left: 25%;" onclick="" icon="ui-icon-check" value="Confirmar" action="#{recebimentoInternacionalMB.salvar()}"></p:commandButton>
+               <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{recebimentoInternacionalMB.cancelar()}"></p:commandButton>
+        </h:form>     
+    </h:body>
+</html>

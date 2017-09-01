@@ -1,0 +1,112 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="listaArquivosVencidos" style="margin-left:1%:">
+			<br/>
+			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<legend style="margin-left: 1%; width: 98%;">
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsDepartamento()}" value="Departamentos"/>
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsPasta1()}" rendered="#{listaArquivosVencidosMB.habilitarVoltaDepartamento}" value="> #{listaArquivosVencidosMB.departamento.nome}"/>
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsPasta2Arquivo1()}" rendered="#{listaArquivosVencidosMB.habilitarVoltaPasta1}" value="> #{listaArquivosVencidosMB.pasta1.nome}"/>
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsSubPasta3Arquivo2()}" rendered="#{listaArquivosVencidosMB.habilitarVoltaPasta2}" value="> #{listaArquivosVencidosMB.pasta2.nome}"/>
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsSubPasta4Arquivo3()}" rendered="#{listaArquivosVencidosMB.habilitarVoltaPasta3}" value="> #{listaArquivosVencidosMB.pasta3.nome}"/>
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsSubPasta5Arquivo4()}" rendered="#{listaArquivosVencidosMB.habilitarVoltaPasta4}" value="> #{listaArquivosVencidosMB.pasta4.nome}"/>
+				<p:commandLink ajax="false" action="#{listaArquivosVencidosMB.voltarConsArquivo5()}" rendered="#{listaArquivosVencidosMB.habilitarVoltaPasta5}" value="> #{listaArquivosVencidosMB.pasta5.nome}"/>
+				> #{listaArquivosVencidosMB.tituloPagina}
+			</legend>
+			<br />  
+			<p:accordionPanel style="margin-left:15%;width:70%;" class="painel" activeIndex="-1" rendered="false">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar Arquivos">
+						<p:outputLabel value="Nome do Arquivo" for="nomeArquivo"
+							style="margin-left:4.5%" />
+						
+						<p:outputLabel value="Tipo de Arquivo" for="tipoArquivo"
+							style="margin-left:17%" />
+						<h:panelGrid columns="4" style="margin-left:4.5%">
+							<p:inputText id="nomeArquivo" value="#{listaArquivosVencidosMB.nomeArquivo}"
+								 size="30"/>
+							<p:selectOneMenu id="tipoArquivo" value="#{listaArquivosVencidosMB.tipoArquivo}"
+								style="width:95px;margin-left: 28%">
+								<f:selectItem itemLabel="TODAS" itemValue="TODAS" />
+								<f:selectItem itemLabel="PDF" itemValue="pdf" />
+								<f:selectItem itemLabel="JPG" itemValue="jpg" />
+								<f:selectItem itemLabel="XLS" itemValue="xls" />
+								<f:selectItem itemLabel="DOCX" itemValue="docx" />
+								<f:selectItem itemLabel="DOC" itemValue="doc" />
+								<f:selectItem itemLabel="CDR" itemValue="cdr" />
+								<f:selectItem itemLabel="PPTX" itemValue="pptx" />
+								<f:selectItem itemLabel="EPS" itemValue="eps" />
+								<f:selectItem itemLabel="BMP" itemValue="bmp" />
+								<f:selectItem itemLabel="XLSX" itemValue="xlsx" />
+								<f:selectItem itemLabel="TXT" itemValue="txt" />
+							</p:selectOneMenu>
+							<p:commandButton value="Pesquisar" style="margin-left:35.8%;"
+							icon=" ui-icon-search " 
+							action="#{listaArquivosVencidosMB.pesquisar()}" update="nomeArquivo, tipoArquivo,:listaArquivosVencidos:idTabelaArquivos, :listaArquivosVencidos:growl"/>
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" class="imgadd"
+								
+								action="#{listaArquivosVencidosMB.limparPesquisa()}" update="@form"/> 
+						</h:panelGrid> 
+						<br></br>
+					</p:tab>
+			</p:accordionPanel>
+			<br/> <br/>
+			<p:dataTable reflow="true" id="idTabelaArquivos" var="arquivo"
+				styleClass="table-transparent"
+				value="#{listaArquivosVencidosMB.listaArquivoVencidoBean}"
+				style="border:transparent;margin-left:5%;width:90%;"
+				scrollRows="10" scrollable="true" scrollHeight="300"
+				selection="#{listaArquivosVencidosMB.arquivosVencidosBean}">
+
+				<p:column headerText=""
+					style="font-size:12px; width:2%; text-align:left; color:white; border:none; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}"
+					styleClass="alinharCenter">
+					<a
+						href="http://#{listaArquivosVencidosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeFtp}"
+						title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+						<img src="#{listaArquivosVencidosMB.retornaIconeArquivo(arquivo.nomeFtp)}"
+							width="30" height="30" style="font-size: 12px;"> </img>
+					</a>
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
+					style="width:14%; font-size:12px; color:black; border:none;text-align:left; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}">
+					<a
+						href="http://#{listaArquivosVencidosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeFtp}"
+						title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+						<h:outputText value="#{arquivo.nome}" style="color:black"/>
+					</a>
+				</p:column>
+				<p:column headerText="Diretório" sortBy="#{arquivo.diretorio}"
+					style="width:20%; font-size:12px;  color:black; border:none;text-align:left; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}">
+					<h:outputText value="#{arquivo.diretorio}" style="color:black"/>
+				</p:column>
+				<p:column headerText="Data" sortBy="#{arquivo.data}" style="width:17%; font-size:12px; color:black; border:none;text-align:center; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}">
+                   <h:outputText  value="#{arquivo.data}" style=" font-size:12px; color:black;"> 
+                      <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                   </h:outputText> 
+                </p:column> 
+				<p:column headerText=""
+					style="width:5%; background:white; font-size:11px; color:white; border:none; text-align:right; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}"
+					styleClass="alinharCenter">
+					<p:commandLink 
+						rendered="#{listaArquivosVencidosMB.verificarOperacaoTela()}"
+						update="@form, idTabelaArquivos"
+						action="#{listaArquivosVencidosMB.excluirArquivo(arquivo)}"
+						title="Excluir">
+						<img src="../../resources/img/excluir.png"  />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<br/><br/><br/>
+			<br></br><br />
+			<br/><br/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoProgramasTeensPagina05" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="0" bottomMargin="20" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.5644739300537773"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="717" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="81" width="553" height="577" uuid="f2960b9b-db1a-425d-b6c6-f42120648644"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="6" width="555" height="706" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[9.4 Em todos os casos de desistência antes do embarque, por quaisquer motivos e em qualquer momento do processo, a devolução do valor pago pelo programa, excluindo os 30% de multa citados no item 9.1, segue as normas da organização internacional contratada pela TM.
+9.5 Após o embarque do(a) PARTICIPANTE para realização do programa/curso, não há reembolso ou devolução de qualquer valor pago a TM ou parceiro internacional referente ao curso, acomodação, taxas consulares e demais serviços contratados.
+9.6 A devolução de qualquer quantia, por parte da Travelmate, será efetuada em Reais, de acordo com o câmbio utilizado no dia do pagamento.
+
+10.  DA RESCISÃO POR JUSTA CAUSA
+
+10.1 O presente contrato será rescindido por justa causa, mediante simples notificação ao(à) PARTICIPANTE, sem direito a qualquer reembolso ou indenização, quando:
+a) O(A) PARTICIPANTE desrespeitar as regras estipuladas pela administração da acomodação ou família hospedeira, e parceiro internacional, no tocante a horários, saídas sem consentimentos, desrespeito com terceiros e aos próprios familiares ou colegas de acomodação, bem como tomar atitudes contrárias a um convívio harmonioso junto à família hospedeira, colegas de acomodação e colegas de classe;
+b) O(a) PARTICIPANTE receber reclamações comportamentais no ambiente escolar/acadêmico, cuja gravidade será analisada pelo parceiro internacional responsável pelo curso/programa;
+c)  Cometer qualquer tipo de ato ilícito penal sob as normas do direito do país em questão;
+d) O(a) PARTICIPANTE  abandonar a acomodação ou família hospededeira original sem autorização do parceiro internacional em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 10 (dez) dias da data do seu desligamento.
+e) Após sua chegada no país de destino, o(a) PARTICIPANTE deixar de cumprir as regras de chegada (orientação de chegada, parceiro internacional, ou “check-in”, por exemplo) estabelecidas pelo programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 10 (dez) dias da data do seu desligamento.
+
+11. DISPOSIÇÕES FINAIS E OBSERVAÇÕES
+
+11.1 A despesa de obtenção do visto consular, seguros outros (além do seguro saúde incluído pelo parceiro internacional contratado, quando houver), passagens aéreas (outras não inclusas no valor do programa, quando houver), taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o transfer entre o aeroporto e a acomodação (ida e volta) não estão incluídos no valor do programa/pacote pago à Travelmate, salvo quando especificado no programa/pacote.
+11.2 O(A) PARTICIPANTE deverá levar quantia de dinheiro suficiente para cobrir suas despesas no país de destino (custo com transporte local, materiais, livros, alimentação que não esteja inclusa no programa/pacote, moradia que não esteja inclusa no programa/pacote, etc..), mesmo quando exista a possibilidade de trabalho legal no país em questão;
+11.3  Custos ou despesas para despesas pessoais diárias são de responsabilidade do PARTICIPANTE;
+11.4 Custos de transporte diário durante a realização do programa/pacote, alimentação e uniformes exigidos para realização do programa não estão incluídos no valor do programa/pacote;
+
+
+
+12. PAGAMENTO
+
+12.1 O custo do programa é fixado na moeda local do país em questão e o pagamento do mesmo deve ser feito em reais de acordo com o câmbio da moeda obtido com à TM no dia de pagamento.
+12.2 O pagamento da inscrição deve ser efetivado no momento do preenchimento da ficha de inscrição.
+12.3 O pagamento do Saldo Total do Programa deverá ser quitado conforme plano de pagamento abaixo:
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="25">
+			<subreport>
+				<reportElement x="-10" y="0" width="200" height="15" uuid="f1b0a972-d919-4517-8df8-3f9a389af542"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoTeensPagina06.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

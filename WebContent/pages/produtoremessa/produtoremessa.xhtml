@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="telaProdutoRemessa" style="text-align:left;font-size:11px;">
+            <title>Produtos Calcular Imposto Remessa</title>
+                            <p:outputLabel value="Produto" for="idSelOneMenProduto" style="font-size:11px;margin-left: 6%"/>
+                            <p:outputLabel value="Produto Orçamento" for="idSelOneMenProdutoOrcamento" style="font-size:11px;margin-left:25%"/>
+                            <br></br>
+                            <h:panelGrid columns="3">
+		            <p:selectOneMenu id="idSelOneMenProduto" value="#{produtoRemessaMB.produto}" style="width:130px;font-size: 10px;margin-left: 18%" class="espacocampos2" 
+                                   filter="true" filterMatchMode="startsWith" panelStyle="width:180px"  converter="ProdutoConverter">
+                                <f:selectItem itemLabel="Produto" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idproduto" value="#{produtoRemessaMB.listaProdutos}" var="produto" itemLabel="#{produto.descricao}" itemValue="#{produto}"/>
+                                <p:ajax event="change" listener="#{produtoRemessaMB.gerarListaProdutoOrcamento()}" update="idSelOneMenProdutoOrcamento"/>
+                                <f:attribute name="listaProdutos" value="#{produtoRemessaMB.listaProdutos}"/>
+                            </p:selectOneMenu>
+
+                            
+                            <p:selectOneMenu id="idSelOneMenProdutoOrcamento" value="#{produtoRemessaMB.produtoOrcamento}" style="width:130px;font-size: 10px" class="espacocampos" 
+                                              filter="true" filterMatchMode="startsWith" converter="ProdutoOrcamentoConverter">
+                                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idProdutoOrcamento" value="#{produtoRemessaMB.listaProdutoOrcamento}" var="produtoOrcamento" itemLabel="#{produtoOrcamento.produtosorcamento.descricao}" itemValue="#{produtoOrcamento.produtosorcamento}"/>
+                                <f:attribute name="listaProdutos" value="#{produtoRemessaMB.listaProdutoOrcamento}"/>
+                            </p:selectOneMenu>
+		            <p:commandButton icon="ui-icon-check" value="Adicionar" action="#{produtoRemessaMB.salvarProdutoRemessa()}" style="font-size:11px;margin-left:30%" update="idtabelaprodutoRemessa"></p:commandButton>
+                                </h:panelGrid>
+                            <br></br><br></br>
+
+			    <p:dataTable id="idtabelaprodutoRemessa" var="produtoRemessa"  value="#{produtoRemessaMB.listaProdutoRemessa}" class="tabela1" 
+                                scrollable="true" scrollHeight="280" style="margin-bottom:20px" rowIndexVar="linha">
+                               
+                                <p:column headerText="Descrição"  style="background:#ffffff;color:#1F8871;" styleClass="alinharCenter" >
+                                    <h:outputText value="#{produtoRemessa.produtosorcamento.descricao}"/>
+                                </p:column>
+                                <p:column style="width:45px;background:#ffffff;color:#1F8871;text-align: center">
+                                    <p:commandButton  icon="ui-icon-trash" title="Excluir" action="#{produtoRemessaMB.excluirProdutoRemessa(linha)}" update="idtabelaprodutoRemessa" ></p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                            
+                            <p class="botaocadpacote"><br></br>
+                                <p:commandButton class="espacocampos"  icon="ui-icon-closethick" value="Fechar" action="#{produtoRemessaMB.fechar()}"></p:commandButton>
+                                <br></br><br></br>
+                            </p>
+            </h:form>     
+    </h:body>
+</html>

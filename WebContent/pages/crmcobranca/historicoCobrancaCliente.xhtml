@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="historicoCliente"
+			style="font-size:11px;background:#F0F0F0;">
+			<link href="../../resources/css/dialogbranca.css" rel="stylesheet" type="text/css" />
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<h:panelGrid style="margin-left:2%;width:95%;" columns="2"
+					columnClasses="tamanhoavisos,tamanho11">
+					<h:panelGroup>
+						<p:commandLink id="btnVoltar" style="font-size:13px;"
+							action="#{historicoCobrancaClienteMB.voltar()}" title="Voltar">
+							<i class="fa fa-mail-reply" />
+							<p:outputLabel value="Cobrança"
+								style="margin-left:1%;text-decoration:underline;font-size:13px;" />
+						</p:commandLink>
+						<p:outputLabel value="> Histórico"
+							style="margin-left:1%;color:#4D5C52;font-size:13px;" />
+						<h:panelGrid style="margin-left:2%;width:95%;" columns="2">
+							<p:outputLabel id="programa"
+								value="Programa de #{historicoCobrancaClienteMB.crmcobranca.vendas.produtos.descricao}"
+								style="font-size:16px;" />
+							<p:commandLink id="btnSituacao" title="Alterar a situação">
+								<h:outputText value="#{historicoCobrancaClienteMB.crmcobranca.prioridade}"
+									class="badge bg-warning"
+									style="background-color:#{historicoCobrancaClienteMB.retornarCoresSituacao(historicoCobrancaClienteMB.crmcobranca.prioridade)};padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<h:panelGroup>
+								<p:commandLink id="btnImprimirFicha" style=""
+											title="Imprimir a ficha"
+											action="#{historicoCobrancaClienteMB.imprimirFicha()}" ajax="false" target="blank">
+									<img src="../../resources/img/#{historicoCobrancaClienteMB.iconeFicha}"
+											width="20" style="margin-top: -3%;"/>
+								</p:commandLink>
+								<p:outputLabel id="nomeCliente"
+									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.nome}"
+									style="font-size:29px;margin-left:1%;" />
+							</h:panelGroup>
+						</h:panelGrid>
+
+						<p:overlayPanel id="painelSituacao" for="btnSituacao"
+							hideEffect="fade" style="background:#fff;">
+							<p:commandLink id="btnSituacao1" title="Até 5 dias"
+								action="#{historicoCobrancaClienteMB.pegarPrioridade('1')}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="1" class="badge bg-warning"
+									style="background-color:#9ACD32;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao2" title="6 - 15 dias"
+								action="#{historicoCobrancaClienteMB.pegarPrioridade('2')}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="2" class="badge bg-warning"
+									style="background-color:#023502;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao3" title="16 - 30 dias"
+								action="#{historicoCobrancaClienteMB.pegarPrioridade('3')}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="3" class="badge bg-warning"
+									style="background-color:#1E90FF;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao4" title="31 - 45 dias"
+								action="#{historicoCobrancaClienteMB.pegarPrioridade('4')}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="4" class="badge bg-warning"
+									style="background-color:#FF8C00;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao5" action="#{historicoCobrancaClienteMB.pegarPrioridade('5')}" update="btnSituacao,painelSituacao" title="+ 50 dias ou 30 dias para inicio">
+								<h:outputText value="5" class="badge bg-warning"
+									style="background-color:#B22222;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							   
+						</p:overlayPanel>
+
+						<h:panelGrid style="margin-left:2%;width:95%;" columns="1">
+							<p:outputLabel id="email"
+								value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.email}"
+								style="font-size:18px;" />
+							<p:outputLabel id="telefone"
+								value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.foneResidencial}"
+								style="font-size:18px;" />
+							<h:panelGroup>
+								<p:outputLabel value="Data de recebimento:"
+									style="font-size:13px;" />
+								<p:outputLabel id="data"
+									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.dataNascimento}"
+									style="font-size:13px;margin-left:1%;">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:outputLabel>
+								<br/>
+							</h:panelGroup>
+						</h:panelGrid>
+						<br/>
+						<h:panelGrid columns="2" style="width:100%;margin-left:2%;">
+							<p:outputLabel value="Unidade" style="font-size:14px;" />
+							<p:outputLabel value="Consultor" style="font-size:14px;" />
+							<p:outputLabel id="Unidade" value="#{historicoCobrancaClienteMB.crmcobranca.vendas.unidadenegocio.nomerelatorio}"
+								style="font-size:12px;" />
+							<p:outputLabel id="Consultor" value="#{historicoCobrancaClienteMB.crmcobranca.vendas.usuario.nome}"
+								style="font-size:12px;" />
+						</h:panelGrid>
+						<br></br>
+						<div style="margin-left: 2%;">
+							<p:outputLabel value="Notas" style="font-size:14px;" />
+							<br></br>
+							<h:inputTextarea value="#{historicoCobrancaClienteMB.crmcobranca.nota}"
+								style="width:85%;background: #ffffff;border: none;font-size: 15px;color:#4C4C4C;"
+								id="notas" rows="8" />
+							<p:commandLink id="btnSalvarNotas" title="Salvar Notas"
+								style="margin-left:1%;"
+								action="#{historicoCobrancaClienteMB.salvarNotas()}" update="growl">
+								<img src="../../resources/img/crm/confirmar.png" width="38"
+									style="margin-top: -6%;" />
+							</p:commandLink>
+						</div>
+						<br></br>
+						<br></br>
+						<h:panelGroup id="painelBotoes" style="margin-left:3%;">
+							<h:panelGroup>
+								<h:panelGrid style="width:63%;margin-left:16%;" columns="3">
+									
+									<p:commandLink id="btnContasReceber" style="margin-left:8%;"
+										title="Contas a receber em aberto do cliente"
+										action="#{historicoCobrancaClienteMB.visualizarContasReceber()}"
+										>
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/contasReceber.png"
+												width="50" />
+											<p:outputLabel value="CONTAS A" style="font-size:11px;" />
+											<p:outputLabel value="RECEBER" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink> 
+									<p:commandLink id="btnEnviarEmail" title="Enviar E-mail"
+										action="#{historicoCobrancaClienteMB.enviarEmailCobrancaCliente()}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png"
+												width="48" />
+											<p:outputLabel value="E-MAIL" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnFechar" style="margin-left:8%;"
+										title="Fehcar tela" action="#{historicoCobrancaClienteMB.voltar()}">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/cancelar.png" width="45" />
+											<p:outputLabel value="Fechar" style="font-size:11px;" />
+										</h:panelGrid> 
+									</p:commandLink>
+								</h:panelGrid>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>  
+					<h:panelGroup>
+						<h:panelGrid style="width:98%;">
+							
+							<p:dataScroller id="tabelaHistorico" var="historico"
+								value="#{historicoCobrancaClienteMB.listaCobrancaHistorico}" chunkSize="10"
+								mode="inline" scrollHeight="390">
+								<f:facet name="header">
+									<h:panelGrid style="margin-left:2%;width:98%;" columns="2"
+										columnClasses="tamanhonotificacao2, tamanho50right">
+										<h:panelGroup>
+											<img src="../../resources/img/crm/historico.png" width="28"
+												style="margin-top: -3%;" />
+											<p:outputLabel value="Histórico"
+												style="font-size:22px;color:#3C4A58;" />
+										</h:panelGroup>
+										<p:commandLink id="btnAdd"
+											action="#{historicoCobrancaClienteMB.cadHistoricoCobrancaCliente()}">
+											<i class="fa  fa-plus-circle"
+												style="font-size: 23px; color: #fff;" />
+											<p:ajax event="dialogReturn"
+												listener="#{historicoCobrancaClienteMB.gerarListaHistorico()}"
+												update="tabelaHistorico" />
+										</p:commandLink>
+									</h:panelGrid>
+								</f:facet>
+								<p:outputPanel>
+									<h:panelGrid columns="4" style="width:100%;"
+										class="#{historicoCobrancaClienteMB.retornarCorHistorico(1)}"
+										columnClasses="tamanho2, tamanho8, tamanho11, tamanho6">
+										<h:outputLabel />
+										<h:outputLabel />
+										<h:outputLabel />
+										<h:outputLabel />
+										
+										<h:panelGrid columns="1" style="text-align:center;">
+											<h:outputLabel value="#{historico.data}"
+												style="font-size: 13px;color:#4C4C4C;font-weight: 500;">
+												<f:convertDateTime pattern="dd/MM/yyyy"
+													timeZone="America/Sao_Paulo" />
+											</h:outputLabel>
+										</h:panelGrid>
+										
+										<h:outputLabel value="#{historico.usuario.nome}"
+											style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+										<h:outputLabel value="#{historico.historico}"
+											style="font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+										
+										<h:panelGrid columns="3">
+											<p:commandLink id="btnEditar" title="Editar"
+												actionListener="#{historicoCobrancaClienteMB.editar(historico)}">
+												<i class="fa fa-pencil"
+													style="color: #3C4A58; font-size: 14px;" />
+												<p:ajax event="dialogReturn"
+													listener="#{historicoCobrancaClienteMB.gerarListaHistorico()}"
+													update="tabelaHistorico" />
+											</p:commandLink>
+											<p:commandLink id="btnExcluir" title="Excluir"
+												style="margin-left:26%;margin-rigth:2%;"
+												action="#{historicoCobrancaClienteMB.excluir(historico)}"
+												update="tabelaHistorico, :historicoCliente:growl">
+												<i class="fa fa-trash-o"
+													style="color: #3C4A58; font-size: 14px;" />
+											</p:commandLink>
+											
+										</h:panelGrid>
+										<h:outputLabel />  
+										<h:outputLabel />
+										<h:outputLabel />
+										<h:outputLabel />
+									</h:panelGrid>
+								</p:outputPanel>
+							</p:dataScroller>
+						</h:panelGrid>
+						<br></br>
+						<div align="left" >
+							<h:outputText value="1" class="badge bg-warning"
+								style="background-color:#9ACD32;padding: 4px 6px;" />
+							<h:outputText value="Até 5 dias"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="2" class="badge bg-warning"
+								style="background-color:#023502;padding: 4px 6px;margin-left:2%;" />
+							<h:outputText value="6 - 15 dias"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="3" class="badge bg-warning"
+								style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;" />
+							<h:outputText value="16 - 30 dias"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							<h:outputText value="4" class="badge bg-warning"
+								style="background-color:#FF8C00;padding: 4px 6px;margin-left:2%;" />
+							<h:outputText value="31 - 45 dias"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+							
+							<h:outputText value="5" class="badge bg-warning"
+								style="background-color:#B22222;padding: 4px 6px;margin-left:2%;" />
+							<h:outputText value="+ 50 dias ou 30 dias para inicio"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>
+			</div>
+			<script>
+				function limitTextArea(element, limit) {
+				
+					if (element.value.length > limit) {
+					element.value = element.value.substring(0, limit);
+					}
+				
+				} 
+			</script>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

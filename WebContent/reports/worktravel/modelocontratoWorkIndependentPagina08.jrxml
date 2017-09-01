@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPagina08" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Google Drive\\Desenvolvimento\\TravelMate\\SysTM\\SysTM\\src\\telas\\Work\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="102" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="4" width="555" height="74" uuid="0545a8ab-1e20-49b4-9251-fccedfabd7cb"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="18" y="86" width="125" height="14" uuid="71dfc5fc-f8fc-4740-a758-52ff656c14a3"/>
+				<text><![CDATA[Parcelamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="14" width="125" height="14" uuid="096688ad-eecf-43d5-8218-58c29251a14b"/>
+				<text><![CDATA[Condição de Pagamento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="60" width="326" height="13" uuid="d2e68a80-180e-4cb1-8f14-56f0aa259f9a"/>
+				<text><![CDATA[Câmbio da data da inscrição, utilizado para conversão em REAIS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="35" width="67" height="14" uuid="987426c5-25a3-4412-b658-ee961b4c1787"/>
+				<text><![CDATA[Valor Juros :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="35" width="57" height="14" uuid="024e9cb7-18dd-4d23-8d44-1cb17f55d03b"/>
+				<text><![CDATA[Valor R$ :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="61">
+			<rectangle>
+				<reportElement x="0" y="4" width="555" height="55" uuid="8c5de217-df87-4fee-9574-4921187f8586"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="11" y="15" width="85" height="14" uuid="2d93cb41-57d5-4e6d-b4a0-2237c6ed2d17"/>
+				<text><![CDATA[Forma de Pagto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="35" width="90" height="14" uuid="349ec2b8-6628-48ff-a6f8-978bfa61b42f"/>
+				<text><![CDATA[Data Vencimento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="15" width="83" height="14" uuid="9414b890-a312-4951-97c8-2739ca26e4b9"/>
+				<text><![CDATA[Saldo Parcelar :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="35" width="77" height="14" uuid="efdee7df-f631-4180-8556-f4d5c000bc81"/>
+				<text><![CDATA[Valor Parcela :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="35" width="64" height="14" uuid="6c639cc8-8c68-4aca-95a7-294ff21d19a9"/>
+				<text><![CDATA[Nº Parcelas :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="53">
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="200" height="10" isPrintInFirstWholeBand="true" uuid="94557abe-8287-422b-827c-e73546bab815"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoWorkIndependentPagina09.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="13" width="100" height="1" uuid="0c954639-49ce-43ee-a642-5adfc04c38e1"/>
+			</break>
+		</band>
+	</summary>
+</jasperReport>

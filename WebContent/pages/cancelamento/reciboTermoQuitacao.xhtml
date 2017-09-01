@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="reciboTermoQuitacao" style="text-align:left;font-size: 10px;">
+	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
+		<p:outputLabel value="Banco" for="banco"
+			style="color:#1F8871;margin-left:5%" />
+		<p:outputLabel value="Agência" for="agencia"
+			style="color:#1F8871;margin-left:33%" />
+		<p:outputLabel value="Conta" for="conta"
+			style="color:#1F8871;margin-left:15.7%" />
+		<br></br>
+		<p:inputText id="banco" value="#{relatorioTermoQuitacaoMB.banco}" style="margin-left:5%;width:35%"/>
+		<p:inputText id="agencia" value="#{relatorioTermoQuitacaoMB.agencia}" style="margin-left:5%;width:20%"/>
+		<p:inputText id="conta" value="#{relatorioTermoQuitacaoMB.conta}" style="margin-left:5%;width:20%"/>
+		<br></br><br></br>
+		<p:outputLabel value="Titular" for="titular"
+			style="color:#1F8871;margin-left:5%" />
+		<p:outputLabel value="CPF" for="cpf"
+			style="color:#1F8871;margin-left:54%" />
+		<br></br>
+		<p:inputText id="titular" value="#{relatorioTermoQuitacaoMB.titular}" style="margin-left:5%;width:48%"/>
+		<p:inputMask mask="999.999.999-99" id="cpf" value="#{relatorioTermoQuitacaoMB.cpf}" style="margin-left:13%;width:24%"/>
+		<br></br><br></br><br></br>
+		<div align="center">
+			<p:commandButton value="Confirmar" icon="ui-icon-check"
+				action="#{relatorioTermoQuitacaoMB.gerarRelatorioTermoQuitacao()}"
+				style="font-size:11px;"  ajax="false" onclick="this.form.target='_blank'"/>
+			<p:commandButton value="Cancelar" icon="ui-icon-close"
+				action="#{relatorioTermoQuitacaoMB.cancelar()}"
+				style="font-size:11px;margin-left:3%" />
+		</div>
+	</h:form>
+</h:body>
+</html>

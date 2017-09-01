@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de Pagamentos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="feecb075-5a7f-42f6-832b-1a654a7aa009">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[$P!{sql}]]>
+	</queryString>
+	<field name="nomefornecedor" class="java.lang.String"/>
+	<field name="nomepais" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomecidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idfornecedordocs" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomearquivo" class="java.lang.String"/>
+	<field name="datavalidade" class="java.util.Date"/>
+	<field name="datainicio" class="java.util.Date"/>
+	<group name="FornecedorDocs" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{idfornecedordocs}]]></groupExpression>
+		<groupHeader>
+			<band height="41">
+				<line>
+					<reportElement x="1" y="40" width="554" height="1" uuid="a2660627-9a9e-4d29-906d-eb2b90bf545f"/>
+				</line>
+				<textField pattern="">
+					<reportElement mode="Transparent" x="2" y="3" width="552" height="22" uuid="f3d3440c-e411-477b-957d-d4a5cc3f8c1a"/>
+					<textElement>
+						<font size="15" isBold="true" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomearquivo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="5" y="26" width="85" height="15" uuid="7ef86535-7884-4360-86af-4bcfe34c019a"/>
+					<text><![CDATA[Pais]]></text>
+				</staticText>
+				<line>
+					<reportElement x="1" y="3" width="554" height="1" uuid="0259c984-82ea-4f89-88d4-dace79723aa8"/>
+				</line>
+				<staticText>
+					<reportElement x="135" y="25" width="106" height="15" uuid="a5c988ba-75e1-4510-a2fa-253dd7d71922"/>
+					<text><![CDATA[Cidade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="303" y="25" width="66" height="15" uuid="ce5b8682-1b87-4197-baed-539548064bc1"/>
+					<text><![CDATA[Inicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="415" y="25" width="66" height="15" uuid="d60d42df-926c-4f82-aff8-c1d7a07f6692"/>
+					<text><![CDATA[Validade]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="197" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="1" y="106" width="553" height="33" uuid="7ab278a3-567e-4655-aabb-0e815544389f"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Documentos dos Parceiros"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="255" height="94" uuid="44120e79-a716-4d1c-8cf1-2ba645175b59"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="164" width="231" height="19" uuid="661c3fa5-e6a8-4f87-a35e-a50e12e61dd2"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Parceiro: " + $F{nomefornecedor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="7" y="2" width="124" height="13" uuid="ee42823d-1d75-4624-b06d-c8e5a0bf95bd"/>
+				<textFieldExpression><![CDATA[$F{nomepais}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="135" y="2" width="151" height="13" uuid="fea28cdc-fb76-4ccd-8e54-bea4e7bad50d"/>
+				<textFieldExpression><![CDATA[$F{nomecidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="303" y="2" width="87" height="13" uuid="010d4476-9ce4-4fcf-97bc-7cb60d967fac"/>
+				<textFieldExpression><![CDATA[$F{datainicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="415" y="2" width="87" height="13" uuid="21052e1e-be47-457d-8e40-fcb6b392c05c"/>
+				<textFieldExpression><![CDATA[$F{datavalidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="4" y="20" width="127" height="14" uuid="7ae4e633-e737-4a5a-acbf-bd9d128532ca"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="1" width="554" height="1" uuid="4ba21f34-2453-4c55-a360-ae335e90fc1b"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

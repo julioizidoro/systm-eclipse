@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHePagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="312" y="11" width="243" height="57" uuid="d38b35c4-33e2-4c44-beb8-6b62632675f1"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="581" splitType="Stretch">
+			<image>
+				<reportElement x="3" y="73" width="526" height="342" uuid="ac44f610-2ea6-4d00-bed2-73ac5c5cf9fd"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="13" width="552" height="554" uuid="6fe9c96b-12d0-4de5-9ab2-1ee8551dff4f"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["5.  RESCISÃO DO CONTRATO ANTES DO EMBARQUE: DESISTÊNCIA OU CANCELAMENTO \n"+
+"5.1. Por decisão do INTERCAMBISTA, o presente contrato poderá ser rescindido antes da data de seu embarque para o exterior, sendo que neste caso este será ressarcido pela TRAVELMATE da seguinte forma: \n"+
+"(a) em caso de desistência do programa de intercâmbio antes do envio da documentação de pré-matrícula a instituição de ensino superior por parte da TRAVELMATE, por motivo de qualquer natureza, será retido ou cobrado a quantia 50% do valor pago pela Asssessoria de Higher Education definida neste contrato (Anexo I) a título de multa de cancelamento. \n"+
+"(b) em caso de desistência do programa de intercâmbio após o envio da documentação de pré-matrícula a instituição de ensino superior por parte da TRAVELMATE, por motivo de qualquer natureza, não haverá reembolso da Assessoria de Higher Education e da Taxa de Inscrição. \n"+
+"(c) em caso de desistência do programa de intercâmbio após a aprovação do intercambista no processo seletivo da instituição de ensino superior e confirmação da matrícula, será retido ou cobrado 100% da Asssessoria de Higher Education e da Taxa de Inscrição e a quantia de 30% do valor pago pelo valor do primeiro semestre do curso da instituição de ensino superior em questão; \n"+
+"5.2.  A TRAVELMATE garante os serviços prestados, efetuando a devolução integral de toda a quantia paga pelo programa, caso não consiga encontrar a colocação proposta, de acordo com os termos do contrato (item 1 deste contrato), desde que a impossibilidade da colocação universitária não aconteça devido ao não alcance, pelo estudante, dos pré-requisitos exigidos pela instituição de ensino superior em questão. \n"+
+"5.3. A TRAVELMATE se reserva o direito de rescindir o presente contrato em ocorrendo o inadimplemento pelo INTERCAMBISTA das parcelas estabelecidas no Anexo I, efetuando a devolução das quantias já pagas na forma estabelecida no item 5.1 deste instrumento. \n \n"+
+
+"6.  RESCISÃO DO CONTRATO ANTES DO EMBARQUE: DESISTÊNCIA OU CANCELAMENTO \n"+
+"6.1. Após o embarque do INTERCAMBISTA, a TRAVELMATE poderá resolver o presente contrato, mediante simples notificação a ser enviada ao representante legal do INTERCAMBISTA, em se constatando, por representante da TRAVELMATE, infração a qualquer das regras deste contrato e regras estabelecidas pela instituição de ensino superior frequentada, no que se refere ao seu desempenho acadêmico e conduta pessoal. \n"+
+"6.2. Na hipótese da rescisão do contrato por infração do INTERCAMBISTA, na forma indicada no item anterior, a TRAVELMATE não irá lhe fazer qualquer ressarcimento das quantias a serem pagas pelo custo do programa acordadas neste contrato. \n"+
+"6.3. Caso o INTERCAMBISTA, após o seu embarque, deseje voluntariamente se desligar do programa, optando pelo término das obrigações deste contrato antes da data originalmente estabelecida, deverá imediatamente comunicar a TRAVELMATE quanto a sua intenção. A rescisão do contrato, nesta hipótese, passará a ter efeitos a partir da data da confirmação do desligamento por parte da TRAVELMATE, sendo que, na mesma forma do item 6.2. supra, não será feito qualquer ressarcimento ao INTERCAMBISTA. "
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="1adf6af7-9d37-48a1-8eae-bc1f043ec639"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modeloContratoHePagina05.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

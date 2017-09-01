@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="telavalorproduto">
+                <div id="centro">
+                    <p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" /> <br></br> <br></br> 
+                    <p:accordionPanel class="painel" activeIndex="-1">
+						<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+							title="Pesquisar">  
+							<h:panelGrid columns="3" style="width:95%;margin-left:2.5%;">
+								<p:outputLabel value="Período de validade"/>
+								<p:outputLabel value="Período Nº de Semanas"/>
+								<p:outputLabel/>
+								<h:panelGroup>
+									 <p:inputMask id="datainicio"  value="#{valorCoProdutosMB.datainicial}" size="10" mask="99/99/9999"  maxlength="15">
+						                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+						             </p:inputMask>
+						             <p:inputMask id="datafinal" size="10" value="#{valorCoProdutosMB.datafinal}" mask="99/99/9999"  maxlength="15" style="margin-left:1%" >
+						                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+						             </p:inputMask>
+								</h:panelGroup>
+								<h:panelGroup>
+									 <p:inputText value="#{valorCoProdutosMB.nsemanainicial}" id="nsemanasinicial" style="width:20%;text-aling:right;"  title="Nº de Semanas inícial"/>
+		            				 <p:inputText value="#{valorCoProdutosMB.nsemanafinal}" id="nsemanasfinal" style="width:20%;margin-left: 1%;text-aling:right;" title="Nº de Semanas final"/>
+            					</h:panelGroup>
+								<h:panelGroup> 
+									<p:commandButton value="Pesquisar"
+										icon=" ui-icon-search " update="telavalorproduto:tabelavalorprodutos" action="#{valorCoProdutosMB.pesquisar()}" />
+									<p:commandButton value="Limpar"  style="margin-left:1%" icon="ui-icon-arrowrefresh-1-w"
+										update="telavalorproduto:tabelavalorprodutos, nsemanasfinal, nsemanasinicial, datafinal, datainicio" action="#{valorCoProdutosMB.limpar()}" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</p:tab>     
+					</p:accordionPanel>
+					<br/><br/>  
+                    <p:commandButton id="bntAddValor" icon="ui-icon-plus" class="espacocobranca21botao" style="font-size:12px;margin-left: 2.5%" value="Novo Valor" action="#{valorCoProdutosMB.cadValoresProdutos()}" >
+                     	<p:ajax event="dialogReturn" listener="#{valorCoProdutosMB.retornoDialogoNovo}" process="@this" update=":telavalorproduto:tabelavalorprodutos"/>
+                    </p:commandButton> 
+                    <p:commandButton id="bntvoltar" class="espacocobranca21botao" style="font-size:12px" value="Voltar"  action="#{valorCoProdutosMB.voltar()}" icon="ui-icon-arrowreturnthick-1-w" />
+                    <br/><br/>
+                    
+                    <p:dataTable id="tabelavalorprodutos" var="valorproduto"  value="#{valorCoProdutosMB.listaValores}" class="tabela" 
+                                 scrollable="true" scrollHeight="400" style="margin-bottom:20px" > 
+                        <p:column headerText="Data Início"  style="width:70px;" >
+                            <h:outputText value="#{valorproduto.datainicial}">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Data Final"  style="width:70px;" >
+                            <h:outputText value="#{valorproduto.datafinal}">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column> 
+                        <p:column headerText="Nº Semana Inicial" style="width:120px;text-align:right;" >
+                            <h:outputText value="#{valorproduto.numerosemanainicial}"/>  
+                        </p:column> 
+                        <p:column headerText="Nº Semana final" style="width:120px;text-align:right;" >
+                            <h:outputText value="#{valorproduto.numerosemanafinal}"/>  
+                        </p:column>       
+                        <p:column headerText="Valor" style="width:80px;text-align:right;" >
+                            <h:outputText value="#{valorproduto.valororiginal}">
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>  
+                        </p:column> 
+                        <p:column style="width:17px">
+                            <p:commandLink action="#{valorCoProdutosMB.editar(valorproduto)}" style="text-decoration: none">
+                                <img src="../../resources/img/editaricon.png"/>
+                                <p:ajax event="dialogReturn" listener="#{valorCoProdutosMB.retornoDialogoEditar}" process="@this" update=":telavalorproduto:tabelavalorprodutos"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+                    <br></br>
+                </div>
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

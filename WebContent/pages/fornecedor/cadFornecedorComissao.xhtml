@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadastrofornecedorcomissao"
+			style="text-align:left;font-size: 10px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2">  
+					<b>Cadastro de Comissão Parceiro</b>
+				</legend><br></br>
+				<h:panelGrid columns="2" columnClasses="tamanho11,tamanho11" style="width:70%;margin-left:12%;">
+					<p:outputLabel value="Parceiro" for="fornecedor" />
+					<p:outputLabel value="País" for="pais" />
+
+					<p:selectOneMenu id="fornecedor"
+						value="#{fornecedorComissaoMB.fornecedor}"
+						style="width:85%;font-size:11px;" converter="FornecedorConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:450px">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{fornecedorComissaoMB.listaFornecedor}"
+							var="fornecadorselecionado"
+							itemLabel="#{fornecadorselecionado.nome}"
+							itemValue="#{fornecadorselecionado}" />
+						<f:attribute name="listaFornecedor"
+							value="#{fornecedorComissaoMB.listaFornecedor}" />
+						<p:ajax event="change"
+							update="pais,:cadastrofornecedorcomissao:tabelacomissao"
+							listener="#{fornecedorComissaoMB.gerarListaPais()}" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="pais" value="#{fornecedorComissaoMB.pais}"
+						style="width:85%;font-size: 11px;"
+						converter="PaisFornecedorConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais"
+							value="#{fornecedorComissaoMB.listaPais}" var="cpais"
+							itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+						<f:attribute name="listaPaisFornecedor"
+							value="#{fornecedorComissaoMB.listaPais}" />
+						<p:ajax event="change"
+							listener="#{fornecedorComissaoMB.consultarComissaoFornecedorCurso()}"
+							update=":cadastrofornecedorcomissao:tabelacomissao, :cadastrofornecedorcomissao:produto" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<br></br> 
+				<h:panelGrid columns="4" columnClasses="tamanho11,tamanho10,tamanho10,tamanho10" style="width:66.5%;margin-left:12%;">
+					<p:outputLabel value="Produto" for="produto" />
+					<p:outputLabel value="% Matriz" for="produto" />
+					<p:outputLabel value="% Premium" for="produto" />     
+					<p:outputLabel value="% Express" for="produto"  />
+				 
+					<p:selectOneMenu id="produto"
+						value="#{fornecedorComissaoMB.produtoOrcamento}"
+						style="width:85%;font-size:11px;"
+						converter="ProdutoOrcamentoConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idproduto"
+							value="#{fornecedorComissaoMB.listaProdutos}" var="cproduto"
+							itemLabel="#{cproduto.produtosorcamento.descricao}"
+							itemValue="#{cproduto.produtosorcamento}" />
+						<f:attribute name="listaProdutos"
+							value="#{fornecedorComissaoMB.listaProdutos}" />
+					</p:selectOneMenu>
+
+					<p:inputText id="idpercMatriz"
+						value="#{fornecedorComissaoMB.matriz}"
+						style="width:80%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+
+					<p:inputText id="idpercloja"
+						value="#{fornecedorComissaoMB.premium}"
+						style="width:80%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputText id="idpercexpress"
+						value="#{fornecedorComissaoMB.express}"
+						style="width:80%;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>   
+				<br/><br/>
+				<div align="center">   
+					<p:commandButton icon="ui-icon-plus"
+						value="Adicionar" action="#{fornecedorComissaoMB.salvar()}"
+						update="@form"/>  
+					<p:commandButton icon="ui-icon-shuffle" value="Produtos" style="margin-left:2%;"
+						action="#{fornecedorComissaoMB.salvarProdutosOrcamento()}"
+						update=":cadastrofornecedorcomissao:tabelacomissao, :cadastrofornecedorcomissao:growl" />
+				</div>
+				<br></br> 
+				<p:dataTable id="tabelacomissao" var="comissao"
+					value="#{fornecedorComissaoMB.listaComissao}" class="tabela5" style="margin-bottom:20px">
+					<p:column headerText="Produto">
+						<p:outputLabel value="#{comissao.produtosorcamento.descricao}" />
+					</p:column>
+					<p:column headerText="Comissão Matriz"
+						style="text-align:right;width:100px;">
+						<p:outputLabel value="#{comissao.matriz}">  
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</p:column>
+					<p:column headerText="Premium"
+						style="text-align:right;width:100px;">
+						<p:outputLabel value="#{comissao.premium}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</p:column>
+					<p:column headerText="Express"
+						style="text-align:right;width:100px;">
+						<p:outputLabel value="#{comissao.express}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column style="width:38px">
+						<p:commandLink action="#{fornecedorComissaoMB.excluir(comissao)}"
+							style="text-decoration: none" title="Excluir"
+							update="cadastrofornecedorcomissao:tabelacomissao">
+							<img src="../../resources/img/excluir.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<div align="center">
+					<p:commandButton icon="ui-icon-close" value="Fechar"
+						action="#{fornecedorComissaoMB.cancelarCadastro()}" />
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

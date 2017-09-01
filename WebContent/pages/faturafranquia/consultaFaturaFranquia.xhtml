@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idtelafaturafranquia" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<div align="center">
+					<p:accordionPanel class="painel" style="width:90%;margin-left:0%;">
+						<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+							title="Dados da Fatura">
+							<h:panelGrid columns="6"
+								columnClasses="tamanho1,tamanho7,tamanho1,tamanho7,tamanho1,tamanho1,tamanho1"
+								style="margin-left:3%;width:90%;">
+								<p:outputLabel value="Unidade" />
+								<p:outputLabel value="Mês" />
+								<p:outputLabel value="Ano" />
+								<p:outputLabel value="Periodo" />
+								<p:outputLabel />
+								<p:outputLabel />
+
+								<p:selectOneMenu id="unidade" style="width:90%;"
+									value="#{faturaFranquiaMB.unidadenegocio}"
+									converter="UnidadeNegocioConverter" filter="true"
+									filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems value="#{faturaFranquiaMB.listaUnidadeNegocio}"
+										var="unidade" itemLabel="#{unidade.nomerelatorio}"
+										itemValue="#{unidade}" />
+									<f:attribute name="listaUnidade"
+										value="#{faturaFranquiaMB.listaUnidadeNegocio}" />
+								</p:selectOneMenu>
+								<p:inputMask id="mes" value="#{faturaFranquiaMB.mes}"
+									style="width:90%;" mask="99" >
+									<p:ajax event="change" listener="#{faturaFranquiaMB.retornarPeriodo}" update="dataInicial, dataFinal, :idtelafaturafranquia:growl"/>
+								</p:inputMask>
+								<p:inputMask id="ano" value="#{faturaFranquiaMB.ano}"
+									style="width:45%;" mask="9999" >
+									<p:ajax event="change" listener="#{faturaFranquiaMB.retornarPeriodo}" update="dataInicial, dataFinal, :idtelafaturafranquia:growl"/>
+								</p:inputMask>
+								<p:calendar id="dataInicial"
+									value="#{faturaFranquiaMB.dataInicial}" title="Data Inícial"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" size="11"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{faturaFranquiaMB.dataFinal}"
+									title="Data Final" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									size="11" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:commandButton value="Iníciar" icon="ui-icon-check"
+									title="Iníciar/consultar fatura"
+									update=":idtelafaturafranquia:idtabelafaturafraquia, :idtelafaturafranquia:growl, :idtelafaturafranquia:valoresFatura, :idtelafaturafranquia:totalLancamentos"
+									action="#{faturaFranquiaMB.gerarListas()}" />
+							</h:panelGrid>
+							<br></br>
+						</p:tab>
+					</p:accordionPanel>
+
+					<br />
+
+					<h:panelGrid id="valoresFatura" columns="5"
+						style="font-size:12px;width:90%;text-align: center;border:1.5px solid #cccccc;  ">
+						<h:panelGroup>
+							<p:outputLabel
+								value="#{faturaFranquiaMB.fatura.unidadenegocio.nomeFantasia}"
+								style="font-weight: inherit;font-size:17px;float: left;" />
+						</h:panelGroup>
+						<h:panelGroup style="text-align: center;">
+							<p:outputLabel value="Saldo Débito (Crédito)"
+								style="font-weight: inherit;" />
+							<br />
+							<p:outputLabel
+								value="#{faturaFranquiaMB.retornarAnteriorMesAno(faturaFranquiaMB.fatura.mes, faturaFranquiaMB.fatura.ano)}"
+								style="font-weight: inherit;" />
+							<br />
+							<p:outputLabel value="#{faturaFranquiaMB.fatura.saldodebito}"
+								style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.saldodebito)};">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+						<h:panelGroup style="text-align: center;">
+							<p:outputLabel value="Valor Pago (Recebido) ref."
+								style="font-weight: inherit;" />
+							<p:commandButton id="btnReceber" value="Receber"
+								action="#{faturaFranquiaMB.lancarContasPagar()}"
+								style="font-size:10px;margin-left:1%;">
+								<p:ajax event="dialogReturn"
+									listener="#{faturaFranquiaMB.retornoDialogNovo}"
+									process="@this"
+									update=":idtelafaturafranquia:idtabelafaturafraquia, :idtelafaturafranquia:growl, :idtelafaturafranquia:valoresFatura, :idtelafaturafranquia:totalLancamentos" />
+							</p:commandButton>
+
+							<br />
+							<p:outputLabel
+								value="#{faturaFranquiaMB.retornarAnteriorMesAno(faturaFranquiaMB.fatura.mes, faturaFranquiaMB.fatura.ano)}"
+								style="font-weight: inherit;" />
+							<br />
+							<p:outputLabel value="#{faturaFranquiaMB.fatura.valorpago}"
+								style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.valorpago)};">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+						<h:panelGroup style="text-align: center;">
+							<p:outputLabel value="Saldo Final" style="font-weight: inherit;" />
+							<br />
+							<p:outputLabel
+								value="#{faturaFranquiaMB.retornarAnteriorMesAno(faturaFranquiaMB.fatura.mes, faturaFranquiaMB.fatura.ano)}"
+								style="font-weight: inherit;" />
+							<br />
+							<p:outputLabel
+								value="#{faturaFranquiaMB.fatura.saldofinalanterior}"
+								style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.saldofinalanterior)};">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+						<h:panelGroup style="text-align: center;">
+							<p:outputLabel value="Novo Saldo Devedor" />
+							<br />
+							<p:outputLabel value="(Credor)" />
+							<br />
+							<p:outputLabel value="#{faturaFranquiaMB.fatura.saldodevedor}"
+								style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.saldodevedor)};">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+					</h:panelGrid>
+				</div>
+				<br />
+				<div align="left" style="width: 90%; margin-left: 3%;">
+					<p:commandButton value="Gerar Fatura" icon="ui-icon-document"
+						title="Gerar fatura para consulta."
+						action="#{faturaFranquiaMB.gerarFaturaFaturaFranquia()}"
+						update="idtabelafaturafraquia, growl, totalLancamentos, valoresFatura" ajax="false"
+						onclick="this.form.target='_blank'" />
+					<p:commandButton value="Fatura Ajuste" icon="ui-icon-plusthick"
+						title="Lançar nova fatura ajuste." style="margin-left:2%;"
+						action="#{faturaFranquiaMB.adicionarFaturaAjuste()}"
+						update="growl">
+						<p:ajax event="dialogReturn"
+							listener="#{faturaFranquiaMB.retornoDialogFaturaAjuste}"
+							update="idtabelafaturafraquia,totalLancamentos, valoresFatura" />
+					</p:commandButton>
+					<p:commandButton value="Enviar E-mail" icon="ui-icon-mail-closed"
+						title="Enviar e-mail para sobre fatura disponível." style="margin-left:2%;"
+						action="#{faturaFranquiaMB.enviarEmail()}"
+						update="growl"/> 
+					<p:commandButton value="Banco" icon="ui-icon-info"
+						title="Informações sobre o banco para pagamento." style="margin-left:2%;"
+						action="#{faturaFranquiaMB.visualizarDadosBanco()}"
+						update="growl"/> 
+					<p:commandButton value="Comprovante" icon="ui-icon-document"
+						title="Visualizar comprovantes de pagamento." style="margin-left:2%;"
+						action="#{faturaFranquiaMB.visualizarComprovantes()}"
+						update="growl"/>   
+				</div>        
+				<div align="right" style="width: 98%">
+					<p:selectBooleanCheckbox
+						value="#{faturaFranquiaMB.selecionarTodas}">   
+						<p:ajax update="idtabelafaturafraquia"
+							listener="#{faturaFranquiaMB.selecionarTodos()}" />
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Selecionar todas" style="margin-left: 1%"></p:outputLabel>
+				</div>
+				<p:dataTable id="idtabelafaturafraquia" var="faturafranquia"
+					value="#{faturaFranquiaMB.listaFatura}" scrollable="true"
+					scrollHeight="300" widgetVar="fatura" editable="true"
+					style="font-size: 10px;width:99%;margin-left:0.5%;">
+
+					<p:ajax event="rowEdit" listener="#{faturaFranquiaMB.editar}" 
+						update=":idtelafaturafranquia:growl, :idtelafaturafranquia:idtabelafaturafraquia, :idtelafaturafranquia:totalLancamentos" />
+					<p:ajax event="rowEditCancel"
+						listener="#{faturaFranquiaMB.cancelarEdicao}"
+						update=":idtelafaturafranquia:growl, :idtelafaturafranquia:idtabelafaturafraquia, :idtelafaturafranquia:totalLancamentos" />
+
+					<p:column headerText="Data Inicio" style="width:63px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.dataincio}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar id="datainicio3" value="#{faturafranquia.dataincio}"
+									size="10" locale="pt" pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+								</p:calendar>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Cliente" style="width:65px;">
+						<h:outputText value="#{faturafranquia.cliente}" />
+					</p:column>
+					<p:column headerText="Mês" style="width:35px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.mes}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.mes}" style="width:98%;" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Ano" style="width:35px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.ano}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.ano}" style="width:98%;" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Data Venda" style="width:63px;">
+						<p:commandLink
+							action="#{faturaFranquiaMB.visualizarContasReceber(faturafranquia.faturafranquias)}"
+							style="text-decoration: underline"
+							title="Visualizar Contar a Receber.">
+							<h:outputText value="#{faturafranquia.datavenda}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Programa/ Produto" style="width:65px;">
+						<h:outputText value="#{faturafranquia.programa}" />
+					</p:column>
+					<p:column headerText="Parceiro" style="width:68px;">
+						<h:outputText value="#{faturafranquia.fornecedor}" />
+					</p:column>
+					<p:column headerText="Valor Total"
+						style="width:52px;text-align: right">
+						<p:commandLink
+							action="#{faturaFranquiaMB.produtoVendas(faturafranquia.faturafranquias)}"
+							style="text-decoration: underline" title="Produtos da Venda">
+							<h:outputText value="#{faturafranquia.valortotal}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Valor Com."
+						style="width:50px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.valorcomissionavel}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.valorcomissionavel}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="% Comissão"
+						style="width:60px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.percentualcomissao}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.percentualcomissao}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Comissão"
+						style="width:60px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.comissao}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.comissao}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Taxa TM" style="width:55px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.taxatm}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.taxatm}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Cust. Financeiro" style="width:50px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.desagio}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.desagio}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Desc. Matriz"
+						style="width:50px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.descontomatriz}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.descontomatriz}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Desc. Loja"
+						style="width:50px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.descontoloja}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.descontoloja}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Rec. Matriz"
+						style="width:50px;text-align:  right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.recebidomatiz}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.recebidomatiz}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Total" style="width:50px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{faturafranquia.total}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{faturafranquia.total}"
+									style="width:98%;text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Fatura" style="width:40px;text-align:center;">
+						<p:commandLink style="cursor:text;"
+							title="#{faturaFranquiaMB.retornarTitle(faturafranquia)}">
+							<img src="#{faturaFranquiaMB.retornarImagem(faturafranquia)}" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:30px;text-align:center;">
+						<p:selectBooleanCheckbox value="#{faturafranquia.selecionado}"
+							disabled="#{faturaFranquiaMB.desabilitarCheckBox(faturafranquia)}" />
+					</p:column>
+					<p:column style="width:30px">
+						<p:rowEditor title="Editar" />
+					</p:column>
+					<p:column style="width:33px;text-align:center;">
+						<p:commandLink title="Excluir Fatura"
+							action="#{faturaFranquiaMB.excluirFatura(faturafranquia)}"
+							update=":idtelafaturafranquia:idtabelafaturafraquia, :idtelafaturafranquia:growl, :idtelafaturafranquia:valoresFatura, :idtelafaturafranquia:totalLancamentos">
+							<img src="../../resources/img/excluir.png" width="80" />
+						</p:commandLink>   
+					</p:column>
+					<p:column style="width:33px;text-align:center;">
+						<p:commandLink title="Descartar Fatura"
+							action="#{faturaFranquiaMB.descartarFaturaFranquia(faturafranquia)}"
+							update=":idtelafaturafranquia:idtabelafaturafraquia, :idtelafaturafranquia:growl, :idtelafaturafranquia:valoresFatura, :idtelafaturafranquia:totalLancamentos">
+							<img src="../../resources/img/cancel.png" width="80" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>  
+				<br></br>
+				<div align="right" style="margin-top: -3px;">
+					<h:panelGrid id="totalLancamentos" columns="2" style="width:22%;">
+						<p:outputLabel value="Saldo Anterior"
+							style="font-weight: inherit;float:right;" />
+						<p:outputLabel value="#{faturaFranquiaMB.fatura.saldofinalanterior}"
+							style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.saldofinalanterior)};font-weight: inherit;float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+
+						<p:outputLabel value="Saldo Lançamentos"
+							style="font-weight: inherit;float:right;" />
+						<p:outputLabel value="#{faturaFranquiaMB.fatura.saldolancamentos}"
+							style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.saldolancamentos)};font-weight: inherit;float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+
+						<p:outputLabel value="Valor a Pagar(Receber)"
+							style="font-weight: inherit;float:right;" />
+						<p:outputLabel value="#{faturaFranquiaMB.fatura.saldodevedor}"
+							style="color:#{faturaFranquiaMB.retornoCorLetra(faturaFranquiaMB.fatura.saldodevedor)};float:right;font-size:14px;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>      
+					</h:panelGrid>
+				</div> 
+				<br></br>
+			</div>
+			<style>
+img {
+	max-width: 152%;
+}
+</style>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

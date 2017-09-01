@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio clientes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20" uuid="320dd56b-4281-455e-becf-bdbfae77892b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[$P!{sql}]]>
+	</queryString>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="fornecedor" class="java.lang.String"/>
+	<field name="dataInicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidade" class="java.lang.String"/>
+	<field name="situacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataEmbarque" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LoasObs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pais" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="140" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="0" y="104" width="802" height="23" uuid="8b407713-f5f1-44b0-9223-250f03a69f01"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Vendas"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="11" y="7" width="255" height="94" uuid="6dba2692-9187-4c5a-ac16-52ca90b724cf"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="822" height="21" backcolor="#006666" uuid="c75eac36-c394-4ce4-bed1-0031e0c1eb62"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="0" y="3" width="116" height="17" forecolor="#FFFFFF" uuid="babbedfe-47dc-4efd-bde7-f805ee01ef54"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="210" y="4" width="56" height="17" forecolor="#FFFFFF" uuid="c9e8e78d-30ec-4834-bc8e-4ff21764d2ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[INÍCIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="270" y="4" width="84" height="17" forecolor="#FFFFFF" uuid="c4103acf-f6c3-4b3e-b1e9-b97fb2ce9604"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[UNIDADE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="356" y="4" width="66" height="17" forecolor="#FFFFFF" uuid="938ffc70-1812-4a00-8270-17e9a70774d1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[SITUAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="116" y="4" width="94" height="17" forecolor="#FFFFFF" uuid="707566a8-3f7b-4376-9ade-f49b1aae9dcf"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[ESCOLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="422" y="4" width="60" height="17" forecolor="#FFFFFF" uuid="e46bcc79-5915-45bc-a425-aa3a1f37a6b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[EMBARQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="486" y="4" width="122" height="17" forecolor="#FFFFFF" uuid="d305366e-99fa-449c-a1cf-8bf71f04428a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[PAIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="608" y="4" width="214" height="17" forecolor="#FFFFFF" uuid="36b211bd-f602-49d5-ba62-a9e58c76ea12"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[OBSERVAÇÃO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="822" height="17" uuid="99a36aeb-91b7-4b8c-972f-59f707e3d55a"/>
+			</rectangle>
+			<textField pattern="">
+				<reportElement style="Detail" x="0" y="1" width="116" height="15" uuid="e5c0dfd2-ce66-4e7a-92d0-ba684c281da3"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="210" y="2" width="56" height="15" uuid="e20ccaf7-1892-44f3-8e5d-3c2580e77906"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="356" y="2" width="66" height="15" uuid="6860e919-77da-47c1-ba05-0a0ccd98ff27"/>
+				<textElement textAlignment="Left">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{situacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="116" y="2" width="94" height="15" uuid="43d3fd1f-8531-47eb-b20b-3b29606404c4"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fornecedor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="270" y="2" width="84" height="15" uuid="c8a016ab-2650-48a2-a641-410c40e94147"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="422" y="2" width="60" height="15" uuid="de3bdb7d-f2ff-4a8d-90dd-b3c45f249520"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataEmbarque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="486" y="2" width="122" height="15" uuid="1c7b83ae-2309-4a22-bf7a-9ddfdb8323d7"/>
+				<textElement textAlignment="Left">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pais}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="608" y="2" width="214" height="15" uuid="436c2737-5703-48c2-bba3-e8bd76440c2e"/>
+				<textElement textAlignment="Left">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LoasObs}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

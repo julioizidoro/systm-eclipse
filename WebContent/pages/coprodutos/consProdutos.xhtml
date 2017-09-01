@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="orcamentocurso">
+
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
+				<br></br> <br></br>
+				<h:panelGrid columns="8" style="width:97%;margin-left:2%;"
+					columnClasses="tamanho12,tamanho12,tamanho12,tamanho12,tamanho12,tamanho12,tamanho12,tamanho12">
+					<p:outputLabel value="Pais" for="pais"
+						style="color:#1F8871;" />
+					<p:outputLabel value="Cidade" for="cidade"
+						style="color:#1F8871;" />
+					<p:outputLabel value="Idioma" for="idioma"
+						style="color:#1F8871;" />
+					<p:outputLabel value="Parceiro" for="fornecedor" 
+						style="color:#1F8871;" />
+					<p:outputLabel/>
+					<p:outputLabel value="Moeda" for="moeda"
+						style="color:#1F8871;" />
+					<p:outputLabel value="Ano" for="ano"
+						style="color:#1F8871;" />
+					<p:outputLabel/>
+
+					<p:selectOneMenu id="pais" value="#{coProdutosMB.pais}"
+						style="width:180px;" converter="PaisConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{coProdutosMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.pais.nome}"
+							itemValue="#{cpais.pais}" />
+						<f:attribute name="listaPais" value="#{coProdutosMB.listaPais}" />
+						<p:ajax event="change" listener="#{coProdutosMB.limparIdioma()}"  update="cidade, idioma,fornecedor" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="cidade" value="#{coProdutosMB.cidade}"
+						style="width:180px;" 
+						converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade2"
+							value="#{coProdutosMB.pais.cidadeList}" var="ccidade"
+							itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{coProdutosMB.pais.cidadeList}" />
+						<p:ajax event="change" listener="#{coProdutosMB.limparIdioma()}"  update="idioma,fornecedor"  />
+					</p:selectOneMenu>
+					
+					<p:selectOneMenu id="idioma" value="#{coProdutosMB.idioma}"
+						style="width:115px;" 
+						converter="IdiomaConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Idioma" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idioma2" value="#{coProdutosMB.listaIdiomas}"
+							var="idioma" itemLabel="#{idioma.descricao}"
+							itemValue="#{idioma}" />
+						<f:attribute name="listaIdiomas"
+							value="#{coProdutosMB.listaIdiomas}" />
+						<p:ajax update="fornecedor, tabelaprodutos"
+							listener="#{coProdutosMB.listarForCidadeIdioma()}" />
+					</p:selectOneMenu>
+					
+					<p:selectOneMenu id="fornecedor"
+						value="#{coProdutosMB.fornecedorCidadeIdioma}"
+						style="width:180px;"
+						converter="FornecedorCidadeIdiomaConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{coProdutosMB.listaFornecedorIdioma}" var="fornecedor"
+							itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
+							itemValue="#{fornecedor}" />
+						<f:attribute name="listaFornecedorCidadeIdioma"
+							value="#{coProdutosMB.listaFornecedorIdioma}" />
+						<p:ajax event="change"
+							update="tabelaprodutos, bntAddProduto, bntAddAcomodacao, habilitarsegundocurso,ano, moeda"
+							listener="#{coProdutosMB.listarCoProdutos()}" />
+					</p:selectOneMenu>
+					<p:commandLink action="#{coProdutosMB.adicionarFornecedorIdioma()}"
+						title="Salvar ano" >
+						<img src="../../resources/img/adicionar.png"></img>
+					</p:commandLink>
+
+					<p:selectOneMenu id="moeda"
+						value="#{coProdutosMB.fornecedorpais.moedas}"
+						style="width:100px;" filter="true"
+						filterMatchMode="startsWith" converter="MoedasConverter">
+						<f:selectItem itemLabel="Moeda" itemValue="0" />
+						<f:selectItems id="moedas" value="#{coProdutosMB.listaMoedas}"
+							var="moedaselecionada" itemLabel="#{moedaselecionada.sigla}"
+							itemValue="#{moedaselecionada}" />
+						<f:attribute name="listaMoedas"
+							value="#{coProdutosMB.listaMoedas}" />
+						<p:ajax event="change"  
+							listener="#{coProdutosMB.salvarFornecedorPais()}" />
+					</p:selectOneMenu>
+					<p:inputText id="ano" value="#{coProdutosMB.ano}"
+						style="width:80%">
+						<p:ajax event="change" />   
+					</p:inputText>
+					<p:commandLink action="#{coProdutosMB.salvarAno()}"
+						title="Salvar ano" update="growl, ano">
+						<img src="../../resources/img/confirmarLogin.png" />
+					</p:commandLink>
+				</h:panelGrid>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Consulta de Produtos Curso</b>
+				</legend>
+				<p:commandButton id="bntAddProduto" icon="ui-icon-plus" 
+					style="font-size:12px;margin-left: 2.5%;width:12%;" value="Novo Curso"
+					action="#{coProdutosMB.cadProduto()}"
+					disabled="#{coProdutosMB.habilitarBotoes}">   
+					<p:ajax event="dialogReturn"
+						listener="#{coProdutosMB.retornoDialogoNovo}" process="@this"
+						update=":orcamentocurso:tabelaprodutos" />
+				</p:commandButton>
+				<p:commandButton id="bntAddAcomodacao" value="Acomodações"
+					action="#{coProdutosMB.cadFornecedorCidadeIdiomaAcomodacao()}"
+					disabled="#{coProdutosMB.habilitarBotoes}"
+					style="font-size:12px;margin-left: 2.5%;width:12%;" icon="ui-icon-home" > 
+				</p:commandButton>
+				<p:commandButton id="bntAddProdutoOrcamento" value="Novo Produto"
+					action="#{coProdutosMB.produtosOrcamento()}"
+					style="font-size:12px;margin-left: 2.5%;width:12%;" icon="ui-icon-plus" >
+				</p:commandButton>
+				<p:commandButton id="bntCadPacotes" value="Pacotes"
+					action="#{coProdutosMB.pacotes()}"
+					style="font-size:12px;margin-left: 2.5%;width:12%;" icon="ui-icon-suitcase">
+				</p:commandButton>
+				<p:selectBooleanCheckbox id="situacaoprodutos"
+					value="#{coProdutosMB.situacao}" class="espacopreto" style="margin-left:2%">
+					<p:ajax event="change"
+						listener="#{coProdutosMB.listarCoProdutos()}"  update="tabelaprodutos"/>
+				</p:selectBooleanCheckbox>
+				<p:outputLabel value="Produtos Ativos"
+					style="margin-left:1%;font-size:13px" />  
+				<p:selectBooleanCheckbox id="habilitarsegundocurso"
+					value="#{coProdutosMB.fornecedorCidadeIdioma.fornecedorcidade.fornecedor.habilitarorcamento}"
+					disabled="#{coProdutosMB.habilitarBotoes}" class="espacopreto"
+					style="margin-left:3%">
+					<p:ajax event="change"
+						listener="#{coProdutosMB.habilitarFornecedorOrcamento()}" />
+				</p:selectBooleanCheckbox>
+				<p:outputLabel value="Escola Finalizada"
+					style="margin-left:1%;font-size:13px" />
+				<br></br><br></br>
+				
+				<p:outputLabel id="produto" value="Produtos" style="margin-left:3%;"/><br/>
+				<p:selectOneMenu id="idproduto" value="#{coProdutosMB.produto}" style="width:150px;font-size: 10px;margin-left:3%;"  >
+	                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+	                <f:selectItem itemLabel="Obrigatório" itemValue="Obrigatorio" /> 
+	                <f:selectItem itemLabel="Acomodação" itemValue="Acomodacao" />   
+	                <f:selectItem itemLabel="Transfer" itemValue="Transfer" /> 
+	                <f:selectItem itemLabel="Opcional" itemValue="Opcional" /> 
+	                <f:selectItem itemLabel="Acom. Opcional" itemValue="AcOpcional" /> 
+	                <p:ajax event="change" listener="#{coProdutosMB.filtrarProdutos()}" update="tabelaprodutos"/>
+	            </p:selectOneMenu>
+	            <br></br>
+				<p:dataTable id="tabelaprodutos" var="produtos"   
+					value="#{coProdutosMB.listaCoProdutos}" class="tabela"
+					scrollable="true" scrollHeight="400" style="margin-bottom:20px">
+					<p:column  style="width:38px;text-aling:center;">
+						<p:selectBooleanCheckbox id="selecionarSuplemento"
+							value="#{produtos.selecione}" class="espacopreto" style="margin-left:18%"/>
+					</p:column> 
+					<p:column headerText="Produto" style="width:120px;">   
+						<h:outputText value="#{produtos.produtosorcamento.descricao}" />
+					</p:column>
+					<p:column headerText="Tipo" style="width:110px;">  
+						<h:outputText value="#{produtos.tipo}" />
+					</p:column>
+					<p:column headerText="Descrição"
+						style="width:300px;text-decoration: none">
+						<p:commandLink value="#{produtos.descricao}"
+							action="#{coProdutosMB.editar(produtos)}">
+							<p:ajax event="dialogReturn"
+								listener="#{coProdutosMB.retornoDialogoEditar()}"
+								process="@this" update=":orcamentocurso:tabelaprodutos" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:72px;text-align: center;" headerText="Curso">
+						<p:commandLink title="Complemento Curso"
+							action="#{coProdutosMB.complementoscurso(produtos)}" >
+							<img src="../../resources/img/complementocurso.png"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:79px;text-align: center;" headerText="Acomodação">
+						<p:commandLink title="Complemento Acomodação"
+							action="#{coProdutosMB.complementosacomodacao(produtos)}" >
+							<img src="../../resources/img/complementoacomodacao.png"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:72px;text-align: center;" headerText="Vincular">
+						<p:commandLink title="Vincular"
+							action="#{coProdutosMB.vincularProdutos(produtos)}" >
+							<img src="../../resources/img/vincular.png"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:72px;text-align: center;" headerText="Valores">
+						<p:commandLink title="Valores"
+							action="#{coProdutosMB.consValorProduto(produtos)}" >
+							<img src="../../resources/img/valores.png"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:72px;text-align: center;" headerText="Suplemento">
+						<p:commandLink title="Suplemento"
+							action="#{coProdutosMB.cadSuplemento(produtos)}" >
+							<img src="../../resources/img/suplemento.png"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:72px;text-align: center;" >
+						<p:commandLink title="Visualizar suplementos"
+							actionListener="#{coProdutosMB.consultarSuplementos(produtos)}">
+							<img src="../../resources/img/visualizarS.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:72px;text-align: center;" headerText="Desativar">
+						<p:commandLink title="Desativar"
+							action="#{coProdutosMB.alterarSituacao(produtos)}" update="tabelaprodutos">
+							<img src="../../resources/img/cancelar.png"/>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<br></br> <br></br>
+			</div>  
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consGrupoProdutoOrcamento" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2" style="margin-left:16%;width:46.2%;">
+					<b>Consulta Grupos Produto Orçamento</b>
+				</legend>    
+				<h:panelGrid columns="2"   
+					columnClasses="tamanhonotificacao2"
+					style="margin-left:7%;width:62.2%;">
+					<p:outputLabel value="Descrição" />       
+					<h:panelGroup/>
+					<p:inputText id="idCampoDescricao" value="#{produtoOrcamentoGrupoMB.descricao}" style="width:95%;">
+						
+					</p:inputText>
+					<p:commandLink id="adcDescricao" action="#{produtoOrcamentoGrupoMB.salvarPrOrcamentoIndice()}" title="Adicionar Grupo" update="idTabelaPOGrupo, growl, adcDescricao, idCampoDescricao">
+									<img src="../../resources/img/iconeCheck.png" width="25"/>
+								</p:commandLink>
+				</h:panelGrid>  
+				<br />
+				<h:panelGrid columns="2" columnClasses="tamanhonotificacao2,tamanhonotificacao2"
+					style="margin-left:7%;width:85%;">
+					<h:panelGroup>
+						<div align="left" style="width:95%">
+							<p:outputLabel value="Grupo Produto Orçamento" />   
+						</div>
+						<p:dataTable id="idTabelaPOGrupo" var="pogrupo"
+							value="#{produtoOrcamentoGrupoMB.listaProdutosOrcamentoIndice}"
+							scrollable="true" scrollHeight="240"
+							style="margin-bottom:20px;margin-right:20px;margin-top:11px;" > 
+							<p:column headerText="Descrição"
+								styleClass="alinharCenter">    
+								<p:commandLink id="btnEscolher" update=":consGrupoProdutoOrcamento:idTabelaPO, :consGrupoProdutoOrcamento:growl" 
+										action="#{produtoOrcamentoGrupoMB.gerarListaProdutoOrcanmentoGrupo(pogrupo)}" title="Excluir Este Grupo">
+									<p:outputLabel value="#{pogrupo.descricao}" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:50px;" styleClass="alinharCenter">
+								<p:commandLink id="btnAdd" action="#{produtoOrcamentoGrupoMB.vincularProdutoOrcamento(pogrupo)}" title="Vincular Produtos Orcamentos">
+									<img src="../../resources/img/iconeAdicionar.png" width="25"/>
+									<p:ajax event="dialogReturn" listener="#{produtoOrcamentoGrupoMB.retornoDialogVinculo}" update=":consGrupoProdutoOrcamento:idTabelaPO, :consGrupoProdutoOrcamento:idTabelaPOGrupo, :consGrupoProdutoOrcamento:growl"/>
+								</p:commandLink>
+							</p:column>  
+							<p:column style="width:50px;" styleClass="alinharCenter">
+								<p:commandLink id="btnEditar" action="#{produtoOrcamentoGrupoMB.editar(pogrupo)}" update=":consGrupoProdutoOrcamento:idCampoDescricao" title="Editar Nome do Grupo de Produto Orçamento">
+									<img src="../../resources/img/editaricon.png" width="25"/>
+								</p:commandLink>
+							</p:column>  
+							<p:column style="width:50px;" styleClass="alinharCenter">
+								<p:commandLink id="btnExcluir" update=":consGrupoProdutoOrcamento:idTabelaPO, :consGrupoProdutoOrcamento:idTabelaPOGrupo, :consGrupoProdutoOrcamento:growl, :consGrupoProdutoOrcamento:adcDescricao" 
+										action="#{produtoOrcamentoGrupoMB.excluirPrOrcamentoIndice(pogrupo)}" title="Excluir Este Grupo">
+									<img src="../../resources/img/excluir.png" width="25"/>
+								</p:commandLink>
+							</p:column>  
+						</p:dataTable>
+					</h:panelGroup>
+					<h:panelGroup>  
+						<div align="left" style="width:95%">
+							<p:outputLabel value="Produto Orçamento" />   
+						</div>
+						<p:dataTable id="idTabelaPO" var="po" editable="true" editMode="cell"
+							value="#{produtoOrcamentoGrupoMB.listaProdutosOrcamentoGrupo}"
+							scrollable="true" scrollHeight="240"
+							style="margin-bottom:20px;margin-right:20px;margin-top:11px;" >
+							<p:column headerText="Descrição" 
+								styleClass="alinharCenter">
+								<p:cellEditor>
+						             <f:facet name="output"><h:outputText value="#{po.produtosorcamento.descricao}" /></f:facet>
+						             <f:facet name="input">
+						             		<p:inputText value="#{po.produtosorcamento.descricao}" style="width:96%" label="Produto Orçamento">
+						             			<p:ajax event="change" listener="#{produtoOrcamentoGrupoMB.editarProdutoOrcamento(po.produtosorcamento)}" update=":consGrupoProdutoOrcamento:growl"/>
+						             		</p:inputText>
+						             </f:facet>  
+						        </p:cellEditor>
+							</p:column>
+							<p:column style="width:50px;" styleClass="alinharCenter">
+								<p:commandLink id="btnExcluir" update=":consGrupoProdutoOrcamento:idTabelaPO, :consGrupoProdutoOrcamento:growl" 
+										action="#{produtoOrcamentoGrupoMB.excluirProdutoOrcamento(po)}" title="Excluir Este Produto">
+									<img src="../../resources/img/excluir.png" width="25"/>
+								</p:commandLink>
+							</p:column>  
+						</p:dataTable>
+					</h:panelGroup>  
+				</h:panelGrid>
+				<br/>     
+				<br></br> <br></br><br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

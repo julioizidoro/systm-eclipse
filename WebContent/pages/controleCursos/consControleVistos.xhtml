@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaControleVistos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				
+				<legend id="iUsu2">
+					<b>Consulta Controle de Documentos Para Vistos</b>
+				</legend>
+				<p:dataTable id="tabelaControleVistos" var="vistos" class="tabela"
+					value="#{controleVistosMB.listaControleVistoBean}" scrollable="true"
+					scrollHeight="300" editable="true" editMode="cell"
+					rowIndexVar="rowIx">
+					<p:column style="width:38px;">
+						  
+						<p:commandLink action="#">
+							<img src="#{controleVistosMB.retornarIconeRelatorio(vistos.controlecurso)}" style="width:10px;" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Data Embarque"
+						style="text-align:center;width:100px;" sortBy="#{vistos.dataEmbarque}">
+						<h:outputText value="#{vistos.dataEmbarque}"
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Situação" sortBy="#{vistos.situacao}"
+						style="text-align:center;width:75px;"> 
+						<h:outputText value="#{vistos.situacao}"
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Nome" styleClass="alinharCenter"
+						sortBy="#{vistos.nomeCliente}">
+						<p:commandLink action="#{controleVistosMB.dialogSalvarUrgencia(vistos.controlecurso)}"
+							onclick="PF('urgenciavistos').show();" >
+							<h:outputText value="#{vistos.nomeCliente}"
+								style="#{controleVistosMB.retornarCores(vistos.controlecurso)}">
+							</h:outputText>
+						</p:commandLink>
+					</p:column>
+					
+					<p:column headerText="Unidade" styleClass="alinharCenter"
+						sortBy="#{vistos.unidade.nomerelatorio}">
+						<h:outputText
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}"
+							value="#{vistos.unidade.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Pais" styleClass="alinharCenter"
+						style="width:120px;" sortBy="#{vistos.pais.nome}">
+						<h:outputText value="#{vistos.pais.nome}"
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}" />
+					</p:column>
+					<p:column headerText="Doc"
+						styleClass="alinharCenter" style="width:75px;">
+						<h:outputText
+							value="#{controleVistosMB.buscarArquivo(vistos)}"
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}" />
+					</p:column>
+					<p:column headerText="Parceiro"
+						styleClass="alinharCenter" sortBy="#{vistos.escola}">
+						<h:outputText
+							value="#{vistos.escola}"
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}" />
+					</p:column>
+					<p:column headerText="Data Inicio" sortBy="#{vistos.dataInicio}"
+						style="text-align:center;width:90px;">
+						<h:outputText value="#{vistos.dataInicio}"
+							style="#{controleVistosMB.retornarCores(vistos.controlecurso)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Obs" styleClass="alinharCenter"
+						style="width:40px;">
+						<p:commandLink action="#{controleVistosMB.abrirObsVistos(vistos.controlecurso)}" title="Observação"
+							>
+							<img src="#{controleVistosMB.retornarIconeObs(vistos.controlecurso)}"
+								width="40" />
+								<p:ajax event="dialogReturn" listener="#{controleVistosMB.retornoDialogObs}" update=":consultaControleVistos:tabelaControleVistos, :consultaControleVistos:growl, :consultaControleVistos:PanelQuantidadeFichas"/>
+						</p:commandLink>
+					</p:column>
+					
+				</p:dataTable>
+				<br/>
+				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="40%"
+					>
+					<h:panelGroup>
+						<p:commandLink title="N° Total de Ficha"
+							style="margin-left:15%;cursor: initial;">
+							<img src="../../resources/img/iconeTotal.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="numFicha"
+							value="#{controleVistosMB.nFichas}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+				</h:panelGrid>
+				<br /> <br />
+				<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
+					widgetVar="urgenciavistos" style="width:30%;font-size:14px">
+					<p:outputLabel value="Controle deste visto com urgência ?" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim" action="#{controleVistosMB.confirmarUrgencia()}"
+						oncomplete="PF('urgenciavistos').hide();" styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check" update="consultaControleVistos:growl, :consultaControleVistos:tabelaControleVistos"
+						style="margin-left:13%;font-size:12px" />
+					<p:commandButton value="Não" oncomplete="PF('urgenciavistos').hide();" action="#{controleVistosMB.cancelarUrgencia()}"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+						update="consultaControleVistos:growl, :consultaControleVistos:tabelaControleVistos" style="font-size:12px" />
+				</p:dialog>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

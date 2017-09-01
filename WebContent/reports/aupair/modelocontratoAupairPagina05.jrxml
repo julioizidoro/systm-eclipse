@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="493"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="720" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="80" width="555" height="572" uuid="865d20e0-44a3-4d51-a30e-013a6f9cb062"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="4" width="555" height="711" uuid="ed8b27dc-20e2-4d26-ac84-da7ebb39e530"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[VI) seguir os procedimentos estabelecidos pela seguradora para pagamento e/ou reembolso das despesas médicas e hospitalares.
+d) Caso o(a) PARTICIPANTE deixe de contar, por qualquer motivo (entre eles desistência ou desligamento do programa), com a cobertura do seguro saúde durante sua estada no país de destino, será excluído do programa, sem direito a qualquer reembolso;
+e) A decisão sobre eventual extensão do seguro cabe exclusivamente à seguradora, não podendo ser responsabilizada a TM em caso de sua negativa. Da mesma forma, cabe exclusivamente à seguradora tomar decisões sobre o alcance da cobertura do seguro de saúde, definição de doença ou condição pré-existente, definição sobre uso indevido da sala de emergência, dentre outras decisões inerentes ao contrato de seguro, não podendo ser responsabilizada a TM por tais decisões.
+
+12. PROCEDIMENTO DE CHEGADA NO PAÍS DE DESTINO (CHECK IN)
+
+12.1 Após sua chegada país de destino, o(a)  PARTICIPANTE deverá cumprir as regras de chegada (orientação de chegada ou “check-in”, por exemplo) estabelecidas pelo programa em questão. No decorrer de sua estadia o(a) PARTICIPANTE poderá ser solicitado a realizar “check-ins” ou reuniões de orientação com o parceiro internacional a fim de manter sua legalidade no destino. O não cumprimento desta regra pode provocar o desligamento do(a) PARTICIPANTE perante o programa. Neste caso, o(a)  PARTICIPANTE terá seu visto cancelado e deverá deixar o país dentro de 5 dias úteis a partir da data de seu desligamento;
+12.2  O(A)  PARTICIPANTE deverá levar dinheiro suficiente ao país de destino para cobrir suas despesas por pelo menos 40 dias após sua chegada, no que se refere à alimentação, transporte, acomodação ou quaisquer outras despesas pessoais. O mínimo sugerido é de US$500 (quinhentos dólares americanos) nos EUA e 500 Euros (quinhentos euros) nos países da Europa;
+12.3  O período do visto inicialmente concedido (caso o pedido de visto seja aprovado pelo Consulado ou Embaixada responsável) é válido enquanto o(a) PARTICIPANTE estiver participando regularmente do programa. Qualquer prorrogação ou extensão posterior do visto fica a cargo do(a) PARTICIPANTE  e a TM não tem responsabilidade sobre isso;
+12.4  No caso dos EUA, o(a)  PARTICIPANTE, ao entrar no país, deverá validar seu visto no prazo máximo de 21 (vinte e um) dias após a data de início estabelecida em seu DS-2019. Na falta de validação, o visto será terminado e o(a) PARTICIPANTE deverá deixar o país imediatamente, podendo encontrar dificuldades no futuro para a obtenção de um novo visto;
+12.5  No caso dos EUA cabe, ainda, ao(à)  PARTICIPANTE revalidar seu visto sempre que mudar de endereço ou de emprego em, no máximo, 5 (cinco) dias. Caso não o faça, poderá ter o visto terminado, devendo deixar o país imediatamente, podendo, ainda, encontrar dificuldades no futuro para a obtenção de um novo visto;
+12.6  No caso dos EUA, o(a)  PARTICIPANTE compromete-se a entrar no país de destino não mais do que 14 (quatorze) dias após a data de início e a deixá-lo não mais do que 30 (trinta) dias após a data do término, ambas estabelecidas no DS-2019. Em nenhuma circunstância, o “status” (tipo) do visto poderá ser alterado. A TM tem a obrigação de comunicar ao Consulado do país de destino, localizado no Brasil e ao Departamento de Segurança Territorial (DHS) do país de destino, responsável pelo Serviço de Imigração e Cidadania (USCIS), o nome e último local conhecido de residência do(a)  PARTICIPANTE que não regressar ao Brasil ou não sair do país de destino após o vencimento do visto J1. Neste caso, as autoridades do país de destino tem o poder de declarar o(a)  PARTICIPANTE imigrante ilegal, iniciando os procedimentos para deportação;
+12.7  É obrigação do(a) PARTICIPANTE comunicar à TM caso retorne do país de destino antes ou após o término do prazo previsto em seu visto e/ou documento DS-2019;
+
+13. DESISTÊNCIA E/OU CANCELAMENTO DO PROGRAMA
+
+13.1 Caso o(a) PARTICIPANTE opte em desistir e/ou cancelar o programa  antes de realizar seu embarque para o país de destino, o  montante equivalente a 30% (trinta por cento) do valor do programa/pacote pago a TM (não incluindo passagem aérea e serviço de assessoria para aplicação de vistos), não é reembolsável, salvo em caso do parceiro internacional internacional escolhido ficar impossibilitada de receber o participante por falta de vagas.
+13.2 Após a inscrição, em qualquer momento do processo, por quaisquer motivos (vistos consulares, alterações e/ou atraso de vôos, indisponibilidade do participante, etc), se o(a) PARTICIPANTE tiver que alterar o curso/programa, o parceiro internacional poderá cobrar diferença de valores e multa para tal(is) mudança(s), sendo o pagamento de total responsabilidade do(a) PARTICIPANTE. A TM não garante a possibilidade de quaisquer alterações do curso/programa solicitadas após emissão da carta de aceitação por parte do parceiro internacional, estando sujeitas à disponibilidade da organização internacional.
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="109c77fd-c8d8-4458-8c65-aaf756e93558"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoAupairPagina06.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Orçamento Curso - Primeira Folha" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="0.7710865788590633"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="137"/>
+	<parameter name="idOrcamentoCurso" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT distinct orcamentoCurso.data as dataOrcamento, orcamentoCurso.valorCambio, orcamentoCurso.idioma,
+orcamentoCurso.nivelIdioma, orcamentoCurso.curso, orcamentoCurso.dataInicio, orcamentoCurso.dataTermino, orcamentoCurso.valor, orcamentoCurso.totalmoedaestrangeira,
+orcamentoCurso.numeroSemanas, orcamentoCurso.aulasSemana, orcamentoCurso.tipoAcomodacao,orcamentocurso.materialDidatico,
+    orcamentocurso.seguroSaude,
+    orcamentocurso.transfer,
+    orcamentocurso.passagemAerea,
+    orcamentocurso.sedexInternacional,
+    orcamentocurso.vistoConsular,
+    orcamentocurso.outrasTaxas, orcamentocurso.tipoduracao, duracaoAcomodacao,orcamentoCurso.observacao, refeicoes, tipoQuarto,
+occliente.nome as nomecliente, occliente.email, occliente.foneCelular, occliente.FoneResidencial, fornecedor.nome as nomeFornecedor,
+cidade.nome as nomeCidade, pais.nome as nomePais, unidadenegocio.nomeFantasia, usuario.nome as nomeUsuario,
+produtoorcamentoCurso.valorMoedaEstrangeira, produtoorcamentoCurso.valorMoedaNacional,
+ProdutosOrcamento.descricao, cambio.data as dataCambio,
+moedas.sigla
+FROM
+	orcamentocurso join  produtoorcamentocurso on orcamentocurso.idorcamentocurso = produtoorcamentocurso.orcamentocurso_idorcamentoCurso
+    join occliente on orcamentocurso.occliente_idoccliente = occliente.idoccliente
+    join fornecedor on orcamentocurso.fornecedor_idfornecedor = fornecedor.idfornecedor
+    join fornecedorcidade on orcamentocurso.fornecedorcidade_idfornecedorcidade = fornecedorcidade.idfornecedorcidade
+    join cidade on fornecedorcidade.cidade_idcidade= cidade.idcidade
+    join pais on cidade.pais_idpais = pais.idpais
+    join usuario on orcamentocurso.usuario_idusuario = usuario.idusuario
+    join unidadenegocio on orcamentocurso.unidadenegocio_idunidadenegocio = unidadenegocio.idunidadenegocio
+    join Produtosorcamento on produtoorcamentocurso.produtosOrcamento_idprodutosOrcamento = produtosorcamento.idprodutosOrcamento
+   join cambio on orcamentoCurso.cambio_idcambio = cambio.idcambio
+   join moedas on cambio.moedas_idmoedas = moedas.idmoedas
+where orcamentocurso.idorcamentocurso=$P{idOrcamentoCurso}]]>
+	</queryString>
+	<field name="dataOrcamento" class="java.sql.Date"/>
+	<field name="valorCambio" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idioma" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nivelIdioma" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="curso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataInicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataTermino" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalmoedaestrangeira" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSemanas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aulasSemana" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoAcomodacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="materialDidatico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="seguroSaude" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transfer" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="passagemAerea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sedexInternacional" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vistoConsular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="outrasTaxas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoduracao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="duracaoAcomodacao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="refeicoes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoQuarto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomecliente" class="java.lang.String"/>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="foneCelular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FoneResidencial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFornecedor" class="java.lang.String"/>
+	<field name="nomeCidade" class="java.lang.String"/>
+	<field name="nomePais" class="java.lang.String"/>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeUsuario" class="java.lang.String"/>
+	<field name="valorMoedaEstrangeira" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorMoedaNacional" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataCambio" class="java.sql.Date"/>
+	<field name="sigla" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="37" width="59" height="20" uuid="a2dc6b22-88ed-4853-877f-a86b2f14b3aa"/>
+				<text><![CDATA[Consultor :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="37" width="194" height="20" uuid="cab7ed6b-f24f-4ba1-bb91-a36573e9d61f"/>
+				<textFieldExpression><![CDATA[$F{nomeUsuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="12" width="49" height="20" uuid="312d0727-f402-407d-8ef1-05af5d116874"/>
+				<text><![CDATA[Unidade :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="12" width="194" height="20" uuid="eac76b5c-a036-4fa8-8b35-3d6fdec6edbd"/>
+				<textFieldExpression><![CDATA[$F{nomeFantasia}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="61" width="555" height="8" backcolor="#808080" uuid="3e496cc4-5a10-41f3-b0f6-3b525cebf465"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="74" width="555" height="25" uuid="45dcf6d4-36b8-4c88-b272-3e0eb69ccb5f"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Orçamento Cursos no Exterior]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="101" width="555" height="17" uuid="9a3db53c-abfb-47d3-b000-cc30801761cc"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataOrcamento}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="359" y="3" width="196" height="54" uuid="c76cf684-3b10-44ac-8c01-9d5abb79217e"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="270" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="250" width="341" height="20" uuid="767b0a29-5210-4472-b8bc-3a0a80ae04a1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="119" width="555" height="110" uuid="ad78aebd-0b8e-4f3a-910b-e1a79ad1da33"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="31" width="555" height="64" uuid="65eaac24-7402-43d3-8860-a9c04018f704"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="14" width="171" height="13" uuid="27cb2a8d-ca5f-4a8f-9ecf-8faa9b4ff29e"/>
+				<text><![CDATA[Informações do Estudante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="36" width="39" height="15" uuid="2ec81603-9e9b-4da6-b5ea-3b8f8ba21d06"/>
+				<text><![CDATA[Nome :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="36" width="276" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
+				<textFieldExpression><![CDATA[$F{nomecliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="36" width="69" height="15" uuid="5c7a0898-7ad2-478c-96d7-99e9d7ddd2e7"/>
+				<text><![CDATA[Fone Res.:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="449" y="36" width="90" height="15" uuid="33e12aa2-7650-4884-8e95-7d9fd1e63524"/>
+				<textFieldExpression><![CDATA[$F{FoneResidencial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="447" y="68" width="90" height="15" uuid="8d697cba-b4f1-429a-ac60-6af8ee4d958d"/>
+				<textFieldExpression><![CDATA[$F{foneCelular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="68" width="69" height="15" uuid="aa8826d4-7216-4d3f-9c7a-0efd10b385a6"/>
+				<text><![CDATA[Fone Celular :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="68" width="276" height="15" uuid="db89a1f3-8d5d-45f3-ac9f-c002ae90989a"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="68" width="39" height="15" uuid="d1c4d248-153e-4227-9bbe-1bbd5c429d0a"/>
+				<text><![CDATA[E-mail :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="125" width="34" height="15" uuid="f3969e28-532f-4fa9-9e5b-d9bb9c245ca4"/>
+				<text><![CDATA[Curso :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="361" y="125" width="181" height="15" uuid="a2757f22-600a-44d3-93a0-ec6a80e99b46"/>
+				<textFieldExpression><![CDATA[$F{nomeFornecedor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="125" width="184" height="15" uuid="d5040234-98b8-4e60-af6a-ac59884e84de"/>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="256" y="125" width="100" height="15" uuid="2919801c-c697-4b8d-951d-6b7172d5a22d"/>
+				<text><![CDATA[Escola / Instituição :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="145" width="184" height="15" uuid="c3dbce13-ee2b-4713-9a36-d0548cd593fd"/>
+				<textFieldExpression><![CDATA[$F{nomeCidade}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="295" y="145" width="247" height="15" uuid="547a2395-8bb2-4447-aa2f-d39c079e8e89"/>
+				<textFieldExpression><![CDATA[$F{nomePais}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="145" width="44" height="15" uuid="75a2d425-e365-4463-86c7-ede8458cea4d"/>
+				<text><![CDATA[Cidade :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="145" width="37" height="15" uuid="f14ccca7-13e1-450b-a19b-64ca44fb719b"/>
+				<text><![CDATA[País :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="225" y="165" width="35" height="15" uuid="5f7bc3ab-adbe-4b8c-b198-87ebc6d45491"/>
+				<textFieldExpression><![CDATA[$F{numeroSemanas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="146" y="165" width="73" height="15" uuid="a9d63394-ef43-4f76-8bb3-cb3dc1e3dc5c"/>
+				<text><![CDATA[No. Semanas :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="165" width="63" height="15" uuid="df67cd8b-e718-4087-8da2-00cb8ea5917b"/>
+				<text><![CDATA[Data Início :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="332" y="165" width="67" height="15" uuid="4f56f843-30e2-4a13-83cf-4d1e86627106"/>
+				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="165" width="75" height="15" uuid="03d9d1f1-2e91-4148-b940-2fb367a9d4ca"/>
+				<text><![CDATA[Data Término :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="478" y="165" width="64" height="15" uuid="3aff54d8-ffd7-464f-aef3-90a9b0f3d411"/>
+				<textFieldExpression><![CDATA[$F{dataTermino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="102" width="151" height="13" uuid="b8adba3a-9515-441e-aabe-053f7197781b"/>
+				<text><![CDATA[Cursos / Programa Escolhido]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="89" y="188" width="239" height="15" uuid="6a9fbc76-044e-44ea-8b1a-e1f9b06bd3b7"/>
+				<textFieldExpression><![CDATA[$F{tipoAcomodacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="188" width="76" height="15" uuid="d2509c8c-5753-48a4-adc9-35e17f8b68c6"/>
+				<text><![CDATA[Acomodação :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="188" width="73" height="15" uuid="c8fdbdbb-6a42-48cb-9421-988c9ec471de"/>
+				<text><![CDATA[No. Semanas :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="500" y="188" width="42" height="15" uuid="ad5ad629-112f-42a2-a0e4-8e46eac8d565"/>
+				<textFieldExpression><![CDATA[$F{duracaoAcomodacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="231" width="171" height="15" uuid="13817c7f-1994-42cf-99f5-7c9fc467cad7"/>
+				<text><![CDATA[Preços e Forma de Pagamento]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="341" y="250" width="107" height="20" uuid="e3734ee2-ef3a-4f40-9b70-c31c85202ee2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="448" y="250" width="107" height="20" uuid="21b137b7-d653-476f-805f-e58c14dc1db8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="253" width="95" height="15" uuid="6cbd87c6-5d20-4c36-b431-3b038842e349"/>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="253" width="95" height="15" uuid="da36a720-e07f-4688-af89-539f4dcdfee6"/>
+				<text><![CDATA[Moeda Estrangeira]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="253" width="51" height="15" uuid="4b6761fb-b3a7-41cc-b2ea-387178028d1c"/>
+				<text><![CDATA[Reais R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="274" y="209" width="58" height="15" uuid="e4d2c9d9-a93a-4ace-9c27-17361422b36c"/>
+				<text><![CDATA[Refeição :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="335" y="209" width="207" height="15" uuid="eb621f97-3f8e-4a02-87a6-e0aceaa5c5e4"/>
+				<textFieldExpression><![CDATA[$F{refeicoes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="209" width="76" height="15" uuid="e900ed92-28e8-4dde-9108-382176d4b733"/>
+				<text><![CDATA[Tipo Quarto :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="89" y="209" width="167" height="15" uuid="252373ac-d0e2-4a65-96a7-7cc6eabc9ca2"/>
+				<textFieldExpression><![CDATA[$F{tipoQuarto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="14" y="165" width="122" height="15" uuid="9de0c776-ba89-457c-86aa-c37fb39a6938"/>
+				<textFieldExpression><![CDATA[$F{tipoduracao} + ":" + $F{aulasSemana}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20">
+			<rectangle>
+				<reportElement x="341" y="0" width="107" height="20" uuid="addc4b5d-07b9-4045-9ebc-0b1ea2bff75e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="341" height="20" uuid="fa6e521f-bcb7-4aa4-a360-179ccb80621d"/>
+			</rectangle>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="346" y="4" width="92" height="13" uuid="adc365d8-f562-40f7-97de-ad89243697e4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorMoedaEstrangeira}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="448" y="0" width="107" height="20" uuid="797f1387-7028-4f09-9c77-95fe7abc3096"/>
+			</rectangle>
+			<textField>
+				<reportElement x="11" y="4" width="317" height="13" uuid="f35375a0-342e-4eba-9e45-ef10bc969e52"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="459" y="4" width="88" height="13" uuid="48fc1f45-388d-490d-9342-5c1c58accd8a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorMoedaNacional}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="202">
+			<rectangle>
+				<reportElement x="448" y="0" width="107" height="20" uuid="87498e3f-2ccd-44e2-84a8-1055a1da4f85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="146" width="555" height="20" uuid="9fe3fbe7-196b-4605-b1a6-8ca817d8b147"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="341" height="20" uuid="9cb61d4d-9853-49eb-87a6-8a8483c007fb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="166" width="555" height="20" uuid="511e5b21-c360-48fa-982c-b2b451c55318"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="86" width="555" height="20" uuid="719cb2a3-c7fc-4b90-bb95-fdc5e69b2ee4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="66" width="555" height="20" uuid="e1163c74-a4ea-4978-9f55-7d4d80c6eabd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="46" width="555" height="20" uuid="b6e832a2-10f1-4c57-bd49-d122881235db"/>
+			</rectangle>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="49" width="424" height="13" uuid="fd22b0c8-1341-4dc3-a2bf-61faed93f80a"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{materialDidatico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="25" width="171" height="15" uuid="49f4933e-136a-4829-89e1-a57f6dacee39"/>
+				<text><![CDATA[Custos Extras]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="126" width="555" height="20" uuid="217903ef-4767-439d-9539-b9d2d9861c61"/>
+			</rectangle>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="459" y="3" width="88" height="14" uuid="3001c3e1-abaa-4870-b9a2-2b46221734b7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="149" width="424" height="13" uuid="48b51fa9-8037-49a2-a2e9-b1a7c0533964"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{vistoConsular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="3" width="94" height="15" uuid="257ae270-d869-4639-9f46-a65e8c1c558a"/>
+				<text><![CDATA[Totais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="89" width="96" height="15" uuid="58578ff3-1e82-48b0-8be5-f4f94a718393"/>
+				<text><![CDATA[Transfer (opcional) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="129" width="96" height="15" uuid="5f83a367-5a97-4db6-bed4-17f940091216"/>
+				<text><![CDATA[Courier (Sedex) :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="106" width="555" height="20" uuid="0a081a93-8c2e-4e99-8e9e-9ec4d7882bf8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="49" width="96" height="15" uuid="d66f0183-a19a-4af2-a2a0-bb718b5f40e9"/>
+				<text><![CDATA[Material didatico :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="109" width="96" height="15" uuid="12bf4525-4792-411d-9caf-0f87b185a854"/>
+				<text><![CDATA[Passagem aérea :]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="109" width="424" height="13" uuid="4191dca3-b969-46c7-9364-187f0c732dff"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{passagemAerea}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="169" width="96" height="15" uuid="bfc007bf-cb94-49bb-b9e8-21d6195c4e56"/>
+				<text><![CDATA[Outras Taxas :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="69" width="96" height="15" uuid="d8cd21b9-f834-4066-8d31-bdc9e5335368"/>
+				<text><![CDATA[Seguro saúde :]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="129" width="424" height="13" uuid="18ac7855-981c-4fdb-98a4-e138750af12d"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{sedexInternacional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="149" width="96" height="15" uuid="c545fdcd-2369-44cc-b11c-2253ba2e768a"/>
+				<text><![CDATA[Visto consular :]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="89" width="424" height="13" uuid="ee37c9f1-e6f4-4b14-98fe-a8002ef83cfc"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{transfer}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="341" y="0" width="107" height="20" uuid="54425212-aa11-4f2b-bb28-dac8a84d55f3"/>
+			</rectangle>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="169" width="424" height="13" uuid="4066a5cd-b456-45ee-b2d5-d26ca973efbe"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{outrasTaxas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="346" y="3" width="92" height="14" uuid="40575a43-56ff-44c4-8c23-120dc26ef8c9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{totalmoedaestrangeira}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="104" y="69" width="424" height="13" uuid="afe56fd4-0070-4c5f-8633-ca66d37e87ea"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{seguroSaude}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="188" width="200" height="10" uuid="93a2276b-2eab-44a4-b16b-87826dae1e65"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idOrcamentoCurso">
+					<subreportParameterExpression><![CDATA[$P{idOrcamentoCurso}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "FichaOrcamentoCursoPagina02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

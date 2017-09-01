@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaControleTeens" style="font-size:11px;">
+			<div id="centro">
+				<p:growl  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho1, tamanhoavisos,tamanho7, tamanho1,tamanhoavisos"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="ID Venda" for="idVenda" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" />
+
+							<p:inputText id="idVenda"
+								value="#{controleCursosTeensMB.idVenda}" style="width:90%" />
+							<p:inputText id="cliente"
+								value="#{controleCursosTeensMB.nomeCliente}" style="width:90%" />
+							<p:calendar id="dataIni"
+								value="#{controleCursosTeensMB.iniDataEmbarque}" size="10"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal"
+								value="#{controleCursosTeensMB.finalDataEmbarque}" size="10"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+								value="#{controleCursosTeensMB.unidadenegocio}"
+								style="width:90%" converter="UnidadeNegocioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems
+									value="#{controleCursosTeensMB.listaUnidadeNegocio}"
+									var="unidade" itemLabel="#{unidade.nomerelatorio}"
+									itemValue="#{unidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{controleCursosTeensMB.listaUnidadeNegocio}" />
+								<p:ajax event="change"
+									listener="#{controleCursosTeensMB.gerarListaConsultor()}"
+									update="consultor"></p:ajax>
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="5"
+							columnClasses="tamanhoavisos, tamanho1,tamanho1, tamanho7,tamanho1"
+							style="width:95%;margin-left:3%;">
+							<p:outputLabel value="Consultor" for="consultor" />
+							<p:outputLabel value="Situação" for="situacao" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="consultor"
+								value="#{controleCursosTeensMB.usuario}" style="width:279px;"
+								converter="UsuarioConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{controleCursosTeensMB.listaConsultor}"
+									var="consultor" itemLabel="#{consultor.nome}"
+									itemValue="#{consultor}" />
+								<f:attribute name="listaUsuario"
+									value="#{controleCursosTeensMB.listaConsultor}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao"
+								value="#{controleCursosTeensMB.situacao}" style="width:95px;">
+								<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+								<f:selectItem itemLabel="Processo" itemValue="Processo" />
+								<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />  
+								<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update=":consultaControleTeens:tabelaControleTeens,consultaControleTeens:PanelQuantidadeFichas"
+								action="#{controleCursosTeensMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="consultaControleTeens:tabelaControleTeens, unidade, dataFinal, dataIni, cliente,
+									idVenda, consultaControleTeens:PanelQuantidadeFichas"
+								action="#{controleCursosTeensMB.limpar()}" />
+						</h:panelGrid>  
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Cursos Teens</b>
+				</legend>  
+				<br></br> <br></br>
+				<p:dataTable id="tabelaControleTeens" var="cursosTeens"
+					class="tabela" value="#{controleCursosTeensMB.listaControle}"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+					<p:column style="width:54px;text-align:center;"
+						headerText="Situação">
+						<p:commandLink title="#{cursos.vendas.situacao}"
+							style="cursor: initial;">
+							<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeens)}"
+								width="22" />
+						</p:commandLink>    
+					</p:column> 
+					<p:column style="width:36px;">
+						<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeens)}"
+							title="#{cursosTeens.situacao}" />
+					</p:column>   
+					<p:column headerText="ID venda" style="width:50px;">
+						<h:outputText value="#{cursosTeens.vendas.idvendas}" />
+					</p:column>
+					<p:column headerText="Data Inscrição"
+						style="text-align:center;width:78px;">
+						<h:outputText value="#{cursosTeens.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Nome" style="width:188px;">
+						<p:commandLink value="#{cursosTeens.vendas.cliente.nome}"
+							action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeens)}"
+							title="Atualizar informações" style="text-decoration: underline">
+							<p:ajax event="dialogReturn"
+								listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
+								update="tabelaControleTeens" />
+						</p:commandLink>
+					</p:column>
+
+					<p:column headerText="Idade" styleClass="alinharCenter"
+						style="width:57px;">
+						<h:outputText
+							value="#{controleCursosTeensMB.idadeCliente(cursosTeens)}" />
+					</p:column>
+					<p:column headerText="Telefone" styleClass="alinharCenter"
+						style="width:88px;">
+						<h:outputText value="#{cursosTeens.vendas.cliente.foneCelular}" />
+					</p:column>
+					<p:column headerText="Unidade" styleClass="alinharCenter"
+						style="width:90px;">
+						<h:outputText
+							value="#{cursosTeens.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Agente" styleClass="alinharCenter"
+						style="width:150px;">
+						<h:outputText value="#{cursosTeens.vendas.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Documentação"
+						style="width:92px;text-align:center">
+						<img src="#{controleCursosTeensMB.documentosTeens(cursosTeens)}" />
+					</p:column>
+					<p:column headerText="Arquivos"
+						style="width:70px;text-align:center">
+						<p:commandLink
+							action="#{controleCursosTeensMB.documentacao(cursosTeens)}"
+							title="Invoice">
+							<img src="../../resources/img/boletoFicha.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Finalizar"
+						style="width:55px;text-align:center">
+						<p:commandLink
+							action="#{controleCursosTeensMB.finalizar(cursosTeens)}"
+							title="Finalizar" update="tabelaControleTeens">
+							<img src="../../resources/img/controleFinalizar.png" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Invoice" style="width:48px;text-align:center">
+						<p:commandLink
+							action="#{controleCursosTeensMB.invoice(cursosTeens)}"
+							title="Invoice">
+							<img src="../../resources/img/controleInvoice.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br>
+				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="40%"
+					style="margin-left: 2%;">
+					<h:panelGroup>
+						<p:commandLink title="N° Total de Ficha"
+							style="margin-left:15%;cursor: initial;">
+							<img src="../../resources/img/iconeTotal.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="numFicha"
+							value="#{controleCursosTeensMB.numeroFichas}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink title="Ficha Finalizada"
+							style="margin-left:5%;cursor: initial;">
+							<img src="../../resources/img/finalizadoFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaFinalizada"
+							value="#{controleCursosTeensMB.nFichasFinalizadas}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink title="Ficha em Andamento" style="cursor: initial;">
+							<img src="../../resources/img/amarelaFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaProcesso"
+							value="#{controleCursosTeensMB.nFichasAndamento}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup> 
+					<h:panelGroup >
+						<p:commandLink style="cursor: initial;" title="Ficha Cancelada" >
+							<img src="../../resources/img/fichaCancelada.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaCancelada" value="#{controleCursosTeensMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup> 
+				</h:panelGrid>   
+				<br></br> <br></br><br></br> 
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

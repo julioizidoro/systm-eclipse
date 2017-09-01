@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body >
+	<h:form id="autalizarControleAupair"
+		style="text-align:left;font-size:11px;">    
+		<title>Controle Aupair</title> 
+		<p:tabView style="background:#ffffff;">
+			<p:tab title="Dados da Ficha"   titleStyle="font-size: 11px">  
+				<h:panelGrid columns="4" style="width:95%;margin-left:2.5%;"
+					columnClasses="espacocobranca21botao,espacocobranca21botao,width32,espacocobranca21botao">
+					<p:outputLabel value="Nº Venda" for="nControle"/>  
+					<p:outputLabel value="Data Inscrição" for="dataIncricao" />  
+					<p:outputLabel value="Nome" for="nome" />
+					<p:outputLabel value="Telefone Celular" for="telefoneCel" />
+	 
+					<p:inputText id="nControle" value="#{atualizarControleAupairMB.controleAupair.vendas.idvendas}"
+						style="width:80%;" readonly="true" />
+					<p:inputText id="dataIncricao" value="#{atualizarControleAupairMB.controleAupair.vendas.dataVenda}"
+						style="width:80%;" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:inputText>
+					<p:inputText id="nome" value="#{atualizarControleAupairMB.controleAupair.vendas.cliente.nome}"
+						style="width:85%;" readonly="true" />
+					<p:inputText id="telefoneCel" value="#{atualizarControleAupairMB.controleAupair.vendas.cliente.foneCelular}"
+						style="width:90%;" readonly="true" />  
+				</h:panelGrid>  
+				<h:panelGrid columns="4" style="width:98%;margin-left:2.5%;"
+					columnClasses="espacocobranca21botao,tamanho24,espacocobranca21botao,espacocobranca21botao">  
+					<p:outputLabel value="Data Nascimento" for="dataNasci" />  
+					<p:outputLabel value="Email" for="email" />    
+					<p:outputLabel value="Nivel Inglês" for="nivelIngles" />
+					<p:outputLabel value="CPF" for="cpf" />     
+	 
+					<p:inputText id="dataNasci"
+						value="#{atualizarControleAupairMB.controleAupair.vendas.cliente.dataNascimento}"
+						style="width:80%;" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:inputText>
+					<p:inputText id="email"
+						value="#{atualizarControleAupairMB.controleAupair.vendas.cliente.email}"
+						style="width:90%;" readonly="true" /> 
+					<p:inputText id="nivelIngles"
+						value="#{atualizarControleAupairMB.aupair.nivelIdioma01}"
+						style="width:93%;" readonly="true" />
+					<p:inputText id="cpf"       
+						value="#{atualizarControleAupairMB.controleAupair.vendas.cliente.cpf}"
+						style="width:79%;" readonly="true" />  
+				</h:panelGrid>      
+				<h:panelGrid columns="3" style="width:97%;margin-left:2.5%;"
+					columnClasses="espacocobranca21botao,espacocobranca21botao,espacocobranca21botao">  
+					<p:outputLabel value="Pais"  />
+					<p:outputLabel value="Sponsor" />
+					<p:outputLabel value="Estado" /> 
+					       
+					<p:inputText id="pais"  
+						value="#{atualizarControleAupairMB.controleAupair.vendas.fornecedorcidade.cidade.pais.nome}"
+						style="width:80%;" readonly="true" />  
+					<p:inputText id="sponsor"
+						value="#{atualizarControleAupairMB.controleAupair.vendas.fornecedorcidade.fornecedor.nome}"
+						style="width:80%;" readonly="true"/>
+					<p:inputText id="estado"
+						value="#{atualizarControleAupairMB.controleAupair.estado}"
+						style="width:85%;" readonly="true"/>
+				</h:panelGrid>  
+				<h:panelGrid columns="2" style="width:40%;margin-left:2.5%;"
+					columnClasses="espacocobranca21botao,espacocobranca21botao">     
+					<p:outputLabel value="Data Embarque" for="dataInicioPretendida" />
+					<p:outputLabel value="Data Retorno" for="dataVoltaPretendida" /> 
+					
+					<p:inputText id="dataInicioPretendida"
+						value="#{atualizarControleAupairMB.controleAupair.dataembarque}"
+						style="width:80%;" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:inputText>
+					<p:inputText id="dataVoltaPretendida"
+						value="#{atualizarControleAupairMB.controleAupair.dataretormo}"
+						style="width:80%;" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:inputText> 
+				</h:panelGrid> 
+			</p:tab>   
+		</p:tabView>  
+		<div align="center">
+			<br></br>      
+			<p:commandButton icon="ui-icon-close"     
+				value="Fechar" action="#{atualizarControleAupairMB.cancelar()}"/> 
+		</div>
+	</h:form>
+</h:body>  
+</html>

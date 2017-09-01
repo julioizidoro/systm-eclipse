@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.620921323059155"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="534" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="22" width="555" height="378" uuid="531ed16c-aaac-4f12-bc04-90f4b96ae01a"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="1" y="420" width="555" height="74" uuid="75c90c49-173a-4321-a00b-424ec921d17c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="18" y="470" width="326" height="13" uuid="1755d3b1-c876-4e58-a4c0-44c589f3b184"/>
+				<text><![CDATA[Câmbio da data da inscrição, utilizado para conversão em REAIS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="445" width="57" height="14" uuid="59ff33ed-bade-4e2b-aecf-f066bf9e30f5"/>
+				<text><![CDATA[Valor R$ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="445" width="67" height="14" uuid="40d5e624-d5e9-4825-ae9d-f6235b1ee889"/>
+				<text><![CDATA[Valor Juros :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="424" width="125" height="14" uuid="441b6cb0-f2a7-4493-b496-32c5df97aa83"/>
+				<text><![CDATA[Condição de Pagamento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="499" width="125" height="14" uuid="fbcbd972-eb5b-48e3-9571-e1afb5c0331c"/>
+				<text><![CDATA[Parcelamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="4" width="555" height="410" uuid="ed8b27dc-20e2-4d26-ac84-da7ebb39e530"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[14.  DA RESCISÃO POR JUSTA CAUSA
+
+O presente contrato será rescindido por justa causa, mediante simples notificação ao(à) PARTICIPANTE, sem direito a qualquer reembolso ou indenização, quando:
+a)  Ocorrer um desempenho insatisfatório no trabalho por parte do(a) PARTICIPANTE  ou desrespeito das regras estipuladas pela família e/ou parceiro internacional, no tocante a horários, saídas sem consentimentos, desrespeito com terceiros e aos próprios familiares, bem como tomar atitudes contrárias a um convívio harmonioso junto à família hospedeira e as crianças ou idoso(s);
+b)  Cometer qualquer tipo de ilícito penal sob as normas do direito do país no qual o programa se realiza;
+c)  O(a) PARTICIPANTE  abandonar a família original sem autorização do parceiro internacional em questão. Neste caso,  o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento.
+
+15. DISPOSIÇÕES FINAIS E OBSERVAÇÕES
+
+15.1 A despesa de obtenção do visto, seguros outros (além do seguro sáude incluído pelo parceiro internacional contratado), passagens aéreas (outras não inclusas no valor do programa), taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o traslado entre o aeroporto e a acomodação não estão incluídos no valor do programa pago à TM, salvo quando especificado no programa.
+15.2  O(A) PARTICIPANTE deverá levar dinheiro suficiente para cobrir suas despesas por pelo menos 40 (quarenta) dias após sua chegada no país de destino, no que se refere à transporte e gastos pessoais. O mínimo estabelecido pelos parceiros internacionais da TM é de CAD$500 (quinhentos Dólares Canadenses).
+15.3 Custos ou despesas para despesas diárias são de responsabilidade do PARTICIPANTE;
+15.4  Custos de transporte diário durante a realização do programa e uniformes exigidos para realização do programa (quando houver necessidade e solicitação por parte da família hospedeira) não estão incluídos no valor do programa.
+
+16. PAGAMENTO
+
+16.1 O custo do programa é fixado na moeda do local de destino (Dólares Canadenses) e o pagamento do mesmo deve ser feito em Reais de acordo com o câmbio turismo da moeda (flutuante ou venda) do dia de pagamento.
+16.2 O pagamento do Valor Total do Programa deverá ser quitado conforme plano de pagamento abaixo:
+
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="73">
+			<rectangle>
+				<reportElement x="1" y="2" width="555" height="55" uuid="fba6ec3c-7d13-49cf-bd26-22415b15e772"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="13" width="85" height="14" uuid="2d72f1ab-28a6-48f7-9b29-109e56c2ef56"/>
+				<text><![CDATA[Forma de Pagto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="33" width="105" height="14" uuid="b84bd20d-b1b2-4e5d-aace-b7146fc16bcf"/>
+				<text><![CDATA[Data de Vencimento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="13" width="83" height="14" uuid="12bb3301-9ecd-4597-9074-4aa004dda997"/>
+				<text><![CDATA[Saldo Parcelar :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="33" width="77" height="14" uuid="27843abc-6093-4345-a0c4-38ebb9eec1d1"/>
+				<text><![CDATA[Valor Parcela :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="33" width="64" height="14" uuid="d1af9677-72a5-417a-91ab-89cf07badbf5"/>
+				<text><![CDATA[Nº Parcelas :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="51ec4538-d1b3-4102-9bbc-cc08926933a1"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoCaregiverPagina06.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

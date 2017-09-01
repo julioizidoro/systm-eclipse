@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+     
+    </h:head>
+    <h:body style="background:#DDDDE1;"> 
+        <h:form id="cadFornecedorCidadeIdiomaProduto" style="text-align:left;font-size: 10px;"><br></br>
+            <title>Cadastro Produtos Parceiro</title>
+            <p:outputLabel value="Pais" for="pais"  style="margin-left: 6.2%"/>
+              <p:outputLabel value="Cidade" for="cidade"  style="margin-left: 21%"/>
+               <p:outputLabel value="Idioma" for="idioma" style="margin-left: 20%"/>
+               <p:outputLabel value="Parceiro" for="fornecedor" style="margin-left: 16.7%"/>
+               <br></br>
+             <p:selectOneMenu id="pais" value="#{fornecedorCidadeIdiomaProdutoMB.pais}" style="width:19%;" class="espacocobranca14" 
+                               converter="PaisConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                 <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"/> 
+                 <f:selectItems id="idpais" value="#{fornecedorCidadeIdiomaProdutoMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+                 <f:attribute name="listaPais" value="#{fornecedorCidadeIdiomaProdutoMB.listaPais}"/>
+                 <p:ajax update="cidade"/> 
+             </p:selectOneMenu>
+            
+             <p:selectOneMenu id="cidade" value="#{fornecedorCidadeIdiomaProdutoMB.cidade}" style="width:19.3%;" class="espacocobranca20" 
+                                converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+                 <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+                 <f:selectItems id="idcidade2" value="#{fornecedorCidadeIdiomaProdutoMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+                 <f:attribute name="listaCidade" value="#{fornecedorCidadeIdiomaProdutoMB.pais.cidadeList}"/>
+                  <p:ajax event="change" listener="#{fornecedorCidadeIdiomaProdutoMB.limparDados()}" update="fornecedor, idioma"/>
+             </p:selectOneMenu>
+             
+            
+             <p:selectOneMenu id="idioma" value="#{fornecedorCidadeIdiomaProdutoMB.idioma}" style="width:16%;" class="espacocobranca20" 
+                                converter="IdiomaConverter" filter="true" filterMatchMode="startsWith">
+                 <f:selectItem itemLabel="Idioma" itemValue="0" noSelectionOption="true"/> 
+                 <f:selectItems id="idioma2" value="#{fornecedorCidadeIdiomaProdutoMB.listaIdiomas}" var="idioma" itemLabel="#{idioma.descricao}" itemValue="#{idioma}"/>
+                 <f:attribute name="listaIdiomas" value="#{fornecedorCidadeIdiomaProdutoMB.listaIdiomas}"/>
+                 <p:ajax event="change" listener="#{fornecedorCidadeIdiomaProdutoMB.listarForCidadeIdioma()}" update="fornecedor"/>
+             </p:selectOneMenu>
+             
+             
+             <p:selectOneMenu id="fornecedor" value="#{fornecedorCidadeIdiomaProdutoMB.fornecedorCidadeIdioma}" style="width:18%;" class="espacocobranca20"
+                               converter="FornecedorCidadeIdiomaConverter" filter="true" filterMatchMode="startsWith">
+                 <f:selectItem itemLabel="Fornecedor" itemValue="0" noSelectionOption="true"/> 
+                 <f:selectItems id="idfornecedor" value="#{fornecedorCidadeIdiomaProdutoMB.listaFornecedorIdioma}" var="fornecedor" itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}" itemValue="#{fornecedor}"/>
+                 <f:attribute name="listaFornecedorCidadeIdioma" value="#{fornecedorCidadeIdiomaProdutoMB.listaFornecedorIdioma}"/>
+                 <p:ajax event="change" listener="#{fornecedorCidadeIdiomaProdutoMB.listarFornecedorCidadeIdiomaProduto()}" update=":cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto"/> 
+             </p:selectOneMenu>
+            <br></br> <br></br>   
+            <p:outputLabel value="Produto" for="produto" style="margin-left:6.2%" />
+            <br></br>
+            <h:panelGrid columns="3">
+	            <p:selectOneMenu id="produto" value="#{fornecedorCidadeIdiomaProdutoMB.produtoOrcamento}" style="width:210px;font-size: 10px;margin-left:18.5%" 
+	                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
+	                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+	                <f:selectItems id="idproduto" value="#{fornecedorCidadeIdiomaProdutoMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
+	                <f:attribute name="listaProdutos" value="#{fornecedorCidadeIdiomaProdutoMB.listaProdutos}"/>
+	                <p:ajax event="change" listener="#{fornecedorCidadeIdiomaProdutoMB.listarFornecedorCidadeIdiomaProduto()}" update=":cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto"/> 
+	            </p:selectOneMenu>
+	            <p:commandButton style="margin-left:77%" icon="ui-icon-plus" value="Adicionar" action="#{fornecedorCidadeIdiomaProdutoMB.salvar()}" update=":cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto, produto, fornecedor, cidade, idioma, pais"></p:commandButton>
+          		 <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#"/>
+            </h:panelGrid>
+            <br></br> <br></br>
+            <p:dataTable id="tabelafornecedorProduto" var="fornecedorproduto"  value="#{fornecedorCidadeIdiomaProdutoMB.listaFornecedorCidadeIdiomaProduto}"  
+                         scrollable="true" scrollHeight="140" style="width:95%;margin-left:3%;" >
+                <p:column headerText="Parceiro"  >
+                    <p:outputLabel value="#{fornecedorproduto.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}" />
+                </p:column>
+                <p:column headerText="Cidade"  >
+                    <p:outputLabel value="#{fornecedorproduto.fornecedorcidadeidioma.fornecedorcidade.cidade.nome}" />
+                </p:column>
+                <p:column headerText="Idioma"  >
+                    <p:outputLabel value="#{fornecedorproduto.fornecedorcidadeidioma.idioma.descricao}" />
+                </p:column>
+                <p:column headerText="Produto"  >
+                    <p:outputLabel value="#{fornecedorproduto.produtosorcamento.descricao}" />
+                </p:column>
+                <p:column style="width:50px" headerText="Excluir">
+                      <p:commandLink action="#{fornecedorCidadeIdiomaProdutoMB.excluir(fornecedorproduto)}" style="text-decoration: none" title="Excluir" update="cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto">
+                          <img src="../../resources/img/excluir.png" width="27"/>
+                      </p:commandLink>
+                </p:column>
+                <p:column style="width:50px" headerText="Datas">
+                      <p:commandLink action="#{fornecedorCidadeIdiomaProdutoMB.cadastrarDatasIniciais(fornecedorproduto)}" style="text-decoration: none" 
+                      		title="Definir datas de início">
+                          <img src="../../resources/img/data.png" width="27"/>
+                      </p:commandLink>  
+                </p:column>
+            </p:dataTable>
+            <div align="center">
+                 <p:commandButton icon="ui-icon-close" value="Fechar" action="#{fornecedorCidadeIdiomaProdutoMB.cancelarCadastro()}"></p:commandButton>
+            </div>
+        </h:form>     
+    </h:body>
+</html>

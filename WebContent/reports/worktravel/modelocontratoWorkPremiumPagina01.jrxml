@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPremiunPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0000000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="81" width="555" height="15" uuid="ed75f004-f9a7-498c-b84f-777a7971fba2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="96" width="555" height="17" uuid="1c2193c6-6f98-4a4e-bbc6-3b664729496b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Work & Travel Premium nº 000(MODELO) "]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="694" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="111" width="553" height="522" uuid="9143b0dc-49cc-4362-84e3-1e10d806f2bd"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="183" width="554" height="474" uuid="963f712b-76d1-4600-acaa-bedd266cb938"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["1. OBJETO \n \n"+
+
+"1.1 O presente contrato tem como objeto a intermediação da prestação de serviços educacionais de intercâmbio cultural pela TRAVELMATE (intermediadora) e seu parceiro internacional, em favor do(a) PARTICIPANTE, visando sua inscrição no programa Work & Travel Premium com duração variável entre 2,5 e 4 meses (conforme datas constantes na Oferta de Trabalho Temporário que o PARTICIPANTE receberá posteriormente) e início previsto _____ . \n"+
+"1.2 O(A) PARTICIPANTE, para que possa fazer parte do programa, passará por entrevista pessoal e aplicação de teste de inglês, sendo considerado apto a participar do intercâmbio cultural no exterior, caso aprovado e lhe sendo oferecidas condições legais para que possa exercer trabalho temporário no exterior, no período proposto no item 1.1, podendo permanecer por mais 30 (trinta) dias após término do programa de trabalho com sucesso, dias estes destinados exclusivamente a turismo, somente no referido país, de acordo com a opção de intercâmbio. \n" +
+"1.3 A TM poderá realizar constantes entrevistas com o(a) PARTICIPANTE, antes, durante e após a inscrição, com o objetivo de avaliar e/ou dirimir dúvidas acerca do seu nível de inglês e do seu perfil, para que o mesmo não participe do programa sem condições, evitando, assim, que o(a) PARTICIPANTE tenha dificuldades no país de destino e no exercer de suas funções na empresa em que o mesmo for colocado. Assim, a TM, observando que o(a) PARTICIPANTE não possui o perfil adequado para participar do programa, poderá cancelar o processo de inscrição, reembolsando o valor pago até o momento do cancelamento. \n \n"+
+
+"2. DO CONTRATO \n \n"+
+
+"2.1 O contrato firmado pelos ora contratantes incluiu dos seguintes itens, os quais deverão ser observados e obedecidos por ambas as partes: \n"+
+"a) Orientação antes da partida do Brasil, em data determinada pela TM, cuja presença do(a) PARTICIPANTE é obrigatória, sob pena de rescisão contratual, por culpa deste último; \n"+
+"b) Documento DS-2019, emitido pela organização internacional na qual o(a) PARTICIPANTE foi inscrito, após o pagamento integral do custo do programa, e que comprova e autoriza sua participação no intercâmbio a ser realizado nos Estados Unidos da América, para solicitação do visto, e delimita o período pelo qual o(a) PARTICIPANTE poderá trabalhar nos Estados Unidos da América; \n"+
+"c) Seguro-saúde e contra acidentes pessoais durante o período estabelecido no documento DS-2019, sujeito a pagamento de franquia, inclusões e exclusões impostas pela Seguradora na apólice; \n"+
+"d) Direito do(a) PARTICIPANTE de solicitar o cartão de seguridade social (Social Security Card). O cartão de seguridade social é emitido pelo Governo do país de destino e é de inteira responsabilidade deste a emissão e o envio do cartão ao(à) PARTICIPANTE, não se responsabilizando a TM pelo atraso na sua obtenção ou seu "
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="23" y="6" width="527" height="172" uuid="91d1ca80-1129-419a-8f26-df07395fc563"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["PARTES:  \n"+
+$F{razaoSocial} +", adiante apenas  TRAVELMATE ou TM, pessoa jurídica de direito privado com sede social na " + $F{tipologradourounidadeNegocio} + " " + $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{complementounidadeNegocio}
++ ", " + $F{bairrounidadeNegocio} + ", " + $F{cidadeunidadeNegocio} + ", " + $F{estadounidadeNegocio} + ", CEP : " + $F{cepunidadeNegocio} + ", inscrita no CNPJ/MF sob nº " + $F{cnpjunidadeNegocio} + ", neste ato representada pelo consultor  ______  . \n \n"+
+
+
+"________________, adiante apenas  PARTICIPANTE, brasileiro(a), estudante, solteiro(a), portador do CI/RG de nº ________  e inscrito no CPF/MF sob o nº ___________ , residente e domiciliado na  ____________ " + "______________, têm entre si justos e acertados a celebração de contrato de prestação de serviços de intercâmbio cultural, nos termos e condições estabelecidas neste contrato."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="18">
+			<subreport>
+				<reportElement x="0" y="0" width="100" height="10" uuid="c0aec748-d7bf-4ce4-92a6-f6d12dff0f0e"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\"+ "modelocontratoWorkPremiumPagina02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

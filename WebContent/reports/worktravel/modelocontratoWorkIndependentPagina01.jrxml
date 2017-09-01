@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.5644739300537773"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="34"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="81" width="555" height="15" uuid="ed75f004-f9a7-498c-b84f-777a7971fba2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="96" width="555" height="17" uuid="3544246f-6e76-4bd6-aa4c-4bdff88298fc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Work & Travel  - Independent nº 000(MODELO)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="690" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="87" width="553" height="522" uuid="c1da3d23-eb2d-42ca-b7d3-4a5c0b29973e"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="82" y="143" width="472" height="40" uuid="fdeab5ca-65a3-4f10-840b-8406cb733098"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["Dados do participante, têm entre si justos e acertados a celebração de contrato de prestação de serviços de intercâmbio cultural, nos termos e condições estabelecidas neste contrato."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="637" width="269" height="14" uuid="09e026e2-123a-4bd7-baf0-7ab547c00e8c"/>
+				<text><![CDATA[responsabilidade deste a emissão e o envio do cartão ao(à)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="274" y="337" width="83" height="15" uuid="51c5f328-e959-4a4e-88be-712f945639e1"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="380" width="53" height="14" uuid="aa26b9a1-f1c4-4be1-995f-0dce55eb3948"/>
+				<text><![CDATA[não possui]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="394" width="555" height="28" uuid="2507d19b-6107-4874-aad0-865e762b488a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[o perfil adequado para participar do programa, poderá cancelar o processo de inscrição, reembolsando o valor pago até o momento do cancelamento.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="516" width="168" height="14" uuid="d20d3cf5-341b-486a-b3c2-3a97a8fe1b53"/>
+				<text><![CDATA[seja aprovada pelo parceiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="234" width="206" height="14" uuid="2cd92fb5-2149-4fc0-8698-66d0da90b0c7"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[e seu parceiro internacional, em favor do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="366" width="83" height="15" uuid="43f57274-300a-4de6-98d4-e1140e5819df"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="233" width="90" height="15" uuid="3399d4b1-949d-4f22-b08a-b1994be9e172"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[  PARTICIPANTE,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="274" width="49" height="14" uuid="b15d4f11-534c-4a37-ae71-bb760d766f61"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["1.2 O(A)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="74" y="609" width="83" height="14" uuid="363ee434-5fe1-45fa-9d99-a2edf26863e5"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="273" width="90" height="15" uuid="5aaca677-020a-44de-8014-cc6a876de5b4"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[  PARTICIPANTE,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="651" width="200" height="14" uuid="e1269e1f-bae9-4546-81b8-9e70b461b294"/>
+				<text><![CDATA[poderá ter para obtê-lo ou custos devido a ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="609" width="397" height="14" uuid="8c6830bb-77d4-42ec-85c7-2628dc355066"/>
+				<text><![CDATA[de solicitar o cartão de seguridade social (Social Security card). O cartão de seguridade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="338" width="198" height="14" uuid="8f250b43-9fb5-4ef8-ab48-9bf9c6ae7a39"/>
+				<text><![CDATA[poderá realizar constantes entrevistas com o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="516" width="83" height="15" uuid="aa1aa04c-53d3-4f58-9fba-ce7c3d0a64d9"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="367" width="238" height="14" uuid="ca8b6fe0-501a-4f8e-94ec-6d5b7561f622"/>
+				<text><![CDATA[tenha dificuldades no país de destino e no exercer de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="651" width="83" height="14" uuid="25d6d271-fea6-41d4-bbde-f0230ce8a2c4"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="248" width="555" height="27" uuid="fcdd694e-046f-4c67-8ed2-e74b3667422b"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["no programa Work & Travel Independent com duração variável entre 2 e 4 meses e início previsto para o mês de __/__/___, incluindo todas as atividades descritas neste instrumento."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="287" width="554" height="51" uuid="deb294a4-48e1-46ab-8dd5-70dc0d2c80db"/>
+				<text><![CDATA[teste de inglês, sendo considerado apto a participar do intercâmbio cultural no exterior, caso aprovado e lhe sendo oferecidas condições legais para que possa exercer trabalho no exterior, no período proposto no item 1.1, podendo permanecer por mais 30 (trinta) dias após término do programa de trabalho com sucesso, dias estes destinados exclusivamente a turismo, somente no referido país, de acordo com a opção de intercâmbio.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="623" width="554" height="14" uuid="2989185c-5046-4fdd-b63d-9eaf2276cb15"/>
+				<text><![CDATA[social  ( Social Security card ).  O cartão de seguridade social é emitido pelo Governo do país de destino e é de inteira ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="381" width="98" height="14" uuid="5f953518-1dde-485a-be37-d704e7356a70"/>
+				<text><![CDATA[observando que o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="531" width="333" height="14" uuid="ccae63cb-0501-49c0-a090-177182bd1ac0"/>
+				<text><![CDATA[internacional da TM),   emitido pela organização internacional na qual o(a)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="512" y="490" width="43" height="14" uuid="cbd37d07-c6e5-4d24-b4b2-efa69d8aa253"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["é"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="637" width="83" height="14" uuid="08f7852d-7282-4bdf-a145-25e04173a0e0"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="637" width="124" height="14" uuid="ffd734bc-55bb-4a48-bb2d-d59488591e81"/>
+				<text><![CDATA[não se responsabilizando a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="490" width="30" height="14" uuid="b96d67a2-f85c-490c-96e8-22fc6b56fe85"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="502" width="554" height="14" uuid="217325e8-c6ad-446e-a742-8a67528156fb"/>
+				<text><![CDATA[obrigatória, sob pena de rescisão contratual, por culpa deste último;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="637" width="53" height="14" uuid="84f14481-dcbf-40b6-bc8f-c9d655693131"/>
+				<text><![CDATA[pelo atraso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="489" width="301" height="14" uuid="e0398537-23cb-49a1-bf15-7150d50bb3e2"/>
+				<text><![CDATA[a) Orientação antes da partida do Brasil, em data determinada pela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="338" width="222" height="14" uuid="f2590423-e682-4987-9806-c5d5980207d4"/>
+				<text><![CDATA[poderá realizar constantes entrevistas com o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="381" width="301" height="14" uuid="0a5cbf10-5d19-4255-812b-e7c63a93a42c"/>
+				<text><![CDATA[suas funções na empresa em que o mesmo for colocado. Assim, a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="220" width="555" height="14" uuid="8bc14f88-1b78-4379-b31a-da625934b4c9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[1.1 Presente contrato tem como objeto a intermediação da prestação de serviços educacionais de intercâmbio cultural pela ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="439" width="251" height="25" uuid="ad8a31e9-b98a-4e74-aa3b-f0ff27bbc46f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. DO CONTRATO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="664" width="553" height="14" uuid="fb98867e-0eef-454d-aae8-8e79fed0c3a8"/>
+				<text><![CDATA[eventual demora no recebimento do cartão.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="367" width="232" height="14" uuid="f75e7f4b-c663-40de-b17f-90b3d19a0697"/>
+				<text><![CDATA[programa sem condições, evitando, assim, que o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="637" width="30" height="14" uuid="8a0f7da2-521a-4381-9ef5-6d0da1ccf31e"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="609" width="72" height="14" uuid="6fc617dc-d5a0-4848-9070-32a7c2133486"/>
+				<text><![CDATA[d) Direito do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="380" width="83" height="14" uuid="0938ece1-0c6e-4d93-bcf5-289d4c850876"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="234" width="158" height="14" uuid="767e204f-2d4c-43ed-a077-5f4903829454"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRAVELMATE (intermediadora)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="517" width="302" height="14" uuid="3b39217e-1a5a-4ec9-ad76-270571b3a7db"/>
+				<text><![CDATA[b) Documento DS-2019(desde que a Job Offer providenciada pelo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="273" width="416" height="14" uuid="af6c780b-fd56-40cc-b8c7-e8bed6a19685"/>
+				<text><![CDATA[para que possa fazer parte do programa, passará por entrevista pessoal e aplicação de teste]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="651" width="269" height="14" uuid="ab65f2fc-5e06-4716-8a2d-0d4cbe2c9660"/>
+				<text><![CDATA[a sua obtenção ou seu extravio, nem pelos gastos que o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="490" width="98" height="14" uuid="4b002b7e-20ed-420f-8c6a-a8b2bcf95b8f"/>
+				<text><![CDATA[cuja presença do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="490" width="83" height="15" uuid="ab72a536-42c8-44d1-92fd-31b2b117e819"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="380" width="20" height="14" uuid="76412205-e39e-4456-9c64-c6b4859e983d"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="234" width="111" height="14" uuid="6e8e0c0a-9cb8-4318-9b67-d938679e2cbe"/>
+				<text><![CDATA[visando sua inscrição ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="531" width="138" height="14" uuid="b9589689-baf4-4c53-9235-be6f5b3c5948"/>
+				<text><![CDATA[foi inscrito, após o pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="337" width="20" height="15" uuid="4e232f23-d15e-45a6-9d86-394fb2d10f5f"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="462" width="555" height="28" uuid="37e47ec4-23aa-4034-be4e-04178e119554"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[2.1  O contrato firmado pelos ora contratantes incluiu dos seguintes itens, os quais deverão ser observados e obedecidos por ambas as partes:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="338" width="32" height="14" uuid="6dc13acb-1306-4fcc-9d10-f111dbd2f9e7"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["1.3 A"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="545" width="554" height="64" uuid="8de5a56d-d71c-4a5c-80c5-f728d922a205"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[integral do custo do programa, e que comprova e autoriza sua participação no intercâmbio a ser realizado nos Estados Unidos da América, para solicitação do visto, e delimita o período pelo qual o(a) PARTICIPANTE poderá trabalhar nos Estados Unidos da América;
+c) Seguro-saúde e contra acidentes pessoais durante o período estabelecido no documento DS-2019, sujeito a pagamento de franquia;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="353" width="554" height="14" uuid="49cfce16-d1bb-419f-a729-16af1b5000e7"/>
+				<text><![CDATA[objetivo de avaliar e/ou dirimir dúvidas acerca do seu nível de inglês e do seu perfil,   para que o mesmo não participe do ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="531" width="83" height="14" uuid="25c01137-d615-49f9-85c6-454c3126d4f9"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="195" width="251" height="25" uuid="6c0093b5-7eb9-4b4e-bdce-4ec23ec3450c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. OBJETO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="54" width="514" height="64" uuid="2ae4d9ac-3842-4782-aa95-70ab31876035"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["direito privado com sede social na " + $F{tipologradourounidadeNegocio} + " " +$F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{complementounidadeNegocio}+ ", " + $F{bairrounidadeNegocio} + ", " + $F{cidadeunidadeNegocio}+ ", " + $F{estadounidadeNegocio} + ", CEP : " + $F{cepunidadeNegocio}+ ", inscrita no CNPJ/MF sob nº " + $F{cnpjunidadeNegocio} + ", neste ato representada pelo consultor de intercâmbio NOME DO CONSULTOR."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="457" y="40" width="97" height="14" uuid="af72bb3d-c43d-45cf-b30d-9499b312b9f3"/>
+				<text><![CDATA[pessoa jurídica de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="12" width="251" height="25" uuid="6c28fe95-9fdb-4b60-8bd3-f26c378b3336"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTES: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="40" width="110" height="14" uuid="d38d4444-0add-4119-93d8-82c6688e2c47"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ TRAVELMATE ou TM,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="40" width="82" height="14" uuid="3189a916-de47-4d06-b727-df6d06a4f603"/>
+				<text><![CDATA[, adiante apenas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="40" width="223" height="14" uuid="d0105750-ef21-4486-8f19-3cce571b77c6"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{razaoSocial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="18">
+			<subreport>
+				<reportElement x="0" y="0" width="100" height="10" uuid="c0aec748-d7bf-4ce4-92a6-f6d12dff0f0e"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoWorkIndependentPagina02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

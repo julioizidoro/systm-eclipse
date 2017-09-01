@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mapa de Vendas Gerencial" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="320dd56b-4281-455e-becf-bdbfae77892b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[$P!{sql}]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataNascimento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="foneCelular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fonePai" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="foneMae" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomerelatorio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="duracaoIntercambio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeEscola" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataEmbarque" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataRetorno" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="embarquecidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="embarqueciaaerea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="embarquenumerovoo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="embarquehorariovoo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conexaocidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conexaociaarea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conexaonumerovoo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conexaohorariovoo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="chegadacidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="chegadahorario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aeroportofinal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="valorBruto" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="0" y="80" width="802" height="23" uuid="8b407713-f5f1-44b0-9223-250f03a69f01"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Passagens"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="6" y="0" width="217" height="69" uuid="6dba2692-9187-4c5a-ac16-52ca90b724cf"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="143" y="3" width="61" height="15" uuid="20675a62-e27f-43d2-952c-43166abf1d2d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Data Ins.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="212" y="3" width="60" height="15" uuid="315b305d-476b-41fd-9c5d-af8c628b570f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Data Nasc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="364" y="3" width="83" height="15" uuid="ca145b00-b653-4579-8cb8-36d22ce41438"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Fone Pai]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="453" y="3" width="72" height="15" uuid="c636b7a4-e5f5-44ea-b789-31d646af217a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Fone Mãe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="281" y="3" width="78" height="15" uuid="2ac83b0e-b7cf-483e-958f-f7078049a8ce"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Fone Estudante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="7" y="3" width="124" height="15" uuid="95451046-43d3-4c8c-b5d0-77a3bd497a74"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="531" y="3" width="170" height="15" uuid="5476a7b5-c4b3-4afa-a24f-58834df6a2aa"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="706" y="3" width="88" height="15" uuid="297578bb-7b03-4127-9d1b-f41fba8a34da"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Loja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="8" y="22" width="106" height="15" uuid="2508a16f-b8ee-44ca-92f3-e7a023c0e62b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Programa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="129" y="22" width="95" height="15" uuid="6c9d6933-9b60-49d9-ba2c-756e3038f912"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Duração]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="250" y="22" width="77" height="15" uuid="ad2d3cdf-c97e-4f58-a06c-3cdaaa592886"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Data Embarque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="359" y="22" width="65" height="15" uuid="7d73944b-1180-421d-80b2-6a72e65f9338"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Data Retorno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="37" width="98" height="15" uuid="788a2ea1-9615-40bd-9bc2-27ff6daf5a30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Aeroporto Chegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="439" y="37" width="38" height="15" uuid="183c3bfb-edc2-451c-bdf3-e6986aaa9418"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Hórario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="447" y="22" width="126" height="15" uuid="5d1c7bec-f553-41d8-9393-e2458892c11b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cidade Embarque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="584" y="22" width="91" height="15" uuid="04171d9c-ba0c-4776-9b99-746b78996a88"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cia aerea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="679" y="22" width="50" height="15" uuid="6eea0c78-88ff-43dc-ac3e-32abc5035d38"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nº Vôo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="743" y="22" width="51" height="15" uuid="0462f637-6149-4c93-93ec-7a17bb2d3b9a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Horário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="8" y="40" width="104" height="15" uuid="24ec6813-f496-4708-b418-6b0de23dcb9c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cidade Conexão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="262" y="40" width="51" height="15" uuid="baaa5546-006a-486e-967d-68a7ea8a62ee"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Horário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="126" y="40" width="70" height="15" uuid="3c1c6516-0a6e-4403-91f1-150d8b749557"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cia aerea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="201" y="40" width="51" height="15" uuid="a091d570-5f96-431f-bd3b-565737cccf50"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nº Vôo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="66" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="3" width="802" height="60" uuid="5546f7ec-230d-4d8e-9c78-e6b806d6d244"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Detail" x="278" y="7" width="83" height="15" uuid="06007f8b-3015-4d17-bcc3-15568f18fc96"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{foneCelular}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="143" y="8" width="60" height="15" uuid="c9a18cc4-1334-4a6c-8270-1b72042ac16d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="333" y="43" width="98" height="15" uuid="1f42f019-40e0-45f1-b8a7-64f756ea4e5b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aeroportofinal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="7" y="7" width="124" height="15" uuid="f6284557-a41b-4999-b599-c2d2d91c0a46"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="531" y="7" width="170" height="15" uuid="493d255a-4fc5-41f2-b25e-a9785264bf03"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="252" y="23" width="75" height="15" uuid="cda5037f-19c4-4eb7-b7b8-5f5196f49fed"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataEmbarque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="447" y="28" width="126" height="15" uuid="6a6c51c0-336e-4139-8986-36e07a5df6d3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{embarquecidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="364" y="7" width="83" height="15" uuid="ca0fb70e-4216-475a-a35a-71ed5b357f0a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fonePai}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="706" y="8" width="88" height="15" uuid="a9ac7fb0-2ac4-4489-bc01-9306dffcca72"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomerelatorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="453" y="7" width="72" height="15" uuid="672ef052-0e9c-4b4a-9db9-08b0296980cc"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{foneMae}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="6" y="28" width="108" height="15" uuid="ddc9f75d-dadd-459d-927a-0877c2cc4397"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeEscola}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="439" y="43" width="38" height="15" uuid="388cfa52-ca1e-40e2-a6de-fca22d94e342"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{chegadahorario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="212" y="7" width="60" height="15" uuid="e0abdb58-e50e-4865-9e13-1cf5f233594d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="129" y="28" width="95" height="15" uuid="f68b4020-a39c-4add-975b-d8db8aa80605"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{duracaoIntercambio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="359" y="23" width="65" height="15" uuid="5990747f-f0ba-44a1-865b-ffe36ca70c9b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataRetorno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="584" y="28" width="91" height="15" uuid="9ebf7078-05c8-452b-b1c4-7017de46ddac"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{embarqueciaaerea}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="680" y="28" width="50" height="15" uuid="3c71201c-ef58-46a3-aa93-2f5355145ea9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{embarquenumerovoo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="743" y="28" width="51" height="15" uuid="65aa0c9f-51c4-4a48-99e1-0b733c63c7e1"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{embarquehorariovoo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="262" y="46" width="51" height="15" uuid="84173144-6c48-4dd8-8d10-829ce3023cce"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conexaohorariovoo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="202" y="46" width="51" height="15" uuid="44e6f299-be88-4e60-a4c9-42641ac75fa6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conexaonumerovoo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="126" y="46" width="70" height="15" uuid="958353d4-33c7-4d95-8b2d-698abb32d05c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conexaociaarea}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="8" y="46" width="104" height="15" uuid="50a04c1c-9af6-4ccc-8149-d7d013f54e0a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conexaocidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="21">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="7" y="0" width="197" height="20" uuid="e7648991-7629-46f3-8634-3e60c0e83f52"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="editarDadosOrcamento"
+		style="text-align:left;font-size:11px;">
+		<p:tabView>
+			<p:tab titleStyle="font-size:10px;" title="Câmbio/Forma de Pagamento"
+				class="tab">
+				<h:panelGrid columns="2" columnClasses="tamanho8, tamanho8"
+					style="width:90%;margin-left:5%;">
+					<p:outputLabel value="Câmbio" />
+					<p:outputLabel />
+
+					<h:panelGroup>
+						<p:inputText value="#{editarDadosOrcamentoMB.ocurso.valorcambio}"
+							size="10"
+							style="font-weight:bold;color: #312E25;text-align:right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur" />
+						</p:inputText>
+						<p:commandLink id="btnRecalcular"
+							action="#{editarDadosOrcamentoMB.alterarValorCambio()}"
+							update="@all">
+							<img src="../../resources/img/recalcular.png" width="27" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Valor R$:" />
+						<p:inputText id="idvalorRS01"
+							value="#{editarDadosOrcamentoMB.ocurso.totalmoedanacional}"
+							style="margin-left:1%;text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>
+				<p:fieldset id="idparcelamentoantesviagem"
+					legend="Opção 02 - Parcelamento antes da viagem" toggleable="true"
+					style="font-size: 10px;width: 95%;margin-left: 2.5%"
+					collapsed="true">
+					<h:panelGrid columns="3"
+						columnClasses="tamanho8, tamanho8, tamanho8">
+						<p:outputLabel value="% Entrada:" />
+						<p:outputLabel value="Valor da Entrada R$:" />
+						<p:outputLabel value="Nº Parcelas:" />
+
+						<p:inputText id="idpercentual2"
+							value="#{editarDadosOrcamentoMB.formaPagamento2.percentualEntrada}"
+							style="text-align: right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur"
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorentrada2, nparcela2,idpersentualsaldo2, idvalorsaldo2, idvalorparcela2" />
+						</p:inputText>
+						<p:inputText id="idvalorentrada2"
+							value="#{editarDadosOrcamentoMB.formaPagamento2.valorEntrada}"
+							style="text-align: right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:selectOneMenu id="nparcela2"
+							value="#{editarDadosOrcamentoMB.formaPagamento2.numeroparcela}"
+							style="width:80px;">
+							<f:selectItems id="idfornecedor"
+								value="#{editarDadosOrcamentoMB.listaNumeroParcelas}"
+								var="selnumeroparcelas" itemLabel="#{selnumeroparcelas.titulo}"
+								itemValue="#{selnumeroparcelas.numero}" />
+							<p:ajax
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorentrada2, nparcela2,idpersentualsaldo2, idvalorsaldo2, idvalorparcela2" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"
+						columnClasses="tamanho8, tamanho8, tamanho8">
+						<p:outputLabel value="% Saldo:" />
+						<p:outputLabel value="Saldo R$:" />
+						<p:outputLabel value="Valor da Parcela:" />
+
+						<p:inputText id="idpersentualsaldo2"
+							value="#{editarDadosOrcamentoMB.formaPagamento2.percentualSaldo}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur"
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorentrada2, nparcela2,idpersentualsaldo2, idvalorsaldo2, idvalorparcela2" />
+						</p:inputText>
+						<p:inputText id="idvalorsaldo2"
+							value="#{editarDadosOrcamentoMB.formaPagamento2.valorSaldo}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="idvalorparcela2"
+							value="#{editarDadosOrcamentoMB.formaPagamento2.valorparcela}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+				</p:fieldset>
+
+				<br></br>
+				<p:fieldset id="idparcelamentoemcartaocredito"
+					legend="Opção 03 - Parcelamento em cartão de crédito em até 12x"
+					toggleable="true" collapsed="true"
+					style="font-size: 10px;width: 95%;margin-left: 2.5%">
+					<h:panelGrid columns="3"
+						columnClasses="tamanho8, tamanho8, tamanho8">
+						<p:outputLabel value="% Entrada:" />
+						<p:outputLabel value="Valor da Entrada R$:" />
+						<p:outputLabel value="Nº Parcelas:" />
+
+						<p:inputText id="idpercentualentrada3"
+							value="#{editarDadosOrcamentoMB.formaPagamento3.percentualEntrada}"
+							style="text-align: right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur"
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorentrada3, idvalorsaldo3, idpercentualentrada3" />
+						</p:inputText>
+						<p:inputText id="idvalorentrada3"
+							value="#{editarDadosOrcamentoMB.formaPagamento3.valorEntrada}"
+							style="text-align: right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:selectOneMenu id="nparcela3"
+							value="#{editarDadosOrcamentoMB.formaPagamento3.numeroparcela}"
+							style="width:80px;">
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+							<f:selectItem itemLabel="8" itemValue="8" />
+							<f:selectItem itemLabel="9" itemValue="9" />
+							<f:selectItem itemLabel="10" itemValue="10" />
+							<f:selectItem itemLabel="11" itemValue="11" />
+							<f:selectItem itemLabel="12" itemValue="12" />
+							<p:ajax
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorparcela3" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"
+						columnClasses="tamanho8, tamanho8, tamanho8">
+						<p:outputLabel value="% Saldo:" />
+						<p:outputLabel value="Saldo R$:" />
+						<p:outputLabel value="Valor da Parcela:" />
+
+						<p:inputText
+							value="#{editarDadosOrcamentoMB.formaPagamento3.percentualSaldo}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="idvalorsaldo3"
+							value="#{editarDadosOrcamentoMB.formaPagamento3.valorSaldo}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="idvalorparcela3"
+							value="#{editarDadosOrcamentoMB.formaPagamento3.valorparcela}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+				</p:fieldset>
+				<br></br>
+				<p:fieldset id="idparcelamentoemcheque"
+					legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*"
+					toggleable="true" collapsed="true"
+					style="font-size: 10px;width: 95%;margin-left: 2.5%">
+
+					<h:panelGrid columns="3"
+						columnClasses="tamanho8, tamanho8, tamanho8">
+						<p:outputLabel value="% Entrada:" />
+						<p:outputLabel value="Valor da Entrada R$:" />
+						<p:outputLabel value="Nº Parcelas:" />
+
+						<p:inputText id="idpercentualentrada4"
+							value="#{editarDadosOrcamentoMB.formaPagamento4.percentualEntrada}"
+							style="text-align: right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+							<p:ajax event="blur"
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorentrada4, idvalorsaldo4, idpercentualentrada4, porcentagemSaldo4" />
+						</p:inputText>
+						<p:inputText id="idvalorentrada4"
+							value="#{editarDadosOrcamentoMB.formaPagamento4.valorEntrada}"
+							readonly="true" style="text-align: right">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:selectOneMenu id="nparcela4"
+							value="#{editarDadosOrcamentoMB.formaPagamento4.numeroparcela}"
+							style="width:80px;">
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+							<f:selectItem itemLabel="8" itemValue="8" />
+							<f:selectItem itemLabel="9" itemValue="9" />
+							<f:selectItem itemLabel="10" itemValue="10" />
+							<f:selectItem itemLabel="11" itemValue="11" />
+							<f:selectItem itemLabel="12" itemValue="12" />
+							<f:selectItem itemLabel="13" itemValue="13" />
+							<f:selectItem itemLabel="14" itemValue="14" />
+							<f:selectItem itemLabel="15" itemValue="15" />
+							<f:selectItem itemLabel="16" itemValue="16" />
+							<f:selectItem itemLabel="17" itemValue="17" />
+							<f:selectItem itemLabel="18" itemValue="18" />
+							<f:selectItem itemLabel="19" itemValue="19" />
+							<f:selectItem itemLabel="20" itemValue="20" />
+							<f:selectItem itemLabel="21" itemValue="21" />
+							<f:selectItem itemLabel="22" itemValue="22" />
+							<f:selectItem itemLabel="23" itemValue="23" />
+							<f:selectItem itemLabel="24" itemValue="24" />
+							<p:ajax
+								listener="#{editarDadosOrcamentoMB.recalcularFormaPagamento()}"
+								update="idvalorparcela4" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"
+						columnClasses="tamanho8, tamanho8, tamanho8">
+						<p:outputLabel value="% Saldo:" />
+						<p:outputLabel value="Saldo R$:" />
+						<p:outputLabel value="Valor da Parcela:" />
+
+						<p:inputText id="porcentagemSaldo4"
+							value="#{editarDadosOrcamentoMB.formaPagamento4.percentualSaldo}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="idvalorsaldo4"
+							value="#{editarDadosOrcamentoMB.formaPagamento4.valorSaldo}"
+							style="text-align: right" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="idvalorparcela4"
+							value="#{editarDadosOrcamentoMB.formaPagamento4.valorparcela}"
+							style="text-align: right;width:50%" readonly="true">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+				</p:fieldset>
+			</p:tab>
+			<p:tab titleStyle="font-size:10px;" title="Dados do Cliente"
+				class="tab">
+				<h:panelGroup rendered="#{editarDadosOrcamentoMB.painelcliente}">
+					<h:panelGrid columns="2" columnClasses="tamanho8, tamanho8"
+						style="width:90%;margin-left:9%;">
+						<p:outputLabel value="Nome" for="nome" />
+						<p:outputLabel value="Email" for="email" />
+	
+						<p:inputText id="nome" style="width:90%;"
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.nome}" />
+						<p:inputText id="email" style="width:90%;"
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.email}" />
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho8"
+						style="width:90%;margin-left:9%;">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox id="digitosFoneResidencia"
+								value="#{editarDadosOrcamentoMB.digitosFoneResidencial}">
+								<p:ajax update="telefoneResidencial" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="9 Digitos"
+								style="margin-left:1%;font-size:11px;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox id="digitosFoneCelular"
+								value="#{editarDadosOrcamentoMB.digitosFoneCelular}">
+								<p:ajax update="telefone" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="9 Digitos"
+								style="margin-left:1%;font-size:11px;" />
+						</h:panelGroup>
+						<p:outputLabel />
+	
+						<p:outputLabel value="Fone Residencial" />
+						<p:outputLabel value="Fone Celular" />
+						<p:outputLabel value="Como Conheceu a TravelMate?" />
+	
+						<p:inputMask id="telefoneResidencial"
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.foneResidencial}"
+							mask="#{editarDadosOrcamentoMB.validarMascaraFoneResidencial()}"
+							style="width:70%;" />
+						<p:inputMask id="telefone"
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.foneCelular}"
+							mask="#{editarDadosOrcamentoMB.validarMascaraFoneCelular()}"
+							style="width:70%;" />
+						<p:selectOneMenu id="idconheceutravel"
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.publicidade}"
+							style="width:165px;" converter="PublicidadeConverter"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idPublicidade"
+								value="#{editarDadosOrcamentoMB.listaPublicidades}"
+								var="publicidade" itemLabel="#{publicidade.descricao}"
+								itemValue="#{publicidade}" />
+							<f:attribute name="listaPublicidade"
+								value="#{editarDadosOrcamentoMB.listaPublicidades}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho8"
+						style="width:90%;margin-left:9%;">
+						<p:outputLabel value="Data de Nascimento" />
+						<p:outputLabel value="Sexo" />
+						<p:outputLabel/>
+	
+						<p:inputMask
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.dataNascimento}"
+							mask="99/99/9999" id="datanasci" style="width:58%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<p:selectOneMenu id="sexo"
+							value="#{editarDadosOrcamentoMB.ocurso.cliente.sexo}"
+							style="width:150px;">
+							<f:selectItem itemLabel="Selecione" itemValue="selecione"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+							<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						</p:selectOneMenu> 
+					</h:panelGrid> 
+				</h:panelGroup>
+				<h:panelGroup rendered="#{editarDadosOrcamentoMB.painelOcCliente}">
+					<h:panelGrid columns="2" columnClasses="tamanho8, tamanho8"
+						style="width:90%;margin-left:9%;">   
+						<p:outputLabel value="Nome" for="ocnome" />
+						<p:outputLabel value="Email" for="ocemail" />
+	
+						<p:inputText id="ocnome" style="width:90%;"
+							value="#{editarDadosOrcamentoMB.occliente.nome}" />
+						<p:inputText id="ocemail" style="width:90%;"
+							value="#{editarDadosOrcamentoMB.occliente.email}" />
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho8"
+						style="width:90%;margin-left:9%;">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox id="ocdigitosFoneResidencia"
+								value="#{editarDadosOrcamentoMB.digitosFoneResidencial}">
+								<p:ajax update="octelefoneResidencial" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="9 Digitos"
+								style="margin-left:1%;font-size:11px;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox id="ocdigitosFoneCelular"
+								value="#{editarDadosOrcamentoMB.digitosFoneCelular}">
+								<p:ajax update="telefone" />
+							</p:selectBooleanCheckbox>
+							<h:outputText value="9 Digitos"
+								style="margin-left:1%;font-size:11px;" />
+						</h:panelGroup>
+						<p:outputLabel />
+	
+						<p:outputLabel value="Fone Residencial" />
+						<p:outputLabel value="Fone Celular" />
+						<p:outputLabel value="Como Conheceu a TravelMate?" />
+	
+						<p:inputMask id="octelefoneResidencial"
+							value="#{editarDadosOrcamentoMB.occliente.foneresidencial}"
+							mask="#{editarDadosOrcamentoMB.validarMascaraFoneResidencial()}"
+							style="width:70%;" />
+						<p:inputMask id="octelefone"
+							value="#{editarDadosOrcamentoMB.occliente.fonecelular}"
+							mask="#{editarDadosOrcamentoMB.validarMascaraFoneCelular()}"
+							style="width:70%;" />
+						<p:selectOneMenu id="idocconheceutravel"
+							value="#{editarDadosOrcamentoMB.occliente.publicidade}"
+							style="width:165px;" converter="PublicidadeConverter"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idOcPublicidade"
+								value="#{editarDadosOrcamentoMB.listaPublicidades}"
+								var="publicidade" itemLabel="#{publicidade.descricao}"
+								itemValue="#{publicidade}" />
+							<f:attribute name="listaPublicidade"
+								value="#{editarDadosOrcamentoMB.listaPublicidades}" />
+						</p:selectOneMenu>   
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="3"  
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho8"
+						style="width:90%;margin-left:9%;">
+						<p:outputLabel value="Data de Nascimento" />
+						<p:outputLabel value="Sexo" />
+						<p:outputLabel/>
+	
+						<p:inputMask
+							value="#{editarDadosOrcamentoMB.occliente.datanascimento}"
+							mask="99/99/9999" id="ocdatanasci" style="width:58%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+						<p:selectOneMenu id="ocsexo"
+							value="#{editarDadosOrcamentoMB.occliente.sexo}"
+							style="width:150px;">
+							<f:selectItem itemLabel="Selecione" itemValue="selecione"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+							<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						</p:selectOneMenu> 
+					</h:panelGrid> 
+				</h:panelGroup>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+			</p:tab>
+
+		</p:tabView>
+		<br></br>
+		<footer>
+		<div align="center">
+			<p:commandButton id="btnconfirmar" value="Confirmar"
+				style="margin-left:2%" icon="ui-icon-check"
+				action="#{editarDadosOrcamentoMB.salvar()}" />
+			<p:commandButton id="btncancelar" style="margin-left: 1%"
+				icon="ui-icon-close" value="Cancelar"
+				action="#{editarDadosOrcamentoMB.cancelar()}" />
+		</div>
+		</footer>
+	</h:form>
+</h:body>
+</html>

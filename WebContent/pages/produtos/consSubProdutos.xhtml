@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="telaconsultasubprodutos">
+                <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                    <br></br><br></br>
+                     <p:outputLabel value="Produto:" style="color:#fff;font-size:13px;" class="espacocobranca28"/>
+                     <p:outputLabel value="#"  style="color: #fff;font-size:13px;" class="espacocobranca29"/>
+                    
+                    <br></br><br></br>
+                    <img src="../../resources/img/add.png" class="imgadd"/>
+                    <p:commandLink value="Novo Item"  action="#{produtosMB.cadastrarSubProdutos()}" class="espacocobranca29" style="color: #fff;font-size: 12px;"/>
+                    <p:commandLink value="relacionar"  update=":formRelacionar:dialog_relacionaritem"  oncomplete="PF('relacionar').show()" class="espacocobranca29" style="color: #fff;font-size: 12px;"/>
+                    
+                    <p:contextMenu for="tabelasubprodutos">
+                        <p:menuitem value="Alterar"  icon="ui-icon-pencil"  action="#"/>
+                        <p:menuitem value="Excluir"  icon="ui-icon-trash" action="#"  />
+                        <p:menuitem value="Relacionar"  icon="ui-icon-shuffle"  update=":formRelacionar:dialog_relacionaritem"  oncomplete="PF('relacionar').show()"/>
+                    </p:contextMenu>
+                    <legend id="iUsu2" ><b>Consulta de Itens</b></legend>
+                    <p:dataTable id="tabelasubprodutos" var="subprodutos"  value="#{produtosMB.listaProdutos}" class="tabela4" editable="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 paginator="true" rows="10" style="margin-bottom:20px"  >
+                        
+                        <p:column headerText="Código" style="width:95px;" >
+                            <p:outputLabel value="#" />
+                        </p:column>
+                        <p:column headerText="Descrição"  >
+                            <h:outputText value="#"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+                    <br></br>
+                </div>
+            </h:form>  
+            <h:form id="formRelacionar">
+                <p:dialog id="dialog_relacionaritem" header="Relacionar Item" widgetVar="relacionar" width="30%" style="background:#d0e9c6;text-align: left;font-size: 10px;" >
+                    <br></br>
+                    <p:outputLabel value="Itens:"/>
+                    <p:selectOneMenu id="relacionarItem" class="espacocobranca29" style="width:70%" value="#">
+                        <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"  />
+                        <f:selectItems id="idrelacionarItem" value="#" var="produtoItem" itemLabel="" itemValue=""/>
+                        <p:ajax event="change"/> 
+                    </p:selectOneMenu>
+                    <br></br>
+                    <p:commandButton id="bntrelacionar" action="#" icon="ui-icon-shuffle" class="espacocobranca24botao" style="font-size:11px;" value="Relacionar"   ajax="false"/>
+                    <p:commandButton id="bntcancelar" action="#" icon="ui-icon-close" class="espacocobranca24botao" style="font-size:11px;" value="Cancelar" oncomplete="relacionar.hide()"/>
+                    <br></br>
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

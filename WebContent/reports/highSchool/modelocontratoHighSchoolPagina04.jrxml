@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.826446280991736"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="703" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="20" width="553" height="556" uuid="07d17f4e-1357-40fe-89d3-6d08610ba40c"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="8" width="552" height="695" uuid="229c7cc6-82d6-4fd6-a67a-7cdbcf10fb76"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["taxa de serviço de assessoria para visto TM e despesas de viagem até o Consulado do país de destino) não estão incluídas no valor do programa pago à TM e o pagamento das mesmas é de responsabilidade do(a) PARTICIPANTE; \n \n"+
+
+"8. PASSAGEM AÉREA \n"+
+"8.1 No que se refere à passagem aérea, fica a critério do(a)  PARTICIPANTE a sua aquisição, podendo ser efetuada com  a TM ou diretamente com a companhia aérea que melhor se adequar a seu roteiro ou ainda com qualquer empresa de turismo que disponibilize a emissão de passagens. \n"+
+"8.2 O(A)  PARTICIPANTE declara, pela assinatura deste instrumento, ter ciência de que deverá obedecer a todas as normas referentes ao transporte aéreo internacional, bem como ter conhecimento de ser da Companhia Aérea contratada a responsabilidade referente à prestação deste serviço. \n \n"+
+
+"Parágrafo 1º:  O(a) PARTICIPANTE, após a emissão do bilhete, deverá observar todos os procedimentos referentes à categoria de sua passagem, de acordo com as regras do transporte aéreo e do contrato efetuado com a Companhia Aérea, observando, quando houver, cláusulas especiais referentes ao seu tipo de bilhete, especialmente no tocante ao endosso, reembolso, multas por cancelamento, remarcação, reitineração e limite de peso da bagagem; \n \n"+
+
+"Parágrafo 2º:  O(a) PARTICIPANTE deverá seguir os procedimentos indicados oportunamente pela TM(caso a passagem seja adquirida por intermédio da TM) para efetuar a marcação ou qualquer alteração em sua passagem aérea, sujeitando-se à disponibilidade na mesma classe tarifária, bem como às taxas de remarcação, cancelamento e reitineração estabelecidas pelas companhias aéreas. \n \n"+
+
+"Parágrafo 3º: Se, por qualquer motivo, tais como vistos consulares, lotação em vôos ou na classe tarifária etc., a TM não conseguir embarcar o(a)   PARTICIPANTE a tempo deste apresentar-se na data aprazada , não dará ao(à)  PARTICIPANTE direito ao cancelamento ou desistência do programa, que declara, pela assinatura deste instrumento, estar ciente desta possibilidade. \n \n"+
+
+"9. DAS CAUSAS DE RESCISÃO DO PRESENTE CONTRATO \n"+
+"O presente contrato poderá ser rescindido em 3 situações: \n"+
+                    "a)Rescisão do contrato ANTES do embarque; \n"+
+                    "b)Rescisão do contrato APÓS o embarque; \n"+
+                    "c)Rescisão do contrato POR JUSTA CAUSA; \n \n"+
+
+"9.1  RESCISÃO DO CONTRATO “ANTES” DO EMBARQUE \n"+
+"9.1.1 Por decisão do(a)  PARTICIPANTE ou por ocasião de visto consular negado, o presente contrato poderá ser rescindido antes da data de seu embarque para o exterior, sendo que neste caso o ressarcimento dos valores pagos serão feitos pela TM da seguinte forma: \n"+
+"a) em caso de desistência do programa de intercâmbio antes da definição da família e/ou escola hospedeira, por motivo de qualquer natureza, será efetuada devolução das parcelas pagas até aquele momento, excetuando-se o valor equivalente a US$1.500,00 (hum mil e quinhentos dólares americanos), a título de multa rescisória. Caso os valores pagos até o momento não representem o valor da multa rescisória, o  PARTICIPANTE deverá arcar com o valor necessário para completar tal valor; \n"+
+"b) em caso de desistência do programa de intercâmbio após a definição da família e/ou escola hospedeira, por motivo de qualquer natureza, a devolução ao(à)  PARTICIPANTE das parcelas já pagas dependerá de prévia autorização parceiro internacional contratado, em razão de já terem sido pagos valores à reserva de escola no exterior à família hospedeira. Neste caso, a TM não fará a devolução do valor de US$1.500,00 (hum mil e quinhentos dólares americanos) referente à multa rescisória, bem como reterá 20% (vinte por cento) do valor do programa de intercâmbio à título de ressarcimento das quantias gastas com as reservas e cancelamentos;"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="28">
+			<subreport>
+				<reportElement x="-16" y="0" width="200" height="15" uuid="42fc5228-672b-4825-981f-166c4d806eb1"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoHighSchoolPagina05.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

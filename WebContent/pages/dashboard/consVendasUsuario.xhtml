@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Nome: #{consultaVendasPontosMB.usuarioLogadoMB.usuario.nome}</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>  
+<h:body style="background:#DDDDE1;">
+	<h:form id="consVendasUsuario" style="text-align:left;font-size:11px;">   
+		<p:dataScroller value="#{consultaVendasPontosMB.listaVendas}"
+			var="vendas" chunkSize="35" mode="inline" scrollHeight="255"
+			style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight:120;background:#D0E9C9">
+			<div class="ui-fluid">
+				<h:panelGrid columns="6" layout="grid"
+					style="background: transparent;border:none;width:100%;text-align:left"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-2,colunaRS,colunaValor,tamanho12rigth">
+					<p:outputLabel value="#{vendas.dataVenda}"
+						style="margin-left:1%;font-size:12px;font-weight:400;">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />      
+					</p:outputLabel>
+
+					<p:outputLabel value="#{vendas.cliente.nome}"
+						style="font-size:12px;font-weight:400;" />
+						
+						<p:outputLabel value="#{vendas.produtos.descricao}"
+						style="font-size:12px;font-weight:400;" />
+						
+					
+
+					<p:outputLabel value="R$ " style="font-size:12px;font-weight:400;" />
+
+					<p:outputLabel value="#{vendas.valor}"
+						style="text-aling:right;font-size:12px;font-weight:400;float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+					<h:panelGroup style="text-align:right">
+						<p:outputLabel value="#{vendas.ponto}"
+							style="text-aling:right;font-size:12px;font-weight:400;"/>
+					</h:panelGroup>
+					    
+				</h:panelGrid>     
+			</div>   
+			<br></br>
+		</p:dataScroller>
+		<br></br>
+		<div align="center">
+			<p:commandButton id="btnFechar" value="Fechar"
+				action="#{consultaVendasPontosMB.fechar()}"
+				icon="ui-icon-closethick" style="font-size:12px;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

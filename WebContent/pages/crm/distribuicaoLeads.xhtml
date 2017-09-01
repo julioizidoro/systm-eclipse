@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="distribuicaoLeads" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<h:panelGrid style="margin-left:3%;width:95%;" columns="3"
+					columnClasses="espaco75, cadCliente4, cadCliente4">
+					<img src="../../resources/img/crm/logoLead.png" width="190" />     
+					<p:commandLink id="btnNovoLead" action="#{leadMB.novoLead()}">
+						<h:panelGrid columns="1" style="text-align:center;">
+							<img src="../../resources/img/crm/novoLead.png" width="55" />
+							<p:outputLabel value="NOVO LEAD" style="font-size:12px;" />
+						</h:panelGrid>  
+					</p:commandLink>
+					<p:commandLink id="btnExcluirLead" action="#{leadMB.excluirSelecionados()}" update="tabelaLeads">
+						<h:panelGrid columns="1" style="text-align:center;">
+							<img src="../../resources/img/trash.png" width="55" />
+							<p:outputLabel value="EXCLUIR LEAD" style="font-size:12px;" />
+						</h:panelGrid>
+					</p:commandLink>        
+				</h:panelGrid>    
+				<br></br>
+				<h:panelGrid style="width:96%;margin-left:0.5%;" columns="1">
+					<p:dataTable id="tabelaLeads" var="lead"
+						value="#{leadMB.listaLead}" style="font-size:11px;"
+						scrollable="true" scrollHeight="400" editable="true"
+						editMode="cell">
+
+						<p:ajax event="cellEdit"
+							update="tabelaLeads, :distribuicaoLeads:growl" />
+							
+						<p:column style="width:32px;text-align: centerbackground: white !important;color: white !important;">
+							<p:selectBooleanCheckbox value="#{lead.selecionado}" style="background: #ffff !important;color: white !important;"/>
+						</p:column>  
+						<p:column headerText="Data" width="72" style="text-align:center;">
+							<h:outputText value="#{lead.datarecebimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"   
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>      
+						</p:column>  
+						<p:column headerText="Horário" style="text-align:left;" width="65">
+							<h:outputText value="#{lead.horarecebimento}" />
+						</p:column>
+						<p:column headerText="Nome" style="text-align:left;" width="150">
+							<h:outputText value="#{lead.cliente.nome}" />
+						</p:column>
+						<p:column headerText="E-mail" style="text-align:left;" width="150">
+							<h:outputText value="#{lead.cliente.email}" />
+						</p:column>
+						<p:column headerText="Programa" style="text-align:left;" width="95">
+							<h:outputText value="#{lead.produtos.descricao}" />
+						</p:column>      
+						<p:column headerText="Nota" style="text-align:left;" width="235">
+							<h:outputText value="#{lead.notas}" />
+						</p:column>
+						<p:column headerText="Unidade" style="text-align:left;" width="95">
+							<h:outputText value="#{lead.unidadenegocio.nomerelatorio}" />
+						</p:column>
+						<!-- <p:column headerText="Enviar" width="70"
+							style="text-align:center;">
+							<p:commandLink id="btnEnviar" action="#{leadMB.enviar(lead)}"
+								update="@form">
+								<img src="../../resources/img/crm/envelope.png" width="30" />
+							</p:commandLink>
+						</p:column>  -->
+						<p:column headerText="Encaminhar" width="70"    
+							style="text-align:center;" > 
+							<p:commandLink id="btnEnviar"  action="#{leadMB.encaminharLead(lead)}"
+								title="Encaminhar Lead" update="@form" >
+								<img src="../../resources/img/crm/envelope.png" width="30" />
+								<p:ajax event="dialogReturn"  listener="#{leadMB.dialogReturnEncaminharLead}" update="tabelaLeads" />
+							</p:commandLink>   
+						</p:column>  
+					</p:dataTable>
+				</h:panelGrid>
+			</div>
+		</h:form>   
+	</ui:define>
+</ui:composition>
+</html>

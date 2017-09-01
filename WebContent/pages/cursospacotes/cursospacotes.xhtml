@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cursospacotes">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"   
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" /> 
+				<legend id="iUsu2">
+					<b>Consulta de Pacotes</b>
+				</legend> 
+				<h:panelGrid columns="5" style="width:93%;margin-left:2.5%;" columnClasses="colunaquatrorze, colunaquatrorze, colunaquatrorze, colunaquatrorze, dezoito">
+					<p:outputLabel value="Produto" />
+					<p:outputLabel value="País" />
+					<p:outputLabel value="Cidade" />     
+					<p:outputLabel value="Idioma" />   
+					<p:outputLabel value="Parceiro" />       
+
+					<p:selectOneMenu id="produto" value="#{cursosPacotesMB.produtos}"
+						style="width:150px;" converter="ProdutoConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idproduto"
+							value="#{cursosPacotesMB.listaProdutos}" var="cproduto"
+							itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+						<f:attribute name="listaProdutos"
+							value="#{cursosPacotesMB.listaProdutos}" />
+						<p:ajax event="change"
+							listener="#{cursosPacotesMB.gerarListaPais()}"
+							update="pais, cidade, parceiro" />
+					</p:selectOneMenu> 
+					<p:selectOneMenu id="pais" value="#{cursosPacotesMB.pais}"
+						style="width:85%;" converter="PaisConverter" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{cursosPacotesMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.pais.nome}"
+							itemValue="#{cpais.pais}" />
+						<f:attribute name="listaPais" value="#{cursosPacotesMB.listaPais}" />
+						<p:ajax event="change" listener="#{cursosPacotesMB.listarIdiomas()}"
+							update="cidade,idioma,parceiro" />
+					</p:selectOneMenu> 
+					<p:selectOneMenu id="cidade" value="#{cursosPacotesMB.cidade}"
+						style="width:85%;" converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade2"
+							value="#{cursosPacotesMB.pais.cidadeList}" var="ccidade"
+							itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{cursosPacotesMB.pais.cidadeList}" />
+						<p:ajax event="change" listener="#{cursosPacotesMB.listarIdiomas()}"
+							update="idioma,parceiro" />
+					</p:selectOneMenu> 
+					<p:selectOneMenu id="idioma" value="#{cursosPacotesMB.idioma}"
+						style="width:85%;" converter="IdiomaConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Idioma" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idioma2" value="#{cursosPacotesMB.listaIdiomas}"
+							var="idioma" itemLabel="#{idioma.descricao}"
+							itemValue="#{idioma}" />
+						<f:attribute name="listaIdiomas"
+							value="#{cursosPacotesMB.listaIdiomas}" />
+						<p:ajax update="parceiro,:cursospacotes:tabelapacotes, :cursospacotes:growl"
+							listener="#{cursosPacotesMB.listarFornecedorCidadeIdioma()}" />
+					</p:selectOneMenu> 
+					<h:panelGroup>
+						<h:panelGrid columns="2" style="width:100%;" columnClasses="espaco75, colunaquatrorze">
+							<p:selectOneMenu id="parceiro"  
+								value="#{cursosPacotesMB.fornecedorCidadeIdioma}"
+								style="width:85%;" converter="FornecedorCidadeIdiomaConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Fornecedor" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{cursosPacotesMB.listaFornecedorIdioma}" var="fornecedor"
+									itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"   
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidadeIdioma"
+									value="#{cursosPacotesMB.listaFornecedorIdioma}" />
+								<p:ajax event="change" listener="#{cursosPacotesMB.listarCursosPacotes()}"
+									update=":cursospacotes:tabelapacotes, :cursospacotes:growl"/>
+							</p:selectOneMenu> 
+							<p:commandLink action="#{cursosPacotesMB.adicionarFornecedorIdioma()}" title="Adicionar Parceiro" >
+								<img src="../../resources/img/adicionar.png" width="30"/>
+							</p:commandLink>
+						</h:panelGrid>
+					</h:panelGroup> 
+				</h:panelGrid>
+				<br></br>
+				<div align="right" style="width: 98%;">  
+					<p:selectBooleanCheckbox id="visualizarVencidos"
+						value="#{cursosPacotesMB.vencidos}">
+						<p:ajax event="change" listener="#{cursosPacotesMB.listarCursosPacotes()}"
+							update=":cursospacotes:tabelapacotes, :cursospacotes:growl"/>
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Visualizar pacotes vencidos"
+						style="margin-left:1%;font-size:13px" />
+					<p:commandButton id="bntadd" style="font-size:12px;margin-left:2%;"
+						value="Novo Pacote" action="#{cursosPacotesMB.cadCursosPacotes()}" icon="ui-icon-plus">
+						<p:ajax event="dialogReturn" listener="#{cursosPacotesMB.listarCursosPacotes()}"  update=":cursospacotes:tabelapacotes, :cursospacotes:growl" />
+					</p:commandButton>
+					<p:commandButton id="bntvoltar"
+						style="font-size:12px;margin-left:2%;" value="Voltar" action="#{cursosPacotesMB.voltar()}"
+						icon="ui-icon-arrowreturnthick-1-w" />
+				</div>
+				<br></br>
+				<p:dataTable id="tabelapacotes" var="pacotes" value="#{cursosPacotesMB.listaCursosPacotes}"
+					class="tabela" scrollable="true" scrollHeight="400" >
+					<p:column headerText="Curso" style="width:130px;">
+						<h:outputText value="#{pacotes.valorcoprodutos_curso.coprodutos.nome}"/> 
+					</p:column> 
+					<p:column headerText="Descrição" style="width:200px;">
+						<h:outputText value="#{pacotes.descricao}"/>   
+					</p:column>  
+					<p:column headerText="Nº Sem." style="width:45px;text-align:right;">
+						<h:outputText value="#{pacotes.numerosemanacurso}"/> 
+					</p:column>
+					<p:column headerText="Início Venda" style="width:70px;text-align:center;"> 
+						<h:outputText value="#{pacotes.datainicovenda}">   
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Termino Venda" style="width:80px;text-align:center;">
+						<h:outputText value="#{pacotes.dataterminovenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>    
+					<p:column headerText="Acomodação" style="width:65px;text-align:center;">
+						<img src="#{cursosPacotesMB.retornarImagemAcomodação(pacotes)}" width="25" 
+							title="#{cursosPacotesMB.retornarTitleAcomodação(pacotes)}"/>   
+					</p:column>    
+					<p:column headerText="Total" style="width:85px;text-align:right;">
+						<h:outputText value="#{pacotes.valortotalpacote}"/>  
+					</p:column>    
+					<p:column headerText="Editar" style="width:65px;text-align:center;">  
+						<p:commandLink action="#{cursosPacotesMB.editar(pacotes)}" title="Editar" style="text-decoration:none;">
+							<img src="../../resources/img/editaricon.png" />
+							<p:ajax event="dialogReturn" listener="#{cursosPacotesMB.listarCursosPacotes()}" 
+								update=":cursospacotes:tabelapacotes" />   
+						</p:commandLink>
+					</p:column>   
+				</p:dataTable>
+				<br></br> 
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

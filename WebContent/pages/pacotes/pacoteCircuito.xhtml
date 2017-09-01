@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script>  
+                PrimeFaces.locales['pt'] = {  
+                    closeText: 'Fechar',  
+                    prevText: 'Anterior',  
+                    nextText: 'Próximo',  
+                    currentText: 'Começo',  
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],  
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],  
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],  
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],  
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],  
+                    weekHeader: 'Semana',  
+                    firstDay: 0,  
+                    isRTL: false,  
+                    showMonthAfterYear: false,  
+                    yearSuffix: '',  
+                    timeOnlyTitle: 'Só Horas',  
+                    timeText: 'Tempo',  
+                    hourText: 'Hora',  
+                    minuteText: 'Minuto',  
+                    secondText: 'Segundo',  
+                    ampm: false,  
+                    month: 'Mês',  
+                    week: 'Semana',  
+                    day: 'Dia',  
+                    allDayText: 'Todo o Dia'  
+                };  
+            </script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastropacotecircuito"
+		style="text-align:left;font-size: 10px;">
+		<title>Circuito</title><br></br>
+         <h:panelGrid columns="4" style="width:96%;margin-left:3%">
+			<p:outputLabel value="Pais" for="pais1"  />
+			<p:outputLabel value="Cidade" for="cidade1"  />
+			<p:outputLabel value="Parceiro" for="fornecedor"
+				 />
+	        <p:outputLabel value="Data Pagamento" for="datapagamentoparceiro" style="font-size: 10px;" />
+	        
+			<p:selectOneMenu id="pais1" value="#{pacoteCircuitoMB.pais}"
+				style="width:100px;font-size: 10px;margin-left:3%"
+				class="espacocampos2" converter="PaisConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idpais" value="#{pacoteCircuitoMB.listaPais}"
+					var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
+				<f:attribute name="listaPais" value="#{pacoteCircuitoMB.listaPais}" />
+				<p:ajax event="change" update="cidade1" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="cidade1" value="#{pacoteCircuitoMB.cidade}"
+				style="width:120px;font-size: 10px" 
+				converter="CidadeConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idcidade"
+					value="#{pacoteCircuitoMB.pais.cidadeList}" var="ccidade"
+					itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+				<f:attribute name="listaCidade"
+					value="#{pacoteCircuitoMB.pais.cidadeList}" />
+				<p:ajax event="change"
+					listener="#{pacoteCircuitoMB.listarFornecedorCidade(0)}"
+					update="fornecedor" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="fornecedor"
+				value="#{pacoteCircuitoMB.fornecedorcidade}"
+				style="width:200px;font-size: 10px"
+				converter="FornecedorCidadeConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Parceiro" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idfornecedor"
+					value="#{pacoteCircuitoMB.listaFornecedorCidade}" var="fornecedor"
+					itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}" />
+				<f:attribute name="listaFornecedorCidade"
+					value="#{pacoteCircuitoMB.listaFornecedorCidade}" />
+			</p:selectOneMenu>
+			<p:calendar id="datapagamentoparceiro" value="#{pacoteCircuitoMB.circuito.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+				<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+			</p:calendar>
+		</h:panelGrid>
+		<br></br>
+		<p:outputLabel value="De" for="de" style="margin-left:3%" />
+		<p:outputLabel value="Para" for="para" class="espacocobranca17" />
+		<p:outputLabel value="Data Início" for="dataIni"
+			class="espacocobranca22" />
+		<p:outputLabel value="Data Termino" for="dataTerm"
+			class="espacocobranca5" />
+
+		<br></br>
+		<p:inputText id="de" value="#{pacoteCircuitoMB.circuito.de}"
+			style="width:26%;margin-left:3%" maxlength="50" class="espacocampos2" />
+		<p:inputText id="para" value="#{pacoteCircuitoMB.circuito.para}"
+			style="width:25.7%;margin-left:20px" maxlength="50" />
+		<p:calendar id="dataIni"
+			value="#{pacoteCircuitoMB.circuito.datainicio}" size="14"
+			style="margin-left: 20px;" locale="pt" pattern="dd/MM/yyyy">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:calendar>
+		<p:calendar id="dataTerm"
+			value="#{pacoteCircuitoMB.circuito.datatertminio}" size="17"
+			style="margin-left:15px;" locale="pt" pattern="dd/MM/yyyy">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:calendar>
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Qntd Adultos" for="qntdadulto"
+			style="margin-left:3.5%" />
+		<p:outputLabel value="Qntd Criança" for="qntdInfantil"
+			style="margin-left:8%" />
+		<br></br>
+		<p:inputText id="qntdadulto" value="#{pacoteCircuitoMB.circuito.adultos}"
+			style="width:13.5%;margin-left:3.5%" class="espacocobranca11" />
+		<p:inputText id="qntdInfantil" value="#{pacoteCircuitoMB.circuito.criancas}"
+			style="width:14%;margin-left:5%"  />
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Câmbio" for="moeda"
+			style="font-size:11px;margin-left:3%" />
+		<p:outputLabel value="Valor do Câmbio" for="idvalorcambio"
+			 style="font-size:10px;margin-left:13%" />
+		<p:outputLabel value="Tarifas" for="tarifas"
+			style="font-size:11px;margin-left:14%" />
+		<p:outputLabel value="Taxas" for="taxas" class="espacocobranca2"
+			style="font-size:11px;margin-left: 17.5%;" />
+
+		<br></br>
+		<h:panelGrid columns="4">
+			<p:selectOneMenu class="espacocampos5"
+				style="width:90px;font-size:11px;margin-left:19%" id="moeda"
+				value="#{pacoteCircuitoMB.cambio}" converter="CambioConverter">
+				<f:selectItem itemLabel="Câmbio" itemValue="0" />
+				<f:selectItems value="#{aplicacaoMB.listaCambio}" var="cambio"
+					itemLabel="#{cambio.moedas.sigla}" itemValue="#{cambio}" />
+				<f:attribute name="listaCambio"
+					value="#{aplicacaoMB.listaCambio}" />
+				<p:ajax event="change"
+					listener="#{pacoteCircuitoMB.carregarValorCambio()}"
+					update="idvalorcambio" />
+			</p:selectOneMenu>
+			<p:inputText id="idvalorcambio"
+				value="#{pacoteCircuitoMB.valorCambio}"
+				style="width:75%;font-size:11px;text-align: right"
+				class="espacocampos">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="tarifas" value="#{pacoteCircuitoMB.circuito.tarifa}"
+				style="width:70%;font-size:11px;margin-left:22%"
+				class="fontebrancaa">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="taxas" value="#{pacoteCircuitoMB.circuito.taxa}"
+				style="width:79%;font-size:11px;margin-left:12%"
+				class="espacocobranca20rig">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+		</h:panelGrid>
+		<br></br>
+		<p:outputLabel value="Descritivo" for="descritivo"
+			style="font-size:11px;margin-left:3%" />
+		<br></br>
+		<p:inputText id="descritivo"
+			value="#{pacoteCircuitoMB.circuito.descritivo}"
+			style="width:94%;margin-left:3%" class="espacocampos2" />
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<p class="botaocadpacote">
+			<br></br>
+			<p:commandButton class="imagemm" onclick="" icon="ui-icon-check"
+				value="Confirmar" action="#{pacoteCircuitoMB.salvar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" onclick="" icon="ui-icon-close"
+				value="Cancelar" action="#{pacoteCircuitoMB.cancelar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" onclick="" icon="ui-icon-trash"
+				value="Excluir" action="#{pacoteCircuitoMB.excluir()}"></p:commandButton>
+		</p>
+	</h:form>
+</h:body>
+</html>

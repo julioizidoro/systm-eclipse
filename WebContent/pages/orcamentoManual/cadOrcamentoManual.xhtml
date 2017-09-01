@@ -1,0 +1,1078 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaCadOrcamento" style="font-size: 10px;"   
+			acceptcharset="ISO-8859-1">
+			<div style="margin-top: 20px; background: #ffffff;">
+				<p:ajaxStatus onstart="PF('statusDialog').hide()"
+					onsuccess="PF('statusDialog').hide()" />    
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink>   
+						<img src="../../resources/img/ajax-loader.gif" />
+					</p:commandLink>
+				</p:dialog> 
+			</div>
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<h:outputLabel value="Orçamento de Curso"
+					style="font-size: 22px;color: #1F8871;margin-left:40%" />
+				<p:accordionPanel id="acordGeral" class="painelhighSchool"
+					style="background:#1F8871;">
+					<p:tab title="Curso" class="tab" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Dados do Cliente</b>
+							
+						</legend>
+						<h:panelGroup rendered="#{cadOrcamentoManualMB.painelOcCliente}">  
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
+								columnClasses="tamanho1,colunaRS,tamanho2">
+								<h:outputLabel value="Cliente" for="idoccliente" />
+								<h:outputLabel />
+								<h:outputLabel value="Email" for="idocemail" />
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
+								columnClasses="tamanho1,colunaRS,tamanho2">
+								<h:inputText id="idoccliente" style="width:93%;" readonly="true"
+									value="#{cadOrcamentoManualMB.occliente.nome}"/>
+								<h:outputLabel />
+								<h:inputText id="idocemail" style="width:70%;" maxlength="100"
+									value="#{cadOrcamentoManualMB.occliente.email}"/>
+							</h:panelGrid>
+							<br></br>
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
+								columnClasses="tamanho4,tamanho4,tamanho5">
+								<p:panelGrid>
+									<p:selectBooleanCheckbox id="ocdigitosResidencial"
+										value="#{cadOrcamentoManualMB.digitosFoneResidencial}">
+										<p:ajax update="ocidfoneresidencial" />
+									</p:selectBooleanCheckbox>
+									<h:outputText value="9 Digitos"
+										style="margin-left:1%;font-size:11px;" />
+								</p:panelGrid> 
+								<p:panelGrid></p:panelGrid>
+								<p:panelGrid></p:panelGrid>
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
+								columnClasses="tamanho4,tamanho4,tamanho5">
+								<h:outputLabel value="Fone Residencial" for="ocidfoneresidencial" />
+								<h:outputLabel value="Fone Celular" for="ocidfonecelular" />
+								<h:outputLabel value="Como conheceu a TravelMate?" />
+								<p:inputMask id="ocidfoneresidencial" style="width:63%;"
+									value="#{cadOrcamentoManualMB.occliente.foneresidencial}"
+									mask="#{cadOrcamentoManualMB.validarMascaraFoneResidencial()}" />
+	
+								<p:inputMask id="ocidfonecelular" style="width:63%;"
+									mask="(99)99999-9999"  
+									value="#{cadOrcamentoManualMB.occliente.fonecelular}" />
+	
+								<p:selectOneMenu id="ocidconheceutravel"
+									value="#{cadOrcamentoManualMB.occliente.publicidade}"
+									converter="PublicidadeConverter" filter="true"
+									style="width:40%;" filterMatchMode="startsWith"
+									panelStyle="width:180px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="ocidPublicidade"
+										value="#{cadOrcamentoManualMB.listaPublicidades}"
+										var="publicidade" itemLabel="#{publicidade.descricao}"
+										itemValue="#{publicidade}" />
+									<f:attribute name="listaPublicidade"
+										value="#{cadOrcamentoManualMB.listaPublicidades}" />
+									<p:ajax event="change" update="cidade" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+							<br></br>
+							<h:panelGrid columns="3"
+								columnClasses="tamanho4font,tamanho2,tamanho4"
+								style="margin-left:11.5%;">
+								<h:outputLabel value="Data de Nascimento" for="ocdatanasci" />
+								<h:outputLabel value="Sexo" for="ocsexo" />
+								<h:outputLabel />
+								<p:inputMask
+									value="#{cadOrcamentoManualMB.occliente.datanascimento}"
+									mask="99/99/9999" id="ocdatanasci">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:inputMask>
+								<p:selectOneMenu id="ocsexo"
+									value="#{cadOrcamentoManualMB.occliente.sexo}"
+									style="width:130px;">
+									<f:selectItem itemLabel="Selecione" itemValue="selecione"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+									<f:selectItem itemLabel="Masculino" itemValue="Masculino" /> 
+								</p:selectOneMenu>
+								<p:commandButton id="ocbtnImportarModeloOrcamento"
+									value="Importar Modelo"
+									action="#{cadOrcamentoManualMB.importarModeloOrcamento()}"
+									title="Importar Orçamento" style="height:30px;margin-left:-7%"
+									icon="ui-icon-arrowthickstop-1-s">
+									<p:ajax event="dialogReturn" process="@this"
+										listener="#{cadOrcamentoManualMB.retornoDialogModelos}"
+										update="@all" />
+								</p:commandButton>  
+							</h:panelGrid>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{cadOrcamentoManualMB.painelcliente}">
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
+								columnClasses="tamanho1,colunaRS,tamanho2">
+								<h:outputLabel value="Cliente" for="idcliente" />
+								<h:outputLabel />
+								<h:outputLabel value="Email" for="idemail" />
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
+								columnClasses="tamanho1,colunaRS,tamanho2">
+								<h:inputText id="idcliente" style="width:93%;" readonly="true"
+									value="#{cadOrcamentoManualMB.cliente.nome}"/>
+								<h:outputLabel />
+								<h:inputText id="idemail" style="width:70%;" maxlength="100"
+									value="#{cadOrcamentoManualMB.cliente.email}"/>
+							</h:panelGrid>
+							<br></br>
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
+								columnClasses="tamanho4,tamanho4,tamanho5">
+								<p:panelGrid>
+									<p:selectBooleanCheckbox id="digitosResidencial"
+										value="#{cadOrcamentoManualMB.digitosFoneResidencial}">
+										<p:ajax update="idfoneresidencial" />
+									</p:selectBooleanCheckbox>
+									<h:outputText value="9 Digitos"
+										style="margin-left:1%;font-size:11px;" />
+								</p:panelGrid>
+								<p:panelGrid>  </p:panelGrid>  
+								<p:panelGrid></p:panelGrid>
+							</h:panelGrid>
+							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
+								columnClasses="tamanho4,tamanho4,tamanho5">
+								<h:outputLabel value="Fone Residencial" for="idfoneresidencial" />
+								<h:outputLabel value="Fone Celular" for="idfonecelular" />
+								<h:outputLabel value="Como conheceu a TravelMate?" />
+								<p:inputMask id="idfoneresidencial" style="width:63%;"
+									value="#{cadOrcamentoManualMB.cliente.foneResidencial}"
+									mask="(99)99999-9999" />
+	
+								<p:inputMask id="idfonecelular" style="width:63%;"
+									mask="#{cadOrcamentoManualMB.validarMascaraFoneCelular()}"
+									value="#{cadOrcamentoManualMB.cliente.foneCelular}" />
+	
+								<p:selectOneMenu id="idconheceutravel"
+									value="#{cadOrcamentoManualMB.cliente.publicidade}"
+									converter="PublicidadeConverter" filter="true"
+									style="width:40%;" filterMatchMode="startsWith"
+									panelStyle="width:180px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idPublicidade"
+										value="#{cadOrcamentoManualMB.listaPublicidades}"
+										var="publicidade" itemLabel="#{publicidade.descricao}"
+										itemValue="#{publicidade}" />
+									<f:attribute name="listaPublicidade"
+										value="#{cadOrcamentoManualMB.listaPublicidades}" />
+									<p:ajax event="change" update="cidade" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+							<br></br>
+							<h:panelGrid columns="3"
+								columnClasses="tamanho4font,tamanho2,tamanho4"
+								style="margin-left:11.5%;">
+								<h:outputLabel value="Data de Nascimento" for="datanasci" />
+								<h:outputLabel value="Sexo" for="sexo" />
+								<h:outputLabel />
+								<p:inputMask
+									value="#{cadOrcamentoManualMB.cliente.dataNascimento}"
+									mask="99/99/9999" id="datanasci">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:inputMask>
+								<p:selectOneMenu id="sexo"
+									value="#{cadOrcamentoManualMB.cliente.sexo}"
+									style="width:130px;">
+									<f:selectItem itemLabel="Selecione" itemValue="selecione"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+									<f:selectItem itemLabel="Masculino" itemValue="Masculino" /> 
+								</p:selectOneMenu>
+								<p:commandButton id="btnImportarModeloOrcamento"
+									value="Importar Modelo"
+									action="#{cadOrcamentoManualMB.importarModeloOrcamento()}"
+									title="Importar Orçamento" style="height:30px;margin-left:-7%"
+									icon="ui-icon-arrowthickstop-1-s">
+									<p:ajax event="dialogReturn" process="@this"
+										listener="#{cadOrcamentoManualMB.retornoDialogModelos}"
+										update="@all" />
+								</p:commandButton>
+							</h:panelGrid>
+						</h:panelGroup>
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Parceiro</b>
+						</legend>
+						<h:panelGrid columns="3"
+							columnClasses="tamanho8,tamanho8,tamanho8"
+							style="margin-left:11.5%;">
+							<h:outputLabel value="Pais" for="pais"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<h:outputLabel value="Cidade" for="cidade"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<h:outputLabel value="Parceiro" for="fornecedor"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+
+							<p:selectOneMenu id="pais" value="#{cadOrcamentoManualMB.pais}"
+								converter="PaisConverter" style="width:150px;" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais"
+									value="#{cadOrcamentoManualMB.listaPais}" var="cpais"
+									itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
+								<f:attribute name="listaPais"
+									value="#{cadOrcamentoManualMB.listaPais}" />
+								<p:ajax event="change" update="moeda, idvalorcambio" listener="#{cadOrcamentoManualMB.selecionarCambio()}"/>
+								<p:ajax event="change" update="cidade" listener="#{cadOrcamentoManualMB.listarCidades()}"/>
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="cidade"
+								value="#{cadOrcamentoManualMB.cidade}"
+								converter="CidadeProdutoConverter" style="width:150px;" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Cidade" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade2"
+									value="#{cadOrcamentoManualMB.listaCidade}"
+									var="cursocidade" itemLabel="#{cursocidade.cidade.nome}"
+									itemValue="#{cursocidade.cidade}" />
+								<f:attribute name="listaCidadeProduto"
+									value="#{cadOrcamentoManualMB.listaCidade}" />
+								<p:ajax event="change"
+									listener="#{cadOrcamentoManualMB.listarFornecedorCidade()}"
+									update="fornecedor" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="fornecedor"
+								value="#{cadOrcamentoManualMB.fornecedorCidade}"
+								converter="FornecedorCidadeConverter" filter="true"
+								filterMatchMode="startsWith" style="width:150px;"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="Parceiro" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{cadOrcamentoManualMB.listaFornecedorCidade}"
+									var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadOrcamentoManualMB.listaFornecedorCidade}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Curso Principal</b>
+						</legend>
+						<h:outputLabel value="Curso" for="curso"
+							style="margin-left: 11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<br></br>
+						<h:inputText id="curso" style="width:54.8%;margin-left: 11.5%"
+							maxlength="100"
+							value="#{cadOrcamentoManualMB.orcamentocurso.curso}" />
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho8,tamanho10,tamanho8,tamanho9"
+							style="margin-left:11.5%;">
+							<h:outputLabel value="Data de Início" for="datainicio3"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<h:outputLabel value="No. Semanas" for="nsemanas"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<h:outputLabel value="Data Término" for="datatermino2" />
+							<h:outputLabel value="Turno" for="turno" />
+
+							<p:calendar id="datainicio3"
+								value="#{cadOrcamentoManualMB.orcamentocurso.dataInicio}"
+								locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+
+							<h:inputText id="nsemanas" style="width:60%;" maxlength="11"
+								value="#{cadOrcamentoManualMB.orcamentocurso.numeroSemanas}">
+								<p:ajax event="blur"
+									listener="#{cadOrcamentoManualMB.calcularDataTerminoCurso()}"
+									update="datatermino2" />
+							</h:inputText>  
+
+							<p:calendar id="datatermino2"  
+								value="#{cadOrcamentoManualMB.orcamentocurso.dataTermino}"
+								locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+
+							<p:selectOneMenu id="turno"
+								value="#{cadOrcamentoManualMB.orcamentocurso.turno}"
+								style="width:120px;">
+								<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
+								<f:selectItem itemLabel="Matutino" itemValue="Matutino" />
+								<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+								<f:selectItem itemLabel="Noturno" itemValue="Noturno" />
+								<f:selectItem itemLabel="Integral" itemValue="Integral" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+
+
+						<h:outputLabel value="Carga Horária" for="cargahoraria2"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
+						<br></br>
+						<h:panelGrid columns="3"
+							columnClasses="tamanho8,tamanho11,tamanho9"
+							style="margin-left:11.5%;" cellpadding="5">
+							<h:inputText id="cargahoraria2" style="width:60%;"
+								maxlength="11"
+								value="#{cadOrcamentoManualMB.orcamentocurso.aulasSemana}"
+								converterMessage="Digite somente número">
+								<f:convertNumber integerOnly="true" minIntegerDigits="2"
+									pattern="#######" />
+							</h:inputText>
+							<p:selectOneRadio id="porSemana"
+								value="#{cadOrcamentoManualMB.orcamentocurso.tipoDuracao}"
+								style="width:100%;">
+								<f:selectItem itemLabel="Horas por Semana"
+									itemValue="Horas por Semana" />
+								<f:selectItem itemLabel="Aulas por Semana"
+									itemValue="Aulas por Semana" />
+							</p:selectOneRadio>
+							<h:outputLabel />
+						</h:panelGrid>
+						<br></br>
+						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
+							<b>Acomodação</b>
+						</legend>
+						<h:panelGrid columns="5"
+							columnClasses="tamanho8,tamanho8,tamanho8,tamanho8,tamanho8"
+							style="margin-left:11.5%;width:82%;">
+							<h:outputLabel value="Tipo Acomodação" for="tipoacomodacao" />
+							<h:outputLabel value="Quarto" for="quarto" />
+							<h:outputLabel value="Refeição" for="refeicao" />
+							<h:outputLabel value="Banheiro" for="banheiro" />
+							<h:outputLabel value="Nº Semanas" for="numsemanas" />
+							<p:selectOneMenu id="tipoacomodacao"
+								value="#{cadOrcamentoManualMB.orcamentocurso.tipoAcomodacao}"
+								style="width:120px;">
+								<f:selectItem itemLabel="Sem acomodação"
+									itemValue="Sem acomodação" /> 
+								<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+								<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+								<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+								<f:selectItem itemLabel="Residência" itemValue="Residência" />
+								<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+								<p:ajax event="change"
+									listener="#{cadOrcamentoManualMB.carregarCamposAcomodacao()}"
+									update="quarto, refeicao, numsemanas,banheiro" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="quarto"
+								value="#{cadOrcamentoManualMB.orcamentocurso.tipoQuarto}"
+								style="width:120px;" required="false"
+								disabled="#{cadOrcamentoManualMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
+								<f:selectItem itemLabel="Quarto individual"
+									itemValue="Quarto individual" />
+								<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+								<f:selectItem itemLabel="Quarto triplo"
+									itemValue="Quarto triplo" />
+								<f:selectItem itemLabel="Compartilhado"
+									itemValue="Compartilhado" />
+								<f:selectItem itemLabel="Dois Quartos" itemValue="Dois Quartos" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="refeicao"
+								value="#{cadOrcamentoManualMB.orcamentocurso.refeicoes}"
+								required="false" style="width:120px;"
+								disabled="#{cadOrcamentoManualMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+								<f:selectItem itemLabel="Café da Manhã"
+									itemValue="Café da Manhã" />
+								<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+									itemValue="Meia Pensão (2 Refeições)" />
+								<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+									itemValue="Pensão Completa (3 Refeições)" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="banheiro"
+								value="#{cadOrcamentoManualMB.orcamentocurso.tipobanheiro}"
+								required="false" style="width:120px;"
+								disabled="#{cadOrcamentoManualMB.camposAcomodacao}">
+								<f:selectItem itemLabel="Privado" itemValue="Privado" />
+								<f:selectItem itemLabel="Compartilhado"
+									itemValue="Compartilhado" />
+							</p:selectOneMenu>
+
+							<h:inputText id="numsemanas" style="width:60%" maxlength="11"
+								value="#{cadOrcamentoManualMB.orcamentocurso.duracaoAcomodacao}"
+								class="espacocobranca29"
+								disabled="#{cadOrcamentoManualMB.camposAcomodacao}" />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Seguro Viagem">
+						<br />
+						<br />
+						<div align="right" style="width: 80.5%;">
+							<p:outputLabel value="Incluso no Total do Programa" />
+							<p:selectBooleanCheckbox style="margin-left:1%;"
+								value="#{cadOrcamentoManualMB.seguroViagem.somarvalortotal}">
+								<p:ajax
+									listener="#{cadOrcamentoManualMB.calcularValorTotalOrcamento()}"
+									update="datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista" />
+							</p:selectBooleanCheckbox>
+							<p:outputLabel style="margin-left:2%;" />
+						</div>
+						<br />
+						<h:panelGrid columns="6" style="margin-left: 3%;width:93%;"
+							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+							<p:outputLabel value="Seguradora" for="seguradora" />
+							<p:outputLabel value="Plano" for="plano" />
+							<p:outputLabel value="Tarifario" for="tarifario" />
+							<p:outputLabel value="Cobrança" for="cobranca" />
+							<p:outputLabel value="Valor:" for="valorunitario"
+								style="font-weight:bold;font-size: 11px;"/>
+							<p:outputLabel value="Valor em R$:" for="valorunitarioRS"
+								style="font-weight:bold;font-size: 11px;margin-left: 15%;">
+								  
+							</p:outputLabel>
+
+							<p:selectOneMenu style="width:160px;" id="seguradora"
+								value="#{cadOrcamentoManualMB.fornecedorSeguro}"
+								converter="FornecedorCidadeConverter">
+								<f:selectItem itemLabel="Seguradora" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idseguradora"
+									value="#{cadOrcamentoManualMB.listaFornecedorCidadeSeguro}"
+									var="ccidade" itemLabel="#{ccidade.fornecedor.nome}"
+									itemValue="#{ccidade}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadOrcamentoManualMB.listaFornecedorCidadeSeguro}" />
+								<p:ajax event="change" update="plano" listener="#{cadOrcamentoManualMB.listarPlanosSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="plano" style="width:163px;" converter="SeguroPlanosConverter"
+								value="#{cadOrcamentoManualMB.seguroplanos}">
+								<f:selectItem itemLabel="Plano" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idplano"
+									value="#{cadOrcamentoManualMB.listaSeguroPlanos}" var="plano"
+									itemLabel="#{plano.nome}" itemValue="#{plano}" />
+								<f:attribute name="listaSeguroPlanos" value="#{cadOrcamentoManualMB.listaSeguroPlanos}" />
+								<p:ajax event="change" update="tarifario" listener="#{cadOrcamentoManualMB.listarValoresSeguro()}"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="tarifario" style="width:170px;"
+								value="#{cadOrcamentoManualMB.seguroViagem.valoresseguro}"
+								converter="ValorSeguroConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idvaloresseguro"
+									value="#{cadOrcamentoManualMB.listaValoresSeguro}"
+									var="cvalorseguro" itemLabel="#{cvalorseguro.tarifario}"
+									itemValue="#{cvalorseguro}" />
+								<f:attribute name="listaValorSeguro"
+									value="#{cadOrcamentoManualMB.listaValoresSeguro}" />
+								<p:ajax
+									listener="#{cadOrcamentoManualMB.carregarCobrancaSeguro()}"
+									update="cobranca" />
+								<p:ajax
+									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}"
+									update="valorunitario, valorunitarioRS, datainicio, semanas, datatermino, valormoeda, valorseguro" />
+							</p:selectOneMenu>
+    
+							<p:inputText id="cobranca"
+								value="#{cadOrcamentoManualMB.seguroViagem.valoresseguro.cobranca}"
+								style="width:80%;" maxlength="45" readonly="true" />
+								
+							<p:inputText id="valorunitario" 
+								value="#{cadOrcamentoManualMB.seguroViagem.valoresseguro.valorgross}"
+								style="width:90px;margin-left:1%;font-size:13px;text-align:right;" maxlength="45"
+								readonly="true" >
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</p:inputText>
+							
+							<p:inputText id="valorunitarioRS" 
+								value="#{cadOrcamentoManualMB.valorUtilitarioRS}"
+								style="width:90px;margin-left:1%;font-size:13px;text-align:right;margin-left: 15%;" maxlength="45"
+								readonly="true" >
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel value="Data inicial" for="datainicio" />
+							<p:outputLabel id="titulosemanasseguro" value="No. dias" />
+							<p:outputLabel value="Data Final" for="datatermino" />
+							<p:outputLabel value="Valor Total do Seguro" for="valormoeda" />
+							<p:outputLabel value="Valor Total em R$:" for="valorseguro"
+								style="font-weight:bold;font-size: 11px;" />
+								<p:outputLabel/>
+								
+							<p:calendar id="datainicio"
+								value="#{cadOrcamentoManualMB.seguroViagem.datainicio}"
+								size="20" locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+   
+							<p:inputText id="semanas"
+								value="#{cadOrcamentoManualMB.seguroViagem.numerodias}"
+								style="width:35%;" maxlength="11">
+								<f:convertNumber type="number" />
+								<p:ajax event="blur"
+									update="datatermino, valorseguro, valormoeda, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
+									listener="#{cadOrcamentoManualMB.dataTerminoSeguro()}" />
+								<p:ajax event="blur"
+									update="valorseguro, valormoeda, valorunitario, valorunitarioRS"
+									listener="#{cadOrcamentoManualMB.convertendoValoresSeguro()}" />
+							</p:inputText>
+
+							<p:calendar id="datatermino"
+								value="#{cadOrcamentoManualMB.seguroViagem.datatermino}"
+								size="20" locale="pt" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur"
+									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
+									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}" />
+							</p:calendar>
+							
+							<p:inputText id="valormoeda"
+								value="#{cadOrcamentoManualMB.valorTotalSeguroDola}"
+								style="width:90px;margin-left:1%" maxlength="45" readonly="true"
+								class="loginButtonr"
+								>
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</p:inputText>
+
+							<p:inputText id="valorseguro"
+								value="#{cadOrcamentoManualMB.seguroViagem.valor}"
+								style="width:92px;text-align: right;" maxlength="45"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br />
+						<br />
+					</p:tab>  
+					<p:tab id="tabProduto" title="Produtos"
+						titleStyle="font-size: 11px">
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho12,tamanho6,tamanho8,tamanho8"
+							style="margin-left:11.5%;">
+							<h:outputLabel value="Moeda" for="moeda" />
+							<h:outputLabel value="Valor do Câmbio" for="idvalorcambio" />
+							<h:outputLabel />
+							<h:outputLabel value="Valor Total" for="valortotal" />
+
+							<p:selectOneMenu id="moeda" value="#{cadOrcamentoManualMB.moeda}"
+								style="width:210px;" converter="MoedasConverter">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadOrcamentoManualMB.listaMoedas}"
+									var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadOrcamentoManualMB.listaMoedas}" />
+								<p:ajax event="change"
+									listener="#{cadOrcamentoManualMB.carregarValorCambio()}"
+									update="idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, idvalorcambio, tabelaprodutoscurso, campomoedaestrangeira, valortotal,idpagamentoavista" />
+							</p:selectOneMenu>
+
+							<h:inputText id="idvalorcambio"
+								value="#{cadOrcamentoManualMB.valorCambio}"
+								style="width:90%;;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:inputText>
+							<p:commandLink
+								action="#{cadOrcamentoManualMB.editarcambio(cadOrcamentoManualMB.valorCambio)}"
+								title="Editar Câmbio">
+								<img id="editarcambio" src="../../resources/img/cambio_1.png" />
+								<p:ajax event="dialogReturn"
+									listener="#{cadOrcamentoManualMB.retornoDialogEditarCambio}"
+									update="idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque,idvalorcambio, valortotal,tabelaprodutoscurso,idpagamentoavista" />
+							</p:commandLink>
+
+							<h:inputText id="valortotal"
+								value="#{cadOrcamentoManualMB.valorTotal}"
+								style="width:60%;text-align: right;" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho1,tamanho8,tamanho8,tamanho1"
+							style="margin-left:11.5%;">
+							<h:outputLabel value="Produto" for="produto" />
+							<h:outputLabel id="campomoedaestrangeira"
+								value="#{cadOrcamentoManualMB.tituloMoedaEstrangeira()}"
+								for="valor" />
+							<h:outputLabel value="Valor R$" for="valoreal" />
+							<h:outputLabel />
+							<p:selectOneMenu id="produto"
+								value="#{cadOrcamentoManualMB.produtosorcamento}"
+								style="width:210px;font-size: 10px;" filter="true"
+								filterMatchMode="startsWith"
+								converter="ProdutoOrcamentoConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idProdutoOrcamento"
+									value="#{cadOrcamentoManualMB.listaProdutosOrcamento}"
+									var="produtoOrcamento"
+									itemLabel="#{produtoOrcamento.produtosorcamento.descricao}"
+									itemValue="#{produtoOrcamento.produtosorcamento}" />
+								<f:attribute name="listaProdutos"
+									value="#{cadOrcamentoManualMB.listaProdutosOrcamento}" />
+							</p:selectOneMenu>
+
+							<h:inputText id="valor"
+								value="#{cadOrcamentoManualMB.valorMoedaEstrangeira}"
+								style="width:60%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:inputText>
+
+							<h:inputText id="valoreal"
+								value="#{cadOrcamentoManualMB.valorMoedaReal}"
+								style="width:55%;text-align: right;" readonly="false">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:inputText>
+
+							<p:commandButton id="btnadicionarproduto"
+								action="#{cadOrcamentoManualMB.adicionarProdutos()}"
+								value="Adicionar"
+								update="idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
+								icon="ui-icon-plusthick" />
+
+						</h:panelGrid>
+						<br></br>
+						<legend id="iUsu3">
+							<b>Produtos</b>
+						</legend>
+						<p:dataTable id="tabelaprodutoscurso" var="produtoscurso"
+							value="#{cadOrcamentoManualMB.listaProdutoOrcamentoBean}"
+							class="tabelas-responsivas" reflow="true" scrollable="true"
+							scrollHeight="180" style="margin-bottom:20px" rowIndexVar="rowIx">
+							<p:column headerText="Produto Orçamento">
+								<h:outputText value="#{produtoscurso.descricaoProdutoOrcamento}" />
+							</p:column>
+							<p:column id="colunamoedaestrangeira"
+								headerText="#{cadOrcamentoManualMB.tituloMoedaEstrangeira()}"
+								style="text-align:right">
+								<h:outputText value="#{produtoscurso.valorMoedaEstrangeira}">
+									<f:convertNumber pattern="##,###,###,###.##"   
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$" style="text-align:right">
+								<h:outputText value="#{produtoscurso.valorMoedaReal}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:170px;text-align:center;"
+								headerText="Incluso no Total do Programa">
+								<p:selectBooleanCheckbox style="margin-left:1%;"
+									value="#{produtoscurso.somarvalortotal}"
+									disabled="#{cadOrcamentoManualMB.habilitarCheckBoxSomar(produtoscurso)}">
+									<p:ajax
+										listener="#{cadOrcamentoManualMB.calcularValorTotalOrcamento()}"
+										update="telaCadOrcamento:acordGeral:tabelaprodutoscurso,telaCadOrcamento:acordGeral:produto, telaCadOrcamento:growl, telaCadOrcamento:acordGeral:valortotal, telaCadOrcamento:acordGeral:valoreal, telaCadOrcamento:acordGeral:valor, telaCadOrcamento:acordGeral:idpagamentoavista,:telaCadOrcamento:acordGeral:idpagamentoavista, :telaCadOrcamento:acordGeral:idparcelamentoantesviagem, :telaCadOrcamento:acordGeral:idparcelamentoemcartaocredito, :telaCadOrcamento:acordGeral:idparcelamentoemcheque" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+							<p:column style="width:75px;text-align:center;"
+								headerText="Excluir">
+								<p:commandLink id="btnexcluirproduto"
+									action="#{cadOrcamentoManualMB.excluirProdutoOrcamento(rowIx)}"
+									update="telaCadOrcamento:acordGeral:tabelaprodutoscurso,telaCadOrcamento:acordGeral:produto, telaCadOrcamento:growl, telaCadOrcamento:acordGeral:valortotal, telaCadOrcamento:acordGeral:valoreal, telaCadOrcamento:acordGeral:valor, telaCadOrcamento:acordGeral:idpagamentoavista,:telaCadOrcamento:acordGeral:idpagamentoavista, :telaCadOrcamento:acordGeral:idparcelamentoantesviagem, :telaCadOrcamento:acordGeral:idparcelamentoemcartaocredito, :telaCadOrcamento:acordGeral:idparcelamentoemcheque">
+									<img src="../../resources/img/excluir.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Observações">
+						<br></br>
+						<div>
+							<h:inputTextarea class="comment-text-area" 
+								value="#{cadOrcamentoManualMB.orcamentocurso.observacao}"
+								id="obs" rows="10" />
+						</div>
+					</p:tab>
+					<p:tab title="Custos Extras">
+
+						<h:panelGrid columns="2" columnClasses="tamanho8,tamanho8"
+							style="margin-left:11.5%;">
+							<h:outputLabel value="Passagem aérea" />
+							<h:outputLabel value="Outras Taxas" />
+
+							<h:inputText id="passagem" style="width:80%;" maxlength="100"
+								value="#{cadOrcamentoManualMB.orcamentocurso.passagemAerea}" />
+							<h:inputText id="outrastTaxas" style="width:80%;" maxlength="100"
+								value="#{cadOrcamentoManualMB.orcamentocurso.outrasTaxas}" />
+
+
+							<h:outputLabel value="Visto Consular" />
+							<h:outputLabel value="Courier (Sedex Internacional)" />
+
+							<h:inputText id="visto" style="width:80%;" maxlength="100"
+								value="#{cadOrcamentoManualMB.orcamentocurso.vistoConsular}" />
+							<h:inputText id="courier" style="width:80%;" maxlength="100"
+								value="#{cadOrcamentoManualMB.orcamentocurso.sedexInternacional}" />
+
+						</h:panelGrid>
+						<br></br>
+					</p:tab>
+					<div id="divformapagamento">
+						<p:tab id="idtabforma" title="Forma de Pagamento">
+							<p:fieldset id="idpagamentoavista"
+								legend="Opção 01 - Pagamento á Vista" toggleable="true"
+								style="font-size: 11px;width: 95%;margin-left: 2.5%">
+								<h:panelGrid style="margin-left:8%" >
+									<h:outputLabel value="Valor R$"/>
+									<h:inputText id="idvalorRS01"
+										value="#{cadOrcamentoManualMB.orcamentocurso.valor}"
+										style="text-align: right">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:inputText> 
+								</h:panelGrid>
+							</p:fieldset>
+							<br></br>
+							<br></br>
+							<br></br>
+							<p:selectBooleanCheckbox
+								value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.selecionado2}"
+								class="espacocobranca29">
+								<p:ajax update="idparcelamentoantesviagem"
+									listener="#{cadOrcamentoManualMB.verificarFormaPgamento02()}" />
+							</p:selectBooleanCheckbox>
+							<h:panelGrid columns="1" columnClasses="tamanho12">
+								<p:fieldset id="idparcelamentoantesviagem"
+									legend="Opção 02 - Parcelamento antes da viagem"
+									toggleable="true" class="comment-text-area">
+									<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+										columnClasses="dezoito,dezoito,dezoito,dezoito">
+										<p:outputLabel value="% Entrada" />
+										<p:outputLabel value="Valor da Entrada R$" />  
+										<p:outputLabel value="Nº Parcelas"/>
+										<p:outputLabel value="Valor da Parcela" />
+										
+										<h:inputText id="idpercentual2"
+											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualEntrada2}"
+											style="text-align: right;width:60%;"
+											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" /> 
+											<p:ajax event="blur"
+												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+												update="idparcelamentoantesviagem" />
+										</h:inputText> 
+										<h:inputText id="idvalorentrada2"
+											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorEntrada2}"
+											style="text-align: right;width:60%;"
+											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" /> 
+											<p:ajax event="blur"
+												listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
+												update="idparcelamentoantesviagem" />
+										</h:inputText> 
+										<p:selectOneMenu  id="nparcela2"
+											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelas02}"
+											style="width:80px;"
+											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
+											<f:selectItem itemLabel="1" itemValue="1" />
+											<f:selectItem itemLabel="2" itemValue="2" />
+											<f:selectItem itemLabel="3" itemValue="3" />
+											<f:selectItem itemLabel="4" itemValue="4" />
+											<f:selectItem itemLabel="5" itemValue="5" />
+											<f:selectItem itemLabel="6" itemValue="6" />
+											<f:selectItem itemLabel="7" itemValue="7" />
+											<f:selectItem itemLabel="8" itemValue="8" />
+											<f:selectItem itemLabel="9" itemValue="9" />
+											<f:selectItem itemLabel="10" itemValue="10" />
+											<f:selectItem itemLabel="11" itemValue="11" />
+											<f:selectItem itemLabel="12" itemValue="12" />
+											<p:ajax
+												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+												update="idvalorparcela2" />
+										</p:selectOneMenu> 
+										<h:inputText id="idvalorparcela2"
+											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorParcela02}"
+											style="text-align: right;width:60%;"
+											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}"
+											readonly="true">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</h:inputText>
+									</h:panelGrid>
+									<br></br> 
+									<h:panelGrid style="margin-left:8%;width:80%;" columns="4" 
+										columnClasses="dezoito,dezoito,dezoito,dezoito">
+										<p:outputLabel value="% Saldo" />
+										<p:outputLabel value="Saldo R$"/>
+										<p:outputLabel value=""/>
+										<p:outputLabel value=""/>    
+										<h:inputText id="idpersentualsaldo2"
+											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualSaldo2}"
+											style="text-align: right;width:60%;"
+											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}"
+											readonly="true">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+											<p:ajax event="blur"
+												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+												update="idvalorsaldo2, idvalorparcela2" />
+										</h:inputText> 
+										<h:inputText id="idvalorsaldo2"
+											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorSaldo2}"
+											style="text-align: right;width:60%;"
+											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}"
+											readonly="true">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</h:inputText> 
+									</h:panelGrid>
+								</p:fieldset>
+							</h:panelGrid>
+							<br></br>
+							<br></br>
+							<p:selectBooleanCheckbox
+								value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.selecionado3}"
+								class="espacocobranca29">
+								<p:ajax event="change"
+									listener="#{cadOrcamentoManualMB.verificarFormaPgamento03()}"
+									update="idparcelamentoemcartaocredito" />
+							</p:selectBooleanCheckbox>
+							<p:fieldset id="idparcelamentoemcartaocredito"
+								legend="Opção 03 - Parcelamento em cartão de crédito em até 12x"
+								toggleable="true"
+								style="font-size: 10px;width: 95%;margin-left: 2.5%">
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+									columnClasses="dezoito,dezoito,dezoito,dezoito">
+									<p:outputLabel value="% Entrada"/>
+									<p:outputLabel value="Valor da Entrada R$" />
+									<p:outputLabel value="Nº Parcelas"/>
+									<p:outputLabel value="Valor da Parcela" />
+					
+									<h:inputText id="idpercentualentrada3"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualEntrada3}"
+										style="text-align: right;width:60%;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+										<p:ajax event="blur"
+											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+											update="idparcelamentoemcartaocredito" />
+									</h:inputText>  
+									<h:inputText id="idvalorentrada3"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorEntrada3}"
+										style="text-align: right;width:60%;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+										<p:ajax event="blur"
+											listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
+											update="idparcelamentoemcartaocredito" />
+									</h:inputText> 
+									<p:selectOneMenu id="nparcela3"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelas03}"
+										style="width:80px;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="2" itemValue="2" />
+										<f:selectItem itemLabel="3" itemValue="3" />
+										<f:selectItem itemLabel="4" itemValue="4" />
+										<f:selectItem itemLabel="5" itemValue="5" />
+										<f:selectItem itemLabel="6" itemValue="6" />
+										<f:selectItem itemLabel="7" itemValue="7" />
+										<f:selectItem itemLabel="8" itemValue="8" />
+										<f:selectItem itemLabel="9" itemValue="9" />
+										<f:selectItem itemLabel="10" itemValue="10" />
+										<f:selectItem itemLabel="11" itemValue="11" />
+										<f:selectItem itemLabel="12" itemValue="12" />
+										<p:ajax
+											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+											update="idvalorparcela3" />
+									</p:selectOneMenu> 
+									<h:inputText
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorParcela03}"
+										style="text-align: right;width:60%;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}"
+										readonly="true">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:inputText>
+								</h:panelGrid>
+								<br></br> 
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+									columnClasses="dezoito,dezoito,dezoito,dezoito">
+									<p:outputLabel value="% Saldo" />
+									<p:outputLabel value="Saldo R$" />
+									<p:outputLabel value=""/>
+									<p:outputLabel value=""/>   
+
+									<h:inputText id="idvalorsaldo3"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualSaldo3}"
+										style="text-align: right"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}"
+										readonly="true">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:inputText> 
+									<h:inputText id="idvalorparcela3"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorSaldo3}"
+										style="text-align: right"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}"
+										readonly="true">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:inputText>
+								</h:panelGrid>
+							</p:fieldset>
+							<br></br>
+							<br></br>
+							<br></br>
+							<p:selectBooleanCheckbox
+								value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.selecionado4}"
+								class="espacocobranca29">
+								<p:ajax
+									listener="#{cadOrcamentoManualMB.verificarFormaPgamento04()}"
+									update="idparcelamentoemcheque" />
+							</p:selectBooleanCheckbox>
+							<p:fieldset id="idparcelamentoemcheque"
+								legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*"
+								toggleable="true"
+								style="font-size: 10px;width: 95%;margin-left: 2.5%">
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+									columnClasses="dezoito,dezoito,dezoito,dezoito">
+									<p:outputLabel value="% Entrada" />
+									<p:outputLabel value="Valor da Entrada R$" />
+									<p:outputLabel value="Nº Parcelas" />
+									<p:outputLabel value="Valor da Parcela" />
+ 
+									<p:inputText id="idpercentualentrada4"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualEntrada4}"
+										style="text-align: right;width:60%;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento04}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+										<p:ajax event="blur"
+											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+											update="idparcelamentoemcheque" />
+									</p:inputText> 
+									<p:inputText id="idvalorentrada4"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorEntrada4}"
+										style="text-align: right;width:60%;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento04}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+										<p:ajax event="blur"
+											listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
+											update="idparcelamentoemcheque" />
+									</p:inputText> 
+									<p:selectOneMenu id="nparcela4"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelasFinanciamento}"
+										style="width:80px;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento04}">
+										<f:selectItem itemLabel="2" itemValue="2" />
+										<f:selectItem itemLabel="3" itemValue="3" />
+										<f:selectItem itemLabel="4" itemValue="4" />
+										<f:selectItem itemLabel="5" itemValue="5" />
+										<f:selectItem itemLabel="6" itemValue="6" />
+										<f:selectItem itemLabel="7" itemValue="7" />
+										<f:selectItem itemLabel="8" itemValue="8" />
+										<f:selectItem itemLabel="9" itemValue="9" />
+										<f:selectItem itemLabel="10" itemValue="10" />
+										<f:selectItem itemLabel="11" itemValue="11" />
+										<f:selectItem itemLabel="12" itemValue="12" />
+										<p:ajax
+											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
+											update=":telaCadOrcamento:acordGeral:idvalorparcela4" />
+									</p:selectOneMenu> 
+									<h:inputText id="idvalorparcela4"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.finaciamento}"
+										style="text-align: right;width:60%;"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento04}"
+										readonly="true">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:inputText>
+								</h:panelGrid>  
+								<br></br> 
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+									columnClasses="dezoito,dezoito,dezoito,dezoito"> 
+									<p:outputLabel value="% Saldo" />
+									<p:outputLabel value="Saldo R$"/>
+									<p:outputLabel value=""/>
+									<p:outputLabel value=""/> 
+									<p:inputText id="porcentagemSaldo4"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualSaldo4}"
+										style="width:60%;text-align: right"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento04}"
+										readonly="true">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:inputText> 
+									<p:inputText id="idvalorsaldo4"
+										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorSaldo4}"
+										style="width:60%;text-align: right"
+										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento04}"
+										readonly="true">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:inputText> 
+								</h:panelGrid>
+							</p:fieldset>
+						</p:tab>
+					</div>
+				</p:accordionPanel>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" onstart="PF('dialogcarregar').show()"
+							onsuccess="PF('dialogcarregar').hide()"
+						action="#{cadOrcamentoManualMB.confirmarOrcamento()}"
+						update="telaCadOrcamento:growl" />
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" onstart="PF('dialogcarregar').show()"
+							onsuccess="PF('dialogcarregar').hide()"
+						action="#{cadOrcamentoManualMB.cancelarOrcamento()}" />
+					<br></br> <br></br>
+				</p>
+				<p:dialog widgetVar="dialogcarregar" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink> 
+						<img src="../../resources/img/ajax-loader.gif" />     
+					</p:commandLink>
+				</p:dialog>  
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

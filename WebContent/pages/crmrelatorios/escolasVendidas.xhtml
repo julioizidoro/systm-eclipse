@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="top5" style="text-align:left;font-size: 10px;">
+		<title>Fornecedores Vendidos</title>
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+
+		<p:outputLabel value="Período" for="datainicial"
+			style="margin-left:2%">
+		</p:outputLabel>
+		<br />
+		<p:calendar id="datainicial" mask="99/99/9999" locale="pt"
+			pattern="dd/MM/yyyy" size="11"
+			value="#{escolasVendidasMB.dataInicio}" style="margin-left: 2%;">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:calendar>
+		<p:calendar id="dataFinal" mask="99/99/9999" locale="pt"
+			pattern="dd/MM/yyyy" size="11" value="#{escolasVendidasMB.dataFinal}"
+			style="margin-left: 5%;">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:calendar>
+		<br></br>
+		<br></br>
+		<h:panelGrid columns="2" style="margin-left:2%;width:95%;"
+			columnClasses="tamanhonotificacao2, tamanhoavisos2">
+			<p:outputLabel value="Produto" />
+			<p:outputLabel value="Nº de Parceiros" />
+
+			<p:selectOneMenu id="produto" value="#{escolasVendidasMB.produtos}"
+				style="width:90%;" converter="ProdutoConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Todos" itemValue="0" />
+				<f:selectItems id="idproduto"
+					value="#{escolasVendidasMB.listaProdutos}" var="cproduto"
+					itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+				<f:attribute name="listaProdutos"
+					value="#{escolasVendidasMB.listaProdutos}" />
+					<p:ajax event="change"/>
+			</p:selectOneMenu>
+			<p:inputText id="nEscolas" value="#{escolasVendidasMB.numeroEscolas}"
+				style="width:90%;" />
+		</h:panelGrid>
+		<br></br> 
+		<h:panelGrid columns="1" style="margin-left:2%;width:95%;">
+			<p:outputLabel value="Unidade" /> 
+
+			<p:selectOneMenu id="unidade" value="#{escolasVendidasMB.unidadenegocio}"
+				style="width:90%;" converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="Todos" itemValue="0" />
+				<f:selectItems id="idunidade"
+					value="#{escolasVendidasMB.listaUnidade}" var="unidade"
+					itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{escolasVendidasMB.listaUnidade}" />
+				<p:ajax event="change"/>
+			</p:selectOneMenu> 
+		</h:panelGrid>
+		<br></br>
+		<h:outputLabel  
+			value="*OBS: Nº de Parceiros for 0(zero) irá mostrar todos" />
+		<br></br>
+		<br></br>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Gerar"
+				action="#{escolasVendidasMB.gerarRelatorio()}" ajax="false"
+				onclick="this.form.target='_blank'" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{escolasVendidasMB.fechar()}"></p:commandButton>
+		</div>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="complementoAcomodacao"
+		style="text-align:left;font-size: 11px;">
+		<title>Complemento Acomodação</title>
+		<br></br>
+
+		<h:panelGrid columns="4"
+			columnClasses="tamanho8,tamanho8,tamanho8,tamanho8"
+			style="margin-left:3%;">
+			<h:outputLabel value="Tipo Acomodação" for="tipoacomodacao" />
+			<h:outputLabel value="Quarto" for="quarto" />
+			<h:outputLabel value="Refeição" for="refeicao" />
+			<h:outputLabel value="Banheiro" for="banheiro" />
+			<p:selectOneMenu id="tipoacomodacao" value="#{complementoAcamodacaoMB.complemento.tipoacomodacao}" style="width:120px;">
+				<f:selectItem itemLabel="Selecione" itemValue="sn" />
+				<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+				<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+				<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+				<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+				<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+				<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+				<f:selectItem itemLabel="Residência" itemValue="Residência" />
+				<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+			</p:selectOneMenu>
+
+			<p:selectOneMenu id="quarto" value="#{complementoAcamodacaoMB.complemento.tipoquarto}" style="width:120px;">
+				<f:selectItem itemLabel="Selecione"
+					itemValue="sn" />
+				<f:selectItem itemLabel="Quarto individual"
+					itemValue="Quarto individual" />
+				<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+				<f:selectItem itemLabel="Quarto triplo" itemValue="Quarto triplo" />
+				<f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado" />
+				<f:selectItem itemLabel="Dois Quartos" itemValue="Dois Quartos" />
+			</p:selectOneMenu>
+
+			<p:selectOneMenu id="refeicao" value="#{complementoAcamodacaoMB.complemento.tiporefeicao}" style="width:120px;">
+				<f:selectItem itemLabel="Selecione"
+					itemValue="sn" />
+				<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+				<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
+				<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
+					itemValue="Meia Pensão (2 Refeições)" />
+				<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
+					itemValue="Pensão Completa (3 Refeições)" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="banheiro" value="#{complementoAcamodacaoMB.complemento.tipobanheiro}" style="width:120px;">
+				<f:selectItem itemLabel="Selecione"
+					itemValue="sn" />
+				<f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado" />
+				<f:selectItem itemLabel="Privado" itemValue="Privado" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br></br>   
+		<h:panelGrid columns="2"
+			style="margin-left:3%;width:90%;" columnClasses="espaco75,tamanho8">
+			<p:outputLabel value="Complemento"/>
+			<p:outputLabel value="Nº Semanas"/>
+			<p:inputText id="complemento" value="#{complementoAcamodacaoMB.complemento.complemento}" maxlength="100" style="width:95%;"/>
+			<p:inputText id="nsemanas" value="#{complementoAcamodacaoMB.complemento.numerosemanas}" style="width:87%;"/>
+		</h:panelGrid>  
+		<br></br>
+		<br></br>   
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar" action="#{complementoAcamodacaoMB.salvar}" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar" action="#{complementoAcamodacaoMB.cancelar}" style="margin-left:2%;" />
+		</div><br></br>
+		<br></br>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPremiunPagina07" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.9075000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="393"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="341" y="14" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="728" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="17" width="544" height="663" uuid="4f7ed466-e0ad-4d1c-beb3-ae88eecc969f"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="7" width="554" height="715" uuid="f0a1a327-ead5-43a5-9fed-800ddb0bef11"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["nome e último local conhecido de residência do(a)  PARTICIPANTE que não regressar ao Brasil ou não sair do país de destino após o vencimento do visto J1. Neste caso, as autoridades do país de destino tem o poder de declarar o(a)  PARTICIPANTE imigrante ilegal, iniciando os procedimentos para deportação; \n"+
+"12.7 É obrigação do(a) PARTICIPANTE comunicar à TM caso retorne do país de destino antes ou após o término do prazo previsto em seu documento DS-2019; \n \n"+
+
+"13. DESISTÊNCIA E/OU CANCELAMENTO DO PROGRAMA \n \n"+
+
+"13.1 O valor equivalente a US$350 (deduzido do valor total do programa) não é reembolsável, salvo em caso de impossibilidade do parceiro internacional da TM de receber o(a) PARTICIPANTE; \n"+
+"13.2 No caso de cancelamento e/ou desistência por parte do(a) PARTICIPANTE após envio da inscrição ao exterior mesmo antes da confirmação/aceitação da oferta de trabalho temporário, o valor equivalente a US$500 não será reembolsado; \n"+
+"13.3 Após confirmação da Oferta de Trabalho Temporário por parte do parceiro internacional o valor correspondente a US$750 (incluindo os US$350 informados acima) será retido e não reembolsado; \n"+
+"13.4  Havendo desistência, por parte do(a) PARTICIPANTE, após a emissão do visto J-1 pelo consulado do país de destino, será retido o valor de US$ 850,00, a título de multa pela desistência, sendo o restante do valor pago reembolsado; \n"+
+"13.5 Caso o(a) PARTICIPANTE desista do programa após sua chegada no país de destino, ou ainda, após inicio do trabalho para o qual fora contratado, não será reembolsado de qualquer valor pago. Ainda, em tal situação, o PARTICIPANTE terá seu seguro-saúde cancelado e a TM, por obrigação legal, comunicará a imigração do país de destino, o seu desligamento do programa; \n"+
+"13.6  No caso de desistência do(a) PARTICIPANTE antes de seu embarque, por motivo de doença grave, que por determinação médica o impeça de viajar e que não seja pré-existente, ou por motivo de falecimento de pais ou irmãos, deverá ser apresentado o respectivo atestado médico ou de óbito, para reembolso dos valores pagos, não sendo, entretanto, reembolsado das taxas referentes a solicitação de visto, sendo retido o valor de US$ 750,00 a título de multa de cancelamento. \n"+
+"13.7  A devolução de qualquer quantia, por parte da TM, será efetuada em Reais, de acordo com a taxa de câmbio utilizada no dia de pagamento de cada parcela referente; \n \n"+
+
+"14.  DA RESCISÃO POR JUSTA CAUSA \n \n"+
+
+"14.1 O presente contrato será rescindido por justa causa, mediante simples notificação ao(à) PARTICIPANTE, sem direito a qualquer reembolso ou indenização, quando: \n "+
+"a) No caso do(a) PARTICIPANTE  desrespeitar as regras estabelecidas pelo Sponsor, ofertante de trabalho temporário ou locadores, nas acomodações que fizer uso, valendo-se sempre as regras da legislação americana sobre o assunto; \n"+
+"b) O(a) PARTICIPANTE for desligado do programa em virtude do seu  desempenho insatisfatório no trabalho e/ou desrespeito das regras estipuladas pelo ofertante do trabalho e parceiro internacional,  devendo deixar o país de destino em até 5 (cinco) dias úteis; \n"+
+"c) O(A) PARTICIPANTE prestar serviços em emprego não autorizado pelo programa bem como deixar de seguir as regras do programa; \n"+
+"d) Cometer qualquer tipo de ilícito penal sob as normas do direito norte americano; \n"+
+"e) O(a) PARTICIPANTE  abandonar seu endereço de acomodação ou realizar mudança sem informar ao parceiro internacional (sponsor). Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 5 (cinco) dias úteis; \n"+
+"f) Após sua chegada nos Estados Unidos, o(a) PARTICIPANTE deixar de cumprir as regras de chegada (orientação com o sponsor, parceiro internacional, ou “check-in”, por exemplo) estabelecidas pelo programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 5 (cinco) dias úteis da data do seu desligamento. \n"+
+"g) O(A) PARTICIPANTE permanecer no país de destino sem a cobertura do seguro saúde e acidentes; \n"+
+"h) O(A) PARTICIPANTE violar as regras do visto consular, incluindo o não comparecimento na orientação pré-embarque e abandono do emprego sem seguir os procedimentos pré-estabelecidos."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="e8fad9a5-f29b-416b-b22a-92b157bfab05"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"\\" + "modelocontratoWorkPremiumPagina08.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

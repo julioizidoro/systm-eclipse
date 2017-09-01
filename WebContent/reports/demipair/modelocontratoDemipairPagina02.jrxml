@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina02" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.6830134553650707"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="a499c232-ce63-439b-bf69-9a442c417ef6"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="746" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="103" width="553" height="620" uuid="9952b0e7-6cb7-4988-88b7-73a3a60870ae"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="2" y="12" width="553" height="734" uuid="ab5439f2-2fe2-4302-8955-983d8aa24b82"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["4. SEGURO-SAÚDE \n"+
+"O PARTICIPANTE deverá contratar seguro-saúde para que possa participar do programa escolhido. Optando pela não contratação deste serviço, o participante deverá assinar um TERMO DE ISENÇÃO DE RESPONSABILIDADE, no qual o mesmo se responsabilizará por todos os eventuais gastos que o seguro cobre e/ou assessora. Sendo de interesse do PARTICIPANTE, a TM poderá auxiliar a providenciar este item, que deverá obedecer aos seguintes critérios: \n"+
+"a) Deve ser válido em todo o território do país de destino; \n"+
+"b) Caso o PARTICIPANTE ingresse no país de destino antes da data estabelecida no programa, ou permaneça após, deverá adquirir e/ou estender o seu seguro-saúde conforme tais datas, às suas expensas, devendo ainda, comunicar a TM; \n"+
+"c) Deverá o PARTICIPANTE obedecer todas as cláusulas referentes ao contrato de seguro, de acordo com o estabelecido pela seguradora, incluindo, mas não limitado a: \n"+
+"I) pagamento de franquia; \n"+
+"II) pagamento de multa por uso indevido da sala de emergência; \n"+
+"III) não cobertura de doenças ou condições pré-existentes; \n"+
+"IV) fazer contato telefônico com a seguradora antes de qualquer atendimento médico; \n"+
+"V) em caso de emergência, na impossibilidade de fazer contato prévio, fazer contato com a seguradora em no máximo 24 horas após a entrada no estabelecimento prestador de serviços de saúde; \n"+
+"VI) seguir os procedimentos estabelecidos pela seguradora para pagamento e/ou reembolso das despesas médicas e hospitalares. \n"+
+"d) A decisão sobre eventual extensão do seguro cabe exclusivamente à seguradora, não podendo ser responsabilizada a TM em caso de sua negativa. Da mesma forma, cabe exclusivamente à seguradora tomar decisões sobre o alcance da cobertura do seguro de saúde, definição de doença ou condição pré-existente, definição sobre uso indevido da sala de emergência, dentre outras decisões inerentes ao contrato de seguro, não podendo ser responsabilizada a TM por tais decisões. \n \n"+
+
+"5. DESISTÊNCIA E/OU CANCELAMENTO DO PROGRAMA \n"+
+"5.1 A taxa de inscrição correspondente a 30% do valor do programa (não incluindo passagem aérea) paga à Travelmate não é reembolsável, salvo em caso de impossibilidade da organização internacional escolhida de receber o estudante por não conseguir confirmar a colocaçãoda candidata em uma família hospedeira \n"+
+"5.2 No caso do visto consular ser negado a/ao participante por parte da autoridade consular responsável no Brasil, correspondente a 30% do valor do programa (não incluindo passagem aérea) paga à Travelmate não é reembolsável. Para receber reembolso de valores pagos (além dessa quantia não reembolsável) referente ao visto negado, a/o participante deverá fornecer toda a documentação solicitada pela Travelmate e pelo parceiro internacional. Qualquer valor a ser reembolsado será ao final do processo e após recebimento de documentos solicitados a/ao participante. \n"+
+"5.3 No caso de cancelamento e/ou desistência por parte da/do participante após envio da inscrição ao exterior mesmo antes da confirmação/aceitação da família, o valor referente à Inscrição, correspondente a 30% do valor do programa não será reembolsado. \n"+
+"5.4 Após confirmação da família hospedeira e aceitação por parte da/do participante o valor integral do programa" + "R$ " +"  será retido e não reembolsado. Após confirmação da família a Travelmate não garante a possibilidade de alterações no programa no que se refere à mudança de família, data de chegada ou partida, data de início e término do programa, entre outras, estando estas sujeitas à disponibilidade da organização internacional em questão. \n"+
+"5.5 A devolução de qualquer quantia, por parte da Travelmate, será efetuada em Reais, de acordo com a taxa de câmbio utilizada no dia do pagamento de cada parcela referente. O prazo para reembolso será acordado pelo departamento Financeiro diretamente com o participante \n \n" +
+
+"6. TRANSFER \n"+
+"O PARTICIPANTE que optar pela contratação do serviço de transfer, com chegada ou retorno ao aeroporto, no país de destino, poderá fazê-lo por intermédio da TM, sem que a mesma tenha qualquer ingerência ou participação em tal ato e, ainda, deverá obedecer aos seguintes critérios: \n"+
+"a) O PARTICIPANTE deverá ter em sua posse o número de emergência da empresa contratada, para o caso de ocorrência de atraso no vôo, mudança de escala ou outra situação que afete ou atrase o cronograma previamente combinado e contratado;\n"+
+"b) O PARTICIPANTE deverá observar as regras de conduta e adequação a cultura do país de destino com relação ao serviço a ser contratado, declarando-se ciente que em caso de ocorrência de atraso de vôo ou alguma outra modificação que acarrete a não utilização do serviço, o mesmo será considerado pela empresa como serviço efetivamente prestado, oportunidade em que não há reembolso de valores;"
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="14">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="9b57b4bd-8cff-4cd6-b733-9cc7579db7c0"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+"modelocontratoDemipairPagina03.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

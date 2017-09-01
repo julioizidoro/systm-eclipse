@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoProgramasTeensPagina04" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.5644739300537773"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="74"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="717" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="64" width="553" height="577" uuid="08936d10-1785-4c95-9877-ce765ae8481c"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="6" width="555" height="706" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[6.8 No caso de alimentação fornecida pela família hospedeira ou acomodação contratada, existe variação de refeições conforme cada família ou acomodação, cultura e costumes locais, podendo tais refeições diferirem muito da alimentação que o(a) PARTICIPANTE tem no Brasil, e a TM não tem responsabilidade por isso. Se houver insatisfação do(a) PARTICIPANTE quanto à alimentação, o(a) mesmo(a) deve tratar diretamente com a família hospedeira ou acomodação na qual está hospedado(a).
+
+7. TRANSFER
+
+7.1 O(A)PARTICIPANTE que optar pela contratação do serviço de transfer, com chegada ou retorno ao aeroporto, no país de destino, poderá fazê-lo por intermédio da TM (salvo quando tal serviço não esteja includo no pacote/programa), sem que a mesma tenha qualquer ingerência ou participação em tal ato e, ainda, deverá obedecer aos seguintes critérios:
+a) O(A) PARTICIPANTE deverá ter em sua posse o número de emergência da empresa contratada, para o caso de ocorrência de atraso no vôo, mudança de escala ou outra situação que afete ou atrase o cronograma previamente combinado e contratado;
+b) O(A) PARTICIPANTE deverá observar as regras de conduta/adequação à cultura do país de destino sobre o serviço de transfer, declarando-se ciente que em caso de ocorrência de atraso de vôo ou alguma outra modificação que acarrete na não utilização do serviço, o mesmo será considerado pela empresa contratada como serviço efetivamente prestado, oportunidade em que não há reembolso de valores;
+7.2. A contratação do transfer por parte do(a) PARTICIPANTE deve acontecer com no mínimo 4 semanas de antecedência da data de embarque para o exterior;
+
+8. PASSAGEM AÉREA
+
+8.1 No que se refere à passagem aérea, fica a critério do(a)PARTICIPANTE a sua aquisição, podendo ser efetuada com a TM ou diretamente com a companhia aérea que melhor se adequar a seu roteiro ou ainda com qualquer empresa de turismo que disponibilize a emissão de passagens.
+8.2 O(A)PARTICIPANTE declara, pela assinatura deste instrumento, ter ciência de que deverá obedecer a todas as normas referentes ao transporte aéreo internacional, bem como ter conhecimento de ser da Companhia Aérea contratada a responsabilidade referente à prestação deste serviço.
+
+Parágrafo 1º: O(A)PARTICIPANTE, após a emissão do bilhete, deverá observar todos os procedimentos referentes à categoria de sua passagem, de acordo com as regras do transporte aéreo e do contrato efetuado com a Companhia Aérea, observando, quando houver, cláusulas especiais referentes ao seu tipo de bilhete, especialmente no tocante ao endosso, reembolso, multas por cancelamento, remarcação, reitineração e limite de peso da bagagem;
+Parágrafo 2º: O(A)PARTICIPANTE deverá seguir os procedimentos indicados oportunamente pela TM (caso a passagem seja adquirida por intermédio da TM) para efetuar a marcação ou qualquer alteração em sua passagem aérea, sujeitando-se à disponibilidade na mesma classe tarifária, bem como às taxas de remarcação, cancelamento e reitineração estabelecidas pelas companhias aéreas.
+
+9. DESISTÊNCIA E/OU CANCELAMENTO DO PROGRAMA
+
+9.1 Caso o(a) PARTICIPANTE opte em desistir e/ou cancelar o programa  antes de realizar seu embarque para o país de destino, o  montante equivalente a 30% (trinta por cento) do valor do programa/pacote pago a TM (não incluindo passagem aérea e serviço de assessoria para aplicação de vistos), o qual corresponde à taxa de inscrição, não é reembolsável, salvo em caso da organização internacional escolhida ficar impossibilitada de receber o participante por falta de vagas.
+9.2 Após a inscrição, em qualquer momento do processo, por quaisquer motivos (vistos consulares, alterações e/ou atraso de vôos, indisponibilidade do participante, etc), se o(a) PARTICIPANTE tiver que alterar o curso/programa, a instituição internacional cobrará diferença de valores e multa para tal(is) mudança(s), sendo o pagamento de total responsabilidade do(a) PARTICIPANTE. A TM não garante a possibilidade de quaisquer alterações do curso/programa solicitadas após emissão da carta de aceitação por parte do parceiro internacional, estando sujeitas à disponibilidade da organização internacional.
+9.3 Em caso de cancelamento do curso/programa devido à não obtenção do visto de entrada do país escolhido, o participante está sujeito às regras já mencionadas no item 9.1
+
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="12">
+			<subreport>
+				<reportElement x="-16" y="0" width="200" height="10" uuid="837af47e-39cb-4e20-a2c7-0b4101b66d11"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoTeensPagina05.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

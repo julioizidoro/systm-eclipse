@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPremiunPagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.9090909090909094"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="417"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="754" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="32" width="545" height="707" uuid="df784d6f-866c-43da-98ae-0a7eaf9c1f50"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="1" y="6" width="554" height="737" uuid="96564f04-ca59-4fad-b721-58e477924ffc"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["6.3 Alterações das atividades (função), carga horária de trabalho (redução parcial ou total, ou inclusive aumento) e remuneração (redução ou aumento) mencionados na Oferta de Trabalho Temporário podem ocorrer em qualquer momento, sem aviso prévio, e não são de responsabilidade da TM, do parceiro internacional (Sponsor) contratado e ofertante do trabalho. A Oferta de Trabalho Temporário não caracteriza Contrato de Trabalho, mas apenas uma oferta de trabalho temporário que pode sofrer alterações sem aviso prévio a qualquer momento; \n"+
+"6.4 No período que compreende os 30 (trinta) primeiros dias após a chegada do participante no país de destino, o(a) PARTICIPANTE pode não trabalhar as horas mínimas previstas na Oferta de Trabalho Temporário ou mesmo não trabalhar. Este período é considerado de adaptação e treinamento e isto não é de responsabilidade da TM, parceiro internacional contratado e ofertante do trabalho. Qualquer custo ou gasto que incorra durante esse período é de responsabilidade do(a) PARTICIPANTE; \n"+
+"6.5 Não existe garantia de um número mínimo de horas semanais de trabalho por parte da TM, parceiro internacional contratado e/ou ofertante do trabalho temporário, existindo apenas uma previsão de carga horária média de trabalho (vide informativo do programa). Mas caso o(a)  PARTICIPANTE esteja trabalhando menos do que o previsto na Oferta de Trabalho Temporário, por um período superior a 40 (quarenta) dias após sua chegada, por razões alheias ao seu desempenho e/ou conduta no trabalho, o parceiro internacional contratado pode auxiliá-lo(a) na procura de uma nova Oferta de Trabalho Temporário, caso seja esta a vontade do(a) PARTICIPANTE. Os custos decorrentes de tal mudança e processo de busca ficam a cargo do(a) PARTICIPANTE; \n"+
+"e uma taxa para tal serviço), mas não se responsabilizam por isto. \n"+
+"7.2 Qualquer custo referente a acomodação ou reserva de acomodação fica a encargo exclusivo do(a) PARTICIPANTE, considerando que acomodação não faz parte do programa contratado; \n"+
+"7.3 No caso de acomodação oferecida e/ou vinculada ao Sponsor ou ofertante do trabalho temporário, o(a) PARTICIPANTE deve respeitar as regras estabelecidas por estes, ou pelos locadores de tais acomodações, referentes à acomodação oferecida, sendo estas regras regidas pela legislação americana sobre o assunto. \n"+
+"7.4 Em caso de celebração de contrato de locação entre PARTICIPANTE e Sponsor ou ofertante de trabalho insatisfeito com sua acomodação, é de sua responsabilidade tratar do assunto com o locador e/ou procurar uma outra opção, desde que seja permitido pelo contrato originalmente celebrado; \n"+
+"7.5 Se o(a) PARTICIPANTE desejar mudar de acomodação após sua chegada no país de destino ou estiver insatisfeito com sua acomodação, é de sua responsabilidade tratar do assunto com o locador e/ou procurar uma outra opção, desde que seja permitido pelo contrato originalmente celebrado; \n"+
+"7.6 Em caso de mudança de endereço, o(a) PARTICIPANTE deverá informar ao parceiro internacional o seu novo endereço dentro de 3 dias úteis. O não cumprimento desta regra poderá resultar em desligamento do programa e o participante deverá deixar os EUA em até 5 dias úteis, não tendo direito a reembolso de valores pagos de qualquer natureza. \n \n"+
+
+"8. VISTO CONSULAR \n \n"+
+
+"8.1 A TM não é responsável pela obtenção do visto de entrada no país/visto para participação no programa, mesmo quando esta intermedeie e oriente no processo de solicitação do mesmo. A emissão do visto adequado depende em última instância, única e exclusivamente, do Consulado do país de destino que analisará o processo de solicitação do(a) PARTICIPANTE e julgará se este deve ou não ter o visto concedido. \n"+
+"8.2 No caso do visto consular ser negado ao(à) PARTICIPANTE por parte da autoridade consular responsável no Brasil, o valor correspondente a US$350 do programa será retido e não reembolsado. Para receber reembolso de demais valores pagos pelo programa (com exceção das despesas de obtenção do visto: taxas de agendamento, taxas consulares, taxa SEVIS, taxa de emissão de visto, taxa de serviço de assessoria TM para visto e despesas de viagem até o Consulado do país de destino), o(a) PARTICIPANTE deverá fornecer toda a documentação solicitada pela TM e pelo parceiro internacional. Qualquer valor será reembolsado ao final da temporada em que o(a) PARTICIPANTE se inscreveu (4 meses após início previsto do programa); \n"+
+"8.3 A TM não tem responsabilidade por orientar o participante em processos de mudança, alteração ou solicitação de extensão do visto do participante quando este já esteja no país de destino; \n"+
+"8.4 As despesas de obtenção do visto (taxas de agendamento, taxas consulares, taxa SEVIS, taxa de emissão de visto, taxa de serviço de assessoria TM para visto e despesas de viagem até o Consulado do país de destino) não estão incluídas no valor do programa pago à TM e o pagamento das mesmas é de responsabilidade do(a) PARTICIPANTE. Em caso de visto negado, não há reembolso de tais despesas;"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="19">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="c613d4ca-b00b-4f61-b380-4643d37e5cdb"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoWorkPremiumPagina05.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+		<title>Dados Acomodação</title>
+		<h:panelGrid columns="1" style="width:90%;margin-left:5%;">
+			<p:outputLabel value="Tipo de Acomodação" style="font-size:14px;" />
+			<p:selectOneMenu id="tipoacomodacao"
+				value="#{cadFornecedorCidadeIdiomaAcomodacaoMB.tipoacomodacao}"
+				style="width:160px;">
+				<f:selectItem itemLabel="Todos" itemValue="Todos" />
+				<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+				<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+				<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+				<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+				<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+				<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+				<f:selectItem itemLabel="Residência" itemValue="Residência" />
+				<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<hr style="width: 87%; margin-left: 5%; border-top: 1px solid #4C816D; margin-top: 12px; margin-bottom: 12px;" />
+		<h:panelGrid columns="1" style="width:90%;margin-left:5%;">
+			<p:outputLabel value="Entrada" style="font-size:14px;" />
+			<p:selectOneRadio id="entrada"
+				value="#{cadFornecedorCidadeIdiomaAcomodacaoMB.diasemanaentrada}"
+				style="width:100%" layout="grid" columns="3">
+				<f:selectItem itemLabel="Domingo" itemValue="0" />
+				<f:selectItem itemLabel="Segunda-Feira" itemValue="1" />
+				<f:selectItem itemLabel="Terça-Feira" itemValue="2" />
+				<f:selectItem itemLabel="Quarta-Feira" itemValue="3" />
+				<f:selectItem itemLabel="Quinta-Feira" itemValue="4" />
+				<f:selectItem itemLabel="Sexta-Feira" itemValue="5" />
+				<f:selectItem itemLabel="Sábado" itemValue="6" />
+				<f:selectItem itemLabel="Todos" itemValue="20" />
+			</p:selectOneRadio>
+		</h:panelGrid>
+		<hr
+			style="width: 87%; margin-left: 5%; border-top: 1px solid #4C816D; margin-top: 12px; margin-bottom: 12px;" />
+		<h:panelGrid columns="1" style="width:90%;margin-left:5%;">
+			<p:outputLabel value="Saída" style="font-size:14px;" />
+			<p:selectOneRadio id="saida"
+				value="#{cadFornecedorCidadeIdiomaAcomodacaoMB.diasemanasaida}"
+				style="width:100%" layout="grid" columns="3">
+				<f:selectItem itemLabel="Domingo" itemValue="0" />
+				<f:selectItem itemLabel="Segunda-Feira" itemValue="1" />
+				<f:selectItem itemLabel="Terça-Feira" itemValue="2" />
+				<f:selectItem itemLabel="Quarta-Feira" itemValue="3" />
+				<f:selectItem itemLabel="Quinta-Feira" itemValue="4" />
+				<f:selectItem itemLabel="Sexta-Feira" itemValue="5" />
+				<f:selectItem itemLabel="Sábado" itemValue="6" />
+				<f:selectItem itemLabel="Todos" itemValue="20" />
+			</p:selectOneRadio>
+		</h:panelGrid>
+		<hr
+			style="width: 87%; margin-left: 5%; border-top: 1px solid #4C816D; margin-top: 12px; margin-bottom: 25px;" />
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar" update="@form"
+				action="#{cadFornecedorCidadeIdiomaAcomodacaoMB.salvar()}" />
+			<p:commandButton icon="ui-icon-close" value="Fechar"
+				style="margin-left:2%;"
+				action="#{cadFornecedorCidadeIdiomaAcomodacaoMB.cancelar()}" />
+		</div>
+		<br/> 
+		<p:outputLabel value="Lista de Acomodações"/>
+		<p:dataTable id="tabelaAcomodacao" var="acomodacao" scrollable="true" scrollHeight="100"
+			value="#{cadFornecedorCidadeIdiomaAcomodacaoMB.listaAcomodacao}">
+			<p:column headerText="Tipo">
+				<h:outputText value="#{acomodacao.tipoacomodacao}" />
+			</p:column>
+			<p:column headerText="Entrada">
+				<h:outputText value="#{cadFornecedorCidadeIdiomaAcomodacaoMB.retornarDiaSemana(acomodacao.diaentrada)}" />
+			</p:column> 
+			<p:column headerText="Saída">
+				<h:outputText value="#{cadFornecedorCidadeIdiomaAcomodacaoMB.retornarDiaSemana(acomodacao.diasaida)}" />
+			</p:column>    
+			<p:column style="width:75px">  
+				<p:commandButton value="Excluir"
+					action="#{cadFornecedorCidadeIdiomaAcomodacaoMB.excluir(acomodacao)}"
+					update="tabelaAcomodacao" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

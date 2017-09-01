@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="consRegras">
+                 <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> <br/> 
+                     <legend id="iUsu2" ><b>Regras Pontuação</b></legend>
+                     <div align="right" style="width: 90%;margin-left: 4%;">
+                   	     <p:commandButton value="Nova Regra" icon="ui-icon-plus" action="#{regrasPontuacaoMB.novaRegra()}" class="corBotão">
+	                     	<p:ajax listener="#{regrasPontuacaoMB.gerarListaRegras()}" event="dialogReturn" update="tabelaConsRegras"/>
+	                     </p:commandButton>
+                      </div>  
+                     <br/>  
+                     <div align="right" style="width: 90%;margin-left: 4%;">
+	                     <p:dataTable id="tabelaConsRegras" value="#{regrasPontuacaoMB.listaRegras}"  var="regras" reflow="true"
+	                                scrollable="true" scrollHeight="300" style="font-size:11px;margin-bottom:20px">
+	                        <p:column headerText="Produtos" style="text-align:left;width:130px;">
+	                            <h:outputText value="#{regras.produtos.descricao}" /> 
+	                        </p:column> 
+	                        <p:column headerText="Valor Inicial" style="width:100px;text-align: right" >
+	                            <h:outputText value="#{regras.valorinicial}" >
+	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText> 
+	                        </p:column>
+	                        <p:column headerText="Valor Final" style="width:100px;text-align: right" >
+	                            <h:outputText value="#{regras.valorfinal}" >
+	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText> 
+	                        </p:column>
+	                        <p:column headerText="Nº Semanas Inicial" style="width:100px;text-align:center;">
+	                            <h:outputText value="#{regras.numerosemanasinicial}" />
+	                        </p:column>
+	                        <p:column headerText="Nº Semanas Final" style="width:100px;text-align:center;">
+	                            <h:outputText value="#{regras.numerosemanafinal}"/>  
+	                        </p:column> 
+	                        <p:column headerText="Programa" style="width:130px;">
+	                            <h:outputText value="#{regras.programa}"/>
+	                        </p:column> 
+	                        <p:column headerText="Pontuação" style="width:80px;text-align:center;">
+	                            <h:outputText value="#{regras.ponto}"/>
+	                        </p:column> 
+	                        <p:column  style="width:50px;text-align:center;" >  
+	                          <p:commandLink  action="#{regrasPontuacaoMB.editar(regras)}" title="Editar"> 
+	                          	<img src="../../resources/img/editaricon.png"  />
+	                          	<p:ajax listener="#{regrasPontuacaoMB.gerarListaRegras()}" event="dialogReturn" update="tabelaConsRegras"/>
+	                          </p:commandLink>
+	                        </p:column>
+	                    </p:dataTable>
+                	</div>
+                    <br></br>
+                    <br></br>
+                </div>
+	                
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

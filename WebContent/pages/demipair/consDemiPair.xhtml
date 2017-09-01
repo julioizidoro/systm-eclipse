@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idfrmconsultademipair" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="2" columnClasses="tamanho7, tamanhoavisos"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="ID venda" for="idVenda" />
+							<p:outputLabel value="Nome do Cliente" for="cliente" />
+
+							<p:inputText id="idVenda" value="#{demiPairMB.idVenda}"
+								style="width:87px;" />
+							<p:inputText id="cliente" value="#{demiPairMB.nome}"
+								style="width:260px;" />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="6"
+							columnClasses="tamanho7, tamanho1,tamanho8,tamanho1,tamanho7,tamanho1"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Situação" for="situacao" />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:calendar id="dataIni" value="#{demiPairMB.dataInicio}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{demiPairMB.dataTermino}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade"
+								value="#{demiPairMB.unidadenegocio}" style="width:200px;"
+								converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" 
+								disabled="#{demiPairMB.habilitarUnidade}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{demiPairMB.listaUnidadeNegocio}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{demiPairMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao" value="#{demiPairMB.situacao}"
+								style="width:95px;">
+								<f:selectItem itemLabel="TODAS" itemValue="TODAS" />
+								<f:selectItem itemLabel="ANDAMENTO" itemValue="ANDAMENTO" />
+								<f:selectItem itemLabel="CANCELADA" itemValue="CANCELADA" />
+								<f:selectItem itemLabel="PROCESSO" itemValue="PROCESSO" />
+								<f:selectItem itemLabel="FINALIZADA" itemValue="FINALIZADA" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update="idfrmconsultademipair:tabelaConsultademipair, :idfrmconsultademipair:PanelQuantidadeFichas, :idfrmconsultademipair:idNFichaFinalizada, :idfrmconsultademipair:idNFichaAndamento,
+								:idfrmconsultademipair:idNFichaCancelada"
+								action="#{demiPairMB.pesquisarLista()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="idfrmconsultademipair:tabelaConsultademipair, situacao, unidade, dataFinal, dataIni, cliente,idVenda, :idfrmconsultademipair:PanelQuantidadeFichas, :idfrmconsultademipair:idNFichaFinalizada, :idfrmconsultademipair:idNFichaAndamento,
+								:idfrmconsultademipair:idNFichaCancelada"
+								action="#{demiPairMB.limparPesquisa()}" />
+						</h:panelGrid>
+						<br></br> 
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Demi Pair </b>
+				</legend>
+				<p:commandButton value="Nova Ficha" icon="ui-icon-plus"
+					action="#{demiPairMB.cadastrarFicha()}" class="botaoConsulta"
+					style="font-size:12px;float:right;margin-right: 4%;" />
+				<br></br> 
+				<br></br><br/>
+
+				<p:dataTable id="tabelaConsultademipair" var="demipair"
+					value="#{demiPairMB.listaDemipair}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+
+					<p:column style="width:40px;">
+						<p:commandLink
+							action="#{demiPairMB.dialogSalvarControle(demipair)}"
+							onclick="PF('liberarficha').show();" title=""
+							rendered="#{demiPairMB.imagemSituacaoUsuario(demipair)}">
+							<img src="#{demipair.imagem}" width="60%" />
+						</p:commandLink>
+						<p:commandLink rendered="#{demipair.habilitarImagemFranquia}">
+							<img src="#{demipair.imagem}" width="60%" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="ID Venda" sortBy="#{demipair.vendas.idvendas}" style="width:90px;"
+						styleClass="alinharCenter">
+						<p:commandLink
+							action="#{demiPairMB.dialogSalvarControle(demipair)}"
+							onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+							<h:outputText value="#{demipair.vendas.idvendas}"
+								style="#{demiPairMB.cor(demipair)}" />
+						</p:commandLink>
+						<p:commandLink
+							action="#{demiPairMB.visualizarContasReceber(demipair.vendas)}"
+							title="Visualizar Contas a Receber"
+							rendered="#{demiPairMB.linkIdVendaFranquias}">
+							<h:outputText value="#{demipair.vendas.idvendas}"
+								style="#{demiPairMB.cor(demipair)}" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Cliente" sortBy="#{demipair.vendas.cliente.nome}" style="width:150px; ">
+						<h:outputText value="#{demipair.vendas.cliente.nome}"
+							style="#{demiPairMB.corNome(demipair)}" />
+					</p:column>
+					<p:column headerText="Data Venda"
+						style="text-align:center;width:115px;" sortBy="#{demipair.vendas.dataVenda}">
+						<h:outputText value="#{demipair.vendas.dataVenda}"
+							style="#{demiPairMB.cor(demipair)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Unidade" style="width:150px;"
+						styleClass="alinharCenter" sortBy="#{demipair.vendas.unidadenegocio.nomeFantasia}">
+						<h:outputText
+							value="#{demipair.vendas.unidadenegocio.nomeFantasia}"
+							style="#{demiPairMB.cor(demipair)}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:150px;"
+						styleClass="alinharCenter" sortBy="#{demipair.vendas.usuario.nome}">
+						<h:outputText value="#{demipair.vendas.usuario.nome}"
+							style="#{demiPairMB.cor(demipair)}" />
+					</p:column>
+					<p:column style="width:43px;text-align:center;">
+						<p:commandLink action="#{demiPairMB.editar(demipair)}"
+							style="text-decoration: none" title="Editar"
+							disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+							<img src="../../resources/img/editaricon.png" width="28" />
+							<p:ajax event="dialogReturn" process="@this"
+								update=":idfrmconsultademipair:tabelaConsultademipair, :idfrmconsultademipair:PanelQuantidadeFichas, :idfrmconsultademipair:idNFichaFinalizada, :idfrmconsultademipair:idNFichaAndamento,
+								:idfrmconsultademipair:idNFichaCancelada" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+						style="width:58px;text-align:center;" styleClass="alinharCenter">
+						<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipair)}"
+							title="Ficha" image="../../resources/img/imprimiFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:30px;margin-left:4%"> 
+						</h:commandButton>     
+					</p:column> 
+					
+					
+					<p:column headerText="Opções" style="width:75px;text-align:center;">  
+						<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+							<img src="../../resources/img/informacaoVendaVerde.png" />
+						</p:commandLink>
+						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+							hideEffect="fade" style="background:#F0F0F0;width:800px; border:none;">
+							<p:outputLabel
+								value="#{demipair.vendas.idvendas} - #{demipair.vendas.cliente.nome}"
+								style="text-align:center;font-size:15px;" />
+							<br />
+							<br />
+							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+								
+									<p:commandLink action="#{demiPairMB.boletos(demipair)}" disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+										title="IMPRIMIR OS BOLETOS"
+										ajax="false" target="_blank"
+										style="width:100%;margin-left:4%" >
+										<img src="../../resources/img/boletoFicha.png" width="36" />
+										<h:panelGrid columns="1" style="text-align:1px;">
+											<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+											<p:outputLabel value=" "/>
+										</h:panelGrid>
+									</p:commandLink>  
+									
+									<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipair)}"
+										style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+										update="idfrmconsultademipair:dialog_obsTM"
+										oncomplete="PF('obstm').show()"
+										disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+										<img src="#{demiPairMB.retornarIconeObsTM(demipair)}" width="36" />
+										<h:panelGrid columns="1" style="text-align:1px;">
+											<p:outputLabel value="OBS" style="font-size:11px;"/>
+											<p:outputLabel value="TM" style="font-size:11px;"/>
+										</h:panelGrid>
+									</p:commandLink>
+									
+									<p:commandLink
+										action="#{demiPairMB.gerarRelatorioContrato(demipair)}"
+										title="IMPRIMIR O CONTRATO"
+										disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+										ajax="false"
+										target="_blank">
+										<img src="../../resources/img/imprimiContrato.png" width="36" />
+										<h:panelGrid columns="1" style="text-align:1px;">
+											<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+											<p:outputLabel value=" "/>
+										</h:panelGrid>
+									</p:commandLink>
+									
+									<p:commandLink
+										action="#{demiPairMB.gerarRelatorioTermoVisto(demipair)}"
+										title="IMPRIMIR O TERMO DE VISTO"
+										disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+										 ajax="false"
+										target="_blank" >
+										<img src="../../resources/img/imprimiVisto.png" width="36" />
+										<h:panelGrid columns="1" style="text-align:1px;">
+											<p:outputLabel value="TERMO" style="font-size:11px;"/>
+											<p:outputLabel value="VISTO" style="font-size:11px;"/>
+										</h:panelGrid>
+									</p:commandLink>
+									
+									<p:commandLink
+										action="#{demiPairMB.gerarRelatorioRecibo(demipair)}"
+										title="IMPRIMIR O RECIBO"
+										disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+										ajax="false"
+										target="_blank" >
+										<img src="../../resources/img/imprimiRecibo.png" width="36" />
+										<h:panelGrid columns="1" style="text-align:1px;">
+											<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+											<p:outputLabel value=" "/>
+										</h:panelGrid>
+									</p:commandLink>
+									
+										<p:commandLink action="#{demiPairMB.documentacao(demipair)}"
+											title="DOCUMENTOS"
+											disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+											<img src="../../resources/img/arquivosUpload.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="DOCS" style="font-size:11px;"/>
+												<p:outputLabel value=" "/>
+											</h:panelGrid>
+										</p:commandLink>
+										
+										<p:commandLink action="#{demiPairMB.informacoes(demipair)}"    
+											 title="INFORMAÇÕES DA VENDA"
+											disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="INFO" style="font-size:11px;"/>
+												<p:outputLabel value=" "/>
+											</h:panelGrid>
+										</p:commandLink>
+										
+										<p:commandLink  
+											action="#{demiPairMB.cancelarVenda(demipair.vendas)}"
+											disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+											style="text-decoration: none" title="CANCELAR FICHA"
+											update=":idfrmconsultademipair:tabelaConsultademipair">
+											<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<img src="../../resources/img/cancel.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+												<p:outputLabel value=" "/>
+											</h:panelGrid>
+										</p:commandLink>   
+							</h:panelGrid>
+						</p:overlayPanel>
+					</p:column>  
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
+			    	<div align="center">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
+			        </div>  
+			    </p:confirmDialog>  
+				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="60%" style="margin-left: 2%;">
+					
+					<h:panelGroup >
+						<p:commandLink actionListener="#" title="N° Total de Ficha"
+							style="margin-left:15%;">
+							<img src="../../resources/img/iconeTotal.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="numFicha" value="#{demiPairMB.numeroFichas}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup>
+					<h:panelGroup >
+						<p:commandLink actionListener="#" title="Ficha Finalizada"
+							style="margin-left:5%;">
+							<img src="../../resources/img/finalizadoFicha.png" width="31px" />   
+						</p:commandLink>
+						<p:outputLabel id="idNFichaFinalizada" value="#{demiPairMB.nFichasFinalizadas}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup>
+					<h:panelGroup >
+						<p:commandLink actionListener="#" title="Ficha em Andamento"
+							>
+							<img src="../../resources/img/amarelaFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaProcesso" value="#{demiPairMB.nFichasAndamento}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink actionListener="#" title="Ficha em Processo"
+							>
+							<img src="../../resources/img/processoFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaAndamento" value="#{demiPairMB.nFichasProcesso}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup>
+					<h:panelGroup >
+						<p:commandLink actionListener="#" title="Ficha Cancelada"
+							>
+							<img src="../../resources/img/fichaCancelada.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaCancelada" value="#{demiPairMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup> 
+				</h:panelGrid>
+				<br></br> <br></br>
+				<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
+					widgetVar="cd" style="width:30%;font-size:14px">
+					<p:outputLabel value="Salvar controle desta ficha?" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim"
+						action="#{demiPairMB.salvarControle()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check" update="idfrmconsultademipair:growl"
+						style="margin-left:13%;font-size:12px" />
+					<p:commandButton value="Não" oncomplete="PF('cd').hide();"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+						update="idfrmconsultademipair:growl" style="font-size:12px" />
+				</p:dialog>
+				<p:dialog id="dialog_obsTM" header="Obs TM" widgetVar="obstm"
+					style="background:#d0e9c6;text-align: left">
+					<br></br>
+					<p:inputTextarea id="idObstm" value="#{demiPairMB.obsTM}" rows="10"
+						cols="50" queryDelay="750" minQueryLength="4" readonly="true" />
+					<br></br>
+					<br></br>
+					<br></br>
+				</p:dialog>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+		<h:form id="cancelar">
+			<p:dialog id="dialog_cancelar" header="Cancelar" widgetVar="cancelar"
+				width="31%" style="background:#d0e9c6;text-align: left">
+				<p:outputLabel value="Motivo do Cancelamento" for="motivo"
+					style="font-size: 11px" />
+				<br></br>
+				<p:inputTextarea id="motivo"
+					value="#{demiPairMB.motivoCancelamento}" cols="70" rows="3" />
+				<br></br>
+				<br></br>
+				<p:commandButton value="Salvar" icon="ui-icon-check"
+					action="#{demiPairMB.cancelarVenda()}"
+					class="espacocobranca23botao"
+					style="font-size:11px;margin-left:70%" update="@all"
+					onclick="cancelar.hide()" />
+			</p:dialog>
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:commandLink action="#{usuarioLogadoMB.paginaPrincipal()}">
+					<img src="../../resources/img/ajax-loader.gif" />
+				</p:commandLink>
+			</p:dialog>
+			<br></br>
+			<p:dialog showEffect="fade" hideEffect="fade" header="Confirmação"
+				icon="ui-icon-alert" widgetVar="liberarficha"
+				style="width:30%;font-size:14px">
+				<p:outputLabel
+					value="LIBERAR FICHA? Ficha será liberar para finalizar." />
+				<br></br>
+				<br></br>
+				<p:commandButton value="Sim" action="#{demiPairMB.liberarFicha()}"
+					oncomplete="PF('liberarficha').hide();"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+					update="idfrmconsultademipair:growl"
+					style="margin-left:30%;font-size:12px" />
+				<p:commandButton value="Não" oncomplete="PF('liberarficha').hide();"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+					update="idfrmconsultademipair:growl" style="font-size:12px" />
+			</p:dialog>
+			<style>
+				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+					.ui-datatable tfoot th {
+					padding: 2px 2px;
+					overflow: hidden;
+					border-width: 0px;
+					border-style: solid;
+				}
+				.ui-confirm-dialog-message {
+				    display: inline-block;
+				    margin-top: 1px;
+				    font-size: 17px !important;
+				}
+				</style>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="calcularMargem"
+		style="text-align:left;font-size: 10px; margin-left:5%; ">
+		<title>Custos Financeiro</title>
+		<br></br>
+		<h:panelGrid columns="2" columnClasses="tamanho14, tamanho14" style="margin-left:14%;width:70%;">
+			<p:outputLabel value="Deságio" />
+			<p:outputLabel value="Juros" />
+
+			<p:inputText id="desagio" value="#{calculadoraMargemMB.desagio}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="juros" value="#{calculadoraMargemMB.juros}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+		</h:panelGrid>
+		<br></br>
+		<h:panelGrid columns="2" columnClasses="tamanho14, tamanho14" style="margin-left:14%;width:70%;">
+			<p:outputLabel value="Custo Total" />
+			<p:outputLabel value="Custo Franquia" />
+
+			<p:inputText id="custoTotal"
+				value="#{calculadoraMargemMB.custoTotal}"
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:inputText id="custoFranquia"
+				value="#{calculadoraMargemMB.custoFranquia}"  
+				style="width:80%;text-aling:right;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+		</h:panelGrid>
+		<br></br>
+		<div align="center">    
+			<p:commandButton value="Margem" icon="ui-icon-calculator" 
+				action="#" update="painelMargem"/>    
+			<p:commandButton value="Fechar" icon="ui-icon-closethick" action="#"
+				style="margin-left:3%" />
+		</div>
+		<h:panelGroup id="painelMargem">
+			<legend id="iUsu3">
+				<b style="font-size:13px;">Margem</b>
+			</legend>
+			<h:panelGrid columns="2" columnClasses="tamanho14, tamanho14">
+				<p:outputLabel value="País" />
+				<p:outputLabel value="Cidade" />
+				
+				<p:selectOneMenu id="pais" value="#{calculadoraMargemMB.pais}"
+					style="width:230px;"
+					converter="PaisFornecedorConverter" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idpais"
+						value="#{calculadoraMargemMB.listaPais}" var="cpais"
+						itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+					<f:attribute name="listaPaisFornecedor" value="#{calculadoraMargemMB.listaPais}" />
+					<p:ajax event="change"
+						update=":calcularMargem:cidade" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="cidade" value="#{calculadoraMargemMB.cidade}"
+					style="width:230px;" converter="CidadeConverter" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Cidade" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idcidade2"
+						value="#{calculadoraMargemMB.pais.cidadeList}" var="cursocidade"
+						itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
+					<f:attribute name="listaCidade"
+						value="#{calculadoraMargemMB.pais.cidadeList}" />
+					<p:ajax event="change"
+						update=":calcularMargem:fornecedor" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<br></br>
+			<h:panelGrid columns="2" columnClasses="tamanho14, tamanho14">
+				<p:outputLabel value="Parceiro" />
+				<p:outputLabel value="Produto" />
+				
+				<p:selectOneMenu id="fornecedor"
+					value="#{calculadoraMargemMB.fornecedorCidade}"
+					style="width:230px;"
+					converter="FornecedorCidadeConverter" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Escola" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idfornecedor"
+						value="#{calculadoraMargemMB.listaFornecedorCidade}" var="fornecedor"
+						itemLabel="#{fornecedor.fornecedor.nome}"
+						itemValue="#{fornecedor}" />
+					<f:attribute name="listaFornecedorCidade"
+						value="#{calculadoraMargemMB.listaFornecedorCidade}" />
+					<p:ajax event="change"/>
+				</p:selectOneMenu>
+				<p:selectOneMenu id="produto"
+					value="#{fornecedorComissaoMB.produtoOrcamento}"
+					style="width:230px;"
+					converter="ProdutoOrcamentoConverter" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idproduto"
+						value="#{fornecedorComissaoMB.listaProdutos}" var="cproduto"
+						itemLabel="#{cproduto.produtosorcamento.descricao}"
+						itemValue="#{cproduto.produtosorcamento}" />
+					<f:attribute name="listaProdutos"
+						value="#{fornecedorComissaoMB.listaProdutos}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<br></br>
+			<h:panelGrid columns="4" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
+				<p:outputLabel value="Comissão" />
+				<p:outputLabel value="Assessoria TM" />
+				<p:outputLabel value="Desconto Matriz" />
+				<p:outputLabel value="Desconto Loja" />
+				
+				<p:inputText id="comissao"
+					value="#{calculadoraMargemMB.comissaoFranquia}"
+					style="width:70%;text-aling:right;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="assessoriaTM"
+					value="#{calculadoraMargemMB.assessoriaTM}"
+					style="width:70%;text-aling:right;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="descontoMatriz"
+					value="#{calculadoraMargemMB.descontoMatriz}"
+					style="width:70%;text-aling:right;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="descontoLoja"
+					value="#{calculadoraMargemMB.descontoloja}"
+					style="width:70%;text-aling:right;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+			</h:panelGrid>
+			<br></br>
+			<div align="center" style="width:100%;">
+				<p:outputLabel value="Margem Final" style="font-size:13px;"/><br/>
+				<p:inputText id="margemFinal"
+					value="#{calculadoraMargemMB.descontoloja}"
+					style="width:20%;text-aling:right;font-size:13px;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>	
+			</div>
+		</h:panelGroup>
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/ajax-loader.gif" />
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadFornecedorDocs" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2" style="margin-left:16%;width:62.2%;">  
+					<b>Upload de Documentos</b>
+				</legend>    
+				<h:panelGrid columns="1"   
+					columnClasses="tamanhonotificacao2"
+					style="margin-left:7%;width:62.2%;">     
+					<p:outputLabel value="Parceiro" />       
+
+					<p:selectOneMenu id="fornecedor" value="#{vincularFornecedorDocsMB.fornecedor}"
+						style="width:50%;font-size:11px;" converter="FornecedorConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:450px">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor" value="#{vincularFornecedorDocsMB.listaFornecedor}"
+							var="fornecadorselecionado" itemLabel="#{fornecadorselecionado.nome}" itemValue="#{fornecadorselecionado}" />
+						<f:attribute name="listaFornecedor" value="#{vincularFornecedorDocsMB.listaFornecedor}" />
+						<p:ajax event="change" listener="#{vincularFornecedorDocsMB.carregarListaPais()}" update=":cadFornecedorDocs:idTabelaPais, :cadFornecedorDocs:idTabelaCidade"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<br />   
+				<h:panelGrid columns="2" columnClasses="tamanhonotificacao2,tamanhonotificacao2"
+					style="margin-left:7%;width:85%;">
+					<h:panelGroup>
+						<div align="left" style="width:95%">
+							<p:selectBooleanCheckbox value="#{vincularFornecedorDocsMB.todospais}">
+		            			<p:ajax update="idTabelaPais, idTabelaCidade" listener="#{vincularFornecedorDocsMB.selecionarTodosPais()}" />
+		        			</p:selectBooleanCheckbox>
+		        			 <p:outputLabel value="Selecionar todos" style="margin-left: 1%"></p:outputLabel>
+						</div>
+						<p:dataTable id="idTabelaPais" var="pais"
+							value="#{vincularFornecedorDocsMB.listaPais}"
+							scrollable="true" scrollHeight="240"
+							style="margin-bottom:20px;margin-right:20px;margin-top:11px;" > 
+							<p:column style="width:30px;" styleClass="alinharCenter">
+								<p:selectBooleanCheckbox value="#{pais.selecionado}">
+									<p:ajax event="change" listener="#{vincularFornecedorDocsMB.carregarListaCidades(pais.selecionado)}" update=":cadFornecedorDocs:idTabelaCidade"/>
+								</p:selectBooleanCheckbox>
+							</p:column>
+							<p:column headerText="Pais"
+								styleClass="alinharCenter">  
+								<p:outputLabel value="#{pais.nome}" />
+							</p:column> 
+						</p:dataTable>
+					</h:panelGroup>
+					<h:panelGroup>  
+						<div align="left" style="width:95%">
+							<p:selectBooleanCheckbox value="#{vincularFornecedorDocsMB.todoscidade}">
+		            			<p:ajax update="idTabelaPais, idTabelaCidade" listener="#{vincularFornecedorDocsMB.selecionarTodasCidades()}" />
+		        			</p:selectBooleanCheckbox>
+		        			 <p:outputLabel value="Selecionar todas" style="margin-left: 1%"></p:outputLabel>
+						</div>
+						<p:dataTable id="idTabelaCidade" var="cidade"
+							value="#{vincularFornecedorDocsMB.listaCidade}"
+							scrollable="true" scrollHeight="240"
+							style="margin-bottom:20px;margin-right:20px;margin-top:11px;" >
+							<p:column style="width:30px;" styleClass="alinharCenter">
+								<p:selectBooleanCheckbox value="#{cidade.selecionado}"
+									 disabled="#{vincularFornecedorDocsMB.desabilitarSelecione(cidade)}"/>
+							</p:column>
+							<p:column headerText="Cidade" 
+								styleClass="alinharCenter">
+								<p:outputLabel value="#{cidade.cidade.nome}" />
+							</p:column>
+							<p:column style="width:50px;" styleClass="alinharCenter">
+								<p:commandLink id="btnExcluir" action="#{vincularFornecedorDocsMB.excluir(cidade)}"
+									disabled="#{cidade.excluir}" update="cadFornecedorDocs, idTabelaCidade">
+									<img src="../../resources/img/excluir.png"/>
+								</p:commandLink>
+							</p:column>  
+						</p:dataTable>
+					</h:panelGroup>  
+				</h:panelGrid>
+				<br/>  
+				<div align="center" style="margin-left:16%;width:62.2%;">
+					<p:commandButton id="btnConfirmar" value="Confirmar" action="#{vincularFornecedorDocsMB.salvar()}"
+						icon="ui-icon-check" style="font-size:12px;" update="growl" />
+					<p:commandButton id="btnCancelar" value="Cancelar" action="#{vincularFornecedorDocsMB.cancelar()}"
+						icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />     
+				</div>    
+				<br></br> <br></br><br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaRecebimentos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							columnClasses="tamanho1, tamanhoavisos,tamanho8,tamanho8"
+							style="width:95%;margin-left:3%;">  
+							<p:outputLabel value="ID Vendas" for="idvendas" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Período de Envio" /> 
+							<p:outputLabel value="Período de Vencimento"/>
+
+							<p:inputText id="idvendas" value="#{consRecebimentoMB.nVenda}"
+								style="width:90%" />
+							<p:inputText id="cliente" value="#{consRecebimentoMB.nomeCliente}"
+								style="width:90%" />
+							<h:panelGroup>
+								<p:calendar id="dataEnvIni" value="#{consRecebimentoMB.dataEnvInicial}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataEnvFinal" value="#{consRecebimentoMB.dataEnvFinal}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:calendar id="dataVencIni" value="#{consRecebimentoMB.dataVencInicial}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataVencFinal" value="#{consRecebimentoMB.dataVencFinal}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="7"
+							columnClasses="tamanho8,tamanho8, tamanho1,tamanho1,tamanho7,tamanho1"
+							style="width:97%;margin-left:3%;">
+							<p:outputLabel value="Parceiro"  />  
+							<p:outputLabel value="" />
+							<p:outputLabel value="Responsável"  />
+
+							<p:outputLabel />
+							<p:outputLabel value="Situação"/>
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="fornecedor" 
+									value="#{consRecebimentoMB.fornecedor}" style="width:250px;"
+									converter="FornecedorConverter" filter="true"
+									filterMatchMode="startsWith" panelStyle="width:180px">
+									<f:selectItem itemLabel="Parceiro" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems value="#{consRecebimentoMB.listaFornecedor}"
+										var="fornecedor" itemLabel="#{fornecedor.nome}"
+										itemValue="#{fornecedor}" />
+									<f:attribute name="listaFornecedor"
+										value="#{consRecebimentoMB.listaFornecedor}" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:selectOneMenu id="responsavel" 
+									value="#{consRecebimentoMB.usuario}" style="width:251px;"
+									converter="UsuarioConverter" filter="true"
+									filterMatchMode="startsWith" panelStyle="width:180px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems value="#{consRecebimentoMB.listaUsuario}"
+										var="usuario" itemLabel="#{usuario.nome}"
+										itemValue="#{usuario}" />
+									<f:attribute name="listaUsuario"
+										value="#{consRecebimentoMB.listaUsuario}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:selectOneMenu id="situacao" 
+								value="#{consRecebimentoMB.situacao}" style="width:100px;">
+								<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+								<f:selectItem itemLabel="Amarela" itemValue="Amarela" />
+								<f:selectItem itemLabel="Verde" itemValue="Verde" />
+								<f:selectItem itemLabel="Vermelho" itemValue="Vermelho" />
+							</p:selectOneMenu>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " style="margin-left:2%;"
+								action="#{consRecebimentoMB.pesquisar()}" update=":consultaRecebimentos:tabelaRecebimentos"/>        
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								action="#{consRecebimentoMB.gerarListaRecInternacional()}" update=":consultaRecebimentos:tabelaRecebimentos"/>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br/>
+				<legend id="iUsu2">
+					<b>Consulta de Recebimentos Internacionais</b>
+				</legend>
+				<p:commandButton value="Novo" icon="ui-icon-plus" action="#{consRecebimentoMB.cadastroRecebimentos()}"
+					 style="font-size:12px;margin-left:93%">
+					 <p:ajax event="dialogReturn" listener="#{consRecebimentoMB.retornoDialogNovo}" update="tabelaRecebimentos, :consultaRecebimentos:growl"/>
+				</p:commandButton>
+					<br/><br/>
+				<p:dataTable id="tabelaRecebimentos" var="recebimento" class="tabela"
+					value="#{consRecebimentoMB.listaRecInternacional}" scrollable="true"
+					scrollHeight="300" editable="true" editMode="cell"
+					rowIndexVar="rowIx">
+					<p:column style="width:30px;text-align:center;"
+						headerText="">
+							<img src="#{consRecebimentoMB.retornarSituacao(recebimento)}"
+								width="10" />
+					</p:column>
+					<p:column headerText="ID" sortBy="#{recebimento.vendas.idvendas}" style="width:50px;text-align:center;">
+						<h:outputText value="#{recebimento.vendas.idvendas}" />
+					</p:column>
+					<p:column headerText="Parceiro" sortBy="#{recebimento.fornecedor.nome}"
+						style="width:98px;text-align:left;">
+						<h:outputText value="#{recebimento.fornecedor.nome}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Envio" sortBy="#{recebimento.dataenvio}"
+						style="text-align:center;width:100px;">
+						<h:outputText value="#{recebimento.dataenvio}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Vencimento" sortBy="#{recebimento.datavencimento}"
+						style="text-align:center;width:130px;">
+						<h:outputText value="#{recebimento.datavencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Nome" styleClass="alinharCenter" sortBy="#{recebimento.vendas.cliente.nome}"
+						style="width:165px;text-align:left;">
+							<h:outputText value="#{recebimento.vendas.cliente.nome}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+					</p:column>
+					<p:column headerText="Produto" styleClass="alinharCenter" sortBy="#{recebimento.vendas.produtos.descricao}"
+						style="width:120px;text-align:left;">
+						<h:outputText value="#{recebimento.vendas.produtos.descricao}" />
+					</p:column>
+					<p:column headerText="Motivo" style="width:80px;" sortBy="#{recebimento.motivorecinternacional.descricao}"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{recebimento.motivorecinternacional.descricao}" />
+					</p:column>
+					<p:column headerText="Responsável" sortBy="#{recebimento.usuario.nome}"
+						style="text-align:left;width:120px;">
+						<h:outputText value="#{recebimento.usuario.nome}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Moeda" sortBy="#{recebimento.moedas.sigla}" styleClass="alinharCenter"
+						style="width:90px;">
+						<h:outputText
+							value="#{recebimento.moedas.sigla}" />
+					</p:column>
+					<p:column headerText="Valor" sortBy="#{recebimento.valor}" style="width:80px;text-align:right;">
+						<h:outputText value="#{recebimento.valor}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="" styleClass="alinharCenter"
+						style="width:60px;text-align:center;">
+						<p:commandLink action="#{consRecebimentoMB.editarCadastroRecebimento(recebimento)}" title="Recebimento"
+							>
+							<img src="../../resources/img/editaricon.png"
+								width="23px" />
+								<p:ajax event="dialogReturn" listener="#{consRecebimentoMB.retornoDialogEdicao}" update=":consultaRecebimentos:tabelaRecebimentos, :consultaRecebimentos:growl"/>
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="" styleClass="alinharCenter"
+						style="width:60px;">
+						<p:commandLink action="#{consRecebimentoMB.recebimento(recebimento)}" title="Recebimento"
+							>
+							<p:ajax event="dialogReturn" listener="#{consRecebimentoMB.retornoDialogRecebimento}" update=":consultaRecebimentos:tabelaRecebimentos, :consultaRecebimentos:growl"/>
+							<img src="../../resources/img/cobrancaVerde.png"
+								width="23px" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Obs" styleClass="alinharCenter"
+						style="width:60px;">
+						<p:commandLink action="#{consRecebimentoMB.abrirObsRecebimentos(recebimento)}" title="Observação"
+							>
+							<p:ajax event="dialogReturn" update=":consultaRecebimentos:tabelaRecebimentos"/>
+							<img src="#{consRecebimentoMB.retornarIconeObs(recebimento)}"
+								width="23px" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="" styleClass="alinharCenter"
+						style="width:60px;">
+						<p:commandLink action="#{consRecebimentoMB.relatorioInvoiceParceiro(recebimento)}" title="Relatório Invoice Parceiro"
+							>
+							<p:ajax event="dialogReturn" update=":consultaRecebimentos:tabelaRecebimentos"/>
+							<img src="#{consRecebimentoMB.retornarIconeRelatorio(recebimento)}"
+								width="23px" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

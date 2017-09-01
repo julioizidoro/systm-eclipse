@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoTurismoPagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="384"/>
+	<parameter name="idvendas" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT distinct vendas.dataVenda, vendas.idvendas, unidadenegocio.razaoSocial, unidadenegocio.tipoLogradouro as tipologradourounidadeNegocio,
+unidadenegocio.logradouro as logradourounidadenegocio, unidadenegocio.numero as numerounidadenegocio, unidadenegocio.complemento as complementounidadenegocio,
+unidadenegocio.bairro as bairrounidadenegocio, unidadenegocio.cidade as cidadeunidadenegocio, unidadenegocio.estado as estadounidadenegocio,
+unidadenegocio.cep as cepunidadenegocio, unidadenegocio.cnpj as cnpjunidadenegocio,
+cliente.nome, cliente.rg, cliente.cpf as clientecpf, cliente.tipoLogradouro as tipologradourocliente, cliente.logradouro as logradourocliente,
+cliente.numero as numerocliente, cliente.complemento as complementocliente, cliente.bairro as bairrocliente, cliente.cidade as cidadecliente,
+cliente.estado as estadocliente, cliente.cep as cepcliente, usuario.nome as nomeusuario
+FROM
+	vendas join unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadenegocio.idunidadeNegocio
+    join cliente on vendas.cliente_idcliente= cliente.idcliente
+    join usuario on vendas.usuario_idusuario = usuario.idusuario
+where
+	vendas.idvendas=$P{idvendas}]]>
+	</queryString>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idvendas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadenegocio" class="java.lang.String"/>
+	<field name="numerounidadenegocio" class="java.lang.String"/>
+	<field name="complementounidadenegocio" class="java.lang.String"/>
+	<field name="bairrounidadenegocio" class="java.lang.String"/>
+	<field name="cidadeunidadenegocio" class="java.lang.String"/>
+	<field name="estadounidadenegocio" class="java.lang.String"/>
+	<field name="cepunidadenegocio" class="java.lang.String"/>
+	<field name="cnpjunidadenegocio" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="clientecpf" class="java.lang.String"/>
+	<field name="tipologradourocliente" class="java.lang.String"/>
+	<field name="logradourocliente" class="java.lang.String"/>
+	<field name="numerocliente" class="java.lang.String"/>
+	<field name="complementocliente" class="java.lang.String"/>
+	<field name="bairrocliente" class="java.lang.String"/>
+	<field name="cidadecliente" class="java.lang.String"/>
+	<field name="estadocliente" class="java.lang.String"/>
+	<field name="cepcliente" class="java.lang.String"/>
+	<field name="nomeusuario" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="359" y="14" width="196" height="54" uuid="af578208-78d1-478b-8bd3-a1bc6e702ac4"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="726" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="6" width="555" height="264" uuid="270baed3-abc6-4621-9536-cc5166ce4d5e"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Parágrafo Único: Todavia, caso a TM, por seu mera liberalidade, resolva, ao invés de rescindir o contrato, continuar com a prestação dos serviços e realizar somente a cobrança dos valores inadimplidos, sob estes, incidirão a cobrança de juros moratórios de 1% ao mês de forma capitalizada, correção monetária, multa moratória no valor de 2% (dois por cento) sobre o total do serviço contratado, bem como honorários advocatícios no importe de 20% (vinte por cento) e demais custas judiciais caso a cobrança seja feita em juízo.
+
+13) DAS DISPOSIÇÕES SUPLEMENTARES — Os passeios opcionais, não estão inclusos no preço de programa da viagem, não cabendo qualquer responsabilidade da TM quanto a execução dos mesmos, devendo o cliente contratar diretamente com a empresa realizadora dos mesmos. Os clientes que, no decorrer da viagem, necessitarem de assistência médica ou remédios, deverão suportar tais encargos. A TM orienta para que, os titulares de seguro saúde ou assistência médica, portem sempre consigo os documentos necessários para atendimento fora do domicílio habitual. Se o cliente se interessar por seguros que deem coberturas especiais, bem superiores aos mínimos legais, para o tempo de duração da viagem, deverá adquiri-lo nas agências de viagem.
+
+Sendo que o(a)CONTRATANTE afirma estar ciente dos termos deste contrato, concordando com as regras e condições para prestação do serviço tal como proposto pela TM, celebram o presente contrato em 02 vias de igual teor e forma e na presença de 2 (duas) testemunhas.
+
+As partes elegem o foro da Comarca de Florianópolis para dirimir quaisquer problemas provenientes do presente contrato, renunciando expressamente a qualquer outro por mais privilegiado que seja.
+]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="76" y="385" width="386" height="1" backcolor="#000000" uuid="426d71cc-7933-4499-9f15-d0ee2e9defa5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="72" y="462" width="386" height="1" backcolor="#000000" uuid="4e31fbb3-776e-4544-8245-013a8e368373"/>
+			</rectangle>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="275" y="287" width="215" height="13" uuid="a4398712-b75e-409c-8d0b-8ed6d267848c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="644" width="386" height="1" backcolor="#000000" uuid="decd58c9-576d-4c9f-ad01-73b6b8ac0772"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="89" y="287" width="184" height="13" uuid="f00116d4-d772-4979-91bc-b46f910ec015"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{cidadeunidadenegocio} + ", "]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="558" width="386" height="1" backcolor="#000000" uuid="fe2e91b8-5a42-4380-8172-8f78a7a748c0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="13" y="567" width="36" height="14" uuid="921cc035-6f5a-4659-8858-8e070b62bd6f"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="582" width="36" height="14" uuid="82ae8d56-854e-42d0-a15c-d13587e8b28c"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="674" width="36" height="14" uuid="eb7bfc63-1167-4bed-9807-1b7347ef80b4"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="657" width="36" height="14" uuid="1337856b-3eba-43b3-ad84-849d968144fe"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="518" width="366" height="14" uuid="a060d6b6-c2ca-4e2d-a6c6-c5f1b0edfb1f"/>
+				<text><![CDATA[TESTEMUNHAS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="-232" width="397" height="17" uuid="9fccf341-55c1-4c56-b9ec-03f21202ba07"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nome}+" - CPF: "+$F{clientecpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="475" width="383" height="13" uuid="771be7c5-80b4-4891-9e6c-2c0c84292b93"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["CNPJ/MF nº " + $F{cnpjunidadenegocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="463" width="383" height="13" uuid="ebd3f8f8-5822-40b2-8dc0-ef4e225913a2"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{razaoSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="-131" width="397" height="13" uuid="0d492ade-1320-4592-935b-b50ee71200ce"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nome}+" - CPF: "+$F{clientecpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="-232" width="397" height="17" uuid="79d836be-eb68-4634-a426-27e858206418"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nome}+" - CPF: "+$F{clientecpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="389" width="383" height="13" uuid="d77c930d-7af4-4089-8a88-95de9c6742b9"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nome}+" - CPF: "+$F{clientecpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

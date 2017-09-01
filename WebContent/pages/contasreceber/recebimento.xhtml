@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaRecebimento">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
+				<br></br>
+				<br></br>
+				<p:dataTable id="recebimento" var="recebimento"
+					value="#{recebimentoMB.listaContas}" class="tabela3"
+					scrollable="true" scrollHeight="100"
+					style="margin-bottom:20px;font-size: 10px;" editable="true"
+					editMode="cell" rowIndexVar="rowIx">
+					<p:ajax event="cellEdit" update="@all"
+						listener="#{recebimentoMB.calcularValorTotal()}" />
+					<p:column headerText="Nº Documento" style="width:90px">
+						<h:outputText value="#{recebimento.numerodocumento}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Cliente">
+						<p:commandLink value="#{recebimento.vendas.cliente.nome}"
+							action="#{recebimentoMB.enderecoCliente(recebimento.vendas.cliente)}"
+							title="Dados do Cliente" style="text-decoration: underline" />
+					</p:column>
+					<p:column headerText="Parcela" style="width:90px">
+						<h:outputText value="#{recebimento.numeroparcelas}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Vencimento" style="width:90px">
+						<h:outputText value="">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor Parcela"
+						style="width:90px;text-align: right">
+						<h:outputText value="#{recebimento.valorparcela}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Desagio" style="width:90px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{recebimento.desagio}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="valordesagio" value="#{recebimento.desagio}"
+									style="width:100%;text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur" update="@all"
+										listener="#{recebimentoMB.calcularValorTotal()}" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Juros" style="width:90px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{recebimento.juros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="valorjuros" value="#{recebimento.juros}"
+									style="width:100%;text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur" update="@all"
+										listener="#{recebimentoMB.calcularValorTotal()}" />
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Valor Pago"
+						style="width:90px;text-align: right">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{recebimento.valorpago}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="valorpago" value="#{recebimento.valorpago}"
+									style="width:100%;text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+
+								</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+				</p:dataTable>
+				<h:panelGrid columns="4" cellpadding="3" id="idpaineltotal">
+					<p:outputLabel value="Total Receber" for="totalconta"
+						class="fontebranca" style="font-size: 11px;margin-left: 10%" />
+					<p:outputLabel value="Valor de Juros" for="totaljuros"
+						class="fontebranca" style="font-size: 11px;margin-left: 55%" />
+					<p:outputLabel value="Valor de Desagio" for="totaldesconto"
+						class="fontebranca" style="font-size: 11px;margin-left: 55%" />
+					<p:outputLabel value="Valor Recebido" for="totalrecebido"
+						class="fontebranca" style="font-size: 11px;margin-left: 50%" />
+					<p:inputText id="totalconta" size="15" maxlength="100"
+						value="#{recebimentoMB.totalreceber}" style="margin-left: 10%"
+						readonly="true">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputText id="totaljuros" size="15" maxlength="100"
+						class="espacodialog4right" value="#{recebimentoMB.valorjuros}"
+						style="margin-left: 55%;text-align:right" readonly="true">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputText id="totaldesconto" size="17" maxlength="100"
+						value="#{recebimentoMB.valordesconto}"
+						style="margin-left: 55%;text-align:right" readonly="true">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+					<p:inputText id="totalrecebido" size="15" maxlength="100"
+						class="espacodialog4right" value="#{recebimentoMB.valorrecebido}"
+						style="margin-left: 49%" readonly="true">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+
+				</h:panelGrid>
+				<br></br>
+				<h:panelGrid columns="8" cellpadding="1">
+					<p:outputLabel value="Data Recebimento" class="fontebranca"
+						style="font-size: 11px;color:#000;margin-left: 10%" />
+					<p:outputLabel value="Banco"
+						style="font-size: 11px;color:#000;margin-left: 76%" />
+				</h:panelGrid>
+				<h:panelGrid columns="8" cellpadding="1">
+					<p:calendar id="formapag" size="12" style="margin-left:20%"
+						locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15"
+						value="#{recebimentoMB.dataPagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>
+					<p:selectOneMenu id="banco" value="#{recebimentoMB.banco}"
+						style="width:170px;font-size: 10px;margin-left: 21%"
+						converter="BancoConverter">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{recebimentoMB.listaBanco}" var="banco"
+							itemLabel="#{banco.nome}" itemValue="#{banco}" />
+						<f:attribute name="listaBanco" value="#{recebimentoMB.listaBanco}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+				<p class="botaoreceber">
+					<br></br>
+					<p:commandButton value="Confirmar" icon="ui-icon-check"
+						action="#{recebimentoMB.salvar()}" class="imagemm"
+						update=":telaRecebimento:growl"
+						actionListener="#{recebimentoMB.validarDataRecebimento()}" />
+					<p:commandButton value="Cancelar" icon="ui-icon-close"
+						action="#{recebimentoMB.cancelar()}" class="espacocampos" />
+					<br></br>
+					<br></br>
+				</p>
+				<br></br>
+				<br></br>
+				<br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

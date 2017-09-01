@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consTmStar">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+
+				
+				<legend id="iUsu2">
+					<b>Consulta de TM STAR</b>
+				</legend>
+				<br></br><br></br>
+				<p:dataTable id="tabelaTmStar" var="tmstar" value="#{tmStarMB.listaTmStar}" class="tabela"
+					scrollable="true" scrollHeight="300" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+					style="margin-bottom:20px;width:90%;" rows="5">
+					<p:column width="70%;" headerText="Pais" >
+						<h:outputText value="#{tmstar.pais.nome}" style="text-align:left;" />
+					</p:column>
+					<p:column width="5%;">
+						<p:commandLink action="#{tmStarMB.editarPais(tmstar)}" style="text-decoration: none" title="Editar Pais" >
+                            <img src="../../resources/img/editaricon.png" style="margin-left:15%;" width="25" height="25"/>
+                            <p:ajax event="dialogReturn" listener="#{tmStarMB.retornoDialogEdicao}" update=":consTmStar:tabelaTmStar, :consTmStar:growl"/>
+                        </p:commandLink>
+					</p:column>
+					 <p:column style="width:10%;" styleClass="alinharCenter"  headerText="Imagem">
+                           <p:commandLink action="#{tmStarMB.uploadImagem(tmstar)}" style="text-decoration: none" title="Upload da imagem">
+                                <img src="../../resources/img/arquivosUpload.png" style="margin-left:25%;" width="25" height="25"/>
+                                <p:ajax event="dialogReturn" listener="#{tmStarMB.retornoDialogImagem}" update=":consTmStar:tabelaTmStar, :consTmStar:growl"/>
+                            </p:commandLink>
+                            <h:panelGroup rendered="#{tmStarMB.habilitarImagem(tmstar)}" id="panelImagem" style="margin-left:1%;">
+								<a href="http://#{tmStarMB.ftpdados.host}:82/ftproot/systm/tmstar/TMS0#{tmstar.idtmstar}.png"  title="Visualizar Imagem" name="#{tmstar.nomeimagem}" target="_blank" style="text-decoration: none;">
+									<img src="../../resources/img/verOrcamento.png" width="25" height="25" style="font-size:12px;"/>
+								</a>
+							</h:panelGroup>
+                    </p:column>
+                    <p:column  style="width:9%;" headerText="PDF">
+                           <p:commandLink action="#{tmStarMB.uploadPDF(tmstar)}" style="text-decoration: none;margin-left:15%;" title="Upload do PDF">
+                               <img src="../../resources/img/arquivosUpload.png" width="25" height="25"/>
+                               <p:ajax event="dialogReturn" listener="#{tmStarMB.retornoDialogPDF}" update=":consTmStar:tabelaTmStar, :consTmStar:growl"/>
+                           </p:commandLink>
+                           <h:panelGroup rendered="#{tmStarMB.habilitarPDF(tmstar)}" id="panelPDF">
+								<a href="http://#{tmStarMB.ftpdados.host}:82/ftproot/systm/tmstar/TMS0#{tmstar.idtmstar}.pdf"  title="Visualização de PDF" name="#{tmstar.nomepdf}" target="_blank" style="text-decoration: none;">
+									<img src="../../resources/img/verOrcamento.png" width="25" height="25" style="font-size:12px;"/>
+								</a>
+							</h:panelGroup>
+                      </p:column>
+				</p:dataTable>
+				 <br></br>
+                    <br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

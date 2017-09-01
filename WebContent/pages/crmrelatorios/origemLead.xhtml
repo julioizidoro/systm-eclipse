@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'     
+		};
+	</script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="origemLead" style="text-align:left;font-size: 10px;">
+		<title>Origem Leads</title>
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+
+		<h:panelGrid columns="1" style="margin-left:12%;width:87%;" >
+			<p:outputLabel value="Unidade" /> 
+			<p:selectOneMenu id="unidade"
+				value="#{origemLeadMB.unidadenegocio}" style="width:200px;"
+				converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">   
+				<f:selectItem itemLabel="Todos" itemValue="0" />
+				<f:selectItems id="idunidade"
+					value="#{origemLeadMB.listaUnidade}" var="unidade"    
+					itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{origemLeadMB.listaUnidade}" />
+				<p:ajax event="change" listener="#{origemLeadMB.gerarListaConsultor()}" update="consultor"/>
+			</p:selectOneMenu>   
+			<p:outputLabel/> 
+			
+			<p:outputLabel value="Consultor" />
+			<p:selectOneMenu id="consultor" converter="UsuarioConverter"
+				value="#{origemLeadMB.consultor}" style="width:200px;"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Todos" itemValue="0" />
+				<f:selectItems id="idconsultor"
+					value="#{origemLeadMB.listaConsultor}" var="consultor"
+					itemLabel="#{consultor.nome}" itemValue="#{consultor}" />
+				<f:attribute name="listaUsuario"
+					value="#{origemLeadMB.listaConsultor}" />
+			</p:selectOneMenu>   
+			
+			<p:outputLabel/> 
+			 
+			<p:outputLabel value="Período"  /> 
+			<h:panelGroup>
+				<p:calendar id="periodoInicial" value="#{origemLeadMB.dataInicial}"  locale="pt"  pattern="dd/MM/yyyy"
+					mask="99/99/9999"  size="11"> 
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				<p:calendar id="periodoFinal" mask="99/99/9999" size="11"  locale="pt"  pattern="dd/MM/yyyy"  
+					value="#{origemLeadMB.dataFinal}" style="margin-left: 4%;">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				</p:calendar>
+			</h:panelGroup> 
+		</h:panelGrid> 
+		<br/><br/>
+		<div align="center">
+			<p:commandButton icon="ui-icon-search" value="Imprimir"
+				action="#{origemLeadMB.gerarRelatorio()}" ajax="false" onclick="this.form.target='_blank'" update="growl"/>
+			<p:commandButton icon="ui-icon-close" value="Fechar"
+				action="#{origemLeadMB.cancelar()}"></p:commandButton>
+		</div>
+	</h:form>
+</h:body>
+</html>

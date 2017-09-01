@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"   
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadFornecedorTurismo" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br> 
+				<legend id="iUsu2">
+					<b>Cadastro Parceiros</b>
+				</legend>
+				<h:panelGrid columns="3" columnClasses="tamanhoavisos, colunaVintenove, tamanhoavisos" 
+					style="margin-left:8%;width:80%;">
+					<p:outputLabel value="Nome"/>
+					<p:outputLabel value="CNPJ"/>
+					<p:outputLabel value="E-mail Financeiro"/>
+					
+					<p:inputText id="nome" value="#{cadFornecedorTurismoMB.fornecedor.nome}"
+						 style="width:90%;" maxlength="100"/>
+					<p:inputMask id="cnpj" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.cnpj}"
+						 style="width:90%;" maxlength="18" mask="99.999.999/9999-99"/>
+					<p:inputText id="email" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.emailfinanceiro}" 
+						 style="width:90%;" maxlength="100"/>
+				</h:panelGrid> 
+				<br></br> 
+				<h:panelGrid columns="2" columnClasses="tamanhoavisos2, tamanhoavisos2"    
+					style="margin-left:8%;width:64%;">
+					<p:outputLabel value="Pais"/> 
+					<p:outputLabel value="Cidade"/>
+					
+					<p:selectOneMenu id="pais" value="#{cadFornecedorTurismoMB.pais}"
+						style="width:195px;" converter="PaisFornecedorConverter"
+						filter="true" filterMatchMode="contains">
+						<f:selectItem itemLabel="País" itemValue="0"  
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{cadFornecedorTurismoMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.nome}"  
+							itemValue="#{cpais}" />
+						<f:attribute name="listaPaisFornecedor" value="#{cadFornecedorTurismoMB.listaPais}" />
+						<p:ajax event="change" update="cidade"/>
+					</p:selectOneMenu> 
+					<p:selectOneMenu id="cidade" value="#{cadFornecedorTurismoMB.cidade}"
+						style="width:195px;" converter="CidadeConverter"
+						filter="true" filterMatchMode="contains" >
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade2"
+							value="#{cadFornecedorTurismoMB.pais.cidadeList}" var="cursocidade"
+							itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
+						<f:attribute name="listaCidade"
+							value="#{cadFornecedorTurismoMB.pais.cidadeList}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+				</h:panelGrid> 
+				<legend id="iUsu3" style="width:80%;margin-left:8%;">
+					<b>Dados do banco</b>
+				</legend> 
+				<h:panelGrid columns="4" columnClasses="tamanhoavisos2, tamanho2, tamanho2, tamanho2"    
+					style="margin-left:8%;width:80%;">
+					<p:outputLabel value="Banco"/> 
+					<p:outputLabel value="Nº Banco"/>
+					<p:outputLabel value="Agencia"/>
+					<p:outputLabel value="Conta"/>
+					   
+					<p:inputText id="banco" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.nomebanco}"
+						 style="width:90%;" maxlength="50"/>
+					<p:inputText id="nbanco" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.numerobanco}"
+						 style="width:85%;" maxlength="5"/>
+					<p:inputText id="agencia" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.agencia}"
+						 style="width:85%;" maxlength="10"/>
+					<p:inputText id="conta" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.conta}" 
+						 style="width:85%;" maxlength="20"/>
+				</h:panelGrid> 
+				<br></br>
+				<h:panelGrid columns="4" columnClasses="tamanhoavisos2, tamanho2, tamanho2, tamanho2"    
+					style="margin-left:8%;width:80%;">
+					<p:outputLabel value="Endereço"/> 
+					<p:outputLabel value="Tipo Conta"/>
+					<p:outputLabel value="Swift Code"/> 
+					<p:outputLabel />
+					   
+					<p:inputText id="endereco" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.endereco}"
+						 style="width:90%;" maxlength="150"/>
+					<p:inputText id="tipoconta" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.tipoconta}"
+						 style="width:85%;" maxlength="45"/>
+					<p:inputText id="swiftcode" value="#{cadFornecedorTurismoMB.fornecedorfinanceiro.swiftcode}"
+						 style="width:85%;" maxlength="30"/> 
+					 
+				</h:panelGrid> 
+				<br></br> <br></br>
+				<div align="center">    
+					<p:commandButton value="Confirmar" action="#{cadFornecedorTurismoMB.confirmar()}"/>
+					<p:commandButton value="Cancelar" action="#{cadFornecedorTurismoMB.cancelar()}" style="margin-left:2%;"/>
+				</div> 
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="docsControle" style="text-align:left;font-size:11px;">
+		<title>Docs</title>
+		<br></br>
+		<p:outputLabel value="LOA" for="loa" class="fontebranca"
+			style="margin-left:7.5%" />
+		<p:outputLabel value="Booking" for="booking" class="fontebranca"
+			style="margin-left:31.2%" />
+		<p:outputLabel value="COE" for="coe" class="fontebranca"
+			style="margin-left:24.3%" />
+		<br></br>
+		<p:selectOneMenu id="loa" value="#{docsControleMB.docs.lao}" style="width:80px;margin-left:7.5%">
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="booking" value="#{docsControleMB.docs.booking}"
+			style="width:80px;margin-left: 20%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="coe" value="#{docsControleMB.docs.coe}"
+			style="width:80px;margin-left: 17.5%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<br></br>
+		<br></br>
+
+		<p:outputLabel value="COR" for="cor" class="fontebranca"
+			style="margin-left:7.5%" />
+		<p:outputLabel value="I20" for="i20" class="fontebranca"
+			style="margin-left:31%" />
+		<p:outputLabel value="CAQ" for="caq" class="fontebranca"
+			style="margin-left:29.3%" />
+		<br></br>
+		<p:selectOneMenu id="cor" value="#{docsControleMB.docs.cor}" style="width:80px;margin-left: 7.5%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="i20" value="#{docsControleMB.docs.i20}"
+			style="width:80px;margin-left: 20%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="caq" value="#{docsControleMB.docs.caq}"
+			style="width:80px;margin-left: 17.5%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<br></br>
+		<br></br>
+
+		<p:outputLabel value="Pagamento" for="pagamento" class="fontebranca"
+			style="margin-left:7.5%" />
+		<p:outputLabel value="Transfer In" for="transferIn"
+			class="fontebranca" style="margin-left:24.5%" />
+		<p:outputLabel value="Transfer Out" for="transferOut"
+			class="fontebranca" style="margin-left:23%" />
+		<br></br>
+		<p:selectOneMenu id="pagamento" value="#{docsControleMB.docs.pagamento}"
+			style="width:80px;margin-left: 7.5%">
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="transferIn" value="#{docsControleMB.docs.transferin}"
+			style="width:80px;margin-left: 20%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="transferOut" value="#{docsControleMB.docs.tansferout}"
+			style="width:80px;margin-left: 17.5%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<br></br>
+		<br></br>
+		
+		<p:outputLabel value="Passagem" for="passagem" class="fontebranca"
+			style="margin-left:7.5%" />
+		<p:outputLabel value="Passaporte" for="passaporte" class="fontebranca"
+			style="margin-left:26%" />
+		<p:outputLabel value="Visto" for="visto" class="fontebranca"
+			style="margin-left:22.2%" />
+		<br></br>
+		<p:selectOneMenu id="passagem" value="#{docsControleMB.docs.passagem}"
+			style="width:80px;margin-left:7.5%">
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="passaporte" value="#{docsControleMB.docs.passaporte}"
+			style="width:80px;margin-left:20%">
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="visto" value="#{docsControleMB.docs.visto}"
+			style="width:80px;margin-left:17.5%">
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<br></br>
+		<br></br>
+
+		
+		
+		<p:outputLabel value="Seguro Governamental" for="seguroGovernamental"
+			class="fontebranca" style="margin-left:7.5%" />
+		<p:outputLabel value="Familia/Acomodação" for="familia"
+			class="fontebranca" style="margin-left:9.3%" />
+		<p:outputLabel value="Carta de Custódia" for="cartaCustodia"
+			class="fontebranca" style="margin-left:10.5%" />
+		<br></br>
+		<p:selectOneMenu id="seguroGovernamental" value="#{docsControleMB.docs.segurogovernamental}"
+			style="width:120px;margin-left: 7.5%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="familia" value="#{docsControleMB.docs.familia}"
+			style="width:108px;margin-left:8.5%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		<p:selectOneMenu id="cartaCustodia" value="#{docsControleMB.docs.cartacustodia}"
+			style="width:120px;margin-left: 10%">
+			<f:selectItem itemLabel="Sem" itemValue="Sem" />
+			<f:selectItem itemLabel="Não" itemValue="Não" />
+			<f:selectItem itemLabel="Sim" itemValue="Sim" />
+		</p:selectOneMenu>
+		
+		<br></br><br></br><br></br>
+		<p class="botaocadpacote">
+			<br></br>
+			<p:commandButton class="imagemm" icon="ui-icon-check"
+				value="Confirmar" action="#{docsControleMB.salvar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" icon="ui-icon-close"
+				value="Cancelar" action="#{docsControleMB.cancelar()}"></p:commandButton>
+			<br></br> <br></br>
+		</p>
+	</h:form>
+</h:body>
+</html>

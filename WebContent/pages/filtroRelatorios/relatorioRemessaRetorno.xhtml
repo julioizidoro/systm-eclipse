@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="filtrarcontasreceber" style="text-align:left;font-size: 10px; margin-left: 1%; "><br></br>
+
+            <title>Relatório #{relatorioRemessaRetornoMB.tipo}</title>
+            
+            <h:panelGrid id="panelPesquisa" style="width:46%;" columns="3">
+	            <p:inputMask mask="99/99/9999" size="12" value="#{relatorioRemessaRetornoMB.dataInicial}">
+	            	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	            </p:inputMask>
+	            <p:inputMask mask="99/99/9999" size="12" value="#{relatorioRemessaRetornoMB.dataFinal}">
+	            	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	            </p:inputMask>
+	            <p:commandButton action="#{relatorioRemessaRetornoMB.direcionarPesquisa()}" update="panelTabelas" value="Pesquisar" />
+	        </h:panelGrid>
+	        <br/><br/>
+	        <h:panelGroup id="panelTabelas">
+	        	<h:panelGrid columns="2" style="width:100%;" rendered="#{relatorioRemessaRetornoMB.tabelaRemessa}">
+	        		<div  style="width:100%">
+						<h:panelGrid columns="2" style="width:8%;float:right;margin-right:1%;">
+							<p:selectBooleanCheckbox value="#{relatorioRemessaRetornoMB.todasremessa}">
+					            	<p:ajax update="idtabelaListaRemessa" listener="#{relatorioRemessaRetornoMB.selecionarTodasRemessa()}" />
+					        </p:selectBooleanCheckbox>
+					        <p:commandLink action="#{relatorioRemessaRetornoMB.imprimirRemessa()}" title="Imprimir" 
+									target="_blank" ajax="false">    
+									<img src="../../resources/img/imprimirFicha.png" width="25" />
+								</p:commandLink>   
+						</h:panelGrid>
+					</div>
+		            <p:dataTable id="idtabelaListaRemessa" var="remessa" rendered="#{relatorioRemessaRetornoMB.tabelaRemessa}"
+						value="#{relatorioRemessaRetornoMB.listaRemessaContas}" scrollable="true"
+						scrollHeight="200" style="margin-bottom:20px">
+						<p:column headerText="Data Envio"
+								style="width:90px;text-align:center;" sortBy="#{remessa.remessaarquivo.dataenvio}">
+								<h:outputText value="#{remessa.remessaarquivo.dataenvio}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+						</p:column>
+						<p:column headerText="Nome Arquivo"
+							style="width:117px;text-align:left;"
+							sortBy="#{remessa.remessaarquivo.nomearquivo}">
+							<h:outputText value="#{remessa.remessaarquivo.nomearquivo}" />
+						</p:column>
+						<p:column headerText="Cliente" styleClass="alinharCenter" sortBy="#{remessa.contasreceber.vendas.cliente.nome}">
+							<h:outputText value="#{remessa.contasreceber.vendas.cliente.nome}" />
+						</p:column>
+						<p:column headerText="Nº Parcela" sortBy="#{remessa.contasreceber.numeroparcelas}"
+							style="width:80px;text-align:center;" styleClass="alinharCenter">
+							<h:outputText value="#{remessa.contasreceber.numeroparcelas}" />
+						</p:column>
+						<p:column headerText="Valor" style="width:80px;text-align:right;" sortBy="#{remessa.contasreceber.valorparcela}">
+							<h:outputText value="#{remessa.contasreceber.valorparcela}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="" style="width:40px;text-align:right;">
+								<p:selectBooleanCheckbox value="#{remessa.selecionado}">
+								</p:selectBooleanCheckbox>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+				<h:panelGrid columns="2" style="width:100%;" rendered="#{relatorioRemessaRetornoMB.tabelaRetorno}">
+					<div  style="width:100%">
+						<h:panelGrid columns="2" style="width:5%;float:right;margin-right:1%;">
+							<p:selectBooleanCheckbox value="#{relatorioRemessaRetornoMB.todosretorno}">
+					            	<p:ajax update="idtabelaRetorno" listener="#{relatorioRemessaRetornoMB.selecionarTodasRetorno()}" />
+					        </p:selectBooleanCheckbox>
+					       	<p:commandLink action="#{relatorioRemessaRetornoMB.imprimirRetorno()}" title="Imprimir" 
+									target="_blank" ajax="false">    
+									<img src="../../resources/img/imprimirFicha.png" width="25" />
+								</p:commandLink>   
+						</h:panelGrid>
+					</div>
+					<p:dataTable id="idtabelaRetorno" var="retorno" rendered="#{relatorioRemessaRetornoMB.tabelaRetorno}"
+						value="#{relatorioRemessaRetornoMB.listaRetornoContas}" scrollable="true"
+						scrollHeight="200" style="margin-bottom:20px">
+						<p:column headerText="Data Retorno" sortBy="#{retorno.retornoarquivo.dataretorno}"
+								style="width:90px;text-align:center;">
+								<h:outputText value="#{retorno.retornoarquivo.dataretorno}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+						</p:column>
+						<p:column headerText="Nome Arquivo"
+							style="width:117px;text-align:left;"
+							sortBy="#{retorno.retornoarquivo.nomearquivo}">
+							<h:outputText value="#{retorno.retornoarquivo.nomeaquivo}" />
+						</p:column>
+						<p:column headerText="Cliente" styleClass="alinharCenter" sortBy="#{retorno.contasreceber.vendas.cliente.nome}">
+							<h:outputText value="#{retorno.contasreceber.vendas.cliente.nome}" />
+						</p:column>
+						<p:column headerText="Nº Parcela" sortBy="#{retorno.contasreceber.numeroparcelas}"
+							style="width:80px;text-align:center;" styleClass="alinharCenter">
+							<h:outputText value="#{retorno.contasreceber.numeroparcelas}" />
+						</p:column>
+						<p:column headerText="Valor" style="width:80px;text-align:right;" sortBy="#{remessa.contasreceber.valorparcela}">
+							<h:outputText value="#{retorno.contasreceber.valorparcela}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="" style="width:40px;text-align:right;">
+								<p:selectBooleanCheckbox value="#{retorno.selecionado}">
+								</p:selectBooleanCheckbox>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</h:panelGroup>
+        </h:form>     
+    </h:body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+    <f:view encoding="ISO-8859-1">
+        <h:form id="cadVendaAvulso" style="text-align:left;font-size:11px;">
+            <title>Cadastro de Venda</title>
+            <br></br><br></br>
+                 <p:outputLabel value="Pais" for="pais" style="font-size:11px;margin-left: 3%"/>
+                 <p:outputLabel value="Cidade" for="cidade" class="espacocobranca10" style="font-size:11px;"/>
+                 <p:outputLabel value="Parceiro" for="fornecedor" class="espacocobranca10" style="font-size:11px;"/>
+                 <br></br>
+                 <p:selectOneMenu id="pais" value="#{vendaAvulsaMB.pais}" style="width:26.5%;font-size: 10px;margin-left: 3%" class="espacocampos2" 
+                                  converter="PaisFornecedorConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                     <f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true"/> 
+                     <f:selectItems id="idpais" value="#{vendaAvulsaMB.listaPais}" var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}"/>
+                     <f:attribute name="listaPaisFornecedor" value="#{vendaAvulsaMB.listaPais}"/>
+                     <p:ajax event="change" update="cidade" /> 
+                 </p:selectOneMenu>
+                 <p:selectOneMenu id="cidade" value="#{vendaAvulsaMB.cidade}" style="width:29%;font-size: 10px" class="espacocampos" 
+                                  converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+                     <f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true"/> 
+                     <f:selectItems id="idcidade" value="#{vendaAvulsaMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+                     <f:attribute name="listaCidade" value="#{vendaAvulsaMB.pais.cidadeList}"/>
+                     <p:ajax event="change" listener="#{vendaAvulsaMB.listarFornecedorCidade()}" update="fornecedor" />
+                 </p:selectOneMenu>
+                 <p:selectOneMenu id="fornecedor" value="#{vendaAvulsaMB.fornecedorCidade}" style="width:30%;font-size: 10px" class="espacocampos" 
+                                  converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+                     <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"/> 
+                     <f:selectItems id="idfornecedor" value="#{vendaAvulsaMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+                     <f:attribute name="listaFornecedorCidade" value="#{vendaAvulsaMB.listaFornecedorCidade}"/>
+                 </p:selectOneMenu>
+                 <br></br><br></br>
+                 <p:outputLabel value="Cliente" for="cliente" style="font-size:11px;margin-left: 3%"/>
+                 <p:outputLabel value="Data venda" for="data" style="font-size:11px;margin-left:59%"/>
+                 <p:outputLabel value="Valor" for="valor" style="font-size:11px;margin-left:9%"/>
+                 <br></br>
+                 <p:inputText id="cliente" value="#{vendaAvulsaMB.cliente.nome}" style="width:53%;margin-left: 3%" />
+                 <p:calendar id="data" locale="pt"  pattern="dd/MM/yyyy"  value="#{vendaAvulsaMB.vendas.dataVenda}" size="10" style="margin-left:11%">
+                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                 </p:calendar>
+                 <p:inputText id="valor" value="#{vendaAvulsaMB.vendas.valor}" style="width:13%;text-align:right;margin-left:6%" >
+                 	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                 </p:inputText>
+                 <br></br><br></br>
+                 <p:outputLabel value="Unidade" for="unidade" style="font-size:11px;margin-left: 3%"/>
+                 <p:outputLabel value="Usuário" for="usuario"  style="font-size:11px;margin-left:24.5%"/>
+                 <p:outputLabel value="Produto" for="produto" style="font-size:11px;margin-left:27.5%"/>
+                 <br></br>
+                 <p:selectOneMenu id="unidade" value="#{vendaAvulsaMB.unidadeNegocio}" style="width:26.5%;font-size: 10px;margin-left: 3%" class="espacocampos2" 
+                                  converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
+                     <f:selectItem itemLabel="Unidade" itemValue="0" noSelectionOption="true"/> 
+                     <f:selectItems id="idnidade" value="#{vendaAvulsaMB.listaUnidadeNegocio}" var="unidadeNegocio" itemLabel="#{unidadeNegocio.nomerelatorio}" itemValue="#{unidadeNegocio}"/>
+                     <f:attribute name="listaUnidade" value="#{vendaAvulsaMB.listaUnidadeNegocio}"/>
+                 </p:selectOneMenu>
+                 <p:selectOneMenu id="usuario" value="#{vendaAvulsaMB.usuario}" style="width:29%;font-size: 10px" class="espacocampos" 
+                                  converter="UsuarioConverter" filter="true" filterMatchMode="startsWith">
+                     <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                     <f:selectItems id="idUsuario" value="#{vendaAvulsaMB.listaUsuario}" var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}"/>
+                     <f:attribute name="listaUsuario" value="#{vendaAvulsaMB.listaUsuario}"/>
+                 </p:selectOneMenu>
+                 <p:selectOneMenu id="produto" value="#{vendaAvulsaMB.produtos}" style="width:30%;font-size: 10px" class="espacocampos" 
+                                  converter="ProdutoConverter" filter="true" filterMatchMode="startsWith">
+                     <f:selectItem itemLabel="Produto" itemValue="0" noSelectionOption="true"/> 
+                     <f:selectItems id="idProduto" value="#{vendaAvulsaMB.listaProdutos}" var="produto" itemLabel="#{produto.descricao}" itemValue="#{produto}"/>
+                     <f:attribute name="listaProdutos" value="#{vendaAvulsaMB.listaProdutos}"/>
+                 </p:selectOneMenu>
+                 <br></br><br></br><br></br>
+                 <p class="botaocadpacote"><br></br>
+                     <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{vendaAvulsaMB.salvar()}" style="font-size:11px;"></p:commandButton>
+                     <p:commandButton class="espacocampos"  icon="ui-icon-close" value="Cancelar" action="#{vendaAvulsaMB.cancelar()}"></p:commandButton>
+                     <br></br><br></br>
+                 </p>
+            </h:form>    
+            </f:view> 
+    </h:body>
+</html>

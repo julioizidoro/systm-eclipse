@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<h:body>
+	<f:view encoding="ISO-8859-1">
+		<h:form id="cadNovaRegra" style="font-size:11px;">
+			<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+			<h:panelGrid columns="2" style="margin-left: 2.5%"
+				columnClasses="tamanho10,tamanho10">
+				<p:outputLabel value="Produto" for="produto" />
+				<p:outputLabel value="Programa" for="programa" />
+
+				<p:selectOneMenu id="produto"
+					value="#{cadRegrasPontuacaoMB.produtos}" style="width:225px;"
+					converter="ProdutoConverter" filter="true"
+					filterMatchMode="startsWith" panelStyle="width:180px">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idproduto"
+						value="#{cadRegrasPontuacaoMB.listaProdutos}" var="cproduto"
+						itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+					<f:attribute name="listaProdutos"
+						value="#{cadRegrasPontuacaoMB.listaProdutos}" />
+					<p:ajax event="change" />
+				</p:selectOneMenu>
+				<p:inputText id="programa"
+					value="#{cadRegrasPontuacaoMB.regraVenda.programa}" size="35"
+					maxlength="50" />
+			</h:panelGrid>
+			<br />
+			<h:panelGrid columns="4" style="margin-left: 2.5%"
+				columnClasses="tamanho10,tamanho10,tamanho10,tamanho10">
+				<p:outputLabel value="Valor Inicial" for="valorInicial" />
+				<p:outputLabel value="Valor Final" for="valorFinal" />
+				<p:outputLabel value="Nº Semanas Inicial" for="semanaInicial" />
+				<p:outputLabel value="Nº Semanas Final" for="semanaFinal" />
+
+				<p:inputText id="valorInicial"
+					value="#{cadRegrasPontuacaoMB.regraVenda.valorinicial}" size="11"
+					style="text-align:right;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="valorFinal"
+					value="#{cadRegrasPontuacaoMB.regraVenda.valorfinal}" size="11"
+					style="text-align:right;">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="semanaInicial"
+					value="#{cadRegrasPontuacaoMB.regraVenda.numerosemanasinicial}"
+					size="12" />
+				<p:inputText id="semanaFinal"
+					value="#{cadRegrasPontuacaoMB.regraVenda.numerosemanafinal}"
+					size="11" />
+			</h:panelGrid>
+			<br />
+			<h:panelGrid columns="3" columnClasses="tamanho8,tamanho8,tamanho8"
+				style="margin-left:2.5%;width:94%;">
+				<h:outputLabel value="Pais" for="pais" />
+				<h:outputLabel value="Cidade" for="cidade" />
+				<h:outputLabel value="Parceiro" for="fornecedor" />
+
+				<p:selectOneMenu id="pais" value="#{cadRegrasPontuacaoMB.pais}"
+					style="width:130px;" filter="true"
+					converter="PaisFornecedorConverter" filterMatchMode="startsWith"
+					panelStyle="width:180px">
+					<f:selectItem itemLabel="País" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idpais"
+						value="#{cadRegrasPontuacaoMB.listaPais}" var="paisselecionado"
+						itemLabel="#{paisselecionado.nome}" itemValue="#{paisselecionado}" />
+					<f:attribute name="listaPaisFornecedor"
+						value="#{cadRegrasPontuacaoMB.listaPais}" />
+					<p:ajax event="change" update="cidade" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu id="cidade" value="#{cadRegrasPontuacaoMB.cidade}"
+					style="width:150px;" filter="true" converter="CidadeConverter"
+					filterMatchMode="startsWith" panelStyle="width:180px">
+					<f:selectItem itemLabel="Cidade" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idcidade"
+						value="#{cadRegrasPontuacaoMB.pais.cidadeList}" var="cidade"
+						itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+					<f:attribute name="listaCidade"
+						value="#{cadRegrasPontuacaoMB.pais.cidadeList}" />
+					<p:ajax event="change"
+						listener="#{cadRegrasPontuacaoMB.listarFornecedorCidade()}"
+						update="painelFornecedor, fornecedor, fornecedorCidade, growl" />
+				</p:selectOneMenu>
+				<h:panelGroup id="painelFornecedor">
+					<p:selectOneMenu id="fornecedor"
+						value="#{cadRegrasPontuacaoMB.fornecedor}" style="width:115px;"
+						rendered="#{cadRegrasPontuacaoMB.habilitarFornecedor}"
+						converter="FornecedorConverter" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:100px">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{cadRegrasPontuacaoMB.listaFornecedor}"
+							var="fornecadorselecionado"
+							itemLabel="#{fornecadorselecionado.nome}"
+							itemValue="#{fornecadorselecionado}" />
+						<f:attribute name="listaFornecedor"
+							value="#{cadRegrasPontuacaoMB.listaFornecedor}" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="fornecedorCidade"
+						value="#{cadRegrasPontuacaoMB.fornecedorCidade}"
+						style="width:115px;"
+						rendered="#{cadRegrasPontuacaoMB.habilitarFornecedorCidade}"
+						converter="FornecedorCidadeConverter" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:100px">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedorcidade"
+							value="#{cadRegrasPontuacaoMB.listaFornecedorCidade}"
+							var="fornecador" itemLabel="#{fornecador.fornecedor.nome}"
+							itemValue="#{fornecador}" />
+						<f:attribute name="listaFornecedorCidade"
+							value="#{cadRegrasPontuacaoMB.listaFornecedorCidade}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+			</h:panelGrid>
+			<br />
+			<h:panelGrid columns="3" columnClasses="tamanho8,tamanho8,tamanho8"
+				style="margin-left:2.5%;width:94%;">
+				<h:outputLabel value="Pontuação" for="ponto" />
+				<h:outputLabel />
+				<h:outputLabel />
+
+				<p:inputText id="ponto"
+					value="#{cadRegrasPontuacaoMB.regraVenda.ponto}" style="width:50%;" />
+				<h:panelGroup>
+					<p:selectBooleanCheckbox id="escola" value="#{cadRegrasPontuacaoMB.regraVenda.escola}" />
+					<h:outputText value="Escola" style="margin-left:2%;font-size:16px;color: #3C4A58;font-weight: bold;" />
+				</h:panelGroup>
+				<h:outputLabel />
+			</h:panelGrid>
+			<br />
+			<br />
+			<div align="center">
+				<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar"
+					action="#{cadRegrasPontuacaoMB.salvar()}" icon="ui-icon-check"
+					update="growl" class="corBotão" />
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{cadRegrasPontuacaoMB.fechar()}" icon="ui-icon-closethick"
+					style="margin-left:2%" class="corBotão" />
+			</div>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

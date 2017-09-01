@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Enviar Email</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="telaEnviarEmail" style="text-align:left;font-size:11px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink>
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
+		<p:outputLabel value="Destinatario" for="idDestinatario"
+			style="font-size: 12px;margin-left:2%" />
+		<p:outputLabel value="Consultor" for="idConsultor"
+			style="font-size: 12px;margin-left:40%" />
+		<br></br>
+		<p:inputText id="idDestinatario" style="width:46%;margin-left:2%"
+			maxlength="100" class="camposs"
+			value="#{enviarEmailMB.emailDestinatario}">    
+			<p:ajax event="blur" />
+		</p:inputText>
+		<p:commandButton id="adcEmail" value="" icon="ui-icon-plusthick"
+			action="#{enviarEmailMB.adicionarEmail()}" style="margin-left:0.4%;width: 32px;height: 25px;"
+			update="tabelaEmails, idDestinatario" />
+		<p:inputText id="idConsultor" style="width:35%;margin-left:2%"  
+			maxlength="100" class="camposs"
+			value="#{enviarEmailMB.emailConsultor}" />
+		<br></br>
+		<br></br>
+		<p:dataTable id="tabelaEmails" var="email"
+			value="#{enviarEmailMB.listaEmails}" class="tabelas-responsivas"
+			style="margin-left:2.5%;width:90%;" scrollable="true" scrollHeight="40">
+			<p:column headerText="E-mail">
+				<h:outputText value="#{email}" />
+			</p:column>
+			<p:column headerText="" style="width:55px;"
+				styleClass="alinharCenter">
+				<p:commandLink action="#{enviarEmailMB.removerEmail(email)}"
+					update="tabelaEmails" style="text-decoration: none" title="Remover">
+					<img src="../../resources/img/excluir.png" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable> 
+		<p:outputLabel value="Assunto " for="assunto" style="margin-left:2%" />
+		<br></br>
+		<p:inputTextarea value="#{enviarEmailMB.assunto}" id="assunto"
+			rows="1" style="margin-left:2%;width:90%;" />
+		<br></br>
+		<br></br>
+		<p:outputLabel value="Texto" for="texto" style="margin-left:2%" />
+		<br></br>
+		<p:inputTextarea value="#{enviarEmailMB.texto}" id="texto" rows="3"
+			style="margin-left:2%;width:90%;" title="descrição do produto" />
+		<br></br>
+		<br></br>
+		<h:panelGroup id="painelTabelaEmail"
+			rendered="#{enviarEmailMB.tabelaArquivo}">
+			<p:dataTable id="tabelaDocumento" var="arquivo"
+				value="#{enviarEmailMB.listaArquivo}" class="tabelas-responsivas"
+				scrollable="true" scrollHeight="50"
+				style="margin-left:2.5%;width:90%;">
+
+				<p:column headerText="Arquivo">
+					<h:outputText value="#{arquivo.tipoarquivo.descricao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Nome Arquivo">
+					<h:outputText value="#{arquivo.nomeArquivo}" />
+				</p:column>
+				<p:column headerText="" style="width:55px;"
+					styleClass="alinharCenter">
+					<p:commandLink action="#{enviarEmailMB.removerArquivo(arquivo)}"
+						update="tabelaDocumento" style="text-decoration: none"
+						title="Remover">
+						<img src="../../resources/img/excluir.png" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable> <br></br>   
+		</h:panelGroup>
+		<p:outputLabel value="Rodapé do Email" for="rodape"
+			style="margin-left:2%" />
+		<br></br>
+		<p:inputTextarea value="#{enviarEmailMB.textoRodape}" id="rodape"
+			rows="3" style="margin-left:2%;width:90%;" />
+		<br></br>
+		<br></br>   
+		<div align="center">
+			<p:commandButton value="Enviar" icon="ui-icon-check"
+				action="#{enviarEmailMB.enviarEmail()}"  
+				update="growl" />
+			<p:commandButton value="Cancelar" icon="ui-icon-close"
+				action="#{enviarEmailMB.cancelar()}" style="margin-left:2%" />
+		</div>   
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta charset="utf-8" />
+	<link href="../../resources/bootstrap/css/bootstrap.css"
+		rel="stylesheet" type="text/css" media="print" />
+	<link href="../../resources/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet" type="text/css" media="print" />
+	<link href="../../resources/bootstrap/css/bootstrap.css"
+		rel="stylesheet" type="text/css" />
+	<link href="../../resources/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet" type="text/css" />
+	<title>Relatório de Fatura</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+</h:head>
+<h:body style="background:#ffffff;font-size:12px;">
+	<h:form>
+		<div class="container" style="width: 1263px !important;">
+			<br />
+			<div align="center">
+				<a class="text-success"
+					style="font-size: 25px; list-style-type: none; color: #009356">Fatura
+					- #{relatorioFaturaMB.retornarMesAno(relatorioFaturaMB.fatura.mes,
+					relatorioFaturaMB.fatura.ano)}</a> <img
+					src="../../resources/img/logoRelatorio.jpg" width="250"
+					align="right" />
+				<h:panelGrid columns="5"
+					style="font-size:12px;width:100%;text-align: center;border:1.5px solid #cccccc;  ">
+					<h:panelGroup>
+						<p:outputLabel
+							value="#{relatorioFaturaMB.fatura.unidadenegocio.nomeFantasia}"
+							style="font-weight: inherit;font-size:19px;float: left;" />
+					</h:panelGroup>
+					<h:panelGroup style="text-align: center;">
+						<p:outputLabel value="Saldo Débito (Crédito)"
+							style="font-weight: inherit;" />
+						<br />
+						<p:outputLabel
+							value="#{relatorioFaturaMB.retornarAnteriorMesAno(relatorioFaturaMB.fatura.mes, relatorioFaturaMB.fatura.ano)}"
+							style="font-weight: inherit;" />
+						<br />
+						<p:outputLabel value="#{relatorioFaturaMB.fatura.saldodebito}"
+							style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.saldodebito)};">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+					<h:panelGroup style="text-align: center;">
+						<p:outputLabel value="Valor Pago (Recebido) ref."
+							style="font-weight: inherit;" />
+						<br />
+						<p:outputLabel
+							value="#{relatorioFaturaMB.retornarAnteriorMesAno(relatorioFaturaMB.fatura.mes, relatorioFaturaMB.fatura.ano)}"
+							style="font-weight: inherit;" />
+						<br />
+						<p:outputLabel value="#{relatorioFaturaMB.fatura.valorpago}"
+							style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.valorpago)};">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+					<h:panelGroup style="text-align: center;">
+						<p:outputLabel value="Saldo Final" style="font-weight: inherit;" />
+						<br />
+						<p:outputLabel
+							value="#{relatorioFaturaMB.retornarAnteriorMesAno(relatorioFaturaMB.fatura.mes, relatorioFaturaMB.fatura.ano)}"
+							style="font-weight: inherit;" />
+						<br />
+						<p:outputLabel
+							value="#{relatorioFaturaMB.fatura.saldofinalanterior}"
+							style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.saldofinalanterior)};">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+					<h:panelGroup style="text-align: center;">
+						<p:outputLabel value="Novo Saldo Devedor" />
+						<br />
+						<p:outputLabel value="(Credor)" />
+						<p:commandButton id="btnBanco" value="Banco"
+							rendered="#{relatorioFaturaMB.btnBanco}"
+							action="#{relatorioFaturaMB.visualizarDadosBanco()}"
+							style="font-size:10px;margin-left:1%;"
+							title="Informe o banco que deverá ser dépositado o valor credor." />
+						<p:commandButton id="btnComprovante" value="Comprovante"
+							rendered="#{relatorioFaturaMB.btnComprovante}"
+							action="#{relatorioFaturaMB.visualizarComprovantes()}"
+							style="font-size:10px;margin-left:1%;"
+							title="Insira o comprovante de pagamento." />
+						<br />
+						<p:outputLabel value="#{relatorioFaturaMB.fatura.saldodevedor}"
+							style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.saldodevedor)};">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+				</h:panelGrid>
+				<br />
+				<li class="text-success"
+					style="font-size: 15px; list-style-type: none; color: #449D44; font-weight: bold">
+					#{relatorioFaturaMB.retornarMesAno(relatorioFaturaMB.fatura.mes,
+					relatorioFaturaMB.fatura.ano)}</li>
+			</div>
+			<h:dataTable id="tabelaFaturaAtual" styleClass="table"
+				style="font-size:12px;"
+				value="#{relatorioFaturaMB.listaFaturaAtual}" var="fatura">
+				<h:column style="width: 100px;">
+					<f:facet name="header" style="text-align: center;">Cliente/Item</f:facet>
+					<h:outputText value="#{fatura.cliente}" styleClass="alinhamento"
+						style="float: left;" />
+				</h:column>
+				<h:column style="width:70px;">
+					<f:facet name="header" style="text-align: center;">Data</f:facet>
+					<h:outputText value="#{fatura.datavenda}" styleClass="alinhamento"
+						style="text-align: left !important;margin-right:40%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:80px;">
+					<f:facet name="header" style="text-align: center;">Produto/Descrição</f:facet>
+					<h:outputText value="#{fatura.programa}" styleClass="alinhamento"
+						style="float: left;" />
+				</h:column>
+				<h:column style="width:80px;">
+					<f:facet name="header" style="text-align: center;">Parceiro</f:facet>
+					<h:outputText value="#{fatura.fornecedor}" styleClass="alinhamento"
+						style="float: left;" />
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Valor Total</f:facet>
+					<h:outputText value="#{fatura.valortotal}" styleClass="alinhamento"
+						style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Valor Comissionável</f:facet>    
+					<h:outputText value="#{fatura.valorcomissionavel}"
+						styleClass="alinhamento" style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">% Comissão</f:facet>
+					<h:outputText value="#{fatura.percentualcomissao}"
+						styleClass="alinhamento" style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Comissão</f:facet>
+					<h:outputText value="#{fatura.comissao}" styleClass="alinhamento"
+						style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Taxa TM</f:facet>
+					<h:outputText value="#{fatura.taxatm}" styleClass="alinhamento"
+						style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Custos Financ.</f:facet>
+					<h:outputText value="#{fatura.desagio}" styleClass="alinhamento"
+						style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Desc. Matriz</f:facet>
+					<h:outputText value="#{fatura.descontomatriz}"
+						styleClass="alinhamento" style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Desc. Loja</f:facet>
+					<h:outputText value="#{fatura.descontoloja}"
+						styleClass="alinhamento" style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Recebido Matriz</f:facet>
+					<h:outputText value="#{fatura.recebidomatiz}"
+						styleClass="alinhamento" style="float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+				<h:column style="width:60px;">
+					<f:facet name="header" style="text-align: center;">Líquido</f:facet>
+					<h:outputText value="#{fatura.total}" styleClass="alinhamento"
+						style="float:right;color:#{relatorioFaturaMB.retornoCorLetra(fatura.total)};">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+			<div align="right" style="margin-top: -10px;">
+				<p:panelGrid columns="2"
+					style="border-bottom:2px solid transparent;width:22%;">
+					<p:outputLabel value="Saldo Anterior"
+						style="font-weight: inherit;float:right;" />
+					<p:outputLabel
+						value="#{relatorioFaturaMB.fatura.saldofinalanterior}"
+						style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.saldodebito)};font-weight: inherit;float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+
+					<p:outputLabel value="Saldo Lançamentos"
+						style="font-weight: inherit;float:right;" />
+					<p:outputLabel value="#{relatorioFaturaMB.fatura.saldolancamentos}"
+						style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.saldolancamentos)};font-weight: inherit;float:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+
+					<p:outputLabel value="Valor a Pagar(Receber)"
+						style="font-weight: inherit;float:right;" />
+					<p:outputLabel value="#{relatorioFaturaMB.fatura.valorpagar}"
+						style="color:#{relatorioFaturaMB.retornoCorLetra(relatorioFaturaMB.fatura.valorpagar)};float:right;font-size:14px;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:panelGrid>
+			</div>
+			<ui:repeat var="faturaAberta"
+				value="#{relatorioFaturaMB.listaFaturaAberta}">
+				<div align="center">
+					<li class="text-success"
+						style="font-size: 15px; list-style-type: none; color: #449D44; font-weight: bold">
+						#{relatorioFaturaMB.retornarMesAno(faturaAberta.mes,
+						faturaAberta.ano)}</li>
+				</div>
+				<h:dataTable id="tabelaFaturaAberta" styleClass="table"
+					style="font-size:12px;"
+					value="#{faturaAberta.listaFaturaItensAberta}" var="itens">
+					<h:column style="width: 100px;">
+						<f:facet name="header" style="text-align: center;">Cliente/Item</f:facet>
+						<h:outputText value="#{itens.cliente}" styleClass="alinhamento"
+							style="float: left;" />
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Data</f:facet>
+						<h:outputText value="#{itens.datavenda}" styleClass="alinhamento"
+							style="text-align: left !important;margin-right:40%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:80px;">
+						<f:facet name="header" style="text-align: center;">Produto/Descrição</f:facet>
+						<h:outputText value="#{itens.programa}" styleClass="alinhamento"
+							style="float: left;" />
+					</h:column>
+					<h:column style="width:80px;">
+						<f:facet name="header" style="text-align: center;">Fornecedor</f:facet>
+						<h:outputText value="#{itens.fornecedor}" styleClass="alinhamento"
+							style="float: left;" />
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Valor Total</f:facet>
+						<h:outputText value="#{itens.valortotal}" styleClass="alinhamento"
+							style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Valor Comissionavel</f:facet>
+						<h:outputText value="#{itens.valorcomissionavel}"
+							styleClass="alinhamento" style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">% Comissão</f:facet>
+						<h:outputText value="#{itens.percentualcomissao}"
+							styleClass="alinhamento" style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Comissão</f:facet>
+						<h:outputText value="#{itens.comissao}" styleClass="alinhamento"
+							style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Taxa TM</f:facet>
+						<h:outputText value="#{itens.taxatm}" styleClass="alinhamento"
+							style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Custos Financeiros</f:facet>
+						<h:outputText value="#{itens.desagio}" styleClass="alinhamento"
+							style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Desconto Matriz</f:facet>
+						<h:outputText value="#{itens.descontomatriz}"
+							styleClass="alinhamento" style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Desconto Loja</f:facet>
+						<h:outputText value="#{itens.descontoloja}"
+							styleClass="alinhamento" style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Recebido Matriz</f:facet>
+						<h:outputText value="#{itens.recebidomatiz}"
+							styleClass="alinhamento" style="float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+					<h:column style="width:60px;">
+						<f:facet name="header" style="text-align: center;">Líquido</f:facet>
+						<h:outputText value="#{itens.total}" styleClass="alinhamento"
+							style="float:right;color:#{relatorioFaturaMB.retornoCorLetra(itens.total)};">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:column>
+				</h:dataTable>
+				<div align="right" style="margin-top: -10px;">
+					<p:panelGrid columns="2"
+						style="border-bottom:2px solid transparent;width:22%;">
+						<p:outputLabel value="Saldo Lançamentos"
+							style="font-weight: inherit;float:right;" />
+						<p:outputLabel
+							value="#{relatorioFaturaMB.saldoLancamento(faturaAberta.listaFaturaItensAberta)}"
+							style="color:#{relatorioFaturaMB.corsaldoLancamento(faturaAberta.listaFaturaItensAberta)};font-weight: inherit;float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+					</p:panelGrid>
+				</div>
+			</ui:repeat>
+			<br />
+			<br />
+		</div>
+		<style>
+table {
+	background-color: transparent;
+	width: 95%;
+	border: 2px solid transparent;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border-width: 0px;
+}
+
+.ui-widget-content {
+	border: 0px solid #dfd9c3;
+	color: #312e25;
+}
+
+table th {
+	color: #449D44;
+	border-bottom: 2px solid #449D44;
+	text-align: center;
+}
+</style>
+	</h:form>
+</h:body>
+</html>

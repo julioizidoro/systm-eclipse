@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaconsultavincularterceiros">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+
+				<br></br>
+
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho7,tamanho8,tamanho7,tamanho12"
+							style="margin-left: 2.5%;width:80%;">     
+							<p:outputLabel value="Id Venda" for="idvenda" />   
+							<p:outputLabel value="Cliente" for="cliente" style="margin-left:1.3%;" />
+							<p:outputLabel value="Periodo" for="dataIni" style="margin-left:7%;"/>    
+							<p:outputLabel/>
+						</h:panelGrid>       
+     
+						<h:panelGrid columns="4"
+							columnClasses="tamanho7,tamanho8,tamanho7,tamanho12" 
+							style="margin-left: 2.5%;width:80%;"> 
+							<p:inputText id="idvenda" value="#{vincularTerceirosMB.idvenda}" size="10"/>
+							<p:inputText id="cliente"  
+								value="#{vincularTerceirosMB.nomeCliente}" size="40"/>   
+							<p:calendar id="dataIni"
+								value="#{vincularTerceirosMB.dataInicial}" title="Data Inicial" locale="pt" pattern="dd/MM/yyyy"
+								mask="true" size="10">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="dataFinal"
+								value="#{vincularTerceirosMB.dataFinal}" title="Data Final" locale="pt" pattern="dd/MM/yyyy"
+								mask="true" size="10">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid> 
+						<br></br>   
+						<div align="right" style="width: 74.5%;margin-left: 2.5%">
+							<p:commandButton value="Pesquisar" 
+								icon=" ui-icon-search "
+								action="#{vincularTerceirosMB.gerarPesquisa()}"
+								update=":telaconsultavincularterceiros:tabelaVincularTerceiros" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								style="margin-left: 3%"
+								action="#{vincularTerceirosMB.limparGerarPesquisa()}"
+								update=":telaconsultavincularterceiros:tabelaVincularTerceiros" />
+						</div>
+						<br></br>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Vincular Terceiros </b>
+				</legend>
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabelaVincularTerceiros" var="vendas"
+					value="#{vincularTerceirosMB.listaVendas}" class="tabela"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+					<p:column headerText="N° Venda" style="width:4%;">
+						<h:outputText value="#{vendas.idvendas}" style="margin-left:30%;" />
+					</p:column>
+					<p:column headerText="Cliente" style="width:30%;">
+						<h:outputText value="#{vendas.cliente.nome}" />
+					</p:column>
+					<p:column headerText="Data da Venda" style="width:12%;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{vendas.dataVenda}" style="margin-left:30%;">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Total" style="width:10%; text-align: right">
+						<h:outputText value="#{vendas.valor}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Vincular" style="width:8%;text-align: center">
+						<p:commandButton title="Vincular Terceiros"
+							action="#{vincularTerceirosMB.cadastroVinculoTerceiro(vendas)}"
+							icon="ui-icon-link" update=":telaconsultavincularterceiros:growl">
+							<p:ajax event="dialogReturn"
+								listener="#{vincularTerceirosMB.retornoDialogTerceiros}"
+								update=":telaconsultavincularterceiros:growl" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

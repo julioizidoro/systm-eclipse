@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>   
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body>
+        <h:form id="produtosTrainee" style="text-align:left;font-size:11px;">
+            <title>Valores dos Produtos</title><br></br><br></br><br></br>
+               <p:dataTable id="tabelaProdutosTrainee" var="produtos"
+					value="#{produtosTraineeMB.listaProdutosTrainee}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px">    
+					<p:column headerText="Nº Semanas"  styleClass="alinharCenter" style="text-align:right;width:63px;">
+						<h:outputText value="#{produtos.numerosemanas}" />
+					</p:column> 
+					<p:column headerText="Application Fee" style="width:65px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{produtos.valorapplication}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column headerText="Programa" style="width:70px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{produtos.valorprograma}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column headerText="Visto" style="width:60px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{produtos.valorvisto}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column headerText="Seguro" style="width:60px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{produtos.valorseguro}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column headerText="Total" style="width:72px;text-align:right" styleClass="alinharCenter">
+						<h:outputText value="#{produtos.valortotal}" > 
+							 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> 
+					</p:column>
+					<p:column  style="width:25px;" styleClass="alinharCenter" >
+                        <p:commandLink action="#{produtosTraineeMB.editar(produtos)}" style="text-decoration: none" >
+                             <img src="../../resources/img/editaricon.png"/>
+                        </p:commandLink>
+                     </p:column>
+				</p:dataTable>   
+               
+               <br></br><br></br><br></br><br></br>
+	           <p class="botaocadpacote"><br></br>
+	           	    <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{produtosTraineeMB.cancelar()}"></p:commandButton>
+	            <br></br><br></br>
+	      	   </p>
+        </h:form>     
+    </h:body>
+</html>

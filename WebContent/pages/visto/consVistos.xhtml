@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idfrmconsultavistos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							columnClasses="tamanho7, tamanhoavisos,tamanho7, tamanho1"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="ID Venda" for="idVenda" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+
+							<p:inputText id="idVenda" value="#{vistosMB.idVenda}"
+								style="width:90%;" />
+							<p:inputText id="cliente" value="#{vistosMB.nome}"
+								style="width:90%" />
+							<p:calendar id="dataIni" value="#{vistosMB.dataInicio}" size="12"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{vistosMB.dataFinal}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanhoavisos, tamanhoavisos,tamanho7, tamanho1"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="Unidade" for="unidade" class="fontebranca" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="unidade" value="#{vistosMB.unidadeNegocio}"
+								style="width:250px" converter="UnidadeNegocioConverter"
+								filter="true" filterMatchMode="startsWith" disabled="#{vistosMB.habilitarUnidade}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idUnidade" value="#{vistosMB.listaUnidade}"
+									var="sUnidade" itemLabel="#{sUnidade.nomerelatorio}"
+									itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{vistosMB.listaUnidade}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu> 
+							<p:outputLabel />
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								action="#{vistosMB.pesquisar()}"
+								update=":idfrmconsultavistos:tabelaVistos" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								action="#{vistosMB.carregarListaVisto()}"
+								update="idVenda,:idfrmconsultavistos:tabelaVistos,unidade, dataFinal, dataIni, cliente" />
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta Vistos</b>
+				</legend>
+				<br></br>
+				<p:commandButton id="bntAddConta" icon="ui-icon-plus"
+					class="botaoConsulta" onclick="PF('cd').show();"
+					style="font-size:12px;margin-left:80%" value="Novo Visto" />
+					<div style="width:100%">
+					<p:dialog message="Venda emitida pela matriz?" showEffect="fade"
+						hideEffect="fade" icon="ui-icon-alert" widgetVar="cd"
+						style="width:60%;;font-size:14px">
+						<p:outputLabel value="Venda emitida pela matriz?"
+							/>
+						<br></br>
+						<br></br>
+						<h:panelGrid columns="3" style="width:100%;">
+							<p:commandButton value="Matriz" action="#{vistosMB.vendaMatriz()}"
+								oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+								 update="idfrmconsultavistos:growl"
+								style="font-size:12px" />
+							<p:commandButton value="Não Matriz" action="#{vistosMB.vendaNaoMatriz()}"
+								oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+								 update="idfrmconsultavistos:growl"
+								style="font-size:12px;margin-left:2%;" />
+							<p:commandButton value="Moema" action="#{vistosMB.vendaMoema()}"
+								oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+								 update="idfrmconsultavistos:growl"
+								style="font-size:12px" />
+						</h:panelGrid>
+					</p:dialog>
+				</div>
+				<br></br> <br></br>
+				<p:dataTable id="tabelaVistos" var="vistos"
+					value="#{vistosMB.listaVistos}" class="tabela" scrollable="true"
+					scrollHeight="300" style="margin-bottom:20px">
+					<p:column headerText="ID venda" style="width:50px">
+						<h:outputText value="#{vistos.vendas.idvendas}"
+							style="#{vistosMB.cor(vistos)}" />
+					</p:column>  
+					<p:column headerText="Cliente" style="width:165px;">  
+						<h:outputText value="#{vistos.vendas.cliente.nome}"
+							style="#{vistosMB.corNome(vistos)}" /> 
+					</p:column>   
+					<p:column headerText="Data Venda"  
+						style="width:94px;text-align:center">
+						<h:outputText value="#{vistos.vendas.dataVenda}"
+							style="#{vistosMB.cor(vistos)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="País Destino" style="width:120px;"  
+						styleClass="alinharCenter">   
+						<h:outputText value="#{vistos.paisDestino}"  
+							style="#{vistosMB.cor(vistos)}" />
+					</p:column>    
+					<p:column headerText="Emissor" style="width:130px;" styleClass="alinharCenter" rendered="#{vistosMB.editarFicha}">
+						<h:outputText value="#{vistos.vendas.usuario.nome}"
+							style="#{vistosMB.cor(vistos)}" /> 
+					</p:column>
+					<p:column headerText="Consultor" style="width:130px;" styleClass="alinharCenter">
+						<h:outputText value="#{vistos.usuario.nome}"
+							style="#{vistosMB.cor(vistos)}" /> 
+					</p:column>
+					<p:column headerText="Venda Matriz" style="width:92px;" styleClass="alinharCenter">
+						<h:outputText value="#{vistosMB.vendaMatriz(vistos)}"
+							style="#{vistosMB.cor(vistos)}" /> 
+					</p:column>
+					<p:column style="width:43px;text-align:center;" styleClass="alinharCenter" >
+						<p:commandLink action="#{vistosMB.editar(vistos)}"    
+							style="text-decoration: none"
+							disabled="#{vistosMB.botoesHabilitados(vistos)}">
+							<img src="../../resources/img/editaricon.png" />
+							<p:ajax event="dialogReturn" process="@this"
+								update=":idfrmconsultavistos:tabelaVistos" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Imprimir" rendered="#{vistosMB.esconderFicha}"
+						style="width:58px;text-align:center;" styleClass="alinharCenter">
+						<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistos)}"
+							title="Ficha" image="../../resources/img/imprimiFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:65%;margin-left:4%">   
+						</h:commandButton>       
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
+						<h:commandButton action="#{vistosMB.boletos(vistos)}" disabled="#{vistosMB.botoesHabilitados(vistos)}"
+							title="Boleto" image="../../resources/img/boletoFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:100%;margin-left:4%" >
+						</h:commandButton>    
+					</p:column>
+					<p:column 
+						style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
+						<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistos)}" 
+							title="Ficha de visto" 
+							image="../../resources/img/imprimiFicha.png"
+							style="width:21%;margin-left:4%" ajax="false"
+							onclick="this.form.target='_blank'"
+							disabled="#{vistosMB.botoesHabilitados(vistos)}">
+						</h:commandButton>
+						<h:commandButton  
+							action="#{vistosMB.gerarRelatorioContrato(vistos)}"
+							title="Contrato" image="../../resources/img/imprimiContrato.png"
+							style="width:21%;margin-left:4%" ajax="false"
+							onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistos)}">
+						</h:commandButton>
+						<h:commandButton   
+							action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistos)}"
+							title="Declaração de insenção"
+							image="../../resources/img/imprimiVisto.png"
+							style="width:21%;margin-left:4%" ajax="false"
+							onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistos)}">
+						</h:commandButton>
+					</p:column>
+					<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
+						style="width:65px;text-align:center;" styleClass="alinharCenter">
+						<h:commandButton action="#{vistosMB.finalizarVisto(vistos)}" 
+							title="Finalizar processo"
+							image="../../resources/img/finalizadoFicha.png"
+							style="width:60%;margin-left:4%"
+							disabled="#{vistosMB.botoesHabilitados(vistos)}"
+							update=":idfrmconsultavistos:tabelaVistos">
+						</h:commandButton>
+					</p:column>
+					<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
+						style="width:46px;text-align:center">       
+						<p:commandLink action="#{vistosMB.documentacao(vistos)}"
+							title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistos)}">
+							<img src="../../resources/img/arquivosUpload.png" width="130%"/>
+						</p:commandLink> 
+					</p:column>
+					<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
+						<p:commandLink action="#{vistosMB.informacoes(vistos)}"
+							  title="Informações da Venda"
+							disabled="#{vistosMB.botoesHabilitados(vistos)}">
+							<img src="../../resources/img/informacao.png" width="160%" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
+						<p:commandLink action="#{vistosMB.cancelarVenda(vistos.vendas)}"
+							disabled="#{vistosMB.botoesHabilitados(vistos)}"
+							style="text-decoration: none" title="Cancelar Ficha"
+							update=":idfrmconsultavistos:tabelaVistos">
+							<p:confirm header="Cancelamento"
+									message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+							<img src="../../resources/img/cancel.png" width="30" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:49px;" styleClass="alinharCenter">  
+						<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
+							update="tabelaVistos">    
+							<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
+						</p:commandLink>   
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
+			    	<div align="center">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
+			        </div>  
+			    </p:confirmDialog> 
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

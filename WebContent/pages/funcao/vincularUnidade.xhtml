@@ -1,0 +1,88 @@
+<?xml version='1.0'  encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" lang="pt-br" xml:lang="pt-br">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href="../../resources/css/cssteste.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<f:view encoding="ISO-8859-1">
+	<h:form id="vincularUnidade" style="font-size:12px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title id="iUsu3"><b>Visualizar Função</b></title>
+		<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanhoavisos2,tamanhoavisos2,tamanhoavisos2">
+			<p:outputLabel value="Departamento" for="departamento" />
+			<p:outputLabel value="Usuario" for="usuario" />
+			<p:outputLabel value="Notificação" for="notificacao" />  
+	
+			<p:inputText id="departamento" rows="8" style="width:90%;"
+				readonly="true" value="#{vincularUnidadeMB.usuario.departamento.nome}" />  
+			<p:inputText id="usuario" rows="8" style="width:90%;" readonly="true"
+				value="#{vincularUnidadeMB.usuario.nome}" />
+			<p:selectOneMenu id="notificacao" value="#{vincularUnidadeMB.tipo}"
+				style="width:90%;">   
+				<f:selectItem itemLabel="TODAS" itemValue="T" />    
+				<f:selectItem itemLabel="NOVA FICHA" itemValue="I" />
+				<f:selectItem itemLabel="ALTERAÇÃO" itemValue="A" />
+				<p:ajax event="change" />      
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2" style="width:98%;" columnClasses="tamanhonotificacao2, tamanhonotificacao2">
+			<h:panelGroup>
+				<p:dataTable id="tabelaUnidade" var="unidade" class="tabela"
+					value="#{vincularUnidadeMB.listaUnidade}" scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;width:95%;"> 
+					<f:facet name="header">
+				       Lista de Unidades
+				   </f:facet>
+					<p:column style="width:20px;" styleClass="alinharCenter">
+						 <p:selectBooleanCheckbox >
+							<p:ajax event="change"  
+								listener="#{vincularUnidadeMB.selecionarUnidade(unidade)}"
+								update="@form" />
+						</p:selectBooleanCheckbox>  
+					</p:column> 
+					<p:column headerText="Unidade" style="width:160px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{unidade.nomerelatorio}" />
+					</p:column> 
+				</p:dataTable>
+			</h:panelGroup>
+			<h:panelGroup>
+				<p:dataTable id="tabelaUnidadeSelecionada" var="unidadesn" class="tabela"
+					value="#{vincularUnidadeMB.listaUnidadeSelecionada}" scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;width:95%;"> 
+					<f:facet name="header">
+				       Lista de Unidades Selecionadas
+				   </f:facet>
+					<p:column headerText="Unidade" style="width:140px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{unidadesn.nomerelatorio}" />
+					</p:column> 
+					<p:column headerText="Tipo" style="width:35px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{unidadesn.tiponotificacao}" />  
+					</p:column> 
+					<p:column style="width:30px;" styleClass="alinharCenter">
+						<p:commandLink action="#{vincularUnidadeMB.removerUnidade(unidadesn)}"
+							update="@form">
+							<img src="../../resources/img/excluir.png" />
+						</p:commandLink>
+					</p:column> 
+				</p:dataTable>
+			</h:panelGroup> 
+		</h:panelGrid>
+		<br></br>
+		<div align="center">
+			<p:commandButton id="btnFechar" value="Fechar"
+				action="#{vincularUnidadeMB.fechar()}" icon="ui-icon-closethick"
+				style="font-size:13px;" />
+		</div>
+	</h:form>
+</f:view>
+</html>

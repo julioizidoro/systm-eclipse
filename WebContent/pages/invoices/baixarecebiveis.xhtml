@@ -1,0 +1,166 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+		
+		<h:form id="telaBaixaRecebeveis">
+			<p:growl showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+			 <p:accordionPanel style="background:#ffffff">
+                  <p:tab  title="Informações" style="background:#ffffff" titleStyle="font-size:12px">
+                        
+							<legend id="iUsu3" style="font-size:15px"><b>Lista de Invoices</b></legend>
+							 <p:dataTable id="tabelaInvoice"  var="invoice" value="#{pagamentoInvoiceMB.listaInvoice}" style="font-size:11px;" editable="true" editMode="cell" rowIndexVar="rowIx" >
+			                     <p:ajax event="cellEdit"  update="tabelaInvoice"  />
+								 <p:column headerText="Cliente" style="width:115px;" >
+			                     	<h:outputText value="#{invoice.vendas.cliente.nome}" />
+			                     </p:column>
+			                      <p:column headerText="Produto" style="width:100px;" >
+			                            <h:outputText value="#{invoice.vendas.produtos.descricao}" />
+			                        </p:column>
+			                        <p:column headerText="Fornecedor" style="width:100px;" >
+			                            <h:outputText value="#{invoice.vendas.fornecedorcidade.fornecedor.nome}" />
+			                        </p:column>
+			                        <p:column headerText="Pais" style="width:100px;" >
+			                            <h:outputText value="#{invoice.vendas.fornecedorcidade.cidade.pais.nome}" />
+			                        </p:column>
+			                         <p:column headerText="Cidade" style="width:100px;" >
+			                            <h:outputText value="#{invoice.vendas.fornecedorcidade.cidade.nome}" />
+			                        </p:column>
+			                         <p:column headerText="Data Prevista" style="width:70px;" >
+			                            <h:outputText value="#{invoice.dataPrevistaPagamento}" >
+			                                	<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+			                            </h:outputText>
+			                        </p:column>
+			                        <p:column headerText="Valor Previsto" style="width:65px;text-align:right" >
+			                            <h:outputText value="#{invoice.valorPrevistoInvoice}" >
+			                                	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			                            </h:outputText>
+			                        </p:column>
+			                        <p:column headerText="Moeda" style="width:45px;" >
+			                            <h:outputText value="#{invoice.vendas.cambio.moedas.sigla}" />
+			                        </p:column>
+			                        <p:column headerText="Câmbio" style="width:45px;text-align:right" >
+			                            <h:outputText value="#{invoice.vendas.cambio.valor}" >
+			                                	<f:convertNumber pattern="##,###,###,###.###" minFractionDigits="2" />
+			                                </h:outputText>
+			                        </p:column>
+			                        <p:column headerText="Valor NET" style="width:65px;text-align:right" >
+			                            <h:outputText value="#{invoice.valorPagamentoInvoice}" >
+			                                	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			                            </h:outputText>
+			                        </p:column>
+			                        <p:column headerText="Valor a Pagar" style="width:50px;text-align:right" >
+			                            <p:cellEditor>
+			                                <f:facet name="output"><h:outputText value="#{invoice.valorPago}" >
+			                                	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			                                </h:outputText></f:facet>
+			                                 <f:facet name="input"><p:inputText id="valornet" value="#{invoice.valorPago}" style="width:100%" >
+			                                 	<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			                                 	<p:ajax event="change" listener="#{pagamentoInvoiceMB.calcularTotalParcial()}" update="@all"/>
+			                                 </p:inputText></f:facet>
+			                            </p:cellEditor>
+			                        </p:column>
+			                </p:dataTable>
+			            <div id="divpagamento" class="ui-fluid" style="width:85%;font-size:11px;margin-left:9%">            
+							<br></br>
+							<p:selectOneRadio id="tipoPagamento" value="#{pagamentoInvoiceMB.pagamentoinvoice.tipopagamento}" layout="custom">
+				                <f:selectItem itemLabel="Pagamento Parcial" itemValue="parcial" />
+				                <f:selectItem itemLabel="Pagamento Total" itemValue="total" />
+				                <p:ajax event="change" listener="#{pagamentoInvoiceMB.selecionarparcial()}" update="tabelaInvoice"/>
+				            </p:selectOneRadio>
+				            <p:radioButton id="tipoPagamento1" for="tipoPagamento" itemIndex="1" class="espacocobranca29"/>
+				            <h:outputLabel for="tipoPagamento1" value="Pagamento Parcial" style="margin-left:0.5%"/>
+				
+				            <p:radioButton id="tipoPagamento2" for="tipoPagamento" itemIndex="2" style="margin-left:4.5%"/>
+				            <h:outputLabel for="tipoPagamento2" value="Pagamento Total" style="margin-left:0.5%"/>
+				            <br></br><br></br>
+							<legend id="iUsu3" style="font-size:15px"><b>Dados do Pagamento</b></legend>
+							<p:panelGrid id="painelpagamento" columns="10" layout="grid"  style="margin-top: 20px" styleClass="panelgrid-noborder" 
+							columnClasses="cadCliente1, colunaVinteNoveTres, cadCliente1, colunaVinteNoveTres,cadCliente1, colunaVinteNoveTres,cadCliente1, colunaVinteNoveTres">
+								
+								<p:outputLabel value="Data:" for="data" />
+								<p:calendar id="data" pattern="dd/MM/yyyy" value="#{pagamentoInvoiceMB.pagamentoinvoice.datapagamento}" size="12">
+									<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+								</p:calendar>
+								
+								<p:outputLabel  value="Total:" for="total" />
+								<p:inputText id="total" value="#{pagamentoInvoiceMB.valorTotal}" size="12" style="text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								</p:inputText>
+								
+								<p:outputLabel  value="Valor Pago:" for="valor" />
+								<p:inputText id="valor" value="#{pagamentoInvoiceMB.pagamentoinvoice.valorpago}" size="12" style="text-align:right;margin-left: 10%;">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+									<p:ajax event="blur" listener="#{pagamentoInvoiceMB.calcularValoresPagamento()}" update="ganhoPerda"/>
+								</p:inputText>
+								
+								<p:outputLabel  value="Taxa:" for="taxa"/>
+								<p:inputText id="taxa" value="#{pagamentoInvoiceMB.pagamentoinvoice.taxa}" size="12" style="text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+									<p:ajax event="blur" listener="#{pagamentoInvoiceMB.calcularValoresPagamento()}" update="ganhoPerda" />
+								</p:inputText>
+								
+								<p:outputLabel  value="IOF:" for="iof" />
+								<p:inputText id="iof" value="#{pagamentoInvoiceMB.pagamentoinvoice.iof}" size="12" style="text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+									<p:ajax event="blur" listener="#{pagamentoInvoiceMB.calcularValoresPagamento()}" update="ganhoPerda"/>
+								</p:inputText>
+						</p:panelGrid>
+						<p:panelGrid columns="4" layout="grid"  style="margin-top: 20px;margin-left:-1%" styleClass="panelgrid-noborder" 
+							columnClasses="colunacinco, cadCliente3, colunaNoveDois, cadCliente3">
+							
+								<p:outputLabel value="Câmbio:" for="cambioPagamento" />
+								<p:inputText id="cambioPagamento" value="#{pagamentoInvoiceMB.pagamentoinvoice.cambiopagamento}" size="12" style="text-align:right">
+									<f:convertNumber pattern="##,###,###,###.###" minFractionDigits="2" />
+									<p:ajax event="blur" listener="#{pagamentoInvoiceMB.calcularValoresPagamento()}" update="ganhoPerda"/>
+								</p:inputText>
+								
+								<p:outputLabel  value="Ganho/Perda:" for="ganhoPerda" />
+								<p:inputText id="ganhoPerda" value="#{pagamentoInvoiceMB.pagamentoinvoice.ganhoperda}" size="12" readonly="true" style="text-align:right">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								</p:inputText>
+							</p:panelGrid>
+									<br></br>	<br></br>	
+						</div>
+						<p:selectOneRadio id="tipo" value="#{pagamentoInvoiceMB.pagamentoinvoice.banco}" layout="custom">
+				                <f:selectItem itemLabel="Pay To Study" itemValue="Pay To Study" />
+				                <f:selectItem itemLabel="Bco. Rendimento" itemValue="Bco. Rendimento" />
+				                <f:selectItem itemLabel="Outro" itemValue="Outro" />
+				            </p:selectOneRadio>
+				            <p:radioButton id="tipo1" for="tipo" itemIndex="1" style="margin-left:9%"/>
+				            <h:outputLabel for="tipo1" value="Pay To Study" style="margin-left:0.5%"/>
+				
+				            <p:radioButton id="tipo2" for="tipo" itemIndex="2" style="margin-left:4%"/>
+				            <h:outputLabel for="tipo2" value="Bco. Rendimento" style="margin-left:0.5%"/>
+				            
+				            <p:radioButton id="tipo3" for="tipo" itemIndex="2" style="margin-left:4%"/>
+				            <h:outputLabel for="tipo3" value="Outro" style="margin-left:0.5%"/>
+				            
+				            <p:inputText value="#{pagamentoInvoiceMB.pagamentoinvoice.outros}" style="margin-left:4%" size="31" disabled="#{pagamentoInvoiceMB.outroBanco}" />
+				            <br></br> <br></br>
+				            <p:commandButton id="btnAnexar" value="Anexar Documento" action="#{pagamentoInvoiceMB.anexarArquivo()}"  style="font-size:13px;margin-left:9%"/>
+				           
+			    			<p:outputLabel value="Data Comprovante:" for="dataComprovante" style="margin-left:2.5%"/> 
+							<p:calendar id="dataComprovante" pattern="dd/MM/yyyy" value="#{pagamentoInvoiceMB.pagamentoinvoice.datacomprovante}" size="12" style="margin-left:1%">
+								<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+							</p:calendar>
+						<br></br>
+					</p:tab> 
+				</p:accordionPanel>
+				<hr style="height:4px; border:none; color:#1F8871; background-color:#1F8871; margin-top:-0.05%; margin-bottom: 0px;"/>
+		
+			<br></br>
+			<div align="center">
+					<p:commandButton id="btnConfirmar" value="Confirmar" action="#{pagamentoInvoiceMB.validarInvoice()}" icon="ui-icon-check" update="@form" style="font-size:12px;"/>
+				    <p:commandButton id="btnCancelar" value="Cancelar" action="#{pagamentoInvoiceMB.cancelarPagamento()}" icon="ui-icon-closethick" update="@form" style="font-size:12px;margin-left:2%"/>
+			</div>
+			<br></br><br></br>
+			</h:form>
+		</ui:define>
+    </ui:composition>
+</html>

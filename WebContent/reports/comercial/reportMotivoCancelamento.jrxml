@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de Pagamentos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="feecb075-5a7f-42f6-832b-1a654a7aa009">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomeFantasia" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{sql}]]>
+	</queryString>
+	<field name="consultor" class="java.lang.String"/>
+	<field name="unidade" class="java.lang.String"/>
+	<field name="idmotivocancelamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="titulomotivo" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="motivocancelamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="MotivoCancelamento" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{idmotivocancelamento}]]></groupExpression>
+		<groupHeader>
+			<band height="49">
+				<line>
+					<reportElement x="1" y="31" width="554" height="1" uuid="0259c984-82ea-4f89-88d4-dace79723aa8"/>
+				</line>
+				<line>
+					<reportElement x="1" y="48" width="554" height="1" forecolor="#666666" uuid="a2660627-9a9e-4d29-906d-eb2b90bf545f"/>
+				</line>
+				<staticText>
+					<reportElement x="143" y="33" width="72" height="15" uuid="f88fa429-75cc-4f98-bf97-e1498af2e2a1"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Consultor]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement mode="Transparent" x="6" y="14" width="339" height="20" uuid="6b250736-d65b-4835-a9ac-c80c54698a98"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{titulomotivo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="8" y="33" width="123" height="15" uuid="63522581-5e4f-419e-9132-077c481d2802"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="336" y="32" width="198" height="15" uuid="7ef86535-7884-4360-86af-4bcfe34c019a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Motivo de cancelamento]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="5"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="177" splitType="Stretch">
+			<image>
+				<reportElement x="8" y="6" width="255" height="94" uuid="40fae967-115c-4cd6-8e9d-2e8b709725db"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="78" y="149" width="339" height="20" uuid="97f66d0c-62c8-4c04-b2db-46022e48e104"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeFantasia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="1" y="106" width="553" height="33" uuid="7ab278a3-567e-4655-aabb-0e815544389f"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório Motivo de Cancelamento"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="149" width="72" height="20" uuid="13cfd098-24aa-4c01-af9f-397e884c05f6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Unidade : "]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="19" width="550" height="1" forecolor="#666666" uuid="82891810-6729-4bb5-8eac-5429a045d152"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="143" y="3" width="180" height="13" uuid="3fde12fc-d2f5-47c9-8260-a689137031c0"/>
+				<textFieldExpression><![CDATA[$F{consultor}+" - "+$F{unidade}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="8" y="3" width="123" height="13" uuid="3242115d-f6c8-4ce6-9b87-c898fd5a6adc"/>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="336" y="3" width="211" height="13" uuid="ee42823d-1d75-4624-b06d-c8e5a0bf95bd"/>
+				<textFieldExpression><![CDATA[$F{motivocancelamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="4" y="4" width="127" height="14" uuid="7ae4e633-e737-4a5a-acbf-bd9d128532ca"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="4" width="80" height="14" uuid="d6a8b6e3-019d-48d8-ab61-09b61af8dfe3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="507" y="4" width="40" height="14" uuid="cae9b9ca-2d3d-468c-9660-ef67fa87025c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

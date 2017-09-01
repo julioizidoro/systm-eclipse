@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consUnidade" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<div style="width: 100%;">
+							<h:panelGrid columns="3" >
+								<p:outputLabel value="Nome" for="nome" />  
+								<p:outputLabel/>
+								<p:outputLabel/>
+								
+								<p:inputText id="nome" size="45" value="#{unidadeNegocioMB.nome}" /> 
+								<p:commandButton id="btnPesquisar" action="#{unidadeNegocioMB.pesquisar()}" value="Pesquisar"
+									style="margin-left:6%" icon=" ui-icon-search " update="consUnidade:tabelaUnidade" />
+								<p:commandButton id="btnLimpar" action="#{unidadeNegocioMB.limpar()}" value="Limpar"
+									style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
+									update="consUnidade:tabelaUnidade, nome" />
+							</h:panelGrid>
+						</div> 
+					</p:tab> 
+				</p:accordionPanel>
+ 
+				<legend id="iUsu2">
+					<b>Consulta de Unidade Négocio</b>
+				</legend>
+				<div align="right" style="width: 85%; margin-left: 8%;">
+					<p:commandButton id="btnNovo" value="Nova Unidade"
+						icon="ui-icon-plus" action="#{unidadeNegocioMB.novaUnidade()}"
+						style="font-size:12px;" />
+				</div> 
+				<br></br>
+				<div style="width: 85%; margin-left: 8%;">
+					<p:dataTable id="tabelaUnidade" value="#{unidadeNegocioMB.listaUnidade}"  var="unidade"
+						scrollable="true" scrollHeight="300"
+						style="margin-bottom:20px;font-size:11px;">
+						<p:column headerText="Nome" style="width:150px;">
+							<h:outputText value="#{unidade.nomeFantasia}" />
+						</p:column>
+						<p:column headerText="Telefone" style="width:100px;">
+							<h:outputText value="#{unidade.fone}" />
+						</p:column>
+						<p:column headerText="Email" style="width:150px;">
+							<h:outputText value="#{unidade.email}" />
+						</p:column> 
+						<p:column style="width:40px;text-align:left;">
+							<p:commandLink action="#{unidadeNegocioMB.editarUnidade(unidade)}" title="Editar"
+								style="text-decoration: none">
+								<img src="../../resources/img/editaricon.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

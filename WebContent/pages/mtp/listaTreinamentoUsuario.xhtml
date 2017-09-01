@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="listaTreinamentoUsuario" style="font-size:11px;">
+			<div id="centro">
+				<div align="center">
+					<p:outputLabel
+						value="Questionário - #{listaTreinamentoUsuarioMB.treinamentorespostas.treinamentoperguntas.mtp.instituicao}"
+						style="font-size:20px;" /> 
+				</div>  
+				<br></br> <br></br>
+				<p:dataTable id="idTabelaUsuarios" var="usuario"
+					value="#{listaTreinamentoUsuarioMB.listarespostausuario}" class="tabela" scrollable="true"
+					scrollHeight="300" style="margin-bottom:20px;">
+					<p:column headerText="Usuário" style="width:90px;"
+						sortBy="#{usuario.usuario.nome}">
+						<h:outputText value="#{usuario.usuario.nome}" />
+					</p:column> 
+					<p:column headerText="Nota"  style="width:42px;">
+						<h:outputText value="#{listaTreinamentoUsuarioMB.verificarPontuacao(usuario)}" />
+					</p:column>
+					<p:column style="width:55px;text-align: center;">
+						<p:commandLink title="Visualizar Respostas" 
+							action="#{listaTreinamentoUsuarioMB.visualizarRespostas(usuario.treinamentorespostas, usuario.usuario)}">
+							<img src="../../resources/img/visualizarBola.png" width="26" />
+						</p:commandLink>   
+					</p:column>
+				</p:dataTable>
+				<br></br><br></br>
+				<div align="center">
+					<p:commandButton id="btnCancelar"
+						action="#{listaTreinamentoUsuarioMB.fechar()}" value="Fechar"
+						icon="ui-icon-close" />
+				</div>
+				<br></br><br></br>
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

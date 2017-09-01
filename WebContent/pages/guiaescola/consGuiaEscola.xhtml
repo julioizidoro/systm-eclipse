@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idtelaconsGuia" style="font-size:11px;">
+			<div id="centro">
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink>
+						<img src="../../resources/img/ajax-loader.gif" />
+					</p:commandLink>
+				</p:dialog>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<p:outputLabel value="Parceiro" />   
+						<br></br>
+						<p:inputText id="nome" value="#{consGuiaEscolaMB.nome}" size="35"/>
+						<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+							update=":idtelaconsGuia:idtabelaguia" style="margin-left:5%;" 
+							actionListener="#{consGuiaEscolaMB.pesquisar()}" />
+						<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+							update="idtelaconsGuia:idtabelaguia, nome"
+							action="#{consGuiaEscolaMB.limparPesquisa()}"
+							style="margin-left:1.5%;" />
+					</p:tab>
+				</p:accordionPanel>
+
+				<br></br>
+				<legend id="iUsu2">
+					<b>Guia Escolas</b>
+				</legend>
+				<br></br>
+				<p:dataTable id="idtabelaguia" var="guia"
+					value="#{consGuiaEscolaMB.listaGuia}" class="tabela"
+					scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;margin-top: -1%">
+
+
+					<p:column headerText="Parceiro" style="width:320px;">
+						<h:outputText value="#{guia.fornecedorcidade.fornecedor.nome}" />
+					</p:column>
+					<p:column headerText="Responsavel" style="width:320px;">
+						<h:outputText value="#{guia.guiaescola.nome}" />
+					</p:column>
+					<p:column style="width:80px;">
+						<p:commandLink action="#{consGuiaEscolaMB.guia(guia)}"
+							style="text-decoration: none" title="Guia">
+							<img src="../../resources/img/guiaescola.png" />
+						</p:commandLink>
+						<p:commandLink action="#{consGuiaEscolaMB.cidades(guia)}"
+							style="text-decoration: none" title="Cidades">
+							<img src="../../resources/img/cidades.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

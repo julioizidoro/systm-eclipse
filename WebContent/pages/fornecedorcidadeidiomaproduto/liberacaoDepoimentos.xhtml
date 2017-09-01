@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="liberarDepoimentos">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<legend id="iUsu2">
+					<b>Consulta de Depoimentos</b>
+				</legend>
+				<div style="width: 80%; margin-left: 9%;" align="center">
+					<p:dataScroller id="tabelaDepoimentos" var="depoimentos"
+						value="#{liberarDepoimentosMB.listaDepoimento}" mode="inline"
+						scrollHeight="400">
+						<p:outputPanel style="bo">
+							<h:panelGrid columns="5"
+								columnClasses="tamanho4, tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+								style="width:98%;margin-left:0%;">
+								<img class="imagemusuarioti"
+									src="#{usuarioLogadoMB.getFotoUsuarioLogado(depoimentos.usuario)}" />
+								<h:panelGroup>
+									<h:panelGrid columns="1">
+										<p:outputLabel value="#{depoimentos.usuario.nome}"
+											style="font-size:15px;color:#4C816D;" />
+										<p:outputLabel value="#{depoimentos.data}"
+											style="font-size:13px;color:#4C816D;">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:outputLabel>
+									</h:panelGrid>
+								</h:panelGroup>
+								<h:panelGroup>
+									<h:panelGrid columns="1">
+										<p:outputLabel
+											value="#{depoimentos.usuario.unidadenegocio.nomerelatorio}"
+											style="font-size:15px;color:#4C816D;" />
+										<p:outputLabel value="0" style="color:#FFFFFF;" />
+									</h:panelGrid>
+								</h:panelGroup>
+								<h:panelGroup>
+									<h:panelGrid columns="1">
+										<h:panelGroup>
+											<h:panelGrid columns="2">
+												<p:outputLabel
+													value="#{depoimentos.fornecedorcidade.fornecedor.nome} - #{depoimentos.fornecedorcidade.cidade.nome}"
+													style="font-size:15px;color:#4C816D;" />
+												<p:commandLink id="btnLiberar" title="Liberar"
+													action="#{liberarDepoimentosMB.liberarDepoimento(depoimentos)}"
+													update="tabelaDepoimentos" style="margin-left:20%;">
+													<img src="../../resources/img/crm/confirmar.png" width="30" />
+												</p:commandLink>
+											</h:panelGrid>
+										</h:panelGroup>
+										<p:outputLabel value="0" style="color:#FFFFFF;" />
+									</h:panelGrid>
+								</h:panelGroup>
+							</h:panelGrid>
+							<h:panelGrid columns="2"
+								columnClasses="tamanhoavisos2, tamanhoavisos2"
+								style="width:95%;margin-left:2%;">
+								<p:outputLabel value="Cliente: #{depoimentos.cliente.nome}"
+									style="font-size:15px;color:#4C816D;font-weight: 600;" />
+								<h:panelGroup      
+									rendered="#{liberarDepoimentosMB.mostrarContatos(depoimentos)}">
+									<p:outputLabel
+										value="Contato: #{depoimentos.cliente.foneCelular}"
+										style="font-size:15px;color:#4C816D;font-weight: 600;" />
+								</h:panelGroup>
+							</h:panelGrid>
+							<h:panelGrid style="width:98%;margin-left:2%;">
+								<div style="width: 100%;">
+									<p:outputLabel readonly="true" value="#{depoimentos.texto}"
+										style="margin-left: 0%;font-size:15px;width: 100%;font-weight: 300;"
+										id="historico">
+									</p:outputLabel>
+								</div>
+							</h:panelGrid>
+							<hr
+								style="background: #4C816D; border-color: #4C816D; color: #4C816D;" />
+						</p:outputPanel>
+					</p:dataScroller>
+					<br></br> <br></br>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

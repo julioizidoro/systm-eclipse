@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaOrcamentoVoluntariado" style="font-size:11px;">
+			<div id="centro">
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink >
+						<img src="../../resources/img/ajax-loader.gif" />
+					</p:commandLink>
+				</p:dialog>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">  
+						<h:panelGrid columns="4"
+							columnClasses="tamanho8,tamanho6,tamanho8,tamanho8">
+							<p:outputLabel value="Cliente" for="cliente" class="fontebranca" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" class="fontebranca" />
+
+
+
+							<p:inputText id="cliente"
+								value="#{consVoluntariadoProjetoOrcamentoMB.nomeCliente}" style="width:280px;" />
+							<p:calendar id="dataIni"
+								value="#{consVoluntariadoProjetoOrcamentoMB.dataInicio}" size="12" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal"
+								value="#{consVoluntariadoProjetoOrcamentoMB.dataTermino}" size="12" locale="pt"
+								pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade"
+								value="#{consVoluntariadoProjetoOrcamentoMB.unidadenegocio}"
+								style="width:243px;" converter="UnidadeNegocioConverter"
+								disabled="#{consVoluntariadoProjetoOrcamentoMB.habilitarUnidade}" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{consVoluntariadoProjetoOrcamentoMB.listaUnidadeNegocio}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade" 
+									value="#{consVoluntariadoProjetoOrcamentoMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+
+						</h:panelGrid>
+						<br></br>
+						<div align="right" style="width: 96.5%;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update=":consultaOrcamentoVoluntariado:tabelaOrcamentoVoluntariado"
+								actionListener="#" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="consultaOrcamentoVoluntariado:tabelaOrcamentoVoluntariado, unidade, dataFinal, dataIni, cliente"
+								action="#"
+								style="margin-left:1.5%;" />
+						</div>
+					</p:tab>  
+				</p:accordionPanel>
+
+				<br></br>
+				<legend id="iUsu2">
+					<b>Consulta Orçamento Voluntariado</b>
+				</legend>
+				<div align="right" style="width:98%;">  
+					<p:commandButton id="bntEmail" icon="ui-icon-mail-closed"
+						style="font-size:12px;" value="Enviar Email"
+						action="#{consVoluntariadoProjetoOrcamentoMB.gerarListaOrcamentoEmail()}" title="Envia e-mail para cliente" >
+						<p:ajax event="dialogReturn" listener="#{consVoluntariadoProjetoOrcamentoMB.retornoEnviarEmail}" update=":consultaOrcamentoVoluntariado:tabelaOrcamentoVoluntariado"/>
+					</p:commandButton>	
+				</div>  
+				<br></br>
+				<p:dataTable id="tabelaOrcamentoVoluntariado" var="orcamento"
+					value="#{consVoluntariadoProjetoOrcamentoMB.listaOrcamento}" class="tabela"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px;margin-top: -1%" > 
+					<p:column style="width:32px;text-align: center">
+						<p:selectBooleanCheckbox value="#{orcamento.selecionado}" />
+					</p:column>
+					<p:column headerText="ID" style="width:40px;">   
+						<h:outputText value="#{orcamento.idorcamentoprojetovoluntariado}" />
+					</p:column>
+					<p:column headerText="Data" style="width:75px;">
+						<h:outputText value="#{orcamento.dataorcamento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>  
+					</p:column>    
+					<p:column headerText="Cliente" style="width:120px;">
+						<h:outputText value="#{orcamento.cliente.nome}" /> 
+					</p:column>
+					<p:column headerText="Projeto" style="width:100px;"
+						styleClass="alinharCenter">   
+						<h:outputText value="#{orcamento.voluntariadoprojetovalor.voluntariadoprojeto.descricao}" />
+					</p:column>
+					<p:column headerText="Unidade" style="width:100px;"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{orcamento.usuario.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:100px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{orcamento.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Parceiro" style="width:90px;"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{orcamento.voluntariadoprojetovalor.voluntariadoprojeto.fornecedorcidade.fornecedor.nome}" />
+					</p:column>   
+					<p:column headerText="Cidade" style="width:80px;"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{orcamento.voluntariadoprojetovalor.voluntariadoprojeto.fornecedorcidade.cidade.nome}" />
+					</p:column>
+					<p:column headerText="Total" style="width:72px;text-align:right"
+						styleClass="alinharCenter">
+						<h:outputText value="#{orcamento.valortotalrs}"> 
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter">   
+						<p:commandLink action="#{consVoluntariadoProjetoOrcamentoMB.editar(orcamento)}"   
+							style="text-decoration: none" title="Editar orçamento" >     
+							<img src="../../resources/img/editaricon.png" width="160%" /> 
+						</p:commandLink>
+					</p:column>   
+					<p:column style="width:38px;" styleClass="alinharCenter">
+						<h:commandButton   
+							action="#{consVoluntariadoProjetoOrcamentoMB.gerarOrcamentoPDF(orcamento, 'PDF')}"
+							title="Salvar em PDF" image="../../resources/img/pdf.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:120%;">
+						</h:commandButton>      
+					</p:column>    
+					<p:column headerText="Env. E-mail" style="width:50px;"
+						styleClass="alinharCenter">  
+						<h:panelGroup rendered="#{orcamento.enviadoemail}" style="width:100%;">
+							<img src="../../resources/img/confirmarBola.png"  style="width: 60%;margin-left: 25%;"  title="Enviado e-mail"/>
+						</h:panelGroup>
+					</p:column> 
+					<p:column headerText="Copiar Link" style="width:55px;"
+						styleClass="alinharCenter">
+						<p:commandLink action="#{consVoluntariadoProjetoOrcamentoMB.copiarLink(orcamento)}" 
+							 title="systm.com.br:82/ftproot/systm/orcamento/TM-#{orcamento.idorcamentoprojetovoluntariado}.pdf"
+							 update=":consultaOrcamentoVoluntariado:growl">
+							<img src="../../resources/img/iconeSalaMtp.png"  style="width:65%;margin-left: 25%;" />
+						</p:commandLink>
+					</p:column> 
+				</p:dataTable>  
+			</div>         
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

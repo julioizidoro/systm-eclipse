@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina03" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.9313819845887326"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="755" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="70" width="553" height="587" uuid="d0b65c81-7e93-43e0-a6c2-105bd78d029b"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="0" width="552" height="755" uuid="34136b70-e062-466c-8492-6ba188b8b30c"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5. PROCESSO DE COLOCAÇÃO EM FAMÍLIA HOSPEDEIRA \n"+
+"5.1 No momento do preechimento da Ficha de Inscrição, “Application Form” do programa e demais documentos, o(a) PARTICIPANTE deverá colocar todas as sua preferências em relação à família e suas características pessoais; quanto mais solicitações específicas (em relaçao a localização, família, número e idade dos filhos) maiores serão as chances de demora no processo de colocação numa família adequada; \n"+
+"5.3 O processo de colocação e embarque não tem prazo definido (geralmente leva entre 3 e 6 meses contados a partir da entrega de todos os documentos solicitados pela TM, pois este prazo depende das preferências determinadas por parte do(a) PARTICIPANTE e de seu perfil, inexistindo um limite mínimo ou máximo de tempo para a sua colocação. As famílias podem ser compostas de diferentes formas, como casal sem filhos, casal com filho(a) ou filhos(as), mãe com filho(a) ou filhos(as), mãe sem filhos; \n"+
+"5.4 Cabe à família hospedeira a escolha final, visto que esta receberá o (a) PARTICIPANTE em sua residência; \n"+
+"5.5  Após confirmação da família a TM não garante a possibilidade de alterações no programa no que se refere à mudança de família, data de chegada ou partida, data de início e término do programa, entre outras, estando estas sujeitas à disponibilidade do parceiro internacional responsável pelo programa em questão; \n"+
+"5.6 Se por qualquer motivo o(a) PARTICIPANTE precisar mudar de família já estando no país de destino, as características da nova família, cidade e estado poderão ser diferentes daquelas originalmente confirmadas; \n"+
+"5.8  No caso de ocorrer esta mudança o(a) PARTICIPANTE reconhece e aceita que: \n"+
+"a) Não há garantia de manutenção das características da família original, sendo que o(a) PARTICIPANTE será alocado(a) em família adequada ao seu perfil conforme as possibilidades de recolocação do parceiro internacional; \n"+
+"b) O custeio das despesas referente à tal mudança ficam a encargo do(a) PARTICIPANTE; \n" +
+"c) A alocação do(a) PARTICIPANTE em uma nova família ficará sujeita a disponibilidade de famílias e a uma nova colocação realizada pelo parceiro internacional; \n \n"+
+
+"6. ACOMODAÇÃO \n"+
+"6.1 O(A) PARTICIPANTE deverá respeitar as regras estabelecidas pela familia hospedeira (ou alojamento/residência  referentes à acomodação oferecida, sendo estas regras regidas pela legislação do país de destino sobre o assunto; \n"+
+"6.2  A acomodação a ser oferecida/indicada pelo parceiro internacional poderá representar a colocação em casa de família ou alojamento em que o(a) PARTICIPANTE não seja o(a) único(a) intercambista. Algumas famílias não se importam em receberem mais de um intercambista em sua residência.  Caso o(a)  PARTICIPANTE queira exclusividade na condição de intercambista no local, DEVERÁ comunicar expressamente esta sua preferência à TM no processo de inscrição no programa e colocação em família hospedeira ou alojamento; \n"+
+"6.3 O(A) PARTICIPANTE declara que tem  consciência de que estará com pessoas, costumes, estilos, rotinas, alimentação e culturas diferentes, razão pela qual, a rescisão unilateral motivada pela desistência em face destes fatores serão de responsabilidade exclusiva do(a) PARTICIPANTE e seus responsáveis, os quais deverão preencher documento específico requerendo a desistência do programa sem prejuízo à TM; \n"+
+"6.4 Todas as famílias hospedeiras são cadastradas em programa de intercâmbio do país de destino e são constantemente vistoriadas pelo parceiro internacional da TM. Desta forma, qualquer problema que o(a) PARTICIPANTE venha a ter com vistoriadas pelo parceiro internacional da TM. Desta forma, qualquer problema que o(a) PARTICIPANTE venha a ter com a família hospedeira (ou alojamento estudantil caso seja esta a acomodação) deverá ser imediatamente comunicado ao parceiro internacional e à TM para ser analisado, devendo sempre observar e obedecer ao padrão de vida vigente no país de destino; \n"+
+"6.5  A acomodação está inclusa no programa, porém poderão ser necessárias noites extras sob as custas do(a) PARTICIPANTE. \n \n"+
+
+"7. VISTO CONSULAR \n"+
+"7.1 A TM oferece um serviço extra (com custos extras) de assessoria para aplicação de visto consular, mas mesmo no caso da prestação de tal assessoria, a TM não é responsável pela obtenção do visto de entrada no país/visto para participação no programa, mesmo quando esta intermedeie e oriente no processo de solicitação do mesmo. A emissão do visto adequado depende em última instância, única e exclusivamente, do Consulado ou Embaixada do país de destino, órgão este que analisará o processo de solicitação do(a) PARTICIPANTE e julgará se este deve ou não ter o visto concedido.  \n"+
+"7.2   No caso do visto consular ser negado ao(à) PARTICIPANTE por parte da autoridade consular responsável, o valor correspondente a US$ 1.500,00 (excluindo valores de taxas de visto e despesas para aplicação pedido do mesmo) será retido e não reembolsado. Para receber reembolso de demais valores pagos referentes ao visto negado, o(a) PARTICIPANTE deverá fornecer toda a documentação solicitada pela TM e pelo parceiro internacional. Qualquer valor será reembolsado nos prazos estipulados pelo parceiro internacional contratado pela TM; \n"+
+"7.3  A TM não tem responsabilidade por orientar o participante em processos de mudança, alteração ou solicitação de extensão do visto do participante quando este já esteja no país de destino; \n"+
+"7.4  As despesas de obtenção do visto (taxas de agendamento, taxas consulares, taxa SEVIS, taxa de emissão de visto,"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="b93de67a-39db-4eac-8169-2a47c0c88818"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoHighSchoolPagina04.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

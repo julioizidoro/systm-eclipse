@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="intervalos">
+
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br> <br></br>
+				<h:panelGrid columns="5" style="width:95%;margin-left:2%;"
+					columnClasses="colunadezenove,tamanho12,tamanho12,tamanho12,tamanho8">
+					<p:outputLabel value="Nome" style="color:#1F8871;" />
+					<p:outputLabel value="Pais" for="pais" style="color:#1F8871;" />
+					<p:outputLabel value="Cidade" for="cidade" style="color:#1F8871;" />
+					<p:outputLabel value="Parceiro" for="fornecedor"
+						style="color:#1F8871;" />
+					<p:outputLabel />
+
+					<p:inputText id="nome" value="#{intervalosMB.nome}"
+						style="width:80%;" />
+					<p:selectOneMenu id="pais" value="#{intervalosMB.pais}"
+						style="width:80%;" converter="PaisConverter" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{intervalosMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.pais.nome}"
+							itemValue="#{cpais.pais}" />
+						<f:attribute name="listaPais" value="#{intervalosMB.listaPais}" />
+						<p:ajax event="change" update="cidade" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="cidade" value="#{intervalosMB.cidade}"
+						style="width:90%;" converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade"
+							value="#{intervalosMB.pais.cidadeList}" var="ccidade"
+							itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{intervalosMB.pais.cidadeList}" />
+						<p:ajax event="change"
+							listener="#{intervalosMB.gerarListaFornecedor()}"
+							update="fornecedor" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="fornecedor" value="#{intervalosMB.fornecedor}"
+						style="width:90%;" converter="FornecedorCidadeConverter"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{intervalosMB.listaFornecedor}" var="fornecedor"
+							itemLabel="#{fornecedor.fornecedor.nome}"
+							itemValue="#{fornecedor}" />
+						<f:attribute name="listaFornecedorCidade"
+							value="#{intervalosMB.listaFornecedor}" />
+					</p:selectOneMenu>
+					<h:panelGroup>
+						<p:commandButton value="Pesquisar" icon="ui-icon-search"
+							update=":intervalos:tabelaintervalos"
+							action="#{intervalosMB.pesquisar()}" style="font-size:12px;" />
+						<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+							update=":intervalos:tabelaintervalos,nome, pais, cidade, fornecedor"
+							action="#{intervalosMB.limpar()}"
+							style="margin-left:1%;font-size:12px;" />
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Intervalos</b>
+				</legend>
+				<div style="width: 98%;" align="right">
+					<p:commandButton id="bntAddIntervalo" icon="ui-icon-plus"
+						style="font-size:12px;margin-left:1%;" value="Novo Intervalo"
+						action="#{intervalosMB.novo()}">
+						<p:ajax event="dialogReturn"
+							listener="#{intervalosMB.gerarListaIntervalos()}" process="@this"
+							update=":intervalos:tabelaintervalos" />
+					</p:commandButton>
+				</div>
+				<br></br>
+				<p:dataTable id="tabelaintervalos" var="intervalos"
+					value="#{intervalosMB.listaIntervalos}" class="tabela"
+					scrollable="true" scrollHeight="400" style="margin-bottom:20px">
+
+					<p:column headerText="Parceiro" style="width:140px;">
+						<h:outputText
+							value="#{intervalos.fornecedorcidade.fornecedor.nome}" />
+					</p:column>
+					<p:column headerText="Cidade" style="width:140px;">
+						<h:outputText value="#{intervalos.fornecedorcidade.cidade.nome}" />
+					</p:column>
+					<p:column headerText="Nome Intervalo" style="width:140px;">
+						<h:outputText value="#{intervalos.nome}" />
+					</p:column>
+					<p:column headerText="Data inicial"
+						style="width:110px;text-decoration: none">
+						<h:outputText value="#{intervalos.datainicial}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Final"
+						style="width:110px;text-decoration: none">
+						<h:outputText value="#{intervalos.datafinal}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column style="width:90px;text-align: center;">
+						<p:commandButton value="Editar" icon="ui-icon-pencil"
+							action="#{intervalosMB.editar(intervalos)}">
+							<p:ajax event="dialogReturn"
+								listener="#{intervalosMB.gerarListaIntervalos()}"
+								process="@this" update=":intervalos:tabelaintervalos" />
+						</p:commandButton>
+					</p:column>
+					<p:column style="width:90px;text-align: center;">
+						<p:commandButton value="Excluir" icon="ui-icon-trash"
+							action="#{intervalosMB.excluir(intervalos)}">
+							<p:ajax event="dialogReturn"
+								listener="#{intervalosMB.gerarListaIntervalos()}"
+								process="@this" update="@all" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

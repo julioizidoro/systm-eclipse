@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoWorkPagina06" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.4665073802097333"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\SysTM\\src\\telas\\Work\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="729" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="26" width="572" height="641" uuid="839af577-aa55-4b1a-8c11-857bcc99e2fb"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1" y="415" width="277" height="14" uuid="1c477e7d-79ff-47be-b98a-a83ca2fae329"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[circunstância, o “status” (tipo) do visto poderá ser alterado. A ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="137" width="283" height="14" uuid="a7a7aaf9-bd71-4354-b9af-89b0b280e2eb"/>
+				<text><![CDATA[deverá cumprir as regras de chegada (orientação de chegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="68" width="574" height="14" uuid="8d7da26f-2d96-4d2f-9e1e-2e71ca8a2af4"/>
+				<text><![CDATA[seguro de saúde, definição de doença ou condição pré-existente, definição sobre uso indevido da sala de emergência, dentre ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="12" width="73" height="14" uuid="a299314a-95c6-4497-a86b-90354d49d6ee"/>
+				<text><![CDATA[d) Caso o(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="574" height="14" uuid="7767b6e1-9cc2-4216-9b9c-a8b1185c3d93"/>
+				<text><![CDATA[país de destino, será excluído do programa, sem direito a qualquer reembolso;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="573" width="72" height="14" uuid="5a718cc9-c62a-49ac-ab66-4600fe452778"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[de receber o(a) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="82" width="165" height="14" uuid="589349c7-a016-44fd-9c3b-c2279f3d7e28"/>
+				<text><![CDATA[por tais decisões. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="111" width="450" height="26" uuid="b76a3258-9f0e-455a-9cd7-062978b70ad3"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[12. PROCEDIMENTO DE CHEGADA NO PAÍS DE DESTINO (CHECK IN)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="12" width="84" height="14" uuid="3a4b6446-0e55-4752-a74e-dbae6280fed2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="346" width="117" height="14" uuid="eadbd7b7-83c0-47bc-8cc2-1f067caa52a8"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[12.5  Cabe, ainda, ao(à)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="639" width="84" height="14" uuid="5608521b-1e26-47d2-9847-6ef54b7a865d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="511" y="318" width="63" height="14" uuid="f2b55929-12fb-4428-94b0-4a3ff5ebaa3b"/>
+				<text><![CDATA[deverá deixar ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="457" width="573" height="14" uuid="ac0dc880-d44a-4fd1-b9c9-6ca9779ec36b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Brasil ou não sair do país de destino após o vencimento do visto J1. Neste caso, as autoridades do país de destino tem o poder ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="471" width="83" height="14" uuid="fb5f1216-6a0e-4b11-b808-53b49191b207"/>
+				<text><![CDATA[de declarar o(a)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="485" width="315" height="14" uuid="27cd5818-8835-44a0-9191-2cbf473e9541"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[caso retorne do país de destino antes ou após o término do prazo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="485" width="112" height="14" uuid="3b17042c-e3b1-45bf-bd5b-82644b4aadbe"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[12.7  É obrigação do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="137" width="84" height="14" uuid="14d1c7ff-01c8-4a88-a1bf-6b185f4c0556"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="82" width="17" height="14" uuid="087b190d-d1f3-440b-b1c5-3117f0b50978"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="165" width="574" height="14" uuid="bc98a03e-7a0a-4aa7-9d6b-a3a6bfd4437a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[realizar “check-ins” periódicos (geralmente mensais) com seu sponsor a fim de manter sua legalidade nos EUA. O não]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="207" width="445" height="14" uuid="33ebbb6e-68b2-4a07-87d1-1ac07646f425"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[deverá levar dinheiro suficiente ao país de destino para cobrir suas despesas por pelo menos 40 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="601" width="555" height="38" uuid="c8fe46b9-0351-47ca-86b9-aefb7496bce9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[antes da confirmação/aceitação da oferta de trabalho temporário, o valor equivalente a US$500 não será reembolsado;
+13.3 Após confirmação da Oferta de Trabalho Temporário por parte do parceiro internacional o valor correspondente a US$750 (incluindo os US$350 informados acima) será retido e não reembolsado;
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="276" width="95" height="14" uuid="5c8067a6-646a-4633-9951-ae0ece1f067e"/>
+				<text><![CDATA[poderá permanecer ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="387" width="84" height="14" uuid="4edad057-ac92-4354-ad94-287f65700b2d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="193" width="76" height="14" uuid="1abb8d08-9c6a-4d22-9915-ccfb5c54b2a6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="695" width="555" height="26" uuid="96466276-e58b-4daf-ba3a-25f0def4ffeb"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Ainda, em tal situação, o PARTICIPANTE terá seu seguro-saúde cancelado e a TM, por obrigação legal, comunicará a imigração do país de destino, o seu desligamento do programa;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="207" width="84" height="14" uuid="c085130e-c76b-4893-ac31-1f887ddddb40"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="401" width="574" height="14" uuid="cd887dd3-4943-436d-8a2a-a8ea2204f444"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[e a deixá-lo não mais do que 30 (trinta) dias após a data do término,ambas estabelecidas no DS-2019. Em nenhuma ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="574" height="14" uuid="cdb72e77-9b32-4272-bc2f-2fabbbfea1d1"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[e) A decisão sobre eventual extensão do seguro cabe exclusivamente à seguradora, não podendo ser responsabilizada a TM em]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="499" width="573" height="14" uuid="7a1cb410-e96b-42fd-903c-54b1a8686063"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[em seu documento DS-2019;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="12" width="430" height="14" uuid="c4f5723b-89b1-48cb-a075-c728150d887a"/>
+				<text><![CDATA[deixe de contar, por qualquer motivo, com a cobertura do seguro saúde durante sua estada no ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="533" y="151" width="41" height="14" uuid="ae77c9ed-89c2-4ea7-8e0d-af4faf20ce8f"/>
+				<text><![CDATA[deverá]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="262" width="390" height="14" uuid="fc08090b-6163-490a-a575-9ef0675a9868"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[este poderá permanecer no país de destino apenas pelo período autorizado no ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="461" height="14" uuid="753c8c3e-5633-4a19-8a7d-806e2aaebd08"/>
+				<text><![CDATA[ou “check-in”, por exemplo) estabelecidas pelo programa em questão. No decorrer de sua estadia o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="586" width="212" height="14" uuid="3ded784a-acd4-4e3c-b703-1b9057733566"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[após envio da inscrição ao exterior mesmo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="276" width="84" height="14" uuid="1211204e-9f31-45ce-ad57-bf4ba3e5edb6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="290" width="573" height="14" uuid="08690d92-79d6-484b-9d07-158398bca13e"/>
+				<text><![CDATA[no país exclusivamente a turismo;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="573" width="362" height="14" uuid="111e828a-888d-4216-b957-aff086591d03"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="587" width="76" height="14" uuid="2a5e046b-fdb2-4ee8-8217-d5ff44014271"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="387" width="448" height="14" uuid="51b0f400-d2c8-409d-9512-cbc69f868f0e"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[compromete-se a entrar no país de destino não mais do que 14 (quatorze) dias após a data de início ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="471" width="416" height="14" uuid="6ce606a7-1065-4620-97e8-3850ceac6e8b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[imigrante ilegal, iniciando os procedimentos para deportação;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="54" width="100" height="14" uuid="3c07834e-69a3-4894-a084-28dbc883b83d"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[caso de sua negativa.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="179" width="74" height="14" uuid="99d89ea9-d98c-4ff3-835c-a70ea7b0fc5f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="559" width="574" height="14" uuid="66a9ae03-e518-46c4-99f9-d593e0e48925"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[13.1 O valor equivalente a US$350(deduzido do valor total do programa)não é reembolsável, salvo em caso de impossibilidade do]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="303" width="445" height="14" uuid="1c684fb2-a2e8-43d5-a449-c685f734b18e"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[ao entrar no país de destino, deverá validar seu visto no prazo máximo de 21 (vinte e um) dias após ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="262" width="105" height="14" uuid="2b969643-23ff-45c8-bd99-9b88da50cfee"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[fornecido o visto J1 ao(à)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="397" height="14" uuid="e50df9dc-d253-49d1-ac93-ffb656bb9e70"/>
+				<text><![CDATA[outras decisões inerentes ao contrato de seguro, não podendo ser responsabilizada a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="346" width="390" height="14" uuid="f659eafa-5706-4101-aefb-4934c8d9c340"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[revalidar seu visto sempre que mudar de endereço ou de emprego em,no máximo, 5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="533" width="450" height="26" uuid="ef818b54-82ee-4e0f-ba25-54129dfa2352"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[13. DESISTÊNCIA E/OU CANCELAMENTO DO PROGRAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="179" width="278" height="14" uuid="5bab1407-4831-4a0f-98ce-e6bba640de39"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[cumprimento desta regra pode provocar o desligamento do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="137" width="211" height="14" uuid="f7db31fb-ba73-4931-8b60-90c13b8e6df2"/>
+				<text><![CDATA[12.1 Após sua chegada país de destino, o(a)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="247" width="573" height="15" uuid="1b09bf3f-b28c-43f3-a9bf-6cfbfd4ef21a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[12.3  O período do visto, estabelecido no DS-2019, não poderá ser estendido ou modificado em qualquer hipótese. Uma vez ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="415" width="21" height="14" uuid="c27223e0-dc98-4ab2-b07e-ae42073807ab"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="332" width="573" height="14" uuid="cb092d02-df8c-476d-8e2f-af40afaaf4bd"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[o país imediatamente, podendo encontrar dificuldades no futuro para a obtenção de um novo visto;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="318" width="75" height="14" uuid="30a30f9a-97dd-4e74-8f58-f508747aef3c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="151" width="84" height="14" uuid="67dff80c-309d-4e52-a574-e4301c911a2d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="485" width="84" height="14" uuid="9a97fc82-7f81-437f-9b2a-99a6f65afb48"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="303" width="84" height="14" uuid="162b95a4-f2da-4a63-95bb-438295f05d3e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="485" width="30" height="14" uuid="2c68490a-c866-4e3e-a8a1-fd95d334a9f6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="667" width="555" height="28" uuid="ffc6d96f-2dc1-4226-b1c0-cd6632c1cbf6"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[13.5 Caso o(a) PARTICIPANTE desista do programa após sua chegada no país de destino, ou ainda, após inicio do trabalho para o qual fora contratado, não será reembolsado de qualquer valor pago.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="387" width="50" height="14" uuid="4e287bd3-69ad-4a5c-b083-b6e1957f472d"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[12.6  O(A)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="573" width="111" height="14" uuid="8a95921d-af20-4b4c-83e1-a0f7f743cfaf"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[parceiro internacional da ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="318" width="435" height="14" uuid="4b78e4c7-cf62-45ed-9707-adfb9e24355b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[a data de início estabelecida em seu DS-2019.Na falta de validação,o visto será terminado e o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="193" width="498" height="14" uuid="b06ef7c8-f939-4320-9ae0-6005fedfc9e2"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[terá seu visto cancelado e deverá deixar o país dentro de 5 dias úteis a partir da data de seu desligamento;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="221" width="555" height="26" uuid="c8f653e6-615b-4b38-8028-8a0bfd59d98b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[dias após sua chegada, no que se refere à alimentação, transporte, acomodação ou quaisquer outras despesas pessoais. O mínimo sugerido é de US$1000 (Um mil dólares americanos); ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="262" width="78" height="14" uuid="2436f3f1-d3c4-47cc-b973-93ff4d689673"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="415" width="276" height="14" uuid="3636d69e-aa32-4175-be4e-9ec975a8bdb2"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[tem a obrigação de comunicar ao Consulado do país de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="443" width="75" height="14" uuid="c3393a62-3e47-4967-b9e8-e2c7d5a86f91"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="471" width="79" height="14" uuid="ec66435b-d235-4816-85dd-fb39ff35be07"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="443" width="117" height="14" uuid="c4428330-94c2-4980-ac4f-f652b3ad8fbf"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[que não regressar ao ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="639" width="195" height="14" uuid="cafb99ca-9ddd-4f35-a49a-3bdc3627808d"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[13.4  Havendo desistência, por parte do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="207" width="50" height="14" uuid="6cdab93f-2cbb-416b-b8f6-f1a6d28c231a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[12.2  O(A)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="360" width="555" height="27" uuid="3b463794-cacc-4e26-9269-154245cbde9b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[(cinco) dias. Caso não o faça, poderá ter o visto terminado, devendo deixar o país imediatamente, podendo, ainda, encontrar dificuldades no futuro para a obtenção de um novo visto;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="653" width="574" height="14" uuid="0e50c803-35df-478a-84b7-d489341dddd5"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[será retido o valor de US$ 850,00, a título de multa pela desistência, sendo o restante do valor pago reembolsado;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="573" width="30" height="14" uuid="27177a8f-1446-4236-8e9c-84d0b328660a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="54" width="470" height="14" uuid="a599a1c1-9cd1-4128-9829-51be668746d5"/>
+				<text><![CDATA[Da mesma forma, cabe exclusivamente à seguradora tomar decisões sobre o alcance da cobertura do]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="587" width="293" height="14" uuid="362470d7-070e-4d50-90cf-379613f739e9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[13.2  No caso de cancelamento e/ou desistência por parte do(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="346" width="75" height="14" uuid="1bd1b343-9f7f-458e-ab46-79637f6f592a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTICIPANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="485" width="62" height="14" uuid="42b7f35b-7951-45e1-bcbb-d0066d565dc6"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[comunicar à]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="429" width="573" height="14" uuid="9d2403ac-7e58-4cce-afbd-a4397e65b5c9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[destino, localizado no Brasil e ao Departamento de Segurança Territorial(DHS) do país de destino, responsável pelo Serviço de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="443" width="378" height="14" uuid="2569bdc9-4e20-4448-a146-a9442d1de8ca"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Imigração e Cidadania (USCIS), o nome e último local conhecido de residência do(a)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="274" y="639" width="300" height="14" uuid="12f14628-9a9d-456b-9038-5056e20fcbd8"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[após a emissão do visto J-1 pelo consulado do país de destino, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="179" width="220" height="14" uuid="6feb4efc-d666-4cb8-b4f8-75a5ec992d43"/>
+				<text><![CDATA[perante o programa. Neste caso, o(a)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="276" width="397" height="14" uuid="b9fe14e0-ab8d-4025-9076-1626f60b4104"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[formulário DS-2019, acrescido de 30 (trinta) dias relativos ao Grace Period, no qual o(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="303" width="50" height="14" uuid="eb3662ad-35dd-47b3-af50-f40ccffe2eb7"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[12.4  O(A)  ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="dc9056df-f947-4c53-8ee4-cfd52b86a266"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoWorkIndependentPagina07.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

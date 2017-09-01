@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+        <h:form id="consCLoudSubSubPastas" style="text-align:left;font-size: 10px; margin-left: 1%; "><br></br>
+        	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+        	<p:outputLabel value="Modo de exibição" style="font-size:10px;"/> 
+        	<br/>
+        	<p:commandLink action="#{pasta4Arquivo3MB.listarArquivoQuadro()}" title="Listagem em icones" update="idPanelArquivos, tabelaArquivo, idTabelaArquivos">
+        		<img src="../../resources/img/iconeQuadro.png" width="20" height="20" style="font-size:12px;margin:0.2%;margin-top:-0.7%;"/>
+        	</p:commandLink> 
+            <p:commandLink action="#{pasta4Arquivo3MB.listarArquivoLista()}" title="Listagem em lista" update="idPanelArquivos, tabelaArquivo, idTabelaArquivos">
+        		<img src="../../resources/img/iconeLista.png" width="20" height="20" style="font-size:12px;margin:0.2%;margin-top:-0.7%;"/>
+        	</p:commandLink> 
+        	<p:commandButton value="Adicionar Pasta" icon="ui-icon-plus"  styleClass="btn btn-danger" rendered="#{pasta4Arquivo3MB.verificarAcesso()}"  action="#{pasta4Arquivo3MB.cadastroPasta4()}" style="margin-left:61%;font-size:12px;width:15%;background:green;border:green;">
+				<p:ajax event="dialogReturn" listener="#{pasta4Arquivo3MB.retornoDialogNovaPasta}"  update="@form, growl"/>
+			</p:commandButton>
+			<p:commandButton value="Adicionar Arquivo" icon="ui-icon-document"  rendered="#{pasta4Arquivo3MB.verificarAcesso()}"  styleClass="btn btn-danger" action="#{pasta4Arquivo3MB.cadastroArquivo3()}" style="margin-left:2%;font-size:12px;width:15%;background:green;border:green;">
+				<p:ajax listener="#{pasta4Arquivo3MB.retornoDialogNovoArquivo}" event="dialogReturn" update="@form, growl"/>
+			</p:commandButton>
+			<hr style="width: 98%;"/>
+            <legend style="width:98%;">
+            	<p:commandLink ajax="false" action="#{pasta4Arquivo3MB.voltarConsDepartamento()}" value="Departamentos"/>
+            	 > <p:commandLink ajax="false" action="#{pasta4Arquivo3MB.voltarConsPasta1()}" value="#{pasta4Arquivo3MB.departamento.nome}"/>
+            	 > <p:commandLink ajax="false" action="#{pasta4Arquivo3MB.voltarConsPasta2Arquivo1()}" value="#{pasta4Arquivo3MB.pasta1.nome}"/>
+            	 > <p:commandLink ajax="false" action="#{pasta4Arquivo3MB.voltarConsSubPasta3Arquivo2()}" value="#{pasta4Arquivo3MB.pasta2.nome}"/>
+            	 > #{pasta4Arquivo3MB.pasta3.nome}
+            </legend>
+            <p:outputLabel value="Não contém arquivos" style="font-size:18px;" rendered="#{pasta4Arquivo3MB.semArquivos}"/>
+            <h:panelGrid id="idPanielPesquisa" columns="2" style="float:right;margin-right:2%;">
+				<p:inputText id="nomeArquivo" value="#{pasta4Arquivo3MB.nomeArquivo}"
+					size="30" style="font-size:13px;" placeholder="Nome do Arquivo"/>
+				<p:selectOneMenu id="tipoArquivo"
+					value="#{pasta4Arquivo3MB.tipoArquivo}"
+					style="width:110px;font-size:10px;margin-left:15%;"> 
+					<f:selectItem itemLabel="TODAS" itemValue="todas"/>
+					<f:selectItem itemLabel="PDF" itemValue="pdf" />
+					<f:selectItem itemLabel="JPG" itemValue="jpg" />
+					<f:selectItem itemLabel="XLS" itemValue="xls" />
+					<f:selectItem itemLabel="DOCX" itemValue="docx" />
+					<f:selectItem itemLabel="DOC" itemValue="doc" />
+					<f:selectItem itemLabel="CDR" itemValue="cdr" />
+					<f:selectItem itemLabel="PPTX" itemValue="pptx" />
+					<f:selectItem itemLabel="EPS" itemValue="eps" />
+					<f:selectItem itemLabel="BMP" itemValue="bmp" />
+					<f:selectItem itemLabel="XLSX" itemValue="xlsx" />
+					<f:selectItem itemLabel="TXT" itemValue="txt" />
+					<f:selectItem itemLabel="PNG" itemValue="png" />
+					<f:selectItem itemLabel="PPSX" itemValue="ppsx" />
+					<f:selectItem itemLabel="WMA" itemValue="wma" />
+				</p:selectOneMenu>
+				<br/><br/><br/>
+				<p:commandButton value="Pesquisar" style="float:right;font-size:12px;"
+					icon=" ui-icon-search " action="#{pasta4Arquivo3MB.pesquisar()}" />
+			</h:panelGrid>  
+			<br/><br /><br /><br /><br /><br />  
+            <h:panelGrid width="100%;">
+            	<ui:repeat var="pasta4" value="#{pasta4Arquivo3MB.listaPasta4}" varStatus="statusss">
+						<div class="col-sm-6 col-md-3">
+		        			<p:commandLink style="float:right;" rendered="#{pasta4Arquivo3MB.verificarAcesso()}" action="#{pasta4Arquivo3MB.editarPasta4(pasta4)}"> 
+									<i class="fa fa-pencil"></i>
+									<p:ajax event="dialogReturn" listener="#{pasta4Arquivo3MB.gerarPasta4()}" update="@form"/>
+							</p:commandLink>
+		        			<p:commandLink ajax="false" action="#{pasta4Arquivo3MB.pasta5Arquivo4(pasta4)}">
+								<div class="#{pasta4Arquivo3MB.posicaoInteracaoUiRepeat(statusss.index)}" style="width:95%; height:150px;">
+									<h:outputLabel value="#{pasta4.nome}" style="color:white;"/>
+									<h:panelGrid columns="2" style="color:white;" width="100%">
+										<h:panelGrid columns="1">
+											<h2 class="m-top-none" style="font-size:40px; color:white;" id="userCount">#{pasta4Arquivo3MB.gerarTotalArquivosPasta4(pasta4)}
+												<h5 style="color:white;">Arquivos</h5>
+											</h2>
+										</h:panelGrid>
+										<h:panelGrid columns="1" style="margin-left:-50%;">
+											<h2 class="m-top-none" style="font-size:40px;" id="userCount">#{pasta4Arquivo3MB.gerarTotalPasta5(pasta4)}
+												<h5>Pastas</h5>
+												
+											</h2>
+										</h:panelGrid> 
+									</h:panelGrid>
+										<ui:repeat var="arquivo4" value="#{pasta4Arquivo3MB.gerar3UltimosArquivos4(pasta4)}" >
+											<img src="#{pasta4Arquivo3MB.retornaIconeArquivo(arquivo4.tipo)}" alt="" title="#{arquivo4.nome}" width="20" height="20"/>
+										</ui:repeat> 
+									<div class="stat-icon">
+										<i>
+											<img src="../../resources/img/#{pasta4Arquivo3MB.departamento.imagem}" alt="" width="60" height="60" style="background:white;border-radius:50px;"/>
+										</i>
+									</div>
+									<p:commandLink rendered="#{pasta4Arquivo3MB.verificarAcesso()}" ajax="false" action="#{pasta4Arquivo3MB.excluirPasta(pasta4)}" update=":consCLoudSubSubPastas:growl, @form"> 
+										<div class="refresh-button">
+											<i class="fa fa-trash-o"></i>
+										</div>
+									</p:commandLink>
+								</div> 
+							</p:commandLink>
+						</div><!-- /.col -->
+	        	</ui:repeat>
+	        </h:panelGrid>
+            
+            <h:panelGrid  width="100%;" id="idPanelArquivos">
+				
+					<h:dataTable styleClass="table-transparent" rendered="#{pasta4Arquivo3MB.tabelaArquivoQuadro}" id="tabelaArquivo" value="#{pasta4Arquivo3MB.listaArquivoSubSubBean}"
+						var="arquivo3Bean" style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:98%;" >
+						<h:column>
+							<a href="http://#{pasta4Arquivo3MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo3Bean.arquivo1.nomeftp}"  title="#{arquivo3Bean.arquivo1.nome}" name="#{arquivo3Bean.arquivo1.nome}" target="_blank" style="margin:20px;">
+					        		<h:panelGroup rendered="#{pasta4Arquivo3MB.verificarArquivo1(arquivo3Bean)}">
+					        			<img src="#{pasta4Arquivo3MB.retornaIconeArquivo(arquivo3Bean.arquivo1.tipo)}" width="40" height="40" style="font-size:12px;">
+					        			
+					        			</img>
+					        		</h:panelGroup>
+					        		<p:outputLabel value="#{arquivo3Bean.arquivo1.nome}"/>
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.verificarArquivo1(arquivo3Bean)}" action="#{pasta4Arquivo3MB.alterarNomeArquivo(arquivo3Bean.arquivo1)}" title="Editar">
+					        			<i class="fa fa-pencil"></i>
+					        			<p:ajax event="dialogReturn" listener="#{pasta4Arquivo3MB.retornoDialogAlteracaoNomeArquivo}" update=":consCLoudSubSubPastas:growl, @form"/>
+					        		</p:commandLink>
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.verificarArquivo1(arquivo3Bean)}" update="@form" action="#{pasta4Arquivo3MB.excluirArquivoSubPasta(arquivo3Bean.arquivo1)}" title="Excluir">
+					        			<i class="fa fa-trash-o"></i>
+					        		</p:commandLink>  
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.acessoVinculoFornecedor(arquivo3Bean.arquivo1)}" action="#{pasta4Arquivo3MB.vincularArquivoFornecedor(arquivo3Bean.arquivo1)}" title="Vincular">
+					        			<i class="fa fa-link" style="#{pasta4Arquivo3MB.verificarvinculoFornecedor(arquivo3Bean.arquivo1)}"></i>
+					        		</p:commandLink> 
+					        		<br/><br/>
+					       	</a>
+						</h:column> 
+						<h:column>
+							<a href="http://#{pasta4Arquivo3MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo3Bean.arquivo2.nomeftp}" title="#{arquivo3Bean.arquivo2.nome}" name="#{arquivo3Bean.arquivo2.nome}" target="_blank" style="margin:20px;">
+					        		<h:panelGroup rendered="#{pasta4Arquivo3MB.verificarArquivo2(arquivo3Bean)}">
+					        			<img src="#{pasta4Arquivo3MB.retornaIconeArquivo(arquivo3Bean.arquivo2.tipo)}" width="40" height="40" style="font-size:12px;">
+					        			
+					        			</img>
+					        		</h:panelGroup>
+					        		<p:outputLabel value="#{arquivo3Bean.arquivo2.nome}"/>
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.verificarArquivo2(arquivo3Bean)}"  action="#{pasta4Arquivo3MB.alterarNomeArquivo(arquivo3Bean.arquivo2)}" title="Editar">
+					        			<i class="fa fa-pencil"></i>
+					        			<p:ajax event="dialogReturn" listener="#{pasta4Arquivo3MB.retornoDialogAlteracaoNomeArquivo}" update=":consCLoudSubSubPastas:growl, @form"/>
+					        		</p:commandLink>
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.verificarArquivo2(arquivo3Bean)}"  update="@form" action="#{pasta4Arquivo3MB.excluirArquivoSubPasta(arquivo3Bean.arquivo2)}" title="Excluir">
+					        			<i class="fa fa-trash-o"></i>
+					        		</p:commandLink>  
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.acessoVinculoFornecedor(arquivo3Bean.arquivo2)}" action="#{pasta4Arquivo3MB.vincularArquivoFornecedor(arquivo3Bean.arquivo2)}" title="Vincular">
+					        			<i class="fa fa-link"  style="#{pasta4Arquivo3MB.verificarvinculoFornecedor(arquivo3Bean.arquivo2)}"></i>
+					        		</p:commandLink> 
+					        		<br/><br/> 
+					        </a>
+						</h:column>
+						<h:column>
+					        	<a href="http://#{pasta4Arquivo3MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo3Bean.arquivo3.nomeftp}" title="#{arquivo3Bean.arquivo3.nome}" name="#{arquivo3Bean.arquivo3.nome}" target="_blank" style="margin:20px;">
+					        		<h:panelGroup rendered="#{pasta4Arquivo3MB.verificarArquivo3(arquivo3Bean)}">
+					        			<img src="#{pasta4Arquivo3MB.retornaIconeArquivo(arquivo3Bean.arquivo3.tipo)}" width="40" height="40" style="font-size:12px;">
+					        			
+					        			</img>
+					        		</h:panelGroup>
+					        		<p:outputLabel value="#{arquivo3Bean.arquivo3.nome}"/>
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.verificarArquivo3(arquivo3Bean)}"  action="#{pasta4Arquivo3MB.alterarNomeArquivo(arquivo3Bean.arquivo3)}" title="Editar">
+					        			<i class="fa fa-pencil"></i>
+					        			<p:ajax event="dialogReturn" listener="#{pasta4Arquivo3MB.retornoDialogAlteracaoNomeArquivo}" update=":consCLoudSubSubPastas:growl, @form"/>
+					        		</p:commandLink>
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.verificarArquivo3(arquivo3Bean)}"  update="@form" action="#{pasta4Arquivo3MB.excluirArquivoSubPasta(arquivo3Bean.arquivo3)}" title="Excluir">
+					        			<i class="fa fa-trash-o"></i>
+					        		</p:commandLink>  
+					        		<p:commandLink rendered="#{pasta4Arquivo3MB.acessoVinculoFornecedor(arquivo3Bean.arquivo3)}" action="#{pasta4Arquivo3MB.vincularArquivoFornecedor(arquivo3Bean.arquivo3)}" title="Vincular">
+					        			<i class="fa fa-link"  style="#{pasta4Arquivo3MB.verificarvinculoFornecedor(arquivo3Bean.arquivo3)}"></i>
+					        		</p:commandLink> 
+					        		<br/><br/> 
+					        	</a>
+						</h:column>
+						
+					</h:dataTable>
+					
+					
+					<p:dataTable reflow="true" id="idTabelaArquivos" var="arquivo"
+						styleClass="table-transparent"
+						value="#{pasta4Arquivo3MB.listaArquivo3}"
+						style="border:transparent;margin-left:5%;width:90%;"
+						scrollRows="10" scrollable="true" scrollHeight="300"
+						rendered="#{pasta4Arquivo3MB.tabelaArquivoLista}">
+		
+						<p:column headerText=""
+							style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{pasta4Arquivo3MB.trocarCorLinhaTabela(arquivo)}"
+							styleClass="alinharCenter">
+							<a
+								href="http://#{pasta4Arquivo3MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+								<img src="#{pasta4Arquivo3MB.retornaIconeArquivo(arquivo.tipo)}"
+									width="30" height="30" style="font-size: 12px;"> </img>
+							</a>
+						</p:column>
+						<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
+							style="font-size:12px; color:black; border:none;text-align:left; #{pasta4Arquivo3MB.trocarCorLinhaTabela(arquivo)}">
+							<a
+								href="http://#{pasta4Arquivo3MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
+								<h:outputText value="#{arquivo.nome}" style="color:black"/>
+							</a>
+						</p:column> 
+						<p:column headerText=""
+							style="width:10%; background:white; font-size:11px; color:white; border:none; text-align:right; #{pasta4Arquivo3MB.trocarCorLinhaTabela(arquivo)}"
+							styleClass="alinharCenter">
+							<p:commandLink 
+								update="@form, idTabelaArquivos"
+								rendered="#{pasta4Arquivo3MB.verificarArquivoLista(arquivo)}" action="#{pasta4Arquivo3MB.alterarNomeArquivo(arquivo)}"
+								title="Editar">
+								<img src="../../resources/img/editaricon.png"  />
+							</p:commandLink>
+							<p:commandLink 
+								update="@form, idTabelaArquivos"
+								 rendered="#{pasta4Arquivo3MB.verificarArquivoLista(arquivo)}" action="#{pasta4Arquivo3MB.excluirArquivoSubPasta(arquivo)}"
+								title="Excluir">
+								<img src="../../resources/img/excluir.png"  />
+							</p:commandLink>
+							<p:commandLink rendered="#{pasta4Arquivo3MB.acessoVinculoFornecedor(arquivo)}" action="#{pasta4Arquivo3MB.vincularArquivoFornecedor(arquivo)}" title="Vincular">
+					        	<img src="#{pasta4Arquivo3MB.verificarvinculoFornecedorLista(arquivo)}" width="25" />
+					        </p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid> 
+                <br/><br/> <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        </h:form> 
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Produtos da Acomodação</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="consProdutosAcomodacao"
+		style="text-align:left;font-size:11px;">
+		<br></br>
+		<div align="center">
+			<p:dataTable id="idtabelaprodutos" var="produtos"
+				value="#" class="tabela"
+				scrollable="true" scrollHeight="200" style="margin-bottom:20px">
+	
+				<p:column headerText="Produtos">
+					<h:outputText value="#" />
+				</p:column>
+				<p:column headerText="Valor" style="width:115px">
+					<h:outputText value="" >
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			<br></br>
+			<p:commandButton id="btnAcomodacao" icon="ui-icon-close" value="Fechar" action="#"/>	
+		</div>
+	</h:form>
+</h:body>
+</html>

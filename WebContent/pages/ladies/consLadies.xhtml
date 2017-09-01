@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaLadies">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<p:outputLabel value="Cliente" for="cliente"
+							class="imgadd" style="font-size:11px;" />
+						<br></br>
+						<p:inputText id="cliente" size="50" maxlength="100" class="imgadd"
+							value="#" />
+					</p:tab>
+				</p:accordionPanel>
+				
+				<legend id="iUsu2">
+					<b>Consulta de Ladies</b>
+				</legend>
+
+				<p:commandButton id="bntAddFicha" icon="ui-icon-plus"
+					class="botaoConsulta" style="font-size:12px;margin-left:7%"
+					value="Nova Ficha" action="#{ladiesMB.cadastrarFicha()}" />
+				<p:commandButton id="bnteditar" class="botaoConsulta"
+					style="font-size:12px" value="Editar" action="#" />
+				<p:commandButton id="bntfinalizar" class="botaoConsulta"
+					style="font-size:12px;" value="Finalizar" action="#" />
+				<p:commandButton id="bntimprimir" class="botaoConsulta"
+					style="font-size:12px;" value="Imprimir" />
+				<p:commandButton id="bntboleto" class="botaoConsulta"
+					style="font-size:12px;" value="Boleto" />
+				<p:commandButton id="bntemail" class="botaoConsulta"
+					style="font-size:12px;" value="Email" />
+				<p:commandButton id="bntobstm" class="botaoConsulta"
+					style="font-size:12px;" value="Obs TM" />
+				<br></br> <br></br>
+
+				<p:dataTable id="tabelaConsultaLadies" var="ladies"
+					value="#{ladiesMB.listaLadies}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+
+					<br></br>
+					<br></br>
+					<p:column style="width:40px;border:none;">
+						<p:selectBooleanCheckbox />
+					</p:column>
+
+					<p:column headerText="Cliente" style="border:none;">
+						<h:outputText value="#{ladies.vendas.cliente.nome}" />
+					</p:column>
+					<p:column headerText="Data Inscrição"
+						style="text-align:center;width:100px;border:none;">
+						<h:outputText value="#{ladies.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Cursos" style="border:none;">
+						<h:outputText value="#{ladies.curso}" />
+					</p:column>
+					<p:column headerText="Unidade" style="width:200px;border:none;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{ladies.vendas.unidadenegocio.nomeFantasia}" />
+					</p:column>
+					<p:column headerText="Agente" style="width:200px;border:none;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{ladies.vendas.usuario.nome}" />
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

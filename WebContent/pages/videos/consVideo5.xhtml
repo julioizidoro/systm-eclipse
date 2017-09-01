@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+        <h:form id="adicionarVideo" style="text-align:left;font-size: 10px; margin-left: 1%; "><br></br>
+        	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+        	
+			
+            <p:commandButton value="Adicionar Video" rendered="#{videos5MB.verificarAcesso()}" icon="ui-icon-document"  styleClass="btn btn-danger" action="#{videos5MB.cadastroVideo5()}" style="margin-left:70%;font-size:12px;width:15%;background:green;border:green;">
+            	<p:ajax event="dialogReturn" listener="#{videos5MB.retornoDialogNovoVideo}" update="@form, growl"/>
+            </p:commandButton>
+            <hr style="width: 98%;"/> 
+            <legend style="width:98%;">
+            	<p:commandLink ajax="false" action="#{videos5MB.voltarConsDepartamento()}" value="Departamentos "/>
+            	 > <p:commandLink ajax="false" action="#{videos5MB.voltarConsVideoPasta1()}" value="#{videos5MB.departamento.nome}"/>
+            	 > <p:commandLink ajax="false" action="#{videos5MB.voltarConsVideoPasta2()}" value="#{videos5MB.videopasta1.descricao}"/>
+            	 > <p:commandLink ajax="false" action="#{videos5MB.voltarConsVideoPasta3()}" value="#{videos5MB.videopasta2.descricao}"/>
+            	 > <p:commandLink ajax="false" action="#{videos5MB.voltarConsVideoPasta4()}" value="#{videos5MB.videopasta3.descricao}"/>
+            	 > <p:commandLink ajax="false" action="#{videos5MB.voltarConsVideoPasta5()}" value="#{videos5MB.videopasta4.descricao}"/>
+            	 > #{videos5MB.videopasta5.descricao}
+            </legend>
+            
+	        	 <h:panelGrid id="idPanelVideo" width="100%;" >
+					
+					
+					<p:dataTable reflow="true" id="idTabelaVideos" var="video5"
+							styleClass="table-transparent"
+							value="#{videos5MB.listaVideo5}"
+							style="border:transparent;margin-left:3%;font-size:12px;widht:80%;"
+							scrollRows="10" scrollable="true" scrollHeight="600"
+							>
+			
+							<p:column headerText="Nome" sortBy="#{video5.nome}" 
+								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
+								<a
+									href="http://#{videos5MB.ftpDados.host}:82/ftproot/videos/#{video5.host}"
+									title="#{video5.nome}" name="#{video5.nome}" target="_blank">
+									<h:outputText value="#{video5.nome}" style="color:black"/>
+								</a>
+							</p:column>
+							<p:column headerText="Descrição" sortBy="#{video5.descricao}" 
+								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
+								<a
+									href="http://#{videos5MB.ftpDados.host}:82/ftproot/videos/#{video5.host}"
+									title="#{video5.descricao}" name="#{video5.descricao}" target="_blank">
+									<h:outputText value="#{video5.descricao}" style="color:black"/>
+								</a>
+							</p:column> 
+							<p:column headerText="Link" sortBy="#{video4.host}" 
+								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
+								<a
+									href="http://#{videos5MB.ftpDados.host}:82/ftproot/videos/#{video5.host}"
+									title="#{video5.host}" name="#{video5.host}" target="_blank">
+									<h:outputText value="#{video5.host}" style="color:black"/>
+								</a>
+							</p:column> 
+							<p:column headerText=""
+								style="width:10%; background:white; font-size:11px; color:black; border:none;"
+								styleClass="alinharCenter">
+								<p:commandLink 
+									
+									title="Descrição do video" action="#{videos5MB.descricaoVideo(video5)}">
+									<img src="../../resources/img/verOrcamento.png"  width="30" height="30"/>
+								</p:commandLink>
+								<p:commandLink 
+									
+									title="Editar" rendered="#{videos5MB.verificarArquivoLista(video5)}" action="#{videos5MB.alterarDescricaoVideo(video5)}">
+									<img src="../../resources/img/editaricon.png"  width="30" height="30"/>
+								</p:commandLink>
+								<p:commandLink  title="Excluir video" rendered="#{videos5MB.verificarArquivoLista(video5)}" action="#{videos5MB.excluirArquivo(video5)}" update=":adicionarVideo:idPanelVideo, :adicionarVideo:growl"> 
+										<img src="../../resources/img/excluir.png"  width="30" height="30"/>
+									 </p:commandLink>	
+								<p:commandLink  title="Vincular video a um fornecedor" rendered="#{videos5MB.acessoVinculoFornecedor(video5)}" action="#{videos5MB.vincularArquivoFornecedor(video5)}" > 
+										<img src="#{videos5MB.verificarvinculoFornecedorLista(video5)}"  width="30" height="30"/>
+									</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+					<script type="text/javascript">
+						function click() {
+							if (event.button == 2 || event.button == 3) {
+								oncontextmenu='return false';
+								alert ('Todos os direitos reservados');
+							}
+						}
+						document.onmousedown = click
+						document.oncontextmenu = new Function("return false;")
+					</script>
+                <br/><br/>
+        </h:form> 
+	</ui:define>
+</ui:composition>
+</html>

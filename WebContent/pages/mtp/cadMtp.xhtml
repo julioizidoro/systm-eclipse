@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+
+</h:head>
+<h:body>
+	<h:form id="idFormCadMtp" style="font-size:12px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title>Cadastro Mtp</title>
+
+		<h:panelGrid columns="1" style="width:100%;">
+			<p:outputLabel value="Parceiro" for="idInstituicao"
+				class="fontepretas" style="font-size: 12px" />
+
+			<p:inputText id="idInstituicao" rows="8" class="fontebranca"
+				value="#{cadMtpMB.mtp.instituicao}" style="width:97%;">
+				<p:ajax event="blur"/>
+			</p:inputText>
+		</h:panelGrid>    
+		<h:panelGrid columns="3" cellpadding="2" width="100%">
+
+			<p:outputLabel value="Data" for="idData" class="fontepretas"
+				style="margin-left:2%;font-size: 12px;" />
+
+			<p:outputLabel value="Hora" for="idHora" class="fontepretas"
+				style="margin-left: 2%;font-size: 12px" />
+
+			<p:outputLabel value="Tipo Treinamento" for="idTipo"
+				class="fontepretas" style="margin-left: 2%;font-size: 12px" />
+
+			<p:inputMask mask="99/99/9999" id="idData" rows="6"
+				class="fontebranca" value="#{cadMtpMB.mtp.data}"
+				style="margin-left: 2%;width:40%;">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:inputMask>
+
+
+			<p:inputMask mask="99:99" id="idHora" rows="6" class="fontebranca"
+				value="#{cadMtpMB.mtp.hora}" style="margin-left: 2%;width:50%;" />
+
+			<p:selectOneMenu id="idTipo" value="#{cadMtpMB.tipoTreinamento}"
+				style="width:95px;">
+				<f:selectItem itemLabel="Parceiro" itemValue="Parceiro" />
+				<f:selectItem itemLabel="Gerencia" itemValue="Gerencia" />
+				<f:selectItem itemLabel="Gerais" itemValue="Gerais" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Pais" for="idpais" class="fontepretas"
+				style="margin-left: 2%;font-size: 12px" />
+
+			<p:outputLabel value="Departamento" for="idDepartamento"
+				class="fontepretas" style="margin-left: 2%;font-size: 12px" />
+			<p:outputLabel />
+
+			<p:selectOneMenu id="idpais" value="#{cadMtpMB.pais}"
+				style="width:180px;" converter="PaisFornecedorConverter"
+				filter="true" filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Pais" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="pais" value="#{cadMtpMB.listaPais}"
+					var="paisSelecionado" itemLabel="#{paisSelecionado.nome}"
+					itemValue="#{paisSelecionado}" />
+				<f:attribute name="listaPaisFornecedor"
+					value="#{cadMtpMB.listaPais}" />
+			</p:selectOneMenu>
+
+			<p:selectOneMenu id="idDepartamento" value="#{cadMtpMB.departamento}"
+				style="width:180px;" converter="DepartamentoConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Departamento" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="departamento"
+					value="#{cadMtpMB.listaDepartamento}" var="departamentoSelecionado"
+					itemLabel="#{departamentoSelecionado.nome}"
+					itemValue="#{departamentoSelecionado}" />
+				<f:attribute name="listaDepartamento"
+					value="#{cadMtpMB.listaDepartamento}" />
+					<p:ajax event="change"/>
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<p:outputLabel value="Nota" for="idNota" class="fontepretas"
+			style="margin-left: 2%;font-size: 12px" />
+		<br /> 
+		<p:inputTextarea id="idNota" rows="5" class="fontebranca"
+			value="#{cadMtpMB.mtp.nota}" style="margin-left: 2%;width:95%;" />
+		<br />
+		
+		<h:panelGrid>   
+			<p:fileUpload multiple="true" label="Anexar"
+				fileUploadListener="#{cadMtpMB.fileUploadListener}"
+				value="#{cadMtpMB.file}" mode="advanced" update="growl"
+				fileLimit="6"
+				sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}"   
+				allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}">
+			</p:fileUpload>
+		</h:panelGrid><br /> 
+		<p:commandButton class="imagemm" style="margin-left: 25%;"
+			update=":idFormCadMtp:growl" onclick="" icon="ui-icon-check"
+			value="Confirmar" action="#{cadMtpMB.salvar()}"></p:commandButton>
+		<p:commandButton class="espacocampos" onclick="" icon="ui-icon-close"
+			value="Cancelar" action="#{cadMtpMB.cancelar()}"></p:commandButton>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>  
+<h:body style="background:#DDDDE1;">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<img src="../../resources/img/ajax-loader.gif" />
+	</p:dialog>   
+	<h:form id="linkorcamento"
+		style="text-align:left;font-size: 10px; margin-left:2%; ">
+		<title>Orçamento - Link de acesso</title>    
+		<br></br>     
+		<p:outputLabel value="http://#{linkOrcamentoMB.texto}" style="font-size:20px;color:#495B6C;"> 
+		<a target="_blank" href="http://#{linkOrcamentoMB.texto}" style="font-size:20px;color:#495B6C;"
+			title="Clique aqui para acessar o PDF"><img src="../../resources/img/visualizarS.png"/></a> 
+		</p:outputLabel>  
+	</h:form>   
+</h:body>     
+</html>

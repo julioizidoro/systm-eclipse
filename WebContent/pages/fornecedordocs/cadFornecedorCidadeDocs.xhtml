@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadFornecedorDocs" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2">
+					<b>Vincular Documentos em Cidades</b>
+				</legend>
+				
+				<p:outputLabel value="#{cadFornecedorCidadeDocsMB.fornecedordocs.nome}" style="margin-left:7%;font-size:16px;"/><br/><br/>
+				<h:panelGrid columns="2" columnClasses="tamanhonotificacao2,tamanhonotificacao2"
+					style="margin-left:7%;width:85%;">
+					<h:panelGroup>
+						<div align="left" style="width:95%">
+							<p:selectBooleanCheckbox value="#{cadFornecedorCidadeDocsMB.todospais}">
+		            			<p:ajax update="idTabelaPais, idTabelaCidade" listener="#{cadFornecedorCidadeDocsMB.selecionarTodosPais()}" />
+		        			</p:selectBooleanCheckbox>
+		        			 <p:outputLabel value="Selecionar todos" style="margin-left: 1%"></p:outputLabel>
+						</div>
+						<p:dataTable id="idTabelaPais" var="pais"
+							value="#{cadFornecedorCidadeDocsMB.listaPais}"
+							scrollable="true" scrollHeight="240"
+							style="margin-bottom:20px;margin-right:20px;margin-top:11px;" > 
+							<p:column style="width:30px;" styleClass="alinharCenter">
+								<p:selectBooleanCheckbox value="#{pais.selecionado}">
+									<p:ajax event="change" listener="#{cadFornecedorCidadeDocsMB.carregarListaCidades(pais.selecionado)}" update=":cadFornecedorDocs:idTabelaCidade"/>
+								</p:selectBooleanCheckbox>
+							</p:column>
+							<p:column headerText="Pais"
+								styleClass="alinharCenter">  
+								<p:outputLabel value="#{pais.nome}" />
+							</p:column> 
+						</p:dataTable>
+					</h:panelGroup>
+					<h:panelGroup>
+						<div align="left" style="width:95%">
+							<p:selectBooleanCheckbox value="#{cadFornecedorCidadeDocsMB.todoscidade}">
+		            			<p:ajax update="idTabelaPais, idTabelaCidade" listener="#{cadFornecedorCidadeDocsMB.selecionarTodasCidades()}" />
+		        			</p:selectBooleanCheckbox>
+		        			 <p:outputLabel value="Selecionar todas" style="margin-left: 1%"></p:outputLabel>
+						</div>
+						<p:dataTable id="idTabelaCidade" var="cidade"
+							value="#{cadFornecedorCidadeDocsMB.listaCidade}"
+							scrollable="true" scrollHeight="240"
+							style="margin-bottom:20px;margin-right:20px;margin-top:11px;" >
+							<p:column style="width:30px;" styleClass="alinharCenter">
+								<p:selectBooleanCheckbox value="#{cidade.selecionado}"
+									 disabled="#{cadFornecedorCidadeDocsMB.desabilitarSelecione(cidade)}"/>
+							</p:column>
+							<p:column headerText="Cidade" 
+								styleClass="alinharCenter">
+								<p:outputLabel value="#{cidade.cidade.nome}" />
+							</p:column>
+							<p:column style="width:50px;" styleClass="alinharCenter">
+								<p:commandLink id="btnExcluir" action="#{cadFornecedorCidadeDocsMB.excluir(cidade)}"
+									disabled="#{cidade.excluir}" update="cadFornecedorDocs, idTabelaCidade">
+									<img src="../../resources/img/excluir.png"/>
+								</p:commandLink>
+							</p:column>  
+						</p:dataTable>
+					</h:panelGroup>  
+				</h:panelGrid>
+				<br />
+				<div align="center" style="margin-left: 16%; width: 62.2%;">
+					<p:commandButton id="btnConfirmar" value="Confirmar" action="#{cadFornecedorCidadeDocsMB.salvar()}"
+						icon="ui-icon-check" style="font-size:12px;" update="growl" />
+					<p:commandButton id="btnCancelar" value="Cancelar" action="#{cadFornecedorCidadeDocsMB.cancelar}"
+						icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />
+				</div>
+				<br></br> <br></br>
+				<br></br>
+			</div>  
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

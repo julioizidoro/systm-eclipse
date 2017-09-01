@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="consMotivoCancelamento">
+                 <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> <br/> 
+                     <legend id="iUsu2" ><b>Motivo Cancelamento</b></legend>
+                     <div align="right" style="width: 90%;margin-left: 4%;">
+                   	     <p:commandButton value="Novo" icon="ui-icon-plus" action="#{motivoCancelamentosMB.novo()}" class="corBotão">
+	                     	<p:ajax listener="#{motivoCancelamentosMB.gerarLista()}" event="dialogReturn" update="tabelaConsMotivoCancelamento"/>
+	                     </p:commandButton>
+                      </div>  
+                     <br/>  
+                     <div align="right" style="width: 90%;margin-left: 4%;">
+	                     <p:dataTable id="tabelaConsMotivoCancelamento" value="#{motivoCancelamentosMB.listaMotivo}"  var="motivo" reflow="true"
+	                                scrollable="true" scrollHeight="300" style="font-size:11px;margin-bottom:20px;width:95%;">
+	                        <p:column headerText="Motivo Cancelamento" style="text-align:left;width:500px;">
+	                            <h:outputText value="#{motivo.motivo}" /> 
+	                        </p:column>  
+	                        <p:column  style="width:50px;text-align:center;" >  
+	                          <p:commandLink  action="#{motivoCancelamentosMB.editar(motivo)}" title="Editar"> 
+	                          	<img src="../../resources/img/editaricon.png"  />
+	                          	<p:ajax listener="#{motivoCancelamentosMB.gerarLista()}" event="dialogReturn" update="tabelaConsMotivoCancelamento"/>
+	                          </p:commandLink>
+	                        </p:column>
+	                    </p:dataTable>
+                	</div>
+                    <br></br>
+                    <br></br>
+                </div>
+	                
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>

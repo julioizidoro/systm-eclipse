@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadPromocaoBrindes" style="font-size:11px;color:black;">
+
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+
+				<p:accordionPanel class="painelControleCursos"
+					style="background:#1F8871;">
+					<p:tab title="Condições" class="tab" titleStyle="font-size: 12px"> 
+						<h:panelGrid columns="5" style="margin-left:5%;"
+							columnClasses="tamanho12,tamanho12,tamanho12,tamanho5font,tamanho5">
+							<p:outputLabel value="Data de Validade" />
+							<p:outputLabel value="Período data de início do curso" />
+							<p:outputLabel value="Período de acomodação" />
+							<p:outputLabel value="Data matrícula até" />
+							<p:outputLabel />
+
+							<h:panelGroup>
+								<p:calendar id="dataValidadeInicio"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.datavalidadeinicial}"
+									size="11" locale="pt" pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataValidadeFim"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.datavalidadefinal}"
+									size="11" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									style="margin-left:1.5%;">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:calendar id="dataInicioIni"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.datainicio}"
+									size="10" locale="pt" pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataInicioFim"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.datafinal}"
+									size="10" locale="pt" style="margin-left:2%;"
+									pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:calendar id="dataInicioAcomodacao"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.dataacomodacaoinicial}"
+									size="10" locale="pt" pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalAcomodacao"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.dataacomodacaofinal}"
+									size="10" style="margin-left:2%;" locale="pt"
+									pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<p:calendar id="dataMatricula"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.datamatricula}"
+								size="14" locale="pt" pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:outputLabel />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+
+						<h:panelGrid columns="5" style="margin-left:5%;width:85%"
+							columnClasses="tamanho4,tamanho12,tamanho12,tamanho12,tamanho12">
+							<p:outputLabel value="Período de Nº de semanas" />
+							<p:outputLabel value="A cada nº semanas de curso" />
+							<p:outputLabel value="A cada nº semanas de acomodação" />
+							<p:outputLabel value="Valor por semana igual a" />
+							<p:outputLabel value="Turno" /> 
+
+							<h:panelGroup>
+								<p:inputText id="nSemanasInicial"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.numerosemanainicial}"
+									style="width:40%;" />
+								<p:inputText id="nSemanasFinal"
+									value="#{editarPromocoesBrindesMB.promocaobrindecurso.numerosemanafinal}"
+									style="width:40%;margin-left:2%;" />
+							</h:panelGroup>
+							<p:inputText id="nSemanasCurso"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.numerosemanacurso}"
+								style="width:40%;" />
+							<p:inputText id="nSemanasAcomodacao"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.numerosemanaacomodacao}"
+								style="width:40%;margin-left:2%;" />
+							<p:inputText id="valorIgual"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.valorporsemana}"
+								style="width:50%;text-align:right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							<p:selectOneMenu id="turno"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.turno}"
+								style="width:120px;">
+								<f:selectItem itemLabel="Selecione" itemValue=" " />
+								<f:selectItem itemLabel="Matutino" itemValue="Matutino" />
+								<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+								<f:selectItem itemLabel="Noturno" itemValue="Noturno" />
+								<f:selectItem itemLabel="Integral" itemValue="Integral" />
+							</p:selectOneMenu>
+							<p:outputLabel />
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+					</p:tab>
+					<p:tab title="Resultado" class="tab" titleStyle="font-size: 12px"> 
+						<h:panelGrid columns="3" style="margin-left:5%;width:75%">
+							<p:outputLabel value="Ganha mais semana(s) de curso" />
+							<p:outputLabel value="Ganha semana(s) gratís de curso" />
+							<p:outputLabel value="Ganha semana(s) gratís de acomodação" />
+
+							<p:inputText id="semanaCurso"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.ganhasemana}"
+								style="width:50%;text-align:right;">
+							</p:inputText>
+							<p:inputText id="descontoSemanaCurso"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.ganhadescontosemana}"
+								style="width:50%;text-align:right;">
+							</p:inputText>
+							<p:inputText id="descontoSemanaAcomodacao"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.ganhadescontosemanaacomodacao}"
+								style="width:50%;text-align:right;">
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="1" style="margin-left:5%;width:65%">
+							<p:outputLabel value="Descrição do que ganha" />
+
+							<p:inputText id="descricao"
+								value="#{editarPromocoesBrindesMB.promocaobrindecurso.ganhadescricao}"
+								style="width:80%;">
+							</p:inputText>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<div align="center">
+							<p:commandButton id="btnConfirmar"
+								action="#{editarPromocoesBrindesMB.confirmar()}" value="Confirmar"
+								icon="ui-icon-check" />
+							<p:commandButton id="btnCancelar" value="Cancelar"
+								icon="ui-icon-close"
+								action="#{editarPromocoesBrindesMB.cancelar()}"
+								style="margin-left:2%;" />
+						</div>
+						<br></br>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

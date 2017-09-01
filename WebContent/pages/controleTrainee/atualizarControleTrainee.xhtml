@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="autalizarControleVoluntariado"
+		style="text-align:left;font-size:11px;">
+		<title>Atualizar Controle Trainee</title>
+		<br></br>
+		<p:accordionPanel class="painelControleTrainee"
+			style="background:#1F8871;">
+			<p:tab title="Dados da Ficha" class="tab"
+				titleStyle="font-size: 11px"><br></br>
+				<br></br><br></br>
+				<p:outputLabel value="Nº Venda" for="nControle"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
+				<p:outputLabel value="Data Inscrição" for="dataIncricao"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:9.3%;" />
+				<p:outputLabel value="Nome" for="nome"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:7%;" />
+				<p:outputLabel value="Telefone Celular" for="telefoneCel"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:44%;" />
+
+				<br></br>
+				<p:inputText id="nControle"
+					value="#{atualizarControleTraineeMB.controle.vendas.idvendas}"
+					style="width:11%;margin-left:1%;" readonly="true" />
+				<p:inputText id="dataIncricao"
+					value="#{atualizarControleTraineeMB.controle.vendas.dataVenda}"
+					style="width:11%;margin-left:4%;" readonly="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputText>
+				<p:inputText id="nome"
+					value="#{atualizarControleTraineeMB.controle.vendas.cliente.nome}"
+					style="width:41%;margin-left:5%;" readonly="true" />
+				<p:inputText id="telefoneCel"
+					value="#{atualizarControleTraineeMB.controle.vendas.cliente.foneCelular}"
+					style="width:12%;margin-left:6.5%;" readonly="true" />
+
+				<br></br>
+				<br></br>
+				<p:outputLabel value="Data Nascimento" for="dataNasci"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
+				<p:outputLabel value="Email" for="email"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:3.4%;" />
+				<p:outputLabel value="Skype" for="skype"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:33.7%;" />
+				<br></br>
+				<p:inputText id="dataNasci"
+					value="#{atualizarControleTraineeMB.controle.vendas.cliente.dataNascimento}"
+					style="width:12%;margin-left:1%;" readonly="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputText>
+				<p:inputText id="email"
+					value="#{atualizarControleTraineeMB.controle.vendas.cliente.email}"
+					style="width:32%;margin-left:3.4%;" readonly="true" />
+				<p:inputText id="skype"
+					value="#{atualizarControleTraineeMB.controle.vendas.cliente.skype}"
+					style="width:17.4%;margin-left:4%;" readonly="true" />
+				<br></br>
+				<br></br>
+
+				<p:outputLabel value="RG" for="rg"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
+				<p:outputLabel value="Data Embarque"
+					for="dataInicioPretendida"
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:30%;" />
+				
+				<br></br>
+				<p:inputText id="rg"
+					value="#{atualizarControleTraineeMB.controle.vendas.cliente.rg}"
+					style="width:25%;margin-left:1%;" readonly="true" />
+				<p:inputText id="dataInicioPretendida"
+					value=""
+					style="width:16.5%;margin-left:6%;" readonly="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputText>
+				<br></br><br></br>
+				<br></br>
+				<br></br>
+				<br></br><br></br>
+			</p:tab> 
+		</p:accordionPanel>
+		<p class="botaocadpacote">
+			<br></br>
+			<p:commandButton class="imagemm" icon="ui-icon-check"
+				value="Confirmar"
+				action="#{atualizarControleTraineeMB.salvar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" icon="ui-icon-close"
+				value="Cancelar"
+				action="#{atualizarControleTraineeMB.cancelar()}"></p:commandButton>
+			<br></br> <br></br>
+		</p>
+	</h:form>
+</h:body>
+</html>

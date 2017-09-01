@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultahighschool" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho7, tamanho8, tamanho8, tamanho8, tamanho8"
+							style="width:96%;margin-left:4%;">
+							<p:outputLabel value="ID venda" for="idVenda" />
+							<p:outputLabel value="Nome do Cliente" for="cliente" />
+							<p:outputLabel value="Início do Programa" for="inicioPrograma" />
+							<p:outputLabel value="País" for="pais" />
+							<p:outputLabel value="Parceiro" for="fornecedor" />
+
+							<p:inputText id="idVenda" value="#{highSchoolMB.idVenda}"
+								style="width:90%;" />
+							<p:inputText id="cliente" value="#{highSchoolMB.nome}"
+								style="width:90%;" />
+							<p:inputText id="inicioPrograma"
+								value="#{highSchoolMB.dataInicioPrograma}" style="width:90%;" />
+							<p:selectOneMenu id="pais" value="#{highSchoolMB.pais}"
+								style="width:80%;" converter="PaisFornecedorConverter"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{highSchoolMB.listaPais}"
+									var="paises" itemLabel="#{paises.nome}" itemValue="#{paises}" />
+								<f:attribute name="listaPaisFornecedor"
+									value="#{highSchoolMB.listaPais}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="fornecedor"
+								value="#{highSchoolMB.fornecedorcidade}" style="width:85%;"
+								filter="true" filterMatchMode="startsWith"
+								converter="FornecedorCidadeConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="Escola" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{highSchoolMB.listaFornecedorProduto}" var="fornecedor"
+									itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{highSchoolMB.listaFornecedorProduto}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="6"
+							columnClasses="tamanho7, tamanho1,tamanho8,tamanho1,tamanho7,tamanho1"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Situação" for="situacao" />
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:calendar id="dataIni" value="#{highSchoolMB.dataInicio}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{highSchoolMB.dataTermino}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade"
+								value="#{highSchoolMB.unidadenegocio}" style="width:200px;"
+								converter="UnidadeNegocioConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px"
+								disabled="#{highSchoolMB.habilitarUnidade}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{highSchoolMB.listaUnidadeNegocio}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{highSchoolMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao" value="#{highSchoolMB.situacao}"
+								style="width:95px;">
+								<f:selectItem itemLabel="TODAS" itemValue="TODAS" />
+								<f:selectItem itemLabel="ANDAMENTO" itemValue="ANDAMENTO" />
+								<f:selectItem itemLabel="CANCELADA" itemValue="CANCELADA" />
+								<f:selectItem itemLabel="PROCESSO" itemValue="PROCESSO" />
+								<f:selectItem itemLabel="FINALIZADA" itemValue="FINALIZADA" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update="consultahighschool:tabelaConsultaHighSchool, :consultahighschool:PanelQuantidadeFichas, :consultahighschool:idNFichaFinalizada, :consultahighschool:idNFichaAndamento,
+								:consultahighschool:idNFichaCancelada"
+								action="#{highSchoolMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="consultahighschool:tabelaConsultaHighSchool, situacao, unidade, dataFinal, dataIni, cliente ,idVenda, :consultahighschool:PanelQuantidadeFichas, :consultahighschool:idNFichaFinalizada, :consultahighschool:idNFichaAndamento,
+								:consultahighschool:idNFichaCancelada"
+								action="#{highSchoolMB.limparPesquisa()}" />
+						</h:panelGrid>
+						<br></br>
+
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de High School </b>
+				</legend>
+				<p:commandButton value="Nova Ficha" icon="ui-icon-plus"
+					action="#{highSchoolMB.cadastrarFicha()}" class="botaoConsulta"
+					style="font-size:12px;margin-left:80%" />
+				<br></br> <br></br>
+
+				<p:dataTable id="tabelaConsultaHighSchool" var="highSchool"
+					value="#{highSchoolMB.listaHighSchool}" class="tabelaHighSchool"
+					scrollable="true" scrollHeight="300" rows="15"
+					style="margin-bottom:20px">
+					<p:column style="text-align:center;width:40px;">
+						<p:commandLink
+							action="#{highSchoolMB.buscarHighSchool(highSchool)}"
+							onclick="PF('liberarficha').show();"
+							rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchool)}">
+							<img src="#{highSchool.imagem}" width="60%" />
+						</p:commandLink>
+						<p:commandLink rendered="#{highSchool.habilitarImagemFranquia}">
+							<img src="#{highSchool.imagem}" width="60%" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="ID Venda"
+						style="width:80px;text-align:center;"
+						sortBy="#{highSchool.vendas.idvendas}" styleClass="alinharCenter">
+						<p:commandLink
+							action="#{highSchoolMB.buscarHighSchool(highSchool)}"
+							onclick="PF('controle').show();" title="Salvar Controle"
+							rendered="#{highSchoolMB.linkIdGerente}">
+							<h:outputText value="#{highSchool.vendas.idvendas}"
+								style="#{highSchoolMB.cor(highSchool)}" />
+						</p:commandLink>
+						<p:commandLink
+							action="#{highSchoolMB.visualizarContasReceber(highSchool.vendas)}"
+							title="Visualizar Contas a Receber"
+							rendered="#{highSchoolMB.linkIdFranquias}">
+							<h:outputText value="#{highSchool.vendas.idvendas}"
+								style="#{highSchoolMB.cor(highSchool)}" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Data Venda"
+						sortBy="#{highSchool.vendas.dataVenda}"
+						style="text-align:center;width:115px;">
+						<h:outputText value="#{highSchool.vendas.dataVenda}"
+							style="#{highSchoolMB.cor(highSchool)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Cliente" style="width:150px; "
+						sortBy="#{highSchool.vendas.dataVenda}">
+						<h:outputText value="#{highSchool.vendas.cliente.nome}"
+							style="#{highSchoolMB.corNome(highSchool)}" />
+					</p:column>
+					<p:column headerText="Data Início"
+						sortBy="#{highSchool.vendas.dataVenda}" style="width:125px;">
+						<h:outputText value="#{highSchool.valoreshighschool.inicio}"
+							style="#{highSchoolMB.cor(highSchool)}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Unidade" style="width:120px;"
+						sortBy="#{highSchool.vendas.unidadenegocio.nomeFantasia}"
+						styleClass="alinharCenter">
+						<h:outputText
+							value="#{highSchool.vendas.unidadenegocio.nomerelatorio}"
+							style="#{highSchoolMB.cor(highSchool)}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:150px;"
+						sortBy="#{highSchool.vendas.usuario.nome}"
+						styleClass="alinharCenter">
+						<h:outputText value="#{highSchool.vendas.usuario.nome}"
+							style="#{highSchoolMB.cor(highSchool)}" />
+					</p:column>
+					<p:column style="width:43px;text-align:center;">
+						<p:commandLink action="#{highSchoolMB.editar(highSchool)}"
+							title="Editar" style="text-decoration: none"
+							disabled="#{highSchoolMB.botoesHabilitados(highSchool)}">
+							<img src="../../resources/img/editaricon.png" width="28" />
+							<p:ajax event="dialogReturn" process="@this"
+								update=":consultahighschool:tabelaConsultaHighSchool, :consultahighschool:PanelQuantidadeFichas, :consultahighschool:idNFichaFinalizada, :consultahighschool:idNFichaAndamento,
+								:consultahighschool:idNFichaCancelada" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Imprimir"
+						rendered="#{highSchoolMB.esconderFicha}"
+						style="width:58px;text-align:center;" styleClass="alinharCenter">
+						<h:commandButton
+							action="#{highSchoolMB.gerarRelatorioFicha(highSchool)}"
+							title="Ficha" image="../../resources/img/imprimiFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:30px;margin-left:4%">
+						</h:commandButton>
+					</p:column>
+
+
+
+
+					<p:column headerText="Opções" style="width:75px;text-align:center;">
+						<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+							<img src="../../resources/img/informacaoVendaVerde.png" />
+						</p:commandLink>
+						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+							hideEffect="fade"
+							style="background:#F0F0F0;width:800px; border:none;">
+							<p:outputLabel
+								value="#{highSchool.vendas.idvendas} - #{highSchool.vendas.cliente.nome}"
+								style="text-align:center;font-size:15px;" />
+							<br />
+							<br />
+							<h:panelGrid
+								style="width:100%;border-color:transparent;border:none;"
+								columns="8">
+
+								<p:commandLink action="#{highSchoolMB.boletos(highSchool)}"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
+									title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
+									<img src="../../resources/img/boletoFicha.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="BOLETOS" style="font-size:11px;" />
+										<p:outputLabel value=" " />
+									</h:panelGrid>
+								</p:commandLink>
+
+								<p:commandLink
+									actionListener="#{highSchoolMB.buscarHighSchool(highSchool)}"
+									style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+									update="consultahighschool:dialog_obsTM"
+									oncomplete="PF('obstm').show()"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}">
+									<img src="#{highSchoolMB.retornarIconeObsTM(highSchool)}" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="OBS" style="font-size:11px;" />
+										<p:outputLabel value="TM" />
+									</h:panelGrid>
+								</p:commandLink>
+
+
+								<p:commandLink
+									action="#{highSchoolMB.gerarRelatorioContrato(highSchool)}"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
+									title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
+									<img src="../../resources/img/imprimiContrato.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="CONTRATO" style="font-size:11px;" />
+										<p:outputLabel value=" " />
+									</h:panelGrid>
+								</p:commandLink>
+								<p:commandLink
+									action="#{highSchoolMB.gerarRelatorioTermoVisto(highSchool)}"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
+									title="IMPRIMIR O TERMO DE VISTO" ajax="false" target="_blank">
+									<img src="../../resources/img/imprimiVisto.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="TERMO" style="font-size:11px;" />
+										<p:outputLabel value="VISTO" />
+									</h:panelGrid>
+								</p:commandLink>
+								<p:commandLink
+									action="#{highSchoolMB.gerarRelatorioRecibo(highSchool)}"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
+									title="IMPRIMIR O RECIBO" ajax="false" target="_blank">
+									<img src="../../resources/img/imprimiRecibo.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="RECIBO" style="font-size:11px;" />
+										<p:outputLabel value=" " />
+									</h:panelGrid>
+								</p:commandLink>
+
+
+								<p:commandLink action="#{highSchoolMB.documentacao(highSchool)}"
+									title="DOCUMENTOS"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}">
+									<img src="../../resources/img/arquivosUpload.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="DOCS" style="font-size:11px;" />
+										<p:outputLabel value=" " />
+									</h:panelGrid>
+								</p:commandLink>
+
+								<p:commandLink action="#{highSchoolMB.informacoes(highSchool)}"
+									title="INFORMAÇÕES DA VENDA"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}">
+									<img src="../../resources/img/informacao.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="INFO" style="font-size:11px;" />
+										<p:outputLabel value=" " />
+									</h:panelGrid>
+								</p:commandLink>
+
+								<p:commandLink
+									action="#{highSchoolMB.cancelarVenda(highSchool.vendas)}"
+									disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
+									style="text-decoration: none" title="CANCELAR FICHA"
+									update=":consultahighschool:tabelaConsultaHighSchool, :consultahighschool:PanelQuantidadeFichas, :consultahighschool:idNFichaFinalizada, :consultahighschool:idNFichaAndamento,
+													:consultahighschool:idNFichaCancelada">
+									<p:confirm header="Cancelamento"
+										message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="36" />
+									<h:panelGrid columns="1" style="text-align:1px;">
+										<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+										<p:outputLabel value=" " />
+									</h:panelGrid>
+								</p:commandLink>
+							</h:panelGrid>
+						</p:overlayPanel>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
+			    	<div align="center">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
+			        </div>  
+			    </p:confirmDialog>  
+				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="60%"
+					style="margin-left: 2%;">
+					<h:panelGroup>
+						<p:commandLink actionListener="#" title="N° Total de Ficha"
+							style="margin-left:15%;">
+							<img src="../../resources/img/iconeTotal.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="numFicha" value="#{highSchoolMB.numeroFichas}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink actionListener="#" title="Ficha Finalizada"
+							style="margin-left:5%;">
+							<img src="../../resources/img/finalizadoFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaFinalizada"
+							value="#{highSchoolMB.nFichasFinalizadas}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink actionListener="#" title="Ficha em Andamento">
+							<img src="../../resources/img/amarelaFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaProcesso"
+							value="#{highSchoolMB.nFichasAndamento}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink actionListener="#" title="Ficha em Processo">
+							<img src="../../resources/img/processoFicha.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaAndamento"
+							value="#{highSchoolMB.nFichasProcesso}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink actionListener="#" title="Ficha Cancelada">
+							<img src="../../resources/img/fichaCancelada.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaCancelada"
+							value="#{highSchoolMB.nFichaCancelada}"
+							style="font-size:24px;margin-left: 5%;" />
+					</h:panelGroup>
+				</h:panelGrid>
+				<br></br> <br></br>
+				<p:dialog id="dialog_obsTM" header="Obs TM" widgetVar="obstm"
+					style="background:#d0e9c6;text-align: left">
+					<br></br>
+					<p:inputTextarea id="idObstm"
+						value="#{highSchoolMB.highSchool.obstm}" rows="10" cols="50"
+						queryDelay="750" minQueryLength="4" readonly="true" />
+					<br></br>
+					<br></br>
+					<br></br>
+				</p:dialog>
+				<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
+					widgetVar="controle" style="width:30%;font-size:14px">
+					<p:outputLabel value="Salvar controle desta ficha?" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim"
+						action="#{highSchoolMB.salvarControle()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check" update="consultahighschool:growl"
+						style="margin-left:13%;font-size:12px" />
+					<p:commandButton value="Não" oncomplete="PF('cd').hide();"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+						update="consultahighschool:growl" style="font-size:12px" />
+				</p:dialog>
+				<p:dialog showEffect="fade" hideEffect="fade" header="Confirmação"
+					icon="ui-icon-alert" widgetVar="liberarficha"
+					style="width:30%;font-size:14px">
+					<p:outputLabel
+						value="LIBERAR FICHA? Ficha será liberar para finalizar." />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim"
+						action="#{highSchoolMB.liberarFicha()}"
+						oncomplete="PF('liberarficha').hide();"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+						update="consultahighschool:growl"
+						style="margin-left:30%;font-size:12px" />
+					<p:commandButton value="Não"
+						oncomplete="PF('liberarficha').hide();"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+						update="consultahighschool:growl" style="font-size:12px" />
+				</p:dialog>
+				<style>
+				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+					.ui-datatable tfoot th {
+					padding: 2px 2px;
+					overflow: hidden;
+					border-width: 0px;
+					border-style: solid;
+				}
+				.ui-confirm-dialog-message {
+				    display: inline-block;
+				    margin-top: 1px;
+				    font-size: 17px !important;
+				}  
+			</style>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

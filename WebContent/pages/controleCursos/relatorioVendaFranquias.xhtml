@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="filtrarcontasreceber"
+			style="text-align:left;font-size: 10px; margin-left:1.5%;">
+			<br></br>
+	
+			<title>Relatório Franquias</title>
+			<h:panelGrid columns="3" style="margin-left:2%;"
+				columnClasses="tamanho14,tamanho10,tamanho10">
+				<p:outputLabel value="País" />
+				<p:outputLabel value="Cidade" />
+				<p:outputLabel value="Parceiro" />
+	
+				<p:selectOneMenu id="pais" value="#{relatorioFranquiasMB.pais}"
+					style="width:140px;font-size:11px;"
+					converter="PaisFornecedorConverter" filter="true"
+					filterMatchMode="startsWith" panelStyle="width:210px">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idpais" value="#{relatorioFranquiasMB.listaPais}"
+						var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}" />
+					<f:attribute name="listaPaisFornecedor"
+						value="#{relatorioFranquiasMB.listaPais}" />
+					<p:ajax event="change" update="cidade" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="cidade" value="#{relatorioFranquiasMB.cidade}"
+					style="width:140px;font-size:11px;" class="espacocampos2"
+					converter="CidadeConverter" filter="true"
+					filterMatchMode="startsWith" panelStyle="width:210px">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idcidade"
+						value="#{relatorioFranquiasMB.pais.cidadeList}" var="cidade"
+						itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+					<f:attribute name="listaCidade"
+						value="#{relatorioFranquiasMB.pais.cidadeList}" />
+					<p:ajax event="change"
+						listener="#{relatorioFranquiasMB.gerarListaFornecedor()}"
+						update="escolas" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="escolas"
+					value="#{relatorioFranquiasMB.fornecedorcidade}"
+					style="width:140px;font-size:11px;" class="espacocampos2"
+					converter="FornecedorCidadeConverter" filter="true"
+					filterMatchMode="startsWith" panelStyle="width:210px">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idfornecedor"
+						value="#{relatorioFranquiasMB.listaFornecedorCidade}"
+						var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+						itemValue="#{fornecedor}" />
+					<f:attribute name="listaFornecedorCidade"
+						value="#{relatorioFranquiasMB.listaFornecedorCidade}" />
+				</p:selectOneMenu>
+	
+				<p:outputLabel />
+				<p:outputLabel />
+				<p:outputLabel />
+			</h:panelGrid>
+			<h:panelGrid columns="2" style="margin-left:2%;"
+				columnClasses="tamanho11,tamanho11">
+				<p:outputLabel value="Unidade" for="unidade" />
+				<p:outputLabel value="Consultor" for="consultor" />
+	
+				<p:selectOneMenu id="unidade" style="width:91%;"
+					value="#{relatorioFranquiasMB.unidadenegocio}"
+					converter="UnidadeNegocioConverter">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{relatorioFranquiasMB.listaUnidadeNegocio}"
+						var="unidade" itemLabel="#{unidade.nomeFantasia}"
+						itemValue="#{unidade}" />
+					<f:attribute name="listaUnidade"
+						value="#{relatorioFranquiasMB.listaUnidadeNegocio}" />
+					<p:ajax event="change"
+						listener="#{relatorioFranquiasMB.gerarListaConsultor()}"
+						update="consultor" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="consultor" style="width:91%;"
+					value="#{relatorioFranquiasMB.usuario}" 
+					converter="UsuarioConverter">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{relatorioFranquiasMB.listaConsultor}"
+						var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+					<f:attribute name="listaUsuario"
+						value="#{relatorioFranquiasMB.listaConsultor}" />
+					<p:ajax event="change" />
+				</p:selectOneMenu>
+	
+				<p:outputLabel /> 
+				<p:outputLabel />
+	
+				<p:outputLabel value="Periodo da venda" />
+				<p:outputLabel value="Período de início do curso" />
+				<h:panelGroup>
+					<p:inputMask id="dataIni" mask="99/99/9999"
+						value="#{relatorioFranquiasMB.dataInicio}" style="width:38%">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+					<p:inputMask id="dataFim" mask="99/99/9999"
+						value="#{relatorioFranquiasMB.dataTermino}"
+						style="width:38%;margin-left:6%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputMask id="dataIniCurso" mask="99/99/9999"
+						value="#{relatorioFranquiasMB.dataInicioCurso}" style="width:38%">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+					<p:inputMask id="dataFimCurso" mask="99/99/9999"
+						value="#{relatorioFranquiasMB.dataTerminoCurso}"
+						style="width:38%;margin-left:6%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+				</h:panelGroup>
+			</h:panelGrid>
+			<br></br>
+			<div align="center">
+				<p:commandButton value="Confirmar"
+					onclick="this.form.target='_blank'"   icon="ui-icon-check"
+					action="#{relatorioFranquiasMB.confirmar()}" ajax="false" />
+				<p:commandButton style="margin-left: 1%" icon="ui-icon-close"
+					value="Cancelar" action="#{relatorioFranquiasMB.fechar()}"></p:commandButton>
+			</div>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

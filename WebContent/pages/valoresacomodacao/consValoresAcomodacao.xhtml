@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="valoresAcomodacao">
+
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
+				<br></br> <br></br>
+				<h:panelGrid columns="5" style="width:95%;margin-left:2%;" 
+					columnClasses="colunadezenove,tamanho12,tamanho12,tamanho12,tamanho8"> 
+					<p:outputLabel value="Residencia" for="residencia"
+						style="color:#1F8871;" />
+					<p:outputLabel value="Pais" for="pais"
+						style="color:#1F8871;" /> 
+					<p:outputLabel value="Cidade" for="cidade"
+						style="color:#1F8871;" /> 
+					<p:outputLabel value="Fornecedor" for="fornecedor"
+						style="color:#1F8871;" />  
+					<p:outputLabel />
+					
+					<p:inputText id="residencia" value="#{valoresAcomodacaoMB.residencia}" style="width:90%;"/>
+					<p:selectOneMenu id="pais" value="#{valoresAcomodacaoMB.pais}"
+						style="width:80%;" converter="PaisConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{valoresAcomodacaoMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.pais.nome}"
+							itemValue="#{cpais.pais}" />
+						<f:attribute name="listaPais" value="#{valoresAcomodacaoMB.listaPais}" />
+						<p:ajax event="change" update="cidade" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu id="cidade" value="#{valoresAcomodacaoMB.cidade}"
+						style="width:90%;" 
+						converter="CidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade"
+							value="#{valoresAcomodacaoMB.pais.cidadeList}" var="ccidade"
+							itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+						<f:attribute name="listaCidade"
+							value="#{valoresAcomodacaoMB.pais.cidadeList}" />
+						<p:ajax event="change" listener="#{valoresAcomodacaoMB.gerarListaFornecedor()}"  update="fornecedor"  />
+					</p:selectOneMenu> 
+					
+					<p:selectOneMenu id="fornecedor" value="#{valoresAcomodacaoMB.fornecedor}"
+						style="width:90%;" 
+						converter="FornecedorCidadeConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Fornecedor" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{valoresAcomodacaoMB.listaFornecedor}" var="fornecedor"
+							itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}" />
+						<f:attribute name="listaFornecedorCidade"
+							value="#{valoresAcomodacaoMB.listaFornecedor}" />
+					</p:selectOneMenu> 
+					<h:panelGroup>
+						<p:commandButton value="Pesquisar" icon="ui-icon-search" update=":valoresAcomodacao:tabelaValoresAcomodacao"
+							action="#{valoresAcomodacaoMB.pesquisar()}" style="font-size:12px;"/> 
+						<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" update=":valoresAcomodacao:tabelaValoresAcomodacao"
+							action="#{valoresAcomodacaoMB.limpar()}" style="margin-left:1%;font-size:12px;"/>
+					</h:panelGroup>
+				</h:panelGrid> 
+				<br></br>
+				<legend id="iUsu2">
+					<b>Valores de Acomodação</b>
+				</legend>
+				<div style="width:98%;" align="right">
+					<p:commandButton id="bntAddTipoAcomodacao" icon="ui-icon-plus" 
+						style="font-size:12px;" value="Tipo de Acomodação"
+						action="#{valoresAcomodacaoMB.tipoAcomodacao()}" />  
+					<p:commandButton id="bntAddProduto" icon="ui-icon-plus" 
+						style="font-size:12px;margin-left:1%;" value="Novo"
+						action="#{valoresAcomodacaoMB.novo()}" >
+						<p:ajax event="dialogReturn"
+							listener="#{valoresAcomodacaoMB.gerarListaValoresAcomodacao()}" process="@this"
+							update=":valoresAcomodacao:tabelaValoresAcomodacao" />
+					</p:commandButton> 
+				</div>
+				<br></br> 
+				<p:dataTable id="tabelaValoresAcomodacao" var="valores"
+					value="#{valoresAcomodacaoMB.listaValoresAcomodacao}" class="tabela"
+					scrollable="true" scrollHeight="400" style="margin-bottom:20px">
+
+					<p:column headerText="Fornecedor" style="width:140px;">
+						<h:outputText value="#{valores.fornecedorcidade.fornecedor.nome}" />
+					</p:column> 
+					<p:column headerText="Cidade" style="width:140px;">
+						<h:outputText value="#{valores.fornecedorcidade.cidade.nome}" />
+					</p:column> 
+					<p:column headerText="Residencia"
+						style="width:210px;text-decoration: none">
+						<h:outputText value="#{valores.residencia}" />
+					</p:column>   
+					<p:column headerText="Tipo"
+						style="width:150px;text-decoration: none">
+						<h:outputText value="#{valores.tipoacomodacao.descricao}" />
+					</p:column>   
+					<p:column headerText="Valor"
+						style="width:100px;text-decoration: none">
+						<h:outputText value="#{valores.valor}" >
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>  
+					<p:column style="width:90px;text-align: center;">
+						<p:commandButton value="Editar"
+							action="#{valoresAcomodacaoMB.editar(valores)}" />
+					</p:column> 
+					<p:column style="width:90px;text-align: center;">
+						<p:commandButton value="Excluir"
+							action="#{valoresAcomodacaoMB.excluir(valores)}" />
+					</p:column>
+				</p:dataTable> 
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>MateRunners</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" /> 
+</h:head>
+<h:body style="background:#DDDDE1;">    
+	<h:form id="graficoMateRunners"   
+		style="text-align:left;font-size:11px;"><br/> 
+		<div class="row" style="margin-top: 1.5%;width:100%;">
+			<div class="materunss">   
+				<div class="col-lg-12"
+					style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+					<div class="col-lg-6"> 
+						<img src="../../resources/img/paginainicial/materunners.png" width="390" />    
+					</div>    
+					<div class="col-lg-1" style="padding-right: 0px; width: 91px;css:none;">     
+						<img src="#{graficoMateRunnersMB.getFotoUsuarioPonto()}"
+								alt="" class="imagemusuario" /> 
+					</div>
+					<div class="col-lg-3"   
+						style="padding-left: 0px; padding-right: 0px;">
+						<p:outputLabel
+							value="#{graficoMateRunnersMB.getTituloMateRunners()}"
+							style="font-size:8px;color:#4F4F4F;" />
+						<div class="progress progress-striped active"
+							style="height: 17px; margin: 5px 0 0 0; margin-top: -2%; border-radius: 0px;">
+							<div class="progress-bar " style="width: 100%;"></div>
+						</div>
+						<p:outputLabel
+							value="#{graficoMateRunnersMB.getNomeUnidadeTituloMateRunners()}"
+							style="font-size:9px;color:#4F4F4F;" />
+					</div>
+					<div class="col-lg-1"
+						style="padding-left: 3px; padding-right: 0px; padding-top: 5px;">
+						<p:outputLabel
+							value="#{graficoMateRunnersMB.getPontuacaoTituloMateRunners()}"
+							style="font-size:27px;color:#1F8871;" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div align="center"  class="row" style="width:100%;">
+			<div style="width: 95%; margin-left:3%;">
+				<div class="col-lg-12">    
+					<div class="panel-body">     
+						<div id="chart">          
+							<ul id="bars" style="background:#DDDDE1;">
+								<ui:repeat value="#{graficoMateRunnersMB.listaTOP}" var="materunners">
+									<li><div style="height:#{graficoMateRunnersMB.getPercentualEscola(materunners.numero)}%"   
+											data-percentage="#{graficoMateRunnersMB.getPercentualEscola(materunners.numero)}"
+											title="#{graficoMateRunnersMB.getNumeroVendasEscola(materunners.numero)}" class="bar"></div>
+										<span><br /> <br /> <img
+											src="#{graficoMateRunnersMB.getFoto(materunners.numero)}" alt=""
+											class="imagemMatesRuns" /><br /> <p:outputLabel
+												value="#{graficoMateRunnersMB.getNome(materunners.numero)}" /><br/> <p:outputLabel
+												style="font-weight:lighter;margin-top:-5%;"
+												value="#{graficoMateRunnersMB.getNomeUnidade(materunners.numero)}" /> </span></li>
+								</ui:repeat>
+							</ul>
+							<br /> <br /> <br />
+						</div>
+						<br></br>  
+					</div>                   
+				</div>  
+			</div>   
+		</div> 
+		<style>
+		.progress-bar { 
+    		background-color: #a0c637; 
+		} 
+		</style>
+	</h:form>  
+</h:body>
+</html>

@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+         <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+         <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+         <script>  
+                PrimeFaces.locales['pt'] = {  
+                    closeText: 'Fechar',  
+                    prevText: 'Anterior',  
+                    nextText: 'Próximo',  
+                    currentText: 'Começo',  
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],  
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],  
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],  
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],  
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],  
+                    weekHeader: 'Semana',  
+                    firstDay: 0,  
+                    isRTL: false,  
+                    showMonthAfterYear: false,  
+                    yearSuffix: '',  
+                    timeOnlyTitle: 'Só Horas',  
+                    timeText: 'Tempo',  
+                    hourText: 'Hora',  
+                    minuteText: 'Minuto',  
+                    secondText: 'Segundo',  
+                    ampm: false,  
+                    month: 'Mês',  
+                    week: 'Semana',  
+                    day: 'Dia',  
+                    allDayText: 'Todo o Dia'  
+                };  
+            </script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastropacotehotel" style="text-align:left;font-size: 10px;">
+            <title>Hotel</title>
+            <h:panelGrid columns="4" width="100%" style="margin-left:3%;">
+	            <p:outputLabel value="Pais" for="pais1" style=""/>
+	            <p:outputLabel value="Cidade" for="cidade1" style="" />
+	            <p:outputLabel value="Parceiro" for="fornecedor" style="" />
+	            <p:outputLabel value="Data Pagamento" for="datapagamentoparceiro" style="" />
+	            
+	            <p:selectOneMenu id="pais1" value="#{pacoteHotelMB.pais}" style="font-size: 10px;"
+	                             converter="PaisConverter" filter="true" filterMatchMode="startsWith" >
+	                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+	                <f:selectItems id="idpais" value="#{pacoteHotelMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+	                <f:attribute name="listaPais" value="#{pacoteHotelMB.listaPais}"/>
+	                <p:ajax event="change" update="cidade1"/> 
+	            </p:selectOneMenu>   
+	            <p:selectOneMenu id="cidade1" value="#{pacoteHotelMB.cidade}" style="font-size: 10px"
+	                             converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+	                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+	                <f:selectItems id="idcidade" value="#{pacoteHotelMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+	                <f:attribute name="listaCidade" value="#{pacoteHotelMB.pais.cidadeList}"/>
+	                <p:ajax event="change" listener="#{pacoteHotelMB.listarFornecedorCidade(0)}" update="fornecedor" />
+	            </p:selectOneMenu>
+	            <p:selectOneMenu id="fornecedor" value="#{pacoteHotelMB.fornecedorcidade}" style="font-size: 10px" 
+	                             converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+	                <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"/> 
+	                <f:selectItems id="idfornecedor" value="#{pacoteHotelMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+	                <f:attribute name="listaFornecedorCidade" value="#{pacoteHotelMB.listaFornecedorCidade}"/>
+	            </p:selectOneMenu>
+	            <p:calendar id="datapagamentoparceiro" value="#{pacoteHotelMB.pacotehotel.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+	                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	            </p:calendar>
+	         </h:panelGrid>
+	         <br/>
+            <p:outputLabel value="País" for="pais" style="margin-left:3%"/>
+            <p:outputLabel value="Cidade" for="cidade" class="espacocobranca17"/>
+            <p:outputLabel value="Data Check in" for="dataCheckin" class="espacocobranca22"/>
+            <p:outputLabel value="Hora Check in" for="horaCheckin" class="espacocobranca5"/>
+
+            <br></br>
+            <p:inputText id="pais" value="#{pacoteHotelMB.pacotehotel.pais}" style="width:26%;margin-left:3%" maxlength="50" class="espacocampos2"/>
+            <p:inputText id="cidade" value="#{pacoteHotelMB.pacotehotel.cidade}" style="width:25.7%" maxlength="50" class="espacocampos"/>
+            <p:calendar id="dataCheckin" value="#{pacoteHotelMB.pacotehotel.datacheckin}" size="14"  class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:calendar>
+            <p:inputMask id="horaCheckin" value="#{pacoteHotelMB.pacotehotel.horacheckin}" mask="99:99" style="width:15%" class="espacocampos"/>
+
+            <br></br><br></br>
+            <p:outputLabel value="Tipo de Quarto" for="tipoquarto" style="margin-left:3%"/>
+            <p:outputLabel value="Categoria" for="categoria" class="espacocobranca5"/>
+            <p:outputLabel value="Regime" for="regime" class="espacocobranca5"/>
+            <p:outputLabel value="Data Checkout" for="dataCheckout" style="margin-left:18%"/>
+            <p:outputLabel value="Hora Checkout" for="horaCheckout" class="espacocobranca5"/>
+            <br></br>
+            <p:inputText id="tipoquarto" value="#{pacoteHotelMB.pacotehotel.tipoquarto}"  style="width:16%;margin-left:3%" maxlength="10" class="espacocampos2"/>
+            <p:inputText id="categoria" value="#{pacoteHotelMB.pacotehotel.categoria}" style="width:12%" maxlength="10" class="espacocampos"/>
+            <p:inputText id="regime" value="#{pacoteHotelMB.pacotehotel.regime}"  style="width:20%" maxlength="20" class="espacocampos"/>
+            <p:calendar id="dataCheckout" value="#{pacoteHotelMB.pacotehotel.datacheckout}" size="14" style="margin-left: 3.7%" locale="pt"  pattern="dd/MM/yyyy" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:calendar>
+            <p:inputMask id="horaCheckout" value="#{pacoteHotelMB.pacotehotel.horacheckout}" mask="99:99"  style="width:15%" class="espacocampos"/>
+            <br></br><br></br>
+
+            <p:outputLabel value="Câmbio" for="moeda" class="" style="font-size:11px;margin-left: 3%"/>
+            <p:outputLabel value="Valor do Câmbio" for="idvalorcambio" class="espacocobranca33" style="font-size:11px;"/>
+            <p:outputLabel value="Tarifas" for="tarifas"  style="font-size:11px;margin-left:8%"/>  
+            <p:outputLabel value="Taxas" for="taxas" class="espacocobranca2" style="font-size:11px;margin-left: 14%;"/>
+            <p:outputLabel value="Comissão Parceiro" for="comissaoFornecedor" class="espacocobranca33" style="font-size:11px;margin-left:14.5%;"/>
+                                          
+            <br></br>
+            <h:panelGrid columns="5">
+                <p:selectOneMenu class="espacocampos5" style="width:90px;font-size:11px;margin-left:19%" id="moeda"  value="#{pacoteHotelMB.cambio}" converter="CambioConverter">
+                    <f:selectItem itemLabel="Câmbio" itemValue="0"/> 
+                    <f:selectItems value="#{aplicacaoMB.listaCambio}" var="cambio" itemLabel="#{cambio.moedas.sigla}" itemValue="#{cambio}"/>
+                    <f:attribute name="listaCambio" value="#{aplicacaoMB.listaCambio}"/>
+                    <p:ajax event="change" listener="#{pacoteHotelMB.carregarValorCambio()}" update="idvalorcambio" />
+                </p:selectOneMenu>  
+                <p:inputText id="idvalorcambio" value="#{pacoteHotelMB.valorCambio}" style="width:68%;font-size:11px;text-align: right" class="espacocampos" >
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>  
+                <p:inputText id="tarifas" value="#{pacoteHotelMB.pacotehotel.tarifa}" style="width:70%;font-size:11px;margin-left:12%" class="fontebrancaa" >
+                   <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <p:inputText id="taxas" value="#{pacoteHotelMB.pacotehotel.taxa}" style="width:79%;font-size:11px;margin-left:2%" class="espacocobranca20rig"  >
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <p:inputText id="comissaoFornecedor" value="#{pacoteHotelMB.pacotehotel.comissaofornecedor}" style="width:100%;font-size:11px;margin-left:2%" maxlength="15" class="espacocobranca20rig"  >
+                     <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+            </h:panelGrid>
+            <br></br>
+            <p:outputLabel value="Descritivo" for="descritivo" style="font-size:11px;margin-left:3%"/>
+            <br></br>
+            <p:inputText id="descritivo" value="#{pacoteHotelMB.pacotehotel.descritivo}" style="width:94%;margin-left:3%" maxlength="45" class="espacocampos2"/>
+            <br></br><br></br><br></br><br></br>
+            <p class="botaocadpacote"><br></br>
+                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{pacoteHotelMB.salvarHotel()}"></p:commandButton>
+                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{pacoteHotelMB.cancelar()}"></p:commandButton>
+                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-trash" value="Excluir" action="#{pacoteHotelMB.excluir()}"></p:commandButton>
+            </p>
+        </h:form>     
+    </h:body>
+</html>

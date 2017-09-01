@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadTerceiros"
+		style="text-align:left;font-size: 10px; margin-left: 2%;">
+		<br></br>
+		<img src="../../resources/img/tmStar.png"
+			style="margin-top: -2% !important; margin-left: 30%" />
+		<p:outputLabel value="Top TMStars"        
+			style="background:#DDDDE1;color:#1F8871;font-size: 26px;text-align:center;margin-left:2%" />
+		<hr style="margin-top: -0.3%; background: #2D9992;"></hr>
+		<p:galleria value="#{topTmStarMB.listaTmStarBean}" var="tmstar"
+			panelWidth="520" panelHeight="313" showCaption="true"  transitionInterval="1400">    
+			<label> <a  
+					href="http://#{topTmStarMB.ftpdados.host}:82/ftproot/systm/tmstar/#{tmstar.pdf}"  
+					target="_blank"
+					style="color: #1F8871; font-size: 19px; text-align: center;width:250px; border: none; text-decoration: underline;">#{tmstar.pais}</a></label>
+			<p:graphicImage
+				url="http://#{topTmStarMB.ftpdados.host}:82/ftproot/systm/tmstar/#{tmstar.imagem}"
+				title="#{tmstar.pais}" width="100%;">    
+			</p:graphicImage>
+		</p:galleria>
+		<br></br>  
+	</h:form>
+</h:body>
+</html>

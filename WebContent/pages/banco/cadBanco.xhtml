@@ -1,0 +1,97 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="cadUnidade">
+			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<div style="background: #ffffff">
+				<div class="ui-fluid"
+					style="width: 85%; margin-left:15%; font-size: 11px; color: #556575;">
+					<legend id="iUsu3" style="color: #495B6C;">
+						<b>Dados do Banco</b>
+					</legend>
+					<h:panelGrid columns="4"
+						columnClasses="tamanho6, colunaVinteoito, tamanho6, tamanho8"
+						style="width:80%;">
+						<p:outputLabel value="Número" />
+						<p:outputLabel value="Nome" />
+						<p:outputLabel value="Agencia" />
+						<p:outputLabel value="Conta" />
+
+						<p:inputText id="numero" style="width:90%;"
+							value="#{cadBancoMB.banco.numero}" maxlength="3" />
+						<p:inputText id="nome" style="width:90%;"
+							value="#{cadBancoMB.banco.nome}" maxlength="50" />
+						<p:inputText id="agencia" maxlength="10" style="width:90%;"
+							value="#{cadBancoMB.banco.agencia}" />
+						<p:inputText id="conta" maxlength="20" style="width:45%;"
+							value="#{cadBancoMB.banco.conta}" />
+					</h:panelGrid>
+					<br></br>  
+					<h:panelGrid columns="4"
+						columnClasses="tamanho6, tamanho6, colunaVinteoito, tamanho8"
+						style="width:80%;">
+						<p:outputLabel value="Chave" />
+						<p:outputLabel value="Senha" />
+						<p:outputLabel value="Gerente" />
+						<p:outputLabel value="Email Gerente" />
+
+						<p:inputText id="chave" style="width:90%;"
+							value="#{cadBancoMB.banco.chave}" maxlength="30" />
+						<p:inputText id="senha" style="width:90%;"
+							value="#{cadBancoMB.banco.senha}" maxlength="20" />
+						<p:inputText id="gerente" maxlength="50" style="width:80%;"
+							value="#{cadBancoMB.banco.gerente}" /> 
+						<p:inputText id="email" maxlength="100" style="width:92%;"
+							value="#{cadBancoMB.banco.emailgerente}" />
+					</h:panelGrid>
+					<br></br>  
+					<h:panelGrid columns="5"
+						columnClasses="tamanho6, tamanho6, tamanho6, tamanho6, tamanho6"
+						style="width:80%;">
+						<p:outputLabel value="Digito Agencia" />
+						<p:outputLabel value="Digito Conta" />
+						<p:outputLabel value="Carteira" />
+						<p:outputLabel value="Valor Juros" />
+						<p:outputLabel value="Valor Multa" />
+
+						<p:inputText id="digitoagencia" style="width:66%;"
+							value="#{cadBancoMB.banco.digioagencia}" maxlength="1" />
+						<p:inputText id="digitoconta" style="width:66%;"
+							value="#{cadBancoMB.banco.digitoconta}" maxlength="1" /> 
+						<p:inputText id="carteira" style="width:66%;"
+							value="#{cadBancoMB.banco.carteira}" maxlength="3" />
+						<p:inputText id="valorJuros" style="width:87%;text-align: right;"
+							value="#{cadBancoMB.banco.valorjuros}" > 
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />     
+						</p:inputText>
+						<p:inputText id="valorMulta" style="width:87%;text-align: right;"
+							value="#{cadBancoMB.banco.valormulta}" >  
+							<f:convertNumber pattern="##,###,###,###.##" 
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+					<br></br>  
+				</div>
+			</div>
+			<br></br>
+			<div align="center">
+				<p:commandButton id="btnConfirmar" value="Confirmar"
+					action="#{cadBancoMB.salvar()}" icon="ui-icon-check"
+					style="font-size:12px;" update="growl" />
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{cadBancoMB.cancelar()}" icon="ui-icon-closethick"
+					style="font-size:12px;margin-left:2%" />
+			</div>
+			<br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

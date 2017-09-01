@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../../resources/css/cssteste.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<h:body style="font-size: 12px;">
+	<h:form id="idDialogAnexarArquivo"
+		style="text-align:left;font-size: 10px; margin-left: 1%; ">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<title>Guia Escola</title>
+		<p:growl id="messages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<p:tabView  class="painelFormulario" style="width:100%;">
+			<p:tab id="etapa1" title="Info Escola" >
+				<br></br>
+				<p:outputLabel for="site" value="Agent’s Site" />
+				<br></br>
+				<p:inputText id="site" value="#{guiaEscolaMB.guiaescola.site}"
+					maxlength="100" style="width: 78%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="idade"
+					value="Minimun Age for Regular Courses and Maximun Age for Regular Courses?" />
+				<br></br>
+				
+				<p:inputText id="idade" value="#{guiaEscolaMB.guiaescola.idade}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="dataInicio"
+					value="For Regular Courses the student can start any Monday? Or needs to follow the Calendar?" />
+				<br></br>
+				
+				<p:inputText id="dataInicio" value="#{guiaEscolaMB.guiaescola.datainiciocurso}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="teste" value="Wich Day is the Level Test?" />
+				<br></br>
+				<p:inputTextarea id="teste" value="#{guiaEscolaMB.guiaescola.teste}"
+					rows="4" readonly="true" style="margin-top: 5px;float: left;width:78%;" />
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="duracao"
+					value="What is the duration of the Class?" />
+				<br></br>
+				<p:inputTextarea id="duracao" readonly="true"
+					value="#{guiaEscolaMB.guiaescola.duracao}" rows="1"
+					class="comment-text-area" style="margin-top: 5px;" />
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa2" title="Taxas">
+				<br></br>
+				<p:outputLabel for="material"
+					value="When the student needs to pay the Material (Books)?In the Application or when arrives at School?" />
+				<br></br>
+				
+				<p:inputText id="material" value="#{guiaEscolaMB.guiaescola.material}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="courier"
+					value="How much is the courier to send the I-20?" rendered="true" />
+				<br></br>
+				<p:inputText id="courier" value="#{guiaEscolaMB.guiaescola.courier}"
+					style="width:15%;text-align: right;margin-top:5px;" rendered="true"
+					placeholder="U$ 0,00" readonly="true">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="exameFinal"
+					value="How much is the Final Exam and wich one the student will pay? And when the student needs to pay it, in the Application or when arrives at School? "
+					rendered="true" />
+				<br></br>
+				<p:inputText id="exameFinal" readonly="true"
+					value="#{guiaEscolaMB.guiaescola.examefinal}"
+					style="margin-top:5px;width:18%;text-align: right;" rendered="true"
+					placeholder="U$ 0,00">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="ondeExameFinal" readonly="true"
+					value="#{guiaEscolaMB.guiaescola.pagaexamefinal}"
+					style="width:65%;margin-left: 5%;margin-top: 5px;" rendered="true" />
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa3" title="Homestay">
+				<h2>Homestay</h2>
+				<br></br>
+				<p:outputLabel for="entradaAcomodacao1"
+					value="Wich Day the Student can arrive at Accommodation?" />
+				<br></br>
+				<p:inputText id="entradaAcomodacao1" value="#{guiaEscolaMB.guiaescola.homestayentrada}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="saidaAcomodacao1"
+					value="Wich Day the Student can leave from Accommodation?" />
+				<br></br>
+				<p:inputText id="saidaAcomodacao1" value="#{guiaEscolaMB.guiaescola.homestaysaida}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="noiteExtra1"
+					value="The student can book extras nights? How many will be the maximum?" />
+				<br></br>
+				<p:inputText id="noiteExtra1" value="#{guiaEscolaMB.guiaescola.homestaynoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+					
+				<p:inputText id="numExtra1" value="#{guiaEscolaMB.guiaescola.homestaynumeronoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;margin-left: 2%;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="compartilhado1"
+					value="Students travelling alone can stay in a share rooms? In wich type of" />
+				<br></br>
+				<p:inputText id="compartilhado1" value="#{guiaEscolaMB.guiaescola.homestaycompartilhado}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa4" title="Apartment">
+				<h2>Apartment</h2>
+				<br></br>
+				<p:outputLabel for="entradaAcomodacao2"
+					value="Wich Day the Student can arrive at Accommodation?" />
+				<br></br>
+				<p:inputText id="entradaAcomodacao2" value="#{guiaEscolaMB.guiaescola.apartmententrada}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="saidaAcomodacao2"
+					value="Wich Day the Student can leave from Accommodation?" />
+				<br></br>
+				<p:inputText id="saidaAcomodacao2" value="#{guiaEscolaMB.guiaescola.apartmentsaida}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="noiteExtra2"
+					value="The student can book extras nights? How many will be the maximum?" />
+				<br></br>
+				<p:inputText id="noiteExtra2" value="#{guiaEscolaMB.guiaescola.apartmentnoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+					
+				<p:inputText id="noitenumeroExtra2" value="#{guiaEscolaMB.guiaescola.apartmentnumeronoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;margin-left:2%;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="compartilhado2"
+					value="Students travelling alone can stay in a share rooms? In wich type of" />
+				<br></br>
+				<p:inputText id="compartilhado2" value="#{guiaEscolaMB.guiaescola.apartmentcompartilhado}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa5" title="Studio">
+				<h2>Studio</h2>
+				<br></br>
+				<p:outputLabel for="entradaAcomodacao3"
+					value="Wich Day the Student can arrive at Accommodation?" />
+				<br></br>
+				<p:inputText id="entradaAcomodacao3" value="#{guiaEscolaMB.guiaescola.studioentrada}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="saidaAcomodacao3"
+					value="Wich Day the Student can leave from Accommodation?" />
+				<br></br>
+				<p:inputText id="saidaAcomodacao3" value="#{guiaEscolaMB.guiaescola.studiosaida}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="noiteExtra3"
+					value="The student can book extras nights? How many will be the maximum?" />
+				<br></br>
+				
+				<p:inputText id="noiteExtra3" value="#{guiaEscolaMB.guiaescola.studionoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+					
+				
+				<p:inputText id="numExtra3" value="#{guiaEscolaMB.guiaescola.studionumeronoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;margin-left:2%;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="compartilhado3"
+					value="Students travelling alone can stay in a share rooms? In wich type of" />
+				<br></br>
+				
+				<p:inputText id="compartilhado3" value="#{guiaEscolaMB.guiaescola.studiocompartilhado}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa6" title="Hostel">
+				<h2>Hostel</h2>
+				<br></br>
+				<p:outputLabel for="entradaAcomodacao4"
+					value="Wich Day the Student can arrive at Accommodation?" />
+				<br></br>
+				<p:inputText id="entradaAcomodacao4" value="#{guiaEscolaMB.guiaescola.hostelentrada}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="saidaAcomodacao4"
+					value="Wich Day the Student can leave from Accommodation?" />
+				<br></br>
+				<p:inputText id="saidaAcomodacao4" value="#{guiaEscolaMB.guiaescola.hostelsaida}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="noiteExtra4"
+					value="The student can book extras nights? How many will be the maximum?" />
+				<br></br>
+				<p:inputText id="noiteExtra4" value="#{guiaEscolaMB.guiaescola.hostelnoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+					
+				<p:inputText id="numExtra4" value="#{guiaEscolaMB.guiaescola.hostelnumeronoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;margin-left:2%;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="compartilhado4"
+					value="Students travelling alone can stay in a share rooms? In wich type of" />
+				<br></br>
+				
+				<p:inputText id="compartilhado4" value="#{guiaEscolaMB.guiaescola.hostelcompartilhado}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa7" title="Residence">
+				<h2>Residence</h2>
+				<br></br>
+				<p:outputLabel for="entradaAcomodacao5"
+					value="Wich Day the Student can arrive at Accommodation?" />
+				<br></br>
+				<p:inputText id="entradaAcomodacao5" value="#{guiaEscolaMB.guiaescola.residenceentrada}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="saidaAcomodacao5"
+					value="Wich Day the Student can leave from Accommodation?" />
+				<br></br>
+				<p:inputText id="saidaAcomodacao5" value="#{guiaEscolaMB.guiaescola.residencesaida}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="noiteExtra5"
+					value="The student can book extras nights? How many will be the maximum?" />
+				<br></br>
+				<p:inputText id="noiteExtra5" value="#{guiaEscolaMB.guiaescola.residencenoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+					
+				<p:inputText id="numExtra5" value="#{guiaEscolaMB.guiaescola.residencenumeronoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;margin-left:2%;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="compartilhado5"
+					value="Students travelling alone can stay in a share rooms? In wich type of" />
+				<br></br> 
+				<p:inputText id="compartilhado5" value="#{guiaEscolaMB.guiaescola.residencecompartilhado}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa8" title="Student">
+				<h2>Student Residence</h2>
+				<br></br>
+				<p:outputLabel for="entradaAcomodacao6"
+					value="Wich Day the Student can arrive at Accommodation?" />
+				<br></br>
+				<p:inputText id="entradaAcomodacao6" value="#{guiaEscolaMB.guiaescola.studentresidenceentrada}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="saidaAcomodacao6"
+					value="Wich Day the Student can leave from Accommodation?" />
+				<br></br>
+				<p:inputText id="saidaAcomodacao6" value="#{guiaEscolaMB.guiaescola.studentresidencesaida}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="noiteExtra6"
+					value="The student can book extras nights? How many will be the maximum?" />
+				<br></br>
+				<p:inputText id="noiteExtra6" value="#{guiaEscolaMB.guiaescola.studentresidencenoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+					
+				<p:inputText id="numExtra6" value="#{guiaEscolaMB.guiaescola.studentresidencenumeronoiteextra}"
+					maxlength="30" style="width: 10%;margin-top: 5px;margin-left:2%;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="compartilhado6"
+					value="Students travelling alone can stay in a share rooms? In wich type of" />
+				<br></br>
+				<p:inputText id="compartilhado6" value="#{guiaEscolaMB.guiaescola.studentresidencecompartilhado}"
+					maxlength="30" style="width: 10%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+			</p:tab>
+			<p:tab id="etapa9" title="Informações"> 
+				<p:outputLabel for="feriado"
+					value="When the School will close at the End of the Year? And when will be the first Day of Classes?" />
+				<br />
+				<br />
+				<p:calendar id="feriado" disabled="true"
+					value="#{guiaEscolaMB.guiaescola.datafechamento}"
+					pattern="dd/MM/yyyy" size="13" style="margin-top: 5px;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				<p:calendar id="feriadoEscola" disabled="true"
+					value="#{guiaEscolaMB.guiaescola.dataabertura}"
+					pattern="dd/MM/yyyy" style="margin-left: 6%;margin-top: 5px;"
+					size="13">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="textoFeriado"
+					value="Wich holidays or other breaks the school have?" />
+				<br></br>
+				<p:inputTextarea id="textoFeriado" readonly="true"
+					value="#{guiaEscolaMB.guiaescola.feriados}" rows="4"
+					style="margin-top: 5px;width:78%;float: left;" />
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="valoresAnoSeguinte"
+					value="From when do we need to apply next year fees?" />
+				<br></br>
+				<p:inputText id="valoresAnoSeguinte" value="#{guiaEscolaMB.guiaescola.mesnovotarifario}"
+					maxlength="30" style="width: 20%;margin-top: 5px;" readonly="true"/>
+				<br></br>
+				<br></br>
+				<p:outputLabel for="notes" value="Notes" />
+				<br></br>
+				<p:inputTextarea id="notes" readonly="true"
+					value="#{guiaEscolaMB.guiaescola.observacoesgerais}" rows="4"
+					cols="108" style="margin-top: 5px;width: 78%;" />
+				<br></br>
+				<br></br>
+			</p:tab>
+		</p:tabView>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="relatorioVendaInvoice"
+		style="text-align:left;font-size: 10px; margin-left:3%; ">
+		<br></br>
+
+		<title>Relatório de Vendas</title>
+		<h:panelGrid columns="1" style="margin-left:2%;" > 
+			<p:outputLabel value="Parceiro" /> 
+			<p:selectOneMenu id="escolas"
+				value="#{relatorioVendaInvoiceMB.fornecedor}"
+				style="width:185px;font-size:11px;"  
+				converter="FornecedorConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:210px">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idfornecedor"
+					value="#{relatorioVendaInvoiceMB.listaFornecedor}"
+					var="fornecedor" itemLabel="#{fornecedor.nome}"
+					itemValue="#{fornecedor}" />
+				<f:attribute name="listaFornecedor"
+					value="#{relatorioVendaInvoiceMB.listaFornecedor}" />
+			</p:selectOneMenu>
+			
+			<p:outputLabel /> 
+		</h:panelGrid>
+		<h:panelGrid columns="1" style="margin-left:2%;" > 
+			<p:outputLabel value="Período da Venda" /> 
+			<h:panelGroup>
+				<p:inputMask id="dataIni" mask="99/99/9999" value="#{relatorioVendaInvoiceMB.dataInicio}"
+					style="width:38%">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="dataFim" mask="99/99/9999" value="#{relatorioVendaInvoiceMB.dataTermino}"
+					style="width:38%;margin-left:6%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+			</h:panelGroup> 
+			
+			<p:outputLabel/>   
+			
+			<p:outputLabel value="Período de Início" /> 
+			<h:panelGroup>
+				<p:inputMask id="dataIniCurso" mask="99/99/9999" value="#{relatorioVendaInvoiceMB.dataInicioCurso}"
+					style="width:38%">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="dataFimCurso" mask="99/99/9999" value="#{relatorioVendaInvoiceMB.dataTerminoCurso}"
+					style="width:38%;margin-left:6%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+			</h:panelGroup> 
+		</h:panelGrid>  
+		<br></br>
+		<div align="center">
+			<p:commandButton value="Confirmar"
+				onclick="this.form.target='_blank'" icon="ui-icon-check" action="#{relatorioVendaInvoiceMB.confirmar()}"
+				ajax="false" />
+			<p:commandButton style="margin-left: 1%" icon="ui-icon-close" 
+				value="Cancelar" action="#{relatorioVendaInvoiceMB.fechar()}"></p:commandButton>
+		</div>
+	</h:form>
+</h:body>
+</html>

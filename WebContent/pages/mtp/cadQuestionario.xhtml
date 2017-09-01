@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idCadQuestionario" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<div align="center">
+					<p:outputLabel value="Questionário - #{cadQuestionarioMB.mtp.instituicao}"
+						style="font-size:20px;" />
+				</div>
+				<br></br>
+				<p:accordionPanel id="acordionPainel" style="background:#1F8871;margin-left:3%;width:93%;">
+					<p:tab title="Pergunta nº 1" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">  
+							<p:outputLabel value="Pergunta nº 1" style="font-size:13px;" />
+							<p:inputText id="pergunta1"  
+								value="#{cadQuestionarioMB.treinamentoperguntas.pergunta1}"
+								style="width:98.2%;" maxlength="200" placeholder="Pergunta nº 1"/>
+
+							<br></br>
+							<p:selectOneRadio id="btnRadio1"
+								value="#{cadQuestionarioMB.treinamentorespostacerta.respcerta1}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt11" for="btnRadio1" itemIndex="0" />
+								<h:outputLabel for="opt11" value="1 - " />
+								<p:inputText id="resposta11"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta11}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 1">
+									<p:ajax event="blur" />
+								</p:inputText>
+
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+
+								<p:radioButton id="opt12" for="btnRadio1" itemIndex="1" />
+								<h:outputLabel for="opt12" value="2 - " />
+								<p:inputText id="resposta12"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta12}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 2">
+									<p:ajax event="blur" />
+								</p:inputText>
+
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+
+								<p:radioButton id="opt13" for="btnRadio1" itemIndex="2" />
+								<h:outputLabel for="opt13" value="3 - " />
+								<p:inputText id="resposta13"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta13}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 3">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Pergunta nº 2" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">
+							<p:outputLabel value="Pergunta nº 2" style="font-size:13px;" />
+							<p:inputText id="pergunta2"
+								value="#{cadQuestionarioMB.treinamentoperguntas.pergunta2}"
+								style="width:98%;" maxlength="200" placeholder="Pergunta nº 2"/>
+							<br></br>
+							<p:selectOneRadio id="btnRadio2"
+								value="#{cadQuestionarioMB.treinamentorespostacerta.respcerta2}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt21" for="btnRadio2" itemIndex="0" />
+								<h:outputLabel for="opt21" value="1 - " />
+								<p:inputText id="resposta21"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta21}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 1">
+									<p:ajax event="blur" />
+								</p:inputText>
+	
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+	
+								<p:radioButton id="opt22" for="btnRadio2" itemIndex="1" />
+								<h:outputLabel for="opt22" value="2 - " />
+								<p:inputText id="resposta22"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta22}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 2">
+									<p:ajax event="blur" />
+								</p:inputText>
+	
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+	
+								<p:radioButton id="opt23" for="btnRadio2" itemIndex="2" />
+								<h:outputLabel for="opt23" value="3 - " />
+								<p:inputText id="resposta23"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta23}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 3">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Pergunta nº 3" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">
+							<p:outputLabel value="Pergunta nº 3" style="font-size:13px;" />
+							<p:inputText id="pergunta3"
+								value="#{cadQuestionarioMB.treinamentoperguntas.pergunta3}"
+								style="width:98%;" maxlength="200" placeholder="Pergunta nº 3"/>
+							<br></br>
+							<p:selectOneRadio id="btnRadio3"
+								value="#{cadQuestionarioMB.treinamentorespostacerta.respcerta3}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt31" for="btnRadio3" itemIndex="0" />
+								<h:outputLabel for="opt31" value="1 - " />
+								<p:inputText id="resposta31"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta31}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 1">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt32" for="btnRadio3" itemIndex="1" />
+								<h:outputLabel for="opt32" value="2 - " />
+								<p:inputText id="resposta32"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta32}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 2">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt33" for="btnRadio3" itemIndex="2" />
+								<h:outputLabel for="opt33" value="3 - " />
+								<p:inputText id="resposta33"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta33}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 3">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab> 
+					<p:tab title="Pergunta nº 4" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">
+							<p:outputLabel value="Pergunta nº 4" style="font-size:13px;" />
+							<p:inputText id="pergunta4"
+								value="#{cadQuestionarioMB.treinamentoperguntas.pergunta4}"
+								style="width:98%;" maxlength="200" placeholder="Pergunta nº 4" />
+							<br></br>
+							<p:selectOneRadio id="btnRadio4"
+								value="#{cadQuestionarioMB.treinamentorespostacerta.respcerta4}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt41" for="btnRadio4" itemIndex="0" />
+								<h:outputLabel for="opt41" value="1 - " />
+								<p:inputText id="resposta41"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta41}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 1">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt42" for="btnRadio4" itemIndex="1" />
+								<h:outputLabel for="opt42" value="2 - " />
+								<p:inputText id="resposta42"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta42}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 2">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt43" for="btnRadio4" itemIndex="2" />
+								<h:outputLabel for="opt43" value="3 - " />
+								<p:inputText id="resposta43"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta43}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 3">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab> 
+					<p:tab title="Pergunta nº 5" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">
+							<p:outputLabel value="Pergunta nº 5" style="font-size:13px;" />
+							<p:inputText id="pergunta5"
+								value="#{cadQuestionarioMB.treinamentoperguntas.pergunta5}"
+								style="width:98%;" maxlength="200" placeholder="Pergunta nº 5"/>
+							<br></br>
+							<p:selectOneRadio id="btnRadio5"
+								value="#{cadQuestionarioMB.treinamentorespostacerta.respcerta5}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt51" for="btnRadio5" itemIndex="0" />
+								<h:outputLabel for="opt51" value="1 - " />
+								<p:inputText id="resposta51"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta51}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 1">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt52" for="btnRadio5" itemIndex="1" />
+								<h:outputLabel for="opt52" value="2 - " />
+								<p:inputText id="resposta52"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta52}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 2">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt53" for="btnRadio5" itemIndex="2" />
+								<h:outputLabel for="opt53" value="3 - " />
+								<p:inputText id="resposta53"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta53}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 3">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab> 
+					<p:tab title="Pergunta nº 6" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">
+							<p:outputLabel value="Pergunta nº 6" style="font-size:13px;" />
+							<p:inputText id="pergunta6"
+								value="#{cadQuestionarioMB.treinamentoperguntas.pergunta6}"
+								style="width:98%;" maxlength="200" placeholder="Pergunta nº 6"/>
+							<br></br>
+							<p:selectOneRadio id="btnRadio6"
+								value="#{cadQuestionarioMB.treinamentorespostacerta.respcerta6}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt61" for="btnRadio6" itemIndex="0" />
+								<h:outputLabel for="opt61" value="1 - " />
+								<p:inputText id="resposta61"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta61}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 1">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt62" for="btnRadio6" itemIndex="1" />
+								<h:outputLabel for="opt62" value="2 - " />
+								<p:inputText id="resposta62"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta62}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 2">
+									<p:ajax event="blur" />
+								</p:inputText>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt63" for="btnRadio6" itemIndex="2" />
+								<h:outputLabel for="opt63" value="3 - " />
+								<p:inputText id="resposta63"
+									value="#{cadQuestionarioMB.treinamentorespostas.resposta63}"
+									style="width:98%;" maxlength="200" placeholder="Alternativa nº 3">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br> <br></br>
+				<div align="center">
+					<p:commandButton id="btnConfimar"
+						action="#{cadQuestionarioMB.salvar()}" update="growl"
+						value="Confimar" icon="ui-icon-check" />
+					<p:commandButton id="btnCancelar"
+						action="#{cadQuestionarioMB.cancelar()}" value="Cancelar"
+						icon="ui-icon-close" />
+				</div>
+				<br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

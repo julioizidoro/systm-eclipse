@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="adicionarContasReceber" style="text-align:left;font-size: 10px; margin-left: 7%; "><br></br>
+          
+            <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+            
+            <p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar">
+                <p:outputLabel value="Cliente"  class="espacocobranca24"/>
+                <br></br>
+                <p:inputText id="nomecliente" style="width:72%" maxlength="100"  class="espacocobranca24" value="#{gerarContasReceberMB.vendas.cliente.nome}" readonly="true"/>
+            </p:tab>
+            <br></br> 
+            <title> Contas a Receber</title>
+                 <br></br>
+                <p:outputLabel value="Nº Documento" class="espacocobranca24"/>
+                <p:outputLabel value="Nº Parcelas" style="margin-left:15%"/>
+                <p:outputLabel value="Valor Parcela" style="margin-left:18%"/>
+                <br></br>
+                <p:inputText id="numeroDocumento" class="espacocobranca24" value="#{gerarContasReceberMB.conta.numerodocumento}" style="width:17%"/>
+                <p:inputText value="#{gerarContasReceberMB.conta.numeroparcelas}"  style="width:15%;margin-left:11%" />
+                
+                <p:inputText value="#{gerarContasReceberMB.conta.valorparcela}"  style="width:16%;margin-left:13%;text-align:right" >
+                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                </p:inputText>
+                <br></br><br></br>
+                <p:outputLabel value="Data Vencimento" class="espacocobranca24"/>
+                <p:outputLabel value="Tipo de Documento" style="margin-left:18%" />
+				<h:panelGrid columns="2" class="espacocobranca24">
+	                <p:inputMask id="dataVenc"  mask="99/99/9999"  maxlength="15" value="#{gerarContasReceberMB.conta.datavencimento}">
+	                    <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	                </p:inputMask>
+	                <p:selectOneMenu id="tipoDocumento" style="width:235px;margin-left:22%;" value="#{gerarContasReceberMB.conta.tipodocumento}">
+	                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/> 
+	                    <f:selectItem itemLabel="Boleto" itemValue="Boleto" />  
+	                    <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />  
+	                    <f:selectItem itemLabel="Cartão de Crédito" itemValue="Cartão de Crédito" /> 
+	                    <f:selectItem itemLabel="Cartão de Crédito Autorizado" itemValue="Cartão de Crédito Autorizado" />  
+	                    <f:selectItem itemLabel="Cartão de Débito" itemValue="Cartão de Débito" />
+	                    <f:selectItem itemLabel="Cheque" itemValue="Cheque" />  
+	                    <f:selectItem itemLabel="Deposito" itemValue="Deposito" /> 
+	                    <f:selectItem itemLabel="Financiamento Banco" itemValue="Financiamento Banco" /> 
+	                </p:selectOneMenu>
+                </h:panelGrid>
+                <p class="botaoeditareceber" style="margin-right: -20%;width:92%"><br></br>
+                    <p:commandButton class="imagemm" onclick="" update="growl" icon="ui-icon-check" value="Confirmar" action="#{gerarContasReceberMB.salvar()}"></p:commandButton>
+                    <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{gerarContasReceberMB.cancelar()}"></p:commandButton>
+                </p>
+        </h:form>     
+    </h:body>
+</html>

@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="filtrarOrcamentoCurso">
+			<div id="centro" style="margin-left: 2%; width: 96%;">
+				<br></br>
+				<p:commandButton id="bntvoltar" style="font-size:12px;"
+					value="Voltar" action="#{listaEscolasMB.voltar()}"
+					icon="ui-icon-arrowreturnthick-1-w" />
+				<p:dataScroller
+					value="#{listaEscolasMB.filtrarEscolaBean.listaFornecedorProdutosBean}"
+					var="listaEscolas" chunkSize="4"
+					style="background:#fff;margin-left:2%;width:96% !important;">
+					<f:facet name="header">
+                            Resultados  
+                        </f:facet>
+
+					<f:facet name="loader">
+						<p:commandButton type="button" value="Mais"
+							icon="ui-icon-circle-triangle-s" />
+					</f:facet>
+
+					<h:panelGrid columns="2" style="background:#fff"
+						columnClasses="colunatipovenda, tamanhoavisos">
+						<h:panelGroup style="text-align:center;">
+							<h:panelGrid columns="1">
+								<img style="margin-left: 6%;"
+									src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/logoescola/#{listaEscolas.fornecedorcidadeidioma.fornecedorcidade.fornecedor.logo}"
+									width="70" />
+							</h:panelGrid>
+						</h:panelGroup>
+						<h:panelGroup>
+							<h:panelGrid columns="2" style="width:100%;"
+								columnClasses="tamanho11,tamanho50right">
+								<h:outputText
+									value="#{listaEscolas.ocurso.produtosorcamento.descricao}"
+									style="font-weight:bold;font-size: 19px;" />
+								<p:outputLabel
+									value="Tarifário #{listaEscolas.fornecedorcidadeidioma.fornecedorcidade.fornecedor.anotarifario}"
+									style="font-weight:initial;font-size: 15px;margin-right:2%;" />
+								<h:outputText  
+									value="#{listaEscolas.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}"
+									title="Descrição" style="font-weight:bold;font-size:22px;" />
+
+							</h:panelGrid>
+						</h:panelGroup>       
+					</h:panelGrid>
+					<br></br>
+					<p:accordionPanel
+						style="width:100%;border:trasparent;margin-top:-0.5%">
+						<p:tab
+							titleStyle="color:#000;font-size:11px;background:#6BB227;border:trasparent;color:#fff"
+							title="Orçamentos">
+							<p:dataScroller value="#{listaEscolas.listaProdutoFornecedor}"
+								var="produtosFornecedor" chunkSize="10">
+								<h:panelGroup
+									rendered="#{listaEscolasMB.renderedPromocao(produtosFornecedor)}">
+									<div align="right">
+										<p:commandLink id="idPossuiPromocao"
+											actionListener="#{listaEscolasMB.descricaopromocao(produtosFornecedor)}"
+											update="painelDescricaoPromocao"
+											oncomplete="PF('descricaoPromocao').show()" title="Promoção"
+											style="font-weight:bold;font-size:15px;">
+											<img src="../../resources/img/iconpromocao.png" width="57" />
+										</p:commandLink>
+									</div>
+									<p:dialog id="painelDescricaoPromocao" for="idPossuiPromocao"
+										header="Descrição Promoção" icon="ui-icon-alert"
+										widgetVar="descricaoPromocao" width="40%"
+										style="width:30%;background:#fff !importante;border:#000 4px;text-aling:left;">
+										<h:outputText
+											value="#{listaEscolasMB.descricaopromocao(produtosFornecedor)}"
+											style="text-aling:left;" />
+									</p:dialog>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{produtosFornecedor.coprodutos.pacote}">
+									<div align="right">
+										<img src="../../resources/img/iconpacote.png" title="Pacote"
+											width="57" />
+									</div>
+								</h:panelGroup>
+								<h:panelGrid columns="4" style="background:#fff"
+									columnClasses="tamanho10,tamanhoavisos2, tamanho4, tamanho4">
+									<p:commandLink
+										action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
+										style="text-decoration: none;margin-left:6%;"     
+										value="#{listaEscolas.ocurso.produtosorcamento.descricao}" />
+
+									<h:panelGroup>      
+										<p:commandLink
+											rendered="#{produtosFornecedor.coprodutos.pacote}"
+											action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
+											style="text-decoration: none"
+											value="#{produtosFornecedor.coprodutos.descricao}, " />
+										<p:commandLink
+											action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
+											style="text-decoration: none"
+											value="#{produtosFornecedor.coprodutos.complementocurso.cargahoraria} #{produtosFornecedor.coprodutos.complementocurso.tipocargahoraria}," />
+										<p:commandLink
+											action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
+											style="text-decoration: none;margin-left:1%;"
+											value="Turno #{produtosFornecedor.coprodutos.complementocurso.turno}" />
+									</h:panelGroup>
+									<p:commandLink
+										action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
+										style="text-decoration: none"
+										value="#{produtosFornecedor.svalorMoedaNacional}" />
+
+									<p:commandLink
+										action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
+										style="text-decoration: none"
+										value="#{produtosFornecedor.svalorMoedaEstrangeira}" />
+								</h:panelGrid>
+								<hr style="background: black; height: 0.8px; margin-top: 4px;"></hr>
+							</p:dataScroller>
+						</p:tab>
+					</p:accordionPanel> 
+					<br></br>
+				</p:dataScroller>
+				<br></br> <br></br> <br></br> 
+			</div>
+			<style>
+				.ui-datascroller .ui-datascroller-header {
+					text-align: center;
+					padding: 4px 10px;
+					background: #fff;
+					border: none;
+					font-size: 25px;
+				}
+			</style>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

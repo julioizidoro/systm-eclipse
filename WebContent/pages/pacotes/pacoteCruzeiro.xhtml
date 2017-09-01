@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+     <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+         <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+         <script>  
+                PrimeFaces.locales['pt'] = {  
+                    closeText: 'Fechar',  
+                    prevText: 'Anterior',  
+                    nextText: 'Próximo',  
+                    currentText: 'Começo',  
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],  
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],  
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],  
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],  
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],  
+                    weekHeader: 'Semana',  
+                    firstDay: 0,  
+                    isRTL: false,  
+                    showMonthAfterYear: false,  
+                    yearSuffix: '',  
+                    timeOnlyTitle: 'Só Horas',  
+                    timeText: 'Tempo',  
+                    hourText: 'Hora',  
+                    minuteText: 'Minuto',  
+                    secondText: 'Segundo',  
+                    ampm: false,  
+                    month: 'Mês',  
+                    week: 'Semana',  
+                    day: 'Dia',  
+                    allDayText: 'Todo o Dia'  
+                };  
+            </script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="cadastropacotecruzeiro" style="text-align:left;font-size: 11px;">
+            <title>Cruzeiro</title>
+            	
+           	 	<h:panelGrid columns="4" style="margin-left:3%;width:88%;">
+                            <p:outputLabel value="Pais" for="pais"  style="font-size: 11px;"/>
+                            <p:outputLabel value="Cidade" for="cidade"  style="font-size: 11px;"/>
+                            <p:outputLabel value="Parceiro" for="fornecedor" style="font-size: 11px;"/>
+	            			<p:outputLabel value="Data Pagamento" for="datapagamentoparceiro" style="font-size: 11px;" />
+	            			
+                            <p:selectOneMenu id="pais" value="#{pacoteCruzeiroMB.pais}" style="width:100px;font-size: 11px" 
+                                             converter="PaisConverter" filter="true" filterMatchMode="startsWith" >
+                                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idpais" value="#{pacoteCruzeiroMB.listaPais}" var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}"/>
+                                <f:attribute name="listaPais" value="#{pacoteCruzeiroMB.listaPais}"/>
+                                <p:ajax event="change" update="cidade"/> 
+                            </p:selectOneMenu>
+                            <p:selectOneMenu id="cidade" value="#{pacoteCruzeiroMB.cidade}" style="width:120px;;font-size: 11px" 
+                                             converter="CidadeConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idcidade" value="#{pacoteCruzeiroMB.pais.cidadeList}" var="ccidade" itemLabel="#{ccidade.nome}" itemValue="#{ccidade}"/>
+                                <f:attribute name="listaCidade" value="#{pacoteCruzeiroMB.pais.cidadeList}"/>
+                                <p:ajax event="change" listener="#{pacoteCruzeiroMB.listarFornecedorCidade(0)}" update="fornecedor" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu id="fornecedor" value="#{pacoteCruzeiroMB.fornecedorcidade}" style="width:200px;font-size: 11px"
+                                              converter="FornecedorCidadeConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Parceiro" itemValue="0" noSelectionOption="true"/> 
+                                <f:selectItems id="idfornecedor" value="#{pacoteCruzeiroMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
+                                <f:attribute name="listaFornecedorCidade" value="#{pacoteCruzeiroMB.listaFornecedorCidade}"/>
+                                <p:ajax event="change" />
+                            </p:selectOneMenu>
+				            <p:calendar id="datapagamentoparceiro" value="#{pacoteCruzeiroMB.pacotecruzeiro.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+				                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+				            </p:calendar>
+				    </h:panelGrid>
+                            <br></br><br></br><br></br> 
+                            <p:outputLabel value="Data Saída" for="datasaida"  style="font-size: 11px;margin-left:3%;"/>
+                            <p:outputLabel value="Data Chegada" for="datachegada" class="espacocobranca24" style="font-size: 11px;"/>
+                            <p:outputLabel value="Intinerario" for="intinerario" class="espacocobranca14" style="font-size: 11px;"/>
+                            <p:outputLabel value="Tipo de Cabine" for="tipoCabine" style="font-size: 11px;margin-left: 26%"/>
+                            <br></br>
+                            <p:calendar id="datasaida" locale="pt"  pattern="dd/MM/yyyy"  value="#{pacoteCruzeiroMB.pacotecruzeiro.datasaida}" style="font-size: 11px;margin-left:3%;" size="11">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            <p:calendar id="datachegada" locale="pt"  pattern="dd/MM/yyyy"  value="#{pacoteCruzeiroMB.pacotecruzeiro.datechegada}" size="10"  class="imgadd">
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                            <p:inputText id="intinerario" value="#{pacoteCruzeiroMB.pacotecruzeiro.intinerario}" style="width:30%;" class="espacocampos"/>
+                            <p:inputText id="tipoCabine" value="#{pacoteCruzeiroMB.pacotecruzeiro.tipocabine}" style="width:18%;" maxlength="15" class="espacocampos"/>
+                          
+                              <br></br><br></br><br></br>
+                            <p:outputLabel value="Câmbio" for="moeda" style="margin-left:3%;"/>
+                            <p:outputLabel value="Valor do Câmbio" for="idvalorcambio" class="espacocobranca30" style=""/>
+                            <p:outputLabel value="Tarifas" for="tarifas"  style="font-size:11px;margin-left:11.5%"/>  
+                            <p:outputLabel value="Taxas" for="taxas" class="espacocobranca2" style="font-size:11px;margin-left: 17.5%;"/>
+                           
+                            <br></br>  
+                            <h:panelGrid columns="4">
+                                <p:selectOneMenu  style="width:100px;font-size:10px;margin-left:17%" id="moeda"  value="#{pacoteCruzeiroMB.cambio}" converter="CambioConverter">
+                                    <f:selectItem itemLabel="Câmbio" itemValue="0"/> 
+                                    <f:selectItems value="#{aplicacaoMB.listaCambio}" var="cambio" itemLabel="#{cambio.moedas.sigla}" itemValue="#{cambio}"/>
+                                    <f:attribute name="listaCambio" value="#{aplicacaoMB.listaCambio}"/>
+                                    <p:ajax event="change" listener="#{pacoteCruzeiroMB.carregarValorCambio()}" update="idvalorcambio" />
+                                </p:selectOneMenu>
+                                <p:inputText id="idvalorcambio" value="#{pacoteCruzeiroMB.valorCambio}" style="width:60%;font-size:11px;text-align: right" class="espacocampos" >
+                                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                                </p:inputText>  
+                                <p:inputText id="tarifas" value="#{pacoteCruzeiroMB.pacotecruzeiro.tarifa}" style="width:70%;font-size:11px;margin-left:22%" class="fontebrancaa" >
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </p:inputText>
+	                            <p:inputText id="taxas" value="#{pacoteCruzeiroMB.pacotecruzeiro.taxa}" style="width:76%;font-size:11px;margin-left:12%" class="espacocobranca20rig"  >
+	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </p:inputText>
+                            </h:panelGrid>
+                            <br></br><br></br>
+                            <p:outputLabel value="Descritivo" for="descritivo"  style="font-size: 11px;margin-left:3%;"/>
+                            <br></br>
+                            <p:inputText id="descritivo" value="#{pacoteCruzeiroMB.pacotecruzeiro.descritivo}" style="width:86%;font-size: 11px;margin-left:3%;"/>
+                             <br></br><br></br>
+                            <p class="botaocadpacote"><br></br>
+                                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{pacoteCruzeiroMB.salvarCruzeiro()}"></p:commandButton>
+                                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{pacoteCruzeiroMB.cancelar()}"></p:commandButton>
+                                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-trash" value="Excluir" action="#{pacoteCruzeiroMB.excluir()}"></p:commandButton>
+                           <br></br><br></br>
+                            </p>
+                       </h:form>     
+    </h:body>
+</html>

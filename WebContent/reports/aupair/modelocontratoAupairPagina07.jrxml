@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina07" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="49"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=$P{idunidade}]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="194" splitType="Stretch">
+			<image>
+				<reportElement x="127" y="4" width="428" height="182" uuid="073f3eee-5ea6-436d-9fe7-64bb110ee676"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="93" width="555" height="74" uuid="5cbcfed8-77e5-4d31-820a-6d6e76d4e090"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="26" width="555" height="55" uuid="7eb2d118-bac1-4568-a3f4-3ec36a42a4a4"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[16.1 O custo do programa é fixado na moeda do local de destino (Dólares Americanos nos EUA ou Euros nos países de Europa) e o pagamento do mesmo deve ser feito em Reais de acordo com o câmbio turismo da moeda (flutuante ou venda) do dia de pagamento.
+16.2 O pagamento do Valor Total do Programa deverá ser quitado conforme plano de pagamento abaixo:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="5" width="281" height="18" uuid="8abf019e-9dce-4329-837d-d3133e2887d8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[16. PAGAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="172" width="125" height="14" uuid="21e784a7-1d38-4cc2-b5ff-6bc3f6fb9d46"/>
+				<text><![CDATA[Parcelamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="97" width="125" height="14" uuid="5980571c-e7ca-4576-be0a-66dabc4652a3"/>
+				<text><![CDATA[Condição de Pagamento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="143" width="326" height="13" uuid="bdc8b84b-bdf6-48d8-88c3-9383e5f75269"/>
+				<text><![CDATA[Câmbio da data da inscrição, utilizado para conversão em REAIS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="118" width="67" height="14" uuid="f17713d6-02bf-4e09-9819-fc4f783718f5"/>
+				<text><![CDATA[Valor Juros :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="118" width="57" height="14" uuid="e8b5ae73-9255-47ac-93cd-55ebc598519a"/>
+				<text><![CDATA[Valor R$ :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="58">
+			<rectangle>
+				<reportElement x="1" y="1" width="555" height="55" uuid="d183dddc-cdc8-4ea0-aaa6-fb3ce0c752d5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="12" width="85" height="14" uuid="1610ae94-84a2-4529-9905-692eaee196f4"/>
+				<text><![CDATA[Forma de Pagto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="32" width="105" height="14" uuid="91a23555-b4cf-4a45-aaac-be95a8e4742e"/>
+				<text><![CDATA[Data de Vencimento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="12" width="83" height="14" uuid="d16d2dd7-a3f0-4eb5-badf-abd197884c87"/>
+				<text><![CDATA[Saldo Parcelar :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="32" width="77" height="14" uuid="f1ccfaa5-caff-4cbe-b800-ad6d6f81dc37"/>
+				<text><![CDATA[Valor Parcela :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="32" width="64" height="14" uuid="6b25dd8d-f152-4c19-bc73-e62ed4e77d44"/>
+				<text><![CDATA[Nº Parcelas :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="43">
+			<break>
+				<reportElement x="0" y="13" width="100" height="1" uuid="e84f3d42-13aa-4e07-8196-3eb559ec21d5"/>
+			</break>
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="4a496d3f-ae2e-4b18-b5cd-87be92e35439"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoAupairPagina08.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

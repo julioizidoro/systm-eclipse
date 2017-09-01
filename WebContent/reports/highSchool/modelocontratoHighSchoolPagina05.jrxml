@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
+	<property name="ireport.zoom" value="0.8467108950806659"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="idunidade" class="java.lang.Integer"/>
+	<parameter name="modelo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[Select distinct
+unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio,
+unidadeNegocio.nomeFantasia
+from unidadeNegocio
+where
+    unidadeNegocio.idUnidadeNegocio=1]]>
+	</queryString>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipologradourounidadeNegocio" class="java.lang.String"/>
+	<field name="logradourounidadeNegocio" class="java.lang.String"/>
+	<field name="nuemrounidadeNegocio" class="java.lang.String"/>
+	<field name="complementounidadeNegocio" class="java.lang.String"/>
+	<field name="bairrounidadeNegocio" class="java.lang.String"/>
+	<field name="cidadeunidadeNegocio" class="java.lang.String"/>
+	<field name="estadounidadeNegocio" class="java.lang.String"/>
+	<field name="cepunidadeNegocio" class="java.lang.String"/>
+	<field name="cnpjunidadeNegocio" class="java.lang.String"/>
+	<title>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="68" width="555" height="8" backcolor="#808080" uuid="411faa41-289b-4da6-ae0b-eddb0ee55234"/>
+			</rectangle>
+			<image>
+				<reportElement x="348" y="6" width="196" height="54" uuid="c5e768cc-340c-4e56-8e55-e963a7337ae8"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="703" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="49" width="555" height="598" uuid="7ac8a889-3d3b-4570-be22-9ceba9c06c57"/>
+				<imageExpression><![CDATA[$P{modelo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="8" width="552" height="695" uuid="f1bbec59-959a-4c0a-8455-7d5c1e83c0fe"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["9.1.2  Por decisão da TM, o presente contrato poderá ser rescindido de imediato antes da data de seu embarque para o exterior sendo que neste caso o ressarcimento dos valores pagos serão feitos pela TM da seguinte forma:   \n"+
+"a) Em qualquer fase da seleção ou da preparação anterior ao embarque, caso o PARTICIPANTE incorra em atitudes que indiquem que terá dificuldade em: i) seguir as regras estabelecidas para o programa (Anexo II); ii) adaptar-se à família hospedeira; iii)  manter bom desempenho na escola estrangeira; iv) demonstre pouca flexibilidade em aceitar/respeitar diferenças culturais, assim como interesse, participação e  desempenho nas reuniões  de orientação/preparação no Brasil e atividades afins, a  TM compromete-se a restituir ao(à) PARTICIPANTE toda a quantia paga até a extinção do contrato, incluindo a multa rescisória. \n"+
+"b)Caso após o recebimento e análise dos formulários de inscrição pelo parceiro internacional,este não concorde com a “aceitação final” do(a) PARTICIPANTE, pelo fato de entender, sob seu próprio julgamento, que o(a) mesmo(a) não está de acordo com todos os pré-requisitos para aceitação no programa, a TM se compromete a restituir ao(à) PARTICIPANTE toda a quantia paga até a extinção do contrato, incluindo a multa rescisória.  \n"+
+"9.1.3  As devoluções acima descritas serão efetuadas em Reais, de acordo com a taxa de câmbio que foi utilizada para a conversão de cada uma das parcelas. \n \n"+
+
+"9.2. RESCISÃO DO CONTRATO “APÓS” O EMBARQUE \n"+
+"9.2.1 Além dos casos descritos na cláusula 3 pertinentes a situações relacionadas ao “após embarque” e na cláusula 8.3 que farão o contrato ser rescindido imediatamente após o embarque, caso o(a) PARTICIPANTE deseje voluntariamente se desligar do programa no qual se encontra inscrito, optando pelo término das obrigações deste contrato antes da data originalmente estabelecida, deverá imediatamente comunicar por escrito à TM a sua intenção, em documento assinado por/em conjunto com seus representantes legais. \n"+
+"9.2.2 A rescisão do contrato, nesta hipótese, passará a ter efeitos a partir da data da confirmação do desligamento por TM, declarando expressamente o PARTICIPANTE que tem ciência que neste caso não será feito qualquer ressarcimento ao(à) mesmo (a) dos valores pagos e descritos neste contrato. \n"+
+"9.2.3  Caso existam alterações de valores nas passagens em razão da rescisão antecipada, estes custos serão de  responsabilidade exclusivos do(a)  PARTICIPANTE; \n \n"+
+
+"9.3.  RESCISÃO DO CONTRATO POR JUSTA CAUSA \n"+
+"9.3.1 O presente contrato será rescindido por justa causa,mediante simples notificação a ser enviada ao representante legal do(a) PARTICIPANTE e sem direito a qualquer reembolso ou indenização, quando: \n"+
+"a)  No caso de inadimplemento pelo(a) PARTICIPANTE das parcelas estabelecidas no Anexo I; \n"+
+"b) No caso do(a) PARTICIPANTE desrespeitar as regras estabelecidas pelo parceiro internacional nas acomodações que fizer uso, valendo-se sempre as regras da legislação do país de destino sobre o assunto; \n"+
+"c)  Cometer infração a qualquer das regras deste contrato, especificamente àquelas constantes do Anexo II; \n"+
+"d)  Cometer qualquer ilícito penal sob as normas do país de destino; \n"+
+"e)  Desrespeitar as regras estipuladas pela família hospedeira e parceiro internacional, no tocante a horários, saídas sem consentimentos, desrespeito com terceiros e aos próprios familiares, bem como tomar atitudes contrárias a um convívio harmonioso junto à família hospedeira; \n"+
+"f) Se o(a) PARTICIPANTE receber reclamações comportamentais no ambiente escolar, cuja gravidade será analisada pelo parceiro internacional responsável pelo programa de intercâmbio; \n"+
+"g) Se após sua chegada nos Estados Unidos, o(a) PARTICIPANTE deixar de cumprir as regras de chegada(orientação com o parceiro internacional, por exemplo) estabelecidas pela organização do programa em questão.Neste caso,o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento.  \n \n"+
+
+"10. DISPOSIÇÕES FINAIS E OBSERVAÇÕES \n"+
+"10.1  As despesas de outra natureza, tais como, por exemplo, viagens até o local onde ocorrerão às reuniões de preparação, taxas para obtenção do visto, passagens aéreas, taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, transfers, etc., não estão incluídos no valor pago a TM e correrão por conta exclusiva do(a) PARTICIPANTE. \n"+
+"10.2  A TM se reserva o direito de alterar as condições do programa de intercâmbio nas situações em que forem necessárias, sempre informando o(a) PARTICIPANTE e seus responsáveis legais sobre as mesmas."
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="10" uuid="db5cbc75-4f20-493f-b149-a744483e55dc"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="modelo">
+					<subreportParameterExpression><![CDATA[$P{modelo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idunidade">
+					<subreportParameterExpression><![CDATA[$P{idunidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "modelocontratoHighSchoolPagina06.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

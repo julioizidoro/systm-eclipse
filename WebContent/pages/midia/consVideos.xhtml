@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaVideos">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Videos</b>
+				</legend> 
+				<br/>
+				<p:inputText id="nomeArquivo" value="#{videosMB.nomeVideo}"
+					size="30" style="font-size:10px;float:right;margin-right:2%;" placeholder="Nome do video"/>
+				<br/><br/>
+				<p:commandButton value="Limpar" style="float:right;font-size:12px;margin-right:2%;"
+					icon=" ui-icon-arrowrefresh-1-w " action="#{videosMB.limparPesquisa()}"  update="nomeArquivo idPanelMidia"/>
+				<p:commandButton value="Pesquisar" style="float:right;font-size:12px;"
+					icon=" ui-icon-search " action="#{videosMB.pesquisar()}" update="idPanelMidia, growl" />
+			<br/><br/>
+			<h:panelGrid id="idPanelMidia" width="100%;">
+				<ui:repeat var="links" value="#{videosMB.listaMidia}" varStatus="statuss">
+					<p:media id="idVideos" value="#{links.link}" width="250" height="145" player="flash" style="margin:2%;"/>
+				</ui:repeat>
+			</h:panelGrid>
+				<br></br> <br></br>
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

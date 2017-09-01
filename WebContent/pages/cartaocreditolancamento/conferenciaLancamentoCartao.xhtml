@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet" 
+		media="screen" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"/>
+</h:head>
+<h:body style="background:#DDDDE1;">  
+	<h:form id="cadCartaoCreditoLancamento"       
+		style="text-align:left;font-size: 10px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title>Lançamento Cartão de Crédito</title>
+		<div style="width: 90%; margin-left: 5%;"> 
+			<h:panelGrid columns="3"
+				columnClasses="colunaVintePontoSeis, colunaVintePontoSeis,colunaVintePontoSeis"
+				style="width:59%;"> 
+				<p:outputLabel value="Data" />
+				<p:outputLabel value="Moeda" />
+				<p:outputLabel value="Valor" style="margin-left:8%;"/>
+   
+				<p:inputMask id="data" mask="99/99/9999"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.data}" size="14" readonly="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputText id="moedas" maxlength="200"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.moedas.sigla}"
+					style="width:98%;" readonly="true"/>
+				<p:inputText id="valor"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.valorinformado}"
+					style="width:94%;margin-left:8%;text-align:right;" readonly="true">      
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+			</h:panelGrid>
+			<br />
+			<h:panelGrid columns="2"
+				columnClasses="colunaQuarenta,tamanhonotificacao2"
+				style="width:100%;">
+				<p:outputLabel value="Cartão de Crédito" />
+				<p:outputLabel value="Descrição" />
+
+				<p:inputText id="cartao" maxlength="200"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.cartaocredito.nome}"
+					style="width:98%;" readonly="true"/>
+				<p:inputText id="descricao" maxlength="200"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.descricao}"
+					style="width:98%;" readonly="true"/>
+			</h:panelGrid>
+			<br/>  
+			<h:panelGrid columns="2"
+				columnClasses="colunaQuarenta,tamanhonotificacao2"
+				style="width:100%;">
+				<p:outputLabel value="Plano de Conta" />
+				<p:outputLabel value="Observação" />
+
+				<p:inputText id="planoconta"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.planoconta.descricao}"
+					style="width:98%;" maxlength="100" readonly="true"/>
+				<p:inputText id="obs"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.observacao}"
+					style="width:98%;" maxlength="100" readonly="true"/>
+			</h:panelGrid>
+			<hr style="border-top:1px solid #4C816 !important;"/>      
+			<h:panelGrid columns="3"
+				columnClasses="colunaVintePontoSeis, colunaVintePontoSeis,colunaVintePontoSeis"
+				style="width:59%;"> 
+				<p:outputLabel value="Valor Câmbio" />    
+				<p:outputLabel value="Valor Lançado" />   
+				<p:outputLabel />
+    
+				<p:inputText id="valorcambio"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.valorcambio}"
+					style="width:94%;text-align:right;">      
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:inputText id="valorlancado"
+					value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.valorlancado}"
+					style="width:94%;text-align:right;">        
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<h:panelGroup>
+					<p:selectBooleanCheckbox id="lancado"
+						value="#{conferenciaCartaoCreditoLancamentoMB.lancamento.lancado}" style="margin-left:8%;"/>
+					<p:outputLabel value="Lançado" style="margin-left:0.8%;font-size:13px;" />
+				</h:panelGroup>
+			</h:panelGrid>
+			<br />
+			<div align="center">
+				<p:commandButton icon="ui-icon-check" value="Confirmar"
+					actionListener="#{conferenciaCartaoCreditoLancamentoMB.salvar()}" update="growl"/>
+				<p:commandButton icon="ui-icon-close" value="Cancelar"
+					action="#{conferenciaCartaoCreditoLancamentoMB.cancelar()}" style="margin-left:2%;" />
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

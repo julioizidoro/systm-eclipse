@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadLead"
+		style="text-align:left;font-size: 10px; margin-left:2%; ">
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<title>CADASTRO NOVO LEAD</title>
+		<div align="right" style="width: 93%;">
+			<h:panelGroup id="painelCliente" rendered="#{cadLeadMB.pesquisanome}">
+				<p:inputText id="buscarCliente" placeholder="BUSCAR CLIENTE"
+					value="#{cadLeadMB.nomeCliente}" style="width:35%;">
+					<p:ajax event="keyup" listener="#{cadLeadMB.buscarCliente()}"
+						update="tabelaCliente" />
+				</p:inputText>
+				<p:commandLink id="btnTelefone" title="Pesquisa por telefone do cliente."
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+					action="#{cadLeadMB.mudarPesquisa()}" update="@form" style="text-decoration:none;">
+					<img src="../../resources/img/crm/pesquisatelefone.png" />
+				</p:commandLink> 
+			</h:panelGroup>
+			<h:panelGroup id="painelTelefone" rendered="#{cadLeadMB.pesquisatelefone}">
+				<p:inputMask id="buscarTelefone"  mask="(99)99999-9999"
+					value="#{cadLeadMB.nomeCliente}" style="width:20%;">
+					<p:ajax event="keyup" listener="#{cadLeadMB.buscarTelefone()}"
+						update="tabelaClienteFone" />
+				</p:inputMask>
+				<p:commandLink id="btnNomeCliente" title="Pesquisa por nome ou e-mail do cliente." 
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+					action="#{cadLeadMB.mudarPesquisa()}" update="@form" style="text-decoration:none;">
+					<img src="../../resources/img/crm/pesquisanomecliente.png" />
+				</p:commandLink>  
+			</h:panelGroup>  
+		</div>
+		<p:overlayPanel id="painelClienteTelefone" for="buscarTelefone"
+			hideEffect="fade" style="width:400px;background:#fff;">
+			<p:dataScroller id="tabelaClienteFone" var="cliente"
+				value="#{cadLeadMB.listaCliente}" chunkSize="10" mode="inline"
+				scrollHeight="110">
+				<p:outputPanel>    
+					<h:panelGrid columns="3" style="width:100%;"
+						columnClasses="tamanhoavisos2, tamanhoavisos2, tamanho6">
+						<h:outputLabel value="#{cliente.nome}"
+							style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+						<h:outputLabel value="#{cliente.foneCelular}"
+							style="font-size: 13px;color:#4C4C4C;font-weight: 500;float:right;" />
+						<p:commandLink id="btnSelecionarCliente"
+							action="#{cadLeadMB.selecionarCliente(cliente)}"
+							onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+							style="float:right;" title="Selecionar Cliente" update="@form">
+							<img src="../../resources/img/crm/confirmar.png" width="22" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dataScroller> 
+		</p:overlayPanel>
+		<p:overlayPanel id="painelAdicionar" for="buscarCliente"
+			hideEffect="fade" style="width:400px;background:#fff;">
+			<p:dataScroller id="tabelaCliente" var="cliente"
+				value="#{cadLeadMB.listaCliente}" chunkSize="10" mode="inline"
+				scrollHeight="110">
+				<p:outputPanel>    
+					<h:panelGrid columns="3" style="width:100%;"
+						columnClasses="tamanhoavisos2, tamanhoavisos2, tamanho6">
+						<h:outputLabel value="#{cliente.nome}"
+							style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+						<h:outputLabel value="#{cliente.email}"
+							style="font-size: 13px;color:#4C4C4C;font-weight: 500;float:right;" />
+						<p:commandLink id="btnSelecionarCliente"
+							action="#{cadLeadMB.selecionarCliente(cliente)}" 
+							onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+							style="float:right;" title="Selecionar Cliente" update="@form">
+							<img src="../../resources/img/crm/confirmar.png" width="22" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dataScroller> 
+		</p:overlayPanel>
+		<br></br>
+		<h:panelGrid columns="2"
+			columnClasses="tamanhonotificacao2, tamanhonotificacao2"
+			style="width:95%;margin-left:3%;">
+			<p:outputLabel value="Email" for="email" />
+			<p:outputLabel value="Unidade" for="unidade" />
+
+			<p:inputText id="email" style="width:90%;"
+				value="#{cadLeadMB.cliente.email}">
+				<p:ajax event="blur" listener="#{cadLeadMB.validarEmail()}"
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+					update="nome, unidade, telefone, consultor, origem, :cadLead:growl" />
+			</p:inputText> 
+			<p:selectOneMenu id="unidade" value="#{cadLeadMB.unidadenegocio}"
+				disabled="#{cadLeadMB.desabilitarUnidade}" style="width:90%;"
+				filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+				converter="UnidadeNegocioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{cadLeadMB.listaUnidadeNegocio}"
+					var="unidade" itemLabel="#{unidade.nomerelatorio}"
+					itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{cadLeadMB.listaUnidadeNegocio}" />
+				<p:ajax event="change" listener="#{cadLeadMB.gerarListaConsultor()}"
+					update="consultor" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Nome" for="telefone" />
+			<p:outputLabel value="Consultor" for="consultor" />
+
+			<p:inputText id="nome" style="width:90%;"
+				value="#{cadLeadMB.cliente.nome}" /> 
+			<p:selectOneMenu id="consultor" value="#{cadLeadMB.consultor}"
+				style="width:90%;" filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px" converter="UsuarioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{cadLeadMB.listaConsultor}" var="usuario"
+					itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+				<f:attribute name="listaUsuario" value="#{cadLeadMB.listaConsultor}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Telefone" for="email" />
+			<p:outputLabel value="Origem" for="origem" />
+
+			<p:inputMask id="telefone" mask="(99)99999-9999" style="width:90%;"
+				value="#{cadLeadMB.cliente.foneCelular}" />
+			<p:selectOneMenu id="origem" value="#{cadLeadMB.publicidade}"
+				style="width:90%;" filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px" converter="PublicidadeConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idPublicidade"
+					value="#{cadLeadMB.listaPublicidades}" var="publicidade"
+					itemLabel="#{publicidade.descricao}" itemValue="#{publicidade}" />
+				<f:attribute name="listaPublicidade"
+					value="#{cadLeadMB.listaPublicidades}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Programa" for="programa" />
+			<p:outputLabel value="País"/>
+
+			<p:selectOneMenu id="programa" value="#{cadLeadMB.produto}"
+				style="width:90%;" filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px" converter="ProdutoConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idproduto" value="#{cadLeadMB.listaProdutos}"
+					var="cproduto" itemLabel="#{cproduto.descricao}"
+					itemValue="#{cproduto}" />
+				<f:attribute name="listaProdutos" value="#{cadLeadMB.listaProdutos}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="pais" value="#{cadLeadMB.lead.pais}"
+				style="width:90%;" converter="PaisConverter"
+				filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px"  >
+				<f:selectItem itemLabel="País" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idpais" value="#{cadLeadMB.listaPais}"
+					var="cpais" itemLabel="#{cpais.pais.nome}"
+					itemValue="#{cpais.pais}" />
+				<f:attribute name="listaPais" value="#{cadLeadMB.listaPais}" />
+				<p:ajax event="change"/>  
+			</p:selectOneMenu>
+		</h:panelGrid><br/>
+		<h:panelGrid columns="1" style="width:95%;margin-left:3%;">  
+			<p:outputLabel value="Notas"/>  
+			<p:inputTextarea value="#{cadLeadMB.lead.notas}" placeholder="Informe uma descrição..."
+				style="width:95%;background: #ffffff;font-size:13px;color:#4C4C4C;"
+				id="notas" rows="4" />      
+		</h:panelGrid>       
+		<h:panelGroup id="mensagemClienteCadastro"
+			rendered="#{cadLeadMB.lead.jaecliente}">
+			<div style="margin-left: 2.5%; margin-top: 0.5%;">
+				<img src="../../resources/img/crm/atencao.png" width="20" />
+				<p:outputLabel id="mensagemAtencao"
+					style="margin-left:1%;color:#333333;font-style: italic;"
+					value="#{cadLeadMB.mensagem}" />
+			</div>
+		</h:panelGroup>
+		<br></br>
+		<div align="center">
+			<p:commandButton value="Confirmar" icon="ui-icon-check"
+				action="#{cadLeadMB.salvar()}" update="growl" style="font-size:12px;"/>
+			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
+				value="Cancelar" action="#{cadLeadMB.fechar()}" /> 
+		</div>   
+		<br></br> 
+		<div style="margin-top: 20px; background: #ffffff;"> 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:commandLink>
+					<img src="../../resources/img/ajax-loader.gif" />
+				</p:commandLink>
+			</p:dialog>           
+		</div> 
+	</h:form>
+</h:body>
+</html>

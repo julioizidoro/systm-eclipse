@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml"> 
+	<ui:define name="corpo">
+		<h:form id="idResponderQuestionario" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<div align="center">
+					<p:outputLabel value="Questionário - #{responderQuestionarioMB.mtp.instituicao}"
+						style="font-size:20px;" />
+				</div>   
+				<br></br>
+				<p:accordionPanel id="acordionPainel" style="background:#1F8871;margin-left:3%;width:93%;">
+					<p:tab title="Pergunta nº 1" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;">   
+							<h:outputLabel id="pergunta1"  
+								value="#{responderQuestionarioMB.treinamentoperguntas.pergunta1}" style="font-size:13px;"/> 
+							<br></br>
+							<p:selectOneRadio id="btnRadio1"
+								value="#{responderQuestionarioMB.treinamentorespostausuario.respusuario1}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt11" for="btnRadio1" itemIndex="0" />
+								<h:outputLabel for="opt11" value="1 - " />
+								<h:outputLabel id="resposta11"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta11}" /> 
+
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+
+								<p:radioButton id="opt12" for="btnRadio1" itemIndex="1" />
+								<h:outputLabel for="opt12" value="2 - " />
+								<h:outputLabel id="resposta12"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta12}"/>
+
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+
+								<p:radioButton id="opt13" for="btnRadio1" itemIndex="2" />
+								<h:outputLabel for="opt13" value="3 - " />
+								<h:outputLabel id="resposta13"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta13}"/>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Pergunta nº 2" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;"> 
+							<h:outputLabel id="pergunta2" style="font-size:13px;"
+								value="#{responderQuestionarioMB.treinamentoperguntas.pergunta2}"  />
+							<br></br>
+							<p:selectOneRadio id="btnRadio2"
+								value="#{responderQuestionarioMB.treinamentorespostausuario.respusuario2}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt21" for="btnRadio2" itemIndex="0" />
+								<h:outputLabel for="opt21" value="1 - " />
+								<h:outputLabel id="resposta21"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta21}"/>
+	
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+	
+								<p:radioButton id="opt22" for="btnRadio2" itemIndex="1" />
+								<h:outputLabel for="opt22" value="2 - " />
+								<h:outputLabel id="resposta22"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta22}"/>
+	
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+	
+								<p:radioButton id="opt23" for="btnRadio2" itemIndex="2" />
+								<h:outputLabel for="opt23" value="3 - " />
+								<h:outputLabel id="resposta23"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta23}"/> 
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Pergunta nº 3" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;"> 
+							<h:outputLabel id="pergunta3" style="font-size:13px;"
+								value="#{responderQuestionarioMB.treinamentoperguntas.pergunta3}" />
+							<br></br>
+							<p:selectOneRadio id="btnRadio3"
+								value="#{responderQuestionarioMB.treinamentorespostausuario.respusuario3}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt31" for="btnRadio3" itemIndex="0" />
+								<h:outputLabel for="opt31" value="1 - " />
+								<h:outputLabel id="resposta31"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta31}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt32" for="btnRadio3" itemIndex="1" />
+								<h:outputLabel for="opt32" value="2 - " />
+								<h:outputLabel id="resposta32"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta32}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt33" for="btnRadio3" itemIndex="2" />
+								<h:outputLabel for="opt33" value="3 - " />
+								<h:outputLabel id="resposta33"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta33}"/>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab> 
+					<p:tab title="Pergunta nº 4" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;"> 
+							<h:outputLabel id="pergunta4" style="font-size:13px;"
+								value="#{responderQuestionarioMB.treinamentoperguntas.pergunta4}" />
+							<br></br>
+							<p:selectOneRadio id="btnRadio4"
+								value="#{responderQuestionarioMB.treinamentorespostausuario.respusuario4}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt41" for="btnRadio4" itemIndex="0" />
+								<h:outputLabel for="opt41" value="1 - " />
+								<h:outputLabel id="resposta41"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta41}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt42" for="btnRadio4" itemIndex="1" />
+								<h:outputLabel for="opt42" value="2 - " />
+								<h:outputLabel id="resposta42"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta42}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt43" for="btnRadio4" itemIndex="2" />
+								<h:outputLabel for="opt43" value="3 - " />
+								<h:outputLabel id="resposta43"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta43}"/>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab> 
+					<p:tab title="Pergunta nº 5" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;"> 
+							<h:outputLabel id="pergunta5" style="font-size:13px;"
+								value="#{responderQuestionarioMB.treinamentoperguntas.pergunta5}" />
+							<br></br>
+							<p:selectOneRadio id="btnRadio5"
+								value="#{responderQuestionarioMB.treinamentorespostausuario.respusuario5}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt51" for="btnRadio5" itemIndex="0" />
+								<h:outputLabel for="opt51" value="1 - " />
+								<h:outputLabel id="resposta51"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta51}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt52" for="btnRadio5" itemIndex="1" />
+								<h:outputLabel for="opt52" value="2 - " />
+								<h:outputLabel id="resposta52"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta52}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt53" for="btnRadio5" itemIndex="2" />
+								<h:outputLabel for="opt53" value="3 - " />
+								<h:outputLabel id="resposta53"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta53}"/>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab> 
+					<p:tab title="Pergunta nº 6" class="tab" titleStyle="font-size: 11px">
+						<h:panelGrid columns="1" style="margin-left:7.5%;width:85%;"> 
+							<h:outputLabel id="pergunta6" style="font-size:13px;"
+								value="#{responderQuestionarioMB.treinamentoperguntas.pergunta6}" />
+							<br></br>   
+							<p:selectOneRadio id="btnRadio6"
+								value="#{responderQuestionarioMB.treinamentorespostausuario.respusuario6}"
+								layout="custom">
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+							</p:selectOneRadio>
+							<h:panelGrid columns="3"
+								columnClasses="colunaRS,colunaRS,colunaBotao"
+								style="margin-left:2%;width:98%;">
+								<p:radioButton id="opt61" for="btnRadio6" itemIndex="0" />
+								<h:outputLabel for="opt61" value="1 - " />
+								<h:outputLabel id="resposta61"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta61}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt62" for="btnRadio6" itemIndex="1" />
+								<h:outputLabel for="opt62" value="2 - " />
+								<h:outputLabel id="resposta62"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta62}"/>
+		
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+		
+								<p:radioButton id="opt63" for="btnRadio6" itemIndex="2" />
+								<h:outputLabel for="opt63" value="3 - " />
+								<h:outputLabel id="resposta63"
+									value="#{responderQuestionarioMB.treinamentorespostas.resposta63}"/>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br> <br></br>
+				<div align="center">
+					<p:commandButton id="btnConfimar"
+						action="#{responderQuestionarioMB.salvar()}" update="growl"
+						value="Confimar" icon="ui-icon-check" />
+					<p:commandButton id="btnCancelar"
+						action="#{responderQuestionarioMB.cancelar()}" value="Cancelar"
+						icon="ui-icon-close" />
+				</div>
+				<br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

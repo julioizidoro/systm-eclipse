@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+    </h:head>  
+    <h:body style="background:#DDDDE1;">    
+        <h:form id="consultarNotificacoes" style="text-align:left;font-size: 10px; margin-left: 6.5%;background:#DDDDE1;">    
+         	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog  widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+            	<img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
+          <h:outputText value="#{notificacaoMB.carregarTitulo()}" style="font-size:25px;color:#1F8871;margin-top:5%;margin-left:35%"/>
+       		    
+       		<div style="margin-left:-7%;">  
+       		<h:panelGrid style="width:100%;text-align:right"> 
+				<p:commandButton icon="ui-icon-closethick" action="#{notificacaoMB.fechar()}" />
+			</h:panelGrid>
+       		<h:panelGrid columns="2" style="margin-left:86%">
+       			<p:commandLink value="Todas" action="#{notificacaoMB.limparTodasNotificacoes()}" style="text-decoration:underline;color:#49A006;font-size:19px" update="tabelaNotificacoes"/>
+       			<p:commandLink action="#{notificacaoMB.limparTodasNotificacoes()}" style="text-decoration:none;margin-left:0.7%" update="tabelaNotificacoes">
+					<img src="../../resources/img/limpar.png" width="25"/>
+				</p:commandLink>
+			</h:panelGrid>
+	       		<p:dataScroller id="tabelaNotificacoes" value="#{notificacaoMB.listaAvisos}" var="notificacoes" mode="inline" scrollHeight="300" style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight: 100;"  >
+			        <h:panelGrid columns="3" layout="grid" 
+						style="background: transparent;border:none;width:100%"  
+						styleClass="panelgrid-noborder"
+						columnClasses="colunaRS,colunaVendas"> 
+				        <img src="#{notificacaoMB.carregarImagem()}" style="margin-left:2%"/> 
+					    <p:commandLink style="#{notificacaoMB.retornarTextoLink(notificacoes.avisos.imagem)}" action="#{notificacaoMB.consultarArquivos(notificacoes)}"   title="Consultar Arquivos" update="tabelaNotificacoes">
+							<p:outputLabel value="#{notificacoes.avisos.texto}" style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;"/>
+						</p:commandLink>    
+				        <p:commandLink action="#{notificacaoMB.limparNotificacao(notificacoes)}"  style="text-decoration:none" title="Visualizado" update="tabelaNotificacoes">
+							<img src="../../resources/img/limpar.png" width="30"/>
+						</p:commandLink>
+			        </h:panelGrid>
+			        <p:outputLabel value="-#{notificacoes.avisos.usuario.nome}" style="font-size:12px;margin-left:8.5%;color:#1F8871;"/>
+			        <p:outputLabel value="(#{notificacoes.avisos.usuario.departamento.nome})" style="font-size:12px;font-weight:400;margin-left:0.5%;color:#1F8871;"/>
+			      <br></br><br></br><br></br>
+		   	    </p:dataScroller>
+		   	</div>
+        </h:form>     
+    </h:body>
+</html>

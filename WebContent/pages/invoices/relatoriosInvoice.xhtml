@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+        <h:form id="relatoriosInvoice" style="text-align:left;font-size: 10px; margin-left: 7%; "><br></br>
+
+            <title>Relatório Invoice</title>
+            <p:outputLabel value="Período" for="datainicial" style="margin-left:-1%"> </p:outputLabel>  <br/>
+            <p:inputMask id="datainicial"  mask="99/99/9999" value="#{relatorioInvoiceMB.dataInicial}"  class="espacocobranca29" style="margin-left: -1%;width: 20%">
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            <p:inputMask id="dataFinal"  mask="99/99/9999"  value="#{relatorioInvoiceMB.dataFinal}" class="espacocobranca29" style="margin-left: 5%;width: 20%">
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:inputMask>
+            <br/><br/>
+            <p:selectOneRadio id="tipoRelatorio" value="#{relatorioInvoiceMB.tipoRelatorio}" layout="custom">
+                <f:selectItem itemLabel="Ganho / Perda Câmbial" itemValue="cambial" />
+                <f:selectItem itemLabel="Invoices a Pagar" itemValue="pagar" />
+                <p:ajax event="change"/>
+            </p:selectOneRadio>
+            <p:radioButton id="tipoRelatorio1" for="tipoRelatorio" itemIndex="1" />
+            <h:outputLabel for="tipoRelatorio1" value="Ganho / Perda Câmbial" style="margin-left:0.5%;font-size:12px"/>
+
+            <p:radioButton id="tipoRelatorio2" for="tipoRelatorio" itemIndex="2" style="margin-left:4.5%"/>
+            <h:outputLabel for="tipoRelatorio2" value="Invoices a Pagar" style="margin-left:0.5%;font-size:12px"/>
+            
+            <br/><br/>
+            <p:commandButton value="Confirmar"  style="margin-left:50%"  icon="ui-icon-check" action="#{relatorioInvoiceMB.iniciarRelatorio()}" ajax="false" onclick="this.form.target='_blank'"/>
+            <p:commandButton  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" action="#{relatorioInvoiceMB.cancelarRelatorio()}"></p:commandButton>
+          
+        </h:form>     
+    </h:body>
+</html>

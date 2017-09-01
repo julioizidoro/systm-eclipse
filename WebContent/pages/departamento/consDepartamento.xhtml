@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idFormConsDepartamento" style="font-size:11px;">
+			<div id="centro">
+				
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br><br/><br/>
+				<p:commandButton id="bntNovoDepartamento" style="font-size:12px;float:right;margin-right:1%;" icon="ui-icon-plus"
+							value="Novo Departamento"
+							action="#{consDepartamentoMB.cadastrarNovoDepartamento()}">
+							<p:ajax  event="dialogReturn" listener="#{consDepartamentoMB.retornoDialogNovo}" update="growl, idTabelaDepartamento"/>
+				</p:commandButton>
+				<br/><br/><br/>
+				<p:dataTable id="idTabelaDepartamento" var="departamento"
+					value="#{consDepartamentoMB.listaDepartamento}" class="tabela"
+					scrollable="true" scrollHeight="300"
+					style="margin-bottom:20px;margin-top:-1%" editable="true"
+					editMode="cell" rowIndexVar="rowIx">
+
+					<p:column headerText="Nome" style="width:90px;"
+						sortBy="#{departamento.nome}">
+						<h:outputText value="#{departamento.nome}" />
+					</p:column>
+					<p:column headerText="Responsável" sortBy="#{departamento.usuario.nome}" style="width:100px;">
+						<h:outputText value="#{departamento.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Unidade" sortBy="#{departamento.unidadenegocio.nomerelatorio}" style="width:100px;">
+						<h:outputText value="#{departamento.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column style="width:20px;text-align: center;">
+						<p:commandLink 
+							action="#{consDepartamentoMB.editarDepartamento(departamento)}" 
+							title="Editar">
+							<img src="../../resources/img/editaricon.png" width="30" />
+							<p:ajax  event="dialogReturn" listener="#{consDepartamentoMB.retornoDialogEdicao}" update=":idFormConsDepartamento:growl, :idFormConsDepartamento:idTabelaDepartamento"/>
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:20px;text-align: center;">
+						<p:commandLink
+							action="#{consDepartamentoMB.visualizarFuncaoDepartamento(departamento)}" 
+							title="Cadastro de funções">
+							<img src="../../resources/img/iconeFuncao.png" width="30" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+			<br/><br/><br/><br/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

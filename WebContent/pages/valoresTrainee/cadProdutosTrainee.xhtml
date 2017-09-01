@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>   
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../resources/js/calendario.js"></script>  
+    </h:head>
+    <h:body style="background:#DDDDE1;"> 
+        <h:form id="produtosTrainee" style="text-align:left;font-size:11px;">
+            <title>Cadastro</title><br></br>
+               <p:outputLabel value="Nº Semanas" for="numSemanas" class="fontebranca" style="font-size: 11px;margin-left:10%"/>
+               <p:outputLabel value="Tipo" for="tipo" class="fontebranca" style="font-size: 11px;margin-left:10%"/>
+               <p:outputLabel value="Total" for="total" class="fontebranca" style="font-size: 11px;margin-left:28%"/>
+               <br></br>
+               <h:panelGrid columns="3">
+               		<p:inputText id="numSemanas" value="#{cadProdutosTraineeMB.produtosTrainee.numerosemanas}" style="width:38%;margin-left:30%;" />
+               		<p:selectOneMenu id="tipo" value="#{cadProdutosTraineeMB.produtosTrainee.tipoestagio}" style="width:130px;margin-left:-10%">
+						<f:selectItem itemLabel="Todas as Áreas" itemValue="Todas as Áreas"/> 
+						<f:selectItem itemLabel="Hotelaria e Gastronomia" itemValue="Hotelaria e Gastronomia" />
+                           <f:selectItem itemLabel="Negócios" itemValue="Negócios"/> 
+                           <p:ajax event="change"/>
+					</p:selectOneMenu>
+					<p:inputText id="total" readonly="true" value="#{cadProdutosTraineeMB.produtosTrainee.valortotal}" style="width:77%;margin-left:21%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               </p:inputText>	
+               </h:panelGrid>
+               <br></br>
+               <legend id="iUsu2" style="font-size:12px;margin-left: 3%;"><b>Application Fee</b></legend>
+               <p:outputLabel value="Produto" for="produto" class="fontebranca" style="font-size: 11px;margin-left:10%"/>
+               <p:outputLabel value="Valor" for="valor" class="fontebranca" style="font-size: 11px;margin-left:44.5%"/>
+               <br></br> 
+               <h:panelGrid columns="2">
+	         	   <p:selectOneMenu id="produto" value="#{cadProdutosTraineeMB.produtoApplication}" style="width:250px;margin-left:18%" 
+		                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
+		                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		                <f:selectItems id="idproduto" value="#{cadProdutosTraineeMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
+		                <f:attribute name="listaProdutos" value="#{cadProdutosTraineeMB.listaProdutos}"/>
+		           </p:selectOneMenu>
+	           		<p:inputText id="valor" value="#{cadProdutosTraineeMB.produtosTrainee.valorapplication}" style="width:77%;margin-left:25%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               		<p:ajax event="blur" listener="#{cadProdutosTraineeMB.calcularTotal()}" update="total"/>
+	               </p:inputText>	
+               </h:panelGrid>
+	           <br></br>
+	           <legend id="iUsu2" style="font-size:12px;margin-left: 3%;"><b>Programa</b></legend>
+               <p:outputLabel value="Produto" for="produtoPrograma" class="fontebranca" style="font-size: 11px;margin-left:10%"/>
+               <p:outputLabel value="Valor" for="valorPrograma" class="fontebranca" style="font-size: 11px;margin-left:44.5%"/>
+               <br></br> 
+               <h:panelGrid columns="2">
+	         	   <p:selectOneMenu id="produtoPrograma" value="#{cadProdutosTraineeMB.produtoPrograma}" style="width:250px;margin-left:18%" 
+		                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
+		                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		                <f:selectItems id="idprodutoPrograma" value="#{cadProdutosTraineeMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
+		                <f:attribute name="listaProdutos" value="#{cadProdutosTraineeMB.listaProdutos}"/>
+		           </p:selectOneMenu>
+	           		<p:inputText id="valorPrograma" value="#{cadProdutosTraineeMB.produtosTrainee.valorprograma}" style="width:77%;margin-left:25%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               		<p:ajax event="blur" listener="#{cadProdutosTraineeMB.calcularTotal()}" update="total"/>
+	               </p:inputText>	
+               </h:panelGrid>
+               <br></br>
+               <legend id="iUsu2" style="font-size:12px;margin-left: 3%;"><b>Visto</b></legend>
+               <p:outputLabel value="Produto" for="produtoVisto" class="fontebranca" style="font-size: 11px;margin-left:10%"/>
+               <p:outputLabel value="Valor" for="valorVisto" class="fontebranca" style="font-size: 11px;margin-left:44.5%"/>
+               <br></br> 
+               <h:panelGrid columns="2">
+	         	   <p:selectOneMenu id="produtoVisto" value="#{cadProdutosTraineeMB.produtoVisto}" style="width:250px;margin-left:18%" 
+		                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
+		                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		                <f:selectItems id="idprodutoVisto" value="#{cadProdutosTraineeMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
+		                <f:attribute name="listaProdutos" value="#{cadProdutosTraineeMB.listaProdutos}"/>
+		           </p:selectOneMenu>
+	           		<p:inputText id="valorVisto" value="#{cadProdutosTraineeMB.produtosTrainee.valorvisto}" style="width:77%;margin-left:25%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               		<p:ajax event="blur" listener="#{cadProdutosTraineeMB.calcularTotal()}" update="total"/>
+	               </p:inputText>	
+               </h:panelGrid>
+         	   <br></br>
+         	   <legend id="iUsu2" style="font-size:12px;margin-left: 3%;" ><b>Seguro</b></legend>
+         	   <p:outputLabel value="Produto" for="produtoSeguro" class="fontebranca" style="font-size: 11px;margin-left:10%"/>
+               <p:outputLabel value="Valor" for="valorSeguro" class="fontebranca" style="font-size: 11px;margin-left:44.5%"/>
+               <br></br> 
+               <h:panelGrid columns="2">
+	         	   <p:selectOneMenu id="produtoSeguro" value="#{cadProdutosTraineeMB.produtoSeguro}" style="width:250px;margin-left:18%" 
+		                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
+		                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		                <f:selectItems id="idprodutoSeguro" value="#{cadProdutosTraineeMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
+		                <f:attribute name="listaProdutos" value="#{cadProdutosTraineeMB.listaProdutos}"/>
+		           </p:selectOneMenu>
+	           		<p:inputText id="valorSeguro" value="#{cadProdutosTraineeMB.produtosTrainee.valorseguro}" style="width:77%;margin-left:25%;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               		<p:ajax event="blur" listener="#{cadProdutosTraineeMB.calcularTotal()}" update="total"/>
+	               </p:inputText>	
+               </h:panelGrid>
+	           <p class="botaocadpacote"><br></br>
+	           	    <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cadProdutosTraineeMB.salvar()}" style="font-size:11px;"></p:commandButton>
+	            	<p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadProdutosTraineeMB.cancelar()}"></p:commandButton>
+	            <br></br><br></br>
+	      	   </p>
+        </h:form>     
+    </h:body>
+</html>
