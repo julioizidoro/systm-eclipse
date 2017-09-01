@@ -58,7 +58,7 @@ public class CrmCobrancaBean {
 	
 	public void verificarCobranca(Crmcobranca crmCobranca, Usuario usuario){
 		CrmCobrancaContaFacade crmCobrancaContaFacade = new CrmCobrancaContaFacade();
-		String sql = "SELECT c FROM Crmcobrancaconta c where c.paga=0 and c.vendas.idvendas=" + crmCobranca.getVendas().getIdvendas() +
+		String sql = "SELECT c FROM Crmcobrancaconta c where c.paga=0 and c.crmcobranca.vendas.idvendas=" + crmCobranca.getVendas().getIdvendas() +
 				" and c.crmcobranca.situacao<>'Finalizada'";
 		List<Crmcobrancaconta> lista = crmCobrancaContaFacade.lista(sql);
 		if (lista==null){

@@ -444,8 +444,8 @@ public class FollowUpCobrancaMB implements Serializable{
 		}
 
 		if (dataUltInicio != null && dataUltFinal != null) {
-			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
+			sql = sql + " and l.vendas.vendascomissao.datainicioprograma>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
+					+ "l.vendas.vendascomissao.datainicioprograma<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
 		}
 		if (programas != null && programas.getIdprodutos() != null) {
 			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
@@ -530,8 +530,8 @@ public class FollowUpCobrancaMB implements Serializable{
 		}
 
 		if (dataUltInicio != null && dataUltFinal != null) {
-			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
+			sql = sql + " and l.vendas.vendascomissao.datainicioprograma>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
+					+ "l.vendas.vendascomissao.datainicioprograma<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
 		}
 		if (programas != null && programas.getIdprodutos() != null) {
 			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();

@@ -224,11 +224,11 @@
 						</p:column>
 						<p:column headerText="Inicio" width="65"
 							style="text-align:center;">
-							<h:outputText value="12/08/2017">
+							<h:outputText value="#{cobranca.vendas.vendascomissao.datainicioprograma}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
-						</p:column>   
+						</p:column>    
 						<p:column headerText="Programa" style="text-align:left;" width="120">
 							<h:outputText value="#{cobranca.vendas.produtos.descricao}" />
 						</p:column>
@@ -237,8 +237,8 @@
 							<h:outputText value="#{cobranca.proximocontato}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
-							</h:outputText>
-						</p:column>         
+							</h:outputText>  
+						</p:column>           
 						<p:column headerText="Histórico" width="55"    
 							style="text-align:center;">
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
