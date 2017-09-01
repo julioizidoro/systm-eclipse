@@ -23,6 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Where;
+
 /**
  *
  * @author Wolverine
@@ -30,9 +32,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "pais")
 public class Pais implements Serializable {
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "pais")
-    @OrderBy(value="nome") 
-    private List<Cidade> cidadeList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +57,9 @@ public class Pais implements Serializable {
     private boolean selecionado;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "pais") 
 	private List<Paisproduto> paisprodutoList;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "pais")
+    @OrderBy(value="nome") 
+    private List<Cidade> cidadeList;
     
     public Pais() {
     }
@@ -149,6 +151,13 @@ public class Pais implements Serializable {
     }
 
     public List<Cidade> getCidadeList() {
+    	if (cidadeList!=null){
+    		for(int i=0;i<cidadeList.size();i++){
+    			if (!cidadeList.get(i).isAtiva()){
+    				cidadeList.remove(i);
+    			}
+    		}
+    	}
         return cidadeList;
     }
 
