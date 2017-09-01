@@ -11,9 +11,13 @@
 			<p:growl id="growl" showDetail="true" sticky="false"
 				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />                
 			<p:tabView>
-				<p:tab title="Dados Pacote">
+				<p:tab title="Dados Pacote"> 
 					<h:panelGrid columns="1" style="margin-left:14%;width:78.8%;">
-						<p:outputLabel value="Produto" />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{cadCursosPacotesMB.cursospacote.mostrarescola}"/>
+							<p:outputLabel value="Mostrar Escola" style="margin-left:2%;"/>
+						</h:panelGroup>
+						<p:outputLabel value="Produto" />  
 						<h:panelGroup>
 							<p:inputText id="coproduto"
 								value="#{cadCursosPacotesMB.cursospacote.valorcoprodutos_curso.coprodutos.nome}"

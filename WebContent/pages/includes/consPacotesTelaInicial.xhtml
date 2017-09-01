@@ -10,7 +10,7 @@
 			<link href="resources/css/cssPacote.css" rel="stylesheet" />
 			<div style="margin-left: 2%; width: 98%;">
 				<div align="center">
-					<p:outputLabel value="Vitrine de Produtos"
+					<p:outputLabel value="Vitrine de Produtos"     
 						style="font-size:24px;" />
 				</div>   
 				<p:scrollPanel id="tabelapacotes" mode="native" style="width:98%;">
@@ -126,7 +126,7 @@
 																style="font-size:15px;margin-left:2%;" />
 														</h:panelGrid>
 													</h:panelGroup>
-													<h:panelGroup>
+													<h:panelGroup rendered="#{pacote.mostrarescola}">
 														<h:panelGrid columns="2"    
 															columnClasses="tamanho5,colunaBotao"
 															style="width:99%;margin-left:0.5%;">

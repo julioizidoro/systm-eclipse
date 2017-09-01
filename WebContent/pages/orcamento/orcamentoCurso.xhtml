@@ -524,8 +524,10 @@
 							onsuccess="PF('dialogcarregar').hide()">
 						<p:ajax event="dialogReturn"
 							listener="#{orcamentoCursoMB.retornoDialogoAcomodacao}" process="@this"
-							update=":orcamentoCurso:idtabelaAcomodacao, :orcamentoCurso:tabelatotal,orcamentoCurso:tabelaprodutoObrigatorio, orcamentoCurso:bntAdiconarAcomodacao, :orcamentoCurso:tabelaprodutocurso" />
-					</p:commandButton>
+							update=":orcamentoCurso:idtabelaAcomodacao, :orcamentoCurso:tabelatotal,
+								orcamentoCurso:tabelaprodutoObrigatorio, orcamentoCurso:bntAdiconarAcomodacao, 
+								:orcamentoCurso:idtabelaCurso, :orcamentoCurso:tabelaprodutocurso" />
+					</p:commandButton>   
 					<br></br>
 					<br></br>     
 					<p:dataScroller id="idtabelaAcomodacao"

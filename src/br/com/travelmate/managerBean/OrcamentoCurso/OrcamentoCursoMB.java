@@ -684,8 +684,8 @@ public class OrcamentoCursoMB implements Serializable {
 			calcularValorAcomodacao(produtosOrcamentoBean); 
 			gerarPromocaoCurso(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal());
 			gerarPromocaoTaxas(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios(),resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal());
-			gerarPromocaoBrindes(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal(),
-					resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios(), produtosOrcamentoBean);
+			gerarPromocaoBrindes(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios(), 
+					resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0));
 		} else {
 			calcularValorAcomodacao(produtosOrcamentoBean);
 			if (produtosOrcamentoBean.getLinhaSuplementoAcomodacao() >= 0) {
@@ -880,8 +880,8 @@ public class OrcamentoCursoMB implements Serializable {
 				calcularTotais();
 				gerarPromocaoCurso(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal());
 				gerarPromocaoTaxas(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios(),resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal());
-				gerarPromocaoBrindes(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal(),
-						resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios(), produtosOrcamentoBean);
+				gerarPromocaoBrindes(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios(), 
+						resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0));
 			}else{ 
 				produtosOrcamentoBean.setValorOrigianl(0.0f);
 				produtosOrcamentoBean.setValorOriginalRS(0.0f);
@@ -2014,8 +2014,7 @@ public class OrcamentoCursoMB implements Serializable {
 		return descricao;
 	}
 
-	public void gerarPromocaoBrindes(List<ProdutosOrcamentoBean> listaCurso,
-			List<ProdutosOrcamentoBean> listaObrigatorio, ProdutosOrcamentoBean produtosOrcamentoBean) {
+	public void gerarPromocaoBrindes(List<ProdutosOrcamentoBean> listaObrigatorio, ProdutosOrcamentoBean produtosOrcamentoBean) {
 		String sql = "select p From Promocaobrindecursocidade p where p.promocaobrindecurso.datavalidadeinicial<='"
 				+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaobrindecurso.datavalidadefinal>='"
 				+ Formatacao.ConvercaoDataSql(new Date())
@@ -2023,12 +2022,12 @@ public class OrcamentoCursoMB implements Serializable {
 				+ resultadoOrcamentoBean.getOcurso().getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
 				+ " and p.fornecedorcidadeidiomaproduto.produtosorcamento.idprodutosOrcamento="
 				+ resultadoOrcamentoBean.getOcurso().getProdutosorcamento().getIdprodutosOrcamento()
-				+ " group by p.promocaobrindecurso.idpromocaobrindecurso";
+				+ " group by p.promocaobrindecurso.idpromocaobrindecurso";  
 		PromocaoBrindeCursoCidadeFacade promocaoBrindeCursoCidadeFacade = new PromocaoBrindeCursoCidadeFacade();
 		List<Promocaobrindecursocidade> listaPromocaoBrindeCursoCidade = promocaoBrindeCursoCidadeFacade.listar(sql);
 		if (listaPromocaoBrindeCursoCidade != null) {
 			for (int j = 0; j < listaPromocaoBrindeCursoCidade.size(); j++) {
-				Valorcoprodutos valorcoprodutos = listaCurso.get(0).getValorcoprodutos();
+				Valorcoprodutos valorcoprodutos = produtosOrcamentoBean.getValorcoprodutos();
 				if (listaPromocaoBrindeCursoCidade.get(j) != null && valorcoprodutos != null) {
 					boolean tempromocao = verificarPromocaoBrindesValido(
 							listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso(), valorcoprodutos,
@@ -2039,17 +2038,17 @@ public class OrcamentoCursoMB implements Serializable {
 						if (listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso().getGanhasemana() != null
 								&& listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 										.getGanhasemana() > 0) {
-							if (listaCurso.get(0).getDescricaobrinde() == null) {
+							if (produtosOrcamentoBean.getDescricaobrinde() == null) {
 								int numeroSemana = resultadoOrcamentoBean.getOcurso().getNumerosemanas()
 										+ listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 												.getGanhasemana();
-								listaCurso.get(0)
+								produtosOrcamentoBean
 										.setDescricaobrinde("Matricule-se até o dia "
 												+ Formatacao.ConvercaoDataPadrao(listaPromocaoBrindeCursoCidade.get(j)
 														.getPromocaobrindecurso().getDatamatricula())
 												+ " pague " + resultadoOrcamentoBean.getOcurso().getNumerosemanas()
 												+ " semanas e curse " + numeroSemana + ".");
-								listaCurso.get(0).setPromocao(true);
+								produtosOrcamentoBean.setPromocao(true);
 								resultadoOrcamentoBean.getOcurso().setNumerosemanas(numeroSemana);
 								int idtaxatm = aplicacaoMB.getParametrosprodutos().getTaxatmorcamento();
 								for (int i = 0; i < listaObrigatorio.size(); i++) {
@@ -2071,21 +2070,10 @@ public class OrcamentoCursoMB implements Serializable {
 						} else if (listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 								.getGanhadescontosemana() != null
 								&& listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
-										.getGanhadescontosemana() > 0) {
-							if (listaCurso.get(0).getDescricaobrinde() == null) {
+										.getGanhadescontosemana() > 0) { 
 								valordesconto = valorcoprodutos.getValororiginal() * listaPromocaoBrindeCursoCidade
-										.get(j).getPromocaobrindecurso().getGanhadescontosemana();
-								int numeroSemanas = resultadoOrcamentoBean.getOcurso().getNumerosemanas()
-										- listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
-												.getGanhadescontosemana();
-								listaCurso.get(0)
-										.setDescricaobrinde("Matricule-se até o dia "
-												+ Formatacao.ConvercaoDataPadrao(listaPromocaoBrindeCursoCidade.get(j)
-														.getPromocaobrindecurso().getDatamatricula())
-												+ " pague " + numeroSemanas + " semanas e curse "
-												+ resultadoOrcamentoBean.getOcurso().getNumerosemanas() + ".");
-								listaCurso.get(0).setPromocao(true);
-							}
+										.get(j).getPromocaobrindecurso().getGanhadescontosemana(); 
+								produtosOrcamentoBean.setPromocao(true); 
 						} else if (listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 								.getGanhadescontosemanaacomodacao() != null
 								&& listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
@@ -2106,27 +2094,27 @@ public class OrcamentoCursoMB implements Serializable {
 								.getGanhadescricao() != null
 								&& listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso().getGanhadescricao()
 										.length() > 2) {
-							if (listaCurso.get(0).getDescricaobrinde() == null) {
-								listaCurso.get(0).setDescricaobrinde(listaPromocaoBrindeCursoCidade.get(j)
+							if (produtosOrcamentoBean.getDescricaobrinde() == null) {
+								produtosOrcamentoBean.setDescricaobrinde(listaPromocaoBrindeCursoCidade.get(j)
 										.getPromocaobrindecurso().getGanhadescricao());
-								listaCurso.get(0).setPromocao(true);
+								produtosOrcamentoBean.setPromocao(true);
 							}
-						}
-						if (valordesconto > 0) {
+						} 
+						if (valordesconto > 0) { 
 							if (listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 									.getGanhadescontosemana() != null
 									&& listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 											.getGanhadescontosemana() > 0) {
-								if (listaCurso.get(0).getValorPromocional() == null
-										|| listaCurso.get(0).getValorPromocional() == 0) {
-									listaCurso.get(0)
-											.setValorPromocional(listaCurso.get(0).getValorOrigianl() - valordesconto);
-									listaCurso.get(0).setValorPromocionalRS(listaCurso.get(0).getValorPromocional()
+								if (produtosOrcamentoBean.getValorPromocional() == null
+										|| produtosOrcamentoBean.getValorPromocional() == 0) {
+									produtosOrcamentoBean
+											.setValorPromocional(produtosOrcamentoBean.getValorOrigianl() - valordesconto);
+									produtosOrcamentoBean.setValorPromocionalRS(produtosOrcamentoBean.getValorPromocional()
 											* resultadoOrcamentoBean.getOcurso().getValorcambio());
 								} else {
-									listaCurso.get(0).setValorPromocional(
-											listaCurso.get(0).getValorPromocional() - valordesconto);
-									listaCurso.get(0).setValorPromocionalRS(listaCurso.get(0).getValorPromocional()
+									produtosOrcamentoBean.setValorPromocional(
+											produtosOrcamentoBean.getValorPromocional() - valordesconto);
+									produtosOrcamentoBean.setValorPromocionalRS(produtosOrcamentoBean.getValorPromocional()
 											* resultadoOrcamentoBean.getOcurso().getValorcambio());
 								}
 							} else if (listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
@@ -2134,7 +2122,7 @@ public class OrcamentoCursoMB implements Serializable {
 									&& listaPromocaoBrindeCursoCidade.get(j).getPromocaobrindecurso()
 											.getGanhadescontosemanaacomodacao() > 0) {
 								if (produtosOrcamentoBean.getValorPromocional() == null
-										|| listaCurso.get(0).getValorPromocional() == 0) {
+										|| produtosOrcamentoBean.getValorPromocional() == 0) {
 									produtosOrcamentoBean.setValorPromocional(
 											produtosOrcamentoBean.getValorOrigianl() - valordesconto);
 									produtosOrcamentoBean

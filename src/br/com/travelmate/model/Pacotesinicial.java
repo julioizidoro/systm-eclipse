@@ -73,6 +73,8 @@ public class Pacotesinicial implements Serializable {
    	private String outrastaxas; 
     @Column(name = "idade")
    	private String idade;  
+    @Column(name = "mostrarescola")
+   	private String mostrarescola; 
     @Transient
     private boolean cursos;
     @Transient
@@ -291,6 +293,14 @@ public class Pacotesinicial implements Serializable {
 
 	public void setIdade(String idade) {
 		this.idade = idade;
+	}
+
+	public String getMostrarescola() {
+		return mostrarescola;
+	}
+
+	public void setMostrarescola(String mostrarescola) {
+		this.mostrarescola = mostrarescola;
 	}
       
 }

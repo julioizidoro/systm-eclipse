@@ -381,7 +381,8 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 				}
 			} else if (fornecedor != null) {
 				sql = "select f from Fornecedorcidade f where f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor()
-						+ " and f.cidade.idcidade=" + cidade.getCidade().getIdcidade() + " and f.ativo=1";
+						+ " and f.cidade.idcidade=" + cidade.getCidade().getIdcidade() + " and f.ativo=1"
+						+ " and f.produtos.idprodutos="+produtos.getIdprodutos();
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.toptmstar=true";
@@ -395,7 +396,8 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 			} else {
 				sql = "SELECT f From Fornecedorcidade f where f.produtos.idprodutos="
 						+ aplicacaoMB.getParametrosprodutos().getCursos() + " and f.cidade.idcidade="
-						+ cidade.getCidade().getIdcidade() + " and f.ativo=1";
+						+ cidade.getCidade().getIdcidade() + " and f.ativo=1"
+						+ " and f.produtos.idprodutos="+produtos.getIdprodutos();
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.toptmstar=true";
@@ -507,7 +509,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 			if (fornecedor != null) {
 				sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.idfornecedor="
 						+ fornecedor.getIdfornecedor() + " and f.produtosorcamento.idprodutosOrcamento="
-						+ produtosorcamento.getIdprodutosOrcamento();
+						+ produtosorcamento.getIdprodutosOrcamento()+" and f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getIdprodutos();
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -520,7 +522,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 						+ " Group by f.fornecedorcidadeidioma.fornecedorcidade.cidade.idcidade order by f.fornecedorcidadeidioma.fornecedorcidade.cidade.nome";
 			} else {
 				sql = "select f from Fornecedorcidadeidiomaproduto f where f.produtosorcamento.idprodutosOrcamento="
-						+ produtosorcamento.getIdprodutosOrcamento();
+						+ produtosorcamento.getIdprodutosOrcamento()+" and f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getIdprodutos();;
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -541,15 +543,19 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 			if (lista != null) {
 				for (int i = 0; i < lista.size(); i++) {
 					List<Cidadepaisproduto> listacidade = lista.get(i).getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getCidadepaisList();
+					int idproduto = produtos.getIdprodutos();
 					for (int j = 0; j < listacidade.size(); j++) {
-						listaCidade.add(listacidade.get(j));
-						listaTabelaCidade.add(listacidade.get(j));
-					}  
+						if(listacidade.get(j).getPaisproduto().getProdutos().getIdprodutos()==idproduto) {
+							listaCidade.add(listacidade.get(j));
+							listaTabelaCidade.add(listacidade.get(j));
+						}
+					}   
 				}
 			}
 		} else if (fornecedor != null) {
 			sql = "select f from Fornecedorcidade f where f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor()
-					+ " and f.cidade.pais.idpais=" + pais.getPais().getIdpais() + " and f.ativo=1";
+					+ " and f.cidade.pais.idpais=" + pais.getPais().getIdpais() + " and f.ativo=1"
+					+" and f.produtos.idprodutos="+produtos.getIdprodutos();
 			if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 				if (estrela.isToptmstar()) {
 					sql = sql + " and f.toptmstar=true";
@@ -565,14 +571,18 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 				listaTabelaCidade = new ArrayList<Cidadepaisproduto>();
 				for (int i = 0; i < lista.size(); i++) {
 					List<Cidadepaisproduto> listacidade = lista.get(i).getCidade().getCidadepaisList();
+					int idproduto = produtos.getIdprodutos();
 					for (int j = 0; j < listacidade.size(); j++) {
-						listaCidade.add(listacidade.get(j));
-						listaTabelaCidade.add(listacidade.get(j));
-					}  
+						if(listacidade.get(j).getPaisproduto().getProdutos().getIdprodutos()==idproduto) {
+							listaCidade.add(listacidade.get(j));
+							listaTabelaCidade.add(listacidade.get(j));
+						}
+					}   
 				}
 			}
 		} else {
-			sql = "select f from Fornecedorcidade f where f.cidade.pais.idpais=" + pais.getPais().getIdpais() + " and f.ativo=1";
+			sql = "select f from Fornecedorcidade f where f.cidade.pais.idpais=" + pais.getPais().getIdpais() + " and f.ativo=1"
+					+" and f.produtos.idprodutos="+produtos.getIdprodutos();
 			if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 				if (estrela.isToptmstar()) {
 					sql = sql + " and f.toptmstar=true";
@@ -588,9 +598,12 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 				listaTabelaCidade = new ArrayList<Cidadepaisproduto>();
 				for (int i = 0; i < lista.size(); i++) {
 					List<Cidadepaisproduto> listacidade = lista.get(i).getCidade().getCidadepaisList();
+					int idproduto = produtos.getIdprodutos();
 					for (int j = 0; j < listacidade.size(); j++) {
-						listaCidade.add(listacidade.get(j));
-						listaTabelaCidade.add(listacidade.get(j));
+						if(listacidade.get(j).getPaisproduto().getProdutos().getIdprodutos()==idproduto) {
+							listaCidade.add(listacidade.get(j));
+							listaTabelaCidade.add(listacidade.get(j));
+						}
 					}  
 				}
 			}

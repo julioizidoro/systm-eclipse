@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -30,6 +31,14 @@ public class ImportarOrcamentoMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private String nome;
 	private List<Ocurso> listaOCurso;
+	
+	@PostConstruct()
+	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		nome = (String) session.getAttribute("nome");
+		carregarListaOrcamento();
+	}
 	
 	public String getNome() {
 		return nome;

@@ -3056,8 +3056,19 @@ public class CadCursoMB implements Serializable {
 						Produtosorcamento produtosorcamento = produtoOrcamentoFacade.consultar(17);
 						orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 					} else {
-						orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i)
+						ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+						if(ocurso.getOcrusoprodutosList().get(i).getDescricao().equalsIgnoreCase("Desconto Matriz")) {
+							Produtosorcamento produtosorcamento = produtoOrcamentoFacade
+									.consultar(aplicacaoMB.getParametrosprodutos().getDescontomatriz()); 
+							orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+						}else if(ocurso.getOcrusoprodutosList().get(i).getDescricao().equalsIgnoreCase("Desconto Loja")) {
+							Produtosorcamento produtosorcamento = produtoOrcamentoFacade
+									.consultar(aplicacaoMB.getParametrosprodutos().getDescontoloja()); 
+							orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+						}else {
+							orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i)
 								.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
+						}
 					}
 					if(orcamentoprodutosorcamento.getDescricao()!=null
 							&& !orcamentoprodutosorcamento.getDescricao().equalsIgnoreCase("Suplemento de Curso")
@@ -3082,7 +3093,7 @@ public class CadCursoMB implements Serializable {
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 						ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 						Produtosorcamento produtosorcamento = produtoOrcamentoFacade
-								.consultar(aplicacaoMB.getParametrosprodutos().getPromocaoescola());
+									.consultar(aplicacaoMB.getParametrosprodutos().getPromocaoescola()); 
 						orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 						orcamentoprodutosorcamento
 								.setValorMoedaEstrangeira(ocurso.getOcrusoprodutosList().get(i).getValororiginal()
@@ -3148,6 +3159,9 @@ public class CadCursoMB implements Serializable {
 	public String importarOrcamento() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 700);
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("nome", cliente.getNome());
 		RequestContext.getCurrentInstance().openDialog("importarOrcamento", options, null);
 		return "";
 	}
@@ -3279,6 +3293,9 @@ public class CadCursoMB implements Serializable {
 	public String importarOrcamentoManual() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 700);
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("nome", cliente.getNome());
 		RequestContext.getCurrentInstance().openDialog("importarOrcamentoManual", options, null);
 		return "";
 	}
