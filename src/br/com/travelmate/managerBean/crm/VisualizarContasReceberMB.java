@@ -39,6 +39,12 @@ public class VisualizarContasReceberMB implements Serializable{
 	}
 
 	
+	public String retornarCorContaVencida(Contasreceber contasreceber){
+		if (contasreceber.getCrmcobrancaconta() != null && contasreceber.getCrmcobrancaconta().getCrmcobranca().getDatafinalizada() == null) {
+			return "color:red;";
+		}
+		return "";
+	}
 
 	
 }
