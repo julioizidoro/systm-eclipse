@@ -335,6 +335,8 @@ public class RecebimentoMB implements Serializable{
 				listaContas.get(i).setDatapagamento(dataPagamento);
 				dataPagamento = Formatacao.AdcionarDiaMesAnoData(dataPagamento, 1, "m");
 			}
+		}else{
+			Mensagem.lancarMensagemInfo("Data de pagamento não informado", "");
 		}
 	}
 }

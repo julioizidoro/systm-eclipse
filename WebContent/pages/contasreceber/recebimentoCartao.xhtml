@@ -128,34 +128,36 @@
                                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                         <p:ajax event="dateSelect"  />
                             </p:calendar>
-                            <p:commandLink title="Confirmar" action="#{recebimentoMB.setarDataRecebimentoCartao}" update="tabelaRecebimento" style="margin-left:70%">
+                            <p:commandLink title="Confirmar" action="#{recebimentoMB.setarDataRecebimentoCartao}" update="tabelaRecebimento, :telaRecebimentoCartao:growl" style="margin-left:70%">
 								<img src="../../resources/img/confirmar.png" width="20"></img>
 							</p:commandLink>
 
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="8" cellpadding="1">
+						<h:panelGrid columns="3" cellpadding="1" style="width:100%;">
 							<p:outputLabel value="Nº Documento" class="fontebranca"
-								style="font-size: 11px;color:#000;margin-left: 11%" />
+								style="font-size: 11px;color:#000;" />
 							<p:outputLabel value="Deságio por Parcela" class="fontebranca"
-								style="font-size: 11px;color:#000;margin-left:59%" />
+								style="font-size: 11px;color:#000;" />
 							<p:outputLabel value="Banco"
-								style="font-size: 11px;color:#000;margin-left:81%" />
-						</h:panelGrid>
-						<h:panelGrid columns="8" cellpadding="1">
-							<p:inputText id="nDocumento" value="#{recebimentoMB.novodocuemnto}" style="margin-left:10%"  size="15"/>
-							<p:commandLink title="Confirmar" action="#{recebimentoMB.alterarNumeroDocumento()}" update="tabelaRecebimento" style="margin-left:20%">
-								<img src="../../resources/img/confirmar.png" width="20"></img>
-							</p:commandLink>
-							<p:inputText id="desagio" size="17"
-								value="#{recebimentoMB.desagioparcela}" style="margin-left:48%;text-align:right" >
-								<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-							</p:inputText>
-							<p:commandLink title="Confirmar" action="#{recebimentoMB.alterarValorDesagioParcela()}" update="tabelaRecebimento,totaldesconto,totalrecebido" style="margin-left:20%">
-								<img src="../../resources/img/confirmar.png" width="20"></img>
-							</p:commandLink>
-							<p:selectOneMenu id="banco" value="#{recebimentoMB.banco}" style="width:170px;font-size: 10px;margin-left:39%" converter="BancoConverter">
+								style="font-size: 11px;color:#000;" />
+							<h:panelGrid columns="2" style="width:50%;">
+								<p:inputText id="nDocumento" value="#{recebimentoMB.novodocuemnto}"   size="15"/>
+								<p:commandLink title="Confirmar" action="#{recebimentoMB.alterarNumeroDocumento()}" update="tabelaRecebimento" >
+									<img src="../../resources/img/confirmar.png" width="20"></img>
+								</p:commandLink>
+							</h:panelGrid>
+							<h:panelGrid columns="2" style="width:50%;">
+								<p:inputText id="desagio" size="17"
+									value="#{recebimentoMB.desagioparcela}" style="text-align:right" >
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+								<p:commandLink title="Confirmar" action="#{recebimentoMB.alterarValorDesagioParcela()}" update="tabelaRecebimento,totaldesconto,totalrecebido" style="margin-left:20%">
+									<img src="../../resources/img/confirmar.png" width="20"></img>
+								</p:commandLink>
+							</h:panelGrid>
+							<p:selectOneMenu id="banco" value="#{recebimentoMB.banco}" style="width:170px;font-size: 10px;" converter="BancoConverter">
                 					<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
                 					<f:selectItems value="#{recebimentoMB.listaBanco}" var="banco" itemLabel="#{banco.nome}" itemValue="#{banco}"/>
                 					<f:attribute name="listaBanco" value="#{recebimentoMB.listaBanco}"/>
