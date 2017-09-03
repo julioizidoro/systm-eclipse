@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CrmCobrancaFacade;
-import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
+import br.com.travelmate.dao.CrmCobrancaDao;
+import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -34,6 +34,10 @@ public class CadHistoricoCobrancaClienteMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private CrmCobrancaDao crmCobrancaDao;
+	@Inject
+	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
 	private Crmcobranca crmcobranca;
 	private Crmcobrancahistorico crmcobrancahistorico;
 	
@@ -82,13 +86,11 @@ public class CadHistoricoCobrancaClienteMB implements Serializable{
 					// salvarHistorico
 					crmcobrancahistorico.setUsuario(usuarioLogadoMB.getUsuario());
 					crmcobrancahistorico.setCliente(crmcobranca.getVendas().getCliente());
-					CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
-					crmcobrancahistorico = crmCobrancaHistoricoFacade.salvar(crmcobrancahistorico);
+					crmcobrancahistorico = crmCobrancaHistoricoDao.salvar(crmcobrancahistorico);
 	  
 					// atualizarCrmcobranca
-					CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
 					crmcobranca.setProximocontato(crmcobrancahistorico.getProximocontato());
-					crmcobranca = crmCobrancaFacade.salvar(crmcobranca); 
+					crmcobranca = crmCobrancaDao.salvar(crmcobranca); 
 					Mensagem.lancarMensagemInfo("Histórico salvo com sucesso", "");  
 					RequestContext.getCurrentInstance().closeDialog(null);  
 				} else

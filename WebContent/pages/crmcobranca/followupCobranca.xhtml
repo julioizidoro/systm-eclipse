@@ -203,37 +203,37 @@
 
    
 						<p:column headerText="ID" style="text-align:left;"
-							width="50" >
+							width="50" sortBy="#{cobranca.vendas.id}">
 							<h:outputText value="#{cobranca.vendas.idvendas}" />
 						</p:column>       
-						<p:column headerText="Nome" style="text-align:left;" width="150">   
+						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{cobranca.vendas.cliente.nome}">   
 							<h:outputText value="#{cobranca.vendas.cliente.nome}" />   
 						</p:column>
 						<p:column headerText="Unidade" style="text-align:left;"
-							width="95" >
+							width="95" sortBy="#{cobranca.vendas.unidaenegicio.nomerelatorio}">
 							<h:outputText value="#{cobranca.vendas.unidadenegocio.nomerelatorio}" />
 						</p:column>    
 						<p:column headerText="Consultor" style="text-align:left;"
-							width="130" >
+							width="130" sortBy="#{cobranca.vendas.usuario.nome}">
 							<h:outputText value="#{cobranca.vendas.usuario.nome}" />
 						</p:column>
 						<p:column headerText="Prioridade" width="60"  
-							style="text-align:center;">
+							style="text-align:center;" sortBy="#{cobranca.prioridade}">
 							<h:outputText value="#{cobranca.prioridade}" class="badge bg-warning"
 								style="background-color:#{followUpCobrancaMB.retornarCoresPrioridade(cobranca.prioridade)};padding: 6px 8px;" />
 						</p:column>
 						<p:column headerText="Inicio" width="65"
-							style="text-align:center;">
+							style="text-align:center;" sortBy="#{cobranca.vendas.vendascomissao.datainicioprograma}">
 							<h:outputText value="#{cobranca.vendas.vendascomissao.datainicioprograma}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>    
-						<p:column headerText="Programa" style="text-align:left;" width="120">
+						<p:column headerText="Programa" style="text-align:left;" width="120" sortBy="#{cobranca.vendas.produtos.descricao}">
 							<h:outputText value="#{cobranca.vendas.produtos.descricao}" />
 						</p:column>
 						<p:column headerText="Próximo Contato" width="65"
-							style="text-align:center;">
+							style="text-align:center;" sortBy="#{cobranca.proximocontato}">
 							<h:outputText value="#{cobranca.proximocontato}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />

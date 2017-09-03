@@ -3,27 +3,35 @@ package br.com.travelmate.ti;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import br.com.travelmate.dao.CrmCobrancaContaDao;
+import br.com.travelmate.dao.CrmCobrancaDao;
+import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
 import br.com.travelmate.facade.CobrancaFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.CrmCobrancaFacade;
-import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
 import br.com.travelmate.facade.HistoricoCobrancaFacade;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Crmcobranca;
+import br.com.travelmate.model.Crmcobrancaconta;
 import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Historicocobranca;
 import br.com.travelmate.util.Formatacao;
 
 public class TiBean {
 	
+	@Inject
+	private CrmCobrancaDao crmCobrancaDao;
+	@Inject
+	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	@Inject CrmCobrancaContaDao crmCobrancaContaDao;
+	
 	public void gerarCobrancaNova() {
 		CobrancaFacade cobrancaFacade = new CobrancaFacade();
 		List<Cobranca> lista = cobrancaFacade.listar("SELECT c FROM Cobranca c");
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
-		CrmCobrancaHistoricoFacade crCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {
 				if (lista.get(i).getVendas() != null) {
@@ -40,7 +48,7 @@ public class TiBean {
 							crmCobranca.setProximocontato(new Date());
 							crmCobranca.setSituacao("COBRANCA");
 							crmCobranca.setVendas(lista.get(i).getVendas());
-							crmCobranca=crmCobrancaFacade.salvar(crmCobranca);
+							crmCobranca=crmCobrancaDao.salvar(crmCobranca);
 							CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 							for (int c=0;c<listaContas.size();c++) {
 								crmCobrancaBean.criar(listaContas.get(c));
@@ -59,7 +67,7 @@ public class TiBean {
 									crmCobrancaHistoricio.setProximocontato(new Date());
 									crmCobrancaHistoricio.setTipocontato("Telefone");
 									crmCobrancaHistoricio.setUsuario(listaHistorico.get(h).getUsuario());
-									crCobrancaHistoricoFacade.salvar(crmCobrancaHistoricio);
+									crmCobrancaHistoricoDao.salvar(crmCobrancaHistoricio);
 								}
 							}
 						}
@@ -69,5 +77,6 @@ public class TiBean {
 		}
 
 	}
-
+	
+	
 }

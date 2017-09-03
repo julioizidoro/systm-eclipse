@@ -32,7 +32,6 @@ import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 
 /**
  *

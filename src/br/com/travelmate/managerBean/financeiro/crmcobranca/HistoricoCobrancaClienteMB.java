@@ -23,10 +23,10 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.CrmCobrancaDao;
+import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.CrmCobrancaFacade;
-import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.HeFacade;
@@ -97,6 +97,10 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private Vistos vistos;
 	private Questionariohe questionarioHe;
 	private String iconeFicha = "";
+	@Inject
+	private CrmCobrancaDao crmCobrancaDao;
+	@Inject
+	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
 	
 	
 	
@@ -397,9 +401,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void pegarPrioridade(String prioridade){
-		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
 		crmcobranca.setPrioridade(prioridade);
-		crmcobranca = crmCobrancaFacade.salvar(crmcobranca);
+		crmcobranca = crmCobrancaDao.salvar(crmcobranca);
 		this.prioridade = prioridade;
 	}
 	
@@ -421,8 +424,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void gerarListaCobrancaHistorico(){
-		CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
-		listaCobrancaHistorico = crmCobrancaHistoricoFacade.lista("SELECT c FROM Crmcobrancahistorico c WHERE c.cliente.idcliente=" 
+		listaCobrancaHistorico = crmCobrancaHistoricoDao.lista("SELECT c FROM Crmcobrancahistorico c WHERE c.cliente.idcliente=" 
 				+ crmcobranca.getVendas().getCliente().getIdcliente());
 		
 		if (listaCobrancaHistorico == null) {
@@ -431,10 +433,9 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	}
 	
 	public void gerarListaHistorico() {
-		CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
 		String sql = "select c from Crmcobrancahistorico c where c.cliente.idcliente=" + crmcobranca.getVendas().getCliente().getIdcliente()
 				+ " order by c.data DESC, c.idcrmcobrancahistorico DESC";
-		listaCobrancaHistorico = crmCobrancaHistoricoFacade.lista(sql);
+		listaCobrancaHistorico = crmCobrancaHistoricoDao.lista(sql);
 		if (listaCobrancaHistorico == null) {
 			listaCobrancaHistorico = new ArrayList<>();
 		}
@@ -782,9 +783,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	public void excluir(Crmcobrancahistorico crmcobrancahistorico){
 		int idUsuarioLogado = usuarioLogadoMB.getUsuario().getIdusuario();
 		if (idUsuarioLogado == crmcobrancahistorico.getUsuario().getIdusuario()) {
-			CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
 			listaCobrancaHistorico.remove(crmcobrancahistorico);
-			crmCobrancaHistoricoFacade.excluir(crmcobrancahistorico.getIdcrmcobrancahistorico());
+			crmCobrancaHistoricoDao.excluir(crmcobrancahistorico.getIdcrmcobrancahistorico());
 			gerarListaHistorico();
 			Mensagem.lancarMensagemInfo("Histórico excluido com sucesso.", "");
 		}else{
@@ -807,8 +807,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void salvarNotas() {
-		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
-		crmcobranca = crmCobrancaFacade.salvar(crmcobranca); 
+		crmcobranca = crmCobrancaDao.salvar(crmcobranca); 
 		Mensagem.lancarMensagemInfo("Salvo com sucesso.", "");
 	}
 	

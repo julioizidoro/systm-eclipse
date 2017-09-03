@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.travelmate.dao.FuncaoDao;
 import br.com.travelmate.dao.UsuarioDepartamentoUnidadeDao;
-import br.com.travelmate.model.Funcao;
 import br.com.travelmate.model.Usuariodepartamentounidade; 
 
 public class UsuarioDepartamentoUnidadeFacade {

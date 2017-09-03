@@ -12,13 +12,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.CrmCobrancaFacade;
+import br.com.travelmate.dao.CrmCobrancaDao;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
+import br.com.travelmate.ti.TiBean;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
@@ -32,9 +32,9 @@ public class FollowUpCobrancaMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private CrmCobrancaDao crmCobrancaDao;
 	private String imagemNovos = "novos";
 	private String imagemHoje = "hojeClick";
 	private String imagemAtrasados = "atrasados";
@@ -66,9 +66,12 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	@PostConstruct
 	public void init(){
+		
 		if (!aplicacaoMB.isLeituraCobranca()) {
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+			crmCobrancaBean.CrmCobrancaGerarDataVencimento();
 			crmCobrancaBean.gerarListaInadiplentes();
+			crmCobrancaBean.calcularAtrasos();
 			aplicacaoMB.setLeituraCobranca(true);
 		}
 		listaUnidade = GerarListas.listarUnidade();
@@ -469,8 +472,7 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	
 	public void gerarListaCrmCobranca(){
-		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
-		listaCrmCobranca = crmCobrancaFacade.lista(sql);
+		listaCrmCobranca = crmCobrancaDao.lista(sql);
 		if (listaCrmCobranca == null) {
 			listaCrmCobranca = new ArrayList<>();
 		}

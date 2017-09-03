@@ -5,10 +5,11 @@
  */
 package br.com.travelmate.managerBean;
   
+import br.com.travelmate.dao.UsuarioDao;
+import br.com.travelmate.dao.UsuariorDao;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
-import br.com.travelmate.facade.UsuarioFacade; 
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -58,6 +59,8 @@ public class UsuarioLogadoMB implements Serializable {
 	private VerificarLogin verificarLogin;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private UsuariorDao usuariorDao;
 	private Usuario usuario;
 	private String novaSenha;
 	private String senhaAtual;
@@ -76,8 +79,6 @@ public class UsuarioLogadoMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		//gerarCidadeProduto();
-		//TiBean tiBean = new TiBean();
-		//tiBean.gerarCobrancaNova();
 		usuario = new Usuario();  
 	}
 
@@ -232,8 +233,9 @@ public class UsuarioLogadoMB implements Serializable {
 			} catch (NoSuchAlgorithmException ex) {
 				Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
 			}
-			UsuarioFacade usuarioFacade = new UsuarioFacade();
-			usuario = usuarioFacade.consultar(login, senha);
+			//UsuarioFacade usuarioFacade = new UsuarioFacade();
+			//usuario = usuarioFacade.consultar(login, senha);
+			usuario = usuariorDao.consultar(login, senha);
 			if (usuario == null) {
 				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
 			} else {
@@ -301,7 +303,6 @@ public class UsuarioLogadoMB implements Serializable {
 		if (repetirSenhaAtual.equalsIgnoreCase(usuario.getSenha())) {
 			if ((novaSenha.length() > 0) && (confirmaNovaSenha.length() > 0)) {
 				if (novaSenha.equalsIgnoreCase(confirmaNovaSenha)) {
-					UsuarioFacade usuarioFacade = new UsuarioFacade();
 					String senha = "";
 					try {
 						senha = Criptografia.encript(novaSenha);
@@ -309,7 +310,7 @@ public class UsuarioLogadoMB implements Serializable {
 						Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
 					}
 					usuario.setSenha(senha);
-					usuario = usuarioFacade.salvar(usuario);
+					usuario = usuariorDao.salvar(usuario);
 					senhaAtual = "";
 					novaSenha = "";
 					confirmaNovaSenha = "";
@@ -445,8 +446,7 @@ public class UsuarioLogadoMB implements Serializable {
 	
 	public void salvarUsuario() {
 		if (usuario.getDataaniversario()!=null) { 
-			UsuarioFacade usuarioFacade = new UsuarioFacade();
-			usuario = usuarioFacade.salvar(usuario);
+			usuario = usuariorDao.salvar(usuario);
 			RequestContext.getCurrentInstance().closeDialog("inicial.jsf"); 
 		} else
 			Mensagem.lancarMensagemErro("Atenção!", "Data de nascimento não informada."); 

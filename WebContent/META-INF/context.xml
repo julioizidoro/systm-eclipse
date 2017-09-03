@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-   <Manager pathname=""/> <!-- disables storage of sessions across restarts -->
-   <Resource name="BeanManager"
-      auth="Container"
-      type="javax.enterprise.inject.spi.BeanManager"
-      factory="org.jboss.weld.resources.ManagerObjectFactory"/>
+   <Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" />
+      
+      <Resource name="jdbc/systmDB" auth="Container"
+		factory="org.apache.naming.factory.BeanFactory" type="com.mchange.v2.c3p0.ComboPooledDataSource"
+		driverClass="com.mysql.jdbc.Driver" jdbcUrl="jdbc:mysql://localhost:8081/systm"
+		user="root" password="simples" minPoolSize="10" maxPoolSize="10" />
 </Context>

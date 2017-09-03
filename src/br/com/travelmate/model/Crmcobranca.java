@@ -45,6 +45,12 @@ public class Crmcobranca implements Serializable {
     @Column(name = "datafinalizada")
     @Temporal(TemporalType.DATE)
     private Date datafinalizada;
+    @Column(name = "datavenimento")
+    @Temporal(TemporalType.DATE)
+    private Date datavencimento;
+    @Column(name = "datainiciocobranca")
+    @Temporal(TemporalType.DATE)
+    private Date datainiciocobranca;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "crmcobranca")
     private List<Crmcobrancaconta> crmcobrancacontaList;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
@@ -124,6 +130,22 @@ public class Crmcobranca implements Serializable {
 
 	public void setNota(String nota) {
 		this.nota = nota;
+	}
+
+	public Date getDatavencimento() {
+		return datavencimento;
+	}
+
+	public void setDatavencimento(Date datavencimento) {
+		this.datavencimento = datavencimento;
+	}
+
+	public Date getDatainiciocobranca() {
+		return datainiciocobranca;
+	}
+
+	public void setDatainiciocobranca(Date datainiciocobranca) {
+		this.datainiciocobranca = datainiciocobranca;
 	}
 
 	@Override

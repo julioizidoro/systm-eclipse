@@ -23,7 +23,13 @@
 						</p:commandLink>
 						<p:outputLabel value="> Histórico"
 							style="margin-left:1%;color:#4D5C52;font-size:13px;" />
-						<h:panelGrid style="margin-left:2%;width:95%;" columns="2">
+						<h:panelGrid style="margin-left:2%;width:95%;" columns="3">
+							<p:commandLink id="btnImprimirFicha" style=""
+									title="Imprimir a ficha"
+									action="#{historicoCobrancaClienteMB.imprimirFicha()}" ajax="false" target="blank">
+								<img src="../../resources/img/#{historicoCobrancaClienteMB.iconeFicha}"
+										width="20"/>
+							</p:commandLink>
 							<p:outputLabel id="programa"
 								value="Programa de #{historicoCobrancaClienteMB.crmcobranca.vendas.produtos.descricao}"
 								style="font-size:16px;" />
@@ -33,12 +39,16 @@
 									style="background-color:#{historicoCobrancaClienteMB.retornarCoresSituacao(historicoCobrancaClienteMB.crmcobranca.prioridade)};padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
 							<h:panelGroup>
-								<p:commandLink id="btnImprimirFicha" style=""
-											title="Imprimir a ficha"
-											action="#{historicoCobrancaClienteMB.imprimirFicha()}" ajax="false" target="blank">
-									<img src="../../resources/img/#{historicoCobrancaClienteMB.iconeFicha}"
-											width="20" style="margin-top: -3%;"/>
-								</p:commandLink>
+								<p:outputLabel value="Data de inicio:"
+									style="font-size:13px;" />
+								<p:outputLabel id="datainicioprograma"
+									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.vendascomissao.datainicioprograma}"
+									style="font-size:13px;margin-left:1%;">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:outputLabel>
+							</h:panelGroup>
+							<h:panelGroup>
 								<p:outputLabel id="nomeCliente"
 									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.nome}"
 									style="font-size:29px;margin-left:1%;" />
@@ -94,10 +104,10 @@
 								value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.foneResidencial}"
 								style="font-size:18px;" />
 							<h:panelGroup>
-								<p:outputLabel value="Data de recebimento:"
+								<p:outputLabel value="Data da cobrança:"
 									style="font-size:13px;" />
 								<p:outputLabel id="data"
-									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.dataNascimento}"
+									value="#{historicoCobrancaClienteMB.crmcobranca.datainiciocobranca}"
 									style="font-size:13px;margin-left:1%;">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -158,7 +168,7 @@
 										title="Fehcar tela" action="#{historicoCobrancaClienteMB.voltar()}">
 										<h:panelGrid columns="1" style="text-align:center;">
 											<img src="../../resources/img/crm/cancelar.png" width="45" />
-											<p:outputLabel value="Fechar" style="font-size:11px;" />
+											<p:outputLabel value="FECHAR" style="font-size:11px;" />
 										</h:panelGrid> 
 									</p:commandLink>
 								</h:panelGrid>
@@ -263,7 +273,7 @@
 							
 							<h:outputText value="5" class="badge bg-warning"
 								style="background-color:#B22222;padding: 4px 6px;margin-left:2%;" />
-							<h:outputText value="+ 50 dias ou 30 dias para inicio"
+							<h:outputText value="+ 45 dias ou 30 dias para inicio"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 
 						</div>
