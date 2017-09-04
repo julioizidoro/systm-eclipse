@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.inject.Inject;
 
 import br.com.travelmate.dao.CrmCobrancaContaDao;
 import br.com.travelmate.dao.CrmCobrancaDao;
@@ -42,25 +41,16 @@ public class LerRetornoItauBean {
 	private List<RetornoBean> listaRetorno;
 	private Usuario usuario;
 	private String nomeArquivo;
-	@Inject 
 	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
 	private CrmCobrancaContaDao crmCobrancaContaDao;
-	@Inject 
 	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
 	
-	
-	
-    
-    public LerRetornoItauBean(CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
+	public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario, 
+			CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
 			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
 		this.crmCobrancaDao = crmCobrancaDao;
 		this.crmCobrancaContaDao = crmCobrancaContaDao;
 		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
-	}
-
-
-	public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario) {
     	this.nomeArquivo = nomeArquivo;
     	this.usuario = usuario;
         try {

@@ -1,24 +1,10 @@
 package br.com.travelmate.ti;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.travelmate.dao.CrmCobrancaContaDao;
 import br.com.travelmate.dao.CrmCobrancaDao;
 import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
-import br.com.travelmate.facade.CobrancaFacade;
-import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.HistoricoCobrancaFacade;
-import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
-import br.com.travelmate.model.Cobranca;
-import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Crmcobranca;
-import br.com.travelmate.model.Crmcobrancaconta;
-import br.com.travelmate.model.Crmcobrancahistorico;
-import br.com.travelmate.model.Historicocobranca;
-import br.com.travelmate.util.Formatacao;
 
 public class TiBean {
 	

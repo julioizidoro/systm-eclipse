@@ -99,5 +99,73 @@ public class CrmCobrancaBean {
 		crmcobrancaconta = crmCobrancaContaDao.salvar(crmcobrancaconta);
 		return crmcobrancaconta;
 	}
-
+	
+	public void gerarListaInadiplentes(){
+		ParametrosFinanceiroFacade parametrosFinanceiroFacade = new ParametrosFinanceiroFacade();
+		Parametrosfinanceiro parametrosfinanceiro = parametrosFinanceiroFacade.consultar();
+		String dataVencimento = Formatacao.SubtarirDatas(new Date(), 5, "yyyy-MM-dd");
+		String sql = "SELECT c FROM Contasreceber c where c.datavencimento>'" +
+		Formatacao.ConvercaoDataSql(parametrosfinanceiro.getDatacobranca()) + "' and c.datavencimento<='" + dataVencimento +
+				"'  and c.situacao<>'cc' and c.datapagamento is NULL and c.valorpago=0";
+		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+		List<Contasreceber> lista = contasReceberFacade.listar(sql);
+		if (lista!=null){
+			for (int i=0;i<lista.size();i++){
+				if (lista.get(i).getCrmcobrancaconta()==null){
+					criar(lista.get(i));
+				}
+			}
+		}
+		try {
+			parametrosfinanceiro.setDatacobranca(Formatacao.SomarDiasDatas(new Date(), -5));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		parametrosFinanceiroFacade.salvar(parametrosfinanceiro);
+	}
+	
+	public void calcularAtrasos() {
+		String sql = "SELECT c FROM Crmcobranca c where c.situacao<>'FINALIZADA'";
+		List<Crmcobranca> lista = crmCobrancaDao.lista(sql);
+		if (lista!=null) {
+			for(int i=0;i<lista.size();i++) {
+				if (!lista.get(i).getPrioridade().equals("5")){
+					if (lista.get(i).getDatavencimento() == null) {
+						lista.get(i).setDatavencimento(new Date());
+					}
+					int dias = Formatacao.subtrairDatas(new Date(), lista.get(i).getDatavencimento());
+					String prioridade = lista.get(i).getPrioridade();
+					if (dias<=5) {  
+						prioridade = "1";
+					}else if (dias<=15) {
+						prioridade = "2";
+					}else if (dias<=30) {
+						prioridade = "3";
+					}else if (dias<=45) {
+						prioridade = "4";
+					}else if (dias>=46) {
+						prioridade = "5";
+					}
+					int diasEmbarque = 0;
+					if (!prioridade.equals("5")) {
+						if (lista.get(i).getVendas().getVendascomissao()!=null) {
+							if (lista.get(i).getVendas().getVendascomissao().getDatainicioprograma()!=null) {
+								diasEmbarque = Formatacao.subtrairDatas(lista.get(i).getVendas().getVendascomissao().getDatainicioprograma(), new Date());
+							}
+						}
+						if (diasEmbarque<=30) {
+							prioridade ="5";
+						}
+					}
+					if (!lista.get(i).getPrioridade().equals(prioridade)) {
+						Crmcobranca cobranca = lista.get(i);
+						cobranca.setPrioridade(prioridade);
+						cobranca = crmCobrancaDao.salvar(cobranca);
+						lista.set(i, cobranca);
+					}
+				}
+			}
+		}
+	}
 }
