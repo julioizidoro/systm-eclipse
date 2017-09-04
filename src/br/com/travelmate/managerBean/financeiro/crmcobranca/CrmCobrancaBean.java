@@ -23,29 +23,22 @@ import br.com.travelmate.model.Parametrosfinanceiro;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 
-@Named
-@ViewScoped
-public class CrmCobrancaBean implements Serializable{
+
+public class CrmCobrancaBean {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Inject
 	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
 	private CrmCobrancaContaDao crmCobrancaContaDao;
-	@Inject
 	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
 	
 	
-	@PostConstruct
-	public void init() {
-	  
-	}
 	
-	public CrmCobrancaBean() {
-		
+
+
+	public CrmCobrancaBean(CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
+			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
+		this.crmCobrancaDao = crmCobrancaDao;
+		this.crmCobrancaContaDao = crmCobrancaContaDao;
+		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
 	}
 
 
@@ -80,10 +73,6 @@ public class CrmCobrancaBean implements Serializable{
 			crmCobrancaHistoricoDao.salvar(crmCobrancaHistorico);
 		}
 	}
-	
-	
-	
-	
 	
 	public Crmcobrancaconta criar(Contasreceber conta){
 		String sql = "SELECT c FROM Crmcobranca c where c.vendas.idvendas=" + conta.getVendas().getIdvendas() + 
