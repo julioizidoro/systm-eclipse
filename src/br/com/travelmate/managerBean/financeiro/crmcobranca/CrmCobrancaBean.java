@@ -59,7 +59,7 @@ public class CrmCobrancaBean {
 		String sql = "SELECT c FROM Crmcobrancaconta c where c.paga=0 and c.crmcobranca.vendas.idvendas=" + crmCobranca.getVendas().getIdvendas() +
 				" and c.crmcobranca.situacao<>'Finalizada'";
 		List<Crmcobrancaconta> lista = crmCobrancaContaDao.lista(sql);
-		if (lista==null){
+		if (lista==null || lista.size()==0){
 			crmCobranca.setSituacao("FINALIZADA");
 			crmCobranca.setDatafinalizada(new Date());
 			crmCobranca = crmCobrancaDao.salvar(crmCobranca);

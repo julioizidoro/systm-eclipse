@@ -81,18 +81,7 @@ public class RecebimentoMB implements Serializable{
 		}
 		calcularValorTotal();
 	}
-	
-	
-
-	public RecebimentoMB(CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
-			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
-		super();
-		this.crmCobrancaDao = crmCobrancaDao;
-		this.crmCobrancaContaDao = crmCobrancaContaDao;
-		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
-	}
-
-
+	 
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
 		return usuarioLogadoMB;
