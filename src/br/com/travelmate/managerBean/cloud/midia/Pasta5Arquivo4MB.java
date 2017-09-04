@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.Arquivo1Facade;
 import br.com.travelmate.facade.Arquivo4Facade;
 import br.com.travelmate.facade.Arquivo5Facade;
 import br.com.travelmate.facade.FtpDadosFacade;
@@ -713,8 +712,7 @@ public class Pasta5Arquivo4MB implements Serializable {
 
 	public boolean verificarAcesso() {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (departamento != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
@@ -735,11 +733,7 @@ public class Pasta5Arquivo4MB implements Serializable {
 	public boolean verificarArquivo1(Arquivo4Bean arquivo) {
 		Boolean acesso = false;
 		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getArquivo1() == null) {
-				return acesso;
-			} else {
+			if (arquivo.getArquivo1() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -751,19 +745,15 @@ public class Pasta5Arquivo4MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public boolean verificarArquivo2(Arquivo4Bean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getArquivo2() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo2() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -773,19 +763,15 @@ public class Pasta5Arquivo4MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public boolean verificarArquivo3(Arquivo4Bean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getArquivo3() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo3() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -795,9 +781,9 @@ public class Pasta5Arquivo4MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	// public boolean verificarArquivo4(Arquivo4Bean arquivo) {
@@ -1055,12 +1041,8 @@ public class Pasta5Arquivo4MB implements Serializable {
 
 	public boolean verificarArquivoLista(Arquivo4 arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getIdarquivo4() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getIdarquivo4() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -1072,9 +1054,9 @@ public class Pasta5Arquivo4MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public String trocarCorLinhaTabela(Arquivo4 arquivo4) {
@@ -1090,19 +1072,15 @@ public class Pasta5Arquivo4MB implements Serializable {
 	}
 
 	public void salvarModoExibicao(String nomeExibicao) {
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
-			Usuario usuario = usuarioFacade.consultar(usuarioLogadoMB.getUsuario().getIdusuario());
-			usuario.setModoexibicao(nomeExibicao);
-			usuarioFacade.salvar(usuario);
-			usuarioLogadoMB.setUsuario(usuario);
+			usuarioLogadoMB.getUsuario().setModoexibicao(nomeExibicao);
+			usuarioFacade.salvar(usuarioLogadoMB.getUsuario());
 		}
 	}
 
 	public void verificarExibicao() {
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (usuarioLogadoMB.getUsuario().getModoexibicao() == null) {
 				tabelaArquivoQuadro = true;
 				tabelaArquivoLista = false;
@@ -1354,21 +1332,14 @@ public class Pasta5Arquivo4MB implements Serializable {
 	
 	public boolean acessoVinculoFornecedor(Arquivo4 arquivo4){
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		}else{
-			if (arquivo4 == null) {
-				return acesso;
-			}else{
-				if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
-					return acesso;
-				}else{
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo4 != null) {
+				if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 					acesso = true;
-					return acesso;
 				}
-				
 			}
 		}
+		return acesso;
 	}
 	
 	

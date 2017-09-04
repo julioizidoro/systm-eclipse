@@ -14,9 +14,9 @@
                      
                      
                      <legend id="iUsu2" ><b>Consulta Arquivos</b></legend>
-                     <h:panelGrid  style="margin-left:3%" columns="4" width="100%;">
+                     <h:panelGrid  style="margin-left:3%" columns="4" width="97%;">
                    	 	<p:outputLabel value="#{arquivoMB.vendas.idvendas} - #{arquivoMB.vendas.cliente.nome}" class="fontebranca" style="font-size:14px; color:#1F888A"/> 
-                   	 	<br></br>
+                   	 	<br></br> 
                    	 	
                       </h:panelGrid>  
                       <h:panelGrid columns="3" style="margin-left:72%;" >
@@ -33,8 +33,8 @@
 	                  	<h:outputText value=" Kit Viagem Completo" style="font-size:14px;"/> 
 	                  </h:panelGroup>
                      <br/> <br/>
-                     <p:dataTable editable="true" id="tabelaConsultaArquivos" var="arquivo"  class="tabela" value="#{arquivoMB.listarArquivos}"
-                                scrollable="true" scrollHeight="300" style="margin-bottom:20px" >
+                     <p:dataTable editable="true" reflow="true" id="tabelaConsultaArquivos" var="arquivo"  class="tabela" value="#{arquivoMB.listarArquivos}"
+                                scrollable="true" scrollHeight="300" style="margin-bottom:20px;" >
                               
                         <p:ajax event="rowEdit" listener="#{arquivoMB.editar}" 
 							update=":consultaArquivos:growl, :consultaArquivos:tabelaConsultaArquivos" />
@@ -42,7 +42,7 @@
 							listener="#{arquivoMB.cancelarEdicao}" 
 							update=":consultaArquivos:growl, :consultaArquivos:tabelaConsultaArquivos" />
                         
-                        <p:column headerText="Tipo Arquivo" style="text-align:left;width:250px;">
+                        <p:column headerText="Tipo Arquivo" style="text-align:left;width:190px;">
                             <p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{arquivo.tipoarquivo.descricao}" style="#{arquivoMB.corArquivo(arquivo)}"/>
@@ -65,7 +65,7 @@
                          <p:column headerText="Usuário" style="text-align:left; width:115px;" >
                             <h:outputText value="#{arquivo.usuario.nome}" style="#{arquivoMB.corArquivo(arquivo)}"/>
                         </p:column>
-                        <p:column headerText="Nome Arquivo" style="text-align:left; width:240px;" >
+                        <p:column headerText="Nome Arquivo" style="text-align:left; width:200px;" >
                             <p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{arquivo.nomeArquivo}" style="#{arquivoMB.corArquivo(arquivo)}" />
@@ -75,7 +75,7 @@
 								</f:facet>
 							</p:cellEditor>
                         </p:column>
-                        <p:column headerText="Obs" style="text-align:left;width:240px;" >
+                        <p:column headerText="Obs" style="text-align:left;width:200px;" >
                             <h:outputText value="#{arquivo.observacao}" style="#{arquivoMB.corArquivo(arquivo)}"/>
                         </p:column>
                         <p:column style="width:30px" rendered="#{arquivoMB.desabilitarEdicaoArquivo}">
@@ -87,13 +87,13 @@
                           	</p:commandLink> 
                         </p:column>
                         <p:column  style="width:50px;" styleClass="alinharCenter" >
+                          <a title="Download" name="download" href="http://#{arquivoMB.ftpdados.host}:82/ftproot/systm/arquivos/#{arquivo.nomesalvos}" target="_blank" style="text-decoration:none; color:white; font-size:18px;" type="button"> 
+                          <img src="../../resources/img/iconeDownload.png"  /></a>
+                        </p:column>
+                        <p:column  style="width:50px;" styleClass="alinharCenter" >
                           <p:commandLink  action="#{arquivoMB.excluir(arquivo)}" title="excluir"  update="tabelaConsultaArquivos, :consultaArquivos:growl"> 
                           	<img src="../../resources/img/excluir.png"  />
                           </p:commandLink>
-                        </p:column>
-                        <p:column  style="width:50px;" styleClass="alinharCenter" >
-                          <a title="Download" name="download" href="http://#{arquivoMB.ftpdados.host}:82/ftproot/systm/arquivos/#{arquivo.nomesalvos}" target="_blank" style="text-decoration:none; color:white; font-size:18px;" type="button"> 
-                          <img src="../../resources/img/iconeDownload.png"  /></a>
                         </p:column>
                         <p:column style="width:32px;text-align: center">
 							<p:selectBooleanCheckbox value="#{arquivo.selecionado}" />

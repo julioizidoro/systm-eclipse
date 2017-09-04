@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.Arquivo1Facade;
 import br.com.travelmate.facade.Arquivo5Facade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -624,8 +623,7 @@ public class Arquivo5MB implements Serializable {
 
 	public boolean verificarAcesso() {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (departamento != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
@@ -645,12 +643,8 @@ public class Arquivo5MB implements Serializable {
 
 	public boolean verificarArquivo1(Arquivo5Bean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getArquivo1() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo1() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -662,19 +656,15 @@ public class Arquivo5MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public boolean verificarArquivo2(Arquivo5Bean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getArquivo2() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo2() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -686,19 +676,15 @@ public class Arquivo5MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public boolean verificarArquivo3(Arquivo5Bean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getArquivo3() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo3() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -710,9 +696,9 @@ public class Arquivo5MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	// public boolean verificarArquivo4(Arquivo5Bean arquivo){
@@ -828,12 +814,8 @@ public class Arquivo5MB implements Serializable {
 
 	public boolean verificarArquivoLista(Arquivo5 arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		} else {
-			if (arquivo.getIdarquivo5() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getIdarquivo5() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -845,9 +827,9 @@ public class Arquivo5MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public String trocarCorLinhaTabela(Arquivo5 arquivo5) {
@@ -863,8 +845,7 @@ public class Arquivo5MB implements Serializable {
 	}
 
 	public void salvarModoExibicao(String nomeExibicao) {
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
 			Usuario usuario = usuarioFacade.consultar(usuarioLogadoMB.getUsuario().getIdusuario());
 			usuario.setModoexibicao(nomeExibicao);
@@ -874,8 +855,7 @@ public class Arquivo5MB implements Serializable {
 	}
 
 	public void verificarExibicao() {
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (usuarioLogadoMB.getUsuario().getModoexibicao() == null) {
 				tabelaArquivoQuadro = true;
 				tabelaArquivoLista = false;
@@ -1040,22 +1020,14 @@ public class Arquivo5MB implements Serializable {
 	
 	public boolean acessoVinculoFornecedor(Arquivo5 arquivo5){
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		}else{
-			if (arquivo5 == null) {
-				return acesso;
-			}else{
-				if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
-					return acesso;
-				}else{
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo5 != null) {
+				if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 					acesso = true;
-					return acesso;
 				}
-				
 			}
 		}
-		
+		return acesso;
 	}
 	
 	

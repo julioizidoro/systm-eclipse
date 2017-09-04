@@ -286,7 +286,7 @@ public class CadArquivoMB implements Serializable {
 									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao());
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
-							avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
+							//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
 						}
 					}
 				} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
@@ -302,7 +302,7 @@ public class CadArquivoMB implements Serializable {
 									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao());
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
-							avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
+						//	avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
 						}
 				}
 			}
@@ -460,7 +460,10 @@ public class CadArquivoMB implements Serializable {
 				int[] pontos = dashBoardBean.calcularPontuacaoRace(vendas, curso.getNumeroSenamas(), "", false);
 				vendas.setPontoescola(pontos[0]);
 				if(vendas.getPonto()>0 && vendas.getIdregravenda()>0){
-					int numerodias = Formatacao.subtrairDatas(vendas.getDataVenda(), vendas.getDataprocesso());
+					int numerodias = 0;
+					if (vendas.getDataprocesso() != null) {
+						numerodias = Formatacao.subtrairDatas(vendas.getDataVenda(), vendas.getDataprocesso());
+					}
 					RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
 					Regravenda regravenda = regraVendaFacade.consultar("select r from Regravenda r where r.idregravenda="+vendas.getIdregravenda());
 					UsuarioPontosFacade usuarioPontosFacade = new UsuarioPontosFacade();
@@ -492,7 +495,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -535,7 +539,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -580,7 +585,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -643,8 +649,9 @@ public class CadArquivoMB implements Serializable {
 			avisos.setTexto("Au Pair: Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 			avisos = avisosFacade.salvar(avisos);
+			salvarAvisoUsuario(avisos);
 
 		}
 	}
@@ -714,7 +721,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -783,7 +791,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -858,7 +867,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
 		}
 	}
 
@@ -901,7 +911,8 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 
@@ -934,14 +945,15 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
-			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
+			salvarAvisoUsuario(avisos);
+			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
 
 	public String validacaoDados() {
 		String msg = "";
-		if (tipoarquivo == null || tipoarquivo.getTipoarquivo().getIdtipoArquivo() == null) {
+		if (tipoarquivo == null || tipoarquivo.getTipoarquivo() == null) {
 			msg = msg + " Tipo de arquivo não foi selecionado \r\n";
 		}
 		if (listaNomeArquivo == null || listaNomeArquivo.isEmpty()) {

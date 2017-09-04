@@ -20,7 +20,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.helpers.NullEnumeration;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -353,8 +352,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 		Arquivo1Facade arquivo1Facade = new Arquivo1Facade();
 		int idDepartamento = pasta1.getDepartamento().getIddepartamento();
 		String sql = "";
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		}else{
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == idDepartamento
 					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
 				sql = "Select c from Arquivo1 c where c.pasta1.idpasta1=" + pasta1.getIdpasta1();
@@ -877,8 +875,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 
 	public boolean verificarAcesso() {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		}else{
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (departamento != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento.getIddepartamento()) {
 					acesso = true;
@@ -897,12 +894,8 @@ public class Pastas2Arquivo1MB implements Serializable {
 
 	public boolean verificarArquivo1(ArquivoPastaBean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		}else{
-			if (arquivo.getArquivo1() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo1() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -914,19 +907,15 @@ public class Pastas2Arquivo1MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public boolean verificarArquivo2(ArquivoPastaBean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		}else{
-			if (arquivo.getArquivo2() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo2() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -938,19 +927,15 @@ public class Pastas2Arquivo1MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 	public boolean verificarArquivo3(ArquivoPastaBean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		}else{
-			if (arquivo.getArquivo3() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getArquivo3() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -962,9 +947,9 @@ public class Pastas2Arquivo1MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 
 //	public boolean verificarArquivo4(ArquivoPastaBean arquivo) {
@@ -1012,12 +997,8 @@ public class Pastas2Arquivo1MB implements Serializable {
 	
 	public boolean verificarArquivoLista(Arquivo1 arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-			return acesso;
-		}else{
-			if (arquivo.getIdarquivo1() == null) {
-				return acesso;
-			} else {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			if (arquivo.getIdarquivo1() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
@@ -1029,9 +1010,9 @@ public class Pastas2Arquivo1MB implements Serializable {
 						acesso = false;
 					}
 				}
-				return acesso;
 			}
 		}
+		return acesso;
 	}
 	
 	
@@ -1050,19 +1031,15 @@ public class Pastas2Arquivo1MB implements Serializable {
 	
 	public void salvarModoExibicao(String nomeExibicao){
 		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		}else{
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
-			Usuario usuario = usuarioFacade.consultar(usuarioLogadoMB.getUsuario().getIdusuario());
-			usuario.setModoexibicao(nomeExibicao);
-			usuarioFacade.salvar(usuario);
-			usuarioLogadoMB.setUsuario(usuario);
+			usuarioLogadoMB.getUsuario().setModoexibicao(nomeExibicao);
+			usuarioFacade.salvar(usuarioLogadoMB.getUsuario());
 		}
 	}
 	
 	
 	public void verificarExibicao(){
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		}else{
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (usuarioLogadoMB.getUsuario().getModoexibicao() == null) {
 				tabelaArquivoQuadro = true;
 				tabelaArquivoLista = false;
@@ -1571,20 +1548,14 @@ public class Pastas2Arquivo1MB implements Serializable {
 		
 		public boolean acessoVinculoFornecedor(Arquivo1 arquivo1){
 			Boolean acesso = false;
-			if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-				return acesso;
-			}else{
-				if (arquivo1 == null) {
-					return acesso;
-				}else{
-					if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
-						return acesso;
-					}else{
+			if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+				if (arquivo1 != null) {
+					if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 						acesso = true;
-						return acesso;
 					}
 				}
 			}
+			return acesso;
 		}
 		
 		

@@ -649,8 +649,7 @@ public class Pasta1MB implements Serializable {
 
 	public boolean verificarAcesso() {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
-		}else{
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (departamento != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento.getIddepartamento()) {
 					acesso = true;
