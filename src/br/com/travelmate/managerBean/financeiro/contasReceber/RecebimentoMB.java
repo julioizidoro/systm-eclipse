@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.CrmCobrancaContaDao;
+import br.com.travelmate.dao.CrmCobrancaDao;
+import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -38,6 +41,12 @@ public class RecebimentoMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject 
+	private CrmCobrancaDao crmCobrancaDao;
+	@Inject
+	private CrmCobrancaContaDao crmCobrancaContaDao;
+	@Inject 
+	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
 	private List<Contasreceber> listaContas;
 	private float totalreceber;
 	private float valorjuros;
@@ -51,6 +60,7 @@ public class RecebimentoMB implements Serializable{
 	private float desagioparcela;
 	private boolean validarData;
 	private String novoCartao;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -71,6 +81,18 @@ public class RecebimentoMB implements Serializable{
 		}
 		calcularValorTotal();
 	}
+	
+	
+
+	public RecebimentoMB(CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
+			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
+		super();
+		this.crmCobrancaDao = crmCobrancaDao;
+		this.crmCobrancaContaDao = crmCobrancaContaDao;
+		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
+	}
+
+
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
 		return usuarioLogadoMB;
@@ -206,7 +228,7 @@ public class RecebimentoMB implements Serializable{
 				conta.setSituacao("vd");
 				conta.setBanco(banco);
 				conta = contasReceberFacade.salvar(conta);
-				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean(crmCobrancaDao, crmCobrancaContaDao,crmCobrancaHistoricoDao);
 				crmCobrancaBean.baixar(listaContas.get(i), usuarioLogadoMB.getUsuario());
 				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usuário", conta, usuarioLogadoMB.getUsuario());
 				if (!novoCartao.equalsIgnoreCase("sim")){

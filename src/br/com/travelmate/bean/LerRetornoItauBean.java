@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
+
+import br.com.travelmate.dao.CrmCobrancaContaDao;
+import br.com.travelmate.dao.CrmCobrancaDao;
+import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.RetornoArquivoFacade;
@@ -37,10 +42,25 @@ public class LerRetornoItauBean {
 	private List<RetornoBean> listaRetorno;
 	private Usuario usuario;
 	private String nomeArquivo;
+	@Inject 
+	private CrmCobrancaDao crmCobrancaDao;
+	@Inject
+	private CrmCobrancaContaDao crmCobrancaContaDao;
+	@Inject 
+	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	
 	
 	
     
-    public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario) {
+    public LerRetornoItauBean(CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
+			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
+		this.crmCobrancaDao = crmCobrancaDao;
+		this.crmCobrancaContaDao = crmCobrancaContaDao;
+		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
+	}
+
+
+	public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario) {
     	this.nomeArquivo = nomeArquivo;
     	this.usuario = usuario;
         try {
@@ -163,7 +183,7 @@ public class LerRetornoItauBean {
 			conta.setDataRetorno(new Date());
 			conta.setCodigoocorrencia(ocorrencia);
 			conta = contasReceberFacade.salvar(conta);
-			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean(crmCobrancaDao, crmCobrancaContaDao, crmCobrancaHistoricoDao);
 			crmCobrancaBean.baixar(conta, usuario);
 			retornoarquivo.setNomeaquivo(nomeArquivo);
 			retornoarquivo.setUsuario(usuario);

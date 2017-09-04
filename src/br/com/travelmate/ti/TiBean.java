@@ -28,7 +28,7 @@ public class TiBean {
 	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
 	@Inject CrmCobrancaContaDao crmCobrancaContaDao;
 	
-	public void gerarCobrancaNova() {
+	/*public void gerarCobrancaNova() {
 		CobrancaFacade cobrancaFacade = new CobrancaFacade();
 		List<Cobranca> lista = cobrancaFacade.listar("SELECT c FROM Cobranca c");
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
@@ -76,7 +76,7 @@ public class TiBean {
 			}
 		}
 
-	}
+	}*/
 	
 	
 	
