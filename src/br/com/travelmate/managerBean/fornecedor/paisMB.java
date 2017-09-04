@@ -2,10 +2,12 @@ package br.com.travelmate.managerBean.fornecedor;
 
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
+import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Cidadepaisproduto;
+import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
@@ -40,6 +42,7 @@ public class paisMB implements Serializable{
     private List<Cidadepaisproduto> listaCidadePaisProduto;
     private Produtos produtos;
     private List<Produtos> listaProduto;
+    private List<Cidade> listaCidade;
     
     @PostConstruct
     public void init() {
@@ -94,6 +97,14 @@ public class paisMB implements Serializable{
 
 	public void setListaProduto(List<Produtos> listaProduto) {
 		this.listaProduto = listaProduto;
+	}
+
+	public List<Cidade> getListaCidade() {
+		return listaCidade;
+	}
+
+	public void setListaCidade(List<Cidade> listaCidade) {
+		this.listaCidade = listaCidade;
 	}
 
 	public void gerarListaPais(){
@@ -211,14 +222,19 @@ public class paisMB implements Serializable{
 	    	CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
 	    	listaCidadePaisProduto = cidadePaisProdutosFacade.listar(
 	    			"SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade="+cidade.getIdcidade());
-	    	if(listaCidadePaisProduto==null || listaCidadePaisProduto.size()==0) {
+	    	FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+	    	List<Fornecedorcidade> listaFornecedor = fornecedorCidadeFacade.listar(
+	    			"SELECT f FROM Fornecedorcidade f WHERE f.cidade.idcidade="+cidade.getIdcidade()
+	    				+" and f.ativo=TRUE");
+	    	if(listaCidadePaisProduto==null || listaCidadePaisProduto.size()==0
+	    			|| listaFornecedor==null || listaFornecedor.size()==0) {
 	    		CidadeFacade cidadeFacade = new CidadeFacade(); 
 	    		cidade = cidadeFacade.salvar(cidade);
-	    }else {
+	    }else { 
 		    	if(cidade.isAtiva()) {
 	    			cidade.setAtiva(false);
 	    		}else cidade.setAtiva(true);
-	    		Mensagem.lancarMensagemErro("Atenção!", "Cidade só poderá ser desativada após excluir os produtos.");
+	    		Mensagem.lancarMensagemErro("Atenção!", "Cidade só poderá ser desativada após excluir os produtos e desativar os parceiros.");
 	    }
     }
     
@@ -227,6 +243,11 @@ public class paisMB implements Serializable{
     		listaCidadePaisProduto.remove(cidadepaisproduto);
     		cidadePaisProdutosFacade.excluir(cidadepaisproduto.getIdcidadepaisproduto());
     		Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
+    }
+    
+    public void listarCidade() {
+    		CidadeFacade cidadeFacade = new CidadeFacade();
+    		listaCidade = cidadeFacade.listar(pais.getIdpais());
     }
     
 }
