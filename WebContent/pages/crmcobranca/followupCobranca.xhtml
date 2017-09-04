@@ -32,7 +32,7 @@
 									value="#{followUpCobrancaMB.listaUnidade}" var="unidade"
 									itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
 								<f:attribute name="listaUnidade"
-									value="#{followUpCobrancaMB.listaUnidade}" />
+									value="#{followUpCobrancaMB.listaUnidade}" />  
 								<p:ajax event="change" listener="#{followUpCobrancaMB.gerarListaConsultor()}" update="consultor"/>
 							</p:selectOneMenu>   
 							<p:selectOneMenu id="consultor" value="#{followUpCobrancaMB.usuario}"
@@ -77,8 +77,8 @@
 								<f:selectItem itemLabel="Até 5 dias" itemValue="1" />
 								<f:selectItem itemLabel="6 - 15 dias" itemValue="2" />
 								<f:selectItem itemLabel="16 - 30 dias" itemValue="3" />
-								<f:selectItem itemLabel="31  45 dias" itemValue="4" />
-								<f:selectItem itemLabel="+50 dias ou 30 para inicio" itemValue="5" />
+								<f:selectItem itemLabel="31 - 45 dias" itemValue="4" />
+								<f:selectItem itemLabel="+45 dias ou 30 para inicio" itemValue="5" />
 							</p:selectOneMenu>
 							<h:panelGroup>
 								<p:calendar id="dataProxIni"
@@ -125,10 +125,10 @@
 						</h:panelGrid>
 						<br/>
 						<h:panelGrid columns="2" style="width:22%;float:right;"> 
-								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
-									action="#{followUpCobrancaMB.limparPesquisa()}" update="@form" />
 								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
 									action="#{followUpCobrancaMB.pesquisar()}" update="@form" style="font-size:11px;float:right;"/>
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
+									action="#{followUpCobrancaMB.limparPesquisa()}" update="@form" />
 							</h:panelGrid>   
 					</p:tab>     
 				</p:accordionPanel>

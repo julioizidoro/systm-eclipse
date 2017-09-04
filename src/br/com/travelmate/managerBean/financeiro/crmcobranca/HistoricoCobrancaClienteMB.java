@@ -101,6 +101,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private CrmCobrancaDao crmCobrancaDao;
 	@Inject
 	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	private List<Crmcobranca> listaCrmCobranca;
 	
 	
 	
@@ -109,6 +110,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		crmcobranca = (Crmcobranca) session.getAttribute("crmcobranca");
+		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
+		session.removeAttribute("listaCrmCobranca");
 		session.removeAttribute("crmcobranca");
 		gerarListaMotivoCancelamento();
 		gerarListaHistorico();
@@ -347,6 +350,9 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public String voltar(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
 		return "followupCobranca";
 	}
 	

@@ -19,8 +19,8 @@
                 <br></br> 
                 <p:dataTable id="tabelaContasReceber" var="contasreceber" value="#{visualizarContasReceberMB.listaContasReceber}"  
                 	scrollable="true" scrollHeight="350" style="margin-bottom:20px" >
-                    <p:column headerText="ID" style="width:8%;">
-                        <h:outputText value="#{contasreceber.numerodocumento}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>
+                    <p:column headerText="ID" style="width:10%;">  
+                        <h:outputText value="#{contasreceber.vendas.idvendas}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>
                     </p:column>
                      <p:column headerText="Cliente" style="width:42%;">
                          <h:outputText value="#{contasreceber.vendas.cliente.nome}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>

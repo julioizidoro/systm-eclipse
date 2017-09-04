@@ -74,9 +74,11 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
+		session.removeAttribute("listaCrmCobranca");
 		if (!aplicacaoMB.isLeituraCobranca()) {
-			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			//CrmCobrancaGerarDataVencimento();
 			gerarListaInadiplentes();
 			calcularAtrasos();
@@ -88,8 +90,12 @@ public class FollowUpCobrancaMB implements Serializable{
 		if (funcao == null || funcao.length() == 0) {
 			funcao = "hoje";
 		}
-		pesquisar();
-		mudarCoresBotoes(funcao);
+		if (listaCrmCobranca == null || listaCrmCobranca.size() == 0) {
+			pesquisar();
+			mudarCoresBotoes(funcao);
+		}else{
+			gerarNumerosCrmCobranca();
+		}
 	}
 
 
@@ -384,6 +390,7 @@ public class FollowUpCobrancaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobranca", crmcobranca);
+		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
 		return "historicoCobrancaCliente";
 	}
 	
@@ -675,9 +682,12 @@ public class FollowUpCobrancaMB implements Serializable{
 		if (lista!=null) {
 			for(int i=0;i<lista.size();i++) {
 				if (!lista.get(i).getPrioridade().equals("5")){
+					if (lista.get(i).getDatavencimento() == null) {
+						lista.get(i).setDatavencimento(new Date());
+					}
 					int dias = Formatacao.subtrairDatas(new Date(), lista.get(i).getDatavencimento());
 					String prioridade = lista.get(i).getPrioridade();
-					if (dias<=5) {
+					if (dias<=5) {  
 						prioridade = "1";
 					}else if (dias<=15) {
 						prioridade = "2";
@@ -705,6 +715,50 @@ public class FollowUpCobrancaMB implements Serializable{
 						cobranca = crmCobrancaDao.salvar(cobranca);
 						lista.set(i, cobranca);
 					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	public void gerarListaConsultor() {
+		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			listaUsuario = GerarListas.listarUsuarios(
+					"Select u FROM Usuario u where u.situacao='Ativo'" + " and u.unidadenegocio.idunidadeNegocio="
+							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+		}
+	}
+	
+	
+	public void gerarNumerosCrmCobranca(){
+		for (int i = 0; i < listaCrmCobranca.size(); i++) {
+			if (!listaCrmCobranca.get(i).getSituacao().equals("0")) {
+				todos = todos + 1;
+			}
+			if (!listaCrmCobranca.get(i).getSituacao().equals("0")
+					&& listaCrmCobranca.get(i).getProximocontato() == null) {
+				novos = novos + 1;
+			} else if ((listaCrmCobranca.get(i).getProximocontato()) != null
+					&& (Formatacao.ConvercaoDataSql(listaCrmCobranca.get(i).getProximocontato())
+							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
+					&& (!listaCrmCobranca.get(i).getSituacao().equals("0"))) {
+				hoje = hoje + 1;
+			} else if (listaCrmCobranca.get(i).getProximocontato() != null
+					&& listaCrmCobranca.get(i).getProximocontato().before(new Date())
+					&& !listaCrmCobranca.get(i).getSituacao().equals("0")) {
+				atrasados = atrasados + 1;
+			} else if (listaCrmCobranca.get(i).getProximocontato() != null
+					&& listaCrmCobranca.get(i).getProximocontato().after(new Date())
+					&& !listaCrmCobranca.get(i).getSituacao().equals("0")) {
+				Date data7 = null;
+				try {
+					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (listaCrmCobranca.get(i).getProximocontato().before(data7)) {
+					prox7 = prox7 + 1;
 				}
 			}
 		}

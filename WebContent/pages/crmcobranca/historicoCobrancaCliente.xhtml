@@ -23,21 +23,25 @@
 						</p:commandLink>
 						<p:outputLabel value="> Histórico"
 							style="margin-left:1%;color:#4D5C52;font-size:13px;" />
-						<h:panelGrid style="margin-left:2%;width:95%;" columns="3">
-							<p:commandLink id="btnImprimirFicha" style=""
-									title="Imprimir a ficha"
-									action="#{historicoCobrancaClienteMB.imprimirFicha()}" ajax="false" target="blank">
-								<img src="../../resources/img/#{historicoCobrancaClienteMB.iconeFicha}"
-										width="20"/>
-							</p:commandLink>
-							<p:outputLabel id="programa"
-								value="Programa de #{historicoCobrancaClienteMB.crmcobranca.vendas.produtos.descricao}"
-								style="font-size:16px;" />
+						<h:panelGrid style="margin-left:2%;width:95%;" columns="2">
+							<h:panelGroup>
+								<p:commandLink id="btnImprimirFicha" style=""
+										title="Imprimir a ficha"
+										action="#{historicoCobrancaClienteMB.imprimirFicha()}" ajax="false" target="blank">
+									<img src="../../resources/img/#{historicoCobrancaClienteMB.iconeFicha}"
+											width="20"/>
+								</p:commandLink>
+								<p:outputLabel id="programa"
+									value="Programa de #{historicoCobrancaClienteMB.crmcobranca.vendas.produtos.descricao}"
+									style="font-size:16px;margin-left:2%;" />
+							</h:panelGroup>
 							<p:commandLink id="btnSituacao" title="Alterar a situação">
 								<h:outputText value="#{historicoCobrancaClienteMB.crmcobranca.prioridade}"
 									class="badge bg-warning"
 									style="background-color:#{historicoCobrancaClienteMB.retornarCoresSituacao(historicoCobrancaClienteMB.crmcobranca.prioridade)};padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
+						</h:panelGrid>
+						<h:panelGrid style="width:95%;margin-left:2%;" columns="1">
 							<h:panelGroup>
 								<p:outputLabel value="Data de inicio:"
 									style="font-size:13px;" />
@@ -51,45 +55,14 @@
 							<h:panelGroup>
 								<p:outputLabel id="nomeCliente"
 									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.nome}"
-									style="font-size:29px;margin-left:1%;" />
+									style="font-size:29px;" />
 							</h:panelGroup>
 						</h:panelGrid>
 
 						<p:overlayPanel id="painelSituacao" for="btnSituacao"
-							hideEffect="fade" style="background:#fff;">
-							<p:commandLink id="btnSituacao1" title="Até 5 dias"
-								action="#{historicoCobrancaClienteMB.pegarPrioridade('1')}"
-								update="btnSituacao,painelSituacao">
-								<h:outputText value="1" class="badge bg-warning"
-									style="background-color:#9ACD32;padding:5px 10px;font-size:22px;" />
-							</p:commandLink>
-							<br></br>
-							<br></br>
-							<p:commandLink id="btnSituacao2" title="6 - 15 dias"
-								action="#{historicoCobrancaClienteMB.pegarPrioridade('2')}"
-								update="btnSituacao,painelSituacao">
-								<h:outputText value="2" class="badge bg-warning"
-									style="background-color:#023502;padding:5px 10px;font-size:22px;" />
-							</p:commandLink>
-							<br></br>
-							<br></br>
-							<p:commandLink id="btnSituacao3" title="16 - 30 dias"
-								action="#{historicoCobrancaClienteMB.pegarPrioridade('3')}"
-								update="btnSituacao,painelSituacao">
-								<h:outputText value="3" class="badge bg-warning"
-									style="background-color:#1E90FF;padding:5px 10px;font-size:22px;" />
-							</p:commandLink>
-							<br></br>
-							<br></br>
-							<p:commandLink id="btnSituacao4" title="31 - 45 dias"
-								action="#{historicoCobrancaClienteMB.pegarPrioridade('4')}"
-								update="btnSituacao,painelSituacao">
-								<h:outputText value="4" class="badge bg-warning"
-									style="background-color:#FF8C00;padding:5px 10px;font-size:22px;" />
-							</p:commandLink>
-							<br></br>
-							<br></br>
-							<p:commandLink id="btnSituacao5" action="#{historicoCobrancaClienteMB.pegarPrioridade('5')}" update="btnSituacao,painelSituacao" title="+ 50 dias ou 30 dias para inicio">
+							hideEffect="fade" style="background:#fff;">   
+							
+							<p:commandLink id="btnSituacao5" action="#{historicoCobrancaClienteMB.pegarPrioridade('5')}" update="btnSituacao,painelSituacao" title="+ 45 dias ou 30 dias para inicio">
 								<h:outputText value="5" class="badge bg-warning"
 									style="background-color:#B22222;padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
@@ -97,6 +70,7 @@
 						</p:overlayPanel>
 
 						<h:panelGrid style="margin-left:2%;width:95%;" columns="1">
+							
 							<p:outputLabel id="email"
 								value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.email}"
 								style="font-size:18px;" />
