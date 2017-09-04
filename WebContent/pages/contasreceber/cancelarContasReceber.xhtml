@@ -9,18 +9,18 @@
         <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
         <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     </h:head>
-    <h:body style="background:#DDDDE1;">
+    <h:body style="background:#DDDDE1;">      
         <h:form id="cancelarContasReceber" style="text-align:left;font-size: 10px;">
             <title>Cancelamento</title>
             <p:outputLabel value="Motivo do cancelamento" for="motivo"  style="font-size: 11px;margin-left:2%"/> 
             <br></br>
-			<p:inputTextarea id="motivo" cols="190" rows="10" class="fontebranca" value="#{cancelarContasReceberMB.observacao}"  />
-            <br></br><br></br>
-            <p class="botaocadpacote"><br></br>
-                <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cancelarContasReceberMB.confirmarCancelamento()}" style="font-size:11px;"></p:commandButton>
-                <p:commandButton class="espacocampos" icon="ui-icon-trash" value="Excluir" action="#{cancelarContasReceberMB.cancelar()}"></p:commandButton>
-                <br></br><br></br>
-            </p>
+			<p:inputTextarea id="motivo" style="width:95%;margin-left:2%;" cols="100" rows="7"  value="#{cancelarContasReceberMB.observacao}"  />
+            <br></br> <br></br>      
+            <div align="center">
+                <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cancelarContasReceberMB.confirmarCancelamento()}" style="font-size:11px;"/>
+                <p:commandButton icon="ui-icon-trash" value="Excluir" action="#{cancelarContasReceberMB.cancelar()}" style="font-size:11px;margin-left:2%;"/>
+                <br></br> 
+            </div>
         </h:form>     
-    </h:body>
+    </h:body>    
 </html>
