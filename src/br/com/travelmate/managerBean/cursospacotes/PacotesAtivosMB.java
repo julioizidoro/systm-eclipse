@@ -103,7 +103,7 @@ public class PacotesAtivosMB implements Serializable {
 
 	public void listarCursosPacotes(){ 
 		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
-		String sql = "SELECT c FROM Pacotesinicial c ORDER BY c.idproduto";
+		String sql = "SELECT c FROM Pacotesinicial c ORDER BY c.idproduto, c.pais";
 		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
 		listaTrabalhoPacotes = new ArrayList<>();
 		listaCursosPacotes =  new ArrayList<>();
