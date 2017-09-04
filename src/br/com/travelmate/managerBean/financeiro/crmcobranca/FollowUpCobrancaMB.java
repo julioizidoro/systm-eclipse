@@ -633,6 +633,8 @@ public class FollowUpCobrancaMB implements Serializable{
 			crmCobranca.setPrioridade("1");
 			crmCobranca.setSituacao("NOVA");
 			crmCobranca.setVendas(conta.getVendas());
+			crmCobranca.setDatainiciocobranca(new Date()); 
+			crmCobranca.setDatavencimento(conta.getDatavencimento());
 			crmCobranca = crmCobrancaDao.salvar(crmCobranca);
 		}
 		Crmcobrancaconta crmcobrancaconta = new Crmcobrancaconta();
