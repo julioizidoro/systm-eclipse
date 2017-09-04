@@ -45,7 +45,7 @@ public class Crmcobranca implements Serializable {
     @Column(name = "datafinalizada")
     @Temporal(TemporalType.DATE)
     private Date datafinalizada;
-    @Column(name = "datavenimento")
+    @Column(name = "datavencimento")
     @Temporal(TemporalType.DATE)
     private Date datavencimento;
     @Column(name = "datainiciocobranca")

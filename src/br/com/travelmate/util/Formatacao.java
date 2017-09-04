@@ -626,6 +626,9 @@ public class Formatacao {
 	}
 
 	public static int subtrairDatas(Date dataInicial, Date dataFinal) {
+		if (dataInicial==null) {
+			dataInicial = new Date();
+		}
 		int resultado = 0;
 		resultado = (int) ((dataInicial.getTime() - dataFinal.getTime()) / 86400000L);
 		return resultado;
