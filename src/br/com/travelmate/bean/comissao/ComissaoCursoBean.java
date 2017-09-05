@@ -127,10 +127,11 @@ public class ComissaoCursoBean {
         vendasComissao.setValorbruto(venda.getValor() + vendasComissao.getDescontoloja() + vendasComissao.getDescontotm());
         vendasComissao.setProdutos(venda.getProdutos());
         if (vendasComissao.getDescontofornecedor()>0){
-        	float percDescontoFornecedor = (this.valorComissaoFranquia/this.valorComissionavel); 
-            this.valorComissaoFranquia = this.valorComissaoFranquia - (this.valorComissaoFranquia * percDescontoFornecedor);
+        	float percDescontoFornecedorFranquia = (this.valorComissaoFranquia/this.valorComissionavel);
+        	float percDescontoFornecedorMatriz = this.valorComissaoMatriz/this.valorComissionavel;
+            this.valorComissaoFranquia = this.valorComissaoFranquia - (vendasComissao.getDescontofornecedor() * percDescontoFornecedorFranquia);
         	this.valorComissionavel = this.valorComissionavel - vendasComissao.getDescontofornecedor();
-        	this.valorComissaoMatriz = this.valorComissaoMatriz - (this.valorComissaoMatriz*percDescontoFornecedor);
+        	this.valorComissaoMatriz = this.valorComissaoMatriz - (vendasComissao.getDescontofornecedor()*percDescontoFornecedorMatriz);
         }
         vendasComissao.setValorcomissionavel(this.valorComissionavel);
         vendasComissao.setComissaotm(this.valorComissaoMatriz);
@@ -169,6 +170,7 @@ public class ComissaoCursoBean {
     	valorComissaoMatriz=0.0f;
     	valorComissionavel = 0.0f;
     	percentualComissao = 0.0;
+    	Double percentualMatriz=0.0;
 		if (fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList() != null) {
 			List<Fornecedorcomissaocursoproduto> lista = fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList();
 			if (listaProdutosGeral.size() > 0) {
@@ -195,6 +197,7 @@ public class ComissaoCursoBean {
 								}
 								Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
 								valorComissaoMatriz = valorComissaoMatriz + calculo.floatValue();
+								percentualMatriz = lista.get(i).getMatriz()/100;
 							}
 						}
 					}

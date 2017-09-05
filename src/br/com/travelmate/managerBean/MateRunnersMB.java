@@ -118,6 +118,16 @@ public class MateRunnersMB implements Serializable {
 		if (listaPontos.size() < 10) {
 			gerarLista(mes, ano);
 		}
+		for (int i=0;i<listaPontos.size();i++) {
+			if (listaPontos.get(i).getUsuario().getIdusuario()==16) {
+				if (listaPontos.get(i).getPontos()>0) {
+					int pontos = listaPontos.get(i).getPontos()/2;
+					listaPontos.get(i).setPontos(pontos);
+					i=15;
+				}
+				
+			}
+		}
 	}
 
 	public void gerarLista(int mes, int ano) {
