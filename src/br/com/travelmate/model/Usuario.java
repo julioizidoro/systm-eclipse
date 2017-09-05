@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -103,12 +104,15 @@ public class Usuario implements Serializable {
     private boolean pertencematriz; 
     @Column(name = "recebeleadautomatica")
     private boolean recebeleadautomatica; 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario" )
+    private Acessounidade acessounidade;
     @Transient
     private boolean selecionado;
     @Transient
     private String dashboard; 
     @Transient
     private boolean fecharaniversario;
+    
    
 
     public Usuario() {
@@ -305,6 +309,14 @@ public class Usuario implements Serializable {
 
 	public void setRecebeleadautomatica(boolean recebeleadautomatica) {
 		this.recebeleadautomatica = recebeleadautomatica;
+	}
+
+	public Acessounidade getAcessounidade() {
+		return acessounidade;
+	}
+
+	public void setAcessounidade(Acessounidade acessounidade) {
+		this.acessounidade = acessounidade;
 	}
 
 	@Override
