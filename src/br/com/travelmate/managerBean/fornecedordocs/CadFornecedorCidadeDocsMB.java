@@ -111,30 +111,43 @@ public class CadFornecedorCidadeDocsMB implements Serializable {
 		for (int i = 0; i < listaPais.size(); i++) {
 			listaPais.get(i).setSelecionado(todospais);
 		}
-		carregarListaCidades(todospais);
+		carregarListaCidadeTodas(todospais);
+	}
+	
+	
+	public void carregarListaCidadeTodas(boolean selecionoTodas){
+		if (selecionoTodas) {
+			carregarListaCidades(selecionoTodas);
+		}else{
+			listaCidade = new ArrayList<>();
+		}
 	}
 	
 	public void carregarListaCidades(boolean selecionado){
-		listaCidade = new ArrayList<>();
-		if(selecionado){
-			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade(); 
-			String sqlFornecedorCidade = "select f from Fornecedorcidade f where f.fornecedor.idfornecedor="
-					+fornecedordocs.getFornecedor().getIdfornecedor()+ " and f.ativo=1 and (";
-			boolean passou=false;
-			for (int i = 0; i < listaPais.size(); i++) {
-				if(listaPais.get(i).isSelecionado()){
-					if(passou){
-						sqlFornecedorCidade = sqlFornecedorCidade+ "or (f.cidade.pais.idpais="+listaPais.get(i).getIdpais()+")";
-					}else{
-						sqlFornecedorCidade = sqlFornecedorCidade+ "(f.cidade.pais.idpais="+listaPais.get(i).getIdpais()+")";
-						passou = true;
-					}
-				}  
-			}
-			sqlFornecedorCidade = sqlFornecedorCidade+ ") Group By f.cidade.idcidade";
-			listaCidade = fornecedorCidadeFacade.listar(sqlFornecedorCidade); 
-			verificarListaSelecionados();
+		if (listaCidade == null) {
+			listaCidade = new ArrayList<>();
 		}
+		FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+		String sqlFornecedorCidade = "select f from Fornecedorcidade f where f.fornecedor.idfornecedor="
+				+ fornecedordocs.getFornecedor().getIdfornecedor() + " and f.ativo=1 and (";
+		boolean passou = false;
+		for (int i = 0; i < listaPais.size(); i++) {
+			if (listaPais.get(i).isSelecionado()) {
+				if (passou) {
+					sqlFornecedorCidade = sqlFornecedorCidade + "or (f.cidade.pais.idpais="
+							+ listaPais.get(i).getIdpais() + ")";
+				} else {
+					sqlFornecedorCidade = sqlFornecedorCidade + "(f.cidade.pais.idpais=" + listaPais.get(i).getIdpais()
+							+ ")";
+					passou = true;
+				}
+			}else{
+				todospais = false;
+			}
+		}
+		sqlFornecedorCidade = sqlFornecedorCidade + ") Group By f.cidade.idcidade";
+		listaCidade = fornecedorCidadeFacade.listar(sqlFornecedorCidade);
+		verificarListaSelecionados();
 	}
 	
 	public void selecionarTodasCidades(){

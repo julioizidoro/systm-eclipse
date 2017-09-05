@@ -86,6 +86,12 @@
 						</p:commandLink>    
 					</p:column>
 					<p:column style="width:30px;" styleClass="alinharCenter">
+						<p:commandLink id="btnExcluir"
+							action="#{fornecedorDocsMB.excluirArquivos(docs)}">
+							<img src="../../resources/img/excluir.png" />
+						</p:commandLink> 
+					</p:column>
+					<p:column style="width:30px;" styleClass="alinharCenter">
 						<p:commandLink action="#{fornecedorDocsMB.vincularCidades(docs)}"
 							update="tabelaFornecedorDocs" title="Vincular cidades em documento">
 							<img src="../../resources/img/vincularUnidade.png" width="24"/>

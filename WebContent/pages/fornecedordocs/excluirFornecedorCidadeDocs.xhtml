@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<img src="../../resources/img/ajax-loader.gif" />
+	</p:dialog>
+	<h:form id="consFornecedorCidadeDocs" style="text-align:left;font-size: 10px;">
+		<title>Excluir Fornecedor Cidade Docs</title>
+		<br></br>
+		<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		
+		<h:panelGrid columns="2" width="13%;" style="margin-left:84%;">
+			<p:selectBooleanCheckbox
+				value="#{excluirFornecedorCidadeDocsMB.todos}">
+				<p:ajax update="tdTabelaFornecedorCidadeDocs"
+					listener="#{excluirFornecedorCidadeDocsMB.selecionarTodos()}" />
+			</p:selectBooleanCheckbox>
+			<p:commandLink id="btnExcluir"
+				action="#{excluirFornecedorCidadeDocsMB.excluir()}" update="tdTabelaFornecedorCidadeDocs, growl">
+				<img src="../../resources/img/excluir.png" />
+			</p:commandLink>
+		</h:panelGrid>
+		<p:dataTable id="tdTabelaFornecedorCidadeDocs" var="docs"
+			value="#{excluirFornecedorCidadeDocsMB.fornecedordocs.fornecedorcidadedocsList}" scrollable="true"
+			scrollHeight="240"
+			style="margin-bottom:20px;margin-right:20px;margin-top:11px;">
+			<p:column headerText="Cidade" styleClass="alinharCenter">
+				<p:outputLabel value="#{docs.fornecedorcidade.cidade.nome}" />
+			</p:column>
+			<p:column style="width:30px;" styleClass="alinharCenter">
+				<p:selectBooleanCheckbox value="#{docs.selecionado}"
+					 />
+			</p:column>
+		</p:dataTable>
+		<br></br>
+	</h:form>
+</h:body>
+</html>

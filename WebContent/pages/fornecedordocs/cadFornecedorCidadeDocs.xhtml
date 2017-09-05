@@ -20,7 +20,7 @@
 				<h:panelGrid columns="2" columnClasses="tamanhonotificacao2,tamanhonotificacao2"
 					style="margin-left:7%;width:85%;">
 					<h:panelGroup>
-						<div align="left" style="width:95%">
+						<div align="left" style="width:95%" id="checkTodos">
 							<p:selectBooleanCheckbox value="#{cadFornecedorCidadeDocsMB.todospais}">
 		            			<p:ajax update="idTabelaPais, idTabelaCidade" listener="#{cadFornecedorCidadeDocsMB.selecionarTodosPais()}" />
 		        			</p:selectBooleanCheckbox>
