@@ -20,29 +20,29 @@
                 <p:dataTable id="tabelaContasReceber" var="contasreceber" value="#{visualizarContasReceberMB.listaContasReceber}"  
                 	scrollable="true" scrollHeight="350" style="margin-bottom:20px" >
                     <p:column headerText="ID" style="width:10%;">  
-                        <h:outputText value="#{contasreceber.vendas.idvendas}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>
+                        <h:outputText value="#{contasreceber.vendas.idvendas}"/>
                     </p:column>
                      <p:column headerText="Cliente" style="width:42%;">
-                         <h:outputText value="#{contasreceber.vendas.cliente.nome}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>
+                         <h:outputText value="#{contasreceber.vendas.cliente.nome}"/>
                     </p:column>
                      <p:column headerText="Parcela" style="width:13%;">
-                         <h:outputText value="#{contasreceber.numeroparcelas}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>
+                         <h:outputText value="#{contasreceber.numeroparcelas}" />
                     </p:column>
                     <p:column headerText="Vencimento" style="width:17%;text-align: right" >
-                        <h:outputText value="#{contasreceber.datavencimento}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}">
+                        <h:outputText value="#{contasreceber.datavencimento}" >
                                  <f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
                             </h:outputText>
                     </p:column>
                     <p:column headerText="Tipo Documento" style="width:16.5%;">
-                         <h:outputText value="#{contasreceber.tipodocumento}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}"/>
+                         <h:outputText value="#{contasreceber.tipodocumento}"/>
                     </p:column>
                      <p:column headerText="Valor" style="width:17%;text-align: right" >
-                         <h:outputText value="#{contasreceber.valorparcela}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}">
+                         <h:outputText value="#{contasreceber.valorparcela}">
                                  <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                             </h:outputText>
                     </p:column>
                      <p:column headerText="Recebimento" style="width:16.5%;">
-                         <h:outputText value="#{contasreceber.datapagamento}" style="#{visualizarContasReceberMB.retornarCorContaVencida(contasreceber)}">
+                         <h:outputText value="#{contasreceber.datapagamento}">
                          	<f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
                          </h:outputText>
                     </p:column> 

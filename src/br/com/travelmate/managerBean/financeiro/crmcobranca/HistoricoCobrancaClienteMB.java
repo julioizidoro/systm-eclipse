@@ -369,28 +369,10 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public String visualizarContasReceber() {
-		VendasFacade vendasFacade = new VendasFacade();
-		String sql = "Select v From Vendas v where (v.situacao='FINALIZADA' or v.situacao='ANDAMENTO') "
-				+ " and v.cliente.idcliente=" + crmcobranca.getVendas().getCliente().getIdcliente() + " order by v.idvendas";
-		List<Vendas> listaVendas = vendasFacade.lista(sql);
-		if (listaVendas != null && listaVendas.size() > 0) {
-			String sqlContas = "Select c from Contasreceber c where (c.vendas.idvendas="
-					+ listaVendas.get(0).getIdvendas();
-			for (int i = 1; i < listaVendas.size(); i++) {
-				sqlContas = sqlContas + " or c.vendas.idvendas=" + listaVendas.get(i).getIdvendas();
-			}
-			sqlContas = sqlContas + ") and c.situacao<>'cc' order by c.datavencimento";
-			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-			List<Contasreceber> listaContasReceber = contasReceberFacade.listar(sqlContas);
-			if (listaContasReceber != null && listaContasReceber.size() > 0) {
-				FacesContext fc = FacesContext.getCurrentInstance();
-				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-				session.setAttribute("listaContasReceber", listaContasReceber);
-				RequestContext.getCurrentInstance().openDialog("visualizarContasReceberCliente");
-			} else
-				Mensagem.lancarMensagemInfo("Este cliente não possui contas a receber.", "");
-		} else
-			Mensagem.lancarMensagemInfo("Este cliente não possui contas a receber.", "");
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", crmcobranca.getVendas());
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber");
 		return "";
 	}
 	

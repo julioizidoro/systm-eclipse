@@ -14,13 +14,16 @@
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"  
 						title="Pesquisar">
 						<h:panelGrid columns="4"
-							columnClasses="tamanho8, tamanho8,tamanho8,tamanho8"
+							columnClasses="tamanho4, tamanho8,tamanho8,tamanho8"
 							style="width:100%;"> 
+							<p:outputLabel value="ID da venda" />  
 							<p:outputLabel value="Nome"/>  
 							<p:outputLabel value="Unidade" style="margin-left:2%;"/>   
 							<p:outputLabel value="Consultor" />  
-							<p:outputLabel value="Programa"/>
-   
+   							
+							<p:inputText value="#{followUpCobrancaMB.idvenda}" style="width:84%;" title="ID da venda">
+								<p:ajax event="blur"/>
+							</p:inputText>
 							<p:inputText value="#{followUpCobrancaMB.nomeCliente}" style="width:92%;" title="Nome do Cliente">
 								<p:ajax event="blur"/>
 							</p:inputText>
@@ -47,6 +50,17 @@
 									value="#{followUpCobrancaMB.listaUsuario}" />
 								<p:ajax event="change"/>   
 							</p:selectOneMenu>   
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="5"
+							columnClasses="tamanho8,tamanho8,tamanho8, tamanho8, tamanho8"
+							style="width:99.5%;">
+							<p:outputLabel value="Programa"/>
+							<p:outputLabel value="Prioridade"/>  
+							<p:outputLabel value="Período Próximo Contato" />
+							<p:outputLabel value="Período Inicio" />
+							<p:outputLabel value="Status"/>
+ 
 							<p:selectOneMenu id="produto" value="#{followUpCobrancaMB.programas}"
 								style="width:90%;" converter="ProdutoConverter" filter="true"
 								filterMatchMode="startsWith">
@@ -56,21 +70,7 @@
 									itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
 								<f:attribute name="listaProdutos"
 									value="#{followUpCobrancaMB.listaProgramas}" />
-							</p:selectOneMenu>
-						</h:panelGrid>
-						<br></br>
-						<h:panelGrid columns="5"
-							columnClasses="tamanho8,tamanho8,tamanho8, tamanho8, tamanho8"
-							style="width:99.5%;">
-							<p:outputLabel value="ID da venda" />  
-							<p:outputLabel value="Prioridade"/>  
-							<p:outputLabel value="Período Próximo Contato" />
-							<p:outputLabel value="Período Inicio" />
-							<p:outputLabel value="Status"/>
- 
-							<p:inputText value="#{followUpCobrancaMB.idvenda}" style="width:50%;" title="ID da venda">
-								<p:ajax event="blur"/>
-							</p:inputText>
+							</p:selectOneMenu>   
 							<p:selectOneMenu id="situacaolead" style="width:160px;" 
 								value="#{followUpCobrancaMB.prioridade}">
 								<f:selectItem itemLabel="Selecione" itemValue="0" />
