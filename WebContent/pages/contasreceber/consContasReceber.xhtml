@@ -249,14 +249,14 @@
 					<p:column headerText="Nº Documento" style="width:75px;">
 						<p:outputLabel value="#{contasrecebe.numerodocumento}" />
 					</p:column>
-					<p:column headerText="ID Vendas" style="width:80px;"
+					<p:column headerText="ID Vendas" style="width:80px;"  
 						sortBy="#{contasrecebe.vendas.idvendas}">
 						<p:commandLink
 							action="#{contasReceberMB.produtoVendas(contasrecebe.vendas)}"
 							value="#{contasrecebe.vendas.idvendas}"
 							style="text-decoration:underline;" />
 					</p:column>
-					<p:column headerText="Cliente" styleClass="alinharCenter"
+					<p:column headerText="Cliente" styleClass="alinharCenter" style="width:155px;"
 						sortBy="#{contasrecebe.vendas.cliente.nome}">
 						<p:commandLink value="#{contasrecebe.vendas.cliente.nome}"
 							action="#{contasReceberMB.enderecoCliente(contasrecebe.vendas.cliente)}"
@@ -303,7 +303,7 @@
 							value="#{contasReceberMB.retornarTipoDocumento(contasrecebe)}"
 							title="#{contasReceberMB.titleTipoDocumento(contasrecebe)}" />
 					</p:column>
-					<p:column headerText="Data de Recebimento" style="width:110px;"
+					<p:column headerText="Data de Recebimento" style="width:95px;"
 						styleClass="alinharCenter">
 						<h:outputText value="#{contasrecebe.datapagamento}">
 							<f:convertDateTime pattern="dd/MM/yyyy"

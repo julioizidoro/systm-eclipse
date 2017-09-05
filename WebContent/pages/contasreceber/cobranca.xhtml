@@ -137,33 +137,30 @@
 			<p:dialog id="dialog_novo" header="Novo Historico"
 				widgetVar="historico" width="30%" class="dialog2"
 				style="background:#d0e9c6">
-				<p:outputLabel value="Contato" for="contato"
+				<h:panelGrid columns="2" style="margin-left:3%;width:95%;">
+					<p:outputLabel value="Contato" for="contato1" style="font-size: 11px" />
+					<p:outputLabel value="Data" for="data1" style="font-size: 11px" /> 
+					<p:inputText id="contato1" style="width:80%;"
+						value="#{cobrancaMB.historico.contato}" />
+					<p:calendar id="data1" size="16" value="#{cobrancaMB.historico.data}" locale="pt"
+						pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:calendar>  
+				</h:panelGrid>
+				<br></br>
+				<p:outputLabel value="Assunto" for="assunto1"
 					class="espacocobranca28" style="font-size: 11px" />
-				<p:outputLabel value="Data" for="data" class="espacocobranca37"
-					style="font-size: 11px" />
 				<br></br>
-				<p:inputText id="contato" size="34" maxlength="100"
-					class="espacocobranca28" value="#{cobrancaMB.historico.contato}" />
-				<p:calendar id="data" size="16" maxlength="100"
-					class="espacocampos6" value="#{cobrancaMB.historico.data}"
-					locale="pt" pattern="dd/MM/yyyy">
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</p:calendar>
-				<br></br>
-				<br></br>
-				<p:outputLabel value="Assunto" for="assunto"
-					class="espacocobranca28" style="font-size: 11px" />
-				<p:inputTextarea id="assunto" rows="4" cols="60"
+				<p:inputTextarea id="assunto1" rows="4" cols="60"
 					class="espacocobranca28" value="#{cobrancaMB.historico.assunto}" />
-				<br></br>
-				<br></br>
-				<p:commandButton value="Confirmar" icon="ui-icon-check"
-					actionListener="#{cobrancaMB.salvarHitorico()}"
-					style="margin-left: 25%" onclick="historico.hide();" update="@all" />
-				<p:commandButton value="Cancelar" icon="ui-icon-close"
-					class="espacocampos" onclick="historico.hide();"
-					update=":cobrancaform:dialog_novo" />
+				<br></br><br></br>
+				<div align="center">
+					<p:commandButton value="Confirmar" icon="ui-icon-check"
+						actionListener="#{cobrancaMB.salvarHitorico()}" onclick="historico.hide();" update="@all" />
+					<p:commandButton value="Cancelar" icon="ui-icon-close"
+						onclick="historico.hide();" style="margin-left:2%;"
+						update=":cobrancaform:dialog_novo" />
+				</div>
 			</p:dialog>
 		</h:form>
 		<h:form id="parcelasform">
@@ -230,33 +227,31 @@
 			<p:dialog id="dialog_editar" header="Editar Historico"
 				widgetVar="editarhistorico" width="30%" class="dialog2"
 				style="background:#d0e9c6">
-				<p:outputLabel value="Contato" for="contato"
-					class="espacocobranca28" style="font-size: 11px" />
-				<p:outputLabel value="Data" for="data" class="espacocobranca37"
-					style="font-size: 11px" />
-				<br></br>
-				<p:inputText id="contato" size="34" class="espacocobranca28"
-					value="#{cobrancaMB.historico.contato}" />
-				<p:calendar id="data" size="16" class="espacocampos6"
-					value="#{cobrancaMB.historico.data}" locale="pt"
-					pattern="dd/MM/yyyy">
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</p:calendar>  
-				<br></br>
+				<h:panelGrid columns="2" style="margin-left:3%;width:95%;">
+					<p:outputLabel value="Contato" for="contato" style="font-size: 11px" />
+					<p:outputLabel value="Data" for="data" style="font-size: 11px" /> 
+					<p:inputText id="contato" style="width:80%;"
+						value="#{cobrancaMB.historico.contato}" />
+					<p:calendar id="data" size="16" value="#{cobrancaMB.historico.data}" locale="pt"
+						pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:calendar>  
+				</h:panelGrid>
 				<br></br>
 				<p:outputLabel value="Assunto" for="assunto"
 					class="espacocobranca28" style="font-size: 11px" />
+				<br></br>
 				<p:inputTextarea id="assunto" rows="4" cols="60"
 					class="espacocobranca28" value="#{cobrancaMB.historico.assunto}" />
-				<br></br>
-				<br></br>
-				<p:commandButton value="Confirmar" icon="ui-icon-check"
-					actionListener="#{historicoCobrancaMB.salvarEdicao(cobrancaMB.historico)}"
-					class="espacocobranca28" onclick="editarhistorico.hide();"  update=":telacobranca:tabelacobranca"/>
-				<p:commandButton value="Cancelar" icon="ui-icon-close"  
-					class="espacocampos" onclick="editarhistorico.hide();"    
-					update=":editarcobrancaform:dialog_editar" />
+				<br></br><br></br>
+				<div align="center">
+					<p:commandButton value="Confirmar" icon="ui-icon-check"
+						actionListener="#{historicoCobrancaMB.salvarEdicao(cobrancaMB.historico)}"
+						onclick="editarhistorico.hide();"  update=":telacobranca:tabelacobranca"/>
+					<p:commandButton value="Cancelar" icon="ui-icon-close"  
+						onclick="editarhistorico.hide();" style="margin-left:2%;"
+						update=":editarcobrancaform:dialog_editar" />
+				</div>
 			</p:dialog>  
 		</h:form>
 	</ui:define>
