@@ -26,6 +26,7 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.IdiomaFacade; 
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
+import br.com.travelmate.facade.ProdutoOrcamentoIndiceFacade;
 import br.com.travelmate.managerBean.AplicacaoMB; 
 import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Fornecedor;
@@ -36,6 +37,7 @@ import br.com.travelmate.model.Idioma;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento;
+import br.com.travelmate.model.Produtosorcamentoindice;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
@@ -53,7 +55,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	private List<Cidadepaisproduto> listaTabelaCidade;
 	private List<Fornecedorcidade> listaFornecedorCidade;
 	private List<Idioma> listaIdioma;
-	private List<Produtosorcamento> listaProdutos;
+	private List<Produtosorcamentoindice> listaProdutos;
 	private List<Fornecedor> listaFornecedor;
 	private Paisproduto pais;
 	private Fornecedor fornecedor;
@@ -148,11 +150,13 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		this.listaIdioma = listaIdioma;
 	}
 
-	public List<Produtosorcamento> getListaProdutos() {
+	
+
+	public List<Produtosorcamentoindice> getListaProdutos() {
 		return listaProdutos;
 	}
 
-	public void setListaProdutos(List<Produtosorcamento> listaProdutos) {
+	public void setListaProdutos(List<Produtosorcamentoindice> listaProdutos) {
 		this.listaProdutos = listaProdutos;
 	}
 
@@ -301,11 +305,11 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	}
 
 	public void gerarListaProdutosOrcamento() {
-		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
-		listaProdutos = produtoOrcamentoFacade.listarProdutosOrcamentoSql(
-				"select p from Produtosorcamento p where p.tipoproduto='C' order by p.descricao");
+		ProdutoOrcamentoIndiceFacade produtoOrcamentoIndiceFacade = new ProdutoOrcamentoIndiceFacade();
+		listaProdutos = produtoOrcamentoIndiceFacade.listar(
+				"select p from Produtosorcamentoindice p order by p.descricao");
 		if (listaProdutos == null) {
-			listaProdutos = new ArrayList<Produtosorcamento>();
+			listaProdutos = new ArrayList<Produtosorcamentoindice>();
 		}
 	}
 
