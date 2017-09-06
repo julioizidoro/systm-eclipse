@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -84,7 +85,7 @@ public class Ocurso implements Serializable {
 	private Usuario usuario;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "ocurso")
 	private List<Ocursodesconto> ocursodescontoList;
-	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "ocurso")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ocurso", fetch=FetchType.EAGER)
 	private List<Ocrusoprodutos> OcrusoprodutosList;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "ocurso")
 	private List<Ocursoseguro> OcursoseguroList;

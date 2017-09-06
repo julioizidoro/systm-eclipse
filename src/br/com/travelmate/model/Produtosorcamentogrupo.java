@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +30,7 @@ public class Produtosorcamentogrupo implements Serializable {
     @ManyToOne(optional = false)
     private Produtosorcamentoindice produtosorcamentoindice;
     @JoinColumn(name = "produtosorcamento_idprodutosOrcamento", referencedColumnName = "idprodutosOrcamento")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Produtosorcamento produtosorcamento;
 
     public Produtosorcamentogrupo() {

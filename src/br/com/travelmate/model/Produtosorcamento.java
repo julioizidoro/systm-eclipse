@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -53,6 +54,8 @@ public class Produtosorcamento implements Serializable {
     private boolean pathway;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtosorcamento")
     private List<Produtoremessa> produtoremessaList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produtosorcamento")
+    private Produtosorcamentogrupo produtosorcamentogrupo;
     @Transient
     private boolean selecionado;
     @Column(name = "novo")
@@ -158,6 +161,14 @@ public class Produtosorcamento implements Serializable {
 
 	public void setNovo(boolean novo) {
 		this.novo = novo;
+	}
+
+	public Produtosorcamentogrupo getProdutosorcamentogrupo() {
+		return produtosorcamentogrupo;
+	}
+
+	public void setProdutosorcamentogrupo(Produtosorcamentogrupo produtosorcamentogrupo) {
+		this.produtosorcamentogrupo = produtosorcamentogrupo;
 	}
 
 	@Override
