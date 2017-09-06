@@ -68,6 +68,8 @@ public class Valorcoprodutos implements Serializable {
     private Integer ano;
     @Column(name = "datalimite")
     private boolean datalimite;
+    @Column(name = "tipovisto")
+    private String tipovisto;
     
 
     public Valorcoprodutos() {
@@ -195,6 +197,14 @@ public class Valorcoprodutos implements Serializable {
 
 	public void setDatalimite(boolean datalimite) {
 		this.datalimite = datalimite;
+	}
+
+	public String getTipovisto() {
+		return tipovisto;
+	}
+
+	public void setTipovisto(String tipovisto) {
+		this.tipovisto = tipovisto;
 	}
 
 	@Override

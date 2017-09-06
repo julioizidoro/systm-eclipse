@@ -169,6 +169,12 @@ public class GraficoMateRunnersMB implements Serializable {
 
 	public int getPontuacaoTituloMateRunners() {
 		if (listaPontos != null) {
+			if (listaPontos.get(0).getUsuario().getIdusuario()==16){
+				if (listaPontos.get(0).getPontos()>0){
+					int pontos = listaPontos.get(0).getPontos()/2;
+					return pontos;
+				}
+			}
 			return listaPontos.get(0).getPontos();
 		}
 		return 0;
