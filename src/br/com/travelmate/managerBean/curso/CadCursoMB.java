@@ -1478,13 +1478,13 @@ public class CadCursoMB implements Serializable {
 						if (enviarFicha) {
 							if (mes == mesVenda) {
 								dashBoardMB.getMetamensal()
-										.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-												- valorVendaAlterar + venda.getValor());
+										.setValoralcancado((dashBoardMB.getMetamensal().getValoralcancado()
+												- valorVendaAlterar) + venda.getValor());
 								dashBoardMB.getMetamensal()
 										.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
 												/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-								dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-										- valorVendaAlterar + venda.getValor());
+								dashBoardMB.getMetaAnual().setMetaalcancada((dashBoardMB.getMetaAnual().getMetaalcancada()
+										- valorVendaAlterar) + venda.getValor());
 								dashBoardMB.getMetaAnual()
 										.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
 												/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
@@ -2708,7 +2708,7 @@ public class CadCursoMB implements Serializable {
 			listarPlanosSeguro();
 			seguroplanos = seguroViagem.getValoresseguro().getSeguroplanos();
 			listarValoresSeguro();
-			valorVendaAlterar = valorVendaAlterar + seguroViagem.getVendas().getValor();
+			valorVendaAlterar = valorVendaAlterar + seguroViagem.getValorSeguro();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");

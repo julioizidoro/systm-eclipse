@@ -1131,8 +1131,8 @@ public class CadVoluntariadoMB implements Serializable {
 					if (enviarFicha) {
 						if (mes == mesVenda) {
 							dashBoardMB.getMetamensal()
-									.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-											- valorVendaAlterar + venda.getValor());
+									.setValoralcancado((dashBoardMB.getMetamensal().getValoralcancado()
+											- valorVendaAlterar) + venda.getValor());
 							dashBoardMB.getMetamensal()
 									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
 											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
@@ -1654,7 +1654,7 @@ public class CadVoluntariadoMB implements Serializable {
 			listarPlanosSeguro();
 			seguroplanos = seguroViagem.getValoresseguro().getSeguroplanos();
 			listarValoresSeguro();
-			valorVendaAlterar = valorVendaAlterar + seguroViagem.getVendas().getValor();
+			valorVendaAlterar = valorVendaAlterar + seguroViagem.getValorSeguro();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");

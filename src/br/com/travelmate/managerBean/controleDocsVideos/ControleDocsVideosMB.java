@@ -37,6 +37,7 @@ import br.com.travelmate.model.Fornecedordocs;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
+import br.com.travelmate.util.Mensagem;
 
 
 
@@ -453,7 +454,6 @@ public class ControleDocsVideosMB implements Serializable{
 	public String excluir() {
 		for (int i = 0; i < listaArquivo.size(); i++) {
 			if (listaArquivo.get(i).isSelecionado()) {
-				excluirArquivoFTP(listaArquivo.get(i).getNomeftp(), "/cloud/departamentos/");
 				if (listaArquivo.get(i).getTipoArquivo().equalsIgnoreCase("arquivo1")) {
 					excluirArquivo1(listaArquivo.get(i));
 				}else if(listaArquivo.get(i).getTipoArquivo().equalsIgnoreCase("arquivo2")){
@@ -466,13 +466,14 @@ public class ControleDocsVideosMB implements Serializable{
 					excluirArquivo5(listaArquivo.get(i));
 				}
 			}
-			listaArquivo = new ArrayList<>();
-			gerarListaArquivo1();
-			gerarListaArquivo2();
-			gerarListaArquivo3();
-			gerarListaArquivo4();
-			gerarListaArquivo5();
 		}
+		listaArquivo = new ArrayList<>();
+		gerarListaArquivo1();
+		gerarListaArquivo2();
+		gerarListaArquivo3();
+		gerarListaArquivo4();
+		gerarListaArquivo5();
+		Mensagem.lancarMensagemInfo("Excluido com Sucesso", "");
 		return "";
 	}
 	
@@ -515,7 +516,7 @@ public class ControleDocsVideosMB implements Serializable{
 		if (dadosFTP == null) {
 			return false;
 		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		Ftp ftp = new Ftp(dadosFTP.getHost(), dadosFTP.getUser(), dadosFTP.getPassword());
 		try {
 			if (!ftp.conectar()) {
 				mostrarMensagem(null, "Erro conectar FTP", "");
@@ -554,17 +555,14 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void excluirArquivoFornecedor(){
 		FornecedorCidadeDocsFacade fornecedorCidadeDocsFacade = new FornecedorCidadeDocsFacade();
-		FornecedorDocsFacade fornecedorDocsFacade = new FornecedorDocsFacade();
 		for (int i = 0; i < listaFornecedorCidadeDocs.size(); i++) {
 			if (listaFornecedorCidadeDocs.get(i).isSelecionado()) {
-				Fornecedordocs fornecedordocs = listaFornecedorCidadeDocs.get(i).getFornecedordocs();
 				fornecedorCidadeDocsFacade.excluir(listaFornecedorCidadeDocs.get(i).getIdfornecedorcidadedocs());
-				fornecedorDocsFacade.excluir(fornecedordocs.getIdfornecedordocs());
-				listaFornecedorCidadeDocs.remove(listaFornecedorCidadeDocs.get(i));
 			}
 		}
 		listaFornecedorCidadeDocs = new ArrayList<>();
 		gerarListaDocsFornecedorCidade();
+		Mensagem.lancarMensagemInfo("Excluido com Sucesso", "");
 	}
 	
 	
@@ -579,13 +577,6 @@ public class ControleDocsVideosMB implements Serializable{
 		for (int i = 0; i < listaFornecedorCidadeDocs.size(); i++) {
 			listaFornecedorCidadeDocs.get(i).setSelecionado(todosdocumentosfornecedor);
 		}
-	}
-	
-	
-	public void selecionarDocumento(ArquivoDocsBean arquivo){
-		listaArquivo.remove(arquivo);
-		arquivo.setSelecionado(true);
-		listaArquivo.add(arquivo);
 	}
 	
 

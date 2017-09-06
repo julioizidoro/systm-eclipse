@@ -24,7 +24,7 @@
 					            			<p:ajax update="idTabelaArquivos" listener="#{controleDocsVideosMB.selecionarTodosVencidos()}" />
 					        			</p:selectBooleanCheckbox>
 					        			<p:commandLink 
-											update="idTabelaArquivos" action="#{controleDocsVideosMB.excluir()}" title="Excluir">
+											update="idTabelaArquivos, :consultaDocumentosFornecedor:growl" action="#{controleDocsVideosMB.excluir()}" title="Excluir">
 											<img src="../../resources/img/excluir.png"  />
 										</p:commandLink>
 									</h:panelGrid>
@@ -72,7 +72,6 @@
 									<p:column headerText="" style="font-size:12px; text-align:right; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}"
 										styleClass="alinharCenter">
 										<p:selectBooleanCheckbox value="#{arquivo.selecionado}">
-											<p:ajax event="change" listener="#{controleDocsVideosMB.selecionarDocumento(arquivo)}"/>
 										</p:selectBooleanCheckbox>
 									</p:column>
 								</p:dataTable>
@@ -86,7 +85,7 @@
 						            			<p:ajax update="idTabelaArquivosFornecedor" listener="#{controleDocsVideosMB.selecionarTodosVencidosFornecedor()}" />
 						        			</p:selectBooleanCheckbox>
 						        			<p:commandLink 
-												update="idTabelaArquivosFornecedor" action="#{controleDocsVideosMB.excluirArquivoFornecedor()}" title="Excluir">
+												update="idTabelaArquivosFornecedor, :consultaDocumentosFornecedor:growl" action="#{controleDocsVideosMB.excluirArquivoFornecedor()}" title="Excluir">
 												<img src="../../resources/img/excluir.png"  />
 											</p:commandLink>
 										</h:panelGrid>

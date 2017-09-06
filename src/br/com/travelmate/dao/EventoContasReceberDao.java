@@ -24,9 +24,10 @@ public class EventoContasReceberDao {
 	public Eventocontasreceber salvar(Eventocontasreceber evento) throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getConnection();
-		manager.getTransaction().begin();
+        EntityTransaction tx = manager.getTransaction();
+		tx.begin();
         evento = manager.merge(evento);
-        manager.getTransaction().commit();
+        tx.commit();
         manager.close();
         return evento;
     }
