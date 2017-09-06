@@ -1,12 +1,12 @@
 package br.com.travelmate.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.EntityManager; 
 import javax.persistence.Query;
 
-import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.connection.ConectionFactory; 
 import br.com.travelmate.model.Departamentoproduto;
 
 public class DepartamentoProdutoDao {
@@ -21,6 +21,13 @@ public class DepartamentoProdutoDao {
          }
          manager.close();
          return departamentoproduto;
+     }
+	
+	public List<Departamentoproduto> listar(int iddepartamento) throws SQLException {
+		 EntityManager manager  = ConectionFactory.getInstance();
+         Query q = manager.createQuery("select d from Departamentoproduto d where d.departamento.iddepartamento=" + iddepartamento);
+         List<Departamentoproduto> lista = q.getResultList();
+         return lista;    
      }
 
 }

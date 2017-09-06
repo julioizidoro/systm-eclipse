@@ -150,8 +150,8 @@ public class CadProdutoOrcamentoGrupoMB implements Serializable {
 		}
 		if (produtosorcamentoindice != null) {
 			listaProdutosOrcamentoGrupo = prOrcamentoGrupoFacade
-					.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idProdutosorcamentoindice="
-							+ produtosorcamentoindice.getIdProdutosorcamentoindice());
+					.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idprodutosorcamentoindice="
+							+ produtosorcamentoindice.getIdprodutosorcamentoindice());
 
 			if (listaProdutosOrcamentoGrupo == null) {
 				listaProdutosOrcamentoGrupo = new ArrayList<>();
@@ -216,7 +216,7 @@ public class CadProdutoOrcamentoGrupoMB implements Serializable {
 		if (produtosorcamentoindice != null) {
 			listaProdutosOrcamentoGrupo = prOrcamentoGrupoFacade
 					.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idProdutosorcamentoindice="
-							+ produtosorcamentoindice.getIdProdutosorcamentoindice());
+							+ produtosorcamentoindice.getIdprodutosorcamentoindice());
 
 			if (listaProdutosOrcamentoGrupo == null) {
 				listaProdutosOrcamentoGrupo = new ArrayList<>();

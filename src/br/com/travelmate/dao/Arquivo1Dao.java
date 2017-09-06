@@ -24,7 +24,7 @@ public class Arquivo1Dao {
     }
     
     public List<Arquivo1> listar(String sql)throws SQLException{
-    	EntityManager manager;
+    		EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Arquivo1> lista = q.getResultList();

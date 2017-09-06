@@ -62,36 +62,46 @@
 
             <p:radioButton id="opt3" for="tipodata" itemIndex="3" class="espacocobranca28"/>
             <h:outputLabel for="opt3" value="Data Suplemento" class="espacocobranca29"/>
-            <br></br><br></br>
-            
-            <p:outputLabel value="Período" for="datainicio" class="espacocobranca11"/>
-            <p:outputLabel value="Nº Semanas" for="nsemanasinicial" class="espacocobranca21"/>
-            <p:outputLabel value="Até" for="nsemanasfinal" style="margin-left: 9%"/>
-            <br></br>
-            <p:inputMask id="datainicio"  value="#{cadValorCoProdutosMB.valorcoprodutos.datainicial}" size="10" mask="99/99/9999"  maxlength="15" class="espacocobranca11" >
-                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-            </p:inputMask>
-            <p:inputMask id="datafinal" size="10" value="#{cadValorCoProdutosMB.valorcoprodutos.datafinal}" mask="99/99/9999"  maxlength="15" style="margin-left: 7%" >
-                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-            </p:inputMask>
-            
-            <p:inputText value="#{cadValorCoProdutosMB.valorcoprodutos.numerosemanainicial}" id="nsemanasinicial" style="width:11%;margin-left: 10%"  title="Nº de Semanas inícial"/>
-            <p:inputText value="#{cadValorCoProdutosMB.valorcoprodutos.numerosemanafinal}" id="nsemanasfinal" style="width:11%;" class="espacocobranca24"  title="Nº de Semanas final"/>
-            <br></br><br></br><br></br>
-            
-            <p:outputLabel value="Valor" for="valorOriginal" class="espacocobranca11"/> 
-            <br></br>
-            <p:inputText id="valorOriginal" value="#{cadValorCoProdutosMB.valorcoprodutos.valororiginal}" style="width:13.2%; text-align: right;" class="espacocobranca11" >
-                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-            </p:inputText> 
-            <p:selectBooleanCheckbox value="#{cadValorCoProdutosMB.valorcoprodutos.datalimite}"  class="espacopreto" id="datalimite" style="margin-left:5%" />
-            <p:outputLabel value="Respeitar data límite" for="datalimite" style="margin-left:1%"/>
-             
-            <br></br><br></br><br></br>
-            <p class="botaocadpacote"><br></br>
-                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{cadValorCoProdutosMB.salvar()}"></p:commandButton>
-                <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{cadValorCoProdutosMB.cancelar()}"></p:commandButton>
-            <br></br><br></br></p>
+            <br></br> 
+            <h:panelGrid columns="3" style="margin-left:10%;width:80%;">
+	            <p:outputLabel value="Período" for="datainicio"  /> 
+	            <p:outputLabel value="Nº Semanas" for="nsemanasinicial" />
+	            <p:outputLabel value="Até" for="nsemanasfinal" />
+	            
+	            <h:panelGroup>
+	            <p:inputMask id="datainicio"  value="#{cadValorCoProdutosMB.valorcoprodutos.datainicial}" size="10" mask="99/99/9999"  maxlength="15" >
+	                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	            </p:inputMask>
+	            <p:inputMask id="datafinal" size="10" value="#{cadValorCoProdutosMB.valorcoprodutos.datafinal}" 
+	            			mask="99/99/9999"  maxlength="15" style="margin-left:3%;">
+	                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	            </p:inputMask> </h:panelGroup>    
+	            <p:inputText value="#{cadValorCoProdutosMB.valorcoprodutos.numerosemanainicial}" id="nsemanasinicial" style="width:80%;"  title="Nº de Semanas inícial"/>
+	            <p:inputText value="#{cadValorCoProdutosMB.valorcoprodutos.numerosemanafinal}" id="nsemanasfinal" style="width:80%;" title="Nº de Semanas final"/>
+            </h:panelGrid>
+            <br></br>    
+            <h:panelGrid columns="3" style="margin-left:10%;width:80%;">
+	            <p:outputLabel value="Valor" for="valorOriginal" /> 
+	            <p:outputLabel value="Tipo Visto" /> 
+	            <p:outputLabel/>
+	            
+	            <p:inputText id="valorOriginal" value="#{cadValorCoProdutosMB.valorcoprodutos.valororiginal}" style="width:80%; text-align: right;">
+	                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	            </p:inputText> 
+	             <p:selectOneMenu id="visto" value="#{cadValorCoProdutosMB.valorcoprodutos.tipovisto}" style="width:75%;font-size: 10px;"  >
+	                <f:selectItem itemLabel="Turismo" itemValue="Turismo"/>     
+	                <f:selectItem itemLabel="Estudante" itemValue="Estudante"/> 
+	            </p:selectOneMenu>
+	            <h:panelGroup>
+		            <p:selectBooleanCheckbox value="#{cadValorCoProdutosMB.valorcoprodutos.datalimite}" id="datalimite" />
+		            <p:outputLabel value="Respeitar data límite" for="datalimite" style="margin-left:1%"/>
+		        </h:panelGroup>
+             </h:panelGrid>
+            <br></br><br></br> 
+            <div align="center">
+                <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cadValorCoProdutosMB.salvar()}"/>
+                <p:commandButton icon="ui-icon-close" value="Cancelar" action="#{cadValorCoProdutosMB.cancelar()}" style="margin-left:3%;"/>
+            </div>
         </h:form>     
     </h:body>
 </html>

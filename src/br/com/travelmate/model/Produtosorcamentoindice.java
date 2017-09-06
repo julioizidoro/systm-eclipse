@@ -27,7 +27,7 @@ public class Produtosorcamentoindice implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)   
     @Column(name = "idprodutosorcamentoindice")
-    private Integer idProdutosorcamentoindice;
+    private Integer idprodutosorcamentoindice;
     @Size(max = 100)
     @Column(name = "descricao")
     private String descricao;
@@ -35,21 +35,18 @@ public class Produtosorcamentoindice implements Serializable {
     private List<Produtosorcamentogrupo> produtosorcamentogrupoList;
 
     public Produtosorcamentoindice() {
-    }
+    	
+    } 
+    
+    public Integer getIdprodutosorcamentoindice() {
+		return idprodutosorcamentoindice;
+	} 
 
-    public Produtosorcamentoindice(Integer idProdutosorcamentoindice) {
-        this.idProdutosorcamentoindice = idProdutosorcamentoindice;
-    }
+	public void setIdprodutosorcamentoindice(Integer idprodutosorcamentoindice) {
+		this.idprodutosorcamentoindice = idprodutosorcamentoindice;
+	} 
 
-    public Integer getIdProdutosorcamentoindice() {
-        return idProdutosorcamentoindice;
-    }
-
-    public void setIdProdutosorcamentoindice(Integer idProdutosorcamentoindice) {
-        this.idProdutosorcamentoindice = idProdutosorcamentoindice;
-    }
-
-    public String getDescricao() {
+	public String getDescricao() {
         return descricao;
     }
 
@@ -57,10 +54,18 @@ public class Produtosorcamentoindice implements Serializable {
         this.descricao = descricao;
     }
 
+	public List<Produtosorcamentogrupo> getProdutosorcamentogrupoList() {
+		return produtosorcamentogrupoList;
+	}
+
+	public void setProdutosorcamentogrupoList(List<Produtosorcamentogrupo> produtosorcamentogrupoList) {
+		this.produtosorcamentogrupoList = produtosorcamentogrupoList;
+	}  
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idProdutosorcamentoindice != null ? idProdutosorcamentoindice.hashCode() : 0);
+        hash += (idprodutosorcamentoindice != null ? idprodutosorcamentoindice.hashCode() : 0);
         return hash;
     }
 
@@ -70,7 +75,7 @@ public class Produtosorcamentoindice implements Serializable {
             return false;
         }
         Produtosorcamentoindice other = (Produtosorcamentoindice) object;
-        if ((this.idProdutosorcamentoindice == null && other.idProdutosorcamentoindice != null) || (this.idProdutosorcamentoindice != null && !this.idProdutosorcamentoindice.equals(other.idProdutosorcamentoindice))) {
+        if ((this.idprodutosorcamentoindice == null && other.idprodutosorcamentoindice != null) || (this.idprodutosorcamentoindice != null && !this.idprodutosorcamentoindice.equals(other.idprodutosorcamentoindice))) {
             return false;
         }
         return true;
@@ -78,17 +83,8 @@ public class Produtosorcamentoindice implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.travelmate.model.Produtosorcamentoindice[ idProdutosorcamentoindice=" + idProdutosorcamentoindice + " ]";
+        return "br.com.travelmate.model.Produtosorcamentoindice[ idprodutosorcamentoindice=" + idprodutosorcamentoindice + " ]";
     }
 
-	public List<Produtosorcamentogrupo> getProdutosorcamentogrupoList() {
-		return produtosorcamentogrupoList;
-	}
-
-	public void setProdutosorcamentogrupoList(List<Produtosorcamentogrupo> produtosorcamentogrupoList) {
-		this.produtosorcamentogrupoList = produtosorcamentogrupoList;
-	}
-    
-    
 }
 

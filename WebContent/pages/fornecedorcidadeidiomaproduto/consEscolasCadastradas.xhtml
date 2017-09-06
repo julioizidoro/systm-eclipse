@@ -14,36 +14,50 @@
 				<legend id="iUsu2">
 					<b>Parceiros Cadastrados</b>
 				</legend>         
-				<h:panelGrid columns="1" style="width:30%;margin-left:1%;">
+				<h:panelGrid columns="2" style="width:40%;margin-left:1%;" columnClasses="tamanhonotificacao2, tamanhonotificacao2">
+					<p:outputLabel value="Departamento" for="departamento" style="font-size:14px;color:#495B6C;" />
 					<p:outputLabel value="Produto" for="produto" style="font-size:14px;color:#495B6C;" />
-					<p:selectOneMenu id="produto"
+					
+					<p:selectOneMenu id="departamento"
+						value="#{consultaFornecedoresCadastradosMB.departamento}"
+						style="width:80%;"       
+						converter="DepartamentoConverter" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+						<f:selectItems id="iddepartamento"
+							value="#{consultaFornecedoresCadastradosMB.listaDepartamento}" var="departamento"
+							itemLabel="#{departamento.nome}" itemValue="#{departamento}" />
+						<f:attribute name="listaDepartamento" value="#{consultaFornecedoresCadastradosMB.listaDepartamento}" />
+						<p:ajax event="change" listener="#{consultaFornecedoresCadastradosMB.gerarListasProdutos()}"
+							update=":consultaFornecedorCadastrado:produto"/>   
+					</p:selectOneMenu>
+					<p:selectOneMenu id="produto" disabled="#{consultaFornecedoresCadastradosMB.habilitarProduto()}"
 						value="#{consultaFornecedoresCadastradosMB.produtos}"
-						style="width:65%;"
-						converter="ProdutoConverter" filter="true" filterMatchMode="startsWith">
+						style="width:80%;"
+						converter="DepartamentoProdutoConverter" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
 						<f:selectItems id="idproduto"
 							value="#{consultaFornecedoresCadastradosMB.listaProgramas}" var="produtoSelecionado"
-							itemLabel="#{produtoSelecionado.descricao}" itemValue="#{produtoSelecionado}" />
-						<f:attribute name="listaProdutos" value="#{consultaFornecedoresCadastradosMB.listaProgramas}" />
+							itemLabel="#{produtoSelecionado.produtos.descricao}" itemValue="#{produtoSelecionado}" />
+						<f:attribute name="listaDepartamentoProduto" value="#{consultaFornecedoresCadastradosMB.listaProgramas}" />
 						<p:ajax event="change" listener="#{consultaFornecedoresCadastradosMB.habilitarCampos()}"
 							update=":consultaFornecedorCadastrado:painelDados"/>
 					</p:selectOneMenu>
 				</h:panelGrid>    
 				<hr  style="width:98.7%;margin-left:1%;color:#ccc9;border-top-color: #cc;border-bottom-color: #c;"></hr>
 				<br></br>
-				<h:panelGrid columns="4" id="painelDados"
-					columnClasses="tamanho7,tamanho7,tamanho8,tamanho8"  
+				<h:panelGrid columns="#{consultaFornecedoresCadastradosMB.mostrarProdutos()}" id="painelDados"
+					columnClasses="tamanho7,tamanho7,tamanho7"     
 					style="width:93%;margin-left:1%;">
 					<p:outputLabel value="País" for="pais" style="font-size:11px;" />
 					<p:outputLabel value="Cidade" for="cidade" style="font-size:11px;" />
 					<h:panelGroup>
-						<p:outputLabel value="Parceiros" for="escolas"
-							style="font-size:11px;" />
+						<p:outputLabel value="Parceiros" for="escolas"     
+							style="font-size:11px;" />    
 						<p:outputLabel value="Nº de Estrelas"
-							style="font-size:11px;margin-left:28%;" />
+							style="font-size:11px;margin-left:28%;" />  
 					</h:panelGroup>
 					<p:outputLabel value="Produtos" for="produtos"
-						style="font-size:11px;" />
+						style="font-size:11px;" rendered="#{consultaFornecedoresCadastradosMB.mostrarProduto()}"/>
 					<h:panelGroup>
 						<p:selectOneMenu id="pais" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
 							value="#{consultaFornecedoresCadastradosMB.pais}"
@@ -115,21 +129,22 @@
 							<p:ajax event="change"
 								listener="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidade()}"
 								update="growl, idTabelaPais, pais,cidade, idTabelaCidade,produtos, idTabelaProdutos, idTabelaEscola, painelescolas" />
-						</p:selectOneMenu>
+						</p:selectOneMenu> 
 					</h:panelGroup>
-					<h:panelGroup>
+					<h:panelGroup rendered="#{consultaFornecedoresCadastradosMB.mostrarProduto()}">
 						<p:selectOneMenu id="produtos" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
-							value="#{consultaFornecedoresCadastradosMB.produtosorcamento}"
+							value="#{consultaFornecedoresCadastradosMB.produtosorcamentoindice}"
 							style="width:210px;font-size:11px;" class="espacocampos2"
-							converter="OrcamentoProdutoConverter" filter="true"
-							filterMatchMode="startsWith" panelStyle="width:210px">
+							converter="ProdutoOrcamentoIndiceConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:210px"
+							 >
 							<f:selectItem itemLabel="Selecione" itemValue="0"
 								noSelectionOption="true" />
 							<f:selectItems id="idprodutos"
 								value="#{consultaFornecedoresCadastradosMB.listaProdutos}"
-								var="produtoOrcamento" itemLabel="#{produtoOrcamento.descricao}"
-								itemValue="#{produtoOrcamento}" />
-							<f:attribute name="listaProdutosOrcamento"
+								var="indice" itemLabel="#{indice.descricao}"
+								itemValue="#{indice}" />
+							<f:attribute name="listaProdutos"
 								value="#{consultaFornecedoresCadastradosMB.listaProdutos}" /> 
 							<p:ajax event="change"
 								listener="#{consultaFornecedoresCadastradosMB.gerarListaPaisProduto()}"
@@ -149,7 +164,10 @@
 							update="consultaFornecedorCadastrado:idTabelaCidade, consultaFornecedorCadastrado:growl, consultaFornecedorCadastrado:cidade" />
 						<p:column headerText="Pais" style="width:120px;"
 							styleClass="alinharCenter">
-							<p:outputLabel value="#{pais.pais.nome}" />
+							<p:commandLink value="#{pais.pais.nome}" 
+								actionListener="#{consultaFornecedoresCadastradosMB.selecionarPais(pais)}"
+								action="#{consultaFornecedoresCadastradosMB.gerarListaCidade()}"
+								update="consultaFornecedorCadastrado:idTabelaCidade, consultaFornecedorCadastrado:growl, consultaFornecedorCadastrado:cidade" />
 						</p:column>
 						<p:column style="width:43px;">
 							<p:commandLink id="btnPais"
@@ -182,7 +200,10 @@
 							update="consultaFornecedorCadastrado:idTabelaEscola,consultaFornecedorCadastrado:idTabelaProdutos, consultaFornecedorCadastrado:growl" />
 						<p:column headerText="Cidade" style="width:150px;"
 							styleClass="alinharCenter">
-							<p:outputLabel value="#{cidade.cidade.nome}" />
+							<p:commandLink value="#{cidade.cidade.nome}" 
+								actionListener="#{consultaFornecedoresCadastradosMB.selecionarCidade(cidade)}"
+								action="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidade()}"
+								update="consultaFornecedorCadastrado:idTabelaEscola,consultaFornecedorCadastrado:idTabelaProdutos, consultaFornecedorCadastrado:growl" />
 						</p:column>
 					</p:dataTable>
 					<p:dataTable id="idTabelaEscola" var="escolas" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
@@ -196,7 +217,10 @@
 							listener="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidadeIdiomaProduto()}"
 							update="consultaFornecedorCadastrado:idTabelaProdutos, consultaFornecedorCadastrado:growl" />
 						<p:column headerText="Parceiro" style="width:150px;">
-							<p:outputLabel value="#{escolas.fornecedor.nome}" />
+							<p:commandLink value="#{escolas.fornecedor.nome}" 
+								actionListener="#{consultaFornecedoresCadastradosMB.selecionarFornecedorCidade(escolas)}"
+								action="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidadeIdiomaProduto()}"
+								update="consultaFornecedorCadastrado:idTabelaProdutos, consultaFornecedorCadastrado:growl" />
 						</p:column>
 						<p:column headerText="Categoria"
 							style="text-align:center;width:140px">
@@ -241,10 +265,11 @@
 					<p:dataTable id="idTabelaProdutos" var="produtos" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"
 						value="#{consultaFornecedoresCadastradosMB.listaTabelaProduto}"
 						scrollable="true" scrollHeight="230"
+						 rendered="#{consultaFornecedoresCadastradosMB.mostrarProduto()}"
 						style="margin-bottom:20px;margin-top:11px;">
 						<p:column headerText="Produtos" style="width:180px;"
 							styleClass="alinharCenter">
-							<p:outputLabel value="#{produtos.produtosorcamento.descricao}" />
+							<p:commandLink value="#{produtos.produtosorcamento.descricao}" />
 						</p:column>
 					</p:dataTable>
 				</h:panelGrid>
