@@ -220,7 +220,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 			String sql = null;
 			String data = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-				data = Formatacao.SubtarirDatas(new Date(), 15, "yyyy-MM-dd");
+				data = Formatacao.SubtarirDatas(new Date(), 7, "yyyy-MM-dd");
 			}
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = "Select o from Ocurso o where  o.dataorcamento>='" + data
