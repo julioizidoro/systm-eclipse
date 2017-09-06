@@ -25,6 +25,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -32,7 +33,8 @@ import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
@@ -56,6 +58,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private List<Seguroviagem> listaSeguro;
 	private Seguroviagem seguroViagem;
 	private String nomeCliente;
@@ -228,6 +232,13 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			sql = sql + " and s.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " and s.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		sql = sql + " and s.vendas.dataVenda>='" + dataConsulta
 				+ "' order by s.vendas.idvendas desc, s.vendas.dataVenda desc";
@@ -277,6 +288,13 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		} else {
 			sql = sql + " and s.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " and s.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		if (idVenda > 0) {
 			sql = sql + " and s.vendas.idvendas=" + idVenda;

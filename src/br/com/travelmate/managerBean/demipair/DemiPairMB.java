@@ -28,14 +28,16 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controledemipair; 
 import br.com.travelmate.model.Demipair;
@@ -62,6 +64,8 @@ public class DemiPairMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private List<Demipair> listaDemipair;
 	private String numeroFichas;
 	private String obsTM;
@@ -428,6 +432,13 @@ public class DemiPairMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql + " d.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() +" and";
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " d.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario()+" and ";
+				}
+			}
 		}
 		sql = sql + " d.vendas.dataVenda>='" + dataConsulta + "' order by d.vendas.dataVenda desc";
 		DemipairFacade demipairFacade = new DemipairFacade();
@@ -462,6 +473,13 @@ public class DemiPairMB implements Serializable {
 		} else {
 			sql = sql + " and d.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " and d.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 
 		if ((dataInicio != null) && (dataTermino != null)) {

@@ -28,6 +28,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
@@ -36,6 +37,7 @@ import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Formapagamento;
@@ -62,6 +64,8 @@ public class WorkTravelMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private List<Worktravel> listaWork;
 	private String numeroFichas;
 	private String obsTM;
@@ -441,6 +445,13 @@ public class WorkTravelMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql + " and w.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " and w.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		sql = sql + " and w.vendas.dataVenda>='" + dataConsulta + "' order by w.dataInscricao desc";
 		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
@@ -471,6 +482,13 @@ public class WorkTravelMB implements Serializable {
 		} else {
 			sql = sql + " and w.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " and w.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		if (idVenda > 0) {
 			sql = sql + " and w.vendas.idvendas=" + idVenda;

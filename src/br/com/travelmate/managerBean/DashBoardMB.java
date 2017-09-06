@@ -15,12 +15,14 @@ import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.MetasFaturamentoBean;
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
 import br.com.travelmate.facade.VersaoUsuarioFacade;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
@@ -44,6 +46,8 @@ public class DashBoardMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private String valorFaturamento;
 	private float metaparcialsemana;
 	private float percsemana;
@@ -478,4 +482,23 @@ public class DashBoardMB implements Serializable {
 		usuarioLogadoMB.getUsuario().setFecharaniversario(true);
 	}
 	
+	public boolean mostrarDadosUnidade() {
+		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				+usuarioLogadoMB.getUsuario().getIdusuario());
+		if(acessounidade!=null) {
+			if(acessounidade.isDashboard()) {
+				return true;
+			}else return false;
+		}else return true;
+	}
+	
+	public boolean privarDadosUnidade() {
+		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				+usuarioLogadoMB.getUsuario().getIdusuario());
+		if(acessounidade!=null) {
+			if(acessounidade.isDashboard()) {
+				return false;
+			}else return true;
+		}else return true;
+	}
 }

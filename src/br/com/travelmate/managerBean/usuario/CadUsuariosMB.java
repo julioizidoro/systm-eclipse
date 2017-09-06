@@ -9,13 +9,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.GrupoAcessoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Grupoacesso;
 import br.com.travelmate.model.Unidadenegocio;
@@ -32,6 +35,8 @@ public class CadUsuariosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private Usuario usuario;
 	private String situacao;
 	private List<Unidadenegocio> listaUnidade;
@@ -217,6 +222,18 @@ public class CadUsuariosMB implements Serializable {
 					Unidadenegocio unidadenegocio = usuario.getUnidadenegocio();
 					unidadenegocio.setResponsavelcrm(usuario.getIdusuario());
 					unidadeNegocioFacade.salvar(unidadenegocio);
+				}
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuario.getIdusuario());
+				if(acessounidade==null) {
+					acessounidade = new Acessounidade();
+					acessounidade.setComissaoparceiros(true);
+					acessounidade.setConsultaorcamento(true);
+					acessounidade.setCrm(true);
+					acessounidade.setDashboard(true);
+					acessounidade.setEmissaoconsulta(true); 
+					acessounidade.setUsuario(usuario);
+					acessounidade = acessoUnidadeDao.salvar(acessounidade);
 				}
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 

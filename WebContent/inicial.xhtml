@@ -401,10 +401,12 @@
 								<span class="menu-hover"></span>
 							</p:commandLink>
 							<ul class="submenu">
-								<li><p:commandLink
+								<h:panelGroup rendered="#{menuMB.mostrarComissaoParceiros()}">
+									<li><p:commandLink 
 										action="#{menuMB.relatoriosComissaoParceiros()}">   
 										<span class="submenu-label">Comissão Parceiros Cursos</span>
 									</p:commandLink></li>
+								</h:panelGroup>
 								<li><p:commandLink action="#{menuMB.escolas()}">
 										<span class="submenu-label">Destinos</span>
 									</p:commandLink></li>
@@ -709,9 +711,15 @@
 								<span class="menu-hover"></span>       
 							</p:commandLink>
 							<ul class="submenu">
-								<h:panelGroup rendered="false">
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
 									<li><p:commandLink
-											action="#{menuMB.consLancamentoCartao()}" rendered="false">
+											action="#{menuMB.consAcessoUnidade()}">
+											<span class="submenu-label">Acessos</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+									<li><p:commandLink
+											action="#{menuMB.consLancamentoCartao()}">
 											<span class="submenu-label">Cartão de Crédito</span>
 										</p:commandLink></li> 
 								</h:panelGroup>
@@ -1527,51 +1535,100 @@
 											</p:commandLink>
 										</div>
 										<br></br> <br></br> <br></br> <br></br> <br></br>
-										<div id="faturameento" class="col-lg-12"
-											style="background: #ffffff; border: 1px #495B6C; width: 332px;">
-											<p:outputLabel value="FATURAMENTO DO MÊS"
-												style="font-size:11px;margin-left:5%;margin-top:1.5%;" />
-											<br />
-											<div style="width: 100%;">
-												<div class="col-lg-10" style="margin-left: -5%">
-													<p:outputLabel value=" R$ "
-														style="font-size:29px;margin-left:1%" />
-													<p:outputLabel value="#{dashBoardMB.valorFaturamento}"
-														style="font-size:29px;margin-left:2%" />
+										<h:panelGroup rendered="#{dashBoardMB.mostrarDadosUnidade()}">
+											<div id="faturameento" class="col-lg-12"
+												style="background: #ffffff; border: 1px #495B6C; width: 332px;">
+												<p:outputLabel value="FATURAMENTO DO MÊS"
+													style="font-size:11px;margin-left:5%;margin-top:1.5%;" />
+												<br />
+												<div style="width: 100%;">
+													<div class="col-lg-10" style="margin-left: -5%">
+														<p:outputLabel value=" R$ "
+															style="font-size:29px;margin-left:1%" />
+														<p:outputLabel value="#{dashBoardMB.valorFaturamento}"
+															style="font-size:29px;margin-left:2%" />
+													</div>
+													<img src="resources/img/paginainicial/piggy-bank.png"
+														style="margin-top: -6%;" />
 												</div>
-												<img src="resources/img/paginainicial/piggy-bank.png"
-													style="margin-top: -6%;" />
 											</div>
-										</div>
-										<div id="nVendas" class="col-lg-12"
-											style="background: #ffffff; border: 1px #495B6C; width: 332px; margin-top: 3%; height: 83px;">
-											<div class="col-lg-12" style="background: #ffffff;">
-												<p:outputLabel value="Nº DE VENDAS DO MÊS"
-													style="font-size:11px;width:332px;" />
+											<div id="nVendas" class="col-lg-12"
+												style="background: #ffffff; border: 1px #495B6C; width: 332px; margin-top: 3%; height: 83px;">
+												<div class="col-lg-12" style="background: #ffffff;">
+													<p:outputLabel value="Nº DE VENDAS DO MÊS"
+														style="font-size:11px;width:332px;" />
+												</div>
+												<div class="col-lg-12"
+													style="background: #D7D8DC; margin-top: 2%; height: 18px; width: 332px; margin-left: -4.7%;">
+													<p:outputLabel value="INTERCÂMBIO"
+														style="font-size:11px;float:left;" />
+													<p:outputLabel
+														value="#{dashBoardMB.vendaproduto.intercambio}"
+														style="font-size:11px;float:right;" />
+												</div>
+												<div class="col-lg-12"
+													style="background: #ffffff; height: 18px; width: 332px; margin-left: -4.7%;">
+													<p:outputLabel value="TURISMO"
+														style="font-size:11px;float:left;" />
+													<p:outputLabel value="#{dashBoardMB.vendaproduto.turismo}"
+														style="font-size:11px;float:right;" />
+												</div>
+												<div class="col-lg-12"
+													style="background: #D7D8DC; height: 18px; width: 332px; margin-left: -4.7%;">
+													<p:outputLabel value="PRODUTO"
+														style="font-size:11px;float:left;" />
+													<p:outputLabel value="#{dashBoardMB.vendaproduto.produto}"
+														style="font-size:11px;float:right;" />
+												</div>
 											</div>
-											<div class="col-lg-12"
-												style="background: #D7D8DC; margin-top: 2%; height: 18px; width: 332px; margin-left: -4.7%;">
-												<p:outputLabel value="INTERCÂMBIO"
-													style="font-size:11px;float:left;" />
-												<p:outputLabel
-													value="#{dashBoardMB.vendaproduto.intercambio}"
-													style="font-size:11px;float:right;" />
+										</h:panelGroup>
+										<h:panelGroup rendered="#{dashBoardMB.privarDadosUnidade()}">
+											<div id="faturameento" class="col-lg-12"
+												style="background: #ffffff; border: 1px #495B6C; width: 332px;">
+												<p:outputLabel value="FATURAMENTO DO MÊS"
+													style="font-size:11px;margin-left:5%;margin-top:1.5%;" />
+												<br />
+												<div style="width: 100%;">
+													<div class="col-lg-10" style="margin-left: -5%">
+														<p:outputLabel value=" R$ "
+															style="font-size:29px;margin-left:1%" />
+														<p:outputLabel value="0,00"
+															style="font-size:29px;margin-left:2%" />
+													</div>
+													<img src="resources/img/paginainicial/piggy-bank.png"
+														style="margin-top: -6%;" />
+												</div>
 											</div>
-											<div class="col-lg-12"
-												style="background: #ffffff; height: 18px; width: 332px; margin-left: -4.7%;">
-												<p:outputLabel value="TURISMO"
-													style="font-size:11px;float:left;" />
-												<p:outputLabel value="#{dashBoardMB.vendaproduto.turismo}"
-													style="font-size:11px;float:right;" />
+											<div id="nVendas" class="col-lg-12"
+												style="background: #ffffff; border: 1px #495B6C; width: 332px; margin-top: 3%; height: 83px;">
+												<div class="col-lg-12" style="background: #ffffff;">
+													<p:outputLabel value="Nº DE VENDAS DO MÊS"
+														style="font-size:11px;width:332px;" />
+												</div>
+												<div class="col-lg-12"
+													style="background: #D7D8DC; margin-top: 2%; height: 18px; width: 332px; margin-left: -4.7%;">
+													<p:outputLabel value="INTERCÂMBIO"
+														style="font-size:11px;float:left;" />
+													<p:outputLabel
+														value="0"
+														style="font-size:11px;float:right;" />
+												</div>
+												<div class="col-lg-12"
+													style="background: #ffffff; height: 18px; width: 332px; margin-left: -4.7%;">
+													<p:outputLabel value="TURISMO"
+														style="font-size:11px;float:left;" />
+													<p:outputLabel value="0"
+														style="font-size:11px;float:right;" />
+												</div>
+												<div class="col-lg-12"
+													style="background: #D7D8DC; height: 18px; width: 332px; margin-left: -4.7%;">
+													<p:outputLabel value="PRODUTO"
+														style="font-size:11px;float:left;" />
+													<p:outputLabel value="0"
+														style="font-size:11px;float:right;" />
+												</div>
 											</div>
-											<div class="col-lg-12"
-												style="background: #D7D8DC; height: 18px; width: 332px; margin-left: -4.7%;">
-												<p:outputLabel value="PRODUTO"
-													style="font-size:11px;float:left;" />
-												<p:outputLabel value="#{dashBoardMB.vendaproduto.produto}"
-													style="font-size:11px;float:right;" />
-											</div>
-										</div>
+										</h:panelGroup>
 										<br></br> <br></br> <br></br>
 									</div>
 									<div id="followup" class="col-lg-2"
@@ -1623,61 +1680,120 @@
 									</div>
 									<p:outputLabel value="METAS"
 										style="font-size:20px;color:#4F4F4F;margin-left: 2%;" />
-									<div id="metas" class="col-lg-5"
-										style="background: #D7D8DC; height: 218px; margin-left: 2%;">
-										<div class="col-lg-12">
-											<p:outputLabel
-												value="META DO ANO | #{dashBoardMB.pegarAno()}"
-												style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
-										</div>
-										<div class="col-lg-12" style="margin-top: -1.2%;">
-											<p:outputLabel value="#{dashBoardMB.retornarMetaAno()}"
-												style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
-											<span class="badge badge-info" style="float: right;">#{dashBoardMB.retornarPercentualAno()}%</span>
-										</div>
-										<div class="col-lg-12">
-											<div class="progress progress-striped active"
-												style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-												<div class="progress-bar"
-													style="width: #{dashBoardMB.metaAnual.percentualalcancado}%"></div>
+									<h:panelGroup rendered="#{dashBoardMB.mostrarDadosUnidade()}">
+										<div id="metas" class="col-lg-5"
+											style="background: #D7D8DC; height: 218px; margin-left: 2%;">
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="META DO ANO | #{dashBoardMB.pegarAno()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<p:outputLabel value="#{dashBoardMB.retornarMetaAno()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+												<span class="badge badge-info" style="float: right;">#{dashBoardMB.retornarPercentualAno()}%</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width: #{dashBoardMB.metaAnual.percentualalcancado}%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="META DO MÊS  |  #{dashBoardMB.pegarMes()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<p:outputLabel value="#{dashBoardMB.retornarMetaMes()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+												<span class="badge badge-amarelo" style="float: right;">#{dashBoardMB.retornarPercentualMes()}%</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar progress-bar-warning"
+														style="width: #{dashBoardMB.metamensal.percentualalcancado}%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel value="META DA SEMANA"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<p:outputLabel value="#{dashBoardMB.retornarMetaSemana()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+												<span class="badge badge-vermelho" style="float: right;">#{dashBoardMB.retornarPercentualSemana()}%</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar progress-bar-danger"
+														style="width: #{dashBoardMB.percsemana}%"></div>
+												</div> 
 											</div>
 										</div>
-										<br />
-										<div class="col-lg-12">
-											<p:outputLabel
-												value="META DO MÊS  |  #{dashBoardMB.pegarMes()}"
-												style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-										</div>
-										<div class="col-lg-12" style="margin-top: -1.2%;">
-											<p:outputLabel value="#{dashBoardMB.retornarMetaMes()}"
-												style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
-											<span class="badge badge-amarelo" style="float: right;">#{dashBoardMB.retornarPercentualMes()}%</span>
-										</div>
-										<div class="col-lg-12">
-											<div class="progress progress-striped active"
-												style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-												<div class="progress-bar progress-bar-warning"
-													style="width: #{dashBoardMB.metamensal.percentualalcancado}%"></div>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{dashBoardMB.privarDadosUnidade()}">
+										<div id="metas" class="col-lg-5"
+											style="background: #D7D8DC; height: 218px; margin-left: 2%;">
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="META DO ANO | #{dashBoardMB.pegarAno()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<p:outputLabel value="0,00"
+													style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+												<span class="badge badge-info" style="float: right;">0%</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:0%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="META DO MÊS  |  #{dashBoardMB.pegarMes()}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<p:outputLabel value="0,00"
+													style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+												<span class="badge badge-amarelo" style="float: right;">0%</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar progress-bar-warning"
+														style="width:0%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel value="META DA SEMANA"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<p:outputLabel value="0,00"
+													style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
+												<span class="badge badge-vermelho" style="float: right;">0%</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar progress-bar-danger"
+														style="width:0%"></div>
+												</div> 
 											</div>
 										</div>
-										<br />
-										<div class="col-lg-12">
-											<p:outputLabel value="META DA SEMANA"
-												style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-										</div>
-										<div class="col-lg-12" style="margin-top: -1.2%;">
-											<p:outputLabel value="#{dashBoardMB.retornarMetaSemana()}"
-												style="width:332px;font-size:12px;color:#4F4F4F;font-weight: 500;" />
-											<span class="badge badge-vermelho" style="float: right;">#{dashBoardMB.retornarPercentualSemana()}%</span>
-										</div>
-										<div class="col-lg-12">
-											<div class="progress progress-striped active"
-												style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-												<div class="progress-bar progress-bar-danger"
-													style="width: #{dashBoardMB.percsemana}%"></div>
-											</div> 
-										</div>
-									</div>
+									</h:panelGroup>
 								</div>
 							</div>
 

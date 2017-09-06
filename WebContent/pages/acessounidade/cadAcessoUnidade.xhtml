@@ -1,0 +1,78 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo"> 
+		<h:form id="cadAcessoUnidade">
+			<p:growl id="growl" showDetail="true" sticky="false"
+				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<div style="background: #ffffff">
+				<div class="ui-fluid"
+					style="width: 90%; margin-left: 6%; font-size: 12px; color: #556575;">
+					<br></br>
+					<h:panelGrid columns="1" columnClasses="tamanhoavisos2">
+						<p:outputLabel value="Usuário" /> 
+						<p:selectOneMenu style="width:140px;" id="usuario"
+							value="#{cadAcessoUnidadeMB.usuario}"
+							converter="UsuarioConverter" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Selecione" itemValue="0" />
+							<f:selectItems id="idusuario"
+								value="#{cadAcessoUnidadeMB.listaUsuario}" var="usuario"
+								itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+							<f:attribute name="listaUsuario"
+								value="#{cadAcessoUnidadeMB.listaUsuario}" />
+							<p:ajax event="change" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<h:panelGrid columns="5"
+						columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
+						style="width:95%;">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadAcessoUnidadeMB.acessoUnidade.crm}" />
+							<h:outputText value="Todos os Leads" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadAcessoUnidadeMB.acessoUnidade.comissaoparceiros}" />
+							<h:outputText value="Comissão dos Parceiros" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadAcessoUnidadeMB.acessoUnidade.consultaorcamento}" />
+							<h:outputText value="Todos os Orçamentos" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadAcessoUnidadeMB.acessoUnidade.emissaoconsulta}" />
+							<h:outputText value="Todas as Emissões de Vendas" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadAcessoUnidadeMB.acessoUnidade.dashboard}" />
+							<h:outputText value="Visualizar dados Dashboard" style="margin-left:2%;" />
+						</h:panelGroup>
+					</h:panelGrid>
+					<br></br>
+				</div>
+			</div>
+			<br></br>
+			<div align="center">
+				<p:commandButton id="btnConfirmar" value="Confirmar"
+					action="#{cadAcessoUnidadeMB.salvar()}" icon="ui-icon-check"
+					style="font-size:12px;" update="growl" />
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{cadAcessoUnidadeMB.cancelar()}" icon="ui-icon-closethick"
+					style="font-size:12px;margin-left:2%" />
+			</div>
+			<br></br>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -5,6 +5,7 @@
  */
 package br.com.travelmate.managerBean;
   
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.dao.UsuarioDao;
 import br.com.travelmate.dao.UsuariorDao;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
@@ -61,6 +62,8 @@ public class UsuarioLogadoMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	@Inject
 	private UsuariorDao usuariorDao;
+	@Inject
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private Usuario usuario;
 	private String novaSenha;
 	private String senhaAtual;
@@ -215,6 +218,8 @@ public class UsuarioLogadoMB implements Serializable {
 
 	public String logar() {
 		if (logar) { 
+			/*TiBean tiBean = new TiBean(acessoUnidadeDao);
+			tiBean.salvarAcessoUnidade();*/
 			return "paginainicial";
 		} else
 			return "";
@@ -232,9 +237,7 @@ public class UsuarioLogadoMB implements Serializable {
 				this.senha = "";
 			} catch (NoSuchAlgorithmException ex) {
 				Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			//UsuarioFacade usuarioFacade = new UsuarioFacade();
-			//usuario = usuarioFacade.consultar(login, senha);
+			} 
 			usuario = usuariorDao.consultar(login, senha);
 			if (usuario == null) {
 				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");

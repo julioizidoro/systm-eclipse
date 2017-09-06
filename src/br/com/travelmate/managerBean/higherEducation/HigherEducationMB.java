@@ -28,12 +28,14 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Questionariohe;
@@ -56,6 +58,8 @@ public class HigherEducationMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private List<ListaHeBean> listaHe;
 	private int idvenda;
 	private String nomeCliente = "";
@@ -221,6 +225,13 @@ public class HigherEducationMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAprovarquestionariohe()) {
 			sqlQuestionario = sqlQuestionario + " and q.cliente.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sqlQuestionario = sqlQuestionario + " and q.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		} else {
 			sqlQuestionario = sqlQuestionario + " and q.autorizado=false";
 		}
@@ -233,6 +244,13 @@ public class HigherEducationMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		} else {
 			sqlFicha1 = sqlFicha1 + " and h.aprovado=false";
 		}
@@ -245,6 +263,13 @@ public class HigherEducationMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sqlFicha2 = sqlFicha2 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sqlFicha2 = sqlFicha2 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		sqlFicha2 = sqlFicha2 + " order by h.vendas.dataVenda desc";
 		List<He> listaficha2 = heFacade.listar(sqlFicha2);
@@ -381,6 +406,13 @@ public class HigherEducationMB implements Serializable {
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlQuestionario = sqlQuestionario + " and q.cliente.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuarioLogadoMB.getUsuario().getIdusuario());
+				if(acessounidade!=null) {
+					if(!acessounidade.isEmissaoconsulta()) {
+						sqlQuestionario = sqlQuestionario + " and q.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+					}
+				}
 			}else if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sqlQuestionario = sqlQuestionario + " and q.cliente.unidadenegocio.idunidadeNegocio="
 						+ unidadenegocio.getIdunidadeNegocio();
@@ -410,6 +442,13 @@ public class HigherEducationMB implements Serializable {
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuarioLogadoMB.getUsuario().getIdusuario());
+				if(acessounidade!=null) {
+					if(!acessounidade.isEmissaoconsulta()) {
+						sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+					}
+				}
 			}else if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 						+ unidadenegocio.getIdunidadeNegocio();
@@ -437,6 +476,13 @@ public class HigherEducationMB implements Serializable {
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlFicha2 = sqlFicha2 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuarioLogadoMB.getUsuario().getIdusuario());
+				if(acessounidade!=null) {
+					if(!acessounidade.isEmissaoconsulta()) {
+						sqlFicha2 = sqlFicha2 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+					}
+				}
 			}if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sqlFicha2 = sqlFicha2 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 						+ unidadenegocio.getIdunidadeNegocio();

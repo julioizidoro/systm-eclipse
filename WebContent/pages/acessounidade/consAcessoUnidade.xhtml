@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consAcessoUnidade" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<div style="width: 100%;">
+							<h:panelGrid columns="3" >
+								<p:outputLabel value="Nome" for="nome" />   
+								<p:outputLabel/>
+								<p:outputLabel/>
+								
+								<p:inputText id="nome" size="45" value="#{acessoUnidadeMB.nome}" /> 
+								<p:commandButton id="btnPesquisar" action="#{acessoUnidadeMB.gerarListaAcesso()}" value="Pesquisar"
+									style="margin-left:6%" icon=" ui-icon-search " update="consAcessoUnidade:tabelaAcesso" />
+								<p:commandButton id="btnLimpar" action="#{acessoUnidadeMB.limpar()}" value="Limpar"
+									style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
+									update="consAcessoUnidade:tabelaAcesso, nome" />
+							</h:panelGrid>
+						</div> 
+					</p:tab> 
+				</p:accordionPanel>
+ 
+				<legend id="iUsu2">
+					<b>Acessos da Unidade</b>
+				</legend>
+				<div align="right" style="width: 85%; margin-left: 8%;">
+					<p:commandButton id="btnNovo" value="Novo Acesso"
+						icon="ui-icon-plus" action="#{acessoUnidadeMB.novo()}"
+						style="font-size:12px;" />
+				</div>  
+				<br></br>
+				<div style="width: 85%; margin-left: 8%;">
+					<p:dataTable id="tabelaAcesso" value="#{acessoUnidadeMB.listaAcesso}"  var="acesso"
+						scrollable="true" scrollHeight="300"
+						style="margin-bottom:20px;font-size:11px;"> 
+						<p:column headerText="Nome" style="width:125px;">     
+							<h:outputText value="#{acesso.usuario.nome}" />
+						</p:column>   
+						<p:column headerText="CRM" style="width:80px;">  
+							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.crm)}" />
+						</p:column>
+						<p:column headerText="Comissão" style="width:80px;">  
+							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.comissaoparceiros)}" />
+						</p:column>
+						<p:column headerText="Dashboard" style="width:80px;">  
+							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.dashboard)}" />
+						</p:column>
+						<p:column headerText="Orçamento" style="width:80px;">  
+							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.consultaorcamento)}" />
+						</p:column> 
+						<p:column headerText="Emissões" style="width:80px;">  
+							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.emissaoconsulta)}" />
+						</p:column>
+						<p:column style="width:40px;text-align:left;">
+							<p:commandLink action="#{acessoUnidadeMB.editar(acesso)}" title="Editar"
+								style="text-decoration: none">
+								<img src="../../resources/img/editaricon.png" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

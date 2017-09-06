@@ -22,12 +22,10 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
-
 @Named
 @ViewScoped
 public class ControleAlteracoesMB implements Serializable {
 
-	
 	/**
 	 * 
 	 */
@@ -36,7 +34,7 @@ public class ControleAlteracoesMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Controlealteracoes> listaVendasAlteradas;
 	private Controlealteracoes controlealteracoes;
-	private String nomeCliente="";
+	private String nomeCliente = "";
 	private Date dataInicio;
 	private Date dataFinal;
 	private Unidadenegocio unidade;
@@ -46,8 +44,8 @@ public class ControleAlteracoesMB implements Serializable {
 	private Usuario usuario;
 	private boolean librarComboUsuairo = true;
 	private List<Dadosalteracoes> listaDadosAlterado;
-	private String situacao="Em aberto";
-	
+	private String situacao = "Em aberto";
+
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
@@ -63,7 +61,6 @@ public class ControleAlteracoesMB implements Serializable {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
-	
 	public List<Controlealteracoes> getListaAlteracoes() {
 		return listaVendasAlteradas;
 	}
@@ -127,7 +124,7 @@ public class ControleAlteracoesMB implements Serializable {
 	public void setListaUnidade(List<Unidadenegocio> listaUnidade) {
 		this.listaUnidade = listaUnidade;
 	}
-	
+
 	public List<Usuario> getListaUsuario() {
 		return listaUsuario;
 	}
@@ -180,7 +177,7 @@ public class ControleAlteracoesMB implements Serializable {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidade = unidadeNegocioFacade.listar();
 	}
-	
+
 	public void listarUsuario() {
 		if (unidade != null) {
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
@@ -199,94 +196,100 @@ public class ControleAlteracoesMB implements Serializable {
 			listaUsuario = new ArrayList<Usuario>();
 		}
 	}
-	
-	public void listarAlteracoes(){
+
+	public void listarAlteracoes() {
 		String sql;
 		ControleAlteracoesFacade controleAlteracoesFacade = new ControleAlteracoesFacade();
-		sql = "Select c from Controlealteracoes c where c.vendas.situacao='FINALIZADA' and c.vendas.cliente.nome like '%" + nomeCliente + "%'";
-		if(!situacao.equalsIgnoreCase("Em aberto")){
-			sql = sql+" and c.verificado=true";
-		}else{
-			sql = sql+" and c.verificado=false";
+		sql = "Select c from Controlealteracoes c where c.vendas.situacao='FINALIZADA' and c.vendas.cliente.nome like '%"
+				+ nomeCliente + "%'";
+		if (!situacao.equalsIgnoreCase("Em aberto")) {
+			sql = sql + " and c.verificado=true";
+		} else {
+			sql = sql + " and c.verificado=false";
 		}
-		if(usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3 && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1){
-			sql = sql+" and c.departamentoproduto.departamento.iddepartamento="+usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 3
+				&& usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
+			sql = sql + " and c.departamentoproduto.departamento.iddepartamento="
+					+ usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
 		}
-		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")){
-	    	if(unidade!=null && unidade.getIdunidadeNegocio()!=null)	{
-	    		sql = sql + " and c.vendas.unidadenegocio.idunidadeNegocio=" + unidade.getIdunidadeNegocio();
-	    	}
-	    	if(usuario!=null && usuario.getIdusuario()!=null)	{
-	    		sql = sql + " and c.vendas.usuario.idusuario=" + usuario.getIdusuario();
-	    	}
-	    }else {
-	    	sql = sql + " and c.vendas.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-	    }
-		if (idVenda>0){
-	    	sql = sql + " and c.vendas.idvendas=" + idVenda;
-	    }
-		if((dataInicio!=null) && (dataFinal!=null)){
-    		sql = sql + " and c.dataalteracao>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
-    		sql = sql + " and c.dataalteracao<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
-    	}else {
+		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+			if (unidade != null && unidade.getIdunidadeNegocio() != null) {
+				sql = sql + " and c.vendas.unidadenegocio.idunidadeNegocio=" + unidade.getIdunidadeNegocio();
+			}
+			if (usuario != null && usuario.getIdusuario() != null) {
+				sql = sql + " and c.vendas.usuario.idusuario=" + usuario.getIdusuario();
+			}
+		} else {
+			sql = sql + " and c.vendas.unidadenegocio.idunidadeNegocio="
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}
+		if (idVenda > 0) {
+			sql = sql + " and c.vendas.idvendas=" + idVenda;
+		}
+		if ((dataInicio != null) && (dataFinal != null)) {
+			sql = sql + " and c.dataalteracao>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
+			sql = sql + " and c.dataalteracao<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
+		} else {
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 365, "yyyy-MM-dd");
-    		sql = sql + " and c.dataalteracao>='" + dataConsulta + "'";
-    	}
-		sql= sql + " order by c.dataalteracao desc, c.vendas.cliente.nome";
+			sql = sql + " and c.dataalteracao>='" + dataConsulta + "'";
+		}
+		sql = sql + " order by c.dataalteracao desc, c.vendas.cliente.nome";
 		listaVendasAlteradas = controleAlteracoesFacade.listar(sql);
-		if(listaVendasAlteradas==null){
-			listaVendasAlteradas= new ArrayList<Controlealteracoes>();
-		}else{
+		if (listaVendasAlteradas == null) {
+			listaVendasAlteradas = new ArrayList<Controlealteracoes>();
+		} else {
 			for (int i = 0; i < listaVendasAlteradas.size(); i++) {
 				DadosAlteracoesFacade dadosAlteracoesFacade = new DadosAlteracoesFacade();
-				sql ="Select d from Dadosalteracoes d where d.verificado=false and d.controlealteracoes.idcontrolealteracoes="+listaVendasAlteradas.get(i).getIdcontrolealteracoes();
+				sql = "Select d from Dadosalteracoes d where d.verificado=false and d.controlealteracoes.idcontrolealteracoes="
+						+ listaVendasAlteradas.get(i).getIdcontrolealteracoes();
 				List<Dadosalteracoes> lista = dadosAlteracoesFacade.listar(sql);
-				if(lista==null || lista.size()==0){
+				if (lista == null || lista.size() == 0) {
 					listaVendasAlteradas.remove(i);
 				}
-			} 
+			}
 		}
-	}	
-	
-	public void limpar(){
-		nomeCliente="";
-		unidade=null;
-		usuario=null;
-		dataFinal=null;
-		dataInicio=null;
-		idVenda=0;
+	}
+
+	public void limpar() {
+		nomeCliente = "";
+		unidade = null;
+		usuario = null;
+		dataFinal = null;
+		dataInicio = null;
+		idVenda = 0;
 		listaVendasAlteradas = new ArrayList<>();
 	}
-	
-	public void listarDadosAlterado(){
+
+	public void listarDadosAlterado() {
 		String sql;
 		DadosAlteracoesFacade dadosAlteracoesFacade = new DadosAlteracoesFacade();
-		sql ="Select d from Dadosalteracoes d where d.verificado=false and d.controlealteracoes.idcontrolealteracoes="+controlealteracoes.getIdcontrolealteracoes();
+		sql = "Select d from Dadosalteracoes d where d.verificado=false and d.controlealteracoes.idcontrolealteracoes="
+				+ controlealteracoes.getIdcontrolealteracoes();
 		listaDadosAlterado = dadosAlteracoesFacade.listar(sql);
 	}
-	
-	
-	public void verificarDados(Dadosalteracoes dadosalteracoes){
-		if(dadosalteracoes.getDepartamento().getIddepartamento()==usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()){
+
+	public void verificarDados(Dadosalteracoes dadosalteracoes) {
+		if (dadosalteracoes.getDepartamento().getIddepartamento() == usuarioLogadoMB.getUsuario().getDepartamento()
+				.getIddepartamento()) {
 			dadosalteracoes.setVerificado(true);
 			DadosAlteracoesFacade dadosAlteracoesFacade = new DadosAlteracoesFacade();
 			dadosalteracoes = dadosAlteracoesFacade.salvar(dadosalteracoes);
 			listaDadosAlterado.remove(dadosalteracoes);
-			if(verificarControleAlteracao()){
+			if (verificarControleAlteracao()) {
 				ControleAlteracoesFacade controleAlteracoesFacade = new ControleAlteracoesFacade();
 				Controlealteracoes controlealteracoes = dadosalteracoes.getControlealteracoes();
 				controlealteracoes.setVerificado(true);
 				controlealteracoes = controleAlteracoesFacade.salvar(controlealteracoes);
 				listaVendasAlteradas.remove(dadosalteracoes.getControlealteracoes());
 			}
-		}else{
+		} else {
 			Mensagem.lancarMensagemWarn("Atenção!", "Está alteração não pertence ao seu departamento.");
 		}
 	}
-	
-	public boolean verificarControleAlteracao(){
+
+	public boolean verificarControleAlteracao() {
 		for (int i = 0; i < listaDadosAlterado.size(); i++) {
-			if(!listaDadosAlterado.get(i).isVerificado()){
+			if (!listaDadosAlterado.get(i).isVerificado()) {
 				return false;
 			}
 		}

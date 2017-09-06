@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
@@ -8,6 +9,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
 import br.com.travelmate.managerBean.OrcamentoCurso.comparativo.GerarComparativoTarifarioBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
@@ -64,6 +66,8 @@ public class ConsultaOrcamentoMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private Ocurso ocurso;
 	private List<Ocurso> listaOcurso;
 	private Cliente cliente;
@@ -223,8 +227,15 @@ public class ConsultaOrcamentoMB implements Serializable {
 						+ "' order by o.dataorcamento desc, o.idocurso desc";
 			} else {
 				sql = "Select o from Ocurso o where o.usuario.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
-						+ " and o.dataorcamento>='" + data + "' order by o.dataorcamento desc, o.idocurso desc";
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuarioLogadoMB.getUsuario().getIdusuario());
+				if(acessounidade!=null) {
+					if(!acessounidade.isConsultaorcamento()) {
+						sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+					}
+				}
+				sql = sql + " and o.dataorcamento>='" + data + "' order by o.dataorcamento desc, o.idocurso desc";
 			}
 			OCursoFacade ocursofacade = new OCursoFacade();
 			listaOcurso = ocursofacade.listar(sql);
@@ -267,6 +278,15 @@ public class ConsultaOrcamentoMB implements Serializable {
 			sql = sql + usouAnd + " o.dataorcamento<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
 			usouAnd = " and";
 			executarFiltro = true;
+		}
+		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isConsultaorcamento()) {
+					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		sql = sql + usouAnd + " o.cliente.nome like '%" + nomeCliente + "%' order by o.dataorcamento desc";
 		OCursoFacade ocursofacade = new OCursoFacade();

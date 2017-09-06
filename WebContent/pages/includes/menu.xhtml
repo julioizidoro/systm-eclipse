@@ -343,10 +343,12 @@
 								<span class="menu-hover"></span>
 							</p:commandLink>
 							<ul class="submenu">
-								<li><p:commandLink
+								<h:panelGroup rendered="#{menuMB.mostrarComissaoParceiros()}">
+									<li><p:commandLink
 										action="#{menuMB.relatoriosComissaoParceiros()}">
 										<span class="submenu-label">Comissão Parceiros Cursos</span>
 									</p:commandLink></li>
+								</h:panelGroup>
 								<li><p:commandLink action="#{menuMB.escolas()}">
 										<span class="submenu-label">Destinos</span>
 									</p:commandLink></li>
@@ -652,9 +654,15 @@
 								<span class="menu-hover"></span>        
 							</p:commandLink>  
 							<ul class="submenu">   
-								<h:panelGroup rendered="false">
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
 									<li><p:commandLink
-											action="#{menuMB.consLancamentoCartao()}" rendered="false">
+											action="#{menuMB.consAcessoUnidade()}">
+											<span class="submenu-label">Acessos</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+									<li><p:commandLink  
+											action="#{menuMB.consLancamentoCartao()}">
 											<span class="submenu-label">Cartão de Crédito</span>
 										</p:commandLink></li>
 								</h:panelGroup>

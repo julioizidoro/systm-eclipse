@@ -111,9 +111,7 @@ public class Usuario implements Serializable {
     @Transient
     private String dashboard; 
     @Transient
-    private boolean fecharaniversario;
-    
-   
+    private boolean fecharaniversario; 
 
     public Usuario() {
     	setDashboard("I");
@@ -178,9 +176,7 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    
+    } 
 
     public String getFuncao() {
 		return funcao;

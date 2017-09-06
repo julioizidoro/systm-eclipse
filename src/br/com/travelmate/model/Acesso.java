@@ -166,6 +166,8 @@ public class Acesso implements Serializable {
 	private boolean menucontas;
 	@Column(name = "crmcobranca")
 	private boolean crmcobranca;
+	@Column(name = "acessounidade")
+	private boolean acessounidade;
 
 	public Integer getIdacesso() {
 		return idacesso;
@@ -727,6 +729,16 @@ public class Acesso implements Serializable {
 	public void setCrmcobranca(boolean crmcobranca) {
 		this.crmcobranca = crmcobranca;
 	}
+
+	public boolean isAcessounidade() {
+		return acessounidade;
+	}
+
+
+	public void setAcessounidade(boolean acessounidade) {
+		this.acessounidade = acessounidade;
+	}
+
 
 	@Override
 	public int hashCode() {

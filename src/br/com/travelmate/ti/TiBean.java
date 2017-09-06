@@ -1,10 +1,16 @@
 package br.com.travelmate.ti;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.dao.CrmCobrancaContaDao;
 import br.com.travelmate.dao.CrmCobrancaDao;
 import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
+import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.model.Usuario;
+import br.com.travelmate.util.GerarListas;
 
 public class TiBean {
 	
@@ -12,7 +18,13 @@ public class TiBean {
 	private CrmCobrancaDao crmCobrancaDao;
 	@Inject
 	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
-	@Inject CrmCobrancaContaDao crmCobrancaContaDao;
+	@Inject CrmCobrancaContaDao crmCobrancaContaDao; 
+	private AcessoUnidadeDao acessoUnidadeDao;
+	
+	
+	public TiBean(AcessoUnidadeDao acessoUnidadeDao) { 
+		this.acessoUnidadeDao = acessoUnidadeDao;
+	}
 	
 	/*public void gerarCobrancaNova() {
 		CobrancaFacade cobrancaFacade = new CobrancaFacade();
@@ -62,9 +74,25 @@ public class TiBean {
 			}
 		}
 
-	}*/
-	
-	
-	
+	}*/ 
+
+
+	public void salvarAcessoUnidade() {
+		List<Usuario> listaUsuario = GerarListas.listarUsuarios("SELECT u FROM Usuario u WHERE u.situacao='Ativo' ORDER BY u.nome");
+		for (int i = 0; i < listaUsuario.size(); i++) {
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+listaUsuario.get(i).getIdusuario());
+			if(acessounidade==null) {
+				acessounidade = new Acessounidade();
+				acessounidade.setComissaoparceiros(true);
+				acessounidade.setConsultaorcamento(true);
+				acessounidade.setCrm(true);
+				acessounidade.setDashboard(true);
+				acessounidade.setEmissaoconsulta(true); 
+				acessounidade.setUsuario(listaUsuario.get(i));
+				acessounidade = acessoUnidadeDao.salvar(acessounidade);
+			}
+		}
+	}
 	
 }

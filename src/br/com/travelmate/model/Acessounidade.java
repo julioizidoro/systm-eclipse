@@ -27,15 +27,15 @@ public class Acessounidade implements Serializable {
     @Column(name = "idacessounidade")
     private Integer idacessounidade;
     @Column(name = "comissaoparceiros")
-    private Boolean comissaoparceiros;
+    private boolean comissaoparceiros;
     @Column(name = "emissaoconsulta")
-    private Boolean emissaoconsulta;
+    private boolean emissaoconsulta;
     @Column(name = "dashboard")
-    private Boolean dashboard;
+    private boolean dashboard;
     @Column(name = "consultaorcamento")
-    private Boolean consultaorcamento;
+    private boolean consultaorcamento;
     @Column(name = "crm")
-    private Boolean crm;
+    private boolean crm;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @OneToOne(optional = false)
     private Usuario usuario;
@@ -53,49 +53,49 @@ public class Acessounidade implements Serializable {
 
     public void setIdacessounidade(Integer idacessounidade) {
         this.idacessounidade = idacessounidade;
-    }
+    } 
 
-    public Boolean getComissaoparceiros() {
-        return comissaoparceiros;
-    }
+    public boolean isComissaoparceiros() {
+		return comissaoparceiros;
+	}
 
-    public void setComissaoparceiros(Boolean comissaoparceiros) {
-        this.comissaoparceiros = comissaoparceiros;
-    }
+	public void setComissaoparceiros(boolean comissaoparceiros) {
+		this.comissaoparceiros = comissaoparceiros;
+	}
 
-    public Boolean getEmissaoconsulta() {
-        return emissaoconsulta;
-    }
+	public boolean isEmissaoconsulta() {
+		return emissaoconsulta;
+	}
 
-    public void setEmissaoconsulta(Boolean emissaoconsulta) {
-        this.emissaoconsulta = emissaoconsulta;
-    }
+	public void setEmissaoconsulta(boolean emissaoconsulta) {
+		this.emissaoconsulta = emissaoconsulta;
+	}
 
-    public Boolean getDashboard() {
-        return dashboard;
-    }
+	public boolean isDashboard() {
+		return dashboard;
+	}
 
-    public void setDashboard(Boolean dashboard) {
-        this.dashboard = dashboard;
-    }
+	public void setDashboard(boolean dashboard) {
+		this.dashboard = dashboard;
+	}
 
-    public Boolean getConsultaorcamento() {
-        return consultaorcamento;
-    }
+	public boolean isConsultaorcamento() {
+		return consultaorcamento;
+	}
 
-    public void setConsultaorcamento(Boolean consultaorcamento) {
-        this.consultaorcamento = consultaorcamento;
-    }
+	public void setConsultaorcamento(boolean consultaorcamento) {
+		this.consultaorcamento = consultaorcamento;
+	}
 
-    public Boolean getCrm() {
-        return crm;
-    }
+	public boolean isCrm() {
+		return crm;
+	}
 
-    public void setCrm(Boolean crm) {
-        this.crm = crm;
-    }
+	public void setCrm(boolean crm) {
+		this.crm = crm;
+	}
 
-    public Usuario getUsuario() {
+	public Usuario getUsuario() {
         return usuario;
     }
 

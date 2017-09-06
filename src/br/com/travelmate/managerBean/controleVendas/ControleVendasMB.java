@@ -27,6 +27,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -51,6 +52,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.managerBean.highschool.HighSchoolMB;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
@@ -89,6 +91,7 @@ public class ControleVendasMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject AcessoUnidadeDao acessoUnidadeDao;
 	private ControleVendaBean controleVendasBean;
 	private List<ControleVendaBean> listaControleVendasBean;
 	private List<Vendas> listaVendas;
@@ -469,6 +472,13 @@ public class ControleVendasMB implements Serializable {
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = sql + " and  v.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuarioLogadoMB.getUsuario().getIdusuario());
+				if(acessounidade!=null) {
+					if(!acessounidade.isEmissaoconsulta()) {
+						sql = sql + " and v.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+					}
+				}
 			}
 			sql = sql + " and v.dataVenda>='" + dataConsulta + "' order by v.dataVenda desc, v.cliente.nome";
 			VendasFacade vendasFacade = new VendasFacade();
@@ -528,6 +538,13 @@ public class ControleVendasMB implements Serializable {
 		} else {
 			sql = sql + " and v.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isEmissaoconsulta()) {
+					sql = sql + " and v.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
 		}
 		if (idVenda > 0) {
 			sql = sql + " and v.idvendas=" + idVenda;

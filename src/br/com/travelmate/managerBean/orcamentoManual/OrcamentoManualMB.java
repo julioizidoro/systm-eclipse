@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade;
@@ -35,6 +36,7 @@ import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.DadosEscolaEmailBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoManualPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Occliente;
@@ -59,6 +61,8 @@ public class OrcamentoManualMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private List<Orcamentocurso> listaOrcamento;
 	private boolean habilitarUnidade;
 	private String nomeCliente = "";
@@ -178,8 +182,15 @@ public class OrcamentoManualMB implements Serializable {
 			sql = "Select o from Orcamentocurso o where o.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
 					+ " and o.cliente.nome like '%" + nomeCliente + "%' and o.situacao='Processo' and o.data>='"
-					+ dataConsulta + "'"
-					+ " and o.tipoorcamento='"+tipo+"' order by o.data desc, o.idorcamentoCurso desc";
+					+ dataConsulta + "'";
+			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+					+usuarioLogadoMB.getUsuario().getIdusuario());
+			if(acessounidade!=null) {
+				if(!acessounidade.isConsultaorcamento()) {
+					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+				}
+			}
+			sql = sql + " and o.tipoorcamento='"+tipo+"' order by o.data desc, o.idorcamentoCurso desc";
 		}
 		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
 		listaOrcamento = orcamentoCursoFacade.listarOrcamento(sql);
@@ -209,6 +220,13 @@ public class OrcamentoManualMB implements Serializable {
 			sql = sql + " and o.data>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and o.data<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
 		}
+		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				+usuarioLogadoMB.getUsuario().getIdusuario());
+		if(acessounidade!=null) {
+			if(!acessounidade.isConsultaorcamento()) {
+				sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+			}
+		} 
 		sql = sql + " order by o.data desc";
 		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
 		listaOrcamento = orcamentoCursoFacade.listarOrcamento(sql);

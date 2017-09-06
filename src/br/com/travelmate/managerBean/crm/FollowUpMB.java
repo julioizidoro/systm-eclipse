@@ -17,12 +17,14 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
 import br.com.travelmate.model.Pais;
@@ -47,6 +49,8 @@ public class FollowUpMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private AcessoUnidadeDao acessoUnidadeDao;
 	private String imagemNovos = "novos";
 	private String imagemHoje = "hojeClick";
 	private String imagemAtrasados = "atrasados";
@@ -103,8 +107,7 @@ public class FollowUpMB implements Serializable {
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
 				acessoResponsavelUnidade = false;
-			}
-			
+			} 
 			listaProdutos = GerarListas.listarProdutos("");
 			listaProgramas = GerarListas.listarProdutos(""); 
 			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
@@ -120,7 +123,15 @@ public class FollowUpMB implements Serializable {
 					listaUnidade = GerarListas.listarUnidade();
 				}
 				listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
-			} 
+			}else {
+				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+						+usuarioLogadoMB.getUsuario().getIdusuario());
+				if(acessounidade!=null) {
+					if(acessounidade.isCrm()) {
+						habilitarComboUsuario = false;
+					}
+				}
+			}
 			if (funcao == null || funcao.length() == 0) {
 				funcao = "hoje";
 			}
