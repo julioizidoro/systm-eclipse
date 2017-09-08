@@ -24,10 +24,15 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.model.Banco;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Moedas;
+import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
@@ -76,6 +81,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 				habilitarNovaVenda = true;
 				habilitarPendencia = false;
 			}
+			validarDados();
             formapagamento = venda.getFormapagamento();
             gerarListaBanco();
             somarValores();
@@ -502,6 +508,30 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     	if (vendapendencia.getIdvendapendencia() != null) {
 			habilitarNovaVenda = false;
 			habilitarPendencia = true;
+		}
+    }
+    
+    
+    public void validarDados(){
+    	if (venda.getFormapagamento() == null) {
+			venda.setFormapagamento(new Formapagamento());
+		}
+    	
+    	if (venda.getOrcamento() == null) {
+			venda.setOrcamento(new Orcamento());
+		}
+    	
+    	if (venda.getCambio() == null) {
+			venda.setCambio(new Cambio());
+			venda.getCambio().setMoedas(new Moedas());
+		}
+    	
+    	if (venda.getVendascomissao() == null) {
+			venda.setVendascomissao(new Vendascomissao());
+		}
+    	
+    	if (venda.getFornecedor() == null) {
+			venda.setFornecedor(new Fornecedor());
 		}
     }
     

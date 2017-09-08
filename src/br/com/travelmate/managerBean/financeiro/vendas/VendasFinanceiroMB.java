@@ -12,6 +12,7 @@ import br.com.travelmate.model.Faturafranquias;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
@@ -433,4 +434,29 @@ public class VendasFinanceiroMB  implements Serializable{
 		}
     	
     }
+    
+    
+    public String cadastroPendencia(Vendas venda) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", venda);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 450);
+		RequestContext.getCurrentInstance().openDialog("cadVendaPendencia", options, null);
+		return "";
+	} 
+    
+    
+    public void retornoDialogPendencia(SelectEvent event){
+    	Vendapendencia vendapendencia = (Vendapendencia) event.getObject();
+    	if (vendapendencia.getIdvendapendencia() != null) {
+    		gerarListaVendas();
+			Mensagem.lancarMensagemInfo("Pendência feita com sucesso", "");
+		}
+    }
+    
+    
+    
+    
+    
 }

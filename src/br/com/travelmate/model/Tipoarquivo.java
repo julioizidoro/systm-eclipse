@@ -36,6 +36,8 @@ public class Tipoarquivo implements Serializable {
     private List<Arquivos> arquivosList;
     @Column(name = "enviarcliente")
     private String enviarcliente;
+    @Column(name = "pertencefinanceiro")
+    private boolean pertencefinanceiro;
 
     public Tipoarquivo() {
     }
@@ -84,6 +86,14 @@ public class Tipoarquivo implements Serializable {
 
 	public void setEnviarcliente(String enviarcliente) {
 		this.enviarcliente = enviarcliente;
+	}
+
+	public boolean isPertencefinanceiro() {
+		return pertencefinanceiro;
+	}
+
+	public void setPertencefinanceiro(boolean pertencefinanceiro) {
+		this.pertencefinanceiro = pertencefinanceiro;
 	}
 
 	@Override
