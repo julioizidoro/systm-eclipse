@@ -125,10 +125,10 @@
 				<p:dataTable id="tabelaVendas" var="vendas"
 					value="#{vendasFinanceiroMB.listaVendas}" class="tabela"
 					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
-					<p:column style="width:6%;">  
+					<p:column style="width:3%;">  
 						<p:selectBooleanCheckbox value="#{vendas.selecionado}"/>
 					</p:column>
-					<p:column headerText="ID" style="width:8%;">
+					<p:column headerText="ID" style="width:5%;">
 						<p:commandLink
 							action="#{vendasFinanceiroMB.informacoesAdicionais(vendas)}"
 							style="text-decoration: overline" title="Informações Adicionais"
@@ -137,24 +137,24 @@
 								style="text-decoration-line: underline" />
 						</p:commandLink>
 					</p:column>
-					<p:column headerText="Cliente" style="width:30%;">
+					<p:column headerText="Cliente" style="width:22%;">
 						<h:outputText value="#{vendas.cliente.nome}" />
 					</p:column>
-					<p:column headerText="Produto" style="width:25%">
+					<p:column headerText="Produto" style="width:11%">
 						<h:outputText value="#{vendas.produtos.descricao}" />
 					</p:column>
-					<p:column headerText="Data da Venda" style="width:12%;"
-						styleClass="alinharCenter">
-						<h:outputText value="#{vendas.dataVenda}">
+					<p:column headerText="Data da Venda" style="width:9%;text-align:center;"
+						styleClass="alinharCenter" >
+						<h:outputText value="#{vendas.dataVenda}" >
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Unidade" style="width:24%;">
+					<p:column headerText="Unidade" style="width:12%;">
 						<h:outputText value="#{vendas.unidadenegocio.nomerelatorio}" />
 					</p:column>
 					<p:column headerText="Valor Bruto"   
-						style="width:14%;text-align: right">
+						style="width:10%;text-align: right">
 						<p:commandLink
 							action="#{vendasFinanceiroMB.produtoVendas(vendas)}"
 							update=":telaconsultavendas:growl" style="text-decoration: none"
@@ -166,30 +166,37 @@
 							</h:outputText>
 						</p:commandLink>
 					</p:column>
-					<p:column headerText="Ativar Fatura" width="60px" style="width:8%;text-align: center">
+					<p:column headerText="Ativar Fatura" width="60px" style="width:6%;text-align: center">
 						<p:commandButton title="Ativar Fatura Franquia"
 							action="#{vendasFinanceiroMB.ativarFaturaFranquia(vendas)}"
 							disabled="#{vendasFinanceiroMB.desabilitarBtnFatura(vendas)}"
 							icon="ui-icon-pencil" update=":telaconsultavendas:growl, :telaconsultavendas:tabelaVendas"/>
 					</p:column>
-					<p:column headerText="Pgto" style="width:8%;text-align: center">  
+					<p:column headerText="Pgto" style="width:5%;text-align: center">  
 						<p:commandButton title="Visualizar Contas a Receber"  
 							action="#{vendasFinanceiroMB.visualizarContasReceber(vendas)}"
 							icon="ui-icon-check" update=":telaconsultavendas:growl"  
 							style="#{vendasFinanceiroMB.verificarContasReceber(vendas)}" />
 					</p:column>
-					<p:column headerText="B.O." style="width:8%;text-align: center">
+					<p:column headerText="B.O." style="width:5%;text-align: center">
 						<p:commandButton title="Editar Comissões"
 							action="#{vendasFinanceiroMB.editarComissao(vendas)}"
 							icon="ui-icon-pencil" update=":telaconsultavendas:growl"
 							style="#{vendasFinanceiroMB.veriricarBackOffice(vendas)}" />
 					</p:column>
-					<p:column headerText="C.R." style="width:8%;text-align: center">
+					<p:column headerText="C.R." style="width:5%;text-align: center">
 						<p:commandButton title="Gerar Contas a Receber"
 							action="#{vendasFinanceiroMB.gerarContasReceber(vendas)}"
 							icon="ui-icon-pencil" />
 					</p:column>
-				</p:dataTable>
+					<p:column headerText="" style="width:4%;text-align: center">
+						<p:commandButton title="Gerar Pendência"
+							action="#{vendasFinanceiroMB.cadastroPendencia(vendas)}"
+							icon="ui-icon-alert" >
+							<p:ajax event="dialogReturn" listener="#{vendasFinanceiroMB.retornoDialogPendencia}" update=":telaconsultavendas:growl" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable> 
 				<br></br> <br></br>
 			</div>
 		</h:form>

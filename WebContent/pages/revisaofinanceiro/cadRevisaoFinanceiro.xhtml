@@ -13,13 +13,23 @@
 						life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 					<legend style="font-size:20px;margin-left:2%;">Venda N° #{cadRevisaoFinanceiroMB.venda.idvendas} </legend>
 					
+					
+					<h:panelGrid style="margin-left:20%;width:60%;" columns="1">
+						<p:outputLabel value="Data Início" for="dataInicio" class="fontebranca" />
+						<p:inputMask id="dataInicio" readonly="true"
+							value="#{cadRevisaoFinanceiroMB.venda.vendascomissao.datainicioprograma}" size="20"
+							 mask="99/99/9999">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+						</p:inputMask>
+					</h:panelGrid>  
+					<br/>
 					<h:panelGrid style="margin-left:20%;width:60%;" columns="2">
 						<p:outputLabel value="Parceiro" for="parceiro" class="fontebranca" />
 						<p:outputLabel value="Consultor" for="consultor" class="fontebranca" />
 						<p:inputText id="parceiro" value="#{cadRevisaoFinanceiroMB.venda.fornecedor.nome}" style="width:80%;" />
 						<p:inputText id="consultor" value="#{cadRevisaoFinanceiroMB.venda.usuario.nome}" style="width:80%;" />
 					</h:panelGrid>
-					<br/>
+					<br/> 
 					<h:panelGrid columns="4" style="width:60%;margin-left:20%;">
 						<p:outputLabel value="Moeda" for="moeda" class="fontebranca" />
 						<p:outputLabel value="Valor do Câmbio" for="valorCambio"
@@ -229,8 +239,6 @@
 							icon="ui-icon-plus" style="font-size:12px;width:110px;" />
 						<p:commandButton id="bDocumentos" value="Documentos" action="#{cadRevisaoFinanceiroMB.consultarDocumentos()}"
 							icon="ui-icon-plus" style="font-size:12px;width:110px;" />
-						<p:commandButton id="bFechar" value="Fechar" action="#{cadRevisaoFinanceiroMB.fechar()}" 
-							icon="ui-icon-closethick" style="font-size:12px;width:110px;" />
 						<p:commandButton id="bPendencia" value="Pendência" action="#{cadRevisaoFinanceiroMB.cadastroPendencia()}" rendered="#{cadRevisaoFinanceiroMB.habilitarNovaVenda}"
 							icon="ui-icon-plus" style="font-size:12px;width:110px;" >
 							<p:ajax event="dialogReturn" listener="#{cadRevisaoFinanceiroMB.retornoDialogPendencia}" update="bPendencia"/>
@@ -241,6 +249,8 @@
 							icon="ui-icon-plus" style="font-size:12px;width:110px;" >
 							<p:ajax event="dialogReturn" listener="#{cadRevisaoFinanceiroMB.retornoDialogEmail}" update="bPendencia, bHistorico"/>
 						</p:commandButton>
+						<p:commandButton id="bFechar" value="Fechar" action="#{cadRevisaoFinanceiroMB.fechar()}" 
+							icon="ui-icon-closethick" style="font-size:12px;width:110px;" />
 					</h:panelGrid>
 				</div>
 				<br/><br/><br/>  

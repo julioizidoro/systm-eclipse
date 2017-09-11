@@ -281,12 +281,12 @@ public class RevisaoFinanceiroMB implements Serializable{
         String dataInicial = anocInicio + "-" + Formatacao.retornaDataInicia(mescInicio);
         String dataTermino = anocFinal + "-" + Formatacao.retornaDataFinal(mescFinal);
 		listaVendaNova = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.dataVenda>='"+ dataInicial +"' and v.dataVenda<='"+ dataTermino +"' and v.situacaofinanceiro='N'"+
-				" and v.situacaogerencia<>'P'");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA'");
 		if (listaVendaNova == null) {
 			listaVendaNova = new ArrayList<>();
 		}
 		listaVendaPendente = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.dataVenda>='"+ dataInicial +"' and v.dataVenda<='"+ dataTermino +"' and v.situacaofinanceiro='P'"+
-				" and v.situacaogerencia<>'P'");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA'");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();
 		}

@@ -46,8 +46,11 @@ public class CadVendaPendenciaMB implements Serializable{
 		session.removeAttribute("listaVendaPendente");
 		session.removeAttribute("listaVendaNova");
 		session.removeAttribute("venda");
-		if (vendapendencia == null) {
+		if (venda.getVendapendencia() == null) {
 			vendapendencia = new Vendapendencia();
+		}else{
+			vendapendencia = venda.getVendapendencia();
+			vendamotivopendencia = venda.getVendapendencia().getVendamotivopendencia();
 		}
 		gerarListaMotivoPendencia();
 	}
@@ -150,20 +153,25 @@ public class CadVendaPendenciaMB implements Serializable{
 	
 	
 	public void salvar(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		VendaPendenciaFacade vendaPendenciaFacade = new VendaPendenciaFacade();
 		VendasFacade vendasFacade = new VendasFacade();
 		if (validarDados()) {
 			vendapendencia.setVendamotivopendencia(vendamotivopendencia);
 			vendapendencia.setVendas(venda);
 			vendapendencia = vendaPendenciaFacade.salvar(vendapendencia);
-			listaVendaNova.remove(venda);
+			if (listaVendaNova != null) {
+				listaVendaNova.remove(venda);
+				session.setAttribute("listaVendaNova", listaVendaNova);
+			}
 			venda.setSituacaofinanceiro("P");
+			venda.setVendapendencia(vendapendencia);
 			venda = vendasFacade.salvar(venda);
-			listaVendaPendente.add(venda);  
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("listaVendaNova", listaVendaNova);
-			session.setAttribute("listaVendaPendente", listaVendaPendente);
+			if (listaVendaPendente != null) {
+				listaVendaPendente.add(venda); 
+				session.setAttribute("listaVendaPendente", listaVendaPendente);
+			} 
 			RequestContext.getCurrentInstance().closeDialog(vendapendencia);
 		}
 	}
