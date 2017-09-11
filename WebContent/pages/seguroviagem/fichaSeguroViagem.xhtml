@@ -308,9 +308,10 @@
 							<p:selectOneMenu id="tipoparcelamento"
 								value="#{fichaSeguroViagemMB.tipoParcelamento}"
 								style="width:147px;font-size: 10px;">
-								<f:selectItem itemLabel="Matriz" itemValue="Matriz" />
-								<f:selectItem itemLabel="Loja" itemValue="loja" />
-								<f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor" />
+								<f:selectItems id="idTipoparcelamento"
+									value="#{fichaSeguroViagemMB.listaTipoParcelamento}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+								<p:ajax event="change" /> 
 							</p:selectOneMenu>
 							<p:outputLabel />
 							<p:outputLabel />

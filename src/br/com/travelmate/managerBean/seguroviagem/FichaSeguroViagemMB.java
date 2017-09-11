@@ -115,6 +115,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	private List<Parcelamentopagamento> listaParcelamentoPagamentoAntiga;
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
+	private List<String> listaTipoParcelamento;
 
 	@PostConstruct
 	public void init() {
@@ -126,7 +127,7 @@ public class FichaSeguroViagemMB implements Serializable {
 		session.removeAttribute("seguro");
 		String vendaMatriz = (String) session.getAttribute("vendaMatriz");
 		session.removeAttribute("vendaMatriz");
-		iniciarListaFornecedorCidade();
+		iniciarListaFornecedorCidade(); 
 		if (seguro == null) {
 			seguro = new Seguroviagem();
 			seguro.setDescontoloja(0.0f);
@@ -194,6 +195,7 @@ public class FichaSeguroViagemMB implements Serializable {
 				seguro.getFoneContatoEmergencia());
 		valorCambio = cambio.getValor();
 		orcamento.setValorCambio(valorCambio);
+		gerarListaTipoParcelamento();
 	}
 
 	public float getValorSemDesconto() {
@@ -530,6 +532,14 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void setSeguroplanos(Seguroplanos seguroplanos) {
 		this.seguroplanos = seguroplanos;
+	}
+
+	public List<String> getListaTipoParcelamento() {
+		return listaTipoParcelamento;
+	}
+
+	public void setListaTipoParcelamento(List<String> listaTipoParcelamento) {
+		this.listaTipoParcelamento = listaTipoParcelamento;
 	}
 
 	public String pesquisarCliente() {
@@ -1212,6 +1222,21 @@ public class FichaSeguroViagemMB implements Serializable {
 		formaPagamento.setValorJuros((float) session.getAttribute("valorJuros"));
 		session.removeAttribute("valorJuros");
 		calcularValorTotalOrcamento();
+	}
+	
+	public void gerarListaTipoParcelamento() {
+		listaTipoParcelamento = new ArrayList<>();
+		if (vendas.getVendasMatriz().equalsIgnoreCase("S")) {
+			String tipoparcelamento = "Matriz";
+			listaTipoParcelamento.add(tipoparcelamento);
+			tipoparcelamento = "Fornecedor";
+			listaTipoParcelamento.add(tipoparcelamento); 
+			tipoparcelamento = "Loja";
+			listaTipoParcelamento.add(tipoparcelamento); 
+		} else {
+			String tipoparcelamento = "Loja";
+			listaTipoParcelamento.add(tipoparcelamento);
+		} 
 	}
 
 }
