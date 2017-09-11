@@ -609,6 +609,7 @@ public class CadOrcamentoManualMB implements Serializable {
 					int descontoLoja = aplicacaoMB.getParametrosprodutos().getDescontoloja();
 					int descontoMatriz = aplicacaoMB.getParametrosprodutos().getDescontomatriz();
 					int promocaoEscola = aplicacaoMB.getParametrosprodutos().getPromocaoescola();
+					int promocaoEscolaAcomodacao = aplicacaoMB.getParametrosprodutos().getPromocaoescolaacomodacao();
 					if (idProdutoOrcamento == descontoLoja) {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal() * -1;
 						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * -1;
@@ -616,6 +617,9 @@ public class CadOrcamentoManualMB implements Serializable {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal() * -1;
 						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * -1;
 					} else if (idProdutoOrcamento == promocaoEscola) {
+						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal() * -1;
+						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * -1;
+					} else if (idProdutoOrcamento == promocaoEscolaAcomodacao) {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal() * -1;
 						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * -1;
 					} else {
