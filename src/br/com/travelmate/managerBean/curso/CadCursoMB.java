@@ -2758,6 +2758,7 @@ public class CadCursoMB implements Serializable {
 
 			dataCambio = orcamento.getCambio().getData();
 			cambio = orcamento.getCambio();
+			orcamento.setValorCambio(cambio.getValor());
 			moeda = cambio.getMoedas();
 			carregarCambio();
 			calcularValorTotalOrcamento();
@@ -2990,6 +2991,7 @@ public class CadCursoMB implements Serializable {
 		CambioFacade cambioFacade = new CambioFacade();
 		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 				ocurso.getCambio().getMoedas().getIdmoedas());
+		orcamento.setValorCambio(cambio.getValor());
 		if (ocurso.getOcrusoprodutosList() != null) {
 			int idtxTM = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			for (int i = 0; i < ocurso.getOcrusoprodutosList().size(); i++) {
@@ -3264,6 +3266,7 @@ public class CadCursoMB implements Serializable {
 		CambioFacade cambioFacade = new CambioFacade();
 		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 				orcamentoCurso.getCambio().getMoedas().getIdmoedas());
+		orcamento.setValorCambio(cambio.getValor());
 		moeda = cambio.getMoedas();
 		valorCambio = cambio.getValor();
 		if (orcamento.getOrcamentoprodutosorcamentoList() == null) {
@@ -3410,6 +3413,7 @@ public class CadCursoMB implements Serializable {
 			moeda = pais.getMoedas();
 			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
 			valorCambio = cambio.getValor();
+			orcamento.setValorCambio(cambio.getValor());
 		}
 	}
 

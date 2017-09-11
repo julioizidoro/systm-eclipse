@@ -197,7 +197,8 @@ public class paisMB implements Serializable{
 				if (lista == null || lista.size() == 0) {
 					PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 					Paisproduto paisproduto = paisProdutoFacade.consultar(
-							"SELECT p FROM Paisproduto p WHERE p.produtos.idprodutos=" + produtos.getIdprodutos());
+							"SELECT p FROM Paisproduto p WHERE p.produtos.idprodutos=" + produtos.getIdprodutos()
+							+ " AND p.pais.idpais="+pais.getIdpais());
 					if (paisproduto == null || paisproduto.getIdpaisproduto() == null) {
 						paisproduto = new Paisproduto();
 						paisproduto.setPais(cidade.getPais());
