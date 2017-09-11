@@ -61,9 +61,7 @@ public class UsuarioLogadoMB implements Serializable {
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
-	private UsuariorDao usuariorDao;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuariorDao usuariorDao; 
 	private Usuario usuario;
 	private String novaSenha;
 	private String senhaAtual;
@@ -217,9 +215,7 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 
 	public String logar() {
-		if (logar) { 
-			/*TiBean tiBean = new TiBean(acessoUnidadeDao);
-			tiBean.salvarAcessoUnidade();*/
+		if (logar) {  
 			return "paginainicial";
 		} else
 			return "";
