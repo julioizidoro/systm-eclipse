@@ -222,23 +222,23 @@ public class GerarPacotesFornecedorBean {
 		pacotesfornecedor.setTipoprodutotrecho("Passagem");
 		pacotesfornecedor.setPacotes(pacotepassagem.getPacotetrecho().getPacotes());
 		 
-    	PacotePassagemPassageiroFacade pacotePassagemPassageiroFacade = new PacotePassagemPassageiroFacade();
-    	List<Pacotepassagempassageiro> lista;
-    	String sql;
-    	sql = "SELECT p From Pacotepassagempassageiro p where p.pacotepassagem.idpacotepassagem="+pacotepassagem.getIdpacotepassagem();
-    	lista = pacotePassagemPassageiroFacade.lista(sql); 
-    	float total = 0;
-    	for (int i = 0; i < lista.size(); i++) {
-    		if(lista.get(i).getCategoria().equalsIgnoreCase("ADT")){
-    			total = total + pacotepassagem.getAdttarifa()
-    				+ pacotepassagem.getAdttaxas()+pacotepassagem.getAdttaxaemissao();
-    		}else if(lista.get(i).getCategoria().equalsIgnoreCase("CHD")){
-    			total = total + pacotepassagem.getChdtarifa() + pacotepassagem.getChdtaxas()
-    				+ pacotepassagem.getChdtaxaemissao();
-    		}else{
-    			total = total + pacotepassagem.getInftarifa() + pacotepassagem.getInftaxas()
-    				+ pacotepassagem.getInftaxaemissao();
-    		}
+	    	PacotePassagemPassageiroFacade pacotePassagemPassageiroFacade = new PacotePassagemPassageiroFacade();
+	    	List<Pacotepassagempassageiro> lista;
+	    	String sql;
+	    	sql = "SELECT p From Pacotepassagempassageiro p where p.pacotepassagem.idpacotepassagem="+pacotepassagem.getIdpacotepassagem();
+	    	lista = pacotePassagemPassageiroFacade.lista(sql); 
+	    	float total = 0;
+	    	for (int i = 0; i < lista.size(); i++) {
+	    		if(lista.get(i).getCategoria().equalsIgnoreCase("ADT")){
+	    			total = total + pacotepassagem.getAdttarifa()
+	    				+ pacotepassagem.getAdttaxas()+pacotepassagem.getAdttaxaemissao();
+	    		}else if(lista.get(i).getCategoria().equalsIgnoreCase("CHD")){
+	    			total = total + pacotepassagem.getChdtarifa() + pacotepassagem.getChdtaxas()
+	    				+ pacotepassagem.getChdtaxaemissao();
+	    		}else{
+	    			total = total + pacotepassagem.getInftarifa() + pacotepassagem.getInftaxas()
+	    				+ pacotepassagem.getInftaxaemissao();
+	    		}
         } 
 		pacotesfornecedor.setValor(total);
 		pacotesFornecedorFacade.salvar(pacotesfornecedor);

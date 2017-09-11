@@ -14,7 +14,7 @@
 					<b>Pacotes Turisticos</b>
 				</legend>  
 				<p:accordionPanel class="painel" activeIndex="-1">
-					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+					<p:tab titleStyle="font-size:11px;background:#c7d95f;"
 						title="Pesquisar"> 
 						<h:panelGrid columns="3"    
 							columnClasses="tamanho8, tamanho8, tamanho8"  
@@ -86,52 +86,52 @@
 				<div align="right" style="width:100%;">
 					<h:panelGrid columns="3" style="width:60%;">
 						<p:outputLabel value="Vencidas"/>
-						<p:outputLabel value="Vencer"/>
+						<p:outputLabel value="Vencer"/>   
 						<p:outputLabel value="À vencer"/> 
 						 
 						<h:panelGrid id="paineltotalvencidas"
 							style="width:130px;height:32px;margin-top:-0.5%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
-							<tt style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$ #{pacoteFornecedorMB.valorVencidas()}</tt>
+							<tt style="font-weight: bold; font-size: 14px; color: black;font-family: segoe ui, Arial, sans-serif;">R$ #{pacoteFornecedorMB.valorVencidas()}</tt>
 							<br />
 						</h:panelGrid>    
 						<h:panelGrid id="paineltotalvencer"
 							style="width:130px;height:32px;margin-top:-0.5%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
-							<tt style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$ #{pacoteFornecedorMB.valorVencer()}</tt>
+							<tt style="font-weight: bold; font-size: 14px; color: black;font-family: segoe ui, Arial, sans-serif;">R$ #{pacoteFornecedorMB.valorVencer()}</tt>
 							<br />
 						</h:panelGrid>
 						<h:panelGrid id="paineltotalprazo"
 							style="width:130px;height:32px;margin-top:-0.5%;background-color:white; border-radius:5px; border:solid; border-color:#E7EBEB;text-align:right">
-							<tt style="font: bold; font-size: 14px; color: black; font-family: 'Pacifico', cursive;">R$ #{pacoteFornecedorMB.valorPrazo()}</tt>
+							<tt style="font-weight: bold; font-size: 14px; color: black;font-family: segoe ui, Arial, sans-serif;">R$ #{pacoteFornecedorMB.valorPrazo()}</tt>
 							<br />
-						</h:panelGrid>   
-					</h:panelGrid>
+						</h:panelGrid>      
+					</h:panelGrid>    
 				</div> 
 				<br/>
 				<div align="center">       
 					<p:dataTable id="tabelaPacotes" var="pacotes"  
 						value="#{pacoteFornecedorMB.listaPacotesFornecedor}" scrollable="true"
-						scrollHeight="300" style="width:95%;font-size:12px;"> 
+						scrollHeight="300" style="width:95%;font-size:12px;font-weight:inherit !important;"> 
 						<p:column headerText="ID Venda" style="width:80px;">             
-							<p:outputLabel value="#{pacotes.pacotes.vendas.idvendas}" />
-						</p:column> 
+							<p:outputLabel value="#{pacotes.pacotes.vendas.idvendas}" style="font-weight:inherit !important;"/>   
+						</p:column>    
 						<p:column headerText="Parceiro" style="width:200px;">             
-							<p:outputLabel value="#{pacotes.fornecedor.nome}" />
+							<p:outputLabel value="#{pacotes.fornecedor.nome}" style="font-weight:inherit !important;"/>
 						</p:column> 
 						<p:column headerText="Data Vencimento" style="width:105px;text-align:center;">             
-							<p:outputLabel value="#{pacotes.datapagamento}" >
+							<p:outputLabel value="#{pacotes.datapagamento}" style="font-weight:inherit !important;">
 								<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 							</p:outputLabel>  
 						</p:column>  
 						<p:column headerText="Valor" style="width:110px;text-align:right;">             
-							<p:outputLabel value="#{pacotes.valor}" >
+							<p:outputLabel value="#{pacotes.valor}" style="font-weight:inherit !important;">
 								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 							</p:outputLabel>
 						</p:column>
 						<p:column headerText="Produto" style="width:130px;">             
-							<p:outputLabel value="#{pacotes.tipoprodutotrecho}" />
+							<p:outputLabel value="#{pacotes.tipoprodutotrecho}" style="font-weight:inherit !important;"/>
 						</p:column>    
 						<p:column headerText="Nº Reserva" style="width:150px;">             
-							<p:outputLabel value="#{pacotes.numeroreserva}" />
+							<p:outputLabel value="#{pacotes.numeroreserva}" style="font-weight:inherit !important;"/>
 						</p:column>      
 						<p:column style="text-align:center;width:85px;" headerText="Comprovante">
 							<p:commandLink action="#{pacoteFornecedorMB.anexarComprovante(pacotes)}"  rendered="#{pacoteFornecedorMB.btnVermelhoComprovante(pacotes)}"
