@@ -37,12 +37,9 @@ import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorcidadeidiomaproduto;
 import br.com.travelmate.model.Ftpdados;
-import br.com.travelmate.model.Idioma;
-import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Paisproduto;
-import br.com.travelmate.model.Produtos; 
-import br.com.travelmate.model.Produtosorcamentoindice;
-import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.model.Idioma; 
+import br.com.travelmate.model.Paisproduto; 
+import br.com.travelmate.model.Produtosorcamentoindice; 
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -460,8 +457,10 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		}
 		FornecedorCidadeIdiomaProdutoFacade fornecedorCidadeFacade = new FornecedorCidadeIdiomaProdutoFacade();
 		listaTabelaProduto = fornecedorCidadeFacade.listar(sql);
-		if (listaTabelaProduto == null || listaTabelaProduto.size() == 0) {
-			Mensagem.lancarMensagemInfo("Atenção", "Este fornecedor não possui produtos cadastrados.");
+		int idproduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		if ((listaTabelaProduto == null || listaTabelaProduto.size() == 0) &&
+				produtos.getProdutos().getIdprodutos()==idproduto) {
+			Mensagem.lancarMensagemInfo("Atenção", "Este parceiro não possui produtos cadastrados.");
 		}
 	}
 
@@ -839,7 +838,8 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	}
 	
 	public boolean mostrarProduto() {
-		if (produtos!=null && produtos.getIddepartamentoproduto()!=null && produtos.getProdutos().getIdprodutos()==1) {
+		int idproduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		if (produtos!=null && produtos.getIddepartamentoproduto()!=null && produtos.getProdutos().getIdprodutos()==idproduto) {
 			return true;
 		}else {
 			return false;
@@ -847,7 +847,8 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	}
 	
 	public String mostrarProdutos() {
-		if (produtos!=null && produtos.getIddepartamentoproduto()!=null && produtos.getProdutos().getIdprodutos()==1) {
+		int idproduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		if (produtos!=null && produtos.getIddepartamentoproduto()!=null && produtos.getProdutos().getIdprodutos()==idproduto) {
 			return "4";
 		}else {
 			return "3";
