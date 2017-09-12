@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ficha Curso - Primeira Folha" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="418"/>
+	<property name="ireport.y" value="484"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -732,11 +732,11 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 				<text><![CDATA[Data Chegada :]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="335" y="484" width="65" height="15" uuid="833e6f84-6ea3-4279-8880-dfd3f7da85bf"/>
+				<reportElement x="330" y="484" width="65" height="15" uuid="833e6f84-6ea3-4279-8880-dfd3f7da85bf"/>
 				<textFieldExpression><![CDATA[$F{datachegada}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="408" y="484" width="65" height="15" uuid="e1efc26d-ed71-4ff1-8c80-de3171ed3422"/>
+				<reportElement x="403" y="484" width="65" height="15" uuid="e1efc26d-ed71-4ff1-8c80-de3171ed3422"/>
 				<text><![CDATA[Data Partida :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -744,7 +744,7 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 				<textFieldExpression><![CDATA[$F{refeicoes}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="494" y="486" width="48" height="15" uuid="a56613bc-b8bc-492c-b0b2-8cb42676af71"/>
+				<reportElement x="470" y="485" width="75" height="15" uuid="a56613bc-b8bc-492c-b0b2-8cb42676af71"/>
 				<textFieldExpression><![CDATA[$F{dataSaida}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
