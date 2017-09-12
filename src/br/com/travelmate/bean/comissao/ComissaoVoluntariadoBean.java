@@ -142,7 +142,7 @@ public class ComissaoVoluntariadoBean {
 									}
 								}
 								Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
-								valorComissaoFranquia = valorComissaoFranquia + calculo.floatValue();
+								valorComissaoMatriz = valorComissaoMatriz + calculo.floatValue();
 							}
 						}
 					}
