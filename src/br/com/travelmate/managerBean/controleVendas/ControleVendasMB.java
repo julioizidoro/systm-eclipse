@@ -26,8 +26,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -37,8 +37,6 @@ import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
-import br.com.travelmate.facade.ProdutoFacade;
-import br.com.travelmate.facade.ProdutosTraineeFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -51,7 +49,6 @@ import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
-import br.com.travelmate.managerBean.highschool.HighSchoolMB;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
@@ -90,8 +87,7 @@ public class ControleVendasMB implements Serializable {
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
-	private AplicacaoMB aplicacaoMB;
-	@Inject AcessoUnidadeDao acessoUnidadeDao;
+	private AplicacaoMB aplicacaoMB; 
 	private ControleVendaBean controleVendasBean;
 	private List<ControleVendaBean> listaControleVendasBean;
 	private List<Vendas> listaVendas;
@@ -472,7 +468,8 @@ public class ControleVendasMB implements Serializable {
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = sql + " and  v.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 						+usuarioLogadoMB.getUsuario().getIdusuario());
 				if(acessounidade!=null) {
 					if(!acessounidade.isEmissaoconsulta()) {
@@ -538,7 +535,8 @@ public class ControleVendasMB implements Serializable {
 		} else {
 			sql = sql + " and v.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isEmissaoconsulta()) {

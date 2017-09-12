@@ -1,19 +1,12 @@
 package br.com.travelmate.managerBean.financeiro.crmcobranca;
-
-
-import java.io.Serializable;
+ 
 import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import br.com.travelmate.dao.CrmCobrancaContaDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
+import java.util.List; 
+ 
 import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.CrmCobrancaContaFacade;
+import br.com.travelmate.facade.CrmCobrancaFacade;
+import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
 import br.com.travelmate.facade.ParametrosFinanceiroFacade;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Crmcobranca;
@@ -21,48 +14,36 @@ import br.com.travelmate.model.Crmcobrancaconta;
 import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Parametrosfinanceiro;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.util.Formatacao;
-
+import br.com.travelmate.util.Formatacao; 
 
 public class CrmCobrancaBean {
-	
-	private CrmCobrancaDao crmCobrancaDao;
-	private CrmCobrancaContaDao crmCobrancaContaDao;
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
-	
-	
-	
+	 
 
-
-	public CrmCobrancaBean(CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
-			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
-		this.crmCobrancaDao = crmCobrancaDao;
-		this.crmCobrancaContaDao = crmCobrancaContaDao;
-		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
+	public CrmCobrancaBean() {
+		
 	}
 
-
-
 	public Crmcobrancaconta baixar(Contasreceber conta, Usuario usuario){
+		CrmCobrancaContaFacade crmCobrancaContaFacade = new CrmCobrancaContaFacade();
 		Crmcobrancaconta crmcobrancaconta = conta.getCrmcobrancaconta(); 
 		if (conta.getCrmcobrancaconta() != null) {
 			crmcobrancaconta.setPaga(true);
-			crmcobrancaconta = crmCobrancaContaDao.salvar(crmcobrancaconta);
+			crmcobrancaconta = crmCobrancaContaFacade.salvar(crmcobrancaconta);
 			verificarCobranca(crmcobrancaconta.getCrmcobranca(), usuario);
 		}
 		return crmcobrancaconta;
 	}
 	
-	
-	
 	public void verificarCobranca(Crmcobranca crmCobranca, Usuario usuario){
+		CrmCobrancaContaFacade crmCobrancaContaFacade = new CrmCobrancaContaFacade();
 		String sql = "SELECT c FROM Crmcobrancaconta c where c.paga=0 and c.crmcobranca.vendas.idvendas=" + crmCobranca.getVendas().getIdvendas() +
 				" and c.crmcobranca.situacao<>'Finalizada'";
-		List<Crmcobrancaconta> lista = crmCobrancaContaDao.lista(sql);
+		List<Crmcobrancaconta> lista = crmCobrancaContaFacade.lista(sql);
 		if (lista==null || lista.size()==0){
+			CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
 			crmCobranca.setSituacao("FINALIZADA");
 			crmCobranca.setDatafinalizada(new Date());
-			crmCobranca = crmCobrancaDao.salvar(crmCobranca);
+			crmCobranca = crmCobrancaFacade.salvar(crmCobranca);
 			Crmcobrancahistorico crmCobrancaHistorico = new Crmcobrancahistorico();
 			crmCobrancaHistorico.setCliente(crmCobranca.getVendas().getCliente());
 			crmCobrancaHistorico.setData(new Date());
@@ -70,14 +51,16 @@ public class CrmCobrancaBean {
 			crmCobrancaHistorico.setProximocontato(new Date());
 			crmCobrancaHistorico.setTipocontato("Telefone");
 			crmCobrancaHistorico.setUsuario(usuario);
-			crmCobrancaHistoricoDao.salvar(crmCobrancaHistorico);
+			CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
+			crmCobrancaHistoricoFacade.salvar(crmCobrancaHistorico);
 		}
 	}
 	
 	public Crmcobrancaconta criar(Contasreceber conta){
+		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
 		String sql = "SELECT c FROM Crmcobranca c where c.vendas.idvendas=" + conta.getVendas().getIdvendas() + 
 				" and c.situacao<>'FINALIZADA'";
-		List<Crmcobranca> lista = crmCobrancaDao.lista(sql);
+		List<Crmcobranca> lista = crmCobrancaFacade.lista(sql);
 		Crmcobranca  crmCobranca = null;
 		if (lista!=null){
 			if (lista.size()>0){
@@ -89,14 +72,15 @@ public class CrmCobrancaBean {
 			crmCobranca.setPrioridade("1");
 			crmCobranca.setSituacao("NOVA");
 			crmCobranca.setVendas(conta.getVendas());
-			crmCobranca = crmCobrancaDao.salvar(crmCobranca);
+			crmCobranca = crmCobrancaFacade.salvar(crmCobranca);
 		}
 		Crmcobrancaconta crmcobrancaconta = new Crmcobrancaconta();
 		crmcobrancaconta.setPaga(false);
 		crmcobrancaconta.setContasreceber(conta);
 		crmcobrancaconta.setCrmcobranca(crmCobranca);
 		crmcobrancaconta.setDatainclusao(new Date());
-		crmcobrancaconta = crmCobrancaContaDao.salvar(crmcobrancaconta);
+		CrmCobrancaContaFacade crmCobrancaContaFacade = new CrmCobrancaContaFacade();
+		crmcobrancaconta = crmCobrancaContaFacade.salvar(crmcobrancaconta);
 		return crmcobrancaconta;
 	}
 	
@@ -126,8 +110,9 @@ public class CrmCobrancaBean {
 	}
 	
 	public void calcularAtrasos() {
+		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
 		String sql = "SELECT c FROM Crmcobranca c where c.situacao<>'FINALIZADA'";
-		List<Crmcobranca> lista = crmCobrancaDao.lista(sql);
+		List<Crmcobranca> lista = crmCobrancaFacade.lista(sql);
 		if (lista!=null) {
 			for(int i=0;i<lista.size();i++) {
 				if (!lista.get(i).getPrioridade().equals("5")){
@@ -161,7 +146,7 @@ public class CrmCobrancaBean {
 					if (!lista.get(i).getPrioridade().equals(prioridade)) {
 						Crmcobranca cobranca = lista.get(i);
 						cobranca.setPrioridade(prioridade);
-						cobranca = crmCobrancaDao.salvar(cobranca);
+						cobranca = crmCobrancaFacade.salvar(cobranca);
 						lista.set(i, cobranca);
 					}
 				}

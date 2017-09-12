@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-
-	<persistence-unit name="systmPU" transaction-type="RESOURCE_LOCAL">
-	
-	<non-jta-data-source>java:comp/env/jdbc/systmDB</non-jta-data-source>
-	
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="systmPU" transaction-type="RESOURCE_LOCAL">
     <class>br.com.travelmate.model.Acesso</class>
     <class>br.com.travelmate.model.Banco</class>
     <class>br.com.travelmate.model.Cambio</class>
@@ -100,6 +94,7 @@
     <class>br.com.travelmate.model.Aupair</class>
     <class>br.com.travelmate.model.Trainee</class>
     <class>br.com.travelmate.model.Valorestrainee</class>
+    <class>br.com.travelmate.model.Worktravel</class>
     <class>br.com.travelmate.model.Valoreswork</class>
     <class>br.com.travelmate.model.Fornecedorcidadeidiomaproduto</class>
     <class>br.com.travelmate.model.Produtostrainee</class>
@@ -246,32 +241,37 @@
     <class>br.com.travelmate.model.Leadencaminhado</class>
     <class>br.com.travelmate.model.Fornecedorcidadeidiomaacomodacao</class>
     <class>br.com.travelmate.model.Cursotraducao</class>
-    <class>br.com.travelmate.model.Pacotesfornecedor</class>
-    <class>br.com.travelmate.model.Tipoarquivoproduto</class>
-    <class>br.com.travelmate.model.Fornecedorcidadeidiomaprodutodata</class>
-    <class>br.com.travelmate.model.Fornecedorfinanceiro</class>
-    <class>br.com.travelmate.model.Pacotesinicial</class>
     <class>br.com.travelmate.model.Arquivoskitviagem</class>
-    <class>br.com.travelmate.model.Worktravel</class>
-    <class>br.com.travelmate.model.Fornecedorpacotearquivopagamento</class>
-    <class>br.com.travelmate.model.Fornecedorpacotearquivoinvoice</class>
     <class>br.com.travelmate.model.Cidadepaisproduto</class>
+    <class>br.com.travelmate.model.Fornecedorfinanceiro</class>
+    <class>br.com.travelmate.model.Fornecedorcidadeidiomaprodutodata</class>
+    <class>br.com.travelmate.model.Fornecedorpacotearquivoinvoice</class>
+    <class>br.com.travelmate.model.Fornecedorpacotearquivopagamento</class>
+    <class>br.com.travelmate.model.Pacotesinicial</class>
+    <class>br.com.travelmate.model.Pacotesfornecedor</class>
+    <class>br.com.travelmate.model.Seguroplanos</class>
+    <class>br.com.travelmate.model.Tipoarquivoproduto</class>
+    <class>br.com.travelmate.model.Vendamotivopendencia</class>
     <class>br.com.travelmate.model.Vendapendencia</class>
     <class>br.com.travelmate.model.Vendapendenciahistorico</class>
     <class>br.com.travelmate.model.Fornecedorfinanceiroproduto</class>
-    <class>br.com.travelmate.model.Vendamotivopendencia</class>
-    <class>br.com.travelmate.model.Seguroplanos</class>
     <class>br.com.travelmate.model.Crmcobranca</class>
-    <class>br.com.travelmate.model.Crmcobrancaconta</class>
     <class>br.com.travelmate.model.Crmcobrancahistorico</class>
-    <class>br.com.travelmate.model.Parametrosfinanceiro</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-
-		<properties> 		
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />  
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-		</properties>
+    <class>br.com.travelmate.model.Crmcobrancaconta</class>
+    <class>br.com.travelmate.model.Acessounidade</class>
     
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+    	<property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
+    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.25.170:8082/systm"/>
+    	<property name="javax.persistence.jdbc.user" value="root"/>
+    	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+    	<property name="eclipselink.jdbc.bind-parameters" value="true"/>
+    	<property name="eclipselink.jdbc.exclusive-connection.mode" value="Always"/>
+    	<property name="eclipselink.exclude-eclipselink-orm" value="true"/>
+    	<property name="javax.persistence.jdbc.password" value="simples"/>
+    	</properties>
   </persistence-unit>
 </persistence>

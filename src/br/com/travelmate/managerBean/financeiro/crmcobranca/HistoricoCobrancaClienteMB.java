@@ -21,38 +21,31 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
-
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
-import br.com.travelmate.facade.AupairFacade;
-import br.com.travelmate.facade.ContasReceberFacade;
+import org.primefaces.context.RequestContext; 
+import br.com.travelmate.facade.AupairFacade; 
+import br.com.travelmate.facade.CrmCobrancaFacade;
+import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.HeFacade;
-import br.com.travelmate.facade.HighSchoolFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade;
+import br.com.travelmate.facade.HighSchoolFacade; 
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
-import br.com.travelmate.facade.TraineeFacade;
-import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.facade.TraineeFacade; 
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
-import br.com.travelmate.model.Aupair;
-import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Aupair; 
 import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.He;
-import br.com.travelmate.model.Highschool;
-import br.com.travelmate.model.Leadhistorico;
+import br.com.travelmate.model.Highschool; 
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Questionariohe;
@@ -96,14 +89,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private Seguroviagem seguroViagem;
 	private Vistos vistos;
 	private Questionariohe questionarioHe;
-	private String iconeFicha = "";
-	@Inject
-	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
-	private List<Crmcobranca> listaCrmCobranca;
-	
-	
+	private String iconeFicha = ""; 
+	private List<Crmcobranca> listaCrmCobranca; 
 	
 	@PostConstruct
 	public void init(){
@@ -131,15 +118,11 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 
 	public Motivocancelamento getMotivocancelamento() {
 		return motivocancelamento;
-	}
-
+	} 
 
 	public void setMotivocancelamento(Motivocancelamento motivocancelamento) {
 		this.motivocancelamento = motivocancelamento;
-	}
-
-
-	
+	} 
 	
 	public Vendas getVenda() {
 		return venda;
@@ -390,7 +373,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	public void pegarPrioridade(String prioridade){
 		crmcobranca.setPrioridade(prioridade);
-		crmcobranca = crmCobrancaDao.salvar(crmcobranca);
+		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
+		crmcobranca = crmCobrancaFacade.salvar(crmcobranca);
 		this.prioridade = prioridade;
 	}
 	
@@ -412,7 +396,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void gerarListaCobrancaHistorico(){
-		listaCobrancaHistorico = crmCobrancaHistoricoDao.lista("SELECT c FROM Crmcobrancahistorico c WHERE c.cliente.idcliente=" 
+		CrmCobrancaHistoricoFacade cobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
+		listaCobrancaHistorico = cobrancaHistoricoFacade.lista("SELECT c FROM Crmcobrancahistorico c WHERE c.cliente.idcliente=" 
 				+ crmcobranca.getVendas().getCliente().getIdcliente());
 		
 		if (listaCobrancaHistorico == null) {
@@ -421,15 +406,14 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	}
 	
 	public void gerarListaHistorico() {
+		CrmCobrancaHistoricoFacade cobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
 		String sql = "select c from Crmcobrancahistorico c where c.cliente.idcliente=" + crmcobranca.getVendas().getCliente().getIdcliente()
 				+ " order by c.data DESC, c.idcrmcobrancahistorico DESC";
-		listaCobrancaHistorico = crmCobrancaHistoricoDao.lista(sql);
+		listaCobrancaHistorico = cobrancaHistoricoFacade.lista(sql);
 		if (listaCobrancaHistorico == null) {
 			listaCobrancaHistorico = new ArrayList<>();
 		}
-	}
-	
-	
+	}  
 	
 	public String gerarRelatorioFicha() throws IOException {
 		Map parameters = new HashMap();
@@ -772,7 +756,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		int idUsuarioLogado = usuarioLogadoMB.getUsuario().getIdusuario();
 		if (idUsuarioLogado == crmcobrancahistorico.getUsuario().getIdusuario()) {
 			listaCobrancaHistorico.remove(crmcobrancahistorico);
-			crmCobrancaHistoricoDao.excluir(crmcobrancahistorico.getIdcrmcobrancahistorico());
+			CrmCobrancaHistoricoFacade cobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
+			cobrancaHistoricoFacade.excluir(crmcobrancahistorico.getIdcrmcobrancahistorico());
 			gerarListaHistorico();
 			Mensagem.lancarMensagemInfo("Histórico excluido com sucesso.", "");
 		}else{
@@ -795,7 +780,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void salvarNotas() {
-		crmcobranca = crmCobrancaDao.salvar(crmcobranca); 
+		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
+		crmcobranca = crmCobrancaFacade.salvar(crmcobranca); 
 		Mensagem.lancarMensagemInfo("Salvo com sucesso.", "");
 	}
 	

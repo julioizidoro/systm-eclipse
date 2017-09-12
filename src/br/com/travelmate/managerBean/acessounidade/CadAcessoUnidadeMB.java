@@ -10,8 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.dao.AcessoUnidadeDao;
-import br.com.travelmate.dao.UsuariorDao;
+import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Usuario;
@@ -24,13 +24,9 @@ public class CadAcessoUnidadeMB implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao; 
+	private static final long serialVersionUID = 1L; 
 	@Inject 
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private UsuariorDao usuariorDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private Acessounidade acessoUnidade;
 	private Usuario usuario;
 	private List<Usuario> listaUsuario;
@@ -94,7 +90,8 @@ public class CadAcessoUnidadeMB implements Serializable{
 	public String salvar() {
 		if(usuario!=null && usuario.getIdusuario()!=null) {
 			acessoUnidade.setUsuario(usuario);
-			acessoUnidade = acessoUnidadeDao.salvar(acessoUnidade);
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			acessoUnidade = acessoUnidadeFacade.salvar(acessoUnidade);
 			Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
 			return "consAcessoUnidade";
 		}else Mensagem.lancarMensagemErro("Atenção!", "Usuário não informado.");
@@ -107,7 +104,8 @@ public class CadAcessoUnidadeMB implements Serializable{
 			sql = sql + " AND u.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
 		sql = sql + " ORDER BY u.nome";
-		listaUsuario = usuariorDao.listar(sql);
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		listaUsuario = usuarioFacade.listar(sql);
 	}
 
 }

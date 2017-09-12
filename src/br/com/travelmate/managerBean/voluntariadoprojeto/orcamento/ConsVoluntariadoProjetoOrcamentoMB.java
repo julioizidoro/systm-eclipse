@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
- 
-import br.com.travelmate.dao.AcessoUnidadeDao;
+  
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.CambioFacade; 
 import br.com.travelmate.facade.FornecedorPaisFacade;
 import br.com.travelmate.facade.FtpDadosFacade; 
@@ -75,9 +75,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private Date dataInicio;
 	private Date dataTermino;
 	private List<Unidadenegocio> listaUnidadeNegocio;
@@ -177,7 +175,8 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		String sql = "select o from Orcamentoprojetovoluntariado o where o.dataorcamento>='"+data+"'";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql +" and o.usuario.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isConsultaorcamento()) {
@@ -197,7 +196,8 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		String sql = "select o from Orcamentoprojetovoluntariado o where o.cliente.idcliente like '%"+nomeCliente+"%'";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql +" and o.usuario.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isConsultaorcamento()) {

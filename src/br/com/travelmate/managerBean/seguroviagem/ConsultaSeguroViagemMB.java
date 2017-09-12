@@ -26,6 +26,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -57,9 +58,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject 
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Seguroviagem> listaSeguro;
 	private Seguroviagem seguroViagem;
 	private String nomeCliente;
@@ -232,7 +231,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			sql = sql + " and s.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isEmissaoconsulta()) {
@@ -288,7 +288,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		} else {
 			sql = sql + " and s.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isEmissaoconsulta()) {

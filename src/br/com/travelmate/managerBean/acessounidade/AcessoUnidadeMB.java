@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
 
@@ -24,9 +24,7 @@ public class AcessoUnidadeMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private String nome;
 	private List<Acessounidade> listaAcesso;
 	
@@ -69,7 +67,8 @@ public class AcessoUnidadeMB implements Serializable{
 							+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
 		sql = sql + " ORDER BY a.usuario.nome";
-		listaAcesso = acessoUnidadeDao.lista(sql);
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+		listaAcesso = acessoUnidadeFacade.lista(sql);
 		if(listaAcesso==null) {
 			listaAcesso = new ArrayList<>();
 		}

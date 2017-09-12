@@ -8,12 +8,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
+import javax.faces.view.ViewScoped; 
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-
-import br.com.travelmate.dao.AcessoUnidadeDao;
+ 
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.GrupoAcessoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -34,9 +33,7 @@ public class CadUsuariosMB implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private static final long serialVersionUID = 1L; 
 	private Usuario usuario;
 	private String situacao;
 	private List<Unidadenegocio> listaUnidade;
@@ -223,7 +220,8 @@ public class CadUsuariosMB implements Serializable {
 					unidadenegocio.setResponsavelcrm(usuario.getIdusuario());
 					unidadeNegocioFacade.salvar(unidadenegocio);
 				}
-				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 						+usuario.getIdusuario());
 				if(acessounidade==null) {
 					acessounidade = new Acessounidade();
@@ -233,7 +231,7 @@ public class CadUsuariosMB implements Serializable {
 					acessounidade.setDashboard(true);
 					acessounidade.setEmissaoconsulta(true); 
 					acessounidade.setUsuario(usuario);
-					acessounidade = acessoUnidadeDao.salvar(acessounidade);
+					acessounidade = acessoUnidadeFacade.salvar(acessounidade);
 				}
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 

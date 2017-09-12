@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -49,8 +49,6 @@ public class FollowUpMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
 	private String imagemNovos = "novos";
 	private String imagemHoje = "hojeClick";
 	private String imagemAtrasados = "atrasados";
@@ -124,7 +122,8 @@ public class FollowUpMB implements Serializable {
 				}
 				listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
 			}else {
-				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 						+usuarioLogadoMB.getUsuario().getIdusuario());
 				if(acessounidade!=null) {
 					if(acessounidade.isCrm()) {

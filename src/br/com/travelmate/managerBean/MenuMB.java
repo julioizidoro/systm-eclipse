@@ -28,8 +28,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
-
-import br.com.travelmate.dao.AcessoUnidadeDao;
+ 
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VersaoUsuarioFacade;
 import br.com.travelmate.managerBean.financeiro.boleto.DadosBoletoBean;
@@ -52,9 +52,7 @@ public class MenuMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private VerificarLogin verificarLogin;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuarioLogadoMB usuarioLogadoMB;  
 	private boolean logado;
 
 	@PostConstruct
@@ -1362,7 +1360,7 @@ public class MenuMB implements Serializable {
 		atualizaTempoLogado();
 		return "followupCobranca";
 	}
-
+ 
 	public void mensagemCobranca() {
 		Mensagem.lancarMensagemInfo("Pesquisando contas", "");
 	}
@@ -1372,7 +1370,8 @@ public class MenuMB implements Serializable {
 	}
 	
 	public boolean mostrarComissaoParceiros() {
-		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 				+usuarioLogadoMB.getUsuario().getIdusuario());
 		if(acessounidade!=null) {
 			if(acessounidade.isComissaoparceiros()) {

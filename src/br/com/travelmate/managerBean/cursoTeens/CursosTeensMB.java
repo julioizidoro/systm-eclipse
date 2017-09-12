@@ -6,8 +6,8 @@
 package br.com.travelmate.managerBean.cursoTeens;
  
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
@@ -18,8 +18,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Parcelamentopagamento;
@@ -70,9 +69,7 @@ public class CursosTeensMB implements Serializable {
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Cambio> listaCambio;
 	private String numeroFichas;
 	private String numerosCurso;
@@ -345,7 +342,8 @@ public class CursosTeensMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql + " and  p.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isEmissaoconsulta()) {
@@ -391,7 +389,8 @@ public class CursosTeensMB implements Serializable {
 		} else {
 			sql = sql + " and p.vendas.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isEmissaoconsulta()) {

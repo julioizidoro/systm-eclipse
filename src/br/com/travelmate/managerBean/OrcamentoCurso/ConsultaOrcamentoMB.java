@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
-
-import br.com.travelmate.dao.AcessoUnidadeDao;
+ 
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
@@ -65,9 +65,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
-	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private AplicacaoMB aplicacaoMB; 
 	private Ocurso ocurso;
 	private List<Ocurso> listaOcurso;
 	private Cliente cliente;
@@ -228,7 +226,8 @@ public class ConsultaOrcamentoMB implements Serializable {
 			} else {
 				sql = "Select o from Ocurso o where o.usuario.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 						+usuarioLogadoMB.getUsuario().getIdusuario());
 				if(acessounidade!=null) {
 					if(!acessounidade.isConsultaorcamento()) {
@@ -280,7 +279,8 @@ public class ConsultaOrcamentoMB implements Serializable {
 			executarFiltro = true;
 		}
 		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isConsultaorcamento()) {

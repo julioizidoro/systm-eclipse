@@ -12,11 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.context.RequestContext; 
 
-import br.com.travelmate.dao.CrmCobrancaContaDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -40,13 +37,7 @@ public class RecebimentoMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject 
-	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
-	private CrmCobrancaContaDao crmCobrancaContaDao;
-	@Inject 
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Contasreceber> listaContas;
 	private float totalreceber;
 	private float valorjuros;
@@ -217,7 +208,7 @@ public class RecebimentoMB implements Serializable{
 				conta.setSituacao("vd");
 				conta.setBanco(banco);
 				conta = contasReceberFacade.salvar(conta);
-				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean(crmCobrancaDao, crmCobrancaContaDao,crmCobrancaHistoricoDao);
+				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 				crmCobrancaBean.baixar(listaContas.get(i), usuarioLogadoMB.getUsuario());
 				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usuário", conta, usuarioLogadoMB.getUsuario());
 				if (!novoCartao.equalsIgnoreCase("sim")){

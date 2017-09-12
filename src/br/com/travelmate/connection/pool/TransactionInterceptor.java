@@ -1,4 +1,4 @@
-package br.com.travelmate.connection.pool;
+/*package br.com.travelmate.connection.pool;
 
 import java.io.Serializable;
 
@@ -51,3 +51,4 @@ public class TransactionInterceptor implements Serializable {
 		}
 	}
 }
+*/

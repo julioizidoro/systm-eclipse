@@ -11,21 +11,13 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-
-import br.com.travelmate.dao.CrmCobrancaContaDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
-import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.ParametrosFinanceiroFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Crmcobranca;
-import br.com.travelmate.model.Crmcobrancaconta;
-import br.com.travelmate.model.Parametrosfinanceiro;
+  
+import br.com.travelmate.facade.CrmCobrancaFacade; 
+import br.com.travelmate.managerBean.AplicacaoMB; 
+import br.com.travelmate.model.Crmcobranca; 
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Usuario;
-import br.com.travelmate.ti.TiBean;
+import br.com.travelmate.model.Usuario; 
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
@@ -39,13 +31,7 @@ public class FollowUpCobrancaMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
-	private CrmCobrancaContaDao crmCobrancaContaDao;
-	@Inject
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	private AplicacaoMB aplicacaoMB; 
 	private String imagemNovos = "novos";
 	private String imagemHoje = "hojeClick";
 	private String imagemAtrasados = "atrasados";
@@ -82,7 +68,7 @@ public class FollowUpCobrancaMB implements Serializable{
 		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
 		session.removeAttribute("listaCrmCobranca");
 		if (!aplicacaoMB.isLeituraCobranca()) {
-			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean(crmCobrancaDao, crmCobrancaContaDao, crmCobrancaHistoricoDao);
+			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.gerarListaInadiplentes();
 			crmCobrancaBean.calcularAtrasos();
 			aplicacaoMB.setLeituraCobranca(true);
@@ -490,7 +476,8 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	
 	public void gerarListaCrmCobranca(){
-		listaCrmCobranca = crmCobrancaDao.lista(sql);
+		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
+		listaCrmCobranca = crmCobrancaFacade.lista(sql);
 		if (listaCrmCobranca == null) {
 			listaCrmCobranca = new ArrayList<>();
 		}

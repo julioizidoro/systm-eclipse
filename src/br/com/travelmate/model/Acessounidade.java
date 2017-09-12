@@ -8,8 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne; 
 import javax.persistence.Table;
 
 /**
@@ -35,9 +34,9 @@ public class Acessounidade implements Serializable {
     @Column(name = "consultaorcamento")
     private boolean consultaorcamento;
     @Column(name = "crm")
-    private boolean crm;
+    private boolean crm; 
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Usuario usuario;
 
     public Acessounidade() {

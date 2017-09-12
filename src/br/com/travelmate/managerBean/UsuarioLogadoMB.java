@@ -6,11 +6,11 @@
 package br.com.travelmate.managerBean;
   
 import br.com.travelmate.dao.AcessoUnidadeDao;
-import br.com.travelmate.dao.UsuarioDao;
-import br.com.travelmate.dao.UsuariorDao;
+import br.com.travelmate.dao.UsuarioDao; 
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -59,9 +59,7 @@ public class UsuarioLogadoMB implements Serializable {
 	@Inject
 	private VerificarLogin verificarLogin;
 	@Inject
-	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private UsuariorDao usuariorDao; 
+	private AplicacaoMB aplicacaoMB; 
 	private Usuario usuario;
 	private String novaSenha;
 	private String senhaAtual;
@@ -234,7 +232,8 @@ public class UsuarioLogadoMB implements Serializable {
 			} catch (NoSuchAlgorithmException ex) {
 				Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
 			} 
-			usuario = usuariorDao.consultar(login, senha);
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			usuario = usuarioFacade.consultar(login, senha);
 			if (usuario == null) {
 				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
 			} else {
@@ -309,7 +308,8 @@ public class UsuarioLogadoMB implements Serializable {
 						Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
 					}
 					usuario.setSenha(senha);
-					usuario = usuariorDao.salvar(usuario);
+					UsuarioFacade usuarioFacade = new UsuarioFacade();
+					usuario = usuarioFacade.salvar(usuario);
 					senhaAtual = "";
 					novaSenha = "";
 					confirmaNovaSenha = "";
@@ -445,7 +445,8 @@ public class UsuarioLogadoMB implements Serializable {
 	
 	public void salvarUsuario() {
 		if (usuario.getDataaniversario()!=null) { 
-			usuario = usuariorDao.salvar(usuario);
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			usuario = usuarioFacade.salvar(usuario);
 			RequestContext.getCurrentInstance().closeDialog("inicial.jsf"); 
 		} else
 			Mensagem.lancarMensagemErro("Atenção!", "Data de nascimento não informada."); 

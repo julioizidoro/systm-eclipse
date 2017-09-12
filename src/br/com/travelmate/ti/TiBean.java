@@ -1,29 +1,16 @@
 package br.com.travelmate.ti;
 
-import java.util.List;
+import java.util.List; 
 
-import javax.inject.Inject;
-
-import br.com.travelmate.dao.AcessoUnidadeDao;
-import br.com.travelmate.dao.CrmCobrancaContaDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.GerarListas;
 
-public class TiBean {
+public class TiBean {  
 	
-	@Inject
-	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
-	@Inject CrmCobrancaContaDao crmCobrancaContaDao; 
-	private AcessoUnidadeDao acessoUnidadeDao;
-	
-	
-	public TiBean(AcessoUnidadeDao acessoUnidadeDao) { 
-		this.acessoUnidadeDao = acessoUnidadeDao;
+	public TiBean() { 
+		 
 	}
 	
 	/*public void gerarCobrancaNova() {
@@ -78,9 +65,10 @@ public class TiBean {
 
 
 	public void salvarAcessoUnidade() {
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
 		List<Usuario> listaUsuario = GerarListas.listarUsuarios("SELECT u FROM Usuario u WHERE u.situacao='Ativo' ORDER BY u.nome");
 		for (int i = 0; i < listaUsuario.size(); i++) {
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+listaUsuario.get(i).getIdusuario());
 			if(acessounidade==null) {
 				acessounidade = new Acessounidade();
@@ -90,7 +78,7 @@ public class TiBean {
 				acessounidade.setDashboard(true);
 				acessounidade.setEmissaoconsulta(true); 
 				acessounidade.setUsuario(listaUsuario.get(i));
-				acessounidade = acessoUnidadeDao.salvar(acessounidade);
+				acessounidade = acessoUnidadeFacade.salvar(acessounidade);
 			}
 		}
 	}

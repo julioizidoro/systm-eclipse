@@ -1,31 +1,22 @@
 package br.com.travelmate.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import br.com.travelmate.connection.pool.Transactional;
+import br.com.travelmate.connection.ConectionFactory; 
 import br.com.travelmate.model.Pacotesinicial;
+
+import java.sql.SQLException;
+import java.util.List;
+import javax.persistence.EntityManager; 
+import javax.persistence.Query;
 
 /**
  *
  * @author Kamila
  */
-public class PacoteInicialDao implements Serializable{ 
+public class PacoteInicialDao { 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	private EntityManager manager;
-
-	@Transactional
-	public Pacotesinicial consultar(String sql)  {
+	public Pacotesinicial consultar(String sql) throws SQLException {
+		EntityManager manager;
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		Pacotesinicial pacotesinicial = null;
 		if (q.getResultList().size() > 0) {
@@ -34,8 +25,9 @@ public class PacoteInicialDao implements Serializable{
 		return pacotesinicial;
 	}   
 
-	@Transactional
-	public List<Pacotesinicial> listar(String sql)  {
+	public List<Pacotesinicial> listar(String sql) throws SQLException {
+		EntityManager manager;
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Pacotesinicial> lista = null;
 		if (q.getResultList().size() > 0) {

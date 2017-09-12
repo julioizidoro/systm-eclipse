@@ -1,4 +1,4 @@
-package br.com.travelmate.connection.pool;
+/*package br.com.travelmate.connection.pool;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,3 +13,4 @@ import javax.interceptor.InterceptorBinding;
 public @interface Transactional {
 
 }
+*/

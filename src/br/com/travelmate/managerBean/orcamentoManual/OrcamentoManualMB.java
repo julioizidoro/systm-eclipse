@@ -28,6 +28,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade;
@@ -60,9 +61,7 @@ public class OrcamentoManualMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject 
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Orcamentocurso> listaOrcamento;
 	private boolean habilitarUnidade;
 	private String nomeCliente = "";
@@ -183,7 +182,8 @@ public class OrcamentoManualMB implements Serializable {
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
 					+ " and o.cliente.nome like '%" + nomeCliente + "%' and o.situacao='Processo' and o.data>='"
 					+ dataConsulta + "'";
-			Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 					+usuarioLogadoMB.getUsuario().getIdusuario());
 			if(acessounidade!=null) {
 				if(!acessounidade.isConsultaorcamento()) {
@@ -220,7 +220,8 @@ public class OrcamentoManualMB implements Serializable {
 			sql = sql + " and o.data>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and o.data<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
 		}
-		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 				+usuarioLogadoMB.getUsuario().getIdusuario());
 		if(acessounidade!=null) {
 			if(!acessounidade.isConsultaorcamento()) {

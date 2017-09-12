@@ -1,7 +1,7 @@
 package br.com.travelmate.managerBean.cursospacotes;
-
-import br.com.travelmate.dao.PacoteInicialDao;
-import br.com.travelmate.facade.CursosPacotesFacade;  
+ 
+import br.com.travelmate.facade.CursosPacotesFacade;
+import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.managerBean.AplicacaoMB; 
 import br.com.travelmate.model.Cursospacote; 
 import br.com.travelmate.model.Pacotesinicial; 
@@ -9,8 +9,7 @@ import br.com.travelmate.util.Formatacao;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +28,7 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class PacotesAtivosMB implements Serializable {
  
-	private static final long serialVersionUID = 1L; 
-	@Inject
-	private PacoteInicialDao pacoteInicialDao;
+	private static final long serialVersionUID = 1L;  
 	private List<Pacotesinicial> listaCursosPacotes; 
 	private List<Pacotesinicial> listaTrabalhoPacotes; 
 	private List<Pacotesinicial> listaTeensPacotes;  
@@ -105,7 +102,8 @@ public class PacotesAtivosMB implements Serializable {
 
 	public void listarCursosPacotes(){ 
 		String sql = "SELECT c FROM Pacotesinicial c ORDER BY c.idproduto, c.pais";
-		List<Pacotesinicial> lista = pacoteInicialDao.listar(sql);  
+		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
+		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
 		listaTrabalhoPacotes = new ArrayList<>();
 		listaCursosPacotes =  new ArrayList<>();
 		listaTeensPacotes =  new ArrayList<>(); 

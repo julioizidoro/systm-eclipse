@@ -103,9 +103,7 @@ public class Usuario implements Serializable {
     @Column(name = "pertencematriz")
     private boolean pertencematriz; 
     @Column(name = "recebeleadautomatica")
-    private boolean recebeleadautomatica; 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario" )
-    private Acessounidade acessounidade;
+    private boolean recebeleadautomatica;  
     @Transient
     private boolean selecionado;
     @Transient
@@ -305,15 +303,7 @@ public class Usuario implements Serializable {
 
 	public void setRecebeleadautomatica(boolean recebeleadautomatica) {
 		this.recebeleadautomatica = recebeleadautomatica;
-	}
-
-	public Acessounidade getAcessounidade() {
-		return acessounidade;
-	}
-
-	public void setAcessounidade(Acessounidade acessounidade) {
-		this.acessounidade = acessounidade;
-	}
+	} 
 
 	@Override
     public int hashCode() {

@@ -11,11 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
-import br.com.travelmate.dao.CrmCobrancaContaDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
+ 
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.RetornoArquivoFacade;
@@ -40,28 +36,18 @@ public class LerRetornoItauBean {
 	
 	private List<RetornoBean> listaRetorno;
 	private Usuario usuario;
-	private String nomeArquivo;
-	private CrmCobrancaDao crmCobrancaDao;
-	private CrmCobrancaContaDao crmCobrancaContaDao;
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	private String nomeArquivo; 
 	
-	public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario, 
-			CrmCobrancaDao crmCobrancaDao, CrmCobrancaContaDao crmCobrancaContaDao,
-			CrmCobrancaHistoricoDao crmCobrancaHistoricoDao) {
-		this.crmCobrancaDao = crmCobrancaDao;
-		this.crmCobrancaContaDao = crmCobrancaContaDao;
-		this.crmCobrancaHistoricoDao = crmCobrancaHistoricoDao;
-    	this.nomeArquivo = nomeArquivo;
-    	this.usuario = usuario;
+	public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario) { 
+		this.nomeArquivo = nomeArquivo;
+		this.usuario = usuario;
         try {
         	listaRetorno = new ArrayList<RetornoBean>();
             lerArquivo(retorno);
         } catch (Exception ex) {
             Logger.getLogger(LerRetornoItauBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
+    } 
     
     public List<RetornoBean> getListaRetorno() {
 		return listaRetorno;
@@ -173,7 +159,7 @@ public class LerRetornoItauBean {
 			conta.setDataRetorno(new Date());
 			conta.setCodigoocorrencia(ocorrencia);
 			conta = contasReceberFacade.salvar(conta);
-			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean(crmCobrancaDao, crmCobrancaContaDao, crmCobrancaHistoricoDao);
+			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.baixar(conta, usuario);
 			retornoarquivo.setNomeaquivo(nomeArquivo);
 			retornoarquivo.setUsuario(usuario);

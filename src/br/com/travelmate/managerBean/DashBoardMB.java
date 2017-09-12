@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.bean.MetasFaturamentoBean;
-import br.com.travelmate.dao.AcessoUnidadeDao;
+import br.com.travelmate.bean.MetasFaturamentoBean; 
+import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -45,9 +45,7 @@ public class DashBoardMB implements Serializable {
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
-	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private AcessoUnidadeDao acessoUnidadeDao;
+	private AplicacaoMB aplicacaoMB; 
 	private String valorFaturamento;
 	private float metaparcialsemana;
 	private float percsemana;
@@ -483,7 +481,8 @@ public class DashBoardMB implements Serializable {
 	}
 	
 	public boolean mostrarDadosUnidade() {
-		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 				+usuarioLogadoMB.getUsuario().getIdusuario());
 		if(acessounidade!=null) {
 			if(acessounidade.isDashboard()) {
@@ -493,7 +492,8 @@ public class DashBoardMB implements Serializable {
 	}
 	
 	public boolean privarDadosUnidade() {
-		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 				+usuarioLogadoMB.getUsuario().getIdusuario());
 		if(acessounidade!=null) {
 			if(acessounidade.isDashboard()) {

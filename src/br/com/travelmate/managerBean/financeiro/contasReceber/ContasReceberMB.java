@@ -37,10 +37,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.BolinhasBean;
 import br.com.travelmate.bean.LerRetornoItauBean;
-import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.dao.CrmCobrancaContaDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.dao.CrmCobrancaHistoricoDao;
+import br.com.travelmate.bean.RelatorioErroBean; 
 import br.com.travelmate.facade.CobrancaFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HistoricoCobrancaFacade;
@@ -76,13 +73,7 @@ public class ContasReceberMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject 
-	private CrmCobrancaDao crmCobrancaDao;
-	@Inject
-	private CrmCobrancaContaDao crmCobrancaContaDao;
-	@Inject 
-	private CrmCobrancaHistoricoDao crmCobrancaHistoricoDao;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Contasreceber> listaContas;
 	private Contasreceber conta;
 	private Float contasVencidas;
@@ -594,8 +585,7 @@ public class ContasReceberMB implements Serializable {
 	public String lerRetorno(UploadedFile retorno) {
 		try {
 			LerRetornoItauBean lerRetornoItauBean = new LerRetornoItauBean(
-					Formatacao.converterUploadedFileToFile(retorno), retorno.getFileName(), usuarioLogadoMB.getUsuario(), 
-					crmCobrancaDao, crmCobrancaContaDao, crmCobrancaHistoricoDao);
+					Formatacao.converterUploadedFileToFile(retorno), retorno.getFileName(), usuarioLogadoMB.getUsuario());
 			listaRetorno = lerRetornoItauBean.getListaRetorno();
 			if(listaRetorno==null){
 				listaRetorno = new ArrayList<>();
