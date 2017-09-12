@@ -1379,4 +1379,8 @@ public class MenuMB implements Serializable {
 			}else return false;
 		}else return true;
 	}
+	
+	public String consSolicitacoes() {
+		return "consSolicitacoes";
+	}
 }

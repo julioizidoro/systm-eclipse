@@ -168,6 +168,8 @@ public class Acesso implements Serializable {
 	private boolean crmcobranca;
 	@Column(name = "acessounidade")
 	private boolean acessounidade;
+	@Column(name = "menusolicitacoes")
+	private boolean menusolicitacoes;
 
 	public Integer getIdacesso() {
 		return idacesso;
@@ -737,6 +739,16 @@ public class Acesso implements Serializable {
 
 	public void setAcessounidade(boolean acessounidade) {
 		this.acessounidade = acessounidade;
+	}
+
+
+	public boolean isMenusolicitacoes() {
+		return menusolicitacoes;
+	}
+
+
+	public void setMenusolicitacoes(boolean menusolicitacoes) {
+		this.menusolicitacoes = menusolicitacoes;
 	}
 
 

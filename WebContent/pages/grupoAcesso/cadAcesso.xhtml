@@ -147,7 +147,7 @@
 						<p:tab title="Controle">    
 							<h:panelGrid columns="5"
 								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
-								style="width:95%;">
+								style="width:96%;">
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.acessounidade}" />
@@ -156,7 +156,7 @@
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.conferenciacartaocredito}" />
-									<h:outputText value="Conferência Lançamento Cartão" style="margin-left:2%;" />
+									<h:outputText value="Conferência Lançamento Cartão"  />
 								</h:panelGroup> 
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
@@ -175,6 +175,23 @@
 										style="margin-left:2%;" />
 								</h:panelGroup>
 							</h:panelGrid>  
+							<h:panelGrid columns="5"
+								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
+								style="width:95%;">
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.menusolicitacoes}" />
+									<h:outputText value="Solicitações" style="margin-left:2%;" />
+								</h:panelGroup> 
+								<h:panelGroup>
+								</h:panelGroup> 
+								<h:panelGroup>
+								</h:panelGroup> 
+								<h:panelGroup>
+								</h:panelGroup> 
+								<h:panelGroup>
+								</h:panelGroup>
+							</h:panelGrid>    
 						</p:tab>
 						<p:tab title="Gerências">     
 							<br></br>
