@@ -463,13 +463,10 @@ public class MenuMB implements Serializable {
 		return "autorizacaodebito";
 	}
 
-	public String relatoriosComissaoParceiros() {
-		if ((usuarioLogadoMB.getUsuario().getGrupoacesso().getIdgrupoAcesso() != 5)
-				|| (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("gerencial"))) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 450);
-			RequestContext.getCurrentInstance().openDialog("relatoriosComissaoParceiros", options, null);
-		}
+	public String relatoriosComissaoParceiros() {  
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 450);
+		RequestContext.getCurrentInstance().openDialog("relatoriosComissaoParceiros", options, null); 
 		return "";
 	}
 
