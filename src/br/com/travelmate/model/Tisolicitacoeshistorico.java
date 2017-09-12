@@ -9,7 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +24,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "tisolicitacoeshistorico")
+@NamedQueries({
+    @NamedQuery(name = "Tisolicitacoeshistorico.findAll", query = "SELECT t FROM Tisolicitacoeshistorico t")})
 public class Tisolicitacoeshistorico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,12 +34,16 @@ public class Tisolicitacoeshistorico implements Serializable {
     @Basic(optional = false)
     @Column(name = "idtisolicitacoeshistorico")
     private Integer idtisolicitacoeshistorico;
-    @Size(max = 45)
-    @Column(name = "situacao")
-    private String situacao;
     @Column(name = "data")
     @Temporal(TemporalType.DATE)
     private Date data;
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "descricao")
+    private String descricao;
+    @Size(max = 45)
+    @Column(name = "tipo")
+    private String tipo;
     @JoinColumn(name = "tisolicitacoes_idtisolicitacoes", referencedColumnName = "idtisolicitacoes")
     @ManyToOne(optional = false)
     private Tisolicitacoes tisolicitacoes;
@@ -57,20 +66,28 @@ public class Tisolicitacoeshistorico implements Serializable {
         this.idtisolicitacoeshistorico = idtisolicitacoeshistorico;
     }
 
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
-
     public Date getData() {
         return data;
     }
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Tisolicitacoes getTisolicitacoes() {
@@ -115,4 +132,3 @@ public class Tisolicitacoeshistorico implements Serializable {
     }
     
 }
-

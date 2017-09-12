@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -51,6 +53,8 @@ public class Tisolicitacoes implements Serializable {
     @Size(max = 30)
     @Column(name = "situacao")
     private String situacao;
+    @Column(name = "liberar")
+    private Boolean liberar;
     @JoinColumn(name = "departamento_iddepartamento", referencedColumnName = "iddepartamento")
     @ManyToOne(optional = false)
     private Departamento departamento;
@@ -120,6 +124,14 @@ public class Tisolicitacoes implements Serializable {
         this.situacao = situacao;
     }
 
+    public Boolean getLiberar() {
+        return liberar;
+    }
+
+    public void setLiberar(Boolean liberar) {
+        this.liberar = liberar;
+    }
+
     public Departamento getDepartamento() {
         return departamento;
     }
@@ -162,4 +174,3 @@ public class Tisolicitacoes implements Serializable {
     }
     
 }
-

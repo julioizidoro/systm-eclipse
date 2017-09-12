@@ -769,7 +769,7 @@ public class ContasReceberMB implements Serializable {
 						btnEnviarBoleto = true;
 					} else if (funcaoBotaoBoleto.equalsIgnoreCase("Reenviar")) {
 						sql = sql
-								+ " and c.nossonumero<>'0' and c.valorpago=0 and c.datapagamento is null";
+								+ " and c.nossonumero<>'0' and c.valorpago=0 and c.datapagamento is null and c.situacao<>'cc";
 						if(dataInicial!=null && dataFinal!=null){
 							sql = sql+ " and c.dataenvio>='"+ Formatacao.ConvercaoDataSql(dataInicial) 
 									 + "' and c.dataenvio<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'  and c.boletogerado='SIM' and c.boletoenviado=true";
@@ -1139,8 +1139,17 @@ public class ContasReceberMB implements Serializable {
 	
 	public void selecionarTodos(){
 		if (listaContas!=null){
+			boolean nossoNumeroNull=false;
 			for(int i=0;i<listaContas.size();i++){
-				listaContas.get(i).setSelecionado(selecionarTodos);
+				if ((listaContas.get(0).getTipodocumento().equalsIgnoreCase("Boleto")) && (listaContas.get(i).getNossonumero()==null)){
+					listaContas.get(i).setSelecionado(false);
+					nossoNumeroNull = true;
+				}else {
+					listaContas.get(i).setSelecionado(selecionarTodos);
+				}
+			}
+			if (nossoNumeroNull){
+				Mensagem.lancarMensagemInfo("ERRO CONTAS", "Existem boletos com nosso numerro NULO");
 			}
 		}
 	}
