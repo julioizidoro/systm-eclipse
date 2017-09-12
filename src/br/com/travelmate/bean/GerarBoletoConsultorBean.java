@@ -22,10 +22,9 @@ public class GerarBoletoConsultorBean {
         List<Boleto> listaBoletos = new ArrayList<Boleto>();
         if (listaContas!=null){
             for(int i=0;i<listaContas.size();i++){
-            	if (listaContas.get(i).getTipodocumento().equalsIgnoreCase("Boleto")){
-            		listaBoletos.add(gerarClasseBoleto(listaContas.get(i)));
-            	}
-                
+	            	if (listaContas.get(i).getTipodocumento().equalsIgnoreCase("Boleto")){
+	            		listaBoletos.add(gerarClasseBoleto(listaContas.get(i)));
+	            	} 
             }
         }
         if (listaBoletos.size()>0){

@@ -1127,13 +1127,14 @@ public class ControleVendasMB implements Serializable {
 	public String boletos(Vendas vendas) {
 		this.vendas = vendas;
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		String sql = "SELECT r FROM Contasreceber r where r.vendas.idvendas=" + vendas.getIdvendas()
-				+ " and r.tipodocumento='Boleto' " + " order by r.idcontasreceber";
+		String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas=" + vendas.getIdvendas()
+				+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
+				+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
 		List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
 		if (listaContas != null) {
 			if (listaContas.size() > 0) {
 				GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
-				gerarBoletoConsultorBean.gerarBoleto(listaContas, String.valueOf(curso.getVendas().getIdvendas()));
+				gerarBoletoConsultorBean.gerarBoleto(listaContas, String.valueOf(vendas.getIdvendas()));
 			} else {
 				FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 				FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -462,8 +462,9 @@ public class CursoMB implements Serializable {
 
 	public String boletos(Curso curso) {
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		String sql = "SELECT r FROM Contasreceber r where r.vendas.idvendas=" + curso.getVendas().getIdvendas()
-				+ " and r.tipodocumento='Boleto' and r.situacao<>'cc' " + " order by r.idcontasreceber";
+		String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas=" + curso.getVendas().getIdvendas()
+				+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
+				+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
 		List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
 		if (listaContas != null) {
 			if (listaContas.size() > 0) {

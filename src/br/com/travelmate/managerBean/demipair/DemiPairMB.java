@@ -674,9 +674,10 @@ public class DemiPairMB implements Serializable {
     
     
     public String boletos(Demipair demipair){
-    	ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		String sql = "SELECT r FROM Contasreceber r where r.vendas.idvendas=" + demipair.getVendas().getIdvendas() + " and r.tipodocumento='Boleto' "
-				+ " and r.situacao<>'cc' " + " order by r.idcontasreceber";
+    		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+		String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas=" + demipair.getVendas().getIdvendas()
+				+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
+				+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
 		List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
 		if (listaContas!=null){
 			if (listaContas.size()>0){
