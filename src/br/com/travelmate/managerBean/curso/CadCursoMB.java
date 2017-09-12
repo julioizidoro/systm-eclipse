@@ -3096,6 +3096,11 @@ public class CadCursoMB implements Serializable {
 						ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 						Produtosorcamento produtosorcamento = produtoOrcamentoFacade
 									.consultar(aplicacaoMB.getParametrosprodutos().getPromocaoescola()); 
+						if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementocurso()==null
+								|| ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementocurso().getIdcomplementocurso()==null) {
+							produtosorcamento = produtoOrcamentoFacade
+									.consultar(aplicacaoMB.getParametrosprodutos().getPromocaoescolaacomodacao()); 
+						}
 						orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 						orcamentoprodutosorcamento
 								.setValorMoedaEstrangeira(ocurso.getOcrusoprodutosList().get(i).getValororiginal()
