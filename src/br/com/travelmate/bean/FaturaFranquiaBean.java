@@ -163,16 +163,23 @@ public class FaturaFranquiaBean {
 				mes = mes + 1;
 			}
 		}else if (fatura.getLiquidopagar()<0){
-			if (vendasComissao.getVendas().getProdutos().getTipo().equalsIgnoreCase("P")){
-				if (!seguroAvulso){
-					mes = Formatacao.getMesData(vendasComissao.getVendas().getDataVenda())+1;
-					ano = Formatacao.getAnoData(vendasComissao.getVendas().getDataVenda());
-					if (mes==12){
-						mes = 1;
-						ano = ano + 1;
-					}else{
-						mes = mes + 1;
-					}
+			if ((seguroAvulso) && vendasComissao.getProdutos().getIdprodutos()==2){
+				mes = Formatacao.getMesData(vendasComissao.getVendas().getDataVenda())+1;
+				ano = Formatacao.getAnoData(vendasComissao.getVendas().getDataVenda());
+				if (mes==12){
+					mes = 1;
+					ano = ano + 1;
+				}else{
+					mes = mes + 1;
+				}
+			}else if ((vendasComissao.getVendas().getProdutos().getTipo().equalsIgnoreCase("P")) && (vendasComissao.getVendas().getProdutos().getIdprodutos()!=2)){
+				mes = Formatacao.getMesData(vendasComissao.getVendas().getDataVenda())+1;
+				ano = Formatacao.getAnoData(vendasComissao.getVendas().getDataVenda());
+				if (mes==12){
+					mes = 1;
+					ano = ano + 1;
+				}else{
+					mes = mes + 1;
 				}
 			}else {
 				if (vendasComissao.getVendas().getUnidadenegocio().getTipo().equalsIgnoreCase("Express")){
