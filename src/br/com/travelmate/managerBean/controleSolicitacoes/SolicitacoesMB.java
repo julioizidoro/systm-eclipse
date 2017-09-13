@@ -21,7 +21,6 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.TiSolicitacoesFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Tisolicitacoes;
 import br.com.travelmate.util.Formatacao;
@@ -60,7 +59,7 @@ public class SolicitacoesMB implements Serializable{
 		if (listaSolicitacoes == null) {
 			gerarListaSolicitacoes();
 		}
-		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 9 && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1){
+		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
 			departamento = usuarioLogadoMB.getUsuario().getDepartamento();
 			desabilitarDepartamento = true;
 		}
@@ -179,9 +178,9 @@ public class SolicitacoesMB implements Serializable{
 	public void gerarListaSolicitacoes(){
 		TiSolicitacoesFacade tiSolicitacoesFacade = new TiSolicitacoesFacade();
 		String sql = "SELECT t FROM Tisolicitacoes t ";
-		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 9) {
+		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()) {
 			sql = sql + " WHERE t.liberar=true ";
-		}else if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 9 && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1){
+		}else if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
 			sql = sql + " WHERE t.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() + " and t.liberar=true ";
 		}
 		listaSolicitacoes = tiSolicitacoesFacade.listar(sql);
@@ -209,7 +208,7 @@ public class SolicitacoesMB implements Serializable{
 	public void retornoDialogNova(SelectEvent event){
 		Tisolicitacoes tisolicitacoes = (Tisolicitacoes) event.getObject();
 		if (tisolicitacoes.getIdtisolicitacoes() != null) {
-			Mensagem.lancarMensagemInfo("Salvo com Sucesso", "");
+			Mensagem.lancarMensagemInfo("Solicitação enviada com sucesso", "");
 			if (listaSolicitacoes == null) {
 				listaSolicitacoes = new ArrayList<>();
 			}
@@ -244,7 +243,7 @@ public class SolicitacoesMB implements Serializable{
 	
 	
 	public void habilitarCamposTI(){
-		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+		if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes()) {
 			acessoTI = true;
 		}else{
 			acessoTI = false;
@@ -314,9 +313,10 @@ public class SolicitacoesMB implements Serializable{
 		if (situacao != null && !situacao.equalsIgnoreCase("")) {
 			sql = sql + " AND t.situacao='" + situacao + "'";
 		}
-		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 9) {
+		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()) {
 			sql = sql + " AND t.liberar=true ";
-		}else if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 9 && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1){
+		}else if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() 
+					&& !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
 			sql = sql + " AND t.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
 		}
 		listaSolicitacoes = tiSolicitacoesFacade.listar(sql);

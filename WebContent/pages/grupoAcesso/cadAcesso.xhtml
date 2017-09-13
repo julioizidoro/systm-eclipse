@@ -156,7 +156,7 @@
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.conferenciacartaocredito}" />
-									<h:outputText value="Conferência Lançamento Cartão"  />
+									<h:outputText value="Lançamento Cartão"  style="margin-left:2%;"/>
 								</h:panelGroup> 
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
@@ -175,21 +175,28 @@
 										style="margin-left:2%;" />
 								</h:panelGroup>
 							</h:panelGrid>  
+							<br/>
 							<h:panelGrid columns="5"
 								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
-								style="width:95%;">
+								style="width:96%;">
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.menusolicitacoes}" />
-									<h:outputText value="Solicitações" style="margin-left:2%;" />
+									<h:outputText value="Menu Solicitações" style="margin-left:2%;" />
 								</h:panelGroup> 
 								<h:panelGroup>
-								</h:panelGroup> 
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.acessogerencialsolicitacoes}" />
+									<h:outputText value="Gerencial Solicitações" style="margin-left:2%;" />
+								</h:panelGroup>  
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.acessoliberadassolicitacoes}" />
+									<h:outputText value="Solicitações Liberadas" style="margin-left:2%;" />
+								</h:panelGroup>  
 								<h:panelGroup>
 								</h:panelGroup> 
-								<h:panelGroup>
-								</h:panelGroup> 
-								<h:panelGroup>
+								<h:panelGroup>    
 								</h:panelGroup>
 							</h:panelGrid>    
 						</p:tab>
