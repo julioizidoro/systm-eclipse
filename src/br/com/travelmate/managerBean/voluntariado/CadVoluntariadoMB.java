@@ -2014,4 +2014,46 @@ public class CadVoluntariadoMB implements Serializable {
 			consultarCambio();
 		}
 	}
+	
+	public void adicionarSeguroCancelamento() {
+		int idTravelAce = aplicacaoMB.getParametrosprodutos().getTravelace();
+		if (seguroViagem.isSegurocancelamento() && 
+				fornecedorSeguro!=null && fornecedorSeguro.getFornecedor().getIdfornecedor()==idTravelAce) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento(); 
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			Produtosorcamento produto = produtoOrcamentoFacade
+					.consultar(aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid());
+			orcamentoprodutosorcamento.setProdutosorcamento(produto);
+			orcamentoprodutosorcamento.setDescricao(produto.getDescricao());
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor());
+			orcamentoprodutosorcamento.setValorMoedaNacional(orcamentoprodutosorcamento.getValorMoedaEstrangeira()*cambioSeguro.getValor()); 
+			orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+			calcularValorTotalOrcamento();
+			calcularParcelamentoPagamento();
+		} else {
+			seguroViagem.setSegurocancelamento(false);
+			if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
+				int idseguroCancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid();
+				for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+					int idProdutoOrcamento = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
+							.getIdprodutosOrcamento();
+					if (idseguroCancelamento == idProdutoOrcamento) {
+						if (orcamento.getOrcamentoprodutosorcamentoList().get(i)
+								.getIdorcamentoProdutosOrcamento() != null) {
+							OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
+							orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento
+									.getOrcamentoprodutosorcamentoList().get(i).getIdorcamentoProdutosOrcamento());
+						}
+						orcamento.getOrcamentoprodutosorcamentoList().remove(i);
+						calcularValorTotalOrcamento();
+						calcularParcelamentoPagamento();
+						i = 1000;
+					}
+				}
+			}
+		}
+	}
 }

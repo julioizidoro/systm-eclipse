@@ -745,7 +745,7 @@
 								<f:selectItem itemLabel="Sim" itemValue="Sim" />
 								<p:ajax event="change"
 									listener="#{cadVoluntariadoMB.carregarCamposSeguroPrivado()}"
-									update="seguradora, plano, cobranca, datainicio, numsemanas, datatermino, valorseguro, tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,ndias" />
+									update="seguradora, plano,checkBoxSeguro,cobranca, datainicio, numsemanas, datatermino, valorseguro, tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,ndias" />
 							</p:selectOneRadio>
 						</h:panelGrid>
 						<br></br>
@@ -801,45 +801,55 @@
 								value="#{cadVoluntariadoMB.seguroViagem.valoresseguro.cobranca}"
 								style="width:80%;" maxlength="45"
 								disabled="#{cadVoluntariadoMB.camposSeguroViagem}" />
-
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-
-							<p:outputLabel value="Data inicial" for="datainicio" />
-							<p:outputLabel id="titulosemanasseguro" value="No. dias" />
-							<p:outputLabel value="Data Final" for="datatermino" />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="3" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho11, tamanho14, tamanho14"> 	
+							<h:panelGroup>
+								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
+									<p:outputLabel value="Data inicial" for="datainicio" />
+									<p:outputLabel id="titulosemanasseguro" value="No. dias" />
+									<p:outputLabel value="Data Final" for="datatermino" />
+								</h:panelGrid>
+							</h:panelGroup>
+							<p:outputLabel/>
 							<p:outputLabel value="Valor do Seguro" for="valorseguro" />
 
-							<p:calendar id="datainicio"
-								value="#{cadVoluntariadoMB.seguroViagem.dataInicio}" size="20"
-								locale="pt" pattern="dd/MM/yyyy"
-								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-								<p:ajax event="change" />
-								<p:ajax event="dateSelect" />
-							</p:calendar>
-
-							<p:inputText id="ndias"
-								value="#{cadVoluntariadoMB.seguroViagem.numeroSemanas}"
-								style="width:35%;" maxlength="45"
-								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
-								<f:convertNumber type="number" />
-								<p:ajax event="blur"
-									listener="#{cadVoluntariadoMB.calcularDataTermino()}"
-									update="datatermino, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
-							</p:inputText>
-
-							<p:calendar id="datatermino"
-								value="#{cadVoluntariadoMB.seguroViagem.dataTermino}" size="20"
-								locale="pt" pattern="dd/MM/yyyy"
-								disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-
+							<h:panelGroup>
+								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
+									<p:calendar id="datainicio"
+										value="#{cadVoluntariadoMB.seguroViagem.dataInicio}" size="13"
+										locale="pt" pattern="dd/MM/yyyy"
+										disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+										<p:ajax event="change" />
+										<p:ajax event="dateSelect" />
+									</p:calendar> 
+									<p:inputText id="ndias"
+										value="#{cadVoluntariadoMB.seguroViagem.numeroSemanas}"
+										style="width:60%;" maxlength="45"
+										disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+										<f:convertNumber type="number" />
+										<p:ajax event="blur"
+											listener="#{cadVoluntariadoMB.calcularDataTermino()}"
+											update="datatermino, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+									</p:inputText> 
+									<p:calendar id="datatermino"
+										value="#{cadVoluntariadoMB.seguroViagem.dataTermino}" size="13"
+										locale="pt" pattern="dd/MM/yyyy"
+										disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</p:calendar>
+								</h:panelGrid>   
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadVoluntariadoMB.seguroViagem.segurocancelamento}" disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
+									<p:ajax event="change" listener="#{cadVoluntariadoMB.adicionarSeguroCancelamento()}"
+										update="datatermino, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
+								</p:selectBooleanCheckbox> 
+								<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:2%;"/>
+							</h:panelGroup> 
 							<p:inputText id="valorseguro"
 								value="#{cadVoluntariadoMB.seguroViagem.valorSeguro}"
 								style="width:80%;text-align: right;" maxlength="45"
