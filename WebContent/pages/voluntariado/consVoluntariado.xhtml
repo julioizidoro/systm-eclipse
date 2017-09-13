@@ -112,7 +112,7 @@
 							onclick="PF('cd').show();" rendered="#{voluntariadoMB.linkIdVenda}">
 							<h:outputText value="#{voluntariado.vendas.idvendas}" style="#{voluntariadoMB.cor(voluntariado)}"/>
 						</p:commandLink>
-						<p:commandLink action="#{voluntariadoMB.visualizarContasReceber(voluntariado.vendas)}" title="Visualizar Contas a Receber" rendered="#{voluntariadoMB.linkIdVendaFranquias}">
+						<p:commandLink rendered="#{voluntariadoMB.linkIdVendaFranquias}">
 							<h:outputText value="#{voluntariado.vendas.idvendas}" style="#{voluntariadoMB.cor(voluntariado)}"/>
 						</p:commandLink>
 					</p:column>

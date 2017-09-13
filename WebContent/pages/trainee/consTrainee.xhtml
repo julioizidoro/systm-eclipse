@@ -130,7 +130,7 @@
 							onclick="PF('cd').show();"  rendered="#{traineeMB.linkIdVenda}">
 							<h:outputText value="#{trainee.vendas.idvendas}" style="#{traineeMB.cor(trainee)}"/>
 						</p:commandLink>
-						<p:commandLink action="#{traineeMB.visualizarContasReceber(trainee.vendas)}" title="Visualizar Contas a Receber" rendered="#{traineeMB.linkIdVendaFranquias}">
+						<p:commandLink rendered="#{traineeMB.linkIdVendaFranquias}">
 							<h:outputText value="#{trainee.vendas.idvendas}" style="#{traineeMB.cor(trainee)}"/>
 						</p:commandLink>
 					</p:column>

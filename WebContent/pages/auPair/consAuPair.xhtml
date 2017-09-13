@@ -93,10 +93,8 @@
 					<p:column headerText="ID Venda" sortBy="#{aupair.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
 						<p:commandLink action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
 							<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}"/>
-						</p:commandLink>
-						<p:commandLink action="#{auPairMB.visualizarContasReceber(aupair.vendas)}" title="Visualizar Contas a Receber" rendered="#{auPairMB.linkIdVendaFranquias}">
-							<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}"/>
-						</p:commandLink>
+						</p:commandLink> 
+						<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
 					</p:column>
 					<p:column headerText="Cliente" sortBy="#{aupair.vendas.cliente.nome}" style="width:150px; ">
 						<h:outputText value="#{aupair.vendas.cliente.nome}" style="#{auPairMB.corNome(aupair)}"/>

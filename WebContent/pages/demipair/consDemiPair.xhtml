@@ -115,10 +115,7 @@
 							<h:outputText value="#{demipair.vendas.idvendas}"
 								style="#{demiPairMB.cor(demipair)}" />
 						</p:commandLink>
-						<p:commandLink
-							action="#{demiPairMB.visualizarContasReceber(demipair.vendas)}"
-							title="Visualizar Contas a Receber"
-							rendered="#{demiPairMB.linkIdVendaFranquias}">
+						<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
 							<h:outputText value="#{demipair.vendas.idvendas}"
 								style="#{demiPairMB.cor(demipair)}" />
 						</p:commandLink>

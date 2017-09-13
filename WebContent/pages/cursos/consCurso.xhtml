@@ -124,14 +124,9 @@
 								<p:commandLink action="#{cursoMB.dialogSalvarControle(cursos)}"
 									onclick="PF('cd').show();" rendered="#{cursoMB.linkIdVenda}">
 									<h:outputText value="#{cursos.vendas.idvendas}" />
-								</p:commandLink>
-								<p:commandLink
-									action="#{cursoMB.visualizarContasReceber(cursos.vendas)}"
-									title="Visualizar Contas a Receber"
-									rendered="#{cursoMB.linkIdVendaFranquias}">
-									<h:outputText value="#{cursos.vendas.idvendas}"
-										style="#{cursoMB.cor(cursos)}" />  
-								</p:commandLink>
+								</p:commandLink> 
+								<h:outputText value="#{cursos.vendas.idvendas}"
+										style="#{cursoMB.cor(cursos)}" rendered="#{cursoMB.linkIdVendaFranquias}"/>  
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursos.vendas.cliente.nome}" style="width:150px;">
 								<h:outputText value="#{cursos.vendas.cliente.nome}"

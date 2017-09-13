@@ -111,7 +111,7 @@
 							onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
 							<h:outputText value="#{workTravel.vendas.idvendas}" style="#{workTravelMB.cor(workTravel)}"/>
 						</p:commandLink>
-						<p:commandLink action="#{workTravelMB.visualizarContasReceber(workTravel.vendas)}" title="Visualizar Contas a Receber" rendered="#{workTravelMB.linkIdVendaFranquias}">
+						<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
 							<h:outputText value="#{workTravel.vendas.idvendas}" style="#{workTravelMB.cor(workTravel)}"/>
 						</p:commandLink>
 					</p:column>

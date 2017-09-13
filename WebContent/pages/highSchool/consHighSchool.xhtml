@@ -149,10 +149,7 @@
 							<h:outputText value="#{highSchool.vendas.idvendas}"
 								style="#{highSchoolMB.cor(highSchool)}" />
 						</p:commandLink>
-						<p:commandLink
-							action="#{highSchoolMB.visualizarContasReceber(highSchool.vendas)}"
-							title="Visualizar Contas a Receber"
-							rendered="#{highSchoolMB.linkIdFranquias}">
+						<p:commandLink  rendered="#{highSchoolMB.linkIdFranquias}">
 							<h:outputText value="#{highSchool.vendas.idvendas}"
 								style="#{highSchoolMB.cor(highSchool)}" />
 						</p:commandLink>

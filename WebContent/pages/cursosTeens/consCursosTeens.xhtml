@@ -116,10 +116,8 @@
 					<p:column headerText="ID Venda" sortBy="#{cursosTeens.vendas.idvendas}" style="width:90px;">
 						<p:commandLink action="#{cursosTeensMB.buscarCursosTeens(cursosTeens)}"  onclick="PF('cd').show();" rendered="#{cursosTeensMB.linkIdVenda}">
 							<h:outputText value="#{cursosTeens.vendas.idvendas}"/>
-						</p:commandLink>
-						<p:commandLink action="#{cursosTeensMB.visualizarContasReceber(cursosTeens.vendas)}" title="Visualizar Contas a Receber" rendered="#{cursosTeensMB.linkIdVendaFranquias}">
-							<h:outputText value="#{cursosTeens.vendas.idvendas}"/>
-						</p:commandLink>
+						</p:commandLink> 
+						<h:outputText value="#{cursosTeens.vendas.idvendas}" rendered="#{cursosTeensMB.linkIdVendaFranquias}"/> 
 					</p:column>
 					<p:column headerText="Cliente" sortBy="#{cursosTeens.vendas.cliente.nome}" style="width:200px;">
 						<h:outputText value="#{cursosTeens.vendas.cliente.nome}" />
