@@ -160,6 +160,10 @@ import javax.persistence.TemporalType;
      private int descontofornecedor;
      @Column(name = "regracursofinalizar")
      private int regracursofinalizar;
+     @Column(name = "segurocancelamentoid")
+     private int segurocancelamentoid;
+     @Column(name = "segurocancelamentovalor")
+     private float segurocancelamentovalor;
 
 	public int getPctransferencia() {
 		return pctransferencia;
@@ -710,6 +714,22 @@ import javax.persistence.TemporalType;
 
 	public void setRegracursofinalizar(int regracursofinalizar) {
 		this.regracursofinalizar = regracursofinalizar;
+	}
+
+	public int getSegurocancelamentoid() {
+		return segurocancelamentoid;
+	}
+
+	public void setSegurocancelamentoid(int segurocancelamentoid) {
+		this.segurocancelamentoid = segurocancelamentoid;
+	}
+
+	public float getSegurocancelamentovalor() {
+		return segurocancelamentovalor;
+	}
+
+	public void setSegurocancelamentovalor(float segurocancelamentovalor) {
+		this.segurocancelamentovalor = segurocancelamentovalor;
 	}
 
 	@Override

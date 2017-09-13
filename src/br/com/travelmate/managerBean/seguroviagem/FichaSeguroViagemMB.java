@@ -584,6 +584,8 @@ public class FichaSeguroViagemMB implements Serializable {
 				}
 				valorSemDesconto = seguro.getValorSeguro();
 				aplicarDesconto();
+				seguroCancelamento();
+				receberValorTotal();
 			}
 		}
 	}
@@ -603,6 +605,8 @@ public class FichaSeguroViagemMB implements Serializable {
 				} else
 					seguro.setValorSeguro(valornacional * seguro.getNumeroSemanas());
 				aplicarDesconto();
+				seguroCancelamento();
+				receberValorTotal();
 			}
 		}
 	}
@@ -619,8 +623,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	}
 
 	public void aplicarDesconto() {
-		seguro.setValorSeguro(valorSemDesconto - (seguro.getDescontoloja() + seguro.getDescontomatriz()));
-		receberValorTotal();
+		seguro.setValorSeguro(valorSemDesconto - (seguro.getDescontoloja() + seguro.getDescontomatriz())); 
 	}
 
 	public void iniciarListaFornecedorCidade() {
@@ -1237,6 +1240,18 @@ public class FichaSeguroViagemMB implements Serializable {
 			String tipoparcelamento = "Loja";
 			listaTipoParcelamento.add(tipoparcelamento);
 		} 
+	}
+	
+	public void seguroCancelamento() {
+		if(seguro.isSegurocancelamento()) {
+			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+					* cambio.getValor();
+			seguro.setValorSeguro(seguro.getValorSeguro()+valorsegurocancelamento);
+		}else {
+			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+					* cambio.getValor();
+			seguro.setValorSeguro(seguro.getValorSeguro()-valorsegurocancelamento);
+		}
 	}
 
 }

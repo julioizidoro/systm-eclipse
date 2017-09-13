@@ -81,6 +81,8 @@ public class Seguroviagem implements Serializable {
     @Size(max = 50)
     @Column(name = "controle")
     private String controle;
+    @Column(name = "segurocancelamento")
+    private boolean segurocancelamento;
     @JoinColumn(name = "fornecedor_idfornecedor", referencedColumnName = "idfornecedor")
     @ManyToOne(optional = false)
     private Fornecedor fornecedor;
@@ -283,6 +285,14 @@ public class Seguroviagem implements Serializable {
 
 	public void setSomarvalortotal(boolean somarvalortotal) {
 		this.somarvalortotal = somarvalortotal;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	@Override

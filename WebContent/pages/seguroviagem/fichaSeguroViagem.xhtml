@@ -87,18 +87,13 @@
 								style="width:78%;" maxlength="45" readonly="true" />
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="7" style="margin-left:5%;width:94%"
-							columnClasses="tamanho4,tamanho4,tamanho2,tamanho2,tamanho2,tamanho2,tamanho2">
+						<h:panelGrid columns="4" style="margin-left:5%;width:70%"
+							columnClasses="tamanho4,tamanho4,tamanho2,tamanho2">
 							<p:outputLabel value="Data inicial" for="datainicio" />
-							<p:outputLabel id="titulosemanasseguro" value="No. dias"
-								for="semanas" />
+							<p:outputLabel id="titulosemanasseguro" value="No. dias" 	for="semanas" />
 							<p:outputLabel value="Data Final" for="datatermino" />
-							<p:outputLabel value="Valor do seguro"
-								for="valorDoSeguroSemDesconto" />
-							<p:outputLabel value="Desconto Loja" for="descontoLoja" />
-							<p:outputLabel value="Desconto Matriz" for="descontoMatriz" />
-							<p:outputLabel value="Valor do Seguro" for="valorseguro" />
-
+							<p:outputLabel value="Valor do seguro" for="valorDoSeguroSemDesconto" />
+							
 							<p:calendar id="datainicio"
 								value="#{fichaSeguroViagemMB.seguro.dataInicio}" size="11"
 								locale="pt" pattern="dd/MM/yyyy">
@@ -110,7 +105,7 @@
 
 							<p:inputText id="semanas"
 								value="#{fichaSeguroViagemMB.seguro.numeroSemanas}"
-								style="width:80%;" maxlength="45">
+								style="width:50%;" maxlength="45">
 								<f:convertNumber type="number" />
 								<p:ajax event="blur"
 									update="datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
@@ -129,10 +124,26 @@
 							</p:calendar>
 							<p:inputText id="valorDoSeguroSemDesconto"
 								value="#{fichaSeguroViagemMB.valorSemDesconto}"
-								style="width:80%;text-align:right" maxlength="45">
+								style="width:40%;text-align:right" maxlength="45">
 								<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
+									minFractionDigits="2" />  
 							</p:inputText>
+						</h:panelGrid>   
+						<br></br>
+						<h:panelGrid columns="4" style="margin-left:5%;width:58.6%"
+							columnClasses="tamanho2, tamanho4, tamanho4, tamanho4">
+							<p:outputLabel  />   
+							<p:outputLabel value="Desconto Loja" for="descontoLoja" />
+							<p:outputLabel value="Desconto Matriz" for="descontoMatriz" />
+							<p:outputLabel value="Valor Total" for="valorseguro" />
+							
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{fichaSeguroViagemMB.seguro.segurocancelamento}" >
+									<p:ajax event="change" listener="#{fichaSeguroViagemMB.dataTermino()}"
+										update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl" />
+								</p:selectBooleanCheckbox> 
+								<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:2%;"/>
+							</h:panelGroup>
 							<p:inputText id="descontoLoja"
 								value="#{fichaSeguroViagemMB.seguro.descontoloja}"
 								style="width:80%;text-align:right" maxlength="45">
@@ -150,7 +161,7 @@
 								<p:ajax event="blur"
 									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
 									listener="#{fichaSeguroViagemMB.aplicarDesconto()}" />
-							</p:inputText>
+							</p:inputText>     
 							<p:inputText id="valorseguro"
 								value="#{fichaSeguroViagemMB.seguro.valorSeguro}"
 								style="width:80%;text-align:right" maxlength="45"
