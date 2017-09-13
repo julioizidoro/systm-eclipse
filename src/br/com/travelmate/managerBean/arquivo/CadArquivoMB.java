@@ -286,7 +286,7 @@ public class CadArquivoMB implements Serializable {
 									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao());
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
-							//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
+							salvarAvisoUsuario(avisos);
 						}
 					}
 				} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
@@ -302,7 +302,7 @@ public class CadArquivoMB implements Serializable {
 									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao());
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
-						//	avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
+							salvarAvisoUsuario(avisos);
 						}
 				}
 			}
@@ -496,7 +496,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -540,7 +539,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -586,7 +584,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -649,7 +646,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setTexto("Au Pair: Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
 
@@ -722,7 +718,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -792,7 +787,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -868,7 +862,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos)); 
 		}
 	}
 
@@ -912,7 +905,6 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 
@@ -945,8 +937,10 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
+			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+				
+			}
 			salvarAvisoUsuario(avisos);
-			//avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
 
 		}
 	}
@@ -967,6 +961,14 @@ public class CadArquivoMB implements Serializable {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		String sql = "";
 		List<Usuario> listaUsuario = null;
+		for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisousuario avisousuario = new Avisousuario();
+			avisousuario.setAvisos(aviso);
+			avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
+			avisousuario.setVisto(false);
+			avisousuario = avisosFacade.salvar(avisousuario);
+		}
 		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2
 				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5
 				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4
