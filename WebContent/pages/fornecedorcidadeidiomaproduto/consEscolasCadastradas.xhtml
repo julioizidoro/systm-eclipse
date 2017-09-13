@@ -14,11 +14,12 @@
 				<legend id="iUsu2">
 					<b>Parceiros Cadastrados</b>
 				</legend>         
-				<h:panelGrid columns="2" style="width:40%;margin-left:1%;" columnClasses="tamanhonotificacao2, tamanhonotificacao2">
+				<h:panelGrid columns="3" style="width:94%;margin-left:1%;" columnClasses="tamanho8, tamanho8, tamanhonotificacao">
 					<p:outputLabel value="Departamento" for="departamento" style="font-size:14px;color:#495B6C;" />
 					<p:outputLabel value="Produto" for="produto" style="font-size:14px;color:#495B6C;" />
-					
-					<p:selectOneMenu id="departamento"
+					<p:outputLabel />   
+					      
+					<p:selectOneMenu id="departamento"               
 						value="#{consultaFornecedoresCadastradosMB.departamento}"
 						style="width:80%;"       
 						converter="DepartamentoConverter" filter="true" filterMatchMode="startsWith">
@@ -28,11 +29,11 @@
 							itemLabel="#{departamento.nome}" itemValue="#{departamento}" />
 						<f:attribute name="listaDepartamento" value="#{consultaFornecedoresCadastradosMB.listaDepartamento}" />
 						<p:ajax event="change" listener="#{consultaFornecedoresCadastradosMB.gerarListasProdutos()}"
-							update=":consultaFornecedorCadastrado:produto"/>   
+							update=":consultaFornecedorCadastrado:produto, :consultaFornecedorCadastrado:painelDados, btnPesquisa, lblPesquisa"/>   
 					</p:selectOneMenu>
 					<p:selectOneMenu id="produto" disabled="#{consultaFornecedoresCadastradosMB.habilitarProduto()}"
-						value="#{consultaFornecedoresCadastradosMB.produtos}"
-						style="width:80%;"
+						value="#{consultaFornecedoresCadastradosMB.produtos}"    
+						style="width:80%;"  
 						converter="DepartamentoProdutoConverter" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
 						<f:selectItems id="idproduto"
@@ -40,9 +41,19 @@
 							itemLabel="#{produtoSelecionado.produtos.descricao}" itemValue="#{produtoSelecionado}" />
 						<f:attribute name="listaDepartamentoProduto" value="#{consultaFornecedoresCadastradosMB.listaProgramas}" />
 						<p:ajax event="change" listener="#{consultaFornecedoresCadastradosMB.habilitarCampos()}"
-							update=":consultaFornecedorCadastrado:painelDados"/>
-					</p:selectOneMenu>
-				</h:panelGrid>    
+							update=":consultaFornecedorCadastrado:painelDados, btnPesquisa, lblPesquisa"/>
+					</p:selectOneMenu>     
+					<h:panelGroup>
+						<p:inputText id="lblPesquisa" value="#{consultaFornecedoresCadastradosMB.nomeProdutosOrcamento}"
+							title="Clique aqui para buscar produtos oferecidos" 
+							placeholder="Descrição produtos" disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}"/>
+						<p:commandButton id="btnPesquisa" value="Pesquisar" action="#{consultaFornecedoresCadastradosMB.buscarProdutosOrcamento()}"
+		        				 icon="ui-icon-search" title="Clique aqui para buscar produtos oferecidos."
+		        				 disabled="#{consultaFornecedoresCadastradosMB.habilitarcampos}" style="margin-left:2%;"> 
+		        				 <p:ajax event="dialogReturn" update="painelDados" listener="#{consultaFornecedoresCadastradosMB.retornoDialogoProdutosOrcamento}"/>
+		        			</p:commandButton>
+		        		</h:panelGroup>
+				</h:panelGrid>       
 				<hr  style="width:98.7%;margin-left:1%;color:#ccc9;border-top-color: #cc;border-bottom-color: #c;"></hr>
 				<br></br>
 				<h:panelGrid columns="#{consultaFornecedoresCadastradosMB.mostrarProdutos()}" id="painelDados"
@@ -268,7 +279,7 @@
 						 rendered="#{consultaFornecedoresCadastradosMB.mostrarProduto()}"
 						style="margin-bottom:20px;margin-top:11px;">
 						<p:column headerText="Produtos" style="width:180px;"
-							styleClass="alinharCenter">
+							styleClass="alinharCenter">         
 							<p:commandLink value="#{produtos.produtosorcamento.descricao}" />
 						</p:column>
 					</p:dataTable>

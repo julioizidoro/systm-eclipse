@@ -15,6 +15,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.EstrelasBean;
 import br.com.travelmate.bean.ListaTMStarBean;
@@ -38,7 +39,8 @@ import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorcidadeidiomaproduto;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Idioma; 
-import br.com.travelmate.model.Paisproduto; 
+import br.com.travelmate.model.Paisproduto;
+import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Produtosorcamentoindice; 
 import br.com.travelmate.util.Mensagem;
 
@@ -75,6 +77,8 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	private boolean habilitarcampos;
 	private List<Departamento> listaDepartamento;
 	private Departamento departamento;
+	private List<Produtosorcamento> produtosorcamento;
+	private String nomeProdutosOrcamento;
 
 	@PostConstruct
 	public void init() {
@@ -103,7 +107,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public List<Paisproduto> getListaPais() {
@@ -152,9 +156,15 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	public void setListaIdioma(List<Idioma> listaIdioma) {
 		this.listaIdioma = listaIdioma;
+	} 
+
+	public List<Produtosorcamento> getProdutosorcamento() {
+		return produtosorcamento;
 	}
 
-	
+	public void setProdutosorcamento(List<Produtosorcamento> produtosorcamento) {
+		this.produtosorcamento = produtosorcamento;
+	}
 
 	public List<Produtosorcamentoindice> getListaProdutos() {
 		return listaProdutos;
@@ -301,6 +311,14 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		this.departamento = departamento;
 	}
 
+	public String getNomeProdutosOrcamento() {
+		return nomeProdutosOrcamento;
+	}
+
+	public void setNomeProdutosOrcamento(String nomeProdutosOrcamento) {
+		this.nomeProdutosOrcamento = nomeProdutosOrcamento;
+	}
+
 	public String arquivos(Fornecedorcidade fornecedorcidade) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -373,12 +391,21 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	public void gerarListaFornecedorCidade() {
 		String sql = "";
 		if (cidade != null) {
-			if (produtosorcamentoindice != null) {
+			if (produtosorcamentoindice != null || produtosorcamento!=null) {
 				if (fornecedor != null) {
 					sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.idfornecedor="
-							+ fornecedor.getIdfornecedor() + " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
-							+ produtosorcamentoindice.getIdprodutosorcamentoindice()
-							+ " and f.fornecedorcidadeidioma.fornecedorcidade.ativo=1";
+							+ fornecedor.getIdfornecedor();
+							if(produtosorcamento!=null && produtosorcamento.size()>0) {
+								sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+								for (int i=1;i<produtosorcamento.size(); i++) {
+									sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+								}
+								sql=sql+")";
+							}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+								sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+										+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+							}
+					sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.ativo=1";
 					if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 						if (estrela.isToptmstar()) {
 							sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -388,8 +415,17 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 					sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.cidade.idcidade=" + cidade.getCidade().getIdcidade()
 							+ " Group by f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.idfornecedor order by f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome";
 				} else {
-					sql = "select f from Fornecedorcidadeidiomaproduto f where f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="  
-							+ produtosorcamentoindice.getIdprodutosorcamentoindice();
+					sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();
+					if(produtosorcamento!=null && produtosorcamento.size()>0) {
+						sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+						for (int i=1;i<produtosorcamento.size(); i++) {
+							sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+						}
+						sql=sql+")"; 
+					}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+						sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+								+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+					}
 					if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 						if (estrela.isToptmstar()) {
 							sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -444,10 +480,19 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	public void gerarListaFornecedorCidadeIdiomaProduto() {
 		String sql = "";
-		if (produtosorcamentoindice != null) {
-			sql = "select f from Fornecedorcidadeidiomaproduto f where f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
-					+ produtosorcamentoindice.getIdprodutosorcamentoindice()
-					+ " and f.fornecedorcidadeidioma.fornecedorcidade.idfornecedorcidade="
+		if (produtosorcamentoindice != null || produtosorcamento!=null) {
+			sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();
+					if(produtosorcamento!=null && produtosorcamento.size()>0) {
+						sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+						for (int i=1;i<produtosorcamento.size(); i++) {
+							sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+						}
+						sql=sql+")"; 
+					}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+						sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+								+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+					}
+					sql=sql+ " and f.fornecedorcidadeidioma.fornecedorcidade.idfornecedorcidade="
 					+ fornecedorCidade.getIdfornecedorcidade()
 					+ " and f.produtosorcamento.tipoproduto='C' order by f.produtosorcamento.descricao";
 		} else {
@@ -466,7 +511,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	// selecionar Fornecedor (gerar lista pais)
 	public void gerarListaPaisFornecedor() {
-		if (produtosorcamentoindice != null) {
+		if (produtosorcamentoindice != null || produtosorcamento!=null) {
 			gerarListaPaisProduto();
 		} else if (fornecedor != null) {
 			String sql = "select f from Fornecedorcidade f where f.fornecedor.idfornecedor="
@@ -535,11 +580,21 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	public void gerarListaCidade() {
 		String sql = "";
-		if (produtosorcamentoindice != null) {
+		if (produtosorcamentoindice != null || produtosorcamento!=null) {
 			if (fornecedor != null) {
 				sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.idfornecedor="
-						+ fornecedor.getIdfornecedor() + " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
-						+ produtosorcamentoindice.getIdprodutosorcamentoindice()+" and f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();
+						+ fornecedor.getIdfornecedor();
+				if(produtosorcamento!=null && produtosorcamento.size()>0) {
+					sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+					for (int i=1;i<produtosorcamento.size(); i++) {
+						sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+					}
+					sql=sql+")"; 
+				}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+					sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+							+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+				}
+				sql = sql+" and f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -551,8 +606,17 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 						+ produtos.getProdutos().getIdprodutos()
 						+ " Group by f.fornecedorcidadeidioma.fornecedorcidade.cidade.idcidade order by f.fornecedorcidadeidioma.fornecedorcidade.cidade.nome";
 			} else {
-				sql = "select f from Fornecedorcidadeidiomaproduto f where f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
-						+ produtosorcamentoindice.getIdprodutosorcamentoindice()+" and f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();;
+				sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();
+				if(produtosorcamento!=null && produtosorcamento.size()>0) {
+					sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+					for (int i=1;i<produtosorcamento.size(); i++) {
+						sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+					}
+					sql=sql+")"; 
+				}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+					sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+							+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+				} 
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -642,12 +706,21 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	// selecionar Produto (gerar lista pais)
 	public void gerarListaPaisProduto() {
-		if (produtosorcamentoindice != null) {
+		if (produtosorcamentoindice != null || produtosorcamento!=null) {
 			String sql = "";
 			if (fornecedor != null) {
 				sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.idfornecedor="
-						+ fornecedor.getIdfornecedor() + " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
-						+ produtosorcamentoindice.getIdprodutosorcamentoindice();
+						+ fornecedor.getIdfornecedor();
+				if(produtosorcamento!=null && produtosorcamento.size()>0) {
+					sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+					for (int i=1;i<produtosorcamento.size(); i++) {
+						sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+					}
+					sql=sql+")"; 
+				}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+					sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+							+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+				}
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -657,8 +730,17 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 				sql = sql
 						+ " Group by f.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.idpais order by f.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.nome";
 			} else {
-				sql = "select f from Fornecedorcidadeidiomaproduto f where f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
-						+ produtosorcamentoindice.getIdprodutosorcamentoindice();
+				sql = "select f from Fornecedorcidadeidiomaproduto f where f.fornecedorcidadeidioma.fornecedorcidade.produtos.idprodutos="+produtos.getProdutos().getIdprodutos();
+				if(produtosorcamento!=null && produtosorcamento.size()>0) {
+					sql = sql +  " and (f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(0).getIdprodutosOrcamento();
+					for (int i=1;i<produtosorcamento.size(); i++) {
+						sql = sql +  " or f.produtosorcamento.idprodutosOrcamento=" +  produtosorcamento.get(i).getIdprodutosOrcamento();
+					}
+					sql=sql+")"; 
+				}else if(produtosorcamentoindice!=null && produtosorcamentoindice.getIdprodutosorcamentoindice()!=null) {
+					sql = sql +  " and f.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.idprodutosorcamentoindice="
+							+  produtosorcamentoindice.getIdprodutosorcamentoindice();
+				}
 				if (estrela != null && estrela.getCaminho() != null && estrela.getNumero() > 0) {
 					if (estrela.isToptmstar()) {
 						sql = sql + " and f.fornecedorcidadeidioma.fornecedorcidade.toptmstar=true";
@@ -675,7 +757,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 			listaTabelaProduto = new ArrayList<Fornecedorcidadeidiomaproduto>();
 			listaFornecedorCidade = new ArrayList<Fornecedorcidade>();
 			pais = null;
-			if (lista != null) {
+			if (lista != null && produtos!=null) {
 				for (int i = 0; i < lista.size(); i++) {
 					CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
 					List<Cidadepaisproduto> listacidade = cidadePaisProdutosFacade.listar("SELECT c FROM Cidadepaisproduto c "
@@ -859,8 +941,29 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		if(departamento!=null && departamento.getIddepartamento()!=null) {
 			DepartamentoProdutoFacade departamentoProdutoFacade= new DepartamentoProdutoFacade();
 			listaProgramas = departamentoProdutoFacade.listar(departamento.getIddepartamento());
+			if (listaProgramas!=null && listaProgramas.size()==1) {
+				produtos = listaProgramas.get(0);
+				habilitarCampos();
+			}
 		}
 	}
-	 
+	
+	public void retornoDialogoProdutosOrcamento(SelectEvent event) {
+		List<Produtosorcamento> po = (List<Produtosorcamento>) event.getObject();
+		this.produtosorcamento = po;
+		gerarListaPaisProduto();
+	}
+	
+	public String buscarProdutosOrcamento() { 
+		if(nomeProdutosOrcamento!=null && nomeProdutosOrcamento.length()>0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+			session.setAttribute("nomeProdutosOrcamento", nomeProdutosOrcamento);  
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			RequestContext.getCurrentInstance().openDialog("buscarProdutosOrcamento", options, null);
+		}
+		return "";
+	}
 	 
 }

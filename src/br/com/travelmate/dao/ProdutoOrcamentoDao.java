@@ -32,7 +32,7 @@ public class ProdutoOrcamentoDao {
     public List<Produtosorcamento> listarProdutosOrcamento(String descricao) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
-        Query q = manager.createQuery("select p from Produtosorcamento p  where p.descricao like '" + descricao + "%' order by p.descricao" );
+        Query q = manager.createQuery("select p from Produtosorcamento p  where p.descricao like '%" + descricao + "%' order by p.descricao" );
         List<Produtosorcamento> lista = q.getResultList();
         manager.close();
         return lista;
