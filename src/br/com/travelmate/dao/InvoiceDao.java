@@ -20,6 +20,7 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Invoice;
 
 /**
@@ -127,5 +128,18 @@ public class InvoiceDao {
         }
         return null;
     }
+    
+    
+    
+    public void excluir(int idInvoice) throws SQLException{
+		EntityManager manager;
+		manager = ConectionFactory.getInstance();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		Invoice invoice = manager.find(Invoice.class, idInvoice);
+		manager.remove(invoice);
+		tx.commit();
+		
+	}
     
 }

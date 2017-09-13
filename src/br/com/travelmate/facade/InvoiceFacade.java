@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import br.com.travelmate.dao.ArquivosDao;
 import br.com.travelmate.dao.InvoiceDao;
 import br.com.travelmate.model.Invoice;
 
@@ -90,6 +91,16 @@ public class InvoiceFacade {
             Logger.getLogger(InvoiceFacade.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro Exportar Invoices");
             return null;
+        }
+    }
+    
+    
+    public void excluir(int idinvoice) {
+    	invoicesDao = new InvoiceDao();
+        try {
+        	invoicesDao.excluir(idinvoice);
+        } catch (SQLException ex) {
+            Logger.getLogger(InvoiceFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

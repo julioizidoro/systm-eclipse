@@ -16,9 +16,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.InvoiceFacade;
+import br.com.travelmate.facade.PagamentoInvoiceFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Invoice;
+import br.com.travelmate.model.Pagamentoinvoice;
+import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -144,6 +147,25 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	 
 	public String voltar(){
 		return "consControleCursos";
+	}
+	
+	
+	public void excluirInvoice(Invoice invoice){
+		if (invoice.getDatarecebimentocomprovante() == null) {
+			InvoiceFacade invoiceFacade = new InvoiceFacade();
+			PagamentoInvoiceFacade pagamentoInvoiceFacade = new PagamentoInvoiceFacade();
+			List<Pagamentoinvoice> listaPagamentoInvoice = pagamentoInvoiceFacade.listar("Select p FROM Pagamentoinvoice p WHERE p.invoice.idinvoices=" + 
+					invoice.getIdinvoices());
+			if (listaPagamentoInvoice == null || listaPagamentoInvoice.isEmpty()) {
+				invoiceFacade.excluir(invoice.getIdinvoices());
+				listaInvoices.remove(invoice);
+				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+			}else{
+				Mensagem.lancarMensagemInfo("Operação negada", "");
+			}
+		}else{
+			Mensagem.lancarMensagemInfo("Operação negada", "");
+		}
 	}
 	
 }
