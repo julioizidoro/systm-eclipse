@@ -15,19 +15,18 @@
 				<p:accordionPanel class="painel" > 
 					<p:tab titleStyle="font-size:11px;background:#c7d95f;"  
 						title="Pesquisar">
-						<h:panelGrid columns="6" style="width:100%;">
+						<h:panelGrid columns="5" style="width:100%;" columnClasses="tamanho11, tamanho8, tamanho2, tamanho6">
 							<p:outputLabel value="Descrição"/>
-							<p:outputLabel value="Departamento" />
-							<p:outputLabel value="Situação" />
+							<p:outputLabel value="Departamento" style="margin-left:-55px;"/>  
+							<p:outputLabel value="Situação" style="margin-left: -14px;"/>
 							<p:outputLabel value="Periodo Solicitação"/>
 							<p:outputLabel/>
-							<p:outputLabel/>
 							
-							 <p:inputText id="descricao" rows="3" value="#{solicitacoesMB.descricao}" style="width: 97%;"/>
+							 <p:inputText id="descricao" rows="3" value="#{solicitacoesMB.descricao}" style="width: 82%;"/>
 							
 							<p:selectOneMenu id="departamento"  disabled="#{solicitacoesMB.desabilitarDepartamento}"
 								value="#{solicitacoesMB.departamento}"
-								style="width:200px;" 
+								style="width:200px;margin-left:-55px;" 
 								converter="DepartamentoConverter" filter="true"
 								filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Todos os Departamentos" itemValue="0"
@@ -41,7 +40,7 @@
 									value="#{solicitacoesMB.listaDepartamento}" />
 							</p:selectOneMenu>
 							<p:selectOneMenu id="situacao" 
-								style="width:130px" value="#{solicitacoesMB.situacao}">
+								style="width:130px;margin-left: -14px;" value="#{solicitacoesMB.situacao}">
 								<f:selectItem itemLabel="Selecione" itemValue=""
 									noSelectionOption="true" />
 								<f:selectItem itemLabel="Nova" itemValue="Nova" />
@@ -55,20 +54,29 @@
 								<f:selectItem itemLabel="Correção" itemValue="Correção" />
 							</p:selectOneMenu>
 							<p:calendar id="idDataInicial"
-								value="#{solicitacoesMB.dataInicial}" size="20"
+								value="#{solicitacoesMB.dataInicial}" size="15"
 								 locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect" />
 							</p:calendar>  
 							<p:calendar id="idDataFinal"
-								value="#{solicitacoesMB.dataFinal}" size="20"
+								value="#{solicitacoesMB.dataFinal}" size="15"
 								 locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect" />
 							</p:calendar>
-							<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{solicitacoesMB.pesquisar()}" icon="ui-icon-search" update=":consSolicitacoes:growl, @form" style="font-size:12px;"/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{solicitacoesMB.pesquisar()}" icon="ui-icon-search" update=":consSolicitacoes:growl, @form" style="font-size:12px;float: right;"/>
 						</h:panelGrid>
 					</p:tab>
 				</p:accordionPanel>
@@ -110,19 +118,33 @@
 							</p:cellEditor>  
 					</p:column>
 					<p:column headerText="Data Previsão" sortBy="#{solicitacao.dataprevisao}" style="text-align:center;width:70px;">
-						<h:outputText value="#{solicitacao.dataprevisao}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:outputText>
+					
+						<p:cellEditor>
+								<f:facet name="output">
+										<h:outputText value="#{solicitacao.dataprevisao}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="idDataPrevisao"
+										value="#{solicitacao.dataprevisao}" size="15"
+										 locale="pt" pattern="dd/MM/yyyy">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										<p:ajax event="change" />
+										<p:ajax event="dateSelect" />
+									</p:calendar>
+								</f:facet>
+							</p:cellEditor>  
 					</p:column>
-					<p:column headerText="Situação" style="width:75px;text-align:left;"
+					<p:column headerText="Situação" style="width:85px;text-align:left;"
 						styleClass="alinharCenter" sortBy="#{solicitacao.situacao}" >
 						 <p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{solicitacao.situacao}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
 								</f:facet>
 								<f:facet name="input">
-									 <p:selectOneMenu id="situacao" class="espacocobranca28" style="width:130px" value="#{solicitacao.situacao}">
+									 <p:selectOneMenu id="situacao" class="espacocobranca28" style="width:120px" value="#{solicitacao.situacao}">
 					                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/> 
 					                    <f:selectItem itemLabel="Nova" itemValue="Nova" />  
 					                    <f:selectItem itemLabel="Pendente" itemValue="Pendente" />  
@@ -140,7 +162,7 @@
 						styleClass="alinharCenter" sortBy="#{solicitacao.situacao}">
 							<h:outputText value="#{solicitacao.departamento.nome}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
 					</p:column> 
-					<p:column style="width:20px" >
+					<p:column style="width:20px" rendered="#{solicitacoesMB.acessoTI}">
 							<p:rowEditor title="Editar" rendered="#{solicitacoesMB.retornarEditar(solicitacao)}"/>   
 						</p:column>   
 					<p:column style="width:30px;" styleClass="alinharCenter">
@@ -151,7 +173,7 @@
 					</p:column>
 					<p:column headerText="" style="width:20px;text-align:left;"
 						styleClass="alinharCenter" rendered="#{solicitacoesMB.acessoTI}">
-							<p:selectBooleanCheckbox style=""  value="#{solicitacao.liberar}" disabled="#{solicitacoesMB.retornarAcessoConcluir(solicitacao)}">
+							<p:selectBooleanCheckbox style=""  value="#{solicitacao.liberar}" >
 								<p:ajax event="change" listener="#{solicitacoesMB.liberarSolicitacao(solicitacao)}" update=":consSolicitacoes:growl"/>
 							</p:selectBooleanCheckbox>  
 					</p:column>  

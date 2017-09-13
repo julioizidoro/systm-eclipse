@@ -44,9 +44,6 @@ public class SolicitacoesHistoricoMB implements Serializable{
 		listaSolicitacoes = (List<Tisolicitacoes>) session.getAttribute("listaSolicitacoes");
 		session.removeAttribute("tisolicitacoes");
 		session.removeAttribute("listaSolicitacoes");
-		if (tisolicitacoes.getConcluido().booleanValue()) {
-			desabilitarCadastro = true;
-		}
 	}
 
 

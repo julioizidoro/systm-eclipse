@@ -170,6 +170,10 @@ public class Acesso implements Serializable {
 	private boolean acessounidade;
 	@Column(name = "menusolicitacoes")
 	private boolean menusolicitacoes;
+	@Column(name = "acessogerencialsolicitacoes")
+	private boolean acessogerencialsolicitacoes;
+	@Column(name = "acessoliberadassolicitacoes")
+	private boolean acessoliberadassolicitacoes;
 
 	public Integer getIdacesso() {
 		return idacesso;
@@ -749,6 +753,26 @@ public class Acesso implements Serializable {
 
 	public void setMenusolicitacoes(boolean menusolicitacoes) {
 		this.menusolicitacoes = menusolicitacoes;
+	}
+
+
+	public boolean isAcessogerencialsolicitacoes() {
+		return acessogerencialsolicitacoes;
+	}
+
+
+	public void setAcessogerencialsolicitacoes(boolean acessogerencialsolicitacoes) {
+		this.acessogerencialsolicitacoes = acessogerencialsolicitacoes;
+	}
+
+
+	public boolean isAcessoliberadassolicitacoes() {
+		return acessoliberadassolicitacoes;
+	}
+
+
+	public void setAcessoliberadassolicitacoes(boolean acessoliberadassolicitacoes) {
+		this.acessoliberadassolicitacoes = acessoliberadassolicitacoes;
 	}
 
 

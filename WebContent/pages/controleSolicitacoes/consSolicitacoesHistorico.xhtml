@@ -50,6 +50,15 @@
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</p:outputLabel>
+								<p:outputLabel/>
+								<p:outputLabel/>
+								<p:outputLabel value="Situação:"
+									style="font-size:13px;" />
+								<p:outputLabel value="Departamento:" style="font-size:13px;"/>
+								<p:outputLabel value="#{solicitacoesHistoricoMB.tisolicitacoes.situacao}"
+									style="font-size:13px;" />
+								<p:outputLabel value="#{solicitacoesHistoricoMB.tisolicitacoes.departamento.nome}"
+									style="font-size:13px;" />
 						</h:panelGrid>
 						<br/>
 						<br></br>
@@ -71,7 +80,7 @@
 												style="font-size:22px;color:#3C4A58;" />
 										</h:panelGroup>
 										<p:commandLink id="btnAdd" 
-											action="#{solicitacoesHistoricoMB.cadastrarHistorico()}" disabled="#{solicitacoesHistoricoMB.desabilitarCadastro}">
+											action="#{solicitacoesHistoricoMB.cadastrarHistorico()}" disabled="#{solicitacoesHistoricoMB.tisolicitacoes.concluido}">
 											<i class="fa  fa-plus-circle"
 												style="font-size: 23px; color: #fff;" />
 												<p:ajax event="dialogReturn" listener="#{solicitacoesHistoricoMB.retonarDialogHistorico}" update="tabelaHistorico"/>
@@ -87,26 +96,28 @@
 										<h:outputLabel />
 										<h:outputLabel />
 										
-										<h:panelGrid columns="1" style="text-align:center;">
+										<h:panelGrid columns="1" style="text-align:left;">
 											<h:outputLabel value="#{historico.data}"
 												style="font-size: 13px;color:#4C4C4C;font-weight: 500;">
 												<f:convertDateTime pattern="dd/MM/yyyy"
 													timeZone="America/Sao_Paulo" />
 											</h:outputLabel>
+											<h:outputLabel value="#{historico.usuario.nome}"
+												style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+											<h:outputLabel value="#{historico.tipo}"
+												style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
 										</h:panelGrid>
 										
-										<h:outputLabel value="#{historico.usuario.nome}"
-											style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
 										<h:outputLabel value="#{historico.descricao}"
 											style="font-size: 13px;color:#4C4C4C;font-weight: 500;" />
 										
-										<h:panelGrid columns="3">
-											<p:commandLink id="btnEditar" title="Editar" disabled="#{solicitacoesHistoricoMB.desabilitarCadastro}"
+										<h:panelGrid columns="2" style="float:right;">
+											<p:commandLink id="btnEditar" title="Editar" disabled="#{solicitacoesHistoricoMB.tisolicitacoes.concluido}"
 												actionListener="#{solicitacoesHistoricoMB.editarHistorico(historico)}">
 												<i class="fa fa-pencil"
 													style="color: #3C4A58; font-size: 14px;" />
 											</p:commandLink>
-											<p:commandLink id="btnExcluir" title="Excluir" disabled="#{solicitacoesHistoricoMB.desabilitarCadastro}"
+											<p:commandLink id="btnExcluir" title="Excluir" disabled="#{solicitacoesHistoricoMB.tisolicitacoes.concluido}"
 												style="margin-left:26%;margin-rigth:2%;"
 												action="#{solicitacoesHistoricoMB.excluirHistorico(historico)}"
 												update="tabelaHistorico, :consSolicitacoesHistorico:growl">
