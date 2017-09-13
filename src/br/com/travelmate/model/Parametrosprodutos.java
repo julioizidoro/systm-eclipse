@@ -164,6 +164,8 @@ import javax.persistence.TemporalType;
      private int segurocancelamentoid;
      @Column(name = "segurocancelamentovalor")
      private float segurocancelamentovalor;
+     @Column(name = "travelace")
+     private int travelace;
 
 	public int getPctransferencia() {
 		return pctransferencia;
@@ -730,6 +732,14 @@ import javax.persistence.TemporalType;
 
 	public void setSegurocancelamentovalor(float segurocancelamentovalor) {
 		this.segurocancelamentovalor = segurocancelamentovalor;
+	}
+
+	public int getTravelace() {
+		return travelace;
+	}
+
+	public void setTravelace(int travelace) {
+		this.travelace = travelace;
 	}
 
 	@Override
