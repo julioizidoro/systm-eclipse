@@ -18,7 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -110,6 +109,8 @@ public class Usuario implements Serializable {
     private String dashboard; 
     @Transient
     private boolean fecharaniversario; 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioNotificar")
+    private List<Notificacaouploadusuario> notificacaoUploadNotificarList;
 
     public Usuario() {
     	setDashboard("I");
@@ -304,6 +305,14 @@ public class Usuario implements Serializable {
 	public void setRecebeleadautomatica(boolean recebeleadautomatica) {
 		this.recebeleadautomatica = recebeleadautomatica;
 	} 
+
+	public List<Notificacaouploadusuario> getNotificacaoUploadNotificarList() {
+		return notificacaoUploadNotificarList;
+	}
+
+	public void setNotificacaoUploadNotificarList(List<Notificacaouploadusuario> notificacaoUploadNotificarList) {
+		this.notificacaoUploadNotificarList = notificacaoUploadNotificarList;
+	}
 
 	@Override
     public int hashCode() {
