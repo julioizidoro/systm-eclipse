@@ -2,7 +2,10 @@ package br.com.travelmate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,6 +57,11 @@ public class Tisolicitacoes implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
+    @JoinColumn(name = "usuario_executor", referencedColumnName = "idusuario")
+    @ManyToOne(optional = false)
+    private Usuario usuarioExecutor;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "tisolicitacoes")
+	private List<Tisolicitacoeshistorico> tisolicitacoeshistoricoList;
 
     public Tisolicitacoes() {
     }
@@ -132,6 +141,22 @@ public class Tisolicitacoes implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Tisolicitacoeshistorico> getTisolicitacoeshistoricoList() {
+		return tisolicitacoeshistoricoList;
+	}
+
+	public void setTisolicitacoeshistoricoList(List<Tisolicitacoeshistorico> tisolicitacoeshistoricoList) {
+		this.tisolicitacoeshistoricoList = tisolicitacoeshistoricoList;
+	}
+
+	public Usuario getUsuarioExecutor() {
+		return usuarioExecutor;
+	}
+
+	public void setUsuarioExecutor(Usuario usuarioExecutor) {
+		this.usuarioExecutor = usuarioExecutor;
 	}
 
 	@Override

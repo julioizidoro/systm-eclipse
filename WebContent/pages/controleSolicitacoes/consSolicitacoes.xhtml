@@ -15,18 +15,16 @@
 				<p:accordionPanel class="painel" > 
 					<p:tab titleStyle="font-size:11px;background:#c7d95f;"  
 						title="Pesquisar">
-						<h:panelGrid columns="5" style="width:100%;" columnClasses="tamanho11, tamanho8, tamanho2, tamanho6">
+						<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho11, tamanho8, tamanho8, tamanho8">
 							<p:outputLabel value="Descrição"/>
-							<p:outputLabel value="Departamento" style="margin-left:-55px;"/>  
-							<p:outputLabel value="Situação" style="margin-left: -14px;"/>
-							<p:outputLabel value="Periodo Solicitação"/>
-							<p:outputLabel/>
+							<p:outputLabel value="Departamento" style="margin-left:-50px;"/>  
+							<p:outputLabel value="Usuário" />
 							
-							 <p:inputText id="descricao" rows="3" value="#{solicitacoesMB.descricao}" style="width: 82%;"/>
+							 <p:inputText id="descricao" rows="3" value="#{solicitacoesMB.descricao}" style="width: 77%;"/>
 							
-							<p:selectOneMenu id="departamento"  disabled="#{solicitacoesMB.desabilitarDepartamento}"
+							<p:selectOneMenu id="departamento" disabled="#{solicitacoesMB.desabilitarDepartamento}"
 								value="#{solicitacoesMB.departamento}"
-								style="width:200px;margin-left:-55px;" 
+								style="width:200px;margin-left:-50px;" 
 								converter="DepartamentoConverter" filter="true"
 								filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Todos os Departamentos" itemValue="0"
@@ -38,45 +36,66 @@
 									itemValue="#{departamentoSelecionado}" />
 								<f:attribute name="listaDepartamento"
 									value="#{solicitacoesMB.listaDepartamento}" />
+								<p:ajax event="change" listener="#{solicitacoesMB.gerarListaUsuario()}" update="usuario"/>
 							</p:selectOneMenu>
-							<p:selectOneMenu id="situacao" 
-								style="width:130px;margin-left: -14px;" value="#{solicitacoesMB.situacao}">
-								<f:selectItem itemLabel="Selecione" itemValue=""
+							<p:selectOneMenu id="usuario" value="#{solicitacoesMB.usuario}" 
+								style="width:90%;" filter="true" filterMatchMode="startsWith"
+								converter="UsuarioConverter"
+								disabled="#{solicitacoesMB.desabilitarDepartamento}">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
-								<f:selectItem itemLabel="Nova" itemValue="Nova" />
-								<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
-								<f:selectItem itemLabel="Analisando" itemValue="Analisando" />
-								<f:selectItem itemLabel="Desenvolvimento"
-									itemValue="Desenvolvimento" />
-								<f:selectItem itemLabel="Teste" itemValue="Teste" />
-								<f:selectItem itemLabel="Implantação" itemValue="Implantação" />
-								<f:selectItem itemLabel="Concluida" itemValue="Concluida" />
-								<f:selectItem itemLabel="Correção" itemValue="Correção" />
+								<f:selectItems id="idusuario"
+									value="#{solicitacoesMB.listaUsuario}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{solicitacoesMB.listaUsuario}" />
+								<p:ajax event="change"/>   
 							</p:selectOneMenu>
-							<p:calendar id="idDataInicial"
-								value="#{solicitacoesMB.dataInicial}" size="15"
-								 locale="pt" pattern="dd/MM/yyyy">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-								<p:ajax event="change" />
-								<p:ajax event="dateSelect" />
-							</p:calendar>  
-							<p:calendar id="idDataFinal"
-								value="#{solicitacoesMB.dataFinal}" size="15"
-								 locale="pt" pattern="dd/MM/yyyy">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-								<p:ajax event="change" />
-								<p:ajax event="dateSelect" />
-							</p:calendar>
+						</h:panelGrid>
+						<br/>
+						<h:panelGrid columns="4" style="width:100%;" columnClasses="tamanho14, tamanho8, tamanho8, tamanho8">
+							<p:outputLabel value="Periodo Solicitação" />
+							<p:outputLabel value="Situação"/>
 							<p:outputLabel/>
 							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{solicitacoesMB.pesquisar()}" icon="ui-icon-search" update=":consSolicitacoes:growl, @form" style="font-size:12px;float: right;"/>
+							
+							<h:panelGroup >
+								<p:calendar id="idDataInicial" 
+									value="#{solicitacoesMB.dataInicial}" size="15"
+									 locale="pt" pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+									<p:ajax event="dateSelect" /> 
+								</p:calendar>  
+								<p:calendar id="idDataFinal"
+									value="#{solicitacoesMB.dataFinal}" size="15"
+									 locale="pt" pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+									<p:ajax event="dateSelect" />
+								</p:calendar>
+							</h:panelGroup>	
+								<p:selectOneMenu id="situacao"  
+									style="width:130px;" value="#{solicitacoesMB.situacao}">
+									<f:selectItem itemLabel="Selecione" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Nova" itemValue="Nova" />
+									<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
+									<f:selectItem itemLabel="Analisando" itemValue="Analisando" />
+									<f:selectItem itemLabel="Desenvolvimento"
+										itemValue="Desenvolvimento" />
+									<f:selectItem itemLabel="Teste" itemValue="Teste" />
+									<f:selectItem itemLabel="Implantação" itemValue="Implantação" />
+									<f:selectItem itemLabel="Concluida" itemValue="Concluida" />
+									<f:selectItem itemLabel="Correção" itemValue="Correção" />
+								</p:selectOneMenu>
+								<p:outputLabel/>
+								<h:panelGroup>
+									<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{solicitacoesMB.pesquisar()}" icon="ui-icon-search" update=":consSolicitacoes:growl, @form" style="font-size:12px;margin-left: 10%;"/>
+									<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									update=":consSolicitacoes:growl, @form" style="font-size:12px;"
+									action="#{solicitacoesMB.limparPesquisa()}" />
+								</h:panelGroup>
 						</h:panelGrid>
 					</p:tab>
 				</p:accordionPanel>
@@ -86,7 +105,7 @@
 				</legend>
 				<p:commandButton value="Nova Solicitação" icon="ui-icon-plus"   
 					action="#{solicitacoesMB.cadastrarSolicitacao()}" title="Nova Solicitação"
-					style="font-size:12px;margin-right:1%;width:131px;margin-left: 87%;">
+					style="font-size:12px;width:140px;margin-left: 84%;">
 					<p:ajax event="dialogReturn" listener="#{solicitacoesMB.retornoDialogNova}" update=":consSolicitacoes:growl, :consSolicitacoes:tabelaSolicitacoes"/> 
 				</p:commandButton>
 				<br></br> <br></br>
@@ -100,13 +119,13 @@
 							listener="#{solicitacoesMB.cancelarEdicao}" 
 							update=":consSolicitacoes:growl, :consSolicitacoes:tabelaSolicitacoes" />
 							
-					<p:column headerText="Data Solicitação" sortBy="#{solicitacao.datasolicitacao}" style="text-align:center;width:55px;">
+					<p:column headerText="Solicitação" sortBy="#{solicitacao.datasolicitacao}" style="text-align:center;width:55px;">
 						<h:outputText value="#{solicitacao.datasolicitacao}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Descrição" sortBy="#{solicitacao.descricao}" style="width:180px;text-align:left;"
+					<p:column headerText="Descrição" sortBy="#{solicitacao.descricao}" style="width:140px;text-align:left;"
 						styleClass="alinharCenter">
 						<p:cellEditor>
 								<f:facet name="output">
@@ -117,27 +136,7 @@
 								</f:facet>
 							</p:cellEditor>  
 					</p:column>
-					<p:column headerText="Data Previsão" sortBy="#{solicitacao.dataprevisao}" style="text-align:center;width:70px;">
-					
-						<p:cellEditor>
-								<f:facet name="output">
-										<h:outputText value="#{solicitacao.dataprevisao}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:calendar id="idDataPrevisao"
-										value="#{solicitacao.dataprevisao}" size="15"
-										 locale="pt" pattern="dd/MM/yyyy">
-										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-										<p:ajax event="change" />
-										<p:ajax event="dateSelect" />
-									</p:calendar>
-								</f:facet>
-							</p:cellEditor>  
-					</p:column>
-					<p:column headerText="Situação" style="width:85px;text-align:left;"
+					<p:column headerText="Situação" style="width:80px;text-align:left;"
 						styleClass="alinharCenter" sortBy="#{solicitacao.situacao}" >
 						 <p:cellEditor>
 								<f:facet name="output">
@@ -158,26 +157,79 @@
 								</f:facet>
 							</p:cellEditor>   
 					</p:column>
-					<p:column headerText="Departamento" style="width:100px;text-align:left;"
-						styleClass="alinharCenter" sortBy="#{solicitacao.situacao}">
-							<h:outputText value="#{solicitacao.departamento.nome}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
+					<p:column headerText="Usuário" style="width:100px;text-align:left;"
+						styleClass="alinharCenter" sortBy="#{solicitacao.usuario.nome}">
+							<h:outputText value="#{solicitacao.usuario.nome}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
+					</p:column> 
+					<p:column headerText="Departamento" style="width:130px;text-align:left;"
+						styleClass="alinharCenter" sortBy="#{solicitacao.usuario.departamento.nome}">
+							<h:outputText value="#{solicitacao.usuario.departamento.nome}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
+					</p:column> 
+					<p:column headerText="Previsão" sortBy="#{solicitacao.dataprevisao}" style="text-align:center;width:65px;">
+					
+						<p:cellEditor>
+								<f:facet name="output">
+										<h:outputText value="#{solicitacao.dataprevisao}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="idDataPrevisao"
+										value="#{solicitacao.dataprevisao}" size="15"
+										 locale="pt" pattern="dd/MM/yyyy">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										<p:ajax event="change" />
+										<p:ajax event="dateSelect" />
+									</p:calendar>
+								</f:facet>
+							</p:cellEditor>  
+					</p:column>
+					<p:column headerText="Executor" style="width:100px;text-align:left;"
+						styleClass="alinharCenter" sortBy="#{solicitacao.usuarioExecutor.nome}" >
+						 <p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{solicitacao.usuarioExecutor.nome}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
+								</f:facet>
+								<f:facet name="input">
+									 <p:selectOneMenu id="usuarioTabela" value="#{silicitacao.usuarioExecutor.nome}" 
+										style="width:98%;margin-left:1%;" filter="true" filterMatchMode="startsWith"
+										converter="UsuarioConverter"
+										>
+										<f:selectItem itemLabel="Selecione" itemValue="0"
+											noSelectionOption="true" />
+										<f:selectItems id="idusuario"
+											value="#{solicitacoesMB.listaExecutores}" var="sUsuario"
+											itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+										<f:attribute name="listaUsuario"
+											value="#{solicitacoesMB.listaExecutores}" />
+										<p:ajax event="change"/>   
+									</p:selectOneMenu>
+								</f:facet>
+							</p:cellEditor>   
+					</p:column>
+					<p:column headerText="Concluida" sortBy="#{solicitacao.dataconclusao}" style="text-align:center;width:70px;">
+						<h:outputText value="#{solicitacao.dataconclusao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
 					</p:column> 
 					<p:column style="width:20px" rendered="#{solicitacoesMB.acessoTI}">
 							<p:rowEditor title="Editar" rendered="#{solicitacoesMB.retornarEditar(solicitacao)}"/>   
 						</p:column>   
-					<p:column style="width:30px;" styleClass="alinharCenter">
+					<p:column style="width:35px;" styleClass="alinharCenter">
 						<p:commandLink action="#{solicitacoesMB.historicoSolicitacoes(solicitacao)}"
 							update="tabelaSolicitacoes" title="Histórico">
 							<img src="../../resources/img/crm/historico.png" width="30" />
 						</p:commandLink>    
 					</p:column>
-					<p:column headerText="" style="width:20px;text-align:left;"
+					<p:column headerText="" style="width:25px;text-align:left;"
 						styleClass="alinharCenter" rendered="#{solicitacoesMB.acessoTI}">
 							<p:selectBooleanCheckbox style=""  value="#{solicitacao.liberar}" >
 								<p:ajax event="change" listener="#{solicitacoesMB.liberarSolicitacao(solicitacao)}" update=":consSolicitacoes:growl"/>
 							</p:selectBooleanCheckbox>  
 					</p:column>  
-					<p:column style="width:30px;" styleClass="alinharCenter" rendered="#{solicitacoesMB.acessoTI}" >
+					<p:column style="width:35px;" styleClass="alinharCenter" rendered="#{solicitacoesMB.acessoTI}" >
 						<p:commandLink action="#{solicitacoesMB.concluirSolicitacoes(solicitacao)}"
 							update="tabelaSolicitacoes, :consSolicitacoes:growl" title="Concluir" disabled="#{solicitacoesMB.retornarAcessoConcluir(solicitacao)}">
 							<img src="../../resources/img/confirmarBola.png" width="30" />

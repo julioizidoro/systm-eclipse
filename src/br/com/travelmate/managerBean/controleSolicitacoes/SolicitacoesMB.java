@@ -23,7 +23,9 @@ import br.com.travelmate.facade.TiSolicitacoesFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Tisolicitacoes;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -46,6 +48,9 @@ public class SolicitacoesMB implements Serializable{
 	private boolean acessoTI;
 	private String situacao;
 	private boolean desabilitarDepartamento;
+	private List<Usuario> listaUsuario;
+	private Usuario usuario;
+	private List<Usuario> listaExecutores;
 	
 	
 	
@@ -56,13 +61,16 @@ public class SolicitacoesMB implements Serializable{
 		listaSolicitacoes = (List<Tisolicitacoes>) session.getAttribute("listaSolicitacoes");
 		session.removeAttribute("listaSolicitacoes");
 		gerarListaDepartamentos();
+		listaExecutores = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
 		if (listaSolicitacoes == null) {
 			gerarListaSolicitacoes();
 		}
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
-			departamento = usuarioLogadoMB.getUsuario().getDepartamento();
 			desabilitarDepartamento = true;
 		}
+		departamento = usuarioLogadoMB.getUsuario().getDepartamento();
+		usuario = usuarioLogadoMB.getUsuario();
+		gerarListaUsuario();
 		habilitarCamposTI();
 	}
 
@@ -175,13 +183,49 @@ public class SolicitacoesMB implements Serializable{
 
 
 
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+
+	public List<Usuario> getListaExecutores() {
+		return listaExecutores;
+	}
+
+
+
+	public void setListaExecutores(List<Usuario> listaExecutores) {
+		this.listaExecutores = listaExecutores;
+	}
+
+
+
 	public void gerarListaSolicitacoes(){
 		TiSolicitacoesFacade tiSolicitacoesFacade = new TiSolicitacoesFacade();
 		String sql = "SELECT t FROM Tisolicitacoes t ";
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()) {
 			sql = sql + " WHERE t.liberar=true ";
 		}else if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
-			sql = sql + " WHERE t.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() + " and t.liberar=true ";
+			sql = sql + " WHERE t.usuario.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() + " and t.liberar=true ";
 		}
 		listaSolicitacoes = tiSolicitacoesFacade.listar(sql);
 		if (listaSolicitacoes == null) {
@@ -301,7 +345,7 @@ public class SolicitacoesMB implements Serializable{
 		TiSolicitacoesFacade tiSolicitacoesFacade = new TiSolicitacoesFacade();
 		String sql = "SELECT t FROM Tisolicitacoes t WHERE t.descricao like '%"+ descricao +"%'";
 		if (departamento != null) {
-			sql = sql + " AND t.departamento.iddepartamento=" + departamento.getIddepartamento();
+			sql = sql + " AND t.usuario.departamento.iddepartamento=" + departamento.getIddepartamento();
 		}
 		
 		if (dataInicial != null) {
@@ -313,18 +357,43 @@ public class SolicitacoesMB implements Serializable{
 		if (situacao != null && !situacao.equalsIgnoreCase("")) {
 			sql = sql + " AND t.situacao='" + situacao + "'";
 		}
+		
+		if (usuario != null) {
+			sql = sql + " AND t.usuario.idusuario="+ usuario.getIdusuario();
+		}
+		
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()) {
 			sql = sql + " AND t.liberar=true ";
 		}else if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() 
 					&& !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
-			sql = sql + " AND t.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
+			sql = sql + " AND t.usuario.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
 		}
 		listaSolicitacoes = tiSolicitacoesFacade.listar(sql);
 		if (listaSolicitacoes == null) {
 			listaSolicitacoes = new ArrayList<>();
 		}
+		Mensagem.lancarMensagemInfo("Pesquisado com sucesso", "");
 	}
 	
+	
+	public void gerarListaUsuario() {
+		if (departamento != null && departamento.getIddepartamento() != null) {
+			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
+					+ " and u.departamento.iddepartamento=" + departamento.getIddepartamento() + " order by u.nome");
+		}else{
+			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
+		}
+	}
+	
+	public void limparPesquisa(){
+		departamento = usuarioLogadoMB.getUsuario().getDepartamento();
+		usuario = usuarioLogadoMB.getUsuario();
+		dataInicial = null;
+		dataFinal = null;
+		descricao = "";
+		situacao = "";
+		gerarListaSolicitacoes();
+	}
 	
 	
 	

@@ -8,6 +8,38 @@
       xmlns:pe="http://primefaces.org/ui/extensions">
 
     <h:head>
+    	<script>
+			PrimeFaces.locales['pt'] = {
+				closeText : 'Fechar',
+				prevText : 'Anterior',
+				nextText : 'Próximo',
+				currentText : 'Começo',
+				monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+						'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+						'Novembro', 'Dezembro' ],
+				monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+						'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+				dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+						'Sexta', 'Sábado' ],
+				dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+				dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+				weekHeader : 'Semana',
+				firstDay : 0,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Só Horas',
+				timeText : 'Tempo',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				ampm : false,
+				month : 'Mês',
+				week : 'Semana',
+				day : 'Dia',
+				allDayText : 'Todo o Dia'
+			};
+		</script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
@@ -19,17 +51,29 @@
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
            
 			<title  >Solicitação</title>
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-
+			<p:growl id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
 		<h:panelGrid columns="1">
-			<p:outputLabel value="Descrição" for="descricao" class="fontebranca" />
+			<p:outputLabel value="Usuário" for="usuario"  style="font-size:12px;"/>
+			<p:selectOneMenu id="usuario" disabled="#{cadSolicitacoesMB.habilitarCampos}" value="#{cadSolicitacoesMB.usuario}"
+				style="width:200px;" filter="true" filterMatchMode="startsWith"
+				converter="UsuarioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idconsultor" value="#{cadSolicitacoesMB.listaUsuario}"
+					var="sUsuario" itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+				<f:attribute name="listaUsuario" value="#{cadSolicitacoesMB.listaUsuario}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<p:outputLabel value="Descrição" for="descricao"  style="font-size:12px;"/>
 			<p:inputTextarea id="descricao" rows="3" value="#{cadSolicitacoesMB.tisolicitacoes.descricao}" style="width: 350px;"/>
 		</h:panelGrid>
 
    
 		<br /><br />
-             <h:panelGrid columns="2" style="margin-left25%;"> 
+             <h:panelGrid columns="2" style="margin-left:25%;"> 
 				<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar" action="#{cadSolicitacoesMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
 			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadSolicitacoesMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
 			 </h:panelGrid>  
