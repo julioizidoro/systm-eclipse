@@ -109,7 +109,7 @@ public class Usuario implements Serializable {
     private String dashboard; 
     @Transient
     private boolean fecharaniversario; 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioNotificar")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUpload")
     private List<Notificacaouploadusuario> notificacaoUploadNotificarList;
 
     public Usuario() {
