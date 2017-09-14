@@ -163,9 +163,7 @@ import javax.persistence.TemporalType;
      @Column(name = "segurocancelamentoid")
      private int segurocancelamentoid;
      @Column(name = "segurocancelamentovalor")
-     private float segurocancelamentovalor;
-     @Column(name = "travelace")
-     private int travelace;
+     private float segurocancelamentovalor; 
 
 	public int getPctransferencia() {
 		return pctransferencia;
@@ -732,15 +730,7 @@ import javax.persistence.TemporalType;
 
 	public void setSegurocancelamentovalor(float segurocancelamentovalor) {
 		this.segurocancelamentovalor = segurocancelamentovalor;
-	}
-
-	public int getTravelace() {
-		return travelace;
-	}
-
-	public void setTravelace(int travelace) {
-		this.travelace = travelace;
-	}
+	} 
 
 	@Override
      public int hashCode() {

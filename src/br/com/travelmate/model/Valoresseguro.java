@@ -68,6 +68,8 @@ public class Valoresseguro implements Serializable {
     @JoinColumn(name = "seguroplanos_idseguroplanos", referencedColumnName = "idseguroplanos")
     @ManyToOne(optional = false)
     private Seguroplanos seguroplanos;
+    @Column(name = "segurocancelamento")
+    private boolean segurocancelamento;
 
     public Valoresseguro() {
     }
@@ -196,6 +198,14 @@ public class Valoresseguro implements Serializable {
 
 	public void setSeguroplanos(Seguroplanos seguroplanos) {
 		this.seguroplanos = seguroplanos;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	@Override
