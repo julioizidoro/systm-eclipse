@@ -35,9 +35,9 @@ public class Cartaocredito implements Serializable {
     @Size(max = 16)
     @Column(name = "numero")
     private String numero;
+    @Size(max = 5)
     @Column(name = "validade")
-    @Temporal(TemporalType.DATE)
-    private Date validade;
+    private String validade;
     @Size(max = 50)
     @Column(name = "bandeira")
     private String bandeira;
@@ -79,15 +79,15 @@ public class Cartaocredito implements Serializable {
         this.numero = numero;
     }
 
-    public Date getValidade() {
-        return validade;
-    }
+    public String getValidade() {
+		return validade;
+	}
 
-    public void setValidade(Date validade) {
-        this.validade = validade;
-    }
+	public void setValidade(String validade) {
+		this.validade = validade;
+	}
 
-    public String getBandeira() {
+	public String getBandeira() {
         return bandeira;
     }
 
