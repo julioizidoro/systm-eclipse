@@ -50,9 +50,9 @@ public class Tisolicitacoes implements Serializable {
     private String situacao;
     @Column(name = "liberar")
     private Boolean liberar;
-    @JoinColumn(name = "usuariodepartamentounidade_idusuariodepartamentounidade", referencedColumnName = "idusuariodepartamentounidade")
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
-    private Usuariodepartamentounidade usuariodepartamentounidadeIdusuariodepartamentounidade;
+    private Usuario usuario;
 
     public Tisolicitacoes() {
     }
@@ -125,15 +125,16 @@ public class Tisolicitacoes implements Serializable {
         this.liberar = liberar;
     }
 
-    public Usuariodepartamentounidade getUsuariodepartamentounidadeIdusuariodepartamentounidade() {
-        return usuariodepartamentounidadeIdusuariodepartamentounidade;
-    }
 
-    public void setUsuariodepartamentounidadeIdusuariodepartamentounidade(Usuariodepartamentounidade usuariodepartamentounidadeIdusuariodepartamentounidade) {
-        this.usuariodepartamentounidadeIdusuariodepartamentounidade = usuariodepartamentounidadeIdusuariodepartamentounidade;
-    }
+    public Usuario getUsuario() {
+		return usuario;
+	}
 
-    @Override
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idtisolicitacoes != null ? idtisolicitacoes.hashCode() : 0);
