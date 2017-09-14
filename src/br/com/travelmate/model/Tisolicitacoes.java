@@ -2,9 +2,7 @@ package br.com.travelmate.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,11 +50,9 @@ public class Tisolicitacoes implements Serializable {
     private String situacao;
     @Column(name = "liberar")
     private Boolean liberar;
-    @JoinColumn(name = "departamento_iddepartamento", referencedColumnName = "iddepartamento")
+    @JoinColumn(name = "usuariodepartamentounidade_idusuariodepartamentounidade", referencedColumnName = "idusuariodepartamentounidade")
     @ManyToOne(optional = false)
-    private Departamento departamento;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tisolicitacoes")
-    private List<Tisolicitacoeshistorico> tisolicitacoeshistoricoList;
+    private Usuariodepartamentounidade usuariodepartamentounidadeIdusuariodepartamentounidade;
 
     public Tisolicitacoes() {
     }
@@ -130,20 +125,12 @@ public class Tisolicitacoes implements Serializable {
         this.liberar = liberar;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public Usuariodepartamentounidade getUsuariodepartamentounidadeIdusuariodepartamentounidade() {
+        return usuariodepartamentounidadeIdusuariodepartamentounidade;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
-
-    public List<Tisolicitacoeshistorico> getTisolicitacoeshistoricoList() {
-        return tisolicitacoeshistoricoList;
-    }
-
-    public void setTisolicitacoeshistoricoList(List<Tisolicitacoeshistorico> tisolicitacoeshistoricoList) {
-        this.tisolicitacoeshistoricoList = tisolicitacoeshistoricoList;
+    public void setUsuariodepartamentounidadeIdusuariodepartamentounidade(Usuariodepartamentounidade usuariodepartamentounidadeIdusuariodepartamentounidade) {
+        this.usuariodepartamentounidadeIdusuariodepartamentounidade = usuariodepartamentounidadeIdusuariodepartamentounidade;
     }
 
     @Override
