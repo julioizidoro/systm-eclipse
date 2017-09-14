@@ -28,9 +28,8 @@
 							value="#{cadCartaoCreditoMB.cartaocredito.numero}" maxlength="19" />
 						<p:inputText id="nome" style="width:90%;"
 							value="#{cadCartaoCreditoMB.cartaocredito.nome}" maxlength="45" />
-						<p:inputMask mask="99/99/9999" id="validade" style="width:95%;"
+						<p:inputMask mask="99/99" id="validade" style="width:95%;"
 							value="#{cadCartaoCreditoMB.cartaocredito.validade}" >
-							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 						</p:inputMask>
 						<p:inputMask mask="999" id="cv" maxlength="3" style="width:55%;"
 							value="#{cadCartaoCreditoMB.cartaocredito.cv}" />
