@@ -756,11 +756,6 @@
 											<span class="submenu-label">Vendas</span>
 										</p:commandLink></li>
 								</h:panelGroup>
-								<h:panelGroup>
-									<li><p:commandLink action="#{menuMB.consSolicitacoes()}" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menusolicitacoes}">
-											<span class="submenu-label">Solicitações</span>
-										</p:commandLink></li>
-								</h:panelGroup>
 							</ul></h:panelGroup></li>
 						<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;"
@@ -1312,16 +1307,29 @@
 											<span class="submenu-label">Guias</span>
 										</a> </li>
 							</ul></li>  
-						<li class="openable"><p:commandLink
-								onclick="PF('suporte').show();"
+							<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
-								<span class="menu-icon"> <i class="fa fa-user fa-lg" />
+								<span class="menu-icon" > <i
+									class="fa fa-user fa-lg"
+									style="font-size: 20px; color: #737277;" />
 								</span>
-								<span class="text" style="margin-left: 9%;"> Suporte </span>
+								<span class="text"> Suporte </span>
 								<span class="menu-hover"></span>
-							</p:commandLink></li>
+							</p:commandLink>
+							<ul class="submenu">       
+								<h:panelGroup rendered="true">
+									<li><p:commandLink action="#" style="color:white;" onclick="PF('suporte').show();">
+											<span class="submenu-label">Contato</span>
+										</p:commandLink></li>
+								</h:panelGroup>  
+								<h:panelGroup  rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menusolicitacoes}">
+									<li><p:commandLink action="#{menuMB.consSolicitacoes()}" style="color:white;">
+											<span class="submenu-label">Solicitações</span>
+										</p:commandLink></li>
+								</h:panelGroup>  
+							</ul></li>  
 						<p:outputLabel />
-						<p:outputLabel />
+						<p:outputLabel />  
 						<a
 							href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/condicaomes/condicaomes.pdf"
 							target="_blank"
