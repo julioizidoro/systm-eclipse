@@ -1317,6 +1317,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 						float valor = dashBoardMB.getMetamensal().getValoralcancado();
 						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
 						DashBoardBean dashBoardBean = new DashBoardBean();
+						dashBoardBean.calcularNumeroVendasProdutos(vendass, false);
 						dashBoardBean.calcularMetaMensal(vendass, 0, false);
 						dashBoardBean.calcularMetaAnual(vendass, 0, false);
 						int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario(), usuarioLogadoMB.getUsuario());
@@ -1599,7 +1600,6 @@ public class CadPacoteAgenciaMB implements Serializable {
 	}
 
 	public void adicionarSeguro() {
-		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 		seguroviagem.setFornecedor(fornecedorSeguro.getFornecedor());
 		seguroviagem.setVendas(vendass);
 		seguroviagem.setValoresseguro(valoresSeguro);
