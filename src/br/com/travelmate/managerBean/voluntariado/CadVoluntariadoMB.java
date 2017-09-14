@@ -2052,4 +2052,10 @@ public class CadVoluntariadoMB implements Serializable {
 			}
 		}
 	}
+	
+	public boolean habilitarTrocaCliente() {
+		if(novaFicha) {
+			return false;
+		}else return true;
+	}
 }

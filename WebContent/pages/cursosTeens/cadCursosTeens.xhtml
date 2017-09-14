@@ -26,7 +26,7 @@
 							<p:inputText id="idcliente" readonly="true" style="width:95%;"
 								maxlength="100" value="#{cadCursosTeensMB.cliente.nome}" />   
 							<p:commandLink action="#{cadCursosTeensMB.pesquisarCliente()}"
-								style="text-decoration: none;">   
+								style="text-decoration: none;" disabled="#{cadCursosTeensMB.habilitarTrocaCliente()}">   
 								<img src="../../resources/img/pesquisar.png" width="70%" />      
 								<p:ajax event="dialogReturn"
 									listener="#{cadCursosTeensMB.retornoDialogCliente}"

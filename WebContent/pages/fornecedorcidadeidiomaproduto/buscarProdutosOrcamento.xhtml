@@ -18,6 +18,12 @@
 			style="text-align:left;font-size: 11px;">
 			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
 			<title>Produtos</title>  
+			<div align="right" style="width:95%;margin-left:2%;">
+				<p:selectBooleanCheckbox value="#{buscarProdutosOrcamentoMB.selecionarTodos}">  
+					<p:ajax event="change" update="tabelaProdutos" listener="#{buscarProdutosOrcamentoMB.selecionarTodos()}"/>
+				</p:selectBooleanCheckbox>
+				<p:outputLabel value="Selecionar Todos" style="margin-left:1%;"/> 
+			</div>
 			<p:dataTable id="tabelaProdutos" var="produtos"
 				value="#{buscarProdutosOrcamentoMB.listaProdutoOrcamento}"
 				class="tabela" scrollable="true" scrollHeight="230"

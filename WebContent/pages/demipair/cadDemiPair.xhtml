@@ -23,7 +23,7 @@
 							columnClasses="espaco75,tamanho14">
 							<p:inputText id="idcliente" readonly="true" style="width:95%;"   
 								maxlength="100" value="#{cadDemiPairMB.cliente.nome}" />
-							<p:commandLink style="text-decoration: none"
+							<p:commandLink style="text-decoration: none" disabled="#{cadDemiPairMB.habilitarTrocaCliente()}"
 								action="#{cadDemiPairMB.pesquisarCliente()}">
 								<img src="../../resources/img/pesquisar.png" width="27%" />
 								<p:ajax event="dialogReturn"

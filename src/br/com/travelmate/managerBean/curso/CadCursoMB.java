@@ -135,7 +135,7 @@ public class CadCursoMB implements Serializable {
 	private Fornecedorcidade fornecedorSeguro;
 	private Fornecedorcidade fornecedorCidadeAlterado;
 	private Date dataCambio;
-	private boolean novaFicha = false;
+	private boolean novaFicha = false; 
 	private Curso cursoAlterado;
 	private String dadosAlterado;
 	private String situacao = "PROCESSO";
@@ -3480,5 +3480,11 @@ public class CadCursoMB implements Serializable {
 				}
 			}
 		}
+	}
+	
+	public boolean habilitarTrocaCliente() {
+		if(novaFicha) {
+			return false;
+		}else return true;
 	}
 }

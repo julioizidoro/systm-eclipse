@@ -24,14 +24,14 @@ public class BuscarProdutosOrcamentoMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L; 
 	private String nomeProduto;
+	private boolean selecionarTodos;
 	private List<Produtosorcamento> listaProdutoOrcamento; 
 	
 	@PostConstruct
 	public void init() { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		nomeProduto = (String) session.getAttribute("nomeProdutosOrcamento"); 
-		buscarProdutos();
+		listaProdutoOrcamento = (List<Produtosorcamento>) session.getAttribute("listaProdutoOrcamento");  
 	} 
   
 	public String getNomeProduto() {
@@ -48,16 +48,16 @@ public class BuscarProdutosOrcamentoMB implements Serializable{
 
 	public void setListaProdutoOrcamento(List<Produtosorcamento> listaProdutoOrcamento) {
 		this.listaProdutoOrcamento = listaProdutoOrcamento;
-	}
-
-	public void buscarProdutos(){
-		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade(); 
-        listaProdutoOrcamento = produtoOrcamentoFacade.listarProdutosOrcamento(nomeProduto);
-        if (listaProdutoOrcamento==null){
-        		listaProdutoOrcamento = new ArrayList<Produtosorcamento>();
-        }
 	} 
 	
+	public boolean isSelecionarTodos() {
+		return selecionarTodos;
+	}
+
+	public void setSelecionarTodos(boolean selecionarTodos) {
+		this.selecionarTodos = selecionarTodos;
+	}
+
 	public String pesquisar() {
 		List<Produtosorcamento> lista = new ArrayList<>();
 		for (int i = 0; i < listaProdutoOrcamento.size(); i++) {
@@ -68,4 +68,16 @@ public class BuscarProdutosOrcamentoMB implements Serializable{
         RequestContext.getCurrentInstance().closeDialog(lista);
         return "";
     } 
+	
+	public void selecionarTodos() {
+		if(selecionarTodos) {
+			for (int i = 0; i < listaProdutoOrcamento.size(); i++) {
+				listaProdutoOrcamento.get(i).setSelecionado(true);
+			}
+		}else {
+			for (int i = 0; i < listaProdutoOrcamento.size(); i++) {
+				listaProdutoOrcamento.get(i).setSelecionado(false);
+			}
+		}
+	}
 }

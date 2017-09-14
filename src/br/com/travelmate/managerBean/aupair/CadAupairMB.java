@@ -133,6 +133,7 @@ public class CadAupairMB implements Serializable {
 	private Cancelamento cancelamento;
 	private Lead lead;
 	private String voltarControleVendas = "";
+	private boolean edicaoFicha;
 
 	@PostConstruct()
 	public void init() {
@@ -559,10 +560,19 @@ public class CadAupairMB implements Serializable {
 		this.listaParcelamentoPagamentoOriginal = listaParcelamentoPagamentoOriginal;
 	}
 
+	public boolean isEdicaoFicha() {
+		return edicaoFicha;
+	}
+
+	public void setEdicaoFicha(boolean edicaoFicha) {
+		this.edicaoFicha = edicaoFicha;
+	}
+
 	public void iniciarNovo() {
 		if (cliente == null) {
 			cliente = new Cliente();
 		}
+		edicaoFicha=false;
 		produto = new Produtos();
 		fornecedorCidade = new Fornecedorcidade();
 		cambio = new Cambio();
@@ -1547,6 +1557,7 @@ public class CadAupairMB implements Serializable {
 		valoresAupair = aupair.getValoresAupair();
 		carregarValores();
 		listarFornecedorCidade();
+		edicaoFicha=true;
 		fornecedorCidade = venda.getFornecedorcidade();
 		fornecedorCidadeAlterado = fornecedorCidade;
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();

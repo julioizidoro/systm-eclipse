@@ -22,8 +22,8 @@
 							<p:outputLabel />
 
 							<p:inputText id="idcliente" readonly="true" style="width:97%;"
-								maxlength="100" value="#{cadAupairMB.cliente.nome}" />
-							<p:commandLink style="text-decoration: none"
+								maxlength="100" value="#{cadAupairMB.cliente.nome}" />   
+							<p:commandLink style="text-decoration: none" disabled="#{cadAupairMB.edicaoFicha}"
 								action="#{cadAupairMB.pesquisarCliente()}">
 								<img src="../../resources/img/pesquisar.png" />
 								<p:ajax event="dialogReturn"

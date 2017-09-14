@@ -41,7 +41,7 @@
 								<p:inputText id="idcliente" readonly="true" style="width:97%;"
 									maxlength="100" value="#{cadCursoMB.cliente.nome}" />
 								<p:commandLink actionListener="#{cadCursoMB.pesquisarCliente()}"
-									style="text-decoration: none">
+									style="text-decoration: none" disabled="#{cadCursoMB.habilitarTrocaCliente()}">
 									<img src="../../resources/img/pesquisar.png" width="85%" />
 									<p:ajax event="dialogReturn" process="@this"
 										listener="#{cadCursoMB.retornoDialogCliente}" update="@all" />
@@ -1012,16 +1012,16 @@
 								readonly="true" disabled="#{cadCursoMB.camposSeguroViagem}" />
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="3" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho11, tamanho14, tamanho14"> 	
+						<h:panelGrid columns="3" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho11, tamanho14, tamanho11"> 	
 							<h:panelGroup>
 								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
 									<p:outputLabel value="Data inicial" for="datainicio"/>
 									<p:outputLabel id="titulosemanasseguro" value="No. dias"/>
 									<p:outputLabel value="Data Final" for="datatermino"/>    
 								</h:panelGrid>
-							</h:panelGroup>
-							<p:outputLabel />
+							</h:panelGroup> 
 							<p:outputLabel value="Valor do Seguro" for="valorseguro"/>
+							<p:outputLabel />
 							
 							<h:panelGroup>
 								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
@@ -1036,7 +1036,7 @@
 									</p:calendar> 
 									<p:inputText id="semanas" 
 										value="#{cadCursoMB.seguroViagem.numeroSemanas}"
-										style="width:60%;" maxlength="45"
+										style="width:60%;" maxlength="45"     
 										disabled="#{cadCursoMB.camposSeguroViagem}">
 										<f:convertNumber type="number" />
 										<p:ajax event="blur"
@@ -1053,22 +1053,22 @@
 											listener="#{cadCursoMB.calcularNumeroDiasSeguro()}" />
 									</p:calendar> 
 								</h:panelGrid>
-							</h:panelGroup>
-							<h:panelGroup>
-								<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadCursoMB.seguroViagem.segurocancelamento}" disabled="#{cadCursoMB.camposSeguroViagem}">
-									<p:ajax event="change" listener="#{cadCursoMB.adicionarSeguroCancelamento()}"
-										update="semanas, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl" />
-								</p:selectBooleanCheckbox> 
-								<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:2%;"/>
 							</h:panelGroup> 
 							<p:inputText id="valorseguro" 
 								value="#{cadCursoMB.seguroViagem.valorSeguro}"
-								style="width:80%;text-align: right;"
+								style="width:55%;text-align: right;"
 								maxlength="45" readonly="true"
 								disabled="#{cadCursoMB.camposSeguroViagem}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:inputText>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadCursoMB.seguroViagem.segurocancelamento}" disabled="#{cadCursoMB.camposSeguroViagem}">
+									<p:ajax event="change" listener="#{cadCursoMB.adicionarSeguroCancelamento()}"
+										update="semanas, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl" />
+								</p:selectBooleanCheckbox> 
+								<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:0.5%;"/>
+							</h:panelGroup>
 						</h:panelGrid>
 						<br></br>
 						<br></br>

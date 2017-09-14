@@ -1473,4 +1473,10 @@ public class CadDemiPairMB implements Serializable {
 			consultarCambio();
 		}
 	}
+	
+	public boolean habilitarTrocaCliente() {
+		if(novaFicha) {
+			return false;
+		}else return true;
+	}
 }

@@ -28,7 +28,8 @@ import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.IdiomaFacade; 
-import br.com.travelmate.facade.PaisProdutoFacade; 
+import br.com.travelmate.facade.PaisProdutoFacade;
+import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoIndiceFacade;
 import br.com.travelmate.managerBean.AplicacaoMB; 
 import br.com.travelmate.model.Cidadepaisproduto;
@@ -956,12 +957,16 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	
 	public String buscarProdutosOrcamento() { 
 		if(nomeProdutosOrcamento!=null && nomeProdutosOrcamento.length()>0) {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-			session.setAttribute("nomeProdutosOrcamento", nomeProdutosOrcamento);  
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			RequestContext.getCurrentInstance().openDialog("buscarProdutosOrcamento", options, null);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade(); 
+			List<Produtosorcamento> listaProdutoOrcamento = produtoOrcamentoFacade.listarProdutosOrcamento(nomeProdutosOrcamento);
+			if(listaProdutoOrcamento!=null && listaProdutoOrcamento.size()>0) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+				session.setAttribute("listaProdutoOrcamento", listaProdutoOrcamento);  
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("buscarProdutosOrcamento", options, null);
+			}
 		}
 		return "";
 	}

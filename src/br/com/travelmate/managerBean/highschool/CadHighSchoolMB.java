@@ -1676,4 +1676,10 @@ public class CadHighSchoolMB implements Serializable {
 	public String juncaoInicio(Valoreshighschool valores){
 		return valores.getInicio() + " " + valores.getAnoinicio() + " - " + valores.getDuracao();
 	}
+	
+	public boolean habilitarTrocaCliente() {
+		if(novaFicha) {
+			return false;
+		}else return true;
+	}
 }
