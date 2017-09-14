@@ -145,4 +145,15 @@ public class GerarListas {
     		}
         return listafinal;
     }
+    
+    public static List<Fornecedorcidade> listarFornecedorSeguro(int idproduto){
+        FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+        String sql = "SELECT f From Fornecedorcidade f where f.produtos.idprodutos="+ 
+        					idproduto + " order by f.fornecedor.nome DESC";
+        List<Fornecedorcidade> listarFornecedor = fornecedorCidadeFacade.listar(sql);
+        if (listarFornecedor==null){
+        	listarFornecedor = new ArrayList<Fornecedorcidade>();
+        }
+        return listarFornecedor;
+    }
 }

@@ -122,11 +122,17 @@
 					</p:selectOneMenu> 
                </h:panelGrid>
          	   <br></br>
-	           <p class="botaocadpacote"><br></br>
-	           	    <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cadValoresSeguroMB.salvar()}" style="font-size:11px;"></p:commandButton>
-	            	<p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadValoresSeguroMB.cancelar()}"></p:commandButton>
-	           
-	      	   </p>
+         	   <h:panelGroup style="margin-left:3%;">
+					<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadValoresSeguroMB.valoresseguro.segurocancelamento}">
+						<p:ajax event="change"  />  
+					</p:selectBooleanCheckbox>  
+					<p:outputLabel value="Seguro Cancelamento" for="checkBoxSeguro" style="margin-left:1%;"/>
+			   </h:panelGroup> 
+         	   <br></br>
+	           <div align="center">
+	           	    <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cadValoresSeguroMB.salvar()}" style="font-size:11px;"/>
+	           	 	<p:commandButton icon="ui-icon-close" value="Cancelar" action="#{cadValoresSeguroMB.cancelar()}" style="font-size:11px;"/>
+	           </div>
         </h:form>     
     </h:body>
 </html>

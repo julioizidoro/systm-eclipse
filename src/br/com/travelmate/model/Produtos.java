@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -36,15 +37,13 @@ public class Produtos implements Serializable {
 	@Size(max = 50)
 	@Column(name = "descricao")
 	private String descricao;
-	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
-	// consider using these annotations to enforce field validation
 	@Column(name = "comissaogerente")
 	private Double comissaogerente;
 	@Column(name = "idgerente")
 	private Integer idgerente;
 	@Column(name = "tipo")
 	private String tipo;
-	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos", fetch = FetchType.LAZY)  
 	private List<Fornecedorcidade> fornecedorcidadeList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtos")
 	private List<Tipoarquivoproduto> tipoarquivoprodutoList;

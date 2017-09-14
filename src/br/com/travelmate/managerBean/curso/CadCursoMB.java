@@ -93,6 +93,7 @@ import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.model.Vendaspacote;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -2302,15 +2303,11 @@ public class CadCursoMB implements Serializable {
 		}
 	}
 
-	public void iniciarListaFornecedorSeguro() {
-		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-		int idProduto = (int) aplicacaoMB.getParametrosprodutos().getCartao01();
-		List<Paisproduto> listaPais = paisProdutoFacade.listar(idProduto);
-		if (listaPais != null) {
-			listaFornecedorCidadeSeguro = listaPais.get(0).getProdutos().getFornecedorcidadeList();
-		}
+	public void iniciarListaFornecedorSeguro() { 
+		int idProduto = (int) aplicacaoMB.getParametrosprodutos().getCartao01(); 
+		listaFornecedorCidadeSeguro = GerarListas.listarFornecedorSeguro(idProduto);
 	}
-
+	 
 	public void gerarListaCursos() {
 		FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
 		String sql = "select f from Filtroorcamentoproduto f where f.produtos.idprodutos="
@@ -3444,10 +3441,8 @@ public class CadCursoMB implements Serializable {
 		return "";
 	}
 	
-	public void adicionarSeguroCancelamento() {
-		int idTravelAce = aplicacaoMB.getParametrosprodutos().getTravelace();
-		if (seguroViagem.isSegurocancelamento() && 
-				fornecedorSeguro!=null && fornecedorSeguro.getFornecedor().getIdfornecedor()==idTravelAce) {
+	public void adicionarSeguroCancelamento() { 
+		if (seguroViagem.isSegurocancelamento() && seguroViagem.getValoresseguro().isSegurocancelamento()) {
 			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento(); 
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			Produtosorcamento produto = produtoOrcamentoFacade
@@ -3457,8 +3452,9 @@ public class CadCursoMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			orcamentoprodutosorcamento.setValorMoedaEstrangeira(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor());
-			orcamentoprodutosorcamento.setValorMoedaNacional(orcamentoprodutosorcamento.getValorMoedaEstrangeira()*cambioSeguro.getValor()); 
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(
+					aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor()); 
 			orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			calcularValorTotalOrcamento();
 			calcularParcelamentoPagamento();
