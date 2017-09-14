@@ -1599,6 +1599,7 @@ public class CadVoluntariadoMB implements Serializable {
 		seguroViagem.setPossuiSeguro("Não");
 		venda.setSituacao("PROCESSO");
 		venda.setDataVenda(new Date());
+		novaFicha = true;
 	}
 
 	public void iniciarAlteracaoVoluntariado() {

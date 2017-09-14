@@ -532,6 +532,7 @@ public class CadHighSchoolMB implements Serializable {
 		parcelamentopagamento = new Parcelamentopagamento();
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		consultaCambio = true;
+		novaFicha = true;
 	}
 
 	public void carregarCampos() {

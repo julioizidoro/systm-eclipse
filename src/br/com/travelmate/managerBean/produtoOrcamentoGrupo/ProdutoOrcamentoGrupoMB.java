@@ -132,7 +132,7 @@ public class ProdutoOrcamentoGrupoMB implements Serializable{
 		ProdutoOrcamentoIndiceFacade prOrcamentoIndiceFacade = new ProdutoOrcamentoIndiceFacade();
 		ProdutoOrcamentoGrupoFacade prOrcamentoGrupoFacade = new ProdutoOrcamentoGrupoFacade();
 		List<Produtosorcamentogrupo> listaProdutosOrcamentoGrupo = prOrcamentoGrupoFacade.listar("Select p From Produtosorcamentogrupo p "
-				+ " Where p.produtosorcamentoindice.idProdutosorcamentoindice=" + produtosorcamentoindice.getIdprodutosorcamentoindice());
+				+ " Where p.produtosorcamentoindice.idprodutosorcamentoindice=" + produtosorcamentoindice.getIdprodutosorcamentoindice());
 		if (listaProdutosOrcamentoGrupo != null) {
 			for (int i = 0; i < listaProdutosOrcamentoGrupo.size(); i++) {
 				prOrcamentoGrupoFacade.excluir(listaProdutosOrcamentoGrupo.get(i).getIdprodutosorcamentogrupo());
@@ -158,7 +158,7 @@ public class ProdutoOrcamentoGrupoMB implements Serializable{
 	
 	public void gerarListaProdutoOrcanmentoGrupo(Produtosorcamentoindice produtosorcamentoindice){
 		ProdutoOrcamentoGrupoFacade prOrcamentoGrupoFacade = new ProdutoOrcamentoGrupoFacade();
-		listaProdutosOrcamentoGrupo = prOrcamentoGrupoFacade.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idProdutosorcamentoindice="
+		listaProdutosOrcamentoGrupo = prOrcamentoGrupoFacade.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idprodutosorcamentoindice="
 				+ produtosorcamentoindice.getIdprodutosorcamentoindice());
 		if (listaProdutosOrcamentoGrupo == null) {
 			listaProdutosOrcamentoGrupo = new ArrayList<>();
