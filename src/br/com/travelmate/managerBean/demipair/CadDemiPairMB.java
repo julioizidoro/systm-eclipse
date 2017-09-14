@@ -546,6 +546,7 @@ public class CadDemiPairMB implements Serializable {
 		orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		consultaCambio = true;
+		novaFicha = true;
 		demipair.setTipoPassagem("Cliente Providenciará");
 	}
 

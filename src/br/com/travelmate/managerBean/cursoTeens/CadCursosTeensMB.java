@@ -560,6 +560,7 @@ public class CadCursosTeensMB implements Serializable {
 		parcelamentopagamento = new Parcelamentopagamento();
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		consultaCambio = true;
+		novaFicha = true;
 	}
 
 	public void carregarCampos() {

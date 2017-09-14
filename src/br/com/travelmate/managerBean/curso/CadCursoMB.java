@@ -2628,6 +2628,7 @@ public class CadCursoMB implements Serializable {
 		orcamentoprodutosorcamento.setValorMoedaNacional(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
 		orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 		consultaCambio = true;
+		novaFicha = true;
 	}
 
 	public void iniciarAlteracaoCurso() {
