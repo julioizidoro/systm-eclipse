@@ -210,7 +210,7 @@
 				style="width:80%;text-align:right;">
 				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 				<p:ajax event="blur" listener="#{calculadoraMargemMB.valorParcelamento()}" 
-					update="saldoParcelado"/>     
+					update="saldoParcelado, :calcularMargem:desagio, :calcularMargem:juros, :calcularMargem:custoTotal"/>     
 			</p:inputText>
 			<p:inputText id="saldoParcelado" value="#{calculadoraMargemMB.saldoParcelar}"   
 				style="width:80%;text-align:right;">

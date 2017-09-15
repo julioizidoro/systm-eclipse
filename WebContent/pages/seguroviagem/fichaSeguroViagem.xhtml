@@ -151,7 +151,7 @@
 									minFractionDigits="2" />
 								<p:ajax event="blur"
 									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
-									listener="#{fichaSeguroViagemMB.aplicarDesconto()}" />
+									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
 							</p:inputText>
 							<p:inputText id="descontoMatriz"
 								value="#{fichaSeguroViagemMB.seguro.descontomatriz}"
@@ -160,7 +160,7 @@
 									minFractionDigits="2" />
 								<p:ajax event="blur"
 									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
-									listener="#{fichaSeguroViagemMB.aplicarDesconto()}" />
+									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
 							</p:inputText>     
 							<p:inputText id="valorseguro"
 								value="#{fichaSeguroViagemMB.seguro.valorSeguro}"
