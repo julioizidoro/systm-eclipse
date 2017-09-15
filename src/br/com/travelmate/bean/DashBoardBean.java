@@ -226,6 +226,7 @@ public class DashBoardBean {
 			usuariopontos.setMes(mes);
 			usuariopontos.setUsuario(venda.getUsuario());
 			usuariopontos.setPontos(0);
+			usuariopontos.setTotalpontos(0);
 		}
 		if (cancelamento == false) {
 			RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
@@ -247,7 +248,14 @@ public class DashBoardBean {
 			if (usuariopontos.getPontoescola() == null) {
 				usuariopontos.setPontoescola(0);
 			}
-			usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
+			if(venda.getUsuario().getIdusuario()==16) {
+				usuariopontos.setTotalpontos(usuariopontos.getTotalpontos() + ponto - venda.getPonto()); 
+				ponto = ponto/2;
+				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto());  
+			}else {
+				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
+				usuariopontos.setTotalpontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
+			}
 		} else {
 			usuariopontos.setPontos(usuariopontos.getPontos() - venda.getPonto());
 			usuariopontos.setPontoescola(usuariopontos.getPontoescola() - venda.getPontoescola());
@@ -296,7 +304,14 @@ public class DashBoardBean {
 			if (ponto <= 0) {
 				ponto = 1;
 			}
-			usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto());
+			if(venda.getUsuario().getIdusuario()==16) {
+				usuariopontos.setTotalpontos(usuariopontos.getTotalpontos() + ponto - venda.getPonto()); 
+				ponto = ponto/2;
+				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto());  
+			}else {
+				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
+				usuariopontos.setTotalpontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
+			}
 		} else {
 			usuariopontos.setPontos(usuariopontos.getPontos() - venda.getPonto());
 		}
@@ -472,8 +487,15 @@ public class DashBoardBean {
 		if (pontos<=0){
 			pontos =1;
 		}
-		usuariopontosFranquia.setPontos(usuariopontosFranquia.getPontos() + pontos - venda.getPonto());
-		usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() + pontos - venda.getPonto());
+		if(venda.getUsuario().getIdusuario()==16) {
+			usuariopontosConsultor.setTotalpontos(usuariopontosConsultor.getTotalpontos() + pontos - venda.getPonto()); 
+			pontos = pontos/2;
+			usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() + pontos - venda.getPonto());  
+		}else {
+			usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() + pontos - venda.getPonto()); 
+			usuariopontosConsultor.setTotalpontos(usuariopontosConsultor.getPontos() + pontos- venda.getPonto()); 
+		}
+		usuariopontosFranquia.setPontos(usuariopontosFranquia.getPontos() + pontos - venda.getPonto()); 
 		usuariopontosFranquia = usuarioPontosFacade.salvar(usuariopontosFranquia);
 		usuariopontosConsultor = usuarioPontosFacade.salvar(usuariopontosConsultor);
 		return pontos;

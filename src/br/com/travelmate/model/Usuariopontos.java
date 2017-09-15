@@ -35,6 +35,8 @@ public class Usuariopontos implements Serializable {
     private Integer pontos;
     @Column(name = "pontoescola")
     private Integer pontoescola;
+    @Column(name = "totalpontos")
+    private Integer totalpontos;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
     private Usuario usuario;
@@ -104,6 +106,14 @@ public class Usuariopontos implements Serializable {
 
 	public void setPontoescola(Integer pontoescola) {
 		this.pontoescola = pontoescola;
+	}
+
+	public Integer getTotalpontos() {
+		return totalpontos;
+	}
+
+	public void setTotalpontos(Integer totalpontos) {
+		this.totalpontos = totalpontos;
 	}
 
 	@Override
