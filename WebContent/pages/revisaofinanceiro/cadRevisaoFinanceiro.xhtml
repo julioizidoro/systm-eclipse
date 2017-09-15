@@ -228,10 +228,10 @@
 							class="espacocobranca20rig">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
-						<p:inputText value="#{cadRevisaoFinanceiroMB.valorTotal}" style="width:43%"
+						<p:inputText value="#{cadRevisaoFinanceiroMB.valorMatrizLoja}" style="width:43%;#{cadRevisaoFinanceiroMB.corValorMatrizLoja()}"
 							class="espacocobranca20rig">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-						</p:inputText>
+						</p:inputText> 
 					</h:panelGrid>
 					<br/><hr style="width:83%;margin-left:8%;"/><br/>
 					<h:panelGrid columns="5" style="width:53%;margin-left:23%;">  

@@ -1,37 +1,31 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      
-
-        <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        
     </h:head>
-    
-
- <h:body > 
-        <h:form id="cadastroPendencia" style="font-size: 11px;">
+    <h:body >
+        <h:form id="cadastroPendencia" style="font-size: 12px;">
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
            
 			<title  >Cadastro de Pendência</title>
 			<p:growl id="growl" showDetail="true" sticky="true"  />
 			
 			<h:panelGrid columns="2" style="width:100%;">
-				<p:outputLabel value="Próximo Contato" for="proximocontato"  class="left3" />
-				<p:outputLabel value="Motivo da Pendência" for="motivopendencia"  class="left3" />
+				<p:outputLabel value="Próximo Contato" for="proximocontato"   />
+				<p:outputLabel value="Motivo da Pendência" for="motivopendencia"   />
 				
 			   
-				<p:calendar id="proximocontato"
-					value="#{cadVendaPendenciaMB.vendapendencia.dataproximocontato}" size="20"
-					 locale="pt" pattern="dd/MM/yyyy">
+				<p:calendar id="proximocontato" mask="true" size="14" maxlength="14"
+					value="#{cadVendaPendenciaMB.vendapendencia.dataproximocontato}" 
+					 pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo">
 					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 					<p:ajax event="change" />
-					<p:ajax event="dateSelect" />
+					<p:ajax event="dateSelect" /> 
 				</p:calendar>
 				<p:selectOneMenu  id="motivopendencia"  style="width: 280px;"  value="#{cadVendaPendenciaMB.vendamotivopendencia}" converter="VendaMotivoPendenciaConverter"
 	                             filter="true" filterMatchMode="contains" panelStyle="width:180px" >
@@ -40,15 +34,16 @@
 	                    <f:attribute name="listaVendaMotivoPencencia" value="#{cadVendaPendenciaMB.listaVendaMotivoPencencia}"/>
 	                </p:selectOneMenu>
 			</h:panelGrid>  
+			<br />  
 			<h:panelGrid columns="1" style="width:100%;">
-				<p:outputLabel value="Relato" for="obs" class="fontebranca" />
+				<p:outputLabel value="Relato" for="obs"  />
 	
-				<p:inputTextarea id="obs" value="#{cadVendaPendenciaMB.vendapendencia.relato}" rows="3" style="width:95%;" />
+				<p:inputTextarea id="obs" value="#{cadVendaPendenciaMB.vendapendencia.relato}" rows="3" style="width:91%;" />
 			</h:panelGrid>
             <br />
             
               
-            <br /><br /><br />
+            <br /><br />
              <h:panelGrid columns="2" style="margin-left:27%;"> 
 				<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar" action="#{cadVendaPendenciaMB.salvar()}" icon="ui-icon-check" update="growl" style="font-size:12px;"/>
 			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadVendaPendenciaMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>

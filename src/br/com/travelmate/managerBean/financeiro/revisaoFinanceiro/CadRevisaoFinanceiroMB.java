@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import com.sun.glass.ui.Application;
 
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -71,6 +70,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     private List<Vendas> listaVendaNova;
     private Date dataPagamento;
     private Float valorRecebido;
+    private float valorMatrizLoja;
 	
 	@PostConstruct
 	public void init(){
@@ -311,6 +311,20 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 
 
 
+	public float getValorMatrizLoja() {
+		return valorMatrizLoja;
+	}
+
+
+
+
+	public void setValorMatrizLoja(float valorMatrizLoja) {
+		this.valorMatrizLoja = valorMatrizLoja;
+	}
+
+
+
+
 	public String gerarStatusImagem(Contasreceber conta){
 		String retorno;
         Date data = Formatacao.formatarDataAgora();
@@ -418,7 +432,6 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     		if (listaContasReceber.get(i).getValorpago() != null) {
         		valorRecebido = valorRecebido + listaContasReceber.get(i).getValorpago();
 			}
-			valorTotal = valorTotal + listaContasReceber.get(i).getValorparcela();
 		}
     }
     
@@ -432,6 +445,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					valorLoja = valorLoja + formapagamento.getParcelamentopagamentoList().get(i).getValorParcelamento();
 				}
 			}
+			valorMatrizLoja = valorMatriz + valorLoja;
 		}
     }
     
@@ -562,26 +576,39 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		}
     }
     
-    public void gerarLogVenda(String situacao, String operacao) {
-    		Logvenda logVenda = new  Logvenda();
-    		logVenda.setSituacao(situacao);
-    		logVenda.setOperacao(operacao);
+	public void gerarLogVenda(String situacao, String operacao) {
+		Logvenda logVenda = new Logvenda();
+		logVenda.setSituacao(situacao);
+		logVenda.setOperacao(operacao);
 		logVenda.setUsuario(usuarioLogadoMB.getUsuario());
 		logVenda.setVendas(venda);
 		LogVendaFacade logVendaFacade = new LogVendaFacade();
 		logVendaFacade.salvar(logVenda);
 
-    }
-    
-    public int getIdVendaSeguro(int idVenda) {
-    		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
-    		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVenda);
-    		if (seguro!=null) {
-    			return seguro.getVendas().getIdvendas();
-    		}
-    		return 0;
-    		
-    }
+	}
+
+	public int getIdVendaSeguro(int idVenda) {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVenda);
+		if (seguro != null) {
+			return seguro.getVendas().getIdvendas();
+		}
+		return 0;
+
+	}
+	
+	
+	public String corValorMatrizLoja(){
+		String valorFormatadoVenda = Formatacao.formatarFloatStringNumero(venda.getValor());
+		String valorFormatadoMatrizLoja = Formatacao.formatarFloatStringNumero(valorMatrizLoja);
+		float valorVenda = Formatacao.formatarStringfloat(valorFormatadoVenda);
+		valorMatrizLoja = Formatacao.formatarStringfloat(valorFormatadoMatrizLoja);
+		if (valorMatrizLoja != valorVenda) {
+			return "color:red;"; 
+		}
+		return "";
+	}
+	
     
     
 }

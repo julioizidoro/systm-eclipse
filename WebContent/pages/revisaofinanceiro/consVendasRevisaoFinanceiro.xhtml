@@ -129,7 +129,7 @@
 							value="#{revisaoFinanceiroMB.listaVendaPendente}" scrollable="true"  
 							scrollHeight="300"  >        
 							
-							<p:column headerText="ID"  style="width:50px;">
+							<p:column headerText="ID" sortBy="#{vendas.idvendas}" style="width:50px;">
 								
 								<p:commandLink
 									action="#{revisaoFinanceiroMB.cadastroRevisaoFinanceiro(vendas)}"
@@ -138,34 +138,34 @@
 									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;"/>  
 								</p:commandLink>
 							</p:column>
-							<p:column headerText="Cliente"  style="width:200px;">
+							<p:column headerText="Cliente" sortBy="#{vendas.cliente.nome}" style="width:200px;">
 								<h:outputText value="#{vendas.cliente.nome}"
 									 />
 							</p:column>
-							<p:column headerText="Produto"  style="width:120px;">
+							<p:column headerText="Produto" sortBy="#{vendas.produtos.descricao}" style="width:120px;">
 								<h:outputText value="#{vendas.produtos.descricao}"
 									 />
 							</p:column>
-							<p:column headerText="Data Venda"    
+							<p:column headerText="Data Venda"  sortBy="#{vendas.dataVenda}"  
 								style="text-align:center;width:75px;">
 								<h:outputText value="#{vendas.dataVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>   
 							</p:column>
-							<p:column headerText="Próximo Contato" 
+							<p:column headerText="Próximo Contato" sortBy="#{vendas.vendapendencia.dataproximocontato}"
 								style="text-align:center;width:75px;">
 								<h:outputText value="#{vendas.vendapendencia.dataproximocontato}" >
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />    
 								</h:outputText>  
 							</p:column>
-							<p:column headerText="Unidade"  style="width:110px;"
+							<p:column headerText="Unidade" sortBy="#{vendas.unidadenegocio.nomerelatorio}" style="width:110px;"
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{vendas.unidadenegocio.nomerelatorio}" />        
 							</p:column>     
-							<p:column headerText="Consultor" style="width:150px;"
+							<p:column headerText="Consultor" sortBy="#{vendas.usuario.nome}" style="width:150px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{vendas.usuario.nome}" />
 							</p:column>   
