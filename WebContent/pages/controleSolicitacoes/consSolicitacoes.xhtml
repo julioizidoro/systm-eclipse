@@ -192,10 +192,10 @@
 									<h:outputText value="#{solicitacao.usuarioExecutor.nome}" style="#{solicitacoesMB.retornarCorTabela(solicitacao)}"/>
 								</f:facet>
 								<f:facet name="input">
-									 <p:selectOneMenu id="usuarioTabela" value="#{silicitacao.usuarioExecutor.nome}" 
+									 <p:selectOneMenu id="usuarioTabela" value="#{solicitacao.usuarioExecutor}" 
 										style="width:98%;margin-left:1%;" filter="true" filterMatchMode="startsWith"
 										converter="UsuarioConverter"
-										>
+										>  
 										<f:selectItem itemLabel="Selecione" itemValue="0"
 											noSelectionOption="true" />
 										<f:selectItems id="idusuario"
@@ -203,10 +203,9 @@
 											itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
 										<f:attribute name="listaUsuario"
 											value="#{solicitacoesMB.listaExecutores}" />
-										<p:ajax event="change"/>   
 									</p:selectOneMenu>
 								</f:facet>
-							</p:cellEditor>   
+							</p:cellEditor>  
 					</p:column>
 					<p:column headerText="Concluida" sortBy="#{solicitacao.dataconclusao}" style="text-align:center;width:70px;">
 						<h:outputText value="#{solicitacao.dataconclusao}">
