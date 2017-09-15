@@ -426,24 +426,25 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		}
     }
     
-    public String liberarVenda(){
-    	VendasFacade vendasFacade = new VendasFacade();
-    	if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {
+	public String liberarVenda() {
+		VendasFacade vendasFacade = new VendasFacade();
+		if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {
 			listaVendaNova.remove(venda);
-		}else if(venda.getSituacaofinanceiro().equalsIgnoreCase("P")){
+		} else if (venda.getSituacaofinanceiro().equalsIgnoreCase("P")) {
 			listaVendaPendente.remove(venda);
 		}
-    	venda.setSituacaofinanceiro("L");
-    	if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
+		venda.setSituacaofinanceiro("L");
+		if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
 			venda.setSituacao("FINALIZADA");
+			venda.setDataprocesso(new Date());
 		}
-    	venda = vendasFacade.salvar(venda);
-    	FacesContext fc = FacesContext.getCurrentInstance();
+		venda = vendasFacade.salvar(venda);
+		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("listaVendaNova", listaVendaNova);
 		session.setAttribute("listaVendaPendente", listaVendaPendente);
-    	return "consVendasRevisaoFinanceiro";
-    }
+		return "consVendasRevisaoFinanceiro";
+	}
     
     
     public void retornoDialogPendencia(SelectEvent event){
