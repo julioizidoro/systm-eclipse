@@ -70,15 +70,17 @@ public class ControleCursoMB implements Serializable {
 	private int nFichasFinalizadas;
 	private int nFichasAndamento;
 	private int nFichaCancelada;
+	private Integer nFichaFinanceiro;
 	private String numeroFichas;
 	private Date datainivenda;
 	private Date datafimvenda;
-	private String situacaoFicha;
+	private String situacaoFicha; 
 	private String sql;
 	private String obsTM;
 	private List<Controlecurso> listaVendasCursoFinalizada;
 	private List<Controlecurso> listaVendasCursoAndamento;
 	private List<Controlecurso> listaVendasCursoCancelada; 
+	private List<Controlecurso> listaVendasCursoFinanceiro;
 
 	@PostConstruct
 	public void init() {
@@ -317,6 +319,22 @@ public class ControleCursoMB implements Serializable {
 		this.nFichaCancelada = nFichaCancelada;
 	}
 
+	public Integer getnFichaFinanceiro() {
+		return nFichaFinanceiro;
+	}
+
+	public void setnFichaFinanceiro(Integer nFichaFinanceiro) {
+		this.nFichaFinanceiro = nFichaFinanceiro;
+	}
+
+	public List<Controlecurso> getListaVendasCursoFinanceiro() {
+		return listaVendasCursoFinanceiro;
+	}
+
+	public void setListaVendasCursoFinanceiro(List<Controlecurso> listaVendasCursoFinanceiro) {
+		this.listaVendasCursoFinanceiro = listaVendasCursoFinanceiro;
+	}
+
 	public void listarControle(String sql) {
 		CursoFacade cursoFacade = new CursoFacade();
 		if (sql==null){
@@ -335,14 +353,21 @@ public class ControleCursoMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0; 
 		nFichaCancelada=0;
+		nFichaFinanceiro = 0;
 		listaVendasCursoFinalizada = new ArrayList<>();
 		listaVendasCursoAndamento = new ArrayList<>();
 		listaVendasCursoCancelada = new ArrayList<>(); 
+		listaVendasCursoFinanceiro = new ArrayList<>(); 
 		for (int i = 0; i < listaControle.size(); i++) {
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasCursoFinalizada.add(listaControle.get(i));
-			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& !listaControle.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichaFinanceiro = nFichaFinanceiro + 1;
+				listaVendasCursoFinanceiro.add(listaControle.get(i));
+			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& listaControle.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
 				nFichasAndamento = nFichasAndamento + 1;
 				listaVendasCursoAndamento.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("CANCELADA")){
@@ -599,7 +624,11 @@ public class ControleCursoMB implements Serializable {
 	public String imagemSituacao(Curso curso) {
 		if (curso.getVendas().getSituacao().equals("FINALIZADA")) { 
 			return "../../resources/img/finalizadoFicha.png";
-		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")) { 
+		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
+			return "../../resources/img/amarelaFicha.png";
+		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+				&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
 			return "../../resources/img/amarelaFicha.png";
 		} else { 
 			return "../../resources/img/fichaCancelada.png";

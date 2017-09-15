@@ -174,11 +174,12 @@ public class Acesso implements Serializable {
 	private boolean acessogerencialsolicitacoes;
 	@Column(name = "acessoliberadassolicitacoes")
 	private boolean acessoliberadassolicitacoes;
+	@Column(name = "calculadorafinanceira")
+	private boolean calculadorafinanceira;
 
 	public Integer getIdacesso() {
 		return idacesso;
 	}
-	
 
 	public void setIdacesso(Integer idacesso) {
 		this.idacesso = idacesso;
@@ -631,7 +632,7 @@ public class Acesso implements Serializable {
 	public void setFatura(boolean fatura) {
 		this.fatura = fatura;
 	}
-   
+
 	public boolean isRecebimento() {
 		return recebimento;
 	}
@@ -740,41 +741,41 @@ public class Acesso implements Serializable {
 		return acessounidade;
 	}
 
-
 	public void setAcessounidade(boolean acessounidade) {
 		this.acessounidade = acessounidade;
 	}
-
 
 	public boolean isMenusolicitacoes() {
 		return menusolicitacoes;
 	}
 
-
 	public void setMenusolicitacoes(boolean menusolicitacoes) {
 		this.menusolicitacoes = menusolicitacoes;
 	}
-
 
 	public boolean isAcessogerencialsolicitacoes() {
 		return acessogerencialsolicitacoes;
 	}
 
-
 	public void setAcessogerencialsolicitacoes(boolean acessogerencialsolicitacoes) {
 		this.acessogerencialsolicitacoes = acessogerencialsolicitacoes;
 	}
-
 
 	public boolean isAcessoliberadassolicitacoes() {
 		return acessoliberadassolicitacoes;
 	}
 
-
 	public void setAcessoliberadassolicitacoes(boolean acessoliberadassolicitacoes) {
 		this.acessoliberadassolicitacoes = acessoliberadassolicitacoes;
 	}
 
+	public boolean isCalculadorafinanceira() {
+		return calculadorafinanceira;
+	}
+
+	public void setCalculadorafinanceira(boolean calculadorafinanceira) {
+		this.calculadorafinanceira = calculadorafinanceira;
+	}
 
 	@Override
 	public int hashCode() {
