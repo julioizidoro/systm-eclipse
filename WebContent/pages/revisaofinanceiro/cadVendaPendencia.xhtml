@@ -8,6 +8,7 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
 
         <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
     </h:head>
@@ -18,7 +19,7 @@
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
            
 			<title  >Cadastro de Pendência</title>
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="true"  />
 			
 			<h:panelGrid columns="2" style="width:100%;">
 				<p:outputLabel value="Próximo Contato" for="proximocontato"  class="left3" />

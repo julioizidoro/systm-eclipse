@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,7 +36,8 @@ public class Vendapendenciahistorico implements Serializable {
     @Size(max = 45)
     @Column(name = "contato")
     private String contato;
-    @Size(max = 45)
+    @Lob
+    @Size(max = 16777215)
     @Column(name = "assunto")
     private String assunto;
     @JoinColumn(name = "vendapendencia_idvendapendencia", referencedColumnName = "idvendapendencia")

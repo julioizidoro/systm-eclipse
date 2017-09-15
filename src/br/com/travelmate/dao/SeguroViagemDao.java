@@ -25,7 +25,7 @@ public class SeguroViagemDao {
     }
     
     public Seguroviagem consultar(int idVenda) throws SQLException{
-    	EntityManager manager;
+    		EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select s from Seguroviagem s where s.vendas.idvendas=" + idVenda);
         Seguroviagem seguro = null;

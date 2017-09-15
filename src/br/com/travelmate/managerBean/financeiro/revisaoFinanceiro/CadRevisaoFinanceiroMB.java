@@ -18,9 +18,14 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import com.sun.glass.ui.Application;
+
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.LogVendaFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.model.Banco;
@@ -28,8 +33,10 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -47,6 +54,8 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private AplicacaoMB aplicacaoMB;
 	private List<Contasreceber> listaContasReceber;
 	private Vendas venda;
 	private Formapagamento formapagamento;
@@ -439,6 +448,22 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			venda.setDataprocesso(new Date());
 		}
 		venda = vendasFacade.salvar(venda);
+		int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		if (venda.getProdutos().getIdprodutos()==idProduto) {
+			int idVendaSeguro = getIdVendaSeguro(venda.getIdvendas());
+			if (idVendaSeguro>0) {
+				for(int i=0;i<listaVendaNova.size();i++) {
+					if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
+						listaVendaNova.get(i).setSituacaofinanceiro("L");
+						vendasFacade.salvar(listaVendaNova.get(i));
+						gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
+						listaVendaNova.remove(i);
+						i=listaVendaNova.size() + 10;
+					}
+				}
+			}
+		}
+		gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("listaVendaNova", listaVendaNova);
@@ -451,6 +476,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     	Vendapendencia vendapendencia = (Vendapendencia) event.getObject();
     	if (vendapendencia.getIdvendapendencia() != null) {
     		try {
+    				gerarLogVenda("Pendencia", "Venda com pendencia financeira");
 				FacesContext.getCurrentInstance().getExternalContext().redirect("consVendasRevisaoFinanceiro.jsf");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -534,6 +560,27 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     	if (venda.getFornecedor() == null) {
 			venda.setFornecedor(new Fornecedor());
 		}
+    }
+    
+    public void gerarLogVenda(String situacao, String operacao) {
+    		Logvenda logVenda = new  Logvenda();
+    		logVenda.setSituacao(situacao);
+    		logVenda.setOperacao(operacao);
+		logVenda.setUsuario(usuarioLogadoMB.getUsuario());
+		logVenda.setVendas(venda);
+		LogVendaFacade logVendaFacade = new LogVendaFacade();
+		logVendaFacade.salvar(logVenda);
+
+    }
+    
+    public int getIdVendaSeguro(int idVenda) {
+    		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+    		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVenda);
+    		if (seguro!=null) {
+    			return seguro.getVendas().getIdvendas();
+    		}
+    		return 0;
+    		
     }
     
     

@@ -32,6 +32,7 @@ public class SeguroViagemFacade {
         }
     }
     
+    
     public List<Seguroviagem>  listar(String sql) {
         seguroViagemDao = new SeguroViagemDao();
         try {

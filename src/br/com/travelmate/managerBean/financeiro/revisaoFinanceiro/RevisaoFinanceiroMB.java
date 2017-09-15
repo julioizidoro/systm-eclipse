@@ -255,38 +255,13 @@ public class RevisaoFinanceiroMB implements Serializable{
 	public void gerarListaVendas(){
 		VendasFacade vendasFacade = new VendasFacade();
 		List<Vendas> listaVendas = null;
-		String data = Formatacao.ConvercaoDataPadrao(new Date());
-        String mesString = data.substring(3, 5);
-        String anoString = data.substring(6, 10);
-        int mesInicio = Integer.parseInt(mesString);
-        int anoInicio = Integer.parseInt(anoString);
-        int mescInicio;
-        int mescFinal;
-        int anocInicio = 0;
-        int anocFinal = 0;
-        if (mesInicio == 1) {
-            mescInicio = 12;
-            anocInicio = anoInicio - 1;
-        } else {
-            mescInicio = mesInicio - 1;
-            anocInicio = anoInicio;
-        }
-        if (mesInicio == 12) {
-            mescFinal = 1;
-            anocFinal = anoInicio + 1;
-        } else {
-            mescFinal = mesInicio + 1;
-            anocFinal = anoInicio;
-        }
-        String dataInicial = anocInicio + "-" + Formatacao.retornaDataInicia(mescInicio);
-        String dataTermino = anocFinal + "-" + Formatacao.retornaDataFinal(mescFinal);
-		listaVendaNova = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.dataVenda>='"+ dataInicial +"' and v.dataVenda<='"+ dataTermino +"' and v.situacaofinanceiro='N'"+
-				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA'");
+		listaVendaNova = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='N'"+
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.dataVenda DESC");
 		if (listaVendaNova == null) {
 			listaVendaNova = new ArrayList<>();
 		}
-		listaVendaPendente = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.dataVenda>='"+ dataInicial +"' and v.dataVenda<='"+ dataTermino +"' and v.situacaofinanceiro='P'"+
-				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA'");
+		listaVendaPendente = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='P'"+
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.dataVenda DESC");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();
 		}
