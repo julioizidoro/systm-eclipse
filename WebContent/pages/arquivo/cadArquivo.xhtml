@@ -14,36 +14,34 @@
     </h:head>
     
 
- <h:body style="background:white;" > 
+ <h:body > 
         <h:form id="idDialogAnexarArquivo" style="text-align:left;font-size: 10px; margin-left: 1%; ">
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
            
 			<title  >Novo Arquivo</title>
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:growl id="growl" showDetail="true" autoUpdate="true" closable="true" />
 			
-			<h:panelGrid columns="4">
+			<h:panelGrid columns="1">
 				<p:outputLabel value="Tipo de arquivo" for="tipoArquivo"  class="left3" />
-				<p:selectOneMenu  id="tipoArquivo"  style="width: 280px;margin-left: 2%"  value="#{cadArquivoMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
+				<p:selectOneMenu  id="tipoArquivo"  style="width: 350px;"  value="#{cadArquivoMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
                              filter="true" filterMatchMode="contains" panelStyle="width:180px" >
                     <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
                     <f:selectItems  value="#{cadArquivoMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
                     <f:attribute name="listaTipoArquivoProduto" value="#{cadArquivoMB.listaTipoArquivo}"/>
                 </p:selectOneMenu>
-            </h:panelGrid>
-            <br />
-            <h:panelGrid columns="2">
+                <p:outputLabel/>
             	<p:outputLabel value="Observações" for="obs" class="fontebranca" /> 
-                <p:inputText id="obs"  value="#{cadArquivoMB.arquivos.observacao}"  style="width:486px;margin-left:4%;" />
+                <p:inputTextarea id="obs"  value="#{cadArquivoMB.arquivos.observacao}" rows="3" maxlength="100" style="width:407px;" />
             </h:panelGrid>
             <br />
             <h:panelGrid>
 				<p:fileUpload multiple="true"  label="Anexar" fileUploadListener="#{cadArquivoMB.fileUploadListener}" value="#{cadArquivoMB.file}"  mode="advanced" 
-                     update="messages" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
+                     update="growl" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
                 </p:fileUpload>
 			</h:panelGrid> 
               
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-             <h:panelGrid columns="2" style="margin-left:35%;"> 
+            <br /><br /><br /><br /><br /><br /><br /><br />
+             <h:panelGrid columns="2" style="margin-left:30%;"> 
 				<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar" action="#{cadArquivoMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
 			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadArquivoMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
 			 </h:panelGrid>  

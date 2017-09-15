@@ -240,25 +240,16 @@ public class CadArquivoMB implements Serializable {
 	public String salvar() {
 		String obs = "";
 		int idproduto = vendas.getProdutos().getIdprodutos();
-		String mensagens = validacaoDados();
 		if (arquivos != null) {
-			try {
-				obs = new String(arquivos.getObservacao().getBytes(Charset.defaultCharset()), "UTF-8");
-			} catch (UnsupportedEncodingException e) { 
-				e.printStackTrace();
+			if (arquivos.getObservacao() != null) {
+				try {
+					obs = new String(arquivos.getObservacao().getBytes(Charset.defaultCharset()), "UTF-8");
+				} catch (UnsupportedEncodingException e) { 
+					e.printStackTrace();
+				}
 			}
 		}
-		if (mensagens.length() > 5) {
-			// para preencher a combobox tipo arquivo para não de erro de null
-			TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
-			tipoarquivo = new Tipoarquivoproduto();
-			try {
-				tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			Mensagem.lancarMensagemInfo("", mensagens);
-		} else {
+		if (validacaoDados()) {
 			for (int i = 0; i < listaNomeArquivo.size(); i++) {
 				arquivos = new Arquivos();
 				String nomeArquivo = nomeArquivoSalvo();
@@ -336,6 +327,14 @@ public class CadArquivoMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("listaArquivos", listaArquivos);
 			RequestContext.getCurrentInstance().closeDialog(arquivos);
+		} else {
+			TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
+			tipoarquivo = new Tipoarquivoproduto();
+			try {
+				tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return "";
 	}
@@ -518,7 +517,6 @@ public class CadArquivoMB implements Serializable {
 		}
 		if (((ficha) && (contrato) && (documentoComFoto)) || ((ficha) && (contrato) && (rg))) {
 			if (vendas.getSituacaofinanceiro().equalsIgnoreCase("L")){
-				vendas.setSituacao("FINALIZADA");
 				vendas.setSituacao("FINALIZADA");
 				vendas1.setSituacao("FINALIZADA");
 				vendas.setDataprocesso(new Date());
@@ -945,15 +943,16 @@ public class CadArquivoMB implements Serializable {
 		}
 	}
 
-	public String validacaoDados() {
-		String msg = "";
+	public boolean validacaoDados() {
 		if (tipoarquivo == null || tipoarquivo.getTipoarquivo() == null) {
-			msg = msg + " Tipo de arquivo não foi selecionado \r\n";
+			Mensagem.lancarMensagemInfo("Tipo de arquivo não foi selecionado", "");
+			return false;
 		}
 		if (listaNomeArquivo == null || listaNomeArquivo.isEmpty()) {
-			msg = msg + " você esta tentando confirmar sem um upload de arquivo \r\n";
+			Mensagem.lancarMensagemInfo("Você esta tentando confirmar sem um upload de arquivo", "");
+			return false;
 		}
-		return msg;
+		return true;
 	}
 
 	public List<Avisousuario> salvarAvisoUsuario(Avisos aviso) {
