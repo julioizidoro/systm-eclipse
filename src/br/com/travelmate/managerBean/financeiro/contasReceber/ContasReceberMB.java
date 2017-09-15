@@ -759,7 +759,7 @@ public class ContasReceberMB implements Serializable {
 						btnEnviarBoleto = true;
 					} else if (funcaoBotaoBoleto.equalsIgnoreCase("Reenviar")) {
 						sql = sql
-								+ " and c.nossonumero<>'0' and c.valorpago=0 and c.datapagamento is null and c.situacao<>'cc";
+								+ " and c.nossonumero<>'0' and c.valorpago=0 and c.datapagamento is null and c.situacao<>'cc'";
 						if(dataInicial!=null && dataFinal!=null){
 							sql = sql+ " and c.dataenvio>='"+ Formatacao.ConvercaoDataSql(dataInicial) 
 									 + "' and c.dataenvio<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'  and c.boletogerado='SIM' and c.boletoenviado=true";
