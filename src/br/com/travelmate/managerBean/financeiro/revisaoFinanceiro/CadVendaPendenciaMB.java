@@ -7,14 +7,21 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.facade.LogVendaFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendaMotivoPendenciaFacade;
 import br.com.travelmate.facade.VendaPendenciaFacade;
 import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Logvenda;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Vendamotivopendencia;
 import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendas;
@@ -27,7 +34,12 @@ public class CadVendaPendenciaMB implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Vendas venda;
 	private Vendapendencia vendapendencia;
 	private Vendamotivopendencia vendamotivopendencia;
@@ -168,6 +180,24 @@ public class CadVendaPendenciaMB implements Serializable{
 			venda.setSituacaofinanceiro("P");
 			venda.setVendapendencia(vendapendencia);
 			venda = vendasFacade.salvar(venda);
+			int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+			if (venda.getProdutos().getIdprodutos()==idProduto) {
+				int idVendaSeguro = getIdVendaSeguro(venda.getIdvendas());
+				if (idVendaSeguro>0) {
+					for(int i=0;i<listaVendaNova.size();i++) {
+						if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
+							listaVendaNova.get(i).setSituacaofinanceiro("P");
+							vendasFacade.salvar(listaVendaNova.get(i));
+							gerarLogVenda("Pendencia", "Venda com Pendencia Financeira");
+							listaVendaNova.remove(i);
+							if (listaVendaPendente!=null) {
+								listaVendaPendente.add(listaVendaNova.get(i));
+							}
+							i=listaVendaNova.size() + 10;
+						}
+					}
+				}
+			}
 			if (listaVendaPendente != null) {
 				listaVendaPendente.add(venda); 
 				session.setAttribute("listaVendaPendente", listaVendaPendente);
@@ -193,6 +223,25 @@ public class CadVendaPendenciaMB implements Serializable{
 		session.setAttribute("listaVendaPendente", listaVendaPendente);
 		session.setAttribute("venda", venda);
 		RequestContext.getCurrentInstance().closeDialog(new Vendapendencia());
+	}
+	
+	public int getIdVendaSeguro(int idVenda) {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVenda);
+		if (seguro!=null) {
+			return seguro.getVendas().getIdvendas();
+		}
+		return 0;
+	}
+	
+	public void gerarLogVenda(String situacao, String operacao) {
+		Logvenda logVenda = new  Logvenda();
+		logVenda.setSituacao(situacao);
+		logVenda.setOperacao(operacao);
+		logVenda.setUsuario(usuarioLogadoMB.getUsuario());
+		logVenda.setVendas(venda);
+		LogVendaFacade logVendaFacade = new LogVendaFacade();
+		logVendaFacade.salvar(logVenda);
 	}
 
 }
