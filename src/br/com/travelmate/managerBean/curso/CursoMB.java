@@ -99,12 +99,14 @@ public class CursoMB implements Serializable {
 	private Integer nFichasProcesso;
 	private Integer nFichasAndamento;
 	private Integer nFichaCancelada;
+	private Integer nFichaFinanceiro;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
 	private List<Curso> listaVendasCursoFinalizada;
 	private List<Curso> listaVendasCursoAndamento;
 	private List<Curso> listaVendasCursoCancelada;
 	private List<Curso> listaVendasCursoProcesso;
+	private List<Curso> listaVendasCursoFinanceiro;
 
 	@PostConstruct()
 	public void init() {
@@ -386,6 +388,22 @@ public class CursoMB implements Serializable {
 
 	public void setListaVendasCursoProcesso(List<Curso> listaVendasCursoProcesso) {
 		this.listaVendasCursoProcesso = listaVendasCursoProcesso;
+	}
+
+	public Integer getnFichaFinanceiro() {
+		return nFichaFinanceiro;
+	}
+
+	public void setnFichaFinanceiro(Integer nFichaFinanceiro) {
+		this.nFichaFinanceiro = nFichaFinanceiro;
+	}
+
+	public List<Curso> getListaVendasCursoFinanceiro() {
+		return listaVendasCursoFinanceiro;
+	}
+
+	public void setListaVendasCursoFinanceiro(List<Curso> listaVendasCursoFinanceiro) {
+		this.listaVendasCursoFinanceiro = listaVendasCursoFinanceiro;
 	}
 
 	public void carregarListaVendasCursos() {
@@ -724,6 +742,16 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/finalizadoFicha.png");
+		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
+				curso.setHabilitarImagemGerencial(true);
+				curso.setHabilitarImagemFranquia(false);
+			} else {
+				curso.setHabilitarImagemGerencial(false);
+				curso.setHabilitarImagemFranquia(true);
+			}
+			curso.setImagem("../../resources/img/ficharestricao.png");
 		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
 				curso.setHabilitarImagemGerencial(true);
@@ -733,7 +761,7 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/amarelaFicha.png");
-		} else if (curso.getVendas().getSituacao().equals("CANCELADA")) {
+		}else if (curso.getVendas().getSituacao().equals("CANCELADA")) {
 			curso.setHabilitarImagemGerencial(false);
 			curso.setHabilitarImagemFranquia(true);
 			curso.setImagem("../../resources/img/fichaCancelada.png");
@@ -1004,10 +1032,12 @@ public class CursoMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichaFinanceiro = 0;
 		listaVendasCursoFinalizada = new ArrayList<>();
 		listaVendasCursoAndamento = new ArrayList<>();
 		listaVendasCursoCancelada = new ArrayList<>();
 		listaVendasCursoProcesso = new ArrayList<>();
+		listaVendasCursoFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaVendasCurso.size(); i++) {
 			if (listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
@@ -1015,7 +1045,12 @@ public class CursoMB implements Serializable {
 			}else if(listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
 				nFichasProcesso = nFichasProcesso + 1;
 				listaVendasCursoProcesso.add(listaVendasCurso.get(i));
-			}else if(listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+			}else if(listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& !listaVendasCurso.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichaFinanceiro = nFichaFinanceiro + 1;
+				listaVendasCursoFinanceiro.add(listaVendasCurso.get(i));
+			}else if(listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& listaVendasCurso.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
 				nFichasAndamento = nFichasAndamento + 1;
 				listaVendasCursoAndamento.add(listaVendasCurso.get(i));
 			}else{

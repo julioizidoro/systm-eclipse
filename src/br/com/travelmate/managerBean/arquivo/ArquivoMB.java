@@ -200,8 +200,7 @@ public class ArquivoMB implements Serializable {
 		if (habilitarExclusaoArquivo()) {
 			excluirArquivoFTP(arquivos);
 			arquivosFacade.excluir(arquivos.getIdarquivos());
-			gerarListaArquivos();
-			Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+			listarArquivos.remove(arquivos);
 		} else {
 			arquivos.setSe(true);
 			arquivosFacade.salvar(arquivos);
@@ -281,7 +280,7 @@ public class ArquivoMB implements Serializable {
 		session.setAttribute("listaArquivos", listarArquivos);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 500);
-		RequestContext.getCurrentInstance().openDialog("cadArquivo");
+		RequestContext.getCurrentInstance().openDialog("cadArquivo", options, null);
 		return "";
 	}
 
@@ -323,7 +322,7 @@ public class ArquivoMB implements Serializable {
 		}
 		try {
 			String nomeArquivoFTP = arquivos.getNomesalvos();
-			msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/arquivos");
+			msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/arquivos/");
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(msg, ""));
 			ftp.desconectar();
