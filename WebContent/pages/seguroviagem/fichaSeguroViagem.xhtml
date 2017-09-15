@@ -139,7 +139,7 @@
 							
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{fichaSeguroViagemMB.seguro.segurocancelamento}" >
-									<p:ajax event="change" listener="#{fichaSeguroViagemMB.dataTermino()}"
+									<p:ajax event="change" listener="#{fichaSeguroViagemMB.selecionarSeguroCancelamento()}"
 										update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl" />
 								</p:selectBooleanCheckbox> 
 								<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:2%;"/>

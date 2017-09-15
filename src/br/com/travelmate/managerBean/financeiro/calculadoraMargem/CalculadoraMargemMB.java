@@ -666,7 +666,7 @@ public class CalculadoraMargemMB implements Serializable {
 	public void valorParcelamento() {
 		if(valorTotal>0 && valorEntrada>0) {
 			saldoParcelar = valorTotal - valorEntrada;
-			calcularCustoFranquia();
+			//calcularCustoFranquia();
 		}
 	}
 

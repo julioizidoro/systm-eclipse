@@ -83,18 +83,21 @@
 					<p:inputText value="#{calculadoraMargemMB.valorTotal}"   
 						style="width:80%;text-align:right;">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"/>
 					</p:inputText>
 				</h:panelGroup>
 				<h:panelGroup id="voluntariado" rendered="#{calculadoraMargemMB.voluntariado}">
 					<p:inputText value="#{calculadoraMargemMB.valorTotal}"   
 						style="width:80%;text-align:right;">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"/>
 					</p:inputText>
 				</h:panelGroup>
 				<h:panelGroup id="demipair" rendered="#{calculadoraMargemMB.demipair}">
 					<p:inputText value="#{calculadoraMargemMB.valorTotal}"   
 						style="width:80%;text-align:right;">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<p:ajax event="blur"/>  
 					</p:inputText>   
 				</h:panelGroup>
 				<h:panelGroup id="aupair" rendered="#{calculadoraMargemMB.aupair}">
@@ -206,6 +209,8 @@
 			<p:inputText id="entrada" value="#{calculadoraMargemMB.valorEntrada}"   
 				style="width:80%;text-align:right;">
 				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				<p:ajax event="blur" listener="#{calculadoraMargemMB.valorParcelamento()}" 
+					update="saldoParcelado"/>     
 			</p:inputText>
 			<p:inputText id="saldoParcelado" value="#{calculadoraMargemMB.saldoParcelar}"   
 				style="width:80%;text-align:right;">
@@ -230,7 +235,7 @@
 			<p:inputText id="custoTotal"
 				value="#{calculadoraMargemMB.custoTotal}"
 				style="width:80%;text-align:right;">
-				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
 			</p:inputText>
 			<p:inputText id="custoFranquia"
 				value="#{calculadoraMargemMB.custoFranquia}"  
@@ -240,7 +245,7 @@
 		</h:panelGrid>
 		<br></br>
 		<div align="center">      
-			<p:commandButton value="Margem" icon="ui-icon-calculator"        
+			<p:commandButton value="Margem" icon="ui-icon-calculator"         
 				action="#{calculadoraMargemMB.habilitarMargem()}" update="@form"/>    
 			<p:commandButton value="Fechar" icon="ui-icon-closethick" action="#{calculadoraMargemMB.fechar()}"
 				style="margin-left:3%" />
