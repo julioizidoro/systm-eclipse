@@ -17,10 +17,10 @@ public class VendaMotivoPendenciaConverter implements Converter{
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		try {
-			value = new String(value.getBytes(Charset.defaultCharset()), "UTF-8");
+			value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}    
+		}
     	List<Vendamotivopendencia> listaVendaMotivoPencencia = (List<Vendamotivopendencia>) component.getAttributes().get("listaVendaMotivoPencencia");
         for (Vendamotivopendencia vendamotivopendencia : listaVendaMotivoPencencia) {
                 if (vendamotivopendencia.getDescricao().equalsIgnoreCase(value)) {

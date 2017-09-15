@@ -46,7 +46,7 @@
             <br /><br />
              <h:panelGrid columns="2" style="margin-left:27%;"> 
 				<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar" action="#{cadVendaPendenciaMB.salvar()}" icon="ui-icon-check" update="growl" style="font-size:12px;"/>
-			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadVendaPendenciaMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
+			    <p:commandButton id="btnCancelar" value="Cancelar" ajax="false" action="#{cadVendaPendenciaMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
 			 </h:panelGrid>  
         </h:form>
  </h:body>
