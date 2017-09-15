@@ -626,7 +626,7 @@ public class ControleCursoMB implements Serializable {
 			return "../../resources/img/finalizadoFicha.png";
 		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
 				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
-			return "../../resources/img/amarelaFicha.png";
+			return "../../resources/img/ficharestricao.png";
 		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
 				&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
 			return "../../resources/img/amarelaFicha.png";

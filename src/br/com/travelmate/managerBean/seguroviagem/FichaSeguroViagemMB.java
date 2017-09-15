@@ -597,13 +597,19 @@ public class FichaSeguroViagemMB implements Serializable {
 					valoresseguro.getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguro.setDataTermino(
+						Formatacao.calcularDataFinalPorDias(seguro.getDataInicio(), seguro.getNumeroSemanas()));  
+				seguro.setDataTermino(
 						Formatacao.calcularDataFinalPorDias(seguro.getDataInicio(), seguro.getNumeroSemanas()));
-				float valornacional = seguro.getValoresseguro().getValorgross() * cambioSeguro.getValor();
-				valornacional = (float) (valornacional * 1.5);
+				float valornacional = seguro.getValoresseguro().getValorgross() * cambioSeguro.getValor(); 
 				if (valoresseguro.getCobranca().equalsIgnoreCase("Fixo")) {
-					seguro.setValorSeguro(valornacional);
-				} else
-					seguro.setValorSeguro(valornacional * seguro.getNumeroSemanas());
+					float adicional = valornacional * 0.5f;
+					seguro.setValorSeguro(valornacional+adicional);
+				} else { 
+					float total = (valornacional * seguro.getNumeroSemanas());
+					float adicional = total * 0.5f;
+					seguro.setValorSeguro(total+adicional);
+				}
+				valorSemDesconto = seguro.getValorSeguro();
 				aplicarDesconto();
 				seguroCancelamento();
 				receberValorTotal();
