@@ -116,6 +116,9 @@ public class Contasreceber implements Serializable {
     private boolean selecionado;
     @Transient
     private BolinhasBean bolinhas;
+    @Column(name = "datanovovencimento")
+    @Temporal(TemporalType.DATE)
+    private Date datanovovencimento;
 
     public Contasreceber() {
     	setCodigoocorrencia("00");
@@ -373,6 +376,14 @@ public class Contasreceber implements Serializable {
 
 	public void setCrmcobrancaconta(Crmcobrancaconta crmcobrancaconta) {
 		this.crmcobrancaconta = crmcobrancaconta;
+	}
+
+	public Date getDatanovovencimento() {
+		return datanovovencimento;
+	}
+
+	public void setDatanovovencimento(Date datanovovencimento) {
+		this.datanovovencimento = datanovovencimento;
 	}
 
 	@Override

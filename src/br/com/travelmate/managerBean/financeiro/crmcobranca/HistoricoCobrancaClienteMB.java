@@ -492,8 +492,10 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	public String visualizarContasReceber() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("venda", crmcobranca.getVendas());
-		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber");
+		session.setAttribute("venda", venda);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceberCobranca", options, null);
 		return "";
 	}
 	

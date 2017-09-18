@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    </h:head>
+    <h:body style="background:#DDDDE1;">
+         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+         
+         
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
+        <h:form id="visualizarContasReceber" style="text-align:left;font-size: 10px;">
+        <p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+            <title>Contas a Receber</title>
+               
+                <h:outputLabel value="Contas a Receber" style="font-size:12px;"/> 
+                <p:dataTable editable="true" scrollable="true" scrollHeight="200" id="tabelaContasRecebers" var="contasreceber"  value="#{visualizarContasCobrancaMB.listaContasReceber}"  style="margin-bottom:20px" >
+                    
+                     <p:ajax event="rowEdit" listener="#{visualizarContasCobrancaMB.editar}" 
+							update=":visualizarContasReceber:growl, tabelaContasRecebers" />
+						<p:ajax event="rowEditCancel"
+							listener="#{solicitacoesMB.cancelarEdicao}" 
+							update=":visualizarContasReceber:growl, tabelaContasRecebers" />
+                    
+                    <p:column headerText="ID" style="width:10%;">   
+                        <h:outputText value="#{contasreceber.vendas.idvendas}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}"/>
+                    </p:column>
+                     <p:column headerText="Cliente" style="width:42%;">
+                         <h:outputText value="#{contasreceber.vendas.cliente.nome}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}"/>
+                    </p:column>
+                     <p:column headerText="Parcela" style="width:11%;">
+                         <h:outputText value="#{contasreceber.numeroparcelas}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}"/>
+                    </p:column>
+                    <p:column headerText="Vencimento" style="width:17%;text-align: right" >
+                        <h:outputText value="#{contasreceber.datavencimento}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}">
+                                 <f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                    </p:column>
+                    <p:column headerText="Tipo Documento" style="width:17.5%;">
+                         <h:outputText value="#{contasreceber.tipodocumento}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}"/>
+                    </p:column>
+                     <p:column headerText="Valor" style="width:17%;text-align: right" >
+                         <h:outputText value="#{contasreceber.valorparcela}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                    </p:column>
+                     <p:column headerText="Recebimento" style="width:16.5%;">
+                         <h:outputText value="#{contasreceber.datapagamento}" >
+                         	<f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
+                         </h:outputText>
+                    </p:column>
+                     <p:column headerText="Status" style="width:9%;">
+                         <img src="#{visualizarContasCobrancaMB.gerarStatusImagem(contasreceber)}" title="#{visualizarContasCobrancaMB.gerarTitulo(contasreceber)}"/>
+                    </p:column>
+                    <p:column headerText="Novo Vencimento" style="width:16.5%;">
+                         <p:cellEditor>
+								<f:facet name="output">
+										<h:outputText value="#{contasreceber.datanovovencimento}" style="#{visualizarContasCobrancaMB.retornarCorContaVencida(contasreceber)}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="idDataNovoVencimento"
+										value="#{contasreceber.datanovovencimento}" size="15"
+										 locale="pt" pattern="dd/MM/yyyy">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										<p:ajax event="change" />
+										<p:ajax event="dateSelect" />
+									</p:calendar>
+								</f:facet>
+							</p:cellEditor>  
+                    </p:column>
+                    <p:column style="width:30px" >
+							<p:rowEditor title="Editar" rendered="#{visualizarContasCobrancaMB.habilitarEdicao(contasreceber)}"/>   
+						</p:column> 
+                </p:dataTable>
+                 <br></br> 
+                 
+                 <h:outputLabel value="Forma de Pagamento" style="font-size:12px;"/>
+                 <p:dataTable id="tabeçaFormaPagamento" var="formapagamento"  value="#{visualizarContasCobrancaMB.formapagamento.parcelamentopagamentoList}"  style="margin-bottom:20px" >
+                    <p:column headerText="Forma Pagamento" >
+                        <h:outputText value="#{formapagamento.formaPagamento}"/>
+                    </p:column>
+                     <p:column headerText="1° Vencimento" style="text-align:center;">
+                         <h:outputText value="#{formapagamento.diaVencimento}">
+                         	<f:convertDateTime   pattern="dd/MM/yyyy"  timeZone="America/Sao_Paulo"/>
+                         </h:outputText>
+                    </p:column>
+                     <p:column headerText="Tipo Parcelamento">
+                         <h:outputText value="#{formapagamento.tipoParcelmaneto}"/>
+                    </p:column>
+                    <p:column headerText="Valor a Parcelar" style="text-align: right" >
+                        <h:outputText value="#{formapagamento.valorParcelamento}">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                    </p:column>
+                    <p:column headerText="N° Parcelas" style="text-align:center;">
+                         <h:outputText value="#{formapagamento.numeroParcelas}"/>
+                    </p:column>
+                     <p:column headerText="Valor Parcela" style="text-align: right" >
+                         <h:outputText value="#{formapagamento.valorParcela}">
+                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                    </p:column>
+                </p:dataTable>
+        </h:form>     
+    </h:body>
+</html>
