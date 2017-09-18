@@ -3013,15 +3013,15 @@ public class CadCursoMB implements Serializable {
 						}
 						curso.setCodigo(ocurso.getOcrusoprodutosList().get(i).getCodigo());
 						if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isPacote()) {
-							formaPagamento.setObservacoes(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
+							venda.setObstm(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
 									.getCoprodutos().getDescricao());
 						}
 						if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 								.getComplementocurso().getTipocargahoraria().equalsIgnoreCase("Aulas por Semana")) {
-							curso.setTipoDuracao("hrsporsemana");
+							curso.setTipoDuracao("Aulas por semana");
 						} else if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 								.getComplementocurso().getTipocargahoraria().equalsIgnoreCase("Horas por Semana")) {
-							curso.setTipoDuracao("aulasporsemana");
+							curso.setTipoDuracao("Horas por semana");
 						}
 						orcamentoprodutosorcamento.setDescricao(ocurso.getOcrusoprodutosList().get(i)
 								.getValorcoprodutos().getCoprodutos().getProdutosorcamento().getDescricao());
