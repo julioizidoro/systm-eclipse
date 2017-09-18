@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +91,18 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private Vistos vistos;
 	private Questionariohe questionarioHe;
 	private String iconeFicha = ""; 
-	private List<Crmcobranca> listaCrmCobranca; 
+	private List<Crmcobranca> listaCrmCobranca;
+	private String voltarPagina = "";
+	private Date dataInicioCobranca;
+	private String nota = "";
+	private boolean desabilitarCampos = false;
+	private boolean habilitarPrioridade = true;
+	private List<Crmcobranca> listaCrmCobrancaNovos;
+	private List<Crmcobranca> listaCrmCobrancaAtrasado;
+	private List<Crmcobranca> listaCrmCobrancaHoje;
+	private List<Crmcobranca> listaCrmCobrancaProx7;
+	private List<Crmcobranca> listaCrmCobrancaTodos;
+	
 	
 	@PostConstruct
 	public void init(){
@@ -98,11 +110,31 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		crmcobranca = (Crmcobranca) session.getAttribute("crmcobranca");
 		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
+		venda = (Vendas) session.getAttribute("venda");
+		voltarPagina = (String) session.getAttribute("voltarPagina");
+		listaCrmCobrancaNovos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaNovos");
+		listaCrmCobrancaAtrasado = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaAtrasado");
+		listaCrmCobrancaHoje = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaHoje");
+		listaCrmCobrancaProx7 = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaProx7");
+		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
+		session.removeAttribute("listaCrmCobrancaNovos");
+		session.removeAttribute("listaCrmCobrancaAtrasado");
+		session.removeAttribute("listaCrmCobrancaHoje");
+		session.removeAttribute("listaCrmCobrancaProx7");
+		session.removeAttribute("listaCrmCobrancaTodos");
+		session.removeAttribute("voltarPagina");
 		session.removeAttribute("listaCrmCobranca");
 		session.removeAttribute("crmcobranca");
+		session.removeAttribute("vendas");
+		if (crmcobranca != null && venda == null) {
+			venda = crmcobranca.getVendas();
+			nota = crmcobranca.getNota();
+			dataInicioCobranca = crmcobranca.getDatainiciocobranca();
+		}
 		gerarListaMotivoCancelamento();
 		gerarListaHistorico();
 		retornarIconeFicha();
+		verificarCobranca();
 	}
 	
 	
@@ -314,6 +346,106 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	}
 
 
+	public Date getDataInicioCobranca() {
+		return dataInicioCobranca;
+	}
+
+
+	public void setDataInicioCobranca(Date dataInicioCobranca) {
+		this.dataInicioCobranca = dataInicioCobranca;
+	}
+
+
+	public String getNota() {
+		return nota;
+	}
+
+
+	public void setNota(String nota) {
+		this.nota = nota;
+	}
+
+
+	public boolean isDesabilitarCampos() {
+		return desabilitarCampos;
+	}
+
+
+	public void setDesabilitarCampos(boolean desabilitarCampos) {
+		this.desabilitarCampos = desabilitarCampos;
+	}
+
+
+	public boolean isHabilitarPrioridade() {
+		return habilitarPrioridade;
+	}
+
+
+	public void setHabilitarPrioridade(boolean habilitarPrioridade) {
+		this.habilitarPrioridade = habilitarPrioridade;
+	}
+
+
+	public List<Crmcobranca> getListaCrmCobranca() {
+		return listaCrmCobranca;
+	}
+
+
+	public void setListaCrmCobranca(List<Crmcobranca> listaCrmCobranca) {
+		this.listaCrmCobranca = listaCrmCobranca;
+	}
+
+
+	public List<Crmcobranca> getListaCrmCobrancaNovos() {
+		return listaCrmCobrancaNovos;
+	}
+
+
+	public void setListaCrmCobrancaNovos(List<Crmcobranca> listaCrmCobrancaNovos) {
+		this.listaCrmCobrancaNovos = listaCrmCobrancaNovos;
+	}
+
+
+	public List<Crmcobranca> getListaCrmCobrancaAtrasado() {
+		return listaCrmCobrancaAtrasado;
+	}
+
+
+	public void setListaCrmCobrancaAtrasado(List<Crmcobranca> listaCrmCobrancaAtrasado) {
+		this.listaCrmCobrancaAtrasado = listaCrmCobrancaAtrasado;
+	}
+
+
+	public List<Crmcobranca> getListaCrmCobrancaHoje() {
+		return listaCrmCobrancaHoje;
+	}
+
+
+	public void setListaCrmCobrancaHoje(List<Crmcobranca> listaCrmCobrancaHoje) {
+		this.listaCrmCobrancaHoje = listaCrmCobrancaHoje;
+	}
+
+
+	public List<Crmcobranca> getListaCrmCobrancaProx7() {
+		return listaCrmCobrancaProx7;
+	}
+
+
+	public void setListaCrmCobrancaProx7(List<Crmcobranca> listaCrmCobrancaProx7) {
+		this.listaCrmCobrancaProx7 = listaCrmCobrancaProx7;
+	}
+
+
+	public List<Crmcobranca> getListaCrmCobrancaTodos() {
+		return listaCrmCobrancaTodos;
+	}
+
+
+	public void setListaCrmCobrancaTodos(List<Crmcobranca> listaCrmCobrancaTodos) {
+		this.listaCrmCobrancaTodos = listaCrmCobrancaTodos;
+	}
+
+
 	public void gerarListaMotivoCancelamento(){
 		MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();
 		String sql = "select m from Motivocancelamento m order by m.motivo";
@@ -336,7 +468,12 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
-		return "followupCobranca";
+		session.setAttribute("listaCrmCobrancaAtrasado", listaCrmCobrancaAtrasado);
+		session.setAttribute("listaCrmCobrancaHoje", listaCrmCobrancaHoje);
+		session.setAttribute("listaCrmCobrancaNovos", listaCrmCobrancaNovos);
+		session.setAttribute("listaCrmCobrancaProx7", listaCrmCobrancaProx7);
+		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
+		return voltarPagina;
 	}
 	
 	
@@ -347,6 +484,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		options.put("contentWidth", 350);
 		options.put("modal", true);
 		session.setAttribute("crmcobranca", crmcobranca);
+		session.setAttribute("venda", venda);
 		RequestContext.getCurrentInstance().openDialog("cadHistoricoCobrancaCliente", options, null);
 	}
 	
@@ -398,7 +536,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	public void gerarListaCobrancaHistorico(){
 		CrmCobrancaHistoricoFacade cobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
 		listaCobrancaHistorico = cobrancaHistoricoFacade.lista("SELECT c FROM Crmcobrancahistorico c WHERE c.cliente.idcliente=" 
-				+ crmcobranca.getVendas().getCliente().getIdcliente());
+				+ venda.getCliente().getIdcliente());
 		
 		if (listaCobrancaHistorico == null) {
 			listaCobrancaHistorico = new ArrayList<>();
@@ -407,7 +545,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	public void gerarListaHistorico() {
 		CrmCobrancaHistoricoFacade cobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
-		String sql = "select c from Crmcobrancahistorico c where c.cliente.idcliente=" + crmcobranca.getVendas().getCliente().getIdcliente()
+		String sql = "select c from Crmcobrancahistorico c where c.cliente.idcliente=" + venda.getCliente().getIdcliente()
 				+ " order by c.data DESC, c.idcrmcobrancahistorico DESC";
 		listaCobrancaHistorico = cobrancaHistoricoFacade.lista(sql);
 		if (listaCobrancaHistorico == null) {
@@ -420,7 +558,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "";
-		if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 1) {
+		if (venda.getProdutos().getIdprodutos() == 1) {
 			if (curso.getHabilitarSegundoCurso().equalsIgnoreCase("N")) {
 				if (curso.isDadospais()) {
 					caminhoRelatorio = "/reports/curso/FichaCursoDadosPaisPagina01.jasper";
@@ -437,19 +575,19 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
 			parameters.put("idvendas", curso.getVendas().getIdvendas());
 			parameters.put("sqlpagina2", gerarSqlSeguroViagems());
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 4) {
+		} else if (venda.getProdutos().getIdprodutos() == 4) {
 			caminhoRelatorio = "/reports/highSchool/FichaHighSchoolPagina01.jasper";
 			parameters.put("idvendas", highschool.getVendas().getIdvendas());
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//highSchool//"));
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 5) {
+		} else if (venda.getProdutos().getIdprodutos() == 5) {
 			caminhoRelatorio = "/reports/cursosTeens/FichaProgramasTeensPagina01.jasper";
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//cursosTeens//"));
 			parameters.put("idvendas", programateens.getVendas().getIdvendas());
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 9) {
+		} else if (venda.getProdutos().getIdprodutos() == 9) {
 			caminhoRelatorio = "/reports/aupair/FichaAupairPagina01.jasper";
 			parameters.put("idvendas", aupair.getVendas().getIdvendas());
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//aupair//"));
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 13) {
+		} else if (venda.getProdutos().getIdprodutos() == 13) {
 			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
 				caminhoRelatorio = "/reports/trainee/FichaEstagioAustralia01.jasper";
 			} else {
@@ -457,20 +595,20 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 			}
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//trainee//"));
 			parameters.put("idvendas", trainee.getVendas().getIdvendas());
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 16) {
+		} else if (venda.getProdutos().getIdprodutos() == 16) {
 			caminhoRelatorio = "/reports/voluntariado/FichaVoluntariadoPagina01.jasper";
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//voluntariado//"));
 			parameters.put("idvendas", voluntariado.getVendas().getIdvendas());
 			parameters.put("sqlpagina2", gerarSqlPagina1(voluntariado));
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 10) {
+		} else if (venda.getProdutos().getIdprodutos() == 10) {
 			caminhoRelatorio = "/reports/worktravel/FichaWorkPagina01.jasper";
 			parameters.put("idvendas", worktravel.getVendas().getIdvendas());
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//worktravel//"));
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 20) {
+		} else if (venda.getProdutos().getIdprodutos() == 20) {
 			caminhoRelatorio = "/reports/demipair/FichaDemipairPagina01.jasper";
 			parameters.put("idvendas", demipair.getVendas().getIdvendas());
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//demipair//"));
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 22) {
+		} else if (venda.getProdutos().getIdprodutos() == 22) {
 			if (he.isFichafinal()) {
 				caminhoRelatorio = "/reports/higherEducation/FichaFinalHe1.jasper";
 			} else {
@@ -482,7 +620,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 			} else {
 				parameters.put("idvendas", he.getVendas().getIdvendas());
 			}
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 2) {
+		} else if (venda.getProdutos().getIdprodutos() == 2) {
 			if (seguroViagem.getIdvendacurso() > 0) {
 				caminhoRelatorio = ("/reports/seguro/FichaSeguroCursoPagina01.jasper");
 			} else {
@@ -525,21 +663,21 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void imprimirFicha() {
-		if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 1) {
+		if (venda.getProdutos().getIdprodutos() == 1) {
 			buscarCurso();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 4) {
+		} else if (venda.getProdutos().getIdprodutos() == 4) {
 			buscarHighSchool();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 5) {
+		} else if (venda.getProdutos().getIdprodutos() == 5) {
 			buscarProgramasTeens();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 9) {
+		} else if (venda.getProdutos().getIdprodutos() == 9) {
 			buscarAuPair();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 13) {
+		} else if (venda.getProdutos().getIdprodutos() == 13) {
 			buscarTrainee();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 16) {
+		} else if (venda.getProdutos().getIdprodutos() == 16) {
 			buscarVoluntariado();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 20) {
+		} else if (venda.getProdutos().getIdprodutos() == 20) {
 			buscarDemiPair();
-		} else if (crmcobranca.getVendas().getProdutos().getIdprodutos() == 10) {
+		} else if (venda.getProdutos().getIdprodutos() == 10) {
 			buscarWorkTravel();
 		}
 		try {
@@ -554,73 +692,73 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	public Curso buscarCurso() {
 		CursoFacade cursoFacade = new CursoFacade();
-		curso = cursoFacade.consultarCursos(crmcobranca.getVendas().getIdvendas());
+		curso = cursoFacade.consultarCursos(venda.getIdvendas());
 		return curso;
 	}
 
 	public Aupair buscarAuPair() {
 		AupairFacade aupairFacade = new AupairFacade();
-		aupair = aupairFacade.consultar(crmcobranca.getVendas().getIdvendas());
+		aupair = aupairFacade.consultar(venda.getIdvendas());
 		return aupair;
 	}
 
 	public Highschool buscarHighSchool() {
 		HighSchoolFacade hiSchoolFacade = new HighSchoolFacade();
-		highschool = hiSchoolFacade.consultarHighschool(crmcobranca.getVendas().getIdvendas());
+		highschool = hiSchoolFacade.consultarHighschool(venda.getIdvendas());
 		return highschool;
 	}
 
 	public Programasteens buscarProgramasTeens() {
 		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
-		programateens = programasTeensFacede.find(crmcobranca.getVendas().getIdvendas());
+		programateens = programasTeensFacede.find(venda.getIdvendas());
 		return programateens;
 	}
 
 	public Trainee buscarTrainee() {
 		TraineeFacade traineeFacade = new TraineeFacade();
-		trainee = traineeFacade.consultar(crmcobranca.getVendas().getIdvendas());
+		trainee = traineeFacade.consultar(venda.getIdvendas());
 		return trainee;
 	}
 
 	public Voluntariado buscarVoluntariado() {
 		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
-		voluntariado = voluntariadoFacade.consultar(crmcobranca.getVendas().getIdvendas());
+		voluntariado = voluntariadoFacade.consultar(venda.getIdvendas());
 		return voluntariado;
 	}
 
 	public Demipair buscarDemiPair() {
 		DemipairFacade demipairFacade = new DemipairFacade();
-		demipair = demipairFacade.consultar(crmcobranca.getVendas().getIdvendas());
+		demipair = demipairFacade.consultar(venda.getIdvendas());
 		return demipair;
 	}
 
 	public Worktravel buscarWorkTravel() {
 		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
-		worktravel = workTravelFacade.consultarWork(crmcobranca.getVendas().getIdvendas());
+		worktravel = workTravelFacade.consultarWork(venda.getIdvendas());
 		return worktravel;
 	}
 
 	public He buscarHe() {
 		HeFacade heFacade = new HeFacade();
-			he = heFacade.consultarVenda(crmcobranca.getVendas().getIdvendas());
+			he = heFacade.consultarVenda(venda.getIdvendas());
 		return he;   
 	}    
 	
 	public Questionariohe buscarQuestionarioHe() {
 		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
-		questionarioHe = questionarioHeFacade.consultarVenda(crmcobranca.getVendas().getIdvendas());
+		questionarioHe = questionarioHeFacade.consultarVenda(venda.getIdvendas());
 		return questionarioHe;
 	}
 
 	public Seguroviagem buscarSeguro() {
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
-		seguroViagem = seguroViagemFacade.consultar(crmcobranca.getVendas().getIdvendas());
+		seguroViagem = seguroViagemFacade.consultar(venda.getIdvendas());
 		return seguroViagem;
 	}
 	
 	public Vistos buscarVistos(){
 		VistosFacade vistosFacade = new VistosFacade();
-		vistos = vistosFacade.consultarVistos(crmcobranca.getVendas().getIdvendas());
+		vistos = vistosFacade.consultarVistos(venda.getIdvendas());
 		return vistos;
 	}
 
@@ -740,11 +878,11 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void retornarIconeFicha(){
-		if (crmcobranca.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			iconeFicha = "finalizadoFicha.png";
-		}else if (crmcobranca.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+		}else if (venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			iconeFicha = "amarelaFicha.png";
-		}else if(crmcobranca.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
+		}else if(venda.getSituacao().equalsIgnoreCase("PROCESSO")){
 			iconeFicha = "processoFicha.png";
 		}else{
 			iconeFicha = "fichaCancelada.png";
@@ -772,6 +910,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobrancahistorico", crmcobrancahistorico);
 		session.setAttribute("crmcobranca", crmcobranca);
+		session.setAttribute("venda", venda);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 350);
 		options.put("modal", true);
@@ -781,8 +920,17 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	public void salvarNotas() {
 		CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
+		crmcobranca.setNota(nota);
 		crmcobranca = crmCobrancaFacade.salvar(crmcobranca); 
 		Mensagem.lancarMensagemInfo("Salvo com sucesso.", "");
+	}
+	
+	
+	public void verificarCobranca(){
+		if (crmcobranca == null || crmcobranca.getIdcrmcobranca() == null) {
+			desabilitarCampos = true;
+			habilitarPrioridade = false;
+		}
 	}
 	
 

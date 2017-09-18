@@ -32,10 +32,10 @@
 											width="20"/>
 								</p:commandLink>
 								<p:outputLabel id="programa"
-									value="Programa de #{historicoCobrancaClienteMB.crmcobranca.vendas.produtos.descricao}"
+									value="Programa de #{historicoCobrancaClienteMB.venda.produtos.descricao}"
 									style="font-size:16px;margin-left:2%;" />
 							</h:panelGroup>
-							<p:commandLink id="btnSituacao" title="Alterar a situação">
+							<p:commandLink rendered="#{historicoCobrancaClienteMB.habilitarPrioridade}" id="btnSituacao" title="Alterar a situação">
 								<h:outputText value="#{historicoCobrancaClienteMB.crmcobranca.prioridade}"
 									class="badge bg-warning"
 									style="background-color:#{historicoCobrancaClienteMB.retornarCoresSituacao(historicoCobrancaClienteMB.crmcobranca.prioridade)};padding:5px 10px;font-size:22px;" />
@@ -46,7 +46,7 @@
 								<p:outputLabel value="Data de inicio:"
 									style="font-size:13px;" />
 								<p:outputLabel id="datainicioprograma"
-									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.vendascomissao.datainicioprograma}"
+									value="#{historicoCobrancaClienteMB.venda.vendascomissao.datainicioprograma}"
 									style="font-size:13px;margin-left:1%;">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -54,10 +54,10 @@
 							</h:panelGroup>
 							<h:panelGroup>
 								<p:outputLabel id="idvenda"
-									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.idvendas} - "
+									value="#{historicoCobrancaClienteMB.venda.idvendas} - "
 									style="font-size:20px;" />
 								<p:outputLabel id="nomeCliente"
-									value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.nome}"
+									value="#{historicoCobrancaClienteMB.venda.cliente.nome}"
 									style="font-size:29px;" />
 							</h:panelGroup>
 						</h:panelGrid>
@@ -75,16 +75,16 @@
 						<h:panelGrid style="margin-left:2%;width:95%;" columns="1">
 							
 							<p:outputLabel id="email"
-								value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.email}"
+								value="#{historicoCobrancaClienteMB.venda.cliente.email}"
 								style="font-size:18px;" />
 							<p:outputLabel id="telefone"
-								value="#{historicoCobrancaClienteMB.crmcobranca.vendas.cliente.foneResidencial}"
+								value="#{historicoCobrancaClienteMB.venda.cliente.foneResidencial}"
 								style="font-size:18px;" />
 							<h:panelGroup>
 								<p:outputLabel value="Data da cobrança:"
 									style="font-size:13px;" />
 								<p:outputLabel id="data"
-									value="#{historicoCobrancaClienteMB.crmcobranca.datainiciocobranca}"
+									value="#{historicoCobrancaClienteMB.dataInicioCobranca}"
 									style="font-size:13px;margin-left:1%;">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -96,19 +96,19 @@
 						<h:panelGrid columns="2" style="width:100%;margin-left:2%;">
 							<p:outputLabel value="Unidade" style="font-size:14px;" />
 							<p:outputLabel value="Consultor" style="font-size:14px;" />
-							<p:outputLabel id="Unidade" value="#{historicoCobrancaClienteMB.crmcobranca.vendas.unidadenegocio.nomerelatorio}"
+							<p:outputLabel id="Unidade" value="#{historicoCobrancaClienteMB.venda.unidadenegocio.nomerelatorio}"
 								style="font-size:12px;" />
-							<p:outputLabel id="Consultor" value="#{historicoCobrancaClienteMB.crmcobranca.vendas.usuario.nome}"
+							<p:outputLabel id="Consultor" value="#{historicoCobrancaClienteMB.venda.usuario.nome}"
 								style="font-size:12px;" />
 						</h:panelGrid>
 						<br></br>
 						<div style="margin-left: 2%;">
 							<p:outputLabel value="Notas" style="font-size:14px;" />
 							<br></br>
-							<h:inputTextarea value="#{historicoCobrancaClienteMB.crmcobranca.nota}"
+							<h:inputTextarea value="#{historicoCobrancaClienteMB.nota}" disabled="#{historicoCobrancaClienteMB.desabilitarCampos}"
 								style="width:85%;background: #ffffff;border: none;font-size: 15px;color:#4C4C4C;"
 								id="notas" rows="8" />
-							<p:commandLink id="btnSalvarNotas" title="Salvar Notas"
+							<p:commandLink id="btnSalvarNotas" title="Salvar Notas" disabled="#{historicoCobrancaClienteMB.desabilitarCampos}"
 								style="margin-left:1%;"
 								action="#{historicoCobrancaClienteMB.salvarNotas()}" update="growl">
 								<img src="../../resources/img/crm/confirmar.png" width="38"
