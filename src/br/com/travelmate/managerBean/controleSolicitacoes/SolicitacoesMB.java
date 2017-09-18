@@ -61,7 +61,8 @@ public class SolicitacoesMB implements Serializable{
 		listaSolicitacoes = (List<Tisolicitacoes>) session.getAttribute("listaSolicitacoes");
 		session.removeAttribute("listaSolicitacoes");
 		gerarListaDepartamentos();
-		listaExecutores = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
+		listaExecutores = GerarListas.listarUsuarios("Select u FROM Usuario u WHERE u.situacao='Ativo' and (u.idusuario=1 or u.idusuario=125 or u.idusuario=134)"
+				+ " order by u.nome");
 		if (listaSolicitacoes == null) {
 			gerarListaSolicitacoes();
 		}
@@ -221,11 +222,11 @@ public class SolicitacoesMB implements Serializable{
 
 	public void gerarListaSolicitacoes(){
 		TiSolicitacoesFacade tiSolicitacoesFacade = new TiSolicitacoesFacade();
-		String sql = "SELECT t FROM Tisolicitacoes t ";
+		String sql = "SELECT t FROM Tisolicitacoes t WHERE t.situacao<>'Concluida' ";
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()) {
-			sql = sql + " WHERE t.liberar=true ";
+			sql = sql + " AND t.liberar=true ";
 		}else if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessogerencialsolicitacoes() && !usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAcessoliberadassolicitacoes()){
-			sql = sql + " WHERE t.usuario.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() + " and t.liberar=true ";
+			sql = sql + " AND t.usuario.departamento.iddepartamento=" + usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() + " and t.liberar=true ";
 		}
 		listaSolicitacoes = tiSolicitacoesFacade.listar(sql);
 		if (listaSolicitacoes == null) {
