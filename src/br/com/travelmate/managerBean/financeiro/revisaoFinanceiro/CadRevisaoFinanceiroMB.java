@@ -475,7 +475,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			avisos.setImagem("aviso");
 			avisos.setLiberar(true);
 			avisos.setTexto("Venda do cliente " + venda.getCliente().getNome() + ", Nº da venda "
-					+ venda.getIdvendas() + " está fanalizada.");
+					+ venda.getIdvendas() + " está finalizada.");
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);

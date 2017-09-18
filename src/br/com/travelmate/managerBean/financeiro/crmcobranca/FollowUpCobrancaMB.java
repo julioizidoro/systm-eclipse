@@ -59,6 +59,11 @@ public class FollowUpCobrancaMB implements Serializable{
 	private int prox7;
 	private int todos;
 	private String status;
+	private List<Crmcobranca> listaCrmCobrancaNovos;
+	private List<Crmcobranca> listaCrmCobrancaAtrasado;
+	private List<Crmcobranca> listaCrmCobrancaHoje;
+	private List<Crmcobranca> listaCrmCobrancaProx7;
+	private List<Crmcobranca> listaCrmCobrancaTodos;
 	
 	
 	@PostConstruct
@@ -66,7 +71,17 @@ public class FollowUpCobrancaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
+		listaCrmCobrancaNovos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaNovos");
+		listaCrmCobrancaAtrasado = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaAtrasado");
+		listaCrmCobrancaHoje = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaHoje");
+		listaCrmCobrancaProx7 = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaProx7");
+		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
 		session.removeAttribute("listaCrmCobranca");
+		session.removeAttribute("listaCrmCobrancaNovos");
+		session.removeAttribute("listaCrmCobrancaAtrasado");
+		session.removeAttribute("listaCrmCobrancaHoje");
+		session.removeAttribute("listaCrmCobrancaProx7");
+		session.removeAttribute("listaCrmCobrancaTodos");
 		if (!aplicacaoMB.isLeituraCobranca()) {
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.gerarListaInadiplentes();
@@ -85,6 +100,7 @@ public class FollowUpCobrancaMB implements Serializable{
 		}else{
 			gerarNumerosCrmCobranca();
 		}
+
 	}
 
 
@@ -380,6 +396,12 @@ public class FollowUpCobrancaMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobranca", crmcobranca);
 		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
+		session.setAttribute("listaCrmCobrancaAtrasado", listaCrmCobrancaAtrasado);
+		session.setAttribute("listaCrmCobrancaHoje", listaCrmCobrancaHoje);
+		session.setAttribute("listaCrmCobrancaNovos", listaCrmCobrancaNovos);
+		session.setAttribute("listaCrmCobrancaProx7", listaCrmCobrancaProx7);
+		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
+		session.setAttribute("voltarPagina", "followupCobranca");
 		return "historicoCobrancaCliente";
 	}
 	
@@ -393,14 +415,16 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			sql = "select l from Crmcobranca l where l.proximocontato is null and l.datafinalizada is null ";
+			//sql = "select l from Crmcobranca l where l.proximocontato is null and l.datafinalizada is null ";
+			listaCrmCobranca = listaCrmCobrancaNovos;
 		} else if (funcao.equalsIgnoreCase("hoje")) {
 			imagemNovos = "novos";
 			imagemHoje = "hojeClick";
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			sql = "select l from Crmcobranca l where l.proximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+			//sql = "select l from Crmcobranca l where l.proximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+			listaCrmCobranca = listaCrmCobrancaHoje;
 		} else if (funcao.equalsIgnoreCase("atrasados")) {
 			imagemNovos = "novos";
 			imagemHoje = "hoje";
@@ -408,7 +432,8 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemProx = "prox";
 			imagemTodos = "todos";
 			Date data = new Date();
-			sql = "select l from Crmcobranca l where l.proximocontato < '" + Formatacao.ConvercaoDataSql(data) + "'";
+			//sql = "select l from Crmcobranca l where l.proximocontato < '" + Formatacao.ConvercaoDataSql(data) + "'";
+			listaCrmCobranca = listaCrmCobrancaAtrasado;
 		} else if (funcao.equalsIgnoreCase("prox")) {
 			imagemNovos = "novos";
 			imagemHoje = "hoje";
@@ -421,57 +446,60 @@ public class FollowUpCobrancaMB implements Serializable{
 			} catch (Exception e) {
 				data = null;
 			}
-			sql = "select l from Crmcobranca l where  l.proximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-					+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data) + "'";
+			//sql = "select l from Crmcobranca l where  l.proximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
+				//	+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data) + "'";
+			listaCrmCobranca = listaCrmCobrancaProx7;
 		} else if (funcao.equalsIgnoreCase("todos")) {
 			imagemNovos = "novos";
 			imagemHoje = "hoje";
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todosClick";
-			sql = "select l from Crmcobranca l where (l.nota like '%%' or l.nota is null) ";
+			//sql = "select l from Crmcobranca l where (l.nota like '%%' or l.nota is null) ";
+			listaCrmCobranca = listaCrmCobrancaTodos;
 		}
-		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
-			sql = sql + " and l.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-		}
-		if (usuario != null && usuario.getIdusuario() != null) {
-				sql = sql + " and l.vendas.usuario.idusuario=" + usuario.getIdusuario();
-		} 
-		if (nomeCliente != null && nomeCliente.length() > 0) {
-			sql = sql + " and l.vendas.cliente.nome like '" + nomeCliente + "%'";
-		}
-
-		if (dataProxInicio != null && dataProxFinal != null) {
-			sql = sql + " and l.proximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
-					+ "l.proximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
-		}
-
-		if (dataUltInicio != null && dataUltFinal != null) {
-			sql = sql + " and l.vendas.vendascomissao.datainicioprograma>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-					+ "l.vendas.vendascomissao.datainicioprograma<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
-		}
-		if (programas != null && programas.getIdprodutos() != null) {
-			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
-		}
-		if (status != null && status.length()>0 && !status.equalsIgnoreCase("0")) {
-			if(status.equalsIgnoreCase("Novos")){
-				sql = sql + " and l.proximocontato is null and l.datafinalizada is null";
-			}else if(status.equalsIgnoreCase("Atrasados")){ 
-				sql = sql + " and l.proximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			}else if(status.equalsIgnoreCase("Hoje")){ 
-				sql = sql + " and l.proximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			}else if(status.equalsIgnoreCase("Prox. 7 Dias")){ 
-				Date data7;
-				try {
-					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
-				} catch (Exception e) {
-					data7 = null;
-				}
-				sql = sql + " and l.proximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-						+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
-			}  
-		}
-		gerarListaCrmCobranca();
+//		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+//			sql = sql + " and l.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+//		}
+//		if (usuario != null && usuario.getIdusuario() != null) {
+//				sql = sql + " and l.vendas.usuario.idusuario=" + usuario.getIdusuario();
+//		} 
+//		if (nomeCliente != null && nomeCliente.length() > 0) {
+//			sql = sql + " and l.vendas.cliente.nome like '" + nomeCliente + "%'";
+//		}
+//
+//		if (dataProxInicio != null && dataProxFinal != null) {
+//			sql = sql + " and l.proximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
+//					+ "l.proximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
+//		}
+//
+//		if (dataUltInicio != null && dataUltFinal != null) {
+//			sql = sql + " and l.vendas.vendascomissao.datainicioprograma>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
+//					+ "l.vendas.vendascomissao.datainicioprograma<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
+//		}
+//		if (programas != null && programas.getIdprodutos() != null) {
+//			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
+//		}
+//		if (status != null && status.length()>0 && !status.equalsIgnoreCase("0")) {
+//			if(status.equalsIgnoreCase("Novos")){
+//				sql = sql + " and l.proximocontato is null and l.datafinalizada is null";
+//			}else if(status.equalsIgnoreCase("Atrasados")){ 
+//				sql = sql + " and l.proximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+//			}else if(status.equalsIgnoreCase("Hoje")){ 
+//				sql = sql + " and l.proximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+//			}else if(status.equalsIgnoreCase("Prox. 7 Dias")){ 
+//				Date data7;
+//				try {
+//					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
+//				} catch (Exception e) {
+//					data7 = null;
+//				}
+//			//	sql = sql + " and l.proximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
+//			//			+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
+//			}  
+//		}
+		//sql = sql + " order by l.proximocontato";
+		//gerarListaCrmCobranca();
 	}
 	
 	
@@ -498,7 +526,10 @@ public class FollowUpCobrancaMB implements Serializable{
 		usuario = null;
 		unidadenegocio = null;
 		programas = null;
-		prioridade = "1";
+		prioridade = "0";
+		idvenda = 0;
+		pesquisar();
+		mudarCoresBotoes(funcao);
 	}
 	
 	
@@ -514,6 +545,10 @@ public class FollowUpCobrancaMB implements Serializable{
 		todos = 0;
 		hoje = 0;
 		sql = "select l from Crmcobranca l where (l.nota like '%%' or l.nota is null) ";
+		
+		if (idvenda >0) {
+			sql = sql + " and l.vendas.idvendas=" + idvenda;
+		}
 		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 			sql = sql + " and l.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 		}
@@ -557,23 +592,33 @@ public class FollowUpCobrancaMB implements Serializable{
 						+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
 			}  
 		}
+		sql = sql + " order by l.proximocontato DESC";
 		gerarListaCrmCobranca();
+		listaCrmCobrancaTodos = new ArrayList<>();
+		listaCrmCobrancaAtrasado = new ArrayList<>();
+		listaCrmCobrancaHoje = new ArrayList<>();
+		listaCrmCobrancaNovos = new ArrayList<>();
+		listaCrmCobrancaProx7 = new ArrayList<>();
 		for (int i = 0; i < listaCrmCobranca.size(); i++) {
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
+				listaCrmCobrancaTodos.add(listaCrmCobranca.get(i));
 			}
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")
 					&& listaCrmCobranca.get(i).getProximocontato() == null) {
 				novos = novos + 1;
+				listaCrmCobrancaNovos.add(listaCrmCobranca.get(i));
 			} else if ((listaCrmCobranca.get(i).getProximocontato()) != null
 					&& (Formatacao.ConvercaoDataSql(listaCrmCobranca.get(i).getProximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
 					&& (!listaCrmCobranca.get(i).getSituacao().equals("0"))) {
 				hoje = hoje + 1;
+				listaCrmCobrancaHoje.add(listaCrmCobranca.get(i));
 			} else if (listaCrmCobranca.get(i).getProximocontato() != null
 					&& listaCrmCobranca.get(i).getProximocontato().before(new Date())
 					&& !listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				atrasados = atrasados + 1;
+				listaCrmCobrancaAtrasado.add(listaCrmCobranca.get(i));
 			} else if (listaCrmCobranca.get(i).getProximocontato() != null
 					&& listaCrmCobranca.get(i).getProximocontato().after(new Date())
 					&& !listaCrmCobranca.get(i).getSituacao().equals("0")) {
@@ -585,6 +630,7 @@ public class FollowUpCobrancaMB implements Serializable{
 				}
 				if (listaCrmCobranca.get(i).getProximocontato().before(data7)) {
 					prox7 = prox7 + 1;
+					listaCrmCobrancaProx7.add(listaCrmCobranca.get(i));
 				}
 			}
 		}
@@ -629,6 +675,7 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	
 	public void gerarNumerosCrmCobranca(){
+		listaCrmCobranca = listaCrmCobrancaTodos;
 		for (int i = 0; i < listaCrmCobranca.size(); i++) {
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;

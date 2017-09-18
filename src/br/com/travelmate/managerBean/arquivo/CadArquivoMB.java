@@ -492,7 +492,7 @@ public class CadArquivoMB implements Serializable {
 				avisos.setImagem("aviso");
 				avisos.setLiberar(true);
 				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
-						+ vendas.getIdvendas() + " está fanalizada.");
+						+ vendas.getIdvendas() + " está finalizada.");
 				avisos.setIdunidade(0);
 				avisos = avisosFacade.salvar(avisos);
 				salvarAvisoUsuario(avisos);

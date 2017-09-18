@@ -49,6 +49,7 @@ import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Historicocobranca;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -1202,4 +1203,14 @@ public class ContasReceberMB implements Serializable {
 			return true;
 		}else return false;
 	}
+	
+	
+	public String historicoCobrancaCliente(Vendas venda) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", venda);
+		session.setAttribute("voltarPagina", "consContasReceber");
+		return "historicoCobrancaCliente";
+	}
+	
 }

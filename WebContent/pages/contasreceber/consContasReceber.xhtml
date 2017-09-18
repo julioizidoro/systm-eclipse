@@ -328,7 +328,7 @@
 					</p:column>
 					<p:column style="width:43px">
 						<p:commandLink
-							action="#{contasReceberMB.iniciarCobranca(contasrecebe)}"
+							action="#{contasReceberMB.historicoCobrancaCliente(contasrecebe.vendas)}"
 							style="text-decoration: none" title="Cobrança"
 							update=":telacontareceber:tabelacontasRecebe">
 							<img src="#{contasReceberMB.imagemCobranca(contasrecebe.vendas)}" />
