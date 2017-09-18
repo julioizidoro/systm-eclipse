@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadTraducao" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<legend id="iUsu2">
+					<b>Emissão Tradução Juramentada</b>  
+				</legend>
+				<br></br>
+				<p:accordionPanel id="acordionPainel" class="painelhighSchool"
+					style="background:#1F8871;">
+					<p:tab title="Tradução Juramentada" class="tab" titleStyle="font-size: 11px">
+						<br></br>
+						<div class="ui-fluid" style="margin-left: 11.6%;">
+							<h:panelGrid columns="2"
+								columnClasses="colunaBotao,colunaQuarenta">
+								<p:outputLabel value="Cliente" for="idcliente"
+									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+								<p:outputLabel /> 
+								<p:inputText id="idcliente" readonly="true" style="width:97%;"
+									maxlength="100" value="#{cadTraducaoMB.cliente.nome}" />
+								<p:commandLink actionListener="#{cadTraducaoMB.pesquisarCliente()}"
+									style="text-decoration: none" disabled="#{cadTraducaoMB.editarFicha}">
+									<img src="../../resources/img/pesquisar.png" width="85%" />
+									<p:ajax event="dialogReturn" process="@this" update="@all"
+										listener="#{cadTraducaoMB.retornoDialogCliente}" />
+								</p:commandLink>
+							</h:panelGrid>
+						</div>
+						<br></br>   
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2,tamanhoavisos2"
+							style="width:70%;margin-left:11.6%;">
+							<p:outputLabel value="País" for="pais" />
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:outputLabel value="Parceiro" for="fornecedor" />
+
+							<p:selectOneMenu id="pais" value="#{cadTraducaoMB.paisProduto}"
+								style="width:192px;" converter="PaisProdutoConverter"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{cadTraducaoMB.listaPaisProduto}"
+									var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais}" />
+								<f:attribute name="listaPaisProduto" value="#{cadTraducaoMB.listaPaisProduto}" />
+								<p:ajax event="change" listener="#{cadTraducaoMB.listarCidade()}"  update="cidade"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade" value="#{cadTraducaoMB.cidadepaisproduto}"
+								converter="CidadePaisProdutoConverter" style="width:192px;" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="idcidade2"
+									value="#{cadTraducaoMB.listaCidade}" var="cidade"
+									itemLabel="#{cidade.cidade.nome}" itemValue="#{cidade}" />
+								<f:attribute name="listaCidadePaisProduto" value="#{cadTraducaoMB.listaCidade}" />
+								<p:ajax event="change" listener="#{cadTraducaoMB.listarFornecedorCidade()}" update="fornecedor" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="fornecedor"
+								value="#{cadTraducaoMB.fornecedorCidade}" style="width:192px;"
+								filter="true" filterMatchMode="startsWith"
+								converter="FornecedorCidadeConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{cadTraducaoMB.listaFornecedorCidade}" var="fornecedor"
+									itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade" value="#{cadTraducaoMB.listaFornecedorCidade}" />
+								<p:ajax event="change"/>
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho24, tamanho24, tamanho24, tamanho24"
+							style="width:67%;margin-left:11.6%;">  
+							<p:outputLabel value="Valor Tradução"/>    
+							<p:outputLabel value="Assessoria TM"/>
+							<p:outputLabel value="Comissão Loja"/>
+							<p:outputLabel value="Valor Total"/>
+							
+							<p:inputText id="valorTraducao" style="width:85%;text-align:right;"  
+								value="#{cadTraducaoMB.traducao.valortraducao}">      
+				               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				               <p:ajax event="blur" listener="#{cadTraducaoMB.calcularValorTotal()}" update="valorTotal, tabFormaPagamento"/>
+				          	</p:inputText>        
+				          	<p:inputText id="assessoriaTM" style="width:85%;text-align:right;"        
+								value="#{cadTraducaoMB.traducao.assessoriatm}">      
+				               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				               <p:ajax event="blur" listener="#{cadTraducaoMB.calcularValorTotal()}" update="valorTotal, tabFormaPagamento"/>
+				          	</p:inputText> 
+				          	<p:inputText id="comissaoLoja" style="width:85%;text-align:right;"  
+								value="#{cadTraducaoMB.traducao.comissaofranquia}">
+				               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				               <p:ajax event="blur" listener="#{cadTraducaoMB.calcularValorTotal()}" update="valorTotal, tabFormaPagamento"/>
+				          	</p:inputText> 
+				          	<p:inputText id="valorTotal" style="width:85%;text-align:right;"  
+								value="#{cadTraducaoMB.traducao.valortotal}" readonly="true">    
+				               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />    
+				          	</p:inputText>            
+						</h:panelGrid>      
+						<br></br>    
+					</p:tab>
+					<p:tab  title="Forma de Pagamento" class="tab" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="font-size: 11px;">
+							<b>Pagamentos</b>     
+						</legend>    
+						<h:panelGroup id="tabFormaPagamento">
+							<h:panelGrid columns="4" style="margin-left: 11.6%"
+								columnClasses="tamanho14, tamanho6, tamanho6, tamanho14">
+								<p:outputLabel value="Forma de Pagamento" for="formPag" />
+								<p:outputLabel value="Valor Orçamento" for="valorOrca" />
+								<p:outputLabel />
+								<p:outputLabel value="Acrescentar Juros" for="acrejuros" />
+	
+								<p:selectOneMenu id="formPag"
+									value="#{cadTraducaoMB.formaPagamento.condicao}"
+									style="width:150px;">
+									<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
+									<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
+								</p:selectOneMenu>
+								<p:inputText id="valorOrca" style="width:60%;text-align: right;"
+									value="#{cadTraducaoMB.formaPagamento.valorOrcamento}"
+									readonly="true">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+								<p:outputLabel />
+								<p:selectOneMenu id="acrejuros"
+									value="#{cadTraducaoMB.formaPagamento.possuiJuros}"
+									style="width:150px;font-size: 10px;text-align: right;">
+									<f:selectItem itemLabel="Não" itemValue="Não" />
+									<f:selectItem itemLabel="Sim" itemValue="Sim" />
+									<p:ajax event="change"
+										listener="#{cadTraducaoMB.calcularValorTotalOrcamento()}"
+										update="totalpag, saldoreceber,   totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, valorJuros, cadTraducao:growl" />
+								</p:selectOneMenu>
+	
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel value="Valor Juros" for="valorJuros" />
+								<p:outputLabel value="Total a Pagar" for="totalpag" />
+								<p:outputLabel />
+								<p:outputLabel value="Saldo a Receber" for="saldoreceber" />
+								
+								<h:panelGroup>
+									<p:inputText id="valorJuros" style="width:45%;text-align: right;"
+										value="#{cadTraducaoMB.formaPagamento.valorJuros}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+										<p:ajax event="blur"
+											listener="#{cadTraducaoMB.calcularValorTotalOrcamento()}"
+											update="totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros" />
+									</p:inputText>
+									<p:commandLink action="#{cadTraducaoMB.calcularJuros()}" style="text-decoration:none;">
+										<img src="../../resources/img/cambio_1.png"/> 
+										<p:ajax event="dialogReturn" listener="#{cadTraducaoMB.retornoValorJuros()}" update="totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, valorJuros, cadTraducao:growl"/> 
+									</p:commandLink>
+								</h:panelGroup>   
+								 
+								<p:inputText id="totalpag" style="width:60%;text-align: right;"
+									value="#{cadTraducaoMB.formaPagamento.valorTotal}" readonly="true"> 
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>   
+								<p:outputLabel />
+								<p:inputText value="#{cadTraducaoMB.formaPagamento.valorTotal}"
+									id="saldoreceber"
+									style="width:45%;font-size: 10px;text-align: right;" readonly="true">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								</p:inputText>
+	
+								<p:outputLabel />
+								<p:outputLabel />    
+								<p:outputLabel />
+								<p:outputLabel />
+	
+								<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar" />
+								<p:outputLabel value="Forma de Pagamento" for="formPag2" />
+								<p:outputLabel />
+								<p:outputLabel value="Tipo de Parcelamento"
+									for="tipoparcelamento" />
+	
+								<p:inputText value="#{cadTraducaoMB.valorSaldoParcelar}"
+									id="saldoparcelar" style="width:45%;text-align: right"
+									readonly="true">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+								<p:selectOneMenu id="formPag2"
+									value="#{cadTraducaoMB.parcelamentopagamento.formaPagamento}"
+									style="width:145px;">
+									<f:selectItem itemLabel="Selecione" itemValue="sn"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+									<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+									<f:selectItem itemLabel="Cartão de crédito"
+										itemValue="Cartão de crédito" />
+									<f:selectItem itemLabel="Cartão de crédito autorizado"
+										itemValue="Cartão de crédito autorizado" />
+									<f:selectItem itemLabel="Cartão débito"
+										itemValue="Cartão débito" />
+									<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+									<f:selectItem itemLabel="Credito" itemValue="Credito" />
+									<f:selectItem itemLabel="Déposito" itemValue="Déposito" />
+									<f:selectItem itemLabel="Financiamento banco"
+										itemValue="Financiamento Banco" />
+									<p:ajax event="change" listener="#{cadTraducaoMB.gerarListaTipoParcelamento()}" update="tipoparcelamento" />
+	 							</p:selectOneMenu>
+								<p:outputLabel />
+								<p:selectOneMenu id="tipoparcelamento"
+									value="#{cadTraducaoMB.parcelamentopagamento.tipoParcelmaneto}"
+									style="width:147px;">
+									<f:selectItems id="idTipoparcelamento"
+										value="#{cadTraducaoMB.listaTipoParcelamento}" var="tipo"
+										itemLabel="#{tipo}" itemValue="#{tipo}" />
+									<p:ajax event="change" />
+								</p:selectOneMenu>
+	
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:outputLabel />
+	
+								<p:outputLabel value="Data 1º Vencimento" />
+								<p:outputLabel value="Valor a Parcelar" for="valoraparcelar" />
+								<p:outputLabel value="No. Parcelas" for="nparcela" />
+								<p:outputLabel value="Valor da Parcela" for="valorparcela" />
+	
+								<p:calendar id="primeirovencimento"
+									value="#{cadTraducaoMB.parcelamentopagamento.diaVencimento}"
+									size="20" locale="pt" pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</p:calendar> 
+								<p:inputText
+									value="#{cadTraducaoMB.parcelamentopagamento.valorParcelamento}" id="valoraparcelar"
+									style="font-size: 10px;width:60%;text-align:right;">
+									<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadTraducaoMB.calcularValorParcelas()}"
+										update="valorparcela" />
+								</p:inputText>  
+								<p:selectOneMenu id="nparcela"
+									value="#{cadTraducaoMB.parcelamentopagamento.numeroParcelas}" style="width:80px;">
+									<f:selectItem itemLabel="01" itemValue="01" />
+									<f:selectItem itemLabel="02" itemValue="02" />
+									<f:selectItem itemLabel="03" itemValue="03" />
+									<f:selectItem itemLabel="04" itemValue="04" />
+									<f:selectItem itemLabel="05" itemValue="05" />
+									<f:selectItem itemLabel="06" itemValue="06" />
+									<f:selectItem itemLabel="07" itemValue="07" />
+									<f:selectItem itemLabel="08" itemValue="08" />
+									<f:selectItem itemLabel="09" itemValue="09" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<f:selectItem itemLabel="11" itemValue="11" />
+									<f:selectItem itemLabel="12" itemValue="12" />
+									<f:selectItem itemLabel="13" itemValue="13" />
+									<f:selectItem itemLabel="14" itemValue="14" />
+									<f:selectItem itemLabel="15" itemValue="15" />
+									<f:selectItem itemLabel="16" itemValue="16" />
+									<f:selectItem itemLabel="17" itemValue="17" />
+									<f:selectItem itemLabel="18" itemValue="18" />
+									<f:selectItem itemLabel="19" itemValue="19" />
+									<f:selectItem itemLabel="20" itemValue="20" />
+									<f:selectItem itemLabel="21" itemValue="21" />
+									<f:selectItem itemLabel="22" itemValue="22" />
+									<f:selectItem itemLabel="23" itemValue="23" />
+									<f:selectItem itemLabel="24" itemValue="24" />
+									<p:ajax event="change"
+										listener="#{cadTraducaoMB.calcularValorParcelas()}"
+										update="valorparcela" />
+								</p:selectOneMenu>
+	
+								<p:inputText
+									value="#{cadTraducaoMB.parcelamentopagamento.valorParcela}"
+									id="valorparcela" style="width:45%; text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</h:panelGrid>
+	
+							<br></br>
+							<br></br>
+	
+							<div align="center">
+								<p:commandButton id="adicionarpagamento" value="Adicionar"
+									action="#{cadTraducaoMB.adicionarFormaPagamento()}"
+									update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, cadTraducao:growl"
+									icon="ui-icon-plusthick" />
+								<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
+									value="Crédito"
+									action="#{cadTraducaoMB.selecionarCreditoCancelamento()}" >
+									<p:ajax event="dialogReturn"
+										listener="#{cadTraducaoMB.retornoSelecionarCancelamento}"
+										update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber,  cadTraducao:growl" />
+								</p:commandButton> 
+							</div>
+							<br></br>
+							<legend id="iUsu3" style="font-size: 11px;">
+								<b>Forma de Pagamento</b>
+							</legend>
+							<p:dataTable id="formapagamentotabela" var="formapagamento"
+								value="#{cadTraducaoMB.formaPagamento.parcelamentopagamentoList}"
+								class="tabela6" scrollable="true" scrollHeight="100"
+								style="margin-bottom:20px" rowIndexVar="rowIx">
+								<p:column headerText="Forma Pagamento">
+									<h:outputText value="#{formapagamento.formaPagamento}" />
+								</p:column>
+								<p:column headerText="Data 1º Vencimento"
+									style="text-align:center;width:145px">
+									<h:outputText value="#{formapagamento.diaVencimento}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Tipo Parcelamento">
+									<h:outputText value="#{formapagamento.tipoParcelmaneto}" />
+								</p:column>
+								<p:column headerText="Valor a Parcelar"
+									style="text-align:right;width:130px">
+									<h:outputText value="#{formapagamento.valorParcelamento}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="No. Parcelas"
+									style="text-align:center;width:90px">
+									<h:outputText value="#{formapagamento.numeroParcelas}" />
+								</p:column>
+								<p:column headerText="Valor Parcela"
+									style="text-align:right;width:130px">
+									<h:outputText value="#{formapagamento.valorParcela}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</p:column>
+								<p:column style="width:100px">
+									<p:commandButton id="excluirpagamento" value="Excluir"
+										action="#{cadTraducaoMB.excluirFormaPagamento(rowIx)}"
+										update="@all" icon="ui-icon-close" class="espacocobranca26" />
+								</p:column>
+							</p:dataTable>
+						</h:panelGroup>  
+					</p:tab>
+					<p:tab title="Observação" class="tab" titleStyle="font-size: 11px">
+						<p:inputTextarea id="obs" class="comment-text-area" rows="10"
+								value="#{cadTraducaoMB.formaPagamento.observacoes}" />
+					</p:tab>
+					<p:tab title="Obs TM" class="tab" titleStyle="font-size: 11px">
+						<br></br>
+						<div>
+							<p:outputLabel
+								value="Observações que serão enviadas ao Departamento Responsável e ao Departamento Financeiro da TravelMate"
+								for="obstm" class="fontepretas" style="margin-left:2.5%" />
+							<br></br>
+							<p:inputTextarea id="obstm" class="comment-text-area" rows="10"
+								value="#{cadTraducaoMB.venda.obstm}" />
+						</div>
+					</p:tab>
+				</p:accordionPanel>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar"  update="growl" action="#{cadTraducaoMB.salvar()}"/>
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" action="#{cadTraducaoMB.cancelar()}"/>
+
+					<br></br> <br></br> <br></br>
+				</p>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

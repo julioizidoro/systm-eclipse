@@ -33,9 +33,11 @@ public class PaisProdutoConverter implements Converter{
         if (value.toString().equalsIgnoreCase("0")){
             return "Selecione";
         }else {
-            if (value instanceof Paisproduto){
-            	Paisproduto pais = (Paisproduto) value;
-                return pais.getPais().getNome();
+            if (value instanceof Paisproduto){ 
+            		Paisproduto pais = (Paisproduto) value;
+            		if(pais!=null && pais.getIdpaisproduto()!=null) {
+            			return pais.getPais().getNome();
+            		}else return "";
             }else return "";
         }
     }

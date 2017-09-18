@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consTraducao" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="3"   
+							columnClasses="tamanho7, tamanho1,tamanho1"
+							style="width:95%;margin-left:4%;">
+							<p:outputLabel value="ID Venda" for="idVenda" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:outputLabel value="Periodo da venda" for="dataIni" />  
+    
+							<p:inputText id="idVenda"
+								value="#{traducaoMB.idVenda}" style="width:70%;" />
+							<p:inputText id="cliente"
+								value="#{traducaoMB.nomeCliente}" style="width:90%" />
+							<h:panelGroup>
+								<p:calendar id="dataIni" value="#{traducaoMB.dataInicio}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{traducaoMB.dataFinal}" 
+									size="12" style="margin-left:1%;" maxlength="15"
+									locale="pt" pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup> 
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="3"
+							columnClasses="tamanho1, tamanho1, tamanho1"
+							style="width:81%;margin-left:4%;">
+							<p:outputLabel value="Unidade" for="unidade" />  
+							<p:outputLabel value="Consultor" for="consultor" /> 
+							<p:outputLabel />
+   
+							<p:selectOneMenu id="unidade"   
+								value="#{traducaoMB.unidade}" style="width:191px;"      
+								converter="UnidadeNegocioConverter" disabled="#{traducaoMB.habilitarUnidade}"
+								filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="idUnidade" value="#{traducaoMB.listaUnidade}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade" value="#{traducaoMB.listaUnidade}" />
+								<p:ajax event="change" listener="#{traducaoMB.liberarComboUsuario()}"
+									update="consultor" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="consultor" value="#{traducaoMB.usuario}"
+								style="width:150px;" filter="true"
+								filterMatchMode="startsWith" converter="UsuarioConverter"
+								disabled="#{traducaoMB.liberarComboUsuairo}">
+								<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+								<f:selectItems id="idconsultor" value="#{traducaoMB.listaUsuario}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario" value="#{traducaoMB.listaUsuario}" />
+							</p:selectOneMenu>  
+							<h:panelGroup>   
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									action="#{traducaoMB.pesquisar()}" update="consTraducao:tabelaTraducao" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									action="#{traducaoMB.limparPesquisa()}"
+									update="consTraducao:tabelaTraducao, cliente, dataIni, dataFinal, idUnidade, idconsultor, idVenda" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>      
+				</p:accordionPanel>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Consulta Tradução Juramentada</b>
+				</legend>   
+				<div align="right" style="width: 95%;">
+					<p:commandButton id="bntNovo" icon="ui-icon-plus"
+						style="font-size:12px;" value="Nova Tradução" onclick="PF('cd').show();" />
+				</div>
+				<p:dialog message="Venda emitida pela matriz?" showEffect="fade"
+					hideEffect="fade" icon="ui-icon-alert" widgetVar="cd"
+					style="width:30%;font-size:14px">
+					<p:outputLabel value="Venda emitida pela matriz?"
+						style="margin-left:2%" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim" action="#{traducaoMB.vendaMatriz()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check" update="consTraducao:growl"
+						style="margin-left:10%;font-size:12px" />
+					<p:commandButton value="Não" action="#{traducaoMB.vendaNaoMatriz()}"
+						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
+						icon="ui-icon-close" update="consTraducao:growl" style="font-size:12px" />
+				</p:dialog>
+				<br></br> <br></br>
+				<p:dataTable id="tabelaTraducao" var="traducao"
+					value="#{traducaoMB.listaTraducao}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+					rowIndexVar="rowIx">
+					<p:column headerText="ID venda" style="width:50px">
+						<h:outputText value="#{traducao.vendas.idvendas}"/>
+					</p:column>
+					<p:column headerText="Cliente" style="text-align:left;width:150px;">
+						<h:outputText value="#{traducao.vendas.cliente.nome}" />
+					</p:column>
+					<p:column headerText="Data Venda"
+						style="text-align:left;width:80px;">
+						<h:outputText value="#{traducao.vendas.dataVenda}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Parceiro" style="width:150px;text-align:left;">
+						<h:outputText value="#{traducao.vendas.fornecedorcidade.fornecedor.nome}" />
+					</p:column>
+					<p:column headerText="Unidade" style="width:150px;text-align:left;">
+						<h:outputText value="#{traducao.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Consultor" style="width:150px;text-align:left;">
+						<h:outputText value="#{traducao.vendas.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+						<h:outputText value="#{traducaoMB.vendaMatriz(traducao)}" /> 
+					</p:column> 
+					<p:column  style="width:43px;text-align:center;">
+						<p:commandLink action="#{traducaoMB.editar(traducao)}" style="text-decoration: none" >
+							<img src="../../resources/img/editaricon.png" width="32px"/>
+							<p:ajax event="dialogReturn" process="@this" update=":consTraducao:tabelaTraducao" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Imprimir" rendered="#{traducaoMB.esconderFicha}"
+						style="width:58px;text-align:center;" >
+						<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
+							title="Recibo" image="../../resources/img/imprimiFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:28px;margin-left:4%">   
+						</h:commandButton>                 
+					</p:column> 
+					<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+						<h:commandButton action="#{traducaoMB.boletos(traducao)}"
+							title="Boleto" image="../../resources/img/boletoFicha.png"
+							ajax="false" onclick="this.form.target='_blank'"
+							style="width:24px;margin-left:4%" >
+						</h:commandButton>  
+					</p:column>   
+					<p:column headerText="Imprimir" rendered="#{traducaoMB.expandirOpcoes}"
+						style="width:80px;text-align:center;" styleClass="alinharCenter">
+						<h:commandButton action="#{traducaoMB.imprimirFicha(traducao)}"
+							title="Ficha" image="../../resources/img/imprimiFicha.png"
+							style="width:24px;margin-left:3%" ajax="false"
+							onclick="this.form.target='_blank'" >
+						</h:commandButton>       
+					</p:column> 
+					<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+						<p:commandLink action="#{traducaoMB.informacoes(traducao)}" title="Informações da Venda" >
+							<img src="../../resources/img/informacao.png" width="32px" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+						<p:commandLink action="#{traducaoMB.cancelarVenda(traducao)}"
+							style="text-decoration: none" title="Cancelar Ficha"
+							update=":consTraducao:tabelaTraducao" >
+							<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+							<img src="../../resources/img/cancel.png" width="32px" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:49px;" styleClass="alinharCenter">  
+						<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+							update="tabelaTraducao">  
+							<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+						</p:commandLink>     
+					</p:column>  
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
+			    	<div align="center">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
+			        </div>  
+			    </p:confirmDialog>  
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
