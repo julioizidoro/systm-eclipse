@@ -1142,9 +1142,9 @@
 				</p:tabView>
 				
 
-				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="40%"
+				<h:panelGrid id="PanelQuantidadeFichas" columns="6" width="60%"
 					style="margin-left: 2%;">
-					<h:panelGroup>
+					<h:panelGroup>    
 						<p:commandLink title="N° Total de Ficha"
 							style="margin-left:15%;cursor: initial;">
 							<img src="../../resources/img/iconeTotal.png" width="31px" />
@@ -1162,6 +1162,12 @@
 							value="#{controleCursoMB.nFichasFinalizadas}"
 							style="font-size:24px;margin-left: 5%;" />
 					</h:panelGroup>
+					<h:panelGroup >
+						<p:commandLink actionListener="#" title="Esperando aprovação financeira" >
+							<img src="../../resources/img/ficharestricao.png" width="31px" />
+						</p:commandLink>
+						<p:outputLabel id="idNFichaFinanceira" value="#{controleCursoMB.nFichaFinanceiro}" style="font-size:24px;margin-left: 5%;"/>
+					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink title="Ficha em Andamento" style="cursor: initial;">
 							<img src="../../resources/img/amarelaFicha.png" width="31px" />
@@ -1171,7 +1177,7 @@
 							style="font-size:24px;margin-left: 5%;" />
 					</h:panelGroup> 
 					<h:panelGroup >
-						<p:commandLink style="cursor: initial;" title="Ficha Cancelada" >
+						<p:commandLink style="cursor: initial;" title="Ficha Cancelada" >  
 							<img src="../../resources/img/fichaCancelada.png" width="31px" />
 						</p:commandLink>
 						<p:outputLabel id="idNFichaCancelada" value="#{controleCursoMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
