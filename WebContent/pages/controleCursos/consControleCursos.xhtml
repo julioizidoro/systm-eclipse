@@ -115,40 +115,39 @@
 								<p:ajax event="change" />
 							</p:selectOneMenu>
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-								update=":consultaControleCursos:acordionPainel, :consultaControleCursos:PanelQuantidadeFichas"
+								update=":consultaControleCursos:acordionPainel"
 								action="#{controleCursoMB.pesquisar()}" />        
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="consultaControleCursos:acordionPainel, unidade, dataFinal, dataIni, cliente, idvendas,situacaoFicha,:consultaControleCursos:PanelQuantidadeFichas,
+								update="consultaControleCursos:acordionPainel, unidade, dataFinal, dataIni, cliente, idvendas,situacaoFicha,
 									 dataVenda, dataVendaFinal"
 								action="#{controleCursoMB.limpar()}" />
 						</h:panelGrid>
 					</p:tab>
-				</p:accordionPanel>
-
+				</p:accordionPanel> 
 				<legend id="iUsu2">
 					<b>Consulta Controle de Cursos</b>
 				</legend>
-				<p:tabView id="acordionPainel" class="consultaCurso" >    
-					<p:tab title="Todos (#{controleCursoMB.numeroFichas})" class="tab" titleStyle="font-size: 11px">
-						<p:dataTable id="tabelaControleCurso" var="cursos"    
-							value="#{controleCursoMB.listaControle}" scrollable="true"
+				<p:tabView id="acordionPainel" class="consultaCurso" >       
+					<p:tab title="Financeiro (#{controleCursoMB.nFichaFinanceiro})" class="tab" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaControleCursoFinanceiro" var="cursosFinanceiro"    
+							value="#{controleCursoMB.listaVendasCursoFinanceiro}" scrollable="true"
 							scrollHeight="300" editable="true" editMode="cell"
 							rowIndexVar="rowIx">
 							<p:column style="width:35px;text-align:center;" > 
-								<p:commandLink title="#{cursos.vendas.situacao}"  
+								<p:commandLink title="#{cursosFinanceiro.vendas.situacao}"
 									style="cursor: initial;">
-									<img src="#{controleCursoMB.imagemSituacao(cursos.curso)}"
+									<img src="../../resources/img/ficharestricao.png"
 										width="25" />
-								</p:commandLink>   
+								</p:commandLink>       
 							</p:column>
 							<p:column style="width:32px;text-align:center;">
 								<p:cellEditor>
 									<f:facet name="output">
-										<img src="#{controleCursoMB.situacaoControle(cursos)}"
+										<img src="#{controleCursoMB.situacaoControle(cursosFinanceiro)}"
 											title="Editar situação" />
 									</f:facet>
 									<f:facet name="input">
-										<p:selectOneMenu id="situacao" value="#{cursos.situacao}"
+										<p:selectOneMenu id="situacao" value="#{cursosFinanceiro.situacao}"
 											style="width:95%;">
 											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
 											<f:selectItem itemLabel="Standby" itemValue="Standby" />
@@ -156,57 +155,57 @@
 											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
 											<f:selectItem itemLabel="Grupo" itemValue="Grupo" />
 											<p:ajax event="change"
-												listener="#{controleCursoMB.salvarSituacao(cursos)}"
-												update="tabelaControleCurso" />
+												listener="#{controleCursoMB.salvarSituacao(cursosFinanceiro)}"
+												update="tabelaControleCursoFinanceiro" />
 										</p:selectOneMenu> 
 									</f:facet>  
 								</p:cellEditor>    
 							</p:column>
 							<p:column headerText="ID" style="width:50px;text-align:center;">
-								<h:outputText value="#{cursos.vendas.idvendas}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}" /> 
+								<h:outputText value="#{cursosFinanceiro.vendas.idvendas}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}" /> 
 							</p:column>
 							<p:column headerText="Ínicio do curso"
 								style="width:75px;text-align:center;">         
-								<h:outputText value="#{cursos.curso.dataInicio}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+								<h:outputText value="#{cursosFinanceiro.curso.dataInicio}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Venda"
 								style="text-align:center;width:75px;">
-								<h:outputText value="#{cursos.vendas.dataVenda}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+								<h:outputText value="#{cursosFinanceiro.vendas.dataVenda}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Finalizada"
 								style="text-align:center;width:80px;">
-								<h:outputText value="#{cursos.vendas.dataprocesso}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+								<h:outputText value="#{cursosFinanceiro.vendas.dataprocesso}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Nome" styleClass="alinharCenter"
 								style="width:150px;">
-								<p:commandLink value="#{cursos.vendas.cliente.nome}"
-									style="text-decoration: underline;#{controleCursoMB.retornarCorPrioridade(cursos)}"
-									action="#{controleCursoMB.atualizarInformacoes(cursos)}"
+								<p:commandLink value="#{cursosFinanceiro.vendas.cliente.nome}"
+									style="text-decoration: underline;#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}"
+									action="#{controleCursoMB.atualizarInformacoes(cursosFinanceiro)}"
 									title="Atualizar informações" />
 							</p:column>
 							<p:column headerText="Parceiro" style="width:100px;"
 								styleClass="alinharCenter">  
 								<h:outputText
-									value="#{cursos.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}" />
+									value="#{cursosFinanceiro.vendas.fornecedorcidade.fornecedor.nome}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}" />
 							</p:column>
 							<p:column headerText="Data Envio Inscrição"
 								style="text-align:center;width:86px;">
-								<h:outputText value="#{cursos.dataEnvioInscricaoEscola}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+								<h:outputText value="#{cursosFinanceiro.dataEnvioInscricaoEscola}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -214,19 +213,19 @@
 							<p:column headerText="Unidade" styleClass="alinharCenter"
 								style="width:102px;">
 								<h:outputText
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}"
-									value="#{cursos.vendas.unidadenegocio.nomerelatorio}" />
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}"
+									value="#{cursosFinanceiro.vendas.unidadenegocio.nomerelatorio}" />
 							</p:column>
 							<p:column headerText="Agente" styleClass="alinharCenter"
 								style="width:110px;">
-								<h:outputText value="#{cursos.vendas.usuario.nome}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursos)}" />   
+								<h:outputText value="#{cursosFinanceiro.vendas.usuario.nome}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}" />   
 							</p:column>
 							<p:column headerText="Applica." style="width:55px;text-align:center;">
 								<p:commandLink
-									action="#{controleCursoMB.application(cursos)}"
+									action="#{controleCursoMB.application(cursosFinanceiro)}"
 									title="Application" class="commandLinkControle"  >
-										<img src="#{controleCursoMB.retornarIconeApplication(cursos)}" width="24"/>  
+										<img src="#{controleCursoMB.retornarIconeApplication(cursosFinanceiro)}" width="24"/>  
 								</p:commandLink>                  
 							</p:column>  
 							<p:column headerText="Opções" style="width:60px;text-align:center;">  
@@ -236,14 +235,14 @@
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade" style="background:#F0F0F0;width:650px;">
 									<p:outputLabel
-										value="#{cursos.vendas.idvendas} - #{cursos.vendas.cliente.nome}"
+										value="#{cursosFinanceiro.vendas.idvendas} - #{cursosFinanceiro.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
 									<h:panelGrid style="width:100%;color:#3C4A58;" columns="8">
 										<p:commandLink id="btnVisualizarFicha"
 											class="commandLinkControle"
-											action="#{controleCursoMB.receberControle(cursos)}"
+											action="#{controleCursoMB.receberControle(cursosFinanceiro)}"
 											oncomplete="PF('visualizarFicha').show()"
 											update=":consultaControleCursos:dialogVisualizarFicha"
 											title="Visualizar Ficha">
@@ -255,7 +254,7 @@
 										</p:commandLink>
 		
 										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursos.curso)}"
+											action="#{controleCursoMB.gerarRelatorioFicha(cursosFinanceiro.curso)}"
 											update=":consultaControleCursos:growl" ajax="false"
 											target="_blank" title="Imprimir Ficha"
 											class="commandLinkControle">
@@ -269,17 +268,17 @@
 										<p:commandLink action="#{controleCursoMB.editarDocs(rowIx)}"
 											title="Visualizar documentação" class="commandLinkControle">
 											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="#{controleCursoMB.docsControle(cursos)}" />
+												<img src="#{controleCursoMB.docsControle(cursosFinanceiro)}" />
 												<p:outputLabel value="DOCS" style="font-size:11px;" />
 												<p:outputLabel value="OBRIGATÓRIOS" style="font-size:11px;" />
 											</h:panelGrid>
 											<p:ajax event="dialogReturn"
 												listener="#{controleCursoMB.retornoDialogDocs}"
-												update="tabelaControleCurso" />
+												update="tabelaControleCursoFinanceiro" />
 										</p:commandLink>
 		
 										<p:commandLink
-											action="#{controleCursoMB.informacoes(cursos.curso)}"
+											action="#{controleCursoMB.informacoes(cursosFinanceiro.curso)}"
 											update=":consultaControleCursos:growl"
 											title="Informações da Venda" class="commandLinkControle">
 											<h:panelGrid columns="1" style="text-align:center;">
@@ -289,7 +288,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 		
-										<p:commandLink action="#{controleCursoMB.invoice(cursos)}"
+										<p:commandLink action="#{controleCursoMB.invoice(cursosFinanceiro)}"
 											title="Invoice" class="commandLinkControle">
 											<h:panelGrid columns="1" style="text-align:center;">
 												<img src="../../resources/img/invoice.png" />
@@ -298,7 +297,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 		
-										<p:commandLink action="#{controleCursoMB.documentacao(cursos)}"
+										<p:commandLink action="#{controleCursoMB.documentacao(cursosFinanceiro)}"
 											title="Arquivos" class="commandLinkControle">
 											<h:panelGrid columns="1" style="text-align:center;">
 												<img src="../../resources/img/boletoFicha.png" />
@@ -307,8 +306,8 @@
 											</h:panelGrid>
 										</p:commandLink>
 		
-										<p:commandLink action="#{controleCursoMB.finalizar(cursos)}"
-											title="Finalizar" update="tabelaControleCurso"
+										<p:commandLink action="#{controleCursoMB.finalizar(cursosFinanceiro)}"
+											title="Finalizar" update="tabelaControleCursoFinanceiro"
 											class="commandLinkControle">  
 											<h:panelGrid columns="1" style="text-align:center;">
 												<img src="../../resources/img/finalizarcontrole.png" />
@@ -319,18 +318,220 @@
 										<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
 												update="consultaControleCursos:dialog_obsTM"
 												oncomplete="PF('obstm').show()"> 
-												<p:ajax listener="#{controleCursoMB.obsTM(cursos)}" />  
+												<p:ajax listener="#{controleCursoMB.obsTM(cursosFinanceiro)}" />  
 												<h:panelGrid columns="1" style="text-align:center;">
-													<img src="#{controleCursoMB.retornarIconeObsTM(cursos)}" width="36" />  
+													<img src="#{controleCursoMB.retornarIconeObsTM(cursosFinanceiro)}" width="36" />  
 													<p:outputLabel value="OBS" style="font-size:11px;"/>
 													<p:outputLabel value="TM" style="font-size:11px;"/>
 												</h:panelGrid>
 											</p:commandLink>  
 									</h:panelGrid>
-								</p:overlayPanel>
-							</p:column>
+								</p:overlayPanel>     
+							</p:column>   
 						</p:dataTable>
-					</p:tab>
+					</p:tab>  
+					<p:tab title="Andamento (#{controleCursoMB.nFichasAndamento})" class="tab" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaControleCursoAndamento" var="cursosAndamento"    
+							value="#{controleCursoMB.listaVendasCursoAndamento}" scrollable="true"
+							scrollHeight="300" editable="true" editMode="cell"
+							rowIndexVar="rowIx">
+							<p:column style="width:35px;text-align:center;" > 
+								<p:commandLink title="#{cursosAndamento.vendas.situacao}"
+									style="cursor: initial;">
+									<img src="../../resources/img/amarelaFicha.png"
+										width="25" />
+								</p:commandLink>       
+							</p:column>
+							<p:column style="width:32px;text-align:center;">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleCursoMB.situacaoControle(cursosAndamento)}"
+											title="Editar situação" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao" value="#{cursosAndamento.situacao}"
+											style="width:95%;">
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<f:selectItem itemLabel="Standby" itemValue="Standby" />
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Grupo" itemValue="Grupo" />
+											<p:ajax event="change"
+												listener="#{controleCursoMB.salvarSituacao(cursosAndamento)}"
+												update="tabelaControleCursoAndamento" />
+										</p:selectOneMenu> 
+									</f:facet>  
+								</p:cellEditor>    
+							</p:column>
+							<p:column headerText="ID" style="width:50px;text-align:center;">
+								<h:outputText value="#{cursosAndamento.vendas.idvendas}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}" /> 
+							</p:column>
+							<p:column headerText="Ínicio do curso"
+								style="width:75px;text-align:center;">         
+								<h:outputText value="#{cursosAndamento.curso.dataInicio}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:75px;">
+								<h:outputText value="#{cursosAndamento.vendas.dataVenda}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Data Finalizada"
+								style="text-align:center;width:80px;">
+								<h:outputText value="#{cursosAndamento.vendas.dataprocesso}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" styleClass="alinharCenter"
+								style="width:150px;">
+								<p:commandLink value="#{cursosAndamento.vendas.cliente.nome}"
+									style="text-decoration: underline;#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}"
+									action="#{controleCursoMB.atualizarInformacoes(cursosAndamento)}"
+									title="Atualizar informações" />
+							</p:column>
+							<p:column headerText="Parceiro" style="width:100px;"
+								styleClass="alinharCenter">  
+								<h:outputText
+									value="#{cursosAndamento.vendas.fornecedorcidade.fornecedor.nome}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}" />
+							</p:column>
+							<p:column headerText="Data Envio Inscrição"
+								style="text-align:center;width:86px;">
+								<h:outputText value="#{cursosAndamento.dataEnvioInscricaoEscola}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:102px;">
+								<h:outputText
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}"
+									value="#{cursosAndamento.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:110px;">
+								<h:outputText value="#{cursosAndamento.vendas.usuario.nome}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}" />   
+							</p:column>
+							<p:column headerText="Applica." style="width:55px;text-align:center;">
+								<p:commandLink
+									action="#{controleCursoMB.application(cursosAndamento)}"
+									title="Application" class="commandLinkControle"  >
+										<img src="#{controleCursoMB.retornarIconeApplication(cursosAndamento)}" width="24"/>  
+								</p:commandLink>                  
+							</p:column>  
+							<p:column headerText="Opções" style="width:60px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoesVendas.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									<p:outputLabel
+										value="#{cursosAndamento.vendas.idvendas} - #{cursosAndamento.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;color:#3C4A58;" columns="8">
+										<p:commandLink id="btnVisualizarFicha"
+											class="commandLinkControle"
+											action="#{controleCursoMB.receberControle(cursosAndamento)}"
+											oncomplete="PF('visualizarFicha').show()"
+											update=":consultaControleCursos:dialogVisualizarFicha"
+											title="Visualizar Ficha">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/imprimiFicha.png" />
+												<p:outputLabel value="VISUALIZAR" style="font-size:11px;" />
+												<p:outputLabel value="FICHA" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink
+											action="#{controleCursoMB.gerarRelatorioFicha(cursosAndamento.curso)}"
+											update=":consultaControleCursos:growl" ajax="false"
+											target="_blank" title="Imprimir Ficha"
+											class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<p:outputLabel value="IMPRIMIR" style="font-size:12px;" />
+												<p:outputLabel value="" style="font-size:12px;" />
+											</h:panelGrid>
+										</p:commandLink>
+										
+										<p:commandLink action="#{controleCursoMB.editarDocs(rowIx)}"
+											title="Visualizar documentação" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="#{controleCursoMB.docsControle(cursosAndamento)}" />
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+												<p:outputLabel value="OBRIGATÓRIOS" style="font-size:11px;" />
+											</h:panelGrid>
+											<p:ajax event="dialogReturn"
+												listener="#{controleCursoMB.retornoDialogDocs}"
+												update="tabelaControleCursoAndamento" />
+										</p:commandLink>
+		
+										<p:commandLink
+											action="#{controleCursoMB.informacoes(cursosAndamento.curso)}"
+											update=":consultaControleCursos:growl"
+											title="Informações da Venda" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/informacao.png" />
+												<p:outputLabel value="INFORMAÇÕES" style="font-size:11px;" />
+												<p:outputLabel value="DA VENDA" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink action="#{controleCursoMB.invoice(cursosAndamento)}"
+											title="Invoice" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/invoice.png" />
+												<p:outputLabel value="INVOICE" style="font-size:11px;" />
+												<p:outputLabel value="" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink action="#{controleCursoMB.documentacao(cursosAndamento)}"
+											title="Arquivos" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/boletoFicha.png" />
+												<p:outputLabel value="UPLOAD" style="font-size:11px;" />
+												<p:outputLabel value="DE ARQUIVOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink action="#{controleCursoMB.finalizar(cursosAndamento)}"
+											title="Finalizar" update="tabelaControleCursoAndamento"
+											class="commandLinkControle">  
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/finalizarcontrole.png" />
+												<p:outputLabel value="FINALIZAR" style="font-size:11px;" />
+												<p:outputLabel value="CONTROLE" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>    
+										<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="consultaControleCursos:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{controleCursoMB.obsTM(cursosAndamento)}" />  
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img src="#{controleCursoMB.retornarIconeObsTM(cursosAndamento)}" width="36" />  
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>  
+									</h:panelGrid>
+								</p:overlayPanel>     
+							</p:column>   
+						</p:dataTable>
+					</p:tab>    
 					<p:tab title="Finalizado (#{controleCursoMB.nFichasFinalizadas})" class="tab" titleStyle="font-size: 11px">
 						<p:dataTable id="tabelaControleCursoFinalizado" var="cursosFinalizado"    
 							value="#{controleCursoMB.listaVendasCursoFinalizada}" scrollable="true"
@@ -533,410 +734,6 @@
 							</p:column>
 						</p:dataTable>  
 					</p:tab>     
-					<p:tab title="Andamento (#{controleCursoMB.nFichasAndamento})" class="tab" titleStyle="font-size: 11px">
-						<p:dataTable id="tabelaControleCursoAndamento" var="cursosAndamento"    
-							value="#{controleCursoMB.listaVendasCursoAndamento}" scrollable="true"
-							scrollHeight="300" editable="true" editMode="cell"
-							rowIndexVar="rowIx">
-							<p:column style="width:35px;text-align:center;" > 
-								<p:commandLink title="#{cursosAndamento.vendas.situacao}"
-									style="cursor: initial;">
-									<img src="../../resources/img/amarelaFicha.png"
-										width="25" />
-								</p:commandLink>       
-							</p:column>
-							<p:column style="width:32px;text-align:center;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<img src="#{controleCursoMB.situacaoControle(cursosAndamento)}"
-											title="Editar situação" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectOneMenu id="situacao" value="#{cursosAndamento.situacao}"
-											style="width:95%;">
-											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
-											<f:selectItem itemLabel="Standby" itemValue="Standby" />
-											<f:selectItem itemLabel="Processo" itemValue="Processo" />
-											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
-											<f:selectItem itemLabel="Grupo" itemValue="Grupo" />
-											<p:ajax event="change"
-												listener="#{controleCursoMB.salvarSituacao(cursosAndamento)}"
-												update="tabelaControleCursoAndamento" />
-										</p:selectOneMenu> 
-									</f:facet>  
-								</p:cellEditor>    
-							</p:column>
-							<p:column headerText="ID" style="width:50px;text-align:center;">
-								<h:outputText value="#{cursosAndamento.vendas.idvendas}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}" /> 
-							</p:column>
-							<p:column headerText="Ínicio do curso"
-								style="width:75px;text-align:center;">         
-								<h:outputText value="#{cursosAndamento.curso.dataInicio}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Data Venda"
-								style="text-align:center;width:75px;">
-								<h:outputText value="#{cursosAndamento.vendas.dataVenda}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Data Finalizada"
-								style="text-align:center;width:80px;">
-								<h:outputText value="#{cursosAndamento.vendas.dataprocesso}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Nome" styleClass="alinharCenter"
-								style="width:150px;">
-								<p:commandLink value="#{cursosAndamento.vendas.cliente.nome}"
-									style="text-decoration: underline;#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}"
-									action="#{controleCursoMB.atualizarInformacoes(cursosAndamento)}"
-									title="Atualizar informações" />
-							</p:column>
-							<p:column headerText="Parceiro" style="width:100px;"
-								styleClass="alinharCenter">  
-								<h:outputText
-									value="#{cursosAndamento.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}" />
-							</p:column>
-							<p:column headerText="Data Envio Inscrição"
-								style="text-align:center;width:86px;">
-								<h:outputText value="#{cursosAndamento.dataEnvioInscricaoEscola}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Unidade" styleClass="alinharCenter"
-								style="width:102px;">
-								<h:outputText
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}"
-									value="#{cursosAndamento.vendas.unidadenegocio.nomerelatorio}" />
-							</p:column>
-							<p:column headerText="Agente" styleClass="alinharCenter"
-								style="width:110px;">
-								<h:outputText value="#{cursosAndamento.vendas.usuario.nome}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosAndamento)}" />   
-							</p:column>
-							<p:column headerText="Applica." style="width:55px;text-align:center;">
-								<p:commandLink
-									action="#{controleCursoMB.application(cursosAndamento)}"
-									title="Application" class="commandLinkControle"  >
-										<img src="#{controleCursoMB.retornarIconeApplication(cursosAndamento)}" width="24"/>  
-								</p:commandLink>                  
-							</p:column>  
-							<p:column headerText="Opções" style="width:60px;text-align:center;">  
-								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
-									<img src="../../resources/img/informacaoesVendas.png" />
-								</p:commandLink>
-								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
-									<p:outputLabel
-										value="#{cursosAndamento.vendas.idvendas} - #{cursosAndamento.vendas.cliente.nome}"
-										style="text-align:center;font-size:15px;" />
-									<br />
-									<br />
-									<h:panelGrid style="width:100%;color:#3C4A58;" columns="8">
-										<p:commandLink id="btnVisualizarFicha"
-											class="commandLinkControle"
-											action="#{controleCursoMB.receberControle(cursosAndamento)}"
-											oncomplete="PF('visualizarFicha').show()"
-											update=":consultaControleCursos:dialogVisualizarFicha"
-											title="Visualizar Ficha">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/imprimiFicha.png" />
-												<p:outputLabel value="VISUALIZAR" style="font-size:11px;" />
-												<p:outputLabel value="FICHA" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursosAndamento.curso)}"
-											update=":consultaControleCursos:growl" ajax="false"
-											target="_blank" title="Imprimir Ficha"
-											class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/imprimirFicha.png" width="36" />
-												<p:outputLabel value="IMPRIMIR" style="font-size:12px;" />
-												<p:outputLabel value="" style="font-size:12px;" />
-											</h:panelGrid>
-										</p:commandLink>
-										
-										<p:commandLink action="#{controleCursoMB.editarDocs(rowIx)}"
-											title="Visualizar documentação" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="#{controleCursoMB.docsControle(cursosAndamento)}" />
-												<p:outputLabel value="DOCS" style="font-size:11px;" />
-												<p:outputLabel value="OBRIGATÓRIOS" style="font-size:11px;" />
-											</h:panelGrid>
-											<p:ajax event="dialogReturn"
-												listener="#{controleCursoMB.retornoDialogDocs}"
-												update="tabelaControleCursoAndamento" />
-										</p:commandLink>
-		
-										<p:commandLink
-											action="#{controleCursoMB.informacoes(cursosAndamento.curso)}"
-											update=":consultaControleCursos:growl"
-											title="Informações da Venda" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/informacao.png" />
-												<p:outputLabel value="INFORMAÇÕES" style="font-size:11px;" />
-												<p:outputLabel value="DA VENDA" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{controleCursoMB.invoice(cursosAndamento)}"
-											title="Invoice" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/invoice.png" />
-												<p:outputLabel value="INVOICE" style="font-size:11px;" />
-												<p:outputLabel value="" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{controleCursoMB.documentacao(cursosAndamento)}"
-											title="Arquivos" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/boletoFicha.png" />
-												<p:outputLabel value="UPLOAD" style="font-size:11px;" />
-												<p:outputLabel value="DE ARQUIVOS" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{controleCursoMB.finalizar(cursosAndamento)}"
-											title="Finalizar" update="tabelaControleCursoAndamento"
-											class="commandLinkControle">  
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/finalizarcontrole.png" />
-												<p:outputLabel value="FINALIZAR" style="font-size:11px;" />
-												<p:outputLabel value="CONTROLE" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>    
-										<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-												update="consultaControleCursos:dialog_obsTM"
-												oncomplete="PF('obstm').show()"> 
-												<p:ajax listener="#{controleCursoMB.obsTM(cursosAndamento)}" />  
-												<h:panelGrid columns="1" style="text-align:center;">
-													<img src="#{controleCursoMB.retornarIconeObsTM(cursosAndamento)}" width="36" />  
-													<p:outputLabel value="OBS" style="font-size:11px;"/>
-													<p:outputLabel value="TM" style="font-size:11px;"/>
-												</h:panelGrid>
-											</p:commandLink>  
-									</h:panelGrid>
-								</p:overlayPanel>     
-							</p:column>   
-						</p:dataTable>
-					</p:tab>   
-					<p:tab title="Financeiro (#{controleCursoMB.nFichaFinanceiro})" class="tab" titleStyle="font-size: 11px">
-						<p:dataTable id="tabelaControleCursoFinanceiro" var="cursosFinanceiro"    
-							value="#{controleCursoMB.listaVendasCursoFinanceiro}" scrollable="true"
-							scrollHeight="300" editable="true" editMode="cell"
-							rowIndexVar="rowIx">
-							<p:column style="width:35px;text-align:center;" > 
-								<p:commandLink title="#{cursosFinanceiro.vendas.situacao}"
-									style="cursor: initial;">
-									<img src="../../resources/img/ficharestricao.png"
-										width="25" />
-								</p:commandLink>       
-							</p:column>
-							<p:column style="width:32px;text-align:center;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<img src="#{controleCursoMB.situacaoControle(cursosFinanceiro)}"
-											title="Editar situação" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectOneMenu id="situacao" value="#{cursosFinanceiro.situacao}"
-											style="width:95%;">
-											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
-											<f:selectItem itemLabel="Standby" itemValue="Standby" />
-											<f:selectItem itemLabel="Processo" itemValue="Processo" />
-											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
-											<f:selectItem itemLabel="Grupo" itemValue="Grupo" />
-											<p:ajax event="change"
-												listener="#{controleCursoMB.salvarSituacao(cursosFinanceiro)}"
-												update="tabelaControleCursoFinanceiro" />
-										</p:selectOneMenu> 
-									</f:facet>  
-								</p:cellEditor>    
-							</p:column>
-							<p:column headerText="ID" style="width:50px;text-align:center;">
-								<h:outputText value="#{cursosFinanceiro.vendas.idvendas}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}" /> 
-							</p:column>
-							<p:column headerText="Ínicio do curso"
-								style="width:75px;text-align:center;">         
-								<h:outputText value="#{cursosFinanceiro.curso.dataInicio}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Data Venda"
-								style="text-align:center;width:75px;">
-								<h:outputText value="#{cursosFinanceiro.vendas.dataVenda}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Data Finalizada"
-								style="text-align:center;width:80px;">
-								<h:outputText value="#{cursosFinanceiro.vendas.dataprocesso}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Nome" styleClass="alinharCenter"
-								style="width:150px;">
-								<p:commandLink value="#{cursosFinanceiro.vendas.cliente.nome}"
-									style="text-decoration: underline;#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}"
-									action="#{controleCursoMB.atualizarInformacoes(cursosFinanceiro)}"
-									title="Atualizar informações" />
-							</p:column>
-							<p:column headerText="Parceiro" style="width:100px;"
-								styleClass="alinharCenter">  
-								<h:outputText
-									value="#{cursosFinanceiro.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}" />
-							</p:column>
-							<p:column headerText="Data Envio Inscrição"
-								style="text-align:center;width:86px;">
-								<h:outputText value="#{cursosFinanceiro.dataEnvioInscricaoEscola}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Unidade" styleClass="alinharCenter"
-								style="width:102px;">
-								<h:outputText
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}"
-									value="#{cursosFinanceiro.vendas.unidadenegocio.nomerelatorio}" />
-							</p:column>
-							<p:column headerText="Agente" styleClass="alinharCenter"
-								style="width:110px;">
-								<h:outputText value="#{cursosFinanceiro.vendas.usuario.nome}"
-									style="#{controleCursoMB.retornarCorPrioridade(cursosFinanceiro)}" />   
-							</p:column>
-							<p:column headerText="Applica." style="width:55px;text-align:center;">
-								<p:commandLink
-									action="#{controleCursoMB.application(cursosFinanceiro)}"
-									title="Application" class="commandLinkControle"  >
-										<img src="#{controleCursoMB.retornarIconeApplication(cursosFinanceiro)}" width="24"/>  
-								</p:commandLink>                  
-							</p:column>  
-							<p:column headerText="Opções" style="width:60px;text-align:center;">  
-								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
-									<img src="../../resources/img/informacaoesVendas.png" />
-								</p:commandLink>
-								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
-									<p:outputLabel
-										value="#{cursosFinanceiro.vendas.idvendas} - #{cursosFinanceiro.vendas.cliente.nome}"
-										style="text-align:center;font-size:15px;" />
-									<br />
-									<br />
-									<h:panelGrid style="width:100%;color:#3C4A58;" columns="8">
-										<p:commandLink id="btnVisualizarFicha"
-											class="commandLinkControle"
-											action="#{controleCursoMB.receberControle(cursosFinanceiro)}"
-											oncomplete="PF('visualizarFicha').show()"
-											update=":consultaControleCursos:dialogVisualizarFicha"
-											title="Visualizar Ficha">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/imprimiFicha.png" />
-												<p:outputLabel value="VISUALIZAR" style="font-size:11px;" />
-												<p:outputLabel value="FICHA" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursosFinanceiro.curso)}"
-											update=":consultaControleCursos:growl" ajax="false"
-											target="_blank" title="Imprimir Ficha"
-											class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/imprimirFicha.png" width="36" />
-												<p:outputLabel value="IMPRIMIR" style="font-size:12px;" />
-												<p:outputLabel value="" style="font-size:12px;" />
-											</h:panelGrid>
-										</p:commandLink>
-										
-										<p:commandLink action="#{controleCursoMB.editarDocs(rowIx)}"
-											title="Visualizar documentação" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="#{controleCursoMB.docsControle(cursosFinanceiro)}" />
-												<p:outputLabel value="DOCS" style="font-size:11px;" />
-												<p:outputLabel value="OBRIGATÓRIOS" style="font-size:11px;" />
-											</h:panelGrid>
-											<p:ajax event="dialogReturn"
-												listener="#{controleCursoMB.retornoDialogDocs}"
-												update="tabelaControleCursoFinanceiro" />
-										</p:commandLink>
-		
-										<p:commandLink
-											action="#{controleCursoMB.informacoes(cursosFinanceiro.curso)}"
-											update=":consultaControleCursos:growl"
-											title="Informações da Venda" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/informacao.png" />
-												<p:outputLabel value="INFORMAÇÕES" style="font-size:11px;" />
-												<p:outputLabel value="DA VENDA" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{controleCursoMB.invoice(cursosFinanceiro)}"
-											title="Invoice" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/invoice.png" />
-												<p:outputLabel value="INVOICE" style="font-size:11px;" />
-												<p:outputLabel value="" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{controleCursoMB.documentacao(cursosFinanceiro)}"
-											title="Arquivos" class="commandLinkControle">
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/boletoFicha.png" />
-												<p:outputLabel value="UPLOAD" style="font-size:11px;" />
-												<p:outputLabel value="DE ARQUIVOS" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{controleCursoMB.finalizar(cursosFinanceiro)}"
-											title="Finalizar" update="tabelaControleCursoFinanceiro"
-											class="commandLinkControle">  
-											<h:panelGrid columns="1" style="text-align:center;">
-												<img src="../../resources/img/finalizarcontrole.png" />
-												<p:outputLabel value="FINALIZAR" style="font-size:11px;" />
-												<p:outputLabel value="CONTROLE" style="font-size:11px;" />
-											</h:panelGrid>
-										</p:commandLink>    
-										<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-												update="consultaControleCursos:dialog_obsTM"
-												oncomplete="PF('obstm').show()"> 
-												<p:ajax listener="#{controleCursoMB.obsTM(cursosFinanceiro)}" />  
-												<h:panelGrid columns="1" style="text-align:center;">
-													<img src="#{controleCursoMB.retornarIconeObsTM(cursosFinanceiro)}" width="36" />  
-													<p:outputLabel value="OBS" style="font-size:11px;"/>
-													<p:outputLabel value="TM" style="font-size:11px;"/>
-												</h:panelGrid>
-											</p:commandLink>  
-									</h:panelGrid>
-								</p:overlayPanel>     
-							</p:column>   
-						</p:dataTable>
-					</p:tab>   
 					<p:tab title="Cancelado (#{controleCursoMB.nFichaCancelada})" class="tab" titleStyle="font-size: 11px">
 						<p:dataTable id="tabelaControleCursoCancelado" var="cursosCancelado"    
 							value="#{controleCursoMB.listaVendasCursoCancelada}" scrollable="true"
@@ -1138,53 +935,211 @@
 								</p:overlayPanel>
 							</p:column>
 						</p:dataTable>
-					</p:tab>      
-				</p:tabView>
-				
-
-				<h:panelGrid id="PanelQuantidadeFichas" columns="6" width="60%"
-					style="margin-left: 2%;">
-					<h:panelGroup>    
-						<p:commandLink title="N° Total de Ficha"
-							style="margin-left:15%;cursor: initial;">
-							<img src="../../resources/img/iconeTotal.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="numFicha"
-							value="#{controleCursoMB.numeroFichas}"
-							style="font-size:24px;margin-left: 5%;" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink title="Ficha Finalizada"
-							style="margin-left:5%;cursor: initial;">
-							<img src="../../resources/img/finalizadoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaFinalizada"
-							value="#{controleCursoMB.nFichasFinalizadas}"
-							style="font-size:24px;margin-left: 5%;" />
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Esperando aprovação financeira" >
-							<img src="../../resources/img/ficharestricao.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaFinanceira" value="#{controleCursoMB.nFichaFinanceiro}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink title="Ficha em Andamento" style="cursor: initial;">
-							<img src="../../resources/img/amarelaFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaProcesso"
-							value="#{controleCursoMB.nFichasAndamento}"
-							style="font-size:24px;margin-left: 5%;" />
-					</h:panelGroup> 
-					<h:panelGroup >
-						<p:commandLink style="cursor: initial;" title="Ficha Cancelada" >  
-							<img src="../../resources/img/fichaCancelada.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaCancelada" value="#{controleCursoMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup> 
-				</h:panelGrid>   
-				<br /> <br />
-
+					</p:tab>    
+					<p:tab title="Todos (#{controleCursoMB.numeroFichas})" class="tab" titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaControleCurso" var="cursos"    
+							value="#{controleCursoMB.listaControle}" scrollable="true"
+							scrollHeight="300" editable="true" editMode="cell"
+							rowIndexVar="rowIx">
+							<p:column style="width:35px;text-align:center;" > 
+								<p:commandLink title="#{cursos.vendas.situacao}"  
+									style="cursor: initial;">
+									<img src="#{controleCursoMB.imagemSituacao(cursos.curso)}"
+										width="25" />
+								</p:commandLink>   
+							</p:column>
+							<p:column style="width:32px;text-align:center;">
+								<p:cellEditor>
+									<f:facet name="output">
+										<img src="#{controleCursoMB.situacaoControle(cursos)}"
+											title="Editar situação" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacao" value="#{cursos.situacao}"
+											style="width:95%;">
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<f:selectItem itemLabel="Standby" itemValue="Standby" />
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Grupo" itemValue="Grupo" />
+											<p:ajax event="change"
+												listener="#{controleCursoMB.salvarSituacao(cursos)}"
+												update="tabelaControleCurso" />
+										</p:selectOneMenu> 
+									</f:facet>  
+								</p:cellEditor>    
+							</p:column>
+							<p:column headerText="ID" style="width:50px;text-align:center;">
+								<h:outputText value="#{cursos.vendas.idvendas}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}" /> 
+							</p:column>
+							<p:column headerText="Ínicio do curso"
+								style="width:75px;text-align:center;">         
+								<h:outputText value="#{cursos.curso.dataInicio}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:75px;">
+								<h:outputText value="#{cursos.vendas.dataVenda}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Data Finalizada"
+								style="text-align:center;width:80px;">
+								<h:outputText value="#{cursos.vendas.dataprocesso}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" styleClass="alinharCenter"
+								style="width:150px;">
+								<p:commandLink value="#{cursos.vendas.cliente.nome}"
+									style="text-decoration: underline;#{controleCursoMB.retornarCorPrioridade(cursos)}"
+									action="#{controleCursoMB.atualizarInformacoes(cursos)}"
+									title="Atualizar informações" />
+							</p:column>
+							<p:column headerText="Parceiro" style="width:100px;"
+								styleClass="alinharCenter">  
+								<h:outputText
+									value="#{cursos.vendas.fornecedorcidade.fornecedor.nome}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}" />
+							</p:column>
+							<p:column headerText="Data Envio Inscrição"
+								style="text-align:center;width:86px;">
+								<h:outputText value="#{cursos.dataEnvioInscricaoEscola}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:102px;">
+								<h:outputText
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}"
+									value="#{cursos.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:110px;">
+								<h:outputText value="#{cursos.vendas.usuario.nome}"
+									style="#{controleCursoMB.retornarCorPrioridade(cursos)}" />   
+							</p:column>
+							<p:column headerText="Applica." style="width:55px;text-align:center;">
+								<p:commandLink
+									action="#{controleCursoMB.application(cursos)}"
+									title="Application" class="commandLinkControle"  >
+										<img src="#{controleCursoMB.retornarIconeApplication(cursos)}" width="24"/>  
+								</p:commandLink>                  
+							</p:column>  
+							<p:column headerText="Opções" style="width:60px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoesVendas.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									<p:outputLabel
+										value="#{cursos.vendas.idvendas} - #{cursos.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;color:#3C4A58;" columns="8">
+										<p:commandLink id="btnVisualizarFicha"
+											class="commandLinkControle"
+											action="#{controleCursoMB.receberControle(cursos)}"
+											oncomplete="PF('visualizarFicha').show()"
+											update=":consultaControleCursos:dialogVisualizarFicha"
+											title="Visualizar Ficha">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/imprimiFicha.png" />
+												<p:outputLabel value="VISUALIZAR" style="font-size:11px;" />
+												<p:outputLabel value="FICHA" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink
+											action="#{controleCursoMB.gerarRelatorioFicha(cursos.curso)}"
+											update=":consultaControleCursos:growl" ajax="false"
+											target="_blank" title="Imprimir Ficha"
+											class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<p:outputLabel value="IMPRIMIR" style="font-size:12px;" />
+												<p:outputLabel value="" style="font-size:12px;" />
+											</h:panelGrid>
+										</p:commandLink>
+										
+										<p:commandLink action="#{controleCursoMB.editarDocs(rowIx)}"
+											title="Visualizar documentação" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="#{controleCursoMB.docsControle(cursos)}" />
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+												<p:outputLabel value="OBRIGATÓRIOS" style="font-size:11px;" />
+											</h:panelGrid>
+											<p:ajax event="dialogReturn"
+												listener="#{controleCursoMB.retornoDialogDocs}"
+												update="tabelaControleCurso" />
+										</p:commandLink>
+		
+										<p:commandLink
+											action="#{controleCursoMB.informacoes(cursos.curso)}"
+											update=":consultaControleCursos:growl"
+											title="Informações da Venda" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/informacao.png" />
+												<p:outputLabel value="INFORMAÇÕES" style="font-size:11px;" />
+												<p:outputLabel value="DA VENDA" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink action="#{controleCursoMB.invoice(cursos)}"
+											title="Invoice" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/invoice.png" />
+												<p:outputLabel value="INVOICE" style="font-size:11px;" />
+												<p:outputLabel value="" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink action="#{controleCursoMB.documentacao(cursos)}"
+											title="Arquivos" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/boletoFicha.png" />
+												<p:outputLabel value="UPLOAD" style="font-size:11px;" />
+												<p:outputLabel value="DE ARQUIVOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+		
+										<p:commandLink action="#{controleCursoMB.finalizar(cursos)}"
+											title="Finalizar" update="tabelaControleCurso"
+											class="commandLinkControle">  
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/finalizarcontrole.png" />
+												<p:outputLabel value="FINALIZAR" style="font-size:11px;" />
+												<p:outputLabel value="CONTROLE" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>    
+										<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="consultaControleCursos:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{controleCursoMB.obsTM(cursos)}" />  
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img src="#{controleCursoMB.retornarIconeObsTM(cursos)}" width="36" />  
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>  
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>
+						</p:dataTable>
+					</p:tab>  
+				</p:tabView> 
+				<br /> <br /> 
 				<p:dialog id="dialogVisualizarFicha" showEffect="fade"
 					hideEffect="fade" closable="false" header="" icon="ui-icon-alert"
 					widgetVar="visualizarFicha" style="width:60%;font-size:14px">
