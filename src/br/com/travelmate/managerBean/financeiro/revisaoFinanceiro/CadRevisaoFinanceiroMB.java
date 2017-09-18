@@ -18,24 +18,32 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-
+import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.model.Avisos;
+import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Usuario;
+import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -460,6 +468,17 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
 			venda.setSituacao("FINALIZADA");
 			venda.setDataprocesso(new Date());
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisos avisos = new Avisos();
+			avisos.setData(new Date());
+			avisos.setUsuario(usuarioLogadoMB.getUsuario());
+			avisos.setImagem("aviso");
+			avisos.setLiberar(true);
+			avisos.setTexto("Venda do cliente " + venda.getCliente().getNome() + ", Nº da venda "
+					+ venda.getIdvendas() + " está fanalizada.");
+			avisos.setIdunidade(0);
+			avisos = avisosFacade.salvar(avisos);
+			salvarAvisoUsuario(avisos);
 		}
 		venda = vendasFacade.salvar(venda);
 		int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
@@ -607,6 +626,63 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			return "color:red;"; 
 		}
 		return "";
+	}
+	
+	public List<Avisousuario> salvarAvisoUsuario(Avisos aviso) {
+		List<Avisousuario> lista = new ArrayList<Avisousuario>();
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		String sql = "";
+		List<Usuario> listaUsuario = null;
+		for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisousuario avisousuario = new Avisousuario();
+			avisousuario.setAvisos(aviso);
+			avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
+			avisousuario.setVisto(false);
+			avisousuario = avisosFacade.salvar(avisousuario);
+		}
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2
+				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5
+				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4
+				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 7) {
+			sql = "select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
+					+ venda.getUnidadenegocio().getIdunidadeNegocio() + " and u.vende=true or u.idusuario=1";
+			listaUsuario = usuarioFacade.listar(sql);
+			if (listaUsuario != null) {
+				AvisosFacade avisosFacade = new AvisosFacade();
+				for (int i = 0; i < listaUsuario.size(); i++) {
+					Avisousuario avisousuario = new Avisousuario();
+					avisousuario.setAvisos(aviso);
+					avisousuario.setUsuario(listaUsuario.get(i));
+					avisousuario.setVisto(false);
+					avisousuario = avisosFacade.salvar(avisousuario);
+					lista.add(avisousuario);
+				}
+			}
+		} else {
+			DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+			List<Departamento> departamento = departamentoFacade.listar(
+					"select d From Departamento d where d.usuario.idusuario=" + venda.getProdutos().getIdgerente());
+			if (departamento != null && departamento.size() > 0) {
+				sql = "select u From Usuariodepartamentounidade u where u.unidadenegocio.idunidadeNegocio="
+						+ venda.getUnidadenegocio().getIdunidadeNegocio() + " and u.departamento.iddepartamento="
+						+ departamento.get(0).getIddepartamento();
+				UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+				List<Usuariodepartamentounidade> listaNoficacao = usuarioDepartamentoUnidadeFacade.listar(sql);
+				if (listaNoficacao != null) {
+					AvisosFacade avisosFacade = new AvisosFacade();
+					for (int i = 0; i < listaNoficacao.size(); i++) {
+						Avisousuario avisousuario = new Avisousuario();
+						avisousuario.setAvisos(aviso);
+						avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
+						avisousuario.setVisto(false);
+						avisousuario = avisosFacade.salvar(avisousuario);
+						lista.add(avisousuario);
+					}
+				}
+			}
+		}
+		return lista;
 	}
 	
     

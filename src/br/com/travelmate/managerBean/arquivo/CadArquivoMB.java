@@ -484,18 +484,19 @@ public class CadArquivoMB implements Serializable {
 			}
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(vendas);
-			AvisosFacade avisosFacade = new AvisosFacade();
-			Avisos avisos = new Avisos();
-			avisos.setData(new Date());
-			avisos.setUsuario(usuarioLogadoMB.getUsuario());
-			avisos.setImagem("aviso");
-			avisos.setLiberar(true);
-			avisos.setTexto("Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
-					+ vendas.getIdvendas() + " está completo.");
-			avisos.setIdunidade(0);
-			avisos = avisosFacade.salvar(avisos);
-			salvarAvisoUsuario(avisos);
-
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				AvisosFacade avisosFacade = new AvisosFacade();
+				Avisos avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está fanalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 		}
 	}
 
