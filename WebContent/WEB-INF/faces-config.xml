@@ -2131,6 +2131,14 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>   
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>consTraducao</from-outcome> 
+			<to-view-id>/pages/traducao/consTraducao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

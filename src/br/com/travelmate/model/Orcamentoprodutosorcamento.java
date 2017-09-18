@@ -51,7 +51,7 @@ public class Orcamentoprodutosorcamento implements Serializable {
     private boolean podeExcluir;
 
     public Orcamentoprodutosorcamento() {
-    	podeExcluir=true;
+    		podeExcluir=true;
     }
 
     public Orcamentoprodutosorcamento(Integer idorcamentoProdutosOrcamento) {

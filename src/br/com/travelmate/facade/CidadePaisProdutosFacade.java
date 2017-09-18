@@ -2,9 +2,13 @@ package br.com.travelmate.facade;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import br.com.travelmate.dao.CidadePaisProdutoDao;
+import br.com.travelmate.dao.PaisProdutoDao;
 import br.com.travelmate.model.Cidadepaisproduto;
+import br.com.travelmate.model.Paisproduto;
 
 public class CidadePaisProdutosFacade {
 	
@@ -41,5 +45,15 @@ public class CidadePaisProdutosFacade {
 			e.printStackTrace();
 		}
 	}
+	
+	public Cidadepaisproduto consultar(String sql) {
+		cidadePaisProdutoDao = new CidadePaisProdutoDao();
+        try {
+            return cidadePaisProdutoDao.consultar(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(CidadePaisProdutosFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
 }

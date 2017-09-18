@@ -1383,4 +1383,9 @@ public class MenuMB implements Serializable {
 	public String consSolicitacoes() {
 		return "consSolicitacoes";
 	}
+	
+	public String traducao() {
+		atualizaTempoLogado();
+		return "consTraducao";
+	}
 }
