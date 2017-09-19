@@ -21,6 +21,7 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
@@ -93,6 +94,12 @@ public class CursosTeensMB implements Serializable {
 	private boolean esconderFicha=true;
 	private Fornecedor fornecedor;
 	private List<Fornecedor> listaFornecedor;
+	private Integer nFichasFinanceiro;
+	private List<Programasteens> listaVendasFinalizada;
+	private List<Programasteens> listaVendasAndamento;
+	private List<Programasteens> listaVendasCancelada;
+	private List<Programasteens> listaVendasProcesso;
+	private List<Programasteens> listaVendasFinanceiro;
 
 	@PostConstruct()
 	public void init() {
@@ -266,8 +273,54 @@ public class CursosTeensMB implements Serializable {
 	public void setVoltar(String voltar) {
 		this.voltar = voltar;
 	}
-	
-	
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	} 
+
+	public List<Programasteens> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Programasteens> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Programasteens> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Programasteens> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Programasteens> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Programasteens> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Programasteens> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Programasteens> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Programasteens> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Programasteens> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
 
 	public Integer getnFichasFinalizadas() {
 		return nFichasFinalizadas;
@@ -582,7 +635,17 @@ public class CursosTeensMB implements Serializable {
         	programasteens.setHabilitarImagemGerencial(false);
         	programasteens.setHabilitarImagemFranquia(true);
             programasteens.setImagem("../../resources/img/finalizadoFicha.png");
-        } else if (programasteens.getVendas().getSituacao().equals("ANDAMENTO")) {
+        }else if (programasteens.getVendas().getSituacao().equals("ANDAMENTO")
+        		 && !programasteens.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
+				programasteens.setHabilitarImagemGerencial(true);
+				programasteens.setHabilitarImagemFranquia(false);
+			} else {
+				programasteens.setHabilitarImagemGerencial(false);
+				programasteens.setHabilitarImagemFranquia(true);
+			}
+			programasteens.setImagem("../../resources/img/ficharestricao.png");
+		} else if (programasteens.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
 				programasteens.setHabilitarImagemGerencial(true);
 				programasteens.setHabilitarImagemFranquia(false);
@@ -724,15 +787,29 @@ public class CursosTeensMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaCursosTeens.size(); i++) {
 			if (listaCursosTeens.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaCursosTeens.get(i));
 			}else if(listaCursosTeens.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
 				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaCursosTeens.get(i));
+			}else if(listaCursosTeens.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaCursosTeens.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaCursosTeens.get(i));
 			}else if(listaCursosTeens.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaCursosTeens.get(i));
 			}else{
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaCursosTeens.get(i));
 			}
 		}
 	}

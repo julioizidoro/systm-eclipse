@@ -15,7 +15,8 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Controlehighschool; 
+import br.com.travelmate.model.Controlehighschool;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Highschool;
@@ -92,6 +93,12 @@ public class HighSchoolMB implements Serializable {
 	private Integer nFichaCancelada;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private Integer nFichasFinanceiro;
+	private List<Highschool> listaVendasFinalizada;
+	private List<Highschool> listaVendasAndamento;
+	private List<Highschool> listaVendasCancelada;
+	private List<Highschool> listaVendasProcesso;
+	private List<Highschool> listaVendasFinanceiro;
 
 	@PostConstruct()
 	public void init() {
@@ -292,8 +299,54 @@ public class HighSchoolMB implements Serializable {
 	public void setListaFornecedorProduto(List<Fornecedorcidade> listaFornecedorProduto) {
 		this.listaFornecedorProduto = listaFornecedorProduto;
 	}
-	
-	
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Highschool> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Highschool> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Highschool> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Highschool> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Highschool> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Highschool> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Highschool> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Highschool> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Highschool> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Highschool> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
 
 	public Integer getnFichasFinalizadas() {
 		return nFichasFinalizadas;
@@ -459,7 +512,17 @@ public class HighSchoolMB implements Serializable {
 			highschool.setHabilitarImagemGerencial(false);
 			highschool.setHabilitarImagemFranquia(true);
 			highschool.setImagem("../../resources/img/finalizadoFicha.png");
-		} else if (highschool.getVendas().getSituacao().equals("ANDAMENTO")) {
+		} else if (highschool.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !highschool.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
+				highschool.setHabilitarImagemGerencial(true);
+				highschool.setHabilitarImagemFranquia(false);
+			} else {
+				highschool.setHabilitarImagemGerencial(false);
+				highschool.setHabilitarImagemFranquia(true);
+			}
+			highschool.setImagem("../../resources/img/ficharestricao.png");
+		}  else if (highschool.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
 				highschool.setHabilitarImagemGerencial(true);
 				highschool.setHabilitarImagemFranquia(false);
@@ -792,15 +855,29 @@ public class HighSchoolMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaHighSchool.size(); i++) {
 			if (listaHighSchool.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaHighSchool.get(i));
 			}else if(listaHighSchool.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
 				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaHighSchool.get(i));
+			}else if(listaHighSchool.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& !listaHighSchool.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaHighSchool.get(i));
 			}else if(listaHighSchool.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaHighSchool.get(i));
 			}else{
-				nFichaCancelada = nFichaCancelada + 1;
+				nFichaCancelada = nFichaCancelada + 1;   
+				listaVendasCancelada.add(listaHighSchool.get(i));
 			}
 		}
 	}
