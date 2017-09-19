@@ -489,6 +489,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					produto.setNome(resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getProdutosorcamento()
 							.getDescricao());
 					produto.setDescricao(resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getDescricao());
+					if(produto.getDescricao()==null) {
+						produto.setDescricao("");
+					} 
 					produto.setTipo(6);
 					produto.setSomavalortotal(
 							resultadoOrcamentoBean.getListaOutrosProdutos().get(i).isSomarvalortotal());
@@ -515,6 +518,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				produto.setValorpromocional(0.0f);
 				produto.setNome(valorcoprodutos.getCoprodutos().getProdutosorcamento().getDescricao());
 				produto.setDescricao(listaOcursoDesconto.get(i).getProdutosorcamento().getDescricao());
+				if(produto.getDescricao()==null) {
+					produto.setDescricao("");
+				}
 				produto.setTipo(8);
 				produto.setNomegrupo("Desconto");
 				produto.setOcurso(ocurso);
@@ -545,6 +551,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				produto.setValorpromocional(0.0f);
 				produto.setNome(valorcoprodutos.getCoprodutos().getProdutosorcamento().getDescricao());
 				produto.setDescricao(ocursoseguro.getValoresseguro().getPlano());
+				if(produto.getDescricao()==null) {
+					produto.setDescricao("");
+				}
 				produto.setTipo(7);
 				produto.setNomegrupo("Seguro Viagem Privado");
 				produto.setOcurso(ocurso);
@@ -566,6 +575,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		for (int i = 0; i < listaProdutos.size(); i++) {
 			try {
 				listaProdutos.get(i).setOcurso(ocurso);
+				if(listaProdutos.get(i).getDescricao()==null) {
+					listaProdutos.get(i).setDescricao("");
+				}
 				if (listaProdutos.get(i).getDescricao().length() > 200) {
 					listaProdutos.get(i).setDescricao(listaProdutos.get(i).getDescricao().substring(0, 199));
 				}
