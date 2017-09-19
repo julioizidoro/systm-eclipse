@@ -34,6 +34,7 @@ import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
@@ -472,5 +473,12 @@ public class TraducaoMB implements Serializable {
 			RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
 			relatorioErroBean.iniciarRelatorioErro("Sem recibo para imprimir.");
 		}
+	}
+	
+	public String corNome(Traducaojuramentada traducaojuramentada) {
+		if (traducaojuramentada.getVendas().getSituacao().equals("CANCELADA")) {
+			return "color:#808080;text-decoration: line-through;";
+		}
+		return "color:#000000;";
 	}
 }

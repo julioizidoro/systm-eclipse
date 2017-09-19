@@ -668,6 +668,7 @@ public class CadTraducaoMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio), 8);
 			ProgramasBean programasBean = new ProgramasBean(); 
+			venda.setVendasMatriz(vendaMatriz);
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 					formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 					lead);

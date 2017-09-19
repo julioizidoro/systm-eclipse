@@ -105,28 +105,28 @@
 					value="#{traducaoMB.listaTraducao}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
 					rowIndexVar="rowIx">
 					<p:column headerText="ID venda" style="width:50px">
-						<h:outputText value="#{traducao.vendas.idvendas}"/>
+						<h:outputText value="#{traducao.vendas.idvendas}" style="#{traducaoMB.corNome(traducao)}"/>
 					</p:column>
 					<p:column headerText="Cliente" style="text-align:left;width:150px;">
-						<h:outputText value="#{traducao.vendas.cliente.nome}" />
+						<h:outputText value="#{traducao.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
 					</p:column>
 					<p:column headerText="Data Venda"
 						style="text-align:left;width:80px;">
-						<h:outputText value="#{traducao.vendas.dataVenda}" >
+						<h:outputText value="#{traducao.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducao)}">
 							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Parceiro" style="width:150px;text-align:left;">
-						<h:outputText value="#{traducao.vendas.fornecedorcidade.fornecedor.nome}" />
+					<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+						<h:outputText value="#{traducao.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
 					</p:column>
 					<p:column headerText="Unidade" style="width:150px;text-align:left;">
-						<h:outputText value="#{traducao.vendas.unidadenegocio.nomerelatorio}" />
+						<h:outputText value="#{traducao.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducao)}" />
 					</p:column>
 					<p:column headerText="Consultor" style="width:150px;text-align:left;">
-						<h:outputText value="#{traducao.vendas.usuario.nome}" />
+						<h:outputText value="#{traducao.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
 					</p:column>
 					<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
-						<h:outputText value="#{traducaoMB.vendaMatriz(traducao)}" /> 
+						<h:outputText value="#{traducaoMB.vendaMatriz(traducao)}"  style="#{traducaoMB.corNome(traducao)}"/> 
 					</p:column> 
 					<p:column  style="width:43px;text-align:center;">
 						<p:commandLink action="#{traducaoMB.editar(traducao)}" style="text-decoration: none" >
@@ -134,7 +134,7 @@
 							<p:ajax event="dialogReturn" process="@this" update=":consTraducao:tabelaTraducao" />
 						</p:commandLink>
 					</p:column>
-					<p:column headerText="Imprimir" rendered="#{traducaoMB.esconderFicha}"
+					<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
 						style="width:58px;text-align:center;" >
 						<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
 							title="Recibo" image="../../resources/img/imprimiFicha.png"
@@ -149,10 +149,10 @@
 							style="width:24px;margin-left:4%" >
 						</h:commandButton>  
 					</p:column>   
-					<p:column headerText="Imprimir" rendered="#{traducaoMB.expandirOpcoes}"
+					<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
 						style="width:80px;text-align:center;" styleClass="alinharCenter">
-						<h:commandButton action="#{traducaoMB.imprimirFicha(traducao)}"
-							title="Ficha" image="../../resources/img/imprimiFicha.png"
+						<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
+							title="Recibo" image="../../resources/img/imprimiFicha.png"
 							style="width:24px;margin-left:3%" ajax="false"
 							onclick="this.form.target='_blank'" >
 						</h:commandButton>       
@@ -163,7 +163,7 @@
 						</p:commandLink>
 					</p:column>
 					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
-						<p:commandLink action="#{traducaoMB.cancelarVenda(traducao)}"
+						<p:commandLink action="#{traducaoMB.cancelarVenda(traducao.vendas)}"
 							style="text-decoration: none" title="Cancelar Ficha"
 							update=":consTraducao:tabelaTraducao" >
 							<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
