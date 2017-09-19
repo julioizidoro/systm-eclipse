@@ -1,7 +1,9 @@
 package br.com.travelmate.managerBean.financeiro.revisaoFinanceiro;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +19,7 @@ import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendaMotivoPendenciaFacade;
 import br.com.travelmate.facade.VendaPendenciaFacade;
+import br.com.travelmate.facade.VendaPendenciaHistoricoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -24,6 +27,7 @@ import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Vendamotivopendencia;
 import br.com.travelmate.model.Vendapendencia;
+import br.com.travelmate.model.Vendapendenciahistorico;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Mensagem;
 
@@ -169,7 +173,14 @@ public class CadVendaPendenciaMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		VendaPendenciaFacade vendaPendenciaFacade = new VendaPendenciaFacade();
 		VendasFacade vendasFacade = new VendasFacade();
+		VendaPendenciaHistoricoFacade vendaPendenciaHistoricoFacade = new VendaPendenciaHistoricoFacade();
 		if (validarDados()) {
+			try {
+				vendapendencia.setRelato(new String(vendapendencia.getRelato().getBytes("ISO-8859-1"), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			vendapendencia.setVendamotivopendencia(vendamotivopendencia);
 			vendapendencia.setVendas(venda);
 			vendapendencia = vendaPendenciaFacade.salvar(vendapendencia);
@@ -180,6 +191,12 @@ public class CadVendaPendenciaMB implements Serializable{
 			venda.setSituacaofinanceiro("P");
 			venda.setVendapendencia(vendapendencia);
 			venda = vendasFacade.salvar(venda);
+			Vendapendenciahistorico vendapendenciahistorico = new Vendapendenciahistorico();
+			vendapendenciahistorico.setDatahistorico(new Date());
+			vendapendenciahistorico.setAssunto("Nova venda com pendência com  o relato: "+  vendapendencia.getRelato());
+			vendapendenciahistorico.setUsuario(usuarioLogadoMB.getUsuario());
+			vendapendenciahistorico.setVendapendencia(vendapendencia);
+			vendaPendenciaHistoricoFacade.salvar(vendapendenciahistorico);
 			int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 			if (venda.getProdutos().getIdprodutos()==idProduto) {
 				int idVendaSeguro = getIdVendaSeguro(venda.getIdvendas());

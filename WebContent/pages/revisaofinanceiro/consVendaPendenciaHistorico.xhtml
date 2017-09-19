@@ -52,13 +52,13 @@
 						
 						<h:panelGrid style="width:39%;margin-left:23%;" id="PanelCadastroHistorico" rendered="#{vendaPendenciaHistoricoMB.habilitarCadastro}">
 							<h:panelGrid columns="2" style="width:100%;" id="PanelInformacoesMotivoData">
-								<p:outputLabel value="Data" for="data"  style="font-size:12px;" />
+								<p:outputLabel value="Próximo Contato" for="data"  style="font-size:12px;" />
 								<p:outputLabel value="Contato" for="contato"  style="font-size:12px;" />
 
 								
 								
 								<p:calendar id="data"
-									value="#{vendaPendenciaHistoricoMB.vendapendenciahistorico.datahistorico}" size="20"
+									value="#{vendaPendenciaHistoricoMB.dataProximoContato}" size="20"
 									 locale="pt" pattern="dd/MM/yyyy">
 									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 									<p:ajax event="change" />

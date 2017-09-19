@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.bean.BolinhasBean;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -79,6 +80,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     private Date dataPagamento;
     private Float valorRecebido;
     private float valorMatrizLoja;
+	private List<BolinhasBean> listaBolinhas;
 	
 	@PostConstruct
 	public void init(){
@@ -103,6 +105,8 @@ public class CadRevisaoFinanceiroMB implements Serializable{
             gerarListaBanco();
             somarValores();
             calcularValorTotal();
+            verificarContasReceber();
+            gerarBolinhasBean();
         }
 	}
 	
@@ -333,6 +337,20 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 
 
 
+	public List<BolinhasBean> getListaBolinhas() {
+		return listaBolinhas;
+	}
+
+
+
+
+	public void setListaBolinhas(List<BolinhasBean> listaBolinhas) {
+		this.listaBolinhas = listaBolinhas;
+	}
+
+
+
+
 	public String gerarStatusImagem(Contasreceber conta){
 		String retorno;
         Date data = Formatacao.formatarDataAgora();
@@ -480,6 +498,26 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
 		}
+		if (venda.getFormapagamento().getIdformaPagamento() == null) {
+			venda.setFormapagamento(null);
+		}
+    	
+    	if (venda.getOrcamento().getIdorcamento() == null) {
+			venda.setOrcamento(null);
+		}
+    	
+    	if (venda.getCambio().getIdcambio() == null) {
+			venda.setCambio(null);
+		}
+    	
+    	if (venda.getVendascomissao().getIdvendascomissao() == null) {
+			venda.setVendascomissao(null);
+		}
+    	
+    	if (venda.getFornecedor().getIdfornecedor() == null) {
+			venda.setFornecedor(null);
+		}
+    	
 		venda = vendasFacade.salvar(venda);
 		int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 		if (venda.getProdutos().getIdprodutos()==idProduto) {
@@ -593,6 +631,10 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     	if (venda.getFornecedor() == null) {
 			venda.setFornecedor(new Fornecedor());
 		}
+    	
+    	if (venda.getContasreceberList() == null) {
+			venda.setContasreceberList(new ArrayList<Contasreceber>());
+		}
     }
     
 	public void gerarLogVenda(String situacao, String operacao) {
@@ -686,5 +728,57 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	}
 	
     
+	public void verificarContasReceber(){
+		listaContasReceber = new ArrayList<>();
+		for (int i = 0; i < venda.getContasreceberList().size(); i++) {
+			if (!venda.getContasreceberList().get(i).getSituacao().equalsIgnoreCase("cc")) {
+				venda.getContasreceberList().get(i).setBolinhas(verStatus(venda.getContasreceberList().get(i)));
+				listaContasReceber.add(venda.getContasreceberList().get(i));
+			}
+		}
+		venda.setContasreceberList(listaContasReceber);
+	}
+	
+	
+	public void gerarBolinhasBean() {
+		listaBolinhas = new ArrayList<BolinhasBean>();
+		BolinhasBean bolinhasBean = new BolinhasBean();
+		bolinhasBean.setCor("Verde");
+		bolinhasBean.setCaminho("../../resources/img/bolaVerde.png");
+		listaBolinhas.add(bolinhasBean);
+		bolinhasBean = new BolinhasBean();
+		bolinhasBean.setCor("Amarela");
+		bolinhasBean.setCaminho("../../resources/img/bolaAmarela.png");
+		listaBolinhas.add(bolinhasBean);
+		bolinhasBean = new BolinhasBean();
+		bolinhasBean.setCor("Vermelha");
+		bolinhasBean.setCaminho("../../resources/img/bolaVermelha.png");
+		listaBolinhas.add(bolinhasBean);
+	}
+	
+	
+	public BolinhasBean verStatus(Contasreceber contasreceber) {
+		BolinhasBean bolinhasBean = new BolinhasBean();
+		if (contasreceber.getSituacao().equalsIgnoreCase("vd")) {
+			bolinhasBean.setCaminho("../../resources/img/bolaVerde.png");
+			bolinhasBean.setCor("Verde");
+			return bolinhasBean;
+		} else {
+			if (contasreceber.getSituacao().equalsIgnoreCase("vm")) {
+				bolinhasBean.setCaminho("../../resources/img/bolaVermelha.png");
+				bolinhasBean.setCor("Vermelha");
+				return bolinhasBean;
+			} else {
+				if (contasreceber.getSituacao().equalsIgnoreCase("am")) {
+					bolinhasBean.setCaminho("../../resources/img/bolaAmarela.png");
+					bolinhasBean.setCor("Amarela");
+					return bolinhasBean;
+				}
+			}
+		}
+		bolinhasBean.setCaminho("../../resources/img/bolaVerde.png");
+		bolinhasBean.setCor("Verde");
+		return bolinhasBean;
+	}
     
 }

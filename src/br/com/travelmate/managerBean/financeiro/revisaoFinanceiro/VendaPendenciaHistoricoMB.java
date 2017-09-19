@@ -2,6 +2,7 @@ package br.com.travelmate.managerBean.financeiro.revisaoFinanceiro;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,12 +13,12 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.VendaMotivoPendenciaFacade;
+import br.com.travelmate.facade.VendaPendenciaFacade;
 import br.com.travelmate.facade.VendaPendenciaHistoricoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Vendamotivopendencia;
 import br.com.travelmate.model.Vendapendenciahistorico;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.util.Mensagem;
 
 
 @Named
@@ -38,6 +39,7 @@ public class VendaPendenciaHistoricoMB implements Serializable{
     private Vendapendenciahistorico vendapendenciahistorico;
     private List<Vendamotivopendencia> listaVendaMotivoPencencia;
     private Vendamotivopendencia vendamotivopendencia;
+    private Date dataProximoContato;
 	
 	
 	@PostConstruct
@@ -135,6 +137,16 @@ public class VendaPendenciaHistoricoMB implements Serializable{
 	}
 
 
+	public Date getDataProximoContato() {
+		return dataProximoContato;
+	}
+
+
+	public void setDataProximoContato(Date dataProximoContato) {
+		this.dataProximoContato = dataProximoContato;
+	}
+
+
 	public String voltarCadastroRF() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -150,8 +162,12 @@ public class VendaPendenciaHistoricoMB implements Serializable{
 	
 	public void salvarHistorico(){
 		VendaPendenciaHistoricoFacade vendaPendenciaHistoricoFacade = new VendaPendenciaHistoricoFacade();
+		VendaPendenciaFacade vendaPendenciaFacade = new VendaPendenciaFacade();
+		venda.getVendapendencia().setDataproximocontato(dataProximoContato);
+		vendaPendenciaFacade.salvar(venda.getVendapendencia());
 		vendapendenciahistorico.setVendapendencia(venda.getVendapendencia());
 		vendapendenciahistorico.setUsuario(usuarioLogadoMB.getUsuario());
+		vendapendenciahistorico.setDatahistorico(new Date());
 		vendapendenciahistorico = vendaPendenciaHistoricoFacade.salvar(vendapendenciahistorico);
 		if (venda.getVendapendencia().getVendapendenciahistoricoList() != null) {
 			venda.getVendapendencia().getVendapendenciahistoricoList().add(vendapendenciahistorico);

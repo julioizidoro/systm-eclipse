@@ -261,7 +261,7 @@ public class RevisaoFinanceiroMB implements Serializable{
 			listaVendaNova = new ArrayList<>();
 		}
 		listaVendaPendente = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='P'"+
-				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.dataVenda DESC");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.vendapendencia.dataproximocontato ");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();
 		}
