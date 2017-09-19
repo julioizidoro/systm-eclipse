@@ -176,13 +176,16 @@ public class CadPromocoesTaxaMB implements Serializable {
 					+ ") and f.produtosorcamento.tipoproduto='C' and f.fornecedorcidadeidioma.fornecedorcidade.fornecedor.idfornecedor="
 					+ fornecedor.getIdfornecedor()
 					+ " group by f.produtosorcamento.idprodutosOrcamento order by f.produtosorcamento.descricao";
-		}
-		FornecedorCidadeIdiomaProdutoFacade fornecedorCidadeFacade = new FornecedorCidadeIdiomaProdutoFacade();
-		listaProdutos = fornecedorCidadeFacade.listar(sql);
-		if (listaProdutos == null || listaProdutos.size() == 0) {
-			Mensagem.lancarMensagemInfo("Atenção", "Este fornecedor não possui produtos cadastrados.");
-		} else {
-			listaProdutosSelecionado = listaProdutos;
+			
+			FornecedorCidadeIdiomaProdutoFacade fornecedorCidadeFacade = new FornecedorCidadeIdiomaProdutoFacade();
+			listaProdutos = fornecedorCidadeFacade.listar(sql);
+			if (listaProdutos == null || listaProdutos.size() == 0) {
+				Mensagem.lancarMensagemInfo("Atenção", "Este fornecedor não possui produtos cadastrados.");
+			} else {
+				listaProdutosSelecionado = listaProdutos;
+			}
+		}else{
+			listaProdutos = new ArrayList<>();
 		}
 	}
 
