@@ -1,10 +1,18 @@
 package br.com.travelmate.managerBean.financeiro.crmcobranca;
 
 
+import br.com.travelmate.facade.CobrancaFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
+import br.com.travelmate.facade.HistoricoCobrancaFacade;
 import br.com.travelmate.facade.TiSolicitacoesFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Historicocobranca;
 import br.com.travelmate.model.Tisolicitacoes;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -16,11 +24,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 @Named
@@ -28,6 +39,8 @@ import org.primefaces.event.RowEditEvent;
 public class VisualizarContasCobrancaMB implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Vendas venda;
 	private String titulo;
 	private List<Contasreceber> listaContasReceber;
@@ -146,10 +159,31 @@ public class VisualizarContasCobrancaMB implements Serializable{
 			contasReceberFacade.salvar(contasreceber);
 			Mensagem.lancarMensagemInfo("Editado com sucesso!", "");
 		}
+		if (contasreceber.getBoletoenviado()) {
+			contasreceber.setDataalterada(Boolean.TRUE);
+			contasreceber.setBoletoenviado(Boolean.FALSE);
+		}
+		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+		contasreceber = contasReceberFacade.salvar(contasreceber);
+		Crmcobrancahistorico crmcobrancahistorico = new Crmcobrancahistorico();
+		crmcobrancahistorico.setHistorico("Nova Data de vencimento da parcela "+ contasreceber.getNumeroparcelas() + " para " 
+				+ Formatacao.ConvercaoDataPadrao(contasreceber.getDatanovovencimento()));
+		crmcobrancahistorico.setCliente(venda.getCliente());
+		crmcobrancahistorico.setData(new Date());
+		crmcobrancahistorico.setUsuario(usuarioLogadoMB.getUsuario());
+		crmcobrancahistorico.setProximocontato(new Date());
+		crmcobrancahistorico.setTipocontato("");
+		CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
+		crmCobrancaHistoricoFacade.salvar(crmcobrancahistorico);
 	}
 	
 	
 	public void cancelarEdicao(RowEditEvent event) {
 		Mensagem.lancarMensagemInfo("Operação cancelada!", "");
+	}
+	
+	
+	public void fechar(){
+		RequestContext.getCurrentInstance().closeDialog(null);
 	}
 }

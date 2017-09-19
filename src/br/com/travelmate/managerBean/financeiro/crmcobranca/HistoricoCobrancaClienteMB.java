@@ -22,7 +22,9 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext; 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+
 import br.com.travelmate.facade.AupairFacade; 
 import br.com.travelmate.facade.CrmCobrancaFacade;
 import br.com.travelmate.facade.CrmCobrancaHistoricoFacade;
@@ -495,6 +497,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		session.setAttribute("venda", venda);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 750);
+		options.put("closable", false);
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceberCobranca", options, null);
 		return "";
 	}
@@ -933,6 +936,11 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 			desabilitarCampos = true;
 			habilitarPrioridade = false;
 		}
+	}
+	
+	
+	public void retornoDialogContas(SelectEvent event){
+		gerarListaCobrancaHistorico();
 	}
 	
 

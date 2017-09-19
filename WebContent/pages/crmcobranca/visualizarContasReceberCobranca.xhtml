@@ -20,7 +20,10 @@
         <p:growl id="growl" showDetail="true" sticky="false"
 					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
             <title>Contas a Receber</title>
-               
+               	<h:panelGrid style="width:100%;text-align:right">
+					<p:commandButton icon="ui-icon-closethick"
+						action="#{visualizarContasCobrancaMB.fechar()}" />
+				</h:panelGrid>
                 <h:outputLabel value="Contas a Receber" style="font-size:12px;"/> 
                 <p:dataTable editable="true" scrollable="true" scrollHeight="200" id="tabelaContasRecebers" var="contasreceber"  value="#{visualizarContasCobrancaMB.listaContasReceber}"  style="margin-bottom:20px" >
                     

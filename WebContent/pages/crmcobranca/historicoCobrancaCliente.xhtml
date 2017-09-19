@@ -131,6 +131,7 @@
 											<p:outputLabel value="CONTAS A" style="font-size:11px;" />
 											<p:outputLabel value="RECEBER" style="font-size:11px;" />
 										</h:panelGrid>
+										<p:ajax event="dialogReturn" listener="#{historicoCobrancaClienteMB.retornoDialogContas}" update=":historicoCliente:tabelaHistorico"/>
 									</p:commandLink> 
 									<p:commandLink id="btnEnviarEmail" title="Enviar E-mail"
 										action="#{historicoCobrancaClienteMB.enviarEmailCobrancaCliente()}"
