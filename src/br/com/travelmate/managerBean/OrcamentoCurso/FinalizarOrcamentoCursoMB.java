@@ -472,6 +472,10 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			ocurso.setValorvisto(resultadoOrcamentoBean.getValorVistoConsular());
 			ocurso.setValoroutros(resultadoOrcamentoBean.getValorOutros());
 			ocurso.setValoravista(ocurso.getTotalmoedanacional());
+			ocurso.setOcrusoprodutosList(null);
+			ocurso.setOcursodescontoList(null);
+			ocurso.setOcursoformapagamentoList(null);
+			ocurso.setOcursoseguroList(null);
 			ocurso = orCursoFacade.salvar(ocurso);
 			salvarFormaPagamento();
 			if (resultadoOrcamentoBean.getListaOutrosProdutos() != null) {
