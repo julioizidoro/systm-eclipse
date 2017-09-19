@@ -42,7 +42,8 @@ import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
-import br.com.travelmate.model.Aupair; 
+import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Curso;
@@ -941,6 +942,14 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	public void retornoDialogContas(SelectEvent event){
 		gerarListaCobrancaHistorico();
+	}
+	
+	
+	public String verificarTelefone(){
+		if (venda.getCliente().getFoneCelular() != null  && venda.getCliente().getFoneCelular().length() > 0) {
+			return venda.getCliente().getFoneCelular();
+		}
+		return venda.getCliente().getFoneResidencial();
 	}
 	
 

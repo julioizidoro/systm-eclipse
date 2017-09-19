@@ -43,6 +43,8 @@ public class Produtos implements Serializable {
 	private Integer idgerente;
 	@Column(name = "tipo")
 	private String tipo;
+	@Column(name = "mostrar")
+	private boolean mostrar;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos", fetch = FetchType.LAZY)  
 	private List<Fornecedorcidade> fornecedorcidadeList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtos")
@@ -103,6 +105,14 @@ public class Produtos implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public boolean isMostrar() {
+		return mostrar;
+	}
+
+	public void setMostrar(boolean mostrar) {
+		this.mostrar = mostrar;
 	}
 
 	public List<Tipoarquivoproduto> getTipoarquivoprodutoList() {
