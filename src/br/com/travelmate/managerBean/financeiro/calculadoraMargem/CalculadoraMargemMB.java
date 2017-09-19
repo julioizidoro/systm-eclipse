@@ -59,6 +59,7 @@ public class CalculadoraMargemMB implements Serializable {
 	private float valorEntrada;
 	private float saldoParcelar;
 	private int numeroParcelas;
+	private Date dataVencimento;
 	private Date dataVenda;
 	private Date dataInicio;
 	private float desagio;
@@ -177,6 +178,14 @@ public class CalculadoraMargemMB implements Serializable {
 
 	public float getCustoFranquia() {
 		return custoFranquia;
+	}
+
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 
 	public void setCustoFranquia(float custoFranquia) {
@@ -657,7 +666,8 @@ public class CalculadoraMargemMB implements Serializable {
 	public void gerarListaProdutos(){
 	 	produtoOrcamento = new Produtosorcamento();
         FiltroOrcamentoProdutoFacade filtroOrcamentoFacade = new FiltroOrcamentoProdutoFacade();
-        listaProdutosOrcamento = filtroOrcamentoFacade.pesquisar("select f from Filtroorcamentoproduto f order by f.produtosorcamento.descricao");
+        listaProdutosOrcamento = filtroOrcamentoFacade.pesquisar("select f from Filtroorcamentoproduto f "
+        		+ "where f.produtos.idprodutos="+produto.getIdprodutos()+" order by f.produtosorcamento.descricao");
         if(listaProdutosOrcamento==null){
         		listaProdutosOrcamento = new ArrayList<Filtroorcamentoproduto>();
         }
@@ -670,4 +680,21 @@ public class CalculadoraMargemMB implements Serializable {
 		}
 	}
 
+	public String numeroColunas() {
+		if(curso) {
+			return "3";
+		}else return "2";
+	}
+	
+	public String classColunas() {
+		if(curso) {
+			return "tamanho14, cadCliente2, cadCliente2";
+		}else return "tamanho14, tamanho14";
+	}
+	
+	public String tamanhoPainel() {
+		if(curso) {
+			return "97%";
+		}else return "35%";
+	}
 }

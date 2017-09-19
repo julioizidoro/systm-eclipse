@@ -27,7 +27,7 @@
 			</p:selectOneMenu>
 		</h:panelGrid> 
 		<br></br>
-		<h:panelGrid columns="3" columnClasses="tamanho14, tamanho14,tamanho14">
+		<h:panelGrid columns="3" columnClasses="tamanho14, tamanho14,tamanho14" style="width:97%;">
 			<p:outputLabel value="País" />
 			<p:outputLabel value="Cidade" />
 			<p:outputLabel value="Parceiro" /> 
@@ -72,30 +72,63 @@
 					value="#{calculadoraMargemMB.listaFornecedorCidade}" />
 				<p:ajax event="change" listener="#{calculadoraMargemMB.veficicarPrograma()}" update="valoresProgramas"/>
 			</p:selectOneMenu>
-			
-			<p:outputLabel/> <p:outputLabel/> <p:outputLabel/>  
-			<p:outputLabel value="Valor Total" />
-			<p:outputLabel value="Entrada" />
-			<p:outputLabel value="Saldo Parcelado" /> 
-			
+		</h:panelGrid>    
+		<br></br>
+		<h:panelGrid columns="#{calculadoraMargemMB.numeroColunas()}" columnClasses="#{calculadoraMargemMB.classColunas()}" 
+			style="width:#{calculadoraMargemMB.tamanhoPainel()}">
+			<p:outputLabel value="Curso" rendered="#{calculadoraMargemMB.curso}"/>    
+			<p:outputLabel value="Data Início"/> 
+			<p:outputLabel value="Data Venda"/> 
+			  
+			<p:selectOneMenu id="produto" rendered="#{calculadoraMargemMB.curso}"
+				value="#{calculadoraMargemMB.produtoOrcamento}"
+				style="width:200px;"
+				converter="ProdutoOrcamentoConverter" filter="true" 
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Selecione" itemValue="0"          
+					noSelectionOption="true" />
+				<f:selectItems id="idproduto"
+					value="#{calculadoraMargemMB.listaProdutosOrcamento}" var="cproduto"
+					itemLabel="#{cproduto.produtosorcamento.descricao}"
+					itemValue="#{cproduto.produtosorcamento}" />
+				<f:attribute name="listaProdutos"         
+					value="#{calculadoraMargemMB.listaProdutosOrcamento}" />
+			</p:selectOneMenu>
+			<p:calendar id="datainicial"
+				value="#{calculadoraMargemMB.dataInicio}" size="15"
+				locale="pt" pattern="dd/MM/yyyy"
+				mask="true" maxlength="15">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>   
+			<p:calendar id="dataVenda"
+				value="#{calculadoraMargemMB.dataVenda}" size="14"
+				locale="pt" pattern="dd/MM/yyyy"
+				mask="true" maxlength="15">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+		</h:panelGrid>   
+		<hr style="color: #A6CE39;"></hr>
+		<div align="center">
+			<p:outputLabel value="Valor Total" style="font-size:14px;"/>
+			<br></br>
 			<h:panelGroup id="valoresProgramas">
 				<h:panelGroup id="curso" rendered="#{calculadoraMargemMB.curso}">
 					<p:inputText value="#{calculadoraMargemMB.valorTotal}"   
-						style="width:80%;text-align:right;">
+						style="text-align:right;">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						<p:ajax event="blur"/>
 					</p:inputText>
 				</h:panelGroup>
 				<h:panelGroup id="voluntariado" rendered="#{calculadoraMargemMB.voluntariado}">
 					<p:inputText value="#{calculadoraMargemMB.valorTotal}"   
-						style="width:80%;text-align:right;">
+						style="text-align:right;">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						<p:ajax event="blur"/>
 					</p:inputText>
 				</h:panelGroup>
 				<h:panelGroup id="demipair" rendered="#{calculadoraMargemMB.demipair}">
 					<p:inputText value="#{calculadoraMargemMB.valorTotal}"   
-						style="width:80%;text-align:right;">
+						style="text-align:right;">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						<p:ajax event="blur"/>  
 					</p:inputText>   
@@ -112,7 +145,7 @@
 							<p:ajax event="change" update="valorAupair" listener="#{calculadoraMargemMB.buscarValorPrograma()}"/>
 						</p:selectOneMenu>
 						<p:inputText id="valorAupair" value="#{calculadoraMargemMB.valorTotal}"   
-							style="width:90%;text-align:right;margin-left:5%;">
+							style="text-align:right;margin-left:3%;">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
@@ -134,7 +167,7 @@
 							<p:ajax event="change" update="valortrainee" listener="#{calculadoraMargemMB.buscarValorPrograma()}"/>
 						</p:selectOneMenu>
 						<p:inputText id="valortrainee" value="#{calculadoraMargemMB.valorTotal}"   
-							style="width:90%;text-align:right;margin-left:5%;">
+							style="text-align:right;margin-left:3%;">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
@@ -156,7 +189,7 @@
 							<p:ajax event="change" update="valorwork" listener="#{calculadoraMargemMB.buscarValorPrograma()}"/>
 						</p:selectOneMenu>
 						<p:inputText id="valorwork" value="#{calculadoraMargemMB.valorTotal}"   
-							style="width:90%;text-align:right;margin-left:5%;">
+							style="text-align:right;margin-left:3%;">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
@@ -178,7 +211,7 @@
 							<p:ajax event="change" update="valorhighschool"  listener="#{calculadoraMargemMB.buscarValorPrograma()}"/>
 						</p:selectOneMenu>
 						<p:inputText id="valorhighschool" value="#{calculadoraMargemMB.valorTotal}"   
-							style="width:90%;text-align:right;margin-left:5%;">
+							style="text-align:right;margin-left:3%;">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
@@ -200,22 +233,59 @@
 							<p:ajax event="change" update="valorcursosTeens" listener="#{calculadoraMargemMB.buscarValorPrograma()}"/>
 						</p:selectOneMenu>
 						<p:inputText id="valorcursosTeens" value="#{calculadoraMargemMB.valorTotal}"   
-							style="width:90%;text-align:right;margin-left:5%;">
+							style="text-align:right;margin-left:3%;">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
 				</h:panelGroup>
-			</h:panelGroup> 
+			</h:panelGroup>   
+		</div>
+		<br></br>
+		<h:panelGrid columns="4" columnClasses="tamanho14, tamanho14,tamanho14, tamanho14" style="width:90%;"> 
+			<p:outputLabel value="Entrada" /> 
+			<p:outputLabel value="Saldo Parcelado" />   
+			<p:outputLabel value="N. Parcelas" /> 
+			<p:outputLabel value="" />
+			 
 			<p:inputText id="entrada" value="#{calculadoraMargemMB.valorEntrada}"   
 				style="width:80%;text-align:right;">
 				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 				<p:ajax event="blur" listener="#{calculadoraMargemMB.valorParcelamento()}" 
 					update="saldoParcelado, :calcularMargem:desagio, :calcularMargem:juros, :calcularMargem:custoTotal"/>     
 			</p:inputText>
+			
 			<p:inputText id="saldoParcelado" value="#{calculadoraMargemMB.saldoParcelar}"   
 				style="width:80%;text-align:right;">
 				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 			</p:inputText>
+			<p:selectOneMenu id="nparcela" value="#{calculadoraMargemMB.numeroParcelas}"
+				style="width:70px;font-size: 10px;">
+				<f:selectItem itemLabel="01" itemValue="01" />
+				<f:selectItem itemLabel="02" itemValue="02" />    
+				<f:selectItem itemLabel="03" itemValue="03" />
+				<f:selectItem itemLabel="04" itemValue="04" />
+				<f:selectItem itemLabel="05" itemValue="05" />
+				<f:selectItem itemLabel="06" itemValue="06" />
+				<f:selectItem itemLabel="07" itemValue="07" />
+				<f:selectItem itemLabel="08" itemValue="08" />
+				<f:selectItem itemLabel="09" itemValue="09" />
+				<f:selectItem itemLabel="10" itemValue="10" />
+				<f:selectItem itemLabel="11" itemValue="11" />
+				<f:selectItem itemLabel="12" itemValue="12" />
+				<f:selectItem itemLabel="13" itemValue="13" />
+				<f:selectItem itemLabel="14" itemValue="14" />
+				<f:selectItem itemLabel="15" itemValue="15" />
+				<f:selectItem itemLabel="16" itemValue="16" />
+				<f:selectItem itemLabel="17" itemValue="17" />
+				<f:selectItem itemLabel="18" itemValue="18" />
+				<f:selectItem itemLabel="19" itemValue="19" />
+				<f:selectItem itemLabel="20" itemValue="20" />    
+				<f:selectItem itemLabel="21" itemValue="21" />
+				<f:selectItem itemLabel="22" itemValue="22" />
+				<f:selectItem itemLabel="23" itemValue="23" />
+				<f:selectItem itemLabel="24" itemValue="24" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
 		</h:panelGrid>   
 		<br></br>
 		<h:panelGrid columns="4" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14" style="width:90%;">
@@ -253,23 +323,7 @@
 		<h:panelGroup id="painelMargem" rendered="#{calculadoraMargemMB.margem}">
 			<legend id="iUsu3">
 				<b style="font-size:13px;">Margem</b>
-			</legend>  
-			<p:outputLabel value="Curso" rendered="#{calculadoraMargemMB.curso}"/><br></br>
-			<p:selectOneMenu id="produto" rendered="#{calculadoraMargemMB.curso}"
-				value="#{calculadoraMargemMB.produtoOrcamento}"
-				style="width:240px;"
-				converter="ProdutoOrcamentoConverter" filter="true"
-				filterMatchMode="startsWith">
-				<f:selectItem itemLabel="Selecione" itemValue="0"          
-					noSelectionOption="true" />
-				<f:selectItems id="idproduto"
-					value="#{calculadoraMargemMB.listaProdutosOrcamento}" var="cproduto"
-					itemLabel="#{cproduto.produtosorcamento.descricao}"
-					itemValue="#{cproduto.produtosorcamento}" />
-				<f:attribute name="listaProdutos"         
-					value="#{calculadoraMargemMB.listaProdutosOrcamento}" />
-			</p:selectOneMenu>
-			<br></br><br></br>
+			</legend>   
 			<h:panelGrid columns="4" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
 				<p:outputLabel value="Comissão" />
 				<p:outputLabel value="Assessoria TM" />
@@ -296,10 +350,10 @@
 					style="width:70%;text-align:right;">
 					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 				</p:inputText>
-			</h:panelGrid>
+			</h:panelGrid>   
 			<br></br>   
 			<div align="center" style="width:98%;">
-				<p:outputLabel value="Margem Final" style="font-size:12px;"/><br/>
+				<p:outputLabel value="Margem Final" style="font-size:14px;"/><br/>
 				<p:inputText id="margemFinal"
 					value="#{calculadoraMargemMB.descontoloja}"
 					style="width:20%;text-align:right;font-size:12px;">
