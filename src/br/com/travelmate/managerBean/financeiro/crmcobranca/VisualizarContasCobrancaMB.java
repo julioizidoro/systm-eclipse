@@ -8,7 +8,6 @@ import br.com.travelmate.facade.HistoricoCobrancaFacade;
 import br.com.travelmate.facade.TiSolicitacoesFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
-import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Formapagamento;
@@ -137,7 +136,7 @@ public class VisualizarContasCobrancaMB implements Serializable{
 
 	public String retornarCorContaVencida(Contasreceber contasreceber) {
 		if (contasreceber.getCrmcobrancaconta() != null
-				&& contasreceber.getCrmcobrancaconta().getCrmcobranca().getDatafinalizada() == null) {
+				&& contasreceber.getCrmcobrancaconta().getPaga()==false){
 			return "color:red;";
 		}
 		return "";

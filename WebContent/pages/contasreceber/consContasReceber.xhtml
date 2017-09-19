@@ -23,7 +23,7 @@
 							<p:outputLabel value="Cliente" for="idnomecliente" />
 							<p:outputLabel value="Periodo" for="dataIni" />
 							<p:outputLabel value="Status" for="status" />
-							<p:outputLabel value="Status Cobrança" for="situacao" />
+							<p:outputLabel value=""  />
 
 							<p:inputText id="nDocumento" style="width:90%;" maxlength="100"
 								class="fontebranca" value="#{contasReceberMB.nDocumento}" />
@@ -54,14 +54,7 @@
 								<f:selectItem itemLabel="Recebidas" itemValue="Recebidas" />
 								<f:selectItem itemLabel="Canceladas" itemValue="canceladas" />
 							</p:selectOneMenu>
-							<p:selectOneMenu id="statuscobranca" style="width:90%;"
-								value="#{contasReceberMB.statusCobranca}">
-								<f:selectItem itemLabel="Selecione" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItem itemLabel="Dentro do Prazo" itemValue="p" />
-								<f:selectItem itemLabel="Urgente" itemValue="u" />
-								<f:selectItem itemLabel="Alta Prioridade" itemValue="a" />
-							</p:selectOneMenu>
+							<p:outputLabel/>
 						</h:panelGrid>
 						<br></br>
 						<h:panelGrid columns="6"

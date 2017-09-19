@@ -18,7 +18,6 @@ public class CrmCobrancaDao {
 		tx.begin();
 		crmcobranca = manager.merge(crmcobranca);
         tx.commit();
-        manager.close();
         return crmcobranca;
     }
     
@@ -31,7 +30,6 @@ public class CrmCobrancaDao {
         if (q.getResultList().size() > 0) {
         	crmcobranca =  (Crmcobranca) q.getResultList().get(0);
         } 
-        manager.close();
         return crmcobranca;
     }
     
@@ -42,7 +40,6 @@ public class CrmCobrancaDao {
 		Crmcobranca crmcobranca = manager.find(Crmcobranca.class, idcrm);
         manager.remove(crmcobranca);
         tx.commit();
-        manager.close();
     }
     
     
@@ -50,7 +47,6 @@ public class CrmCobrancaDao {
     		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Crmcobranca> lista = q.getResultList();
-        manager.close();
         return lista;
     }
 

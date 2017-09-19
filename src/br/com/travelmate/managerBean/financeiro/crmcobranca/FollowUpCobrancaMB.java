@@ -544,7 +544,7 @@ public class FollowUpCobrancaMB implements Serializable{
 		prox7 = 0;
 		todos = 0;
 		hoje = 0;
-		sql = "select l from Crmcobranca l where (l.nota like '%%' or l.nota is null) ";
+		sql = "select l from Crmcobranca l where (l.nota like '%%' or l.nota is null) and  l.situacao<>'FINALIZADA' ";
 		
 		if (idvenda >0) {
 			sql = sql + " and l.vendas.idvendas=" + idvenda;
