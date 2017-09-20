@@ -44,6 +44,7 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -318,6 +319,7 @@ public class WorkTravelMB implements Serializable {
 			work.setHabilitarImagemGerencial(false);
 			work.setHabilitarImagemFranquia(true);
 			work.setImagem("../../resources/img/finalizadoFicha.png");
+			work.setTituloFicha("FICHA FINALIZADA");
 		} else if (work.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				work.setHabilitarImagemGerencial(true);
@@ -327,10 +329,12 @@ public class WorkTravelMB implements Serializable {
 				work.setHabilitarImagemFranquia(true);
 			}
 			work.setImagem("../../resources/img/amarelaFicha.png");
+			work.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		} else if (work.getVendas().getSituacao().equals("CANCELADA")) {
 			work.setHabilitarImagemGerencial(false);
 			work.setHabilitarImagemFranquia(true);
 			work.setImagem("../../resources/img/fichaCancelada.png");
+			work.setTituloFicha("FICHA CANCELADA");
 		} else if ((work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
 				&& (work.getVendas().isRestricaoparcelamento())) {
 			if (usuarioLogadoMB.isFinanceiro()) {
@@ -341,10 +345,12 @@ public class WorkTravelMB implements Serializable {
 				work.setHabilitarImagemFranquia(true);
 			}
 			work.setImagem("../../resources/img/ficharestricao.png");
+			work.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			work.setHabilitarImagemGerencial(false);
 			work.setHabilitarImagemFranquia(true);
 			work.setImagem("../../resources/img/processoFicha.png");
+			work.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return work.isHabilitarImagemGerencial();
 	}
@@ -781,5 +787,16 @@ public class WorkTravelMB implements Serializable {
 	public String buscarObsTM(Worktravel worktravel) {
 		obsTM = worktravel.getObstm();
 		return obsTM;
+	}
+	
+	
+	public String visualizarContasReceber(Worktravel worktravel) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", worktravel.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 }

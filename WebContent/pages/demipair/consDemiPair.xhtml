@@ -97,13 +97,13 @@
 					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
 
 					<p:column style="width:40px;">
-						<p:commandLink
+						<p:commandLink 
 							action="#{demiPairMB.dialogSalvarControle(demipair)}"
-							onclick="PF('liberarficha').show();" title=""
+							onclick="PF('liberarficha').show();" title="#{demipair.tituloFicha}"
 							rendered="#{demiPairMB.imagemSituacaoUsuario(demipair)}">
 							<img src="#{demipair.imagem}" width="60%" />
 						</p:commandLink>
-						<p:commandLink rendered="#{demipair.habilitarImagemFranquia}">
+						<p:commandLink title="#{demipair.tituloFicha}" rendered="#{demipair.habilitarImagemFranquia}">
 							<img src="#{demipair.imagem}" width="60%" />
 						</p:commandLink>
 					</p:column>
@@ -168,13 +168,13 @@
 							<img src="../../resources/img/informacaoVendaVerde.png" />
 						</p:commandLink>
 						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:800px; border:none;">
+							hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
 							<p:outputLabel
 								value="#{demipair.vendas.idvendas} - #{demipair.vendas.cliente.nome}"
 								style="text-align:center;font-size:15px;" />
 							<br />
 							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 								
 									<p:commandLink action="#{demiPairMB.boletos(demipair)}" disabled="#{demiPairMB.botoesHabilitados(demipair)}"
 										title="IMPRIMIR OS BOLETOS"
@@ -257,6 +257,18 @@
 												<p:outputLabel value=" "/>
 											</h:panelGrid>
 										</p:commandLink>
+										
+										<p:commandLink
+												action="#{demiPairMB.visualizarContasReceber(demipair)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 										
 										<p:commandLink  
 											action="#{demiPairMB.cancelarVenda(demipair.vendas)}"

@@ -36,6 +36,7 @@ import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
@@ -592,5 +593,23 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		}else{
 			return "Não Matriz";
 		}
+	}
+	
+	public boolean retornarBotaoContasReceber(Seguroviagem seguroviagem){
+		if (seguroviagem.getIdvendacurso() == 0) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public String visualizarContasReceber(Seguroviagem seguroviagem) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", seguroviagem.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 }

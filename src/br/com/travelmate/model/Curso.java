@@ -239,6 +239,8 @@ public class Curso implements Serializable {
 	private String codigo;
 	@Column(name = "tipoimportacaoorcamento")
 	private String tipoimportacaoorcamento;
+	@Transient
+	private String tituloFicha;
 
 	public Curso() {
 		setFumante("Não");
@@ -876,6 +878,16 @@ public class Curso implements Serializable {
 
 	public void setTipoimportacaoorcamento(String tipoimportacaoorcamento) {
 		this.tipoimportacaoorcamento = tipoimportacaoorcamento;
+	}
+	
+	
+
+	public String getTituloFicha() {
+		return tituloFicha;
+	}
+
+	public void setTituloFicha(String tituloFicha) {
+		this.tituloFicha = tituloFicha;
 	}
 
 	@Override

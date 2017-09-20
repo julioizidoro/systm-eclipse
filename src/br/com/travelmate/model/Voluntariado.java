@@ -252,13 +252,14 @@ public class Voluntariado implements Serializable {
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
-    
     @Transient 
     private boolean habilitarImagemGerencial;
     @Transient 
     private boolean habilitarImagemFranquia;
     @Transient 
     private String imagem;
+    @Transient
+    private String tituloFicha;
     
     
     
@@ -893,6 +894,14 @@ public class Voluntariado implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public String getTituloFicha() {
+		return tituloFicha;
+	}
+
+	public void setTituloFicha(String tituloFicha) {
+		this.tituloFicha = tituloFicha;
 	}
 
 	@Override

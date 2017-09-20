@@ -41,6 +41,7 @@ import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controleaupair;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
@@ -316,6 +317,7 @@ public class AuPairMB implements Serializable {
 			aupair.setHabilitarImagemGerencial(false);
 			aupair.setHabilitarImagemFranquia(true);
 			aupair.setImagem("../../resources/img/finalizadoFicha.png");
+			aupair.setTituloFicha("FICHA FINALIZADA");
 		} else if (aupair.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				aupair.setHabilitarImagemGerencial(true);
@@ -325,10 +327,12 @@ public class AuPairMB implements Serializable {
 				aupair.setHabilitarImagemFranquia(true);
 			}
 			aupair.setImagem("../../resources/img/amarelaFicha.png");
+			aupair.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		} else if (aupair.getVendas().getSituacao().equals("CANCELADA")) {
 			aupair.setHabilitarImagemGerencial(false);
 			aupair.setHabilitarImagemFranquia(true);
 			aupair.setImagem("../../resources/img/fichaCancelada.png");
+			aupair.setTituloFicha("FICHA CANCELADA");
 		} else if ((aupair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
 				&& (aupair.getVendas().isRestricaoparcelamento())) {
 			if (usuarioLogadoMB.isFinanceiro()) {
@@ -339,10 +343,12 @@ public class AuPairMB implements Serializable {
 				aupair.setHabilitarImagemFranquia(true);
 			}
 			aupair.setImagem("../../resources/img/ficharestricao.png");
+			aupair.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			aupair.setHabilitarImagemGerencial(false);
 			aupair.setHabilitarImagemFranquia(true);
 			aupair.setImagem("../../resources/img/processoFicha.png");
+			aupair.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return aupair.isHabilitarImagemGerencial();
 	}
@@ -777,6 +783,17 @@ public class AuPairMB implements Serializable {
 	
 	public void buscarAupair(Aupair aupair) {
 		this.aupair = aupair;
+	}
+	
+	
+	public String visualizarContasReceber(Aupair aupair) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", aupair.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("closable", false);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 
 

@@ -242,6 +242,12 @@
 						</p:commandLink>
 					</p:column>
 					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{consultaSeguroViagemMB.expandirOpcoes}">
+						<p:commandLink action="#{consultaSeguroViagemMB.visualizarContasReceber(seguros)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+							title="VISUALIZAR CONTAS A RECEBER">
+							<img src="../../resources/img/invoice.png" width="36" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{consultaSeguroViagemMB.expandirOpcoes}">
 						<p:commandLink
 							action="#{consultaSeguroViagemMB.cancelarVenda(seguros.vendas)}"
 							style="text-decoration: none" title="Cancelar Ficha"

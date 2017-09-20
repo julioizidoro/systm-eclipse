@@ -83,10 +83,10 @@
 					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
 
 					<p:column style="width:40px;">
-						<p:commandLink  action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupair)}">
+						<p:commandLink title="#{aupair.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupair)}">
 							<img src="#{aupair.imagem}" width="60%"/>
 						</p:commandLink>
-						<p:commandLink rendered="#{aupair.habilitarImagemFranquia}">
+						<p:commandLink title="#{aupair.tituloFicha}" rendered="#{aupair.habilitarImagemFranquia}">
 							<img src="#{aupair.imagem}" width="60%"/>
 						</p:commandLink> 
 					</p:column>
@@ -132,13 +132,13 @@
 							<img src="../../resources/img/informacaoVendaVerde.png" />
 						</p:commandLink>
 						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:700px; border:none;">
+							hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
 							<p:outputLabel
 								value="#{aupair.vendas.idvendas} - #{aupair.vendas.cliente.nome}"
 								style="text-align:center;font-size:15px;" />
 							<br />
 							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 								
 									<p:commandLink action="#{auPairMB.boletos(aupair)}" disabled="#{auPairMB.botoesHabilitados(aupair)}"
 										title="IMPRIMIR OS BOLETOS"
@@ -210,6 +210,18 @@
 												<p:outputLabel value=" "/>
 											</h:panelGrid>
 										</p:commandLink>
+										
+										<p:commandLink
+												action="#{auPairMB.visualizarContasReceber(aupair)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 										
 										<p:commandLink action="#{auPairMB.cancelarVenda(aupair.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupair)}"
 											style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultaaupair:tabelaConsultaAuPair">

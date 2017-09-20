@@ -144,7 +144,7 @@ public class VisualizarContasCobrancaMB implements Serializable{
 	
 	public boolean habilitarEdicao(Contasreceber contasreceber){
 		if (contasreceber.getCrmcobrancaconta() != null
-				&& contasreceber.getCrmcobrancaconta().getCrmcobranca().getDatafinalizada() == null) {
+				&& contasreceber.getCrmcobrancaconta().getPaga()==false) {
 			return true;
 		}
 		return false;

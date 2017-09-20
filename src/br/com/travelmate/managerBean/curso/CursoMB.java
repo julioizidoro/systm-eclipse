@@ -742,6 +742,7 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/finalizadoFicha.png");
+			curso.setTituloFicha("FICHA FINALIZADA");
 		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
 				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
@@ -752,6 +753,7 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/ficharestricao.png");
+			curso.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
 				curso.setHabilitarImagemGerencial(true);
@@ -761,10 +763,12 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/amarelaFicha.png");
+			curso.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		}else if (curso.getVendas().getSituacao().equals("CANCELADA")) {
 			curso.setHabilitarImagemGerencial(false);
 			curso.setHabilitarImagemFranquia(true);
 			curso.setImagem("../../resources/img/fichaCancelada.png");
+			curso.setTituloFicha("FICHA CANCELADA");
 		} else if ((curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
 				&& (curso.getVendas().isRestricaoparcelamento())) {
 			if (usuarioLogadoMB.isFinanceiro()) {
@@ -775,10 +779,12 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/ficharestricao.png");
+			curso.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			curso.setHabilitarImagemGerencial(false);
 			curso.setHabilitarImagemFranquia(true);
 			curso.setImagem("../../resources/img/processoFicha.png");
+			curso.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return curso.isHabilitarImagemGerencial();
 	}
@@ -1087,6 +1093,17 @@ public class CursoMB implements Serializable {
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
+	}
+	
+	
+	public String visualizarContasReceber(Curso curso) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", curso.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 	
 }
