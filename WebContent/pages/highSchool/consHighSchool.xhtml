@@ -128,13 +128,13 @@
 							scrollable="true" scrollHeight="300" rows="15"
 							style="margin-bottom:20px">
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink
+								<p:commandLink title="PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)"
 									action="#{highSchoolMB.buscarHighSchool(highSchoolProcesso)}"
 									onclick="PF('liberarficha').show();"
 									rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchoolProcesso)}">
 									<img src="#{highSchoolProcesso.imagem}" width="60%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{highSchoolProcesso.habilitarImagemFranquia}">
+								<p:commandLink title="PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)" rendered="#{highSchoolProcesso.habilitarImagemFranquia}">
 									<img src="#{highSchoolProcesso.imagem}" width="60%" />
 								</p:commandLink>
 							</p:column>
@@ -294,6 +294,17 @@
 											</h:panelGrid>
 										</p:commandLink> 
 										<p:commandLink
+												action="#{highSchoolMB.visualizarContasReceber(highSchoolProcesso)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+										<p:commandLink
 											action="#{highSchoolMB.cancelarVenda(highSchoolProcesso.vendas)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolProcesso)}"
 											style="text-decoration: none" title="CANCELAR FICHA"
@@ -317,13 +328,13 @@
 							scrollable="true" scrollHeight="300" rows="15"
 							style="margin-bottom:20px">
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink
+								<p:commandLink title="FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)"
 									action="#{highSchoolMB.buscarHighSchool(highSchoolFinanceiro)}"
 									onclick="PF('liberarficha').show();"
 									rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchoolFinanceiro)}">
 									<img src="#{highSchoolFinanceiro.imagem}" width="60%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{highSchoolFinanceiro.habilitarImagemFranquia}">
+								<p:commandLink title="FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)" rendered="#{highSchoolFinanceiro.habilitarImagemFranquia}">
 									<img src="#{highSchoolFinanceiro.imagem}" width="60%" />
 								</p:commandLink>
 							</p:column>
@@ -402,7 +413,7 @@
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade"
-									style="background:#F0F0F0;width:800px; border:none;">
+									style="background:#F0F0F0;width:850px; border:none;">
 									<p:outputLabel
 										value="#{highSchoolFinanceiro.vendas.idvendas} - #{highSchoolFinanceiro.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -410,7 +421,7 @@
 									<br />
 									<h:panelGrid
 										style="width:100%;border-color:transparent;border:none;"
-										columns="8"> 
+										columns="9"> 
 										<p:commandLink action="#{highSchoolMB.boletos(highSchoolFinanceiro)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolFinanceiro)}"
 											title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
@@ -483,6 +494,17 @@
 											</h:panelGrid>    
 										</p:commandLink> 
 										<p:commandLink
+												action="#{highSchoolMB.visualizarContasReceber(highSchoolFinanceiro)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+										<p:commandLink
 											action="#{highSchoolMB.cancelarVenda(highSchoolFinanceiro.vendas)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolFinanceiro)}"
 											style="text-decoration: none" title="CANCELAR FICHA"
@@ -506,13 +528,13 @@
 							scrollable="true" scrollHeight="300" rows="15"
 							style="margin-bottom:20px">
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink
+								<p:commandLink title="ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)"
 									action="#{highSchoolMB.buscarHighSchool(highSchoolAndamento)}"
 									onclick="PF('liberarficha').show();"
 									rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchoolAndamento)}">
 									<img src="#{highSchoolAndamento.imagem}" width="60%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{highSchoolAndamento.habilitarImagemFranquia}">
+								<p:commandLink title="ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)" rendered="#{highSchoolAndamento.habilitarImagemFranquia}">
 									<img src="#{highSchoolAndamento.imagem}" width="60%" />
 								</p:commandLink>
 							</p:column>
@@ -590,7 +612,7 @@
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade"
-									style="background:#F0F0F0;width:800px; border:none;">
+									style="background:#F0F0F0;width:850px; border:none;">
 									<p:outputLabel
 										value="#{highSchoolAndamento.vendas.idvendas} - #{highSchoolAndamento.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -598,7 +620,7 @@
 									<br />
 									<h:panelGrid
 										style="width:100%;border-color:transparent;border:none;"
-										columns="8"> 
+										columns="9"> 
 										<p:commandLink action="#{highSchoolMB.boletos(highSchoolAndamento)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolAndamento)}"
 											title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
@@ -671,6 +693,17 @@
 											</h:panelGrid>    
 										</p:commandLink> 
 										<p:commandLink
+												action="#{highSchoolMB.visualizarContasReceber(highSchoolAndamento)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+										<p:commandLink
 											action="#{highSchoolMB.cancelarVenda(highSchoolAndamento.vendas)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolAndamento)}"
 											style="text-decoration: none" title="CANCELAR FICHA"
@@ -694,13 +727,13 @@
 							scrollable="true" scrollHeight="300" rows="15"
 							style="margin-bottom:20px">
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink
+								<p:commandLink title="FICHA FINALIZADA"
 									action="#{highSchoolMB.buscarHighSchool(highSchoolFinalizado)}"
 									onclick="PF('liberarficha').show();"
 									rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchoolFinalizado)}">
 									<img src="#{highSchoolFinalizado.imagem}" width="60%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{highSchoolFinalizado.habilitarImagemFranquia}">
+								<p:commandLink title="FICHA FINALIZADA" rendered="#{highSchoolFinalizado.habilitarImagemFranquia}">
 									<img src="#{highSchoolFinalizado.imagem}" width="60%" />
 								</p:commandLink>
 							</p:column>
@@ -778,7 +811,7 @@
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade"
-									style="background:#F0F0F0;width:800px; border:none;">
+									style="background:#F0F0F0;width:850px; border:none;">
 									<p:outputLabel
 										value="#{highSchoolFinalizado.vendas.idvendas} - #{highSchoolFinalizado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -786,7 +819,7 @@
 									<br />
 									<h:panelGrid
 										style="width:100%;border-color:transparent;border:none;"
-										columns="8"> 
+										columns="9"> 
 										<p:commandLink action="#{highSchoolMB.boletos(highSchoolFinalizado)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolFinalizado)}"
 											title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
@@ -859,6 +892,17 @@
 											</h:panelGrid>    
 										</p:commandLink> 
 										<p:commandLink
+												action="#{highSchoolMB.visualizarContasReceber(highSchoolFinalizado)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+										<p:commandLink
 											action="#{highSchoolMB.cancelarVenda(highSchoolFinalizado.vendas)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolFinalizado)}"
 											style="text-decoration: none" title="CANCELAR FICHA"
@@ -882,13 +926,13 @@
 							scrollable="true" scrollHeight="300" rows="15"
 							style="margin-bottom:20px">
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink
+								<p:commandLink title="FICHA CANCELADA"
 									action="#{highSchoolMB.buscarHighSchool(highSchoolCancelada)}"
 									onclick="PF('liberarficha').show();"
 									rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchoolCancelada)}">
 									<img src="#{highSchoolCancelada.imagem}" width="60%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{highSchoolCancelada.habilitarImagemFranquia}">
+								<p:commandLink title="FICHA CANCELADA" rendered="#{highSchoolCancelada.habilitarImagemFranquia}">
 									<img src="#{highSchoolCancelada.imagem}" width="60%" />
 								</p:commandLink>
 							</p:column>
@@ -966,7 +1010,7 @@
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade"
-									style="background:#F0F0F0;width:800px; border:none;">
+									style="background:#F0F0F0;width:850px; border:none;">
 									<p:outputLabel
 										value="#{highSchoolCancelada.vendas.idvendas} - #{highSchoolCancelada.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -974,7 +1018,7 @@
 									<br />
 									<h:panelGrid
 										style="width:100%;border-color:transparent;border:none;"
-										columns="8"> 
+										columns="9"> 
 										<p:commandLink action="#{highSchoolMB.boletos(highSchoolCancelada)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
 											title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
@@ -1047,6 +1091,17 @@
 											</h:panelGrid>    
 										</p:commandLink> 
 										<p:commandLink
+												action="#{highSchoolMB.visualizarContasReceber(highSchoolCancelada)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+										<p:commandLink
 											action="#{highSchoolMB.cancelarVenda(highSchoolCancelada.vendas)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
 											style="text-decoration: none" title="CANCELAR FICHA"
@@ -1070,13 +1125,13 @@
 						scrollable="true" scrollHeight="300" rows="15"
 						style="margin-bottom:20px">
 						<p:column style="text-align:center;width:40px;">
-							<p:commandLink
+							<p:commandLink title="#{highSchool.tituloFicha}"
 								action="#{highSchoolMB.buscarHighSchool(highSchool)}"
 								onclick="PF('liberarficha').show();"
 								rendered="#{highSchoolMB.imagemSituacaoUsuario(highSchool)}">
 								<img src="#{highSchool.imagem}" width="60%" />
 							</p:commandLink>
-							<p:commandLink rendered="#{highSchool.habilitarImagemFranquia}">
+							<p:commandLink title="#{highSchool.tituloFicha}" rendered="#{highSchool.habilitarImagemFranquia}">
 								<img src="#{highSchool.imagem}" width="60%" />
 							</p:commandLink>
 						</p:column>
@@ -1155,7 +1210,7 @@
 							</p:commandLink>
 							<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 								hideEffect="fade"
-								style="background:#F0F0F0;width:800px; border:none;">
+								style="background:#F0F0F0;width:850px; border:none;">
 								<p:outputLabel
 									value="#{highSchool.vendas.idvendas} - #{highSchool.vendas.cliente.nome}"
 									style="text-align:center;font-size:15px;" />
@@ -1163,7 +1218,7 @@
 								<br />
 								<h:panelGrid
 									style="width:100%;border-color:transparent;border:none;"
-									columns="8">
+									columns="9">
 	
 									<p:commandLink action="#{highSchoolMB.boletos(highSchool)}"
 										disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
@@ -1235,6 +1290,17 @@
 											<p:outputLabel value=" " />
 										</h:panelGrid>
 									</p:commandLink>
+									<p:commandLink
+												action="#{highSchoolMB.visualizarContasReceber(highSchool)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 									<p:commandLink
 										action="#{highSchoolMB.cancelarVenda(highSchool.vendas)}"
 										disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"

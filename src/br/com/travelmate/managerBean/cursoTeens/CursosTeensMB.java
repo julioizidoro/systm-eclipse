@@ -25,6 +25,7 @@ import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -634,6 +635,7 @@ public class CursosTeensMB implements Serializable {
         	programasteens.setHabilitarImagemGerencial(false);
         	programasteens.setHabilitarImagemFranquia(true);
             programasteens.setImagem("../../resources/img/finalizadoFicha.png");
+            programasteens.setTituloFicha("FICHA FINALIZADA");
         }else if (programasteens.getVendas().getSituacao().equals("ANDAMENTO")
         		 && !programasteens.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
@@ -644,6 +646,7 @@ public class CursosTeensMB implements Serializable {
 				programasteens.setHabilitarImagemFranquia(true);
 			}
 			programasteens.setImagem("../../resources/img/ficharestricao.png");
+			programasteens.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else if (programasteens.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
 				programasteens.setHabilitarImagemGerencial(true);
@@ -653,10 +656,12 @@ public class CursosTeensMB implements Serializable {
 				programasteens.setHabilitarImagemFranquia(true);
 			}
 			programasteens.setImagem("../../resources/img/amarelaFicha.png");
+			programasteens.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		}else if(programasteens.getVendas().getSituacao().equals("CANCELADA")){
         	programasteens.setHabilitarImagemGerencial(false);
         	programasteens.setHabilitarImagemFranquia(true);
             programasteens.setImagem("../../resources/img/fichaCancelada.png");
+            programasteens.setTituloFicha("FICHA CANCELADA");
         }else if ((programasteens.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (programasteens.getVendas().isRestricaoparcelamento())){
         	if (usuarioLogadoMB.isFinanceiro()){
         		programasteens.setHabilitarImagemGerencial(true);
@@ -666,10 +671,12 @@ public class CursosTeensMB implements Serializable {
         		programasteens.setHabilitarImagemFranquia(true);
         	}
         	programasteens.setImagem("../../resources/img/ficharestricao.png");
+        	programasteens.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
         }else {
         	programasteens.setHabilitarImagemGerencial(false);
         	programasteens.setHabilitarImagemFranquia(true);
         	programasteens.setImagem("../../resources/img/processoFicha.png");
+        	programasteens.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
         }
         return programasteens.isHabilitarImagemGerencial();
     }
@@ -853,5 +860,16 @@ public class CursosTeensMB implements Serializable {
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
+	}
+	
+	
+	public String visualizarContasReceber(Programasteens programasteens) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", programasteens.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 }

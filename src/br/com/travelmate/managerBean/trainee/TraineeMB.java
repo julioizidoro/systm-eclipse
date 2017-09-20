@@ -41,6 +41,7 @@ import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controletrainee;
 import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
@@ -352,6 +353,7 @@ public class TraineeMB implements Serializable {
 			trainee.setHabilitarImagemGerencial(false);
 			trainee.setHabilitarImagemFranquia(true);
 			trainee.setImagem("../../resources/img/finalizadoFicha.png");
+			trainee.setTituloFicha("FICHA FINALIZADA");
 		} else if (trainee.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				trainee.setHabilitarImagemGerencial(true);
@@ -361,10 +363,12 @@ public class TraineeMB implements Serializable {
 				trainee.setHabilitarImagemFranquia(true);
 			}
 			trainee.setImagem("../../resources/img/amarelaFicha.png");
+			trainee.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		} else if (trainee.getVendas().getSituacao().equals("CANCELADA")) {
 			trainee.setHabilitarImagemGerencial(false);
 			trainee.setHabilitarImagemFranquia(true);
 			trainee.setImagem("../../resources/img/fichaCancelada.png");
+			trainee.setTituloFicha("FICHA CANCELADA");
 		} else if ((trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
 				&& (trainee.getVendas().isRestricaoparcelamento())) {
 			if (usuarioLogadoMB.isFinanceiro()) {
@@ -375,10 +379,12 @@ public class TraineeMB implements Serializable {
 				trainee.setHabilitarImagemFranquia(true);
 			}
 			trainee.setImagem("../../resources/img/ficharestricao.png");
+			trainee.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			trainee.setHabilitarImagemGerencial(false);
 			trainee.setHabilitarImagemFranquia(true);
 			trainee.setImagem("../../resources/img/processoFicha.png");
+			trainee.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return trainee.isHabilitarImagemGerencial();
 	}
@@ -786,5 +792,16 @@ public class TraineeMB implements Serializable {
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
+	}
+	
+	
+	public String visualizarContasReceber(Trainee traineee) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", traineee.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 }

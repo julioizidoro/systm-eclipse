@@ -341,6 +341,7 @@ public class VoluntariadoMB implements Serializable {
 			voluntariado.setHabilitarImagemGerencial(false);
 			voluntariado.setHabilitarImagemFranquia(true);
 			voluntariado.setImagem("../../resources/img/finalizadoFicha.png");
+			voluntariado.setTituloFicha("FICHA FINALIZADA");
 		} else if (voluntariado.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				voluntariado.setHabilitarImagemGerencial(true);
@@ -350,10 +351,12 @@ public class VoluntariadoMB implements Serializable {
 				voluntariado.setHabilitarImagemFranquia(true);
 			}
 			voluntariado.setImagem("../../resources/img/amarelaFicha.png");
+			voluntariado.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		} else if (voluntariado.getVendas().getSituacao().equals("CANCELADA")) {
 			voluntariado.setHabilitarImagemGerencial(false);
 			voluntariado.setHabilitarImagemFranquia(true);
 			voluntariado.setImagem("../../resources/img/fichaCancelada.png");
+			voluntariado.setTituloFicha("FICHA CANCELADA");
 		} else if ((voluntariado.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
 				&& (voluntariado.getVendas().isRestricaoparcelamento())) {
 			if (usuarioLogadoMB.isFinanceiro()) {
@@ -364,10 +367,12 @@ public class VoluntariadoMB implements Serializable {
 				voluntariado.setHabilitarImagemFranquia(true);
 			}
 			voluntariado.setImagem("../../resources/img/ficharestricao.png");
+			voluntariado.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			voluntariado.setHabilitarImagemGerencial(false);
 			voluntariado.setHabilitarImagemFranquia(true);
 			voluntariado.setImagem("../../resources/img/processoFicha.png");
+			voluntariado.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return voluntariado.isHabilitarImagemGerencial();
 	}
@@ -844,5 +849,17 @@ public class VoluntariadoMB implements Serializable {
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
+	}
+	
+	
+	
+	public String visualizarContasReceber(Voluntariado voluntariado) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", voluntariado.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 }

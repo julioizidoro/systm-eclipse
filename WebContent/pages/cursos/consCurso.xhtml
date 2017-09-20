@@ -106,7 +106,7 @@
 							value="#{cursoMB.listaVendasCursoProcesso}" scrollable="true"
 							scrollHeight="300" >
 							<p:column style="width:38px;"> 
-								<p:commandLink  >  
+								<p:commandLink title="PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)" >  
 									<img src="../../resources/img/processoFicha.png" width="80%" />
 								</p:commandLink>
 							</p:column>
@@ -183,13 +183,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									hideEffect="fade" style="background:#F0F0F0;width:700px;">
 									<p:outputLabel
 										value="#{cursosProcesso.vendas.idvendas} - #{cursosProcesso.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 									
 											<p:commandLink action="#{cursoMB.boletos(cursosProcesso)}" 
 												  title="IMPRIMIR OS BOLETOS" ajax="false"  
@@ -266,6 +266,18 @@
 												</h:panelGrid>
 											</p:commandLink>
 											
+											<p:commandLink
+												action="#{cursoMB.visualizarContasReceber(cursosProcesso)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+											
 											<p:commandLink action="#{cursoMB.cancelarVenda(cursosProcesso)}"
 													style="text-decoration: none" title="CANCELAR FICHA"
 													update=":consultacursos:acordionPainel:tabelaVendasCursoProcesso"
@@ -291,11 +303,11 @@
 							scrollHeight="300">     
 							<p:column style="width:38px;">
 								<p:commandLink actionListener="#{cursoMB.buscarCurso(cursosFinanceiro)}"
-									onclick="PF('liberarficha').show();"
+									onclick="PF('liberarficha').show();" title="FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)"
 									rendered="#{cursoMB.imagemSituacaoUsuario(cursosFinanceiro)}">
 									<img src="../../resources/img/ficharestricao.png" width="80%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{cursosFinanceiro.habilitarImagemFranquia}">
+								<p:commandLink rendered="#{cursosFinanceiro.habilitarImagemFranquia}" title="FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)">
 									<img src="../../resources/img/ficharestricao.png" width="80%" />
 								</p:commandLink>
 							</p:column>
@@ -372,13 +384,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									hideEffect="fade" style="background:#F0F0F0;width:700px;">
 									<p:outputLabel
 										value="#{cursosFinanceiro.vendas.idvendas} - #{cursosFinanceiro.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8"> 
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
 											<p:commandLink action="#{cursoMB.boletos(cursosFinanceiro)}" 
 												  title="IMPRIMIR OS BOLETOS" ajax="false"  
 												 target="_blank"
@@ -452,6 +464,18 @@
 												</h:panelGrid>
 											</p:commandLink>
 											
+											<p:commandLink
+												action="#{cursoMB.visualizarContasReceber(cursosFinanceiro)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+											
 											<p:commandLink action="#{cursoMB.cancelarVenda(cursosFinanceiro)}"
 													style="text-decoration: none" title="CANCELAR FICHA"
 													update=":consultacursos:acordionPainel:tabelaVendasCursoAndamento"
@@ -477,11 +501,11 @@
 							scrollHeight="300">
 							<p:column style="width:38px;">
 								<p:commandLink actionListener="#{cursoMB.buscarCurso(cursosAndamento)}"
-									onclick="PF('liberarficha').show();"
+									onclick="PF('liberarficha').show();" title="ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)"
 									rendered="#{cursoMB.imagemSituacaoUsuario(cursosAndamento)}">
 									<img src="../../resources/img/amarelaFicha.png" width="80%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{cursosAndamento.habilitarImagemFranquia}">
+								<p:commandLink rendered="#{cursosAndamento.habilitarImagemFranquia}" title="ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)">
 									<img src="../../resources/img/amarelaFicha.png" width="80%" />
 								</p:commandLink>
 							</p:column>
@@ -560,13 +584,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									hideEffect="fade" style="background:#F0F0F0;width:700px;">
 									<p:outputLabel
 										value="#{cursosAndamento.vendas.idvendas} - #{cursosAndamento.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8"> 
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
 											<p:commandLink action="#{cursoMB.boletos(cursosAndamento)}" 
 												  title="IMPRIMIR OS BOLETOS" ajax="false"  
 												 target="_blank"
@@ -640,6 +664,18 @@
 												</h:panelGrid>
 											</p:commandLink>
 											
+											<p:commandLink
+												action="#{cursoMB.visualizarContasReceber(cursosAndamento)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+											
 											<p:commandLink action="#{cursoMB.cancelarVenda(cursosAndamento)}"
 													style="text-decoration: none" title="CANCELAR FICHA"
 													update=":consultacursos:acordionPainel:tabelaVendasCursoAndamento"
@@ -664,7 +700,7 @@
 							value="#{cursoMB.listaVendasCursoFinalizada}" scrollable="true"
 							scrollHeight="300">
 							<p:column style="width:38px;"> 
-								<p:commandLink>
+								<p:commandLink title="FICHA FINALIZADA">
 									<img src="../../resources/img/finalizadoFicha.png" width="80%" />
 								</p:commandLink>   
 							</p:column>
@@ -743,13 +779,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									hideEffect="fade" style="background:#F0F0F0;width:700px;">
 									<p:outputLabel
 										value="#{cursosFinalizado.vendas.idvendas} - #{cursosFinalizado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 									
 											<p:commandLink action="#{cursoMB.boletos(cursosFinalizado)}" 
 												  title="IMPRIMIR OS BOLETOS" ajax="false"  
@@ -826,6 +862,18 @@
 												</h:panelGrid>
 											</p:commandLink>
 											
+											<p:commandLink
+												action="#{cursoMB.visualizarContasReceber(cursosFinalizado)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
+											
 											<p:commandLink action="#{cursoMB.cancelarVenda(cursosFinalizado)}"
 													style="text-decoration: none" title="CANCELAR FICHA"
 													update=":consultacursos:acordionPainel:tabelaVendasCursoFinalizado"
@@ -850,7 +898,7 @@
 							value="#{cursoMB.listaVendasCursoCancelada}" scrollable="true"
 							scrollHeight="300">
 							<p:column style="width:38px;"> 
-								<p:commandLink >
+								<p:commandLink title="FICHA CANCELADA">
 									<img src="../../resources/img/fichaCancelada.png" width="80%" />
 								</p:commandLink>  
 							</p:column>
@@ -910,11 +958,11 @@
 							scrollHeight="300"  >        
 							<p:column style="width:35px;">
 								<p:commandLink actionListener="#{cursoMB.buscarCurso(cursos)}"
-									onclick="PF('liberarficha').show();"
+									onclick="PF('liberarficha').show();" title="#{cursos.tituloFicha}"
 									rendered="#{cursoMB.imagemSituacaoUsuario(cursos)}">
 									<img src="#{cursos.imagem}" width="80%" />
 								</p:commandLink>
-								<p:commandLink rendered="#{cursos.habilitarImagemFranquia}">
+								<p:commandLink title="#{cursos.tituloFicha}" rendered="#{cursos.habilitarImagemFranquia}">
 									<img src="#{cursos.imagem}" width="80%" />   
 								</p:commandLink>
 							</p:column>
@@ -986,13 +1034,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px;">
+									hideEffect="fade" style="background:#F0F0F0;width:700px;">
 									<p:outputLabel
 										value="#{cursos.vendas.idvendas} - #{cursos.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 									
 											<p:commandLink action="#{cursoMB.boletos(cursos)}" 
 												  title="IMPRIMIR OS BOLETOS" ajax="false"  
@@ -1068,6 +1116,18 @@
 													<p:outputLabel value=" "/>
 												</h:panelGrid>
 											</p:commandLink>
+											
+											<p:commandLink
+												action="#{cursoMB.visualizarContasReceber(cursos)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 											
 											<p:commandLink action="#{cursoMB.cancelarVenda(cursos)}"
 													style="text-decoration: none" title="CANCELAR FICHA"
