@@ -55,7 +55,13 @@ public class ControleCursosTeensMB implements Serializable{
 	private int nFichasFinalizadas;
 	private int nFichasAndamento;
 	private int nFichaCancelada;
+	private Integer nFichasFinanceiro;
 	private String numeroFichas;
+	private List<Controleprogramasteen> listaVendasFinalizada;
+	private List<Controleprogramasteen> listaVendasAndamento;
+	private List<Controleprogramasteen> listaVendasCancelada; 
+	private List<Controleprogramasteen> listaVendasFinanceiro;
+
 
 
 	@PostConstruct
@@ -247,6 +253,56 @@ public class ControleCursosTeensMB implements Serializable{
 	}
 
 
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+
+	public List<Controleprogramasteen> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+
+	public void setListaVendasFinalizada(List<Controleprogramasteen> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+
+	public List<Controleprogramasteen> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+
+	public void setListaVendasAndamento(List<Controleprogramasteen> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+
+	public List<Controleprogramasteen> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+
+	public void setListaVendasCancelada(List<Controleprogramasteen> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+
+	public List<Controleprogramasteen> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+
+	public void setListaVendasFinanceiro(List<Controleprogramasteen> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+
 	public void listarControle() {
 		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
 		String sql;
@@ -414,16 +470,28 @@ public class ControleCursosTeensMB implements Serializable{
 	}
 	
 	public void gerarQuantidadesFichas(){ 
+		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0; 
-		nFichaCancelada=0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>(); 
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaControle.size(); i++) {
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaControle.get(i));
+			} else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& listaControle.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("CANCELADA")){
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaControle.get(i));
 			}   
 		}
 	}
@@ -431,7 +499,10 @@ public class ControleCursosTeensMB implements Serializable{
 	public String imagemSituacaoFicha(Controleprogramasteen controleprogramasteen) {
 		if (controleprogramasteen.getVendas().getSituacao().equals("FINALIZADA")) { 
 			return "../../resources/img/finalizadoFicha.png";
-		} else if (controleprogramasteen.getVendas().getSituacao().equals("ANDAMENTO")) { 
+		}else if (controleprogramasteen.getVendas().getSituacao().equals("ANDAMENTO")
+       		 && !controleprogramasteen.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
+			return "../../resources/img/ficharestricao.png";
+		}  else if (controleprogramasteen.getVendas().getSituacao().equals("ANDAMENTO")) { 
 			return "../../resources/img/amarelaFicha.png";
 		} else { 
 			return "../../resources/img/fichaCancelada.png";

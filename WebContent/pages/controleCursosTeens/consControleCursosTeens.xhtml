@@ -89,11 +89,11 @@
 							</p:selectOneMenu>
 							<p:outputLabel />
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-								update=":consultaControleTeens:tabelaControleTeens,consultaControleTeens:PanelQuantidadeFichas"
+								update=":consultaControleTeens:acordionPainel"
 								action="#{controleCursosTeensMB.pesquisar()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="consultaControleTeens:tabelaControleTeens, unidade, dataFinal, dataIni, cliente,
-									idVenda, consultaControleTeens:PanelQuantidadeFichas"
+								update="consultaControleTeens:acordionPainel, unidade, dataFinal, dataIni, cliente,
+									idVenda"
 								action="#{controleCursosTeensMB.limpar()}" />
 						</h:panelGrid>  
 					</p:tab>
@@ -103,124 +103,425 @@
 					<b>Cursos Teens</b>
 				</legend>  
 				<br></br> <br></br>
-				<p:dataTable id="tabelaControleTeens" var="cursosTeens"
-					class="tabela" value="#{controleCursosTeensMB.listaControle}"
-					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
-					<p:column style="width:54px;text-align:center;"
-						headerText="Situação">
-						<p:commandLink title="#{cursos.vendas.situacao}"
-							style="cursor: initial;">
-							<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeens)}"
-								width="22" />
-						</p:commandLink>    
-					</p:column> 
-					<p:column style="width:36px;">
-						<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeens)}"
-							title="#{cursosTeens.situacao}" />
-					</p:column>   
-					<p:column headerText="ID venda" style="width:50px;">
-						<h:outputText value="#{cursosTeens.vendas.idvendas}" />
-					</p:column>
-					<p:column headerText="Data Inscrição"
-						style="text-align:center;width:78px;">
-						<h:outputText value="#{cursosTeens.vendas.dataVenda}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Nome" style="width:188px;">
-						<p:commandLink value="#{cursosTeens.vendas.cliente.nome}"
-							action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeens)}"
-							title="Atualizar informações" style="text-decoration: underline">
-							<p:ajax event="dialogReturn"
-								listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
-								update="tabelaControleTeens" />
-						</p:commandLink>
-					</p:column>
-
-					<p:column headerText="Idade" styleClass="alinharCenter"
-						style="width:57px;">
-						<h:outputText
-							value="#{controleCursosTeensMB.idadeCliente(cursosTeens)}" />
-					</p:column>
-					<p:column headerText="Telefone" styleClass="alinharCenter"
-						style="width:88px;">
-						<h:outputText value="#{cursosTeens.vendas.cliente.foneCelular}" />
-					</p:column>
-					<p:column headerText="Unidade" styleClass="alinharCenter"
-						style="width:90px;">
-						<h:outputText
-							value="#{cursosTeens.vendas.unidadenegocio.nomerelatorio}" />
-					</p:column>
-					<p:column headerText="Agente" styleClass="alinharCenter"
-						style="width:150px;">
-						<h:outputText value="#{cursosTeens.vendas.usuario.nome}" />
-					</p:column>
-					<p:column headerText="Documentação"
-						style="width:92px;text-align:center">
-						<img src="#{controleCursosTeensMB.documentosTeens(cursosTeens)}" />
-					</p:column>
-					<p:column headerText="Arquivos"
-						style="width:70px;text-align:center">
-						<p:commandLink
-							action="#{controleCursosTeensMB.documentacao(cursosTeens)}"
-							title="Invoice">
-							<img src="../../resources/img/boletoFicha.png" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Finalizar"
-						style="width:55px;text-align:center">
-						<p:commandLink
-							action="#{controleCursosTeensMB.finalizar(cursosTeens)}"
-							title="Finalizar" update="tabelaControleTeens">
-							<img src="../../resources/img/controleFinalizar.png" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Invoice" style="width:48px;text-align:center">
-						<p:commandLink
-							action="#{controleCursosTeensMB.invoice(cursosTeens)}"
-							title="Invoice">
-							<img src="../../resources/img/controleInvoice.png" />
-						</p:commandLink>
-					</p:column>
-				</p:dataTable>
-				<br></br>
-				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="40%"
-					style="margin-left: 2%;">
-					<h:panelGroup>
-						<p:commandLink title="N° Total de Ficha"
-							style="margin-left:15%;cursor: initial;">
-							<img src="../../resources/img/iconeTotal.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="numFicha"
-							value="#{controleCursosTeensMB.numeroFichas}"
-							style="font-size:24px;margin-left: 5%;" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink title="Ficha Finalizada"
-							style="margin-left:5%;cursor: initial;">
-							<img src="../../resources/img/finalizadoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaFinalizada"
-							value="#{controleCursosTeensMB.nFichasFinalizadas}"
-							style="font-size:24px;margin-left: 5%;" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink title="Ficha em Andamento" style="cursor: initial;">
-							<img src="../../resources/img/amarelaFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaProcesso"
-							value="#{controleCursosTeensMB.nFichasAndamento}"
-							style="font-size:24px;margin-left: 5%;" />
-					</h:panelGroup> 
-					<h:panelGroup >
-						<p:commandLink style="cursor: initial;" title="Ficha Cancelada" >
-							<img src="../../resources/img/fichaCancelada.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaCancelada" value="#{controleCursosTeensMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup> 
-				</h:panelGrid>   
-				<br></br> <br></br><br></br> 
+				<p:tabView id="acordionPainel" class="consultaCurso">   
+					<p:tab title="Financeiro (#{controleCursosTeensMB.nFichasFinanceiro})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaControleTeensFinanceiro" var="cursosTeensFinanceiro"
+							value="#{controleCursosTeensMB.listaVendasFinanceiro}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:5px">
+							<p:column style="width:54px;text-align:center;"
+								headerText="Situação">
+								<p:commandLink title="#{cursos.vendas.situacao}"
+									style="cursor: initial;">
+									<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeensFinanceiro)}"
+										width="22" />
+								</p:commandLink>    
+							</p:column> 
+							<p:column style="width:36px;">
+								<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeensFinanceiro)}"
+									title="#{cursosTeensFinanceiro.situacao}" />
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px;">
+								<h:outputText value="#{cursosTeensFinanceiro.vendas.idvendas}" />
+							</p:column>
+							<p:column headerText="Data Inscrição"
+								style="text-align:center;width:78px;">
+								<h:outputText value="#{cursosTeensFinanceiro.vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" style="width:188px;">
+								<p:commandLink value="#{cursosTeensFinanceiro.vendas.cliente.nome}"
+									action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeensFinanceiro)}"
+									title="Atualizar informações" style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
+										update="tabelaControleTeensFinanceiro" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="Idade" styleClass="alinharCenter"
+								style="width:57px;">
+								<h:outputText
+									value="#{controleCursosTeensMB.idadeCliente(cursosTeensFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Telefone" styleClass="alinharCenter"
+								style="width:88px;">
+								<h:outputText value="#{cursosTeensFinanceiro.vendas.cliente.foneCelular}" />
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:90px;">
+								<h:outputText
+									value="#{cursosTeensFinanceiro.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:150px;">
+								<h:outputText value="#{cursosTeensFinanceiro.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Documentação"
+								style="width:92px;text-align:center">
+								<img src="#{controleCursosTeensMB.documentosTeens(cursosTeensFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Arquivos"
+								style="width:70px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.documentacao(cursosTeensFinanceiro)}"
+									title="Invoice">
+									<img src="../../resources/img/boletoFicha.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Finalizar"
+								style="width:55px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.finalizar(cursosTeensFinanceiro)}"
+									title="Finalizar" update="tabelaControleTeensFinanceiro">
+									<img src="../../resources/img/controleFinalizar.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Invoice" style="width:48px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.invoice(cursosTeensFinanceiro)}"
+									title="Invoice">
+									<img src="../../resources/img/controleInvoice.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>   
+					<p:tab title="Andamento (#{controleCursosTeensMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaControleTeensAndamento" var="cursosTeensAndamento"
+							value="#{controleCursosTeensMB.listaVendasAndamento}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:5px">
+							<p:column style="width:54px;text-align:center;"
+								headerText="Situação">
+								<p:commandLink title="#{cursos.vendas.situacao}"   
+									style="cursor: initial;">
+									<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeensAndamento)}"
+										width="22" />
+								</p:commandLink>      
+							</p:column> 
+							<p:column style="width:36px;">
+								<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeensAndamento)}"
+									title="#{cursosTeensAndamento.situacao}" />
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px;">
+								<h:outputText value="#{cursosTeensAndamento.vendas.idvendas}" />
+							</p:column>
+							<p:column headerText="Data Inscrição"
+								style="text-align:center;width:78px;">
+								<h:outputText value="#{cursosTeensAndamento.vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" style="width:188px;">
+								<p:commandLink value="#{cursosTeensAndamento.vendas.cliente.nome}"
+									action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeensAndamento)}"
+									title="Atualizar informações" style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
+										update="tabelaControleTeensAndamento" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="Idade" styleClass="alinharCenter"
+								style="width:57px;">
+								<h:outputText
+									value="#{controleCursosTeensMB.idadeCliente(cursosTeensAndamento)}" />
+							</p:column>
+							<p:column headerText="Telefone" styleClass="alinharCenter"
+								style="width:88px;">
+								<h:outputText value="#{cursosTeensAndamento.vendas.cliente.foneCelular}" />
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:90px;">
+								<h:outputText
+									value="#{cursosTeensAndamento.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:150px;">
+								<h:outputText value="#{cursosTeensAndamento.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Documentação"
+								style="width:92px;text-align:center">
+								<img src="#{controleCursosTeensMB.documentosTeens(cursosTeensAndamento)}" />
+							</p:column>
+							<p:column headerText="Arquivos"
+								style="width:70px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.documentacao(cursosTeensAndamento)}"
+									title="Invoice">
+									<img src="../../resources/img/boletoFicha.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Finalizar"
+								style="width:55px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.finalizar(cursosTeensAndamento)}"
+									title="Finalizar" update="tabelaControleTeensAndamento">
+									<img src="../../resources/img/controleFinalizar.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Invoice" style="width:48px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.invoice(cursosTeensAndamento)}"
+									title="Invoice">
+									<img src="../../resources/img/controleInvoice.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>  
+					<p:tab title="Finalizado (#{controleCursosTeensMB.nFichasFinalizadas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaControleTeensFinalizado" var="cursosTeensFinalizado"
+							value="#{controleCursosTeensMB.listaVendasFinalizada}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:5px">
+							<p:column style="width:54px;text-align:center;"
+								headerText="Situação">
+								<p:commandLink title="#{cursos.vendas.situacao}"
+									style="cursor: initial;">
+									<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeensFinalizado)}"
+										width="22" />
+								</p:commandLink>    
+							</p:column> 
+							<p:column style="width:36px;">
+								<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeensFinalizado)}"
+									title="#{cursosTeensFinalizado.situacao}" />
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px;">
+								<h:outputText value="#{cursosTeensFinalizado.vendas.idvendas}" />
+							</p:column>
+							<p:column headerText="Data Inscrição"
+								style="text-align:center;width:78px;">
+								<h:outputText value="#{cursosTeensFinalizado.vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" style="width:188px;">
+								<p:commandLink value="#{cursosTeensFinalizado.vendas.cliente.nome}"
+									action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeensFinalizado)}"
+									title="Atualizar informações" style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
+										update="tabelaControleTeensFinalizado" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="Idade" styleClass="alinharCenter"
+								style="width:57px;">
+								<h:outputText
+									value="#{controleCursosTeensMB.idadeCliente(cursosTeensFinalizado)}" />
+							</p:column>
+							<p:column headerText="Telefone" styleClass="alinharCenter"
+								style="width:88px;">
+								<h:outputText value="#{cursosTeensFinalizado.vendas.cliente.foneCelular}" />
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:90px;">
+								<h:outputText
+									value="#{cursosTeensFinalizado.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:150px;">
+								<h:outputText value="#{cursosTeensFinalizado.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Documentação"
+								style="width:92px;text-align:center">
+								<img src="#{controleCursosTeensMB.documentosTeens(cursosTeensFinalizado)}" />
+							</p:column>
+							<p:column headerText="Arquivos"
+								style="width:70px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.documentacao(cursosTeensFinalizado)}"
+									title="Invoice">
+									<img src="../../resources/img/boletoFicha.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Finalizar"
+								style="width:55px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.finalizar(cursosTeensFinalizado)}"
+									title="Finalizar" update="tabelaControleTeensFinalizado">
+									<img src="../../resources/img/controleFinalizar.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Invoice" style="width:48px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.invoice(cursosTeensFinalizado)}"
+									title="Invoice">
+									<img src="../../resources/img/controleInvoice.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Cancelado (#{controleCursosTeensMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaControleTeensCancelado" var="cursosTeensCancelado"
+							value="#{controleCursosTeensMB.listaVendasCancelada}" 
+							scrollable="true" scrollHeight="300" style="margin-bottom:5px">
+							<p:column style="width:54px;text-align:center;"
+								headerText="Situação">
+								<p:commandLink title="#{cursos.vendas.situacao}"
+									style="cursor: initial;">
+									<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeensCancelado)}"
+										width="22" />
+								</p:commandLink>    
+							</p:column> 
+							<p:column style="width:36px;">
+								<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeensCancelado)}"
+									title="#{cursosTeensCancelado.situacao}" />
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px;">
+								<h:outputText value="#{cursosTeensCancelado.vendas.idvendas}" />
+							</p:column>
+							<p:column headerText="Data Inscrição"
+								style="text-align:center;width:78px;">
+								<h:outputText value="#{cursosTeensCancelado.vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" style="width:188px;">
+								<p:commandLink value="#{cursosTeensCancelado.vendas.cliente.nome}"
+									action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeensCancelado)}"
+									title="Atualizar informações" style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
+										update="tabelaControleTeensCancelado" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="Idade" styleClass="alinharCenter"
+								style="width:57px;">
+								<h:outputText
+									value="#{controleCursosTeensMB.idadeCliente(cursosTeensCancelado)}" />
+							</p:column>
+							<p:column headerText="Telefone" styleClass="alinharCenter"
+								style="width:88px;">
+								<h:outputText value="#{cursosTeensCancelado.vendas.cliente.foneCelular}" />
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:90px;">
+								<h:outputText
+									value="#{cursosTeensCancelado.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:150px;">
+								<h:outputText value="#{cursosTeensCancelado.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Documentação"
+								style="width:92px;text-align:center">
+								<img src="#{controleCursosTeensMB.documentosTeens(cursosTeensCancelado)}" />
+							</p:column>
+							<p:column headerText="Arquivos"
+								style="width:70px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.documentacao(cursosTeensCancelado)}"
+									title="Invoice">
+									<img src="../../resources/img/boletoFicha.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Finalizar"
+								style="width:55px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.finalizar(cursosTeensCancelado)}"
+									title="Finalizar" update="tabelaControleTeensCancelado">
+									<img src="../../resources/img/controleFinalizar.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Invoice" style="width:48px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.invoice(cursosTeensCancelado)}"
+									title="Invoice">
+									<img src="../../resources/img/controleInvoice.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>      
+					<p:tab title="Todos (#{controleCursosTeensMB.numeroFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaControleTeens" var="cursosTeens"
+							value="#{controleCursosTeensMB.listaControle}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:5px">
+							<p:column style="width:54px;text-align:center;"
+								headerText="Situação">
+								<p:commandLink title="#{cursos.vendas.situacao}"
+									style="cursor: initial;">
+									<img src="#{controleCursosTeensMB.imagemSituacaoFicha(cursosTeens)}"
+										width="22" />  
+								</p:commandLink>    
+							</p:column> 
+							<p:column style="width:36px;">
+								<img src="#{controleCursosTeensMB.imagemSituacao(cursosTeens)}"
+									title="#{cursosTeens.situacao}" />
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px;">
+								<h:outputText value="#{cursosTeens.vendas.idvendas}" />
+							</p:column>
+							<p:column headerText="Data Inscrição"
+								style="text-align:center;width:78px;">
+								<h:outputText value="#{cursosTeens.vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" style="width:188px;">
+								<p:commandLink value="#{cursosTeens.vendas.cliente.nome}"
+									action="#{controleCursosTeensMB.atualizarInformacoes(cursosTeens)}"
+									title="Atualizar informações" style="text-decoration: underline">
+									<p:ajax event="dialogReturn"
+										listener="#{controleCursosTeensMB.retornoDialogAtualizar}"
+										update="tabelaControleTeens" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="Idade" styleClass="alinharCenter"
+								style="width:57px;">
+								<h:outputText
+									value="#{controleCursosTeensMB.idadeCliente(cursosTeens)}" />
+							</p:column>
+							<p:column headerText="Telefone" styleClass="alinharCenter"
+								style="width:88px;">
+								<h:outputText value="#{cursosTeens.vendas.cliente.foneCelular}" />
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								style="width:90px;">
+								<h:outputText
+									value="#{cursosTeens.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Agente" styleClass="alinharCenter"
+								style="width:150px;">
+								<h:outputText value="#{cursosTeens.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Documentação"
+								style="width:92px;text-align:center">
+								<img src="#{controleCursosTeensMB.documentosTeens(cursosTeens)}" />
+							</p:column>
+							<p:column headerText="Arquivos"
+								style="width:70px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.documentacao(cursosTeens)}"
+									title="Invoice">
+									<img src="../../resources/img/boletoFicha.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Finalizar"
+								style="width:55px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.finalizar(cursosTeens)}"
+									title="Finalizar" update="tabelaControleTeens">
+									<img src="../../resources/img/controleFinalizar.png" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Invoice" style="width:48px;text-align:center">
+								<p:commandLink
+									action="#{controleCursosTeensMB.invoice(cursosTeens)}"
+									title="Invoice">
+									<img src="../../resources/img/controleInvoice.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					
+				</p:tabView>
+				<br></br> <br></br> 
 			</div>
 		</h:form>
 	</ui:define>

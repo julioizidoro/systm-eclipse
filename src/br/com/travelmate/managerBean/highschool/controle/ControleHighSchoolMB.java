@@ -23,7 +23,8 @@ import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controlehighschool; 
+import br.com.travelmate.model.Controlehighschool;
+import br.com.travelmate.model.Controleprogramasteen;
 import br.com.travelmate.model.Invoice; 
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -56,7 +57,12 @@ public class ControleHighSchoolMB implements Serializable{
 	private int nFichasFinalizadas;
 	private int nFichasAndamento;
 	private int nFichaCancelada;
+	private Integer nFichasFinanceiro;
 	private String numeroFichas;
+	private List<Controlehighschool> listaVendasFinalizada;
+	private List<Controlehighschool> listaVendasAndamento;
+	private List<Controlehighschool> listaVendasCancelada; 
+	private List<Controlehighschool> listaVendasFinanceiro;
 	private String ano;
 	private String semestre;
 	 
@@ -268,6 +274,56 @@ public class ControleHighSchoolMB implements Serializable{
 	}
 
 
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+
+	public List<Controlehighschool> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+
+	public void setListaVendasFinalizada(List<Controlehighschool> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+
+	public List<Controlehighschool> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+
+	public void setListaVendasAndamento(List<Controlehighschool> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+
+	public List<Controlehighschool> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+
+	public void setListaVendasCancelada(List<Controlehighschool> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+
+	public List<Controlehighschool> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+
+	public void setListaVendasFinanceiro(List<Controlehighschool> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+
 	public void listarControle() {
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
 		String sql;
@@ -443,13 +499,25 @@ public class ControleHighSchoolMB implements Serializable{
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0; 
 		nFichaCancelada=0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>(); 
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaControle.size(); i++) {
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaControle.get(i));
+			} else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+					&& !listaControle.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("CANCELADA")){
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaControle.get(i));
 			}   
 		}
 	}
@@ -457,6 +525,9 @@ public class ControleHighSchoolMB implements Serializable{
 	public String imagemSituacaoFicha(Controlehighschool controlehighschool) {
 		if (controlehighschool.getVendas().getSituacao().equals("FINALIZADA")) { 
 			return "../../resources/img/finalizadoFicha.png";
+		}else if (controlehighschool.getVendas().getSituacao().equals("ANDAMENTO")
+       		 && !controlehighschool.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
+			return "../../resources/img/ficharestricao.png";
 		} else if (controlehighschool.getVendas().getSituacao().equals("ANDAMENTO")) { 
 			return "../../resources/img/amarelaFicha.png";
 		} else { 
