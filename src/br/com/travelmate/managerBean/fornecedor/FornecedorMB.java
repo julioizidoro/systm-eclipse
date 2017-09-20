@@ -155,6 +155,10 @@ public class FornecedorMB implements Serializable{
     }
     
     public String consPais(){
+    		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		String voltar = "consultafornecedor";
+		session.setAttribute("voltar", voltar);
         return "consPais";
     }
     
