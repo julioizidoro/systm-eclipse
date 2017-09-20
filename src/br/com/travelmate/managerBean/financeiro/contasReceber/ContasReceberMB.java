@@ -735,9 +735,6 @@ public class ContasReceberMB implements Serializable {
 		if (!situacao.equalsIgnoreCase("0")) {
 			sql = sql + " and c.situacao='" + situacao + "'";
 		}
-		if (!statusCobranca.equalsIgnoreCase("0")) {
-			sql = sql + " and c.vendas.statuscobranca='" + statusCobranca + "'";
-		}
 		if (!tipoDocumento.equalsIgnoreCase("Selecione")) {
 			sql = sql + " and c.tipodocumento='" + tipoDocumento + "'";
 			if (tipoDocumento.equalsIgnoreCase("Boleto")) {
