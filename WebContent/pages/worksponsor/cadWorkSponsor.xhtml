@@ -15,7 +15,7 @@
 					<b>Cadastro de Sponsor</b>
 				</legend> 
 				<h:panelGrid columns="3" columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"    
-					style="margin-left:8%;width:64%;">
+					style="margin-left:8%;width:74%;">
 					<p:outputLabel value="Pais"/> 
 					<p:outputLabel value="Cidade"/>
 					<p:outputLabel value="Sponsor"/>
@@ -47,21 +47,32 @@
 							listener="#{cadWorkSponsorMB.listarFornecedorCidade()}"
 							update="sponsor" />
 					</p:selectOneMenu>
-					<p:selectOneMenu id="sponsor"
-						value="#{cadWorkSponsorMB.fornecedorCidade}"
-						style="width:210px;"
-						converter="FornecedorCidadeConverter" filter="true"
-						filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Escola" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems id="idfornecedor"
-							value="#{cadWorkSponsorMB.listaFornecedorCidade}" var="fornecedor"
-							itemLabel="#{fornecedor.fornecedor.nome}"
-							itemValue="#{fornecedor}" />
-						<f:attribute name="listaFornecedorCidade"
-							value="#{cadWorkSponsorMB.listaFornecedorCidade}" />
-						<p:ajax event="change"/>
-					</p:selectOneMenu>
+					<h:panelGroup>
+						<h:panelGrid columns="2">
+							<p:selectOneMenu id="sponsor"
+								value="#{cadWorkSponsorMB.fornecedorCidade}"
+								style="width:210px;"
+								converter="FornecedorCidadeConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Escola" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{cadWorkSponsorMB.listaFornecedorCidade}" var="fornecedor"
+									itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadWorkSponsorMB.listaFornecedorCidade}" />
+								<p:ajax event="change"/>
+							</p:selectOneMenu>
+							<p:commandLink action="#{cadWorkSponsorMB.consFornecedor()}"
+								title="Novo Sponsor" style="margin-left:5%;">
+								<img src="../../resources/img/adicionar.png"></img>
+								<p:ajax event="dialogReturn"
+									listener="#{cadWorkSponsorMB.listarFornecedorCidade()}" process="@this"
+									update="sponsor" />
+							</p:commandLink>
+						</h:panelGrid>
+					</h:panelGroup>
 				</h:panelGrid> 
 				<br></br>
 				<h:panelGrid columns="2" columnClasses="tamanho2, tamanhoavisos2"    
