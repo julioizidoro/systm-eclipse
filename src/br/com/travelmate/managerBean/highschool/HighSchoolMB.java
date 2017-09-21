@@ -22,6 +22,7 @@ import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -512,6 +513,7 @@ public class HighSchoolMB implements Serializable {
 			highschool.setHabilitarImagemGerencial(false);
 			highschool.setHabilitarImagemFranquia(true);
 			highschool.setImagem("../../resources/img/finalizadoFicha.png");
+			highschool.setTituloFicha("FICHA FINALIZADA");
 		} else if (highschool.getVendas().getSituacao().equals("ANDAMENTO")
 				&& !highschool.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
@@ -522,6 +524,7 @@ public class HighSchoolMB implements Serializable {
 				highschool.setHabilitarImagemFranquia(true);
 			}
 			highschool.setImagem("../../resources/img/ficharestricao.png");
+			highschool.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		}  else if (highschool.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5) {
 				highschool.setHabilitarImagemGerencial(true);
@@ -531,10 +534,12 @@ public class HighSchoolMB implements Serializable {
 				highschool.setHabilitarImagemFranquia(true);
 			}
 			highschool.setImagem("../../resources/img/amarelaFicha.png");
+			highschool.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
 		} else if (highschool.getVendas().getSituacao().equals("CANCELADA")) {
 			highschool.setHabilitarImagemGerencial(false);
 			highschool.setHabilitarImagemFranquia(true);
 			highschool.setImagem("../../resources/img/fichaCancelada.png");
+			highschool.setTituloFicha("FICHA CANCELADA");
 		} else if ((highschool.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
 				&& (highschool.getVendas().isRestricaoparcelamento())) {
 			if (usuarioLogadoMB.isFinanceiro()) {
@@ -545,10 +550,12 @@ public class HighSchoolMB implements Serializable {
 				highschool.setHabilitarImagemFranquia(true);
 			}
 			highschool.setImagem("../../resources/img/ficharestricao.png");
+			highschool.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			highschool.setHabilitarImagemGerencial(false);
 			highschool.setHabilitarImagemFranquia(true);
 			highschool.setImagem("../../resources/img/processoFicha.png");
+			highschool.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return highschool.isHabilitarImagemGerencial();
 	}
@@ -910,5 +917,15 @@ public class HighSchoolMB implements Serializable {
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
+	}
+	
+	public String visualizarContasReceber(Highschool highschool) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", highschool.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
 	}
 }

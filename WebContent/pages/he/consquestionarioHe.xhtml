@@ -75,7 +75,7 @@
 				<p:dataTable id="tabelaConsHe" var="he"  class="tabelaHighSchool"
 					value="#{higherEducationMB.listaHe}" scrollable="true" scrollHeight="300" style="margin-bottom:20px"> 
 					<p:column headerText="" style="width:43px;text-align:center;" styleClass="alinharCenter"> 
-						<img src="#{higherEducationMB.retornarimagem(he.status)}" width="28" />      
+						<img src="#{higherEducationMB.retornarimagem(he.status)}" width="28" title="#{higherEducationMB.retornarTituloFicha(he.status)}"/>      
 					</p:column>                 
 					<p:column headerText="ID" sortBy="#{he.idVenda}" style="width:50px;" styleClass="alinharCenter"> 
 						<h:outputText value="#{he.idVenda}" style="#{higherEducationMB.cor(he)}"/>     
@@ -130,13 +130,13 @@
 							<img src="../../resources/img/informacaoVendaVerde.png" />
 						</p:commandLink>
 						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:500px; border:none;">
+							hideEffect="fade" style="background:#F0F0F0;width:550px; border:none;">
 							<p:outputLabel
 								value="#{he.he.vendas.idvendas} - #{he.he.vendas.cliente.nome}"
 								style="text-align:center;font-size:15px;" />
 							<br />
 							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="4">
+							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="5">
 							
 									<p:commandLink action="#{higherEducationMB.boletos(he)}" title="IMPRIMIR OS BOLETOS"
 										image="../../resources/img/boletoFicha.png" ajax="false"  
@@ -162,6 +162,18 @@
 													<p:outputLabel value="INFO" style="font-size:11px;"/>
 												</h:panelGrid>
 									</p:commandLink>
+									
+									<p:commandLink
+												action="#{higherEducationMB.visualizarContasReceber(he)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 									
 									<p:commandLink action="#{higherEducationMB.cancelarVenda(he)}"
 										style="text-decoration: none" title="CANCELAR FICHA" update=":consHe:tabelaConsHe" >

@@ -11,6 +11,7 @@ import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
+import br.com.travelmate.model.Worksponsor;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
@@ -43,9 +44,14 @@ public class paisMB implements Serializable{
     private Produtos produtos;
     private List<Produtos> listaProduto;
     private List<Cidade> listaCidade;
+    private String voltar;
     
     @PostConstruct
     public void init() {
+    		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		voltar = (String) session.getAttribute("voltar");
+		session.removeAttribute("voltar");
         pais = new Pais();
         gerarListaPais();
         listaProduto = GerarListas.listarProdutos("");
@@ -137,7 +143,7 @@ public class paisMB implements Serializable{
     }
     
     public String voltar(){
-        return "consFornecedorPais";
+        return voltar;
     }
     
     public void retornoDialogNovoPais(SelectEvent event) {

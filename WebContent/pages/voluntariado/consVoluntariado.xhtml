@@ -98,12 +98,12 @@
 					style="margin-bottom:20px">
 
 					<p:column style="width:40px;">
-						<p:commandLink action="#{voluntariadoMB.dialogSalvarControle(voluntariado)}"
+						<p:commandLink action="#{voluntariadoMB.dialogSalvarControle(voluntariado)}" title="#{voluntariado.tituloFicha}"
 							onclick="PF('liberarficha').show();" 
 							rendered="#{voluntariadoMB.imagemSituacaoUsuario(voluntariado)}">
 							<img src="#{voluntariado.imagem}" width="60%" />
 						</p:commandLink>
-						<p:commandLink rendered="#{voluntariado.habilitarImagemFranquia}">
+						<p:commandLink rendered="#{voluntariado.habilitarImagemFranquia}" title="#{voluntariado.tituloFicha}">
 							<img src="#{voluntariado.imagem}" width="60%" />    
 						</p:commandLink>   
 					</p:column> 
@@ -158,13 +158,13 @@
 							<img src="../../resources/img/informacaoVendaVerde.png" />
 						</p:commandLink>
 						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:800px; border:none;">
+							hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
 							<p:outputLabel
 								value="#{voluntariado.vendas.idvendas} - #{voluntariado.vendas.cliente.nome}"
 								style="text-align:center;font-size:15px;" />
 							<br />
 							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 								
 										<p:commandLink action="#{voluntariadoMB.boletos(voluntariado)}" disabled="#{voluntariadoMB.botoesHabilitados(voluntariado)}"
 											title="IMPRIMIR OS BOLETOS"
@@ -239,6 +239,18 @@
 													<p:outputLabel value=" "/>
 												</h:panelGrid>
 											</p:commandLink>
+											
+											<p:commandLink
+												action="#{voluntariadoMB.visualizarContasReceber(voluntariado)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 											
 											<p:commandLink action="#{voluntariadoMB.cancelarVenda(voluntariado.vendas)}" disabled="#{voluntariadoMB.botoesHabilitados(voluntariado)}"
 												style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultavoluntariado:tabelaConsultaVoluntariado, :idfrmconsultavoluntariado:PanelQuantidadeFichas, :idfrmconsultavoluntariado:idNFichaFinalizada, :idfrmconsultavoluntariado:idNFichaAndamento,

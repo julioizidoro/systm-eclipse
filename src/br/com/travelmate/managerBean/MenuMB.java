@@ -1388,4 +1388,9 @@ public class MenuMB implements Serializable {
 		atualizaTempoLogado();
 		return "consTraducao";
 	}
+	
+	public String consWorkSponsor() {
+		atualizaTempoLogado();
+		return "consWorkSponsor";
+	}
 }

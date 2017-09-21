@@ -117,11 +117,11 @@
 					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
 
 					<p:column style="width:40px;">
-						<p:commandLink action="#{traineeMB.dialogSalvarControle(trainee)}"
+						<p:commandLink action="#{traineeMB.dialogSalvarControle(trainee)}" title="#{trainee.tituloFicha}"
 							onclick="PF('liberarficha').show();"  rendered="#{traineeMB.imagemSituacaoUsuario(trainee)}">  
 							<img src="#{trainee.imagem}" width="60%" />
 						</p:commandLink>
-						<p:commandLink rendered="#{trainee.habilitarImagemFranquia}">
+						<p:commandLink rendered="#{trainee.habilitarImagemFranquia}" title="#{trainee.tituloFicha}">
 							<img src="#{trainee.imagem}" width="60%" />
 						</p:commandLink> 
 					</p:column>
@@ -182,13 +182,13 @@
 							<img src="../../resources/img/informacaoVendaVerde.png" />
 						</p:commandLink>
 						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:800px; border:none;">
+							hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
 							<p:outputLabel
 								value="#{trainee.vendas.idvendas} - #{trainee.vendas.cliente.nome}"
 								style="text-align:center;font-size:15px;" />
 							<br />
 							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="8">
+							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 								
 									<p:commandLink action="#{traineeMB.boletos(trainee)}" disabled="#{traineeMB.botoesHabilitados(trainee)}"
 										title="IMPRIMIR OS BOLETOS" 
@@ -263,6 +263,18 @@
 												<p:outputLabel value=" "/>
 										</h:panelGrid>
 										</p:commandLink>
+										
+										<p:commandLink
+												action="#{traineeMB.visualizarContasReceber(trainee)}"
+												title="VISUALIZAR CONTAS A RECEBER" 
+												
+												 >
+												<img src="../../resources/img/invoice.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;"> 
+													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink> 
 										
 										<p:commandLink action="#{traineeMB.cancelarVenda(trainee.vendas)}"  disabled="#{traineeMB.botoesHabilitados(trainee)}"
 											style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultatraineer:tabelaConsultatrainee">

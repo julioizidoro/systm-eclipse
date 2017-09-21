@@ -38,6 +38,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.He;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio; 
 import br.com.travelmate.util.Formatacao;
@@ -612,6 +613,20 @@ public class HigherEducationMB implements Serializable {
 			return "../../resources/img/processoFicha.png";   
 		}
 	}
+	
+	public String retornarTituloFicha(String status) {
+		if (status.equalsIgnoreCase("FINALIZADO")) {
+			return "FICHA FINALIZADA";
+		}else if (status.equalsIgnoreCase("FINALIZADA")) {
+			return "FICHA FINALIZADA";
+		} else if (status.equalsIgnoreCase("ANDAMENTO")) {
+			return "ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)";
+		} else if (status.equalsIgnoreCase("CANCELADA")) {
+			return "FICHA CANCELADA";
+		} else {
+			return "PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)";   
+		}
+	}
 
 	public boolean desabilitarBtnAutorizar(ListaHeBean listaHeBean) {
 		if (listaHeBean.getHe() != null) {
@@ -808,5 +823,20 @@ public class HigherEducationMB implements Serializable {
 			return "Esconder Opções";     
 		}else return "Expandir Opções";
 	} 
+	
+	
+	public String visualizarContasReceber(ListaHeBean listaHeBean) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		if(listaHeBean.getHe()!=null && listaHeBean.getHe().isFichafinal()){
+			session.setAttribute("venda", listaHeBean.getHe().getVendas1());
+		}else{
+			session.setAttribute("venda", listaHeBean.getQuestionariohe().getVendas());
+		} 
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
+	}
 
 }

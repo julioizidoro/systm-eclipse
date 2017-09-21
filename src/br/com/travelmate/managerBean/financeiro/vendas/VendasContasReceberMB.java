@@ -129,7 +129,7 @@ public class VendasContasReceberMB implements Serializable{
     
     
     public String retornarCorContaVencida(Contasreceber contasreceber){
-		if (contasreceber.getCrmcobrancaconta() != null && contasreceber.getCrmcobrancaconta().getCrmcobranca().getDatafinalizada() == null) {
+		if (contasreceber.getCrmcobrancaconta() != null && contasreceber.getCrmcobrancaconta().getPaga() == false) {
 			return "color:red;";
 		}
 		return "";

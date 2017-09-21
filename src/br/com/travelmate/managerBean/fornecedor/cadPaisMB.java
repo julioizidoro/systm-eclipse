@@ -4,7 +4,7 @@ import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.arquivo.CadArquivoMB; 
+import br.com.travelmate.managerBean.arquivo.CadArquivoMB;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Pais;
@@ -33,63 +33,63 @@ import org.primefaces.model.UploadedFile;
 
 @Named
 @ViewScoped
-public class cadPaisMB implements Serializable{
-    
-    /**
+public class cadPaisMB implements Serializable {
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private List<Moedas> listaMoedas;
-    private Pais pais;
-    private Moedas moedas;
-    private UploadedFile file;
-    private String nomeArquivoFTP;
-    private FileUploadEvent ex;
-    private String caminho;
-    
-    @PostConstruct
-    public void init() {
-    	 FacesContext fc = FacesContext.getCurrentInstance();
-         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-         pais = (Pais) session.getAttribute("pais");
-         session.removeAttribute("pais");
-         if(pais==null){
-        	 pais = new Pais();
-         }else{
-        	 moedas = pais.getMoedas();
-        	 caminho = aplicacaoMB.getParametrosprodutos().getCaminhoimagens();
-     		 caminho = caminho + "/pais/" + pais.getIdpais()+ ".png"; 
-         }
-         gerarListaMoedas();
-    }
+	private Pais pais;
+	private Moedas moedas;
+	private UploadedFile file;
+	private String nomeArquivoFTP;
+	private FileUploadEvent ex;
+	private String caminho;
 
-    public List<Moedas> getListaMoedas() {
-        return listaMoedas;
-    }
+	@PostConstruct
+	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pais = (Pais) session.getAttribute("pais");
+		session.removeAttribute("pais");
+		if (pais == null) {
+			pais = new Pais();
+		} else {
+			moedas = pais.getMoedas();
+			caminho = aplicacaoMB.getParametrosprodutos().getCaminhoimagens();
+			caminho = caminho + "/pais/" + pais.getIdpais() + ".png";
+		}
+		gerarListaMoedas();
+	}
 
-    public void setListaMoedas(List<Moedas> listaMoedas) {
-        this.listaMoedas = listaMoedas;
-    }
+	public List<Moedas> getListaMoedas() {
+		return listaMoedas;
+	}
 
-    public Pais getPais() {
-        return pais;
-    }
+	public void setListaMoedas(List<Moedas> listaMoedas) {
+		this.listaMoedas = listaMoedas;
+	}
 
-    public void setPais(Pais pais) {
-        this.pais = pais;
-    }
+	public Pais getPais() {
+		return pais;
+	}
 
-    public Moedas getMoedas() {
-        return moedas;
-    }
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
 
-    public void setMoedas(Moedas moedas) {
-        this.moedas = moedas;
-    }
-    
-    public UploadedFile getFile() {
+	public Moedas getMoedas() {
+		return moedas;
+	}
+
+	public void setMoedas(Moedas moedas) {
+		this.moedas = moedas;
+	}
+
+	public UploadedFile getFile() {
 		return file;
 	}
 
@@ -113,128 +113,124 @@ public class cadPaisMB implements Serializable{
 		this.caminho = caminho;
 	}
 
-	public String salvar(){
-        if(moedas!=null){    
-            pais.setMoedas(moedas);
-            PaisFacade paisFacade = new PaisFacade();
-            pais = paisFacade.salvar(pais);
-            FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Pais cadastrado.");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-            RequestContext.getCurrentInstance().closeDialog(pais);
-            
-        }else{
-             FacesMessage mensagem = new FacesMessage("Faltam informações! ", "Moeda não selecionada");
-             FacesContext.getCurrentInstance().addMessage(null, mensagem);
-        }
-        return "";
-    }
-    
-    public void gerarListaMoedas(){
-        CambioFacade cambioFacade = new CambioFacade();
-        listaMoedas = cambioFacade.listaMoedas();
-        if(listaMoedas==null){
-            listaMoedas = new ArrayList<Moedas>();
-        }
-    }
-    
-    public String cancelarCadastro(){
-        RequestContext.getCurrentInstance().closeDialog(null);
-        return "";
-    }
-    
-    
-    public void fileUploadListener(FileUploadEvent e){
+	public String salvar() {
+		if (moedas != null) {
+			pais.setMoedas(moedas);
+			PaisFacade paisFacade = new PaisFacade();
+			pais = paisFacade.salvar(pais);
+			FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Pais cadastrado.");
+			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+			RequestContext.getCurrentInstance().closeDialog(pais);
+
+		} else {
+			FacesMessage mensagem = new FacesMessage("Faltam informações! ", "Moeda não selecionada");
+			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		}
+		return "";
+	}
+
+	public void gerarListaMoedas() {
+		CambioFacade cambioFacade = new CambioFacade();
+		listaMoedas = cambioFacade.listaMoedas();
+		if (listaMoedas == null) {
+			listaMoedas = new ArrayList<Moedas>();
+		}
+	}
+
+	public String cancelarCadastro() {
+		RequestContext.getCurrentInstance().closeDialog(null);
+		return "";
+	}
+
+	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
 		salvarArquivoFTP();
 		String nome = e.getFile().getFileName();
 	}
-    
-    
-    
-    public boolean salvarArquivoFTP(){
+
+	public boolean salvarArquivoFTP() {
 		String msg = "";
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-        Ftpdados dadosFTP = null;
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		Ftpdados dadosFTP = null;
 		try {
 			dadosFTP = ftpDadosFacade.getFTPDados();
 		} catch (SQLException ex) {
 			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			mostrarMensagem(ex, "Erro", "");
 		}
-        if (dadosFTP==null){
-            return false;
-        }
-        Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-        try {
-            if (!ftp.conectar()){
-                mostrarMensagem(null, "Erro conectar FTP", "");
-                return false;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-        }
-        try {
-        	nomeArquivoFTP = pais.getIdpais()+".png";
-        	msg = ftp.enviarArquivo(file, nomeArquivoFTP, "/systm/pais");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(msg, "")); 
-            ftp.desconectar();
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-        }  
-        return false;
-    }
-    
-    
-    public void mostrarMensagem(Exception ex, String erro, String titulo){
-        FacesContext context = FacesContext.getCurrentInstance();
-        erro = erro + " - " + ex;
-        context.addMessage(null, new FacesMessage(titulo, erro));
-    }
-  	
-  	public boolean excluirArquivoFTP(){
+		if (dadosFTP == null) {
+			return false;
+		}
+		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		try {
+			if (!ftp.conectar()) {
+				mostrarMensagem(null, "Erro conectar FTP", "");
+				return false;
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
+		}
+		try {
+			nomeArquivoFTP = pais.getIdpais() + ".png";
+			msg = ftp.enviarArquivo(file, nomeArquivoFTP, "/systm/pais");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(msg, ""));
+			ftp.desconectar();
+			return true;
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
+		}
+		return false;
+	}
+
+	public void mostrarMensagem(Exception ex, String erro, String titulo) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		erro = erro + " - " + ex;
+		context.addMessage(null, new FacesMessage(titulo, erro));
+	}
+
+	public boolean excluirArquivoFTP() {
 		String msg = "";
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-        Ftpdados dadosFTP = null;
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		Ftpdados dadosFTP = null;
 		try {
 			dadosFTP = ftpDadosFacade.getFTPDados();
 		} catch (SQLException ex) {
 			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			mostrarMensagem(ex, "Erro", "");
 		}
-        if (dadosFTP==null){
-            return false;
-        }
-        Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-        try {
-            if (!ftp.conectar()){
-                mostrarMensagem(null, "Erro conectar FTP", "");
-                return false;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-        }
-        try {
-        	String nomeArquivoFTP = pais.getIdpais()+".png";
-        	msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/pais");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(msg, "")); 
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-        } 
-        try {
-           ftp.desconectar();
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-        }
-        return false;
-    }
-	  
+		if (dadosFTP == null) {
+			return false;
+		}
+		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		try {
+			if (!ftp.conectar()) {
+				mostrarMensagem(null, "Erro conectar FTP", "");
+				return false;
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
+		}
+		try {
+			String nomeArquivoFTP = pais.getIdpais() + ".png";
+			msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/pais");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(msg, ""));
+			return true;
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
+		}
+		try {
+			ftp.desconectar();
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
+		}
+		return false;
+	}
+
 }

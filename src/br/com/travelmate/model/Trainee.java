@@ -155,6 +155,8 @@ public class Trainee implements Serializable {
     private String imagem;
     @Transient 
     private String numerosemanas;
+    @Transient
+    private String tituloFicha;
 
     public Trainee() {
     }
@@ -513,6 +515,14 @@ public class Trainee implements Serializable {
 
 	public void setNumerosemanas(String numerosemanas) {
 		this.numerosemanas = numerosemanas;
+	}
+
+	public String getTituloFicha() {
+		return tituloFicha;
+	}
+
+	public void setTituloFicha(String tituloFicha) {
+		this.tituloFicha = tituloFicha;
 	}
 
 	@Override
