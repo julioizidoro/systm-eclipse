@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consWorkEmpregador" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="5"
+							columnClasses="tamanho1, tamanho1, tamanho1, tamanho1, tamanho1"
+							style="width:100%;"> 
+							<p:outputLabel value="Nome" for="nome" />  
+							<p:outputLabel value="Pais" for="pais" />
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:outputLabel value="Sponsor" for="sponsor" />   
+							<p:outputLabel value=""/>
+							    
+							<p:inputText id="nome" value="#{workEmpregadorMB.nome}" style="width:90%;"/>
+							<p:selectOneMenu id="pais" value="#{workEmpregadorMB.pais}"
+								style="width:150px;" converter="PaisProdutoConverter"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{workEmpregadorMB.listaPais}"
+									var="paisselecionado" itemLabel="#{paisselecionado.pais.nome}"
+									itemValue="#{paisselecionado}" />
+								<f:attribute name="listaPaisProduto"
+									value="#{workEmpregadorMB.listaPais}" />
+								<p:ajax event="change" listener="#{workEmpregadorMB.listarCidade()}"
+									update="cidade" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade" value="#{workEmpregadorMB.cidadeproduto}"
+								style="width:150px;" converter="CidadePaisProdutoConverter"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Cidade" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade2"
+									value="#{workEmpregadorMB.listaCidade}" var="cidade"
+									itemLabel="#{cidade.cidade.nome}" itemValue="#{cidade}" />
+								<f:attribute name="listaCidadePaisProduto"
+									value="#{workEmpregadorMB.listaCidade}" />
+								<p:ajax event="change"
+									listener="#{workEmpregadorMB.listaSponsor()}"
+									update="sponsor" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="sponsor"
+								value="#{workEmpregadorMB.worksponsor}"
+								style="width:160px;"
+								converter="WorkSponsorConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{workEmpregadorMB.listaSponsor}" var="sponsor"
+									itemLabel="#{sponsor.fornecedorcidade.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaWorkSponsor"
+									value="#{workEmpregadorMB.listaSponsor}" />
+								<p:ajax event="change"/>
+							</p:selectOneMenu>
+							<h:panelGroup>
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									update=":consWorkEmpregador:tabelaWorkEmpregador"
+									action="#{workEmpregadorMB.pesquisar()}" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									update=":consWorkEmpregador:tabelaWorkEmpregador, pais, cidade, sponsor"
+									action="#{workEmpregadorMB.limpar()}" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<br></br>
+				<legend id="iUsu2">
+					<b>Work &amp; Travel - Sponsor</b>
+				</legend>
+				<div align="right" style="width: 97%;"> 
+					<p:commandButton id="bntfornecedor" style="font-size:12px;"
+						value="Novo Sponsor" action="#{workEmpregadorMB.novo()}" update="growl"
+						icon="ui-icon-plus" /> 
+				</div>
+				<br></br>
+				<div align="center">   
+					<p:dataTable id="tabelaWorkEmpregador" var="empregador"
+						value="#{workEmpregadorMB.listaEmpregador}" scrollable="true"
+						scrollHeight="300" style="width:98%;font-size:12px;">
+						<p:column headerText="Nome" style="width:115px;">
+							<p:outputLabel value="#{empregador.nome}" />
+						</p:column>
+						<p:column headerText="Pais" style="width:100px;">
+							<p:outputLabel
+								value="#{empregador.cidadepaisproduto.paisproduto.pais.nome}" />
+						</p:column>
+						<p:column headerText="Cidade" style="width:100px;">
+							<p:outputLabel value="#{empregador.cidadepaisproduto.cidade.nome}" />
+						</p:column>
+						<p:column headerText="Estado" style="width:100px;">
+							<p:outputLabel value="#{empregador.estado}" />
+						</p:column>
+						<p:column headerText="Sponsor" style="width:120px;">
+							<p:outputLabel value="#{empregador.worksponsor.fornecedorcidade.fornecedor.nome}" />
+						</p:column> 
+						<p:column headerText="Aeroporto" style="width:90px;">
+							<p:outputLabel value="#{empregador.aeroportosugerido}" />
+						</p:column>
+						<p:column headerText="Pickup" style="width:65px;text-align: center;">
+							<img src="../../resources/img/#{workEmpregadorMB.imagemPickup(empregador)}" width="15" />
+						</p:column>
+						<p:column style="text-align:center;width:65px;"
+							headerText="Editar">
+							<p:commandLink action="#{workEmpregadorMB.editar(empregador)}"
+								style="text-decoration: none" title="Editar dados do empregador"
+								update=":consWorkEmpregador:growl">
+								<img src="../../resources/img/editaricon.png" width="25" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

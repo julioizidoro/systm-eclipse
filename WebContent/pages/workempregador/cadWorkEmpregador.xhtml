@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"   
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadWorkEmpregador" style="font-size:12px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br> 
+				<legend id="iUsu2">
+					<b>Cadastro de Sponsor</b>
+				</legend> 
+				<h:panelGrid columns="3" columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"    
+					style="margin-left:15%;width:74%;">
+					<p:outputLabel value="Pais"/> 
+					<p:outputLabel value="Cidade"/>
+					<p:outputLabel value="Sponsor"/>
+					
+					<p:selectOneMenu id="pais" value="#{cadWorkEmpregadorMB.pais}"
+						style="width:265px;" converter="PaisProdutoConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />    
+						<f:selectItems id="idpais" value="#{cadWorkEmpregadorMB.listaPais}"
+							var="paisselecionado" itemLabel="#{paisselecionado.pais.nome}" itemValue="#{paisselecionado}" />
+						<f:attribute name="listaPaisProduto"
+							value="#{cadWorkEmpregadorMB.listaPais}" />
+						<p:ajax event="change" listener="#{cadWorkEmpregadorMB.listarCidade()}"
+							update="cidade" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="cidade" value="#{cadWorkEmpregadorMB.cidadeproduto}"
+						style="width:260px;" converter="CidadePaisProdutoConverter"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Cidade" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idcidade2"
+							value="#{cadWorkEmpregadorMB.listaCidade}" var="cidade"
+							itemLabel="#{cidade.cidade.nome}" itemValue="#{cidade}" />
+						<f:attribute name="listaCidadePaisProduto"
+							value="#{cadWorkEmpregadorMB.listaCidade}" />
+						<p:ajax event="change"
+							listener="#{cadWorkEmpregadorMB.listaSponsor()}"
+							update="sponsor" />
+					</p:selectOneMenu> 
+					<p:selectOneMenu id="sponsor"
+						value="#{cadWorkEmpregadorMB.worksponsor}"
+						style="width:260px;"
+						converter="WorkSponsorConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Escola" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{cadWorkEmpregadorMB.listaSponsor}" var="sponsor"
+							itemLabel="#{sponsor.fornecedorcidade.fornecedor.nome}"
+							itemValue="#{fornecedor}" />
+						<f:attribute name="listaWorkSponsor"
+							value="#{cadWorkEmpregadorMB.listaSponsor}" />
+						<p:ajax event="change"/>
+					</p:selectOneMenu>  
+				</h:panelGrid>  
+				<br></br>
+				<h:panelGrid columns="3" columnClasses="tamanho2, tamanho2, tamanho2"    
+					style="margin-left:15%;width:74%;">  
+					<p:outputLabel value="Nome"/> 
+					<p:outputLabel value="Estado"/>
+					<p:outputLabel value="Aeroporto Recomendado"/>  
+					   
+					<p:inputText id="nome" value="#{cadWorkEmpregadorMB.workempregador.nome}"
+						 style="width:90%;" maxlength="100"/>
+					<p:inputText id="estado" value="#{cadWorkEmpregadorMB.workempregador.estado}"
+						 style="width:85%;" maxlength="50"/>
+					<p:inputText id="aeroporto" value="#{cadWorkEmpregadorMB.workempregador.aeroportosugerido}"
+						 style="width:85%;" maxlength="50"/>  
+				</h:panelGrid> 
+				<br></br>
+				<h:panelGrid columns="1" style="margin-left:15%;width:20%;">
+					<h:panelGroup>
+						<p:selectBooleanCheckbox value="#{cadWorkEmpregadorMB.workempregador.oferecepickup}"/>
+						<p:outputLabel value="Oferece Pickup" style="margin-left:5%;"/>
+					</h:panelGroup>  
+				</h:panelGrid> 
+				<br></br> 
+				<div align="center">    
+					<p:commandButton value="Confirmar" icon="ui-icon-check" action="#{cadWorkEmpregadorMB.salvar()}" update=":cadWorkEmpregador:growl"/>
+					<p:commandButton value="Cancelar" icon="ui-icon-close" action="#{cadWorkEmpregadorMB.cancelar()}" style="margin-left:2%;"/>
+				</div> 
+				<br></br> <br></br>
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

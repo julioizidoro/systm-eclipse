@@ -33,7 +33,7 @@ public class Workempregador implements Serializable {
     @Column(name = "estado")
     private String estado;
     @Column(name = "oferecepickup")
-    private Boolean oferecepickup;
+    private boolean oferecepickup;
     @Size(max = 50)
     @Column(name = "aeroportosugerido")
     private String aeroportosugerido;
@@ -73,17 +73,17 @@ public class Workempregador implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
+    } 
 
-    public Boolean getOferecepickup() {
-        return oferecepickup;
-    }
+    public boolean isOferecepickup() {
+		return oferecepickup;
+	}
 
-    public void setOferecepickup(Boolean oferecepickup) {
-        this.oferecepickup = oferecepickup;
-    }
+	public void setOferecepickup(boolean oferecepickup) {
+		this.oferecepickup = oferecepickup;
+	}
 
-    public String getAeroportosugerido() {
+	public String getAeroportosugerido() {
         return aeroportosugerido;
     }
 

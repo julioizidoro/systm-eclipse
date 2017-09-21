@@ -234,20 +234,33 @@
 										<ul class="submenu">
 											<h:panelGroup rendered="true">
 												<li><p:commandLink action="#{menuMB.fornecedor()}" >
-													<span class="subsubsubmenu-label">Intercâmbio</span>
+													<span class="subsubmenu-label">Intercâmbio</span>
 												</p:commandLink></li>
 											</h:panelGroup>
 											<h:panelGroup rendered="true">
 												<li><p:commandLink action="#{menuMB.parceiroTurismo()}" >
-													<span class="subsubsubmenu-label">Turismo</span>
+													<span class="subsubmenu-label">Turismo</span>
 												</p:commandLink></li>
 											</h:panelGroup>
-											<h:panelGroup rendered="true">
-												<li><p:commandLink action="#{menuMB.consWorkSponsor()}" >
-													<span class="subsubsubmenu-label">Work &amp; Travel</span>
-												</p:commandLink></li>
-											</h:panelGroup>
-										</ul></li>
+											<li class="openable open"><p:commandLink>
+													<span class="subsubmenu-label">Work &amp; Travel<i
+														class="fa fa-chevron-down"></i></span>
+												</p:commandLink>    
+												<ul class="submenu"> 
+													<li>
+														<p:commandLink action="#{menuMB.consWorkSponsor()}" >
+															<span class="subsubsubmenu-label">Sponsor</span>
+														</p:commandLink>
+													</li> 
+													<li>
+														<p:commandLink action="#{menuMB.consWorkEmpregador()}">
+															<span class="subsubsubmenu-label">Empregador</span>
+														</p:commandLink>
+													</li> 
+												</ul>    
+											</li>
+										</ul>
+									</li> 
 								</h:panelGroup> 
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cadmotivocancelamento}">
