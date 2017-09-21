@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consWorkSponsorArquivos">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2">
+					<b>Consulta Arquivos - #{workSponsorArquivoMB.worksponsor.fornecedorcidade.fornecedor.nome}</b>
+				</legend> 
+				<h:panelGrid columns="2" style="margin-left:69%;">
+					<p:commandButton value="Voltar" icon="ui-icon-arrowreturn-1-w"
+						action="#{workSponsorArquivoMB.voltarTela()}"
+						style="font-size:12px;" /> 
+					<p:commandButton value="Novo Arquivo" icon="ui-icon-plus"
+						action="#{workSponsorArquivoMB.novoArquivo()}"
+						style="font-size:12px;">
+						<p:ajax listener="#{workSponsorArquivoMB.retornoDialog}"
+							event="dialogReturn" update="tabelaconsWorkSponsorArquivos" />
+					</p:commandButton>
+				</h:panelGrid>
+				<br /> <br />
+				<p:dataTable editable="true" reflow="true"
+					id="tabelaconsWorkSponsorArquivos" var="arquivo" class="tabela"
+					value="#{workSponsorArquivoMB.listarArquivos}" scrollable="true"
+					scrollHeight="300" style="margin-bottom:20px;width:65%;margin-left:20%;"> 
+					<p:ajax event="rowEdit" listener="#{workSponsorArquivoMB.editar}"
+						update=":consWorkSponsorArquivos:growl, :consWorkSponsorArquivos:tabelaconsWorkSponsorArquivos" />
+					<p:ajax event="rowEditCancel"
+						listener="#{workSponsorArquivoMB.cancelarEdicao}"
+						update=":consWorkSponsorArquivos:growl, :consWorkSponsorArquivos:tabelaconsWorkSponsorArquivos" /> 
+					<p:column headerText="Tipo Arquivo"
+						style="text-align:left;width:190px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{arquivo.tipoarquivo.descricao}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="tipoArquivo"
+									style="width: 190px;margin-left: 2%"
+									value="#{workSponsorArquivoMB.tipoarquivo}"
+									converter="TipoArquivoProdutoConverter" filter="true"
+									filterMatchMode="contains" panelStyle="width:250px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems value="#{workSponsorArquivoMB.listaTipoArquivo}"
+										var="tipoarquivoselecionado"
+										itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}"
+										itemValue="#{tipoarquivoselecionado}" />
+									<f:attribute name="listaTipoArquivoProduto"
+										value="#{workSponsorArquivoMB.listaTipoArquivo}" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Nome Arquivo"
+						style="text-align:left; width:200px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{arquivo.nome}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{arquivo.nome}" style="width:98%;" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column style="width:30px">
+						<p:rowEditor title="Editar" />
+					</p:column>
+					<p:column style="width:50px;" styleClass="alinharCenter">
+						<a title="Download" name="download"
+							href="http://#{workSponsorArquivoMB.ftpdados.host}:82/ftproot/systm/worksponsor/#{arquivo.nomeftp}"
+							target="_blank"
+							style="text-decoration: none; color: white; font-size: 18px;"
+							type="button"> <img
+							src="../../resources/img/iconeDownload.png" width="30" /></a>
+					</p:column>
+					<p:column style="width:50px;" styleClass="alinharCenter">
+						<p:commandLink action="#{workSponsorArquivoMB.excluir(arquivo)}"
+							title="excluir"
+							update="tabelaconsWorkSponsorArquivos, :consWorkSponsorArquivos:growl">
+							<img src="../../resources/img/excluir.png" width="30" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<br></br> <br></br>
+			</div> 
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

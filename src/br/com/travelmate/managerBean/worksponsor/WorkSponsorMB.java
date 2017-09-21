@@ -202,5 +202,12 @@ public class WorkSponsorMB implements Serializable {
 		session.setAttribute("voltar", voltar);
 		return "consPais";
 	}
+	
+	public String documentos(Worksponsor worksponsor) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("worksponsor", worksponsor);
+		return "consWorkSponsorArquivos";
+	}
 
 }

@@ -115,6 +115,14 @@
 								<img src="../../resources/img/editaricon.png" width="25" />
 							</p:commandLink>
 						</p:column>
+						<p:column style="text-align:center;width:65px;"
+							headerText="Documentos">
+							<p:commandLink action="#{workSponsorMB.documentos(sponsor)}"
+								style="text-decoration: none" title="Documentos Obrigatórios do Sponsor"
+								update=":consWorkSponsor:growl">
+								<img src="../../resources/img/iconeAdicionar.png" width="25" />
+							</p:commandLink>
+						</p:column>
 					</p:dataTable>
 				</div>
 				<br></br> <br></br>
