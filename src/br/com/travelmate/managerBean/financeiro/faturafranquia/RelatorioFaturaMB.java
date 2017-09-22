@@ -84,13 +84,17 @@ public class RelatorioFaturaMB implements Serializable {
 		if(mesatual){
 			gerarListaFaturaAjusteAbertas();
 			gerarListaFaturasAbertas();
-			for (int i = 0; i < listaFaturaAberta.size(); i++) {
-				if((listaFaturaAberta.get(i).getFaturafaturafraquiasList()==null 
-						|| listaFaturaAberta.get(i).getFaturafaturafraquiasList().size()==0)
-					&& (listaFaturaAberta.get(i).getFaturafaturaajusteList()==null 
-						|| listaFaturaAberta.get(i).getFaturafaturaajusteList().size()==0)) {
-					listaFaturaAberta.remove(i);
+			if(listaFaturaAberta!=null) { 
+				for (int i = 0; i < listaFaturaAberta.size(); i++) {
+					if((listaFaturaAberta.get(i).getFaturafaturafraquiasList()==null 
+							|| listaFaturaAberta.get(i).getFaturafaturafraquiasList().size()==0)
+						&& (listaFaturaAberta.get(i).getFaturafaturaajusteList()==null 
+							|| listaFaturaAberta.get(i).getFaturafaturaajusteList().size()==0)) {
+						listaFaturaAberta.remove(i);
+					}
 				}
+			}else {
+				listaFaturaAberta =  new ArrayList<>();
 			}
 		} 
 	}

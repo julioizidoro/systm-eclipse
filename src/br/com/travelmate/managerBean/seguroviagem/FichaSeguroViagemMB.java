@@ -116,6 +116,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
 	private List<String> listaTipoParcelamento;
+	private boolean segurocancelamento=false;
+	private String numero="3";
 
 	@PostConstruct
 	public void init() {
@@ -304,6 +306,38 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public Fornecedorcidade getFornecedorcidade() {
 		return fornecedorcidade;
+	}
+
+	public Lead getLead() {
+		return lead;
+	}
+
+	public void setLead(Lead lead) {
+		this.lead = lead;
+	}
+
+	public String getVoltarControleVendas() {
+		return voltarControleVendas;
+	}
+
+	public void setVoltarControleVendas(String voltarControleVendas) {
+		this.voltarControleVendas = voltarControleVendas;
+	}
+
+	public List<Parcelamentopagamento> getListaParcelamentoPagamentoAntiga() {
+		return listaParcelamentoPagamentoAntiga;
+	}
+
+	public void setListaParcelamentoPagamentoAntiga(List<Parcelamentopagamento> listaParcelamentoPagamentoAntiga) {
+		this.listaParcelamentoPagamentoAntiga = listaParcelamentoPagamentoAntiga;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	public void setFornecedorcidade(Fornecedorcidade fornecedorcidade) {
@@ -540,6 +574,14 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void setListaTipoParcelamento(List<String> listaTipoParcelamento) {
 		this.listaTipoParcelamento = listaTipoParcelamento;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public String pesquisarCliente() {
@@ -1269,5 +1311,15 @@ public class FichaSeguroViagemMB implements Serializable {
 			receberValorTotal();
 		} 
 	}
+	
+	public void verificarSeguroCancelamento() {
+		if(valoresseguro.isSegurocancelamento()) {
+			segurocancelamento = true;
+			numero="4";
+		} else {
+			segurocancelamento = false;
+			numero="3";
+		}
+	} 
 
 }

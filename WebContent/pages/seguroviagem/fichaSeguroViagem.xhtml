@@ -80,8 +80,8 @@
 									itemValue="#{cvalorseguro}" />
 								<f:attribute name="listaValorSeguro"
 									value="#{fichaSeguroViagemMB.listaValoresSeguro}" />
-								<p:ajax event="change" update="cobranca" />
-							</p:selectOneMenu>
+								<p:ajax event="change" update="cobranca, seguroCancelamento" listener="#{fichaSeguroViagemMB.verificarSeguroCancelamento()}"/>
+							</p:selectOneMenu>   
 							<p:inputText id="cobranca"
 								value="#{fichaSeguroViagemMB.valoresseguro.cobranca}"
 								style="width:78%;" maxlength="45" readonly="true" />
@@ -130,20 +130,20 @@
 							</p:inputText>
 						</h:panelGrid>   
 						<br></br>
-						<h:panelGrid columns="4" style="margin-left:5%;width:58.6%"
+						<h:panelGrid id="seguroCancelamento" columns="#{fichaSeguroViagemMB.numero}" style="margin-left:5%;width:58.6%"
 							columnClasses="tamanho2, tamanho4, tamanho4, tamanho4">
-							<p:outputLabel  />   
+							<p:outputLabel rendered="#{fichaSeguroViagemMB.segurocancelamento}" />   
 							<p:outputLabel value="Desconto Loja" for="descontoLoja" />
 							<p:outputLabel value="Desconto Matriz" for="descontoMatriz" />
 							<p:outputLabel value="Valor Total" for="valorseguro" />
-							
-							<h:panelGroup>
+							   
+							<h:panelGroup rendered="#{fichaSeguroViagemMB.segurocancelamento}">
 								<p:selectBooleanCheckbox value="#{fichaSeguroViagemMB.seguro.segurocancelamento}" >
 									<p:ajax event="change" listener="#{fichaSeguroViagemMB.selecionarSeguroCancelamento()}"
 										update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl" />
 								</p:selectBooleanCheckbox> 
 								<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:2%;"/>
-							</h:panelGroup>
+							</h:panelGroup>  
 							<p:inputText id="descontoLoja"
 								value="#{fichaSeguroViagemMB.seguro.descontoloja}"
 								style="width:80%;text-align:right" maxlength="45">
@@ -151,7 +151,7 @@
 									minFractionDigits="2" />
 								<p:ajax event="blur"
 									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
-									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
+									listener="#{fichaSeguroViagemMB.calcularDataTermino()}" />
 							</p:inputText>
 							<p:inputText id="descontoMatriz"
 								value="#{fichaSeguroViagemMB.seguro.descontomatriz}"
@@ -160,7 +160,7 @@
 									minFractionDigits="2" />
 								<p:ajax event="blur"
 									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
-									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
+									listener="#{fichaSeguroViagemMB.calcularDataTermino()}" />
 							</p:inputText>     
 							<p:inputText id="valorseguro"
 								value="#{fichaSeguroViagemMB.seguro.valorSeguro}"
