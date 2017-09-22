@@ -141,6 +141,7 @@ public class CadVoluntariadoMB implements Serializable {
 	private String voltarControleVendas = "";
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
+	private boolean segurocancelamento=false;
 
 	@PostConstruct()
 	public void init() {
@@ -314,6 +315,14 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public String getCamposVisto() {
 		return camposVisto;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	public void setCamposVisto(String camposVisto) {
@@ -1439,6 +1448,7 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void carregarCobrancaSeguro() {
 		seguroViagem.getValoresseguro().setCobranca(seguroViagem.getValoresseguro().getCobranca());
+		verificarSeguroCancelamento();
 	}
 
 	public void calcularValorParcelas() {
@@ -2059,4 +2069,12 @@ public class CadVoluntariadoMB implements Serializable {
 			return false;
 		}else return true;
 	}
+	
+	public void verificarSeguroCancelamento() {
+		if(seguroViagem.getValoresseguro().isSegurocancelamento()) {
+			segurocancelamento = true; 
+		} else {
+			segurocancelamento = false; 
+		}
+	} 
 }

@@ -794,8 +794,8 @@
 								<f:attribute name="listaValorSeguro"
 									value="#{cadVoluntariadoMB.listaValoresSeguro}" />
 								<p:ajax listener="#{cadVoluntariadoMB.carregarCobrancaSeguro()}"
-									update="cobranca" />
-							</p:selectOneMenu>
+									update="cobranca, seguroCancelamento" />
+							</p:selectOneMenu>  
 
 							<p:inputText id="cobranca"
 								value="#{cadVoluntariadoMB.seguroViagem.valoresseguro.cobranca}"
@@ -803,16 +803,16 @@
 								disabled="#{cadVoluntariadoMB.camposSeguroViagem}" />
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="3" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho11, tamanho14, tamanho11"> 	
+						<h:panelGrid id="seguroCancelamento" columns="3" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho11, tamanho14, tamanho11"> 	
 							<h:panelGroup>
 								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
 									<p:outputLabel value="Data inicial" for="datainicio" />
 									<p:outputLabel id="titulosemanasseguro" value="No. dias" />
 									<p:outputLabel value="Data Final" for="datatermino" />
 								</h:panelGrid>  
-							</h:panelGroup>
-							<p:outputLabel/>
+							</h:panelGroup> 
 							<p:outputLabel value="Valor do Seguro" for="valorseguro" />
+							<p:outputLabel/>
 
 							<h:panelGroup>
 								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
@@ -851,7 +851,7 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:inputText>
-							<h:panelGroup>
+							<h:panelGroup rendered="#{cadVoluntariadoMB.segurocancelamento}">
 								<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadVoluntariadoMB.seguroViagem.segurocancelamento}" disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
 									<p:ajax event="change" listener="#{cadVoluntariadoMB.adicionarSeguroCancelamento()}"
 										update="datatermino, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />

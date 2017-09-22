@@ -189,6 +189,7 @@ public class CadCursoMB implements Serializable {
 	private boolean desabilitarSeguro = false;
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
+	private boolean segurocancelamento=false;
 
 	@PostConstruct()
 	public void init() {
@@ -297,6 +298,14 @@ public class CadCursoMB implements Serializable {
 
 	public void setVendaAlterada(Vendas vendaAlterada) {
 		this.vendaAlterada = vendaAlterada;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	public Formapagamento getFormaPagamento() {
@@ -2399,6 +2408,7 @@ public class CadCursoMB implements Serializable {
 
 	public void carregarCobrancaSeguro() {
 		seguroViagem.getValoresseguro().setCobranca(seguroViagem.getValoresseguro().getCobranca());
+		verificarSeguroCancelamento();
 	}
 
 	public void calcularValorParcelas() {
@@ -3488,4 +3498,12 @@ public class CadCursoMB implements Serializable {
 			return false;
 		}else return true;
 	}
+	
+	public void verificarSeguroCancelamento() {
+		if(seguroViagem.getValoresseguro().isSegurocancelamento()) {
+			segurocancelamento = true; 
+		} else {
+			segurocancelamento = false; 
+		}
+	} 
 }
