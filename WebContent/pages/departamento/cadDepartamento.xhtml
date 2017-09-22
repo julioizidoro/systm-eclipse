@@ -16,7 +16,9 @@
 		<f:view encoding="ISO-8859-1">
 			<h:form id="cadDepartamento" style="font-size:12px;">
 				<p:growl id="messages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-						<title id="iUsu3" ><b>Cadastro de Departamento</b></title>
+						<title >
+							<p:outputLabel value="Cadastro de Departamento"/>
+						</title>
 						<h:panelGrid columns="2"
 							style="width:100%;">
 							<p:outputLabel value="Nome" for="nome" />

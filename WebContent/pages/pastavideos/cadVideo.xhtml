@@ -15,8 +15,9 @@
 		
 		<h:form id="adicionarVideo" acceptcharset="ISO-8859-1" >
 			<p:growl id="messages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-			
-			<title id="iUsu3" ><b>Adicionar um video</b></title>
+			<title >
+				<p:outputLabel value="Adicionar um video"/>
+			</title>
 			<p:outputLabel for="nome" value="Nome" style="font-size:12px;margin-left:1%;"/>
 			<p:outputLabel value="Url do video" for="url" style="font-size:12px; margin-left:35%;"/>
 			<br />

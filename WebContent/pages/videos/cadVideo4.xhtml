@@ -16,7 +16,10 @@
 		<h:form id="adicionarVideo" acceptcharset="ISO-8859-1" >
 			<p:growl id="messages" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
 			
-			<title id="iUsu3" ><b>Adicionar um video</b></title>
+			
+			<title >
+				<p:outputLabel value="Adicionar um video"/>
+			</title>
 			<p:outputLabel value="Publicar ?" for="restrito" style="font-size:12px; margin-left:1%;"/>
 			
 			<p:selectBooleanCheckbox style=" margin-left:1%;" id="restrito" value="#{cadVideo4MB.ativo}"/>

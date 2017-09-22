@@ -14,7 +14,9 @@
 		<h:form id="cadastroPasta2">
 			<p:growl id="messages"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 			
-			<title id="iUsu3" ><b>Cadastro Pastas</b></title>
+			<title >
+				<p:outputLabel value="Cadastro Pastas"/>
+			</title>
 			<h:panelGrid columns="2">
 				<h:panelGroup>
 					<p:outputLabel value="Nome " for="nome" style="font-size:12px;"/>

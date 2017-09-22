@@ -16,7 +16,9 @@
 		<h:form id="cadastroArquivo5" acceptcharset="ISO-8859-1">
 			<p:growl id="messages"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 			
-			<title id="iUsu3" ><b>Cadastro de Arquivo</b></title>
+			<title >
+				<p:outputLabel value="Cadastro de Arquivo"/>
+			</title>
 			<h:panelGrid columns="4" style="width:100%;">
 				<p:outputLabel for="nome" value="Nome do Arquivo" style="font-size:12px;"/>
 				<p:outputLabel value="Data Inicio " for="datainicio" style="font-size:12px;"/>
