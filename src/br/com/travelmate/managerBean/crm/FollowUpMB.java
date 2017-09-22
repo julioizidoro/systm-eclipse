@@ -684,7 +684,7 @@ public class FollowUpMB implements Serializable {
 			funcao = "todos";
 			sql = sql + " and l.situacao='" + situacao + "'";
 		} else {
-			sql = sql + " and l.situacao<5 ";
+			sql = sql + " and l.situacao<'5' ";
 		}
 		if (nomeCliente != null && nomeCliente.length() > 0) {
 			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente + "%')";

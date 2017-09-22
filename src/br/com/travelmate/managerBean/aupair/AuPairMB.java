@@ -790,8 +790,7 @@ public class AuPairMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("venda", aupair.getVendas());
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("closable", false);
+		Map<String, Object> options = new HashMap<String, Object>(); 
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
 		return "";
 	}

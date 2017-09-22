@@ -941,7 +941,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	
 	
 	public void retornoDialogContas(SelectEvent event){
-		gerarListaCobrancaHistorico();
+		gerarListaHistorico();
 	}
 	
 	
