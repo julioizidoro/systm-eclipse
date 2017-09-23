@@ -11,7 +11,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name="controleprogramasteens")
-@NamedQuery(name="Controleprogramasteen.findAll", query="SELECT c FROM Controleprogramasteen c")
 public class Controleprogramasteen implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

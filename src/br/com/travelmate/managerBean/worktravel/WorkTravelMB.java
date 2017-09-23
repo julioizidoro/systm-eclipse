@@ -27,7 +27,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -44,7 +44,6 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;

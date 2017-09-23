@@ -753,7 +753,11 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/ficharestricao.png");
-			curso.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			if (curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				curso.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				curso.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
 		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
 				curso.setHabilitarImagemGerencial(true);
@@ -779,7 +783,12 @@ public class CursoMB implements Serializable {
 				curso.setHabilitarImagemFranquia(true);
 			}
 			curso.setImagem("../../resources/img/ficharestricao.png");
-			curso.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			curso.setImagem("../../resources/img/ficharestricao.png");
+			if (curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				curso.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				curso.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
 		} else {
 			curso.setHabilitarImagemGerencial(false);
 			curso.setHabilitarImagemFranquia(true);

@@ -10,7 +10,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "demipair")
-@NamedQueries({ @NamedQuery(name = "Demipair.findAll", query = "SELECT d FROM Demipair d") })
 public class Demipair implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id

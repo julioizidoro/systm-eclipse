@@ -25,10 +25,9 @@ import javax.persistence.TemporalType;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "fornecedorferias")
-@NamedQueries({
-    @NamedQuery(name = "Fornecedorferias.findAll", query = "SELECT f FROM Fornecedorferias f")})
 public class Fornecedorferias implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

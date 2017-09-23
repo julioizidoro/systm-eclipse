@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "controledemipair")
-@NamedQueries({ @NamedQuery(name="Controledemipair.findAll", query="SELECT c FROM Controledemipair c")})
 public class Controledemipair implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
