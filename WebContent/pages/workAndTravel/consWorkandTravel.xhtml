@@ -256,12 +256,15 @@
 											style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
 												:idfrmconsultaworkandtravel:idNFichaCancelada">
 											<p:confirm header="Cancelamento"
-													message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
 											<img src="../../resources/img/cancel.png" width="36"/>
 											<h:panelGrid columns="1" style="text-align:1px;">
 													<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
 													<p:outputLabel value=" "/>
 												</h:panelGrid>
+											<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+												update=":idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
+												:idfrmconsultaworkandtravel:idNFichaCancelada"/>
 										</p:commandLink>
 										
 							</h:panelGrid>
