@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -111,6 +112,8 @@ public class Usuario implements Serializable {
     private boolean fecharaniversario; 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUpload")
     private List<Notificacaouploadusuario> notificacaoUploadNotificarList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Acessounidade acessounidade;
 
     public Usuario() {
     	setDashboard("I");
@@ -312,6 +315,14 @@ public class Usuario implements Serializable {
 
 	public void setNotificacaoUploadNotificarList(List<Notificacaouploadusuario> notificacaoUploadNotificarList) {
 		this.notificacaoUploadNotificarList = notificacaoUploadNotificarList;
+	}
+
+	public Acessounidade getAcessounidade() {
+		return acessounidade;
+	}
+
+	public void setAcessounidade(Acessounidade acessounidade) {
+		this.acessounidade = acessounidade;
 	}
 
 	@Override
