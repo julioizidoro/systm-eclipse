@@ -33,7 +33,8 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
-import br.com.travelmate.model.Contasreceber; 
+import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vistos;
@@ -67,6 +68,17 @@ public class VistosMB implements Serializable {
 	private boolean editarFicha = false;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private Integer nFichasFinalizadas;
+	private Integer nFichasProcesso;
+	private Integer nFichasAndamento;
+	private Integer nFichaCancelada;
+	private Integer nFichasFinanceiro;
+	private List<Vistos> listaVendasFinalizada;
+	private List<Vistos> listaVendasAndamento;
+	private List<Vistos> listaVendasCancelada;
+	private List<Vistos> listaVendasProcesso;
+	private List<Vistos> listaVendasFinanceiro;
+	private String numeroFichas;
 
 	@PostConstruct
 	public void init() {
@@ -207,6 +219,94 @@ public class VistosMB implements Serializable {
 		this.esconderFicha = esconderFicha;
 	}
 
+	public Integer getnFichasFinalizadas() {
+		return nFichasFinalizadas;
+	}
+
+	public void setnFichasFinalizadas(Integer nFichasFinalizadas) {
+		this.nFichasFinalizadas = nFichasFinalizadas;
+	}
+
+	public Integer getnFichasProcesso() {
+		return nFichasProcesso;
+	}
+
+	public void setnFichasProcesso(Integer nFichasProcesso) {
+		this.nFichasProcesso = nFichasProcesso;
+	}
+
+	public Integer getnFichasAndamento() {
+		return nFichasAndamento;
+	}
+
+	public void setnFichasAndamento(Integer nFichasAndamento) {
+		this.nFichasAndamento = nFichasAndamento;
+	}
+
+	public Integer getnFichaCancelada() {
+		return nFichaCancelada;
+	}
+
+	public void setnFichaCancelada(Integer nFichaCancelada) {
+		this.nFichaCancelada = nFichaCancelada;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Vistos> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Vistos> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Vistos> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Vistos> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Vistos> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Vistos> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Vistos> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Vistos> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Vistos> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Vistos> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+	public String getNumeroFichas() {
+		return numeroFichas;
+	}
+
+	public void setNumeroFichas(String numeroFichas) {
+		this.numeroFichas = numeroFichas;
+	}
+
 	public String calculaJuros() {
 		RequestContext.getCurrentInstance().openDialog("calculaJuros");
 		return "";
@@ -251,6 +351,8 @@ public class VistosMB implements Serializable {
 		if (listaVistos == null) {
 			listaVistos = new ArrayList<Vistos>();
 		}
+		numeroFichas = "" + String.valueOf(listaVistos.size());
+		gerarQuantidadesFichas();
 	}
 
 	public void pesquisar() {
@@ -287,6 +389,8 @@ public class VistosMB implements Serializable {
 		if (listaVistos == null) {
 			listaVistos = new ArrayList<Vistos>();
 		}
+		numeroFichas = "" + String.valueOf(listaVistos.size());
+		gerarQuantidadesFichas();
 	}
 
 	public String gerarRelatorioVisto(Vistos vistos) throws IOException {
@@ -553,5 +657,38 @@ public class VistosMB implements Serializable {
 			vistos.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return true;
+	}
+	
+	
+	public void gerarQuantidadesFichas(){
+		nFichaCancelada = 0;
+		nFichasAndamento = 0;
+		nFichasFinalizadas = 0;
+		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
+		for (int i = 0; i < listaVistos.size(); i++) {
+			if (listaVistos.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaVistos.get(i));
+			}else if(listaVistos.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
+				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaVistos.get(i));
+			}else if(listaVistos.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaVistos.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaVistos.get(i));
+			}else if(listaVistos.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaVistos.get(i));
+			}else{
+				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaVistos.get(i));
+			}
+		}
 	}
 }

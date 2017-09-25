@@ -86,6 +86,12 @@ public class VoluntariadoMB implements Serializable {
 	private Integer nFichaCancelada;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha = true;
+	private List<Voluntariado> listaVendasFinalizada;
+	private List<Voluntariado> listaVendasAndamento;
+	private List<Voluntariado> listaVendasCancelada;
+	private List<Voluntariado> listaVendasProcesso;
+	private List<Voluntariado> listaVendasFinanceiro;
+	private int nFichasFinanceiro;
 
 	@PostConstruct
 	public void init() {
@@ -295,6 +301,54 @@ public class VoluntariadoMB implements Serializable {
 
 	public void setVoltar(String voltar) {
 		this.voltar = voltar;
+	}
+
+	public List<Voluntariado> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Voluntariado> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Voluntariado> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Voluntariado> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Voluntariado> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Voluntariado> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Voluntariado> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Voluntariado> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Voluntariado> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Voluntariado> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+	public int getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(int nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
 	}
 
 	public String novo() {
@@ -812,15 +866,29 @@ public class VoluntariadoMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaVoluntariado.size(); i++) {
 			if (listaVoluntariado.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaVoluntariado.get(i));
 			} else if (listaVoluntariado.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaVoluntariado.get(i));
+			}else if(listaVoluntariado.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaVoluntariado.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaVoluntariado.get(i));
 			} else if (listaVoluntariado.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaVoluntariado.get(i));
 			} else {
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaVoluntariado.get(i));
 			}
 		}
 	}

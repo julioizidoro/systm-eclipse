@@ -38,7 +38,8 @@ import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Traducaojuramentada;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Vendas; 
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
@@ -67,6 +68,18 @@ public class TraducaoMB implements Serializable {
 	private boolean habilitarUnidade = true;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;  
+	private Integer nFichasFinalizadas;
+	private Integer nFichasProcesso;
+	private Integer nFichasAndamento;
+	private Integer nFichaCancelada;
+	private Integer nFichasFinanceiro;
+	private List<Traducaojuramentada> listaVendasFinalizada;
+	private List<Traducaojuramentada> listaVendasAndamento;
+	private List<Traducaojuramentada> listaVendasCancelada;
+	private List<Traducaojuramentada> listaVendasProcesso;
+	private List<Traducaojuramentada> listaVendasFinanceiro;
+	private String numeroFichas;
+
 
 	@PostConstruct
 	public void init() {
@@ -182,6 +195,94 @@ public class TraducaoMB implements Serializable {
 		this.habilitarUnidade = habilitarUnidade;
 	}
   
+	public Integer getnFichasFinalizadas() {
+		return nFichasFinalizadas;
+	}
+
+	public void setnFichasFinalizadas(Integer nFichasFinalizadas) {
+		this.nFichasFinalizadas = nFichasFinalizadas;
+	}
+
+	public Integer getnFichasProcesso() {
+		return nFichasProcesso;
+	}
+
+	public void setnFichasProcesso(Integer nFichasProcesso) {
+		this.nFichasProcesso = nFichasProcesso;
+	}
+
+	public Integer getnFichasAndamento() {
+		return nFichasAndamento;
+	}
+
+	public void setnFichasAndamento(Integer nFichasAndamento) {
+		this.nFichasAndamento = nFichasAndamento;
+	}
+
+	public Integer getnFichaCancelada() {
+		return nFichaCancelada;
+	}
+
+	public void setnFichaCancelada(Integer nFichaCancelada) {
+		this.nFichaCancelada = nFichaCancelada;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Traducaojuramentada> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Traducaojuramentada> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Traducaojuramentada> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Traducaojuramentada> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Traducaojuramentada> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Traducaojuramentada> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Traducaojuramentada> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Traducaojuramentada> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Traducaojuramentada> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Traducaojuramentada> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+	public String getNumeroFichas() {
+		return numeroFichas;
+	}
+
+	public void setNumeroFichas(String numeroFichas) {
+		this.numeroFichas = numeroFichas;
+	}
+
 	public String editar(Traducaojuramentada traducaojuramentada) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -239,6 +340,11 @@ public class TraducaoMB implements Serializable {
 		sql = sql + " order by t.vendas.idvendas desc, t.vendas.dataVenda desc, t.vendas.cliente.nome"; 
 		TraducaoJuramentadaFacade traducaoJuramentadaFacade = new TraducaoJuramentadaFacade();
 		listaTraducao = traducaoJuramentadaFacade.lista(sql);
+		if (listaTraducao == null) {
+			listaTraducao = new ArrayList<>();
+		}
+		numeroFichas = "" + String.valueOf(listaTraducao.size());
+		gerarQuantidadesFichas();
 	}
 
 	public void listarUnidade() {
@@ -410,6 +516,8 @@ public class TraducaoMB implements Serializable {
 			if (listaTraducao == null) {
 				listaTraducao = new ArrayList<>();
 			} 
+			numeroFichas = "" + String.valueOf(listaTraducao.size());
+			gerarQuantidadesFichas();
 		}  
 	}
 	
@@ -500,5 +608,38 @@ public class TraducaoMB implements Serializable {
 			traducaojuramentada.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return true;
+	}
+	
+	
+	public void gerarQuantidadesFichas(){
+		nFichaCancelada = 0;
+		nFichasAndamento = 0;
+		nFichasFinalizadas = 0;
+		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
+		for (int i = 0; i < listaTraducao.size(); i++) {
+			if (listaTraducao.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaTraducao.get(i));
+			}else if(listaTraducao.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
+				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaTraducao.get(i));
+			}else if(listaTraducao.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaTraducao.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaTraducao.get(i));
+			}else if(listaTraducao.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaTraducao.get(i));
+			}else{
+				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaTraducao.get(i));
+			}
+		}
 	}
 }

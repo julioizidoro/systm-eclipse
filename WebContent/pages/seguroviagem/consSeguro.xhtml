@@ -115,10 +115,10 @@
 								<p:commandButton value="Pesquisar"   
 									icon=" ui-icon-search "
 									action="#{consultaSeguroViagemMB.pesquisar()}"
-									update="consultaseguros:tabelaseguros" />
+									update="consultaseguros:acordionPainel" />
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 									action="#{consultaSeguroViagemMB.limparPesquisa()}"
-									update="consultaseguros:tabelaseguros, cliente, dataIni, dataFinal, idUnidade, idconsultor,idVenda,tipo,dataIniSeguro, dataFinalSeguro" />
+									update="consultaseguros:acordionPainel, cliente, dataIni, dataFinal, idUnidade, idconsultor,idVenda,tipo,dataIniSeguro, dataFinalSeguro" />
 							</h:panelGroup>
 						</h:panelGrid>
 					</p:tab>   
@@ -150,143 +150,849 @@
 						style="font-size:12px" />
 				</p:dialog>
 				<br></br> <br></br>
-				<p:dataTable id="tabelaseguros" var="seguros"
-					value="#{consultaSeguroViagemMB.listaSeguro}" class="tabela"
-					scrollable="true" scrollHeight="300" style="margin-bottom:20px"
-					rowIndexVar="rowIx">
-					<p:column style="width:45px;">
-						<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(seguros)}" title="#{seguros.tituloFicha}">
-							<img src="#{seguros.imagem}" width="60px" />    
-						</p:commandLink>   
-					</p:column> 
-					<p:column headerText="ID venda" style="width:50px">
-						<h:outputText value="#{seguros.vendas.idvendas}"
-							style="#{consultaSeguroViagemMB.cor(seguros)}" />
-					</p:column>
-					<p:column headerText="Cliente" style="text-align:left;width:150px;">
-						<h:outputText value="#{seguros.vendas.cliente.nome}"
-							style="#{consultaSeguroViagemMB.corNome(seguros)}" />
-					</p:column>
-					<p:column headerText="Data Venda"
-						style="text-align:left;width:80px;">
-						<h:outputText value="#{seguros.vendas.dataVenda}"
-							style="#{consultaSeguroViagemMB.cor(seguros)}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Plano" style="width:100px;text-align:left;">
-						<h:outputText value="#{seguros.valoresseguro.seguroplanos.nome}"  
-							style="#{consultaSeguroViagemMB.cor(seguros)}" />
-					</p:column>
-					<p:column headerText="Unidade" style="width:150px;text-align:left;">
-						<h:outputText
-							value="#{seguros.vendas.unidadenegocio.nomerelatorio}"
-							style="#{consultaSeguroViagemMB.cor(seguros)}" />
-					</p:column>
-					<p:column headerText="Consultor"
-						style="width:130px;text-align:left;">
-						<h:outputText value="#{seguros.vendas.usuario.nome}"
-							style="#{consultaSeguroViagemMB.cor(seguros)}" />
-					</p:column>
-					<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
-						<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(seguros)}"
-							style="#{consultaSeguroViagemMB.cor(seguros)}" /> 
-					</p:column>
-					<p:column headerText="Tipo" style="width:90px;text-align:left;">
-						<h:outputText value="#{seguros.controle}"
-							style="#{consultaSeguroViagemMB.cor(seguros)}" />
-					</p:column>
-					<p:column  style="width:43px;text-align:center;"
-						styleClass="alinharCenter">
-						<p:commandLink action="#{consultaSeguroViagemMB.editar(seguros)}"
-							style="text-decoration: none;"
-							disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
-							<img src="../../resources/img/editaricon.png" style="width:50px;"/>
-							<p:ajax event="dialogReturn" process="@this"
-								update=":consultaseguros:tabelaseguros" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Imprimir" 
-						style="width:58px;text-align:center;" styleClass="alinharCenter">
-						<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(seguros)}"
-							title="Ficha" image="../../resources/img/imprimiFicha.png"
-							ajax="false" onclick="this.form.target='_blank'"
-							style="width:25px;margin-left:4%">   
-						</h:commandButton>       
-					</p:column> 
-					<p:column headerText="Opções" style="width:70px;text-align:center;">  
-						<p:commandLink id="btnInformacoes" title="Visualizar opções.">
-							<img src="../../resources/img/informacaoVendaVerde.png" />
-						</p:commandLink>
-						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
-							<p:outputLabel
-								value="#{seguros.vendas.idvendas} - #{seguros.vendas.cliente.nome}"
-								style="text-align:center;font-size:15px;" />
-							<br />
-							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
-								
-										<p:commandLink action="#{consultaSeguroViagemMB.boletos(seguros)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}"
-											title="IMPRIMIR OS BOLETOS"
-											ajax="false" target="_blank"
-											>
-											<img src="../../resources/img/boletoFicha.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink>  
-										<p:commandLink
-											action="#{consultaSeguroViagemMB.imprimirRecibo(seguros)}"
-											title="IMPRIMIR O RECIBO"
-											 ajax="false"
-											target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
-											<img src="../../resources/img/imprimiRecibo.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink> 
-											 
-											<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(seguros)}"
-												title="INFORMAÇÕES DA VENDA"
-												disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
-												<img src="../../resources/img/informacao.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="INFO" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-											</p:commandLink>
-											
-											<p:commandLink
-												action="#{consultaSeguroViagemMB.visualizarContasReceber(seguros)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
-												title="VISUALIZAR CONTAS A RECEBER" 
-												
-												 >
-												<img src="../../resources/img/invoice.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:center;"> 
-													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
-												</h:panelGrid>
-											</p:commandLink> 
-											
-											<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(seguros.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}"
-												style="text-decoration: none" title="CANCELAR FICHA" update=":consultaseguros:tabelaseguros">
-												<p:confirm header="Cancelamento"
-													message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-												<img src="../../resources/img/cancel.png" width="36"/>
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-											</p:commandLink> 
-							</h:panelGrid>
-						</p:overlayPanel>
-					</p:column>    
-					
-				</p:dataTable>
+				<p:tabView id="acordionPainel" class="consultaCurso">
+					<p:tab title="Processo (#{consultaSeguroViagemMB.nFichasProcesso})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaProcesso" var="segurosProcesso"
+							value="#{consultaSeguroViagemMB.listaVendasProcesso}" class="tabela"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosProcesso)}" title="#{segurosProcesso.tituloFicha}">
+									<img src="#{segurosProcesso.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column> 
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{segurosProcesso.vendas.idvendas}"
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{segurosProcesso.vendas.cliente.nome}"
+									style="#{consultaSeguroViagemMB.corNome(segurosProcesso)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{segurosProcesso.vendas.dataVenda}"
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Plano" style="width:100px;text-align:left;">
+								<h:outputText value="#{segurosProcesso.valoresseguro.seguroplanos.nome}"  
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText
+									value="#{segurosProcesso.vendas.unidadenegocio.nomerelatorio}"
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								style="width:130px;text-align:left;">
+								<h:outputText value="#{segurosProcesso.vendas.usuario.nome}"
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
+								<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(segurosProcesso)}"
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" /> 
+							</p:column>
+							<p:column headerText="Tipo" style="width:90px;text-align:left;">
+								<h:outputText value="#{segurosProcesso.controle}"
+									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
+							</p:column>
+							<p:column  style="width:43px;text-align:center;"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosProcesso)}"
+									style="text-decoration: none;"
+									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}">
+									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaProcesso" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" 
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosProcesso)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:25px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Opções" style="width:70px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									<p:outputLabel
+										value="#{segurosProcesso.vendas.idvendas} - #{segurosProcesso.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+										
+												<p:commandLink action="#{consultaSeguroViagemMB.boletos(segurosProcesso)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}"
+													title="IMPRIMIR OS BOLETOS"
+													ajax="false" target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												<p:commandLink
+													action="#{consultaSeguroViagemMB.imprimirRecibo(segurosProcesso)}"
+													title="IMPRIMIR O RECIBO"
+													 ajax="false"
+													target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}">
+													<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+													 
+													<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(segurosProcesso)}"
+														title="INFORMAÇÕES DA VENDA"
+														disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}">
+														<img src="../../resources/img/informacao.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													
+													<p:commandLink
+														action="#{consultaSeguroViagemMB.visualizarContasReceber(segurosProcesso)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(segurosProcesso)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+													
+													<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(segurosProcesso.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}"
+														style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaProcesso">
+														<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink> 
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+							
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Financeiro (#{consultaSeguroViagemMB.nFichasFinanceiro})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinanceiro" var="segurosFinanceiro"
+							value="#{consultaSeguroViagemMB.listaVendasFinanceiro}" class="tabela"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosFinanceiro)}" title="#{segurosFinanceiro.tituloFicha}">
+									<img src="#{segurosFinanceiro.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column> 
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{segurosFinanceiro.vendas.idvendas}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{segurosFinanceiro.vendas.cliente.nome}"
+									style="#{consultaSeguroViagemMB.corNome(segurosFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{segurosFinanceiro.vendas.dataVenda}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Plano" style="width:100px;text-align:left;">
+								<h:outputText value="#{segurosFinanceiro.valoresseguro.seguroplanos.nome}"  
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText
+									value="#{segurosFinanceiro.vendas.unidadenegocio.nomerelatorio}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								style="width:130px;text-align:left;">
+								<h:outputText value="#{segurosFinanceiro.vendas.usuario.nome}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
+								<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(segurosFinanceiro)}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" /> 
+							</p:column>
+							<p:column headerText="Tipo" style="width:90px;text-align:left;">
+								<h:outputText value="#{segurosFinanceiro.controle}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
+							</p:column>
+							<p:column  style="width:43px;text-align:center;"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosFinanceiro)}"
+									style="text-decoration: none;"
+									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}">
+									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaFinanceiro" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" 
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosFinanceiro)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:25px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Opções" style="width:70px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									<p:outputLabel
+										value="#{segurosFinanceiro.vendas.idvendas} - #{segurosFinanceiro.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+										
+												<p:commandLink action="#{consultaSeguroViagemMB.boletos(segurosFinanceiro)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}"
+													title="IMPRIMIR OS BOLETOS"
+													ajax="false" target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												<p:commandLink
+													action="#{consultaSeguroViagemMB.imprimirRecibo(segurosFinanceiro)}"
+													title="IMPRIMIR O RECIBO"
+													 ajax="false"
+													target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}">
+													<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+													 
+													<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(segurosFinanceiro)}"
+														title="INFORMAÇÕES DA VENDA"
+														disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}">
+														<img src="../../resources/img/informacao.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													
+													<p:commandLink
+														action="#{consultaSeguroViagemMB.visualizarContasReceber(segurosFinanceiro)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(segurosFinanceiro)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+													
+													<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(segurosFinanceiro.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}"
+														style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinanceiro">
+														<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink> 
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+							
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Andamento (#{consultaSeguroViagemMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaAndamento" var="segurosAndamento"
+							value="#{consultaSeguroViagemMB.listaVendasAndamento}" class="tabela"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosAndamento)}" title="#{segurosAndamento.tituloFicha}">
+									<img src="#{segurosAndamento.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column> 
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{segurosAndamento.vendas.idvendas}"
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{segurosAndamento.vendas.cliente.nome}"
+									style="#{consultaSeguroViagemMB.corNome(segurosAndamento)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{segurosAndamento.vendas.dataVenda}"
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Plano" style="width:100px;text-align:left;">
+								<h:outputText value="#{segurosAndamento.valoresseguro.seguroplanos.nome}"  
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText
+									value="#{segurosAndamento.vendas.unidadenegocio.nomerelatorio}"
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								style="width:130px;text-align:left;">
+								<h:outputText value="#{segurosAndamento.vendas.usuario.nome}"
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
+								<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(segurosAndamento)}"
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" /> 
+							</p:column>
+							<p:column headerText="Tipo" style="width:90px;text-align:left;">
+								<h:outputText value="#{segurosAndamento.controle}"
+									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
+							</p:column>
+							<p:column  style="width:43px;text-align:center;"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosAndamento)}"
+									style="text-decoration: none;"
+									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}">
+									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaAndamento" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" 
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosAndamento)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:25px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Opções" style="width:70px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									<p:outputLabel
+										value="#{segurosAndamento.vendas.idvendas} - #{segurosAndamento.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+										
+												<p:commandLink action="#{consultaSeguroViagemMB.boletos(segurosAndamento)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}"
+													title="IMPRIMIR OS BOLETOS"
+													ajax="false" target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												<p:commandLink
+													action="#{consultaSeguroViagemMB.imprimirRecibo(segurosAndamento)}"
+													title="IMPRIMIR O RECIBO"
+													 ajax="false"
+													target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}">
+													<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+													 
+													<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(segurosAndamento)}"
+														title="INFORMAÇÕES DA VENDA"
+														disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}">
+														<img src="../../resources/img/informacao.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													
+													<p:commandLink
+														action="#{consultaSeguroViagemMB.visualizarContasReceber(segurosAndamento)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(segurosAndamento)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+													
+													<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(segurosAndamento.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}"
+														style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaAndamento">
+														<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink> 
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+							
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Finalizado (#{consultaSeguroViagemMB.nFichasFinalizadas})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinalizado" var="segurosFinalizado"
+							value="#{consultaSeguroViagemMB.listaVendasFinalizada}" class="tabela"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosFinalizado)}" title="#{segurosFinalizado.tituloFicha}">
+									<img src="#{segurosFinalizado.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column> 
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{segurosFinalizado.vendas.idvendas}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{segurosFinalizado.vendas.cliente.nome}"
+									style="#{consultaSeguroViagemMB.corNome(segurosFinalizado)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{segurosFinalizado.vendas.dataVenda}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Plano" style="width:100px;text-align:left;">
+								<h:outputText value="#{segurosFinalizado.valoresseguro.seguroplanos.nome}"  
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText
+									value="#{segurosFinalizado.vendas.unidadenegocio.nomerelatorio}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								style="width:130px;text-align:left;">
+								<h:outputText value="#{segurosFinalizado.vendas.usuario.nome}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
+								<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(segurosFinalizado)}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" /> 
+							</p:column>
+							<p:column headerText="Tipo" style="width:90px;text-align:left;">
+								<h:outputText value="#{segurosFinalizado.controle}"
+									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
+							</p:column>
+							<p:column  style="width:43px;text-align:center;"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosFinalizado)}"
+									style="text-decoration: none;"
+									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}">
+									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaFinalizado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" 
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosFinalizado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:25px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Opções" style="width:70px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									<p:outputLabel
+										value="#{segurosFinalizado.vendas.idvendas} - #{segurosFinalizado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+										
+												<p:commandLink action="#{consultaSeguroViagemMB.boletos(segurosFinalizado)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}"
+													title="IMPRIMIR OS BOLETOS"
+													ajax="false" target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												<p:commandLink
+													action="#{consultaSeguroViagemMB.imprimirRecibo(segurosFinalizado)}"
+													title="IMPRIMIR O RECIBO"
+													 ajax="false"
+													target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}">
+													<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+													 
+													<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(segurosFinalizado)}"
+														title="INFORMAÇÕES DA VENDA"
+														disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}">
+														<img src="../../resources/img/informacao.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													
+													<p:commandLink
+														action="#{consultaSeguroViagemMB.visualizarContasReceber(segurosFinalizado)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(segurosFinalizado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+													
+													<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(segurosFinalizado.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}"
+														style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinalizado">
+														<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink> 
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+							
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Cancelado (#{consultaSeguroViagemMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaCancelado" var="segurosCancelado"
+							value="#{consultaSeguroViagemMB.listaVendasCancelada}" class="tabela"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosCancelado)}" title="#{segurosCancelado.tituloFicha}">
+									<img src="#{segurosCancelado.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column> 
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{segurosCancelado.vendas.idvendas}"
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{segurosCancelado.vendas.cliente.nome}"
+									style="#{consultaSeguroViagemMB.corNome(segurosCancelado)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{segurosCancelado.vendas.dataVenda}"
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Plano" style="width:100px;text-align:left;">
+								<h:outputText value="#{segurosCancelado.valoresseguro.seguroplanos.nome}"  
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText
+									value="#{segurosCancelado.vendas.unidadenegocio.nomerelatorio}"
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								style="width:130px;text-align:left;">
+								<h:outputText value="#{segurosCancelado.vendas.usuario.nome}"
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
+								<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(segurosCancelado)}"
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" /> 
+							</p:column>
+							<p:column headerText="Tipo" style="width:90px;text-align:left;">
+								<h:outputText value="#{segurosCancelado.controle}"
+									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
+							</p:column>
+							<p:column  style="width:43px;text-align:center;"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosCancelado)}"
+									style="text-decoration: none;"
+									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}">
+									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaCancelado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" 
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosCancelado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:25px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Opções" style="width:70px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									<p:outputLabel
+										value="#{segurosCancelado.vendas.idvendas} - #{segurosCancelado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+										
+												<p:commandLink action="#{consultaSeguroViagemMB.boletos(segurosCancelado)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}"
+													title="IMPRIMIR OS BOLETOS"
+													ajax="false" target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												<p:commandLink
+													action="#{consultaSeguroViagemMB.imprimirRecibo(segurosCancelado)}"
+													title="IMPRIMIR O RECIBO"
+													 ajax="false"
+													target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}">
+													<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+													 
+													<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(segurosCancelado)}"
+														title="INFORMAÇÕES DA VENDA"
+														disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}">
+														<img src="../../resources/img/informacao.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													
+													<p:commandLink
+														action="#{consultaSeguroViagemMB.visualizarContasReceber(segurosCancelado)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(segurosCancelado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+													
+													<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(segurosCancelado.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}"
+														style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaCancelado">
+														<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink> 
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+							
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Todos (#{consultaSeguroViagemMB.numeroFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaseguros" var="seguros"
+							value="#{consultaSeguroViagemMB.listaSeguro}" class="tabela"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(seguros)}" title="#{seguros.tituloFicha}">
+									<img src="#{seguros.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column> 
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{seguros.vendas.idvendas}"
+									style="#{consultaSeguroViagemMB.cor(seguros)}" />
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{seguros.vendas.cliente.nome}"
+									style="#{consultaSeguroViagemMB.corNome(seguros)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{seguros.vendas.dataVenda}"
+									style="#{consultaSeguroViagemMB.cor(seguros)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Plano" style="width:100px;text-align:left;">
+								<h:outputText value="#{seguros.valoresseguro.seguroplanos.nome}"  
+									style="#{consultaSeguroViagemMB.cor(seguros)}" />
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText
+									value="#{seguros.vendas.unidadenegocio.nomerelatorio}"
+									style="#{consultaSeguroViagemMB.cor(seguros)}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								style="width:130px;text-align:left;">
+								<h:outputText value="#{seguros.vendas.usuario.nome}"
+									style="#{consultaSeguroViagemMB.cor(seguros)}" />
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:75px;" styleClass="alinharCenter">
+								<h:outputText value="#{consultaSeguroViagemMB.vendaMatriz(seguros)}"
+									style="#{consultaSeguroViagemMB.cor(seguros)}" /> 
+							</p:column>
+							<p:column headerText="Tipo" style="width:90px;text-align:left;">
+								<h:outputText value="#{seguros.controle}"
+									style="#{consultaSeguroViagemMB.cor(seguros)}" />
+							</p:column>
+							<p:column  style="width:43px;text-align:center;"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{consultaSeguroViagemMB.editar(seguros)}"
+									style="text-decoration: none;"
+									disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
+									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaseguros" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" 
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(seguros)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:25px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Opções" style="width:70px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									<p:outputLabel
+										value="#{seguros.vendas.idvendas} - #{seguros.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+										
+												<p:commandLink action="#{consultaSeguroViagemMB.boletos(seguros)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}"
+													title="IMPRIMIR OS BOLETOS"
+													ajax="false" target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												<p:commandLink
+													action="#{consultaSeguroViagemMB.imprimirRecibo(seguros)}"
+													title="IMPRIMIR O RECIBO"
+													 ajax="false"
+													target="_blank" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
+													<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+													 
+													<p:commandLink  action="#{consultaSeguroViagemMB.informacoes(seguros)}"
+														title="INFORMAÇÕES DA VENDA"
+														disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
+														<img src="../../resources/img/informacao.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													
+													<p:commandLink
+														action="#{consultaSeguroViagemMB.visualizarContasReceber(seguros)}" rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+													
+													<p:commandLink action="#{consultaSeguroViagemMB.cancelarVenda(seguros.vendas)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}"
+														style="text-decoration: none" title="CANCELAR FICHA" update="tabelaseguros">
+														<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink> 
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+							
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
+				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
 			    	<div align="center">
 				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>

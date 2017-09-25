@@ -71,12 +71,10 @@
 								<p:ajax event="change" />
 							</p:selectOneMenu>
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-								update="idfrmconsultademipair:tabelaConsultademipair, :idfrmconsultademipair:PanelQuantidadeFichas, :idfrmconsultademipair:idNFichaFinalizada, :idfrmconsultademipair:idNFichaAndamento,
-								:idfrmconsultademipair:idNFichaCancelada"
+								update=":idfrmconsultademipair:acordionPainel"
 								action="#{demiPairMB.pesquisarLista()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="idfrmconsultademipair:tabelaConsultademipair, situacao, unidade, dataFinal, dataIni, cliente,idVenda, :idfrmconsultademipair:PanelQuantidadeFichas, :idfrmconsultademipair:idNFichaFinalizada, :idfrmconsultademipair:idNFichaAndamento,
-								:idfrmconsultademipair:idNFichaCancelada"
+								update=":idfrmconsultademipair:acordionPainel, situacao, unidade, dataFinal, dataIni, cliente,idVenda"
 								action="#{demiPairMB.limparPesquisa()}" />
 						</h:panelGrid>
 						<br></br> 
@@ -91,245 +89,1192 @@
 					style="font-size:12px;float:right;margin-right: 4%;" />
 				<br></br> 
 				<br></br><br/>
-
-				<p:dataTable id="tabelaConsultademipair" var="demipair"
-					value="#{demiPairMB.listaDemipair}" class="tabelaHighSchool"
-					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
-
-					<p:column style="width:40px;">
-						<p:commandLink 
-							action="#{demiPairMB.dialogSalvarControle(demipair)}"
-							onclick="PF('liberarficha').show();" title="#{demipair.tituloFicha}"
-							rendered="#{demiPairMB.imagemSituacaoUsuario(demipair)}">
-							<img src="#{demipair.imagem}" width="60%" />
-						</p:commandLink>
-						<p:commandLink title="#{demipair.tituloFicha}" rendered="#{demipair.habilitarImagemFranquia}">
-							<img src="#{demipair.imagem}" width="60%" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="ID Venda" sortBy="#{demipair.vendas.idvendas}" style="width:90px;"
-						styleClass="alinharCenter">
-						<p:commandLink
-							action="#{demiPairMB.dialogSalvarControle(demipair)}"
-							onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
-							<h:outputText value="#{demipair.vendas.idvendas}"
-								style="#{demiPairMB.cor(demipair)}" />
-						</p:commandLink>
-						<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
-							<h:outputText value="#{demipair.vendas.idvendas}"
-								style="#{demiPairMB.cor(demipair)}" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Cliente" sortBy="#{demipair.vendas.cliente.nome}" style="width:150px; ">
-						<h:outputText value="#{demipair.vendas.cliente.nome}"
-							style="#{demiPairMB.corNome(demipair)}" />
-					</p:column>
-					<p:column headerText="Data Venda"
-						style="text-align:center;width:115px;" sortBy="#{demipair.vendas.dataVenda}">
-						<h:outputText value="#{demipair.vendas.dataVenda}"
-							style="#{demiPairMB.cor(demipair)}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Unidade" style="width:150px;"
-						styleClass="alinharCenter" sortBy="#{demipair.vendas.unidadenegocio.nomeFantasia}">
-						<h:outputText
-							value="#{demipair.vendas.unidadenegocio.nomeFantasia}"
-							style="#{demiPairMB.cor(demipair)}" />
-					</p:column>
-					<p:column headerText="Consultor" style="width:150px;"
-						styleClass="alinharCenter" sortBy="#{demipair.vendas.usuario.nome}">
-						<h:outputText value="#{demipair.vendas.usuario.nome}"
-							style="#{demiPairMB.cor(demipair)}" />
-					</p:column>
-					<p:column style="width:43px;text-align:center;">
-						<p:commandLink action="#{demiPairMB.editar(demipair)}"
-							style="text-decoration: none" title="Editar"
-							disabled="#{demiPairMB.botoesHabilitados(demipair)}">
-							<img src="../../resources/img/editaricon.png" width="28" />
-							<p:ajax event="dialogReturn" process="@this"
-								update=":idfrmconsultademipair:tabelaConsultademipair, :idfrmconsultademipair:PanelQuantidadeFichas, :idfrmconsultademipair:idNFichaFinalizada, :idfrmconsultademipair:idNFichaAndamento,
-								:idfrmconsultademipair:idNFichaCancelada" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
-						style="width:58px;text-align:center;" styleClass="alinharCenter">
-						<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipair)}"
-							title="Ficha" image="../../resources/img/imprimiFicha.png"
-							ajax="false" onclick="this.form.target='_blank'"
-							style="width:30px;margin-left:4%"> 
-						</h:commandButton>     
-					</p:column> 
-					
-					
-					<p:column headerText="Opções" style="width:75px;text-align:center;">  
-						<p:commandLink id="btnInformacoes" title="Visualizar opções.">
-							<img src="../../resources/img/informacaoVendaVerde.png" />
-						</p:commandLink>
-						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
-							<p:outputLabel
-								value="#{demipair.vendas.idvendas} - #{demipair.vendas.cliente.nome}"
-								style="text-align:center;font-size:15px;" />
-							<br />
-							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
-								
-									<p:commandLink action="#{demiPairMB.boletos(demipair)}" disabled="#{demiPairMB.botoesHabilitados(demipair)}"
-										title="IMPRIMIR OS BOLETOS"
-										ajax="false" target="_blank"
-										style="width:100%;margin-left:4%" >
-										<img src="../../resources/img/boletoFicha.png" width="36" />
-										<h:panelGrid columns="1" style="text-align:1px;">
-											<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
-											<p:outputLabel value=" "/>
-										</h:panelGrid>
-									</p:commandLink>  
-									
-									<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipair)}"
-										style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-										update="idfrmconsultademipair:dialog_obsTM"
-										oncomplete="PF('obstm').show()"
-										disabled="#{demiPairMB.botoesHabilitados(demipair)}">
-										<img src="#{demiPairMB.retornarIconeObsTM(demipair)}" width="36" />
-										<h:panelGrid columns="1" style="text-align:1px;">
-											<p:outputLabel value="OBS" style="font-size:11px;"/>
-											<p:outputLabel value="TM" style="font-size:11px;"/>
-										</h:panelGrid>
-									</p:commandLink>
-									
-									<p:commandLink
-										action="#{demiPairMB.gerarRelatorioContrato(demipair)}"
-										title="IMPRIMIR O CONTRATO"
-										disabled="#{demiPairMB.botoesHabilitados(demipair)}"
-										ajax="false"
-										target="_blank">
-										<img src="../../resources/img/imprimiContrato.png" width="36" />
-										<h:panelGrid columns="1" style="text-align:1px;">
-											<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
-											<p:outputLabel value=" "/>
-										</h:panelGrid>
-									</p:commandLink>
-									
-									<p:commandLink
-										action="#{demiPairMB.gerarRelatorioTermoVisto(demipair)}"
-										title="IMPRIMIR O TERMO DE VISTO"
-										disabled="#{demiPairMB.botoesHabilitados(demipair)}"
-										 ajax="false"
-										target="_blank" >
-										<img src="../../resources/img/imprimiVisto.png" width="36" />
-										<h:panelGrid columns="1" style="text-align:1px;">
-											<p:outputLabel value="TERMO" style="font-size:11px;"/>
-											<p:outputLabel value="VISTO" style="font-size:11px;"/>
-										</h:panelGrid>
-									</p:commandLink>
-									
-									<p:commandLink
-										action="#{demiPairMB.gerarRelatorioRecibo(demipair)}"
-										title="IMPRIMIR O RECIBO"
-										disabled="#{demiPairMB.botoesHabilitados(demipair)}"
-										ajax="false"
-										target="_blank" >
-										<img src="../../resources/img/imprimiRecibo.png" width="36" />
-										<h:panelGrid columns="1" style="text-align:1px;">
-											<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-											<p:outputLabel value=" "/>
-										</h:panelGrid>
-									</p:commandLink>
-									
-										<p:commandLink action="#{demiPairMB.documentacao(demipair)}"
-											title="DOCUMENTOS"
-											disabled="#{demiPairMB.botoesHabilitados(demipair)}">
-											<img src="../../resources/img/arquivosUpload.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="DOCS" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink>
+				<p:tabView id="acordionPainel" class="consultaCurso">   
+					<p:tab title="Processo (#{demiPairMB.nFichasProcesso})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaProcesso" var="demipairProcesso"
+							value="#{demiPairMB.listaVendasProcesso}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink 
+									action="#{demiPairMB.dialogSalvarControle(demipairProcesso)}"
+									onclick="PF('liberarficha').show();" title="#{demipairProcesso.tituloFicha}"
+									rendered="#{demiPairMB.imagemSituacaoUsuario(demipairProcesso)}">
+									<img src="#{demipairProcesso.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink title="#{demipairProcesso.tituloFicha}" rendered="#{demipairProcesso.habilitarImagemFranquia}">
+									<img src="#{demipairProcesso.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{demipairProcesso.vendas.idvendas}" style="width:90px;"
+								styleClass="alinharCenter">
+								<p:commandLink
+									action="#{demiPairMB.dialogSalvarControle(demipairProcesso)}"
+									onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+									<h:outputText value="#{demipairProcesso.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairProcesso)}" />
+								</p:commandLink>
+								<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
+									<h:outputText value="#{demipairProcesso.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairProcesso)}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{demipairProcesso.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{demipairProcesso.vendas.cliente.nome}"
+									style="#{demiPairMB.corNome(demipairProcesso)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{demipairProcesso.vendas.dataVenda}">
+								<h:outputText value="#{demipairProcesso.vendas.dataVenda}"
+									style="#{demiPairMB.cor(demipairProcesso)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairProcesso.vendas.unidadenegocio.nomeFantasia}">
+								<h:outputText
+									value="#{demipairProcesso.vendas.unidadenegocio.nomeFantasia}"
+									style="#{demiPairMB.cor(demipairProcesso)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairProcesso.vendas.usuario.nome}">
+								<h:outputText value="#{demipairProcesso.vendas.usuario.nome}"
+									style="#{demiPairMB.cor(demipairProcesso)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{demiPairMB.editar(demipairProcesso)}"
+									style="text-decoration: none" title="Editar"
+									disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaProcesso" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipairProcesso)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%"> 
+								</h:commandButton>     
+							</p:column> 
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{demipairProcesso.vendas.idvendas} - #{demipairProcesso.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-										<p:commandLink action="#{demiPairMB.informacoes(demipair)}"    
-											 title="INFORMAÇÕES DA VENDA"
-											disabled="#{demiPairMB.botoesHabilitados(demipair)}">
-											<img src="../../resources/img/informacao.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="INFO" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink>
-										
-										<p:commandLink
-												action="#{demiPairMB.visualizarContasReceber(demipair)}"
-												title="VISUALIZAR CONTAS A RECEBER" 
-												
-												 >
-												<img src="../../resources/img/invoice.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:center;"> 
-													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+											<p:commandLink action="#{demiPairMB.boletos(demipairProcesso)}" disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
 												</h:panelGrid>
-											</p:commandLink> 
+											</p:commandLink>  
+											
+											<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipairProcesso)}"
+												style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="idfrmconsultademipair:dialog_obsTM"
+												oncomplete="PF('obstm').show()"
+												disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}">
+												<img src="#{demiPairMB.retornarIconeObsTM(demipairProcesso)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioContrato(demipairProcesso)}"
+												title="IMPRIMIR O CONTRATO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}"
+												ajax="false"
+												target="_blank">
+												<img src="../../resources/img/imprimiContrato.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioTermoVisto(demipairProcesso)}"
+												title="IMPRIMIR O TERMO DE VISTO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}"
+												 ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="TERMO" style="font-size:11px;"/>
+													<p:outputLabel value="VISTO" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioRecibo(demipairProcesso)}"
+												title="IMPRIMIR O RECIBO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}"
+												ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiRecibo.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{demiPairMB.documentacao(demipairProcesso)}"
+													title="DOCUMENTOS"
+													disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink action="#{demiPairMB.informacoes(demipairProcesso)}"    
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{demiPairMB.visualizarContasReceber(demipairProcesso)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink  
+													action="#{demiPairMB.cancelarVenda(demipairProcesso.vendas)}"
+													disabled="#{demiPairMB.botoesHabilitados(demipairProcesso)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update="tabelaConsultaProcesso">
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<img src="../../resources/img/cancel.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Financeiro (#{demiPairMB.nFichasFinanceiro})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinanceiro" var="demipairFinanceiro"
+							value="#{demiPairMB.listaVendasFinanceiro}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink 
+									action="#{demiPairMB.dialogSalvarControle(demipairFinanceiro)}"
+									onclick="PF('liberarficha').show();" title="#{demipairFinanceiro.tituloFicha}"
+									rendered="#{demiPairMB.imagemSituacaoUsuario(demipairFinanceiro)}">
+									<img src="#{demipairFinanceiro.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink title="#{demipairFinanceiro.tituloFicha}" rendered="#{demipairFinanceiro.habilitarImagemFranquia}">
+									<img src="#{demipairFinanceiro.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{demipairFinanceiro.vendas.idvendas}" style="width:90px;"
+								styleClass="alinharCenter">
+								<p:commandLink
+									action="#{demiPairMB.dialogSalvarControle(demipairFinanceiro)}"
+									onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+									<h:outputText value="#{demipairFinanceiro.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairFinanceiro)}" />
+								</p:commandLink>
+								<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
+									<h:outputText value="#{demipairFinanceiro.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairFinanceiro)}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{demipairFinanceiro.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{demipairFinanceiro.vendas.cliente.nome}"
+									style="#{demiPairMB.corNome(demipairFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{demipairFinanceiro.vendas.dataVenda}">
+								<h:outputText value="#{demipairFinanceiro.vendas.dataVenda}"
+									style="#{demiPairMB.cor(demipairFinanceiro)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairFinanceiro.vendas.unidadenegocio.nomeFantasia}">
+								<h:outputText
+									value="#{demipairFinanceiro.vendas.unidadenegocio.nomeFantasia}"
+									style="#{demiPairMB.cor(demipairFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairFinanceiro.vendas.usuario.nome}">
+								<h:outputText value="#{demipairFinanceiro.vendas.usuario.nome}"
+									style="#{demiPairMB.cor(demipairFinanceiro)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{demiPairMB.editar(demipairFinanceiro)}"
+									style="text-decoration: none" title="Editar"
+									disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaFinanceiro" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipairFinanceiro)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%"> 
+								</h:commandButton>     
+							</p:column> 
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{demipairFinanceiro.vendas.idvendas} - #{demipairFinanceiro.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-										<p:commandLink  
-											action="#{demiPairMB.cancelarVenda(demipair.vendas)}"
-											disabled="#{demiPairMB.botoesHabilitados(demipair)}"
-											style="text-decoration: none" title="CANCELAR FICHA"
-											update=":idfrmconsultademipair:tabelaConsultademipair">
-											<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-											<img src="../../resources/img/cancel.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink>   
-							</h:panelGrid>
-						</p:overlayPanel>
-					</p:column>  
-				</p:dataTable>
+											<p:commandLink action="#{demiPairMB.boletos(demipairFinanceiro)}" disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+											
+											<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipairFinanceiro)}"
+												style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="idfrmconsultademipair:dialog_obsTM"
+												oncomplete="PF('obstm').show()"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}">
+												<img src="#{demiPairMB.retornarIconeObsTM(demipairFinanceiro)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioContrato(demipairFinanceiro)}"
+												title="IMPRIMIR O CONTRATO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}"
+												ajax="false"
+												target="_blank">
+												<img src="../../resources/img/imprimiContrato.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioTermoVisto(demipairFinanceiro)}"
+												title="IMPRIMIR O TERMO DE VISTO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}"
+												 ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="TERMO" style="font-size:11px;"/>
+													<p:outputLabel value="VISTO" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioRecibo(demipairFinanceiro)}"
+												title="IMPRIMIR O RECIBO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}"
+												ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiRecibo.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{demiPairMB.documentacao(demipairFinanceiro)}"
+													title="DOCUMENTOS"
+													disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink action="#{demiPairMB.informacoes(demipairFinanceiro)}"    
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{demiPairMB.visualizarContasReceber(demipairFinanceiro)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink  
+													action="#{demiPairMB.cancelarVenda(demipairFinanceiro.vendas)}"
+													disabled="#{demiPairMB.botoesHabilitados(demipairFinanceiro)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update="tabelaConsultaFinanceiro">
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<img src="../../resources/img/cancel.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Andamento (#{demiPairMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaAndamento" var="demipairAndamento"
+							value="#{demiPairMB.listaVendasAndamento}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink 
+									action="#{demiPairMB.dialogSalvarControle(demipairAndamento)}"
+									onclick="PF('liberarficha').show();" title="#{demipairAndamento.tituloFicha}"
+									rendered="#{demiPairMB.imagemSituacaoUsuario(demipairAndamento)}">
+									<img src="#{demipairAndamento.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink title="#{demipairAndamento.tituloFicha}" rendered="#{demipairAndamento.habilitarImagemFranquia}">
+									<img src="#{demipairAndamento.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{demipairAndamento.vendas.idvendas}" style="width:90px;"
+								styleClass="alinharCenter">
+								<p:commandLink
+									action="#{demiPairMB.dialogSalvarControle(demipairAndamento)}"
+									onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+									<h:outputText value="#{demipairAndamento.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairAndamento)}" />
+								</p:commandLink>
+								<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
+									<h:outputText value="#{demipairAndamento.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairAndamento)}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{demipairAndamento.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{demipairAndamento.vendas.cliente.nome}"
+									style="#{demiPairMB.corNome(demipairAndamento)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{demipairAndamento.vendas.dataVenda}">
+								<h:outputText value="#{demipairAndamento.vendas.dataVenda}"
+									style="#{demiPairMB.cor(demipairAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairAndamento.vendas.unidadenegocio.nomeFantasia}">
+								<h:outputText
+									value="#{demipairAndamento.vendas.unidadenegocio.nomeFantasia}"
+									style="#{demiPairMB.cor(demipairAndamento)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairAndamento.vendas.usuario.nome}">
+								<h:outputText value="#{demipairAndamento.vendas.usuario.nome}"
+									style="#{demiPairMB.cor(demipairAndamento)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{demiPairMB.editar(demipairAndamento)}"
+									style="text-decoration: none" title="Editar"
+									disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaAndamento" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipairAndamento)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%"> 
+								</h:commandButton>     
+							</p:column> 
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{demipairAndamento.vendas.idvendas} - #{demipairAndamento.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{demiPairMB.boletos(demipairAndamento)}" disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+											
+											<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipairAndamento)}"
+												style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="idfrmconsultademipair:dialog_obsTM"
+												oncomplete="PF('obstm').show()"
+												disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}">
+												<img src="#{demiPairMB.retornarIconeObsTM(demipairAndamento)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioContrato(demipairAndamento)}"
+												title="IMPRIMIR O CONTRATO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}"
+												ajax="false"
+												target="_blank">
+												<img src="../../resources/img/imprimiContrato.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioTermoVisto(demipairAndamento)}"
+												title="IMPRIMIR O TERMO DE VISTO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}"
+												 ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="TERMO" style="font-size:11px;"/>
+													<p:outputLabel value="VISTO" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioRecibo(demipairAndamento)}"
+												title="IMPRIMIR O RECIBO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}"
+												ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiRecibo.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{demiPairMB.documentacao(demipairAndamento)}"
+													title="DOCUMENTOS"
+													disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink action="#{demiPairMB.informacoes(demipairAndamento)}"    
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{demiPairMB.visualizarContasReceber(demipairAndamento)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink  
+													action="#{demiPairMB.cancelarVenda(demipairAndamento.vendas)}"
+													disabled="#{demiPairMB.botoesHabilitados(demipairAndamento)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update="tabelaConsultaAndamento">
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<img src="../../resources/img/cancel.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Finalizado (#{demiPairMB.nFichasFinalizadas})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinalizado" var="demipairFinalizado"
+							value="#{demiPairMB.listaVendasFinalizada}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink 
+									action="#{demiPairMB.dialogSalvarControle(demipairFinalizado)}"
+									onclick="PF('liberarficha').show();" title="#{demipairFinalizado.tituloFicha}"
+									rendered="#{demiPairMB.imagemSituacaoUsuario(demipairFinalizado)}">
+									<img src="#{demipairFinalizado.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink title="#{demipairFinalizado.tituloFicha}" rendered="#{demipairFinalizado.habilitarImagemFranquia}">
+									<img src="#{demipairFinalizado.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{demipairFinalizado.vendas.idvendas}" style="width:90px;"
+								styleClass="alinharCenter">
+								<p:commandLink
+									action="#{demiPairMB.dialogSalvarControle(demipairFinalizado)}"
+									onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+									<h:outputText value="#{demipairFinalizado.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairFinalizado)}" />
+								</p:commandLink>
+								<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
+									<h:outputText value="#{demipairFinalizado.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairFinalizado)}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{demipairFinalizado.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{demipairFinalizado.vendas.cliente.nome}"
+									style="#{demiPairMB.corNome(demipairFinalizado)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{demipairFinalizado.vendas.dataVenda}">
+								<h:outputText value="#{demipairFinalizado.vendas.dataVenda}"
+									style="#{demiPairMB.cor(demipairFinalizado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairFinalizado.vendas.unidadenegocio.nomeFantasia}">
+								<h:outputText
+									value="#{demipairFinalizado.vendas.unidadenegocio.nomeFantasia}"
+									style="#{demiPairMB.cor(demipairFinalizado)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairFinalizado.vendas.usuario.nome}">
+								<h:outputText value="#{demipairFinalizado.vendas.usuario.nome}"
+									style="#{demiPairMB.cor(demipairFinalizado)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{demiPairMB.editar(demipairFinalizado)}"
+									style="text-decoration: none" title="Editar"
+									disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaFinalizado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipairFinalizado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%"> 
+								</h:commandButton>     
+							</p:column> 
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{demipairFinalizado.vendas.idvendas} - #{demipairFinalizado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{demiPairMB.boletos(demipairFinalizado)}" disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+											
+											<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipairFinalizado)}"
+												style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="idfrmconsultademipair:dialog_obsTM"
+												oncomplete="PF('obstm').show()"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}">
+												<img src="#{demiPairMB.retornarIconeObsTM(demipairFinalizado)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioContrato(demipairFinalizado)}"
+												title="IMPRIMIR O CONTRATO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}"
+												ajax="false"
+												target="_blank">
+												<img src="../../resources/img/imprimiContrato.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioTermoVisto(demipairFinalizado)}"
+												title="IMPRIMIR O TERMO DE VISTO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}"
+												 ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="TERMO" style="font-size:11px;"/>
+													<p:outputLabel value="VISTO" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioRecibo(demipairFinalizado)}"
+												title="IMPRIMIR O RECIBO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}"
+												ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiRecibo.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{demiPairMB.documentacao(demipairFinalizado)}"
+													title="DOCUMENTOS"
+													disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink action="#{demiPairMB.informacoes(demipairFinalizado)}"    
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{demiPairMB.visualizarContasReceber(demipairFinalizado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink  
+													action="#{demiPairMB.cancelarVenda(demipairFinalizado.vendas)}"
+													disabled="#{demiPairMB.botoesHabilitados(demipairFinalizado)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update="tabelaConsultaFinalizado">
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<img src="../../resources/img/cancel.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Cancelado (#{demiPairMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaCancelado" var="demipairCancelado"
+							value="#{demiPairMB.listaVendasCancelada}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink 
+									action="#{demiPairMB.dialogSalvarControle(demipairCancelado)}"
+									onclick="PF('liberarficha').show();" title="#{demipairCancelado.tituloFicha}"
+									rendered="#{demiPairMB.imagemSituacaoUsuario(demipairCancelado)}">
+									<img src="#{demipairCancelado.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink title="#{demipairCancelado.tituloFicha}" rendered="#{demipairCancelado.habilitarImagemFranquia}">
+									<img src="#{demipairCancelado.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{demipairCancelado.vendas.idvendas}" style="width:90px;"
+								styleClass="alinharCenter">
+								<p:commandLink
+									action="#{demiPairMB.dialogSalvarControle(demipairCancelado)}"
+									onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+									<h:outputText value="#{demipairCancelado.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairCancelado)}" />
+								</p:commandLink>
+								<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
+									<h:outputText value="#{demipairCancelado.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipairCancelado)}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{demipairCancelado.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{demipairCancelado.vendas.cliente.nome}"
+									style="#{demiPairMB.corNome(demipairCancelado)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{demipairCancelado.vendas.dataVenda}">
+								<h:outputText value="#{demipairCancelado.vendas.dataVenda}"
+									style="#{demiPairMB.cor(demipairCancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairCancelado.vendas.unidadenegocio.nomeFantasia}">
+								<h:outputText
+									value="#{demipairCancelado.vendas.unidadenegocio.nomeFantasia}"
+									style="#{demiPairMB.cor(demipairCancelado)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipairCancelado.vendas.usuario.nome}">
+								<h:outputText value="#{demipairCancelado.vendas.usuario.nome}"
+									style="#{demiPairMB.cor(demipairCancelado)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{demiPairMB.editar(demipairCancelado)}"
+									style="text-decoration: none" title="Editar"
+									disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaCancelado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipairCancelado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%"> 
+								</h:commandButton>     
+							</p:column> 
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{demipairCancelado.vendas.idvendas} - #{demipairCancelado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{demiPairMB.boletos(demipairCancelado)}" disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+											
+											<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipairCancelado)}"
+												style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="idfrmconsultademipair:dialog_obsTM"
+												oncomplete="PF('obstm').show()"
+												disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}">
+												<img src="#{demiPairMB.retornarIconeObsTM(demipairCancelado)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioContrato(demipairCancelado)}"
+												title="IMPRIMIR O CONTRATO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}"
+												ajax="false"
+												target="_blank">
+												<img src="../../resources/img/imprimiContrato.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioTermoVisto(demipairCancelado)}"
+												title="IMPRIMIR O TERMO DE VISTO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}"
+												 ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="TERMO" style="font-size:11px;"/>
+													<p:outputLabel value="VISTO" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioRecibo(demipairCancelado)}"
+												title="IMPRIMIR O RECIBO"
+												disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}"
+												ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiRecibo.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{demiPairMB.documentacao(demipairCancelado)}"
+													title="DOCUMENTOS"
+													disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink action="#{demiPairMB.informacoes(demipairCancelado)}"    
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{demiPairMB.visualizarContasReceber(demipairCancelado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink  
+													action="#{demiPairMB.cancelarVenda(demipairCancelado.vendas)}"
+													disabled="#{demiPairMB.botoesHabilitados(demipairCancelado)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update="tabelaConsultaCancelado">
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<img src="../../resources/img/cancel.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Todos (#{demiPairMB.numeroFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultademipair" var="demipair"
+							value="#{demiPairMB.listaDemipair}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink 
+									action="#{demiPairMB.dialogSalvarControle(demipair)}"
+									onclick="PF('liberarficha').show();" title="#{demipair.tituloFicha}"
+									rendered="#{demiPairMB.imagemSituacaoUsuario(demipair)}">
+									<img src="#{demipair.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink title="#{demipair.tituloFicha}" rendered="#{demipair.habilitarImagemFranquia}">
+									<img src="#{demipair.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{demipair.vendas.idvendas}" style="width:90px;"
+								styleClass="alinharCenter">
+								<p:commandLink
+									action="#{demiPairMB.dialogSalvarControle(demipair)}"
+									onclick="PF('cd').show();" rendered="#{demiPairMB.linkIdVenda}">
+									<h:outputText value="#{demipair.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipair)}" />
+								</p:commandLink>
+								<p:commandLink  rendered="#{demiPairMB.linkIdVendaFranquias}">
+									<h:outputText value="#{demipair.vendas.idvendas}"
+										style="#{demiPairMB.cor(demipair)}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{demipair.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{demipair.vendas.cliente.nome}"
+									style="#{demiPairMB.corNome(demipair)}" />
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{demipair.vendas.dataVenda}">
+								<h:outputText value="#{demipair.vendas.dataVenda}"
+									style="#{demiPairMB.cor(demipair)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipair.vendas.unidadenegocio.nomeFantasia}">
+								<h:outputText
+									value="#{demipair.vendas.unidadenegocio.nomeFantasia}"
+									style="#{demiPairMB.cor(demipair)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{demipair.vendas.usuario.nome}">
+								<h:outputText value="#{demipair.vendas.usuario.nome}"
+									style="#{demiPairMB.cor(demipair)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{demiPairMB.editar(demipair)}"
+									style="text-decoration: none" title="Editar"
+									disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultademipair" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir" rendered="#{demiPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{demiPairMB.gerarRelatorioFicha(demipair)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%"> 
+								</h:commandButton>     
+							</p:column> 
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{demipair.vendas.idvendas} - #{demipair.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{demiPairMB.boletos(demipair)}" disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+											
+											<p:commandLink actionListener="#{demiPairMB.obsTMselecionar(demipair)}"
+												style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update="idfrmconsultademipair:dialog_obsTM"
+												oncomplete="PF('obstm').show()"
+												disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+												<img src="#{demiPairMB.retornarIconeObsTM(demipair)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioContrato(demipair)}"
+												title="IMPRIMIR O CONTRATO"
+												disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+												ajax="false"
+												target="_blank">
+												<img src="../../resources/img/imprimiContrato.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioTermoVisto(demipair)}"
+												title="IMPRIMIR O TERMO DE VISTO"
+												disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+												 ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="TERMO" style="font-size:11px;"/>
+													<p:outputLabel value="VISTO" style="font-size:11px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink
+												action="#{demiPairMB.gerarRelatorioRecibo(demipair)}"
+												title="IMPRIMIR O RECIBO"
+												disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+												ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiRecibo.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{demiPairMB.documentacao(demipair)}"
+													title="DOCUMENTOS"
+													disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink action="#{demiPairMB.informacoes(demipair)}"    
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{demiPairMB.botoesHabilitados(demipair)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{demiPairMB.visualizarContasReceber(demipair)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink  
+													action="#{demiPairMB.cancelarVenda(demipair.vendas)}"
+													disabled="#{demiPairMB.botoesHabilitados(demipair)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update="tabelaConsultademipair">
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<img src="../../resources/img/cancel.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
+				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
 			    	<div align="center">
 				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
 				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
 			        </div>  
 			    </p:confirmDialog>  
-				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="60%" style="margin-left: 2%;">
-					
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="N° Total de Ficha"
-							style="margin-left:15%;">
-							<img src="../../resources/img/iconeTotal.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="numFicha" value="#{demiPairMB.numeroFichas}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha Finalizada"
-							style="margin-left:5%;">
-							<img src="../../resources/img/finalizadoFicha.png" width="31px" />   
-						</p:commandLink>
-						<p:outputLabel id="idNFichaFinalizada" value="#{demiPairMB.nFichasFinalizadas}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha em Andamento"
-							>
-							<img src="../../resources/img/amarelaFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaProcesso" value="#{demiPairMB.nFichasAndamento}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink actionListener="#" title="Ficha em Processo"
-							>
-							<img src="../../resources/img/processoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaAndamento" value="#{demiPairMB.nFichasProcesso}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha Cancelada"
-							>
-							<img src="../../resources/img/fichaCancelada.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaCancelada" value="#{demiPairMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup> 
-				</h:panelGrid>
+				
 				<br></br> <br></br>
 				<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
 					widgetVar="cd" style="width:30%;font-size:14px">

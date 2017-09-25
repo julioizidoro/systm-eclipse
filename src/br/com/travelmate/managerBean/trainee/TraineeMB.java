@@ -35,7 +35,8 @@ import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
+import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controletrainee; 
 import br.com.travelmate.model.Formapagamento;
@@ -83,6 +84,12 @@ public class TraineeMB implements Serializable {
 	private Integer nFichaCancelada;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private Integer nFichasFinanceiro;
+	private List<Trainee> listaVendasFinalizada;
+	private List<Trainee> listaVendasAndamento;
+	private List<Trainee> listaVendasCancelada;
+	private List<Trainee> listaVendasProcesso;
+	private List<Trainee> listaVendasFinanceiro;
 
 	@PostConstruct
 	public void init() {
@@ -294,6 +301,54 @@ public class TraineeMB implements Serializable {
 
 	public void setnFichaCancelada(Integer nFichaCancelada) {
 		this.nFichaCancelada = nFichaCancelada;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Trainee> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Trainee> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Trainee> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Trainee> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Trainee> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Trainee> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Trainee> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Trainee> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Trainee> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Trainee> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
 	}
 
 	public String cadAustralia() throws SQLException {
@@ -755,15 +810,29 @@ public class TraineeMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaTrainee.size(); i++) {
 			if (listaTrainee.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaTrainee.get(i));
 			}else if(listaTrainee.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
 				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaTrainee.get(i));
+			}else if(listaTrainee.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaTrainee.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaTrainee.get(i));
 			}else if(listaTrainee.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaTrainee.get(i));
 			}else{
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaTrainee.get(i));
 			}
 		}
 	}

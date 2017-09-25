@@ -40,6 +40,7 @@ import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Worktravel;
@@ -84,6 +85,12 @@ public class WorkTravelMB implements Serializable {
 	private Integer nFichaCancelada;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private Integer nFichasFinanceiro;
+	private List<Worktravel> listaVendasFinalizada;
+	private List<Worktravel> listaVendasAndamento;
+	private List<Worktravel> listaVendasCancelada;
+	private List<Worktravel> listaVendasProcesso;
+	private List<Worktravel> listaVendasFinanceiro;
 
 	@PostConstruct
 	public void init() {
@@ -295,6 +302,54 @@ public class WorkTravelMB implements Serializable {
 
 	public void setEsconderFicha(boolean esconderFicha) {
 		this.esconderFicha = esconderFicha;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Worktravel> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Worktravel> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Worktravel> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Worktravel> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Worktravel> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Worktravel> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Worktravel> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Worktravel> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Worktravel> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Worktravel> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
 	}
 
 	public String cadastrarFicha() {
@@ -745,15 +800,29 @@ public class WorkTravelMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaWork.size(); i++) {
 			if (listaWork.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaWork.get(i));
 			}else if(listaWork.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
 				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaWork.get(i));
+			}else if(listaWork.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaWork.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaWork.get(i));
 			}else if(listaWork.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaWork.get(i));
 			}else{
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaWork.get(i));
 			}
 		}
 	}

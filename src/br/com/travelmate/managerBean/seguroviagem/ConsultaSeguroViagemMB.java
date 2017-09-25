@@ -38,6 +38,7 @@ import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Traducaojuramentada;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas; 
@@ -73,6 +74,17 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	private String tipoEmissao;
 	private Date dataSeguroInicial;
 	private Date dataSeguroFinal;
+	private Integer nFichasFinalizadas;
+	private Integer nFichasProcesso;
+	private Integer nFichasAndamento;
+	private Integer nFichaCancelada;
+	private Integer nFichasFinanceiro;
+	private List<Seguroviagem> listaVendasFinalizada;
+	private List<Seguroviagem> listaVendasAndamento;
+	private List<Seguroviagem> listaVendasCancelada;
+	private List<Seguroviagem> listaVendasProcesso;
+	private List<Seguroviagem> listaVendasFinanceiro;
+	private String numeroFichas;
 
 	@PostConstruct
 	public void init() {
@@ -221,6 +233,94 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		this.dataSeguroFinal = dataSeguroFinal;
 	}
 
+	public Integer getnFichasFinalizadas() {
+		return nFichasFinalizadas;
+	}
+
+	public void setnFichasFinalizadas(Integer nFichasFinalizadas) {
+		this.nFichasFinalizadas = nFichasFinalizadas;
+	}
+
+	public Integer getnFichasProcesso() {
+		return nFichasProcesso;
+	}
+
+	public void setnFichasProcesso(Integer nFichasProcesso) {
+		this.nFichasProcesso = nFichasProcesso;
+	}
+
+	public Integer getnFichasAndamento() {
+		return nFichasAndamento;
+	}
+
+	public void setnFichasAndamento(Integer nFichasAndamento) {
+		this.nFichasAndamento = nFichasAndamento;
+	}
+
+	public Integer getnFichaCancelada() {
+		return nFichaCancelada;
+	}
+
+	public void setnFichaCancelada(Integer nFichaCancelada) {
+		this.nFichaCancelada = nFichaCancelada;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Seguroviagem> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Seguroviagem> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Seguroviagem> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Seguroviagem> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Seguroviagem> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Seguroviagem> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Seguroviagem> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Seguroviagem> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Seguroviagem> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Seguroviagem> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+	public String getNumeroFichas() {
+		return numeroFichas;
+	}
+
+	public void setNumeroFichas(String numeroFichas) {
+		this.numeroFichas = numeroFichas;
+	}
+
 	public void carregarListaSeguro() {
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
@@ -240,6 +340,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		if (listaSeguro == null) {
 			listaSeguro = new ArrayList<Seguroviagem>();
 		}
+		numeroFichas = "" + String.valueOf(listaSeguro.size());
+		gerarQuantidadesFichas();
 	}
 
 	public String editar(Seguroviagem seguroviagem) {
@@ -311,6 +413,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		if (listaSeguro == null) {
 			listaSeguro = new ArrayList<Seguroviagem>();
 		}
+		numeroFichas = "" + String.valueOf(listaSeguro.size());
+		gerarQuantidadesFichas();
 	}
 
 	public void listarUnidade() {
@@ -631,6 +735,39 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			seguroviagem.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
 		}
 		return true;
+	}
+	
+	
+	public void gerarQuantidadesFichas(){
+		nFichaCancelada = 0;
+		nFichasAndamento = 0;
+		nFichasFinalizadas = 0;
+		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
+		for (int i = 0; i < listaSeguro.size(); i++) {
+			if (listaSeguro.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaSeguro.get(i));
+			}else if(listaSeguro.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
+				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaSeguro.get(i));
+			}else if(listaSeguro.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaSeguro.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaSeguro.get(i));
+			}else if(listaSeguro.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaSeguro.get(i));
+			}else{
+				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaSeguro.get(i));
+			}
+		}
 	}
 
 }

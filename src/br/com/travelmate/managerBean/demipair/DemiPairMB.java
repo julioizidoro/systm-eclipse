@@ -35,7 +35,8 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controledemipair; 
 import br.com.travelmate.model.Demipair;
@@ -83,6 +84,12 @@ public class DemiPairMB implements Serializable {
 	private Integer nFichaCancelada;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private Integer nFichasFinanceiro;
+	private List<Demipair> listaVendasFinalizada;
+	private List<Demipair> listaVendasAndamento;
+	private List<Demipair> listaVendasCancelada;
+	private List<Demipair> listaVendasProcesso;
+	private List<Demipair> listaVendasFinanceiro;
 
 	@PostConstruct
 	public void init() {
@@ -294,6 +301,54 @@ public class DemiPairMB implements Serializable {
 
 	public void setEsconderFicha(boolean esconderFicha) {
 		this.esconderFicha = esconderFicha;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Demipair> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Demipair> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Demipair> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Demipair> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Demipair> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Demipair> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Demipair> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Demipair> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Demipair> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Demipair> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
 	}
 
 	public String cadastrarFicha() {
@@ -731,15 +786,29 @@ public class DemiPairMB implements Serializable {
   		nFichasAndamento = 0;
   		nFichasFinalizadas = 0;
   		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
   		for (int i = 0; i < listaDemipair.size(); i++) {
   			if (listaDemipair.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
   				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaDemipair.get(i));
   			}else if(listaDemipair.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
   				nFichasProcesso = nFichasProcesso + 1;
-  			}else if(listaDemipair.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+				listaVendasProcesso.add(listaDemipair.get(i));
+  			}else if(listaDemipair.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaDemipair.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaDemipair.get(i));
+			} else if(listaDemipair.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
   				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaDemipair.get(i));
   			}else{
   				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaDemipair.get(i));
   			}
   		}
   	}

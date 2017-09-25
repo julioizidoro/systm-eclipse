@@ -39,7 +39,8 @@ import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controleaupair; 
 import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Parcelamentopagamento; 
+import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -82,6 +83,12 @@ public class AuPairMB implements Serializable {
 	private Integer nFichaCancelada;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private Integer nFichasFinanceiro;
+	private List<Aupair> listaVendasFinalizada;
+	private List<Aupair> listaVendasAndamento;
+	private List<Aupair> listaVendasCancelada;
+	private List<Aupair> listaVendasProcesso;
+	private List<Aupair> listaVendasFinanceiro;
 
 	@PostConstruct
 	public void init() {
@@ -291,6 +298,54 @@ public class AuPairMB implements Serializable {
 
 	public void setEsconderFicha(boolean esconderFicha) {
 		this.esconderFicha = esconderFicha;
+	}
+
+	public Integer getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(Integer nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Aupair> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Aupair> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Aupair> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Aupair> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Aupair> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Aupair> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+
+	public List<Aupair> getListaVendasProcesso() {
+		return listaVendasProcesso;
+	}
+
+	public void setListaVendasProcesso(List<Aupair> listaVendasProcesso) {
+		this.listaVendasProcesso = listaVendasProcesso;
+	}
+
+	public List<Aupair> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Aupair> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
 	}
 
 	public String cadastrarFicha() {
@@ -734,15 +789,29 @@ public class AuPairMB implements Serializable {
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
 		nFichasProcesso = 0;
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<>();
+		listaVendasAndamento = new ArrayList<>();
+		listaVendasCancelada = new ArrayList<>();
+		listaVendasProcesso = new ArrayList<>();
+		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaAupair.size(); i++) {
 			if (listaAupair.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaAupair.get(i));
 			} else if (listaAupair.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 				nFichasProcesso = nFichasProcesso + 1;
+				listaVendasProcesso.add(listaAupair.get(i));
+			}else if(listaAupair.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaAupair.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaAupair.get(i));
 			} else if (listaAupair.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaAupair.get(i));
 			} else {
 				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaAupair.get(i));
 			}
 		}
 	}

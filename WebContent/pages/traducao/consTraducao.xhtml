@@ -69,10 +69,10 @@
 							</p:selectOneMenu>  
 							<h:panelGroup>   
 								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-									action="#{traducaoMB.pesquisar()}" update="consTraducao:tabelaTraducao" />
+									action="#{traducaoMB.pesquisar()}" update="consTraducao:acordionPainel" />
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 									action="#{traducaoMB.limparPesquisa()}"
-									update="consTraducao:tabelaTraducao, cliente, dataIni, dataFinal, idUnidade, idconsultor, idVenda" />
+									update="consTraducao:acordionPainel, cliente, dataIni, dataFinal, idUnidade, idconsultor, idVenda" />
 							</h:panelGroup>
 						</h:panelGrid>
 					</p:tab>      
@@ -101,87 +101,517 @@
 						icon="ui-icon-close" update="consTraducao:growl" style="font-size:12px" />
 				</p:dialog>
 				<br></br> <br></br>
-				<p:dataTable id="tabelaTraducao" var="traducao"
-					value="#{traducaoMB.listaTraducao}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
-					rowIndexVar="rowIx">
-					<p:column style="width:45px;">
-						<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducao)}" title="#{traducao.tituloFicha}">
-							<img src="#{traducao.imagem}" width="60px" />    
-						</p:commandLink>   
-					</p:column>   
-					<p:column headerText="ID venda" style="width:50px">
-						<h:outputText value="#{traducao.vendas.idvendas}" style="#{traducaoMB.corNome(traducao)}"/>
-					</p:column>
-					<p:column headerText="Cliente" style="text-align:left;width:150px;">
-						<h:outputText value="#{traducao.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
-					</p:column>
-					<p:column headerText="Data Venda"
-						style="text-align:left;width:80px;">
-						<h:outputText value="#{traducao.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducao)}">
-							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
-						<h:outputText value="#{traducao.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
-					</p:column>
-					<p:column headerText="Unidade" style="width:150px;text-align:left;">
-						<h:outputText value="#{traducao.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducao)}" />
-					</p:column>
-					<p:column headerText="Consultor" style="width:150px;text-align:left;">
-						<h:outputText value="#{traducao.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
-					</p:column>
-					<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
-						<h:outputText value="#{traducaoMB.vendaMatriz(traducao)}"  style="#{traducaoMB.corNome(traducao)}"/> 
-					</p:column> 
-					<p:column  style="width:43px;text-align:center;">
-						<p:commandLink action="#{traducaoMB.editar(traducao)}" style="text-decoration: none" >
-							<img src="../../resources/img/editaricon.png" width="32px"/>
-							<p:ajax event="dialogReturn" process="@this" update=":consTraducao:tabelaTraducao" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
-						style="width:58px;text-align:center;" >
-						<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
-							title="Recibo" image="../../resources/img/imprimiFicha.png"
-							ajax="false" onclick="this.form.target='_blank'"
-							style="width:28px;margin-left:4%">   
-						</h:commandButton>                 
-					</p:column> 
-					<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
-						<h:commandButton action="#{traducaoMB.boletos(traducao)}"
-							title="Boleto" image="../../resources/img/boletoFicha.png"
-							ajax="false" onclick="this.form.target='_blank'"
-							style="width:24px;margin-left:4%" >
-						</h:commandButton>  
-					</p:column>   
-					<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
-						style="width:80px;text-align:center;" styleClass="alinharCenter">
-						<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
-							title="Recibo" image="../../resources/img/imprimiFicha.png"
-							style="width:24px;margin-left:3%" ajax="false"
-							onclick="this.form.target='_blank'" >
-						</h:commandButton>       
-					</p:column> 
-					<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
-						<p:commandLink action="#{traducaoMB.informacoes(traducao)}" title="Informações da Venda" >
-							<img src="../../resources/img/informacao.png" width="32px" />
-						</p:commandLink>
-					</p:column>
-					<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
-						<p:commandLink action="#{traducaoMB.cancelarVenda(traducao.vendas)}"
-							style="text-decoration: none" title="Cancelar Ficha"
-							update=":consTraducao:tabelaTraducao" >
-							<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-							<img src="../../resources/img/cancel.png" width="32px" />
-						</p:commandLink>
-					</p:column>
-					<p:column style="width:49px;" styleClass="alinharCenter">  
-						<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
-							update="tabelaTraducao">  
-							<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
-						</p:commandLink>     
-					</p:column>  
-				</p:dataTable>
+				<p:tabView id="acordionPainel" class="consultaCurso">
+					<p:tab title="Processo (#{traducaoMB.nFichasProcesso})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaProcesso" var="traducaoProcesso"
+							value="#{traducaoMB.listaVendasProcesso}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducaoProcesso)}" title="#{traducaoProcesso.tituloFicha}">
+									<img src="#{traducaoProcesso.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{traducaoProcesso.vendas.idvendas}" style="#{traducaoMB.corNome(traducaoProcesso)}"/>
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{traducaoProcesso.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducaoProcesso)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{traducaoProcesso.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducaoProcesso)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+								<h:outputText value="#{traducaoProcesso.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducaoProcesso)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoProcesso.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducaoProcesso)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoProcesso.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducaoProcesso)}"/>
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+								<h:outputText value="#{traducaoMB.vendaMatriz(traducaoProcesso)}"  style="#{traducaoMB.corNome(traducaoProcesso)}"/> 
+							</p:column> 
+							<p:column  style="width:43px;text-align:center;">
+								<p:commandLink action="#{traducaoMB.editar(traducaoProcesso)}" style="text-decoration: none" >
+									<img src="../../resources/img/editaricon.png" width="32px"/>
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaProcesso" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
+								style="width:58px;text-align:center;" >
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoProcesso)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:28px;margin-left:4%">   
+								</h:commandButton>                 
+							</p:column> 
+							<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+								<h:commandButton action="#{traducaoMB.boletos(traducaoProcesso)}"
+									title="Boleto" image="../../resources/img/boletoFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:24px;margin-left:4%" >
+								</h:commandButton>  
+							</p:column>   
+							<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
+								style="width:80px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoProcesso)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									style="width:24px;margin-left:3%" ajax="false"
+									onclick="this.form.target='_blank'" >
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+								<p:commandLink action="#{traducaoMB.informacoes(traducaoProcesso)}" title="Informações da Venda" >
+									<img src="../../resources/img/informacao.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+								<p:commandLink action="#{traducaoMB.cancelarVenda(traducaoProcesso.vendas)}"
+									style="text-decoration: none" title="Cancelar Ficha"
+									update="tabelaTraducao" >
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:49px;" styleClass="alinharCenter">  
+								<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+									update="tabelaConsultaProcesso">  
+									<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+								</p:commandLink>     
+							</p:column>  
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Financeiro (#{traducaoMB.nFichasFinanceiro})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinanceiro" var="traducaoFinanceiro"
+							value="#{traducaoMB.listaVendasFinanceiro}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducaoFinanceiro)}" title="#{traducaoFinanceiro.tituloFicha}">
+									<img src="#{traducaoFinanceiro.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{traducaoFinanceiro.vendas.idvendas}" style="#{traducaoMB.corNome(traducaoFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{traducaoFinanceiro.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducaoFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{traducaoFinanceiro.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducaoFinanceiro)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+								<h:outputText value="#{traducaoFinanceiro.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducaoFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoFinanceiro.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducaoFinanceiro)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoFinanceiro.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducaoFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+								<h:outputText value="#{traducaoMB.vendaMatriz(traducaoFinanceiro)}"  style="#{traducaoMB.corNome(traducaoFinanceiro)}"/> 
+							</p:column> 
+							<p:column  style="width:43px;text-align:center;">
+								<p:commandLink action="#{traducaoMB.editar(traducaoFinanceiro)}" style="text-decoration: none" >
+									<img src="../../resources/img/editaricon.png" width="32px"/>
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaFinanceiro" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
+								style="width:58px;text-align:center;" >
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoFinanceiro)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:28px;margin-left:4%">   
+								</h:commandButton>                 
+							</p:column> 
+							<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+								<h:commandButton action="#{traducaoMB.boletos(traducaoFinanceiro)}"
+									title="Boleto" image="../../resources/img/boletoFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:24px;margin-left:4%" >
+								</h:commandButton>  
+							</p:column>   
+							<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
+								style="width:80px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoFinanceiro)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									style="width:24px;margin-left:3%" ajax="false"
+									onclick="this.form.target='_blank'" >
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+								<p:commandLink action="#{traducaoMB.informacoes(traducaoFinanceiro)}" title="Informações da Venda" >
+									<img src="../../resources/img/informacao.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+								<p:commandLink action="#{traducaoMB.cancelarVenda(traducaoFinanceiro.vendas)}"
+									style="text-decoration: none" title="Cancelar Ficha"
+									update="tabelaTraducao" >
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:49px;" styleClass="alinharCenter">  
+								<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+									update="tabelaConsultaFinanceiro">  
+									<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+								</p:commandLink>     
+							</p:column>  
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Andamento (#{traducaoMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaAndamento" var="traducaoAndamento"
+							value="#{traducaoMB.listaVendasAndamento}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducaoAndamento)}" title="#{traducaoAndamento.tituloFicha}">
+									<img src="#{traducaoAndamento.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{traducaoAndamento.vendas.idvendas}" style="#{traducaoMB.corNome(traducaoAndamento)}"/>
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{traducaoAndamento.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducaoAndamento)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{traducaoAndamento.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducaoAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+								<h:outputText value="#{traducaoAndamento.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducaoAndamento)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoAndamento.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducaoAndamento)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoAndamento.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducaoAndamento)}"/>
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+								<h:outputText value="#{traducaoMB.vendaMatriz(traducaoAndamento)}"  style="#{traducaoMB.corNome(traducaoAndamento)}"/> 
+							</p:column> 
+							<p:column  style="width:43px;text-align:center;">
+								<p:commandLink action="#{traducaoMB.editar(traducaoAndamento)}" style="text-decoration: none" >
+									<img src="../../resources/img/editaricon.png" width="32px"/>
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaAndamento" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
+								style="width:58px;text-align:center;" >
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoAndamento)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:28px;margin-left:4%">   
+								</h:commandButton>                 
+							</p:column> 
+							<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+								<h:commandButton action="#{traducaoMB.boletos(traducaoAndamento)}"
+									title="Boleto" image="../../resources/img/boletoFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:24px;margin-left:4%" >
+								</h:commandButton>  
+							</p:column>   
+							<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
+								style="width:80px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoAndamento)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									style="width:24px;margin-left:3%" ajax="false"
+									onclick="this.form.target='_blank'" >
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+								<p:commandLink action="#{traducaoMB.informacoes(traducaoAndamento)}" title="Informações da Venda" >
+									<img src="../../resources/img/informacao.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+								<p:commandLink action="#{traducaoMB.cancelarVenda(traducaoAndamento.vendas)}"
+									style="text-decoration: none" title="Cancelar Ficha"
+									update="tabelaTraducao" >
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:49px;" styleClass="alinharCenter">  
+								<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+									update="tabelaConsultaAndamento">  
+									<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+								</p:commandLink>     
+							</p:column>  
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Finalizado (#{traducaoMB.nFichasFinalizadas})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinalizado" var="traducaoFinalizado"
+							value="#{traducaoMB.listaVendasFinalizada}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducaoFinalizado)}" title="#{traducaoFinalizado.tituloFicha}">
+									<img src="#{traducaoFinalizado.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{traducaoFinalizado.vendas.idvendas}" style="#{traducaoMB.corNome(traducaoFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{traducaoFinalizado.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducaoFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{traducaoFinalizado.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducaoFinalizado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+								<h:outputText value="#{traducaoFinalizado.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducaoFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoFinalizado.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducaoFinalizado)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoFinalizado.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducaoFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+								<h:outputText value="#{traducaoMB.vendaMatriz(traducaoFinalizado)}"  style="#{traducaoMB.corNome(traducaoFinalizado)}"/> 
+							</p:column> 
+							<p:column  style="width:43px;text-align:center;">
+								<p:commandLink action="#{traducaoMB.editar(traducaoFinalizado)}" style="text-decoration: none" >
+									<img src="../../resources/img/editaricon.png" width="32px"/>
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaFinalizado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
+								style="width:58px;text-align:center;" >
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoFinalizado)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:28px;margin-left:4%">   
+								</h:commandButton>                 
+							</p:column> 
+							<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+								<h:commandButton action="#{traducaoMB.boletos(traducaoFinalizado)}"
+									title="Boleto" image="../../resources/img/boletoFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:24px;margin-left:4%" >
+								</h:commandButton>  
+							</p:column>   
+							<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
+								style="width:80px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoFinalizado)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									style="width:24px;margin-left:3%" ajax="false"
+									onclick="this.form.target='_blank'" >
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+								<p:commandLink action="#{traducaoMB.informacoes(traducaoFinalizado)}" title="Informações da Venda" >
+									<img src="../../resources/img/informacao.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+								<p:commandLink action="#{traducaoMB.cancelarVenda(traducaoFinalizado.vendas)}"
+									style="text-decoration: none" title="Cancelar Ficha"
+									update="tabelaTraducao" >
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:49px;" styleClass="alinharCenter">  
+								<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+									update="tabelaConsultaFinalizado">  
+									<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+								</p:commandLink>     
+							</p:column>  
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Cancelado (#{traducaoMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaCancelado" var="traducaoCancelado"
+							value="#{traducaoMB.listaVendasCancelada}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducaoCancelado)}" title="#{traducaoCancelado.tituloFicha}">
+									<img src="#{traducaoCancelado.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{traducaoCancelado.vendas.idvendas}" style="#{traducaoMB.corNome(traducaoCancelado)}"/>
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{traducaoCancelado.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducaoCancelado)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{traducaoCancelado.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducaoCancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+								<h:outputText value="#{traducaoCancelado.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducaoCancelado)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoCancelado.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducaoCancelado)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducaoCancelado.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducaoCancelado)}"/>
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+								<h:outputText value="#{traducaoMB.vendaMatriz(traducaoCancelado)}"  style="#{traducaoMB.corNome(traducaoCancelado)}"/> 
+							</p:column> 
+							<p:column  style="width:43px;text-align:center;">
+								<p:commandLink action="#{traducaoMB.editar(traducaoCancelado)}" style="text-decoration: none" >
+									<img src="../../resources/img/editaricon.png" width="32px"/>
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaCancelado" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
+								style="width:58px;text-align:center;" >
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoCancelado)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:28px;margin-left:4%">   
+								</h:commandButton>                 
+							</p:column> 
+							<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+								<h:commandButton action="#{traducaoMB.boletos(traducaoCancelado)}"
+									title="Boleto" image="../../resources/img/boletoFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:24px;margin-left:4%" >
+								</h:commandButton>  
+							</p:column>   
+							<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
+								style="width:80px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducaoCancelado)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									style="width:24px;margin-left:3%" ajax="false"
+									onclick="this.form.target='_blank'" >
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+								<p:commandLink action="#{traducaoMB.informacoes(traducaoCancelado)}" title="Informações da Venda" >
+									<img src="../../resources/img/informacao.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+								<p:commandLink action="#{traducaoMB.cancelarVenda(traducaoCancelado.vendas)}"
+									style="text-decoration: none" title="Cancelar Ficha"
+									update="tabelaTraducao" >
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:49px;" styleClass="alinharCenter">  
+								<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+									update="tabelaConsultaCancelado">  
+									<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+								</p:commandLink>     
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Todos (#{traducaoMB.numeroFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaTraducao" var="traducao"
+							value="#{traducaoMB.listaTraducao}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
+							rowIndexVar="rowIx">
+							<p:column style="width:45px;">
+								<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducao)}" title="#{traducao.tituloFicha}">
+									<img src="#{traducao.imagem}" width="60px" />    
+								</p:commandLink>   
+							</p:column>   
+							<p:column headerText="ID venda" style="width:50px">
+								<h:outputText value="#{traducao.vendas.idvendas}" style="#{traducaoMB.corNome(traducao)}"/>
+							</p:column>
+							<p:column headerText="Cliente" style="text-align:left;width:150px;">
+								<h:outputText value="#{traducao.vendas.cliente.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{traducao.vendas.dataVenda}"   style="#{traducaoMB.corNome(traducao)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:150px;text-align:left;" >
+								<h:outputText value="#{traducao.vendas.fornecedorcidade.fornecedor.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducao.vendas.unidadenegocio.nomerelatorio}" style="#{traducaoMB.corNome(traducao)}" />
+							</p:column>
+							<p:column headerText="Consultor" style="width:150px;text-align:left;">
+								<h:outputText value="#{traducao.vendas.usuario.nome}"  style="#{traducaoMB.corNome(traducao)}"/>
+							</p:column>
+							<p:column headerText="Venda Matriz" style="width:92px;text-aling:center;">
+								<h:outputText value="#{traducaoMB.vendaMatriz(traducao)}"  style="#{traducaoMB.corNome(traducao)}"/> 
+							</p:column> 
+							<p:column  style="width:43px;text-align:center;">
+								<p:commandLink action="#{traducaoMB.editar(traducao)}" style="text-decoration: none" >
+									<img src="../../resources/img/editaricon.png" width="32px"/>
+									<p:ajax event="dialogReturn" process="@this" update="tabelaTraducao" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Recibo" rendered="#{traducaoMB.esconderFicha}"
+								style="width:58px;text-align:center;" >
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:28px;margin-left:4%">   
+								</h:commandButton>                 
+							</p:column> 
+							<p:column style="width:55px;text-align:center;" headerText="Boleto" rendered="#{traducaoMB.expandirOpcoes}">
+								<h:commandButton action="#{traducaoMB.boletos(traducao)}"
+									title="Boleto" image="../../resources/img/boletoFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:24px;margin-left:4%" >
+								</h:commandButton>  
+							</p:column>   
+							<p:column headerText="Recibo" rendered="#{traducaoMB.expandirOpcoes}"
+								style="width:80px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{traducaoMB.imprimirRecibo(traducao)}"
+									title="Recibo" image="../../resources/img/imprimiFicha.png"
+									style="width:24px;margin-left:3%" ajax="false"
+									onclick="this.form.target='_blank'" >
+								</h:commandButton>       
+							</p:column> 
+							<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{traducaoMB.expandirOpcoes}">  
+								<p:commandLink action="#{traducaoMB.informacoes(traducao)}" title="Informações da Venda" >
+									<img src="../../resources/img/informacao.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{traducaoMB.expandirOpcoes}">
+								<p:commandLink action="#{traducaoMB.cancelarVenda(traducao.vendas)}"
+									style="text-decoration: none" title="Cancelar Ficha"
+									update="tabelaTraducao" >
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+									<img src="../../resources/img/cancel.png" width="32px" />
+								</p:commandLink>
+							</p:column>
+							<p:column style="width:49px;" styleClass="alinharCenter">  
+								<p:commandLink action="#{traducaoMB.expandirOpcoes()}" title="#{traducaoMB.retornarTitleOpcoes()}" 
+									update="tabelaTraducao">  
+									<img src="#{traducaoMB.retornarImgOpcoes()}" width="30px" />
+								</p:commandLink>     
+							</p:column>  
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
+				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
 			    	<div align="center">
 				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>

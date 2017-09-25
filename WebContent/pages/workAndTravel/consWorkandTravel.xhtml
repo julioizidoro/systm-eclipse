@@ -70,12 +70,10 @@
 							</p:selectOneMenu>
 							<p:commandButton value="Pesquisar"  
 								icon=" ui-icon-search "
-								update="idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
-								:idfrmconsultaworkandtravel:idNFichaCancelada"
+								update="idfrmconsultaworkandtravel:acordionPainel"
 								action="#{workTravelMB.pesquisarListaWork()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  
-								update="idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, situacao, unidade, dataFinal, dataIni, cliente,idVenda, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
-								:idfrmconsultaworkandtravel:idNFichaCancelada"
+								update="idfrmconsultaworkandtravel:acordionPainel, situacao, unidade, dataFinal, dataIni, cliente,idVenda"
 								action="#{workTravelMB.limparPesquisa()}" />
 						</h:panelGrid>
 						<br></br>
@@ -90,231 +88,1100 @@
 					style="font-size:12px;margin-left:80%" />
 				<br></br> <br></br>
 
-
-				<p:dataTable id="tabelaConsultaworkandtravel" var="workTravel"
-					value="#{workTravelMB.listaWork}" class="tabelaHighSchool"
-					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
-					<p:column style="width:40px;">
-						<p:commandLink title="#{workTravel.tituloFicha}"
-							action="#{workTravelMB.dialogSalvarControle(workTravel)}"
-							onclick="PF('liberarficha').show();"
-							rendered="#{workTravelMB.imagemSituacaoUsuario(workTravel)}">
-							<img src="#{workTravel.imagem}" width="60%" />
-						</p:commandLink>
-						<p:commandLink rendered="#{workTravel.habilitarImagemFranquia}" title="#{workTravel.tituloFicha}">
-							<img src="#{workTravel.imagem}" width="60%" />
-						</p:commandLink>
-					</p:column> 
-					<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravel.vendas.idvendas}"
-						styleClass="alinharCenter">
-						<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravel)}"
-							onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
-							<h:outputText value="#{workTravel.vendas.idvendas}" style="#{workTravelMB.cor(workTravel)}"/>
-						</p:commandLink>
-						<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
-							<h:outputText value="#{workTravel.vendas.idvendas}" style="#{workTravelMB.cor(workTravel)}"/>
-						</p:commandLink>
-					</p:column>
-					<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
-						<h:outputText value="#{workTravel.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravel)}"/>
-					</p:column>
-					<p:column headerText="Data Venda"
-						style="text-align:center;width:115px;" sortBy="#{workTravel.vendas.dataVenda}">
-						<h:outputText value="#{workTravel.vendas.dataVenda}" style="#{workTravelMB.cor(workTravel)}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
-						styleClass="alinharCenter">
-						<h:outputText value="#{workTravel.tipo}" style="#{workTravelMB.cor(workTravel)}"/>
-					</p:column>
-					<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravel.vendas.unidadenegocio.nomerelatorio}"
-						styleClass="alinharCenter">
-						<h:outputText
-							value="#{workTravel.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravel)}"/>
-					</p:column>
-					<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
-						styleClass="alinharCenter">
-						<h:outputText value="#{workTravel.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravel)}"/>
-					</p:column>
-					<p:column style="width:43px;text-align:center;">
-						<p:commandLink action="#{workTravelMB.editar(workTravel)}" title="Editar"
-							style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
-							<img src="../../resources/img/editaricon.png" width="28" />
-							<p:ajax event="dialogReturn" process="@this"
-								update=":idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
-								:idfrmconsultaworkandtravel:idNFichaCancelada" />
-						</p:commandLink>
-					</p:column>  
-					<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
-						style="width:58px;text-align:center;" styleClass="alinharCenter">
-						<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravel)}"
-							title="Ficha" image="../../resources/img/imprimiFicha.png" 
-							ajax="false" onclick="this.form.target='_blank'"
-							style="width:30px;margin-left:4%">   
-						</h:commandButton>       
-					</p:column>
-					
-					
-					<p:column headerText="Opções" style="width:75px;text-align:center;">  
-						<p:commandLink id="btnInformacoes" title="Visualizar opções.">
-							<img src="../../resources/img/informacaoVendaVerde.png" />
-						</p:commandLink>
-						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
-							<p:outputLabel
-								value="#{workTravel.vendas.idvendas} - #{workTravel.vendas.cliente.nome}"
-								style="text-align:center;font-size:15px;" />
-							<br />
-							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
-								
-									<p:commandLink action="#{workTravelMB.boletos(workTravel)}" disabled="#{workTravelMB.botoesHabilitados(workTravel)}"
-										title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
-										ajax="false" target="_blank" >
-										<img src="../../resources/img/boletoFicha.png" width="36"/>
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-									</p:commandLink>  
+				<p:tabView id="acordionPainel" class="consultaCurso">   
+					<p:tab title="Processo (#{workTravelMB.nFichasProcesso})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaProcesso" var="workTravelProcesso"
+							value="#{workTravelMB.listaVendasProcesso}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:40px;">
+								<p:commandLink title="#{workTravelProcesso.tituloFicha}"
+									action="#{workTravelMB.dialogSalvarControle(workTravelProcesso)}"
+									onclick="PF('liberarficha').show();"
+									rendered="#{workTravelMB.imagemSituacaoUsuario(workTravelProcesso)}">
+									<img src="#{workTravelProcesso.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelProcesso.habilitarImagemFranquia}" title="#{workTravelProcesso.tituloFicha}">
+									<img src="#{workTravelProcesso.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravelProcesso.vendas.idvendas}"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravelProcesso)}"
+									onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
+									<h:outputText value="#{workTravelProcesso.vendas.idvendas}" style="#{workTravelMB.cor(workTravelProcesso)}"/>
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
+									<h:outputText value="#{workTravelProcesso.vendas.idvendas}" style="#{workTravelMB.cor(workTravelProcesso)}"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
+								<h:outputText value="#{workTravelProcesso.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravelProcesso)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{workTravelProcesso.vendas.dataVenda}">
+								<h:outputText value="#{workTravelProcesso.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelProcesso)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelProcesso.tipo}" style="#{workTravelMB.cor(workTravelProcesso)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravelProcesso.vendas.unidadenegocio.nomerelatorio}"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{workTravelProcesso.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravelProcesso)}"/>
+							</p:column>
+							<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelProcesso.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravelProcesso)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{workTravelMB.editar(workTravelProcesso)}" title="Editar"
+									style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaProcesso" />
+								</p:commandLink>
+							</p:column>  
+							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelProcesso)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png" 
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column>
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{workTravelProcesso.vendas.idvendas} - #{workTravelProcesso.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-									<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-										update=":idfrmconsultaworkandtravel:dialog_obsTM"
-										oncomplete="PF('obstm').show()"> 
-										<p:ajax listener="#{workTravelMB.buscarObsTM(workTravel)}"/>  
-										<img src="#{workTravelMB.retornarIconeObsTM(workTravel)}" width="36" />
-										<h:panelGrid columns="1" style="text-align:1px;">
-											<p:outputLabel value="OBS" style="font-size:11px;"/>
-											<p:outputLabel value="TM"/>
-										</h:panelGrid>
-									</p:commandLink>
-									
-									<p:commandLink target="_blank"
-										action="#{workTravelMB.gerarRelatorioContrato(workTravel)}"
-										title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
-										<img src="../../resources/img/imprimiContrato.png" width="36"/>
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-									</p:commandLink>
-									<p:commandLink
-										action="#{workTravelMB.gerarRelatorioTermoVisto(workTravel)}"
-										title="IMPRIMIR O TERMO VISTO" ajax="false"
-										target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
-										<img src="../../resources/img/imprimiVisto.png" width="36"/>
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="TERMO" style="font-size:11px;"/>
-													<p:outputLabel value="VISTO"/>
-												</h:panelGrid>
-									</p:commandLink>
-									<p:commandLink
-										action="#{workTravelMB.gerarRelatorioRecibo(workTravel)}"
-										title="IMPRIMIR O RECIBO"  ajax="false"
-										target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
-										<img src="../../resources/img/imprimiRecibo.png" width="36"/>
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-									</p:commandLink>
-									  
-										<p:commandLink action="#{workTravelMB.documentacao(workTravel)}"
-											title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
-											<img src="../../resources/img/arquivosUpload.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="DOCS" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-										</p:commandLink>
-										 
-										<p:commandLink action="#{workTravelMB.informacoes(workTravel)}"
-											 title="INFORMAÇÕES DA VENDA"
-											disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
-											<img src="../../resources/img/informacao.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="INFO" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
-												</h:panelGrid>
-										</p:commandLink>
-										
-										<p:commandLink
-												action="#{workTravelMB.visualizarContasReceber(workTravel)}"
-												title="VISUALIZAR CONTAS A RECEBER" 
+											<p:commandLink action="#{workTravelMB.boletos(workTravelProcesso)}" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}"
+												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
+												ajax="false" target="_blank" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>  
 												
-												 >
-												<img src="../../resources/img/invoice.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:center;"> 
-													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update=":idfrmconsultaworkandtravel:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravelProcesso)}"/>  
+												<img src="#{workTravelMB.retornarIconeObsTM(workTravelProcesso)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM"/>
 												</h:panelGrid>
-											</p:commandLink> 
+											</p:commandLink>
+											
+											<p:commandLink target="_blank"
+												action="#{workTravelMB.gerarRelatorioContrato(workTravelProcesso)}"
+												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravelProcesso)}"
+												title="IMPRIMIR O TERMO VISTO" ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioRecibo(workTravelProcesso)}"
+												title="IMPRIMIR O RECIBO"  ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
+												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											  
+												<p:commandLink action="#{workTravelMB.documentacao(workTravelProcesso)}"
+													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="DOCS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												 
+												<p:commandLink action="#{workTravelMB.informacoes(workTravelProcesso)}"
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{workTravelMB.visualizarContasReceber(workTravelProcesso)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelProcesso.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaProcesso">
+													<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+														update="tabelaConsultaProcesso"/>
+												</p:commandLink>
+												
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Financeiro (#{workTravelMB.nFichasFinanceiro})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinanceiro" var="workTravelFinanceiro"
+							value="#{workTravelMB.listaVendasFinanceiro}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:40px;">
+								<p:commandLink title="#{workTravelFinanceiro.tituloFicha}"
+									action="#{workTravelMB.dialogSalvarControle(workTravelFinanceiro)}"
+									onclick="PF('liberarficha').show();"
+									rendered="#{workTravelMB.imagemSituacaoUsuario(workTravelFinanceiro)}">
+									<img src="#{workTravelFinanceiro.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelFinanceiro.habilitarImagemFranquia}" title="#{workTravelFinanceiro.tituloFicha}">
+									<img src="#{workTravelFinanceiro.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravelFinanceiro.vendas.idvendas}"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravelFinanceiro)}"
+									onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
+									<h:outputText value="#{workTravelFinanceiro.vendas.idvendas}" style="#{workTravelMB.cor(workTravelFinanceiro)}"/>
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
+									<h:outputText value="#{workTravelFinanceiro.vendas.idvendas}" style="#{workTravelMB.cor(workTravelFinanceiro)}"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
+								<h:outputText value="#{workTravelFinanceiro.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravelFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{workTravelFinanceiro.vendas.dataVenda}">
+								<h:outputText value="#{workTravelFinanceiro.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelFinanceiro)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelFinanceiro.tipo}" style="#{workTravelMB.cor(workTravelFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravelFinanceiro.vendas.unidadenegocio.nomerelatorio}"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{workTravelFinanceiro.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravelFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelFinanceiro.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravelFinanceiro)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{workTravelMB.editar(workTravelFinanceiro)}" title="Editar"
+									style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaFinanceiro" />
+								</p:commandLink>
+							</p:column>  
+							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelFinanceiro)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png" 
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column>
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{workTravelFinanceiro.vendas.idvendas} - #{workTravelFinanceiro.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-										<p:commandLink action="#{workTravelMB.cancelarVenda(workTravel.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravel)}"
-											style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
-												:idfrmconsultaworkandtravel:idNFichaCancelada">
-											<p:confirm header="Cancelamento"
-													message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
-											<img src="../../resources/img/cancel.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-													<p:outputLabel value=" "/>
+											<p:commandLink action="#{workTravelMB.boletos(workTravelFinanceiro)}" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}"
+												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
+												ajax="false" target="_blank" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>  
+												
+											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update=":idfrmconsultaworkandtravel:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravelFinanceiro)}"/>  
+												<img src="#{workTravelMB.retornarIconeObsTM(workTravelFinanceiro)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM"/>
 												</h:panelGrid>
-											<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
-												update=":idfrmconsultaworkandtravel:tabelaConsultaworkandtravel, :idfrmconsultaworkandtravel:PanelQuantidadeFichas, :idfrmconsultaworkandtravel:idNFichaFinalizada, :idfrmconsultaworkandtravel:idNFichaAndamento,
-												:idfrmconsultaworkandtravel:idNFichaCancelada"/>
-										</p:commandLink>
+											</p:commandLink>
+											
+											<p:commandLink target="_blank"
+												action="#{workTravelMB.gerarRelatorioContrato(workTravelFinanceiro)}"
+												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravelFinanceiro)}"
+												title="IMPRIMIR O TERMO VISTO" ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioRecibo(workTravelFinanceiro)}"
+												title="IMPRIMIR O RECIBO"  ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
+												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											  
+												<p:commandLink action="#{workTravelMB.documentacao(workTravelFinanceiro)}"
+													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="DOCS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												 
+												<p:commandLink action="#{workTravelMB.informacoes(workTravelFinanceiro)}"
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{workTravelMB.visualizarContasReceber(workTravelFinanceiro)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelFinanceiro.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinanceiro">
+													<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+														update="tabelaConsultaFinanceiro"/>
+												</p:commandLink>
+												
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Andamento (#{workTravelMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaAndamento" var="workTravelAndamento"
+							value="#{workTravelMB.listaVendasAndamento}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:40px;">
+								<p:commandLink title="#{workTravelAndamento.tituloFicha}"
+									action="#{workTravelMB.dialogSalvarControle(workTravelAndamento)}"
+									onclick="PF('liberarficha').show();"
+									rendered="#{workTravelMB.imagemSituacaoUsuario(workTravelAndamento)}">
+									<img src="#{workTravelAndamento.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelAndamento.habilitarImagemFranquia}" title="#{workTravelAndamento.tituloFicha}">
+									<img src="#{workTravelAndamento.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravelAndamento.vendas.idvendas}"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravelAndamento)}"
+									onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
+									<h:outputText value="#{workTravelAndamento.vendas.idvendas}" style="#{workTravelMB.cor(workTravelAndamento)}"/>
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
+									<h:outputText value="#{workTravelAndamento.vendas.idvendas}" style="#{workTravelMB.cor(workTravelAndamento)}"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
+								<h:outputText value="#{workTravelAndamento.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravelAndamento)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{workTravelAndamento.vendas.dataVenda}">
+								<h:outputText value="#{workTravelAndamento.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelAndamento.tipo}" style="#{workTravelMB.cor(workTravelAndamento)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravelAndamento.vendas.unidadenegocio.nomerelatorio}"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{workTravelAndamento.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravelAndamento)}"/>
+							</p:column>
+							<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelAndamento.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravelAndamento)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{workTravelMB.editar(workTravelAndamento)}" title="Editar"
+									style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaAndamento" />
+								</p:commandLink>
+							</p:column>  
+							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelAndamento)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png" 
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column>
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{workTravelAndamento.vendas.idvendas} - #{workTravelAndamento.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-							</h:panelGrid>
-						</p:overlayPanel>
-					</p:column>    
-				</p:dataTable>
+											<p:commandLink action="#{workTravelMB.boletos(workTravelAndamento)}" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}"
+												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
+												ajax="false" target="_blank" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>  
+												
+											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update=":idfrmconsultaworkandtravel:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravelAndamento)}"/>  
+												<img src="#{workTravelMB.retornarIconeObsTM(workTravelAndamento)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink target="_blank"
+												action="#{workTravelMB.gerarRelatorioContrato(workTravelAndamento)}"
+												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravelAndamento)}"
+												title="IMPRIMIR O TERMO VISTO" ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioRecibo(workTravelAndamento)}"
+												title="IMPRIMIR O RECIBO"  ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
+												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											  
+												<p:commandLink action="#{workTravelMB.documentacao(workTravelAndamento)}"
+													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="DOCS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												 
+												<p:commandLink action="#{workTravelMB.informacoes(workTravelAndamento)}"
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{workTravelMB.visualizarContasReceber(workTravelAndamento)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelAndamento.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaAndamento">
+													<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+														update="tabelaConsultaAndamento"/>
+												</p:commandLink>
+												
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Finalizado (#{workTravelMB.nFichasFinalizadas})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinaliazado" var="workTravelFinalizado"
+							value="#{workTravelMB.listaVendasFinalizada}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:40px;">
+								<p:commandLink title="#{workTravelFinalizado.tituloFicha}"
+									action="#{workTravelMB.dialogSalvarControle(workTravelFinalizado)}"
+									onclick="PF('liberarficha').show();"
+									rendered="#{workTravelMB.imagemSituacaoUsuario(workTravelFinalizado)}">
+									<img src="#{workTravelFinalizado.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelFinalizado.habilitarImagemFranquia}" title="#{workTravelFinalizado.tituloFicha}">
+									<img src="#{workTravelFinalizado.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravelFinalizado.vendas.idvendas}"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravelFinalizado)}"
+									onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
+									<h:outputText value="#{workTravelFinalizado.vendas.idvendas}" style="#{workTravelMB.cor(workTravelFinalizado)}"/>
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
+									<h:outputText value="#{workTravelFinalizado.vendas.idvendas}" style="#{workTravelMB.cor(workTravelFinalizado)}"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
+								<h:outputText value="#{workTravelFinalizado.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravelFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{workTravelFinalizado.vendas.dataVenda}">
+								<h:outputText value="#{workTravelFinalizado.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelFinalizado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelFinalizado.tipo}" style="#{workTravelMB.cor(workTravelFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravelFinalizado.vendas.unidadenegocio.nomerelatorio}"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{workTravelFinalizado.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravelFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelFinalizado.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravelFinalizado)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{workTravelMB.editar(workTravelFinalizado)}" title="Editar"
+									style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaFinaliazado" />
+								</p:commandLink>
+							</p:column>  
+							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelFinalizado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png" 
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column>
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{workTravelFinalizado.vendas.idvendas} - #{workTravelFinalizado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{workTravelMB.boletos(workTravelFinalizado)}" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}"
+												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
+												ajax="false" target="_blank" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>  
+												
+											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update=":idfrmconsultaworkandtravel:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravelFinalizado)}"/>  
+												<img src="#{workTravelMB.retornarIconeObsTM(workTravelFinalizado)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink target="_blank"
+												action="#{workTravelMB.gerarRelatorioContrato(workTravelFinalizado)}"
+												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravelFinalizado)}"
+												title="IMPRIMIR O TERMO VISTO" ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioRecibo(workTravelFinalizado)}"
+												title="IMPRIMIR O RECIBO"  ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
+												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											  
+												<p:commandLink action="#{workTravelMB.documentacao(workTravelFinalizado)}"
+													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="DOCS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												 
+												<p:commandLink action="#{workTravelMB.informacoes(workTravelFinalizado)}"
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{workTravelMB.visualizarContasReceber(workTravelFinalizado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelFinalizado.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinaliazado">
+													<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+														update="tabelaConsultaFinaliazado"/>
+												</p:commandLink>
+												
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Cancelado (#{workTravelMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaCancelado" var="workTravelCancelado"
+							value="#{workTravelMB.listaVendasCancelada}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:40px;">
+								<p:commandLink title="#{workTravelCancelado.tituloFicha}"
+									action="#{workTravelMB.dialogSalvarControle(workTravelCancelado)}"
+									onclick="PF('liberarficha').show();"
+									rendered="#{workTravelMB.imagemSituacaoUsuario(workTravelCancelado)}">
+									<img src="#{workTravelCancelado.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelCancelado.habilitarImagemFranquia}" title="#{workTravelCancelado.tituloFicha}">
+									<img src="#{workTravelCancelado.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravelCancelado.vendas.idvendas}"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravelCancelado)}"
+									onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
+									<h:outputText value="#{workTravelCancelado.vendas.idvendas}" style="#{workTravelMB.cor(workTravelCancelado)}"/>
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
+									<h:outputText value="#{workTravelCancelado.vendas.idvendas}" style="#{workTravelMB.cor(workTravelCancelado)}"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
+								<h:outputText value="#{workTravelCancelado.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravelCancelado)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{workTravelCancelado.vendas.dataVenda}">
+								<h:outputText value="#{workTravelCancelado.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelCancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelCancelado.tipo}" style="#{workTravelMB.cor(workTravelCancelado)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravelCancelado.vendas.unidadenegocio.nomerelatorio}"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{workTravelCancelado.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravelCancelado)}"/>
+							</p:column>
+							<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravelCancelado.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravelCancelado)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{workTravelMB.editar(workTravelCancelado)}" title="Editar"
+									style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaCancelado" />
+								</p:commandLink>
+							</p:column>  
+							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelCancelado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png" 
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column>
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{workTravelCancelado.vendas.idvendas} - #{workTravelCancelado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{workTravelMB.boletos(workTravelCancelado)}" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}"
+												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
+												ajax="false" target="_blank" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>  
+												
+											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update=":idfrmconsultaworkandtravel:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravelCancelado)}"/>  
+												<img src="#{workTravelMB.retornarIconeObsTM(workTravelCancelado)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink target="_blank"
+												action="#{workTravelMB.gerarRelatorioContrato(workTravelCancelado)}"
+												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravelCancelado)}"
+												title="IMPRIMIR O TERMO VISTO" ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioRecibo(workTravelCancelado)}"
+												title="IMPRIMIR O RECIBO"  ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
+												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											  
+												<p:commandLink action="#{workTravelMB.documentacao(workTravelCancelado)}"
+													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="DOCS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												 
+												<p:commandLink action="#{workTravelMB.informacoes(workTravelCancelado)}"
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{workTravelMB.visualizarContasReceber(workTravelCancelado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelCancelado.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaCancelado">
+													<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+														update="tabelaConsultaCancelado"/>
+												</p:commandLink>
+												
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Todos (#{workTravelMB.numeroFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaworkandtravel" var="workTravel"
+							value="#{workTravelMB.listaWork}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:40px;">
+								<p:commandLink title="#{workTravel.tituloFicha}"
+									action="#{workTravelMB.dialogSalvarControle(workTravel)}"
+									onclick="PF('liberarficha').show();"
+									rendered="#{workTravelMB.imagemSituacaoUsuario(workTravel)}">
+									<img src="#{workTravel.imagem}" width="60%" />
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravel.habilitarImagemFranquia}" title="#{workTravel.tituloFicha}">
+									<img src="#{workTravel.imagem}" width="60%" />
+								</p:commandLink>
+							</p:column> 
+							<p:column headerText="ID Venda" style="width:90px;" sortBy="#{workTravel.vendas.idvendas}"
+								styleClass="alinharCenter">
+								<p:commandLink action="#{workTravelMB.dialogSalvarControle(workTravel)}"
+									onclick="PF('cd').show();" rendered="#{workTravelMB.linkIdVenda}">
+									<h:outputText value="#{workTravel.vendas.idvendas}" style="#{workTravelMB.cor(workTravel)}"/>
+								</p:commandLink>
+								<p:commandLink rendered="#{workTravelMB.linkIdVendaFranquias}">
+									<h:outputText value="#{workTravel.vendas.idvendas}" style="#{workTravelMB.cor(workTravel)}"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente" style="width:150px; " sortBy="#{workTravel.vendas.cliente.nome}">
+								<h:outputText value="#{workTravel.vendas.cliente.nome}" style="#{workTravelMB.corNome(workTravel)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"
+								style="text-align:center;width:115px;" sortBy="#{workTravel.vendas.dataVenda}">
+								<h:outputText value="#{workTravel.vendas.dataVenda}" style="#{workTravelMB.cor(workTravel)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravel.tipo}" style="#{workTravelMB.cor(workTravel)}"/>
+							</p:column>
+							<p:column headerText="Unidade" style="width:135px;" sortBy="#{workTravel.vendas.unidadenegocio.nomerelatorio}"
+								styleClass="alinharCenter">
+								<h:outputText
+									value="#{workTravel.vendas.unidadenegocio.nomerelatorio}" style="#{workTravelMB.cor(workTravel)}"/>
+							</p:column>
+							<p:column headerText="Consultor" style="width:140px;" sortBy="#{workTravel.vendas.usuario.nome}"
+								styleClass="alinharCenter">
+								<h:outputText value="#{workTravel.vendas.usuario.nome}" style="#{workTravelMB.cor(workTravel)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{workTravelMB.editar(workTravel)}" title="Editar"
+									style="text-decoration: none" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this"
+										update="tabelaConsultaworkandtravel" />
+								</p:commandLink>
+							</p:column>  
+							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravel)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png" 
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column>
+							
+							
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									<p:outputLabel
+										value="#{workTravel.vendas.idvendas} - #{workTravel.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{workTravelMB.boletos(workTravel)}" disabled="#{workTravelMB.botoesHabilitados(workTravel)}"
+												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
+												ajax="false" target="_blank" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>  
+												
+											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+												update=":idfrmconsultaworkandtravel:dialog_obsTM"
+												oncomplete="PF('obstm').show()"> 
+												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravel)}"/>  
+												<img src="#{workTravelMB.retornarIconeObsTM(workTravel)}" width="36" />
+												<h:panelGrid columns="1" style="text-align:1px;">
+													<p:outputLabel value="OBS" style="font-size:11px;"/>
+													<p:outputLabel value="TM"/>
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink target="_blank"
+												action="#{workTravelMB.gerarRelatorioContrato(workTravel)}"
+												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravel)}"
+												title="IMPRIMIR O TERMO VISTO" ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.gerarRelatorioRecibo(workTravel)}"
+												title="IMPRIMIR O RECIBO"  ajax="false"
+												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
+												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+											</p:commandLink>
+											  
+												<p:commandLink action="#{workTravelMB.documentacao(workTravel)}"
+													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="DOCS" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												 
+												<p:commandLink action="#{workTravelMB.informacoes(workTravel)}"
+													 title="INFORMAÇÕES DA VENDA"
+													disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{workTravelMB.visualizarContasReceber(workTravel)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravel.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravel)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaworkandtravel">
+													<p:confirm header="Cancelamento"
+															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
+														update="tabelaConsultaworkandtravel"/>
+												</p:commandLink>
+												
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>    
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
+				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
 			    	<div align="center">
 				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
 				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
 			        </div>  
 			    </p:confirmDialog> 
-				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="60%" style="margin-left: 2%;">
-					
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="N° Total de Ficha"
-							style="margin-left:15%;">
-							<img src="../../resources/img/iconeTotal.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="numFicha" value="#{workTravelMB.numeroFichas}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha Finalizada"
-							style="margin-left:5%;">
-							<img src="../../resources/img/finalizadoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaFinalizada" value="#{workTravelMB.nFichasFinalizadas}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup> 
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha em Andamento"
-							>
-							<img src="../../resources/img/amarelaFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaProcesso" value="#{workTravelMB.nFichasAndamento}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink actionListener="#" title="Ficha em Processo"
-							>
-							<img src="../../resources/img/processoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaAndamento" value="#{workTravelMB.nFichasProcesso}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha Cancelada"
-							>
-							<img src="../../resources/img/fichaCancelada.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaCancelada" value="#{workTravelMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>  
-				</h:panelGrid> 
+				
 				<br></br> <br></br>
 				<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert"
 					widgetVar="cd" style="width:30%;font-size:14px">

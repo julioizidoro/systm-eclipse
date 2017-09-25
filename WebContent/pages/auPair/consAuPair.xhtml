@@ -59,12 +59,10 @@
 								<p:ajax event="change" />
 							</p:selectOneMenu>
 							<p:commandButton value="Pesquisar" 
-							icon=" ui-icon-search " update="idfrmconsultaaupair:tabelaConsultaAuPair, :idfrmconsultaaupair:PanelQuantidadeFichas, :idfrmconsultaaupair:idNFichaFinalizada, :idfrmconsultaaupair:idNFichaAndamento,
-								:idfrmconsultaaupair:idNFichaCancelada"
+							icon=" ui-icon-search " update="idfrmconsultaaupair:acordionPainel"
 							action="#{auPairMB.pesquisarLista()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" 
-								update="idfrmconsultaaupair:tabelaConsultaAuPair, situacao, unidade, dataFinal, dataIni, cliente,idVenda, :idfrmconsultaaupair:PanelQuantidadeFichas, :idfrmconsultaaupair:idNFichaFinalizada, :idfrmconsultaaupair:idNFichaAndamento,
-								:idfrmconsultaaupair:idNFichaCancelada"
+								update="idfrmconsultaaupair:acordionPainel, situacao, unidade, dataFinal, dataIni, cliente, idVenda"
 								action="#{auPairMB.limparPesquisa()}" />
 						</h:panelGrid>
 						<br></br>
@@ -78,210 +76,988 @@
 					action="#{auPairMB.cadastrarFicha()}" class="botaoConsulta" style="font-size:12px;float:right;margin-right:4%;" />
 				<br/><br/> 
 				
-				<p:dataTable id="tabelaConsultaAuPair" var="aupair"
-					value="#{auPairMB.listaAupair}" class="tabelaHighSchool"
-					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
-
-					<p:column style="width:40px;">
-						<p:commandLink title="#{aupair.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupair)}">
-							<img src="#{aupair.imagem}" width="60%"/>
-						</p:commandLink>
-						<p:commandLink title="#{aupair.tituloFicha}" rendered="#{aupair.habilitarImagemFranquia}">
-							<img src="#{aupair.imagem}" width="60%"/>
-						</p:commandLink> 
-					</p:column>
-					<p:column headerText="ID Venda" sortBy="#{aupair.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
-						<p:commandLink action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
-							<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}"/>
-						</p:commandLink> 
-						<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
-					</p:column>
-					<p:column headerText="Cliente" sortBy="#{aupair.vendas.cliente.nome}" style="width:150px; ">
-						<h:outputText value="#{aupair.vendas.cliente.nome}" style="#{auPairMB.corNome(aupair)}"/>
-					</p:column>
-					<p:column headerText="Data Venda" sortBy="#{aupair.vendas.dataVenda}" style="text-align:center;width:115px;" >
-						<h:outputText value="#{aupair.vendas.dataVenda}"  style="#{auPairMB.cor(aupair)}">
-							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Unidade" sortBy="#{aupair.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
-						<h:outputText
-							value="#{aupair.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupair)}"/>
-					</p:column>
-					<p:column headerText="Consultor" sortBy="#{aupair.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
-						<h:outputText value="#{aupair.vendas.usuario.nome}"  style="#{auPairMB.cor(aupair)}"/>
-					</p:column>
-					<p:column style="width:43px;text-align:center;">
-						<p:commandLink action="#{auPairMB.editar(aupair)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupair)}">
-							<img src="../../resources/img/editaricon.png" width="28" />
-							<p:ajax event="dialogReturn" process="@this" update=":idfrmconsultaaupair:tabelaConsultaAuPair, :idfrmconsultaaupair:PanelQuantidadeFichas, :idfrmconsultaaupair:idNFichaFinalizada, :idfrmconsultaaupair:idNFichaAndamento,
-								:idfrmconsultaaupair:idNFichaCancelada" />
-						</p:commandLink>  
-					</p:column>   
-					<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
-						style="width:58px;text-align:center;" styleClass="alinharCenter">
-						<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupair)}"
-							title="Ficha" image="../../resources/img/imprimiFicha.png"
-							ajax="false" onclick="this.form.target='_blank'"
-							style="width:30px;margin-left:4%">   
-						</h:commandButton>       
-					</p:column> 
-					 
-					<p:column headerText="Opções" style="width:75px;text-align:center;">  
-						<p:commandLink id="btnInformacoes" title="Visualizar opções.">
-							<img src="../../resources/img/informacaoVendaVerde.png" />
-						</p:commandLink>
-						<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-							hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
-							<p:outputLabel
-								value="#{aupair.vendas.idvendas} - #{aupair.vendas.cliente.nome}"
-								style="text-align:center;font-size:15px;" />
-							<br />
-							<br />
-							<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
-								
-									<p:commandLink action="#{auPairMB.boletos(aupair)}" disabled="#{auPairMB.botoesHabilitados(aupair)}"
-										title="IMPRIMIR OS BOLETOS"
-										ajax="false" target="_blank"
-										style="width:100%;margin-left:4%" >
-										<img src="../../resources/img/boletoFicha.png" width="36"/>
-										<h:panelGrid columns="1" style="text-align:center;">
-											<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
-											<p:outputLabel value=" "/>
-										</h:panelGrid>
-									</p:commandLink>  
+				
+				<p:tabView id="acordionPainel" class="consultaCurso">   
+					<p:tab title="Processo (#{auPairMB.nFichasProcesso})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaProcesso" var="aupairProcesso"
+							value="#{auPairMB.listaVendasProcesso}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink title="#{aupairProcesso.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupairProcesso)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupairProcesso)}">
+									<img src="#{aupairProcesso.imagem}" width="60%"/>
+								</p:commandLink>
+								<p:commandLink title="#{aupairProcesso.tituloFicha}" rendered="#{aupairProcesso.habilitarImagemFranquia}">
+									<img src="#{aupairProcesso.imagem}" width="60%"/>
+								</p:commandLink> 
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{aupairProcesso.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
+								<p:commandLink action="#{auPairMB.dialogSalvarControle(aupairProcesso)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
+									<h:outputText value="#{aupairProcesso.vendas.idvendas}" style="#{auPairMB.cor(aupairProcesso)}"/>
+								</p:commandLink> 
+								<h:outputText value="#{aupairProcesso.vendas.idvendas}" style="#{auPairMB.cor(aupairProcesso)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{aupairProcesso.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{aupairProcesso.vendas.cliente.nome}" style="#{auPairMB.corNome(aupairProcesso)}"/>
+							</p:column>
+							<p:column headerText="Data Venda" sortBy="#{aupairProcesso.vendas.dataVenda}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupairProcesso.vendas.dataVenda}"  style="#{auPairMB.cor(aupairProcesso)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{aupairProcesso.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairProcesso.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupairProcesso)}"/>
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{aupairProcesso.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText value="#{aupairProcesso.vendas.usuario.nome}"  style="#{auPairMB.cor(aupairProcesso)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{auPairMB.editar(aupairProcesso)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaProcesso" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairProcesso)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									<p:outputLabel
+										value="#{aupairProcesso.vendas.idvendas} - #{aupairProcesso.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-										<p:commandLink actionListener="#{auPairMB.buscarAupair(aupair)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-												update=":idfrmconsultaaupair:dialog_obsTM"
-												oncomplete="PF('obstm').show()"> 
-												<p:ajax listener="#{auPairMB.buscarObsTM(aupair)}" />  
-												<img src="#{auPairMB.retornarIconeObsTM(aupair)}" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="OBS" style="font-size:11px;"/>
-													<p:outputLabel value="TM"/>
+											<p:commandLink action="#{auPairMB.boletos(aupairProcesso)}" disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
 												</h:panelGrid>
-											</p:commandLink>
-									
-									<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupair)}" title="IMPRIMIR O CONTRATO" 
-										 ajax="false" 
-										target="_blank"
-										disabled="#{auPairMB.botoesHabilitados(aupair)}">
-										<img src="../../resources/img/imprimiContrato.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:center;">
-												<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-									</p:commandLink>
-									<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupair)}" title="IMPRIMIR O TERMO DE VISTO"
-										
-										ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupair)}">
-										<img src="../../resources/img/imprimiContrato.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:center;">
-												<p:outputLabel value="TERMO" style="font-size:11px;"/>
-												<p:outputLabel value="VISTO" style="font-size:11px;"/>
-											</h:panelGrid>
-									</p:commandLink>
-									
-									<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupair)}" title="IMPRIMIR O RECIBO"
-										image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
-										target="_blank" disabled="#{auPairMB.botoesHabilitados(aupair)}">
-										<img src="../../resources/img/imprimiContrato.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:center;">
-												<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-									</p:commandLink>
-									  
-									<p:commandLink action="#{auPairMB.documentacao(aupair)}"
-											title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupair)}">
-											<img src="../../resources/img/arquivosUpload.png" width="36"/>
-											<h:panelGrid columns="1" style="text-align:center;">
-												<p:outputLabel value="DOCS" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-									</p:commandLink>
-									
-										<p:commandLink action="#{auPairMB.informacoes(aupair)}"    
-											title="INFORMAÇÕES DA VENDA"
-											disabled="#{auPairMB.botoesHabilitados(aupair)}">
-											<img src="../../resources/img/informacao.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:center;">
-												<p:outputLabel value="INFO" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink>
-										
-										<p:commandLink
-												action="#{auPairMB.visualizarContasReceber(aupair)}"
-												title="VISUALIZAR CONTAS A RECEBER" 
+											</p:commandLink>  
 												
-												 >
-												<img src="../../resources/img/invoice.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:center;"> 
-													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
-												</h:panelGrid>
-											</p:commandLink> 
+												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupairProcesso)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+														update=":idfrmconsultaaupair:dialog_obsTM"
+														oncomplete="PF('obstm').show()"> 
+														<p:ajax listener="#{auPairMB.buscarObsTM(aupairProcesso)}" />  
+														<img src="#{auPairMB.retornarIconeObsTM(aupairProcesso)}" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="OBS" style="font-size:11px;"/>
+															<p:outputLabel value="TM"/>
+														</h:panelGrid>
+													</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairProcesso)}" title="IMPRIMIR O CONTRATO" 
+												 ajax="false" 
+												target="_blank"
+												disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupairProcesso)}" title="IMPRIMIR O TERMO DE VISTO"
+												
+												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="TERMO" style="font-size:11px;"/>
+														<p:outputLabel value="VISTO" style="font-size:11px;"/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupairProcesso)}" title="IMPRIMIR O RECIBO"
+												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
+												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											  
+											<p:commandLink action="#{auPairMB.documentacao(aupairProcesso)}"
+													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{auPairMB.informacoes(aupairProcesso)}"    
+													title="INFORMAÇÕES DA VENDA"
+													disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{auPairMB.visualizarContasReceber(aupairProcesso)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{auPairMB.cancelarVenda(aupairProcesso.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaProcesso">
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaProcesso"/>
+													<h:panelGrid>
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+											
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column> 
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Financeiro (#{auPairMB.nFichasFinanceiro})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinanceiro" var="aupairFinanceiro"
+							value="#{auPairMB.listaVendasFinanceiro}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink title="#{aupairFinanceiro.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupairFinanceiro)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupairFinanceiro)}">
+									<img src="#{aupairFinanceiro.imagem}" width="60%"/>
+								</p:commandLink>
+								<p:commandLink title="#{aupairFinanceiro.tituloFicha}" rendered="#{aupairFinanceiro.habilitarImagemFranquia}">
+									<img src="#{aupairFinanceiro.imagem}" width="60%"/>
+								</p:commandLink> 
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{aupairFinanceiro.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
+								<p:commandLink action="#{auPairMB.dialogSalvarControle(aupairProcesso)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
+									<h:outputText value="#{aupairFinanceiro.vendas.idvendas}" style="#{auPairMB.cor(aupairFinanceiro)}"/>
+								</p:commandLink> 
+								<h:outputText value="#{aupairFinanceiro.vendas.idvendas}" style="#{auPairMB.cor(aupairFinanceiro)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{aupairFinanceiro.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{aupairFinanceiro.vendas.cliente.nome}" style="#{auPairMB.corNome(aupairFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Data Venda" sortBy="#{aupairFinanceiro.vendas.dataVenda}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupairFinanceiro.vendas.dataVenda}"  style="#{auPairMB.cor(aupairFinanceiro)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{aupairFinanceiro.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairFinanceiro.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupairFinanceiro)}"/>
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{aupairFinanceiro.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText value="#{aupairFinanceiro.vendas.usuario.nome}"  style="#{auPairMB.cor(aupairFinanceiro)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{auPairMB.editar(aupairFinanceiro)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaFinanceiro" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairFinanceiro)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									<p:outputLabel
+										value="#{aupairFinanceiro.vendas.idvendas} - #{aupairFinanceiro.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
 										
-										<p:commandLink action="#{auPairMB.cancelarVenda(aupair.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupair)}"
-											style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultaaupair:tabelaConsultaAuPair">
-											<img src="../../resources/img/cancel.png" width="36"/>
-											<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-											<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, :idfrmconsultaaupair:tabelaConsultaAuPair"/>
-											<h:panelGrid>
-												<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-												<p:outputLabel value=" "/>
-											</h:panelGrid>
-										</p:commandLink>
-									
-							</h:panelGrid>
-						</p:overlayPanel>
-					</p:column> 
-				</p:dataTable>
+											<p:commandLink action="#{auPairMB.boletos(aupairFinanceiro)}" disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+												
+												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupairFinanceiro)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+														update=":idfrmconsultaaupair:dialog_obsTM"
+														oncomplete="PF('obstm').show()"> 
+														<p:ajax listener="#{auPairMB.buscarObsTM(aupairFinanceiro)}" />  
+														<img src="#{auPairMB.retornarIconeObsTM(aupairFinanceiro)}" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="OBS" style="font-size:11px;"/>
+															<p:outputLabel value="TM"/>
+														</h:panelGrid>
+													</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairFinanceiro)}" title="IMPRIMIR O CONTRATO" 
+												 ajax="false" 
+												target="_blank"
+												disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupairFinanceiro)}" title="IMPRIMIR O TERMO DE VISTO"
+												
+												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="TERMO" style="font-size:11px;"/>
+														<p:outputLabel value="VISTO" style="font-size:11px;"/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupairFinanceiro)}" title="IMPRIMIR O RECIBO"
+												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
+												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											  
+											<p:commandLink action="#{auPairMB.documentacao(aupairFinanceiro)}"
+													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{auPairMB.informacoes(aupairFinanceiro)}"    
+													title="INFORMAÇÕES DA VENDA"
+													disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{auPairMB.visualizarContasReceber(aupairFinanceiro)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{auPairMB.cancelarVenda(aupairFinanceiro.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinanceiro">
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaFinanceiro"/>
+													<h:panelGrid>
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+											
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column> 
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Andamento (#{auPairMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaAndamento" var="aupairAndamento"
+							value="#{auPairMB.listaVendasAndamento}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink title="#{aupairAndamento.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupairAndamento)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupairAndamento)}">
+									<img src="#{aupairAndamento.imagem}" width="60%"/>
+								</p:commandLink>
+								<p:commandLink title="#{aupairAndamento.tituloFicha}" rendered="#{aupairAndamento.habilitarImagemFranquia}">
+									<img src="#{aupairAndamento.imagem}" width="60%"/>
+								</p:commandLink> 
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{aupairAndamento.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
+								<p:commandLink action="#{auPairMB.dialogSalvarControle(aupairAndamento)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
+									<h:outputText value="#{aupairAndamento.vendas.idvendas}" style="#{auPairMB.cor(aupairAndamento)}"/>
+								</p:commandLink> 
+								<h:outputText value="#{aupairAndamento.vendas.idvendas}" style="#{auPairMB.cor(aupairAndamento)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{aupairAndamento.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{aupairAndamento.vendas.cliente.nome}" style="#{auPairMB.corNome(aupairAndamento)}"/>
+							</p:column>
+							<p:column headerText="Data Venda" sortBy="#{aupairAndamento.vendas.dataVenda}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupairAndamento.vendas.dataVenda}"  style="#{auPairMB.cor(aupairAndamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{aupairAndamento.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairAndamento.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupairAndamento)}"/>
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{aupairAndamento.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText value="#{aupairAndamento.vendas.usuario.nome}"  style="#{auPairMB.cor(aupairAndamento)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{auPairMB.editar(aupairAndamento)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaAndamento" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairAndamento)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									<p:outputLabel
+										value="#{aupairAndamento.vendas.idvendas} - #{aupairAndamento.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{auPairMB.boletos(aupairAndamento)}" disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+												
+												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupairAndamento)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+														update=":idfrmconsultaaupair:dialog_obsTM"
+														oncomplete="PF('obstm').show()"> 
+														<p:ajax listener="#{auPairMB.buscarObsTM(aupairAndamento)}" />  
+														<img src="#{auPairMB.retornarIconeObsTM(aupairAndamento)}" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="OBS" style="font-size:11px;"/>
+															<p:outputLabel value="TM"/>
+														</h:panelGrid>
+													</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairAndamento)}" title="IMPRIMIR O CONTRATO" 
+												 ajax="false" 
+												target="_blank"
+												disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupairAndamento)}" title="IMPRIMIR O TERMO DE VISTO"
+												
+												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="TERMO" style="font-size:11px;"/>
+														<p:outputLabel value="VISTO" style="font-size:11px;"/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupairAndamento)}" title="IMPRIMIR O RECIBO"
+												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
+												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											  
+											<p:commandLink action="#{auPairMB.documentacao(aupairAndamento)}"
+													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{auPairMB.informacoes(aupairAndamento)}"    
+													title="INFORMAÇÕES DA VENDA"
+													disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{auPairMB.visualizarContasReceber(aupairAndamento)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{auPairMB.cancelarVenda(aupairAndamento.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaAndamento">
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaAndamento"/>
+													<h:panelGrid>
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+											
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column> 
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Finalizado (#{auPairMB.nFichasFinalizadas})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaFinalizado" var="aupairFinalizado"
+							value="#{auPairMB.listaVendasFinalizada}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink title="#{aupairFinalizado.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupairFinalizado)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupairFinalizado)}">
+									<img src="#{aupairFinalizado.imagem}" width="60%"/>
+								</p:commandLink>
+								<p:commandLink title="#{aupairFinalizado.tituloFicha}" rendered="#{aupairFinalizado.habilitarImagemFranquia}">
+									<img src="#{aupairFinalizado.imagem}" width="60%"/>
+								</p:commandLink> 
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{aupairFinalizado.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
+								<p:commandLink action="#{auPairMB.dialogSalvarControle(aupairFinalizado)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
+									<h:outputText value="#{aupairFinalizado.vendas.idvendas}" style="#{auPairMB.cor(aupairFinalizado)}"/>
+								</p:commandLink> 
+								<h:outputText value="#{aupairFinalizado.vendas.idvendas}" style="#{auPairMB.cor(aupairFinalizado)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{aupairFinalizado.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{aupairFinalizado.vendas.cliente.nome}" style="#{auPairMB.corNome(aupairFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Data Venda" sortBy="#{aupairFinalizado.vendas.dataVenda}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupairFinalizado.vendas.dataVenda}"  style="#{auPairMB.cor(aupairFinalizado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{aupairFinalizado.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairFinalizado.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupairFinalizado)}"/>
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{aupairFinalizado.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText value="#{aupairFinalizado.vendas.usuario.nome}"  style="#{auPairMB.cor(aupairFinalizado)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{auPairMB.editar(aupairFinalizado)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaFinalizado" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairFinalizado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									<p:outputLabel
+										value="#{aupairFinalizado.vendas.idvendas} - #{aupairFinalizado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{auPairMB.boletos(aupairFinalizado)}" disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+												
+												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupairFinalizado)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+														update=":idfrmconsultaaupair:dialog_obsTM"
+														oncomplete="PF('obstm').show()"> 
+														<p:ajax listener="#{auPairMB.buscarObsTM(aupairFinalizado)}" />  
+														<img src="#{auPairMB.retornarIconeObsTM(aupairFinalizado)}" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="OBS" style="font-size:11px;"/>
+															<p:outputLabel value="TM"/>
+														</h:panelGrid>
+													</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairFinalizado)}" title="IMPRIMIR O CONTRATO" 
+												 ajax="false" 
+												target="_blank"
+												disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupairFinalizado)}" title="IMPRIMIR O TERMO DE VISTO"
+												
+												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="TERMO" style="font-size:11px;"/>
+														<p:outputLabel value="VISTO" style="font-size:11px;"/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupairFinalizado)}" title="IMPRIMIR O RECIBO"
+												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
+												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											  
+											<p:commandLink action="#{auPairMB.documentacao(aupairFinalizado)}"
+													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{auPairMB.informacoes(aupairFinalizado)}"    
+													title="INFORMAÇÕES DA VENDA"
+													disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{auPairMB.visualizarContasReceber(aupairFinalizado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{auPairMB.cancelarVenda(aupairFinalizado.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinalizado">
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaFinalizado"/>
+													<h:panelGrid>
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+											
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column> 
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Cancelado (#{auPairMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">    
+						<p:dataTable id="tabelaConsultaCancelado" var="aupairCancelado"
+							value="#{auPairMB.listaVendasCancelada}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink title="#{aupairCancelado.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupairCancelado)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupairCancelado)}">
+									<img src="#{aupairCancelado.imagem}" width="60%"/>
+								</p:commandLink>
+								<p:commandLink title="#{aupairCancelado.tituloFicha}" rendered="#{aupairCancelado.habilitarImagemFranquia}">
+									<img src="#{aupairCancelado.imagem}" width="60%"/>
+								</p:commandLink> 
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{aupairCancelado.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
+								<p:commandLink action="#{auPairMB.dialogSalvarControle(aupairCancelado)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
+									<h:outputText value="#{aupairCancelado.vendas.idvendas}" style="#{auPairMB.cor(aupairCancelado)}"/>
+								</p:commandLink> 
+								<h:outputText value="#{aupairCancelado.vendas.idvendas}" style="#{auPairMB.cor(aupairCancelado)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{aupairCancelado.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{aupairCancelado.vendas.cliente.nome}" style="#{auPairMB.corNome(aupairCancelado)}"/>
+							</p:column>
+							<p:column headerText="Data Venda" sortBy="#{aupairCancelado.vendas.dataVenda}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupairCancelado.vendas.dataVenda}"  style="#{auPairMB.cor(aupairCancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{aupairCancelado.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupairCancelado.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupairCancelado)}"/>
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{aupairCancelado.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText value="#{aupairCancelado.vendas.usuario.nome}"  style="#{auPairMB.cor(aupairCancelado)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{auPairMB.editar(aupairCancelado)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaCancelado" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairCancelado)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									<p:outputLabel
+										value="#{aupairCancelado.vendas.idvendas} - #{aupairCancelado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{auPairMB.boletos(aupairCancelado)}" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+												
+												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupairCancelado)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+														update=":idfrmconsultaaupair:dialog_obsTM"
+														oncomplete="PF('obstm').show()"> 
+														<p:ajax listener="#{auPairMB.buscarObsTM(aupairCancelado)}" />  
+														<img src="#{auPairMB.retornarIconeObsTM(aupairCancelado)}" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="OBS" style="font-size:11px;"/>
+															<p:outputLabel value="TM"/>
+														</h:panelGrid>
+													</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairCancelado)}" title="IMPRIMIR O CONTRATO" 
+												 ajax="false" 
+												target="_blank"
+												disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupairCancelado)}" title="IMPRIMIR O TERMO DE VISTO"
+												
+												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="TERMO" style="font-size:11px;"/>
+														<p:outputLabel value="VISTO" style="font-size:11px;"/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupairCancelado)}" title="IMPRIMIR O RECIBO"
+												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
+												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											  
+											<p:commandLink action="#{auPairMB.documentacao(aupairCancelado)}"
+													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{auPairMB.informacoes(aupairCancelado)}"    
+													title="INFORMAÇÕES DA VENDA"
+													disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{auPairMB.visualizarContasReceber(aupairCancelado)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{auPairMB.cancelarVenda(aupairCancelado.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaCancelado">
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaCancelado"/>
+													<h:panelGrid>
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+											
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column> 
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Todos (#{auPairMB.numeroFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaConsultaAuPair" var="aupair"
+							value="#{auPairMB.listaAupair}" class="tabelaHighSchool"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+		
+							<p:column style="width:40px;">
+								<p:commandLink title="#{aupair.tituloFicha}" action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('liberarficha').show();" rendered="#{auPairMB.imagemSituacaoUsuario(aupair)}">
+									<img src="#{aupair.imagem}" width="60%"/>
+								</p:commandLink>
+								<p:commandLink title="#{aupair.tituloFicha}" rendered="#{aupair.habilitarImagemFranquia}">
+									<img src="#{aupair.imagem}" width="60%"/>
+								</p:commandLink> 
+							</p:column>
+							<p:column headerText="ID Venda" sortBy="#{aupair.vendas.idvendas}" style="width:85px;" styleClass="alinharCenter">
+								<p:commandLink action="#{auPairMB.dialogSalvarControle(aupair)}" onclick="PF('cd').show();" rendered="#{auPairMB.linkIdVenda}">
+									<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}"/>
+								</p:commandLink> 
+								<h:outputText value="#{aupair.vendas.idvendas}" style="#{auPairMB.cor(aupair)}" rendered="#{auPairMB.linkIdVendaFranquias}"/>
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{aupair.vendas.cliente.nome}" style="width:150px; ">
+								<h:outputText value="#{aupair.vendas.cliente.nome}" style="#{auPairMB.corNome(aupair)}"/>
+							</p:column>
+							<p:column headerText="Data Venda" sortBy="#{aupair.vendas.dataVenda}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupair.vendas.dataVenda}"  style="#{auPairMB.cor(aupair)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{aupair.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{aupair.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupair)}"/>
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{aupair.vendas.usuario.nome}" style="width:150px;" styleClass="alinharCenter">
+								<h:outputText value="#{aupair.vendas.usuario.nome}"  style="#{auPairMB.cor(aupair)}"/>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{auPairMB.editar(aupair)}" title="Editar" style="text-decoration: none" disabled="#{auPairMB.botoesHabilitados(aupair)}">
+									<img src="../../resources/img/editaricon.png" width="28" />
+									<p:ajax event="dialogReturn" process="@this" update="tabelaConsultaAuPair" />
+								</p:commandLink>  
+							</p:column>   
+							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
+								style="width:58px;text-align:center;" styleClass="alinharCenter">
+								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupair)}"
+									title="Ficha" image="../../resources/img/imprimiFicha.png"
+									ajax="false" onclick="this.form.target='_blank'"
+									style="width:30px;margin-left:4%">   
+								</h:commandButton>       
+							</p:column> 
+							 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									<p:outputLabel
+										value="#{aupair.vendas.idvendas} - #{aupair.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+										
+											<p:commandLink action="#{auPairMB.boletos(aupair)}" disabled="#{auPairMB.botoesHabilitados(aupair)}"
+												title="IMPRIMIR OS BOLETOS"
+												ajax="false" target="_blank"
+												style="width:100%;margin-left:4%" >
+												<img src="../../resources/img/boletoFicha.png" width="36"/>
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+												
+												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupair)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
+														update=":idfrmconsultaaupair:dialog_obsTM"
+														oncomplete="PF('obstm').show()"> 
+														<p:ajax listener="#{auPairMB.buscarObsTM(aupair)}" />  
+														<img src="#{auPairMB.retornarIconeObsTM(aupair)}" width="36" />
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="OBS" style="font-size:11px;"/>
+															<p:outputLabel value="TM"/>
+														</h:panelGrid>
+													</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupair)}" title="IMPRIMIR O CONTRATO" 
+												 ajax="false" 
+												target="_blank"
+												disabled="#{auPairMB.botoesHabilitados(aupair)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupair)}" title="IMPRIMIR O TERMO DE VISTO"
+												
+												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupair)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="TERMO" style="font-size:11px;"/>
+														<p:outputLabel value="VISTO" style="font-size:11px;"/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupair)}" title="IMPRIMIR O RECIBO"
+												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
+												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupair)}">
+												<img src="../../resources/img/imprimiContrato.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											  
+											<p:commandLink action="#{auPairMB.documentacao(aupair)}"
+													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupair)}">
+													<img src="../../resources/img/arquivosUpload.png" width="36"/>
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+											</p:commandLink>
+											
+												<p:commandLink action="#{auPairMB.informacoes(aupair)}"    
+													title="INFORMAÇÕES DA VENDA"
+													disabled="#{auPairMB.botoesHabilitados(aupair)}">
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+														action="#{auPairMB.visualizarContasReceber(aupair)}"
+														title="VISUALIZAR CONTAS A RECEBER" 
+														
+														 >
+														<img src="../../resources/img/invoice.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;"> 
+															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
+															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+														</h:panelGrid>
+													</p:commandLink> 
+												
+												<p:commandLink action="#{auPairMB.cancelarVenda(aupair.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupair)}"
+													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaAuPair">
+													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaAuPair"/>
+													<h:panelGrid>
+														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+											
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column> 
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
 			    	<div align="center">
 				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
 				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size:12px;"/>
 			        </div>  
 			    </p:confirmDialog>   
-				<h:panelGrid id="PanelQuantidadeFichas" columns="5" width="60%" style="margin-left: 2%;">
-					
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="N° Total de Ficha"
-							style="margin-left:15%;">
-							<img src="../../resources/img/iconeTotal.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="numFicha" value="#{auPairMB.numeroFichas}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha Finalizada"
-							style="margin-left:5%;">
-							<img src="../../resources/img/finalizadoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaFinalizada" value="#{auPairMB.nFichasFinalizadas}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha em Andamento"
-							>
-							<img src="../../resources/img/amarelaFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaProcesso" value="#{auPairMB.nFichasAndamento}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink actionListener="#" title="Ficha em Processo"
-							>
-							<img src="../../resources/img/processoFicha.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaAndamento" value="#{auPairMB.nFichasProcesso}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup>
-					<h:panelGroup >
-						<p:commandLink actionListener="#" title="Ficha Cancelada"
-							>
-							<img src="../../resources/img/fichaCancelada.png" width="31px" />
-						</p:commandLink>
-						<p:outputLabel id="idNFichaCancelada" value="#{auPairMB.nFichaCancelada}" style="font-size:24px;margin-left: 5%;"/>
-					</h:panelGroup> 
-				</h:panelGrid>
+				
 				<br></br> <br></br>
 				<p:dialog showEffect="fade" hideEffect="fade" icon="ui-icon-alert" widgetVar="cd"  style="width:30%;font-size:14px">
 					<p:outputLabel value="Salvar controle desta ficha?" />
