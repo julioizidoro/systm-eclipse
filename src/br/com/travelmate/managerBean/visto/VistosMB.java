@@ -26,15 +26,13 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.RelatorioErroBean;  
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
 import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -240,12 +238,9 @@ public class VistosMB implements Serializable {
 					+ "' order by v.vendas.dataVenda desc";
 		} else {
 			sql = "select v from Vistos v where v.usuario.idusuario="
-					+ usuarioLogadoMB.getUsuario().getIdusuario() + " and v.vendas.dataVenda>='" + dataConsulta+ "'";
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getIdusuario() + " and v.vendas.dataVenda>='" + dataConsulta+ "'"; 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and v.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -266,12 +261,9 @@ public class VistosMB implements Serializable {
 			}
 		} else {
 			sql = sql + " and v.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and v.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}

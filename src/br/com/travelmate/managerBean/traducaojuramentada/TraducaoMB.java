@@ -24,19 +24,15 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.RelatorioErroBean;  
 import br.com.travelmate.facade.ContasReceberFacade; 
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.TraducaoJuramentadaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Acessounidade;
-import br.com.travelmate.model.Aupair;
-import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Curso;
+import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Traducaojuramentada;
@@ -223,12 +219,9 @@ public class TraducaoMB implements Serializable {
 			}
 		} else {
 			sql = sql + " and t.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and t.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -404,12 +397,9 @@ public class TraducaoMB implements Serializable {
 			String sql = "Select t from Traducaojuramentada t where t.vendas.dataVenda>='" + dataConsulta;
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = sql + " and t.vendas.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(!acessounidade.isEmissaoconsulta()) {
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 						sql = sql + " and t.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}

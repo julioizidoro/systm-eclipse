@@ -26,9 +26,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-
-import br.com.travelmate.dao.AcessoUnidadeDao;
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+ 
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade;
@@ -36,8 +34,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.DadosEscolaEmailBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoManualPDFBean;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory; 
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Occliente;
@@ -181,12 +178,9 @@ public class OrcamentoManualMB implements Serializable {
 			sql = "Select o from Orcamentocurso o where o.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
 					+ " and o.cliente.nome like '%" + nomeCliente + "%' and o.situacao='Processo' and o.data>='"
-					+ dataConsulta + "'";
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isConsultaorcamento()) {
+					+ dataConsulta + "'"; 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
 					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -219,12 +213,9 @@ public class OrcamentoManualMB implements Serializable {
 		if (dataInicio != null && dataTermino != null) {
 			sql = sql + " and o.data>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and o.data<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
-		}
-		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-				+usuarioLogadoMB.getUsuario().getIdusuario());
-		if(acessounidade!=null) {
-			if(!acessounidade.isConsultaorcamento()) {
+		} 
+		if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+			if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
 				sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 			}
 		} 

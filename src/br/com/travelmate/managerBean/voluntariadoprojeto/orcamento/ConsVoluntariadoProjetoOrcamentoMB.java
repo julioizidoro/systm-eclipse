@@ -1,6 +1,5 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
-  
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+   
 import br.com.travelmate.facade.CambioFacade; 
 import br.com.travelmate.facade.FornecedorPaisFacade;
 import br.com.travelmate.facade.FtpDadosFacade; 
@@ -15,8 +14,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.DadosEscolaEmailBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutosExtrasBean;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory; 
 import br.com.travelmate.model.Cambio; 
 import br.com.travelmate.model.Fornecedorpais;
 import br.com.travelmate.model.Ftpdados; 
@@ -174,12 +172,9 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		OrcamentoProjetoVoluntariadoFacade orcamentoProjetoVoluntariadoFacade = new OrcamentoProjetoVoluntariadoFacade();
 		String sql = "select o from Orcamentoprojetovoluntariado o where o.dataorcamento>='"+data+"'";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-			sql = sql +" and o.usuario.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isConsultaorcamento()) {
+			sql = sql +" and o.usuario.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
 					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -195,12 +190,9 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		OrcamentoProjetoVoluntariadoFacade orcamentoProjetoVoluntariadoFacade = new OrcamentoProjetoVoluntariadoFacade();
 		String sql = "select o from Orcamentoprojetovoluntariado o where o.cliente.idcliente like '%"+nomeCliente+"%'";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-			sql = sql +" and o.usuario.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isConsultaorcamento()) {
+			sql = sql +" and o.usuario.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
 					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}

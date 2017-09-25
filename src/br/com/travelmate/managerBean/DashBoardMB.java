@@ -14,15 +14,13 @@ import javax.servlet.http.HttpSession;
 import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.bean.MetasFaturamentoBean; 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.MetasFaturamentoBean;  
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
-import br.com.travelmate.facade.VersaoUsuarioFacade;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.facade.VersaoUsuarioFacade; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
@@ -480,23 +478,17 @@ public class DashBoardMB implements Serializable {
 		usuarioLogadoMB.getUsuario().setFecharaniversario(true);
 	}
 	
-	public boolean mostrarDadosUnidade() {
-		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-				+usuarioLogadoMB.getUsuario().getIdusuario());
-		if(acessounidade!=null) {
-			if(acessounidade.isDashboard()) {
+	public boolean mostrarDadosUnidade() { 
+		if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+			if(usuarioLogadoMB.getUsuario().getAcessounidade().isDashboard()) {
 				return true;
 			}else return false;
 		}else return true;
 	}
 	
-	public boolean privarDadosUnidade() {
-		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-				+usuarioLogadoMB.getUsuario().getIdusuario());
-		if(acessounidade!=null) {
-			if(acessounidade.isDashboard()) {
+	public boolean privarDadosUnidade() { 
+		if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+			if(usuarioLogadoMB.getUsuario().getAcessounidade().isDashboard()) {
 				return false;
 			}else return true;
 		}else return true;

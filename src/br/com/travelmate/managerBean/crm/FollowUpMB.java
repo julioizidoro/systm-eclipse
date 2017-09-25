@@ -16,15 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+ 
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
 import br.com.travelmate.model.Pais;
@@ -121,12 +119,9 @@ public class FollowUpMB implements Serializable {
 					listaUnidade = GerarListas.listarUnidade();
 				}
 				listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
-			}else {
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(acessounidade.isCrm()) {
+			}else { 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
 						habilitarComboUsuario = false;
 					}
 				}

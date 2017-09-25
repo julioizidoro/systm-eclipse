@@ -29,8 +29,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.RelatorioErroBean;  
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -43,8 +42,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
-import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlecurso;
@@ -413,12 +411,9 @@ public class CursoMB implements Serializable {
 					+ aplicacaoMB.getParametrosprodutos().getCursos();
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = sql + " and  c.vendas.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(!acessounidade.isEmissaoconsulta()) {
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 						sql = sql + " and c.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}
@@ -516,12 +511,9 @@ public class CursoMB implements Serializable {
 			}
 		} else {
 			sql = sql + " and c.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and c.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}

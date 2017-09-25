@@ -6,8 +6,7 @@
 package br.com.travelmate.managerBean.cursoTeens;
  
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.RelatorioErroBean;  
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
@@ -15,8 +14,7 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Formapagamento;
@@ -24,8 +22,7 @@ import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Worktravel;
+import br.com.travelmate.model.Vendas; 
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -394,12 +391,9 @@ public class CursosTeensMB implements Serializable {
 				+ aplicacaoMB.getParametrosprodutos().getProgramasTeens();
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql + " and  p.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and p.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -441,12 +435,9 @@ public class CursosTeensMB implements Serializable {
 			}
 		} else {
 			sql = sql + " and p.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and p.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}

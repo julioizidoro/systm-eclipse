@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package br.com.travelmate.managerBean;
-  
-import br.com.travelmate.dao.AcessoUnidadeDao;
-import br.com.travelmate.dao.UsuarioDao; 
+   
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -16,8 +14,7 @@ import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Vendas;
-import br.com.travelmate.ti.TiBean;
+import br.com.travelmate.model.Vendas; 
 import br.com.travelmate.util.Criptografia;
 import br.com.travelmate.util.Mensagem;
 

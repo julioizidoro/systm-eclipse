@@ -28,13 +28,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
- 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+  
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VersaoUsuarioFacade;
 import br.com.travelmate.managerBean.financeiro.boleto.DadosBoletoBean;
-import br.com.travelmate.managerBean.fornecedor.FornecedorMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.fornecedor.FornecedorMB; 
 import br.com.travelmate.model.Versaousuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
@@ -1369,12 +1367,9 @@ public class MenuMB implements Serializable {
 		return "consAcessoUnidade";
 	}
 	
-	public boolean mostrarComissaoParceiros() {
-		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-				+usuarioLogadoMB.getUsuario().getIdusuario());
-		if(acessounidade!=null) {
-			if(acessounidade.isComissaoparceiros()) {
+	public boolean mostrarComissaoParceiros() { 
+		if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+			if(usuarioLogadoMB.getUsuario().getAcessounidade().isComissaoparceiros()) {
 				return true;
 			}else return false;
 		}else return true;

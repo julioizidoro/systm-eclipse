@@ -27,24 +27,19 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.dao.AcessoUnidadeDao;
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.RelatorioErroBean; 
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Controleaupair;
-import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Controleaupair; 
 import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Programasteens;
+import br.com.travelmate.model.Parcelamentopagamento; 
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -422,12 +417,9 @@ public class AuPairMB implements Serializable {
 		sql = "Select a from Aupair a where ";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sql = sql + " a.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and a.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -462,12 +454,9 @@ public class AuPairMB implements Serializable {
 			}
 		} else {
 			sql = sql + " and a.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sql = sql + " and a.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}

@@ -27,18 +27,15 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.ListaHeBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.bean.RelatorioErroBean;  
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Contasreceber; 
-import br.com.travelmate.model.He;
-import br.com.travelmate.model.Highschool;
+import br.com.travelmate.model.He; 
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio; 
 import br.com.travelmate.util.Formatacao;
@@ -223,12 +220,9 @@ public class HigherEducationMB implements Serializable {
 		String sqlQuestionario = "Select q From Questionariohe q where q.dataenvio>='" + dataConsulta + "'";
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAprovarquestionariohe()) {
 			sqlQuestionario = sqlQuestionario + " and q.cliente.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sqlQuestionario = sqlQuestionario + " and q.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -243,12 +237,9 @@ public class HigherEducationMB implements Serializable {
 		String sqlFicha1 = "Select h From He h where h.vendas.dataVenda>='" + dataConsulta + "' and h.fichafinal=FALSE";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -263,12 +254,9 @@ public class HigherEducationMB implements Serializable {
 		String sqlFicha2 = "Select h From He h where h.vendas.dataVenda>='" + dataConsulta + "' and h.fichafinal=TRUE";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sqlFicha2 = sqlFicha2 + " and h.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isEmissaoconsulta()) {
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sqlFicha2 = sqlFicha2 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
@@ -407,12 +395,9 @@ public class HigherEducationMB implements Serializable {
 			String sqlQuestionario = "Select q From Questionariohe q where q.cliente.nome like '" + nomeCliente + "%'";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlQuestionario = sqlQuestionario + " and q.cliente.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(!acessounidade.isEmissaoconsulta()) {
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 						sqlQuestionario = sqlQuestionario + " and q.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}
@@ -444,12 +429,9 @@ public class HigherEducationMB implements Serializable {
 			String sqlFicha1 = "Select h From He h where h.vendas.cliente.nome like '" + nomeCliente + "%'";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(!acessounidade.isEmissaoconsulta()) {
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 						sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}
@@ -479,12 +461,9 @@ public class HigherEducationMB implements Serializable {
 			String sqlFicha2 = "Select h From He h where h.vendas.cliente.nome like '" + nomeCliente + "%'";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlFicha2 = sqlFicha2 + " and h.vendas.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(!acessounidade.isEmissaoconsulta()) {
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 						sqlFicha2 = sqlFicha2 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}

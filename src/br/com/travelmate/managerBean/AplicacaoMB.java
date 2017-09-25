@@ -8,9 +8,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import javax.persistence.Transient;
-
+import javax.inject.Named; 
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.RegraVendaFacade;

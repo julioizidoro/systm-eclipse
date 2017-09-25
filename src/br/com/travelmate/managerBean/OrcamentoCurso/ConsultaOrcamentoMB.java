@@ -1,6 +1,5 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
- 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+  
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
@@ -8,8 +7,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
 import br.com.travelmate.managerBean.OrcamentoCurso.comparativo.GerarComparativoTarifarioBean;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
-import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean; 
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
@@ -225,12 +223,9 @@ public class ConsultaOrcamentoMB implements Serializable {
 						+ "' order by o.dataorcamento desc, o.idocurso desc";
 			} else {
 				sql = "Select o from Ocurso o where o.usuario.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuarioLogadoMB.getUsuario().getIdusuario());
-				if(acessounidade!=null) {
-					if(!acessounidade.isConsultaorcamento()) {
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
+				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
 						sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}
@@ -278,12 +273,9 @@ public class ConsultaOrcamentoMB implements Serializable {
 			usouAnd = " and";
 			executarFiltro = true;
 		}
-		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-					+usuarioLogadoMB.getUsuario().getIdusuario());
-			if(acessounidade!=null) {
-				if(!acessounidade.isConsultaorcamento()) {
+		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) { 
+			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
+				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
 					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
