@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -37,6 +38,10 @@ public class Traducaojuramentada implements Serializable {
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
+    @Transient
+    private String imagem;
+    @Transient
+    private String tituloFicha;
 
     public Traducaojuramentada() {
     }
@@ -93,7 +98,23 @@ public class Traducaojuramentada implements Serializable {
         this.vendas = vendas;
     }
 
-    @Override
+    public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getTituloFicha() {
+		return tituloFicha;
+	}
+
+	public void setTituloFicha(String tituloFicha) {
+		this.tituloFicha = tituloFicha;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idtraducaojuramentada != null ? idtraducaojuramentada.hashCode() : 0);
@@ -102,7 +123,6 @@ public class Traducaojuramentada implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Traducaojuramentada)) {
             return false;
         }

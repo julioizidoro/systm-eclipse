@@ -316,7 +316,22 @@ public class DemiPairMB implements Serializable {
         	demipair.setHabilitarImagemFranquia(true);
         	demipair.setImagem("../../resources/img/finalizadoFicha.png");
         	demipair.setTituloFicha("FICHA FINALIZADA");
-        } else if (demipair.getVendas().getSituacao().equals("ANDAMENTO")) {
+        } else if (demipair.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !demipair.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
+				demipair.setHabilitarImagemGerencial(true);
+				demipair.setHabilitarImagemFranquia(false);
+			} else {
+				demipair.setHabilitarImagemGerencial(false);
+				demipair.setHabilitarImagemFranquia(true);
+			}
+			demipair.setImagem("../../resources/img/ficharestricao.png");
+			if (demipair.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				demipair.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				demipair.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
+		} else if (demipair.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				demipair.setHabilitarImagemGerencial(true);
 				demipair.setHabilitarImagemFranquia(false);

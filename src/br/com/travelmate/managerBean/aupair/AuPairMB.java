@@ -313,6 +313,21 @@ public class AuPairMB implements Serializable {
 			aupair.setHabilitarImagemFranquia(true);
 			aupair.setImagem("../../resources/img/finalizadoFicha.png");
 			aupair.setTituloFicha("FICHA FINALIZADA");
+		}else if (aupair.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !aupair.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
+				aupair.setHabilitarImagemGerencial(true);
+				aupair.setHabilitarImagemFranquia(false);
+			} else {
+				aupair.setHabilitarImagemGerencial(false);
+				aupair.setHabilitarImagemFranquia(true);
+			}
+			aupair.setImagem("../../resources/img/ficharestricao.png");
+			if (aupair.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				aupair.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				aupair.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
 		} else if (aupair.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				aupair.setHabilitarImagemGerencial(true);

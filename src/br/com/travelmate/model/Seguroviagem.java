@@ -98,6 +98,10 @@ public class Seguroviagem implements Serializable {
     private Float valorMoedaEstrangeira; 
     @Transient 
     private boolean somarvalortotal;
+    @Transient
+    private String imagem;
+    @Transient
+    private String tituloFicha;
 
     public Seguroviagem() {
     	this.descontoloja=0.0f;
@@ -293,6 +297,22 @@ public class Seguroviagem implements Serializable {
 
 	public void setSegurocancelamento(boolean segurocancelamento) {
 		this.segurocancelamento = segurocancelamento;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getTituloFicha() {
+		return tituloFicha;
+	}
+
+	public void setTituloFicha(String tituloFicha) {
+		this.tituloFicha = tituloFicha;
 	}
 
 	@Override

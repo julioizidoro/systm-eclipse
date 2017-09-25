@@ -471,4 +471,34 @@ public class TraducaoMB implements Serializable {
 		}
 		return "color:#000000;";
 	}
+	
+	
+	public boolean imagemSituacaoUsuario(Traducaojuramentada traducaojuramentada) {
+		if (traducaojuramentada.getVendas().getSituacao().equals("FINALIZADA")) {
+			traducaojuramentada.setImagem("../../resources/img/finalizadoFicha.png");
+			traducaojuramentada.setTituloFicha("FICHA FINALIZADA");
+		} else if (traducaojuramentada.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !traducaojuramentada.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			traducaojuramentada.setImagem("../../resources/img/ficharestricao.png");
+			if (traducaojuramentada.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				traducaojuramentada.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				traducaojuramentada.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
+		} else if (traducaojuramentada.getVendas().getSituacao().equals("ANDAMENTO")) {
+			traducaojuramentada.setImagem("../../resources/img/amarelaFicha.png");
+			traducaojuramentada.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
+		} else if (traducaojuramentada.getVendas().getSituacao().equals("CANCELADA")) {
+			traducaojuramentada.setImagem("../../resources/img/fichaCancelada.png");
+			traducaojuramentada.setTituloFicha("FICHA CANCELADA");
+		} else if ((traducaojuramentada.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (traducaojuramentada.getVendas().isRestricaoparcelamento())) {
+			traducaojuramentada.setImagem("../../resources/img/ficharestricao.png");
+			traducaojuramentada.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+		} else {
+			traducaojuramentada.setImagem("../../resources/img/processoFicha.png");
+			traducaojuramentada.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
+		}
+		return true;
+	}
 }

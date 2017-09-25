@@ -37,6 +37,7 @@ import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vistos;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
@@ -522,5 +523,35 @@ public class VistosMB implements Serializable {
 			return "Esconder Opções";
 		} else
 			return "Expandir Opções";
+	}
+	
+	
+	public boolean imagemSituacaoUsuario(Vistos vistos) {
+		if (vistos.getVendas().getSituacao().equals("FINALIZADA")) {
+			vistos.setImagem("../../resources/img/finalizadoFicha.png");
+			vistos.setTituloFicha("FICHA FINALIZADA");
+		} else if (vistos.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !vistos.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			vistos.setImagem("../../resources/img/ficharestricao.png");
+			if (vistos.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				vistos.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				vistos.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
+		} else if (vistos.getVendas().getSituacao().equals("ANDAMENTO")) {
+			vistos.setImagem("../../resources/img/amarelaFicha.png");
+			vistos.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
+		} else if (vistos.getVendas().getSituacao().equals("CANCELADA")) {
+			vistos.setImagem("../../resources/img/fichaCancelada.png");
+			vistos.setTituloFicha("FICHA CANCELADA");
+		} else if ((vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (vistos.getVendas().isRestricaoparcelamento())) {
+			vistos.setImagem("../../resources/img/ficharestricao.png");
+			vistos.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+		} else {
+			vistos.setImagem("../../resources/img/processoFicha.png");
+			vistos.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
+		}
+		return true;
 	}
 }

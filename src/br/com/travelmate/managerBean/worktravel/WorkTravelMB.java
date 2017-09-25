@@ -317,6 +317,21 @@ public class WorkTravelMB implements Serializable {
 			work.setHabilitarImagemFranquia(true);
 			work.setImagem("../../resources/img/finalizadoFicha.png");
 			work.setTituloFicha("FICHA FINALIZADA");
+		} else if (work.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !work.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
+				work.setHabilitarImagemGerencial(true);
+				work.setHabilitarImagemFranquia(false);
+			} else {
+				work.setHabilitarImagemGerencial(false);
+				work.setHabilitarImagemFranquia(true);
+			}
+			work.setImagem("../../resources/img/ficharestricao.png");
+			if (work.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				work.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				work.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
 		} else if (work.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				work.setHabilitarImagemGerencial(true);

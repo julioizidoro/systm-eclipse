@@ -56,6 +56,10 @@ public class Vistos implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
     private Usuario usuario;
+    @Transient
+    private String imagem;
+    @Transient
+    private String tituloFicha;
     
     public Vistos() {
 	}
@@ -182,6 +186,22 @@ public class Vistos implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getTituloFicha() {
+		return tituloFicha;
+	}
+
+	public void setTituloFicha(String tituloFicha) {
+		this.tituloFicha = tituloFicha;
 	}
 
 	@Override

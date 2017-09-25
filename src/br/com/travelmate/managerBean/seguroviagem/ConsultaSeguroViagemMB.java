@@ -602,4 +602,35 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
 		return "";
 	}
+	
+	
+	public boolean imagemSituacaoUsuario(Seguroviagem seguroviagem) {
+		if (seguroviagem.getVendas().getSituacao().equals("FINALIZADA")) {
+			seguroviagem.setImagem("../../resources/img/finalizadoFicha.png");
+			seguroviagem.setTituloFicha("FICHA FINALIZADA");
+		} else if (seguroviagem.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !seguroviagem.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			seguroviagem.setImagem("../../resources/img/ficharestricao.png");
+			if (seguroviagem.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				seguroviagem.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				seguroviagem.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
+		} else if (seguroviagem.getVendas().getSituacao().equals("ANDAMENTO")) {
+			seguroviagem.setImagem("../../resources/img/amarelaFicha.png");
+			seguroviagem.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
+		} else if (seguroviagem.getVendas().getSituacao().equals("CANCELADA")) {
+			seguroviagem.setImagem("../../resources/img/fichaCancelada.png");
+			seguroviagem.setTituloFicha("FICHA CANCELADA");
+		} else if ((seguroviagem.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (seguroviagem.getVendas().isRestricaoparcelamento())) {
+			seguroviagem.setImagem("../../resources/img/ficharestricao.png");
+			seguroviagem.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+		} else {
+			seguroviagem.setImagem("../../resources/img/processoFicha.png");
+			seguroviagem.setTituloFicha("PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)");
+		}
+		return true;
+	}
+
 }

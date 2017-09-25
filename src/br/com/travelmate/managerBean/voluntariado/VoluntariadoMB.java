@@ -329,12 +329,28 @@ public class VoluntariadoMB implements Serializable {
 		gerarQuantidadesFichas();
 	}
 
+
 	public boolean imagemSituacaoUsuario(Voluntariado voluntariado) {
 		if (voluntariado.getVendas().getSituacao().equals("FINALIZADA")) {
 			voluntariado.setHabilitarImagemGerencial(false);
 			voluntariado.setHabilitarImagemFranquia(true);
 			voluntariado.setImagem("../../resources/img/finalizadoFicha.png");
 			voluntariado.setTituloFicha("FICHA FINALIZADA");
+		} else if (voluntariado.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !voluntariado.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
+				voluntariado.setHabilitarImagemGerencial(true);
+				voluntariado.setHabilitarImagemFranquia(false);
+			} else {
+				voluntariado.setHabilitarImagemGerencial(false);
+				voluntariado.setHabilitarImagemFranquia(true);
+			}
+			voluntariado.setImagem("../../resources/img/ficharestricao.png");
+			if (voluntariado.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				voluntariado.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			} else {
+				voluntariado.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
 		} else if (voluntariado.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				voluntariado.setHabilitarImagemGerencial(true);

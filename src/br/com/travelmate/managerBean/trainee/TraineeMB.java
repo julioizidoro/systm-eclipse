@@ -346,7 +346,22 @@ public class TraineeMB implements Serializable {
 			trainee.setHabilitarImagemFranquia(true);
 			trainee.setImagem("../../resources/img/finalizadoFicha.png");
 			trainee.setTituloFicha("FICHA FINALIZADA");
-		} else if (trainee.getVendas().getSituacao().equals("ANDAMENTO")) {
+		}  else if (trainee.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !trainee.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
+				trainee.setHabilitarImagemGerencial(true);
+				trainee.setHabilitarImagemFranquia(false);
+			} else {
+				trainee.setHabilitarImagemGerencial(false);
+				trainee.setHabilitarImagemFranquia(true);
+			}
+			trainee.setImagem("../../resources/img/ficharestricao.png");
+			if (trainee.getVendas().getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				trainee.setTituloFicha("FINANCEIRO - PENDENTE (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}else {
+				trainee.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
+			}
+		}else if (trainee.getVendas().getSituacao().equals("ANDAMENTO")) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
 				trainee.setHabilitarImagemGerencial(true);
 				trainee.setHabilitarImagemFranquia(false);

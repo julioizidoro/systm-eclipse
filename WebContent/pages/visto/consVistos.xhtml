@@ -107,6 +107,11 @@
 				<p:dataTable id="tabelaVistos" var="vistos"
 					value="#{vistosMB.listaVistos}" class="tabela" scrollable="true"
 					scrollHeight="300" style="margin-bottom:20px">
+					<p:column style="width:45px;">
+						<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistos)}" title="#{vistos.tituloFicha}">
+							<img src="#{vistos.imagem}" width="60px" />    
+						</p:commandLink>   
+					</p:column> 
 					<p:column headerText="ID venda" style="width:50px">
 						<h:outputText value="#{vistos.vendas.idvendas}"
 							style="#{vistosMB.cor(vistos)}" />

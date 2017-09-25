@@ -104,6 +104,11 @@
 				<p:dataTable id="tabelaTraducao" var="traducao"
 					value="#{traducaoMB.listaTraducao}" class="tabela" scrollable="true" scrollHeight="300" style="margin-bottom:20px"
 					rowIndexVar="rowIx">
+					<p:column style="width:45px;">
+						<p:commandLink rendered="#{traducaoMB.imagemSituacaoUsuario(traducao)}" title="#{traducao.tituloFicha}">
+							<img src="#{traducao.imagem}" width="60px" />    
+						</p:commandLink>   
+					</p:column>   
 					<p:column headerText="ID venda" style="width:50px">
 						<h:outputText value="#{traducao.vendas.idvendas}" style="#{traducaoMB.corNome(traducao)}"/>
 					</p:column>
