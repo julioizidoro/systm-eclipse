@@ -48,11 +48,11 @@
 									<h:outputText value="#{arquivo.tipoarquivo.descricao}" style="#{arquivoMB.corArquivo(arquivo)}"/>
 								</f:facet>
 								<f:facet name="input">
-									<p:selectOneMenu  id="tipoArquivo"  style="width: 190px;margin-left: 2%"  value="#{arquivoMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
+									<p:selectOneMenu  id="tipoArquivo"  style="width: 190px;margin-left: 2%"  value="#{arquivo.tipoarquivo}" converter="TipoArquivoConverter"
 					                             filter="true" filterMatchMode="contains" panelStyle="width:250px" >
 					                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
-					                    <f:selectItems  value="#{arquivoMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
-					                    <f:attribute name="listaTipoArquivoProduto" value="#{arquivoMB.listaTipoArquivo}"/>
+					                    <f:selectItems  value="#{arquivoMB.listaArquivosS}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.idtipoArquivo}-#{tipoarquivoselecionado.descricao}" itemValue="#{tipoarquivoselecionado}"/>
+					                    <f:attribute name="listaTipoArquivo" value="#{arquivoMB.listaArquivosS}"/>
 					                </p:selectOneMenu>
 								</f:facet>
 							</p:cellEditor>   
@@ -76,7 +76,14 @@
 							</p:cellEditor>
                         </p:column>
                         <p:column headerText="Obs" style="text-align:left;width:200px;" >
-                            <h:outputText value="#{arquivo.observacao}" style="#{arquivoMB.corArquivo(arquivo)}"/>
+                            <p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{arquivo.observacao}" style="#{arquivoMB.corArquivo(arquivo)}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{arquivo.observacao}" style="width:98%;" />
+								</f:facet>
+							</p:cellEditor>
                         </p:column>
                         <p:column style="width:30px" rendered="#{arquivoMB.desabilitarEdicaoArquivo}">
 							<p:rowEditor title="Editar" />   

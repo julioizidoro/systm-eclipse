@@ -40,6 +40,7 @@ import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Tipoarquivo;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
@@ -69,6 +70,8 @@ public class ArquivoMB implements Serializable {
 	private Tipoarquivoproduto tipoarquivo;
 	private List<Tipoarquivoproduto> listaTipoArquivo;
 	private boolean desabilitarEdicaoArquivo = true;
+	private List<Tipoarquivo> listaArquivosS;
+	private Tipoarquivo tipoarquivoS;
 
 	@PostConstruct
 	public void init() {
@@ -172,6 +175,22 @@ public class ArquivoMB implements Serializable {
 
 	public void setDesabilitarEdicaoArquivo(boolean desabilitarEdicaoArquivo) {
 		this.desabilitarEdicaoArquivo = desabilitarEdicaoArquivo;
+	}
+
+	public List<Tipoarquivo> getListaArquivosS() {
+		return listaArquivosS;
+	}
+
+	public void setListaArquivosS(List<Tipoarquivo> listaArquivosS) {
+		this.listaArquivosS = listaArquivosS;
+	}
+
+	public Tipoarquivo getTipoarquivoS() {
+		return tipoarquivoS;
+	}
+
+	public void setTipoarquivoS(Tipoarquivo tipoarquivoS) {
+		this.tipoarquivoS = tipoarquivoS;
 	}
 
 	public void gerarListaArquivos() {
@@ -413,6 +432,10 @@ public class ArquivoMB implements Serializable {
 			if (listaTipoArquivo == null) {
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
+			listaArquivosS = new ArrayList<>();
+			for (int i = 0; i < listaTipoArquivo.size(); i++) {
+				listaArquivosS.add(listaTipoArquivo.get(i).getTipoarquivo());
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -423,7 +446,6 @@ public class ArquivoMB implements Serializable {
 		Arquivos arquivos = ((Arquivos) event.getObject());
 		if (arquivos != null) {
 			ArquivosFacade arquivosFacade = new ArquivosFacade();
-			arquivos.setTipoarquivo(tipoarquivo.getTipoarquivo());
 			arquivosFacade.salvar(arquivos);
 			Mensagem.lancarMensagemInfo("Editado com sucesso!", "");
 		}

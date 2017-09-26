@@ -15,24 +15,18 @@ public class TipoArquivoProdutoConverter implements Converter{
 
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        List<Tipoarquivoproduto> listaTipoArquivo = (List<Tipoarquivoproduto>) component.getAttributes().get("listaTipoArquivoProduto");
         try {
-        	value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
+			value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-        if (listaTipoArquivo != null) {
-            for (Tipoarquivoproduto tipoarquivo : listaTipoArquivo) {
+    	List<Tipoarquivoproduto> listaTipoArquivo = (List<Tipoarquivoproduto>) component.getAttributes().get("listaTipoArquivoProduto");
+        for (Tipoarquivoproduto tipoarquivo : listaTipoArquivo) {
                 if (tipoarquivo.getTipoarquivo().getDescricao().equalsIgnoreCase(value)) {
                     return tipoarquivo;
                 }
             }
-        } else {
-        	Tipoarquivoproduto tipoarquivo = new Tipoarquivoproduto();
-            return tipoarquivo;
-        }
-        Tipoarquivoproduto tipoarquivo = new Tipoarquivoproduto();
-        return tipoarquivo;
+        return null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package br.com.travelmate.converter;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -16,11 +17,7 @@ public class TipoArquivoConverter implements Converter{
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Tipoarquivo> listaTipoArquivo = (List<Tipoarquivo>) component.getAttributes().get("listaTipoArquivo");
-        try {
-        	value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+        
         if (listaTipoArquivo != null) {
             for (Tipoarquivo tipoarquivo : listaTipoArquivo) {
                 if (tipoarquivo.getDescricao().equalsIgnoreCase(value)) {

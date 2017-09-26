@@ -159,7 +159,7 @@
 							rowIndexVar="rowIx">
 							<p:column style="width:45px;">
 								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosProcesso)}" title="#{segurosProcesso.tituloFicha}">
-									<img src="#{segurosProcesso.imagem}" width="60px" />    
+									<img src="#{segurosProcesso.imagem}" width="30px" />    
 								</p:commandLink>   
 							</p:column> 
 							<p:column headerText="ID venda" style="width:50px">
@@ -178,11 +178,11 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Plano" style="width:100px;text-align:left;">
+							<p:column headerText="Plano" style="width:90px;text-align:left;">
 								<h:outputText value="#{segurosProcesso.valoresseguro.seguroplanos.nome}"  
 									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
 							</p:column>
-							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+							<p:column headerText="Unidade" style="width:120px;text-align:left;">
 								<h:outputText
 									value="#{segurosProcesso.vendas.unidadenegocio.nomerelatorio}"
 									style="#{consultaSeguroViagemMB.cor(segurosProcesso)}" />
@@ -205,25 +205,26 @@
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosProcesso)}"
 									style="text-decoration: none;"
 									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}">
-									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaProcesso" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Imprimir" 
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosProcesso)}"
-									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
-									style="width:25px;margin-left:4%">   
-								</h:commandButton>       
+								<p:commandLink action="#{consultaSeguroViagemMB.imprimirFicha(segurosProcesso)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink>       
 							</p:column> 
 							<p:column headerText="Opções" style="width:70px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{segurosProcesso.vendas.idvendas} - #{segurosProcesso.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -299,7 +300,7 @@
 							rowIndexVar="rowIx">
 							<p:column style="width:45px;">
 								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosFinanceiro)}" title="#{segurosFinanceiro.tituloFicha}">
-									<img src="#{segurosFinanceiro.imagem}" width="60px" />    
+									<img src="#{segurosFinanceiro.imagem}" width="30px" />    
 								</p:commandLink>   
 							</p:column> 
 							<p:column headerText="ID venda" style="width:50px">
@@ -318,11 +319,11 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Plano" style="width:100px;text-align:left;">
+							<p:column headerText="Plano" style="width:90px;text-align:left;">
 								<h:outputText value="#{segurosFinanceiro.valoresseguro.seguroplanos.nome}"  
 									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
 							</p:column>
-							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+							<p:column headerText="Unidade" style="width:140px;text-align:left;">
 								<h:outputText
 									value="#{segurosFinanceiro.vendas.unidadenegocio.nomerelatorio}"
 									style="#{consultaSeguroViagemMB.cor(segurosFinanceiro)}" />
@@ -345,25 +346,26 @@
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosFinanceiro)}"
 									style="text-decoration: none;"
 									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}">
-									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaFinanceiro" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Imprimir" 
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosFinanceiro)}"
-									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
-									style="width:25px;margin-left:4%">   
-								</h:commandButton>       
+								<p:commandLink action="#{consultaSeguroViagemMB.imprimirFicha(segurosFinanceiro)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink>      
 							</p:column> 
 							<p:column headerText="Opções" style="width:70px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{segurosFinanceiro.vendas.idvendas} - #{segurosFinanceiro.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -439,7 +441,7 @@
 							rowIndexVar="rowIx">
 							<p:column style="width:45px;">
 								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosAndamento)}" title="#{segurosAndamento.tituloFicha}">
-									<img src="#{segurosAndamento.imagem}" width="60px" />    
+									<img src="#{segurosAndamento.imagem}" width="30px" />    
 								</p:commandLink>   
 							</p:column> 
 							<p:column headerText="ID venda" style="width:50px">
@@ -458,11 +460,11 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Plano" style="width:100px;text-align:left;">
+							<p:column headerText="Plano" style="width:90px;text-align:left;">
 								<h:outputText value="#{segurosAndamento.valoresseguro.seguroplanos.nome}"  
 									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
 							</p:column>
-							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+							<p:column headerText="Unidade" style="width:140px;text-align:left;">
 								<h:outputText
 									value="#{segurosAndamento.vendas.unidadenegocio.nomerelatorio}"
 									style="#{consultaSeguroViagemMB.cor(segurosAndamento)}" />
@@ -485,33 +487,34 @@
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosAndamento)}"
 									style="text-decoration: none;"
 									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}">
-									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaAndamento" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Imprimir" 
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosAndamento)}"
-									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
-									style="width:25px;margin-left:4%">   
-								</h:commandButton>       
+								<p:commandLink action="#{consultaSeguroViagemMB.imprimirFicha(segurosAndamento)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink>      
 							</p:column> 
 							<p:column headerText="Opções" style="width:70px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{segurosAndamento.vendas.idvendas} - #{segurosAndamento.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+									<h:panelGrid style="width:100%;border-color:transparent !important;border:none;" columns="5">
 										
-												<p:commandLink action="#{consultaSeguroViagemMB.boletos(segurosAndamento)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}"
+												<p:commandLink style="border:none;" action="#{consultaSeguroViagemMB.boletos(segurosAndamento)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}"
 													title="IMPRIMIR OS BOLETOS"
 													ajax="false" target="_blank"
 													>
@@ -579,7 +582,7 @@
 							rowIndexVar="rowIx">
 							<p:column style="width:45px;">
 								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosFinalizado)}" title="#{segurosFinalizado.tituloFicha}">
-									<img src="#{segurosFinalizado.imagem}" width="60px" />    
+									<img src="#{segurosFinalizado.imagem}" width="30px" />    
 								</p:commandLink>   
 							</p:column> 
 							<p:column headerText="ID venda" style="width:50px">
@@ -598,11 +601,11 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Plano" style="width:100px;text-align:left;">
+							<p:column headerText="Plano" style="width:90px;text-align:left;">
 								<h:outputText value="#{segurosFinalizado.valoresseguro.seguroplanos.nome}"  
 									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
 							</p:column>
-							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+							<p:column headerText="Unidade" style="width:140px;text-align:left;">
 								<h:outputText
 									value="#{segurosFinalizado.vendas.unidadenegocio.nomerelatorio}"
 									style="#{consultaSeguroViagemMB.cor(segurosFinalizado)}" />
@@ -625,25 +628,26 @@
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosFinalizado)}"
 									style="text-decoration: none;"
 									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}">
-									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaFinalizado" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Imprimir" 
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosFinalizado)}"
-									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
-									style="width:25px;margin-left:4%">   
-								</h:commandButton>       
+								<p:commandLink action="#{consultaSeguroViagemMB.imprimirFicha(segurosFinalizado)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink>    
 							</p:column> 
 							<p:column headerText="Opções" style="width:70px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{segurosFinalizado.vendas.idvendas} - #{segurosFinalizado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -719,7 +723,7 @@
 							rowIndexVar="rowIx">
 							<p:column style="width:45px;">
 								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(segurosCancelado)}" title="#{segurosCancelado.tituloFicha}">
-									<img src="#{segurosCancelado.imagem}" width="60px" />    
+									<img src="#{segurosCancelado.imagem}" width="30px" />    
 								</p:commandLink>   
 							</p:column> 
 							<p:column headerText="ID venda" style="width:50px">
@@ -738,11 +742,11 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Plano" style="width:100px;text-align:left;">
+							<p:column headerText="Plano" style="width:90px;text-align:left;">
 								<h:outputText value="#{segurosCancelado.valoresseguro.seguroplanos.nome}"  
 									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
 							</p:column>
-							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+							<p:column headerText="Unidade" style="width:140px;text-align:left;">
 								<h:outputText
 									value="#{segurosCancelado.vendas.unidadenegocio.nomerelatorio}"
 									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}" />
@@ -765,25 +769,26 @@
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosCancelado)}"
 									style="text-decoration: none;"
 									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}">
-									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaCancelado" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Imprimir" 
-								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(segurosCancelado)}"
-									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
-									style="width:25px;margin-left:4%">   
-								</h:commandButton>       
+								style="width:58px;text-align:center;" styleClass="alinharCenter">    
+								<p:commandLink action="#{consultaSeguroViagemMB.imprimirFicha(segurosCancelado)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink>  
 							</p:column> 
 							<p:column headerText="Opções" style="width:70px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{segurosCancelado.vendas.idvendas} - #{segurosCancelado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -859,7 +864,7 @@
 							rowIndexVar="rowIx">
 							<p:column style="width:45px;">
 								<p:commandLink rendered="#{consultaSeguroViagemMB.imagemSituacaoUsuario(seguros)}" title="#{seguros.tituloFicha}">
-									<img src="#{seguros.imagem}" width="60px" />    
+									<img src="#{seguros.imagem}" width="30px" />    
 								</p:commandLink>   
 							</p:column> 
 							<p:column headerText="ID venda" style="width:50px">
@@ -878,11 +883,11 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Plano" style="width:100px;text-align:left;">
+							<p:column headerText="Plano" style="width:90px;text-align:left;">
 								<h:outputText value="#{seguros.valoresseguro.seguroplanos.nome}"  
 									style="#{consultaSeguroViagemMB.cor(seguros)}" />
 							</p:column>
-							<p:column headerText="Unidade" style="width:150px;text-align:left;">
+							<p:column headerText="Unidade" style="width:120px;text-align:left;">
 								<h:outputText
 									value="#{seguros.vendas.unidadenegocio.nomerelatorio}"
 									style="#{consultaSeguroViagemMB.cor(seguros)}" />
@@ -905,25 +910,26 @@
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(seguros)}"
 									style="text-decoration: none;"
 									disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
-									<img src="../../resources/img/editaricon.png" style="width:50px;"/>
+									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaseguros" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Imprimir" 
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{consultaSeguroViagemMB.imprimirFicha(seguros)}"
-									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
-									style="width:25px;margin-left:4%">   
-								</h:commandButton>       
+								<p:commandLink action="#{consultaSeguroViagemMB.imprimirFicha(seguros)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink>       
 							</p:column> 
 							<p:column headerText="Opções" style="width:70px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:650px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{seguros.vendas.idvendas} - #{seguros.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -1001,6 +1007,36 @@
 			    </p:confirmDialog>  
 				<br></br> <br></br>
 			</div>
+			<style>
+				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+					.ui-datatable tfoot th {
+					padding: 2px 2px;
+					overflow: hidden;
+					border-width: 0px;   
+					border-style: solid;
+				}
+				.ui-confirm-dialog-message {
+				    display: inline-block;
+				    margin-top: 1px;
+				    font-size: 17px !important;
+				}      
+				.ui-accordion .ui-accordion-content {
+				    padding: 1em 2.2em;
+				    border-top: 0;
+				    margin-top: -2px;
+				    position: relative;
+				    top: 1px;
+				    margin-bottom: 2px; 
+				    overflow: inherit !important;  
+				    zoom: 1;   
+				} 
+				.row {
+				    margin-right: -11px;
+				    margin-left: -15px;
+				    overflow: hidden;
+				}
+				
+				</style>
 		</h:form>
 	</ui:define>
 </ui:composition>
