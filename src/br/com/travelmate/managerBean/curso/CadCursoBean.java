@@ -8,6 +8,7 @@ import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.bean.comissao.ComissaoCursoPacoteBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DadosPaisFacade;
@@ -150,11 +151,20 @@ public class CadCursoBean {
 				if (venda.getFormapagamento() != null) {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
-				ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda,
-						orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
-						formaPagamento.getParcelamentopagamentoList(), curso.getDataInicio(), vendasComissao,
-						valorJuros, true);
-				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				if (venda.getVendaspacote()==null) {
+					ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda,
+							orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
+							formaPagamento.getParcelamentopagamentoList(), curso.getDataInicio(), vendasComissao,
+							valorJuros, true);
+					valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				}else {
+					ComissaoCursoPacoteBean cc = new ComissaoCursoPacoteBean(aplicacaoMB, venda,
+							orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
+							formaPagamento.getParcelamentopagamentoList(), curso.getDataInicio(), vendasComissao,
+							valorJuros, true);
+					valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				}
+				
 			}
 		}
 

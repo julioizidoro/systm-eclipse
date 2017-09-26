@@ -168,11 +168,20 @@ public class CalcularComissaoManualBean {
 		if (fornecedorcomissaocurso != null) {
 			if (fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList() != null) {
 				if (venda.getOrcamento() != null) {
-					ComissaoCursoBean comissaoCursoBean = new ComissaoCursoBean(aplicacaoMB, vendascomissao.getVendas(),
-							vendascomissao.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
-							fornecedorcomissaocurso, formapagamento.getParcelamentopagamentoList(),
-							curso.getDataInicio(), vendascomissao, getValorJuros(venda), true);
-					vendascomissao = comissaoCursoBean.getVendasComissao();
+					if (venda.getVendaspacote()==null) {
+						ComissaoCursoBean comissaoCursoBean = new ComissaoCursoBean(aplicacaoMB, vendascomissao.getVendas(),
+								vendascomissao.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
+								fornecedorcomissaocurso, formapagamento.getParcelamentopagamentoList(),
+								curso.getDataInicio(), vendascomissao, getValorJuros(venda), true);
+						vendascomissao = comissaoCursoBean.getVendasComissao();
+					}else {
+						ComissaoCursoPacoteBean comissaoCursoBean = new ComissaoCursoPacoteBean(aplicacaoMB, vendascomissao.getVendas(),
+								vendascomissao.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
+								fornecedorcomissaocurso, formapagamento.getParcelamentopagamentoList(),
+								curso.getDataInicio(), vendascomissao, getValorJuros(venda), true);
+						vendascomissao = comissaoCursoBean.getVendasComissao();
+					}
+					
 				}
 			}
 		}

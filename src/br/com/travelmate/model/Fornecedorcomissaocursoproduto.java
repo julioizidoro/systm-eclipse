@@ -24,13 +24,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "fornecedorcomissaocursoproduto")
 public class Fornecedorcomissaocursoproduto implements Serializable {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "premium")
-    private Double premium;
-    @Column(name = "express")
-    private Double express;
-    @Column(name = "matriz")
-    private Double matriz;
+   
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +37,15 @@ public class Fornecedorcomissaocursoproduto implements Serializable {
     @JoinColumn(name = "fornecedorcomissaocurso_idfornecedorcomissao", referencedColumnName = "idfornecedorcomissao")
     @ManyToOne(optional = false)
     private Fornecedorcomissaocurso fornecedorcomissaocurso;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "premium")
+    private Float premium;
+    @Column(name = "express")
+    private Float express;
+    @Column(name = "matriz")
+    private Float matriz;
+    @Column(name = "tipocomissao")
+    private String tipocomissao;
 
     public Fornecedorcomissaocursoproduto() {
     }
@@ -75,7 +78,39 @@ public class Fornecedorcomissaocursoproduto implements Serializable {
         this.fornecedorcomissaocurso = fornecedorcomissaocurso;
     }
 
-    @Override
+    public Float getPremium() {
+		return premium;
+	}
+
+	public void setPremium(Float premium) {
+		this.premium = premium;
+	}
+
+	public Float getExpress() {
+		return express;
+	}
+
+	public void setExpress(Float express) {
+		this.express = express;
+	}
+
+	public Float getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(Float matriz) {
+		this.matriz = matriz;
+	}
+
+	public String getTipocomissao() {
+		return tipocomissao;
+	}
+
+	public void setTipocomissao(String tipocomissao) {
+		this.tipocomissao = tipocomissao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idfornecedorcomissaocursoproduto != null ? idfornecedorcomissaocursoproduto.hashCode() : 0);
@@ -98,31 +133,4 @@ public class Fornecedorcomissaocursoproduto implements Serializable {
     public String toString() {
         return "br.com.travelmate.model.Fornecedorcomissaocursoproduto[ idfornecedorcomissaocursoproduto=" + idfornecedorcomissaocursoproduto + " ]";
     }
-
-	public Double getPremium() {
-		return premium;
-	}
-
-	public void setPremium(Double premium) {
-		this.premium = premium;
-	}
-
-	public Double getExpress() {
-		return express;
-	}
-
-	public void setExpress(Double express) {
-		this.express = express;
-	}
-
-	public Double getMatriz() {
-		return matriz;
-	}
-
-	public void setMatriz(Double matriz) {
-		this.matriz = matriz;
-	}
-
-    
-    
 }

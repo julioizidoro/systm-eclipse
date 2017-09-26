@@ -46,9 +46,9 @@ public class FornecedorComissaoMB implements Serializable{
     private Fornecedorcomissaocurso fornecedorcomissaocurso;
     private Fornecedorcomissaocursoproduto fornecedorcomissaocursoproduto;
     private List<Fornecedorcomissaocursoproduto> listaComissao;
-    private double matriz;
-    private double express;
-    private double premium;
+    private Float matriz;
+    private Float express;
+    private Float premium;
     
     
     @PostConstruct
@@ -67,17 +67,7 @@ public class FornecedorComissaoMB implements Serializable{
 		this.aplicacaoMB = aplicacaoMB;
 	}
 
-	public void setMatriz(double matriz) {
-		this.matriz = matriz;
-	}
-
-	public void setExpress(double express) {
-		this.express = express;
-	}
-
-	public void setPremium(double premium) {
-		this.premium = premium;
-	}
+	
 
 	public Pais getPais() {
         return pais;
@@ -152,29 +142,8 @@ public class FornecedorComissaoMB implements Serializable{
     }
 
    
-    public Double getMatriz() {
-		return matriz;
-	}
-
-	public void setMatriz(Double matriz) {
-		this.matriz = matriz;
-	}
-
-	public Double getExpress() {
-		return express;
-	}
-
-	public void setExpress(Double express) {
-		this.express = express;
-	}
-
-	public Double getPremium() {
-		return premium;
-	}
-
-	public void setPremium(Double premium) {
-		this.premium = premium;
-	}
+    
+	
 
 	public void gerarListaPais(){
 		pais = null;
@@ -213,8 +182,8 @@ public class FornecedorComissaoMB implements Serializable{
             if (fornecedorcomissaocurso.getIdfornecedorcomissao()==null){
             	fornecedorcomissaocurso.setFornecedor(fornecedor);
                 fornecedorcomissaocurso.setPais(pais);
-                fornecedorcomissaocurso.setPercloja(premium);
-                fornecedorcomissaocurso.setPercmatriz(matriz);
+                fornecedorcomissaocurso.setPercloja(premium.doubleValue());
+                fornecedorcomissaocurso.setPercmatriz(matriz.doubleValue());
             }
             fornecedorcomissaocurso = fornecedorComissaoCursoFacade.salvar(fornecedorcomissaocurso);
             FornecedorComissaoCursoProdutoFacade fornecedorComissaoCursoProdutoFacade = new FornecedorComissaoCursoProdutoFacade();
@@ -239,7 +208,31 @@ public class FornecedorComissaoMB implements Serializable{
     
     
     
-    public void consultarComissaoFornecedorCurso(){
+    public Float getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(Float matriz) {
+		this.matriz = matriz;
+	}
+
+	public Float getExpress() {
+		return express;
+	}
+
+	public void setExpress(Float express) {
+		this.express = express;
+	}
+
+	public Float getPremium() {
+		return premium;
+	}
+
+	public void setPremium(Float premium) {
+		this.premium = premium;
+	}
+
+	public void consultarComissaoFornecedorCurso(){
     	 if(pais!=null &&  fornecedor!=null){
     		 FornecedorComissaoCursoFacade comissaoCursoFacade = new FornecedorComissaoCursoFacade();
     		 fornecedorcomissaocurso = comissaoCursoFacade.consultar(fornecedor.getIdfornecedor(), pais.getIdpais());

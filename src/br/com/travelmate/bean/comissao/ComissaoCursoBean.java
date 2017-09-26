@@ -36,7 +36,7 @@ public class ComissaoCursoBean {
     private float valorComissionavel;
     private float valorComissaoMatriz;
     private float valorComissaoFranquia;
-    private Double percentualComissao;
+    private Float percentualComissao;
     private float valorJuros;
     private boolean salvarCalculo;
    
@@ -91,13 +91,7 @@ public class ComissaoCursoBean {
 		this.valorComissaoFranquia = valorComissaoFranquia;
 	}
 
-	public Double getPercentualComissao() {
-		return percentualComissao;
-	}
-
-	public void setPercentualComissao(Double percentualComissao) {
-		this.percentualComissao = percentualComissao;
-	}
+	
 
 	public void IniciarCalculoComissao(){
     	CalcularComissaoBean comissaoBean = new CalcularComissaoBean();
@@ -169,8 +163,8 @@ public class ComissaoCursoBean {
     	valorComissaoFranquia = 0.0f;
     	valorComissaoMatriz=0.0f;
     	valorComissionavel = 0.0f;
-    	percentualComissao = 0.0;
-    	Double percentualMatriz=0.0;
+    	percentualComissao = 0.0f;
+    	Float percentualMatriz=0.0f;
 		if (fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList() != null) {
 			List<Fornecedorcomissaocursoproduto> lista = fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList();
 			if (listaProdutosGeral.size() > 0) {
@@ -183,19 +177,19 @@ public class ComissaoCursoBean {
 								valorComissionavel = valorComissionavel
 										+ listaProdutosGeral.get(n).getValorMoedaNacional();
 								if (venda.getUnidadenegocio().getTipo().equalsIgnoreCase("Premium")){
-									Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getPremium()/100));
+									Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getPremium()/100));
 									valorComissaoFranquia = valorComissaoFranquia + calculo.floatValue();
 									if (percentualComissao<lista.get(i).getPremium()){
 										percentualComissao = lista.get(i).getPremium();
 									}
 								}else {
-									Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getExpress()/100));
-									valorComissaoFranquia = valorComissaoFranquia + calculo.floatValue();
+									float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getExpress()/100));
+									valorComissaoFranquia = valorComissaoFranquia + calculo;
 									if (percentualComissao<lista.get(i).getExpress()){
 										percentualComissao = lista.get(i).getExpress();
 									}
 								}
-								Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
+								Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
 								valorComissaoMatriz = valorComissaoMatriz + calculo.floatValue();
 								percentualMatriz = lista.get(i).getMatriz()/100;
 							}
@@ -220,6 +214,14 @@ public class ComissaoCursoBean {
     
     
     
+	public Float getPercentualComissao() {
+		return percentualComissao;
+	}
+
+	public void setPercentualComissao(Float percentualComissao) {
+		this.percentualComissao = percentualComissao;
+	}
+
 	public Vendascomissao getVendasComissao() {
 		return vendasComissao;
 	}

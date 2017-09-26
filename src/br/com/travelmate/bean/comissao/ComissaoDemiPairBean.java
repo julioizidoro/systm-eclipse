@@ -36,7 +36,7 @@ public class ComissaoDemiPairBean {
     private Float valorComissionavel;
     private Float valorComissaoMatriz;
     private Float valorComissaoFranquia;
-    private Double percentualComissao=0.0d;
+    private Float percentualComissao=0.0f;
     private float valorJuros;
        
     public ComissaoDemiPairBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, Fornecedorcomissaocurso fornecedorcomissaocurso, List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJuros){
@@ -129,19 +129,19 @@ public class ComissaoDemiPairBean {
 								valorComissionavel = valorComissionavel
 										+ listaProdutosGeral.get(n).getValorMoedaNacional();
 								if (venda.getUnidadenegocio().getTipo().equalsIgnoreCase("Premium")){
-									Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getPremium()/100));
+									Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getPremium()/100));
 									valorComissaoFranquia = valorComissaoFranquia + calculo.floatValue();
 									if (percentualComissao<lista.get(i).getPremium()){
 										percentualComissao = lista.get(i).getPremium();
 									}
 								}else {
-									Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getExpress()/100));
+									Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getExpress()/100));
 									valorComissaoFranquia = valorComissaoFranquia + calculo.floatValue();
 									if (percentualComissao<lista.get(i).getExpress()){
 										percentualComissao = lista.get(i).getExpress();
 									}
 								}
-								Double calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
+								Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
 								valorComissaoFranquia = valorComissaoFranquia + calculo.floatValue();
 							}
 						}
