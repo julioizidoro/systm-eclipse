@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sintético de Vendas" pageWidth="595" pageHeight="842" columnWidth="585" leftMargin="5" rightMargin="5" topMargin="20" bottomMargin="20" uuid="320dd56b-4281-455e-becf-bdbfae77892b">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="156"/>
+	<property name="ireport.y" value="91"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -123,28 +123,28 @@
 				<reportElement x="0" y="0" width="585" height="31" backcolor="#006666" uuid="2d7f3e54-e72a-413d-a0e2-d9374b36d6bf"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="Column header" x="52" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="20675a62-e27f-43d2-952c-43166abf1d2d"/>
+				<reportElement style="Column header" x="85" y="4" width="50" height="25" forecolor="#FFFFFF" uuid="20675a62-e27f-43d2-952c-43166abf1d2d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[CURSOS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="150" y="3" width="64" height="25" forecolor="#FFFFFF" uuid="ca145b00-b653-4579-8cb8-36d22ce41438"/>
+				<reportElement style="Column header" x="188" y="4" width="56" height="25" forecolor="#FFFFFF" uuid="ca145b00-b653-4579-8cb8-36d22ce41438"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[HS / TEENS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="214" y="3" width="44" height="25" forecolor="#FFFFFF" uuid="c636b7a4-e5f5-44ea-b789-31d646af217a"/>
+				<reportElement style="Column header" x="242" y="4" width="44" height="25" forecolor="#FFFFFF" uuid="c636b7a4-e5f5-44ea-b789-31d646af217a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[HE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="104" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="2ac83b0e-b7cf-483e-958f-f7078049a8ce"/>
+				<reportElement style="Column header" x="137" y="4" width="50" height="25" forecolor="#FFFFFF" uuid="2ac83b0e-b7cf-483e-958f-f7078049a8ce"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
@@ -158,42 +158,42 @@
 				<text><![CDATA[UNIDADE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="260" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="5476a7b5-c4b3-4afa-a24f-58834df6a2aa"/>
+				<reportElement style="Column header" x="286" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="5476a7b5-c4b3-4afa-a24f-58834df6a2aa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[SEGURO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="312" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="297578bb-7b03-4127-9d1b-f41fba8a34da"/>
+				<reportElement style="Column header" x="337" y="3" width="38" height="25" forecolor="#FFFFFF" uuid="297578bb-7b03-4127-9d1b-f41fba8a34da"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[VISTOS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="364" y="3" width="52" height="25" forecolor="#FFFFFF" uuid="2246b3c9-d268-4a3f-a19a-50249ab108d3"/>
+				<reportElement style="Column header" x="379" y="3" width="52" height="25" forecolor="#FFFFFF" uuid="2246b3c9-d268-4a3f-a19a-50249ab108d3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[PASSAGEM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="416" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="71e9c6b0-63b4-4e36-a62f-b5f171911dfd"/>
+				<reportElement style="Column header" x="432" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="71e9c6b0-63b4-4e36-a62f-b5f171911dfd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[PACOTES TURISTICO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="468" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="eecc9d2c-6a61-4987-9812-de21747c9839"/>
+				<reportElement style="Column header" x="483" y="3" width="50" height="25" forecolor="#FFFFFF" uuid="eecc9d2c-6a61-4987-9812-de21747c9839"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<text><![CDATA[VTM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="521" y="3" width="60" height="25" forecolor="#FFFFFF" uuid="4c908b66-d40a-44d8-842b-e32d8aa573f3"/>
+				<reportElement style="Column header" x="535" y="3" width="48" height="25" forecolor="#FFFFFF" uuid="4c908b66-d40a-44d8-842b-e32d8aa573f3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
@@ -207,77 +207,77 @@
 				<reportElement x="0" y="0" width="585" height="15" uuid="11ed7ffb-e7a4-46cd-b115-ca6874f876b9"/>
 			</rectangle>
 			<textField pattern="">
-				<reportElement style="Detail" x="1" y="3" width="50" height="12" uuid="4167ced3-989a-461d-94be-9bb6e2543f83"/>
+				<reportElement style="Detail" x="1" y="3" width="81" height="12" uuid="4167ced3-989a-461d-94be-9bb6e2543f83"/>
 				<textElement>
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="52" y="3" width="50" height="12" uuid="a7e85bcd-a4b1-4c3e-8413-6657c1ff0b15"/>
+				<reportElement style="Detail" x="82" y="3" width="50" height="12" uuid="a7e85bcd-a4b1-4c3e-8413-6657c1ff0b15"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="104" y="3" width="50" height="12" uuid="4c3b7639-e3d3-42ee-b07e-3df7a20a930a"/>
+				<reportElement style="Detail" x="137" y="3" width="50" height="12" uuid="4c3b7639-e3d3-42ee-b07e-3df7a20a930a"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{trabalho}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="156" y="3" width="50" height="12" uuid="30606fe0-b8e9-4c8c-a781-bd53690f235f"/>
+				<reportElement style="Detail" x="189" y="3" width="50" height="12" uuid="30606fe0-b8e9-4c8c-a781-bd53690f235f"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{highschool}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="208" y="3" width="50" height="12" uuid="248c1ee1-4dcf-4032-bff4-b47ed01d738d"/>
+				<reportElement style="Detail" x="240" y="3" width="44" height="12" uuid="248c1ee1-4dcf-4032-bff4-b47ed01d738d"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{teens}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="260" y="3" width="50" height="12" uuid="72d64c34-a2fa-4a38-839e-b5f342944354"/>
+				<reportElement style="Detail" x="284" y="3" width="48" height="12" uuid="72d64c34-a2fa-4a38-839e-b5f342944354"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{seguro}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="312" y="3" width="50" height="12" uuid="cca380f3-2764-4c49-bd15-3e28ba267586"/>
+				<reportElement style="Detail" x="332" y="3" width="44" height="12" uuid="cca380f3-2764-4c49-bd15-3e28ba267586"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vistos}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="364" y="3" width="50" height="12" uuid="b7069dcb-6025-4b36-bb39-1449237130e3"/>
+				<reportElement style="Detail" x="379" y="3" width="50" height="12" uuid="b7069dcb-6025-4b36-bb39-1449237130e3"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{passagem}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="416" y="3" width="50" height="12" uuid="bcdeab95-294c-4908-b4de-11971d17d95d"/>
+				<reportElement style="Detail" x="433" y="3" width="48" height="12" uuid="bcdeab95-294c-4908-b4de-11971d17d95d"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pacotes}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="468" y="3" width="50" height="12" uuid="d55bc65d-e031-49c4-af8b-8bbb754a7fc7"/>
+				<reportElement style="Detail" x="483" y="3" width="48" height="12" uuid="d55bc65d-e031-49c4-af8b-8bbb754a7fc7"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vtm}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="522" y="3" width="60" height="12" uuid="24da754d-7124-467b-9da5-a493257300e6"/>
+				<reportElement style="Detail" x="533" y="3" width="49" height="12" uuid="24da754d-7124-467b-9da5-a493257300e6"/>
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="8"/>
 				</textElement>
