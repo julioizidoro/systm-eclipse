@@ -1447,9 +1447,11 @@ public class CadPacoteAgenciaMB implements Serializable {
 					parcelamento.setFormapagamento(formaPagamento);
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamento);
-				if (!novaFicha){
-					ContasReceberBean contasReceberBean = new ContasReceberBean();
-					contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendass, usuarioLogadoMB);
+				if (vendass.getIdvendas() != null){
+					if (!vendass.getSituacao().equalsIgnoreCase("PROCESSO")) {
+						ContasReceberBean contasReceberBean = new ContasReceberBean();
+						contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendass, usuarioLogadoMB);
+					}
 				}
 				calcularParcelamentoPagamento();
 				valorParcela = 0;
@@ -1500,7 +1502,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 						formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
 				ContasReceberBean contasReceberBean = new ContasReceberBean();
 				if (vendass.getIdvendas()!=null){
-					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), vendass.getIdvendas(), usuarioLogadoMB);
+					if (!vendass.getSituacao().equalsIgnoreCase("PROCESSO")) {
+						contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), vendass.getIdvendas(), usuarioLogadoMB);
+					}
 				}
 				if (contasReceberBean.getValorJaRecebido() > 0) {
 

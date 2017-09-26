@@ -448,8 +448,10 @@ public class CadTraducaoMB implements Serializable {
 			}
 			ContasReceberBean contasReceberBean = new ContasReceberBean();
 			if (venda.getIdvendas() != null) {
-				contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha),
-						venda.getIdvendas(), usuarioLogadoMB);
+				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha),
+							venda.getIdvendas(), usuarioLogadoMB);
+				}
 			}
 			if (contasReceberBean.getValorJaRecebido() > 0) {
 				Parcelamentopagamento parcelamento = new Parcelamentopagamento();
@@ -502,9 +504,11 @@ public class CadTraducaoMB implements Serializable {
 				parcelamentopagamento.setValorParcelamento(parcelamentopagamento.getValorParcelamento());
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
 				if (venda.getIdvendas() != null) {
-					ContasReceberBean contasReceberBean = new ContasReceberBean();
-					contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-							formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+						ContasReceberBean contasReceberBean = new ContasReceberBean();
+						contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+					}
 				}
 				parcelamentopagamento = new Parcelamentopagamento();
 				calcularParcelamentoPagamento();
