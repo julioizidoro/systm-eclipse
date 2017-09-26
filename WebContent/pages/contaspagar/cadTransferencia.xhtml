@@ -6,7 +6,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
-        <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
         
     </h:head>
     <h:body>
@@ -28,7 +27,7 @@
            </p:selectOneMenu>  
            <br></br><br></br>  
            <p:outputLabel value="Data" for="dataEmi" > </p:outputLabel> 
-           <p:outputLabel value="Valor" for="valor" style="margin-left:18%"> </p:outputLabel> 
+           <p:outputLabel value="Valor" for="valor" style="margin-left:21%"> </p:outputLabel> 
            <br></br>
            <p:inputMask id="dataEmi" mask="99/99/9999"  value="#{cadTransferenciaMB.conta.dataEmissao}"  style="width:19%;margin-left:0%" maxlength="14" >
                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>

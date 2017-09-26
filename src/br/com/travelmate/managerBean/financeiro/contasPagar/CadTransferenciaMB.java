@@ -138,22 +138,17 @@ public class	CadTransferenciaMB implements Serializable {
 		}
 	}
 	
-	
-	public boolean validarDados(){
-		if (bancoCredito == null) {
-			if (bancoCredito.getIdbanco() != null) {
-				Mensagem.lancarMensagemInfo("Informe o banco de credito", "");
-				return false;
-			}
+	public boolean validarDados() {
+		if (bancoCredito == null || bancoCredito.getIdbanco() == null) {
+			Mensagem.lancarMensagemInfo("Informe o banco de credito", "");
+			return false;
 		}
-		if (bancoDebito == null) {
-			if (bancoDebito.getIdbanco() != null) {
-				Mensagem.lancarMensagemInfo("Informe o banco de debito", "");
-				return false;
-			}
+		if (bancoDebito == null || bancoDebito.getIdbanco() == null) {
+			Mensagem.lancarMensagemInfo("Informe o banco de debito", "");
+			return false;
 		}
 		return true;
-	}  
+	}
 	
 	
 	
