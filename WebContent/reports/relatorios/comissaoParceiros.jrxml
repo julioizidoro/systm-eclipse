@@ -29,6 +29,7 @@
 	<field name="descricao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="tipocomissao" class="java.lang.String"/>
 	<group name="pais" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{idpais}]]></groupExpression>
 		<groupHeader>
@@ -51,19 +52,21 @@
 		<groupHeader>
 			<band height="22">
 				<textField>
-					<reportElement x="8" y="5" width="317" height="16" uuid="d2890542-338f-4922-9d90-a24fb9f50f65"/>
+					<reportElement x="8" y="5" width="291" height="16" uuid="d2890542-338f-4922-9d90-a24fb9f50f65"/>
 					<textElement>
 						<font size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{escola}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="344" y="8" width="87" height="14" uuid="c9bfe245-d537-42a1-aa9b-5ee2b8c83ac7"/>
-					<text><![CDATA[% Premium]]></text>
+					<reportElement x="378" y="8" width="76" height="14" uuid="c9bfe245-d537-42a1-aa9b-5ee2b8c83ac7"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Premium]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="469" y="7" width="83" height="14" uuid="22c04091-2c6a-467f-bad6-f06bde6c78f3"/>
-					<text><![CDATA[% Express]]></text>
+					<reportElement x="471" y="6" width="81" height="14" uuid="22c04091-2c6a-467f-bad6-f06bde6c78f3"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Express]]></text>
 				</staticText>
 				<line>
 					<reportElement x="0" y="21" width="554" height="1" uuid="a2660627-9a9e-4d29-906d-eb2b90bf545f"/>
@@ -98,21 +101,21 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement x="8" y="0" width="317" height="14" forecolor="#333333" uuid="6cd70986-544b-4770-8dea-4835e6e969b2"/>
+				<reportElement x="8" y="0" width="330" height="14" forecolor="#333333" uuid="6cd70986-544b-4770-8dea-4835e6e969b2"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="325" y="1" width="73" height="15" forecolor="#333333" uuid="4e98e239-d483-4f79-b399-ee5f68ac2172"/>
+				<reportElement x="378" y="1" width="73" height="15" forecolor="#333333" uuid="4e98e239-d483-4f79-b399-ee5f68ac2172"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{premium}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="431" y="0" width="77" height="15" forecolor="#333333" uuid="32baa722-33a3-4cc1-ad52-48c0f11e4aaf"/>
+				<reportElement x="471" y="0" width="77" height="15" forecolor="#333333" uuid="32baa722-33a3-4cc1-ad52-48c0f11e4aaf"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
@@ -121,6 +124,13 @@
 			<line>
 				<reportElement x="0" y="15" width="554" height="1" forecolor="#666666" uuid="b9ec124e-9b34-4014-ab2b-9909cd600f6c"/>
 			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="340" y="1" width="36" height="15" forecolor="#333333" uuid="38314c92-596e-4122-8d31-3cbb0659fd0f"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipocomissao}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>

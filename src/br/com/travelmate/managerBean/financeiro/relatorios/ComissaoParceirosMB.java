@@ -92,7 +92,8 @@ public class ComissaoParceirosMB implements Serializable{
 	
 	
 	public String gerarSql(){
-        String sql = "SELECT distinct fornecedor.nome as escola, pais.nome as pais, fornecedorcomissaocursoproduto.premium, fornecedorcomissaocursoproduto.express, pais.idpais, fornecedor.idfornecedor,produtosorcamento.descricao"
+        String sql = "SELECT distinct fornecedor.nome as escola, pais.nome as pais, fornecedorcomissaocursoproduto.premium, "
+        			+ "fornecedorcomissaocursoproduto.tipocomissao, fornecedorcomissaocursoproduto.express, pais.idpais, fornecedor.idfornecedor,produtosorcamento.descricao"
         			+" From"
         		    +" fornecedorcomissaocursoproduto join fornecedorcomissaocurso on fornecedorcomissaocursoproduto.fornecedorcomissaocurso_idfornecedorcomissao = fornecedorcomissaocurso.idfornecedorcomissao"
         			+" join fornecedor on fornecedorcomissaocurso.fornecedor_idfornecedor = fornecedor.idfornecedor"
