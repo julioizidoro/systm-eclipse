@@ -456,7 +456,19 @@ public class VendasFinanceiroMB  implements Serializable{
     }
     
     
+    public String retonarCorVenda(Vendas vendas){
+    	if (vendas.getVendaspacote() != null) {
+			return "color:red;";
+		}
+    	return "";
+    }
     
+    public String retonarCorVendaPendencia(Vendas vendas){
+    	if (vendas.getSituacaofinanceiro().equalsIgnoreCase("P")) {
+			return "color:red;background:red;border:1px;";
+		}
+    	return "";
+    }
     
     
 }

@@ -134,24 +134,24 @@
 							style="text-decoration: overline" title="Informações Adicionais"
 							update=":telaconsultavendas:growl">
 							<p:outputLabel value="#{vendas.idvendas}"
-								style="text-decoration-line: underline" />
+								style="text-decoration-line: underline;#{vendasFinanceiroMB.retonarCorVenda(vendas)}" />
 						</p:commandLink>
 					</p:column>
 					<p:column headerText="Cliente" style="width:22%;">
-						<h:outputText value="#{vendas.cliente.nome}" />
+						<h:outputText value="#{vendas.cliente.nome}" style="#{vendasFinanceiroMB.retonarCorVenda(vendas)}"/>
 					</p:column>
 					<p:column headerText="Produto" style="width:11%">
-						<h:outputText value="#{vendas.produtos.descricao}" />
+						<h:outputText value="#{vendas.produtos.descricao}" style="#{vendasFinanceiroMB.retonarCorVenda(vendas)}"/>
 					</p:column>
 					<p:column headerText="Data da Venda" style="width:9%;text-align:center;"
 						styleClass="alinharCenter" >
-						<h:outputText value="#{vendas.dataVenda}" >
+						<h:outputText value="#{vendas.dataVenda}" style="#{vendasFinanceiroMB.retonarCorVenda(vendas)}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Unidade" style="width:12%;">
-						<h:outputText value="#{vendas.unidadenegocio.nomerelatorio}" />
+						<h:outputText value="#{vendas.unidadenegocio.nomerelatorio}" style="#{vendasFinanceiroMB.retonarCorVenda(vendas)}"/>
 					</p:column>
 					<p:column headerText="Valor Bruto"   
 						style="width:10%;text-align: right">
@@ -160,7 +160,7 @@
 							update=":telaconsultavendas:growl" style="text-decoration: none"
 							title="Produtos da Venda">
 							<h:outputText value="#{vendas.valor}"
-								style="text-decoration-line: underline">
+								style="text-decoration-line: underline;#{vendasFinanceiroMB.retonarCorVenda(vendas)}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText>
@@ -192,7 +192,7 @@
 					<p:column headerText="" style="width:4%;text-align: center">
 						<p:commandButton title="Gerar Pendência"
 							action="#{vendasFinanceiroMB.cadastroPendencia(vendas)}"
-							icon="ui-icon-alert" >
+							icon="ui-icon-alert" style="#{vendasFinanceiroMB.retonarCorVendaPendencia(vendas)}">
 							<p:ajax event="dialogReturn" listener="#{vendasFinanceiroMB.retornoDialogPendencia}" update=":telaconsultavendas:growl" />
 						</p:commandButton>
 					</p:column>
