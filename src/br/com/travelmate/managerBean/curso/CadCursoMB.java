@@ -190,6 +190,7 @@ public class CadCursoMB implements Serializable {
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
 	private boolean segurocancelamento=false;
+	private boolean desabilitarAlergiaAlimento = true;
 
 	@PostConstruct()
 	public void init() {
@@ -916,6 +917,14 @@ public class CadCursoMB implements Serializable {
 
 	public void setSeguroplanos(Seguroplanos seguroplanos) {
 		this.seguroplanos = seguroplanos;
+	}
+
+	public boolean isDesabilitarAlergiaAlimento() {
+		return desabilitarAlergiaAlimento;
+	}
+
+	public void setDesabilitarAlergiaAlimento(boolean desabilitarAlergiaAlimento) {
+		this.desabilitarAlergiaAlimento = desabilitarAlergiaAlimento;
 	}
 
 	public void carregarComboMoedas() {
@@ -3510,4 +3519,18 @@ public class CadCursoMB implements Serializable {
 			segurocancelamento = false; 
 		}
 	} 
+	
+	
+	public void desabilitarAlergiaAlimento(){
+		if (curso.getPossuiAlergia().equalsIgnoreCase("Sim")) {
+			desabilitarAlergiaAlimento = false;
+		}else{
+			desabilitarAlergiaAlimento = true;
+		}
+	}
+	
+	
+	
+	
+	
 }
