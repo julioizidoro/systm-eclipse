@@ -2575,18 +2575,15 @@ public class CadCursoMB implements Serializable {
 	public void calcularDataTerminoAcomodacao() {
 		if ((curso.getDataChegada() != null) && (curso.getNumeroSemanasAcamodacao() != null)) {
 			if (curso.getNumeroSemanasAcamodacao() > 0) {
-				Date data = Formatacao.calcularDataFinal(curso.getDataChegada(), curso.getNumeroSemanasAcamodacao());
-				int diaSemana = Formatacao.diaSemana(data);
-				diaSemana = 7 - diaSemana;
-				try {
-					if (diaSemana != 0) {
-						data = Formatacao.SomarDiasDatas(data, diaSemana);
-					}
-				} catch (Exception ex) {
-					Logger.getLogger(br.com.travelmate.managerBean.curso.CadCursoMB.class.getName()).log(Level.SEVERE,
-							null, ex);
+				int diaSemana = Formatacao.diaSemana(curso.getDataChegada()); 
+				if(diaSemana!=1) {
+					Mensagem.lancarMensagemInfo("Atenção!", "O sistema não irá calcular automaticamente"
+							+ " as datas de chegada e partida para acomodações que não iniciam no Domingo.");
+					curso.setDataSaida(null);
+				} else {
+					Date data = Formatacao.calcularDataFinalAcomodacao(curso.getDataChegada(), curso.getNumeroSemanasAcamodacao());
+					curso.setDataSaida(data);
 				}
-				curso.setDataSaida(data);
 			}
 		}
 	}
@@ -3063,8 +3060,8 @@ public class CadCursoMB implements Serializable {
 						curso.setRefeicoes(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 								.getComplementoacomodacao().getTiporefeicao());
 						curso.setBanheiroprivativo(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
-								.getCoprodutos().getComplementoacomodacao().getTipobanheiro());
-						curso.setDataChegada(ocurso.getDatainicio());
+								.getCoprodutos().getComplementoacomodacao().getTipobanheiro()); 
+						curso.setDataChegada(verificarDataInicioAcomodacaoOrcamento(ocurso.getDatainicio(), ocurso.getNumerosemanas()));
 						if(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas()>0){
 							curso.setNumeroSemanasAcamodacao(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
 						} 
@@ -3529,8 +3526,20 @@ public class CadCursoMB implements Serializable {
 		}
 	}
 	
-	
-	
-	
+	public Date verificarDataInicioAcomodacaoOrcamento(Date datainicio, int numerosemana) {
+		int diasemana = Formatacao.diaSemana(datainicio);
+		if(diasemana==1) {
+			return datainicio;
+		}else {
+			diasemana = 1 - diasemana; 
+			Date data=null;
+			try {
+				data = Formatacao.SomarDiasDatas(datainicio, diasemana);
+			} catch (Exception e) { 
+				e.printStackTrace();
+			}
+			return data;
+		}  
+	} 
 	
 }

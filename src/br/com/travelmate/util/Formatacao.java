@@ -204,6 +204,18 @@ public class Formatacao {
 		}
 		return (c.getTime());
 	}
+	
+	public static Date calcularDataFinalAcomodacao(Date dataInicial, int numeroSemanas) {
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = new GregorianCalendar();
+		c.setTime(dataInicial);
+		numeroSemanas = numeroSemanas * 7;
+		numeroSemanas = numeroSemanas - 1;
+		if (numeroSemanas > 0) {
+			c.add(Calendar.DAY_OF_MONTH, numeroSemanas);
+		}
+		return (c.getTime());
+	}
 
 	public static Date calcularDataFinalPorDias(Date dataInicial, int numerodias) {
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
