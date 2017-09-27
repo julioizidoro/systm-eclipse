@@ -1259,6 +1259,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 					vendass.setCliente(pacotes.getCliente());
 					vendass.setUsuario(usuarioLogadoMB.getUsuario());
 					VendasFacade vendasFacade = new VendasFacade();
+					if (vendass.getSituacaogerencia().equalsIgnoreCase("P")){
+						vendass.setSituacaogerencia("F");
+					}
 					vendass = vendasFacade.salvar(vendass);
 					salvarSeguro();
 					salvarFormaPagamento();

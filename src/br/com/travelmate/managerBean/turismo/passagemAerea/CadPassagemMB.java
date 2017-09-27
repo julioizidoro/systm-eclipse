@@ -892,11 +892,12 @@ public class CadPassagemMB implements Serializable {
 		vendas.setFornecedorcidade(fornecedorCidade);
 		vendas.setCambio(cambio);
 		vendas.setUnidadenegocio(unidadeNegocio);
-		vendas = VendasFacade.salvar(vendas);
-		if ((vendas.getSituacao().equalsIgnoreCase("FINALIZADA"))
-				|| (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO"))) {
+		if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+			if (vendas.getSituacaogerencia().equalsIgnoreCase("P")){
+				vendas.setSituacaogerencia("F");
+			}
 		}
-
+		vendas = VendasFacade.salvar(vendas);
 	}
 
 	public void salvarFormaPagamento() {
