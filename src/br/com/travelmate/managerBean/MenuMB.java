@@ -1393,4 +1393,11 @@ public class MenuMB implements Serializable {
 		atualizaTempoLogado();
 		return "consWorkEmpregador";
 	}
+	
+	public String relatoriosComissaoParceirosTeens() {  
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 450);
+		RequestContext.getCurrentInstance().openDialog("relatoriosComissaoParceirosTeens", options, null); 
+		return "";
+	}
 }

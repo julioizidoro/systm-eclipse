@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de comissao parceiros" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="feecb075-5a7f-42f6-832b-1a654a7aa009">
+	<property name="ireport.zoom" value="1.128947860107555"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="programa" class="java.lang.String">
+		<fieldDescription><![CDATA[programa]]></fieldDescription>
+	</field>
+	<field name="moeda" class="java.lang.String">
+		<fieldDescription><![CDATA[moeda]]></fieldDescription>
+	</field>
+	<field name="comissaoExpress" class="java.lang.Float">
+		<fieldDescription><![CDATA[comissaoExpress]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[cidade]]></fieldDescription>
+	</field>
+	<field name="pais" class="java.lang.String">
+		<fieldDescription><![CDATA[pais]]></fieldDescription>
+	</field>
+	<field name="comissaoPremium" class="java.lang.Float">
+		<fieldDescription><![CDATA[comissaoPremium]]></fieldDescription>
+	</field>
+	<group name="pais" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField pattern="">
+					<reportElement mode="Transparent" x="0" y="0" width="552" height="22" uuid="f3d3440c-e411-477b-957d-d4a5cc3f8c1a"/>
+					<textElement>
+						<font size="15" isBold="true" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pais}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="378" y="8" width="76" height="14" uuid="c95f8833-c31e-45b4-82ea-fd1f2b8e6027"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Premium]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="319" y="8" width="57" height="14" uuid="4c216703-d5be-4c0d-bd63-e68a4e6e69d4"/>
+					<textElement textAlignment="Left"/>
+					<text><![CDATA[Moeda]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="195" y="8" width="76" height="14" uuid="50751135-8261-4879-82c6-d7091812e39a"/>
+					<textElement textAlignment="Left"/>
+					<text><![CDATA[Programa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="471" y="8" width="76" height="14" uuid="d6e17f51-a0ef-40f5-b295-aca77fcbe98d"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Express]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="144" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="1" y="106" width="553" height="33" uuid="7ab278a3-567e-4655-aabb-0e815544389f"/>
+				<textElement textAlignment="Center">
+					<font size="23" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório Comissão Departamento Teens"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="255" height="94" uuid="44120e79-a716-4d1c-8cf1-2ba645175b59"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="8" y="0" width="178" height="14" forecolor="#333333" uuid="6cd70986-544b-4770-8dea-4835e6e969b2"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="380" y="1" width="73" height="15" forecolor="#333333" uuid="4e98e239-d483-4f79-b399-ee5f68ac2172"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comissaoPremium}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="471" y="0" width="77" height="15" forecolor="#333333" uuid="32baa722-33a3-4cc1-ad52-48c0f11e4aaf"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comissaoExpress}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="17" width="554" height="1" forecolor="#666666" uuid="b9ec124e-9b34-4014-ab2b-9909cd600f6c"/>
+			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="319" y="0" width="57" height="15" forecolor="#333333" uuid="38314c92-596e-4122-8d31-3cbb0659fd0f"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{moeda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="195" y="1" width="123" height="15" forecolor="#333333" uuid="fefde728-bd1b-4dad-a76a-0716bfe52aae"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="3" width="127" height="14" uuid="7ae4e633-e737-4a5a-acbf-bd9d128532ca"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="554" height="1" forecolor="#333333" uuid="322a6f90-f07e-48a5-b311-fa594943ceb1"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

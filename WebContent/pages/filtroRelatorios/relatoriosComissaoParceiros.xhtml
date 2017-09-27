@@ -15,7 +15,7 @@
             <title>Comissão Parceiros</title>
             <p:outputLabel value="Pais" for="pais" style="margin-left:-1%"> </p:outputLabel> 
             <br></br>
-            <p:selectOneMenu id="pais"  style="width:95.5%;margin-left:-1%"  value="#{comissaoParceirosMB.pais}" converter="PaisFornecedorConverter"
+            <p:selectOneMenu id="pais"  style="width:95.5%;margin-left:-1%"  value="#{comissaoParceirosMB.pais}" converter="PaisComissaoConverter"
             filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                 <f:selectItem itemLabel="Todos" itemValue="0" noSelectionOption="true"/> 
                 <f:selectItems value="#{comissaoParceirosMB.listaPais}" var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}"/>
@@ -33,8 +33,8 @@
             </p:selectOneMenu> 
             <br/><br/>
             
-               <p:commandButton value="Confirmar" style="margin-left:45%" onclick="this.form.target='_blank'" icon="ui-icon-check" action="#{comissaoParceirosMB.gerarRelatorio()}" ajax="false"  target="_blank"/>
-               <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{comissaoParceirosMB.fechar()}"></p:commandButton>
+               <p:commandButton value="Confirmar" style="margin-left:25%" onclick="this.form.target='_blank'" icon="ui-icon-check" action="#{comissaoParceirosMB.gerarRelatorio()}" ajax="false"  target="_blank"/>
+               <p:commandButton style="margin-left:2%" onclick="" icon="ui-icon-close" value="Cancelar" action="#{comissaoParceirosMB.fechar()}"></p:commandButton>
             
         </h:form>     
     </h:body>
