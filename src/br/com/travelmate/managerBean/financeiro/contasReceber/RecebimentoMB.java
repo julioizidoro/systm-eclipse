@@ -62,8 +62,11 @@ public class RecebimentoMB implements Serializable{
 		session.removeAttribute("listaContas");
 		gerarListaBanco();
 		if (novoCartao.equalsIgnoreCase("sim")){
-			float desagio = listaContas.get(0).getVendas().getVendascomissao().getDesagio() +
-					listaContas.get(0).getVendas().getVendascomissao().getJurospago();
+			float desagio = 0f;
+			if (listaContas.get(0).getVendas().getVendascomissao() != null) {
+				desagio = listaContas.get(0).getVendas().getVendascomissao().getDesagio() +
+						listaContas.get(0).getVendas().getVendascomissao().getJurospago();
+			}
 			desagioparcela = desagio;
 			desagio = desagio / listaContas.size();
 		    for(int i=0;i<listaContas.size();i++){

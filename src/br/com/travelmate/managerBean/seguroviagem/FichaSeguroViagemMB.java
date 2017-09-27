@@ -807,6 +807,9 @@ public class FichaSeguroViagemMB implements Serializable {
 		if (dataPrimeiroPagamento == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
 		}
+		if (formaPagamentoString == null || formaPagamentoString.equalsIgnoreCase("sn")) {
+			msg = msg + " Informa a forma de pagamento.";
+		}
 		return msg;
 	}
 
