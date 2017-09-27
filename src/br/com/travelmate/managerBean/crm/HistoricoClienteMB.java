@@ -77,6 +77,7 @@ public class HistoricoClienteMB implements Serializable {
 	private int posicao;
 	private PesquisaBean pesquisa;
 	private boolean camposcurso;
+	private boolean camposcursodemipair;
 	private boolean camposvoluntariado;
 	private String voltar;
 
@@ -110,9 +111,11 @@ public class HistoricoClienteMB implements Serializable {
 			int iddemipair = aplicacaoMB.getParametrosprodutos().getDemipair();
 			int idvoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
 			camposvoluntariado = false;
-			if(idcurso == lead.getProdutos().getIdprodutos()
-					|| iddemipair == lead.getProdutos().getIdprodutos()){
+			if(idcurso == lead.getProdutos().getIdprodutos()){
 				camposcurso=true; 
+				camposcursodemipair = true;
+			}else if(iddemipair == lead.getProdutos().getIdprodutos()) {
+				camposcursodemipair = true;
 			}else if(idvoluntariado == lead.getProdutos().getIdprodutos()){
 				camposvoluntariado = true;
 			}
@@ -231,6 +234,14 @@ public class HistoricoClienteMB implements Serializable {
 
 	public void setCamposvoluntariado(boolean camposvoluntariado) {
 		this.camposvoluntariado = camposvoluntariado;
+	}
+
+	public boolean isCamposcursodemipair() {
+		return camposcursodemipair;
+	}
+
+	public void setCamposcursodemipair(boolean camposcursodemipair) {
+		this.camposcursodemipair = camposcursodemipair;
 	}
 
 	public String followUp() {
