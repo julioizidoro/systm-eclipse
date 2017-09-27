@@ -33,7 +33,7 @@ import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
-public class CadWorkSponsorMB implements Serializable{
+public class CadWorkSponsorMB implements Serializable {
 
 	/**
 	 * 
@@ -41,43 +41,45 @@ public class CadWorkSponsorMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-    private List<Paisproduto> listaPais;
-    private Paisproduto pais;
-    private Cidadepaisproduto cidadeproduto;
-    private List<Cidadepaisproduto> listaCidade;
-    private Fornecedorcidade fornecedorCidade;
-    private List<Fornecedorcidade> listaFornecedorCidade;
-    private Worksponsor worksponsor;
-    
-    @PostConstruct
-    public void init() { 
-    		FacesContext fc = FacesContext.getCurrentInstance();
+	private List<Paisproduto> listaPais;
+	private Paisproduto pais;
+	private Cidadepaisproduto cidadeproduto;
+	private List<Cidadepaisproduto> listaCidade;
+	private Fornecedorcidade fornecedorCidade;
+	private List<Fornecedorcidade> listaFornecedorCidade;
+	private Worksponsor worksponsor;
+
+	@PostConstruct
+	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		worksponsor = (Worksponsor) session.getAttribute("worksponsor");
 		session.removeAttribute("worksponsor");
-		if(worksponsor==null) {
+		if (worksponsor == null) {
 			worksponsor = new Worksponsor();
 			fornecedorCidade = new Fornecedorcidade();
 			pais = new Paisproduto();
 			cidadeproduto = new Cidadepaisproduto();
 			gerarListaPais();
-		}else { 
+		} else {
 			pais = new Paisproduto();
 			cidadeproduto = new Cidadepaisproduto();
 			gerarListaPais();
 			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 			pais = paisProdutoFacade.consultar("SELECT p FROM Paisproduto p WHERE p.pais.idpais="
-					+worksponsor.getFornecedorcidade().getCidade().getPais().getIdpais()+" and p.produtos.idprodutos="
-					+aplicacaoMB.getParametrosprodutos().getWork());
+					+ worksponsor.getFornecedorcidade().getCidade().getPais().getIdpais()
+					+ " and p.produtos.idprodutos=" + aplicacaoMB.getParametrosprodutos().getWork());
 			CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
 			listarCidade();
-			cidadeproduto = cidadePaisProdutosFacade.consultar("SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade="
-					+worksponsor.getFornecedorcidade().getCidade().getIdcidade()+" and c.paisproduto.produtos.idprodutos="
-					+aplicacaoMB.getParametrosprodutos().getWork());
+			cidadeproduto = cidadePaisProdutosFacade
+					.consultar("SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade="
+							+ worksponsor.getFornecedorcidade().getCidade().getIdcidade()
+							+ " and c.paisproduto.produtos.idprodutos="
+							+ aplicacaoMB.getParametrosprodutos().getWork());
 			listarFornecedorCidade();
 			fornecedorCidade = worksponsor.getFornecedorcidade();
 		}
-    }
+	}
 
 	public AplicacaoMB getAplicacaoMB() {
 		return aplicacaoMB;
@@ -142,13 +144,13 @@ public class CadWorkSponsorMB implements Serializable{
 	public void setWorksponsor(Worksponsor worksponsor) {
 		this.worksponsor = worksponsor;
 	}
-    
+
 	public String cancelar() {
 		return "consWorkSponsor";
 	}
-	
+
 	public String salvar() {
-		if(fornecedorCidade!=null) {
+		if (fornecedorCidade != null) {
 			WorkSponsorFacade workSponsorFacade = new WorkSponsorFacade();
 			worksponsor.setFornecedorcidade(fornecedorCidade);
 			worksponsor = workSponsorFacade.salvar(worksponsor);
@@ -157,26 +159,29 @@ public class CadWorkSponsorMB implements Serializable{
 		}
 		return "";
 	}
-	
-	public String consFornecedor(){
-        Map<String,Object> options = new HashMap<String, Object>();
-        options.put("contentWidth", 500);
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        if(cidadeproduto!=null){
-        		ProdutoFacade produtoFacade = new ProdutoFacade();
-        		Produtos produto = produtoFacade.consultar(aplicacaoMB.getParametrosprodutos().getWork());
-            session.setAttribute("produtos", produto);    
-            session.setAttribute("cidade", cidadeproduto.getCidade()); 
-            RequestContext.getCurrentInstance().openDialog("consFornecedores", options, null);
-            return "";
-        }else{
-            FacesMessage mensagem = new FacesMessage("Atenção! ", "campos obrigatorios não preenchidos.");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-            return "";
-        }
-    }
-	
+
+	public String consFornecedor() {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 500);
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		if (cidadeproduto != null) {
+			ProdutoFacade produtoFacade = new ProdutoFacade();
+			Produtos produto = produtoFacade.consultar(aplicacaoMB.getParametrosprodutos().getWork());
+			Fornecedorcidade fornecedorcidade = new Fornecedorcidade();
+			fornecedorcidade.setWork(false);
+			session.setAttribute("fornecedorcidade", fornecedorcidade);
+			session.setAttribute("produtos", produto);
+			session.setAttribute("cidade", cidadeproduto.getCidade());
+			RequestContext.getCurrentInstance().openDialog("consFornecedores", options, null);
+			return "";
+		} else {
+			FacesMessage mensagem = new FacesMessage("Atenção! ", "campos obrigatorios não preenchidos.");
+			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+			return "";
+		}
+	}
+
 	public void gerarListaPais() {
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 		listaPais = paisProdutoFacade.listar(aplicacaoMB.getParametrosprodutos().getWork());
@@ -188,11 +193,12 @@ public class CadWorkSponsorMB implements Serializable{
 			listaCidade = cidadePaisProdutosFacade.listar(
 					"SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.idpaisproduto=" + pais.getIdpaisproduto());
 		}
-	} 
+	}
 
 	public void listarFornecedorCidade() {
-		if(cidadeproduto!=null) {
-			listaFornecedorCidade = GerarListas.listarFornecedorCidade(aplicacaoMB.getParametrosprodutos().getWork(), cidadeproduto.getCidade().getIdcidade());
+		if (cidadeproduto != null) {
+			listaFornecedorCidade = GerarListas.listarFornecedorCidadeWork(
+					aplicacaoMB.getParametrosprodutos().getWork(), cidadeproduto.getCidade().getIdcidade());
 		}
-	} 
+	}
 }

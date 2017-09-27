@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -38,6 +39,10 @@ public class Worksponsorarquivos implements Serializable {
     @JoinColumn(name = "worksponsor_idworksponsor", referencedColumnName = "idworksponsor")
     @ManyToOne(optional = false)
     private Worksponsor worksponsor;
+    @Lob
+	@Size(max = 2147483647)
+	@Column(name = "descricao")
+	private String descricao;
 
     public Worksponsorarquivos() {
     }
@@ -86,7 +91,15 @@ public class Worksponsorarquivos implements Serializable {
         this.worksponsor = worksponsor;
     }
 
-    @Override
+    public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idworksponsorarquivos != null ? idworksponsorarquivos.hashCode() : 0);

@@ -69,7 +69,20 @@ public class GerarListas {
     
     public static List<Fornecedorcidade> listarFornecedorCidade(int idProduto, int idCidade){
         String sql = "SELECT f From Fornecedorcidade f where f.produtos.idprodutos=" + idProduto
-                    + " and f.cidade.idcidade=" + idCidade + " order by f.fornecedor.nome";
+                    + " and f.cidade.idcidade=" + idCidade 
+                    + " and f.work=TRUE order by f.fornecedor.nome";
+        FornecedorCidadeFacade fornecedorCidadeFacede = new FornecedorCidadeFacade();
+        List<Fornecedorcidade> listafornecedor = fornecedorCidadeFacede.listar(sql);
+        if (listafornecedor==null){
+            listafornecedor = new ArrayList<Fornecedorcidade>();
+        }
+        return listafornecedor;
+    }
+    
+    public static List<Fornecedorcidade> listarFornecedorCidadeWork(int idProduto, int idCidade){
+        String sql = "SELECT f From Fornecedorcidade f where f.produtos.idprodutos=" + idProduto
+                    + " and f.cidade.idcidade=" + idCidade 
+                    + " and f.work=FALSE order by f.fornecedor.nome";
         FornecedorCidadeFacade fornecedorCidadeFacede = new FornecedorCidadeFacade();
         List<Fornecedorcidade> listafornecedor = fornecedorCidadeFacede.listar(sql);
         if (listafornecedor==null){

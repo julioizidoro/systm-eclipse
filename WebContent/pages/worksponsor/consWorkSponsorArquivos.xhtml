@@ -30,14 +30,14 @@
 				<p:dataTable editable="true" reflow="true"
 					id="tabelaconsWorkSponsorArquivos" var="arquivo" class="tabela"
 					value="#{workSponsorArquivoMB.listarArquivos}" scrollable="true"
-					scrollHeight="300" style="margin-bottom:20px;width:65%;margin-left:20%;"> 
+					scrollHeight="300" style="margin-bottom:20px;width:86%;margin-left:8%;"> 
 					<p:ajax event="rowEdit" listener="#{workSponsorArquivoMB.editar}"
 						update=":consWorkSponsorArquivos:growl, :consWorkSponsorArquivos:tabelaconsWorkSponsorArquivos" />
 					<p:ajax event="rowEditCancel"
 						listener="#{workSponsorArquivoMB.cancelarEdicao}"
 						update=":consWorkSponsorArquivos:growl, :consWorkSponsorArquivos:tabelaconsWorkSponsorArquivos" /> 
 					<p:column headerText="Tipo Arquivo"
-						style="text-align:left;width:190px;">
+						style="text-align:left;width:130px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{arquivo.tipoarquivo.descricao}" />
@@ -61,20 +61,31 @@
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Nome Arquivo"
-						style="text-align:left; width:200px;">
+						style="text-align:left; width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{arquivo.nome}" />
-							</f:facet>
+							</f:facet>    
 							<f:facet name="input">
 								<p:inputText value="#{arquivo.nome}" style="width:98%;" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
+					<p:column headerText="Descrição"
+						style="text-align:left; width:280px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{arquivo.descricao}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputTextarea rows="4" value="#{arquivo.descricao}" style="width:98%;" />
+							</f:facet>
+						</p:cellEditor>    
+					</p:column>
 					<p:column style="width:30px">
 						<p:rowEditor title="Editar" />
-					</p:column>
-					<p:column style="width:50px;" styleClass="alinharCenter">
+					</p:column> 
+					<p:column style="width:60px;text-align:center;" styleClass="alinharCenter" headerText="Download">
 						<a title="Download" name="download"
 							href="http://#{workSponsorArquivoMB.ftpdados.host}:82/ftproot/systm/worksponsor/#{arquivo.nomeftp}"
 							target="_blank"
@@ -82,7 +93,7 @@
 							type="button"> <img
 							src="../../resources/img/iconeDownload.png" width="30" /></a>
 					</p:column>
-					<p:column style="width:50px;" styleClass="alinharCenter">
+					<p:column style="width:55px;text-align:center;" styleClass="alinharCenter" headerText="Excluir">
 						<p:commandLink action="#{workSponsorArquivoMB.excluir(arquivo)}"
 							title="excluir"
 							update="tabelaconsWorkSponsorArquivos, :consWorkSponsorArquivos:growl">

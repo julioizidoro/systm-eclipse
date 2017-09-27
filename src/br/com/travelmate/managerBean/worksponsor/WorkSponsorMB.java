@@ -135,7 +135,7 @@ public class WorkSponsorMB implements Serializable {
 
 	public void listarFornecedorCidade() {
 		if (cidadeproduto != null) {
-			listaFornecedorCidade = GerarListas.listarFornecedorCidade(aplicacaoMB.getParametrosprodutos().getWork(),
+			listaFornecedorCidade = GerarListas.listarFornecedorCidadeWork(aplicacaoMB.getParametrosprodutos().getWork(),
 					cidadeproduto.getCidade().getIdcidade());
 		}
 	}

@@ -1,5 +1,5 @@
 package br.com.travelmate.model;
-
+ 
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,27 +14,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name="departamento")
-public class Departamento implements Serializable{
-
-	
+@Table(name = "departamento")
+public class Departamento implements Serializable {
 
 	/**
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "iddepartamento")
-    private Integer iddepartamento;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "iddepartamento")
+	private Integer iddepartamento;
 	@Column(name = "nome")
-    private String nome;
+	private String nome;
 	@Column(name = "imagem")
-    private String imagem;
+	private String imagem;
 	@Column(name = "pasta")
 	private boolean pasta;
 	@Column(name = "lista")
@@ -47,7 +46,13 @@ public class Departamento implements Serializable{
 	private Unidadenegocio unidadenegocio;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "departamento")
 	private List<Pasta1> pasta1List;
-	 
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "departamento")
+	private List<Departamentoproduto> departamentoprodutoList;
+	@Column(name = "venda")
+	private boolean venda;
+	@Transient
+	private String cor;
+
 	public Departamento() {
 	}
 
@@ -91,7 +96,6 @@ public class Departamento implements Serializable{
 		this.pasta = pasta;
 	}
 
-	
 	public List<Pasta1> getPasta1List() {
 		return pasta1List;
 	}
@@ -99,11 +103,15 @@ public class Departamento implements Serializable{
 	public void setPasta1List(List<Pasta1> pasta1List) {
 		this.pasta1List = pasta1List;
 	}
-	
-	
-	
-	
-	
+
+	public List<Departamentoproduto> getDepartamentoprodutoList() {
+		return departamentoprodutoList;
+	}
+
+	public void setDepartamentoprodutoList(List<Departamentoproduto> departamentoprodutoList) {
+		this.departamentoprodutoList = departamentoprodutoList;
+	}
+
 	public boolean isLista() {
 		return lista;
 	}
@@ -120,29 +128,45 @@ public class Departamento implements Serializable{
 		this.unidadenegocio = unidadenegocio;
 	}
 
+	public boolean isVenda() {
+		return venda;
+	}
+
+	public void setVenda(boolean venda) {
+		this.venda = venda;
+	}
+
+	public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+
 	@Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (iddepartamento != null ? iddepartamento.hashCode() : 0);
-        return hash;
-    }
+	public int hashCode() {
+		int hash = 0;
+		hash += (iddepartamento != null ? iddepartamento.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Departamento)) {
-            return false;
-        }
-        Departamento other = (Departamento) object;
-        if ((this.iddepartamento == null && other.iddepartamento != null) || (this.iddepartamento != null && !this.iddepartamento.equals(other.iddepartamento))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Departamento)) {
+			return false;
+		}
+		Departamento other = (Departamento) object;
+		if ((this.iddepartamento == null && other.iddepartamento != null)
+				|| (this.iddepartamento != null && !this.iddepartamento.equals(other.iddepartamento))) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "br.com.travelmate.model.Departamento[ iddepartamento=" + iddepartamento + " ]";
-    }
-	
-	
+	@Override
+	public String toString() {
+		return "br.com.travelmate.model.Departamento[ iddepartamento=" + iddepartamento + " ]";
+	}
+
 }

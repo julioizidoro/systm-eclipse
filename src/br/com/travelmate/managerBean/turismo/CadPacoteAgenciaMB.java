@@ -1698,6 +1698,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 		for (int i = 0; i < listaSeguro.size(); i++) {
 			SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 			listaSeguro.get(i).getSeguroviagem().setVendas(vendass);
+			listaSeguro.get(i).getSeguroviagem().setControle("Pacote - "+vendass.getIdvendas());
+			listaSeguro.get(i).getSeguroviagem().setPossuiSeguro("Sim");
 			seguroViagemFacade.salvar(listaSeguro.get(i).getSeguroviagem());
 			PacoteSeguroFacade pacoteSeguroFacade = new PacoteSeguroFacade();
 			pacoteSeguroFacade.salvar(listaSeguro.get(i));

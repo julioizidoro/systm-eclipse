@@ -70,6 +70,8 @@ public class Fornecedorcidade implements Serializable {
     private List<Fornecedorcidadedepoimento> fornecedorcidadedepoimentoList;
     @Column(name = "ativo")
     private boolean ativo;
+    @Column(name = "work")
+    private boolean work;
     @Transient
     private boolean selecionado;
     @Transient
@@ -80,6 +82,7 @@ public class Fornecedorcidade implements Serializable {
     public Fornecedorcidade() {
     	setExcluir(true);
     	setAtivo(true);
+    	setWork(true);
     }
 
     public Fornecedorcidade(Integer idfornecedorcidade) {
@@ -212,6 +215,14 @@ public class Fornecedorcidade implements Serializable {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public boolean isWork() {
+		return work;
+	}
+
+	public void setWork(boolean work) {
+		this.work = work;
 	}
 
 	@Override
