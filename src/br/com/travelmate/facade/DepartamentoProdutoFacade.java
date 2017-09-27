@@ -29,5 +29,15 @@ public class DepartamentoProdutoFacade {
 			return null;
 		}
 	}
+	
+	public List<Departamentoproduto> listar() {
+		departamentoProdutoDao = new DepartamentoProdutoDao();
+		try {
+			return departamentoProdutoDao.listar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

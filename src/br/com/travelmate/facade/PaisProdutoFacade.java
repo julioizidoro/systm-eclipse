@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package br.com.travelmate.facade;
-
-import br.com.travelmate.dao.CambioDao;
-import br.com.travelmate.dao.PaisProdutoDao;
-import br.com.travelmate.model.Cambio;
+ 
+import br.com.travelmate.dao.PaisProdutoDao; 
 import br.com.travelmate.model.Paisproduto;
 import java.sql.SQLException;
 import java.util.List;
@@ -36,6 +34,16 @@ public class PaisProdutoFacade {
         paisProdutoDao = new PaisProdutoDao();
         try {
             return paisProdutoDao.listar(idProduto);
+        } catch (SQLException ex) {
+            Logger.getLogger(PaisProdutoFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public List<Paisproduto> listar(String sql) {
+        paisProdutoDao = new PaisProdutoDao();
+        try {
+            return paisProdutoDao.listar(sql);
         } catch (SQLException ex) {
             Logger.getLogger(PaisProdutoFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;

@@ -2074,15 +2074,7 @@
 			<to-view-id>/pages/revisaofinanceiro/consHistorico.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>cadFornecedorCidadeIdioma</from-outcome>
-			<to-view-id>/pages/coprodutos/cadFornecedorCidadeIdioma.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>   
-	</navigation-rule>
+	</navigation-rule> 
 	<navigation-rule>   
 		<from-view-id>*</from-view-id>
 		<navigation-case> 
@@ -2192,6 +2184,14 @@
 		<navigation-case> 
 			<from-outcome>consWorkEmpregador</from-outcome> 
 			<to-view-id>/pages/workempregador/consWorkEmpregador.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>      
+		<from-view-id>*</from-view-id>
+		<navigation-case> 
+			<from-outcome>cadFornecedorCidadeIdioma</from-outcome> 
+			<to-view-id>/pages/fornecedorcidadeidiomaproduto/cadFornecedorCidadeIdioma.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule> 

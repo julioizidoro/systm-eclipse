@@ -48,6 +48,15 @@ public class PaisProdutoDao {
         return listaPaisProduto;
     }
     
+    public List<Paisproduto> listar(String sql) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery(sql);
+        List<Paisproduto> listaPaisProduto = q.getResultList();
+        manager.close();
+        return listaPaisProduto;
+    }
+    
     
     public Paisproduto consultar(String sql) throws SQLException{
     	EntityManager manager;

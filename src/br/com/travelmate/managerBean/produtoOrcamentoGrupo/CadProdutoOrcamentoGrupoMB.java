@@ -215,7 +215,7 @@ public class CadProdutoOrcamentoGrupoMB implements Serializable {
 		}
 		if (produtosorcamentoindice != null) {
 			listaProdutosOrcamentoGrupo = prOrcamentoGrupoFacade
-					.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idProdutosorcamentoindice="
+					.listar("Select p From Produtosorcamentogrupo p Where p.produtosorcamentoindice.idprodutosorcamentoindice="
 							+ produtosorcamentoindice.getIdprodutosorcamentoindice());
 
 			if (listaProdutosOrcamentoGrupo == null) {

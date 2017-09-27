@@ -476,10 +476,6 @@ public class CoProdutosMB implements Serializable {
 	}
 
 	public String adicionarFornecedorIdioma() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("idioma", idioma);
-		session.setAttribute("cidade", cidade);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 500);
 		RequestContext.getCurrentInstance().openDialog("cadFornecedorCidadeIdioma");

@@ -289,5 +289,18 @@ public class FornecedorMB implements Serializable{
 	    			+ pais.getIdpaisproduto());
     	}
     }
+    
+    public String cadFornecedorCidadeIdioma(){
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("contentWidth", 800);
+    	RequestContext.getCurrentInstance().openDialog("cadFornecedorCidadeIdioma", options, null);
+    	return "";
+    }
+    
+    public boolean habilitarBtnNovo() {
+    	if(cidadeproduto!=null && cidadeproduto.getIdcidadepaisproduto()!=null) {
+    		return false;
+    	}else return true;
+    }
      
 }

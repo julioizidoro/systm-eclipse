@@ -28,13 +28,17 @@ public class ConsultaFornecedorMB implements Serializable{
     private Cidade cidade;
     private Produtos produto;
     private Fornecedor fornecedor;
-    private String nomefornecedor;
+    private String nomefornecedor; 
 
     public ConsultaFornecedorMB() {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         produto = (Produtos) session.getAttribute("produtos");
         cidade = (Cidade) session.getAttribute("cidade");
+        fornecedorcidade = (Fornecedorcidade) session.getAttribute("fornecedorcidade");
+        session.removeAttribute("produtos");
+        session.removeAttribute("cidade");
+        session.removeAttribute("fornecedorcidade");
         gerarListaFornecedor();
         fornecedor = new Fornecedor();
     }
@@ -102,8 +106,13 @@ public class ConsultaFornecedorMB implements Serializable{
     public String salvarFornecedor(){
     	List<Fornecedorcidade> listaFornecedorCidade = new ArrayList<Fornecedorcidade>();
         for(int i=0;i<listaFornecedor.size();i++){
-            if(listaFornecedor.get(i).isSelecionado()){
-                fornecedorcidade = new Fornecedorcidade();
+        	boolean work = true;
+        	if(fornecedorcidade!=null) {
+        		work = fornecedorcidade.isWork();
+        	}
+            if(listaFornecedor.get(i).isSelecionado()){ 
+            	fornecedorcidade = new Fornecedorcidade(); 
+            	fornecedorcidade.setWork(work);
                 fornecedorcidade.setCidade(cidade);
                 fornecedorcidade.setProdutos(produto);
                 fornecedorcidade.setFornecedor(listaFornecedor.get(i));

@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastroFornecedorIdioma"
+		style="text-align:left;font-size: 11px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title>Cadastro Parceiro - Idioma</title>
+		<br></br>
+		<h:panelGrid columns="3" style="margin-left:4%;width:93%;"
+			columnClasses="tamanho6,tamanho6,tamanho6">
+			<p:outputLabel value="Produto" for="produto" style="font-size: 11px;color:#000;" />
+			<p:outputLabel value="Pais" for="pais" style="font-size: 11px;color:#000;" />
+			<p:outputLabel value="Cidade" for="cidade" style="font-size: 11px;color:#000;" /> 
+			
+			<p:selectOneMenu id="produto" value="#{cadFornecedorCidadeIdiomaMB.produtos}"
+				style="width:180px;" converter="ProdutoConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+				<f:selectItems id="idproduto" value="#{cadFornecedorCidadeIdiomaMB.listaProdutos}"
+					var="cproduto" itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+				<f:attribute name="listaProdutos" value="#{cadFornecedorCidadeIdiomaMB.listaProdutos}" />
+				<p:ajax event="change" listener="#{cadFornecedorCidadeIdiomaMB.listarPaises()}"
+					update=":cadastroFornecedorIdioma:tabelaFornecedor, pais, cidade" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="pais" value="#{cadFornecedorCidadeIdiomaMB.pais}"
+				style="width:180px;" converter="PaisProdutoConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="País" itemValue="0" noSelectionOption="true" />
+				<f:selectItems id="idpais" value="#{cadFornecedorCidadeIdiomaMB.listaPais}"
+					var="paisselecionado" itemLabel="#{paisselecionado.pais.nome}"
+					itemValue="#{paisselecionado}" />
+				<f:attribute name="listaPaisProduto" value="#{cadFornecedorCidadeIdiomaMB.listaPais}" />
+				<p:ajax event="change" listener="#{cadFornecedorCidadeIdiomaMB.listarCidade()}" update="cidade" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="cidade" value="#{cadFornecedorCidadeIdiomaMB.cidadeproduto}"
+				style="width:180px;" converter="CidadePaisProdutoConverter"
+				filter="true" filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Cidade" itemValue="0" noSelectionOption="true" />
+				<f:selectItems id="idcidade2" value="#{cadFornecedorCidadeIdiomaMB.listaCidade}"
+					var="cidade" itemLabel="#{cidade.cidade.nome}"
+					itemValue="#{cidade}" />
+				<f:attribute name="listaCidadePaisProduto" value="#{cadFornecedorCidadeIdiomaMB.listaCidade}" />
+				<p:ajax event="change"
+					listener="#{cadFornecedorCidadeIdiomaMB.listarForCidadeIdioma()}"
+					update=":cadastroFornecedorIdioma:tabelaFornecedor, fornecedor" />
+				<p:ajax event="change" listener="#{cadFornecedorCidadeIdiomaMB.listarFornecedorCidade()}"
+					 update="fornecedor"/> 
+			</p:selectOneMenu>
+			<p:outputLabel  /><p:outputLabel  /><p:outputLabel  />
+			
+			<p:outputLabel value="Idioma" for="idioma" style="font-size: 11px;color:#000;" />
+			<p:outputLabel value="Parceiro" for="fornecedor" style="font-size: 11px;color:#000;" />
+			<p:outputLabel  />
+			
+			<p:selectOneMenu id="idioma" value="#{cadFornecedorCidadeIdiomaMB.idioma}"
+				style="width:180px;" 
+				converter="IdiomaConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Idioma" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idioma2" value="#{cadFornecedorCidadeIdiomaMB.listaIdiomas}"
+					var="idioma" itemLabel="#{idioma.descricao}" itemValue="#{idioma}" />
+				<f:attribute name="listaIdiomas"
+					value="#{cadFornecedorCidadeIdiomaMB.listaIdiomas}" />
+				<p:ajax event="change" update=":cadastroFornecedorIdioma:tabelaFornecedor"
+					listener="#{cadFornecedorCidadeIdiomaMB.listarForCidadeIdioma()}" />
+				<p:ajax event="change" listener="#{cadFornecedorCidadeIdiomaMB.listarFornecedorCidade()}"
+					 update="fornecedor"/>
+			</p:selectOneMenu>
+			<p:selectOneMenu id="fornecedor"
+				value="#{cadFornecedorCidadeIdiomaMB.fornecedorCidade}"
+				style="width:180px;"
+				converter="FornecedorCidadeConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Fornecedor" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idfornecedor"
+					value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidade}"
+					var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+					itemValue="#{fornecedor}" />
+				<f:attribute name="listaFornecedorCidade"
+					value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidade}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu> 
+			<p:commandButton id="bntSalvarFornecedor" value="Salvar" title="Incluir novo parceiro idioma."
+				icon="ui-icon-check" action="#{cadFornecedorCidadeIdiomaMB.salvar()}"
+				style="font-size:12px;margin-left:2%" update=":cadastroFornecedorIdioma:tabelaFornecedor, growl" />
+		</h:panelGrid>    
+		<br></br><br></br>
+		<p:dataTable id="tabelaFornecedor" var="fornecedor"
+			value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidadeIdioma}"
+			class="tabela" scrollable="true" scrollHeight="180"
+			style="margin-bottom:20px">
+			<p:column style="width:35px;text-align: center;">
+				<p:selectBooleanCheckbox id="habilitado"
+					value="#{fornecedor.habilitada}">
+					<p:ajax event="change" update="tabelaFornecedor"
+						listener="#{cadFornecedorCidadeIdiomaMB.salvarHabilidar(fornecedor)}" />
+				</p:selectBooleanCheckbox>
+			</p:column>
+			<p:column headerText="Parceiro">
+				<h:outputText value="#{fornecedor.fornecedorcidade.fornecedor.nome}" />
+			</p:column>
+			<p:column style="width:40px;text-align: center;">
+				<p:commandLink title="Excluir"
+					actionListener="#{cadFornecedorCidadeIdiomaMB.excluir(fornecedor)}"
+					update=":cadastroFornecedorIdioma:tabelaFornecedor">
+					<img src="../../resources/img/excluir.png" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<div align="center">
+			<p:commandButton icon="ui-icon-close"
+				value="Fechar" action="#{cadFornecedorCidadeIdiomaMB.fechar()}"/> 
+		</div> 
+	</h:form>
+</h:body>
+</html>
