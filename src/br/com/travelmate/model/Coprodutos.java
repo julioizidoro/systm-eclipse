@@ -67,6 +67,14 @@ public class Coprodutos implements Serializable {
     private boolean apenaspacote;
     @Column(name = "idade")
     private int idade;
+    @Lob
+   	@Size(max = 2147483647)
+   	@Column(name = "advertencia")
+   	private String advertencia; 
+    @Lob
+   	@Size(max = 2147483647)
+   	@Column(name = "advertenciaseguro")
+   	private String advertenciaseguro;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "coprodutos")
     private Complementoacomodacao complementoacomodacao;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "coprodutos")
@@ -227,6 +235,22 @@ public class Coprodutos implements Serializable {
 
 	public void setApenaspacote(boolean apenaspacote) {
 		this.apenaspacote = apenaspacote;
+	}
+
+	public String getAdvertencia() {
+		return advertencia;
+	}
+
+	public void setAdvertencia(String advertencia) {
+		this.advertencia = advertencia;
+	}
+
+	public String getAdvertenciaseguro() {
+		return advertenciaseguro;
+	}
+
+	public void setAdvertenciaseguro(String advertenciaseguro) {
+		this.advertenciaseguro = advertenciaseguro;
 	}
 
 	@Override

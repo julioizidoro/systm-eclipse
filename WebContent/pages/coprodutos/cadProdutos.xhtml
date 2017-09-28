@@ -40,7 +40,7 @@
     <h:body style="background:#DDDDE1;">
         <h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
              <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-            <title>Cadastro Produtos</title><br></br>
+            <title>Cadastro Produtos</title> 
             <p:selectOneRadio id="tipoProduto" value="#{cadCoProdutosMB.coprodutos.tipo}" layout="custom">
                 <f:selectItem itemLabel="Obrigatório" itemValue="Obrigatorio" />
                 <f:selectItem itemLabel="Opcional" itemValue="Opcional" />
@@ -81,7 +81,15 @@
 	        <br></br><br></br>
             <p:outputLabel value="Descrição" for="descricao" style="margin-left: 2%"/>
             <br></br>
-            <p:inputTextarea value="#{cadCoProdutosMB.coprodutos.descricao}" id="descricao" rows="3" cols="87" class="espacocobranca29"  title="descrição do produto"/>
+            <p:inputTextarea value="#{cadCoProdutosMB.coprodutos.descricao}" id="descricao" rows="2" cols="87" class="espacocobranca29"  title="descrição do produto"/>
+            <br></br><br></br>
+            <p:outputLabel value="Advertência" for="advertencia" style="margin-left: 2%"/>   
+            <br></br>
+            <p:inputTextarea value="#{cadCoProdutosMB.coprodutos.advertencia}" id="advertencia" rows="2" cols="87" class="espacocobranca29"  title="descrição do produto"/>
+            <br></br><br></br>
+            <p:outputLabel value="Advertência Seguro" for="advertenciaseguro" style="margin-left: 2%"/>
+            <br></br>
+            <p:inputTextarea value="#{cadCoProdutosMB.coprodutos.advertenciaseguro}" id="advertenciaseguro" rows="2" cols="87" class="espacocobranca29"  title="descrição do produto"/>
             <br></br><br></br>
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.pacote}" class="espacopreto" id="pacote" style="margin-left:2%" >
             	<p:ajax listener="#{cadCoProdutosMB.habilitarOpcoesPacote()}" update="acomodacao, transfer"/>
@@ -102,12 +110,11 @@
             
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.apenaspacote}"  class="espacopreto" id="apenaspacote" style="margin-left:5%" />
             <p:outputLabel value="Não mostrar no Orçamento Tarifario" for="apenaspacote" style="margin-left:1%"/>
-            
             <br></br><br></br>   
-            <p class="botaocadpacote"><br></br>
-                <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{cadCoProdutosMB.salvarCoProduto()}" update="growl"></p:commandButton>
-                <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{cadCoProdutosMB.cancelarCoProduto()}"></p:commandButton>
-            <br></br><br></br></p>
+            <div align="center">
+                <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cadCoProdutosMB.salvarCoProduto()}" update="growl"/>
+                <p:commandButton icon="ui-icon-close" value="Cancelar" action="#{cadCoProdutosMB.cancelarCoProduto()}" style="margin-left:1%;"/>
+            </div>
         </h:form>     
     </h:body>
 </html>
