@@ -114,6 +114,9 @@ public class Usuario implements Serializable {
     private List<Notificacaouploadusuario> notificacaoUploadNotificarList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Acessounidade acessounidade;
+    @JoinColumn(name = "cargo_idcargo", referencedColumnName = "idcargo")
+    @ManyToOne(optional = false)
+    private Cargo cargo;
 
     public Usuario() {
     	setDashboard("I");
@@ -323,6 +326,14 @@ public class Usuario implements Serializable {
 
 	public void setAcessounidade(Acessounidade acessounidade) {
 		this.acessounidade = acessounidade;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
 
 	@Override

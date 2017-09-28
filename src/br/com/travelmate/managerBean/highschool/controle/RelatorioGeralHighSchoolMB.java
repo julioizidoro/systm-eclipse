@@ -1,6 +1,9 @@
 package br.com.travelmate.managerBean.highschool.controle;
  
-import br.com.travelmate.facade.UnidadeNegocioFacade;  
+import br.com.travelmate.facade.FornecedorCidadeFacade;
+import br.com.travelmate.facade.UnidadeNegocioFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Unidadenegocio; 
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
@@ -21,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import net.sf.jasperreports.engine.JRException;
@@ -34,14 +38,21 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
 	 *      
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AplicacaoMB aplicacaoMB;
 	private List<Unidadenegocio> listaUnidadeNegocio;
     private Unidadenegocio unidadenegocio;
+    private Date dataInicioVenda;
+    private Date dataTerminoVenda;    
     private Date dataInicio;
     private Date dataTermino;     
+    private Fornecedorcidade fornecedorcidade;
+    private List<Fornecedorcidade> listaFornecedorCidade;
     
     @PostConstruct()
     public void init(){
     	unidadenegocio = new Unidadenegocio(); 
+    	gerarListaFornecedorCidade();
         gerarListaUnidadeNegocio(); 
     }
 
@@ -77,6 +88,46 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
         this.dataTermino = dataTermino;
     }
  
+	public Fornecedorcidade getFornecedorcidade() {
+		return fornecedorcidade;
+	}
+
+	public void setFornecedorcidade(Fornecedorcidade fornecedorcidade) {
+		this.fornecedorcidade = fornecedorcidade;
+	}
+
+	public List<Fornecedorcidade> getListaFornecedorCidade() {
+		return listaFornecedorCidade;
+	}
+
+	public void setListaFornecedorCidade(List<Fornecedorcidade> listaFornecedorCidade) {
+		this.listaFornecedorCidade = listaFornecedorCidade;
+	}
+
+	public AplicacaoMB getAplicacaoMB() {
+		return aplicacaoMB;
+	}
+
+	public void setAplicacaoMB(AplicacaoMB aplicacaoMB) {
+		this.aplicacaoMB = aplicacaoMB;
+	}
+
+	public Date getDataInicioVenda() {
+		return dataInicioVenda;
+	}
+
+	public void setDataInicioVenda(Date dataInicioVenda) {
+		this.dataInicioVenda = dataInicioVenda;
+	}
+
+	public Date getDataTerminoVenda() {
+		return dataTerminoVenda;
+	}
+
+	public void setDataTerminoVenda(Date dataTerminoVenda) {
+		this.dataTerminoVenda = dataTerminoVenda;
+	}
+
 	public void gerarListaUnidadeNegocio(){
         UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
         listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -93,15 +144,23 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
             	+ " FROM Controlehighschool JOIN vendas on controlehighschool.vendas_idvendas = vendas.idvendas"
                 + " JOIN cliente on vendas.cliente_idcliente = cliente.idcliente"
                 + " JOIN highschool on controlehighschool.highschool_idhighschool = highschool.idhighschool"
+                + " JOIN valoreshighschool on highschool_idhighschool = valoreshighschool.idvaloreshighschool"
                 + " JOIN unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadenegocio.idunidadeNegocio"
-                + " where  (vendas.situacao='FINALIZADA' OR vendas.situacao='ANDAMENTO')";
+                + " where (vendas.situacao='FINALIZADA' OR vendas.situacao='ANDAMENTO')";
+        if(dataInicioVenda!=null && dataTerminoVenda!=null){
+        	sql = sql + " and vendas.dataVenda >='"+Formatacao.ConvercaoDataSql(dataInicioVenda)
+        			  +"' and vendas.dataVenda <='" + Formatacao.ConvercaoDataSql(dataTerminoVenda) + "'";
+        } 
         if(dataInicio!=null && dataTermino!=null){
-        	sql = sql + " and vendas.dataVenda >='"+Formatacao.ConvercaoDataSql(dataInicio)+"' and vendas.dataVenda<='"
-                      + Formatacao.ConvercaoDataSql(dataTermino) + "'";
+        	sql = sql + " and valoreshighschool.datainicio >='"+Formatacao.ConvercaoDataSql(dataInicio)
+        			  +"' and valoreshighschool.datainicio <='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
         }  
         if (unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
             sql = sql + " and vendas.unidadeNegocio_idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-        } 
+        }
+        if (fornecedorcidade!=null && fornecedorcidade.getIdfornecedorcidade()!=null){
+            sql = sql + " and vendas.fornecedor_idfornecedor=" + fornecedorcidade.getFornecedor().getIdfornecedor();
+        }
         sql = sql + " order by vendas.dataVenda ";
         return sql;
     }
@@ -129,4 +188,12 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
         RequestContext.getCurrentInstance().closeDialog(null);
         return "";
     } 
+    
+    public void gerarListaFornecedorCidade() {
+    	FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+    	String sql = "SELECT f FROM Fornecedorcidade f WHERE f.fornecedor.idfornecedor>1000"
+    			+ " AND f.produtos.idprodutos="+aplicacaoMB.getParametrosprodutos().getHighSchool()
+    			+ " GROUP BY f.fornecedor.idfornecedor ORDER BY f.fornecedor.nome";
+    	listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
+    }
 }

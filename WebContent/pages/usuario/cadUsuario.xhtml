@@ -21,15 +21,26 @@
 						style="width:90%;">
 						<p:outputLabel value="Nome" for="nome" />
 						<p:outputLabel value="Usuario" for="idusuario" />
-						<p:outputLabel value="Função" for="funcao" />
+						<p:outputLabel value="Cargo" for="cargo" />
 						<p:outputLabel value="Situação" for="situacao" />
 
 						<p:inputText id="nome" style="width:90%;"
 							value="#{cadUsuariosMB.usuario.nome}" />
 						<p:inputText id="idusuario" style="width:70%;"
 							value="#{cadUsuariosMB.usuario.login}" />
-						<p:inputText id="funcao" style="width:75%;"
-							value="#{cadUsuariosMB.usuario.funcao}" />
+						<p:selectOneMenu id="cargo"
+							value="#{cadUsuariosMB.usuario.cargo}"
+							style="width:88%;" converter="CargoConverter"
+							filter="true" filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Cargo" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idcargo"
+								value="#{cadUsuariosMB.listaCargo}" var="scargo"
+								itemLabel="#{scargo.nome}" itemValue="#{scargo}" />
+							<f:attribute name="listaCargo"
+								value="#{cadUsuariosMB.listaCargo}" />
+							<p:ajax event="change"/>
+						</p:selectOneMenu>
 						<p:selectOneMenu id="situacao"
 							value="#{cadUsuariosMB.usuario.situacao}" style="width:50%;">
 							<f:selectItem itemLabel="Ativo" itemValue="Ativo" />

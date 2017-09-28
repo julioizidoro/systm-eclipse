@@ -6,6 +6,8 @@
 package br.com.travelmate.util;
 
 import br.com.travelmate.facade.BancoFacade;
+import br.com.travelmate.facade.CargoFacade;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Banco;
+import br.com.travelmate.model.Cargo;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorfinanceiroproduto;
@@ -168,5 +171,12 @@ public class GerarListas {
         	listarFornecedor = new ArrayList<Fornecedorcidade>();
         }
         return listarFornecedor;
+    }
+    
+    public static List<Cargo> listarCargo(){
+    	String sql = "SELECT c FROM Cargo c ORDER BY c.nome";
+    	CargoFacade cargoFacade = new CargoFacade();
+    	List<Cargo> lista = cargoFacade.lista(sql);
+    	return lista;
     }
 }

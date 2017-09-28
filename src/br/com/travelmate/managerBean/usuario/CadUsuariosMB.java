@@ -18,12 +18,14 @@ import br.com.travelmate.facade.GrupoAcessoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.model.Cargo;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Grupoacesso;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Criptografia;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -39,6 +41,7 @@ public class CadUsuariosMB implements Serializable {
 	private List<Unidadenegocio> listaUnidade;
 	private List<Departamento> listaDepartamento;
 	private List<Grupoacesso> listaGrupoAcesso;
+	private List<Cargo> listaCargo;
 	private String foto;
 	private String vende;
 	private boolean responsavelUnidade = false;
@@ -55,12 +58,14 @@ public class CadUsuariosMB implements Serializable {
 		gerarlistaUnidade();
 		gerarListaDepartamento();
 		gerarListaGrupoAcesso();
+		listaCargo = GerarListas.listarCargo();
 		if (usuario == null) {
 			usuario = new Usuario();
 			usuario.setDepartamento(new Departamento());
 			usuario.setUnidadenegocio(new Unidadenegocio());
 			usuario.setGrupoacesso(new Grupoacesso());
 			usuario.setDataversao(new Date());
+			usuario.setCargo(null);
 		} else {
 			if (usuario.getUnidadenegocio().getResponsavelcrm() != null
 					&& usuario.getUnidadenegocio().getResponsavelcrm() == usuario.getIdusuario()) {
@@ -139,6 +144,14 @@ public class CadUsuariosMB implements Serializable {
 
 	public void setResponsavelUnidade(boolean responsavelUnidade) {
 		this.responsavelUnidade = responsavelUnidade;
+	} 
+	
+	public List<Cargo> getListaCargo() {
+		return listaCargo;
+	}
+
+	public void setListaCargo(List<Cargo> listaCargo) {
+		this.listaCargo = listaCargo;
 	}
 
 	public void gerarlistaUnidade() {
@@ -168,6 +181,9 @@ public class CadUsuariosMB implements Serializable {
 	public void validarDados(String msg) {
 		if (usuario.getDepartamento() == null && usuario.getDepartamento().getIddepartamento() == null) {
 			msg = "Departamento não selecionado.";
+		}
+		if (usuario.getCargo() == null && usuario.getCargo().getIdcargo() == null) {
+			msg = "Cargo não selecionado.";
 		}
 		if (usuario.getUnidadenegocio() == null && usuario.getUnidadenegocio().getIdunidadeNegocio() == null) {
 			msg = msg + "\n" + "Unidade não selecionada.";
