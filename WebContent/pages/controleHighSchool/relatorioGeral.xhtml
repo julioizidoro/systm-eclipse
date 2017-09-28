@@ -16,10 +16,8 @@
 		<h:form id="relatorioGeralHS"
 			style="text-align:left;font-size: 10px; margin-left: 7%; ">
 			<br></br>
-
 			<title>Relatório Geral</title>
-			<p:outputLabel value="Período da Venda" 
-				style="margin-left:-1%">
+			<p:outputLabel value="Período da Venda" style="margin-left:-1%">
 			</p:outputLabel>
 			<br />
 			<p:calendar id="datainicialvenda"
@@ -60,7 +58,7 @@
 			<p:selectOneMenu id="unidade" style="width:90%;margin-left:-1%"
 				value="#{relatorioGeralHighSchoolMB.unidadenegocio}"
 				converter="UnidadeNegocioConverter" filter="true"
-				filterMatchMode="startsWith" panelStyle="width:180px">  
+				filterMatchMode="startsWith" panelStyle="width:180px">
 				<f:selectItem itemLabel="Todos" itemValue="0"
 					noSelectionOption="true" />
 				<f:selectItems
@@ -78,10 +76,11 @@
 			</p:outputLabel>
 			<br></br>
 			<p:selectOneMenu id="programa" style="width:90%;margin-left:-1%"
-				value="#{relatorioGeralHighSchoolMB.fornecedorcidade}" 
+				value="#{relatorioGeralHighSchoolMB.fornecedorcidade}"
 				converter="FornecedorCidadeConverter" filter="true"
 				filterMatchMode="startsWith">
-				<f:selectItem itemLabel="Todos" itemValue="0" noSelectionOption="true" />
+				<f:selectItem itemLabel="Todos" itemValue="0"
+					noSelectionOption="true" />
 				<f:selectItems id="idfornecedor"
 					value="#{relatorioGeralHighSchoolMB.listaFornecedorCidade}"
 					var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
