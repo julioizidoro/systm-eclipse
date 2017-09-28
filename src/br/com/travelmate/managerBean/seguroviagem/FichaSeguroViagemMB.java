@@ -146,7 +146,9 @@ public class FichaSeguroViagemMB implements Serializable {
 			cambio = cambioFacade.consultarSigla(Formatacao.ConvercaoDataSql(dataCambio), "USD");
 			valorSemDesconto = 0.0f;
 			seguroplanos = new Seguroplanos();
+			novaFicha = true;
 		} else {
+			novaFicha = false;
 			vendas = seguro.getVendas();
 			FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
 			this.formaPagamento = formaPagamentoFacade.consultar(vendas.getIdvendas());
@@ -878,12 +880,9 @@ public class FichaSeguroViagemMB implements Serializable {
 		String msg = validarDados();
 		String nsituacao;
 		if (msg.length() < 5) {
-			if (situacao.equalsIgnoreCase("PROCESSO")) {
-				if (enviarFicha) {
-					novaFicha = true;
-				}
-			} else {
+			if (!situacao.equalsIgnoreCase("PROCESSO")) {
 				enviarFicha = true;
+			} else {
 			}
 			if (enviarFicha) {
 				nsituacao = "FINALIZADA";
