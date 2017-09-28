@@ -6,6 +6,7 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Faturafranquias;
@@ -146,6 +147,12 @@ public class CalcularMultaCancelamentoBean {
 					lista.get(i).setSituacao("cc");
 					lista.get(i).setMotivocancelamento("Cancelamento da Venda");
 					contasReceberFacade.salvar(lista.get(i));
+					if (lista.get(i).getCrmcobrancaconta() != null) {
+						if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
+							CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+							crmCobrancaBean.baixar(lista.get(i), usuario);
+						}
+					}
 					EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Cancelada", lista.get(i), usuario);
 				}
 			}

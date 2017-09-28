@@ -31,6 +31,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Banco;
@@ -566,9 +567,11 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 							venda.getContasreceberList().get(i).setDatapagamento(dataPagamento);
 						}
 					}
-					venda.getContasreceberList().get(i).setSituacao("vd");
+					venda.getContasreceberList().get(i).setSituacao("vd");  
 					venda.getContasreceberList().get(i).setBanco(banco);
 					contasReceberFacade.salvar(venda.getContasreceberList().get(i));
+					CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+					crmCobrancaBean.baixar(venda.getContasreceberList().get(i), usuarioLogadoMB.getUsuario());
 					EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usuário", venda.getContasreceberList().get(i), usuarioLogadoMB.getUsuario());
 				}
 			}
