@@ -207,7 +207,7 @@ public class CalcularComissaoBean {
         return somar - subtrair;
     }
     
-    public Vendascomissao salvarComissao(Vendascomissao vendasComissao,List<Parcelamentopagamento> listaParcelamento, float percentualComissao, AplicacaoMB aplicacaoMB, boolean seguroAvulso, Formapagamento formapagamento){
+    public Vendascomissao salvarComissao(Vendascomissao vendasComissao,List<Parcelamentopagamento> listaParcelamento, float percentualComissao, AplicacaoMB aplicacaoMB, boolean seguroAvulso, Formapagamento formapagamento, boolean cursoPacote){
         vendasComissao.setPaga("Não");
         if (vendasComissao.getTerceiros()==null){
         	TerceirosFacade terceirosFacade = new TerceirosFacade();
@@ -220,7 +220,7 @@ public class CalcularComissaoBean {
         VendasComissaoFacade vendasComissaoFacade= new VendasComissaoFacade();
         vendasComissao = vendasComissaoFacade.salvar(vendasComissao);
         try {
-			FaturaFranquiaBean faturaFranquias = new FaturaFranquiaBean(vendasComissao, listaParcelamento, percentualComissao, aplicacaoMB, seguroAvulso);
+			FaturaFranquiaBean faturaFranquias = new FaturaFranquiaBean(vendasComissao, listaParcelamento, percentualComissao, aplicacaoMB, seguroAvulso, cursoPacote);
 			vendasComissao.setFaturaFranquias(faturaFranquias.getFatura());
 		} catch (SQLException e) {
 			e.printStackTrace();

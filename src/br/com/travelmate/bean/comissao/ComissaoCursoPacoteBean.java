@@ -158,7 +158,11 @@ public class ComissaoCursoPacoteBean {
         if (salvarCalculo){
         		FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
         		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
-        		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento,percentualComissao.floatValue(), aplicacaoMB, false,formapagamento);
+        		boolean cursoPacote = false;
+        		if (vendasComissao.getVendas().getVendaspacote()!=null) {
+        			cursoPacote = true;
+        		}
+        		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento,percentualComissao.floatValue(), aplicacaoMB, false,formapagamento, cursoPacote);
         }
     }
     

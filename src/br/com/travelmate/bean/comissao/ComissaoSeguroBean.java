@@ -106,7 +106,11 @@ public class ComissaoSeguroBean {
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
         vendasComissao.setDatainicioprograma(seguroviagem.getDataInicio());
-        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percComissao, aplicacaoMB, seguroAvulso, formapagamento);
+        boolean cursoPacote = false;
+		if (vendasComissao.getVendas().getVendaspacote()!=null) {
+			cursoPacote = true;
+		}
+        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percComissao, aplicacaoMB, seguroAvulso, formapagamento, cursoPacote);
     }
     
     public void calcularValorComissional(){

@@ -115,8 +115,12 @@ public class ComissaoHighSchoolBean {
         vendasComissao.setDatainicioprograma(valoreshighschool.getDatainicio());
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
         FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
-    	Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
-        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento,0.0f, aplicacaoMB, false, formapagamento);
+    		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
+    		boolean cursoPacote = false;
+    		if (vendasComissao.getVendas().getVendaspacote()!=null) {
+    			cursoPacote = true;
+    		}
+    		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento,0.0f, aplicacaoMB, false, formapagamento, cursoPacote);
     }
     
     

@@ -101,8 +101,12 @@ public class ComissaoVistoBean {
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
         FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
-    	Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
-        vendasComissao = comissaoBean.salvarComissao(vendasComissao, gerarLitaParcelamento(), 0.0f, aplicacaoMB, false, formapagamento);
+        Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
+        boolean cursoPacote = false;
+		if (vendasComissao.getVendas().getVendaspacote()!=null) {
+			cursoPacote = true;
+		}
+        vendasComissao = comissaoBean.salvarComissao(vendasComissao, gerarLitaParcelamento(), 0.0f, aplicacaoMB, false, formapagamento, cursoPacote);
     }
     
             

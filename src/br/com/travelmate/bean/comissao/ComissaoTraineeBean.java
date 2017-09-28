@@ -111,8 +111,12 @@ public class ComissaoTraineeBean {
         vendasComissao.setPrevisaopagamento(Formatacao.calcularPrevisaoPagamentoFornecedor(dataInicioPrograma, vendasComissao.getProdutos().getIdprodutos(), aplicacaoMB.getParametrosprodutos().getCursos()));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
         FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
-    	Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
-        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, 0.0f, aplicacaoMB, false, formapagamento);
+    		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
+    		boolean cursoPacote = false;
+    		if (vendasComissao.getVendas().getVendaspacote()!=null) {
+    			cursoPacote = true;
+    		}
+    		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, 0.0f, aplicacaoMB, false, formapagamento, cursoPacote);
     }
     
 	public Float calcularComissaoFranquiaBruto() {

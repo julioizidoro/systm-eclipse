@@ -109,8 +109,12 @@ public class ComissaoWorkBean {
         vendasComissao.setPrevisaopagamento(aplicacaoMB.getParametrosprodutos().getDatainiciowork());
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
         FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
-    	Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
-        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percentualComissaoFranquia(), aplicacaoMB, false,formapagamento);
+    		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
+    		boolean cursoPacote = false;
+    		if (vendasComissao.getVendas().getVendaspacote()!=null) {
+    			cursoPacote = true;
+    		}
+    		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percentualComissaoFranquia(), aplicacaoMB, false,formapagamento, cursoPacote);
     }
     
     public Float percentualComissaoFranquia() {
