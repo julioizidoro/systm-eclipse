@@ -3178,6 +3178,11 @@ public class CadCursoMB implements Serializable {
 				orcamentoprodutosorcamento.setValorMoedaNacional(valor);
 				orcamentoprodutosorcamento.setTipo("S");
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+				if (listaProdutosOrcamento != null && listaProdutosOrcamento.size() > 0) {
+					FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
+					Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(1, produtoorcamento.getIdprodutosOrcamento());
+					listaProdutosOrcamento.remove(filtroorcamentoproduto);
+				}
 				calcularValorTotalOrcamento();
 			} 
 		}
