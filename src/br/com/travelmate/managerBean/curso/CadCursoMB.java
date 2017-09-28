@@ -3152,6 +3152,8 @@ public class CadCursoMB implements Serializable {
 				seguroViagem.setDataTermino(ocurso.getOcursoseguroList().get(0).getDatafinal());
 				seguroViagem.setNumeroSemanas(ocurso.getOcursoseguroList().get(0).getNumerodias());
 				seguroViagem.setPlano(ocurso.getOcursoseguroList().get(0).getValoresseguro().getPlano());
+				seguroplanos = ocurso.getOcursoseguroList().get(0).getValoresseguro().getSeguroplanos();
+				listarValoresSeguro();
 				seguroViagem.setPossuiSeguro("Sim");
 				seguroViagem.setValorMoedaEstrangeira(ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getOcursoseguroList().get(0).getValorseguroorcamento());
 				seguroViagem.setValorSeguro(orcamentoprodutosorcamento.getValorMoedaNacional());
