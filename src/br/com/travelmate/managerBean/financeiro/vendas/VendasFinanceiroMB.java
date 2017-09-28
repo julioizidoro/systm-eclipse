@@ -66,7 +66,6 @@ public class VendasFinanceiroMB  implements Serializable{
         session.removeAttribute("sql");
         gerarListaUnidadeNegocio();
         gerarListaProdutos();
-        gerarListaVendas(); 
     }
 
     public List<Vendas> getListaVendas() {
@@ -258,7 +257,7 @@ public class VendasFinanceiroMB  implements Serializable{
     
     public String limparFiltroVendas(){
     	sql = null;
-        gerarListaVendas();
+    	listaVendas = new ArrayList<>();
         unidadenegocio = null;
         produto = null;
         id="";
