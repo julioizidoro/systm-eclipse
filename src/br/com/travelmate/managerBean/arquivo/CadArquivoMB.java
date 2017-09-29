@@ -484,9 +484,20 @@ public class CadArquivoMB implements Serializable {
 			}
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(vendas);
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisos avisos = new Avisos();
+			avisos.setData(new Date());
+			avisos.setUsuario(usuarioLogadoMB.getUsuario());
+			avisos.setImagem("aviso");
+			avisos.setLiberar(true);
+			avisos.setTexto("Cursos: Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+					+ vendas.getIdvendas() + " está completo.");
+			avisos.setIdunidade(0);
+			avisos = avisosFacade.salvar(avisos);
+			salvarAvisoUsuario(avisos);
 			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
-				AvisosFacade avisosFacade = new AvisosFacade();
-				Avisos avisos = new Avisos();
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
 				avisos.setData(new Date());
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
 				avisos.setImagem("aviso");
@@ -538,6 +549,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 	}
@@ -583,6 +607,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 	}
@@ -647,6 +684,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 	}
@@ -717,6 +767,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 	}
@@ -786,6 +849,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 	}
@@ -861,6 +937,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 		}
 	}
 
@@ -904,6 +993,19 @@ public class CadArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos = avisosFacade.salvar(avisos);
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 
@@ -938,8 +1040,21 @@ public class CadArquivoMB implements Serializable {
 			avisos = avisosFacade.salvar(avisos);
 			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
 				
-			}
+			}  
 			salvarAvisoUsuario(avisos);
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
 
 		}
 	}

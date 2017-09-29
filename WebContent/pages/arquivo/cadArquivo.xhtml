@@ -20,6 +20,9 @@
            
 			<title  >Novo Arquivo</title>
 			<p:growl id="growl" showDetail="true" autoUpdate="true" closable="true" />
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+                <img src="../../resources/img/ajax-loader.gif" />
+            </p:dialog>
 			
 			<h:panelGrid columns="1">
 				<p:outputLabel value="Tipo de arquivo" for="tipoArquivo"  class="left3" />
@@ -41,8 +44,8 @@
 			</h:panelGrid> 
               
             <br /><br /><br /><br /><br /><br /><br /><br />
-             <h:panelGrid columns="2" style="margin-left:30%;"> 
-				<p:commandButton id="btnConfirmar" ajax="false" value="Confirmar" action="#{cadArquivoMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
+             <h:panelGrid columns="2" style="margin-left:30%;">   
+				<p:commandButton id="btnConfirmar"  value="Confirmar" action="#{cadArquivoMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
 			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadArquivoMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
 			 </h:panelGrid>  
         </h:form>
