@@ -176,6 +176,8 @@ public class Acesso implements Serializable {
 	private boolean acessoliberadassolicitacoes;
 	@Column(name = "calculadorafinanceira")
 	private boolean calculadorafinanceira;
+	@Column(name = "relatoriosolicitacoesti")
+	private boolean relatoriosolicitacoesti;
 
 	public Integer getIdacesso() {
 		return idacesso;
@@ -775,6 +777,14 @@ public class Acesso implements Serializable {
 
 	public void setCalculadorafinanceira(boolean calculadorafinanceira) {
 		this.calculadorafinanceira = calculadorafinanceira;
+	}
+
+	public boolean isRelatoriosolicitacoesti() {
+		return relatoriosolicitacoesti;
+	}
+
+	public void setRelatoriosolicitacoesti(boolean relatoriosolicitacoesti) {
+		this.relatoriosolicitacoesti = relatoriosolicitacoesti;
 	}
 
 	@Override

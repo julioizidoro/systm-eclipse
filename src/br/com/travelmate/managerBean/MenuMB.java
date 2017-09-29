@@ -1400,4 +1400,11 @@ public class MenuMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("relatoriosComissaoParceirosTeens", options, null); 
 		return "";
 	}
+	
+	public String relatorioSolicitacoes() {  
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 310);
+		RequestContext.getCurrentInstance().openDialog("relatorioSolicitacoes", options, null); 
+		return "";
+	}
 }

@@ -1367,6 +1367,11 @@
 											<span class="submenu-label">Solicitações</span>
 										</p:commandLink></li>
 								</h:panelGroup>  
+								<h:panelGroup  rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriosolicitacoesti}">
+									<li><p:commandLink action="#{menuMB.relatorioSolicitacoes()}" style="color:white;">
+											<span class="submenu-label">Relatório</span>
+										</p:commandLink></li>
+								</h:panelGroup>  
 							</ul></li>  
 						<p:outputLabel />
 						<p:outputLabel />  
