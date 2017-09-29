@@ -111,8 +111,8 @@ public class GerarRelatorioTeensMB implements Serializable{
 
 
 	public void gerarValoresHighSchool(){
-		String sql = "SELECT h FROM Valoreshighschool h WHERE h.situacao='Ativo' and (h.datavalidade>='"+
-				Formatacao.ConvercaoDataSql(new Date()) +"' or h.datavalidade is null) ";
+		String sql = "SELECT h FROM Valoreshighschool h WHERE h.situacao='Ativo' and h.datavalidade>='"+
+				Formatacao.ConvercaoDataSql(new Date()) + "'";
 		ValoresHighSchoolFacade valoresHighSchoolFacade = new ValoresHighSchoolFacade();
 		if (listaComissaoTeens == null) {
 			listaComissaoTeens = new ArrayList<>();
@@ -127,7 +127,7 @@ public class GerarRelatorioTeensMB implements Serializable{
 			comissaoTeens.setPais(listaValoresHighSchool.get(i).getFornecedorcidade().getCidade().getPais().getNome());
 			comissaoTeens.setComissaoExpress(listaValoresHighSchool.get(i).getComissaoexpress());
 			comissaoTeens.setComissaoPremium(listaValoresHighSchool.get(i).getComissaopremium());
-			comissaoTeens.setMoeda(listaValoresHighSchool.get(i).getMoedas().getSigla());
+			comissaoTeens.setMoeda(listaValoresHighSchool.get(i).getMoedas1().getSigla());
 			comissaoTeens.setPrograma("High School");
 			listaComissaoTeens.add(comissaoTeens);
 		}
