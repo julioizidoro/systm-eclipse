@@ -690,10 +690,10 @@
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 								<p:ajax event="change"
 									listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
-									update="datapartida, :telaFichaCurso:growl" />
+									update="datapartida, :telaFichaCurso:growl, numsemanas" />
 								<p:ajax event="dateSelect" listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
-									update="datapartida, :telaFichaCurso:growl" />  
-							</p:calendar>
+									update="datapartida, :telaFichaCurso:growl, numsemanas" />     
+							</p:calendar>    
 							<p:inputText id="numsemanas" style="width:80%;"
 								maxlength="100" value="#{cadCursoMB.curso.numeroSemanasAcamodacao}"
 								class="espacocobranca29"

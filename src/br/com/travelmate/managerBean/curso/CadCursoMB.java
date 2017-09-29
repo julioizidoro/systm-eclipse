@@ -2580,6 +2580,7 @@ public class CadCursoMB implements Serializable {
 					Mensagem.lancarMensagemInfo("Atenção!", "O sistema não irá calcular automaticamente"
 							+ " as datas de chegada e partida para acomodações que não iniciam no Domingo.");
 					curso.setDataSaida(null);
+					curso.setNumeroSemanasAcamodacao(null);
 				} else {
 					Date data = Formatacao.calcularDataFinalAcomodacao(curso.getDataChegada(), curso.getNumeroSemanasAcamodacao());
 					curso.setDataSaida(data);
@@ -3518,7 +3519,7 @@ public class CadCursoMB implements Serializable {
 	
 	public void verificarSeguroCancelamento() {
 		if(seguroViagem.getValoresseguro().isSegurocancelamento()) {
-			segurocancelamento = true; 
+			segurocancelamento = false; 
 		} else {
 			segurocancelamento = false; 
 		}

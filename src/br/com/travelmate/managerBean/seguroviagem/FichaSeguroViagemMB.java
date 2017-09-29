@@ -1320,7 +1320,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	public void verificarSeguroCancelamento() {
 		if(valoresseguro.isSegurocancelamento()) {
-			segurocancelamento = true;
+			segurocancelamento = false;
 			numero="4";
 		} else {
 			segurocancelamento = false;
