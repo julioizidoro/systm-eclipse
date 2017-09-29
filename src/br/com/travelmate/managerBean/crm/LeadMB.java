@@ -49,6 +49,7 @@ public class LeadMB implements Serializable {
 
 	@PostConstruct()
 	public void init() {
+		getUsuarioLogadoMB();
 		unidadenegocio = new Unidadenegocio(); 
 		gerarListaUnidadeNegocio(); 
 		gerarListaLead();
@@ -200,10 +201,10 @@ public class LeadMB implements Serializable {
 		if(usuarioLogadoMB.getUsuario().getUnidadenegocio().getResponsavelcrm()
 				==usuarioLogadoMB.getUsuario().getIdusuario()){
 			String sql;
-			if (usuarioLogadoMB.getUsuario().getIdusuario()==18){
+			if (usuarioLogadoMB.getUsuario().getIdusuario()==212){
 				sql = "select l from Lead l where l.dataenvio is null and (l.unidadenegocio.idunidadeNegocio="
 						+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() +
-						" or  l.unidadenegocio.idunidadeNegocio=2)";
+						" or  l.unidadenegocio.idunidadeNegocio=6)";
 				
 			}else if (usuarioLogadoMB.getUsuario().getIdusuario()==0){
 				sql = "select l from Lead l where l.dataenvio is null and l.unidadenegocio.idunidadeNegocio=2";

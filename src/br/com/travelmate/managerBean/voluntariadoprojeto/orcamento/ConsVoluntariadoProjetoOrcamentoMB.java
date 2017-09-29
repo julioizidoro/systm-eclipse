@@ -363,7 +363,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 
 		JRDataSource jrds = new JRBeanCollectionDataSource(OrcamentoPDFFactory.getLista());
 		GerarRelatorio gerarRelatorio = new GerarRelatorio();
-		String nomeArquivo = "TM-" + String.valueOf(orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado()) + ".pdf";
+		String nomeArquivo = "TM-" + String.valueOf("vol"+orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado()) + ".pdf";
 		try {
 			if (tipo.equalsIgnoreCase("PDF")) {
 				gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, nomeArquivo);
@@ -384,7 +384,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		Ftpdados dadosFTP = null; 
 		try {
 			dadosFTP = ftpDadosFacade.getFTPDados(); 
-			String text = dadosFTP.getHost() + ":82/ftproot/systm/orcamento/TM-" + orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado() + ".pdf"; 
+			String text = dadosFTP.getHost() + ":82/ftproot/systm/orcamento/TM-" + "vol"+ orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado() + ".pdf"; 
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -404,7 +404,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 			if (listaOrcamento.get(i).isSelecionado()) {
 				try {
 					gerarOrcamentoPDF(listaOrcamento.get(i), "EMAIL");
-					String nomeArquivo = "TM-" + String.valueOf(listaOrcamento.get(i).getIdorcamentoprojetovoluntariado()) + ".pdf";
+					String nomeArquivo = "TM-" + String.valueOf("vol"+listaOrcamento.get(i).getIdorcamentoprojetovoluntariado()) + ".pdf";
 					DadosEscolaEmailBean emailBean = new DadosEscolaEmailBean();
 					emailBean.setDataInicio(Formatacao.ConvercaoDataPadrao(listaOrcamento.get(i).getDatainicial()));
 					emailBean.setDataTermino(Formatacao.ConvercaoDataPadrao(listaOrcamento.get(i).getDatafinal()));

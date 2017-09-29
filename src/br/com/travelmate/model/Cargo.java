@@ -18,7 +18,7 @@ public class Cargo implements Serializable {
 	private Integer idcargo;
 	@Column(name = "nome")
 	private String nome;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cargo")
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cargo")
 	private List<Usuario> usuarioList;
  
 	public Cargo() {
