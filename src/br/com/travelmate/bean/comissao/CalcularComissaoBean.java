@@ -339,7 +339,7 @@ public class CalcularComissaoBean {
     					mesParcela++;
     				}
     			}else {
-    				parcelasRestantes = numeroParcelas - i;
+    				parcelasRestantes = numeroParcelas - (i-1);
     				i = 1000;
     			}
     		}else{

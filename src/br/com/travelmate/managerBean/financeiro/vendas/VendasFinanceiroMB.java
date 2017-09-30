@@ -64,6 +64,11 @@ public class VendasFinanceiroMB  implements Serializable{
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         sql = (String) session.getAttribute("sql");
         session.removeAttribute("sql");
+        listaVendas =  (List<Vendas>) session.getAttribute("listaVendas");
+        if (listaVendas==null) {
+        	listaVendas = new ArrayList<Vendas>();
+        }
+        session.removeAttribute("listaVendas");
         gerarListaUnidadeNegocio();
         gerarListaProdutos();
     }
@@ -202,7 +207,7 @@ public class VendasFinanceiroMB  implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("venda", venda);
-		session.setAttribute("sql", sql);
+		session.setAttribute("listaVendas", listaVendas);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 850);
 		return "editarComissoes";
@@ -217,11 +222,9 @@ public class VendasFinanceiroMB  implements Serializable{
     
     public void gerarListaVendas(){
         VendasFacade vendasFacade = new VendasFacade();
-        if (sql==null){
-            String sData = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
-            sql = "Select v From Vendas v where (v.situacao='FINALIZADA' or v.situacao='ANDAMENTO') and v.vendasMatriz='S' and v.dataVenda>='" + sData + "'  order by v.dataVenda DESC";
+        if (sql!=null){
+             listaVendas = vendasFacade.lista(sql);
         }
-        listaVendas = vendasFacade.lista(sql);
         if (listaVendas==null){
             listaVendas = new ArrayList<Vendas>();
         }

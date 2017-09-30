@@ -14,7 +14,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.DesagioBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -510,59 +509,6 @@ public class CalculadoraMargemMB implements Serializable {
 		}
 	}
 
-	public void calcularCustoFranquia() {
-		List<Parcelamentopagamento> listaParcelamento = new ArrayList<Parcelamentopagamento>();
-		Parcelamentopagamento parcelamento = new Parcelamentopagamento();
-		parcelamento.setFormaPagamento("Cartão de crédito");
-		parcelamento.setNumeroParcelas(numeroParcelas);
-		parcelamento.setTipoParcelmaneto("Matriz");
-		parcelamento.setValorParcelamento(saldoParcelar);
-		parcelamento.setDiaVencimento(dataVenda);
-		parcelamento.setValorParcela(saldoParcelar / numeroParcelas);
-		listaParcelamento.add(parcelamento);
-		DesagioBean desagioBean = new DesagioBean(listaParcelamento, aplicacaoMB);
-		desagio = desagioBean.getBoleto() + desagioBean.getCartao() + desagioBean.getJuros()
-				+ desagioBean.getCartaoDebito();
-
-		CalcularComissaoBean comissaoBean = new CalcularComissaoBean();
-		float jurosFranquia = comissaoBean.calcularJurosFranquia(listaParcelamento, dataInicio);
-		custoTotal = desagio + jurosFranquia;
-		custoFranquia = jurosFranquia + desagio;
-		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getTipo().equalsIgnoreCase("Express")) {
-			custoFranquia = custoFranquia / 2;
-		} else
-			custoFranquia = custoFranquia / 3;
-	}
-
-	/*
-	 * public void calcularComissaoFranquiaCurso() { FornecedorComissaoCursoFacade
-	 * fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
-	 * Fornecedorcomissaocurso fornecedorComissao =
-	 * fornecedorComissaoCursoFacade.consultar(
-	 * fornecedorCidade.getFornecedor().getIdfornecedor(),
-	 * fornecedorCidade.getCidade().getPais().getIdpais()); Vendascomissao
-	 * vendasComissao = null; vendasComissao = new Vendascomissao();
-	 * vendasComissao.setVendas(venda); vendasComissao.setPaga("Não");
-	 * 
-	 * Vendas venda = new Vendas(); if (venda.getIdvendas() == null) {
-	 * venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
-	 * venda.setValor(valorTotal); Produtos produto =
-	 * ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
-	 * venda.setProdutos(produto); } ForneceorComissaoFA ComissaoCursoBean
-	 * comissaoCursoBean = new ComissaoCursoBean(aplicacaoMB, venda,
-	 * orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
-	 * formaPagamento.getParcelamentopagamentoList(), curso.getDataInicio(),
-	 * vendascomissao, formaPagamento.getValorJuros(), false); FacesContext fc =
-	 * FacesContext.getCurrentInstance(); HttpSession session = (HttpSession)
-	 * fc.getExternalContext().getSession(false);
-	 * session.setAttribute("vendascomissao", vendascomissao);
-	 * session.setAttribute("percentualcomissao",
-	 * comissaoCursoBean.getPercentualComissao()); Map<String, Object> options = new
-	 * HashMap<String, Object>(); options.put("contentWidth", 380);
-	 * RequestContext.getCurrentInstance().openDialog("calcularcomissao", options,
-	 * null); return ""; }
-	 */
-
 	public void habilitarMargem() {
 		if (margem) {
 			margem = false;
@@ -697,4 +643,32 @@ public class CalculadoraMargemMB implements Serializable {
 			return "97%";
 		}else return "35%";
 	}
+	
+	
+	public String calcularCustoFranquia() {
+		List<Parcelamentopagamento> listaParcelamento = new ArrayList<Parcelamentopagamento>();
+		Parcelamentopagamento parcelamento = new Parcelamentopagamento();
+		parcelamento.setFormaPagamento("Cartão de crédito");
+		parcelamento.setNumeroParcelas(numeroParcelas);
+		parcelamento.setTipoParcelmaneto("Matriz");
+		parcelamento.setValorParcelamento(saldoParcelar);
+		parcelamento.setDiaVencimento(dataVenda);
+		parcelamento.setValorParcela(saldoParcelar / numeroParcelas);
+		listaParcelamento.add(parcelamento);
+		DesagioBean desagioBean = new DesagioBean(listaParcelamento, aplicacaoMB);
+		desagio = desagioBean.getBoleto() + desagioBean.getCartao() + desagioBean.getJuros()
+				+ desagioBean.getCartaoDebito();
+
+		CalcularComissaoBean comissaoBean = new CalcularComissaoBean();
+		juros = comissaoBean.calcularJurosFranquia(listaParcelamento, dataInicio);
+		custoTotal = desagio + juros;
+		custoFranquia = juros + desagio;
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getTipo().equalsIgnoreCase("Express")) {
+			custoFranquia = custoTotal / 3;
+		} else custoFranquia = custoTotal / 2;
+		return "";
+	
+	}
+	
+	
 }

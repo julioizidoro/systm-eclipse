@@ -284,7 +284,6 @@
 				<f:selectItem itemLabel="22" itemValue="22" />
 				<f:selectItem itemLabel="23" itemValue="23" />
 				<f:selectItem itemLabel="24" itemValue="24" />
-				<p:ajax event="change" />
 			</p:selectOneMenu>
 		</h:panelGrid>   
 		<br></br>
@@ -319,6 +318,8 @@
 				action="#{calculadoraMargemMB.habilitarMargem()}" update="@form"/>    
 			<p:commandButton value="Fechar" icon="ui-icon-closethick" action="#{calculadoraMargemMB.fechar()}"
 				style="margin-left:3%" />
+				<p:commandButton value="Calcular" icon="ui-icon-closethick" action="#{calculadoraMargemMB.calcularCustoFranquia()}"
+				style="margin-left:3%"  update="desagio, juros, custoTotal, custoFranquia"/>
 		</div>
 		<h:panelGroup id="painelMargem" rendered="#{calculadoraMargemMB.margem}">
 			<legend id="iUsu3">
