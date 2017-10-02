@@ -129,9 +129,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		Valorcoprodutos valorcoprodutos = null;
 		String sql = "Select v from  Valorcoprodutos v where v.produtosuplemento='valor' and v.datainicial<='"
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "' and v.datafinal>='"
-				+ Formatacao.ConvercaoDataSql(dataconsulta) + "' and v.numerosemanainicial<="
-				+ resultadoOrcamentoBean.getOcurso().getNumerosemanas() + " and v.numerosemanafinal>="
-				+ resultadoOrcamentoBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
+				+ Formatacao.ConvercaoDataSql(dataconsulta) + "'  and v.tipodata='" + tipoData
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorCoprodutos = valorCoProdutosFacade.listar(sql);
 		int ano;
