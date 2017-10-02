@@ -24,7 +24,7 @@ public class ComissaoPassagemBean {
     private List<Passagempassageiro> listaPassageiro;
     
     public ComissaoPassagemBean(AplicacaoMB aplicacaoMB, Vendas venda,List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJuros, Passagemaerea passagem,List<Passagempassageiro> listaPassageiro){
-    	this.vendasComissao = vendascomissao;
+    		this.vendasComissao = vendascomissao;
         this.venda = venda;
         this.aplicacaoMB = aplicacaoMB;
         this.listaParcelamento = listaParcelamento;
@@ -33,10 +33,13 @@ public class ComissaoPassagemBean {
         this.passagem = passagem;
         this.listaPassageiro=listaPassageiro;
         boolean gerar=true;
-        if (vendascomissao.getFaturaFranquias()!=null){
-        	if (vendasComissao.getFaturaFranquias().isFatura()){
-        		gerar=false;
-        	}
+        if (this.vendasComissao==null) {
+        		this.vendasComissao = new Vendascomissao();
+        }
+        if (this.vendasComissao.getFaturaFranquias()!=null){
+        		if (this.vendasComissao.getFaturaFranquias().isFatura()){
+        			gerar=false;
+        		}
         }
         if (gerar){
         	IniciarCalculoComissao();

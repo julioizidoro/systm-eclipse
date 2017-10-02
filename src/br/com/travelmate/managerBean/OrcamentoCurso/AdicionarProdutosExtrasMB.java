@@ -2,7 +2,9 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -44,6 +46,8 @@ public class AdicionarProdutosExtrasMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         valorCambio =  (Float) session.getAttribute("valorCambio");
+        resultadoOrcamentoBean =  (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
+        session.removeAttribute("resultadoOrcamentoBean");
         session.removeAttribute("valorCambio");
 		produtosExtrasBean = new ProdutosExtrasBean();
 	}
@@ -110,11 +114,11 @@ public class AdicionarProdutosExtrasMB implements Serializable{
     }
 	
 	public String salvar(){
-		if(produtosExtrasBean.getDescricao()!=null && prdutoOrcamento.getIdprodutosOrcamento()!=null){
+		if(produtosExtrasBean.getDescricao()!=null && prdutoOrcamento.getIdprodutosOrcamento()!=null){ 
 			produtosExtrasBean.setProdutosorcamento(prdutoOrcamento);
 			ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 			produtosExtrasBean.setValorcoprodutos(valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getProdutoextra()));
-			RequestContext.getCurrentInstance().closeDialog(produtosExtrasBean);
+			RequestContext.getCurrentInstance().closeDialog(produtosExtrasBean); 
 		}
 		return "";
 	}
@@ -136,5 +140,35 @@ public class AdicionarProdutosExtrasMB implements Serializable{
 		if(prdutoOrcamento!=null && prdutoOrcamento.getIdprodutosOrcamento()!=null){
 			produtosExtrasBean.setDescricao(prdutoOrcamento.getDescricao());
 		}
+	}
+	
+	public boolean mostrarBtnConfirmar() {
+		if(prdutoOrcamento!=null && prdutoOrcamento.getIdprodutosOrcamento()==85 &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro()!=null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro().length()>1) {
+			return false;
+		}return true;
+	}
+	
+	public boolean mostrarBtnMensagemSeguro() {
+		if(prdutoOrcamento!=null && prdutoOrcamento.getIdprodutosOrcamento()==85 &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro()!=null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro().length()>1) {
+			return true;
+		}return false;
+	}
+	
+	public String retornarMensagem() {
+		if(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro()!=null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro().length()>1) {
+			return resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+					.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro();
+		}return "";
 	}
 }

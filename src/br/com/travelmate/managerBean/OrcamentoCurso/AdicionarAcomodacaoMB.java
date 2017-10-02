@@ -39,6 +39,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaAcomodacoes;
+	private ProdutosOrcamentoBean acomodacao;
 
 	@PostConstruct
 	public void init() {
@@ -81,6 +82,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
+	public ProdutosOrcamentoBean getAcomodacao() {
+		return acomodacao;
+	}
+
+	public void setAcomodacao(ProdutosOrcamentoBean acomodacao) {
+		this.acomodacao = acomodacao;
+	}
+
 	public void gerarListaAcomodacao() {
 		listaAcomodacoes = new ArrayList<>();
 		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
@@ -120,9 +129,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		Valorcoprodutos valorcoprodutos = null;
 		String sql = "Select v from  Valorcoprodutos v where v.produtosuplemento='valor' and v.datainicial<='"
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "' and v.datafinal>='"
-				+ Formatacao.ConvercaoDataSql(dataconsulta) + "' and v.numerosemanainicial<="
-				+ resultadoOrcamentoBean.getOcurso().getNumerosemanas() + " and v.numerosemanafinal>="
-				+ resultadoOrcamentoBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
+				+ Formatacao.ConvercaoDataSql(dataconsulta) + "'  and v.tipodata='" + tipoData
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorCoprodutos = valorCoProdutosFacade.listar(sql);
 		int ano;
@@ -421,4 +428,20 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		}
 		return tempromocao;
 	}
+	
+	public boolean mostrarBtnConfirmar(ProdutosOrcamentoBean produtosOrcamentoBean) {
+		if(produtosOrcamentoBean!=null &&  
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia()!=null &&
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) { 
+			return false;
+		}return true;
+	}
+	
+	public boolean mostrarBtnMensagem(ProdutosOrcamentoBean produtosOrcamentoBean) {
+		if(produtosOrcamentoBean!=null &&  
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia()!=null &&
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) { 
+			return true;
+		}return false;
+	} 
 }

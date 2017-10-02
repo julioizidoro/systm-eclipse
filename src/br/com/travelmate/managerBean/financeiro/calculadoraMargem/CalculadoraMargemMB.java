@@ -9,9 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.primefaces.context.RequestContext;
-
+ 
 import br.com.travelmate.bean.DesagioBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -69,6 +67,7 @@ public class CalculadoraMargemMB implements Serializable {
 	private float assessoriaTM;
 	private float descontoMatriz;
 	private float descontoloja;
+	private float margemFinal;
 	private List<Paisproduto> listaPais;
 	private Pais pais;
 	private Cidade cidade;
@@ -97,6 +96,7 @@ public class CalculadoraMargemMB implements Serializable {
 	private List<Valoreshighschool> listaValoresHighSchool;
 	private Produtosorcamento produtoOrcamento;
     private List<Filtroorcamentoproduto> listaProdutosOrcamento;
+    private float valorComissionavel;
 
 	@PostConstruct()
 	public void init() {
@@ -463,6 +463,24 @@ public class CalculadoraMargemMB implements Serializable {
 		this.listaProdutosOrcamento = listaProdutosOrcamento;
 	}
 
+	 
+
+	public float getMargemFinal() {
+		return margemFinal;
+	}
+
+	public void setMargemFinal(float margemFinal) {
+		this.margemFinal = margemFinal;
+	}
+
+	public float getValorComissionavel() {
+		return valorComissionavel;
+	}
+
+	public void setValorComissionavel(float valorComissionavel) {
+		this.valorComissionavel = valorComissionavel;
+	}
+
 	public void buscarPais() {
 		aupair = false;
 		curso=false;
@@ -507,17 +525,7 @@ public class CalculadoraMargemMB implements Serializable {
 				listaFornecedorCidade = new ArrayList<Fornecedorcidade>();
 			}
 		}
-	}
-
-	public void habilitarMargem() {
-		if (margem) {
-			margem = false;
-		} else margem = true;
-	}
-	
-	public void fechar() {
-		RequestContext.getCurrentInstance().closeDialog(null);
-	}
+	} 
 	
 	public void gerarListasValoresAupair() {
 		String sql = "select v from Valoresaupair v where v.fornecedorcidade.idfornecedorcidade="
@@ -593,19 +601,19 @@ public class CalculadoraMargemMB implements Serializable {
 	public void buscarValorPrograma() {
 		if(aupair && valoresAupair!=null && valoresAupair.getIdvaloresAupair()!=null) {  
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresAupair.getMoedas());
-			valorTotal = valoresAupair.getValorgross()*cambio.getValor();
+			valorComissionavel = valoresAupair.getValorgross()*cambio.getValor();
 		}else if(cursosTeens && valoresProgramasTeens!=null && valoresProgramasTeens.getIdvaloresprogramasteens()!=null) {
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresProgramasTeens.getMoedas());
-			valorTotal = valoresProgramasTeens.getValorgross()*cambio.getValor();
+			valorComissionavel = valoresProgramasTeens.getValorgross()*cambio.getValor();
 		}else if(highschool && valoresHighSchool!=null && valoresHighSchool.getIdvaloresHighSchool()!=null) {
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresHighSchool.getMoedas());
-			valorTotal = valoresHighSchool.getValorgross()*cambio.getValor();
+			valorComissionavel = valoresHighSchool.getValorgross()*cambio.getValor();
 		}else if(trainee && valorestrainee!=null && valorestrainee.getIdvalorestrainee()!=null) {
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valorestrainee.getMoedas());
-			valorTotal = valorestrainee.getValorgross()*cambio.getValor();
+			valorComissionavel = valorestrainee.getValorgross()*cambio.getValor();
 		}else if(work && valoresWork!=null && valoresWork.getIdvaloresWork()!=null) {
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresWork.getMoedas());
-			valorTotal = valoresWork.getValorgross()*cambio.getValor();
+			valorComissionavel = valoresWork.getValorgross()*cambio.getValor();
 		}
 	}
 	
@@ -626,24 +634,6 @@ public class CalculadoraMargemMB implements Serializable {
 		}
 	}
 
-	public String numeroColunas() {
-		if(curso) {
-			return "3";
-		}else return "2";
-	}
-	
-	public String classColunas() {
-		if(curso) {
-			return "tamanho14, cadCliente2, cadCliente2";
-		}else return "tamanho14, tamanho14";
-	}
-	
-	public String tamanhoPainel() {
-		if(curso) {
-			return "97%";
-		}else return "35%";
-	}
-	
 	
 	public String calcularCustoFranquia() {
 		List<Parcelamentopagamento> listaParcelamento = new ArrayList<Parcelamentopagamento>();
@@ -670,5 +660,23 @@ public class CalculadoraMargemMB implements Serializable {
 	
 	}
 	
+
+	public String numeroColunas() {
+		if(curso) {
+			return "2";
+		}else return "1";
+	}
+	
+	public String classColunas() {
+		if(curso) {
+			return "tamanho7, tamanho7";
+		}else return "tamanho7";
+	} 
+	
+	public void habilitarMargem() {
+		if (margem) {
+			margem = false;
+		} else margem = true;
+	} 
 	
 }

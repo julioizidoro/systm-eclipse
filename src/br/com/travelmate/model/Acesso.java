@@ -177,8 +177,8 @@ public class Acesso implements Serializable {
 	@Column(name = "calculadorafinanceira")
 	private boolean calculadorafinanceira;
 	@Column(name = "relatoriosolicitacoesti")
-	private boolean relatoriosolicitacoesti;
-
+	private boolean relatoriosolicitacoesti; 
+	
 	public Integer getIdacesso() {
 		return idacesso;
 	}
@@ -786,6 +786,7 @@ public class Acesso implements Serializable {
 	public void setRelatoriosolicitacoesti(boolean relatoriosolicitacoesti) {
 		this.relatoriosolicitacoesti = relatoriosolicitacoesti;
 	}
+ 
 
 	@Override
 	public int hashCode() {

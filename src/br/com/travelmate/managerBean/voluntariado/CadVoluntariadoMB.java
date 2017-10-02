@@ -142,6 +142,7 @@ public class CadVoluntariadoMB implements Serializable {
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
 	private boolean segurocancelamento=false;
+	private boolean desabilitarCamposCurso = true;
 
 	@PostConstruct()
 	public void init() {
@@ -607,6 +608,14 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void setSeguroplanos(Seguroplanos seguroplanos) {
 		this.seguroplanos = seguroplanos;
+	}
+
+	public boolean isDesabilitarCamposCurso() {
+		return desabilitarCamposCurso;
+	}
+
+	public void setDesabilitarCamposCurso(boolean desabilitarCamposCurso) {
+		this.desabilitarCamposCurso = desabilitarCamposCurso;
 	}
 
 	public void carregarComboMoedas() {
@@ -1100,7 +1109,11 @@ public class CadVoluntariadoMB implements Serializable {
 							dashBoardBean.calcularNumeroVendasProdutos(venda, false);
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(venda, voluntariado.getNumeroSemanas(), "",
+							int nNumeroSemana = 0;
+							if (voluntariado.isHabilitarCurso()) {
+								nNumeroSemana = voluntariado.getNumeroSemanas();
+							}
+							int[] pontos = dashBoardBean.calcularPontuacao(venda, nNumeroSemana, "",
 									false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
@@ -1171,7 +1184,11 @@ public class CadVoluntariadoMB implements Serializable {
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(venda, voluntariado.getNumeroSemanas(), "",
+							int numeroSemana = 0;
+							if (voluntariado.isHabilitarCurso()) {
+								numeroSemana = voluntariado.getNumeroSemanas();
+							}
+							int[] pontos = dashBoardBean.calcularPontuacao(venda, numeroSemana, "",
 									false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
@@ -1237,20 +1254,22 @@ public class CadVoluntariadoMB implements Serializable {
 		if (cliente == null) {
 			msg = msg + "Campo cliente não selecionado\r\n";
 		}
-		if (voluntariado.getCurso() == null) {
-			msg = msg + "Curso não informado\r\n";
-		}
 		if (fornecedorCidade == null) {
 			msg = msg + "Escola/Instituição não informada\r\n";
 		}
 		if (pais == null) {
 			msg = msg + "País não informado\r\n";
 		}
-		if (voluntariado.getAulasporSemana() == null) {
-			msg = msg + "Aulas por semana não informada\r\n";
-		}
-		if (voluntariado.getNumeroSemanas() == null) {
-			msg = msg + "Numero de semanas não informado\r\n";
+		if (voluntariado.isHabilitarCurso()) {
+			if (voluntariado.getCurso() == null) {
+				msg = msg + "Curso não informado\r\n";
+			}
+			if (voluntariado.getAulasporSemana() == null) {
+				msg = msg + "Aulas por semana não informada\r\n";
+			}
+			if (voluntariado.getNumeroSemanas() == null) {
+				msg = msg + "Numero de semanas não informado\r\n";
+			}
 		}
 		if (voluntariado.getDataInicioVoluntariado() == null) {
 			msg = msg + "Data início inválida\r\n";
@@ -2081,4 +2100,14 @@ public class CadVoluntariadoMB implements Serializable {
 			segurocancelamento = false; 
 		}
 	} 
+	
+	
+	public void desabilitarCamposCurso(){
+		if (voluntariado.isHabilitarCurso()) {
+			desabilitarCamposCurso = false;
+		}else{
+			desabilitarCamposCurso = true;
+		}
+	}
+	
 }

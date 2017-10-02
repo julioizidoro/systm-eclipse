@@ -1327,12 +1327,8 @@ public class MenuMB implements Serializable {
 		return "";
 	}
 
-	public String calculadoraMargem() {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 640);
-		options.put("contentHeight", 610);
-		RequestContext.getCurrentInstance().openDialog("calcularMargem", options, null);
-		return "";
+	public String calculadoraMargem() { 
+		return "calcularMargem";
 	}
 
 	public String leadsEncaminhados() {

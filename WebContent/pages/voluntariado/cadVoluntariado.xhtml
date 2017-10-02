@@ -289,62 +289,71 @@
 						<br />
 						<br />
 						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
-							<b>Curso</b>
-						</legend>
-						<br />
-						<h:panelGrid style="margin-left: 8%">
-							<p:outputLabel value="Curso" />
-							<p:inputText id="cursoAcomodacao" size="149"
-								style="-moz-border-radius: 5px;border-radius: 5px;"
-								maxlength="100" value="#{cadVoluntariadoMB.voluntariado.curso}" />
+							<b>Curso<p:selectBooleanCheckbox
+									value="#{cadVoluntariadoMB.voluntariado.habilitarCurso}" class="espacopreto"
+									id="habilitarCurso" style="margin-left: 75%">
+									<p:ajax event="change" listener="#{cadVoluntariadoMB.desabilitarCamposCurso()}"
+										update="formularioCurso, formularioCamposCurso1, formularioCamposCurso2, formularioCamposCurso3, formularioCamposCurso4" />
+								</p:selectBooleanCheckbox> <p:outputLabel value="Habilitar Curso"
+									for="habilitarCurso" class="loginButton2"
+									style="font-size: 10px;" /></b>
+						</legend> 
+						<h:panelGroup id="formularioCurso" >
 							<br />
-							<p:outputLabel value="Data Chegada" for="datachegadaCurso" />
-
-							<p:calendar id="datachegadaCurso"
-								value="#{cadVoluntariadoMB.voluntariado.dataInicio}" locale="pt"
-								pattern="dd/MM/yyyy" mask="true" maxlength="20">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-								<p:ajax event="change" />
-								<p:ajax event="dateSelect" />
-							</p:calendar>
-						</h:panelGrid>
-						<h:panelGrid style="margin-left: 27%;margin-top:-3.8%;">
-							<p:outputLabel value="Aulas por semana" for="aulassemanas" />
-
-							<p:inputText id="aulassemanas" style="text-align: right;"
-								size="14" maxlength="100"
-								value="#{cadVoluntariadoMB.voluntariado.aulasporSemana}"
-								class="espacocobranca29">
-								<p:ajax event="blur" />
-							</p:inputText>
-						</h:panelGrid>
-						<h:panelGrid style="margin-left: 45%;margin-top:-3.8%;">
-							<p:outputLabel value="No. Semanas" for="numsemanasCurso" />
-							<p:inputText id="numsemanasCurso" style="text-align: right;"
-								size="14" maxlength="100"
-								value="#{cadVoluntariadoMB.voluntariado.numeroSemanas}"
-								class="espacocobranca29">
-								<p:ajax event="blur"
-									listener="#{cadVoluntariadoMB.calcularDataTerminoCurso()}"
-									update="datapartidaCurso" />
-							</p:inputText>
-
-						</h:panelGrid>
-						<h:panelGrid id="habilitar4"
-							style="margin-left: 68.3%;margin-top:-3.8%;">
-							<p:outputLabel value="Data Partida" for="datapartidaCurso" />
-							<p:calendar id="datapartidaCurso"
-								value="#{cadVoluntariadoMB.voluntariado.dataTermino}"
-								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="20"
-								readonly="true">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-						</h:panelGrid>
-						<br />
-						<br />
-						<br />
+							<h:panelGrid id="formularioCamposCurso1"  style="margin-left: 8%">
+								<p:outputLabel value="Curso" />
+								<p:inputText id="cursoAcomodacao" size="149" disabled="#{cadVoluntariadoMB.desabilitarCamposCurso}"
+									style="-moz-border-radius: 5px;border-radius: 5px;"
+									maxlength="100" value="#{cadVoluntariadoMB.voluntariado.curso}" />
+								<br />
+								<p:outputLabel value="Data Chegada" for="datachegadaCurso" />
+	
+								<p:calendar id="datachegadaCurso" disabled="#{cadVoluntariadoMB.desabilitarCamposCurso}"
+									value="#{cadVoluntariadoMB.voluntariado.dataInicio}" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="20">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+									<p:ajax event="dateSelect" />
+								</p:calendar>
+							</h:panelGrid>
+							<h:panelGrid id="formularioCamposCurso2"  style="margin-left: 27%;margin-top:-3.8%;">
+								<p:outputLabel value="Aulas por semana" for="aulassemanas" />
+	
+								<p:inputText id="aulassemanas" disabled="#{cadVoluntariadoMB.desabilitarCamposCurso}" style="text-align: right;"
+									size="14" maxlength="100"
+									value="#{cadVoluntariadoMB.voluntariado.aulasporSemana}"
+									class="espacocobranca29">
+									<p:ajax event="blur" />
+								</p:inputText>
+							</h:panelGrid>
+							<h:panelGrid id="formularioCamposCurso3"  style="margin-left: 45%;margin-top:-3.8%;">
+								<p:outputLabel value="No. Semanas" for="numsemanasCurso" />
+								<p:inputText id="numsemanasCurso" disabled="#{cadVoluntariadoMB.desabilitarCamposCurso}" style="text-align: right;"
+									size="14" maxlength="100"
+									value="#{cadVoluntariadoMB.voluntariado.numeroSemanas}"
+									class="espacocobranca29">
+									<p:ajax event="blur"
+										listener="#{cadVoluntariadoMB.calcularDataTerminoCurso()}"
+										update="datapartidaCurso" />
+								</p:inputText>
+	
+							</h:panelGrid>
+							<h:panelGrid id="formularioCamposCurso4" 
+								style="margin-left: 68.3%;margin-top:-3.8%;">
+								<p:outputLabel value="Data Partida" for="datapartidaCurso" />
+								<p:calendar id="datapartidaCurso" disabled="#{cadVoluntariadoMB.desabilitarCamposCurso}"
+									value="#{cadVoluntariadoMB.voluntariado.dataTermino}"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="20"
+									readonly="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+							</h:panelGrid>
+							<br />
+							<br />
+							<br />
+						</h:panelGroup>
 
 						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
 							<b>Voluntariado/Programa</b>

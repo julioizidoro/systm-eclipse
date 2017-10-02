@@ -183,7 +183,7 @@ public class EnviarEmailRFMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("venda", venda);
-		RequestContext.getCurrentInstance().closeDialog(new Vendamotivopendencia());
+		RequestContext.getCurrentInstance().closeDialog(new Vendapendencia());
 	}
 
 	public String enviarEmail() throws FileNotFoundException {
