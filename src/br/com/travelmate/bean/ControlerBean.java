@@ -158,7 +158,6 @@ public class ControlerBean {
 			controle.setModalidade(work.getTipo());
 			controle.setStatusprocesso("Processo");
 			controle.setVendas(work.getVendas());
-			controle.setDataEmbarque(work.getDataInicioPretendida01());
 			controle = workTravelFacade.salvar(controle);
 			salvarInvoice(controle.getIdcontroleWork(), venda);
 		}
