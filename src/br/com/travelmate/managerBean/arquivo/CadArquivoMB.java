@@ -486,15 +486,7 @@ public class CadArquivoMB implements Serializable {
 			vendasFacade.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
-			avisos.setData(new Date());
-			avisos.setUsuario(usuarioLogadoMB.getUsuario());
-			avisos.setImagem("aviso");
-			avisos.setLiberar(true);
-			avisos.setTexto("Cursos: Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
-					+ vendas.getIdvendas() + " está completo.");
-			avisos.setIdunidade(0);
-			avisos = avisosFacade.salvar(avisos);
-			salvarAvisoUsuario(avisos);
+			gerarNotificacaoUsuarioVinculado("Cursos");
 			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
 				avisosFacade = new AvisosFacade();
 				avisos = new Avisos();
@@ -1146,6 +1138,29 @@ public class CadArquivoMB implements Serializable {
 			}
 		} else {
 			Mensagem.lancarMensagemWarn("Warn", "Nenhuma invoice localizada");
+		}
+	}
+	
+	
+	public void gerarNotificacaoUsuarioVinculado(String programa){
+		if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null && usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size() > 0) {
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisos aviso = new Avisos();
+			aviso.setData(new Date());
+			aviso.setUsuario(usuarioLogadoMB.getUsuario());
+			aviso.setImagem("aviso");
+			aviso.setLiberar(true);
+			aviso.setTexto(programa + ": Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+					+ vendas.getIdvendas() + " está completo.");
+			aviso.setIdunidade(0);
+			aviso = avisosFacade.salvar(aviso);
+			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+				Avisousuario avisousuario = new Avisousuario();
+				avisousuario.setAvisos(aviso);
+				avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
+				avisousuario.setVisto(false);
+				avisousuario = avisosFacade.salvar(avisousuario);
+			}
 		}
 	}
 }
