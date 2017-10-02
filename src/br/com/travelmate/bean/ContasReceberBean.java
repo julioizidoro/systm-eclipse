@@ -14,6 +14,7 @@ import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Eventocontasreceber;
 import br.com.travelmate.model.Parametrosprodutos;
@@ -91,6 +92,12 @@ public class ContasReceberBean {
 				lista.get(i).setDatacancelamento(new Date());
 				lista.get(i).setMotivocancelamento("Alteração SysTM");
 				contasReceberFacade.salvar(lista.get(i));
+				if (lista.get(i).getCrmcobrancaconta() != null) {
+					if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
+						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+						crmCobrancaBean.baixar(lista.get(i), usuarioLogadoBean.getUsuario());
+					}
+				}
 			}else {
 				valorJaRecebido = valorJaRecebido + lista.get(i).getValorpago();
 			}

@@ -38,8 +38,7 @@ public class CadProdutosOrcamentoMB implements Serializable{
 	private boolean curso=false;
 	
 	@PostConstruct
-	public void init() {
-		gerarListaProdutosOrcamento();
+	public void init() { 
 		produtosorcamento = new Produtosorcamento();
 		filtroorcamentoproduto = new Filtroorcamentoproduto();
 		nomeProduto= "";
@@ -106,7 +105,7 @@ public class CadProdutosOrcamentoMB implements Serializable{
 	}
 
 
-	public void gerarListaProdutosOrcamento(){
+	public void gerarListaProdutosOrcamento1(){
 		FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
         String sql="";
         sql = "select f from Filtroorcamentoproduto f where f.produtos.idprodutos=" + 
@@ -132,8 +131,7 @@ public class CadProdutosOrcamentoMB implements Serializable{
 			}
 			produtosorcamento = orcamentoFacade.salvar(produtosorcamento);
 			FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
-			filtroorcamentoproduto = filtroOrcamentoProdutoFacade.salvar(filtroorcamentoproduto);
-			gerarListaProdutosOrcamento();  
+			filtroorcamentoproduto = filtroOrcamentoProdutoFacade.salvar(filtroorcamentoproduto); 
 			produtosorcamento = new Produtosorcamento();
 			filtroorcamentoproduto = new Filtroorcamentoproduto();
 		}else{
@@ -155,8 +153,7 @@ public class CadProdutosOrcamentoMB implements Serializable{
 			filtroorcamentoproduto.setListar("N");
 			filtroorcamentoproduto = filtroOrcamentoProdutoFacade.salvar(filtroorcamentoproduto);
 			produtosorcamento = new Produtosorcamento();
-			filtroorcamentoproduto = new Filtroorcamentoproduto();
-			gerarListaProdutosOrcamento();
+			filtroorcamentoproduto = new Filtroorcamentoproduto(); 
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
 		}
@@ -184,8 +181,7 @@ public class CadProdutosOrcamentoMB implements Serializable{
 		FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
 		filtroOrcamentoProdutoFacade.excluir(filtroorcamentoproduto.getIdfiltroOrcamentoProduto());
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Excluído com Sucesso", ""));
-		gerarListaProdutosOrcamento();
+		context.addMessage(null, new FacesMessage("Excluído com Sucesso", "")); 
 		return "";
 	}
 

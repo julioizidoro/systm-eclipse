@@ -386,29 +386,7 @@ public class ControleAupairMB implements Serializable {
 		listaControle = aupairFacade.listaControle(sql);
 		if (listaControle == null) {
 			listaControle = new ArrayList<Controleaupair>();
-		}
-		numeroProcesso=0;
-		numeroOnline=0;
-		numeroMatch=0;
-		numeroVistoPen=0;
-		numeroVistoNeg=0;
-		numeroVistoApro=0;
-		numeroEmbarcado=0;
-		numeroFinalizado=0;
-		numeroTransaction=0;
-		numeroSuspenso=0;
-		numeroCancelado=0;
-		listaControleProcesso= new ArrayList<>();
-		listaControleOnline= new ArrayList<>();
-		listaControleMatch= new ArrayList<>();
-		listaControleVistoPen= new ArrayList<>();
-		listaControleVistoNeg= new ArrayList<>();
-		listaControleVistoApro= new ArrayList<>();
-		listaControleEmbarcado= new ArrayList<>();
-		listaControleFinalizado= new ArrayList<>();
-		listaControleTransaction= new ArrayList<>();
-		listaControleSuspenso= new ArrayList<>();
-		listaControleCancelado= new ArrayList<>();
+		} 
 		for (int i = 0; i < listaControle.size(); i++) {
 			numerosStatus(listaControle.get(i));
 		}
@@ -441,29 +419,7 @@ public class ControleAupairMB implements Serializable {
 		listaControle = aupairFacade.listaControle(sql);
 		if (listaControle == null) {
 			listaControle = new ArrayList<Controleaupair>();
-		}
-		numeroProcesso=0;
-		numeroOnline=0;
-		numeroMatch=0;
-		numeroVistoPen=0;
-		numeroVistoNeg=0;
-		numeroVistoApro=0;
-		numeroEmbarcado=0;
-		numeroFinalizado=0;
-		numeroTransaction=0;
-		numeroSuspenso=0;
-		numeroCancelado=0;
-		listaControleProcesso= new ArrayList<>();
-		listaControleOnline= new ArrayList<>();
-		listaControleMatch= new ArrayList<>();
-		listaControleVistoPen= new ArrayList<>();
-		listaControleVistoNeg= new ArrayList<>();
-		listaControleVistoApro= new ArrayList<>();
-		listaControleEmbarcado= new ArrayList<>();
-		listaControleFinalizado= new ArrayList<>();
-		listaControleTransaction= new ArrayList<>();
-		listaControleSuspenso= new ArrayList<>();
-		listaControleCancelado= new ArrayList<>();
+		} 
 		for (int i = 0; i < listaControle.size(); i++) {
 			numerosStatus(listaControle.get(i));
 		}
@@ -573,6 +529,28 @@ public class ControleAupairMB implements Serializable {
 	}
 	
 	public void numerosStatus(Controleaupair controle){ 
+		numeroProcesso=0;
+		numeroOnline=0;
+		numeroMatch=0;
+		numeroVistoPen=0;
+		numeroVistoNeg=0;
+		numeroVistoApro=0;
+		numeroEmbarcado=0;
+		numeroFinalizado=0;
+		numeroTransaction=0;
+		numeroSuspenso=0;
+		numeroCancelado=0;
+		listaControleProcesso= new ArrayList<>();
+		listaControleOnline= new ArrayList<>();
+		listaControleMatch= new ArrayList<>();
+		listaControleVistoPen= new ArrayList<>();
+		listaControleVistoNeg= new ArrayList<>();
+		listaControleVistoApro= new ArrayList<>();
+		listaControleEmbarcado= new ArrayList<>();
+		listaControleFinalizado= new ArrayList<>();
+		listaControleTransaction= new ArrayList<>();
+		listaControleSuspenso= new ArrayList<>();
+		listaControleCancelado= new ArrayList<>();
 		if(controle.getStatusprocesso().equalsIgnoreCase("Processo")){
 			numeroProcesso = numeroProcesso+1;
 			listaControleProcesso.add(controle);

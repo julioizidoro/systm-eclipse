@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -62,6 +63,8 @@ public class Tisolicitacoes implements Serializable {
     private Usuario usuarioExecutor;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "tisolicitacoes")
 	private List<Tisolicitacoeshistorico> tisolicitacoeshistoricoList;
+    @Transient
+    private String cor;
 
     public Tisolicitacoes() {
     }
@@ -157,6 +160,14 @@ public class Tisolicitacoes implements Serializable {
 
 	public void setUsuarioExecutor(Usuario usuarioExecutor) {
 		this.usuarioExecutor = usuarioExecutor;
+	}
+
+	public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 
 	@Override

@@ -113,7 +113,7 @@ public class Cursospacote implements Serializable {
     @Column(name = "modalidadework")
    	private String modalidade; 
     @Column(name = "mostrarescola")
-   	private String mostrarescola; 
+   	private boolean mostrarescola; 
     @Transient
     private boolean cursos;
     @Transient
@@ -453,13 +453,13 @@ public class Cursospacote implements Serializable {
 
 	public void setHighschool(boolean highschool) {
 		this.highschool = highschool;
-	}
+	} 
 
-	public String getMostrarescola() {
+	public boolean isMostrarescola() {
 		return mostrarescola;
 	}
 
-	public void setMostrarescola(String mostrarescola) {
+	public void setMostrarescola(boolean mostrarescola) {
 		this.mostrarescola = mostrarescola;
 	}
 
