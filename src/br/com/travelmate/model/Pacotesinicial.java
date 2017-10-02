@@ -83,6 +83,8 @@ public class Pacotesinicial implements Serializable {
     private boolean worktravel;
     @Transient
     private boolean highschool;
+    @Transient
+    private boolean turismo;
 
     public Pacotesinicial() { 
     }
@@ -301,6 +303,14 @@ public class Pacotesinicial implements Serializable {
 
 	public void setMostrarescola(boolean mostrarescola) {
 		this.mostrarescola = mostrarescola;
+	}
+
+	public boolean isTurismo() {
+		return turismo;
+	}
+
+	public void setTurismo(boolean turismo) {
+		this.turismo = turismo;
 	}
  
       

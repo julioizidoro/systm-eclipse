@@ -44,6 +44,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
+import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
@@ -911,7 +912,12 @@ public class CadArquivoMB implements Serializable {
 			}
 		}
 		if (((ficha) && (contrato) && (documentoComFoto) && (atestadoMatricula) && (cartaApresentacao) && (curriculum)
-				&& (cartaRecomendacao1) && (cartaRecomendacao2) && (antecedentesCriminais) && (teste))) {
+				&& (cartaRecomendacao1) && (cartaRecomendacao2) && (antecedentesCriminais) && (teste))) { 
+			Controlework controlework = workTravelFacade.consultarControle(vendas.getIdvendas());
+			if(controlework!=null) {
+				controlework.setDocumentacao(true);
+				controlework = workTravelFacade.salvar(controlework);
+			}
 			VendasFacade vendasFacade = new VendasFacade();
 			if (vendas.getSituacaofinanceiro().equalsIgnoreCase("L")){
 				vendas.setSituacao("FINALIZADA");

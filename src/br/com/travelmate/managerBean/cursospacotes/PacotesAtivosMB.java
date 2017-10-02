@@ -32,9 +32,11 @@ public class PacotesAtivosMB implements Serializable {
 	private List<Pacotesinicial> listaCursosPacotes; 
 	private List<Pacotesinicial> listaTrabalhoPacotes; 
 	private List<Pacotesinicial> listaTeensPacotes;  
+	private List<Pacotesinicial> listaTurismoPacotes;  
 	private boolean curso;
 	private boolean teens;
-	private boolean trabalho; 
+	private boolean trabalho;
+	private boolean turismo;
 	@Inject
 	private AplicacaoMB aplicacaoMB; 
 
@@ -100,13 +102,30 @@ public class PacotesAtivosMB implements Serializable {
 		this.curso = curso;
 	} 
 
+	public List<Pacotesinicial> getListaTurismoPacotes() {
+		return listaTurismoPacotes;
+	}
+
+	public void setListaTurismoPacotes(List<Pacotesinicial> listaTurismoPacotes) {
+		this.listaTurismoPacotes = listaTurismoPacotes;
+	}
+
+	public boolean isTurismo() {
+		return turismo;
+	}
+
+	public void setTurismo(boolean turismo) {
+		this.turismo = turismo;
+	}
+
 	public void listarCursosPacotes(){ 
 		String sql = "SELECT c FROM Pacotesinicial c ORDER BY c.idproduto, c.pais";
 		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
 		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
-		listaTrabalhoPacotes = new ArrayList<>();
-		listaCursosPacotes =  new ArrayList<>();
-		listaTeensPacotes =  new ArrayList<>(); 
+		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();
+		listaCursosPacotes =  new ArrayList<Pacotesinicial>();
+		listaTeensPacotes =  new ArrayList<Pacotesinicial>(); 
+		listaTurismoPacotes =  new ArrayList<Pacotesinicial>(); 
 		if(lista!=null && lista.size()>0) {
 			for (int i = 0; i < lista.size(); i++) {
 				int idproduto = lista.get(i).getIdproduto();
@@ -126,6 +145,10 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setWorktravel(true);
 					listaTrabalhoPacotes.add(lista.get(i));
 					trabalho = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getPacotes()) {
+					lista.get(i).setTurismo(true);
+					listaTurismoPacotes.add(lista.get(i));
+					turismo = true;  
 				}
 			}
 		}
@@ -145,6 +168,10 @@ public class PacotesAtivosMB implements Serializable {
 		if(pacotesinicial.isCursos()) {
 			if(pacotesinicial.getNumerosemanaacomodacao()!=null && pacotesinicial.getNumerosemanaacomodacao()>0){
 				return "Incluída "+Formatacao.formatarFloatStringNumero(pacotesinicial.getNumerosemanaacomodacao())+" semana(s)";
+			}else return "Não incluso";  
+		}if(pacotesinicial.isTurismo()) {
+			if(pacotesinicial.getDescritivoacomodacao()!=null && pacotesinicial.getDescritivoacomodacao().length()>0){
+				return pacotesinicial.getDescritivoacomodacao();
 			}else return "Não incluso";  
 		}else {
 			if(pacotesinicial.getNumerosemanaacomodacao()!=null && pacotesinicial.getNumerosemanaacomodacao()>0){
@@ -196,6 +223,12 @@ public class PacotesAtivosMB implements Serializable {
 	public String retornarDataInicio(Pacotesinicial pacotesinicial){
 		String retorno = Formatacao.ConvercaoDataPadrao(pacotesinicial.getDatainiciocurso())
 				+" até "+Formatacao.ConvercaoDataPadrao(pacotesinicial.getDataterminocurso());
+		return retorno;
+	}
+	
+	public String retornarDataTurismo(Pacotesinicial pacotesinicial){
+		String retorno = Formatacao.ConvercaoDataPadrao(pacotesinicial.getDatainiciocurso())
+				+" a "+Formatacao.ConvercaoDataPadrao(pacotesinicial.getDataterminocurso());
 		return retorno;
 	}
 	
