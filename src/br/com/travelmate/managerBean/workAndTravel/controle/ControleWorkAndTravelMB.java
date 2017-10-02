@@ -263,7 +263,7 @@ public class ControleWorkAndTravelMB implements Serializable {
 	public void cancelar() {
 		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
 		for (int i = 0; i < listaControle.size(); i++) {
-			if (listaControle.get(i).isSelecionado()) {
+			/*if (listaControle.get(i).isSelecionado()) {
 				listaControle.get(i).setStatusprocesso("Cancelado");
 				workTravelFacade.salvar(listaControle.get(i));
 				Vendas vendas = new Vendas();
@@ -274,7 +274,7 @@ public class ControleWorkAndTravelMB implements Serializable {
 				vendas.setUsuariocancelamento(usuarioLogadoMB.getUsuario().getIdusuario());
 				VendasFacade vendasFacade = new VendasFacade();
 				vendas = vendasFacade.salvar(vendas);
-			}
+			}*/
 		}
 		listarControle();
 	}

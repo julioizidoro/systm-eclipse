@@ -55,7 +55,7 @@ public class AtualizarControleWorkMB implements Serializable{
 		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
 		workTravel = workTravelFacade.consultarWork(controlework.getVendas().getIdvendas());
 		controlework.setSkype(workTravel.getVendas().getCliente().getSkype());
-		controlework.setDataEmbarque(workTravel.getDataInicioPretendida01());
+		//controlework.setDataEmbarque(workTravel.getDataInicioPretendida01());
 	}
 	
 	
