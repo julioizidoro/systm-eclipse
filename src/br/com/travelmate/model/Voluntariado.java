@@ -260,11 +260,14 @@ public class Voluntariado implements Serializable {
     private String imagem;
     @Transient
     private String tituloFicha;
+    @Column(name = "habilitarCurso")
+    private boolean habilitarCurso;
     
     
     
 
     public Voluntariado() {
+    	habilitarCurso = false;
     }
 
     public Voluntariado(Integer idvoluntariado) {
@@ -902,6 +905,14 @@ public class Voluntariado implements Serializable {
 
 	public void setTituloFicha(String tituloFicha) {
 		this.tituloFicha = tituloFicha;
+	}
+
+	public boolean isHabilitarCurso() {
+		return habilitarCurso;
+	}
+
+	public void setHabilitarCurso(boolean habilitarCurso) {
+		this.habilitarCurso = habilitarCurso;
 	}
 
 	@Override
