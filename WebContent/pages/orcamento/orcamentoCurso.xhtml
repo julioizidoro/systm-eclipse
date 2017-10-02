@@ -17,11 +17,21 @@
 					width="70" style="margin-left: 1.5%;" />
 				<h:outputText value="CURSO NO EXTERIOR"
 					style="font-weight:bold;font-size:21px;color:#312E25;margin-left:1%;" />
+				<br></br> 
 				<p:fieldset id="idtabelaCurso" toggleable="true"
 					style="border:none;background:transparent;">
 					<p:dataScroller id="tabelaprodutocurso"
 						value="#{orcamentoCursoMB.resultadoOrcamentoBean.produtoFornecedorBean.listaCursoPrincipal}"
 						var="curso" chunkSize="20" style="background:#fff;border:none;">
+						<h:panelGrid columns="1" style="width:90%;margin-left:1.5%;" 
+							rendered="#{orcamentoCursoMB.mostrarInformacaoCurso()}">   
+							<h:panelGroup>  
+								<img src="../../resources/img/crm/atencao.png" width="22" style="margin-top:-1%;"/>
+								<p:outputLabel value="#{curso.valorcoprodutos.coprodutos.advertencia}"
+									style="font-size:17px;font-weight: bold;color:#FF0000;margin-left:1%;"/>	 
+							</h:panelGroup>	     
+						</h:panelGrid>        
+						<br></br>   
 						<h:panelGrid columns="3"
 							columnClasses="tamanho24, tamanhoavisos, tamanhoavisos"
 							style="width:90%;margin-left:1.5%;">

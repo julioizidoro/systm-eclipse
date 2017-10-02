@@ -48,8 +48,9 @@
                 <f:selectItem itemLabel="Produtos" itemValue="0" noSelectionOption="true"/> 
                 <f:selectItems id="idproduto" value="#{adicionarProdutosExtrasMB.listaFiltroorcamentoproduto}" var="produtoselecionado" itemLabel="#{produtoselecionado.produtosorcamento.descricao}" itemValue="#{produtoselecionado.produtosorcamento}"/>
                 <f:attribute name="listaProdutos" value="#{adicionarProdutosExtrasMB.listaFiltroorcamentoproduto}"/>
-                <f:ajax event="change" listener="#{adicionarProdutosExtrasMB.incluirDescricao()}" update="iddescricao"/>
-            </p:selectOneMenu>
+                <p:ajax event="change" listener="#{adicionarProdutosExtrasMB.incluirDescricao()}"
+                	 update="iddescricao, @form"/>   
+            </p:selectOneMenu>         
             <br></br><br></br>   
             <p:outputLabel value="Descrição:" for="iddescricao" style="margin-left:2%"/>
             <br></br>
@@ -67,11 +68,27 @@
                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                 <p:ajax event="blur" listener="#{adicionarProdutosExtrasMB.calcularMoedaEstrangeira()}" update="valorOriginal"/>
             </p:inputText>
-            <br></br><br></br><br></br>
-            <p class="botaocadpacote"><br></br>
-                <p:commandButton class="imagemm" icon="ui-icon-check" value="Confirmar" action="#{adicionarProdutosExtrasMB.salvar()}" update="growl"></p:commandButton>
-                <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#{adicionarProdutosExtrasMB.cancelar()}"></p:commandButton>
-            <br></br><br></br></p>
+            <br></br><br></br>   
+            <div align="center">
+            	<h:panelGroup  id="btnConfirmar" rendered="#{adicionarProdutosExtrasMB.mostrarBtnConfirmar()}">
+                	<p:commandButton icon="ui-icon-check" value="Confirmar"  
+                		action="#{adicionarProdutosExtrasMB.salvar()}" update="growl"/>
+                </h:panelGroup>
+                <h:panelGroup  id="btnMensagemSeguro" rendered="#{adicionarProdutosExtrasMB.mostrarBtnMensagemSeguro()}">
+	                <p:commandButton icon="ui-icon-check" value="Confirmar"  
+	                	action="#{adicionarProdutosExtrasMB.salvar()}" update="growl">
+	                	<p:confirm header="Atenção!" icon="ui-icon-alert" 
+	                		message="#{adicionarProdutosExtrasMB.retornarMensagem()}" />
+	                </p:commandButton>
+	            </h:panelGroup>     
+                <p:commandButton icon="ui-icon-close" value="Cancelar" style="margin-left:2%;"
+                	action="#{adicionarProdutosExtrasMB.cancelar()}"/>
+            </div>
+              
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		        <p:commandButton value="Confirmar" style="font-size:11px;" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="Fechar" style="font-size:11px;" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		    </p:confirmDialog>
         </h:form>     
     </h:body>
 </html>

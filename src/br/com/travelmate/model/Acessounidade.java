@@ -36,9 +36,11 @@ public class Acessounidade implements Serializable {
     private boolean consultaorcamento;
     @Column(name = "crm")
     private boolean crm; 
+    @Column(name = "margemfinanceira")
+   	private boolean margemfinanceira;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @OneToOne(optional = false)
-    private Usuario usuario;
+    private Usuario usuario; 
 
     public Acessounidade() {
     }
@@ -103,7 +105,15 @@ public class Acessounidade implements Serializable {
         this.usuario = usuario;
     }
 
-    @Override
+    public boolean isMargemfinanceira() {
+		return margemfinanceira;
+	}
+
+	public void setMargemfinanceira(boolean margemfinanceira) {
+		this.margemfinanceira = margemfinanceira;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idacessounidade != null ? idacessounidade.hashCode() : 0);

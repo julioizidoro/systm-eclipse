@@ -36,6 +36,8 @@ public class AdicionarTransferMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaTransfer;
+	private ProdutosOrcamentoBean transfer;
+	private String mensagem;
 
 	@PostConstruct
 	public void init() { 
@@ -76,6 +78,22 @@ public class AdicionarTransferMB implements Serializable {
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	public ProdutosOrcamentoBean getTransfer() {
+		return transfer;
+	}
+
+	public void setTransfer(ProdutosOrcamentoBean transfer) {
+		this.transfer = transfer;
 	}
 
 	public void gerarListaTransfer() {
@@ -173,5 +191,21 @@ public class AdicionarTransferMB implements Serializable {
 		Float valorReal = produtosOrcamentoBean.getValorcoprodutos().getValororiginal()
 				* resultadoOrcamentoBean.getOcurso().getValorcambio();
 		return valorReal;
+	} 
+	
+	public boolean mostrarBtnConfirmar(ProdutosOrcamentoBean produtosOrcamentoBean) {
+		if(produtosOrcamentoBean!=null &&  
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia()!=null &&
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) { 
+			return false;
+		}return true;
+	}
+	
+	public boolean mostrarBtnMensagem(ProdutosOrcamentoBean produtosOrcamentoBean) {
+		if(produtosOrcamentoBean!=null &&  
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia()!=null &&
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) { 
+			return true;
+		}return false;
 	} 
 }

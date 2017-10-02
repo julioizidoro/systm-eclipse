@@ -41,6 +41,7 @@ import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
+import br.com.travelmate.model.Complementocurso;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -2488,6 +2489,7 @@ public class OrcamentoCursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("valorCambio", resultadoOrcamentoBean.getOcurso().getValorcambio());
+		session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 500);
 		RequestContext.getCurrentInstance().openDialog("produtosExtra", options, null);
@@ -2801,5 +2803,12 @@ public class OrcamentoCursoMB implements Serializable {
 			}
 		}
 		return tempromocao;
+	}
+	
+	public boolean mostrarInformacaoCurso() {
+		if(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos().getCoprodutos().getAdvertencia()!=null
+				&& resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) {
+			return true;
+		}else return false;
 	}
 }

@@ -39,6 +39,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaAcomodacoes;
+	private ProdutosOrcamentoBean acomodacao;
 
 	@PostConstruct
 	public void init() {
@@ -79,6 +80,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	public ProdutosOrcamentoBean getAcomodacao() {
+		return acomodacao;
+	}
+
+	public void setAcomodacao(ProdutosOrcamentoBean acomodacao) {
+		this.acomodacao = acomodacao;
 	}
 
 	public void gerarListaAcomodacao() {
@@ -421,4 +430,20 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		}
 		return tempromocao;
 	}
+	
+	public boolean mostrarBtnConfirmar(ProdutosOrcamentoBean produtosOrcamentoBean) {
+		if(produtosOrcamentoBean!=null &&  
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia()!=null &&
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) { 
+			return false;
+		}return true;
+	}
+	
+	public boolean mostrarBtnMensagem(ProdutosOrcamentoBean produtosOrcamentoBean) {
+		if(produtosOrcamentoBean!=null &&  
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia()!=null &&
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length()>1) { 
+			return true;
+		}return false;
+	} 
 }

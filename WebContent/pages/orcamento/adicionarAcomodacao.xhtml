@@ -19,6 +19,26 @@
 		<p:growl id="growl" showDetail="true" sticky="false"
 			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 		<br></br>
+		<p:dialog header="Atenção!" widgetVar="dialogMensagem" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false">
+			<p:outputPanel id="dialog">
+				<h:panelGrid columns="2" >   
+					<img src="../../resources/img/crm/atencao.png" width="21"
+						style="margin-top: -1%;" />
+					<p:outputLabel   
+						value="#{adicionarAcomodacaoMB.acomodacao.valorcoprodutos.coprodutos.advertencia}"
+						style="font-size:15px;font-weight: bold;color:#FF0000;margin-left:1%;" />
+				</h:panelGrid>
+				<br />      
+				<div align="center">
+					<p:commandButton value="Confirmar" style="font-size:11px;"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+						action="#{adicionarAcomodacaoMB.adicionar(adicionarAcomodacaoMB.acomodacao)}" />
+					<p:commandButton value="Fechar" style="font-size:11px;margin-left:1%;" onclick="dialogMensagem.hide()"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</div>   
+			</p:outputPanel>
+		</p:dialog>
 		<p:dataScroller id="idtabelaAcomodacao"
 			value="#{adicionarAcomodacaoMB.listaAcomodacoes}"
 			var="acomodacao" mode="inline" scrollHeight="450" style="background:#1F8871"> 
@@ -169,10 +189,18 @@
 				</h:panelGrid>
 				<div align="right" style="width: 98%">
 					<p:commandButton value="Incluir"
+						rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacao)}"
 						action="#{adicionarAcomodacaoMB.adicionar(acomodacao)}"
 						icon="ui-icon-check" />
+					<p:commandButton value="Incluir"
+						rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacao)}"
+						icon="ui-icon-check" update=":adicionarAcomodacao:dialog"
+						oncomplete="PF('dialogMensagem').show();">
+						<f:setPropertyActionListener value="#{acomodacao}"
+							target="#{adicionarAcomodacaoMB.acomodacao}" />
+					</p:commandButton>
 				</div>
-				<br></br>
+				<br></br>  
 				<div class="line_1"></div>
 			</p:outputPanel>
 		</p:dataScroller>
