@@ -589,6 +589,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 						if (lead != null) {
 							LeadFacade leadFacade = new LeadFacade();
 							lead.setDataultimocontato(new Date());
+							if (lead.getSituacao() == 1) {
+	            				lead.setSituacao(2);
+							}
 							lead = leadFacade.salvar(lead);
 						}
 					}

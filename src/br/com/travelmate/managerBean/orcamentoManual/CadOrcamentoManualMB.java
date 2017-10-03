@@ -1361,6 +1361,9 @@ public class CadOrcamentoManualMB implements Serializable {
 									Lead lead = cliente.getLead(); 
 		            				LeadFacade leadFacade = new LeadFacade();
 		            				lead.setDataultimocontato(new Date());
+		            				if (lead.getSituacao() == 1) {
+			            				lead.setSituacao(2);
+									}
 		            				lead = leadFacade.salvar(lead);
 		            			} 
 							}
