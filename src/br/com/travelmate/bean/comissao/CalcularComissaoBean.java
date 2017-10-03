@@ -210,12 +210,12 @@ public class CalcularComissaoBean {
     public Vendascomissao salvarComissao(Vendascomissao vendasComissao,List<Parcelamentopagamento> listaParcelamento, float percentualComissao, AplicacaoMB aplicacaoMB, boolean seguroAvulso, Formapagamento formapagamento, boolean cursoPacote){
         vendasComissao.setPaga("Não");
         if (vendasComissao.getTerceiros()==null){
-        	TerceirosFacade terceirosFacade = new TerceirosFacade();
+        		TerceirosFacade terceirosFacade = new TerceirosFacade();
             vendasComissao.setTerceiros(terceirosFacade.consultar(1));
             vendasComissao.setComissaoterceiros(0.0f);
         }
         if(formapagamento!=null && formapagamento.getValorJuros()!=null && formapagamento.getValorJuros()>0){
-        	vendasComissao.setDesagio(0.0f);
+        		vendasComissao.setDesagio(0.0f);
         }
         VendasComissaoFacade vendasComissaoFacade= new VendasComissaoFacade();
         vendasComissao = vendasComissaoFacade.salvar(vendasComissao);

@@ -93,12 +93,14 @@ public class ComissaoSeguroBean {
         	Float valorFraquia = 0.0f;
         	if (vendasComissao.getVendas().getUnidadenegocio().getTipo().equalsIgnoreCase("Premium")){
         		valorFraquia = (float) (valorGross * (seguroviagem.getValoresseguro().getComissaopremium()/100));
+        		percComissao = seguroviagem.getValoresseguro().getComissaopremium();
         	}else {
         		valorFraquia = (float) (valorGross * (seguroviagem.getValoresseguro().getComissaoexpress()/100));
+        		percComissao = seguroviagem.getValoresseguro().getComissaoexpress();
         	}
-            vendasComissao.setComissaofranquiabruta(valorFraquia);
-            vendasComissao.setComissaofraquia(comissaoBean.calcularComissaoFranquia(vendasComissao, 0.0f));
-            vendasComissao.setLiquidofranquia(vendasComissao.getComissaofraquia());
+        vendasComissao.setComissaofranquiabruta(valorFraquia);
+        vendasComissao.setComissaofraquia(comissaoBean.calcularComissaoFranquia(vendasComissao, 0.0f));
+        vendasComissao.setLiquidofranquia(vendasComissao.getComissaofraquia());
         }
         vendasComissao.setValorfornecedor(valorNet);
         vendasComissao.setComissaogerente(comissaoBean.calcularComissaoGerente(vendasComissao));

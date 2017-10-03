@@ -417,7 +417,16 @@ public class VendasFinanceiroComissaoMB implements Serializable{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	vendascomissao = ccb.getVendascomissao();  
+    		vendascomissao = ccb.getVendascomissao();  
+    		Vendas venda = vendascomissao.getVendas();
+    		venda.setVendascomissao(vendascomissao);
+    		FacesContext fc = FacesContext.getCurrentInstance();
+    		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        List<Vendas> listaVendas =  (List<Vendas>) session.getAttribute("listaVendas");
+    		int indiceLista = (Integer) session.getAttribute("indiceLsita");
+    		session.removeAttribute("indeceLista");
+    		listaVendas.set(indiceLista, venda);
+    		
     }
     
     public void gerarFaturaFranquia(){

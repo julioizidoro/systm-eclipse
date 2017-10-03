@@ -60,7 +60,7 @@ public class VendasFinanceiroMB  implements Serializable{
     
     @PostConstruct
     public void inti(){
-    	FacesContext fc = FacesContext.getCurrentInstance();
+    		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         sql = (String) session.getAttribute("sql");
         session.removeAttribute("sql");
@@ -203,11 +203,12 @@ public class VendasFinanceiroMB  implements Serializable{
         return "";
     }
     
-	public String editarComissao(Vendas venda) {
+	public String editarComissao(Vendas venda, int indiceLista) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("venda", venda);
 		session.setAttribute("listaVendas", listaVendas);
+		session.setAttribute("indiceLsita", indiceLista);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 850);
 		return "editarComissoes";

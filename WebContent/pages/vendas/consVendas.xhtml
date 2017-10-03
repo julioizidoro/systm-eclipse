@@ -124,7 +124,7 @@
 				<br></br>
 				<p:dataTable id="tabelaVendas" var="vendas"
 					value="#{vendasFinanceiroMB.listaVendas}" class="tabela"
-					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px" rowIndexVar="indiceLista">
 					<p:column style="width:3%;">  
 						<p:selectBooleanCheckbox value="#{vendas.selecionado}"/>
 					</p:column>
@@ -180,7 +180,7 @@
 					</p:column>
 					<p:column headerText="B.O." style="width:5%;text-align: center">
 						<p:commandButton title="Editar Comissões"
-							action="#{vendasFinanceiroMB.editarComissao(vendas)}"
+							action="#{vendasFinanceiroMB.editarComissao(vendas, indiceLista)}"
 							icon="ui-icon-pencil" update=":telaconsultavendas:growl"
 							style="#{vendasFinanceiroMB.veriricarBackOffice(vendas)}" />
 					</p:column>
