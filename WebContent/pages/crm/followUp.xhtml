@@ -27,13 +27,14 @@
 							<p:selectOneMenu id="situacaolead" style="width:50%;" 
 								value="#{followUpMB.situacao}">
 								<f:selectItem itemLabel="Selecione" itemValue="0" />
-								<f:selectItem itemLabel="Lead Recebido" itemValue="1" />
-								<f:selectItem itemLabel="Prospect" itemValue="2" />
-								<f:selectItem itemLabel="Oportunidade Real" itemValue="3" />
-								<f:selectItem itemLabel="Negociação Final" itemValue="4" />
-								<f:selectItem itemLabel="Venda efetuada" itemValue="5" />
-								<f:selectItem itemLabel="Lead Cancelada" itemValue="6" />
-								<f:selectItem itemLabel="Lead Stand By" itemValue="7" />
+								<f:selectItem itemLabel="Novo Lead" itemValue="1" />
+								<f:selectItem itemLabel="Primeiro Contato" itemValue="2" />
+								<f:selectItem itemLabel="Prospect" itemValue="3" />
+								<f:selectItem itemLabel="Oportunidade Real" itemValue="4" />
+								<f:selectItem itemLabel="Negociação Final" itemValue="5" />
+								<f:selectItem itemLabel="Venda efetuada" itemValue="6" />
+								<f:selectItem itemLabel="Lead Cancelada" itemValue="7" />
+								<f:selectItem itemLabel="Lead Stand By" itemValue="8" />
 								<p:ajax listener="#{followUpMB.mensagemPesquisa()}" update=":followUp:growl"/>
 							</p:selectOneMenu>
 							<p:selectOneMenu id="produtolead" value="#{followUpMB.programas}"
@@ -174,12 +175,13 @@
 								value="#{followUpMB.situacao}">
 								<f:selectItem itemLabel="Selecione" itemValue="0" />
 								<f:selectItem itemLabel="Lead Recebido" itemValue="1" />
-								<f:selectItem itemLabel="Prospect" itemValue="2" />
-								<f:selectItem itemLabel="Oportunidade Real" itemValue="3" />
-								<f:selectItem itemLabel="Negociação Final" itemValue="4" />
-								<f:selectItem itemLabel="Venda efetuada" itemValue="5" />
-								<f:selectItem itemLabel="Lead Cancelada" itemValue="6" />
-								<f:selectItem itemLabel="Lead Stand By" itemValue="7" />
+								<f:selectItem itemLabel="Primeiro Contato" itemValue="2" />
+								<f:selectItem itemLabel="Prospect" itemValue="3" />
+								<f:selectItem itemLabel="Oportunidade Real" itemValue="4" />
+								<f:selectItem itemLabel="Negociação Final" itemValue="5" />
+								<f:selectItem itemLabel="Venda efetuada" itemValue="6" />
+								<f:selectItem itemLabel="Lead Cancelada" itemValue="7" />
+								<f:selectItem itemLabel="Lead Stand By" itemValue="8" />
 								<p:ajax listener="#{followUpMB.mensagemPesquisa()}" update=":followUp:growl"/>
 							</p:selectOneMenu>
 							<h:panelGroup>
@@ -451,35 +453,40 @@
 				<br></br>
 				<h:outputText value="1" class="badge bg-warning"
 					style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;" />
-				<h:outputText value="Lead Recebido"
+				<h:outputText value="Novo Lead"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 
 				<h:outputText value="2" class="badge bg-warning"
+					style="background-color:#2E5495;padding: 4px 6px;margin-left:3%;" />
+				<h:outputText value="Primeiro Contato"
+					style="margin-left:0.5%;font-size:12px;color:#2E5495;" />
+
+				<h:outputText value="3" class="badge bg-warning"
 					style="background-color:#9ACD32;padding: 4px 6px;margin-left:3%;" />
 				<h:outputText value="Prospect"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-				<h:outputText value="3" class="badge bg-warning"
+  
+				<h:outputText value="4" class="badge bg-warning"
 					style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;" />
 				<h:outputText value="Oportunidade Real"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-				<h:outputText value="4" class="badge bg-warning"
+					
+				<h:outputText value="5" class="badge bg-warning"
 					style="background-color:#B22222;padding: 4px 6px;margin-left:3%;" />
 				<h:outputText value="Negociação Final"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 					
-				<h:outputText value="5" class="badge bg-warning"
+				<h:outputText value="6" class="badge bg-warning"
 					style="background-color:#228B22;padding: 4px 6px;margin-left:3%;" />
 				<h:outputText value="Venda Efetuada"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 					
-				<h:outputText value="6" class="badge bg-warning"
+				<h:outputText value="7" class="badge bg-warning"
 					style="background-color:#8B8989;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Cancelada"
+				<h:outputText value="Lead Cancelada"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 					
-				<h:outputText value="7" class="badge bg-warning"
+				<h:outputText value="8" class="badge bg-warning"
 					style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;" />
 				<h:outputText value="Stand By"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />

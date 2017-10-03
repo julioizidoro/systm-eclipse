@@ -266,4 +266,11 @@ public class LeadMB implements Serializable {
 			}
 		}
 	}
+	
+	public String verificarTelefone(Cliente cliente){
+		if (cliente.getFoneCelular() != null  && cliente.getFoneCelular().length() > 0) {
+			return cliente.getFoneCelular();
+		}
+		return cliente.getFoneResidencial();
+	}
 }

@@ -71,6 +71,9 @@
 								<img src="../../resources/img/crm/envelope.png" width="30" />
 							</p:commandLink>
 						</p:column>  -->
+						<p:column headerText="Telefone" style="text-align:left;" width="95">
+							<h:outputText value="#{leadMB.verificarTelefone(lead.cliente)}" />
+						</p:column>
 						<p:column headerText="Encaminhar" width="70"    
 							style="text-align:center;" > 
 							<p:commandLink id="btnEnviar"  action="#{leadMB.encaminharLead(lead)}"

@@ -49,35 +49,43 @@
 							</p:commandLink>
 							<br></br>
 							<br></br>
-							<p:commandLink id="btnSituacao2" title="Prospect"
+							<p:commandLink id="btnSituacao2" title="Primeiro Contato"
 								action="#{historicoClienteMB.mudarSituacao(2)}"
 								update="btnSituacao,painelSituacao">
 								<h:outputText value="2" class="badge bg-warning"
+									style="background-color:#2E5495;padding:5px 10px;font-size:22px;" />
+							</p:commandLink>
+							<br></br>
+							<br></br>
+							<p:commandLink id="btnSituacao3" title="Prospect"
+								action="#{historicoClienteMB.mudarSituacao(3)}"
+								update="btnSituacao,painelSituacao">
+								<h:outputText value="3" class="badge bg-warning"
 									style="background-color:#9ACD32;padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
 							<br></br>
 							<br></br>
-							<p:commandLink id="btnSituacao3" title="Oportunidade Real"
-								action="#{historicoClienteMB.mudarSituacao(3)}"
+							<p:commandLink id="btnSituacao4" title="Oportunidade Real"
+								action="#{historicoClienteMB.mudarSituacao(4)}"
 								update="btnSituacao,painelSituacao">
-								<h:outputText value="3" class="badge bg-warning"
+								<h:outputText value="4" class="badge bg-warning"
 									style="background-color:#FF8C00;padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
 							<br></br>
 							<br></br>
-							<p:commandLink id="btnSituacao4" title="Negociação Final"
-								action="#{historicoClienteMB.mudarSituacao(4)}"
+							<p:commandLink id="btnSituacao5" title="Negociação Final"
+								action="#{historicoClienteMB.mudarSituacao(5)}"
 								update="btnSituacao,painelSituacao">
-								<h:outputText value="4" class="badge bg-warning"
+								<h:outputText value="5" class="badge bg-warning"
 									style="background-color:#B22222;padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
 							<br></br>
 							<br></br>
-							<p:commandLink id="btnSituacao5" title="Venda Finalizada">
-								<h:outputText value="5" class="badge bg-warning"
+							<p:commandLink id="btnSituacao6" title="Venda Efetuada">
+								<h:outputText value="6" class="badge bg-warning"
 									style="background-color:#228B22;padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
-							<p:overlayPanel for="btnSituacao5" hideEffect="fade"
+							<p:overlayPanel for="btnSituacao6" hideEffect="fade"
 								style="background:#fff;width:135px;">  
 								<p:outputLabel value="ID Venda"
 									style="font-size:12px;color:#777777;" />
@@ -97,10 +105,10 @@
 							</p:overlayPanel>
 							<br></br>
 							<br></br>
-							<p:commandLink id="btnSituacao7" title="Stand By"
-								action="#{historicoClienteMB.mudarSituacao(7)}"
+							<p:commandLink id="btnSituacao8" title="Stand By"
+								action="#{historicoClienteMB.mudarSituacao(8)}"
 								update="btnSituacao,painelSituacao">
-								<h:outputText value="7" class="badge bg-warning"
+								<h:outputText value="8" class="badge bg-warning"
 									style="background-color:#9400D3;padding:5px 10px;font-size:22px;" />
 							</p:commandLink>
 						</p:overlayPanel>
@@ -355,39 +363,44 @@
 							</p:dataScroller>
 						</h:panelGrid>
 						<br></br>
-						<div align="right" style="margin-right: 2%;">
+						<div align="right" style="margin-left: -1%;">
 							<h:outputText value="1" class="badge bg-warning"
-								style="background-color:#1E90FF;padding: 4px 6px;" />
-							<h:outputText value="Lead Recebido"
+								style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;" />
+							<h:outputText value="Novo Lead"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
+			
 							<h:outputText value="2" class="badge bg-warning"
+								style="background-color:#2E5495;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Primeiro Contato"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+			
+							<h:outputText value="3" class="badge bg-warning"
 								style="background-color:#9ACD32;padding: 4px 6px;margin-left:3%;" />
 							<h:outputText value="Prospect"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-							<h:outputText value="3" class="badge bg-warning"
+			
+							<h:outputText value="4" class="badge bg-warning"
 								style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;" />
 							<h:outputText value="Oportunidade Real"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-							<h:outputText value="4" class="badge bg-warning"
+								
+							<h:outputText value="5" class="badge bg-warning"
 								style="background-color:#B22222;padding: 4px 6px;margin-left:3%;" />
 							<h:outputText value="Negociação Final"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-							<br /> <br />
-							<h:outputText value="5" class="badge bg-warning"
+								
+								<br/><br/>
+							<h:outputText value="6" class="badge bg-warning"
 								style="background-color:#228B22;padding: 4px 6px;margin-left:3%;" />
 							<h:outputText value="Venda Efetuada"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-							<h:outputText value="6" class="badge bg-warning"
-								style="background-color:#8B8989;padding: 4px 6px;margin-left:3%;" />
-							<h:outputText value="Cancelada"
-								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
+								
 							<h:outputText value="7" class="badge bg-warning"
+								style="background-color:#8B8989;padding: 4px 6px;margin-left:3%;" />
+							<h:outputText value="Lead Cancelada"
+								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+								
+							<h:outputText value="8" class="badge bg-warning"
 								style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;" />
 							<h:outputText value="Stand By"
 								style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />

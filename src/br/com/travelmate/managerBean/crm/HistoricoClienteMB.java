@@ -268,16 +268,18 @@ public class HistoricoClienteMB implements Serializable {
 		if (numeroSituacao == 1) {
 			return "#1E90FF;";
 		} else if (numeroSituacao == 2) {
-			return "#9ACD32;";
+			return "#2E5495;";
 		} else if (numeroSituacao == 3) {
+			return "#9ACD32;";
+		} else if (numeroSituacao == 4) {
 			return "#FF8C00;";
-		}else if (numeroSituacao == 4) {
+		}else if (numeroSituacao == 5) {
 			return "#B22222;";
-		} else if (numeroSituacao == 5) {
-			return "#228B22;";
 		} else if (numeroSituacao == 6) {
-			return "#8B8989;";
+			return "#228B22;";
 		} else if (numeroSituacao == 7) {
+			return "#8B8989;";
+		} else if (numeroSituacao == 8) {
 			return "#9400D3;";
 		}
 		return"";
