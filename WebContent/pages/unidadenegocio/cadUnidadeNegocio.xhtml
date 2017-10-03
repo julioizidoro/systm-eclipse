@@ -182,13 +182,32 @@
 			</div>
 			<br></br>
 			<div align="center">
-				<p:commandButton id="btnConfirmar" value="Confirmar"
-					action="#{cadUnidadeNegocioMB.salvar()}" icon="ui-icon-check"
+				<p:commandButton id="btnConfirmar" value="Confirmar" action="#{cadUnidadeNegocioMB.salvar()}"  onsuccess="PF('cd').show();"
+					 icon="ui-icon-check"
 					style="font-size:12px;" update="growl" />
 				<p:commandButton id="btnCancelar" value="Cancelar"
 					action="#{cadUnidadeNegocioMB.cancelar()}"
 					icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />
+				
 			</div>
+			<p:dialog showEffect="fade" hideEffect="fade" header="Meta Faturamento"
+						icon="ui-icon-alert" widgetVar="cd"
+						style="width:60%;font-size:14px" >
+						<p:outputLabel
+							value="Valor da meta mensal" />
+						<br/>
+						<p:inputText value="#{cadUnidadeNegocioMB.valorMetaMensal}" id="valorMetaMensal"
+								style="font-size: 11px;width:100%; text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						<br/>  <br/>
+						<p:commandButton value="Confirmar"
+							action="#{cadUnidadeNegocioMB.salvarMetaFaturamento()}"
+							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" update="cadUnidade:growl"
+							style="margin-left:17%;font-size:12px" />
+					</p:dialog>
 			<br></br>
 		</h:form>
 	</ui:define>
