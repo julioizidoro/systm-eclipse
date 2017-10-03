@@ -47,7 +47,7 @@ public class CrmCobrancaBean {
 			Crmcobrancahistorico crmCobrancaHistorico = new Crmcobrancahistorico();
 			crmCobrancaHistorico.setCliente(crmCobranca.getVendas().getCliente());
 			crmCobrancaHistorico.setData(new Date());
-			crmCobrancaHistorico.setHistorico("Baixa da conbrança efetudada atras de liquidação/cancelamento do atraso");
+			crmCobrancaHistorico.setHistorico("Baixa da cobrança efetudada através de liquidação/cancelamento do atraso");
 			crmCobrancaHistorico.setProximocontato(new Date());
 			crmCobrancaHistorico.setTipocontato("Telefone");
 			crmCobrancaHistorico.setUsuario(usuario);
