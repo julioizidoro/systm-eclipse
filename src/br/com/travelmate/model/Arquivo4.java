@@ -63,6 +63,7 @@ public class Arquivo4 implements Serializable {
     private String hora;
 
     public Arquivo4() {
+    	datainicio = new Date();
     }
 
     public Arquivo4(Integer idarquivo4) {

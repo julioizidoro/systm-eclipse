@@ -57,6 +57,7 @@ public class Arquivo1 implements Serializable {
     
 
     public Arquivo1() {
+    	datainicio = new Date();
     }
 
     public Arquivo1(Integer idarquivo1) {

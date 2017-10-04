@@ -61,6 +61,7 @@ public class Arquivo2 implements Serializable {
     private String hora;
 
     public Arquivo2() {
+    	datainicio = new Date();
     }
 
     public Arquivo2(Integer idarquivo2) {
