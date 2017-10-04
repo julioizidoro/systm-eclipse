@@ -284,18 +284,26 @@ public class RelatorioFaturaMB implements Serializable {
 				.setDatavenda(faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getDataVenda());
 		faturaBean.setDesagio(faturafaturafraquias.getFaturafranquias().getVendascomissao().getCustofinanceirofranquia());
 		faturaBean.setDescontoloja(faturafaturafraquias.getFaturafranquias().getVendascomissao().getDescontoloja());
-		faturaBean.setDescontomatriz(faturafaturafraquias.getFaturafranquias().getVendascomissao().getDescontotm());
+		if(faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getVendaspacote()!=null) {
+			faturaBean.setTaxatm(0);
+			faturaBean.setDescontomatriz(0); 
+		}else {
+			faturaBean.setTaxatm(faturafaturafraquias.getFaturafranquias().getVendascomissao().getTaxatm());
+			faturaBean.setDescontomatriz(faturafaturafraquias.getFaturafranquias().getVendascomissao().getDescontotm());
+		} 
 		faturaBean.setFaturafranquias(faturafaturafraquias.getFaturafranquias());
 		faturaBean.setFornecedor(faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas()
 				.getFornecedorcidade().getFornecedor().getNome());
 		faturaBean.setPercentualcomissao(faturafaturafraquias.getFaturafranquias().getPercentualcomissao());
 		faturaBean.setPrograma(
 				faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getProdutos().getDescricao());
-		faturaBean.setRecebidomatiz(faturafaturafraquias.getFaturafranquias().getPagomatriz());
-		faturaBean.setTaxatm(faturafaturafraquias.getFaturafranquias().getVendascomissao().getTaxatm());
+		faturaBean.setRecebidomatiz(faturafaturafraquias.getFaturafranquias().getPagomatriz()); 
 		faturaBean.setTotal(faturafaturafraquias.getFaturafranquias().getLiquidopagar());
 		int id = faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getProdutos().getIdprodutos();
-		if(aplicacaoMB.getParametrosprodutos().getPassagem()!=id){
+		if(faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getVendaspacote()!=null
+				&& faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getVendaspacote().getCursospacote().getValoravista()!=null) {
+			faturaBean.setValorcomissionavel(faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getVendaspacote().getCursospacote().getValoravista());
+		}else if(aplicacaoMB.getParametrosprodutos().getPassagem()!=id){
 			faturaBean.setValorcomissionavel(faturafaturafraquias.getFaturafranquias().getVendascomissao().getValorcomissionavel());
 		}else{
 			faturaBean.setValorcomissionavel(faturafaturafraquias.getFaturafranquias().getVendascomissao().getVendas().getValor());

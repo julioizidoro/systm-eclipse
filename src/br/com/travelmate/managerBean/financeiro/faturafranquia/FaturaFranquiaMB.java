@@ -344,11 +344,9 @@ public class FaturaFranquiaMB implements Serializable {
 				fatura.getFaturafranquias().getVendascomissao().setComissaofranquiabruta(fatura.getComissao());
 				fatura.getFaturafranquias().getVendascomissao().setDatainicioprograma(fatura.getDataincio());
 				fatura.getFaturafranquias().getVendascomissao().setCustofinanceirofranquia(fatura.getDesagio());
-				fatura.getFaturafranquias().getVendascomissao().setDescontoloja(fatura.getDescontoloja());
-				fatura.getFaturafranquias().getVendascomissao().setDescontotm(fatura.getDescontomatriz());
+				fatura.getFaturafranquias().getVendascomissao().setDescontoloja(fatura.getDescontoloja()); 
 				fatura.getFaturafranquias().setPercentualcomissao(fatura.getPercentualcomissao());
-				fatura.getFaturafranquias().setPagomatriz(fatura.getRecebidomatiz());
-				fatura.getFaturafranquias().getVendascomissao().setTaxatm(fatura.getTaxatm());
+				fatura.getFaturafranquias().setPagomatriz(fatura.getRecebidomatiz()); 
 				if(fatura.isSomar()){
 					this.fatura.setSaldolancamentos(this.fatura.getSaldolancamentos()-fatura.getFaturafranquias().getLiquidopagar());
 					this.fatura.setSaldolancamentos(this.fatura.getSaldolancamentos()+fatura.getTotal());
@@ -358,7 +356,11 @@ public class FaturaFranquiaMB implements Serializable {
 					this.fatura = faturaFacade.salvar(this.fatura);
 				}
 				fatura.getFaturafranquias().setLiquidopagar(fatura.getTotal());
-				fatura.getFaturafranquias().getVendascomissao().setValorcomissionavel(fatura.getValorcomissionavel());
+				if(fatura.getFaturafranquias().getVendascomissao().getVendas().getVendaspacote()==null) {
+					fatura.getFaturafranquias().getVendascomissao().setValorcomissionavel(fatura.getValorcomissionavel());
+					fatura.getFaturafranquias().getVendascomissao().setTaxatm(fatura.getTaxatm());
+					fatura.getFaturafranquias().getVendascomissao().setDescontotm(fatura.getDescontomatriz());
+				}
 				fatura.getFaturafranquias().getVendascomissao().getVendas().setValor(fatura.getValortotal());
 				fatura.getFaturafranquias().setAno(fatura.getAno());
 				fatura.getFaturafranquias().setMes(fatura.getMes()); 
@@ -678,17 +680,28 @@ public class FaturaFranquiaMB implements Serializable {
 				faturaBean.setDataincio(lista.get(i).getVendascomissao().getDatainicioprograma());
 				faturaBean.setDatavenda(lista.get(i).getVendascomissao().getVendas().getDataVenda());
 				faturaBean.setDesagio(lista.get(i).getVendascomissao().getCustofinanceirofranquia());
-				faturaBean.setDescontoloja(lista.get(i).getVendascomissao().getDescontoloja());
-				faturaBean.setDescontomatriz(lista.get(i).getVendascomissao().getDescontotm());
+				faturaBean.setDescontoloja(lista.get(i).getVendascomissao().getDescontoloja()); 
 				faturaBean.setFaturafranquias(lista.get(i));
 				faturaBean.setFornecedor(
 						lista.get(i).getVendascomissao().getVendas().getFornecedorcidade().getFornecedor().getNome());
 				faturaBean.setPercentualcomissao(lista.get(i).getPercentualcomissao());
 				faturaBean.setPrograma(lista.get(i).getVendascomissao().getVendas().getProdutos().getDescricao());
 				faturaBean.setRecebidomatiz(lista.get(i).getPagomatriz());
-				faturaBean.setTaxatm(lista.get(i).getVendascomissao().getTaxatm());
+				if(lista.get(i).getVendascomissao().getVendas().getVendaspacote()!=null) {
+					faturaBean.setTaxatm(0);
+					faturaBean.setDescontomatriz(0); 
+				}else {
+					faturaBean.setTaxatm(lista.get(i).getVendascomissao().getTaxatm());
+					faturaBean.setDescontomatriz(lista.get(i).getVendascomissao().getDescontotm());
+				}
 				faturaBean.setTotal(lista.get(i).getLiquidopagar());
-				faturaBean.setValorcomissionavel(lista.get(i).getVendascomissao().getValorcomissionavel());
+				if(lista.get(i).getVendascomissao().getVendas().getVendaspacote()!=null
+						&& lista.get(i).getVendascomissao().getVendas().getVendaspacote().getCursospacote().getValoravista()!=null
+						&& lista.get(i).getVendascomissao().getVendas().getVendaspacote().getCursospacote().getValoravista()>0) {
+					faturaBean.setValorcomissionavel(lista.get(i).getVendascomissao().getVendas().getVendaspacote().getCursospacote().getValoravista());
+				}else {
+					faturaBean.setValorcomissionavel(lista.get(i).getVendascomissao().getValorcomissionavel());
+				}
 				faturaBean.setValortotal(lista.get(i).getVendascomissao().getVendas().getValor());
 				faturaBean.setFatura(lista.get(i).isFatura());
 				faturaBean.setOrdenacao(2);

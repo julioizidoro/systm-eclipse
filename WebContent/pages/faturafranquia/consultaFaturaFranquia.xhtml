@@ -260,7 +260,10 @@
 						style="width:50px;text-align: right">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{faturafranquia.valorcomissionavel}" />
+								<h:outputText value="#{faturafranquia.valorcomissionavel}" >
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
 							</f:facet>
 							<f:facet name="input">
 								<p:inputText value="#{faturafranquia.valorcomissionavel}"
@@ -324,10 +327,13 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Cust. Financeiro" style="width:50px;text-align: right">
+					<p:column headerText="Cust. Financ." style="width:50px;text-align: right">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{faturafranquia.desagio}" />
+								<h:outputText value="#{faturafranquia.desagio}" >
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
 							</f:facet>
 							<f:facet name="input">
 								<p:inputText value="#{faturafranquia.desagio}"
