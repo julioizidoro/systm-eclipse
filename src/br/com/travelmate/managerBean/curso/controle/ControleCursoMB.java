@@ -345,11 +345,11 @@ public class ControleCursoMB implements Serializable {
 		if (listaControle == null) {
 			listaControle = new ArrayList<Controlecurso>();
 		}
-		numeroFichas =  "" + String.valueOf(listaControle.size());
 		gerarQuantidadesFichas();
 	}
 	
 	public void gerarQuantidadesFichas(){ 
+		numeroFichas =  "" + String.valueOf(listaControle.size());
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0; 
 		nFichaCancelada=0;
@@ -749,4 +749,19 @@ public class ControleCursoMB implements Serializable {
 		}
 		return "../../resources/img/obsFicha.png";
 	}
+	
+	
+	public String nomeSituacao(Curso curso) {
+		if (curso.getVendas().getSituacao().equals("FINALIZADA")) { 
+			return "FICHA FINALIZADA";
+		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
+			return "FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)";
+		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+				&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
+			return "ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)";
+		} else { 
+			return "FICHA CANCELADA";
+		} 
+	}   
 }

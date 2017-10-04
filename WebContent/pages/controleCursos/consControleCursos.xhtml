@@ -140,7 +140,7 @@
 							scrollable="true" scrollHeight="300" editable="true"
 							editMode="cell" rowIndexVar="rowIx">
 							<p:column style="width:35px;text-align:center;">
-								<p:commandLink title="#{cursosFinanceiro.vendas.situacao}"
+								<p:commandLink title="FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)"
 									style="cursor: initial;">
 									<img src="../../resources/img/ficharestricao.png" width="25" />
 								</p:commandLink>
@@ -355,7 +355,7 @@
 							scrollable="true" scrollHeight="300" editable="true"
 							editMode="cell" rowIndexVar="rowIx">
 							<p:column style="width:35px;text-align:center;">
-								<p:commandLink title="#{cursosAndamento.vendas.situacao}"
+								<p:commandLink title="ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)"
 									style="cursor: initial;">
 									<img src="../../resources/img/amarelaFicha.png" width="25" />
 								</p:commandLink>
@@ -570,7 +570,7 @@
 							scrollable="true" scrollHeight="300" editable="true"
 							editMode="cell" rowIndexVar="rowIx">
 							<p:column style="width:35px;text-align:center;">
-								<p:commandLink title="#{cursosFinalizado.vendas.situacao}"
+								<p:commandLink title="FICHA FINALIZADA"
 									style="cursor: initial;">
 									<img src="../../resources/img/finalizadoFicha.png" width="25" />
 								</p:commandLink>
@@ -785,7 +785,7 @@
 							scrollable="true" scrollHeight="300" editable="true"
 							editMode="cell" rowIndexVar="rowIx">
 							<p:column style="width:35px;text-align:center;">
-								<p:commandLink title="#{cursosCancelado.vendas.situacao}"
+								<p:commandLink title="FICHA CANCELADA"
 									style="cursor: initial;">
 									<img src="../../resources/img/fichaCancelada.png" width="25" />
 								</p:commandLink>
@@ -999,7 +999,7 @@
 							scrollHeight="300" editable="true" editMode="cell"
 							rowIndexVar="rowIx">
 							<p:column style="width:35px;text-align:center;">
-								<p:commandLink title="#{cursos.vendas.situacao}"
+								<p:commandLink title="#{controleCursoMB.nomeSituacao(cursos.curso)}"
 									style="cursor: initial;">
 									<img src="#{controleCursoMB.imagemSituacao(cursos.curso)}"
 										width="25" />
