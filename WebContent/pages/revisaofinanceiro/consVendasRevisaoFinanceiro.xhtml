@@ -88,39 +88,39 @@
 									action="#{revisaoFinanceiroMB.cadastroRevisaoFinanceiro(vendas)}"
 									title="ID da Venda"
 									>
-									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;"/>  
+									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>  
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente"  style="width:200px;" sortBy="#{vendas.cliente.nome}">
 								<h:outputText value="#{vendas.cliente.nome}"
-									 />
+									 style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>
 							<p:column headerText="Produto"  style="width:120px;" sortBy="#{vendas.produtos.descricao}">
 								<h:outputText value="#{vendas.produtos.descricao}"
-									 />
+									 style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>
 							<p:column headerText="Data Venda"    
 								style="text-align:center;width:75px;" sortBy="#{vendas.dataVenda}">
-								<h:outputText value="#{vendas.dataVenda}">
+								<h:outputText value="#{vendas.dataVenda}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>   
 							</p:column>
 							<p:column headerText="Próximo Contato" 
 								style="text-align:center;width:75px;" >
-								<h:outputText value="" >
+								<h:outputText value="" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />    
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Unidade"  style="width:110px;"
 								styleClass="alinharCenter" sortBy="#{vendas.unidadenegocio.nomerelatorio}">
-								<h:outputText
+								<h:outputText style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"
 									value="#{vendas.unidadenegocio.nomerelatorio}" />        
 							</p:column>     
 							<p:column headerText="Consultor" style="width:150px;"
 								styleClass="alinharCenter" sortBy="#{vendas.usuario.nome}">
-								<h:outputText value="#{vendas.usuario.nome}" />
+								<h:outputText value="#{vendas.usuario.nome}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>   
 						</p:dataTable>    
 					</p:tab>
@@ -135,27 +135,27 @@
 									action="#{revisaoFinanceiroMB.cadastroRevisaoFinanceiro(vendas)}"
 									title="ID da Venda"
 									>
-									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;"/>  
+									<h:outputText value="#{vendas.idvendas}" style="border-bottom: 1px solid;#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>  
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{vendas.cliente.nome}" style="width:200px;">
 								<h:outputText value="#{vendas.cliente.nome}"
-									 />
+									 style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>
 							<p:column headerText="Produto" sortBy="#{vendas.produtos.descricao}" style="width:120px;">
 								<h:outputText value="#{vendas.produtos.descricao}"
-									 />
+									 style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>
 							<p:column headerText="Data Venda"  sortBy="#{vendas.dataVenda}"  
 								style="text-align:center;width:75px;">
-								<h:outputText value="#{vendas.dataVenda}">
+								<h:outputText value="#{vendas.dataVenda}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>   
 							</p:column>
 							<p:column headerText="Próximo Contato" sortBy="#{vendas.vendapendencia.dataproximocontato}"
 								style="text-align:center;width:75px;">
-								<h:outputText value="#{vendas.vendapendencia.dataproximocontato}" >
+								<h:outputText value="#{vendas.vendapendencia.dataproximocontato}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />    
 								</h:outputText>  
@@ -163,11 +163,11 @@
 							<p:column headerText="Unidade" sortBy="#{vendas.unidadenegocio.nomerelatorio}" style="width:110px;"
 								styleClass="alinharCenter">
 								<h:outputText
-									value="#{vendas.unidadenegocio.nomerelatorio}" />        
+									value="#{vendas.unidadenegocio.nomerelatorio}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>        
 							</p:column>     
 							<p:column headerText="Consultor" sortBy="#{vendas.usuario.nome}" style="width:150px;"
 								styleClass="alinharCenter">
-								<h:outputText value="#{vendas.usuario.nome}" />
+								<h:outputText value="#{vendas.usuario.nome}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>   
 						</p:dataTable>    
 					</p:tab> 

@@ -298,5 +298,13 @@ public class RevisaoFinanceiroMB implements Serializable{
 		nVendaNova = listaVendaNova.size();
 	}
 	
+	
+	public String retonarCorVenda(Vendas vendas){
+    	if (vendas.getVendaspacote() != null) {
+			return "color:red;";
+		}
+    	return "";
+    }
+	
 
 }
