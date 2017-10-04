@@ -46,7 +46,7 @@ public class AvisoArquivoBean {
 						avisodocsusuario.setUsuario(listaUsuario.get(j));
 						avisodocsusuario.setAvisodocs(avisodocs);
 						avisodocsusuario.setData(new Date());
-						avisodocsusuario = avisosDocsUsuarioFacade.salvar(avisodocsusuario);
+						avisosDocsUsuarioFacade.salvar(avisodocsusuario);
 					}
 				} else {
 					avisodocsusuario = new Avisodocsusuario();
@@ -54,7 +54,7 @@ public class AvisoArquivoBean {
 					avisodocsusuario.setUsuario(listaUsuario.get(j));
 					avisodocsusuario.setAvisodocs(avisodocs);
 					avisodocsusuario.setData(new Date());
-					avisodocsusuario = avisosDocsUsuarioFacade.salvar(avisodocsusuario);
+					avisosDocsUsuarioFacade.salvar(avisodocsusuario);
 
 				}
 
