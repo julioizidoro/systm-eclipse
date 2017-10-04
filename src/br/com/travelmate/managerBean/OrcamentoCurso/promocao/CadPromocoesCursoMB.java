@@ -309,8 +309,8 @@ public class CadPromocoesCursoMB implements Serializable {
 		aviso.setLiberar(true);
 		aviso.setImagem("promocao");
 		aviso.setTexto(descricao);
-		aviso.setAvisousuarioList(salvarAvisoUsuario(aviso));
 		aviso = avisosFacade.salvar(aviso);
+		aviso.setAvisousuarioList(salvarAvisoUsuario(aviso));
 	}
 	
 	public List<Avisousuario> salvarAvisoUsuario(Avisos aviso){
