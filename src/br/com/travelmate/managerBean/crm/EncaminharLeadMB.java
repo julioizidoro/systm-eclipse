@@ -227,7 +227,8 @@ public class EncaminharLeadMB implements Serializable {
 		avisos.setUsuario(usuarioLogadoMB.getUsuario());
 		avisos.setImagem("aviso");
 		avisos.setLiberar(true);
-		avisos.setTexto("Você recebeu uma nova lead - "+lead.getCliente().getNome()+".");
+		avisos.setTexto("Você recebeu uma nova lead - "+lead.getCliente().getNome()+". Encaminhada por "+
+				usuarioLogadoMB.getUsuario().getNome()+".");
 		avisos.setIdunidade(0); 
 		List<Avisousuario> lista = new ArrayList<Avisousuario>();
 		Avisousuario avisousuario = new Avisousuario();  
