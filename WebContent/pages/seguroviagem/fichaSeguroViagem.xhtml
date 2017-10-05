@@ -134,8 +134,8 @@
 							columnClasses="tamanho2, tamanho4, tamanho4, tamanho4">
 							<p:outputLabel rendered="#{fichaSeguroViagemMB.segurocancelamento}" />   
 							<p:outputLabel value="Desconto Loja" for="descontoLoja" />
-							<p:outputLabel value="Desconto Matriz" for="descontoMatriz" />
 							<p:outputLabel value="Valor Total" for="valorseguro" />
+							<p:outputLabel/>
 							   
 							<h:panelGroup rendered="#{fichaSeguroViagemMB.segurocancelamento}">
 								<p:selectBooleanCheckbox value="#{fichaSeguroViagemMB.seguro.segurocancelamento}" >
@@ -152,16 +152,7 @@
 								<p:ajax event="blur"
 									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
 									listener="#{fichaSeguroViagemMB.calcularDataTermino()}" />
-							</p:inputText>
-							<p:inputText id="descontoMatriz"
-								value="#{fichaSeguroViagemMB.seguro.descontomatriz}"
-								style="width:80%;text-align:right" maxlength="45">
-								<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-								<p:ajax event="blur"
-									update="valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar, valorseguro"
-									listener="#{fichaSeguroViagemMB.calcularDataTermino()}" />
-							</p:inputText>     
+							</p:inputText>  
 							<p:inputText id="valorseguro"
 								value="#{fichaSeguroViagemMB.seguro.valorSeguro}"
 								style="width:80%;text-align:right" maxlength="45"
@@ -169,6 +160,7 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:inputText>
+							<p:outputLabel/>
 						</h:panelGrid>
 						<br></br>
 						<br></br>
