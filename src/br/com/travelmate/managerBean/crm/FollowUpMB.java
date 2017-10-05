@@ -512,14 +512,14 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			sql = "select l from Lead l where l.situacao<5 and l.tipocontato.tipo='Novo' and l.dataultimocontato is null ";
+			sql = "select l from Lead l where l.situacao<6 and l.tipocontato.tipo='Novo' and l.dataultimocontato is null ";
 		} else if (funcao.equalsIgnoreCase("hoje")) {
 			imagemNovos = "novos";
 			imagemHoje = "hojeClick";
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			sql = "select l from Lead l where l.situacao<5 and l.dataultimocontato>'2016-01-01' and"
+			sql = "select l from Lead l where l.situacao<6 and l.dataultimocontato>'2016-01-01' and"
 					+ " l.dataproximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
 		} else if (funcao.equalsIgnoreCase("atrasados")) {
 			imagemNovos = "novos";
@@ -528,7 +528,7 @@ public class FollowUpMB implements Serializable {
 			imagemProx = "prox";
 			imagemTodos = "todos";
 			Date data = new Date();
-			sql = "select l from Lead l where l.situacao<5 and l.dataultimocontato>'2016-01-01' and"
+			sql = "select l from Lead l where l.situacao<6 and l.dataultimocontato>'2016-01-01' and"
 					+ " l.dataproximocontato < '" + Formatacao.ConvercaoDataSql(data) + "'";
 		} else if (funcao.equalsIgnoreCase("prox")) {
 			imagemNovos = "novos";
@@ -542,7 +542,7 @@ public class FollowUpMB implements Serializable {
 			} catch (Exception e) {
 				data = null;
 			}
-			sql = "select l from Lead l where l.situacao<5 and l.dataultimocontato>'2016-01-01' and"
+			sql = "select l from Lead l where l.situacao<6 and l.dataultimocontato>'2016-01-01' and"
 					+ " l.dataproximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
 					+ "' and l.dataproximocontato<'" + Formatacao.ConvercaoDataSql(data) + "'";
 		} else if (funcao.equalsIgnoreCase("todos")) {
@@ -551,7 +551,7 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todosClick";
-			sql = "select l from Lead l where l.situacao<5";
+			sql = "select l from Lead l where l.situacao<6";
 		}
 		if (acessoResponsavelGerencial) {
 			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
@@ -681,7 +681,7 @@ public class FollowUpMB implements Serializable {
 			funcao = "todos";
 			sql = sql + " and l.situacao='" + situacao + "'";
 		} else {
-			sql = sql + " and l.situacao<'5' ";
+			sql = sql + " and l.situacao<'6' ";
 		}
 		if (nomeCliente != null && nomeCliente.length() > 0) {
 			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente + "%')";
@@ -771,7 +771,6 @@ public class FollowUpMB implements Serializable {
 		programas = null;
 		situacao = "0";
 		tipocontato = null;
-		situacao = "0";
 		dataInseridoInicial=null;
 		dataInseridoInicial=null;
 		pesquisar();
@@ -851,7 +850,7 @@ public class FollowUpMB implements Serializable {
 	}
 
 	public void mensagemPesquisa() {
-		if ((situacao.equals("5")) || (situacao.equals("6"))) {
+		if ((situacao.equals("6")) || (situacao.equals("7"))) {
 			if ((dataUltInicio == null) && (dataUltFinal == null)) {
 				Mensagem.lancarMensagemInfo("Pesquisa", "Está situação requer data do Ultimo Contato");
 			}
