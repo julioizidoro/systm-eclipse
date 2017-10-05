@@ -54,7 +54,7 @@ public class InvoicesControllerMB implements Serializable{
 		InvoiceFacade invoiceFacade = new InvoiceFacade();
 		invoice = invoiceFacade.salvar(invoice);
 		String dataInvoice = Formatacao.ConvercaoDataPadrao(invoice.getDataPrevistaPagamento());
-		if (!dataInvoice.equalsIgnoreCase(dataPrevista)){
+		if (dataInvoice != null && !dataInvoice.equalsIgnoreCase(dataPrevista)){
 			VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
 			Vendascomissao vendascomissao = vendasComissaoFacade.consultar(invoice.getVendas().getIdvendas());
 			if (vendascomissao!=null){

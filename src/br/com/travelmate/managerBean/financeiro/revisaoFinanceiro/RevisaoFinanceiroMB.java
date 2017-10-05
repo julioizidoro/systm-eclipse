@@ -254,7 +254,6 @@ public class RevisaoFinanceiroMB implements Serializable{
 	
 	public void gerarListaVendas(){
 		VendasFacade vendasFacade = new VendasFacade();
-		List<Vendas> listaVendas = null;
 		listaVendaNova = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='N'"+
 				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.dataVenda DESC");
 		if (listaVendaNova == null) {
