@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Usuários da unidade:  #{usuariosUnidadeMB.unidadenegocio.nomerelatorio}</title>
+	
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="consultaUsuarios" style="text-align:left;font-size:11px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink>
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
+		
+		<br></br>
+		<p:tabView id="acordionPainel"  >
+			<p:tab title="Ativos" class="tab"
+				titleStyle="font-size: 11px" >
+
+				<p:dataTable id="tabelaUsuarioAtivo" var="usuarioAtivo" scrollHeight="200"
+					value="#{usuariosUnidadeMB.listaUsuarioAtivo}" class="tabelas-responsivas"
+					style="margin-left:2.5%;width:90%;" scrollable="true">
+					<p:column headerText="Nome" style="text-align:left;">
+						<h:outputText value="#{usuarioAtivo.nome}" />
+					</p:column>
+					<p:column headerText="E-mail" style="text-align:left;">
+						<h:outputText value="#{usuarioAtivo.email}" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+			<p:tab title="Inativos" class="tab"
+				titleStyle="font-size: 11px">
+
+				<p:dataTable id="tabelaUsuarioInativo" var="usuarioInativo" scrollHeight="200"
+					value="#{usuariosUnidadeMB.listaUsuarioInativo}" class="tabelas-responsivas"
+					style="margin-left:2.5%;width:90%;" scrollable="true">
+					<p:column headerText="Nome" style="text-align:left;">
+						<h:outputText value="#{usuarioInativo.nome}" />
+					</p:column>
+					<p:column headerText="E-mail" style="text-align:left;">
+						<h:outputText value="#{usuarioInativo.email}" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+		</p:tabView>
+		<br/>
+	</h:form>
+</h:body>
+</html>

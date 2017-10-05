@@ -23,11 +23,11 @@
 						<p:outputLabel value="Nome Fantasia" />
 						<p:outputLabel value="CNPJ" />
 
-						<p:inputText id="razaosocial" style="width:90%;"
+						<p:inputText id="razaosocial" style="width:90%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.razaoSocial}" />
-						<p:inputText id="nomefantasia" style="width:90%;"
+						<p:inputText id="nomefantasia" style="width:90%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.nomeFantasia}" />
-						<p:inputMask id="cnpj" mask="99.999.999/9999-99"
+						<p:inputMask id="cnpj" mask="99.999.999/9999-99" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							style="width:58%;" value="#{cadUnidadeNegocioMB.unidadenegocio.cnpj}" />
 					</h:panelGrid>
 					<br></br>
@@ -37,7 +37,7 @@
 						<p:outputLabel />
 						<p:outputLabel />
 						<h:panelGroup>
-							<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+							<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.digitosTelefone}">
 								<p:ajax update="telefone" />
 							</p:selectBooleanCheckbox>
@@ -50,11 +50,11 @@
 						<p:outputLabel value="Telefone Comercial" />
 
 
-						<p:inputText id="email" style="width:90%;"
+						<p:inputText id="email" style="width:90%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.email}" />
-						<p:inputText id="nomerelatorio" style="width:90%;"
+						<p:inputText id="nomerelatorio" style="width:90%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.nomerelatorio}" />
-						<p:inputMask id="telefone" value="#{cadUnidadeNegocioMB.unidadenegocio.fone}" mask="#{cadUnidadeNegocioMB.validarMascaraFone()}" style="width:58%;" />
+						<p:inputMask id="telefone" readonly="#{cadUnidadeNegocioMB.somenteLeitura}" value="#{cadUnidadeNegocioMB.unidadenegocio.fone}" mask="#{cadUnidadeNegocioMB.validarMascaraFone()}" style="width:58%;" />
 						<p:outputLabel />
 					</h:panelGrid> 
 					<h:panelGrid columns="4"
@@ -65,7 +65,7 @@
 						<p:outputLabel value="Número" />
 						<p:outputLabel value="Complemento" />
 
-						<p:selectOneMenu id="tipoLogradouro" value="#{cadUnidadeNegocioMB.unidadenegocio.tipoLogradouro}"
+						<p:selectOneMenu id="tipoLogradouro" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" value="#{cadUnidadeNegocioMB.unidadenegocio.tipoLogradouro}"
 							style="width:120px;">
 							<f:selectItem itemLabel="Selecione" />
 							<f:selectItem itemLabel="Avenida" itemValue="Avenida" />
@@ -77,11 +77,11 @@
 							<f:selectItem itemLabel="Parque" itemValue="Parque" />
 							<f:selectItem itemLabel="Travessa" itemValue="Travessa" />
 						</p:selectOneMenu>
-						<p:inputText id="endereco" style="width:90%;"
+						<p:inputText id="endereco" style="width:90%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.logradouro}" />
-						<p:inputText id="numero" style="width:80%;"
+						<p:inputText id="numero" style="width:80%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.numero}" />
-						<p:inputText id="complemento" style="width:59%;"
+						<p:inputText id="complemento" style="width:59%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.complemento}" />
 					</h:panelGrid>
 					<br></br>
@@ -93,13 +93,13 @@
 						<p:outputLabel value="Cidade" />
 						<p:outputLabel value="Estado" />
 						
-						<p:inputMask id="cep" style="width:90%;" mask="99999-999"
+						<p:inputMask id="cep" style="width:90%;" mask="99999-999" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.cep}" />
-						<p:inputText id="bairro" style="width:90%;"
+						<p:inputText id="bairro" style="width:90%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.bairro}" />
-						<p:inputText id="cidade" style="width:80%;"
+						<p:inputText id="cidade" style="width:80%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.cidade}" />
-						<p:selectOneMenu id="estado" value="#{cadUnidadeNegocioMB.unidadenegocio.estado}">
+						<p:selectOneMenu id="estado" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" value="#{cadUnidadeNegocioMB.unidadenegocio.estado}">
 							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
 								noSelectionOption="true" />
 							<f:selectItem itemLabel="Acre" itemValue="AC" />
@@ -141,22 +141,22 @@
 						<p:outputLabel value="Nº mês pagamento" />
 						<p:outputLabel value="Fundo Marketing"  />
 						
-						<p:selectOneMenu id="tipo" value="#{cadUnidadeNegocioMB.unidadenegocio.tipo}" style="width:110px;">
+						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="tipo" value="#{cadUnidadeNegocioMB.unidadenegocio.tipo}" style="width:110px;">
 							<f:selectItem itemLabel="Premium" itemValue="Premium" />
 							<f:selectItem itemLabel="Express" itemValue="Express" />
 						</p:selectOneMenu>
-						<p:inputText id="comissaoconsultor" style="width:90%;text-align: right;"
+						<p:inputText readonly="#{cadUnidadeNegocioMB.somenteLeitura}" id="comissaoconsultor" style="width:90%;text-align: right;"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.perconsultor}" >
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
-						<p:selectOneMenu id="banco"  style="width:130px;"  value="#{cadUnidadeNegocioMB.unidadenegocio.banco}" converter="BancoConverter">
+						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="banco"  style="width:130px;"  value="#{cadUnidadeNegocioMB.unidadenegocio.banco}" converter="BancoConverter">
                            <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
                            <f:selectItems value="#{cadUnidadeNegocioMB.listaBanco}" var="conta" itemLabel="#{conta.nome}" itemValue="#{conta}"/>
                            <f:attribute name="listaBanco" value="#{cadUnidadeNegocioMB.listaBanco}"/>
                         </p:selectOneMenu> 
-						<p:inputText id="mespagamento" style="width:80%;"
+						<p:inputText id="mespagamento" readonly="#{cadUnidadeNegocioMB.somenteLeitura}" style="width:80%;"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.mespagamento}" />   
-						<p:inputText id="fundoMarketing" style="width:53%;text-align: right;"   
+						<p:inputText id="fundoMarketing" style="width:53%;text-align: right;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.fundomarketing}" >    
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
@@ -165,13 +165,13 @@
 					<br />
 					<h:panelGrid columns="2" style="width:40%">
 						<h:panelGroup> 
-							<p:selectBooleanCheckbox id="parcelamentoLoja"
+							<p:selectBooleanCheckbox id="parcelamentoLoja" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.unidadenegocio.parcelamentojoja}"/> 
 							<h:outputText value="Parcelamento pela Loja"
 								style="margin-left:1%;font-size:12px;font-weight: bold;" />  
 						</h:panelGroup>
 						<h:panelGroup> 
-							<p:selectBooleanCheckbox id="idleadautomatica"
+							<p:selectBooleanCheckbox id="idleadautomatica" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.unidadenegocio.leadautomatica}" style="background:white !important; color:white !important;"/> 
 							<h:outputText value="Distribuição automatizada das lead"
 								style="margin-left:1%;font-size:12px;font-weight: bold;" />  
@@ -182,7 +182,7 @@
 			</div>
 			<br></br>
 			<div align="center">
-				<p:commandButton id="btnConfirmar" value="Confirmar" action="#{cadUnidadeNegocioMB.salvar()}"  onsuccess="PF('cd').show();"
+				<p:commandButton id="btnConfirmar" value="Confirmar" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" action="#{cadUnidadeNegocioMB.salvar()}"  onsuccess="PF('cd').show();"
 					 icon="ui-icon-check"
 					style="font-size:12px;" update="growl" />
 				<p:commandButton id="btnCancelar" value="Cancelar"

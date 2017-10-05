@@ -17,6 +17,7 @@ import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
@@ -34,11 +35,14 @@ public class CadUnidadeNegocioMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject 
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Unidadenegocio unidadenegocio; 
 	private List<Banco> listaBanco;  
 	private boolean digitosTelefone;  
 	private float valorMetaMensal = 0f;
 	private boolean novaUnidade;
+	private boolean somenteLeitura = false;
 
 	@PostConstruct
 	public void init() {
@@ -56,6 +60,9 @@ public class CadUnidadeNegocioMB implements Serializable {
 			if(unidadenegocio.getFone()!=null && unidadenegocio.getFone().length()>13){
 				digitosTelefone=true;
 			}else digitosTelefone=false;
+			if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isEditarunidade()) {
+				somenteLeitura = true;
+			}
 		}
 	}
  
@@ -117,6 +124,16 @@ public class CadUnidadeNegocioMB implements Serializable {
 
 	public void setNovaUnidade(boolean novaUnidade) {
 		this.novaUnidade = novaUnidade;
+	}
+
+
+	public boolean isSomenteLeitura() {
+		return somenteLeitura;
+	}
+
+
+	public void setSomenteLeitura(boolean somenteLeitura) {
+		this.somenteLeitura = somenteLeitura;
 	}
 
 

@@ -35,7 +35,7 @@
 					<b>Consulta de Unidade Négocio</b>
 				</legend>
 				<div align="right" style="width: 85%; margin-left: 8%;">
-					<p:commandButton id="btnNovo" value="Nova Unidade"
+					<p:commandButton id="btnNovo" value="Nova Unidade" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cadastrounidade}"
 						icon="ui-icon-plus" action="#{unidadeNegocioMB.novaUnidade()}"
 						style="font-size:12px;" />
 				</div> 
@@ -53,10 +53,16 @@
 						<p:column headerText="Email" style="width:150px;">
 							<h:outputText value="#{unidade.email}" />
 						</p:column> 
-						<p:column style="width:40px;text-align:left;">
-							<p:commandLink action="#{unidadeNegocioMB.editarUnidade(unidade)}" title="Editar"
+						<p:column style="width:30px;text-align:center;">
+							<p:commandLink action="#{unidadeNegocioMB.editarUnidade(unidade)}" title="#{unidadeNegocioMB.tituloEditar}"
 								style="text-decoration: none">
-								<img src="../../resources/img/editaricon.png" />
+								<img src="#{unidadeNegocioMB.imagemEditar}" width="25"/>
+							</p:commandLink>
+						</p:column>
+						<p:column style="width:30px;text-align:center;" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.consultausuariounidade}">
+							<p:commandLink action="#{unidadeNegocioMB.visualizarUsuarios(unidade)}" title="Visualizar Usuários da Unidade"
+								style="text-decoration: none">
+								<img src="../../resources/img/iconeFuncao.png" width="25"/>
 							</p:commandLink>
 						</p:column>
 					</p:dataTable>

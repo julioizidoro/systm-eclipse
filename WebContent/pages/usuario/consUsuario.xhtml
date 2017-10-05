@@ -68,7 +68,7 @@
 					<b>Consulta de Usuários</b>
 				</legend>
 				<div align="right" style="width: 85%; margin-left: 8%;">
-					<p:commandButton id="btnNovo" value="Novo Usuário"
+					<p:commandButton id="btnNovo" value="Novo Usuário" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cadastrousuario}"
 						icon="ui-icon-plus" action="#{usuarioMB.novoUsuario()}"
 						style="font-size:12px;" />
 				</div>
@@ -95,13 +95,13 @@
 						<p:column headerText="Situação" style="width:120px;">
 							<h:outputText value="#{usuario.situacao}" />
 						</p:column>
-						<p:column style="width:40px;text-align:left;">
-							<p:commandLink action="#{usuarioMB.editarUsuario(usuario)}" title="Editar"
+						<p:column style="width:40px;text-align:left;" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.editarusuario}">
+							<p:commandLink action="#{usuarioMB.editarUsuario(usuario)}" title="Editar" 
 								style="text-decoration: none">
 								<img src="../../resources/img/editaricon.png" width="30"/>
-							</p:commandLink>
+							</p:commandLink> 
 						</p:column>
-						<p:column style="width:40px;text-align:left;">
+						<p:column style="width:40px;text-align:left;" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.editarusuario}">
 							<p:commandLink action="#{usuarioMB.resetarSenhaUsuario(usuario)}" title="Resetar Senha"
 								style="text-decoration: none" update="consUsuario">
 								<img src="../../resources/img/iconeReset.png" width="30"/>

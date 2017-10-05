@@ -67,16 +67,16 @@
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.produtos}" />
 									<h:outputText value="Produtos" style="margin-left:2%;" />
 								</h:panelGroup>
+								<h:panelGroup>  
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.motivopendencia}" />
+									<h:outputText  value="Motivo Pendência"/>
+								</h:panelGroup>   
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
-										value="#{cadGrupoAcessoMB.grupoacesso.acesso.usuarios}" />
-									<h:outputText value="Usuário" style="margin-left:2%;" />
-								</h:panelGroup>
-								<h:panelGroup>
-									<p:selectBooleanCheckbox
-										value="#{cadGrupoAcessoMB.grupoacesso.acesso.unidades}" />
-									<h:outputText value="Unidade Négocio" style="margin-left:2%;" />
-								</h:panelGroup>
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.funcao}" />
+									<h:outputText value="Função" style="margin-left:2%;" />
+								</h:panelGroup> 
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.promocoes}" />
@@ -99,19 +99,50 @@
 								</h:panelGroup>  
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
-										value="#{cadGrupoAcessoMB.grupoacesso.acesso.funcao}" />
-									<h:outputText value="Função" style="margin-left:2%;" />
-								</h:panelGroup> 
-								<h:panelGroup>
-									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.cartaocredito}" />
 									<h:outputText value="Cartão de Crédito" style="margin-left:2%;" />
 								</h:panelGroup>  
-								<h:panelGroup>  
+								<h:panelGroup>
 									<p:selectBooleanCheckbox
-										value="#{cadGrupoAcessoMB.grupoacesso.acesso.motivopendencia}" />
-									<h:outputText  value="Motivo Pendência"/>
-								</h:panelGroup>        
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.usuarios}" />
+									<h:outputText value="Usuário" style="margin-left:2%;" />
+								</h:panelGroup>   
+								
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.cadastrousuario}" />
+									<h:outputText value="Cadastro Usuário" style="margin-left:2%;" />
+								</h:panelGroup>    
+							</h:panelGrid>  
+							<br/>
+							<h:panelGrid columns="5"
+								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
+								style="width:95%;">
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.editarusuario}" />
+									<h:outputText value="Editar Usuário" style="margin-left:2%;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.unidades}" />
+									<h:outputText value="Unidade Négocio" style="margin-left:2%;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.cadastrounidade}" />
+									<h:outputText value="Cadastro Unidade" style="margin-left:2%;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.editarunidade}" />
+									<h:outputText value="Editar Unidade" style="margin-left:2%;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.consultausuariounidade}" />
+									<h:outputText value="Cons. Usuário da Unidade" style="margin-left:2%;" />
+								</h:panelGroup>
 							</h:panelGrid>  
 							<br></br>  
 						</p:tab>

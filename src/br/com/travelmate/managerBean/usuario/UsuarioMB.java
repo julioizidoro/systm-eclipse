@@ -8,12 +8,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;

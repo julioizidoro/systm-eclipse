@@ -178,6 +178,16 @@ public class Acesso implements Serializable {
 	private boolean calculadorafinanceira;
 	@Column(name = "relatoriosolicitacoesti")
 	private boolean relatoriosolicitacoesti; 
+	@Column(name = "editarusuario")
+	private boolean editarusuario;
+	@Column(name = "editarunidade")
+	private boolean editarunidade;
+	@Column(name = "consultausuariounidade")
+	private boolean consultausuariounidade;
+	@Column(name = "cadastrousuario")
+	private boolean cadastrousuario; 
+	@Column(name = "cadastrounidade")
+	private boolean cadastrounidade; 
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -787,6 +797,46 @@ public class Acesso implements Serializable {
 		this.relatoriosolicitacoesti = relatoriosolicitacoesti;
 	}
  
+
+	public boolean isEditarusuario() {
+		return editarusuario;
+	}
+
+	public void setEditarusuario(boolean editarusuario) {
+		this.editarusuario = editarusuario;
+	}
+
+	public boolean isEditarunidade() {
+		return editarunidade;
+	}
+
+	public void setEditarunidade(boolean editarunidade) {
+		this.editarunidade = editarunidade;
+	}
+
+	public boolean isConsultausuariounidade() {
+		return consultausuariounidade;
+	}
+
+	public void setConsultausuariounidade(boolean consultausuariounidade) {
+		this.consultausuariounidade = consultausuariounidade;
+	}
+
+	public boolean isCadastrousuario() {
+		return cadastrousuario;
+	}
+
+	public void setCadastrousuario(boolean cadastrousuario) {
+		this.cadastrousuario = cadastrousuario;
+	}
+
+	public boolean isCadastrounidade() {
+		return cadastrounidade;
+	}
+
+	public void setCadastrounidade(boolean cadastrounidade) {
+		this.cadastrounidade = cadastrounidade;
+	}
 
 	@Override
 	public int hashCode() {
