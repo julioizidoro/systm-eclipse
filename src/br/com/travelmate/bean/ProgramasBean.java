@@ -225,6 +225,7 @@ public class ProgramasBean {
 	
 	public void finalizarLead(Lead lead){
 		LeadFacade leadFacade = new LeadFacade();
+		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
 		lead.setSituacao(6);
 		leadFacade.salvar(lead);
 	}

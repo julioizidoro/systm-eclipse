@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.ProdutoOrcamentoCursoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
@@ -1361,8 +1362,9 @@ public class CadOrcamentoManualMB implements Serializable {
 									Lead lead = cliente.getLead(); 
 		            				LeadFacade leadFacade = new LeadFacade();
 		            				lead.setDataultimocontato(new Date());
-		            				if (lead.getSituacao() == 1) {
-			            				lead.setSituacao(2);
+		            				if (lead.getSituacao() < 3) {
+			            				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+				            			lead.setSituacao(3);
 									}
 		            				lead = leadFacade.salvar(lead);
 		            			} 

@@ -13,11 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadHistoricoFacade; 
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
+import br.com.travelmate.model.Leadsituacao;
 import br.com.travelmate.model.Tipocontato; 
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
@@ -108,6 +110,10 @@ public class CadHistoricoClienteMB implements Serializable {
 					lead.setDataproximocontato(leadHistorico.getDataproximocontato());
 					lead.setHoraproximocontato(leadHistorico.getHoraporximocontato());
 					lead.setDataultimocontato(leadHistorico.getDatahistorico());
+					if (lead.getSituacao() < 2) {
+						LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2);
+						lead.setSituacao(2);
+					}
 					lead = leadFacade.salvar(lead); 
 					Mensagem.lancarMensagemInfo("Histórico salvo com sucesso", "");  
 					RequestContext.getCurrentInstance().closeDialog(null);  

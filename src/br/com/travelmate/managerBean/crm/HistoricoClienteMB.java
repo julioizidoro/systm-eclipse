@@ -24,7 +24,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
- 
+
+import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.LeadFacade;
@@ -293,7 +294,10 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public void mudarSituacao(int situacao) {
+		LeadFacade leadFacade = new LeadFacade();
+		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), situacao);
 		lead.setSituacao(situacao);
+		lead = leadFacade.salvar(lead);
 	}
 
 	public void gerarListaHistorico() {
@@ -349,6 +353,7 @@ public class HistoricoClienteMB implements Serializable {
 			if(lead.getMotivocancelamento1()!=null
 				&& lead.getMotivocancelamento1().getIdmotivocancelamento()!=1){
 				LeadFacade leadFacade = new LeadFacade();
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
 				lead.setSituacao(6);
 				lead = leadFacade.salvar(lead);
 				FacesContext fc = FacesContext.getCurrentInstance();
@@ -792,7 +797,8 @@ public class HistoricoClienteMB implements Serializable {
 			if(vendas!=null){
 				vendas.setIdlead(lead.getIdlead());
 				vendasFacade.salvar(vendas);
-				lead.setSituacao(5);
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
+				lead.setSituacao(6);
 				LeadFacade leadFacade = new LeadFacade();
 				lead = leadFacade.salvar(lead);
 			}else{
