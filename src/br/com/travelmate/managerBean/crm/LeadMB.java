@@ -198,8 +198,9 @@ public class LeadMB implements Serializable {
 	} 
 	
 	public void gerarListaLead(){
+		int idusuario = usuarioLogadoMB.getUsuario().getIdusuario();
 		if(usuarioLogadoMB.getUsuario().getUnidadenegocio().getResponsavelcrm()
-				==usuarioLogadoMB.getUsuario().getIdusuario()){
+				==idusuario){
 			String sql;
 			if (usuarioLogadoMB.getUsuario().getIdusuario()==212){
 				sql = "select l from Lead l where l.dataenvio is null and (l.unidadenegocio.idunidadeNegocio="

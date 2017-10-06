@@ -22,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -77,8 +78,10 @@ public class Controlework implements Serializable {
     private Controleworkempregaor controleworkempregaor;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
-    private Vendas vendas;
+    private Vendas vendas; 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "controlework")
+    @OrderBy("idcontroleworkentrevista DESC") 
+    @Size(max=1)
     private List<Controleworkentrevista> controleworkentrevistaList;
 
     public Controlework() {

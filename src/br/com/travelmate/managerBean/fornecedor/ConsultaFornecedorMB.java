@@ -39,7 +39,7 @@ public class ConsultaFornecedorMB implements Serializable{
         session.removeAttribute("produtos");
         session.removeAttribute("cidade");
         session.removeAttribute("fornecedorcidade");
-        gerarListaFornecedor();
+        //gerarListaFornecedor();
         fornecedor = new Fornecedor();
     }
 

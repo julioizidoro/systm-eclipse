@@ -13,18 +13,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.context.RequestContext; 
 
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
-import br.com.travelmate.facade.ProdutoFacade;
-import br.com.travelmate.facade.ProdutosTraineeFacade;
+import br.com.travelmate.facade.ProdutoFacade; 
 import br.com.travelmate.facade.WorkSponsorFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidadepaisproduto;
-import br.com.travelmate.model.Fornecedorcidade;
-import br.com.travelmate.model.Pais;
+import br.com.travelmate.model.Fornecedorcidade; 
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Worksponsor;

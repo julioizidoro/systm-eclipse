@@ -203,11 +203,13 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 	}
 
 	public String salvar() {
+		String nome = ""; 
 		String obs = ""; 
 		if (worksponsorarquivos != null) {
 			if (worksponsorarquivos.getNome() != null) {
 				try {
-					obs = new String(worksponsorarquivos.getNome().getBytes(Charset.defaultCharset()), "UTF-8");
+					nome = new String(worksponsorarquivos.getNome().getBytes(Charset.defaultCharset()), "UTF-8");
+					obs = new String(worksponsorarquivos.getDescricao().getBytes(Charset.defaultCharset()), "UTF-8");
 				} catch (UnsupportedEncodingException e) { 
 					e.printStackTrace();
 				}
@@ -220,7 +222,8 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 				worksponsorarquivos.setTipoarquivo(tipoarquivo.getTipoarquivo()); 
 				worksponsorarquivos.setWorksponsor(worksponsor);
 				worksponsorarquivos.setNomeftp(worksponsor.getIdworksponsor() + "_" + listaNomeArquivo.get(i));
-				worksponsorarquivos.setNome(obs); 
+				worksponsorarquivos.setNome(nome);
+				worksponsorarquivos.setDescricao(obs);
 				worksponsorarquivos = workSponsorArquivoFacade.salvar(worksponsorarquivos);
 				listaArquivos.add(worksponsorarquivos); 
 			}

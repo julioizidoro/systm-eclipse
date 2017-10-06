@@ -67,8 +67,9 @@ public class CadUsuariosMB implements Serializable {
 			usuario.setDataversao(new Date());
 			usuario.setCargo(null);
 		} else {
+			int idusuario = usuario.getIdusuario();
 			if (usuario.getUnidadenegocio().getResponsavelcrm() != null
-					&& usuario.getUnidadenegocio().getResponsavelcrm() == usuario.getIdusuario()) {
+					&& usuario.getUnidadenegocio().getResponsavelcrm() == idusuario) {
 				responsavelUnidade = true;
 			}   
 			if (usuario.isVende()) {

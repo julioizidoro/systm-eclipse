@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="cadControleWorkEmbarque"
+		style="text-align:left;font-size:11px;">
+		<title>Informações de Embarque</title>
+		<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<h:outputText value="Dados da Passagem" style="color:#4C816D;font-size:14px;margin-left:3%;font-weight:bold;"/>
+		<hr style="margin-left:3%;width:95%; height:4px; border: 0; box-shadow: inset 0 4px 3px -4px rgba(0, 0, 0, 0.5);"></hr>
+		<h:panelGrid columns="4"
+			columnClasses="tamanho1, tamanho1, tamanho7, tamanho7"
+			style="width:95%;margin-left:3%;">  
+			<p:outputLabel value="Cia Aerea" />  
+			<p:outputLabel value="Aeroporto Chegada" />
+			<p:outputLabel value="Nº Vôo" />
+			<p:outputLabel value="Horário Chegada" />
+
+			<p:inputText id="ciaAerea"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.ciaaerea}"
+				style="width:90%;" maxlength="45"/>
+			<p:inputText id="aeroportoChegada"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.aeroportochegada}"
+				style="width:90%;" maxlength="100"/>
+			<p:inputText id="numeroVoo"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.numerovoo}"
+				style="width:80%;" maxlength="15"/>
+			<p:inputMask id="horaChegada"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.horachegada}"
+				style="width:90%;" mask="99:99"/>
+		</h:panelGrid>
+		<br></br>  
+		<h:panelGrid columns="2" columnClasses="tamanho7, tamanho7"
+			style="width:67%;margin-left:3%;">
+			<p:outputLabel value="Período Embarque" />
+			<p:outputLabel value="Período Retorno" />   
+
+			<h:panelGroup>
+				<p:calendar id="embarqueInicial"
+					value="#{cadControleWorkEmbarqueMB.controleworkembarque.dataembarqueinicial}"
+					size="15" locale="pt" pattern="dd/MM/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				<p:calendar id="embarqueFinal"
+					value="#{cadControleWorkEmbarqueMB.controleworkembarque.dataembarquefinal}"
+					size="15" locale="pt" pattern="dd/MM/yyyy" style="margin-left:3%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+			</h:panelGroup>
+			<h:panelGroup>
+				<p:calendar id="retornoInicial"
+					value="#{cadControleWorkEmbarqueMB.controleworkembarque.dataretornoinicial}"
+					size="15" locale="pt" pattern="dd/MM/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>  
+				<p:calendar id="retornoFinal"
+					value="#{cadControleWorkEmbarqueMB.controleworkembarque.dataretornofinal}"
+					size="14" locale="pt" pattern="dd/MM/yyyy"  style="margin-left:3%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />  
+				</p:calendar>
+			</h:panelGroup>
+		</h:panelGrid>
+		<br></br>   
+		<h:panelGrid columns="3" columnClasses="tamanho7, tamanho7, tamanho7"
+			style="width:73.5%;margin-left:3%;">
+			<p:outputLabel value="Data Embarque" />
+			<p:outputLabel value="Data Chegada" />
+			<p:outputLabel value="Data Retorno" />  
+
+			<p:calendar id="embarque"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.dataembarque}"
+				size="15" locale="pt" pattern="dd/MM/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<p:calendar id="chegada"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.datachegada}"
+				size="15" locale="pt" pattern="dd/MM/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<p:calendar id="retorno"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.dataretorno}"
+				size="14" locale="pt" pattern="dd/MM/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>   
+		</h:panelGrid>     
+		<br></br>  
+		<h:outputText value="Dados do Visto" style="color:#4C816D;font-size:14px;margin-left:3%;font-weight:bold;"/>
+		<hr style="margin-left:3%;width:95%; height:4px; border: 0; box-shadow: inset 0 4px 3px -4px rgba(0, 0, 0, 0.5);"></hr>
+		<h:panelGrid columns="3" columnClasses="tamanho7, tamanho7, tamanho1"
+			style="width:83%;margin-left:3%;">
+			<p:outputLabel value="Situação Visto" />      
+			<p:outputLabel value="Data Visto" />     
+			<p:outputLabel value="SEVIS" />      
+
+			<p:selectOneMenu id="situacaoVisto" value="#{cadControleWorkEmbarqueMB.controleworkembarque.situacaovisto}"
+				style="width:110px;">
+				<f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
+				<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
+				<f:selectItem itemLabel="Negado" itemValue="Negado" /> 
+			</p:selectOneMenu>
+			<p:calendar id="dataVisto"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.datavisto}"
+				size="15" locale="pt" pattern="dd/MM/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<p:inputText id="sevis"
+				value="#{cadControleWorkEmbarqueMB.controleworkembarque.sevis}"
+				style="width:98%;" maxlength="45"/>
+		</h:panelGrid>
+		<br></br> 
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar"
+				action="#{cadControleWorkEmbarqueMB.salvar()}"
+				style="font-size:12px;" update="growl"/>
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{cadControleWorkEmbarqueMB.cancelar()}"
+				style="font-size:12px;margin-left:2%;" />
+		</div>
+	</h:form>  
+</h:body>
+</html>

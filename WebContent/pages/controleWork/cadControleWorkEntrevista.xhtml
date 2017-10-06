@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="cadControleWorkEntrevista"
+		style="text-align:left;font-size:11px;">
+		<title>Agendar Entrevista</title>
+		<br></br>
+		<h:panelGrid columns="4"
+			columnClasses="tamanho7, tamanho7, tamanho7, tamanho7"
+			style="width:95%;margin-left:3%;">
+			<p:outputLabel value="Pais" />
+			<p:outputLabel value="Cidade" />
+			<p:outputLabel value="Sponsor" />
+			<p:outputLabel value="Empregador" />
+
+			<p:selectOneMenu id="pais"
+				value="#{cadControleWorkEntrevistaMB.paisproduto}"
+				style="width:140px;" converter="PaisProdutoConverter" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="País" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idpais"
+					value="#{cadControleWorkEntrevistaMB.listaPais}"
+					var="paisselecionado" itemLabel="#{paisselecionado.pais.nome}"
+					itemValue="#{paisselecionado}" />
+				<f:attribute name="listaPaisProduto"
+					value="#{cadControleWorkEntrevistaMB.listaPais}" />
+				<p:ajax event="change"
+					listener="#{cadControleWorkEntrevistaMB.listarCidade()}"
+					update="cidade" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="cidade"
+				value="#{cadControleWorkEntrevistaMB.cidadepaisproduto}"
+				style="width:140px;" converter="CidadePaisProdutoConverter"
+				filter="true" filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Cidade" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idcidade2"
+					value="#{cadControleWorkEntrevistaMB.listaCidade}" var="cidade"
+					itemLabel="#{cidade.cidade.nome}" itemValue="#{cidade}" />
+				<f:attribute name="listaCidadePaisProduto"
+					value="#{cadControleWorkEntrevistaMB.listaCidade}" />
+				<p:ajax event="change"
+					listener="#{cadControleWorkEntrevistaMB.listaSponsor()}"
+					update="sponsor" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="sponsor"
+				value="#{cadControleWorkEntrevistaMB.worksponsor}"
+				style="width:140px;" converter="WorkSponsorConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Escola" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idsponsor"
+					value="#{cadControleWorkEntrevistaMB.listaWorkSponsor}"
+					var="sponsor"
+					itemLabel="#{sponsor.fornecedorcidade.fornecedor.nome}"
+					itemValue="#{fornecedor}" />
+				<f:attribute name="listaWorkSponsor"
+					value="#{cadControleWorkEntrevistaMB.listaWorkSponsor}" />
+				<p:ajax event="change"
+					listener="#{cadControleWorkEntrevistaMB.listarEmpregador()}"
+					update="empregador" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="empregador"
+				value="#{cadControleWorkEntrevistaMB.workempregador}"
+				style="width:140px;" converter="WorkEmpregadorConverter"
+				filter="true" filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Escola" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idempregador"
+					value="#{cadControleWorkEntrevistaMB.listaWorkEmpregador}"
+					var="empregador" itemLabel="#{empregador.nome}"
+					itemValue="#{fornecedor}" />
+				<f:attribute name="listaWorkEmpregador"
+					value="#{cadControleWorkEntrevistaMB.listaWorkEmpregador}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br></br>
+		<h:panelGrid columns="5"
+			columnClasses="tamanho7, tamanho7, tamanho1, tamanho1, tamanho1"
+			style="width:95%;margin-left:3%;">
+			<p:outputLabel value="Data" />
+			<p:outputLabel value="Hora" />
+			<p:outputLabel value="Colocação" />
+			<p:outputLabel value="Situação Sponsor" />
+			<p:outputLabel value="Situação Empregador" />      
+
+			<p:calendar id="primeirovencimento"
+				value="#{cadControleWorkEntrevistaMB.controleworkentrevista.data}"
+				size="15" locale="pt" pattern="dd/MM/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<p:inputMask mask="99:99" style="width:70%;"
+				value="#{cadControleWorkEntrevistaMB.controleworkentrevista.hora}" />
+			<p:inputText value="#{cadControleWorkEntrevistaMB.colocacao}" style="width:90%;"
+				title="Preencher colocação após ser contratado."/>
+			<p:selectOneMenu
+				value="#{cadControleWorkEntrevistaMB.controleworkentrevista.situacaosponsor}"
+				style="width:120px;">
+				<f:selectItem itemLabel="Aguardado" itemValue="Aguardado" />
+				<f:selectItem itemLabel="Contratado" itemValue="Contratado" />
+				<f:selectItem itemLabel="Negado" itemValue="Negado" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+			<p:selectOneMenu
+				value="#{cadControleWorkEntrevistaMB.controleworkentrevista.situacaoempreagador}"
+				style="width:120px;">
+				<f:selectItem itemLabel="Aguardado" itemValue="Aguardado" />
+				<f:selectItem itemLabel="Contratado" itemValue="Contratado" />
+				<f:selectItem itemLabel="Negado" itemValue="Negado" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br></br><br></br>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar"
+				action="#{cadControleWorkEntrevistaMB.salvar()}"
+				style="font-size:11px;" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{cadControleWorkEntrevistaMB.cancelar()}"
+				style="font-size:11px;margin-left:2%;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

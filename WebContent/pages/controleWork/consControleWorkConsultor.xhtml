@@ -11,7 +11,7 @@
 			<div id="centro">
 				<p:growl id="growl" showDetail="true" sticky="false"
 					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-				<br></br>
+				<br></br> 
 				<p:accordionPanel class="painel" activeIndex="-1">
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
@@ -21,7 +21,7 @@
 							<p:outputLabel value="ID Vendas" for="idvenda" />
 							<p:outputLabel value="Cliente" for="cliente" />
 							<p:outputLabel value="Periodo" for="dataIni" />
-							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="" />
 
 							<p:inputText id="idvenda"
 								value="#{controleWorkAndTravelMB.idvenda}" style="width:90%" />
@@ -44,44 +44,16 @@
 									<p:ajax event="blur" />
 								</p:calendar>
 							</h:panelGroup>
-							<p:selectOneMenu id="unidade" filter="true"
-								filterMatchMode="startsWith" panelStyle="width:180px"
-								value="#{controleWorkAndTravelMB.unidadenegocio}"
-								style="width:90%" converter="UnidadeNegocioConverter">
-								<f:selectItem itemLabel="Selecione" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems
-									value="#{controleWorkAndTravelMB.listaUnidadeNegocio}"
-									var="unidade" itemLabel="#{unidade.nomerelatorio}"
-									itemValue="#{unidade}" />
-								<f:attribute name="listaUnidade"
-									value="#{controleWorkAndTravelMB.listaUnidadeNegocio}" />
-								<p:ajax event="change"
-									listener="#{controleWorkAndTravelMB.gerarListaConsultor()}"
-									update="consultor"></p:ajax>
-							</p:selectOneMenu>
+							<p:outputLabel value="" />
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="4"
-							columnClasses="tamanho1, tamanho1, tamanho1, tamanho1"
+						<h:panelGrid columns="3"
+							columnClasses="tamanho1, tamanho1, tamanho1"
 							style="width:91%;margin-left:3%;">
-							<p:outputLabel value="Consultor" for="consultor" />
 							<p:outputLabel value="Programa" for="programa" />
 							<p:outputLabel value="Status do Processo" for="situacao" />
 							<p:outputLabel />
 
-							<p:selectOneMenu id="consultor"
-								value="#{controleWorkAndTravelMB.usuario}" style="width:200px;"
-								converter="UsuarioConverter" filter="true"
-								filterMatchMode="startsWith" panelStyle="width:180px">
-								<f:selectItem itemLabel="Selecione" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems value="#{controleWorkAndTravelMB.listaConsultor}"
-									var="consultor" itemLabel="#{consultor.nome}"
-									itemValue="#{consultor}" />
-								<f:attribute name="listaUsuario"
-									value="#{controleWorkAndTravelMB.listaConsultor}" />
-							</p:selectOneMenu>
 							<p:selectOneMenu id="programa"
 								value="#{controleWorkAndTravelMB.programa}" style="width:125px;">
 								<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
@@ -104,7 +76,7 @@
 									update=":idControleWork:acordionPainel"
 									action="#{controleWorkAndTravelMB.pesquisar()}" />
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-									update="idControleWork:acordionPainel, unidade, dataFinal, dataIni, cliente, idvenda"
+									update="idControleWork:acordionPainel, dataFinal, dataIni, cliente, idvenda"
 									action="#{controleWorkAndTravelMB.limpar()}"
 									style="margin-left:2%;" />
 							</h:panelGroup>
@@ -114,10 +86,8 @@
 				<br></br>
 				<legend id="iUsu2">
 					<b>Work &amp; Travel</b>
-				</legend>  
-				<p:commandButton value="Controle Consultor" icon="ui-icon-search" rendered="false"
-					action="#{controleWorkAndTravelMB.controleWorkEmbarqueConsultor()}" />
-				<p:tabView id="acordionPainel">  
+				</legend>
+				<p:tabView id="acordionPainel">
 					<p:tab title="Processo (#{controleWorkAndTravelMB.numeroProcesso})"
 						class="tab" titleStyle="font-size: 11px">
 						<p:dataTable id="tabelaControleWork" var="workAndTravel"
@@ -125,16 +95,9 @@
 							class="tabelaHighSchool" scrollable="true" scrollHeight="285"
 							style="margin-bottom:8px">
 							<p:column style="width:35px;text-align:center">
-								<p:commandLink
-									action="#{controleWorkAndTravelMB.marcarEntrevista(workAndTravel)}"
-									title="Adicionar nova entrevista para cliente.">
-									<img
-										src="#{controleWorkAndTravelMB.imagemSituacao(workAndTravel)}"
-										title="#{workAndTravel.statusprocesso}" />
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.listarControle()}"
-										update="@form" />
-								</p:commandLink>
+								<img
+									src="#{controleWorkAndTravelMB.imagemSituacao(workAndTravel)}"
+									title="#{workAndTravel.statusprocesso}" />
 							</p:column>
 							<p:column headerText="ID Venda" style="width:60px;">
 								<h:outputText value="#{workAndTravel.vendas.idvendas}" />
@@ -147,14 +110,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{workAndTravel.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(workAndTravel)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleWork" />
-								</p:commandLink>
+								<h:outputText value="#{workAndTravel.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -188,12 +144,6 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Docs" style="width:45px;text-align:center;">
-								<p:selectBooleanCheckbox value="#{workAndTravel.documentacao}"
-									disabled="true">
-									<p:ajax event="change" />
-								</p:selectBooleanCheckbox>
-							</p:column>
 						</p:dataTable>
 					</p:tab>
 					<p:tab
@@ -204,16 +154,8 @@
 							class="tabelaHighSchool" scrollable="true" scrollHeight="285"
 							style="margin-bottom:8px">
 							<p:column style="width:35px;text-align:center">
-								<p:commandLink
-									action="#{controleWorkAndTravelMB.visualizarEntrevista(entrevista.controleworkentrevistaList.get(0))}"
-									title="Visualizar entrevista do cliente.">
-									<img
-										src="#{controleWorkAndTravelMB.imagemSituacao(entrevista)}"
-										title="#{entrevista.statusprocesso}" />
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.listarControle()}"
-										update="@form" />
-								</p:commandLink>
+								<img src="#{controleWorkAndTravelMB.imagemSituacao(entrevista)}"
+									title="#{entrevista.statusprocesso}" />
 							</p:column>
 							<p:column headerText="ID Venda" style="width:60px;">
 								<h:outputText value="#{entrevista.vendas.idvendas}" />
@@ -226,14 +168,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{entrevista.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(entrevista)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleEntrevista" />
-								</p:commandLink>
+								<h:outputText value="#{entrevista.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -266,12 +201,6 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Docs" style="width:45px;text-align:center">
-								<p:selectBooleanCheckbox value="#{entrevista.documentacao}"
-									disabled="true">
-									<p:ajax event="change" />
-								</p:selectBooleanCheckbox>
-							</p:column>
 						</p:dataTable>
 					</p:tab>
 					<p:tab id="tabelaContratado"
@@ -280,13 +209,10 @@
 						<p:dataTable id="tabelaControleContratado" var="contratado"
 							value="#{controleWorkAndTravelMB.listaContratado}"
 							class="tabelaHighSchool" scrollable="true" scrollHeight="285"
-							style="margin-bottom:8px" editable="true">
-							<p:ajax event="rowEdit"
-								listener="#{controleWorkAndTravelMB.editar(contratado)}"
-								update="@all" />
+							style="margin-bottom:8px">
 							<p:column style="width:35px;text-align:center">
 								<p:commandLink
-									action="#{controleWorkAndTravelMB.cadControleWorkEmbarque(contratado)}"
+									action="#{controleWorkAndTravelMB.cadControleWorkEmbarqueConsultor(contratado)}"
 									title="Visualizar/Cadastrar informações sobre embarque do cliente.">
 									<img
 										src="#{controleWorkAndTravelMB.imagemSituacao(contratado)}"
@@ -307,14 +233,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{contratado.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(contratado)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleContratado" />
-								</p:commandLink>
+								<h:outputText value="#{contratado.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -345,7 +264,7 @@
 									value="#{contratado.vendas.cliente.dataNascimento}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
-								</h:outputText>  
+								</h:outputText>
 							</p:column>
 							<p:column headerText="Estado Destino" style="width:120px;">
 								<h:outputText
@@ -367,81 +286,6 @@
 								<h:outputText
 									value="#{contratado.controleworkempregaor.workempregador.nome}" />
 							</p:column>
-							<p:column headerText="Data Início JO"
-								style="text-align:center;width:110px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{contratado.dataIniciojoboffer}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar value="#{contratado.dataIniciojoboffer}" size="10"
-											locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Data Final JO"
-								style="text-align:center;width:110px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{contratado.dataTerminojoboffer}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar value="#{contratado.dataTerminojoboffer}"
-											size="10" locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Application Sponsor"
-								style="width:80px;text-align:center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:selectBooleanCheckbox
-											value="#{contratado.applicationsponsor}" disabled="true" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectBooleanCheckbox
-											value="#{contratado.applicationsponsor}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Invoice Paga"
-								style="width:80px;text-align:center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:selectBooleanCheckbox value="#{contratado.invoicepaga}"
-											disabled="true" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectBooleanCheckbox value="#{contratado.invoicepaga}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Docs" style="width:45px;text-align:center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:selectBooleanCheckbox value="#{contratado.documentacao}"
-											disabled="true" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectBooleanCheckbox value="#{contratado.documentacao}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column width="30">
-								<p:rowEditor />
-							</p:column>
 						</p:dataTable>
 					</p:tab>
 					<p:tab
@@ -450,7 +294,7 @@
 						<p:dataTable id="tabelaControleEmbarcado" var="embarcado"
 							value="#{controleWorkAndTravelMB.listaEmbarcado}"
 							class="tabelaHighSchool" scrollable="true" scrollHeight="285"
-							style="margin-bottom:8px" editable="true">
+							style="margin-bottom:8px">
 							<p:column style="width:35px;text-align:center">
 								<img src="#{controleWorkAndTravelMB.imagemSituacao(embarcado)}"
 									title="#{embarcado.statusprocesso}" />
@@ -466,14 +310,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{embarcado.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(embarcado)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleEmbarcado" />
-								</p:commandLink>
+								<h:outputText value="#{embarcado.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -525,235 +362,55 @@
 								<h:outputText
 									value="#{embarcado.controleworkempregaor.workempregador.nome}" />
 							</p:column>
-							<p:column headerText="Data Início JO"
-								style="text-align:center;width:110px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{embarcado.dataIniciojoboffer}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar value="#{embarcado.dataIniciojoboffer}" size="10"
-											locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Data Final JO"
-								style="text-align:center;width:110px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{embarcado.dataTerminojoboffer}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar value="#{embarcado.dataTerminojoboffer}" size="10"
-											locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
 							<p:column headerText="Cia Aerea" style="width:120px">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.ciaaerea}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText
-											value="#{embarcado.controleworkembarque.ciaaerea}"
-											style="width:85%;" />
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText value="#{embarcado.controleworkembarque.ciaaerea}" />
 							</p:column>
 							<p:column headerText="Aeroporto Chegada" style="width:150px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.aeroportochegada}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText
-											value="#{embarcado.controleworkembarque.aeroportochegada}"
-											style="width:85%;" />
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.aeroportochegada}" />
 							</p:column>
-							<p:column headerText="Nº Vôo" style="width:85px;">  
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.numerovoo}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText
-											value="#{embarcado.controleworkembarque.numerovoo}"
-											style="width:85%;" />
-									</f:facet>
-								</p:cellEditor>
+							<p:column headerText="Nº Vôo" style="width:85px;">
+								<h:outputText
+									value="#{embarcado.controleworkembarque.numerovoo}" />
 							</p:column>
 							<p:column headerText="Horário Chegada" style="width:75px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.horachegada}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText
-											value="#{embarcado.controleworkembarque.horachegada}"
-											style="width:85%;" />
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.horachegada}" />
 							</p:column>
 							<p:column headerText="Data Embarque" style="width:85px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.dataembarque}" >
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar
-											value="#{embarcado.controleworkembarque.dataembarque}"
-											size="10" locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.dataembarque}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Chegada" style="width:85px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.datachegada}" >
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar
-											value="#{embarcado.controleworkembarque.datachegada}"
-											size="10" locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.datachegada}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Retorno" style="width:85px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.dataretorno}" >
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar
-											value="#{embarcado.controleworkembarque.dataretorno}"
-											size="10" locale="pt" pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.dataretorno}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
 							</p:column>
 							<p:column headerText="Situação Visto" style="width:110px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.situacaovisto}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectOneMenu  value="#{embarcado.controleworkembarque.situacaovisto}"
-											style="width:98px;">
-											<f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
-											<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
-											<f:selectItem itemLabel="Negado" itemValue="Negado" />
-										</p:selectOneMenu>   
-									</f:facet>  
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.situacaovisto}" />
 							</p:column>
 							<p:column headerText="Data Visto" style="width:85px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText
-											value="#{embarcado.controleworkembarque.datavisto}" >
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar
-											value="#{embarcado.controleworkembarque.datavisto}" size="10"
-											locale="pt" pattern="dd/MM/yyyy">   
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText
+									value="#{embarcado.controleworkembarque.datavisto}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
 							</p:column>
 							<p:column headerText="SEVIS" style="width:150px;">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{embarcado.controleworkembarque.sevis}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{embarcado.controleworkembarque.sevis}"
-											style="width:95%;" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Application Sponsor"
-								style="width:80px;text-align:center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:selectBooleanCheckbox
-											value="#{embarcado.applicationsponsor}" disabled="true" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectBooleanCheckbox
-											value="#{embarcado.applicationsponsor}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Invoice Paga"
-								style="width:80px;text-align:center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:selectBooleanCheckbox value="#{embarcado.invoicepaga}"
-											disabled="true" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectBooleanCheckbox value="#{embarcado.invoicepaga}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Docs" style="width:45px;text-align:center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:selectBooleanCheckbox value="#{embarcado.documentacao}"
-											disabled="true" />
-									</f:facet>
-									<f:facet name="input">
-										<p:selectBooleanCheckbox value="#{embarcado.documentacao}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column width="30">
-								<p:rowEditor />
+								<h:outputText value="#{embarcado.controleworkembarque.sevis}" />
 							</p:column>
 						</p:dataTable>
 					</p:tab>
