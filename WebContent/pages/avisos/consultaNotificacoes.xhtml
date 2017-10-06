@@ -28,10 +28,10 @@
 			</h:panelGrid>
 	       		<p:dataScroller id="tabelaNotificacoes" value="#{notificacaoMB.listaAvisos}" var="notificacoes" mode="inline" scrollHeight="300" style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight: 100;"  >
 			        <h:panelGrid columns="3" layout="grid" 
-						style="background: transparent;border:none;width:100%"  
+						style="background: transparent;border:none;width:100%"    
 						styleClass="panelgrid-noborder"
 						columnClasses="colunaRS,colunaVendas"> 
-				        <img src="#{notificacaoMB.carregarImagem()}" style="margin-left:2%"/> 
+				        <img src="#{notificacaoMB.carregarImagem(notificacoes)}" style="margin-left:2%" width="22"/> 
 					    <p:commandLink style="#{notificacaoMB.retornarTextoLink(notificacoes.avisos.imagem)}" action="#{notificacaoMB.consultarArquivos(notificacoes)}"   title="Consultar Arquivos" update="tabelaNotificacoes">
 							<p:outputLabel value="#{notificacoes.avisos.texto}" style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;"/>
 						</p:commandLink>    

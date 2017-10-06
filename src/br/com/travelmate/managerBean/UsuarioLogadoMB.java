@@ -355,10 +355,11 @@ public class UsuarioLogadoMB implements Serializable {
 		gerarListaImagens();
 	}
 
-	public String carregarNotificacao(String tipo) {
+	public String carregarNotificacao(String tipo, String tipo2) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipo", tipo);
+		session.setAttribute("tipo2", tipo2);
 		session.setAttribute("idunidade", usuario.getUnidadenegocio().getIdunidadeNegocio());
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 750);

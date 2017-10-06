@@ -83,7 +83,7 @@ public class PollMB implements Serializable {
 		numeroPromocao = listaAvisos.size();
 		//
 		sql = "Select a from Avisousuario a where a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() +
-				 "  and a.avisos.imagem='aviso' and a.visto=false "+
+				 "  and (a.avisos.imagem='aviso' or a.avisos.imagem='lead') and a.visto=false "+
 				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc";
 		listaAvisos = avisosFacade.listarAvisoUsuario(sql);
 		numeroAtencao = listaAvisos.size();
@@ -109,7 +109,13 @@ public class PollMB implements Serializable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-        	}
+        	}else if (redirecionar.equalsIgnoreCase("simLead")){
+        		try {
+					fc.getExternalContext().redirect("/systm_eclipse/pages/crm/distribuicaoLeads.jsf");
+				} catch (IOException e) {
+					e.printStackTrace(); 
+				}
+        	} 
         }
 	}
 

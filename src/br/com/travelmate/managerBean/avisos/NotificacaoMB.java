@@ -1,6 +1,5 @@
 package br.com.travelmate.managerBean.avisos;
-
-import java.io.IOException;
+ 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +31,7 @@ public class NotificacaoMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<Avisousuario> listaAvisos;
 	private String tipo;
+	private String tipo2;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	
@@ -41,6 +41,8 @@ public class NotificacaoMB implements Serializable{
 			FacesContext fc = FacesContext.getCurrentInstance();
 	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 	        tipo = (String) session.getAttribute("tipo");
+	        tipo2 = (String) session.getAttribute("tipo2");
+	        session.removeAttribute("tipo2");
 	        session.removeAttribute("tipo");
 			gerarListaNotificacao();
 		}
@@ -67,6 +69,14 @@ public class NotificacaoMB implements Serializable{
 		return usuarioLogadoMB;
 	}
 
+	public String getTipo2() {
+		return tipo2;
+	}
+
+	public void setTipo2(String tipo2) {
+		this.tipo2 = tipo2;
+	}
+
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
@@ -75,21 +85,27 @@ public class NotificacaoMB implements Serializable{
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
 		AvisosFacade avisosFacade = new AvisosFacade();
 		String sql = "Select a from Avisousuario a where a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() +
-					 "  and a.avisos.imagem='" + tipo + "' and a.visto=false "+
-					 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc";
+					 "  and (a.avisos.imagem='" + tipo + "'";
+		if(tipo2!=null && tipo2.length()>2) {
+			sql = sql +  " or a.avisos.imagem='" + tipo2 + "'";
+		}
+		sql = sql + ") and a.visto=false "+  " and a.avisos.data>='" + dataConsulta 
+				  + "' and a.avisos.liberar=1  order by a.avisos.data desc";
 		listaAvisos= avisosFacade.listarAvisoUsuario(sql);
 		if (listaAvisos==null){
 			listaAvisos= new ArrayList<Avisousuario>();
 		}
 	}  
 	
-	public String carregarImagem(){
-		if(tipo.equalsIgnoreCase("promocao")){
+	public String carregarImagem(Avisousuario avisousuario){
+		if(avisousuario.getAvisos().getImagem().equalsIgnoreCase("promocao")){
 			return "../../resources/img/promocaoAviso.png";
-		}else if(tipo.equalsIgnoreCase("atencao")){
+		}else if(avisousuario.getAvisos().getImagem().equalsIgnoreCase("atencao")){
 			return "../../resources/img/atencaoAviso.png";
-		}else if(tipo.equalsIgnoreCase("Upload")){
+		}else if(avisousuario.getAvisos().getImagem().equalsIgnoreCase("Upload")){
 			return "../../resources/img/uploadAviso.png";
+		}else if(avisousuario.getAvisos().getImagem().equalsIgnoreCase("lead")){
+			return "../../resources/img/crm/novosClick.png";
 		}else{
 			return "../../resources/img/notificacaoAviso.png";
 		}
@@ -147,13 +163,22 @@ public class NotificacaoMB implements Serializable{
 				session.setAttribute("redirecionar", "sim");
 				RequestContext.getCurrentInstance().closeDialog("arquivo"); 
 	        }
+		}else if (avisousuario.getAvisos().getImagem().equalsIgnoreCase("lead")){
+			FacesContext fc = FacesContext.getCurrentInstance();
+	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+			session.setAttribute("redirecionar", "simLead");
+			RequestContext.getCurrentInstance().closeDialog("lead");  
 		}
 		return "";
 	}
 	
+	public String consultarLead(Avisousuario avisousuario){
+		
+		return "";
+	} 
 	
 	public String retornarTextoLink(String tipo){
-		if (!tipo.equalsIgnoreCase("Upload")) {
+		if (!tipo.equalsIgnoreCase("Upload") && !tipo.equalsIgnoreCase("lead")) {
 			return "text-decoration:none;";
 		}
 		return "";

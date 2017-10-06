@@ -15,12 +15,11 @@
 				id="sidebarToggle">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-			</button>
-
+			</button> 
 			<ul class="nav-notification clearfix">
 				<li class="dropdown"><p:commandLink id="atencao" title="Avisos"
 						class="dropdown-toggle" data-toggle="dropdown"
-						action="#{usuarioLogadoMB.carregarNotificacao('aviso')}">
+						action="#{usuarioLogadoMB.carregarNotificacao('aviso', 'lead')}">
 						<img src="../../resources/img/paginainicial/notificacao.png"
 							width="22" />
 						<h:panelGroup rendered="#{pollMB.habilitarNumeroAviso()}">
@@ -45,7 +44,7 @@
 					</p:commandLink></li>
 				<li class="dropdown"><p:commandLink id="promocao"
 						title="Promoção" class="dropdown-toggle" data-toggle="dropdown"
-						action="#{usuarioLogadoMB.carregarNotificacao('promocao')}">
+						action="#{usuarioLogadoMB.carregarNotificacao('promocao', '')}">
 						<img src="../../resources/img/paginainicial/new.png" width="22" />
 						<h:panelGroup rendered="#{pollMB.habilitarNumeroPromocao()}">
 							<span id="idPromocao"
@@ -56,7 +55,7 @@
 					</p:commandLink></li>
 				<li class="dropdown"><p:commandLink id="upload" title="Upload"
 						class="dropdown-toggle" data-toggle="dropdown"
-						action="#{usuarioLogadoMB.carregarNotificacao('Upload')}">
+						action="#{usuarioLogadoMB.carregarNotificacao('Upload', '')}">
 						<img src="../../resources/img/paginainicial/upload.png" width="22" />
 						<h:panelGroup rendered="#{pollMB.habilitarNumeroUpload()}">
 							<span id="idUpload"
