@@ -111,6 +111,16 @@ public class NotificacaoMB implements Serializable{
 		}
 	}
 	
+	public String consultarTitle(Avisousuario avisousuario){
+		if(avisousuario.getAvisos().getImagem().equalsIgnoreCase("Upload")){
+			return "Consultar Arquivos";
+		}else if(avisousuario.getAvisos().getImagem().equalsIgnoreCase("lead")){
+			return "Ir para distribuição de leads";
+		}else{
+			return "";
+		}
+	}
+	
 	public String carregarTitulo(){
 		if(tipo.equalsIgnoreCase("promocao")){
 			return "Promoções";

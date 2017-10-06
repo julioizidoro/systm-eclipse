@@ -18,6 +18,7 @@ import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
@@ -182,8 +183,18 @@ public class EncaminharLeadMB implements Serializable {
 	
 	public void gerarListaUsuario(){
 		if(unidadenegocio!=null){
-			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
-				+ " and u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+			if(lead.getUnidadenegocio().getIdunidadeNegocio()==6 
+					&& unidadenegocio.isLeadautomatica() && unidadenegocio.getResponsavelcrm()!=null) {
+				listaUsuario = new ArrayList<Usuario>();
+				UsuarioFacade usuarioFacade = new UsuarioFacade();
+				Usuario usuario = usuarioFacade.consultar(unidadenegocio.getResponsavelcrm());
+				if(usuario!=null) {
+					listaUsuario.add(usuario);
+				}
+			}else {
+				listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
+					+ " and u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+			}
 		}
 	}
 	
@@ -199,12 +210,14 @@ public class EncaminharLeadMB implements Serializable {
 		LeadEncaminhadoFacade leadEncaminhadoFacade = new LeadEncaminhadoFacade();
 		leadEncaminhadoFacade.salvar(leadencaminhado); 
 		LeadFacade leadFacade = new LeadFacade();
+		if(lead.getUnidadenegocio().getIdunidadeNegocio()!=6 || !unidadenegocio.isLeadautomatica()) {
+			lead.setDataenvio(new Date());
+			lead.setHoraenvio(Formatacao.foramtarHoraString());
+		} 
 		lead.setUnidadenegocio(unidadenegocio);
 		lead.setSituacao(situacao);
 		lead.setTipocontato(tipocontato);
-		lead.setUsuario(usuario);
-		lead.setDataenvio(new Date());
-		lead.setHoraenvio(Formatacao.foramtarHoraString());
+		lead.setUsuario(usuario); 
 		leadFacade.salvar(lead);
 		lead.getCliente().setUnidadenegocio(unidadenegocio);
 		ClienteFacade clienteFacade = new ClienteFacade();
@@ -225,7 +238,11 @@ public class EncaminharLeadMB implements Serializable {
 		Avisos avisos = new Avisos();
 		avisos.setData(new Date());
 		avisos.setUsuario(usuarioLogadoMB.getUsuario());
-		avisos.setImagem("aviso");
+		if(lead.getUnidadenegocio().getIdunidadeNegocio()!=6 || !unidadenegocio.isLeadautomatica()) {
+			avisos.setImagem("aviso");
+		}else {
+			avisos.setImagem("lead");
+		}
 		avisos.setLiberar(true);
 		avisos.setTexto("Você recebeu uma nova lead - "+lead.getCliente().getNome()+". Encaminhada por "+
 				usuarioLogadoMB.getUsuario().getNome()+".");

@@ -32,7 +32,7 @@
 						styleClass="panelgrid-noborder"
 						columnClasses="colunaRS,colunaVendas"> 
 				        <img src="#{notificacaoMB.carregarImagem(notificacoes)}" style="margin-left:2%" width="22"/> 
-					    <p:commandLink style="#{notificacaoMB.retornarTextoLink(notificacoes.avisos.imagem)}" action="#{notificacaoMB.consultarArquivos(notificacoes)}"   title="Consultar Arquivos" update="tabelaNotificacoes">
+					    <p:commandLink style="#{notificacaoMB.retornarTextoLink(notificacoes.avisos.imagem)}" action="#{notificacaoMB.consultarArquivos(notificacoes)}" title="#{notificacaoMB.consultarTitle(notificacoes)}" update="tabelaNotificacoes">
 							<p:outputLabel value="#{notificacoes.avisos.texto}" style="width:85%;margin-left:1.5%;font-size:14px;font-weight:400;"/>
 						</p:commandLink>    
 				        <p:commandLink action="#{notificacaoMB.limparNotificacao(notificacoes)}"  style="text-decoration:none" title="Visualizado" update="tabelaNotificacoes">
