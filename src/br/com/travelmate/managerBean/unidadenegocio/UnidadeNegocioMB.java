@@ -113,7 +113,7 @@ public class UnidadeNegocioMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("unidadenegocio", unidadenegocio);
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 500);
+		options.put("contentWidth", 650);
 		RequestContext.getCurrentInstance().openDialog("consUsuariosUnidade");
 	}
 }

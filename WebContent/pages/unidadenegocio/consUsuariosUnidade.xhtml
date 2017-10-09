@@ -29,12 +29,15 @@
 
 				<p:dataTable id="tabelaUsuarioAtivo" var="usuarioAtivo" scrollHeight="200"
 					value="#{usuariosUnidadeMB.listaUsuarioAtivo}" class="tabelas-responsivas"
-					style="margin-left:2.5%;width:90%;" scrollable="true">
-					<p:column headerText="Nome" style="text-align:left;">
+					style="width:100%;" scrollable="true">
+					<p:column headerText="Nome" style="text-align:left;width:160px;">
 						<h:outputText value="#{usuarioAtivo.nome}" />
 					</p:column>
-					<p:column headerText="E-mail" style="text-align:left;">
+					<p:column headerText="E-mail" style="text-align:left;width:170px;">
 						<h:outputText value="#{usuarioAtivo.email}" />
+					</p:column>
+					<p:column headerText="Cargo" style="text-align:left;">
+						<h:outputText value="#{usuarioAtivo.cargo.nome}" />
 					</p:column>
 				</p:dataTable>
 			</p:tab>
@@ -43,14 +46,17 @@
 
 				<p:dataTable id="tabelaUsuarioInativo" var="usuarioInativo" scrollHeight="200"
 					value="#{usuariosUnidadeMB.listaUsuarioInativo}" class="tabelas-responsivas"
-					style="margin-left:2.5%;width:90%;" scrollable="true">
-					<p:column headerText="Nome" style="text-align:left;">
+					style="width:100%;" scrollable="true">
+					<p:column headerText="Nome" style="text-align:left;width:160px;">
 						<h:outputText value="#{usuarioInativo.nome}" />
 					</p:column>
-					<p:column headerText="E-mail" style="text-align:left;">
+					<p:column headerText="E-mail" style="text-align:left;width:170px;">
 						<h:outputText value="#{usuarioInativo.email}" />
+					</p:column>  
+					<p:column headerText="Cargo" style="text-align:left;">
+						<h:outputText value="#{usuarioInativo.cargo.nome}" />  
 					</p:column>
-				</p:dataTable>
+				</p:dataTable>  
 			</p:tab>
 		</p:tabView>
 		<br/>
