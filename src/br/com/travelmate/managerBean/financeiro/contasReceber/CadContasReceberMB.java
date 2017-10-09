@@ -11,6 +11,7 @@ import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Planoconta;
@@ -51,6 +52,7 @@ public class CadContasReceberMB implements Serializable{
     private String idVendas;
     private String nomeCliente;
     private Vendas vendas;
+    private Date dataVencimentoOriginal;
    
     @PostConstruct
     public void init() {
@@ -64,6 +66,7 @@ public class CadContasReceberMB implements Serializable{
             idVendas = String.valueOf(conta.getVendas().getIdvendas());
             vendas = conta.getVendas();
             nomeCliente = vendas.getCliente().getNome();
+            dataVencimentoOriginal = conta.getDatavencimento();
         }
     }
 
@@ -119,6 +122,14 @@ public class CadContasReceberMB implements Serializable{
         this.usuarioLogadoMB = usuarioLogadoMB;
     }
 
+	public Date getDataVencimentoOriginal() {
+		return dataVencimentoOriginal;
+	}
+
+	public void setDataVencimentoOriginal(Date dataVencimentoOriginal) {
+		this.dataVencimentoOriginal = dataVencimentoOriginal;
+	}
+
 	public String salvar(){
         ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
         String operacao ="Alteração de contas a receber";
@@ -138,6 +149,16 @@ public class CadContasReceberMB implements Serializable{
             operacao = "Contas a receber criada pelo usuário";
         }
         conta.setVendas(vendas);
+        if (conta.getIdcontasreceber() != null) {
+	        if (conta.getCrmcobrancaconta() != null) {
+	        	if (dataVencimentoOriginal.before(conta.getDatavencimento())) {
+	    			if (conta.getDatavencimento().after(new Date())) {
+	    				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+	    				crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+	    			}
+				}
+			}
+		}
         conta = contasReceberFacade.salvar(conta);
         EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean(operacao, conta, usuarioLogadoMB.getUsuario());
         RequestContext.getCurrentInstance().closeDialog(conta);

@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.cancelamento;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
+import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.DepartamentoFacade;  
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade; 
@@ -24,8 +27,11 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Condicaocancelamento;
+import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Departamento; 
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuariopontos; 
@@ -168,6 +174,7 @@ public class CancelamentoFichaMB implements Serializable {
 			venda.setSituacao("CANCELADA");
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(venda);
+			cancelarContasReceber();
 			int mesVenda = Formatacao.getMesData(venda.getDataVenda())  + 1;
 			int mesAtual = Formatacao.getMesData(new Date()) +1; 
 			if (mesVenda == mesAtual) {
@@ -376,6 +383,28 @@ public class CancelamentoFichaMB implements Serializable {
 			usuariopontos.setPontoescola(0);
 		}
 		usuariopontos = usuarioPontosFacade.salvar(usuariopontos);
+	}
+	
+	public void cancelarContasReceber(){
+		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+		List<Contasreceber> lista = contasReceberFacade.listar("SELECT c FROM Contasreceber c where c.vendas.idvendas=" + venda.getIdvendas());
+		if (lista == null) {
+			lista = new ArrayList<>();
+		}
+		for (int i = 0; i < lista.size(); i++) {
+				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean(
+						"Conta cancelada pelo SysTM", lista.get(i), usuarioLogadoMB.getUsuario());
+				lista.get(i).setSituacao("cc");
+				lista.get(i).setDatacancelamento(new Date());
+				lista.get(i).setMotivocancelamento("Alteração SysTM");
+				contasReceberFacade.salvar(lista.get(i));
+				if (lista.get(i).getCrmcobrancaconta() != null) {
+					if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
+						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+						crmCobrancaBean.baixar(lista.get(i), usuarioLogadoMB.getUsuario());
+					}
+				}
+		}
 	}
 
 }
