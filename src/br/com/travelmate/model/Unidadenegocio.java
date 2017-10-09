@@ -6,8 +6,11 @@
 package br.com.travelmate.model;
 
 import java.io.Serializable;
-import java.util.Date; 
-import javax.persistence.Basic; 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -111,6 +115,8 @@ public class Unidadenegocio implements Serializable {
     private boolean leadautomatica;
     @Column(name = "sigla")
     private String sigla;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "unidadenegocio")
+    private List<Leadresponsavel> leadresponsavelList;
     @Transient
     private boolean selecionado;
     @Transient
@@ -380,6 +386,14 @@ public class Unidadenegocio implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	public List<Leadresponsavel> getLeadresponsavelList() {
+		return leadresponsavelList;
+	}
+
+	public void setLeadresponsavelList(List<Leadresponsavel> leadresponsavelList) {
+		this.leadresponsavelList = leadresponsavelList;
 	}
 
 	@Override
