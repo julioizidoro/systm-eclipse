@@ -3,9 +3,7 @@ package br.com.travelmate.bean;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Named;
-
-import org.eclipse.jdt.core.dom.IPackageBinding;
+import javax.inject.Named; 
 
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade; 
@@ -14,19 +12,9 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
 import br.com.travelmate.model.Metafaturamentoanual;
-import br.com.travelmate.model.Metasfaturamentomensal;
-import br.com.travelmate.model.Pacotecarro;
-import br.com.travelmate.model.Pacotecircuito;
-import br.com.travelmate.model.Pacotecruzeiro;
-import br.com.travelmate.model.Pacotehotel;
-import br.com.travelmate.model.Pacoteingresso;
-import br.com.travelmate.model.Pacotepassagem;
-import br.com.travelmate.model.Pacotepasseio;
-import br.com.travelmate.model.Pacotes;
-import br.com.travelmate.model.Pacoteservico;
-import br.com.travelmate.model.Pacotetransfer;
-import br.com.travelmate.model.Pacotetrecho;
-import br.com.travelmate.model.Pacotetrem;
+import br.com.travelmate.model.Metasfaturamentomensal; 
+import br.com.travelmate.model.Pacotes; 
+import br.com.travelmate.model.Pacotetrecho; 
 import br.com.travelmate.model.Regravenda;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -284,6 +272,7 @@ public class DashBoardBean {
 			usuariopontos.setUsuario(usuario);
 			usuariopontos.setPontos(0);
 			usuariopontos.setPontoescola(0);
+			usuariopontos.setTotalpontos(0);
 		}
 		if (usuariopontos.getPontoescola() == null) {
 			usuariopontos.setPontoescola(0);
@@ -402,6 +391,7 @@ public class DashBoardBean {
 			usuariopontos.setUsuario(venda.getUsuario());
 			usuariopontos.setPontos(0);
 			usuariopontos.setPontoescola(0);
+			usuariopontos.setTotalpontos(0);
 		}
 		if (cancelamento == false) {
 			RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
@@ -444,6 +434,7 @@ public class DashBoardBean {
 			usuariopontosFranquia.setUsuario(venda.getUsuario());
 			usuariopontosFranquia.setPontos(0);
 			usuariopontosFranquia.setPontoescola(0);
+			usuariopontosFranquia.setTotalpontos(0);
 		}
 		
 		sql = "SELECT u FROM Usuariopontos u where u.usuario.idusuario=" + usuarioConsultor.getIdusuario()
@@ -456,6 +447,7 @@ public class DashBoardBean {
 			usuariopontosConsultor.setUsuario(venda.getUsuario());
 			usuariopontosConsultor.setPontos(0);
 			usuariopontosConsultor.setPontoescola(0);
+			usuariopontosConsultor.setTotalpontos(0);
 		}
 		if (cancelamento){
 			usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() - venda.getPonto());

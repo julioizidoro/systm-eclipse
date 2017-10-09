@@ -68,8 +68,22 @@
 				<legend id="iUsu2">
 					<b>Consulta de Higher Education</b>
 				</legend>
-				<p:commandButton value="Novo Questionario" icon="ui-icon-plus"
-					action="#{higherEducationMB.novoQuestionario()}" style="font-size:12px;margin-left:79.5%" />
+				<p:commandButton value="Novo Questionario" icon="ui-icon-plus" update=":consHe:growl" onsuccess="PF('novaficha').show();"
+					 style="font-size:12px;margin-left:79.5%" />
+					
+					<p:dialog message="CRM" showEffect="fade" hideEffect="fade" header="ATENÇÃO"
+						width="36%" icon="ui-icon-alert" widgetVar="novaficha"
+						style="font-size:14px">
+						<h:panelGroup style="margin-left:2%;">
+							<h:outputText value="Por favor emitir a venda através da ferramenta CRM. Obrigado" style="font-size:16px;" />
+						</h:panelGroup>
+						<br/><br/>
+						<p:commandButton action="#{higherEducationMB.notificarEfetuarFichaCrm()}" value="Ir para CRM"
+							oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-yes"
+							
+							style="margin-left:40%;font-size:12px"/>
+						<br/>
+					</p:dialog>
 				<br></br> <br></br> 
 				   
 				<p:dataTable id="tabelaConsHe" var="he"  class="tabelaHighSchool"

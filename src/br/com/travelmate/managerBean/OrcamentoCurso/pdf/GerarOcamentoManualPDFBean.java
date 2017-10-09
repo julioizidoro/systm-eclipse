@@ -128,7 +128,7 @@ public class GerarOcamentoManualPDFBean {
 			if(p.getProdutosOrcamento().getDescricao().equalsIgnoreCase("Voluntariado")){
 				o.setComposicao("voluntariado + taxas".toUpperCase()); 
 			}else{
-				o.setComposicao("curso + acomodação + taxas".toUpperCase()); 
+				o.setComposicao(composicao); 
 			}
 			if (orcamentoCurso.getOrcamentocursoformapagamentoList() != null && orcamentoCurso.getOrcamentocursoformapagamentoList().size() > 0) {
 				Orcamentocursoformapagamento f = orcamentoCurso.getOrcamentocursoformapagamentoList().get(0);

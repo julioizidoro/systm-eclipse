@@ -49,7 +49,7 @@ public class GerarOcamentoPDFBean {
 		listaDesconto = new ArrayList<Ocrusoprodutos>();
 		listaCustosExtras = new ArrayList<Ocrusoprodutos>();
 		listaTaxas = new ArrayList<Ocrusoprodutos>();
-		composicao = "Curso";
+		composicao = "CURSO";
 		gerarListaProdutos();
 		carregarTaxas();
 		carregarAcomodacao();
@@ -274,7 +274,7 @@ public class GerarOcamentoPDFBean {
 				+ Formatacao.formatarFloatString(ocurso.getValorcambio()));
 
 		// Dados Pagina 04
-		o.setComposicao("");   
+		o.setComposicao(composicao);   
 		o.setValorVista("R$ " + Formatacao.formatarFloatString(ocurso.getValoravista()));
 		if (ocurso.getOcursoformapagamentoList() != null && ocurso.getOcursoformapagamentoList().size() > 0) {
 			o.setValorentradaboelto("R$ "
@@ -561,6 +561,7 @@ public class GerarOcamentoPDFBean {
 	public void calcularTotais() {
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {
+				lista.get(i).setComposicao(composicao);
 				if (lista.get(i).getIdgrupo() == 1) {
 					lista.get(i).setTotaltxme(ocurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalTxMe));

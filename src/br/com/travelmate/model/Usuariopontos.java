@@ -46,6 +46,7 @@ public class Usuariopontos implements Serializable {
     public Usuariopontos() {
     	setPontoescola(0);
     	setPontos(0);
+    	setTotalpontos(0);
     }
 
     public Usuariopontos(Integer idusuariopontos) {

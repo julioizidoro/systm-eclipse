@@ -72,8 +72,22 @@
 				<legend id="iUsu2">
 					<b>Consulta de Au Pair </b>
 				</legend>
-				<p:commandButton value="Nova Ficha" icon="ui-icon-plus"
-					action="#{auPairMB.cadastrarFicha()}" class="botaoConsulta" style="font-size:12px;float:right;margin-right:4%;" />
+				<p:commandButton value="Nova Ficha" icon="ui-icon-plus" update="idfrmconsultaaupair:growl" onsuccess="PF('novaficha').show();"
+					 class="botaoConsulta" style="font-size:12px;float:right;margin-right:4%;" />
+				
+				<p:dialog message="CRM" showEffect="fade" hideEffect="fade" header="ATENÇÃO"
+						width="36%" icon="ui-icon-alert" widgetVar="novaficha"
+						style="font-size:14px">
+						<h:panelGroup style="margin-left:2%;">
+							<h:outputText value="Por favor emitir a venda através da ferramenta CRM. Obrigado" style="font-size:16px;" />
+						</h:panelGroup>
+						<br/><br/>
+						<p:commandButton action="#{auPairMB.notificarEfetuarFichaCrm()}" value="Ir para CRM"
+							oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-yes"
+							
+							style="margin-left:40%;font-size:12px"/>
+						<br/>
+					</p:dialog>
 				<br/><br/> 
 				
 				

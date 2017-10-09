@@ -18,20 +18,21 @@
 					<p:tab title="Informações" titleStyle="font-size:11px">
 						<p:outputLabel value="Cliente" for="idcliente"
 							style="margin-left:8%" />
-						<p:panelGrid columns="2" layout="grid"
+							<br/>
+						<h:panelGroup columns="2" layout="grid"  
 							style="background: transparent;border:none;margin-left:7%"
 							styleClass="panelgrid-noborder"
 							columnClasses="colunaBotao,colunaQuarenta">
-							<p:inputText id="idcliente" readonly="true" style="width:102%;"
+							<p:inputText id="idcliente" readonly="true" style="width:41%;margin-left: 1%;"
 								maxlength="100" value="#{cadTraineeMB.cliente.nome}" />
 							<p:commandLink style="text-decoration: none"
 								action="#{cadTraineeMB.pesquisarCliente()}">
-								<img src="../../resources/img/pesquisar.png" width="10%" />
+								<img src="../../resources/img/pesquisar.png" width="40px" />
 								<p:ajax event="dialogReturn"
 									listener="#{cadTraineeMB.retornoDialogCliente}"
 									update="idcliente" />
 							</p:commandLink>
-						</p:panelGrid>
+						</h:panelGroup>
 
 						<br></br>
 						<legend id="iUsu3" style="margin-left: 8%; width: 50%">

@@ -390,10 +390,22 @@ public class HistoricoClienteMB implements Serializable {
 	public String emitirVenda() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("cliente", lead.getCliente());
-		session.setAttribute("lead", lead); 
-		return "cadCliente";
+		if (lead.getProdutos().getIdprodutos() != 13) {
+			session.setAttribute("cliente", lead.getCliente());
+			session.setAttribute("lead", lead); 
+			return "cadCliente";
+		}
+		return "";
 	}   
+	
+	public String emitirVendaTrainee(String tipo) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
+		session.setAttribute("tipo", tipo);
+		return "cadCliente";
+	}  
 	
 	public void excluir(Leadhistorico leadhistorico){
 		LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
