@@ -133,9 +133,7 @@ public class Vendas implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas", fetch=FetchType.LAZY)
     private Arquivoskitviagem arquivoskitviagem;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas", fetch=FetchType.LAZY)
-    private Vendapendencia vendapendencia;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas", fetch=FetchType.LAZY)
-    private Worktravel worktravel;
+    private Vendapendencia vendapendencia; 
 	@Transient
 	private boolean selecionado;
 	
@@ -475,15 +473,7 @@ public class Vendas implements Serializable {
 	public void setSituacaofinanceiro(String situacaofinanceiro) {
 		this.situacaofinanceiro = situacaofinanceiro;
 	}
-
-	public Worktravel getWorktravel() {
-		return worktravel;
-	}
-
-	public void setWorktravel(Worktravel worktravel) {
-		this.worktravel = worktravel;
-	}
-
+ 
 	@Override
 	public int hashCode() {
 		int hash = 0;

@@ -28,7 +28,7 @@
 					</p:commandLink>        
 				</h:panelGrid>    
 				<br></br>
-				<h:panelGrid style="width:96%;margin-left:0.5%;" columns="1">
+				<h:panelGrid style="width:98%;margin-left:0.5%;" columns="1">
 					<p:dataTable id="tabelaLeads" var="lead"
 						value="#{leadMB.listaLead}" style="font-size:11px;"
 						scrollable="true" scrollHeight="400" editable="true"
@@ -63,18 +63,11 @@
 						</p:column>
 						<p:column headerText="Unidade" style="text-align:left;" width="95">
 							<h:outputText value="#{lead.unidadenegocio.nomerelatorio}" />
-						</p:column>
-						<!-- <p:column headerText="Enviar" width="70"
-							style="text-align:center;">
-							<p:commandLink id="btnEnviar" action="#{leadMB.enviar(lead)}"
-								update="@form">
-								<img src="../../resources/img/crm/envelope.png" width="30" />
-							</p:commandLink>
-						</p:column>  -->
+						</p:column> 
 						<p:column headerText="Telefone" style="text-align:left;" width="95">
 							<h:outputText value="#{leadMB.verificarTelefone(lead.cliente)}" />
 						</p:column>
-						<p:column headerText="Encaminhar" width="70"    
+						<p:column headerText="Encaminhar" width="80"    
 							style="text-align:center;" > 
 							<p:commandLink id="btnEnviar"  action="#{leadMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" update="@form" >
