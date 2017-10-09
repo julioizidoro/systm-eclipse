@@ -73,11 +73,11 @@
 						for="ocupacao1" />
 					<p:inputText id="ocupacao1" style="width:92.5%;"
 						value="#{cadQuestionarioHeMB.questionarioHe.ocupacao1}"
-						placeholder="Ocupação 1" maxlength="100"/>
+						placeholder="Ocupação 1" maxlength="500"/>
 					<p:outputLabel />
 					<p:inputText id="ocupacao2" style="width:92.5%;"
 						value="#{cadQuestionarioHeMB.questionarioHe.ocupacao2}"
-						placeholder="Ocupação 2" maxlength="100"/>
+						placeholder="Ocupação 2" maxlength="500"/>
 				</h:panelGrid>
 				<br />
 				<h:panelGrid columns="2"
@@ -87,7 +87,7 @@
 					<p:outputLabel value="Nível de Certificação de interesse"
 						for="nivelInteresse" />
 
-					<p:inputText id="programa" style="width:85%;"
+					<p:inputText id="programa" style="width:85%;" maxlength="100"
 						value="#{cadQuestionarioHeMB.questionarioHe.programa}" />
 					<h:panelGroup>
 						<p:selectOneMenu id="nivelInteresse"
