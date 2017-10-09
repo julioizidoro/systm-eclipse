@@ -84,9 +84,23 @@
 				<legend id="iUsu2">
 					<b>Consulta de Demi Pair </b>
 				</legend>
-				<p:commandButton value="Nova Ficha" icon="ui-icon-plus"
-					action="#{demiPairMB.cadastrarFicha()}" class="botaoConsulta"
+				<p:commandButton value="Nova Ficha" icon="ui-icon-plus" update=":idfrmconsultademipair:growl" onsuccess="PF('novaficha').show();"
+					 class="botaoConsulta"
 					style="font-size:12px;float:right;margin-right: 4%;" />
+				
+				<p:dialog message="CRM" showEffect="fade" hideEffect="fade" header="ATENÇÃO"
+						width="36%" icon="ui-icon-alert" widgetVar="novaficha"
+						style="font-size:14px">
+						<h:panelGroup style="margin-left:2%;">
+							<h:outputText value="Por favor emitir a venda através da ferramenta CRM. Obrigado" style="font-size:16px;" />
+						</h:panelGroup>
+						<br/><br/>
+						<p:commandButton action="#{demipairMB.notificarEfetuarFichaCrm()}" value="Ir para CRM"
+							oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-yes"
+							
+							style="margin-left:40%;font-size:12px"/>
+						<br/>
+					</p:dialog>
 				<br></br> 
 				<br></br><br/>
 				<p:tabView id="acordionPainel" class="consultaCurso">   

@@ -96,9 +96,22 @@
 				<legend id="iUsu2">  
 					<b>Consulta Ficha de Cursos</b>  
 				</legend> 
-					<p:commandButton value="Nova Ficha" icon="ui-icon-plus"  
-						action="#{cursoMB.cadastrarFicha()}" class="botaoConsulta"
-						style="font-size:12px;float:right;" />
+					<p:commandButton value="Nova Ficha" icon="ui-icon-plus"  update=":consultacursos:growl"
+						 class="botaoConsulta"
+						style="font-size:12px;float:right;" onsuccess="PF('novaficha').show();"/>
+					<p:dialog message="CRM" showEffect="fade" hideEffect="fade" header="ATENÇÃO"
+						width="36%" icon="ui-icon-alert" widgetVar="novaficha"
+						style="font-size:14px">
+						<h:panelGroup style="margin-left:2%;">
+							<h:outputText value="Por favor emitir a venda através da ferramenta CRM. Obrigado" style="font-size:16px;" />
+						</h:panelGroup>
+						<br/><br/>
+						<p:commandButton action="#{cursoMB.notificarEfetuarFichaCrm()}" value="Ir para CRM"
+							oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-yes"
+							
+							style="margin-left:40%;font-size:12px"/>
+						<br/>
+					</p:dialog>
 				<br/><br/>          
 				<p:tabView id="acordionPainel" class="consultaCurso" >    
 					<p:tab title="Processo (#{cursoMB.nFichasProcesso})" class="tab" titleStyle="font-size: 11px" >

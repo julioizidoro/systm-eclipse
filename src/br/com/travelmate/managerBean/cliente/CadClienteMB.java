@@ -47,6 +47,7 @@ public class CadClienteMB implements Serializable {
 	private boolean digitosTelefonePai;
 	private Lead lead;
 	private List<Cliente> listaCliente;
+	private String tipo;
 
 	@PostConstruct
 	public void init() {
@@ -55,10 +56,12 @@ public class CadClienteMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			cliente = (Cliente) session.getAttribute("cliente");
 			lead = (Lead) session.getAttribute("lead");
+			tipo = (String) session.getAttribute("tipo");
 			listaCliente =  (List<Cliente>) session.getAttribute("listaCliente");
 			session.removeAttribute("listaCliente");
 			session.removeAttribute("lead");
 			session.removeAttribute("cliente");
+			session.removeAttribute("tipo");
 			if (cliente == null) {
 				cliente = new Cliente();
 				publicidade = new Publicidade();
@@ -199,7 +202,13 @@ public class CadClienteMB implements Serializable {
 										} else if (lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
 											return "cadHighSchool";
 										} else if (lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getTrainee()) {
-											return "cadTrainee";
+											if (tipo != null) {
+												session.setAttribute("tipo", tipo); 
+												if (tipo.equalsIgnoreCase("Australia")) {
+													return "cadEstagioAustralia";
+												}
+												return "cadTrainee";
+											}
 										} else if (lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
 											return "cadVoluntariado";
 										} else if (lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getWork()) {
@@ -212,6 +221,8 @@ public class CadClienteMB implements Serializable {
 											return "cadVistos";
 										} else if (lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getSeguroPrivado()) {
 											return "fichaSeguroViagem";
+										}else if(lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighereducation()){
+											return "questionarioHe";
 										}
 									}    
 									FacesContext fc = FacesContext.getCurrentInstance();

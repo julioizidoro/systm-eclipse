@@ -863,4 +863,9 @@ public class CursosTeensMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
 		return "";
 	}
+	
+	
+	public String notificarEfetuarFichaCrm(){
+		return "followUp";
+	}
 }

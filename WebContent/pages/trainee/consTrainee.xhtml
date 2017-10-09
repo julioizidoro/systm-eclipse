@@ -87,26 +87,19 @@
 				<p:commandButton value="Nova Ficha" icon="ui-icon-plus"
 					class="botaoConsulta" style="font-size:12px;margin-left:80%"
 					onclick="PF('novaficha').show();" />
-				<p:dialog message="Trainee" showEffect="fade" hideEffect="fade"
-					width="35%" icon="ui-icon-alert" widgetVar="novaficha"
-					style="font-size:14px">
-					<br></br>
-					<p:outputLabel value="Qual país do estágio?" style="margin-left:2%" />
-					<br></br>
-					<br></br>
-					<p:commandLink action="#{traineeMB.cadAustralia()}"
-						oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-yes"
-						update="idfrmconsultatraineer:growl"
-						style="margin-left:2%;font-size:12px">
-						<img src="../../resources/img/AUS.png" />
-					</p:commandLink>
-					<p:commandLink action="#{traineeMB.cadUsa()}"
-						oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-no"
-						update="idfrmconsultatraineer:growl"
-						style="font-size:12px;margin-left:8%;">
-						<img src="../../resources/img/USA.png" />
-					</p:commandLink>
-				</p:dialog>
+				<p:dialog message="CRM" showEffect="fade" hideEffect="fade" header="ATENÇÃO"
+						width="36%" icon="ui-icon-alert" widgetVar="novaficha"
+						style="font-size:14px">
+						<h:panelGroup style="margin-left:2%;">
+							<h:outputText value="Por favor emitir a venda através da ferramenta CRM. Obrigado" style="font-size:16px;" />
+						</h:panelGroup>
+						<br/><br/>
+						<p:commandButton action="#{traineeMB.notificarEfetuarFichaCrm()}" value="Ir para CRM"
+							oncomplete="PF('novaficha').hide();" styleClass="ui-confirmdialog-yes"
+							
+							style="margin-left:40%;font-size:12px"/>
+						<br/>
+					</p:dialog>
 				<br></br> <br></br>
 			
 				<p:tabView id="acordionPainel" class="consultaCurso">   

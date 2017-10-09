@@ -1107,4 +1107,8 @@ public class CursoMB implements Serializable {
 		return "";
 	}
 	
+	public String notificarEfetuarFichaCrm(){
+		return "followUp";
+	}
+	
 }
