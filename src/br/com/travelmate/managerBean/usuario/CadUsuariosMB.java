@@ -15,12 +15,14 @@ import javax.servlet.http.HttpSession;
 import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.GrupoAcessoFacade;
+import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Cargo;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Grupoacesso;
+import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Criptografia;
@@ -67,11 +69,7 @@ public class CadUsuariosMB implements Serializable {
 			usuario.setDataversao(new Date());
 			usuario.setCargo(null);
 		} else {
-			int idusuario = usuario.getIdusuario();
-			if (usuario.getUnidadenegocio().getResponsavelcrm() != null
-					&& usuario.getUnidadenegocio().getResponsavelcrm() == idusuario) {
-				responsavelUnidade = true;
-			}   
+			responsavelUnidade = retornarResponsavelUnidade(); 
 			if (usuario.isVende()) {
 				vende = "Sim";
 			} else
@@ -231,25 +229,8 @@ public class CadUsuariosMB implements Serializable {
 					usuario.setSenha(senha);
 				}
 				usuario = usuarioFacade.salvar(usuario);
-				if (responsavelUnidade) {
-					UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-					Unidadenegocio unidadenegocio = usuario.getUnidadenegocio();
-					unidadenegocio.setResponsavelcrm(usuario.getIdusuario());
-					unidadeNegocioFacade.salvar(unidadenegocio);
-				}
-				AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-				Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
-						+usuario.getIdusuario());
-				if(acessounidade==null) {
-					acessounidade = new Acessounidade();
-					acessounidade.setComissaoparceiros(true);
-					acessounidade.setConsultaorcamento(true);
-					acessounidade.setCrm(true);
-					acessounidade.setDashboard(true);
-					acessounidade.setEmissaoconsulta(true); 
-					acessounidade.setUsuario(usuario);
-					acessounidade = acessoUnidadeFacade.salvar(acessounidade);
-				}
+				verificarResponsavelUnidade();
+				salvarAcessoUnidade();
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 				session.setAttribute("sql", sql);
@@ -286,4 +267,66 @@ public class CadUsuariosMB implements Serializable {
 		session.setAttribute("sql", sql);
 		return "consUsuario";
 	}
+	
+	public boolean retornarResponsavelUnidade() {
+		int idusuario = usuario.getIdusuario();
+		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+		List<Leadresponsavel> lista = leadResponsavelFacade
+				.lista(usuario.getUnidadenegocio().getIdunidadeNegocio());
+		if (lista != null) {
+			for (int i = 0; i < lista.size(); i++) {
+				if (lista.get(i).getUsuario().getIdusuario() == idusuario) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void verificarResponsavelUnidade() {
+		if (responsavelUnidade) {
+			boolean possui = retornarResponsavelUnidade();
+			if(!possui) {
+				salvarLeadResponsavel();
+			}
+		}else {
+			boolean possui = retornarResponsavelUnidade();
+			if(possui) {
+				excluirLeadResponsavel();
+			}
+		}
+	}
+	
+	public void salvarLeadResponsavel() {
+		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+		Leadresponsavel leadresponsavel = new Leadresponsavel();
+		leadresponsavel.setUnidadenegocio(usuario.getUnidadenegocio());
+		leadresponsavel.setUsuario(usuario);
+		leadResponsavelFacade.salvar(leadresponsavel);
+	}
+	
+	public void excluirLeadResponsavel() {
+		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+		Leadresponsavel leadresponsavel = leadResponsavelFacade.consultar
+				("SELECT l FROM Leadresponsavel l WHERE l.unidadenegocio.idunidadeNegocio="+usuario.getUnidadenegocio().getIdunidadeNegocio()
+						+ " AND l.usuario.idusuario="+usuario.getIdusuario());
+		leadResponsavelFacade.excluir(leadresponsavel.getIdleadresponsavel());
+	}
+	
+	public void salvarAcessoUnidade() {
+		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
+		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+				+usuario.getIdusuario());
+		if(acessounidade==null) {
+			acessounidade = new Acessounidade();
+			acessounidade.setComissaoparceiros(true);
+			acessounidade.setConsultaorcamento(true);
+			acessounidade.setCrm(true);
+			acessounidade.setDashboard(true);
+			acessounidade.setEmissaoconsulta(true); 
+			acessounidade.setUsuario(usuario);
+			acessounidade = acessoUnidadeFacade.salvar(acessounidade);
+		}
+	}  
+	
 }

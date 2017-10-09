@@ -381,8 +381,7 @@ public class DashBoardMB implements Serializable {
 		if (!acessoResponsavelGerencial) {
 			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getResponsavelcrm() != usuarioLogadoMB.getUsuario()
-					.getIdusuario()) {
+			if (usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
 				sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 			}
 		}

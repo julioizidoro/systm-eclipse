@@ -18,12 +18,13 @@ import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.facade.LeadResponsavelFacade; 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
+import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -183,14 +184,15 @@ public class EncaminharLeadMB implements Serializable {
 	
 	public void gerarListaUsuario(){
 		if(unidadenegocio!=null){
+			List<Leadresponsavel> listaResponsavel = retornarResponsavelUnidade();
 			if(lead.getUnidadenegocio().getIdunidadeNegocio()==6 
-					&& unidadenegocio.isLeadautomatica() && unidadenegocio.getResponsavelcrm()!=null) {
+					&& unidadenegocio.getIdunidadeNegocio()!=1
+					&& unidadenegocio.getIdunidadeNegocio()!=2
+					&& unidadenegocio.isLeadautomatica() && listaResponsavel!=null) {
 				listaUsuario = new ArrayList<Usuario>();
-				UsuarioFacade usuarioFacade = new UsuarioFacade();
-				Usuario usuario = usuarioFacade.consultar(unidadenegocio.getResponsavelcrm());
-				if(usuario!=null) {
-					listaUsuario.add(usuario);
-				}
+				for (int i = 0; i < listaResponsavel.size(); i++) {
+					listaUsuario.add(listaResponsavel.get(i).getUsuario());
+				} 
 			}else {
 				listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
@@ -255,5 +257,12 @@ public class EncaminharLeadMB implements Serializable {
 		lista.add(avisousuario);
 		avisos.setAvisousuarioList(lista);
 		avisos = avisosFacade.salvar(avisos);
+	}
+	
+	public List<Leadresponsavel> retornarResponsavelUnidade() { 
+		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+		List<Leadresponsavel> lista = leadResponsavelFacade
+				.lista(unidadenegocio.getIdunidadeNegocio()); 
+		return lista;
 	}
 }

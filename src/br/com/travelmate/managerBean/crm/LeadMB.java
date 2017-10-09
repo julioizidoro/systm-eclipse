@@ -1,8 +1,7 @@
 package br.com.travelmate.managerBean.crm;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,20 +15,15 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-
-import br.com.travelmate.facade.ClienteFacade;
+ 
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadResponsavelFacade;
-import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.facade.UnidadeNegocioFacade; 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadresponsavel;
-import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Usuario;
-import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.model.Unidadenegocio; 
 
 @Named
 @ViewScoped
@@ -40,9 +34,7 @@ public class LeadMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	private List<Usuario> listaConsultor;
-	private Usuario consultor;
+	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private Unidadenegocio unidadenegocio;
 	private List<Lead> listaLead;
@@ -64,22 +56,7 @@ public class LeadMB implements Serializable {
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
-
-	public List<Usuario> getListaConsultor() {
-		return listaConsultor;
-	}
-
-	public void setListaConsultor(List<Usuario> listaConsultor) {
-		this.listaConsultor = listaConsultor;
-	}
-
-	public Usuario getConsultor() {
-		return consultor;
-	}
-
-	public void setConsultor(Usuario consultor) {
-		this.consultor = consultor;
-	}
+ 
 
 	public List<Unidadenegocio> getListaUnidadeNegocio() {
 		return listaUnidadeNegocio;
@@ -127,59 +104,7 @@ public class LeadMB implements Serializable {
 		if (listaUnidadeNegocio == null) {
 			listaUnidadeNegocio = new ArrayList<Unidadenegocio>();
 		}
-	}
-
-	public void atualizarLead(Lead lead) {
-		if (unidadenegocio != null) {
-			lead.setUnidadenegocio(unidadenegocio);
-		}
-		if (consultor != null) {
-			lead.setUsuario(consultor);
-		}
-		gerarListaConsultor();
-	}
-
-	public void gerarListaConsultor() {
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaConsultor = usuarioFacade
-				.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
-						+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
-		if (listaConsultor == null) {
-			listaConsultor = new ArrayList<Usuario>();
-		}
-		consultor = usuarioFacade.consultar(unidadenegocio.getResponsavelcrm());
-	}
-
-	public String enviar(Lead lead) {
-		if (validarDados()) {
-			LeadFacade leadFacade = new LeadFacade();
-			lead.setUnidadenegocio(unidadenegocio);
-			lead.setUsuario(consultor);
-			lead.setDataenvio(new Date());
-			lead.setHoraenvio(Formatacao.foramtarHoraString());
-			lead.setDataproximocontato(new Date());
-			lead = leadFacade.salvar(lead);
-			Mensagem.lancarMensagemInfo("", "Lead enviado com sucesso!");
-			Cliente cliente = lead.getCliente();
-			cliente.setUnidadenegocio(unidadenegocio);
-			ClienteFacade clienteFacade = new ClienteFacade();
-			clienteFacade.salvar(cliente);
-			gerarListaLead();
-		} else {
-			Mensagem.lancarMensagemErro("Atenção", "Campos Obrigatorio não preenchidos!");
-		}
-		return "";
-	}
-
-	public boolean validarDados() {
-		if (unidadenegocio == null || unidadenegocio.getIdunidadeNegocio() == null) {
-			return false;
-		}
-		if (consultor == null || consultor.getIdusuario() == null) {
-			return false;
-		}
-		return true;
-	}
+	}  
 
 	public void gerarListaLead() {
 		boolean responsavel = retornarResponsavelUnidade();
@@ -199,8 +124,7 @@ public class LeadMB implements Serializable {
 				acessomaster = true;
 				acessounidade = false;
 			} else {
-				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-				gerarListaConsultor();
+				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio(); 
 			}
 		}
 	}

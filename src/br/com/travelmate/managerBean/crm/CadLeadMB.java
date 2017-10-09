@@ -18,6 +18,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
@@ -31,6 +32,7 @@ import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
@@ -84,9 +86,8 @@ public class CadLeadMB implements Serializable {
 		cliente = new Cliente();
 		lead = new Lead();
 		gerarListaUnidadeNegocio();
-		if(usuarioLogadoMB.getUsuario().isPertencematriz()
-				|| usuarioLogadoMB.getUsuario().getUnidadenegocio().getResponsavelcrm()
-					==usuarioLogadoMB.getUsuario().getIdusuario()){
+		boolean responsavelUnidade = retornarResponsavelUnidade();
+		if(usuarioLogadoMB.getUsuario().isPertencematriz() || responsavelUnidade){
 			desabilitarUnidade=false;
 		}else{
 			unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
@@ -456,5 +457,20 @@ public class CadLeadMB implements Serializable {
 			pesquisanome=true;
 			pesquisatelefone=false;
 		}
+	}
+	
+	public boolean retornarResponsavelUnidade() {
+		int idusuario = usuarioLogadoMB.getUsuario().getIdusuario();
+		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+		List<Leadresponsavel> lista = leadResponsavelFacade
+				.lista(usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
+		if (lista != null) {
+			for (int i = 0; i < lista.size(); i++) {
+				if (lista.get(i).getUsuario().getIdusuario() == idusuario) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -106,9 +106,7 @@ public class Unidadenegocio implements Serializable {
     private float percentualcurso;
     @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
     @ManyToOne(optional = false)
-    private Banco banco;
-    @Column(name = "responsavelcrm")
-    private Integer responsavelcrm;
+    private Banco banco; 
     @Column(name = "fundomarketing")
     private float fundomarketing;
     @Column(name = "leadautomatica")
@@ -339,15 +337,7 @@ public class Unidadenegocio implements Serializable {
 	public void setPercentualcurso(float percentualcurso) {
 		this.percentualcurso = percentualcurso;
 	}
-
-	public Integer getResponsavelcrm() {
-		return responsavelcrm;
-	}
-
-	public void setResponsavelcrm(Integer responsavelcrm) {
-		this.responsavelcrm = responsavelcrm;
-	}
-
+ 
 	public boolean isSelecionado() {
 		return selecionado;
 	}

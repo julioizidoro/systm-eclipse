@@ -19,12 +19,14 @@ import org.primefaces.event.SelectEvent;
  
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
+import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
@@ -97,21 +99,18 @@ public class FollowUpMB implements Serializable {
 			PesquisaBean pesquisa = (PesquisaBean) session.getAttribute("pesquisa");
 			session.removeAttribute("pesquisa");
 			session.removeAttribute("funcao");
-			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrmunidade()) {
-				acessoResponsavelUnidade = true;
-			}
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
 				acessoResponsavelUnidade = false;
+			}else if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrmunidade()) {
+				acessoResponsavelUnidade = true;
 			} 
 			listaProdutos = GerarListas.listarProdutos("");
 			listaProgramas = GerarListas.listarProdutos(""); 
 			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome"); 
-			if ((usuarioLogadoMB.getUsuario().getUnidadenegocio().getResponsavelcrm() == usuarioLogadoMB.getUsuario()
-					.getIdusuario()) || (acessoResponsavelGerencial) || (acessoResponsavelUnidade)) {
-				acessoResponsavelUnidade = true;
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome");  
+			if (acessoResponsavelGerencial || acessoResponsavelUnidade) { 
 				habilitarComboUsuario = false;
 				if(acessoResponsavelGerencial){ 
 					acessoResponsavelUnidade = false;
@@ -875,4 +874,5 @@ public class FollowUpMB implements Serializable {
 			}
 		}
 	}
+	 
 }
