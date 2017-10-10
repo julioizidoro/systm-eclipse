@@ -689,15 +689,25 @@ public class SalvarOrcamentoOcurso {
 		produtosorcamento = produtoOrcamentoFacade.consultar(33);
 		ocursodesconto.setOcurso(ocurso);
 		ocursodesconto.setProdutosorcamento(produtosorcamento);
-		if(cursospacote.getDescontomatriz()>0){
-			valorcoprodutos = valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getCodescontomatriz());
-			ocursodesconto.setValormoedaestrangeira(cursospacote.getDescontomatriz());
-			ocursodesconto.setValormoedanacional(cursospacote.getDescontomatriz()*ocurso.getValorcambio());
-			valortotal = valortotal - ocursodesconto.getValormoedaestrangeira();
-			ocursodesconto.setSelecionado(true);
-			salvarOcursoproduto(0.0, valorcoprodutos, ocursodesconto.getValormoedaestrangeira(),
-					produtosorcamento.getDescricao(), produtosorcamento.getDescricao(), 8, "Desconto", "subtracao");
-		}else{
+		int anoinicio=Formatacao.getAnoData(datainicio);
+		if(cursospacote.getAno1()>0 || cursospacote.getAno2()>0) { 
+			if(anoinicio==cursospacote.getAno1()) {
+				if (cursospacote.getDescontotm1() > 0) {
+					ocursodesconto.setValormoedaestrangeira(cursospacote.getDescontotm1());
+					ocursodesconto.setValormoedanacional(cursospacote.getDescontotm1() * ocurso.getValorcambio());
+					ocursodesconto.setSelecionado(true);
+				}
+			} else if(anoinicio==cursospacote.getAno2()) {
+				if (cursospacote.getDescontotm2() > 0) {
+					ocursodesconto.setValormoedaestrangeira(cursospacote.getDescontotm2());
+					ocursodesconto.setValormoedanacional(cursospacote.getDescontotm2() * ocurso.getValorcambio());
+					ocursodesconto.setSelecionado(true);
+				}
+			}  else {
+				ocursodesconto.setValormoedaestrangeira(0.0f);
+				ocursodesconto.setValormoedanacional(0.0f);
+			}
+		} else {
 			ocursodesconto.setValormoedaestrangeira(0.0f);
 			ocursodesconto.setValormoedanacional(0.0f);
 		}

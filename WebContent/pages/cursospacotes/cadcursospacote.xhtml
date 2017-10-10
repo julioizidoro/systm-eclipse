@@ -159,10 +159,36 @@
 							style="width:84%;" maxlength="200"/>
 					</h:panelGrid>
 					<br/>
-					<h:panelGrid columns="4" style="margin-left:14%;width:70%;"
-						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis">
-						<p:outputLabel value="Promoção escola" />
-						<p:outputLabel value="Desconto Matriz" />
+					<h:panelGrid columns="4" style="margin-left:14%;width:57%;"
+						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis"> 
+						<p:outputLabel value="Desconto TM" />
+						<p:outputLabel value="Ano Desconto" />
+						<p:outputLabel value="Desconto TM" />
+						<p:outputLabel value="Ano Desconto" /> 
+					
+						<p:inputText id="descontotm1"
+							value="#{cadCursosPacotesMB.cursospacote.descontotm1}"
+							style="width:78.7%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="ano1"
+							value="#{cadCursosPacotesMB.cursospacote.ano1}"
+							style="width:65%;text-align:right;"/>  
+						<p:inputText id="descontotm2"
+							value="#{cadCursosPacotesMB.cursospacote.descontotm2}"
+							style="width:78.7%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"   
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="ano2"
+							value="#{cadCursosPacotesMB.cursospacote.ano2}"
+							style="width:65%;text-align:right;"/> 
+					</h:panelGrid>   
+					<br/>
+					<h:panelGrid columns="3" style="margin-left:14%;width:55%;"
+						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis">
+						<p:outputLabel value="Promoção escola" /> 
 						<p:outputLabel value="Câmbio" />
 						<p:outputLabel value="Total" />
 						<p:inputText id="promocaoescola"
@@ -170,13 +196,7 @@
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-						</p:inputText>
-						<p:inputText id="descontomatriz"
-							value="#{cadCursosPacotesMB.cursospacote.descontomatriz}"
-							style="width:78.7%;text-align:right;">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</p:inputText>
+						</p:inputText> 
 						<p:inputText id="cambio"
 							value="#{cadCursosPacotesMB.cursospacote.valorcambio}"
 							style="width:89%;text-align:right;">

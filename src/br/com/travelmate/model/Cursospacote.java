@@ -68,9 +68,7 @@ public class Cursospacote implements Serializable {
     @ManyToOne(optional = false)
     private Fornecedorcidadeidioma fornecedorcidadeidioma;
     @Column(name = "promocaoescola")
-    private Float promocaoescola;
-    @Column(name = "descontomatriz")
-    private Float descontomatriz;
+    private Float promocaoescola; 
     @Column(name = "valorcambio")
     private Float valorcambio;
     @Column(name = "valoravista")
@@ -122,12 +120,21 @@ public class Cursospacote implements Serializable {
     private boolean worktravel;
     @Transient
     private boolean highschool;
+    @Column(name = "descontotm1")
+    private Float descontotm1;
+    @Column(name = "descontotm2")
+    private Float descontotm2;
+    @Column(name = "ano1")
+    private int ano1;
+    @Column(name = "ano2")
+    private int ano2;
 
     public Cursospacote() {
     	setValortotalacomodacao(0.0f);
     	setValortotalcurso(0.0f);
     	setPromocaoescola(0.0f);
-    	setDescontomatriz(0.0f);
+    	setDescontotm1(0.0f);
+    	setDescontotm2(0.0f);
     	setValorcambio(0.0f);
     }
 
@@ -253,14 +260,38 @@ public class Cursospacote implements Serializable {
 
 	public void setPromocaoescola(Float promocaoescola) {
 		this.promocaoescola = promocaoescola;
+	} 
+
+	public Float getDescontotm1() {
+		return descontotm1;
 	}
 
-	public Float getDescontomatriz() {
-		return descontomatriz;
+	public void setDescontotm1(Float descontotm1) {
+		this.descontotm1 = descontotm1;
 	}
 
-	public void setDescontomatriz(Float descontomatriz) {
-		this.descontomatriz = descontomatriz;
+	public Float getDescontotm2() {
+		return descontotm2;
+	}
+
+	public void setDescontotm2(Float descontotm2) {
+		this.descontotm2 = descontotm2;
+	}
+
+	public int getAno1() {
+		return ano1;
+	}
+
+	public void setAno1(int ano1) {
+		this.ano1 = ano1;
+	}
+
+	public int getAno2() {
+		return ano2;
+	}
+
+	public void setAno2(int ano2) {
+		this.ano2 = ano2;
 	}
 
 	public Float getValorcambio() {
