@@ -126,6 +126,8 @@ public class CadOrcamentoManualMB implements Serializable {
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
 	private List<Cidadepaisproduto> listaCidade;
+	private Lead lead;
+	private String funcao;
 
 	@PostConstruct
 	public void init() {
@@ -133,7 +135,9 @@ public class CadOrcamentoManualMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		orcamentocurso = (Orcamentocurso) session.getAttribute("orcamentoManual");
 		cliente = (Cliente) session.getAttribute("cliente");   
-		tipo = (String) session.getAttribute("tipoorcamento");   
+		tipo = (String) session.getAttribute("tipoorcamento");
+		funcao = (String) session.getAttribute("funcao");
+		lead = (Lead) session.getAttribute("lead");
 		session.removeAttribute("tipoorcamento");
 		session.removeAttribute("cliente");
 		session.removeAttribute("orcamentoManual");
@@ -1720,5 +1724,20 @@ public class CadOrcamentoManualMB implements Serializable {
 		}
 		sql=sql+ " ORDER BY c.cidade.nome";
 		listaCidade = cidadePaisProdutosFacade.listar(sql);  
+	}
+	
+
+	public String retornaHistoricoLead() {
+		if (lead != null) {
+			if (lead.getIdlead() != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+				session.setAttribute("lead", lead);
+				session.setAttribute("funcao", funcao);
+				session.setAttribute("posicao", 0);
+				return "historicoCliente";
+			}
+		}
+		return "";
 	}
 }

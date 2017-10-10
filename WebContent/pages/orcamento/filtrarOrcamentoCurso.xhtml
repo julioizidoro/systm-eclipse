@@ -27,8 +27,12 @@
 			<div id="centro">        
 				<br></br> <br></br>  
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<p:commandButton id="bntLead" icon="ui-icon-arrowreturnthick-1-w"
+						style="font-size:12px;margin-left:10%" value="Voltar para Lead"
+						action="#{filtrarEscolaMB.retornaHistoricoLead()}" title="Retornar para Histórico da Lead" >
+				</p:commandButton>	   
 				<legend id="iUsu2">
-					<b>Orçamento de Curso</b>
+					<b>Orçamento de Curso</b>  
 				</legend>
 				<div class="ui-fluid" style="margin-left: 10%;">
 					<legend id="iUsu3">

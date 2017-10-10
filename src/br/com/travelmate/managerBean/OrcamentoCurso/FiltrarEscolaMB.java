@@ -32,6 +32,7 @@ import br.com.travelmate.model.Fornecedorcidadeidiomaprodutodata;
 import br.com.travelmate.model.Fornecedorferias;
 import br.com.travelmate.model.Fornecedorpais;
 import br.com.travelmate.model.Idioma;
+import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Ocursodesconto;
 import br.com.travelmate.model.Ocursoferiado;
@@ -92,12 +93,16 @@ public class FiltrarEscolaMB implements Serializable {
 	private boolean calendario=true;
 	private boolean comboDatas=false;
 	private DatasBean datasBean;
+	private Lead lead;
+	private String funcao;
  
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		filtrarEscolaBean = (FiltrarEscolaBean) session.getAttribute("filtrarEscolaBean");
+		funcao = (String) session.getAttribute("funcao");
+		lead = (Lead) session.getAttribute("lead");
 		if (filtrarEscolaBean == null) {
 			iniciarNovoOrcamento();
 		}
@@ -2025,5 +2030,19 @@ public class FiltrarEscolaMB implements Serializable {
 			}
 		}
 		return "estrelacinza.png";
+	}
+	
+	public String retornaHistoricoLead() {
+		if (lead != null) {
+			if (lead.getIdlead() != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+				session.setAttribute("lead", lead);
+				session.setAttribute("funcao", funcao);
+				session.setAttribute("posicao", 0);
+				return "historicoCliente";
+			}
+		}
+		return "";
 	}
 }

@@ -17,14 +17,19 @@
 					<p:commandLink>   
 						<img src="../../resources/img/ajax-loader.gif" />
 					</p:commandLink>
-				</p:dialog> 
+				</p:dialog>    
 			</div>
+			
 			<div id="centro">
 				<br></br>
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-				<h:outputLabel value="Orçamento de Curso"
-					style="font-size: 22px;color: #1F8871;margin-left:40%" />
-				<p:accordionPanel id="acordGeral" class="painelhighSchool"
+				<p:commandButton id="bntLead" icon="ui-icon-arrowreturnthick-1-w"
+						style="font-size:12px;margin-left:11%" value="Voltar para Lead"
+						action="#{cadOrcamentoManualMB.retornaHistoricoLead()}" title="Retornar para Histórico da Lead" >
+				</p:commandButton>	   
+				<h:outputLabel value="Orçamento de Curso"  
+					style="font-size: 22px;color: #1F8871;margin-left:20%" />
+				<p:accordionPanel id="acordGeral" class="painelhighSchool"   
 					style="background:#1F8871;">
 					<p:tab title="Curso" class="tab" titleStyle="font-size: 11px">
 						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
