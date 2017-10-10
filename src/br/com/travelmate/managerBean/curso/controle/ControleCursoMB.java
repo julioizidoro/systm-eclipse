@@ -598,11 +598,14 @@ public class ControleCursoMB implements Serializable {
 	}
 	
 	public String retornarIconeApplication(Controlecurso controlecurso) {
-		if (controlecurso.getCurso().isApplication()) {
-			return "../../resources/img/iconeSApp.png";
-		} else {
-			return "../../resources/img/iconeCheck.png";  
+		if (controlecurso.getCurso() != null) {
+			if (controlecurso.getCurso().isApplication()) {
+				return "../../resources/img/iconeSApp.png";
+			} else {
+				return "../../resources/img/iconeCheck.png";  
+			}	
 		}
+		return "";
 	}
 	
 	
