@@ -110,7 +110,9 @@ public class LeadMB implements Serializable {
 		boolean responsavel = retornarResponsavelUnidade();
 		if (responsavel) {
 			String sql;
-			if (usuarioLogadoMB.getUsuario().getIdusuario() == 212) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1) {
+				sql = "select l from Lead l where l.dataenvio is null";
+			}else if (usuarioLogadoMB.getUsuario().getIdusuario() == 212) {
 				sql = "select l from Lead l where l.dataenvio is null and (l.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
 						+ " or  l.unidadenegocio.idunidadeNegocio=6)";
