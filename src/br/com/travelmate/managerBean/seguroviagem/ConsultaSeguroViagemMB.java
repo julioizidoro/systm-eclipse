@@ -722,7 +722,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			}
 		} else if (seguroviagem.getVendas().getSituacao().equals("ANDAMENTO")) {
 			seguroviagem.setImagem("../../resources/img/amarelaFicha.png");
-			seguroviagem.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
+			seguroviagem.setTituloFicha("ANDAMENTO (FICHA EM ANDAMENTO)");
 		} else if (seguroviagem.getVendas().getSituacao().equals("CANCELADA")) {
 			seguroviagem.setImagem("../../resources/img/fichaCancelada.png");
 			seguroviagem.setTituloFicha("FICHA CANCELADA");
