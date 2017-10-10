@@ -130,7 +130,7 @@
 									title="Adicionar nova entrevista para cliente.">
 									<img
 										src="#{controleWorkAndTravelMB.imagemSituacao(workAndTravel)}"
-										title="#{workAndTravel.statusprocesso}" />
+										title="Adicionar nova entrevista para cliente." />
 									<p:ajax event="dialogReturn"
 										listener="#{controleWorkAndTravelMB.listarControle()}"
 										update="@form" />
@@ -176,10 +176,6 @@
 								<h:outputText
 									value="#{workAndTravel.vendas.cliente.foneCelular}" />
 							</p:column>
-							<p:column headerText="Nível Idioma" style="width:120px;">
-								<h:outputText
-									value="#{workAndTravel.vendas.worktravel.nivelidioma01}" />
-							</p:column>
 							<p:column headerText="Data Nasc."
 								style="text-align:center;width:72px;">
 								<h:outputText
@@ -206,10 +202,10 @@
 							<p:column style="width:35px;text-align:center">
 								<p:commandLink
 									action="#{controleWorkAndTravelMB.visualizarEntrevista(entrevista.controleworkentrevistaList.get(0))}"
-									title="Visualizar entrevista do cliente.">
+									>
 									<img
 										src="#{controleWorkAndTravelMB.imagemSituacao(entrevista)}"
-										title="#{entrevista.statusprocesso}" />
+										title="Visualizar entrevista do cliente."/>
 									<p:ajax event="dialogReturn"
 										listener="#{controleWorkAndTravelMB.listarControle()}"
 										update="@form" />
@@ -253,11 +249,7 @@
 							</p:column>
 							<p:column headerText="Telefone" style="width:105px;">
 								<h:outputText value="#{entrevista.vendas.cliente.foneCelular}" />
-							</p:column>
-							<p:column headerText="Nível Idioma" style="width:120px;">
-								<h:outputText
-									value="#{entrevista.vendas.worktravel.nivelidioma01}" />
-							</p:column>
+							</p:column> 
 							<p:column headerText="Data Nasc."
 								style="text-align:center;width:72px;">
 								<h:outputText
@@ -287,10 +279,10 @@
 							<p:column style="width:35px;text-align:center">
 								<p:commandLink
 									action="#{controleWorkAndTravelMB.cadControleWorkEmbarque(contratado)}"
-									title="Visualizar/Cadastrar informações sobre embarque do cliente.">
+									>
 									<img
 										src="#{controleWorkAndTravelMB.imagemSituacao(contratado)}"
-										title="#{contratado.statusprocesso}" />
+										title="Visualizar/Cadastrar informações sobre embarque do cliente." />
 									<p:ajax event="dialogReturn"
 										listener="#{controleWorkAndTravelMB.listarControle()}"
 										update="@form" />
@@ -334,11 +326,7 @@
 							</p:column>
 							<p:column headerText="Telefone" style="width:105px;">
 								<h:outputText value="#{contratado.vendas.cliente.foneCelular}" />
-							</p:column>
-							<p:column headerText="Nível Idioma" style="width:120px;">
-								<h:outputText
-									value="#{contratado.vendas.worktravel.nivelidioma01}" />
-							</p:column>
+							</p:column> 
 							<p:column headerText="Data Nasc."
 								style="text-align:center;width:72px;">
 								<h:outputText
@@ -346,7 +334,7 @@
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>  
-							</p:column>
+							</p:column>  
 							<p:column headerText="Estado Destino" style="width:120px;">
 								<h:outputText
 									value="#{contratado.controleworkempregaor.workempregador.estado}" />
@@ -493,11 +481,7 @@
 							</p:column>
 							<p:column headerText="Telefone" style="width:105px;">
 								<h:outputText value="#{embarcado.vendas.cliente.foneCelular}" />
-							</p:column>
-							<p:column headerText="Nível Idioma" style="width:120px;">
-								<h:outputText
-									value="#{embarcado.vendas.worktravel.nivelidioma01}" />
-							</p:column>
+							</p:column> 
 							<p:column headerText="Data Nasc."
 								style="text-align:center;width:72px;">
 								<h:outputText value="#{embarcado.vendas.cliente.dataNascimento}">
