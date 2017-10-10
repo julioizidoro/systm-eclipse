@@ -1,5 +1,5 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
-  
+
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
@@ -7,7 +7,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
 import br.com.travelmate.managerBean.OrcamentoCurso.comparativo.GerarComparativoTarifarioBean;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean; 
+import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
@@ -63,7 +63,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
-	private AplicacaoMB aplicacaoMB; 
+	private AplicacaoMB aplicacaoMB;
 	private Ocurso ocurso;
 	private List<Ocurso> listaOcurso;
 	private Cliente cliente;
@@ -223,10 +223,10 @@ public class ConsultaOrcamentoMB implements Serializable {
 						+ "' order by o.dataorcamento desc, o.idocurso desc";
 			} else {
 				sql = "Select o from Ocurso o where o.usuario.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
-				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
-					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
-						sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
+					if (!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
+						sql = sql + " and o.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}
 				sql = sql + " and o.dataorcamento>='" + data + "' order by o.dataorcamento desc, o.idocurso desc";
@@ -273,10 +273,10 @@ public class ConsultaOrcamentoMB implements Serializable {
 			usouAnd = " and";
 			executarFiltro = true;
 		}
-		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) { 
-			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
-				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
-					sql = sql + " and o.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+			if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
+				if (!usuarioLogadoMB.getUsuario().getAcessounidade().isConsultaorcamento()) {
+					sql = sql + " and o.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
 		}
@@ -331,92 +331,101 @@ public class ConsultaOrcamentoMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("editarDadosCliente", options, null);
 		return "";
 	}
-	
-	public String editar(Ocurso ocurso) { 
-		if(ocurso.getDatavalidade()!=null && ocurso.getDatavalidade().before(new Date())){
-			Mensagem.lancarMensagemErro("Atenção!", "Data de validade do orçamento expirada, inície um novo orçamento.");
-		}else{
-			EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso,cliente, ocurso.getDatainicio(),aplicacaoMB,usuarioLogadoMB);
+
+	public String editar(Ocurso ocurso) {
+		if (ocurso.getDatavalidade() != null && ocurso.getDatavalidade().before(new Date())) {
+			Mensagem.lancarMensagemErro("Atenção!",
+					"Data de validade do orçamento expirada, inície um novo orçamento.");
+		} else {
+			EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, cliente,
+					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB);
 			ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
-			resultadoOrcamentoBean.setOcurso(ocurso);  
+			resultadoOrcamentoBean.setOcurso(ocurso);
 			resultadoOrcamentoBean.setCambio(editarOrcamentoOcurso.getOcurso().getCambio());
-			resultadoOrcamentoBean.setFornecedorcidadeidioma(editarOrcamentoOcurso.getOcurso().getFornecedorcidadeidioma());  
-			resultadoOrcamentoBean.setFornecedorcidade(resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade());
-			resultadoOrcamentoBean.setDataConsulta(editarOrcamentoOcurso.getDataconsulta());  
-			resultadoOrcamentoBean.setProdutoFornecedorBean(editarOrcamentoOcurso.retornarFornecedorProdutosBean());   
+			resultadoOrcamentoBean
+					.setFornecedorcidadeidioma(editarOrcamentoOcurso.getOcurso().getFornecedorcidadeidioma());
+			resultadoOrcamentoBean
+					.setFornecedorcidade(resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade());
+			resultadoOrcamentoBean.setDataConsulta(editarOrcamentoOcurso.getDataconsulta());
+			resultadoOrcamentoBean.setProdutoFornecedorBean(editarOrcamentoOcurso.retornarFornecedorProdutosBean());
 			resultadoOrcamentoBean.setListaOpcionais(editarOrcamentoOcurso.gerarListaValorCoProdutos("Opcional"));
-			//opcional selecionado 
+			// opcional selecionado
 			for (int i = 0; i < editarOrcamentoOcurso.getListaProdutos().size(); i++) {
-				if(editarOrcamentoOcurso.getListaProdutos().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")){
-					int id = editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos().getIdvalorcoprodutos();
-					if(resultadoOrcamentoBean.getListaOpcionais()!=null){
+				if (editarOrcamentoOcurso.getListaProdutos().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")) {
+					int id = editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos()
+							.getIdvalorcoprodutos();
+					if (resultadoOrcamentoBean.getListaOpcionais() != null) {
 						for (int j = 0; j < resultadoOrcamentoBean.getListaOpcionais().size(); j++) {
-							if(resultadoOrcamentoBean.getListaOpcionais().get(j).getValorcoprodutos().getIdvalorcoprodutos()
-									== id){
+							if (resultadoOrcamentoBean.getListaOpcionais().get(j).getValorcoprodutos()
+									.getIdvalorcoprodutos() == id) {
 								resultadoOrcamentoBean.getListaOpcionais().get(j).setSelecionadoOpcional(true);
 								resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOrigianl(
 										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal());
 								resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOriginalRS(
-										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal()*ocurso.getValorcambio());
+										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal()
+												* ocurso.getValorcambio());
 								resultadoOrcamentoBean.getListaOpcionais().get(j).setSomarvalortotal(
 										editarOrcamentoOcurso.getListaProdutos().get(i).isSomavalortotal());
-							}   
+							}
 						}
 					}
-				}  
-			} 
-			resultadoOrcamentoBean.setListaOutrosProdutos(editarOrcamentoOcurso.gerarListaProdutosExtras()); 
+				}
+			}
+			resultadoOrcamentoBean.setListaOutrosProdutos(editarOrcamentoOcurso.gerarListaProdutosExtras());
 			resultadoOrcamentoBean.getOcurso().setOcursodescontoList(editarOrcamentoOcurso.addOcursoDesconto());
 			resultadoOrcamentoBean.setValorPassagemAerea(ocurso.getValorpassagem());
 			resultadoOrcamentoBean.setValorVistoConsular(ocurso.getValorvisto());
 			resultadoOrcamentoBean.setValorOutros(ocurso.getValoroutros());
 			Seguroviagem seguroviagem = editarOrcamentoOcurso.buscarSeguroViagem();
-			if(seguroviagem!=null){
+			if (seguroviagem != null) {
 				resultadoOrcamentoBean.setSeguroSelecionado(true);
-				resultadoOrcamentoBean.setSeguroviagem(seguroviagem); 
+				resultadoOrcamentoBean.setSeguroviagem(seguroviagem);
 			}
-			if(editarOrcamentoOcurso.getValorAcomodacao()!=null){ 
+			if (editarOrcamentoOcurso.getValorAcomodacao() != null) {
 				resultadoOrcamentoBean.setListaAcomodacoes(new ArrayList<ProdutosOrcamentoBean>());
-				ProdutosOrcamentoBean po = new ProdutosOrcamentoBean(); 
-				po.setSelecionado(true); 
+				ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
+				po.setSelecionado(true);
 				po.setValorcoprodutos(editarOrcamentoOcurso.getValorAcomodacao().getValorcoprodutos());
 				po.setNumeroSemanas(editarOrcamentoOcurso.getValorAcomodacao().getNumerosemanas());
 				po.setValorOrigianl(editarOrcamentoOcurso.getValorAcomodacao().getValororiginal());
-				po.setValorOriginalRS(editarOrcamentoOcurso.getValorAcomodacao().getValororiginal() * ocurso.getValorcambio());
+				po.setValorOriginalRS(
+						editarOrcamentoOcurso.getValorAcomodacao().getValororiginal() * ocurso.getValorcambio());
 				resultadoOrcamentoBean.getListaAcomodacoes().add(po);
 			}
-			if(editarOrcamentoOcurso.getListaAcOpcional()!=null){ 
+			if (editarOrcamentoOcurso.getListaAcOpcional() != null) {
 				resultadoOrcamentoBean.setListaAcOpcional(new ArrayList<ProdutosOrcamentoBean>());
 				for (int i = 0; i < editarOrcamentoOcurso.getListaAcOpcional().size(); i++) {
-					ProdutosOrcamentoBean po = new ProdutosOrcamentoBean(); 
+					ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
 					po.setSelecionado(true);
 					po.setValorcoprodutos(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos());
 					po.setNumeroSemanas(editarOrcamentoOcurso.getListaAcOpcional().get(i).getNumerosemanas());
-					po.setValorOrigianl(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos().getValororiginal());
+					po.setValorOrigianl(
+							editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos().getValororiginal());
 					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
 					po.setValorOriginalAcOpcional(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValororiginal());
 					po.setValorRSacOpcional(po.getValorOriginalAcOpcional() * ocurso.getValorcambio());
 					resultadoOrcamentoBean.getListaAcOpcional().add(po);
-				} 
+				}
 			}
-			if(editarOrcamentoOcurso.getListaTransfer()!=null){ 
+			if (editarOrcamentoOcurso.getListaTransfer() != null) {
 				resultadoOrcamentoBean.setListaTransfer(new ArrayList<ProdutosOrcamentoBean>());
 				for (int i = 0; i < editarOrcamentoOcurso.getListaTransfer().size(); i++) {
-					ProdutosOrcamentoBean po = new ProdutosOrcamentoBean(); 
+					ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
 					po.setSelecionado(true);
 					po.setValorcoprodutos(editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos());
 					po.setNumeroSemanas(editarOrcamentoOcurso.getListaTransfer().get(i).getNumerosemanas());
-					po.setValorOrigianl(editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos().getValororiginal());
-					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio()); 
+					po.setValorOrigianl(
+							editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos().getValororiginal());
+					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
 					resultadoOrcamentoBean.getListaTransfer().add(po);
-				} 
+				}
 			}
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean); 
+			session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
 			RequestContext.getCurrentInstance().closeDialog(null);
 			return "orcamentoCurso";
-		} 
+		}
 		return "";
 	}
 
@@ -744,25 +753,25 @@ public class ConsultaOrcamentoMB implements Serializable {
 		return "";
 	}
 
-	public void copiarLink(Ocurso ocurso) { 
+	public void copiarLink(Ocurso ocurso) {
 		try {
 			gerarOrcamentoPDF(ocurso, "email");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null; 
+		Ftpdados dadosFTP = null;
 		try {
-			dadosFTP = ftpDadosFacade.getFTPDados(); 
-			String text = dadosFTP.getHost() + ":82/ftproot/systm/orcamento/TM-" + ocurso.getIdocurso() + ".pdf"; 
+			dadosFTP = ftpDadosFacade.getFTPDados();
+			String text = dadosFTP.getHost() + ":82/ftproot/systm/orcamento/TM-" + ocurso.getIdocurso() + ".pdf";
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("texto", text);
-			RequestContext.getCurrentInstance().openDialog("linkorcamento", options, null); 
+			RequestContext.getCurrentInstance().openDialog("linkorcamento", options, null);
 		} catch (SQLException ex) {
 			Logger.getLogger(ConsultaOrcamentoMB.class.getName()).log(Level.SEVERE, null, ex);
-		} 
+		}
 	}
 }
