@@ -296,7 +296,7 @@ public class VendasFinanceiroComissaoMB implements Serializable{
     }
     
     public void novoValorDessagio(float novoValor){
-        //Comissão Franquia = % comissão franquia * Valor Comissionavel + 50% Taxa TM – 50% Desconto Matriz – 100% Desconto Loja + Incentivo
+        //Comissão Franquia = % comissão franquia * Valor Comissionavel + 50% Taxa TM – 50% Desconto TM – 100% Desconto Loja + Incentivo
         vendascomissao.setDesagio(novoValor);
         calcularLiquidoFraquias();
         calcularLiquidoVendas();
