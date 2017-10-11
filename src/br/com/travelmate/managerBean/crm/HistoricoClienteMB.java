@@ -390,10 +390,15 @@ public class HistoricoClienteMB implements Serializable {
 	public String emitirVenda() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		if (lead.getProdutos().getIdprodutos() != 13) {
+		int idprodutos = lead.getProdutos().getIdprodutos();
+		if (idprodutos != 13) {
 			session.setAttribute("cliente", lead.getCliente());
 			session.setAttribute("lead", lead); 
-			return "cadCliente";
+			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+				return "cadCliente";
+			}else {
+				return "questionarioHe";
+			}
 		}
 		return "";
 	}   
