@@ -143,6 +143,9 @@ public class LeadMB implements Serializable {
 				}
 			}
 		}
+		if(usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1) {
+			return true;
+		}
 		return false;
 	}
 
