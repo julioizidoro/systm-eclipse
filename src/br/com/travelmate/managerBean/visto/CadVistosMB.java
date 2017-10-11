@@ -452,7 +452,7 @@ public class CadVistosMB implements Serializable {
 			}
 			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			if (vendas.getIdvendas() != null) {
-				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO") && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
 					contasReceberBean.gerarParcelasIndividuais(parcelamento,
 							formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB);
@@ -522,7 +522,7 @@ public class CadVistosMB implements Serializable {
 			}
 			ContasReceberBean contasReceberBean = new ContasReceberBean();
 			if (vendas.getIdvendas() != null) {
-				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO") && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha),
 							vendas.getIdvendas(), usuarioLogadoMB);
 				}
