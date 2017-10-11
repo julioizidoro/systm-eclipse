@@ -198,7 +198,14 @@ public class CadVendaPendenciaMB implements Serializable{
 			vendapendenciahistorico.setVendapendencia(vendapendencia);
 			vendaPendenciaHistoricoFacade.salvar(vendapendenciahistorico);
 			int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+			int idProdutoVoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
+			boolean pendenciarSeguro = false;
 			if (venda.getProdutos().getIdprodutos()==idProduto) {
+				pendenciarSeguro = true;
+			}else if (venda.getProdutos().getIdprodutos()==idProdutoVoluntariado) {
+				pendenciarSeguro = true;
+			}
+			if (pendenciarSeguro) {
 				int idVendaSeguro = getIdVendaSeguro(venda.getIdvendas());
 				if (idVendaSeguro>0) {
 					for(int i=0;i<listaVendaNova.size();i++) {
