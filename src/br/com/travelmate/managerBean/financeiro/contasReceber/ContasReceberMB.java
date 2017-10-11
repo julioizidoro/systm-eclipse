@@ -647,7 +647,9 @@ public class ContasReceberMB implements Serializable {
 
 	public void retornoDialogoNovo(SelectEvent event) {
 		Contasreceber novaConta = (Contasreceber) event.getObject();
-		listaContas.add(novaConta);
+		if (novaConta != null) {
+			listaContas.add(novaConta);
+		}
 	}
 
 	public void retornoDialogoEditar(SelectEvent event) {
