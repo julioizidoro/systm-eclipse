@@ -391,7 +391,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			}
 		}
 		if (idVenda > 0) {
-			sql = sql + " and s.vendas.idvendas=" + idVenda;
+			sql = sql + " and (s.vendas.idvendas=" + idVenda+ " or s.idvendacurso=" + idVenda +")";
 		}
 		if (dataInicio != null && dataFinal != null) {
 			sql = sql + " and s.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
