@@ -255,12 +255,12 @@ public class RevisaoFinanceiroMB implements Serializable{
 	public void gerarListaVendas(){
 		VendasFacade vendasFacade = new VendasFacade();
 		listaVendaNova = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='N'"+
-				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.dataVenda DESC");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' and v.vendasMatriz='S' ORDER BY v.dataVenda DESC");
 		if (listaVendaNova == null) {
 			listaVendaNova = new ArrayList<>();
 		}
 		listaVendaPendente = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='P'"+
-				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' ORDER BY v.vendapendencia.dataproximocontato ");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' and v.vendasMatriz='S' ORDER BY v.vendapendencia.dataproximocontato ");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();
 		}
