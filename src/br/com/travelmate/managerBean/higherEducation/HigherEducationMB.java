@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,16 @@ public class HigherEducationMB implements Serializable {
 	private boolean habilitarUnidade = true;
 	private boolean expandirOpcoes;
 	private boolean esconderFicha=true;
+	private List<ListaHeBean> listaProcesso;
+	private List<ListaHeBean> listaFinanceiro;
+	private List<ListaHeBean> listaAndamento;
+	private List<ListaHeBean> listaFinalizar;
+	private List<ListaHeBean> listaCancelada;
+	private Integer nFichasFinalizada;
+	private Integer nFichasProcesso;
+	private Integer nFichasAndamento;
+	private Integer nFichaCancelada;
+	private Integer nFichaFinanceiro;
 
 	@PostConstruct()
 	public void init() {
@@ -96,6 +108,86 @@ public class HigherEducationMB implements Serializable {
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	public List<ListaHeBean> getListaProcesso() {
+		return listaProcesso;
+	}
+
+	public void setListaProcesso(List<ListaHeBean> listaProcesso) {
+		this.listaProcesso = listaProcesso;
+	}
+
+	public List<ListaHeBean> getListaFinanceiro() {
+		return listaFinanceiro;
+	}
+
+	public void setListaFinanceiro(List<ListaHeBean> listaFinanceiro) {
+		this.listaFinanceiro = listaFinanceiro;
+	}
+
+	public List<ListaHeBean> getListaAndamento() {
+		return listaAndamento;
+	}
+
+	public void setListaAndamento(List<ListaHeBean> listaAndamento) {
+		this.listaAndamento = listaAndamento;
+	}
+
+	public List<ListaHeBean> getListaFinalizar() {
+		return listaFinalizar;
+	}
+
+	public void setListaFinalizar(List<ListaHeBean> listaFinalizar) {
+		this.listaFinalizar = listaFinalizar;
+	}
+
+	public List<ListaHeBean> getListaCancelada() {
+		return listaCancelada;
+	}
+
+	public void setListaCancelada(List<ListaHeBean> listaCancelada) {
+		this.listaCancelada = listaCancelada;
+	}
+
+	public Integer getnFichasFinalizada() {
+		return nFichasFinalizada;
+	}
+
+	public void setnFichasFinalizada(Integer nFichasFinalizada) {
+		this.nFichasFinalizada = nFichasFinalizada;
+	}
+
+	public Integer getnFichasProcesso() {
+		return nFichasProcesso;
+	}
+
+	public void setnFichasProcesso(Integer nFichasProcesso) {
+		this.nFichasProcesso = nFichasProcesso;
+	}
+
+	public Integer getnFichasAndamento() {
+		return nFichasAndamento;
+	}
+
+	public void setnFichasAndamento(Integer nFichasAndamento) {
+		this.nFichasAndamento = nFichasAndamento;
+	}
+
+	public Integer getnFichaCancelada() {
+		return nFichaCancelada;
+	}
+
+	public void setnFichaCancelada(Integer nFichaCancelada) {
+		this.nFichaCancelada = nFichaCancelada;
+	}
+
+	public Integer getnFichaFinanceiro() {
+		return nFichaFinanceiro;
+	}
+
+	public void setnFichaFinanceiro(Integer nFichaFinanceiro) {
+		this.nFichaFinanceiro = nFichaFinanceiro;
 	}
 
 	public List<ListaHeBean> getListaHe() {
@@ -215,23 +307,26 @@ public class HigherEducationMB implements Serializable {
 	}
 
 	public void gerarListaHe() {
-		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
+		int ano = Formatacao.getAnoData(new Date());
+		int mes = Formatacao.getMesData(new Date()); 
+		Calendar c = new GregorianCalendar(ano, mes, 1); 
+		Date data = c.getTime();
+		String dataConsulta = Formatacao.ConvercaoDataSql(data);
 		// questionario
-		String sqlQuestionario = "Select q From Questionariohe q where q.dataenvio>='" + dataConsulta + "'";
+		List<Questionariohe> listaQuestionario = null;
 		if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isAprovarquestionariohe()) {
-			sqlQuestionario = sqlQuestionario + " and q.cliente.unidadenegocio.idunidadeNegocio="
+		    String sqlQuestionario = "Select q From Questionariohe q where q.dataenvio>='" + dataConsulta + "'"
+			 		+ " and q.cliente.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
 			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
 				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
 					sqlQuestionario = sqlQuestionario + " and q.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
-			}
-		} else {
-			sqlQuestionario = sqlQuestionario + " and q.autorizado=false";
-		}
-		sqlQuestionario = sqlQuestionario + " order by q.dataenvio desc";
-		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
-		List<Questionariohe> listaQuestionario = questionarioHeFacade.listar(sqlQuestionario);
+			} 
+			sqlQuestionario = sqlQuestionario + " order by q.dataenvio desc";
+			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+			listaQuestionario = questionarioHeFacade.listar(sqlQuestionario);
+		}  
 
 		// ficha inscricao
 		String sqlFicha1 = "Select h From He h where h.vendas.dataVenda>='" + dataConsulta + "' and h.fichafinal=FALSE";
@@ -244,7 +339,7 @@ public class HigherEducationMB implements Serializable {
 				}
 			}
 		} else {
-			sqlFicha1 = sqlFicha1 + " and h.aprovado=false";
+			sqlFicha1 = sqlFicha1 + " and h.aprovado=true";
 		}
 		sqlFicha1 = sqlFicha1 + " order by h.vendas.dataVenda desc";
 		HeFacade heFacade = new HeFacade();
@@ -338,6 +433,7 @@ public class HigherEducationMB implements Serializable {
 				}
 			}
 		}
+		gerarQuantidadesFichas();
 	}
 
 	public String corNome(ListaHeBean hebean) {
@@ -559,6 +655,7 @@ public class HigherEducationMB implements Serializable {
 				}
 			}
 		}
+		gerarQuantidadesFichas();
 	}
 
 	public void autorizarQuestionario(ListaHeBean listaHeBean) {
@@ -820,6 +917,58 @@ public class HigherEducationMB implements Serializable {
 	
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
+	}
+	
+	public void gerarQuantidadesFichas(){
+		nFichaCancelada = 0;
+		nFichasAndamento = 0;
+		nFichasFinalizada = 0; 
+		nFichaFinanceiro = 0;
+		nFichasProcesso = 0;
+		listaFinalizar = new ArrayList<ListaHeBean>();
+		listaAndamento = new ArrayList<ListaHeBean>();
+		listaProcesso = new ArrayList<ListaHeBean>(); 
+		listaFinanceiro = new ArrayList<ListaHeBean>();
+		listaCancelada = new ArrayList<ListaHeBean>();
+		for (int i = 0; i < listaHe.size(); i++) {
+			if(listaHe.get(i).getHe()!=null) {
+				if (listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+					nFichasProcesso = nFichasProcesso + 1;
+					listaProcesso.add(listaHe.get(i));
+				}else if (listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+					nFichasFinalizada = nFichasFinalizada + 1;
+					listaFinalizar.add(listaHe.get(i));
+				} else if(listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+						&& !listaHe.get(i).getHe().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+					nFichaFinanceiro = nFichaFinanceiro + 1;
+					listaFinanceiro.add(listaHe.get(i));
+				}else if(listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+					nFichasAndamento = nFichasAndamento + 1;
+					listaAndamento.add(listaHe.get(i));
+				}else{
+					nFichaCancelada = nFichaCancelada + 1;
+					listaCancelada.add(listaHe.get(i));
+				}
+			}else {
+				if (listaHe.get(i).getStatus().equalsIgnoreCase("PROCESSO")) {
+					nFichasProcesso = nFichasProcesso + 1;
+					listaProcesso.add(listaHe.get(i));
+				}else if (listaHe.get(i).getStatus().equalsIgnoreCase("FINALIZADO")) {
+					nFichasFinalizada = nFichasFinalizada + 1;
+					listaFinalizar.add(listaHe.get(i));
+				} else if(listaHe.get(i).getStatus().equalsIgnoreCase("ANDAMENTO") 
+						&& !listaHe.get(i).getQuestionariohe().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+					nFichaFinanceiro = nFichaFinanceiro + 1;
+					listaFinanceiro.add(listaHe.get(i));
+				}else if(listaHe.get(i).getStatus().equalsIgnoreCase("ANDAMENTO")){
+					nFichasAndamento = nFichasAndamento + 1;
+					listaAndamento.add(listaHe.get(i));
+				}else{
+					nFichaCancelada = nFichaCancelada + 1;
+					listaCancelada.add(listaHe.get(i));
+				}
+			}
+		}
 	}
 
 }
