@@ -5,6 +5,7 @@
  */
 package br.com.travelmate.facade;
   
+import br.com.travelmate.dao.CargoDao;
 import br.com.travelmate.dao.CartaoCreditoLancamentoDao; 
 import br.com.travelmate.model.Cartaocreditolancamento;
 
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,4 +65,13 @@ public class CartaoCreditoLancamentoFacade {
         }
     }
     
+    public void excluir(int idCargo) {
+    	cartaoCreditoDao = new CartaoCreditoLancamentoDao();
+	    try {
+	    	cartaoCreditoDao.excluir(idCargo);
+	    } catch (SQLException ex) {
+	        Logger.getLogger(CartaoCreditoLancamentoFacade.class.getName()).log(Level.SEVERE, null, ex);
+	        JOptionPane.showMessageDialog(null, "Erro Excluir Cargo " + ex);
+	    }
+    }
 }

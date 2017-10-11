@@ -47,6 +47,10 @@ public class Cartaocredito implements Serializable {
     @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
     @ManyToOne(optional = false)
     private Banco banco;
+    @Column(name = "datavencimento")
+	private int datavencimento;
+    @Column(name = "datafechamento")
+   	private int datafechamento;
 
     public Cartaocredito() {
     }
@@ -111,7 +115,23 @@ public class Cartaocredito implements Serializable {
         this.banco = banco;
     }
 
-    @Override
+	public int getDatavencimento() {
+		return datavencimento;
+	}
+
+	public void setDatavencimento(int datavencimento) {
+		this.datavencimento = datavencimento;
+	}
+
+	public int getDatafechamento() {
+		return datafechamento;
+	}
+
+	public void setDatafechamento(int datafechamento) {
+		this.datafechamento = datafechamento;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idcartaocredito != null ? idcartaocredito.hashCode() : 0);

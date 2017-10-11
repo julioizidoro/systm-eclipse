@@ -61,6 +61,14 @@ public class Cartaocreditolancamento implements Serializable {
     @JoinColumn(name = "cartaocredito_idcartaocredito", referencedColumnName = "idcartaocredito")
     @ManyToOne(optional = false)
     private Cartaocredito cartaocredito;
+    @Size(max = 100)
+    @Column(name = "estabelecimento")
+    private String estabelecimento;
+    @Size(max = 8)
+    @Column(name = "numeroparcelas")
+    private String numeroparcelas;
+    @Column(name = "valorrecorrente")
+    private boolean valorrecorrente;
 
     public Cartaocreditolancamento() {
     }
@@ -171,6 +179,30 @@ public class Cartaocreditolancamento implements Serializable {
 
 	public void setCartaocredito(Cartaocredito cartaocredito) {
 		this.cartaocredito = cartaocredito;
+	}
+
+	public String getEstabelecimento() {
+		return estabelecimento;
+	}
+
+	public void setEstabelecimento(String estabelecimento) {
+		this.estabelecimento = estabelecimento;
+	}
+
+	public String getNumeroparcelas() {
+		return numeroparcelas;
+	}
+
+	public void setNumeroparcelas(String numeroparcelas) {
+		this.numeroparcelas = numeroparcelas;
+	}
+
+	public boolean isValorrecorrente() {
+		return valorrecorrente;
+	}
+
+	public void setValorrecorrente(boolean valorrecorrente) {
+		this.valorrecorrente = valorrecorrente;
 	}
 
 	@Override

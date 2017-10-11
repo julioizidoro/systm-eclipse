@@ -1,5 +1,6 @@
 package br.com.travelmate.dao;
-import br.com.travelmate.connection.ConectionFactory;  
+import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.model.Cargo;
 import br.com.travelmate.model.Cartaocreditolancamento;
 
 import java.sql.SQLException;
@@ -50,6 +51,17 @@ public class CartaoCreditoLancamentoDao {
 		cartaocredito = manager.merge(cartaocredito);
         tx.commit();
         return cartaocredito;
+    }
+    
+    
+    public void excluir(int idCartaoCreditoLancamento) throws SQLException  {
+		EntityManager manager = ConectionFactory.getInstance();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		Cartaocreditolancamento cartaocreditolancamento = manager.find(Cartaocreditolancamento.class, idCartaoCreditoLancamento);
+        manager.remove(cartaocreditolancamento);  
+        tx.commit();
+        manager.close();
     }
     
 }
