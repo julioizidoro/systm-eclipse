@@ -1123,7 +1123,7 @@ public class Formatacao {
 			String datainicio, String consultor, String tipovenda, float valorVenda, float valorCambio, String moeda,
 			String tipoOperacao, Departamento departamento, String imagem, String tipo) {
 		String sql = "select u From Usuariodepartamentounidade u where u.unidadenegocio.idunidadeNegocio="+unidade.getIdunidadeNegocio()
-				+ " and (u.tipo='T' or u.tipo='"+tipo + "') and (u.departamento.iddepartamento=9 or u.departamento.iddepartamento=1"
+				+ " and (u.tipo='T' or u.tipo='"+tipo + "') and (u.departamento.iddepartamento=12 or u.departamento.iddepartamento=9 or u.departamento.iddepartamento=1"
 				+ " or u.departamento.iddepartamento=" + departamento.getIddepartamento()+")";
 		UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
 		List<Usuariodepartamentounidade> lista = usuarioDepartamentoUnidadeFacade.listar(sql);
