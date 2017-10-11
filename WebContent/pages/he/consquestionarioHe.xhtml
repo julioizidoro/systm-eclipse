@@ -660,8 +660,7 @@
 									style="width:27px;margin-left:2%"
 									rendered="#{higherEducationMB.desabilitarBtnContrato(finalizado)}">
 								</h:commandButton>
-							</p:column>
-
+							</p:column> 
 							<p:column headerText="Autorizar"
 								style="width:60px;text-align:center;" styleClass="alinharCenter"
 								rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.aprovarquestionariohe}">
@@ -671,8 +670,7 @@
 										listener="#{higherEducationMB.autorizarQuestionario(finalizado)}"
 										update="@form" />
 								</p:selectBooleanCheckbox>   
-							</p:column>  
-
+							</p:column>   
 							<p:column headerText="Opções"      
 								style="width:75px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
