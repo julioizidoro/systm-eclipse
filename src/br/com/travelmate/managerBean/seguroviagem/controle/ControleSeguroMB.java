@@ -57,6 +57,15 @@ public class ControleSeguroMB implements Serializable{
 	private Usuario usuario;
 	private String tipoEmissao;
 	private String numeroSeguroString;
+	private int nFichasFinalizadas; 
+	private int nFichasAndamento;
+	private int nFichaCancelada;
+	private int nFichasFinanceiro;
+	private List<Controleseguro> listaVendasFinalizada;
+	private List<Controleseguro> listaVendasAndamento;
+	private List<Controleseguro> listaVendasCancelada; 
+	private List<Controleseguro> listaVendasFinanceiro;
+	private int numeroFichas;
 	
 	@PostConstruct
 	public void init() { 
@@ -213,6 +222,78 @@ public class ControleSeguroMB implements Serializable{
 		this.numeroSeguroString = numeroSeguroString;
 	}
 
+	public int getnFichasFinalizadas() {
+		return nFichasFinalizadas;
+	}
+
+	public void setnFichasFinalizadas(int nFichasFinalizadas) {
+		this.nFichasFinalizadas = nFichasFinalizadas;
+	}
+ 
+	public int getnFichasAndamento() {
+		return nFichasAndamento;
+	}
+
+	public void setnFichasAndamento(int nFichasAndamento) {
+		this.nFichasAndamento = nFichasAndamento;
+	}
+
+	public int getnFichaCancelada() {
+		return nFichaCancelada;
+	}
+
+	public void setnFichaCancelada(int nFichaCancelada) {
+		this.nFichaCancelada = nFichaCancelada;
+	}
+
+	public int getnFichasFinanceiro() {
+		return nFichasFinanceiro;
+	}
+
+	public void setnFichasFinanceiro(int nFichasFinanceiro) {
+		this.nFichasFinanceiro = nFichasFinanceiro;
+	}
+
+	public List<Controleseguro> getListaVendasFinalizada() {
+		return listaVendasFinalizada;
+	}
+
+	public void setListaVendasFinalizada(List<Controleseguro> listaVendasFinalizada) {
+		this.listaVendasFinalizada = listaVendasFinalizada;
+	}
+
+	public List<Controleseguro> getListaVendasAndamento() {
+		return listaVendasAndamento;
+	}
+
+	public void setListaVendasAndamento(List<Controleseguro> listaVendasAndamento) {
+		this.listaVendasAndamento = listaVendasAndamento;
+	}
+
+	public List<Controleseguro> getListaVendasCancelada() {
+		return listaVendasCancelada;
+	}
+
+	public void setListaVendasCancelada(List<Controleseguro> listaVendasCancelada) {
+		this.listaVendasCancelada = listaVendasCancelada;
+	}
+ 
+	public List<Controleseguro> getListaVendasFinanceiro() {
+		return listaVendasFinanceiro;
+	}
+
+	public void setListaVendasFinanceiro(List<Controleseguro> listaVendasFinanceiro) {
+		this.listaVendasFinanceiro = listaVendasFinanceiro;
+	}
+
+	public int getNumeroFichas() {
+		return numeroFichas;
+	}
+
+	public void setNumeroFichas(int numeroFichas) {
+		this.numeroFichas = numeroFichas;
+	}
+
 	public void listarControle() {
 		ControleSeguroFacade controleSeguroFacade =new ControleSeguroFacade();
 		String sql = "select c from Controleseguro c where c.seguroviagem.possuiSeguro='Sim' "
@@ -221,23 +302,9 @@ public class ControleSeguroMB implements Serializable{
 		listaControleSeguro = controleSeguroFacade.listar(sql);
 		if (listaControleSeguro==null){
 			listaControleSeguro = new ArrayList<Controleseguro>();
-        }
-		/*for(int i=0;i<listaControleSeguro.size();i++){
-			CursoFacade cursoFacade = new CursoFacade();
-			SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
-			if (listaControleSeguro.get(i).getSeguroviagem().getControle()!=null){
-			if (listaControleSeguro.get(i).getSeguroviagem().getControle().equalsIgnoreCase("Curso")){
-				Curso curso = cursoFacade.consultarCursos(listaControleSeguro.get(i).getSeguroviagem().getVendas().getIdvendas());
-				if (curso!=null){
-					Seguroviagem seguro = listaControleSeguro.get(i).getSeguroviagem();
-					seguro.setNomeContatoEmergencia(curso.getNomeContatoEmergencia());
-					seguro.setFoneContatoEmergencia(curso.getFoneContatoEmergencia());
-					seguro.setPaisDestino(curso.getPais());
-					seguroViagemFacade.salvar(seguro);
-				}
-			}
 		}
-		}*/
+		numeroFichas = listaControleSeguro.size();
+		gerarQuantidadesFichas();
 		numeroDias();
 	}
 	
@@ -400,4 +467,31 @@ public class ControleSeguroMB implements Serializable{
 	        }
 		}
     }
+	
+	public void gerarQuantidadesFichas(){
+		nFichaCancelada = 0;
+		nFichasAndamento = 0;
+		nFichasFinalizadas = 0; 
+		nFichasFinanceiro = 0;
+		listaVendasFinalizada = new ArrayList<Controleseguro>();
+		listaVendasAndamento = new ArrayList<Controleseguro>();
+		listaVendasCancelada = new ArrayList<Controleseguro>(); 
+		listaVendasFinanceiro = new ArrayList<Controleseguro>();
+		for (int i = 0; i < listaControleSeguro.size(); i++) {
+			if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				nFichasFinalizadas = nFichasFinalizadas + 1;
+				listaVendasFinalizada.add(listaControleSeguro.get(i));
+			} else if(listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
+					&& !listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+				nFichasFinanceiro = nFichasFinanceiro + 1;
+				listaVendasFinanceiro.add(listaControleSeguro.get(i));
+			}else if(listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+				nFichasAndamento = nFichasAndamento + 1;
+				listaVendasAndamento.add(listaControleSeguro.get(i));
+			}else{
+				nFichaCancelada = nFichaCancelada + 1;
+				listaVendasCancelada.add(listaControleSeguro.get(i));
+			}
+		}
+	}
 }
