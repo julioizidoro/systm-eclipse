@@ -209,7 +209,7 @@ public class BoletoMB implements Serializable {
 				remessacontas.setContasreceber(lista.get(i));
 				remessacontas.setCodigoocorrencia("01");
 				remessacontas.setRemessaarquivo(remessaarquivo);
-				remessacontas = remessaContasFacade.salvar(remessacontas);
+				remessaContasFacade.salvar(remessacontas);
 			}
 			
 		}else{
