@@ -106,36 +106,40 @@
 							</h:panelGroup>
 						</h:panelGrid>
 					</p:tab>
-				</p:accordionPanel>   
-     
+				</p:accordionPanel> 
 				<legend id="iUsu2">
 					<b>Consulta Controle de Seguro Viagem</b>
 				</legend>
-				<br/> <b
-					style="font-size: 12px; margin-left: 2.3%; color: #000;">#{controleSeguroMB.numeroDiasString}</b>
-
-				<b style="font-size: 12px; margin-left: 2.3%; color: #000;">#{controleSeguroMB.numeroSeguroString}</b>
-				<br/>
+				<br /> <b style="font-size: 12px; margin-left: 2.3%; color: #000;">#{controleSeguroMB.numeroDiasString}</b>
+ 				<b style="font-size: 12px; margin-left: 2.3%; color: #000;">#{controleSeguroMB.numeroSeguroString}</b>
+				<br />  
 				<p:tabView id="acordionPainel" class="consultaCurso">
 					<p:tab title="Financeiro (#{controleSeguroMB.nFichasFinanceiro})"
 						titleStyle="font-size:11px;">
-						<p:dataTable id="tabelaFinanceiro" var="financeiro"  
-							value="#{controleSeguroMB.listaVendasFinanceiro}" scrollable="true"
-							scrollHeight="300" style="margin-bottom:20px">
-   
-							<p:column headerText="ID venda" style="width:80px;">
+						<p:dataTable id="tabelaFinanceiro" var="financeiro"
+							value="#{controleSeguroMB.listaVendasFinanceiro}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:42px;">
+								<p:commandLink
+									title="FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)">
+									<img src="../../resources/img/ficharestricao.png" width="35" />
+								</p:commandLink>       
+							</p:column>   
+							<p:column headerText="ID Venda" style="width:65px;">
 								<h:outputText value="#{financeiro.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
 								style="width:140px;">
-								<h:outputText value="#{financeiro.seguroviagem.vendas.cliente.nome}" />
+								<h:outputText
+									value="#{financeiro.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
-								style="width:120px;">
-								<h:outputText value="#{financeiro.seguroviagem.valoresseguro.plano}" />
+								style="width:115px;">
+								<h:outputText  
+									value="#{financeiro.seguroviagem.valoresseguro.plano}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:120px;">
+								style="width:110px;">   
 								<h:outputText value="#{financeiro.seguroviagem.controle}" />
 							</p:column>
 							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
@@ -189,36 +193,42 @@
 									<img src="../../resources/img/cancel.png" style="width: 46%" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.listaControleSeguro}"
-										process="@this"
-										update="tabelaFinanceiro" />
+										process="@this" update="tabelaFinanceiro" />
 								</p:commandLink>
-							</p:column> 
+							</p:column>
 						</p:dataTable>
 					</p:tab>
 					<p:tab title="Andamento (#{controleSeguroMB.nFichasAndamento})"
 						titleStyle="font-size:11px;">
-						<p:dataTable id="tabelaAndamento" var="andamento" 
-							value="#{controleSeguroMB.listaVendasAndamento}" scrollable="true"
-							scrollHeight="300" style="margin-bottom:20px">
-   
-							<p:column headerText="ID venda" style="width:80px;">
+						<p:dataTable id="tabelaAndamento" var="andamento"
+							value="#{controleSeguroMB.listaVendasAndamento}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:42px;">
+								<p:commandLink
+									title="ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)">
+									<img src="../../resources/img/amarelaFicha.png" width="35" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID venda" style="width:70px;">
 								<h:outputText value="#{andamento.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
 								style="width:140px;">
-								<h:outputText value="#{andamento.seguroviagem.vendas.cliente.nome}" />
+								<h:outputText
+									value="#{andamento.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
 								style="width:120px;">
-								<h:outputText value="#{andamento.seguroviagem.valoresseguro.plano}" />
+								<h:outputText
+									value="#{andamento.seguroviagem.valoresseguro.plano}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:120px;">
+								style="width:110px;">
 								<h:outputText value="#{andamento.seguroviagem.controle}" />
 							</p:column>
 							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
 								style="width:80px;text-align:right">
-								<h:outputText value="#{andamento.seguroviagem.valorSeguro}">
+								<h:outputText value="#{andamento.seguroviagem.valorSeguro}">  
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
 								</h:outputText>
@@ -267,31 +277,36 @@
 									<img src="../../resources/img/cancel.png" style="width: 46%" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.listaControleSeguro}"
-										process="@this"
-										update="tabelaAndamento" />
-								</p:commandLink>      
-							</p:column> 
-						</p:dataTable>  
-					</p:tab>   
+										process="@this" update="tabelaAndamento" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
 					<p:tab title="Finalizado (#{controleSeguroMB.nFichasFinanceiro})"
 						titleStyle="font-size:11px;">
-						<p:dataTable id="tabelaFinalizado" var="finalizado" 
-							value="#{controleSeguroMB.listaVendasFinalizada}" scrollable="true"
-							scrollHeight="300" style="margin-bottom:20px">
-   
-							<p:column headerText="ID venda" style="width:80px;">
+						<p:dataTable id="tabelaFinalizado" var="finalizado"
+							value="#{controleSeguroMB.listaVendasFinalizada}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:42px;">
+								<p:commandLink title="FICHA FINALIZADA">
+									<img src="../../resources/img/finalizadoFicha.png" width="35" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="ID venda" style="width:70px;">
 								<h:outputText value="#{finalizado.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
 								style="width:140px;">
-								<h:outputText value="#{finalizado.seguroviagem.vendas.cliente.nome}" />
+								<h:outputText
+									value="#{finalizado.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
-								style="width:120px;">
-								<h:outputText value="#{finalizado.seguroviagem.valoresseguro.plano}" />
+								style="width:120px;">    
+								<h:outputText
+									value="#{finalizado.seguroviagem.valoresseguro.plano}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:120px;">
+								style="width:110px;">
 								<h:outputText value="#{finalizado.seguroviagem.controle}" />
 							</p:column>
 							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
@@ -345,28 +360,33 @@
 									<img src="../../resources/img/cancel.png" style="width: 46%" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.listaControleSeguro}"
-										process="@this"
-										update="tabelaFinalizado" />
+										process="@this" update="tabelaFinalizado" />
 								</p:commandLink>
-							</p:column> 
+							</p:column>
 						</p:dataTable>
-					</p:tab>   
+					</p:tab>
 					<p:tab title="Cancelado (#{controleSeguroMB.nFichaCancelada})"
 						titleStyle="font-size:11px;">
-						<p:dataTable id="tabelaCancelado" var="cancelado"    
-							value="#{controleSeguroMB.listaVendasCancelada}" scrollable="true"
-							scrollHeight="300" style="margin-bottom:20px">
-   
+						<p:dataTable id="tabelaCancelado" var="cancelado"
+							value="#{controleSeguroMB.listaVendasCancelada}"
+							scrollable="true" scrollHeight="300" style="margin-bottom:20px">
+							<p:column style="width:42px;">
+								<p:commandLink title="FICHA CANCELADA">
+									<img src="../../resources/img/fichaCancelada.png" width="35" />
+								</p:commandLink>
+							</p:column>
 							<p:column headerText="ID venda" style="width:80px;">
 								<h:outputText value="#{cancelado.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
 								style="width:140px;">
-								<h:outputText value="#{cancelado.seguroviagem.vendas.cliente.nome}" />
+								<h:outputText
+									value="#{cancelado.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
 								style="width:120px;">
-								<h:outputText value="#{cancelado.seguroviagem.valoresseguro.plano}" />
+								<h:outputText
+									value="#{cancelado.seguroviagem.valoresseguro.plano}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
 								style="width:120px;">
@@ -423,12 +443,11 @@
 									<img src="../../resources/img/cancel.png" style="width: 46%" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.listaControleSeguro}"
-										process="@this"
-										update="tabelaCancelado" />
+										process="@this" update="tabelaCancelado" />
 								</p:commandLink>
-							</p:column> 
+							</p:column>
 						</p:dataTable>
-					</p:tab>  
+					</p:tab>
 				</p:tabView>
 				<br></br> <br></br>
 			</div>
