@@ -2,6 +2,7 @@ package br.com.travelmate.managerBean.crm;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,17 +17,15 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
- 
+
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
-import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
@@ -54,6 +53,7 @@ public class FollowUpMB implements Serializable {
 	private String imagemAtrasados = "atrasados";
 	private String imagemProx = "prox";
 	private String imagemTodos = "todos";
+	private List<Lead> listaLeadTotal;
 	private List<Lead> listaLead;
 	private boolean acessoResponsavelUnidade = false;
 	private boolean acessoResponsavelGerencial = false;
@@ -95,32 +95,32 @@ public class FollowUpMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			funcao = (String) session.getAttribute("funcao"); 
+			funcao = (String) session.getAttribute("funcao");
 			PesquisaBean pesquisa = (PesquisaBean) session.getAttribute("pesquisa");
 			session.removeAttribute("pesquisa");
 			session.removeAttribute("funcao");
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
 				acessoResponsavelUnidade = false;
-			}else if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrmunidade()) {
+			} else if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrmunidade()) {
 				acessoResponsavelUnidade = true;
-			} 
+			}
 			listaProdutos = GerarListas.listarProdutos("");
-			listaProgramas = GerarListas.listarProdutos(""); 
+			listaProgramas = GerarListas.listarProdutos("");
 			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome");  
-			if (acessoResponsavelGerencial || acessoResponsavelUnidade) { 
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome");
+			if (acessoResponsavelGerencial || acessoResponsavelUnidade) {
 				habilitarComboUsuario = false;
-				if(acessoResponsavelGerencial){ 
+				if (acessoResponsavelGerencial) {
 					acessoResponsavelUnidade = false;
 					habilitarComboUnidade = false;
 					listaUnidade = GerarListas.listarUnidade();
 				}
 				listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
-			}else { 
-				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
-					if(usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
+			} else {
+				if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
+					if (usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
 						habilitarComboUsuario = false;
 					}
 				}
@@ -128,37 +128,37 @@ public class FollowUpMB implements Serializable {
 			if (funcao == null || funcao.length() == 0) {
 				funcao = "hoje";
 			}
-			if(pesquisa!=null){
-				dataProxFinal=pesquisa.getDataProxFinal();
-				dataProxInicio= pesquisa.getDataProxInicio();
-				dataUltFinal=pesquisa.getDataUltFinal();
-				dataUltInicio=pesquisa.getDataUltInicio();
-				nomeCliente=pesquisa.getNomeCliente();
-				programas=pesquisa.getProgramas();
-				situacao=pesquisa.getSituacao();
-				tipocontato=pesquisa.getTipocontato();
-				unidadenegocio=pesquisa.getUnidadenegocio();
+			if (pesquisa != null) {
+				dataProxFinal = pesquisa.getDataProxFinal();
+				dataProxInicio = pesquisa.getDataProxInicio();
+				dataUltFinal = pesquisa.getDataUltFinal();
+				dataUltInicio = pesquisa.getDataUltInicio();
+				nomeCliente = pesquisa.getNomeCliente();
+				programas = pesquisa.getProgramas();
+				situacao = pesquisa.getSituacao();
+				tipocontato = pesquisa.getTipocontato();
+				unidadenegocio = pesquisa.getUnidadenegocio();
 				gerarListaConsultor();
-				usuario=pesquisa.getUsuario();
-				status=pesquisa.getStatus();
-				dataInseridoInicial=pesquisa.getDataInseridoInicial();
-				dataInseridoFinal=pesquisa.getDataInseridoFinal();
-				pesquisar(); 
+				usuario = pesquisa.getUsuario();
+				status = pesquisa.getStatus();
+				dataInseridoInicial = pesquisa.getDataInseridoInicial();
+				dataInseridoFinal = pesquisa.getDataInseridoFinal();
+				pesquisar();
 				mudarCoresBotões(funcao);
-			}else if (!acessoResponsavelGerencial){
-				pesquisar(); 
+			} else if (!acessoResponsavelGerencial) {
+				pesquisar();
 				mudarCoresBotões(funcao);
-			}else{
-				unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
+			} else {
+				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 				gerarListaConsultor();
-				usuario=usuarioLogadoMB.getUsuario();
+				usuario = usuarioLogadoMB.getUsuario();
 				pesquisar();
 			}
 			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 			int idProduto = 0;
 			idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 			listaPais = paisProdutoFacade.listar(idProduto);
-			if(sql!=null && sql.length()>0){
+			if (sql != null && sql.length() > 0) {
 				gerarListaLead(sql);
 			}
 		}
@@ -492,6 +492,14 @@ public class FollowUpMB implements Serializable {
 		this.dataInseridoFinal = dataInseridoFinal;
 	}
 
+	public List<Lead> getListaLeadTotal() {
+		return listaLeadTotal;
+	}
+
+	public void setListaLeadTotal(List<Lead> listaLeadTotal) {
+		this.listaLeadTotal = listaLeadTotal;
+	}
+
 	public String novoLead() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 550);
@@ -505,30 +513,47 @@ public class FollowUpMB implements Serializable {
 	public void mudarCoresBotões(String funcao) {
 		sql = "";
 		this.funcao = funcao;
+		listaLead = new ArrayList<Lead>();  
 		if (funcao.equalsIgnoreCase("novos")) {
 			imagemNovos = "novosClick";
 			imagemHoje = "hoje";
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			sql = "select l from Lead l where l.situacao<6 and l.tipocontato.tipo='Novo' and l.dataultimocontato is null ";
+			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				if (listaLeadTotal.get(i).getDataultimocontato() == null
+						&& listaLeadTotal.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
+					listaLead.add(listaLeadTotal.get(i));
+				}
+			}
 		} else if (funcao.equalsIgnoreCase("hoje")) {
 			imagemNovos = "novos";
 			imagemHoje = "hojeClick";
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			sql = "select l from Lead l where l.situacao<6 and l.dataultimocontato>'2016-01-01' and"
-					+ " l.dataproximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				if(listaLeadTotal.get(i).getDataproximocontato()!=null) {
+					String dataprox = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
+					String datahoje = Formatacao.ConvercaoDataPadrao(new Date());
+					if (listaLeadTotal.get(i).getDataultimocontato() != null && dataprox.equalsIgnoreCase(datahoje)) {
+						listaLead.add(listaLeadTotal.get(i));
+					}
+				}
+			}
 		} else if (funcao.equalsIgnoreCase("atrasados")) {
 			imagemNovos = "novos";
 			imagemHoje = "hoje";
 			imagemAtrasados = "atrasadoClick";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			Date data = new Date();
-			sql = "select l from Lead l where l.situacao<6 and l.dataultimocontato>'2016-01-01' and"
-					+ " l.dataproximocontato < '" + Formatacao.ConvercaoDataSql(data) + "'";
+			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				if (listaLeadTotal.get(i).getDataultimocontato() != null
+						&& listaLeadTotal.get(i).getDataproximocontato()!=null
+						&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())) {
+					listaLead.add(listaLeadTotal.get(i));
+				}
+			}
 		} else if (funcao.equalsIgnoreCase("prox")) {
 			imagemNovos = "novos";
 			imagemHoje = "hoje";
@@ -541,58 +566,30 @@ public class FollowUpMB implements Serializable {
 			} catch (Exception e) {
 				data = null;
 			}
-			sql = "select l from Lead l where l.situacao<6 and l.dataultimocontato>'2016-01-01' and"
-					+ " l.dataproximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-					+ "' and l.dataproximocontato<'" + Formatacao.ConvercaoDataSql(data) + "'";
+			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				if (listaLeadTotal.get(i).getDataultimocontato() != null
+						&& listaLeadTotal.get(i).getDataproximocontato()!=null
+						&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
+						&& listaLeadTotal.get(i).getDataproximocontato().before(data)) {
+					listaLead.add(listaLeadTotal.get(i));
+				}
+			}
 		} else if (funcao.equalsIgnoreCase("todos")) {
 			imagemNovos = "novos";
 			imagemHoje = "hoje";
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todosClick";
-			sql = "select l from Lead l where l.situacao<6";
+			listaLead = listaLeadTotal;
 		}
-		if (acessoResponsavelGerencial) {
-			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
-				sql = sql + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-			}
-		} else {
-			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-		}
-		if (acessoResponsavelUnidade || acessoResponsavelGerencial) {
-			if (usuario != null && usuario.getIdusuario() != null) {
-				sql = sql + " and l.usuario.idusuario=" + usuario.getIdusuario();
-			}
-		} else {
-			sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
-		}
-		if (nomeCliente != null && nomeCliente.length() > 0) {
-			sql = sql + " and l.cliente.nome like '" + nomeCliente + "%'";
-		}
-
-		if (dataProxInicio != null && dataProxFinal != null) {
-			sql = sql + " and l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
-					+ "l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
-		}
-
-		if (dataUltInicio != null && dataUltFinal != null) {
-			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
-		}
-		if (programas != null && programas.getIdprodutos() != null) {
-			sql = sql + " and l.produtos.idprodutos=" + programas.getIdprodutos();
-		}
-		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
-			sql = sql + " and l.tipocontato.idtipocontato=" + tipocontato.getIdtipocontato();
-		}
-		sql = sql + " order by l.dataproximocontato";
-		gerarListaLead(sql);
 	}
 
 	public void gerarListaLead(String sql) {
 		LeadFacade leadFacade = new LeadFacade();
-		listaLead = leadFacade.lista(sql);
+		listaLeadTotal = leadFacade.lista(sql);
+		if(listaLeadTotal==null) {
+			listaLeadTotal = new ArrayList<Lead>();
+		}
 	}
 
 	public String retornarCoresSituacao(int numeroSituacao) {
@@ -683,7 +680,8 @@ public class FollowUpMB implements Serializable {
 			sql = sql + " and l.situacao<'6' ";
 		}
 		if (nomeCliente != null && nomeCliente.length() > 0) {
-			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente + "%')";
+			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente
+					+ "%')";
 		}
 		if (dataProxInicio != null && dataProxFinal != null) {
 			sql = sql + " and l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
@@ -700,14 +698,14 @@ public class FollowUpMB implements Serializable {
 		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
 			sql = sql + " and l.tipocontato.idtipocontato=" + tipocontato.getIdtipocontato();
 		}
-		if (status != null && status.length()>0 && !status.equalsIgnoreCase("0")) {
-			if(status.equalsIgnoreCase("Novos")){
+		if (status != null && status.length() > 0 && !status.equalsIgnoreCase("0")) {
+			if (status.equalsIgnoreCase("Novos")) {
 				sql = sql + " and l.tipocontato.tipo='Novo' and l.dataultimocontato is null";
-			}else if(status.equalsIgnoreCase("Atrasados")){ 
+			} else if (status.equalsIgnoreCase("Atrasados")) {
 				sql = sql + " and l.dataproximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			}else if(status.equalsIgnoreCase("Hoje")){ 
+			} else if (status.equalsIgnoreCase("Hoje")) {
 				sql = sql + " and l.dataproximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			}else if(status.equalsIgnoreCase("Prox. 7 Dias")){ 
+			} else if (status.equalsIgnoreCase("Prox. 7 Dias")) {
 				Date data7;
 				try {
 					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
@@ -716,47 +714,48 @@ public class FollowUpMB implements Serializable {
 				}
 				sql = sql + " and l.dataproximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
 						+ "' and l.dataproximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
-			}  
+			}
 		}
-		if(dataInseridoInicial!=null && dataInseridoFinal!=null){
-			sql = sql + " and l.dataenvio>'" + Formatacao.ConvercaoDataSql(dataInseridoInicial)
-				+ "' and l.dataenvio<'" + Formatacao.ConvercaoDataSql(dataInseridoFinal) + "'";
+		if (dataInseridoInicial != null && dataInseridoFinal != null) {
+			sql = sql + " and l.dataenvio>'" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.dataenvio<'"
+					+ Formatacao.ConvercaoDataSql(dataInseridoFinal) + "'";
 		}
 		sql = sql + " order by l.dataproximocontato";
 		gerarListaLead(sql);
-		for (int i = 0; i < listaLead.size(); i++) {
-			if (!listaLead.get(i).getSituacao().equals("0")) {
+		for (int i = 0; i < listaLeadTotal.size(); i++) {
+			if (!listaLeadTotal.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
 			}
-			if (listaLead.get(i).getDataultimocontato() == null && !listaLead.get(i).getSituacao().equals("0")
-					&& listaLead.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
+			if (listaLeadTotal.get(i).getDataultimocontato() == null && !listaLeadTotal.get(i).getSituacao().equals("0")
+					&& listaLeadTotal.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
 				novos = novos + 1;
-			} else if ((listaLead.get(i).getDataultimocontato() != null)
-					&& (listaLead.get(i).getDataproximocontato()) != null
-					&& (Formatacao.ConvercaoDataSql(listaLead.get(i).getDataproximocontato())
+			} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
+					&& (listaLeadTotal.get(i).getDataproximocontato()) != null
+					&& (Formatacao.ConvercaoDataSql(listaLeadTotal.get(i).getDataproximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
-					&& (!listaLead.get(i).getSituacao().equals("0"))) {
+					&& (!listaLeadTotal.get(i).getSituacao().equals("0"))) {
 				hoje = hoje + 1;
-			} else if (listaLead.get(i).getDataultimocontato() != null
-					&& listaLead.get(i).getDataproximocontato() != null
-					&& listaLead.get(i).getDataproximocontato().before(new Date())
-					&& !listaLead.get(i).getSituacao().equals("0")) {
+			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
+					&& listaLeadTotal.get(i).getDataproximocontato() != null
+					&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())
+					&& !listaLeadTotal.get(i).getSituacao().equals("0")) {
 				atrasados = atrasados + 1;
-			} else if (listaLead.get(i).getDataultimocontato() != null
-					&& listaLead.get(i).getDataproximocontato() != null
-					&& listaLead.get(i).getDataproximocontato().after(new Date())
-					&& !listaLead.get(i).getSituacao().equals("0")) {
+			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
+					&& listaLeadTotal.get(i).getDataproximocontato() != null
+					&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
+					&& !listaLeadTotal.get(i).getSituacao().equals("0")) {
 				Date data7 = null;
 				try {
 					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				if (listaLead.get(i).getDataproximocontato().before(data7)) {
+				if (listaLeadTotal.get(i).getDataproximocontato().before(data7)) {
 					prox7 = prox7 + 1;
 				}
 			}
 		}
+		listaLead = listaLeadTotal;
 	}
 
 	public void limparPesquisa() {
@@ -765,13 +764,13 @@ public class FollowUpMB implements Serializable {
 		dataProxInicio = null;
 		dataUltFinal = null;
 		dataUltInicio = null;
-		usuario = null;
-		unidadenegocio = null;
+		usuario = usuarioLogadoMB.getUsuario();
+		unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 		programas = null;
 		situacao = "0";
 		tipocontato = null;
-		dataInseridoInicial=null;
-		dataInseridoInicial=null;
+		dataInseridoInicial = null;
+		dataInseridoInicial = null;
 		pesquisar();
 	}
 
@@ -839,7 +838,7 @@ public class FollowUpMB implements Serializable {
 		return "";
 	}
 
-	public String historico() { 
+	public String historico() {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("historicoCliente.jsf");
 		} catch (IOException e) {
@@ -854,25 +853,25 @@ public class FollowUpMB implements Serializable {
 				Mensagem.lancarMensagemInfo("Pesquisa", "Está situação requer data do Ultimo Contato");
 			}
 		}
-	}  
-	
-	public String encaminharLead(Lead lead) {  
+	}
+
+	public String encaminharLead(Lead lead) {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 700);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("lead", lead);
 		RequestContext.getCurrentInstance().openDialog("encaminharLead", options, null);
-		return "";  
+		return "";
 	}
-	
-	public void dialogReturnEncaminharLead(SelectEvent event){
-		if (event.getObject()!=null){
-			if (event.getObject() instanceof Lead){
+
+	public void dialogReturnEncaminharLead(SelectEvent event) {
+		if (event.getObject() != null) {
+			if (event.getObject() instanceof Lead) {
 				Lead lead = (Lead) event.getObject();
 				listaLead.remove(lead);
 			}
 		}
 	}
-	 
+
 }
