@@ -895,6 +895,14 @@ public class OrcamentoCursoMB implements Serializable {
 			produtosOrcamentoBean.setValorOriginalRS(0.0f);
 			produtosOrcamentoBean.setNumeroSemanas(0);
 			gerarPromocaoCurso(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal());
+			if (produtosOrcamentoBean.getLinhaSuplementoAcomodacao() >= 0) {
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios()
+						.remove(produtosOrcamentoBean.getLinhaSuplementoAcomodacao());
+			}
+			if (produtosOrcamentoBean.getLinhaObrigatorioAcomodacao() >= 0) {
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios()
+						.remove(produtosOrcamentoBean.getLinhaObrigatorioAcomodacao());
+			}
 			calcularTotais();
 		}
 	}

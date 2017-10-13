@@ -188,6 +188,8 @@ public class Acesso implements Serializable {
 	private boolean cadastrousuario; 
 	@Column(name = "cadastrounidade")
 	private boolean cadastrounidade; 
+	@Column(name = "utilti")
+	private boolean utilti; 
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -836,6 +838,14 @@ public class Acesso implements Serializable {
 
 	public void setCadastrounidade(boolean cadastrounidade) {
 		this.cadastrounidade = cadastrounidade;
+	}
+
+	public boolean isUtilti() {
+		return utilti;
+	}
+
+	public void setUtilti(boolean utilti) {
+		this.utilti = utilti;
 	}
 
 	@Override

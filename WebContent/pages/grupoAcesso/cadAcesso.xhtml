@@ -472,9 +472,12 @@
 									<h:outputText value="Relatório Solicitações" style="margin-left:2%;" />
 								</h:panelGroup>   
 								<h:panelGroup>
-								</h:panelGroup> 
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.utilti}" />
+									<h:outputText value="Util" style="margin-left:2%;" />
+								</h:panelGroup>   
 							</h:panelGrid>
-						</p:tab>
+						</p:tab>   
 						<p:tab title="Outros">
 							<br></br>
 							<h:panelGrid columns="5"

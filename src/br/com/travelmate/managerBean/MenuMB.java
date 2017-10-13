@@ -1403,4 +1403,9 @@ public class MenuMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("relatorioSolicitacoes", options, null); 
 		return "";
 	}
+	
+	public String consUtil() {
+		atualizaTempoLogado();
+		return "consUtil";
+	}
 }
