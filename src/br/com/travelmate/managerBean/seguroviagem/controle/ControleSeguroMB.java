@@ -33,7 +33,7 @@ import br.com.travelmate.util.Formatacao;
 
 @Named
 @ViewScoped
-public class ControleSeguroMB implements Serializable{
+public class ControleSeguroMB implements Serializable {
 
 	/**
 	 * 
@@ -46,9 +46,9 @@ public class ControleSeguroMB implements Serializable{
 	private String nomeCliente;
 	private Date dataInicio;
 	private Date dataFim;
-	private int idVenda=0;
+	private int idVenda = 0;
 	private String tipoData;
-	private Date dataEmissao; 
+	private Date dataEmissao;
 	private String numeroDiasString;
 	private String motivoCancelamento;
 	private List<Usuario> listaConsultor;
@@ -57,20 +57,20 @@ public class ControleSeguroMB implements Serializable{
 	private Usuario usuario;
 	private String tipoEmissao;
 	private String numeroSeguroString;
-	private int nFichasFinalizadas; 
+	private int nFichasFinalizadas;
 	private int nFichasAndamento;
 	private int nFichaCancelada;
 	private int nFichasFinanceiro;
 	private List<Controleseguro> listaVendasFinalizada;
 	private List<Controleseguro> listaVendasAndamento;
-	private List<Controleseguro> listaVendasCancelada; 
+	private List<Controleseguro> listaVendasCancelada;
 	private List<Controleseguro> listaVendasFinanceiro;
 	private int numeroFichas;
-	
+
 	@PostConstruct
-	public void init() { 
+	public void init() {
 		listarControle();
-		gerarListaUnidadeNegocio();   
+		gerarListaUnidadeNegocio();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -88,7 +88,7 @@ public class ControleSeguroMB implements Serializable{
 	public void setControleCurso(Controleseguro controleCurso) {
 		this.controleSeguro = controleCurso;
 	}
-	
+
 	public List<Controleseguro> getListaControleSeguro() {
 		return listaControleSeguro;
 	}
@@ -120,7 +120,6 @@ public class ControleSeguroMB implements Serializable{
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
-
 
 	public Controleseguro getControleSeguro() {
 		return controleSeguro;
@@ -181,7 +180,7 @@ public class ControleSeguroMB implements Serializable{
 	public void setNumeroDiasString(String numeroDiasString) {
 		this.numeroDiasString = numeroDiasString;
 	}
- 
+
 	public Date getDataEmissao() {
 		return dataEmissao;
 	}
@@ -229,7 +228,7 @@ public class ControleSeguroMB implements Serializable{
 	public void setnFichasFinalizadas(int nFichasFinalizadas) {
 		this.nFichasFinalizadas = nFichasFinalizadas;
 	}
- 
+
 	public int getnFichasAndamento() {
 		return nFichasAndamento;
 	}
@@ -277,7 +276,7 @@ public class ControleSeguroMB implements Serializable{
 	public void setListaVendasCancelada(List<Controleseguro> listaVendasCancelada) {
 		this.listaVendasCancelada = listaVendasCancelada;
 	}
- 
+
 	public List<Controleseguro> getListaVendasFinanceiro() {
 		return listaVendasFinanceiro;
 	}
@@ -295,91 +294,92 @@ public class ControleSeguroMB implements Serializable{
 	}
 
 	public void listarControle() {
-		ControleSeguroFacade controleSeguroFacade =new ControleSeguroFacade();
+		ControleSeguroFacade controleSeguroFacade = new ControleSeguroFacade();
 		String sql = "select c from Controleseguro c where c.seguroviagem.possuiSeguro='Sim' "
-				+ " and c.seguroviagem.dataInicio>='"+Formatacao.ConvercaoDataSql(new Date())
+				+ " and c.seguroviagem.dataInicio>='" + Formatacao.ConvercaoDataSql(new Date())
 				+ "' and c.seguroviagem.vendas.situacao<>'CANCELADA' order by c.seguroviagem.dataInicio, c.idcontroleSeguro desc";
 		listaControleSeguro = controleSeguroFacade.listar(sql);
-		if (listaControleSeguro==null){
+		if (listaControleSeguro == null) {
 			listaControleSeguro = new ArrayList<Controleseguro>();
 		}
 		numeroFichas = listaControleSeguro.size();
 		gerarQuantidadesFichas();
 		numeroDias();
 	}
-	
-	
-	public void pesquisar(){
-		ControleSeguroFacade controleSeguroFacade =new ControleSeguroFacade();
+
+	public void pesquisar() {
+		ControleSeguroFacade controleSeguroFacade = new ControleSeguroFacade();
 		String sql;
-		sql= "select c from Controleseguro c where c.seguroviagem.vendas.cliente.nome like '%" + nomeCliente + "%' and c.seguroviagem.vendas.situacao<>'CANCELADA' ";
-		if(idVenda>0){
-			sql = sql + " and c.seguroviagem.vendas.idvendas="+idVenda;
+		sql = "select c from Controleseguro c where c.seguroviagem.vendas.cliente.nome like '%" + nomeCliente
+				+ "%' and c.seguroviagem.vendas.situacao<>'CANCELADA' ";
+		if (idVenda > 0) {
+			sql = sql + " and (c.seguroviagem.vendas.idvendas=" + idVenda + " or c.seguroviagem.idvendacurso=" + idVenda
+					+ ")";
 		}
-		if (unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){ 
-			sql = sql + " and c.seguroviagem.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			sql = sql + " and c.seguroviagem.vendas.unidadenegocio.idunidadeNegocio="
+					+ unidadenegocio.getIdunidadeNegocio();
 		}
-		if (usuario!=null && usuario.getIdusuario()!=null){ 
+		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and c.seguroviagem.vendas.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		if ((dataInicio != null) && (dataFim != null)) {
 			sql = sql + " and c.seguroviagem.dataInicio>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and c.seguroviagem.dataInicio<='" + Formatacao.ConvercaoDataSql(dataFim) + "'";
 		}
-		if (tipoEmissao!=null && !tipoEmissao.equals("Todos")){
+		if (tipoEmissao != null && !tipoEmissao.equals("Todos")) {
 			sql = sql + " and c.seguroviagem.controle='" + tipoEmissao + "' ";
 		}
-		sql=sql+ " order by c.seguroviagem.dataInicio, c.idcontroleSeguro desc";
+		sql = sql + " order by c.seguroviagem.dataInicio, c.idcontroleSeguro desc";
 		listaControleSeguro = controleSeguroFacade.listar(sql);
-		if (listaControleSeguro==null){
+		if (listaControleSeguro == null) {
 			listaControleSeguro = new ArrayList<Controleseguro>();
-        }
-		numeroDias();    
+		}
+		numeroDias();
+		gerarQuantidadesFichas();
 	}
-	
-	public void limpar(){
-		nomeCliente= "";
-		idVenda=0;
-		dataFim=null;
-		dataInicio=null;
-		unidadenegocio=null;
-		usuario=null;
-		tipoEmissao="Todos";
+
+	public void limpar() {
+		nomeCliente = "";
+		idVenda = 0;
+		dataFim = null;
+		dataInicio = null;
+		unidadenegocio = null;
+		usuario = null;
+		tipoEmissao = "Todos";
 		listarControle();
 	}
-	
-	
-	public void emitirSeguro(){
-		ControleSeguroFacade controleSeguroFacade =new ControleSeguroFacade();
-		if(controleSeguro!=null){
+
+	public void emitirSeguro() {
+		ControleSeguroFacade controleSeguroFacade = new ControleSeguroFacade();
+		if (controleSeguro != null) {
 			controleSeguro.setDataemissao(dataEmissao);
 			controleSeguro.setSituacao("Finalizada");
 			controleSeguroFacade.salvarControle(controleSeguro);
 		}
 		listarControle();
 	}
-	
-	public void numeroDias(){
-		int numeroDias=0;
+
+	public void numeroDias() {
+		int numeroDias = 0;
 		int numeroseguro = 0;
 		for (int i = 0; i < listaControleSeguro.size(); i++) {
-			if(listaControleSeguro.get(i).getSeguroviagem().getNumeroSemanas()!=null){
+			if (listaControleSeguro.get(i).getSeguroviagem().getNumeroSemanas() != null) {
 				numeroDias = numeroDias + listaControleSeguro.get(i).getSeguroviagem().getNumeroSemanas();
-				numeroseguro = numeroseguro +1;
+				numeroseguro = numeroseguro + 1;
 			}
 		}
-		numeroDiasString = "Número de dias vendido: "+numeroDias;
-		numeroSeguroString = "Número de Seguros:"+numeroseguro;
+		numeroDiasString = "Número de dias vendido: " + numeroDias;
+		numeroSeguroString = "Número de Seguros:" + numeroseguro;
 	}
-	
-	
-	public void cancelar(){
-		ControleSeguroFacade controleSeguroFacade =new ControleSeguroFacade();
+
+	public void cancelar() {
+		ControleSeguroFacade controleSeguroFacade = new ControleSeguroFacade();
 		for (int i = 0; i < listaControleSeguro.size(); i++) {
-			if(listaControleSeguro.get(i).isSelecionado()){
+			if (listaControleSeguro.get(i).isSelecionado()) {
 				listaControleSeguro.get(i).setSituacao("CANCELADA");
 				controleSeguroFacade.salvarControle(listaControleSeguro.get(i));
-				Vendas vendas= new Vendas();
+				Vendas vendas = new Vendas();
 				vendas = listaControleSeguro.get(i).getSeguroviagem().getVendas();
 				vendas.setSituacao("CANCELADA");
 				vendas.setObsCancelar(motivoCancelamento);
@@ -396,14 +396,14 @@ public class ControleSeguroMB implements Serializable{
 		}
 		listarControle();
 	}
-	
-	public void finalizar(){
-		ControleSeguroFacade controleSeguroFacade =new ControleSeguroFacade();
+
+	public void finalizar() {
+		ControleSeguroFacade controleSeguroFacade = new ControleSeguroFacade();
 		for (int i = 0; i < listaControleSeguro.size(); i++) {
-			if(listaControleSeguro.get(i).isSelecionado()){
+			if (listaControleSeguro.get(i).isSelecionado()) {
 				listaControleSeguro.get(i).setSituacao("FINALIZADA");
 				controleSeguroFacade.salvarControle(listaControleSeguro.get(i));
-				Vendas vendas= new Vendas();
+				Vendas vendas = new Vendas();
 				vendas = listaControleSeguro.get(i).getSeguroviagem().getVendas();
 				vendas.setSituacao("CANCELADA");
 				vendas.setObsCancelar(motivoCancelamento);
@@ -420,28 +420,28 @@ public class ControleSeguroMB implements Serializable{
 		}
 		listarControle();
 	}
-	
-	public String tipoSeguro(Controleseguro controleseguro){
-		if(controleseguro.getSeguroviagem().getIdvendacurso()>0){
+
+	public String tipoSeguro(Controleseguro controleseguro) {
+		if (controleseguro.getSeguroviagem().getIdvendacurso() > 0) {
 			return "Curso";
-		}else{
+		} else {
 			return "Avulso";
 		}
 	}
-	
-	public void buscarSeguro(Controleseguro controleseguro){
+
+	public void buscarSeguro(Controleseguro controleseguro) {
 		this.controleSeguro = controleseguro;
 	}
-	
-	public String cancelarVenda(Controleseguro controleseguro){
-		if (controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")){
+
+	public String cancelarVenda(Controleseguro controleseguro) {
+		if (controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			Map<String, Object> options = new HashMap<String, Object>();
-	    	options.put("contentWidth", 400);
-	    	FacesContext fc = FacesContext.getCurrentInstance();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("venda", controleseguro.getSeguroviagem().getVendas());
 			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		}else if (controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
+		} else if (controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
 			controleseguro.getSeguroviagem().getVendas().setSituacao("CANCELADA");
 			vendasFacade.salvar(controleseguro.getSeguroviagem().getVendas());
@@ -449,46 +449,51 @@ public class ControleSeguroMB implements Serializable{
 		}
 		return "";
 	}
-	
-	public void gerarListaUnidadeNegocio(){
-        UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-        listaUnidadeNegocio = unidadeNegocioFacade.listar();
-        if (listaUnidadeNegocio==null){
-            listaUnidadeNegocio = new ArrayList<Unidadenegocio>();
-        }
-    }
-	
-	public void gerarListaConsultor(){
-		if(unidadenegocio!=null){
-	        UsuarioFacade usuarioFacade = new UsuarioFacade();
-	        listaConsultor = usuarioFacade.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="+unidadenegocio.getIdunidadeNegocio()+" order by u.nome");
-	        if (listaConsultor==null){
-	            listaConsultor = new ArrayList<Usuario>();
-	        }
+
+	public void gerarListaUnidadeNegocio() {
+		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
+		listaUnidadeNegocio = unidadeNegocioFacade.listar();
+		if (listaUnidadeNegocio == null) {
+			listaUnidadeNegocio = new ArrayList<Unidadenegocio>();
 		}
-    }
-	
-	public void gerarQuantidadesFichas(){
+	}
+
+	public void gerarListaConsultor() {
+		if (unidadenegocio != null) {
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			listaConsultor = usuarioFacade
+					.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
+							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+			if (listaConsultor == null) {
+				listaConsultor = new ArrayList<Usuario>();
+			}
+		}
+	}
+
+	public void gerarQuantidadesFichas() {
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
-		nFichasFinalizadas = 0; 
+		nFichasFinalizadas = 0;
 		nFichasFinanceiro = 0;
 		listaVendasFinalizada = new ArrayList<Controleseguro>();
 		listaVendasAndamento = new ArrayList<Controleseguro>();
-		listaVendasCancelada = new ArrayList<Controleseguro>(); 
+		listaVendasCancelada = new ArrayList<Controleseguro>();
 		listaVendasFinanceiro = new ArrayList<Controleseguro>();
 		for (int i = 0; i < listaControleSeguro.size(); i++) {
 			if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasFinalizada.add(listaControleSeguro.get(i));
-			} else if(listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
-					&& !listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+			} else if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao()
+					.equalsIgnoreCase("ANDAMENTO")
+					&& !listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacaofinanceiro()
+							.equalsIgnoreCase("L")) {
 				nFichasFinanceiro = nFichasFinanceiro + 1;
 				listaVendasFinanceiro.add(listaControleSeguro.get(i));
-			}else if(listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+			} else if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao()
+					.equalsIgnoreCase("ANDAMENTO")) {
 				nFichasAndamento = nFichasAndamento + 1;
 				listaVendasAndamento.add(listaControleSeguro.get(i));
-			}else{
+			} else {
 				nFichaCancelada = nFichaCancelada + 1;
 				listaVendasCancelada.add(listaControleSeguro.get(i));
 			}
