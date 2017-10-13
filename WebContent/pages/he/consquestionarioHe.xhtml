@@ -109,7 +109,7 @@
 						value="Ir para CRM" oncomplete="PF('novaficha').hide();"
 						styleClass="ui-confirmdialog-yes"
 						style="margin-left:40%;font-size:12px" />
-					<br />
+					<br />   
 				</p:dialog>
 				<br></br> <br></br>
 				<p:tabView id="acordionPainel" class="consultaCurso">
@@ -117,11 +117,11 @@
 						titleStyle="font-size:11px;">
 						<p:dataTable id="tabelaProcesso" var="processo"     
 							value="#{higherEducationMB.listaProcesso}" scrollable="true"
-							scrollHeight="300" style="margin-bottom:20px">
-							<p:column headerText="" style="width:43px;text-align:center;"
+							scrollHeight="300" style="margin-bottom:20px">  
+							<p:column headerText="" style="width:37px;text-align:center;"
 								styleClass="alinharCenter">
 								<img src="#{higherEducationMB.retornarimagem(processo.status)}"
-									width="28"
+									width="25"
 									title="#{higherEducationMB.retornarTituloFicha(processo.status)}" />
 							</p:column>
 							<p:column headerText="ID" sortBy="#{processo.idVenda}"
@@ -135,15 +135,15 @@
 									style="#{higherEducationMB.corNome(processo)}" />
 							</p:column>
 							<p:column headerText="Data Envio" sortBy="#{processo.data}"
-								style="text-align:center;width:95px;">
-								<h:outputText value="#{processo.data}"
+								style="text-align:center;width:67px;">     
+								<h:outputText value="#{processo.data}"       
 									style="#{higherEducationMB.cor(processo)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{processo.unidade}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:85px;" styleClass="alinharCenter">
 								<h:outputText value="#{processo.unidade}"
 									style="#{higherEducationMB.cor(processo)}" />
 							</p:column>
@@ -158,9 +158,9 @@
 									style="#{higherEducationMB.cor(processo)}" />
 							</p:column>
 							<p:column headerText="Situação" sortBy="#{processo.situacao}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:110px;" styleClass="alinharCenter">
 								<h:outputText value="#{processo.situacao}"
-									style="#{higherEducationMB.cor(processo)}" />
+									style="#{higherEducationMB.cor(processo)}" />  
 							</p:column>
 							<p:column style="width:43px;text-align:center;">
 								<p:commandLink action="#{higherEducationMB.editar(processo)}"
@@ -198,9 +198,17 @@
 										update="@form" />
 								</p:selectBooleanCheckbox>
 							</p:column>
-
+							<p:column headerText="Desistência"
+								style="width:78px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{processo.desistencia}"
+									disabled="#{higherEducationMB.desabilitarBtnDesistencia(processo)}">
+									<p:ajax event="change"
+										listener="#{higherEducationMB.desistenciaHE(processo)}"
+										update="@form" />  
+								</p:selectBooleanCheckbox>  
+							</p:column> 
 							<p:column headerText="Opções"
-								style="width:75px;text-align:center;">
+								style="width:72px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
@@ -276,10 +284,10 @@
 						<p:dataTable id="tabelaFinanceiro" var="financeiro" 
 							value="#{higherEducationMB.listaFinanceiro}" scrollable="true"
 							scrollHeight="300" style="margin-bottom:20px">
-							<p:column headerText="" style="width:43px;text-align:center;"
+							<p:column headerText="" style="width:37px;text-align:center;"
 								styleClass="alinharCenter">
 								<img src="#{higherEducationMB.retornarimagem(financeiro.status)}"
-									width="28"
+									width="25"
 									title="#{higherEducationMB.retornarTituloFicha(financeiro.status)}" />
 							</p:column>
 							<p:column headerText="ID" sortBy="#{financeiro.idVenda}"
@@ -293,7 +301,7 @@
 									style="#{higherEducationMB.corNome(financeiro)}" />
 							</p:column>
 							<p:column headerText="Data Envio" sortBy="#{financeiro.data}"
-								style="text-align:center;width:95px;">
+								style="text-align:center;width:67px;">
 								<h:outputText value="#{financeiro.data}"
 									style="#{higherEducationMB.cor(financeiro)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -301,7 +309,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{financeiro.unidade}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:85px;" styleClass="alinharCenter">
 								<h:outputText value="#{financeiro.unidade}"
 									style="#{higherEducationMB.cor(financeiro)}" />
 							</p:column>
@@ -356,9 +364,18 @@
 										update="@form" />
 								</p:selectBooleanCheckbox>
 							</p:column>
+							<p:column headerText="Desistência"
+								style="width:85px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{financeiro.desistencia}"
+									disabled="#{higherEducationMB.desabilitarBtnDesistencia(financeiro)}">
+									<p:ajax event="change"
+										listener="#{higherEducationMB.desistenciaHE(financeiro)}"
+										update="@form" />
+								</p:selectBooleanCheckbox>
+							</p:column>   
 
 							<p:column headerText="Opções"
-								style="width:75px;text-align:center;">
+								style="width:67px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
@@ -434,10 +451,10 @@
 						<p:dataTable id="tabelaAndamento" var="andamento" 
 							value="#{higherEducationMB.listaAndamento}" scrollable="true"
 							scrollHeight="300" style="margin-bottom:20px">
-							<p:column headerText="" style="width:43px;text-align:center;"
+							<p:column headerText="" style="width:37px;text-align:center;"
 								styleClass="alinharCenter">
 								<img src="#{higherEducationMB.retornarimagem(andamento.status)}"
-									width="28"
+									width="25"
 									title="#{higherEducationMB.retornarTituloFicha(andamento.status)}" />
 							</p:column>
 							<p:column headerText="ID" sortBy="#{andamento.idVenda}"
@@ -451,7 +468,7 @@
 									style="#{higherEducationMB.corNome(andamento)}" />
 							</p:column>
 							<p:column headerText="Data Envio" sortBy="#{andamento.data}"
-								style="text-align:center;width:95px;">
+								style="text-align:center;width:67px;">
 								<h:outputText value="#{andamento.data}"
 									style="#{higherEducationMB.cor(andamento)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -459,7 +476,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{andamento.unidade}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:85px;" styleClass="alinharCenter">
 								<h:outputText value="#{andamento.unidade}"
 									style="#{higherEducationMB.cor(andamento)}" />
 							</p:column>
@@ -474,7 +491,7 @@
 									style="#{higherEducationMB.cor(andamento)}" />
 							</p:column>
 							<p:column headerText="Situação" sortBy="#{andamento.situacao}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:110px;" styleClass="alinharCenter">
 								<h:outputText value="#{andamento.situacao}"
 									style="#{higherEducationMB.cor(andamento)}" />   
 							</p:column>
@@ -511,10 +528,18 @@
 									disabled="#{higherEducationMB.desabilitarBtnAutorizar(andamento)}">
 									<p:ajax event="change"
 										listener="#{higherEducationMB.autorizarQuestionario(andamento)}"
-										update="@form" />
+										update="@form" />  
 								</p:selectBooleanCheckbox>
-							</p:column>
-
+							</p:column>  
+							<p:column headerText="Desistência"
+								style="width:80px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{andamento.desistencia}"
+									disabled="#{higherEducationMB.desabilitarBtnDesistencia(andamento)}">
+									<p:ajax event="change"
+										listener="#{higherEducationMB.desistenciaHE(andamento)}"
+										update="@form" />
+								</p:selectBooleanCheckbox>    
+							</p:column> 
 							<p:column headerText="Opções"
 								style="width:75px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -592,10 +617,10 @@
 						<p:dataTable id="tabelaFinalizado" var="finalizado" 
 							value="#{higherEducationMB.listaFinalizar}" scrollable="true"
 							scrollHeight="300" style="margin-bottom:20px">
-							<p:column headerText="" style="width:43px;text-align:center;"
+							<p:column headerText="" style="width:37px;text-align:center;"
 								styleClass="alinharCenter">
 								<img src="#{higherEducationMB.retornarimagem(finalizado.status)}"
-									width="28"
+									width="25"
 									title="#{higherEducationMB.retornarTituloFicha(finalizado.status)}" />
 							</p:column>
 							<p:column headerText="ID" sortBy="#{finalizado.idVenda}"
@@ -609,7 +634,7 @@
 									style="#{higherEducationMB.corNome(finalizado)}" />
 							</p:column>
 							<p:column headerText="Data Envio" sortBy="#{finalizado.data}"
-								style="text-align:center;width:95px;">
+								style="text-align:center;width:67px;">
 								<h:outputText value="#{finalizado.data}"
 									style="#{higherEducationMB.cor(finalizado)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -617,7 +642,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{finalizado.unidade}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:85px;" styleClass="alinharCenter">
 								<h:outputText value="#{finalizado.unidade}"
 									style="#{higherEducationMB.cor(finalizado)}" />
 							</p:column>
@@ -632,7 +657,7 @@
 									style="#{higherEducationMB.cor(finalizado)}" />
 							</p:column>
 							<p:column headerText="Situação" sortBy="#{finalizado.situacao}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:110px;" styleClass="alinharCenter">
 								<h:outputText value="#{finalizado.situacao}"
 									style="#{higherEducationMB.cor(finalizado)}" />
 							</p:column>
@@ -670,7 +695,16 @@
 										listener="#{higherEducationMB.autorizarQuestionario(finalizado)}"
 										update="@form" />
 								</p:selectBooleanCheckbox>   
-							</p:column>   
+							</p:column>      
+							<p:column headerText="Desistência"
+								style="width:80px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{finalizado.desistencia}"
+									disabled="#{higherEducationMB.desabilitarBtnDesistencia(finalizado)}">
+									<p:ajax event="change"
+										listener="#{higherEducationMB.desistenciaHE(finalizado)}"
+										update="@form" />
+								</p:selectBooleanCheckbox>    
+							</p:column> 
 							<p:column headerText="Opções"      
 								style="width:75px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -748,10 +782,10 @@
 						<p:dataTable id="tabelaCancelado" var="cancelado" 
 							value="#{higherEducationMB.listaCancelada}" scrollable="true"
 							scrollHeight="300" style="margin-bottom:20px">
-							<p:column headerText="" style="width:43px;text-align:center;"
+							<p:column headerText="" style="width:37px;text-align:center;"
 								styleClass="alinharCenter">
 								<img src="#{higherEducationMB.retornarimagem(cancelado.status)}"
-									width="28"
+									width="25"
 									title="#{higherEducationMB.retornarTituloFicha(cancelado.status)}" />
 							</p:column>
 							<p:column headerText="ID" sortBy="#{cancelado.idVenda}"
@@ -765,7 +799,7 @@
 									style="#{higherEducationMB.corNome(cancelado)}" />
 							</p:column>
 							<p:column headerText="Data Envio" sortBy="#{cancelado.data}"
-								style="text-align:center;width:95px;">
+								style="text-align:center;width:67px;">
 								<h:outputText value="#{cancelado.data}"
 									style="#{higherEducationMB.cor(cancelado)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -773,7 +807,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{cancelado.unidade}"
-								style="width:115px;" styleClass="alinharCenter">
+								style="width:85px;" styleClass="alinharCenter">
 								<h:outputText value="#{cancelado.unidade}"
 									style="#{higherEducationMB.cor(cancelado)}" />
 							</p:column>
@@ -828,7 +862,15 @@
 										update="tabelaCancelado" />
 								</p:selectBooleanCheckbox>
 							</p:column>
-
+							<p:column headerText="Desistência"
+								style="width:85px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{cancelado.desistencia}"
+									disabled="#{higherEducationMB.desabilitarBtnDesistencia(cancelado)}">
+									<p:ajax event="change"
+										listener="#{higherEducationMB.desistenciaHE(cancelado)}"
+										update="@form" />  
+								</p:selectBooleanCheckbox>    
+							</p:column> 
 							<p:column headerText="Opções"
 								style="width:75px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">

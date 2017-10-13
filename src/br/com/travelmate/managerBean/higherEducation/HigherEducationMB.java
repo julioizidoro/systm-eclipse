@@ -373,10 +373,16 @@ public class HigherEducationMB implements Serializable {
 					heBean.setSituacao("Ficha de Inscrição Aprovada");
 				} else
 					heBean.setSituacao("Ficha de Inscrição");
+				if(listaficha1.get(i).isDesistencia()) {
+					heBean.setStatus("CANCELADA"); 
+				}else {
+					heBean.setStatus(listaficha1.get(i).getVendas().getSituacao());
+				} 
 				heBean.setStatus(listaficha1.get(i).getVendas().getSituacao());
 				heBean.setData(listaficha1.get(i).getVendas().getDataVenda());
 				heBean.setIdVenda(listaficha1.get(i).getVendas().getIdvendas());
 				heBean.setAutorizado(listaficha1.get(i).isAprovado());
+				heBean.setDesistencia(listaficha1.get(i).isDesistencia());
 				listaHe.add(heBean);
 			}
 		}
@@ -394,6 +400,7 @@ public class HigherEducationMB implements Serializable {
 				heBean.setData(listaficha2.get(i).getVendas1().getDataVenda());
 				heBean.setIdVenda(listaficha2.get(i).getVendas().getIdvendas());
 				heBean.setAutorizado(listaficha2.get(i).isAprovado());
+				heBean.setDesistencia(listaficha2.get(i).isDesistencia());
 				listaHe.add(heBean); 
 			}
 		}
@@ -438,10 +445,10 @@ public class HigherEducationMB implements Serializable {
 
 	public String corNome(ListaHeBean hebean) {
 		if (hebean.getHe() != null) {
-			if (hebean.getHe().getVendas().getSituacao().equals("CANCELADA")) {
+			if (hebean.getStatus().equals("CANCELADA")) {
 				return "color:#808080;text-decoration: line-through;";
 			}
-		}else if (hebean.getQuestionariohe().getSituacao().equals("CANCELADA")) {
+		}else if (hebean.getStatus().equals("CANCELADA")) {
 			return "color:#808080;text-decoration: line-through;";
 		}
 		return "color:#000000;";
@@ -449,10 +456,10 @@ public class HigherEducationMB implements Serializable {
 
 	public String cor(ListaHeBean hebean) {
 		if (hebean.getHe() != null) {
-			if (hebean.getHe().getVendas().getSituacao().equals("CANCELADA")) {
+			if (hebean.getStatus().equals("CANCELADA")) {
 				return "color:#808080;";
 			}
-		}else if (hebean.getQuestionariohe().getSituacao().equals("CANCELADA")) {
+		}else if (hebean.getStatus().equals("CANCELADA")) {
 			return "color:#808080;";
 		}
 		return "color:#000000;";
@@ -460,10 +467,10 @@ public class HigherEducationMB implements Serializable {
 
 	public boolean habilitarBtnEditar(ListaHeBean hebean) {
 		if (hebean.getHe() != null) {
-			if (!hebean.getHe().getVendas().getSituacao().equals("CANCELADA")) {
+			if (!hebean.getStatus().equals("CANCELADA")) {
 				return false;
 			}
-		}else if (hebean.getQuestionariohe().getSituacao().equals("CANCELADA")) {
+		}else if (hebean.getStatus().equals("CANCELADA")) {
 			return false;
 		}
 		return true;
@@ -593,10 +600,15 @@ public class HigherEducationMB implements Serializable {
 					heBean.setSituacao("Ficha de Inscrição Aprovada");
 				} else
 					heBean.setSituacao("Ficha de Inscrição");
-				heBean.setStatus(listaficha1.get(i).getVendas().getSituacao());
+				if(listaficha1.get(i).isDesistencia()) {
+					heBean.setStatus("CANCELADA"); 
+				}else {
+					heBean.setStatus(listaficha1.get(i).getVendas().getSituacao());
+				} 
 				heBean.setData(listaficha1.get(i).getVendas().getDataVenda());
 				heBean.setIdVenda(listaficha1.get(i).getVendas().getIdvendas());
 				heBean.setAutorizado(listaficha1.get(i).isAprovado());
+				heBean.setDesistencia(listaficha1.get(i).isDesistencia());
 				listaHe.add(heBean);
 			}
 		} 
@@ -614,6 +626,7 @@ public class HigherEducationMB implements Serializable {
 				heBean.setData(listaficha2.get(i).getVendas1().getDataVenda());
 				heBean.setIdVenda(listaficha2.get(i).getVendas().getIdvendas());
 				heBean.setAutorizado(listaficha2.get(i).isAprovado());
+				heBean.setDesistencia(listaficha2.get(i).isDesistencia());
 				listaHe.add(heBean);
 			}
 		}
@@ -932,17 +945,21 @@ public class HigherEducationMB implements Serializable {
 		listaCancelada = new ArrayList<ListaHeBean>();
 		for (int i = 0; i < listaHe.size(); i++) {
 			if(listaHe.get(i).getHe()!=null) {
-				if (listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+				if (listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")
+						&& !listaHe.get(i).getHe().isDesistencia()) {
 					nFichasProcesso = nFichasProcesso + 1;
 					listaProcesso.add(listaHe.get(i));
-				}else if (listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				}else if (listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+						&& !listaHe.get(i).getHe().isDesistencia()) {
 					nFichasFinalizada = nFichasFinalizada + 1;
 					listaFinalizar.add(listaHe.get(i));
 				} else if(listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO") 
-						&& !listaHe.get(i).getHe().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+						&& !listaHe.get(i).getHe().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")
+						&& !listaHe.get(i).getHe().isDesistencia()){
 					nFichaFinanceiro = nFichaFinanceiro + 1;
 					listaFinanceiro.add(listaHe.get(i));
-				}else if(listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
+				}else if(listaHe.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
+						&& !listaHe.get(i).getHe().isDesistencia()){
 					nFichasAndamento = nFichasAndamento + 1;
 					listaAndamento.add(listaHe.get(i));
 				}else{
@@ -969,6 +986,26 @@ public class HigherEducationMB implements Serializable {
 				}
 			}
 		}
+	}
+	
+	public void desistenciaHE(ListaHeBean listaHeBean) {
+		if (listaHeBean.getHe() != null) {
+			listaHeBean.getHe().setDesistencia(true);
+			listaHeBean.setStatus("CANCELADA");
+			HeFacade heFacade = new HeFacade();
+			listaHeBean.setHe(heFacade.salvar(listaHeBean.getHe()));
+			Mensagem.lancarMensagemInfo("Ficha de Inscrição Cancelada!", "");
+		} 
+	}
+	
+	public boolean desabilitarBtnDesistencia(ListaHeBean listaHeBean) {
+		if (listaHeBean.getHe() != null) {
+			if (listaHeBean.getHe().isDesistencia()) {
+				return true;
+			} else {
+				return false;
+			}
+		} else return true;
 	}
 
 }

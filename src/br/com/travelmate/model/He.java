@@ -140,6 +140,8 @@ public class He implements Serializable {
     @Size(max = 100)
     @Column(name = "localconclusaoensinomedo")
     private String localconclusaoensinomedo;
+    @Column(name = "desistencia")
+    private boolean desistencia;
 
     public He() {
     }
@@ -451,6 +453,14 @@ public class He implements Serializable {
 
 	public void setLocalconclusaoensinomedo(String localconclusaoensinomedo) {
 		this.localconclusaoensinomedo = localconclusaoensinomedo;
+	}
+
+	public boolean isDesistencia() {
+		return desistencia;
+	}
+
+	public void setDesistencia(boolean desistencia) {
+		this.desistencia = desistencia;
 	}
 
 	@Override

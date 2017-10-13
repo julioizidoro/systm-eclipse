@@ -18,6 +18,7 @@ public class ListaHeBean {
 	private Questionariohe questionariohe;
 	private He he; 
 	private boolean autorizado;
+	private boolean desistencia;
 	
 	public int getIdVenda() {
 		return idVenda;
@@ -105,6 +106,14 @@ public class ListaHeBean {
 
 	public void setAutorizado(boolean autorizado) {
 		this.autorizado = autorizado;
+	}
+
+	public boolean isDesistencia() {
+		return desistencia;
+	}
+
+	public void setDesistencia(boolean desistencia) {
+		this.desistencia = desistencia;
 	} 
 	
 }
