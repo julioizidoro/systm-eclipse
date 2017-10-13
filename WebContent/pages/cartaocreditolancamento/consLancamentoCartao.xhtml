@@ -96,54 +96,61 @@
 				</div>
 				<br></br>
 				<div style="width: 85%; margin-left: 8%;">
+					<p:outputLabel value="Valor Total R$: #{cartaoCreditoLancamentoMB.valorTotal}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
 					<p:dataTable id="tabelaCartaoCredito"
 						value="#{cartaoCreditoLancamentoMB.listaLancamento}"
 						var="lancamento" scrollable="true" scrollHeight="300"
 						style="margin-bottom:20px;font-size:11px;">
-						<p:column headerText="Data" style="width:45px;text-align:center;">
+						<p:column headerText="Data" style="width:50px;text-align:center;">
 							<h:outputText value="#{lancamento.data}">   
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>
-						<p:column headerText="Descrição" style="width:150px;">    
-							<h:outputText value="#{lancamento.descricao}" />
+						<p:column headerText="Estabelecimento" style="width:150px;">    
+							<h:outputText value="#{lancamento.estabelecimento}" />
 						</p:column>
-						<p:column headerText="Valor Informado" style="width:65px;text-align:right;">
+						<p:column headerText="Parcela" style="width:50px;text-align:center;">    
+							<h:outputText value="#{lancamento.numeroparcelas}" />
+						</p:column>
+						<p:column headerText="Valor " style="width:75px;text-align:right;">
 							<h:outputText value="#{lancamento.valorinformado}" >
 								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 							</h:outputText>
 						</p:column>
-						<p:column headerText="Observação" style="width:150px;">
-							<h:outputText value="#{lancamento.observacao}" />
+						<p:column headerText="Usuário" style="width:150px;">    
+							<h:outputText value="#{lancamento.usuario.nome}" />
 						</p:column>
-						<p:column headerText="Conferência" style="width:58px;text-align:center;"
-							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
-							<p:commandLink
-								action="#{cartaoCreditoLancamentoMB.conferencia(lancamento)}"
-								title="Conferência" style="text-decoration: none" update=":consLancamentoCartao:growl">
-								<img
-									src="../../resources/img/#{cartaoCreditoLancamentoMB.imagemConferencia(lancamento)}" />
-								<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito"/>
-							</p:commandLink>
+						<p:column headerText="Descrição" style="width:170px;">    
+							<h:outputText value="#{lancamento.descricao}" />
 						</p:column>
-						<p:column headerText="Lançado" style="width:45px;text-align:center;"
-							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
-							<p:commandLink
-								action="#{cartaoCreditoLancamentoMB.lancarContasPagar(lancamento)}"
-								title="Lançar contas a pagar" style="text-decoration: none"
-								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">
-								<img
-									src="../../resources/img/#{cartaoCreditoLancamentoMB.imagemLancado(lancamento)}" />
-							</p:commandLink>
-						</p:column>   
 						<p:column style="width:35px;text-align:center;">
 							<p:commandLink disabled="#{cartaoCreditoLancamentoMB.vefirificarBotaoEditar(lancamento)}"
 								action="#{cartaoCreditoLancamentoMB.editar(lancamento)}" title="Editar" style="text-decoration: none" >  
 								<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update=":consLancamentoCartao:tabelaCartaoCredito"/>
-								<img src="../../resources/img/editaricon.png" />
+								<img src="../../resources/img/editaricon.png" width="28"/>
 							</p:commandLink>
-						</p:column>
+						</p:column> 
+						<p:column headerText="" style="width:35px;text-align:center;"
+							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+							<p:commandLink
+								action="#{cartaoCreditoLancamentoMB.confirmarLancamentos(lancamento)}"
+								title="Confirmar lançamento" style="text-decoration: none"
+								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">
+								<img src="../../resources/img/confirmarBola.png" width="25"/>
+							</p:commandLink>
+						</p:column>   
+						<p:column headerText="" style="width:35px;text-align:center;"
+							>
+							<p:commandLink
+								action="#{cartaoCreditoLancamentoMB.excluirLancamento(lancamento)}"
+								title="Excluir um lançamento" style="text-decoration: none"
+								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">
+								<img src="../../resources/img/excluir.png" width="28"/>
+							</p:commandLink>
+						</p:column>  
 					</p:dataTable>     
 				</div>
 				<br></br> <br></br>

@@ -45,6 +45,7 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	private Planoconta planoconta;
 	private List<Planoconta> listaPlanoConta; 
 	private List<Cartaocreditolancamento> listaLancamento;
+	private float valorTotal;
 	
 	@PostConstruct
 	public void init() { 
@@ -143,6 +144,16 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		this.listaCartaoCredito = listaCartaoCredito;
 	}  
  
+	public float getValorTotal() {
+		return valorTotal;
+	}
+
+
+	public void setValorTotal(float valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+
 	public void gerarlistaCartaoCredito(){
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
         listaCartaoCredito = cartaoCreditoFacade.listar();
@@ -204,6 +215,13 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 60, "yyyy-MM-dd");
 		String sql="select c from Cartaocreditolancamento c where c.data>='"+dataConsulta+"' order by c.data desc";
 		listaLancamento = cartaoCreditoLancamentoFacade.listar(sql);
+		if (listaLancamento == null) {
+			listaLancamento = new ArrayList<Cartaocreditolancamento>();
+		}
+		for (int i = 0; i < listaLancamento.size(); i++) {
+			valorTotal = listaLancamento.get(i).getValorinformado();
+		}
+		
 	}
 	
 	public String imagemConferencia(Cartaocreditolancamento lancamento){
@@ -225,10 +243,10 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 			Contaspagar contaspagar = new Contaspagar();
 			contaspagar.setBanco(lancamento.getCartaocredito().getBanco());
 			String comp;
-			int mes = Formatacao.getMesData(lancamento.getData())+1; 
+			int mes = Formatacao.getMesData(lancamento.getData()); 
 			if(mes<10){
 				comp="0"+mes+"/"+Formatacao.getAnoData(lancamento.getData());
-			}else comp = mes+"/"+Formatacao.getAnoData(lancamento.getData());  
+			}else comp = mes+"/"+Formatacao.getAnoData(lancamento.getData());
 			contaspagar.setCompetencia(comp); 
 			contaspagar.setDataEmissao(new Date());
 			contaspagar.setDescricao(lancamento.getDescricao());
@@ -264,6 +282,18 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("lancamento", lancamento);
+		session.setAttribute("confirmar", false);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 600);
+		RequestContext.getCurrentInstance().openDialog("cadLancamentoCartao", options, null);
+		return "";
+	}
+	
+	public String confirmarLancamentos(Cartaocreditolancamento lancamento) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lancamento", lancamento);
+		session.setAttribute("confirmar", true);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 600);
 		RequestContext.getCurrentInstance().openDialog("cadLancamentoCartao", options, null);
@@ -271,6 +301,9 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	}
 	
 	public String novo() {   
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("confirmar", false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 600);
 		RequestContext.getCurrentInstance().openDialog("cadLancamentoCartao", options, null);
@@ -283,4 +316,15 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		}
 		return false;
 	}
+	
+	
+	public void excluirLancamento(Cartaocreditolancamento lancamento){
+		CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
+		cartaoCreditoLancamentoFacade.excluir(lancamento.getIdcartaocreditolancamento());
+		listaLancamento.remove(lancamento);
+		Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+	}
+	
+	
+	
 }

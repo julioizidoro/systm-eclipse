@@ -20,20 +20,46 @@
 					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 		<title>Lançamento Cartão de Crédito</title>
 		<div style="width: 90%; margin-left: 5%;"> 
-			<h:panelGrid columns="3"
+			<h:panelGrid columns="5"
 				columnClasses="colunaVintePontoSeis, colunaVintePontoSeis,colunaVintePontoSeis"
-				style="width:59%;"> 
+				style="width:100%;"> 
 				<p:outputLabel value="Data" />
+				<p:outputLabel value="Valor" />
+				<p:outputLabel value="Parcelas" />
+				<p:outputLabel value="Moeda Estrangeira" style="margin-left:8%;"/>
 				<p:outputLabel value="Moeda" />
-				<p:outputLabel value="Valor" style="margin-left:8%;"/>
    
-				<p:calendar id="data" locale="pt" pattern="dd/MM/yyyy"
+				<p:calendar id="data" locale="pt" pattern="dd/MM/yyyy" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
 					value="#{cadCartaoCreditoLancamentoMB.lancamento.data}" size="14">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</p:calendar>
-				<p:selectOneMenu id="moeda"
-					value="#{cadCartaoCreditoLancamentoMB.moedas}" style="width:84%;"
+				<p:inputText id="valor" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+					value="#{cadCartaoCreditoLancamentoMB.lancamento.valorinformado}"
+					style="width:94%;text-align:right;">      
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:selectOneMenu id="parcelas" class="espacocobranca28" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}" style="width:100%" value="#{cadCartaoCreditoLancamentoMB.lancamento.numeroparcelas}">
+                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/> 
+                    <f:selectItem itemLabel="1" itemValue="1" />  
+                    <f:selectItem itemLabel="2" itemValue="2" />  
+                    <f:selectItem itemLabel="3" itemValue="3" /> 
+                    <f:selectItem itemLabel="4" itemValue="4" />  
+                    <f:selectItem itemLabel="5" itemValue="5" />
+                    <f:selectItem itemLabel="6" itemValue="6" />  
+                    <f:selectItem itemLabel="7" itemValue="7" /> 
+                    <f:selectItem itemLabel="8" itemValue="8" /> 
+                    <f:selectItem itemLabel="9" itemValue="9" />
+                    <f:selectItem itemLabel="10" itemValue="10" />
+                    <f:selectItem itemLabel="11" itemValue="11" />
+                    <f:selectItem itemLabel="12" itemValue="12" />
+                </p:selectOneMenu>
+				<p:selectBooleanCheckbox value="#" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+					class="espacopreto" id="moedaEstrageira"
+					style="margin-left: 65%">
+				</p:selectBooleanCheckbox>
+				<p:selectOneMenu id="moeda" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+					value="#{cadCartaoCreditoLancamentoMB.moedas}" style="width:100%;"
 					converter="MoedasConverter">
 					<f:selectItem itemLabel="Moedas" itemValue="0" />
 					<f:selectItems value="#{cadCartaoCreditoLancamentoMB.listaMoedas}"
@@ -42,20 +68,15 @@
 						value="#{cadCartaoCreditoLancamentoMB.listaMoedas}" />
 					<p:ajax event="change" />
 				</p:selectOneMenu>
-				<p:inputText id="valor"
-					value="#{cadCartaoCreditoLancamentoMB.lancamento.valorinformado}"
-					style="width:94%;margin-left:8%;text-align:right;">      
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-				</p:inputText>
 			</h:panelGrid>
 			<br />
 			<h:panelGrid columns="2"
 				columnClasses="colunaQuarenta,tamanhonotificacao2"
 				style="width:100%;">
 				<p:outputLabel value="Cartão de Crédito" />
-				<p:outputLabel value="Descrição" />
+				<p:outputLabel value="Estabelecimento" />
 
-				<p:selectOneMenu id="cartao"
+				<p:selectOneMenu id="cartao" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
 					value="#{cadCartaoCreditoLancamentoMB.cartaocredito}"
 					style="width:90%;" converter="CartaoCreditoConverter" filter="true"
 					filterMatchMode="startsWith">
@@ -69,18 +90,48 @@
 						value="#{cadCartaoCreditoLancamentoMB.listaCartaoCredito}" />
 					<p:ajax event="change"/>
 				</p:selectOneMenu> 
-				<p:inputText id="descricao" maxlength="200"
-					value="#{cadCartaoCreditoLancamentoMB.lancamento.descricao}"
-					style="width:98%;" />
+				<p:inputText id="estabelecimento" maxlength="200" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+					value="#{cadCartaoCreditoLancamentoMB.lancamento.estabelecimento}"
+					style="width:100%;" />
+			</h:panelGrid>
+			<br/>
+			<h:panelGrid columns="3"
+				columnClasses="colunaQuarenta,tamanhonotificacao2"
+				style="width:98%;">
+					<p:outputLabel value="Descrição" />
+					<p:outputLabel/>
+					<p:outputLabel/>
+					<p:inputText id="descricao" maxlength="200" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+							value="#{cadCartaoCreditoLancamentoMB.lancamento.descricao}"
+							style="width:352px;" />
+					<p:outputLabel value="Valor Recorrente" style="margin-left: 41%;" rendered="#{cadCartaoCreditoLancamentoMB.habilitarValorRecorrente}"/>
+					<p:selectBooleanCheckbox value="#{cadCartaoCreditoLancamentoMB.lancamento.valorrecorrente}" rendered="#{cadCartaoCreditoLancamentoMB.habilitarValorRecorrente}"
+						class="espacopreto" id="valorRecorrente"
+						style="margin-left: 65%">
+					</p:selectBooleanCheckbox>
+			</h:panelGrid>
+			<br/>
+			<h:panelGrid columns="1"
+				style="wid-th:100%;">
+				<p:outputLabel value="Observação" />
+				
+				<p:inputTextarea id="obs"
+					value="#{cadCartaoCreditoLancamentoMB.lancamento.observacao}"
+					style="width: 540px;" maxlength="100"/>
 			</h:panelGrid>
 			<br/>  
-			<h:panelGrid columns="2"
+			<h:panelGrid columns="2" rendered="#{cadCartaoCreditoLancamentoMB.confirmar}"
 				columnClasses="colunaQuarenta,tamanhonotificacao2"
-				style="width:100%;">
+				style="width:80%;">
+				<p:outputLabel value="Valor" />
 				<p:outputLabel value="Plano de Conta" />
-				<p:outputLabel value="Observação" />
 
-				<p:selectOneMenu id="planocontas" style="width:90%;"
+				<p:inputText id="valorOutrosLancamentos"
+					value="5"
+					style="width:60%;text-align:right;">      
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:selectOneMenu id="planocontas" style="width:100%;"
 					value="#{cadCartaoCreditoLancamentoMB.planoconta}"
 					converter="PlanoContaConverter" filter="true"
 					filterMatchMode="startsWith">
@@ -94,9 +145,6 @@
 						value="#{cadCartaoCreditoLancamentoMB.listaPlanoConta}" />
 					<p:ajax event="change"/>
 				</p:selectOneMenu>
-				<p:inputText id="obs"
-					value="#{cadCartaoCreditoLancamentoMB.lancamento.observacao}"
-					style="width:98%;" maxlength="100"/>
 			</h:panelGrid>
 			<br></br>
 			<br />  

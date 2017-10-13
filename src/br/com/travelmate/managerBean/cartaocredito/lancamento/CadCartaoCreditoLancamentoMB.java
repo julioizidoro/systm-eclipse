@@ -17,12 +17,15 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CartaoCreditoFacade;
 import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
+import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.PlanoContaFacade; 
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Cartaocredito;
 import br.com.travelmate.model.Cartaocreditolancamento;
+import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Planoconta;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -42,12 +45,15 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	private Cartaocreditolancamento lancamento;
 	private Moedas moedas;
 	private List<Moedas> listaMoedas;
+	private boolean confirmar = false;
+	private boolean habilitarValorRecorrente = true;
 
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		lancamento = (Cartaocreditolancamento) session.getAttribute("lancamento");
+		confirmar = (boolean) session.getAttribute("confirmar");
 		session.removeAttribute("lancamento");
 		gerarListaPlanoConta();
 		gerarlistaCartaoCredito();
@@ -66,6 +72,9 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 			cartaocredito = lancamento.getCartaocredito();
 			planoconta = lancamento.getPlanoconta();
 			moedas = lancamento.getMoedas();
+		}
+		if (confirmar) {
+			habilitarValorRecorrente = false;
 		}
 	}
 
@@ -133,6 +142,22 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		this.listaMoedas = listaMoedas;
 	}
 
+	public boolean isConfirmar() {
+		return confirmar;
+	}
+
+	public void setConfirmar(boolean confirmar) {
+		this.confirmar = confirmar;
+	}
+
+	public boolean isHabilitarValorRecorrente() {
+		return habilitarValorRecorrente;
+	}
+
+	public void setHabilitarValorRecorrente(boolean habilitarValorRecorrente) {
+		this.habilitarValorRecorrente = habilitarValorRecorrente;
+	}
+
 	public void validarDados(String msg) {
 		if (lancamento.getDescricao() == null || lancamento.getDescricao().length() < 2) {
 			msg = msg + "\n" + "Descrição não informado.";
@@ -155,13 +180,17 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		String msg = "";
 		validarDados(msg);
 		if (msg.length() < 2) {
-			CartaoCreditoLancamentoFacade cartaoCreditoFacade = new CartaoCreditoLancamentoFacade();
-			lancamento.setCartaocredito(cartaocredito);
-			lancamento.setPlanoconta(planoconta);
-			lancamento.setUsuario(usuarioLogadoMB.getUsuario());
-			lancamento.setMoedas(moedas);
-			lancamento = cartaoCreditoFacade.salvar(lancamento);
-			Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
+			if (confirmar) {
+				lancarContasPagar();
+			}else{
+				CartaoCreditoLancamentoFacade cartaoCreditoFacade = new CartaoCreditoLancamentoFacade();
+				lancamento.setCartaocredito(cartaocredito);
+				lancamento.setPlanoconta(planoconta);
+				lancamento.setUsuario(usuarioLogadoMB.getUsuario());
+				lancamento.setMoedas(moedas);
+				lancamento = cartaoCreditoFacade.salvar(lancamento);
+				Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
+			}
 			RequestContext.getCurrentInstance().closeDialog(null); 
 			return "";
 		} else {
@@ -196,6 +225,34 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		listaMoedas = cambioFacade.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
+		}
+	}
+	
+	
+	public void lancarContasPagar(){
+		if(lancamento.getLancado()){
+			Mensagem.lancarMensagemInfo("Contas a Pagar já está lançado!", "");
+		}else{
+			Contaspagar contaspagar = new Contaspagar();
+			contaspagar.setBanco(lancamento.getCartaocredito().getBanco());
+			String comp;
+			int mes = Formatacao.getMesData(lancamento.getData()); 
+			if(mes<10){
+				comp="0"+mes+"/"+Formatacao.getAnoData(lancamento.getData());
+			}else comp = mes+"/"+Formatacao.getAnoData(lancamento.getData());
+			contaspagar.setCompetencia(comp); 
+			contaspagar.setDataEmissao(new Date());
+			contaspagar.setDescricao(lancamento.getDescricao());
+			contaspagar.setPlanoconta(lancamento.getPlanoconta());
+			contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
+			contaspagar.setValorentrada(lancamento.getValorlancado());
+			contaspagar.setValorsaida(0.0f);
+			ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
+			contaspagar = contasPagarFacade.salvar(contaspagar);
+			lancamento.setLancado(true);
+			CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
+			lancamento = cartaoCreditoLancamentoFacade.salvar(lancamento);
+			Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");
 		}
 	}
 }

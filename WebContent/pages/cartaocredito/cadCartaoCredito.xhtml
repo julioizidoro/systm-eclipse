@@ -35,11 +35,13 @@
 							value="#{cadCartaoCreditoMB.cartaocredito.cv}" />
 					</h:panelGrid>
 					<br></br>    
-					<h:panelGrid columns="2"
-						columnClasses="colunaVinteoito, colunaVinteoito"
-						style="width:62%;">   
-						<p:outputLabel value="Bandeia" />
+					<h:panelGrid columns="4"
+						columnClasses="colunaVinteoito, colunaVinteoito, tamanho6, tamanho8"
+						style="width:80%;">   
+						<p:outputLabel value="Bandeira" />
 						<p:outputLabel value="Banco" />   
+						<p:outputLabel value="Vencimento" />
+						<p:outputLabel value="Fechamento" /> 
 
 						<p:inputText id="bandeira" style="width:90%;"
 							value="#{cadCartaoCreditoMB.cartaocredito.bandeira}" maxlength="50" />
@@ -47,7 +49,12 @@
 			                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
 			                <f:selectItems value="#{cadCartaoCreditoMB.listaBanco}" var="sbanco" itemLabel="#{sbanco.nome}" itemValue="#{sbanco}"/>
 			                <f:attribute name="listaBanco" value="#{cadCartaoCreditoMB.listaBanco}"/>
-			           </p:selectOneMenu>     
+			           </p:selectOneMenu>    
+			          	<p:inputText id="vencimento" style="width:90%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.datavencimento}" maxlength="50" />
+						<p:inputText id="fechamento" style="width:90%;"
+							value="#{cadCartaoCreditoMB.cartaocredito.datafechamento}" maxlength="50" />
+						
 					</h:panelGrid> 
 				</div>      
 			</div>
