@@ -9,6 +9,7 @@ import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -169,4 +170,12 @@ public class ValorCoProdutosMB implements Serializable{
     	nsemanafinal=0;
     	gerarListaValores();
     }
+    
+    public void excluir(Valorcoprodutos valorcoprodutos) {
+    	ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
+    	valorCoProdutosFacade.excluir(valorcoprodutos.getIdvalorcoprodutos());
+    	Mensagem.lancarMensagemInfo("Valor excluído com sucesso!", "");
+    	gerarListaValores();
+    }
+    
 }

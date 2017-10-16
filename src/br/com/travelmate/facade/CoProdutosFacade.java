@@ -3,6 +3,7 @@ package br.com.travelmate.facade;
 
 import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.CoPromocaoDao;
+import br.com.travelmate.dao.ValorCoProdutoDao;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Copromocao;
 
@@ -44,6 +45,15 @@ public class CoProdutosFacade {
        }  catch (SQLException ex) {
            Logger.getLogger(CoProdutosFacade.class.getName()).log(Level.SEVERE, null, ex);
            return null;
+       }
+   }
+   
+   public void excluir(int id) {
+	   coObrigatorioDao = new CoProdutosDao();
+       try {
+    	   coObrigatorioDao.excluir(id);
+       } catch (SQLException ex) {
+           Logger.getLogger(CoProdutosFacade.class.getName()).log(Level.SEVERE, null, ex);
        }
    }
 }

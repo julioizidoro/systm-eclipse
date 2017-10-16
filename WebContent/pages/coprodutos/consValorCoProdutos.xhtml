@@ -67,13 +67,19 @@
                             <h:outputText value="#{valorproduto.valororiginal}">
                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                             </h:outputText>  
-                        </p:column> 
-                        <p:column style="width:17px">
+                        </p:column>    
+                        <p:column style="width:35px;text-align: center;">
                             <p:commandLink action="#{valorCoProdutosMB.editar(valorproduto)}" style="text-decoration: none">
                                 <img src="../../resources/img/editaricon.png"/>
                                 <p:ajax event="dialogReturn" listener="#{valorCoProdutosMB.retornoDialogoEditar}" process="@this" update=":telavalorproduto:tabelavalorprodutos"/>
-                            </p:commandLink>
+                            </p:commandLink>        
                         </p:column>
+                        <p:column style="width:35px;text-align: center;" headerText="Excluir">
+							<p:commandLink title="Excluir"
+								action="#{valorCoProdutosMB.excluir(valorproduto)}" update=":telavalorproduto:tabelavalorprodutos">
+								<img src="../../resources/img/excluir.png"/>
+							</p:commandLink>
+						</p:column>
                     </p:dataTable>
                     <br></br>
                     <br></br>

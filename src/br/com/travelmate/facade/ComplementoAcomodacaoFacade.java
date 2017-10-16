@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.ComplementoAcomodacaoDao;
 import br.com.travelmate.dao.ComplementoCursoDao;
 import br.com.travelmate.model.Complementoacomodacao;
@@ -42,5 +43,14 @@ private ComplementoAcomodacaoDao complementoAcomodacaoDao;
             return null;
         }
     }
+	
+	public void excluir(int id) {
+		complementoAcomodacaoDao = new ComplementoAcomodacaoDao();
+       try {
+    	   complementoAcomodacaoDao.excluir(id);
+       } catch (SQLException ex) {
+           Logger.getLogger(ComplementoAcomodacaoFacade.class.getName()).log(Level.SEVERE, null, ex);
+       }
+   }
 
 }

@@ -1,7 +1,7 @@
 package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Coprodutos;
+import br.com.travelmate.model.Coprodutos; 
 
 import java.sql.SQLException;
 import java.util.List;
@@ -43,5 +43,16 @@ public class CoProdutosDao {
             coprodutos =  (Coprodutos) q.getResultList().get(0);
         }
         return coprodutos;
+    }
+    
+    public void excluir(int id) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		Coprodutos coprodutos = manager.find(Coprodutos.class, id);
+        manager.remove(coprodutos);
+        tx.commit();
+        manager.close();
     }
 }

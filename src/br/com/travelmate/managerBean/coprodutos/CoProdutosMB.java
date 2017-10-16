@@ -3,6 +3,8 @@ package br.com.travelmate.managerBean.coprodutos;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoProdutosFacade;
+import br.com.travelmate.facade.ComplementoAcomodacaoFacade;
+import br.com.travelmate.facade.ComplementoCursoFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FornecedorPaisFacade;
@@ -14,6 +16,8 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cidade;
+import br.com.travelmate.model.Complementoacomodacao;
+import br.com.travelmate.model.Complementocurso;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -589,5 +593,23 @@ public class CoProdutosMB implements Serializable {
 			Mensagem.lancarMensagemErro("Atenção! ", "Campos obrigatórios não preenchidos."); 
 			return "";
 		}
+	}
+	
+	public void excluir(Coprodutos coprodutos) {
+		ComplementoAcomodacaoFacade complementoAcomodacaoFacade =new ComplementoAcomodacaoFacade();
+    	Complementoacomodacao complemento = complementoAcomodacaoFacade.consultar("select c from Complementoacomodacao c "
+    			+ "where c.coprodutos.idcoprodutos="+coprodutos.getIdcoprodutos());
+    	if(complemento!=null) {
+    		complementoAcomodacaoFacade.excluir(complemento.getIdcomplementoacomodacao());
+    	}
+    	ComplementoCursoFacade complementoCursoFacade = new ComplementoCursoFacade();
+        Complementocurso complementocurso = complementoCursoFacade.consultar("select c from Complementocurso c where"
+    			+ " c.coprodutos.idcoprodutos="+coprodutos.getIdcoprodutos());
+        if(complementocurso!=null) {
+        	complementoCursoFacade.excluir(complementocurso.getIdcomplementocurso());
+    	}
+		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
+		coProdutosFacade.excluir(coprodutos.getIdcoprodutos());
+		listaCoProdutos.remove(coprodutos);
 	}
 }

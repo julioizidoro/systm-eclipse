@@ -183,7 +183,7 @@
 						<h:outputText value="#{produtos.tipo}" />
 					</p:column>
 					<p:column headerText="Descrição"
-						style="width:300px;text-decoration: none">
+						style="width:250px;text-decoration: none">
 						<p:commandLink value="#{produtos.descricao}"
 							action="#{coProdutosMB.editar(produtos)}">
 							<p:ajax event="dialogReturn"
@@ -191,37 +191,37 @@
 								process="@this" update=":orcamentocurso:tabelaprodutos" />
 						</p:commandLink>
 					</p:column>
-					<p:column style="width:72px;text-align: center;" headerText="Curso">
+					<p:column style="width:60px;text-align: center;" headerText="Curso">
 						<p:commandLink title="Complemento Curso"
 							action="#{coProdutosMB.complementoscurso(produtos)}" >
 							<img src="../../resources/img/complementocurso.png"/>
 						</p:commandLink>
 					</p:column>
-					<p:column style="width:79px;text-align: center;" headerText="Acomodação">
+					<p:column style="width:60px;text-align: center;" headerText="Acom.">
 						<p:commandLink title="Complemento Acomodação"
 							action="#{coProdutosMB.complementosacomodacao(produtos)}" >
 							<img src="../../resources/img/complementoacomodacao.png"/>
 						</p:commandLink>
 					</p:column>
-					<p:column style="width:72px;text-align: center;" headerText="Vincular">
+					<p:column style="width:64px;text-align: center;" headerText="Vincular">
 						<p:commandLink title="Vincular"
 							action="#{coProdutosMB.vincularProdutos(produtos)}" >
 							<img src="../../resources/img/vincular.png"/>
 						</p:commandLink>
 					</p:column>
-					<p:column style="width:72px;text-align: center;" headerText="Valores">
+					<p:column style="width:64px;text-align: center;" headerText="Valores">
 						<p:commandLink title="Valores"
 							action="#{coProdutosMB.consValorProduto(produtos)}" >
 							<img src="../../resources/img/valores.png"/>
 						</p:commandLink>
 					</p:column>
-					<p:column style="width:72px;text-align: center;" headerText="Suplemento">
+					<p:column style="width:74px;text-align: center;" headerText="Suplemento">
 						<p:commandLink title="Suplemento"
 							action="#{coProdutosMB.cadSuplemento(produtos)}" >
 							<img src="../../resources/img/suplemento.png"/>
 						</p:commandLink>
 					</p:column>
-					<p:column style="width:72px;text-align: center;" >
+					<p:column style="width:60px;text-align: center;" >
 						<p:commandLink title="Visualizar suplementos"
 							actionListener="#{coProdutosMB.consultarSuplementos(produtos)}">
 							<img src="../../resources/img/visualizarS.png" />
@@ -233,9 +233,15 @@
 							<img src="../../resources/img/cancelar.png"/>
 						</p:commandLink>
 					</p:column>
+					<p:column style="width:60px;text-align: center;" headerText="Excluir">
+						<p:commandLink title="Excluir"
+							action="#{coProdutosMB.excluir(produtos)}" update="tabelaprodutos">
+							<img src="../../resources/img/trash.png"/>
+						</p:commandLink>
+					</p:column>
 				</p:dataTable>
 
-				<br></br> <br></br>
+				<br></br> <br></br>  
 			</div>  
 		</h:form>
 	</ui:define>

@@ -3,7 +3,8 @@ package br.com.travelmate.facade;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- 
+
+import br.com.travelmate.dao.ComplementoAcomodacaoDao;
 import br.com.travelmate.dao.ComplementoCursoDao; 
 import br.com.travelmate.model.Complementocurso;
 
@@ -37,9 +38,17 @@ private ComplementoCursoDao complementoCursoDao;
         try {
             return complementoCursoDao.consultar(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(CambioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComplementoCursoFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
+	public void excluir(int id) {
+	   complementoCursoDao = new ComplementoCursoDao();
+       try {
+    	   complementoCursoDao.excluir(id);
+       } catch (SQLException ex) {
+           Logger.getLogger(ComplementoCursoFacade.class.getName()).log(Level.SEVERE, null, ex);
+       }
+   }
 }

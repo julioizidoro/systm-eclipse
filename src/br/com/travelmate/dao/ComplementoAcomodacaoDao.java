@@ -42,5 +42,14 @@ public class ComplementoAcomodacaoDao {
         return complementoacomodacao;
     }
     
-
+	public void excluir(int id) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		Complementoacomodacao complementoacomodacao = manager.find(Complementoacomodacao.class, id);
+        manager.remove(complementoacomodacao);
+        tx.commit();
+        manager.close();
+    }
 }

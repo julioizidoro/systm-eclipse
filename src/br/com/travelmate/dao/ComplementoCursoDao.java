@@ -6,7 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import br.com.travelmate.connection.ConectionFactory; 
+import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.model.Complementoacomodacao;
 import br.com.travelmate.model.Complementocurso;
 
 public class ComplementoCursoDao {
@@ -40,6 +41,17 @@ public class ComplementoCursoDao {
         }
         tx.commit();
         return complementocurso;
+    }
+	
+	public void excluir(int id) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		Complementocurso complementocurso = manager.find(Complementocurso.class, id);
+        manager.remove(complementocurso);
+        tx.commit();
+        manager.close();
     }
     
 }
