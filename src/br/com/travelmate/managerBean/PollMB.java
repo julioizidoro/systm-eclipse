@@ -111,7 +111,7 @@ public class PollMB implements Serializable {
 				}
         	}else if (redirecionar.equalsIgnoreCase("simLead")){
         		try {
-					fc.getExternalContext().redirect("/systm_eclipse/pages/crm/distribuicaoLeads.jsf");
+					fc.getExternalContext().redirect("/inicio/pages/crm/distribuicaoLeads.jsf");
 				} catch (IOException e) {
 					e.printStackTrace(); 
 				}
