@@ -295,6 +295,7 @@ public class FiltrarEscolaMB implements Serializable {
 				filtrarEscolaBean.setPossuifornecedor(true);
 				FacesMessage mensagemAtencao = new FacesMessage("Nenhum escola encontrado com os dados pesquisados.",
 						"");
+				filtrarEscolaBean.setFornecedorcidadeidioma(null);
 				FacesContext.getCurrentInstance().addMessage("Atenção", mensagemAtencao);
 			} else
 				gerarListaCursoTodasEscolas();
@@ -362,8 +363,10 @@ public class FiltrarEscolaMB implements Serializable {
 						}
 					} else {
 						FacesMessage mensagemAtencao = new FacesMessage(
-								"Nenhum fornecedor encontrado com os dados pesquisados.", "");
+								"Nenhum fornecedor encontrado com os dados pesquisados.", ""); 
 						FacesContext.getCurrentInstance().addMessage("Atenção", mensagemAtencao);
+						filtrarEscolaBean.setFornecedorcidadeidioma(null);
+						gerarListaFornecedorCidade();
 						return null;
 					}
 				} else {
