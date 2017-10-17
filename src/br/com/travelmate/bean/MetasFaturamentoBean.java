@@ -72,7 +72,7 @@ public class MetasFaturamentoBean {
 	public Double getFaturamentoMensal(UsuarioLogadoMB usuarioLogadoMB){
 		int mes = Formatacao.getMesData(new Date());
 		int ano = Formatacao.getAnoData(new Date());
-		int dia = Formatacao.getAnoData(new Date());
+		int dia = Formatacao.getDiaData(new Date());
 		int primeiro = Formatacao.getPrimeiroDiaMes(ano, mes, dia);
 		mes = mes +1;
 		String dataInicial = String.valueOf(ano) + "-" + String.valueOf(mes) + "-" + String.valueOf(primeiro);

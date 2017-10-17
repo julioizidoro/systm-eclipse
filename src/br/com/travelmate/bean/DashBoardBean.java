@@ -71,44 +71,46 @@ public class DashBoardBean {
 			vendaProdutoFacade.salvar(vendaproduto);
 		}
 
-		// salvar Matriz
-		sql = "SELECT v FROM Vendaproduto v where v.mesano='" + mesano + "' and v.unidadenegocio.idunidadeNegocio=6";
-		vendaproduto = vendaProdutoFacade.lista(sql);
-		if (vendaproduto == null) {
-			vendaproduto = new Vendaproduto();
-			vendaproduto.setIntercambio(0);
-			vendaproduto.setMesano(mesano);
-			vendaproduto.setProduto(0);
-			vendaproduto.setTurismo(0);
-			UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-			Unidadenegocio unidadenegocio = unidadeNegocioFacade.consultar(6);
-			vendaproduto.setUnidadenegocio(unidadenegocio);
+			// salvar Matriz
+		if (venda.getUnidadenegocio().getIdunidadeNegocio() != 6) {
+			sql = "SELECT v FROM Vendaproduto v where v.mesano='" + mesano + "' and v.unidadenegocio.idunidadeNegocio=6";
+			vendaproduto = vendaProdutoFacade.lista(sql);
+			if (vendaproduto == null) {
+				vendaproduto = new Vendaproduto();
+				vendaproduto.setIntercambio(0);
+				vendaproduto.setMesano(mesano);
+				vendaproduto.setProduto(0);
+				vendaproduto.setTurismo(0);
+				UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
+				Unidadenegocio unidadenegocio = unidadeNegocioFacade.consultar(6);
+				vendaproduto.setUnidadenegocio(unidadenegocio);
+			}
+			if (venda.getProdutos().getIdprodutos() == 1 || venda.getProdutos().getIdprodutos() == 4
+					|| venda.getProdutos().getIdprodutos() == 5 || venda.getProdutos().getIdprodutos() == 9
+					|| venda.getProdutos().getIdprodutos() == 10 || venda.getProdutos().getIdprodutos() == 11
+					|| venda.getProdutos().getIdprodutos() == 13 || venda.getProdutos().getIdprodutos() == 16
+					|| venda.getProdutos().getIdprodutos() == 20) {
+				if (cancelamento) {
+					vendaproduto.setIntercambio(vendaproduto.getIntercambio() - 1);
+				} else {
+					vendaproduto.setIntercambio(vendaproduto.getIntercambio() + 1);
+				}
+			} else if (venda.getProdutos().getIdprodutos() == 7) {
+				if (cancelamento) {
+					vendaproduto.setTurismo(vendaproduto.getTurismo() - 1);
+				} else {
+					vendaproduto.setTurismo(vendaproduto.getTurismo() + 1);
+				}
+			} else if (venda.getProdutos().getIdprodutos() == 2 || venda.getProdutos().getIdprodutos() == 3
+					|| venda.getProdutos().getIdprodutos() == 6) {
+				if (cancelamento) {
+					vendaproduto.setProduto(vendaproduto.getProduto() - 1);
+				} else {
+					vendaproduto.setProduto(vendaproduto.getProduto() + 1);
+				}
+			}
+			vendaProdutoFacade.salvar(vendaproduto);
 		}
-		if (venda.getProdutos().getIdprodutos() == 1 || venda.getProdutos().getIdprodutos() == 4
-				|| venda.getProdutos().getIdprodutos() == 5 || venda.getProdutos().getIdprodutos() == 9
-				|| venda.getProdutos().getIdprodutos() == 10 || venda.getProdutos().getIdprodutos() == 11
-				|| venda.getProdutos().getIdprodutos() == 13 || venda.getProdutos().getIdprodutos() == 16
-				|| venda.getProdutos().getIdprodutos() == 20) {
-			if (cancelamento) {
-				vendaproduto.setIntercambio(vendaproduto.getIntercambio() - 1);
-			} else {
-				vendaproduto.setIntercambio(vendaproduto.getIntercambio() + 1);
-			}
-		} else if (venda.getProdutos().getIdprodutos() == 7) {
-			if (cancelamento) {
-				vendaproduto.setTurismo(vendaproduto.getTurismo() + 1);
-			} else {
-				vendaproduto.setTurismo(vendaproduto.getTurismo() + 1);
-			}
-		} else if (venda.getProdutos().getIdprodutos() == 2 || venda.getProdutos().getIdprodutos() == 3
-				|| venda.getProdutos().getIdprodutos() == 6) {
-			if (cancelamento) {
-				vendaproduto.setProduto(vendaproduto.getProduto() - 1);
-			} else {
-				vendaproduto.setProduto(vendaproduto.getProduto() + 1);
-			}
-		}
-		vendaProdutoFacade.salvar(vendaproduto);
 	}
 
 	public void calcularMetaAnual(Vendas venda, float valorantigo, boolean cancelamento) {
