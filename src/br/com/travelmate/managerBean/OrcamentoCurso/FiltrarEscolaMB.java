@@ -105,6 +105,8 @@ public class FiltrarEscolaMB implements Serializable {
 		lead = (Lead) session.getAttribute("lead");
 		if (filtrarEscolaBean == null) {
 			iniciarNovoOrcamento();
+		}else {
+			gerarListaFornecedorCidade();
 		}
 		int idProduto = 0;
 		getUsuarioLogadoMB();
