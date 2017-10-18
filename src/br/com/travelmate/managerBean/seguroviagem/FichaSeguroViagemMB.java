@@ -150,6 +150,7 @@ public class FichaSeguroViagemMB implements Serializable {
 		} else {
 			novaFicha = false;
 			vendas = seguro.getVendas();
+			valorVendaAlterar = seguro.getVendas().getValor();
 			FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
 			this.formaPagamento = formaPagamentoFacade.consultar(vendas.getIdvendas());
 			if (formaPagamento != null) {
@@ -943,8 +944,8 @@ public class FichaSeguroViagemMB implements Serializable {
 
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
-							dashBoardBean.calcularMetaMensal(vendas, valorVendaAlterar, false);
-							dashBoardBean.calcularMetaAnual(vendas, valorVendaAlterar, false);
+							dashBoardBean.calcularMetaMensal(vendas, 0, false);
+							dashBoardBean.calcularMetaAnual(vendas, 0, false);
 							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false);
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);

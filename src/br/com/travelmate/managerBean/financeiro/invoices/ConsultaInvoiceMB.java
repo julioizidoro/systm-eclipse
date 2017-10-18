@@ -98,7 +98,6 @@ public class ConsultaInvoiceMB implements Serializable {
 			checkSelecionado = false;
 			tituloCheck = "Selecionar tudo";
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 3) {
-				gerarListaInvoices();
 				gerarListaInvoiceRemessa();
 				getDataEmbarque();
 			} else {
@@ -590,7 +589,6 @@ public class ConsultaInvoiceMB implements Serializable {
 		idVendas = 0;
 		listaInvoices = new ArrayList<Invoice>();
 		sql = "";
-		gerarListaInvoices();
 	}
 
 	public void gerarBackOfficeInvoices() {

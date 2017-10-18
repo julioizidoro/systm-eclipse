@@ -1221,6 +1221,8 @@ public class CadHeInscricaoMB implements Serializable {
 							float valor = dashBoardMB.getMetamensal().getValoralcancado();
 							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
 							DashBoardBean dashBoardBean = new DashBoardBean();
+							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterada, false);
+							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterada, false);
 							int[] pontos;
 							if(he.getNumerosemanas()!=null && he.getNumerosemanas()>0){
 								pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Inscrição", false);

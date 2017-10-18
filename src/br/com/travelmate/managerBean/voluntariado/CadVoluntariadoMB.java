@@ -1107,8 +1107,8 @@ public class CadVoluntariadoMB implements Serializable {
 							// public void run() {
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularNumeroVendasProdutos(venda, false);
-							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
-							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
+							dashBoardBean.calcularMetaMensal(venda, 0, false);
+							dashBoardBean.calcularMetaAnual(venda, 0, false);
 							int nNumeroSemana = 0;
 							if (voluntariado.isHabilitarCurso()) {
 								nNumeroSemana = voluntariado.getNumeroSemanas();
