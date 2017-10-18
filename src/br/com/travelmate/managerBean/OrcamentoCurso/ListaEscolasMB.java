@@ -5,6 +5,7 @@
  */
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Parametrosprodutos;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
@@ -110,6 +111,10 @@ public class ListaEscolasMB implements Serializable {
 	}
 
 	public String voltar() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", FiltrarEscolaBean.getLead());
+		session.setAttribute("cliente", FiltrarEscolaBean.getOcurso().getCliente());
 		return "filtrarOrcamentoCurso";
 	}
 
