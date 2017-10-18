@@ -402,6 +402,34 @@ public class ArquivoMB implements Serializable {
 			kitViagem = vendas.getArquivoskitviagem();
 			kitViagem = arquivosKitViagemFacade.salvar(kitViagem);
 			vendas.setArquivoskitviagem(kitViagem);
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisos avisos = new Avisos();
+			avisos.setData(new Date());
+			avisos.setUsuario(usuarioLogadoMB.getUsuario());
+			avisos.setImagem("aviso");
+			avisos.setLiberar(true);
+			avisos.setTexto("Kit Viagem do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+					+ vendas.getIdvendas() + " está completo.");
+			avisos.setIdunidade(0);
+			avisos = avisosFacade.salvar(avisos);
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2
+					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5
+					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4
+					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 7) {
+				String sql = "select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
+						+ vendas.getUnidadenegocio().getIdunidadeNegocio() + " and u.vende=true or u.idusuario=1";
+				UsuarioFacade usuarioFacade = new UsuarioFacade();
+				List<Usuario> listaUsuario = usuarioFacade.listar(sql);
+				if (listaUsuario != null) { 
+					for (int i = 0; i < listaUsuario.size(); i++) {
+						Avisousuario avisousuario = new Avisousuario();
+						avisousuario.setAvisos(avisos);
+						avisousuario.setUsuario(listaUsuario.get(i));
+						avisousuario.setVisto(false);
+						avisousuario = avisosFacade.salvar(avisousuario); 
+					}
+				}
+			}
 		}
 	}
 	

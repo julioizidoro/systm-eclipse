@@ -108,16 +108,16 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
 				ProdutosOrcamentoBean po = consultarValores("DI",
 						listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
-						resultadoOrcamentoBean.getDataConsulta());
+						resultadoOrcamentoBean.getDataConsulta(), resultadoOrcamentoBean.getOcurso().getNumerosemanas());
 				if (po != null) {
 					listaAcomodacoes.add(po);
 				} else {
-					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date());
+					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date(), resultadoOrcamentoBean.getOcurso().getNumerosemanas());
 					if (po != null) {
 						listaAcomodacoes.add(po);
 					} else {
 						po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
-								resultadoOrcamentoBean.getDataConsulta());
+								resultadoOrcamentoBean.getDataConsulta(), resultadoOrcamentoBean.getOcurso().getNumerosemanas());
 						if (po != null) {
 							listaAcomodacoes.add(po);
 						}
@@ -125,15 +125,18 @@ public class AdicionarAcomodacaoMB implements Serializable {
 				}
 			}
 		}
-	}
-
-	public ProdutosOrcamentoBean consultarValores(String tipoData, int idCoProdutos, Date dataconsulta) {
+	} 
+	
+	public ProdutosOrcamentoBean consultarValores(String tipoData, int idCoProdutos, Date dataconsulta, double numerosemana) {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
+		int nsemanas = Formatacao.formatarDouble(numerosemana);
 		String sql = "Select v from  Valorcoprodutos v where v.produtosuplemento='valor' and v.datainicial<='"
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "' and v.datafinal>='"
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "'  and v.tipodata='" + tipoData
-				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos + " ORDER BY v.valororiginal";
+				+ "' and v.numerosemanainicial<=" + nsemanas
+				+ " and v.numerosemanafinal>=" + nsemanas
+				+ " and v.coprodutos.idcoprodutos=" + idCoProdutos + " ORDER BY v.valororiginal";
 		List<Valorcoprodutos> listaValorCoprodutos = valorCoProdutosFacade.listar(sql);
 		int ano;
 		if (resultadoOrcamentoBean.getFornecedorcidadeidioma() != null) {
@@ -201,18 +204,18 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		Valorcoprodutos valorcoprodutos = produtosOrcamentoBean.getValorcoprodutos();
 		ProdutosOrcamentoBean po = consultarValores("DI",
 				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(),
-				resultadoOrcamentoBean.getDataConsulta());
+				resultadoOrcamentoBean.getDataConsulta(), produtosOrcamentoBean.getNumeroSemanas());
 		if (po != null) {
 			valorcoprodutos = po.getValorcoprodutos();
 		} else {
 			po = consultarValores("DM", produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(),
-					new Date());
+					new Date(), produtosOrcamentoBean.getNumeroSemanas());
 			if (po != null) {
 				valorcoprodutos = po.getValorcoprodutos();
 			} else {
 				po = consultarValores("DS",
 						produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(),
-						resultadoOrcamentoBean.getDataConsulta());
+						resultadoOrcamentoBean.getDataConsulta(), produtosOrcamentoBean.getNumeroSemanas());
 				if (po != null) {
 					valorcoprodutos = po.getValorcoprodutos();
 				}
@@ -222,7 +225,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			valorcoprodutos = new Valorcoprodutos();
 			valorcoprodutos = produtosOrcamentoBean.getValorcoprodutos();
 		} else {
-			valorcoprodutos = compararValores(produtosOrcamentoBean.getValorcoprodutos(), valorcoprodutos);
+			valorcoprodutos = compararValores(valorcoprodutos,produtosOrcamentoBean.getValorcoprodutos());
 		}
 		if (valorcoprodutos != null) {
 			produtosOrcamentoBean.setValorcoprodutos(valorcoprodutos);
