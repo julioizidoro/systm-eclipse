@@ -163,7 +163,14 @@
 						
 					</h:panelGrid> 
 					<br />
-					<h:panelGrid columns="2" style="width:40%">
+					<h:panelGrid columns="3"
+						columnClasses="tamanho6, tamanho6,tamanho6"
+						style="width:67%;">
+						<p:outputLabel value="Sigla Unidade" />
+						<p:outputLabel/>  
+						<p:outputLabel/>
+						<p:inputText id="sigla" style="width:55%;"
+							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />   
 						<h:panelGroup> 
 							<p:selectBooleanCheckbox id="parcelamentoLoja" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.unidadenegocio.parcelamentojoja}"/> 
