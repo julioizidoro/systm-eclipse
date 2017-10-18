@@ -9,15 +9,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
+import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.facade.OCursoDescontoFacade;
 import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OCursoFormaPagamentoFacade;
 import br.com.travelmate.facade.OCursoProdutoFacade;
 import br.com.travelmate.facade.OcursoPacoteFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
+import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -29,12 +33,15 @@ import br.com.travelmate.model.Cursopacoteformapagamento;
 import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Fornecedorferias;
 import br.com.travelmate.model.Grupoobrigatorio;
+import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Ocursodesconto;
 import br.com.travelmate.model.Ocursoformapagamento;
 import br.com.travelmate.model.Ocursopacote;
 import br.com.travelmate.model.Produtosorcamento;
+import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
 
@@ -50,6 +57,7 @@ public class SalvarOrcamentoOcurso {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Float valortotal;
 	private Cursopacoteformapagamento formapagamento;
+	private Ocrusoprodutos ocrusoprodutos;
 	
 	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
 			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento) {
@@ -120,7 +128,38 @@ public class SalvarOrcamentoOcurso {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		LeadFacade leadFacade = new LeadFacade();
+		Lead lead = leadFacade.consultar("SELECT l From Lead l where l.cliente.idcliente=" + cliente.getIdcliente());
+		if (lead != null) {
+			if (lead.getSituacao() < 3) {
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+				lead.setSituacao(3);
+			}
+			salvarHistoricoLead(ocrusoprodutos);
+		}
 		return ocurso;
+	}
+	
+	public void salvarHistoricoLead(Ocrusoprodutos ocrusoprodutos) {
+		LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
+		Leadhistorico leadhistorico = new Leadhistorico();
+		leadhistorico.setCliente(ocurso.getCliente());
+		leadhistorico.setDatahistorico(new Date());
+		leadhistorico.setDataproximocontato(new Date());
+		TipoContatoFacade tipoContatoFacade = new TipoContatoFacade();
+		String sql = "Select t From Tipocontato t where t.tipo='Orçamento'";
+		Tipocontato tipocontato = tipoContatoFacade.consultar(sql);
+		leadhistorico.setTipocontato(tipocontato);
+		leadhistorico.setHistorico("ORÇAMENTO TARIFÁRIO " + ocurso.getIdocurso() + ": "
+				+ ocrusoprodutos.getValorcoprodutos().getCoprodutos().getProdutosorcamento().getDescricao() + " - "
+				+ ocrusoprodutos.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().getFornecedorcidade()
+						.getCidade().getNome()
+				+ ", " + ocrusoprodutos.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+						.getFornecedorcidade().getFornecedor().getNome()
+				+ ".");
+		leadhistorico.setTipoorcamento("t");
+		leadhistorico.setIdorcamento(ocurso.getIdocurso());
+		leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
 	}
 
 	public void salvarProdutosCurso() {
@@ -601,7 +640,7 @@ public class SalvarOrcamentoOcurso {
 		produto.setOcurso(ocurso);
 		OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
 		try {
-			oCursoProdutoFacade.salvar(produto);
+			produto = oCursoProdutoFacade.salvar(produto);
 			if(tiposoma.equalsIgnoreCase("adicao")){
 				valortotal = valortotal + valororiginal;
 			}else{
@@ -609,6 +648,9 @@ public class SalvarOrcamentoOcurso {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		if (ocrusoprodutos == null) {
+			ocrusoprodutos = produto;
 		}
 	}
 	
