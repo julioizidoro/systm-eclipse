@@ -112,7 +112,7 @@ public class FiltrarEscolaMB implements Serializable {
 		idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 		filtrarEscolaBean.setListaPais(paisProdutoFacade.listar(idProduto));
 		filtrarEscolaBean.getOcurso().setCliente((Cliente) session.getAttribute("cliente"));
-
+		session.removeAttribute("cliente");
 		if (filtrarEscolaBean.getOcurso().getCliente() == null) {
 			filtrarEscolaBean.getOcurso().setCliente(new Cliente());
 		} else {

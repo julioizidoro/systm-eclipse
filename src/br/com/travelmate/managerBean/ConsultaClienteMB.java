@@ -103,9 +103,6 @@ public class ConsultaClienteMB implements Serializable{
     }
     
     public void selecionarCliente(Cliente cliente){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        session.setAttribute("cliente", cliente);
         RequestContext.getCurrentInstance().closeDialog(cliente);
     }
     
