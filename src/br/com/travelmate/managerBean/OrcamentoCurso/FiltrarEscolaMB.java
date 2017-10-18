@@ -1950,7 +1950,9 @@ public class FiltrarEscolaMB implements Serializable {
 	
 	public void verificarDatas(){
 		if(filtrarEscolaBean.getOcurso().getProdutosorcamento()!=null
-				&& filtrarEscolaBean.getOcurso().getProdutosorcamento().getIdprodutosOrcamento()!=null){
+				&& filtrarEscolaBean.getOcurso().getProdutosorcamento().getIdprodutosOrcamento()!=null
+				&& filtrarEscolaBean.getFornecedorcidadeidioma()!=null
+				&& filtrarEscolaBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()!=null){
 			FornecedorCidadeIdiomaProdutoFacade produtoFacade = new FornecedorCidadeIdiomaProdutoFacade();
 			Fornecedorcidadeidiomaproduto fornecedorcidadeidiomaproduto = produtoFacade
 					.consultar("SELECT f FROM Fornecedorcidadeidiomaproduto f WHERE"
