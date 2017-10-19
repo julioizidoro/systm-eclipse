@@ -144,16 +144,18 @@ public class CalcularMultaCancelamentoBean {
 			List<Contasreceber> lista = contasReceberFacade.listar(sql);
 			if (lista!=null){
 				for(int i=0;i<lista.size();i++){
-					lista.get(i).setSituacao("cc");
-					lista.get(i).setMotivocancelamento("Cancelamento da Venda");
-					contasReceberFacade.salvar(lista.get(i));
-					if (lista.get(i).getCrmcobrancaconta() != null) {
-						if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
-							CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
-							crmCobrancaBean.baixar(lista.get(i), usuario);
+					if (lista.get(i).getValorpago() == 0 && lista.get(i).getDatapagamento()==null) {
+						lista.get(i).setSituacao("cc");
+						lista.get(i).setMotivocancelamento("Cancelamento da Venda");
+						contasReceberFacade.salvar(lista.get(i));
+						if (lista.get(i).getCrmcobrancaconta() != null) {
+							if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
+								CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+								crmCobrancaBean.baixar(lista.get(i), usuario);
+							}
 						}
+						EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Cancelada", lista.get(i), usuario);
 					}
-					EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Cancelada", lista.get(i), usuario);
 				}
 			}
 		}

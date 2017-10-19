@@ -392,6 +392,7 @@ public class CancelamentoFichaMB implements Serializable {
 			lista = new ArrayList<>();
 		}
 		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getValorpago() == 0 && lista.get(i).getDatapagamento()==null) {
 				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean(
 						"Conta cancelada pelo SysTM", lista.get(i), usuarioLogadoMB.getUsuario());
 				lista.get(i).setSituacao("cc");
@@ -404,6 +405,7 @@ public class CancelamentoFichaMB implements Serializable {
 						crmCobrancaBean.baixar(lista.get(i), usuarioLogadoMB.getUsuario());
 					}
 				}
+			}
 		}
 	}
 
