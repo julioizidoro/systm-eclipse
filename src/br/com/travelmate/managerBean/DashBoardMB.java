@@ -369,7 +369,8 @@ public class DashBoardMB implements Serializable {
 
 	public void gerarNumerosFollowUp() {
 		if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()
-				&& !usuarioLogadoMB.getUsuario().isVende()) {
+				&& !usuarioLogadoMB.getUsuario().isVende()
+				&& usuarioLogadoMB.getUsuario().getAcessounidade().isDashboard()) {
 			acessoResponsavelGerencial = true;
 		}
 		novos = 0;
@@ -381,7 +382,7 @@ public class DashBoardMB implements Serializable {
 		if (!acessoResponsavelGerencial) {
 			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			if (usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
+			if (!usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
 				sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 			}
 		}
