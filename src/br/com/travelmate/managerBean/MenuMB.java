@@ -134,8 +134,10 @@ public class MenuMB implements Serializable {
 	}
 
 	public String pacotesa() {
-		atualizaTempoLogado();
-		return "consultapacotesagencia";
+		if(usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isPacote()) {
+			atualizaTempoLogado();
+			return "consultapacotesagencia";
+		}return "";
 	}
 
 	public String cliente() {
