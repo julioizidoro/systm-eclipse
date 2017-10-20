@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link href="../../resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    
+
+ <h:body >
+	<h:form id="idDialogAnexarArquivo"
+		style="text-align:left;font-size: 10px; margin-left: 1%; ">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<title>Pesquisar Lançamentos</title>
+		<p:growl id="growl" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/ajax-loader.gif" />
+		</p:dialog>
+		
+		<h:panelGrid columns="2" style="width:100%;">
+			<p:selectOneMenu id="cartao"
+				value="#{pesquisarCartaoCreditoLancamentoMB.cartaocredito}"
+				style="width:150px;" converter="CartaoCreditoConverter" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItem itemLabel="Cartão de Crédito" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idcartao"
+					value="#{pesquisarCartaoCreditoLancamentoMB.listaCartaoCredito}"
+					var="cartaocredito" itemLabel="#{cartaocredito.nome}"
+					itemValue="#{cartaocredito}" />
+				<f:attribute name="listaCartaoCredito"
+					value="#{pesquisarCartaoCreditoLancamentoMB.listaCartaoCredito}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+			<h:panelGrid style="width:100%" columns="2">
+				<p:selectOneMenu id="parcelas" class="espacocobranca28"
+					style="width:120px"
+					value="#{pesquisarCartaoCreditoLancamentoMB.mes}">
+					<f:selectItem itemLabel="Selecione" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="Janeiro" itemValue="1" />
+					<f:selectItem itemLabel="Fevereiro" itemValue="2" />
+					<f:selectItem itemLabel="Março" itemValue="3" />
+					<f:selectItem itemLabel="Abril" itemValue="4" />
+					<f:selectItem itemLabel="Maio" itemValue="5" />
+					<f:selectItem itemLabel="Junho" itemValue="6" />
+					<f:selectItem itemLabel="Julho" itemValue="7" />
+					<f:selectItem itemLabel="Agosto" itemValue="8" />
+					<f:selectItem itemLabel="Setembro" itemValue="9" />
+					<f:selectItem itemLabel="Outubro" itemValue="10" />
+					<f:selectItem itemLabel="Novembro" itemValue="11" />
+					<f:selectItem itemLabel="Dezembro" itemValue="12" />
+				</p:selectOneMenu>
+				<p:inputText id="ano"  value="#{pesquisarCartaoCreditoLancamentoMB.ano}" rows="3" maxlength="100" style="width:50%;" />
+			</h:panelGrid>
+		</h:panelGrid>
+		<br /><br /><br /><br />
+		<h:panelGrid columns="2" style="margin-left:30%;">   
+			<p:commandButton id="btnConfirmar" value="Confirmar"
+				action="#{pesquisarCartaoCreditoLancamentoMB.pesquisar()}" icon="ui-icon-check"
+				update="@form, growl" style="font-size:12px;" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+ 
+</html>

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.CambioFacade;
@@ -47,6 +48,8 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	private List<Moedas> listaMoedas;
 	private boolean confirmar = false;
 	private boolean habilitarValorRecorrente = true;
+	private boolean desabiltarMoeda = true;
+	private boolean habilitarMoeda = false;
 
 	@PostConstruct
 	public void init() {
@@ -64,7 +67,9 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		if (lancamento == null) {
 			lancamento = new Cartaocreditolancamento();
 			CambioFacade cambioFacade = new CambioFacade();
+			PlanoContaFacade planoContaFacade = new PlanoContaFacade();
 			moedas = cambioFacade.consultarMoeda(8);
+			planoconta = planoContaFacade.consultar(1);
 			lancamento.setData(new Date());
 			lancamento.setConferido(false);
 			lancamento.setLancado(false);
@@ -75,6 +80,7 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		}
 		if (confirmar) {
 			habilitarValorRecorrente = false;
+			desabiltarMoeda = true;
 		}
 	}
 
@@ -158,6 +164,22 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		this.habilitarValorRecorrente = habilitarValorRecorrente;
 	}
 
+	public boolean isDesabiltarMoeda() {
+		return desabiltarMoeda;
+	}
+
+	public void setDesabiltarMoeda(boolean desabiltarMoeda) {
+		this.desabiltarMoeda = desabiltarMoeda;
+	}
+
+	public boolean isHabilitarMoeda() {
+		return habilitarMoeda;
+	}
+
+	public void setHabilitarMoeda(boolean habilitarMoeda) {
+		this.habilitarMoeda = habilitarMoeda;
+	}
+
 	public void validarDados(String msg) {
 		if (lancamento.getDescricao() == null || lancamento.getDescricao().length() < 2) {
 			msg = msg + "\n" + "Descrição não informado.";
@@ -174,6 +196,9 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		if (moedas == null || moedas.getIdmoedas() == null) {
 			msg = msg + "\n" + "Moeda não informada.";
 		}
+		if (lancamento.getNumeroparcelas() == null || lancamento.getNumeroparcelas().equals("")) {
+			msg = msg + "\n" + "Informe número de parcelas.";
+		}
 	}
 
 	public String salvar() {
@@ -188,6 +213,7 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				lancamento.setPlanoconta(planoconta);
 				lancamento.setUsuario(usuarioLogadoMB.getUsuario());
 				lancamento.setMoedas(moedas);
+				lancamento.setValorlancado(lancamento.getValorinformado() / Integer.parseInt(lancamento.getNumeroparcelas()));
 				lancamento = cartaoCreditoFacade.salvar(lancamento);
 				Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
 			}
@@ -247,12 +273,30 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 			contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
 			contaspagar.setValorentrada(lancamento.getValorlancado());
 			contaspagar.setValorsaida(0.0f);
+			mes = mes + 1;
+			if (Formatacao.getDiaData(new Date()) > lancamento.getCartaocredito().getDatafechamento()) {
+				mes = mes + 1;
+			}
+			String  dataCompensacao = ""  +  lancamento.getCartaocredito().getDatavencimento() + "/" + mes + "/" + new Year();
+			
+			contaspagar.setDatacompensacao(
+					Formatacao.ConvercaoStringData(dataCompensacao));
+			contaspagar.setDatavencimento(lancamento.getData());
 			ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 			contaspagar = contasPagarFacade.salvar(contaspagar);
 			lancamento.setLancado(true);
 			CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
 			lancamento = cartaoCreditoLancamentoFacade.salvar(lancamento);
 			Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");
+		}
+	}
+	
+	
+	public void desabilitandoMoeda(){
+		if (lancamento.isHabilitarmoeda()) {
+			desabiltarMoeda = false;
+		}else{
+			desabiltarMoeda = true;
 		}
 	}
 }

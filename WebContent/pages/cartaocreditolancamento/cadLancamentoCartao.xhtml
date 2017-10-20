@@ -54,11 +54,12 @@
                     <f:selectItem itemLabel="11" itemValue="11" />
                     <f:selectItem itemLabel="12" itemValue="12" />
                 </p:selectOneMenu>
-				<p:selectBooleanCheckbox value="#" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+				<p:selectBooleanCheckbox value="#{cadCartaoCreditoLancamentoMB.lancamento.habilitarmoeda}" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
 					class="espacopreto" id="moedaEstrageira"
 					style="margin-left: 65%">
+					<p:ajax event="change" listener="#{cadCartaoCreditoLancamentoMB.desabilitandoMoeda()}" update="moeda"/>
 				</p:selectBooleanCheckbox>
-				<p:selectOneMenu id="moeda" disabled="#{cadCartaoCreditoLancamentoMB.confirmar}"
+				<p:selectOneMenu id="moeda" disabled="#{cadCartaoCreditoLancamentoMB.desabiltarMoeda}"
 					value="#{cadCartaoCreditoLancamentoMB.moedas}" style="width:100%;"
 					converter="MoedasConverter">
 					<f:selectItem itemLabel="Moedas" itemValue="0" />
@@ -127,7 +128,7 @@
 				<p:outputLabel value="Plano de Conta" />
 
 				<p:inputText id="valorOutrosLancamentos"
-					value="5"
+					value="#{cadCartaoCreditoLancamentoMB.lancamento.valorinformado}"
 					style="width:60%;text-align:right;">      
 					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 				</p:inputText>

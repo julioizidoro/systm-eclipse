@@ -69,6 +69,8 @@ public class Cartaocreditolancamento implements Serializable {
     private String numeroparcelas;
     @Column(name = "valorrecorrente")
     private boolean valorrecorrente;
+    @Column(name = "habilitarmoeda")
+    private boolean habilitarmoeda;
 
     public Cartaocreditolancamento() {
     }
@@ -203,6 +205,14 @@ public class Cartaocreditolancamento implements Serializable {
 
 	public void setValorrecorrente(boolean valorrecorrente) {
 		this.valorrecorrente = valorrecorrente;
+	}
+
+	public boolean isHabilitarmoeda() {
+		return habilitarmoeda;
+	}
+
+	public void setHabilitarmoeda(boolean habilitarmoeda) {
+		this.habilitarmoeda = habilitarmoeda;
 	}
 
 	@Override

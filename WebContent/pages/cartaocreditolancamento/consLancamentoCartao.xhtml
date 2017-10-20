@@ -16,17 +16,17 @@
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
 						<h:panelGrid columns="4"
-							columnClasses="tamanhoavisos, tamanhoavisos, tamanho7,tamanho1"
-							style="width:70%;margin-left:4%;">
+							columnClasses="tamanhoavisos, tamanhoavisos, tamanho7,tamanhoavisos"
+							style="width:94%;margin-left:4%;">
 							<p:outputLabel value="Descrição" for="nome" />
-							<p:outputLabel value="Cartão" for="cartao" />    
-							<p:outputLabel value="Data" for="data" />
-							<p:outputLabel />
+							<p:outputLabel value="Cartão" for="cartao" style="margin-left: -8%;" />    
+							<p:outputLabel value="Data" for="data" style="margin-left: -38%;"/>
+							<p:outputLabel value="Fechamento" style="margin-left: -28%;"/>
 
 							<p:inputText id="nome" value="#{cartaoCreditoLancamentoMB.descricao}"
-								style="width:90%;" /> 
+								style="width:83%;" /> 
 							<p:selectOneMenu id="cartao" value="#{cartaoCreditoLancamentoMB.cartaocredito}"
-								style="width:90%;" converter="CartaoCreditoConverter"
+								style="width:85%;margin-left:-8%;" converter="CartaoCreditoConverter"
 								filter="true" filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Cartão de Crédito" itemValue="0"
 									noSelectionOption="true" />
@@ -36,20 +36,44 @@
 								<f:attribute name="listaCartaoCredito"
 									value="#{cartaoCreditoLancamentoMB.listaCartaoCredito}" />
 							</p:selectOneMenu>
-							<p:calendar id="data" value="#{cartaoCreditoLancamentoMB.dataLancamento}" size="14" locale="pt" pattern="dd/MM/yyyy">  
+							<p:calendar id="data" value="#{cartaoCreditoLancamentoMB.dataLancamento}" size="14" locale="pt" style="margin-left: -39%;" pattern="dd/MM/yyyy">  
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 								<p:ajax event="blur" />
 							</p:calendar>  
-							<p:outputLabel />
+							<h:panelGrid style="width:100%" columns="2">
+								<p:selectOneMenu id="parcelas" class="espacocobranca28"
+									style="width:130%;margin-left:-40%;"
+									value="#{cartaoCreditoLancamentoMB.mes}">
+									<f:selectItem itemLabel="Selecione" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Janeiro" itemValue="1" />
+									<f:selectItem itemLabel="Fevereiro" itemValue="2" />
+									<f:selectItem itemLabel="Março" itemValue="3" />
+									<f:selectItem itemLabel="Abril" itemValue="4" />
+									<f:selectItem itemLabel="Maio" itemValue="5" />
+									<f:selectItem itemLabel="Junho" itemValue="6" />
+									<f:selectItem itemLabel="Julho" itemValue="7" />
+									<f:selectItem itemLabel="Agosto" itemValue="8" />
+									<f:selectItem itemLabel="Setembro" itemValue="9" />
+									<f:selectItem itemLabel="Outubro" itemValue="10" />
+									<f:selectItem itemLabel="Novembro" itemValue="11" />
+									<f:selectItem itemLabel="Dezembro" itemValue="12" />
+								</p:selectOneMenu>
+								<p:inputText id="ano"  value="#{cartaoCreditoLancamentoMB.ano}" rows="3" placeholder="Ano" maxlength="100" style="width:140%;" />
+							</h:panelGrid>
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="4"
-							columnClasses="tamanhoavisos, tamanho11, tamanho7,tamanho1"
-							style="width:70%;margin-left:4%;">  
+						<h:panelGrid columns="8"
+							columnClasses="tamanhoavisos, tamanho11, tamanho7, tamanho11, tamanho11,tamanho1"
+							style="width:94%;margin-left:4%;">  
 							<p:outputLabel value="Usuario" for="usuario" />  
 							<p:outputLabel value="Plano de Conta" for="planocontas" />  
+							<p:outputLabel value=""/>
+							<p:outputLabel />  
+							<p:outputLabel />   
 							<p:outputLabel />
-							<p:outputLabel />    
+							<p:outputLabel />   
+							<p:outputLabel />
 							    
 							<p:selectOneMenu id="usuario" style="width:90%;"  
 								value="#{cartaoCreditoLancamentoMB.usuario}"
@@ -73,13 +97,23 @@
 								<f:attribute name="listaPlanoConta"
 									value="#{cartaoCreditoLancamentoMB.listaPlanoConta}" />
 							</p:selectOneMenu> 
+								<p:outputLabel value="Recorrente" style="margin-left: -38%;"/>
+								<p:selectBooleanCheckbox value="#{cartaoCreditoLancamentoMB.recorrente}" style="margin-left: -36%;"
+									class="espacopreto" id="recorrente" label="Confirmado" 
+									>
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Confirmado"/>
+								<p:selectBooleanCheckbox value="#{cartaoCreditoLancamentoMB.confirmado}"
+									class="espacopreto" id="confirmado" label="Confirmado" 
+									>
+								</p:selectBooleanCheckbox>
 							<p:commandButton id="btnPesquisar"
 								action="#{cartaoCreditoLancamentoMB.pesquisar()}"
-								value="Pesquisar" icon=" ui-icon-search "
-								update="consLancamentoCartao:tabelaCartaoCredito" />
+								value="Pesquisar" icon=" ui-icon-search " style="margin-left:15%;"
+								update="@form" />
 							<p:commandButton id="btnLimpar"
 								action="#{cartaoCreditoLancamentoMB.limpar()}" value="Limpar"
-								icon="ui-icon-arrowrefresh-1-w" update="@form" />
+								icon="ui-icon-arrowrefresh-1-w" update="@form" style="margin-left:20%;"/>
 						</h:panelGrid>
 						<br></br>
 					</p:tab>        
@@ -91,19 +125,19 @@
 					<p:commandButton id="btnNovo" value="Novo Lançamento"
 						icon="ui-icon-plus" action="#{cartaoCreditoLancamentoMB.novo()}"
 						style="font-size:12px;" title="Novo lançamento de despesas efetudas com cartão de crédito" >
-						<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update="tabelaCartaoCredito"/>
+						<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update="tabelaCartaoCredito, valorTotal"/>
 					</p:commandButton>
 				</div>
 				<br></br>
 				<div style="width: 85%; margin-left: 8%;">
-					<p:outputLabel value="Valor Total R$: #{cartaoCreditoLancamentoMB.valorTotal}">
+					<p:outputLabel value="Valor Total R$: #{cartaoCreditoLancamentoMB.valorTotal}" id="valorTotal">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</p:outputLabel>
 					<p:dataTable id="tabelaCartaoCredito"
 						value="#{cartaoCreditoLancamentoMB.listaLancamento}"
 						var="lancamento" scrollable="true" scrollHeight="300"
 						style="margin-bottom:20px;font-size:11px;">
-						<p:column headerText="Data" style="width:50px;text-align:center;">
+						<p:column headerText="Data" style="width:55px;text-align:center;">
 							<h:outputText value="#{lancamento.data}">   
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
@@ -116,7 +150,7 @@
 							<h:outputText value="#{lancamento.numeroparcelas}" />
 						</p:column>
 						<p:column headerText="Valor " style="width:75px;text-align:right;">
-							<h:outputText value="#{lancamento.valorinformado}" >
+							<h:outputText value="#{lancamento.valorlancado}" >
 								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 							</h:outputText>
 						</p:column>
@@ -140,9 +174,10 @@
 								title="Confirmar lançamento" style="text-decoration: none"
 								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">
 								<img src="../../resources/img/confirmarBola.png" width="25"/>
+								<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update=":consLancamentoCartao:growl, :consLancamentoCartao:tabelaCartaoCredito"/>
 							</p:commandLink>
 						</p:column>   
-						<p:column headerText="" style="width:35px;text-align:center;"
+						<p:column headerText="" style="width:35px;text-align:center;"   
 							>
 							<p:commandLink
 								action="#{cartaoCreditoLancamentoMB.excluirLancamento(lancamento)}"

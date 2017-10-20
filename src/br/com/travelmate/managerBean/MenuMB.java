@@ -1410,4 +1410,19 @@ public class MenuMB implements Serializable {
 		atualizaTempoLogado();
 		return "consUtil";
 	}
+	
+	public String pesquisarLancamentosCredito() {  
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 400);
+		RequestContext.getCurrentInstance().openDialog("pesquisarCartaoCreditoLancamento", options, null); 
+		return "";
+	}
+	
+	public void retornoDialogPesquisaLancamentos(){
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/systm_eclipse/pages/cartaocreditolancamento/consPesquisaLancamentosCredito.jsf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+	}
 }

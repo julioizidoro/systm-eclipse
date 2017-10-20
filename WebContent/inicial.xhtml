@@ -757,11 +757,21 @@
 											<span class="submenu-label">Acessos</span>
 										</p:commandLink></li>
 								</h:panelGroup>
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
-									<li><p:commandLink
-											action="#{menuMB.consLancamentoCartao()}">
-											<span class="submenu-label">Cartão de Crédito</span>
-										</p:commandLink></li> 
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Cartão Crédito <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink action="#{menuMB.consLancamentoCartao()}">
+													<span class="subsubmenu-label">Lançamentos</span>
+												</p:commandLink></li> 
+											<li><p:commandLink action="#{menuMB.pesquisarLancamentosCredito()}">
+													<span class="subsubmenu-label">Relatório</span>
+													<p:ajax event="dialogReturn" listener="#{menuMB.retornoDialogPesquisaLancamentos}" update="@form"/>
+												</p:commandLink></li> 
+										</ul></li>
 								</h:panelGroup>
 								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">   
 									<li><p:commandLink action="#{menuMB.calculadoraMargem()}"

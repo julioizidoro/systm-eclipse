@@ -46,6 +46,10 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	private List<Planoconta> listaPlanoConta; 
 	private List<Cartaocreditolancamento> listaLancamento;
 	private float valorTotal;
+	private boolean confirmado;
+	private String mes;
+	private String ano;
+	private boolean recorrente;
 	
 	@PostConstruct
 	public void init() { 
@@ -154,6 +158,46 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	}
 
 
+	public boolean isConfirmado() {
+		return confirmado;
+	}
+
+
+	public void setConfirmado(boolean confirmado) {
+		this.confirmado = confirmado;
+	}
+
+
+	public String getMes() {
+		return mes;
+	}
+
+
+	public void setMes(String mes) {
+		this.mes = mes;
+	}
+
+
+	public String getAno() {
+		return ano;
+	}
+
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
+
+
+	public boolean isRecorrente() {
+		return recorrente;
+	}
+
+
+	public void setRecorrente(boolean recorrente) {
+		this.recorrente = recorrente;
+	}
+
+
 	public void gerarlistaCartaoCredito(){
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
         listaCartaoCredito = cartaoCreditoFacade.listar();
@@ -180,8 +224,28 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		if(dataLancamento!=null){
 			sql = sql + " and c.data>='"+Formatacao.ConvercaoDataSql(dataLancamento)+"'";
 		}
+		if (confirmado) {
+			sql = sql + " and c.lancado=1 ";
+		}else{
+			sql = sql + " and c.lancado=0 ";
+		}
+		if ((mes != null && !mes.equalsIgnoreCase("")) && (ano != null && !ano.equalsIgnoreCase(""))) {
+			String diaFinal = "30";
+			if (mes.equalsIgnoreCase("2")) {
+				diaFinal = "28";
+			}
+			if (recorrente) {
+				sql = sql + " and c.data>'" + ano + "-" + mes + "-" + diaFinal + "' "; 
+			}else{
+				sql = sql + " and c.data>='" + ano + "-" + mes + "-01' and c.data<='" + ano + "-" + mes + "-" + diaFinal + "' "; 
+			}
+		}
 		sql = sql + " order by c.data desc"; 
 		listaLancamento = cartaoCreditoLancamentoFacade.listar(sql);
+		valorTotal = 0.0f;
+		for (int i = 0; i < listaLancamento.size(); i++) {
+			valorTotal = valorTotal + listaLancamento.get(i).getValorinformado();
+		}
 	}
 	
 	public void limpar(){ 
@@ -190,6 +254,11 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		dataLancamento=null;
 		usuario=null;
 		planoconta=null;
+		valorTotal = 0.0f;
+		mes = "";
+		ano = "";
+		confirmado = false;
+		recorrente = false;
 		gerarListaLancamentos();
 	}
 	
@@ -213,13 +282,14 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	public void gerarListaLancamentos(){
 		CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 60, "yyyy-MM-dd");
-		String sql="select c from Cartaocreditolancamento c where c.data>='"+dataConsulta+"' order by c.data desc";
+		String sql="select c from Cartaocreditolancamento c where c.data>='"+dataConsulta+"' and c.lancado=0 order by c.data desc";
 		listaLancamento = cartaoCreditoLancamentoFacade.listar(sql);
 		if (listaLancamento == null) {
 			listaLancamento = new ArrayList<Cartaocreditolancamento>();
 		}
+		valorTotal = 0.0f;
 		for (int i = 0; i < listaLancamento.size(); i++) {
-			valorTotal = listaLancamento.get(i).getValorinformado();
+			valorTotal = valorTotal + listaLancamento.get(i).getValorinformado();
 		}
 		
 	}
