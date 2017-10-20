@@ -42,7 +42,7 @@ public class ConsLeadEncaminhadoMB implements Serializable {
 	private Unidadenegocio unidadenegocio;
 	private List<Unidadenegocio> listaUnidade;  
 	private String sql;  
-	private boolean habilitarComboUnidade;
+	private boolean habilitarComboUnidade=true;
 	
 	@PostConstruct()
 	public void init() {
@@ -52,14 +52,18 @@ public class ConsLeadEncaminhadoMB implements Serializable {
 			PesquisaBean pesquisa = (PesquisaBean) session.getAttribute("pesquisa");
 			session.removeAttribute("pesquisa"); 
 			listaUnidade = GerarListas.listarUnidade();
-			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {  
+			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()
+					&& usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {  
 				habilitarComboUnidade = false; 
-			}  
+			}   
+			if(habilitarComboUnidade) {
+				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio(); 
+				gerarListaConsultor();
+			}
 			if(pesquisa!=null){
 				dataEnvioInicio = pesquisa.getDataProxFinal();
 				dataEnvioFinal = pesquisa.getDataProxInicio(); 
-				unidadenegocio = pesquisa.getUnidadenegocio();
-				gerarListaConsultor();
+				unidadenegocio = pesquisa.getUnidadenegocio(); 
 				usuarioDe = pesquisa.getUsuario(); 
 				usuarioPara = pesquisa.getUsuarioPara();
 				pesquisar();  
@@ -222,6 +226,9 @@ public class ConsLeadEncaminhadoMB implements Serializable {
 			sql = sql + " AND l.data>='" + Formatacao.ConvercaoDataSql(dataEnvioInicio) + "' AND "
 					+ "l.data<='" + Formatacao.ConvercaoDataSql(dataEnvioFinal) + "'";
 		}  
+		if(habilitarComboUnidade) {
+			sql = sql + " AND l.usuariode.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}
 		sql = sql + " ORDER BY l.lead.dataproximocontato";
 		gerarListaLead(sql); 
 	}
