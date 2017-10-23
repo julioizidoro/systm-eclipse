@@ -4,8 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.ArrayList; 
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -30,8 +29,7 @@ import br.com.travelmate.model.Fornecedorfinanceiro;
 import br.com.travelmate.model.Fornecedorpacotearquivopagamento;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamentocurso;
-import br.com.travelmate.model.Orcamentoprojetovoluntariado;
-import br.com.travelmate.model.Pacotesfornecedor;
+import br.com.travelmate.model.Orcamentoprojetovoluntariado; 
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 import net.sf.jasperreports.engine.JRException;
@@ -318,7 +316,7 @@ public class EnviarEmailMB implements Serializable {
 			emailDestinatario = cliente.getEmail();
 			emailConsultor = usuarioLogadoMB.getUsuario().getEmail();
 			texto = "Olá, " + cliente.getNome() + "\r\n"; 
-			textoRodape = "TravelMate, é pra vida toda!";
+			textoRodape = "Att,";
 		} else if(fatura!=null && fatura.getIdfatura()!=null){
 			assunto = "TravelMate - Fatura disponível";
 			emailDestinatario = fatura.getUnidadenegocio().getEmail();
@@ -346,10 +344,8 @@ public class EnviarEmailMB implements Serializable {
 			assunto = "TravelMate - " + usuarioLogadoMB.getUsuario().getNome();
 			emailDestinatario = cliente.getEmail();
 			emailConsultor = usuarioLogadoMB.getUsuario().getEmail();
-			texto = "Olá, " + cliente.getNome() + "\r\n";
-			texto = texto + "Agradecemos seu interesse em viajar com a TravelMate" + "\r\n";
-			texto = texto + "Segue abaixo informações sobre seu orçamento.";
-			textoRodape = " Permaneço à disposição para maiores informações e sugestões, aguardamos seu contato! <br/><br/>TravelMate, é pra vida toda!";
+			texto = "Agradecemos seu interesse em viajar com a TravelMate. Segue abaixo informações sobre seu orçamento.";
+			textoRodape = " Permaneço à disposição para maiores informações e sugestões, aguardamos seu contato!";
 		}  
 	}
 }

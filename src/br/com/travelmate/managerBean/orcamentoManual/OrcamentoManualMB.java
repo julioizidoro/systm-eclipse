@@ -558,6 +558,7 @@ public class OrcamentoManualMB implements Serializable {
 						Occliente occliente = ocClienteFacade.consultar(listaOrcamento.get(i).getOccliente());
 						emailBean.setCliente(occliente.getNome());
 					}
+					emailBean.setIdpais(""+listaOrcamento.get(i).getFornecedorcidade().getCidade().getPais().getIdpais());
 					listaDadosEscolas.add(emailBean);
 					Orcamentocurso orcamentocurso = listaOrcamento.get(i);
 					listaOrcamentoCursoSelecionado.add(orcamentocurso);

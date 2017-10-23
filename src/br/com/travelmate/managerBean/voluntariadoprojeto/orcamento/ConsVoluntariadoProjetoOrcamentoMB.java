@@ -424,6 +424,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 					}
 					emailBean.setDuracao(listaOrcamento.get(i).getNsemanas()); 
 					emailBean.setCliente(listaOrcamento.get(i).getCliente().getNome()); 
+					emailBean.setIdpais(""+listaOrcamento.get(i).getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade().getCidade().getPais().getIdpais());
 					listaDadosEscolas.add(emailBean);
 					Orcamentoprojetovoluntariado orcamentoprojetovoluntariado = listaOrcamento.get(i);
 					lista.add(orcamentoprojetovoluntariado);

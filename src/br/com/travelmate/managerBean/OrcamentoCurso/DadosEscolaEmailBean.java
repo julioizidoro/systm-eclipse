@@ -12,6 +12,7 @@ public class DadosEscolaEmailBean {
 	private String turno;
 	private String valorPrograma;
 	private String cliente;
+	private String idpais;
 	
 	public String getNomeArquivo() {
 		return nomeArquivo;
@@ -72,6 +73,12 @@ public class DadosEscolaEmailBean {
 	}
 	public void setCliente(String cliente) {
 		this.cliente = cliente;
+	}
+	public String getIdpais() {
+		return idpais;
+	}
+	public void setIdpais(String idpais) {
+		this.idpais = idpais;
 	}
 	
 }

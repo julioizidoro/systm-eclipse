@@ -288,29 +288,39 @@ public class EnviarEmail {
 	}
 
 	public void criarEmail() {
+		String br = "";
 		corpoEmail = "<html>\n" + "<head>\n"
 				+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n"
 				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;}</STYLE>\n"
-				+ "</head>\n" + "<body style=\"font-family: arial;\">\n"  
-				+ " 	<p style=\"margin-left:2.5%;color:#1E8871;font-family:Arial, Helvetica, sans-serif; font-size:12px;\">\n";
-		corpoEmail = corpoEmail + " " + texto;
-		corpoEmail = corpoEmail + " 	</p>\n" + "	    <hr style=\"color:#A6CE39; \"/>\n" + "	<section>\n"
-				+ "	    <article>\n" + "	        <header>\n";
+				+ "</head>\n" + "<body style=\"font-family: arial;width:70%;\">\n"  
+				+ " <div align=\"center\" style=\"width:100%;\">\n";
+		corpoEmail = corpoEmail + " <img src=\"http://www.systm.com.br:82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
+		corpoEmail = corpoEmail + " <br></br>\n";
 		if (listaDadosEscolas != null && listaDadosEscolas.size() > 0) {
+			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br><br></br>";
 			gerarCorpoOrcamento();
+			br = "<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>\n";
 		} else if (nomeArquivo != null && nomeArquivo.length() > 0) {
+			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">"+ texto +"</label><br></br><br></br>";
 			gerarCorpoOrcamentoComparativo();
 		} else if (listaArquivos != null && listaArquivos.size() > 0) {
+			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">"+ texto +"</label><br></br><br></br>";
 			gerarCorpoDocumentos();
 		}  else if (pacotesfornecedor != null && pacotesfornecedor.getIdfornecedorpacotearquivopagamento()!=null) {
+			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">"+ texto +"</label><br></br><br></br>";
 			gerarCorpoComprovanteTurismo();
-		} 
-		corpoEmail = corpoEmail + "	      </article>\n" + "	    </section>\n"
-				+ " 	<p style=\"margin-left:2.5%;color:#1E8871;font-family:Arial, Helvetica, sans-serif; font-size:12px;\">\n"
-				+ " <br/>";
-		corpoEmail = corpoEmail + " " + textoRodape;
+		} else{
+			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">"+ texto +"</label><br></br><br></br>";
+		}
+		
+		corpoEmail = corpoEmail + " <div align=\"center\" style=\"margin-top:25px;\">\n"
+				+ " <div style=\"width:850px;\">\n"
+				+ br
+				+ " <p style=\"font-size:13px;LINE-HEIGHT:18px;width:380px;\">"+textoRodape+"</p>\n"
+				+ " <p style=\"font-size:13px;\">TravelMate, é pra vida toda!</p>\n "
+				+ " </div></div></div>\n"; 
 		corpoEmail = corpoEmail + "</p>"
-				+ "     	 <div style=\"background-color:#ffffff; margin:20px 0 40px 0; padding-left:10px; padding-top:5px; font-family:Arial, Helvetica, sans-serif; font-size:12px;\">\n"
+				+ "     	 <div style=\"float:left;background-color:#ffffff; margin:20px 0 40px 0; padding-left:10px; padding-top:5px; font-family:Arial, Helvetica, sans-serif; font-size:12px;\">\n"
 				+ "    	    	<table style=\"margin-left:6px\"  border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
 				+ "    	    	  <tr>\n"
 				+ "    	    	    <td align=\"left\" valign=\"middle\"><div align=\"left\"><a href=\"http://www.travelmate.com.br\" target=\"_blank\"><img style=\"display:block\" src=\"http://travelmate.com.br/wp-content/uploads/2017/01/logo_tm_assinatura.jpg\" alt=\"Visite o nosso site\" border=\"0\"/></a></div></td>\n"
@@ -341,25 +351,24 @@ public class EnviarEmail {
 
 	public void gerarCorpoOrcamento() {
 		for (int j = 0; j < listaDadosEscolas.size(); j++) {
-			corpoEmail = corpoEmail + "	            <h3 style=\"color: #1E8871;margin-left:2.5%;\"></h2>\n"
-					+ "</strong>\n" + "             <strong style=\"font-size:12px;\">"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Local: "
-					+ listaDadosEscolas.get(j).getLocal() + "</a><br/>\n"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Instituição de ensino | Centro: "
-					+ listaDadosEscolas.get(j).getEscola() + "</a><br/>\n"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Tipo de Curso: "
-					+ listaDadosEscolas.get(j).getTipoCurso() + "</a><br/>\n"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Data de Inicio: "
-					+ listaDadosEscolas.get(j).getDataInicio() + "</a><br/>\n"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Data de Termino: "
-					+ listaDadosEscolas.get(j).getDataTermino() + "</a><br/>\n"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Duração do Curso: "
-					+ listaDadosEscolas.get(j).getDuracao() + " Semanas" + "</a><br/>\n"
-					+ "	        	<label style=\"color: #000000;font-size:12px;\">Turno: "
-					+ listaDadosEscolas.get(j).getTurno() + "</a><br/><br/>\n" + "	        	<a href=\"http://"
-					+ ftpDados.getHost() + ":82/ftproot/systm/orcamento/" + listaDadosEscolas.get(j).getNomeArquivo()
-					+ "\" target=\"blanck\" style=\"font-size:16px;\">Clique para ver o orçamento completo</a>\n"
-					+ "	        </header>\n" + "	        <hr style=\"color:#A6CE39;\"/>\n";
+			corpoEmail = corpoEmail + " <div style=\"width:23%;float:left;\"> \n" 
+			+ "	<p style=\"font-size:13px;color:transparent;\">Local: Canadá Vancoucer</p>\n" 
+			+ "	</div>\n"
+			+ " <div style=\"width:23%;float:left;\">\n"  
+			+ "	<img src=\"http://"+ftpDados.getHost()+":82/ftproot/systm//paisemail/"+listaDadosEscolas.get(j).getIdpais()+".png"
+			+"\" width=\"185\" style=\"float:right;\"/>\n"  
+			+ "	</div>"
+			+ "	<div style=\"width:40%;float:left;margin-left:4%;text-align:left;LINE-HEIGHT:8px;\">  \n" 
+			+ " <p style=\"font-size:13px;\">Local: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
+			+ "	<p style=\"font-size:13px;\">Instituição de ensino: Centro: " + listaDadosEscolas.get(j).getEscola() + "</p>\n"
+			+ "	<p style=\"font-size:13px;\">Tipo de Curso: " + listaDadosEscolas.get(j).getTipoCurso() + "</p>\n"
+			+ "	<p style=\"font-size:13px;\">Data de Início: " + listaDadosEscolas.get(j).getDataInicio() + "</p>\n"
+			+ "	<p style=\"font-size:13px;\">Data de Termino: " + listaDadosEscolas.get(j).getDataTermino() + "</p>\n"
+			+ "	<p style=\"font-size:13px;\">Duração do Curso: " + listaDadosEscolas.get(j).getDuracao()+" Semanas"+ "</p>\n"
+			+ "	<p style=\"font-size:13px;\">Turno: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n" 
+			+ "	<a href=\"http://"+ftpDados.getHost()+":82/ftproot/systm/orcamento/"+listaDadosEscolas.get(j).getNomeArquivo()
+			+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
+			+ "	<img src=\"http://www.systm.com.br:82/ftproot/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div>\n";
 		}
 	}
 

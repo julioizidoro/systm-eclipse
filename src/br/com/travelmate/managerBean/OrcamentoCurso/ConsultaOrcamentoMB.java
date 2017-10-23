@@ -638,6 +638,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 						Occliente occliente = ocClienteFacade.consultar(listaOcurso.get(i).getOccliente());
 						emailBean.setCliente(occliente.getNome());
 					}
+					emailBean.setIdpais(""+listaOcurso.get(i).getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getIdpais());
 					listaDadosEscolas.add(emailBean);
 					Ocurso ocursoSelecionado = listaOcurso.get(i);
 					listaOcursoSelecionado.add(ocursoSelecionado);
