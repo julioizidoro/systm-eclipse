@@ -291,7 +291,7 @@ public class EnviarEmail {
 		String br = "";
 		corpoEmail = "<html>\n" + "<head>\n"
 				+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n"
-				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;}</STYLE>\n"
+				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
 				+ "</head>\n" + "<body style=\"font-family: arial;width:70%;\">\n"  
 				+ " <div align=\"center\" style=\"width:100%;\">\n";
 		corpoEmail = corpoEmail + " <img src=\"http://www.systm.com.br:82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
@@ -299,7 +299,6 @@ public class EnviarEmail {
 		if (listaDadosEscolas != null && listaDadosEscolas.size() > 0) {
 			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br><br></br>";
 			gerarCorpoOrcamento();
-			br = "<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>\n";
 		} else if (nomeArquivo != null && nomeArquivo.length() > 0) {
 			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">"+ texto +"</label><br></br><br></br>";
 			gerarCorpoOrcamentoComparativo();
@@ -351,24 +350,22 @@ public class EnviarEmail {
 
 	public void gerarCorpoOrcamento() {
 		for (int j = 0; j < listaDadosEscolas.size(); j++) {
-			corpoEmail = corpoEmail + " <div style=\"width:23%;float:left;\"> \n" 
-			+ "	<p style=\"font-size:13px;color:#ffffff;\">Local: Canadá Vancoucer</p>\n" 
-			+ "	</div>\n"
-			+ " <div style=\"width:23%;float:left;\">\n"  
-			+ "	<img src=\"http://"+ftpDados.getHost()+":82/ftproot/systm//paisemail/"+listaDadosEscolas.get(j).getIdpais()+".png"
-			+"\" width=\"185\" style=\"float:right;\"/>\n"  
-			+ "	</div>"
-			+ "	<div style=\"width:40%;float:left;margin-left:4%;text-align:left;LINE-HEIGHT:8px;\">  \n" 
-			+ " <p style=\"font-size:13px;\">Local: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
-			+ "	<p style=\"font-size:13px;\">Instituição de ensino: Centro: " + listaDadosEscolas.get(j).getEscola() + "</p>\n"
-			+ "	<p style=\"font-size:13px;\">Tipo de Curso: " + listaDadosEscolas.get(j).getTipoCurso() + "</p>\n"
-			+ "	<p style=\"font-size:13px;\">Data de Início: " + listaDadosEscolas.get(j).getDataInicio() + "</p>\n"
-			+ "	<p style=\"font-size:13px;\">Data de Termino: " + listaDadosEscolas.get(j).getDataTermino() + "</p>\n"
-			+ "	<p style=\"font-size:13px;\">Duração do Curso: " + listaDadosEscolas.get(j).getDuracao()+" Semanas"+ "</p>\n"
-			+ "	<p style=\"font-size:13px;\">Turno: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n" 
-			+ "	<a href=\"http://"+ftpDados.getHost()+":82/ftproot/systm/orcamento/"+listaDadosEscolas.get(j).getNomeArquivo()
-			+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
-			+ "	<img src=\"http://www.systm.com.br:82/ftproot/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div>\n";
+			corpoEmail = corpoEmail 
+					+ "<table><tr><td> <div style=\"width:90%;\" class=\"menu\">\n" + " <img src=\"http://" + ftpDados.getHost()
+					+ ":82/ftproot/systm//paisemail/" + listaDadosEscolas.get(j).getIdpais() + ".png"
+					+ "\" width=\"185\" style=\"float:right;\"/>\n" + " </div></td><td>"
+					+ " <div  class=\"menu\" style=\"width:100%;margin-left:4%;text-align:left;LINE-HEIGHT:8px;\">  \n"
+					+ " <p style=\"font-size:13px;\">Local: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
+					+ " <p style=\"font-size:13px;\">Instituição: " + listaDadosEscolas.get(j).getEscola() + "</p>\n"
+					+ " <p style=\"font-size:13px;\">Curso: " + listaDadosEscolas.get(j).getTipoCurso() + "</p>\n"
+					+ " <p style=\"font-size:13px;\">Data de Início: " + listaDadosEscolas.get(j).getDataInicio()
+					+ "</p>\n" + " <p style=\"font-size:13px;\">Duração do Curso: "
+					+ listaDadosEscolas.get(j).getDuracao() + " Semanas" + "</p>\n"
+					+ " <p style=\"font-size:13px;\">Turno do Curso: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n"
+					+ " <a href=\"http://" + ftpDados.getHost() + ":82/ftproot/systm/orcamento/"
+					+ listaDadosEscolas.get(j).getNomeArquivo()
+					+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
+					+ " <img src=\"http://www.systm.com.br:82/ftproot/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
 		}
 	}
 
