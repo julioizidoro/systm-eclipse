@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="30"/>
-	<property name="ireport.y" value="632"/>
+	<property name="ireport.y" value="584"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -362,7 +362,8 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 "d)  Cometer qualquer ilícito penal sob as normas do país de destino; \n"+
 "e)  Desrespeitar as regras estipuladas pela família hospedeira e parceiro internacional, no tocante a horários, saídas sem consentimentos, desrespeito com terceiros e aos próprios familiares, bem como tomar atitudes contrárias a um convívio harmonioso junto à família hospedeira; \n"+
 "f) Se o(a) PARTICIPANTE receber reclamações comportamentais no ambiente escolar, cuja gravidade será analisada pelo parceiro internacional responsável pelo programa de intercâmbio; \n"+
-"g) Se após sua chegada no "+$F{paisintercambio} +", o(a) PARTICIPANTE deixar de cumprir as regras de chegada(orientação com o parceiro internacional, por exemplo) estabelecidas pela organização do programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento. \n \n"+
+"g) Se após sua chegada no "+$F{paisintercambio} +", o(a) PARTICIPANTE deixar de cumprir as regras de chegada(orientação com o parceiro internacional, por exemplo) estabelecidas pela organização do programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento. \n"+
+"f)  Em caso de inadimplência superior a 10 dias sem retorno do cliente para regularização.\n\n"+
 
 "10. DISPOSIÇÕES FINAIS E OBSERVAÇÕES \n"+
 "10.1  As despesas de outra natureza, tais como, por exemplo, viagens até o local onde ocorrerão às reuniões de preparação, taxas para obtenção do visto, passagens aéreas, taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, transfers, etc., não estão incluídos no valor pago a TM e correrão por conta exclusiva do(a) PARTICIPANTE \n"+

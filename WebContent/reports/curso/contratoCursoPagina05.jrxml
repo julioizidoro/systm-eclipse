@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina05" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="0.8857805000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="350"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -320,7 +320,7 @@ where
 	<pageHeader>
 		<band height="695" splitType="Stretch">
 			<staticText>
-				<reportElement x="4" y="5" width="545" height="678" uuid="99039c75-531c-493b-99f6-73564ad8224d"/>
+				<reportElement x="4" y="4" width="545" height="678" uuid="99039c75-531c-493b-99f6-73564ad8224d"/>
 				<textElement textAlignment="Justified">
 					<font isBold="false" isUnderline="false"/>
 				</textElement>
@@ -334,6 +334,7 @@ b) O(a) PARTICIPANTE receber reclamações comportamentais no ambiente escolar/a
 c)  Cometer qualquer tipo de ato ilícito penal sob as normas do direito do país em questão;
 d) O(a) PARTICIPANTE abandonar a acomodação ou família hospededeira original sem autorização do parceiro  internacional em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 10 (dez) dias da data do seu desligamento.
 e) Após sua chegada no país de destino, o(a) PARTICIPANTE deixar de cumprir as regras de chegada (orientação de chegada ,parceiro internacional, ou “check-in”, por exemplo) estabelecidas pelo programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 10 (dez) dias da data do seu desligamento.
+f) Em caso de inadimplência superior a 10 dias sem retorno do cliente para regularização.
 
 11. DISPOSIÇÕES FINAIS E OBSERVAÇÕES
 11.1 A despesa de obtenção do visto consular, seguros outros (além do seguro saúde incluído pelo parceiro internacional contratado, quando houver), passagens aéreas (outras não inclusas no valor do programa, quando houver), taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o transfer entre o aeroporto e a acomodação (ida e volta) não estão incluídos no valor do programa/pacote pago à Travelmate, salvo quando especificado no programa/pacote.

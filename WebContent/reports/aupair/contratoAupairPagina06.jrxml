@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina06" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="474"/>
+	<property name="ireport.y" value="144"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -385,6 +385,7 @@ b)  O(a) PARTICIPANTE receber reclamações comportamentais no ambiente escolar,
 c)  Cometer qualquer tipo de ilícito penal sob as normas do direito do país no qual o programa se realiza;
 d)  O(a) PARTICIPANTE  abandonar a família original sem autorização do parceiro internacional em questão. Neste caso,  o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento.
 e) Após sua chegada no país de destino, o(a) PARTICIPANTE deixar de cumprir as regras de chegada (orientação com o parceiro internacional ou “check-in”, por exemplo) estabelecidas pelo programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 15 (quinze) dias da data do seu desligamento.
+f) Em caso de inadimplência superior a 10 dias sem retorno do cliente para regularização.
 
 15. DISPOSIÇÕES FINAIS E OBSERVAÇÕES
 

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="0.8250000000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -61,6 +61,7 @@ where
 "c)  Cometer qualquer tipo de ato ilícito penal sob as normas do direito do país em questão; \n"+
 "d) O(a) PARTICIPANTE abandonar a acomodação ou família hospededeira original sem autorização do parceiro  internacional em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 10 (dez) dias da data do seu desligamento. \n"+
 "e) Após sua chegada no país de destino, o(a) PARTICIPANTE deixar de cumprir as regras de chegada (orientação de chegada ,parceiro internacional, ou “check-in”, por exemplo) estabelecidas pelo programa em questão. Neste caso, o(a) PARTICIPANTE será desligado(a) do programa e terá seu visto cancelado, devendo deixar o país dentro de 10 (dez) dias da data do seu desligamento. \n \n"+
+f) Em caso de inadimplência superior a 10 dias sem retorno do cliente para regularização.
 
 "11. DISPOSIÇÕES FINAIS E OBSERVAÇÕES \n"+
 "11.1 A despesa de obtenção do visto consular, seguros outros (além do seguro saúde incluído pelo parceiro internacional contratado, quando houver), passagens aéreas (outras não inclusas no valor do programa, quando houver), taxas de aeroportos, custos de embarque e desembarque, excesso de bagagem, alfândega e o transfer entre o aeroporto e a acomodação (ida e volta) não estão incluídos no valor do programa/pacote pago à Travelmate, salvo quando especificado no programa/pacote. \n"+
@@ -71,8 +72,7 @@ where
 "12. PAGAMENTO \n"+
 "12.1 O custo do programa é fixado na moeda local do país em questão e o pagamento do mesmo deve ser feito em reais de acordo com o câmbio da moeda obtido com à TM no dia de pagamento. \n"+
 "12.2 O pagamento da inscrição deve ser efetivado no momento do preenchimento da ficha de inscrição, documento anexo a este contrato e que discrimina os valores do programa/pacote contratado. \n"+
-"12.3 O pagamento do pacote/programa deverá ser quitado conforme plano de pagamento abaixo:"
-]]></textFieldExpression>
+"12.3 O pagamento do pacote/programa deverá ser quitado conforme plano de pagamento abaixo:"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
