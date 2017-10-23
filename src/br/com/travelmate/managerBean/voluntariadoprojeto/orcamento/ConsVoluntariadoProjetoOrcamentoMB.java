@@ -411,7 +411,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 					emailBean.setEscola(listaOrcamento.get(i).getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade()
 							.getFornecedor().getNome());
 					emailBean.setLocal(listaOrcamento.get(i).getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade().getCidade()
-							.getPais().getNome() + " "
+							.getPais().getNome() + ", "
 							+ listaOrcamento.get(i).getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade().getCidade()
 									.getNome());
 					emailBean.setNomeArquivo(nomeArquivo);

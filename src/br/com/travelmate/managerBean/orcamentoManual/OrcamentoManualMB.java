@@ -542,7 +542,7 @@ public class OrcamentoManualMB implements Serializable {
 					emailBean.setDataInicio(Formatacao.ConvercaoDataPadrao(listaOrcamento.get(i).getDataInicio()));
 					emailBean.setDataTermino(Formatacao.ConvercaoDataPadrao(listaOrcamento.get(i).getDataTermino()));
 					emailBean.setEscola(listaOrcamento.get(i).getFornecedorcidade().getFornecedor().getNome());
-					emailBean.setLocal(listaOrcamento.get(i).getFornecedorcidade().getCidade().getPais().getNome() + " "
+					emailBean.setLocal(listaOrcamento.get(i).getFornecedorcidade().getCidade().getPais().getNome() + ", "
 							+ listaOrcamento.get(i).getFornecedorcidade().getCidade().getNome());
 					emailBean.setNomeArquivo(nomeArquivo);
 					List<Produtoorcamentocurso> lista = getListaProdutoOrcanentoCurso("C");

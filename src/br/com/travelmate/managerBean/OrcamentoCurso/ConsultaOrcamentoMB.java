@@ -624,7 +624,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					emailBean.setEscola(listaOcurso.get(i).getFornecedorcidadeidioma().getFornecedorcidade()
 							.getFornecedor().getNome());
 					emailBean.setLocal(listaOcurso.get(i).getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
-							.getPais().getNome() + " "
+							.getPais().getNome() + ", "
 							+ listaOcurso.get(i).getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
 									.getNome());
 					emailBean.setNomeArquivo(nomeArquivo);
