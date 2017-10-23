@@ -218,7 +218,8 @@ public class CancelamentoFichaMB implements Serializable {
 				venda = vendasFacade.salvar(venda);
 				metaRunnersMB.carregarListaRunners();
 	
-				if (venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) {
+				if ((venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) || 
+						(venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado())) {
 					SeguroViagemFacade seguroViagemController = new SeguroViagemFacade();
 					Seguroviagem seguroViagem = seguroViagemController.consultarSeguroCurso(venda.getIdvendas());
 					if (seguroViagem != null && seguroViagem.getIdseguroViagem() != null) {

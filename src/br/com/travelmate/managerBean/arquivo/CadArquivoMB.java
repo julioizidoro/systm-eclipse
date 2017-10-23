@@ -452,8 +452,6 @@ public class CadArquivoMB implements Serializable {
 			}
 			vendas.setSituacaogerencia("F");
 			DashBoardBean dashBoardBean = new DashBoardBean();
-			dashBoardBean.calcularMetaMensal(vendas, 0, false);
-			dashBoardBean.calcularMetaAnual(vendas, 0, false);
 			if (vendas.getPontoescola() == 0) {
 				CursoFacade cursoFacade = new CursoFacade();
 				Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());

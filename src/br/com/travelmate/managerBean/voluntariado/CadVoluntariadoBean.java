@@ -7,6 +7,7 @@ import java.util.List;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ControlerBean;
+import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean; 
@@ -43,14 +44,16 @@ public class CadVoluntariadoBean {
 	private Orcamento orcamento;
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Voluntariado voluntariado;
+	private float valorSeguroAntigo;
 	
 
-	public CadVoluntariadoBean(Vendas venda, Formapagamento formaPagamento, Orcamento orcamento, UsuarioLogadoMB usuarioLogadoMB) {
+	public CadVoluntariadoBean(Vendas venda, Formapagamento formaPagamento, Orcamento orcamento, UsuarioLogadoMB usuarioLogadoMB, float valorSeguroAntigo) {
 		this.programasBean =  new ProgramasBean();
 		this.venda = venda;
 		this.formaPagamento= formaPagamento;
 		this.orcamento = orcamento;
 		this.usuarioLogadoMB = usuarioLogadoMB;
+		this.valorSeguroAntigo = valorSeguroAntigo;
 	}
 	
 	public void SalvarAlteracaoFinanceiro(List<Parcelamentopagamento> listaParcelamentoPagamentoAntiga,
@@ -429,6 +432,20 @@ public class CadVoluntariadoBean {
 			venda = vendasFacade.salvar(venda);
 			seguroViagem.setIdvendacurso(venda.getIdvendas());
 		}
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(vendaSeguro, false);
+		dashBoardBean.calcularMetaMensal(vendaSeguro, valorSeguroAntigo, false);
+		dashBoardBean.calcularMetaAnual(vendaSeguro, valorSeguroAntigo, false);
+		int nNumeroSemana = 0;
+		if (voluntariado.isHabilitarCurso()) {
+			nNumeroSemana = voluntariado.getNumeroSemanas();
+		}
+		int[] pontos = dashBoardBean.calcularPontuacao(venda, nNumeroSemana, "",
+				false);
+		venda.setPonto(pontos[0]);
+		venda.setPontoescola(pontos[1]);
+		VendasFacade vendasFacade = new VendasFacade();
+		venda = vendasFacade.salvar(venda);
 		return vendaSeguro;
 	}
 
