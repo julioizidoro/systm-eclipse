@@ -352,7 +352,7 @@ public class EnviarEmail {
 	public void gerarCorpoOrcamento() {
 		for (int j = 0; j < listaDadosEscolas.size(); j++) {
 			corpoEmail = corpoEmail + " <div style=\"width:23%;float:left;\"> \n" 
-			+ "	<p style=\"font-size:13px;color:transparent;\">Local: Canadá Vancoucer</p>\n" 
+			+ "	<p style=\"font-size:13px;color:#ffffff;\">Local: Canadá Vancoucer</p>\n" 
 			+ "	</div>\n"
 			+ " <div style=\"width:23%;float:left;\">\n"  
 			+ "	<img src=\"http://"+ftpDados.getHost()+":82/ftproot/systm//paisemail/"+listaDadosEscolas.get(j).getIdpais()+".png"
