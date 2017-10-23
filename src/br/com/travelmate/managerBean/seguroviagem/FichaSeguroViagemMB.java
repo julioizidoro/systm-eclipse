@@ -1284,7 +1284,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	public void gerarListaTipoParcelamento() {
 		listaTipoParcelamento = new ArrayList<>();
-		if (vendas.getVendasMatriz().equalsIgnoreCase("S")) {
+		if (vendas.getVendasMatriz()!=null && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 			String tipoparcelamento = "Matriz";
 			listaTipoParcelamento.add(tipoparcelamento);
 			tipoparcelamento = "Fornecedor";
@@ -1321,7 +1321,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	public void verificarSeguroCancelamento() {
 		if(valoresseguro.isSegurocancelamento()) {
-			segurocancelamento = false;
+			segurocancelamento = true;
 			numero="4";
 		} else {
 			segurocancelamento = false;
