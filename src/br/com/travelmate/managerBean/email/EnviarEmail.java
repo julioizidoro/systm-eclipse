@@ -355,7 +355,7 @@ public class EnviarEmail {
 					+ ":82/ftproot/systm//paisemail/" + listaDadosEscolas.get(j).getIdpais() + ".png"
 					+ "\" width=\"185\" style=\"float:right;\"/>\n" + " </div></td><td>"
 					+ " <div  class=\"menu\" style=\"width:100%;margin-left:4%;text-align:left;LINE-HEIGHT:8px;\">  \n"
-					+ " <p style=\"font-size:13px;\">Local: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
+					+ " <p style=\"font-size:13px;\">Destino: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Instituição: " + listaDadosEscolas.get(j).getEscola() + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Curso: " + listaDadosEscolas.get(j).getTipoCurso() + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Data de Início: " + listaDadosEscolas.get(j).getDataInicio()
