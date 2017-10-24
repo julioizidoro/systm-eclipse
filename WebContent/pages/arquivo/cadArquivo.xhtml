@@ -39,13 +39,11 @@
 	            	<p:outputLabel value="Data Chegada no Brasil"/>
 	            	<p:calendar id="dataEmbarque" size="12" value="#{cadArquivoMB.dataembarque}"  locale="pt"
 						pattern="dd/MM/yyyy" mask="true" maxlength="15">
-						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" /> 
-						<p:ajax event="blur" />
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />  
 					</p:calendar>  
 	            	<p:calendar id="dataChegada" size="12" value="#{cadArquivoMB.datachegadabrasil}"  locale="pt"
 						pattern="dd/MM/yyyy" mask="true" maxlength="15" >
-						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />  
-						<p:ajax event="blur" />
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />   
 					</p:calendar>  
 	            </h:panelGrid>
 	        </h:panelGroup> 
