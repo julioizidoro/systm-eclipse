@@ -29,7 +29,7 @@
 				<p:commandButton id="bntAddproduto" icon="ui-icon-plus"
 					class="espacocobranca21botao"
 					style="font-size:12px;margin-left:-2.5%" value="Adicionar" update="cadastroProdutoOrcamento:dialog_cadastro" oncomplete="PF('cadastro').show()">
-					<p:ajax listener="#{cadProdutosOrcamentoMB.gerarListaProdutosOrcamento()}" />
+					<p:ajax listener="#{cadProdutosOrcamentoMB.gerarListaProdutosOrcamento1()}" />
 				</p:commandButton>
 			</div>
 			<p:dataTable id="tabelaProdutos" var="produtos"
