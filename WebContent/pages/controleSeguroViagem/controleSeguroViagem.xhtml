@@ -125,42 +125,42 @@
 									<img src="../../resources/img/ficharestricao.png" width="35" />
 								</p:commandLink>       
 							</p:column>   
-							<p:column headerText="ID Venda" style="width:65px;">
+							<p:column headerText="ID Venda" style="width:45px;">
 								<h:outputText value="#{financeiro.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
-								style="width:140px;">
+								style="width:130px;">
 								<h:outputText
 									value="#{financeiro.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
 								style="width:115px;">
 								<h:outputText  
-									value="#{financeiro.seguroviagem.valoresseguro.plano}" />
+									value="#{financeiro.seguroviagem.valoresseguro.seguroplanos.nome}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:110px;">   
+								style="width:90px;">   
 								<h:outputText value="#{financeiro.seguroviagem.controle}" />
 							</p:column>
-							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
-								style="width:80px;text-align:right">
+							<p:column headerText="Valor" styleClass="alinharCenter"
+								style="width:75px;text-align:right">
 								<h:outputText value="#{financeiro.seguroviagem.valorSeguro}">
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Início" style="width:90px;"
+							<p:column headerText="Início" style="width:80px;"  
 								styleClass="alinharCenter">
 								<h:outputText value="#{financeiro.seguroviagem.dataInicio}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
-							</p:column>
+							</p:column>   
 							<p:column headerText="Nº Dias"
-								style="width:70px;text-align:right">
+								style="width:65px;text-align:right">
 								<h:outputText value="#{financeiro.seguroviagem.numeroSemanas}" />
 							</p:column>
-							<p:column headerText="Fim" style="width:90px;"
+							<p:column headerText="Fim" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{financeiro.seguroviagem.dataTermino}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -170,12 +170,15 @@
 							<p:column headerText="Tipo" style="width:70px;text-align:left;">
 								<h:outputText value="#{controleSeguroMB.tipoSeguro(financeiro)}" />
 							</p:column>
-							<p:column headerText="Data Emissão" style="width:100px;"
+							<p:column headerText="Data Emissão" style="width:80px;"
 								styleClass="alinharCenter">
-								<h:outputText value="#{financeiro.dataemissao}">
+								<h:outputText value="#{financeiro.dataemissao}">  
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
+							</p:column>
+							<p:column headerText="Seguro Cancelamento" style="width:92px;text-align:center;">
+								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(financeiro)}.png" width="24" />
 							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
@@ -209,31 +212,31 @@
 									<img src="../../resources/img/amarelaFicha.png" width="35" />
 								</p:commandLink>
 							</p:column>
-							<p:column headerText="ID venda" style="width:70px;">
+							<p:column headerText="ID venda" style="width:63px;">
 								<h:outputText value="#{andamento.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
-								style="width:140px;">
+								style="width:130px;">
 								<h:outputText
 									value="#{andamento.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
-								style="width:120px;">
+								style="width:115px;">
 								<h:outputText
-									value="#{andamento.seguroviagem.valoresseguro.plano}" />
+									value="#{andamento.seguroviagem.valoresseguro.seguroplanos.nome}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:110px;">
+								style="width:90px;">
 								<h:outputText value="#{andamento.seguroviagem.controle}" />
 							</p:column>
-							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
-								style="width:80px;text-align:right">
+							<p:column headerText="Valor" styleClass="alinharCenter"
+								style="width:70px;text-align:right">
 								<h:outputText value="#{andamento.seguroviagem.valorSeguro}">  
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
-								</h:outputText>
+								</h:outputText>    
 							</p:column>
-							<p:column headerText="Início" style="width:90px;"
+							<p:column headerText="Início" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{andamento.seguroviagem.dataInicio}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -241,10 +244,10 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Nº Dias"
-								style="width:70px;text-align:right">
+								style="width:65px;text-align:right">
 								<h:outputText value="#{andamento.seguroviagem.numeroSemanas}" />
 							</p:column>
-							<p:column headerText="Fim" style="width:90px;"
+							<p:column headerText="Fim" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{andamento.seguroviagem.dataTermino}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -254,12 +257,15 @@
 							<p:column headerText="Tipo" style="width:70px;text-align:left;">
 								<h:outputText value="#{controleSeguroMB.tipoSeguro(andamento)}" />
 							</p:column>
-							<p:column headerText="Data Emissão" style="width:100px;"
+							<p:column headerText="Data Emissão" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{andamento.dataemissao}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
-								</h:outputText>
+								</h:outputText>   
+							</p:column>
+							<p:column headerText="Seguro Cancelamento" style="width:100px;text-align:center;">
+								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(andamento)}.png" width="24" />
 							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
@@ -301,22 +307,22 @@
 									value="#{finalizado.seguroviagem.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Plano" styleClass="alinharCenter"
-								style="width:120px;">    
+								style="width:100px;">    
 								<h:outputText
-									value="#{finalizado.seguroviagem.valoresseguro.plano}" />
+									value="#{finalizado.seguroviagem.valoresseguro.seguroplanos.nome}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:110px;">
+								style="width:90px;">
 								<h:outputText value="#{finalizado.seguroviagem.controle}" />
 							</p:column>
-							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
-								style="width:80px;text-align:right">
+							<p:column headerText="Valor" styleClass="alinharCenter"
+								style="width:70px;text-align:right">
 								<h:outputText value="#{finalizado.seguroviagem.valorSeguro}">
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Início" style="width:90px;"
+							<p:column headerText="Início" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{finalizado.seguroviagem.dataInicio}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -324,10 +330,10 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Nº Dias"
-								style="width:70px;text-align:right">
+								style="width:65px;text-align:right">
 								<h:outputText value="#{finalizado.seguroviagem.numeroSemanas}" />
 							</p:column>
-							<p:column headerText="Fim" style="width:90px;"
+							<p:column headerText="Fim" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{finalizado.seguroviagem.dataTermino}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -337,12 +343,15 @@
 							<p:column headerText="Tipo" style="width:70px;text-align:left;">
 								<h:outputText value="#{controleSeguroMB.tipoSeguro(finalizado)}" />
 							</p:column>
-							<p:column headerText="Data Emissão" style="width:100px;"
+							<p:column headerText="Data Emissão" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{finalizado.dataemissao}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
+							</p:column>
+							<p:column headerText="Seguro Cancelamento" style="width:100px;text-align:center;">
+								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(finalizado)}.png" width="24" />
 							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
@@ -375,7 +384,7 @@
 									<img src="../../resources/img/fichaCancelada.png" width="35" />
 								</p:commandLink>
 							</p:column>
-							<p:column headerText="ID venda" style="width:80px;">
+							<p:column headerText="ID venda" style="width:40px;">
 								<h:outputText value="#{cancelado.seguroviagem.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" styleClass="alinharCenter"
@@ -386,20 +395,20 @@
 							<p:column headerText="Plano" styleClass="alinharCenter"
 								style="width:120px;">
 								<h:outputText
-									value="#{cancelado.seguroviagem.valoresseguro.plano}" />
+									value="#{cancelado.seguroviagem.valoresseguro.seguroplanos.nome}" />
 							</p:column>
 							<p:column headerText="Produto" styleClass="alinharCenter"
-								style="width:120px;">
+								style="width:90px;">
 								<h:outputText value="#{cancelado.seguroviagem.controle}" />
 							</p:column>
-							<p:column headerText="Valor Bruto" styleClass="alinharCenter"
-								style="width:80px;text-align:right">
+							<p:column headerText="Valor" styleClass="alinharCenter"
+								style="width:70px;text-align:right">
 								<h:outputText value="#{cancelado.seguroviagem.valorSeguro}">
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Início" style="width:90px;"
+							<p:column headerText="Início" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cancelado.seguroviagem.dataInicio}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -407,10 +416,10 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Nº Dias"
-								style="width:70px;text-align:right">
+								style="width:65px;text-align:right">
 								<h:outputText value="#{cancelado.seguroviagem.numeroSemanas}" />
 							</p:column>
-							<p:column headerText="Fim" style="width:90px;"
+							<p:column headerText="Fim" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cancelado.seguroviagem.dataTermino}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
@@ -420,13 +429,16 @@
 							<p:column headerText="Tipo" style="width:70px;text-align:left;">
 								<h:outputText value="#{controleSeguroMB.tipoSeguro(cancelado)}" />
 							</p:column>
-							<p:column headerText="Data Emissão" style="width:100px;"
+							<p:column headerText="Data Emissão" style="width:80px;"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cancelado.dataemissao}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
+							<p:column headerText="Seguro Cancelamento" style="width:100px;text-align:center;">
+								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(cancelado)}.png" width="24" />
+							</p:column>  
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.buscarSeguro(cancelado)}"

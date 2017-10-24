@@ -16,15 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.ControleSeguroFacade;
-import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.ControleSeguroFacade; 
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controleseguro;
-import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Controleseguro; 
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -498,5 +496,12 @@ public class ControleSeguroMB implements Serializable {
 				listaVendasCancelada.add(listaControleSeguro.get(i));
 			}
 		}
+	}
+	
+	public String possuiSeguro(Controleseguro controleseguro) {
+		if(!controleseguro.getSeguroviagem().isSegurocancelamento()) {
+			return "iconeSApp";
+		}
+		return "iconeCheck";
 	}
 }
