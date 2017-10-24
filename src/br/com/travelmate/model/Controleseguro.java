@@ -57,6 +57,9 @@ public class Controleseguro implements Serializable {
     private Seguroviagem seguroviagem;
     @Transient
     private boolean selecionado;
+    @Column(name = "dataembarque")
+    @Temporal(TemporalType.DATE)
+    private Date dataembarque;
 
     public Controleseguro() {
     }
@@ -128,6 +131,14 @@ public class Controleseguro implements Serializable {
 
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
+	}
+
+	public Date getDataembarque() {
+		return dataembarque;
+	}
+
+	public void setDataembarque(Date dataembarque) {
+		this.dataembarque = dataembarque;
 	}
 
 	@Override

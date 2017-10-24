@@ -82,6 +82,9 @@ public class Controlevoluntariado implements Serializable {
     @Column(name = "dataembarque")
     @Temporal(TemporalType.DATE)
     private Date dataembarque;
+    @Column(name = "datachegadabrasil")
+    @Temporal(TemporalType.DATE)
+    private Date datachegadabrasil;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
@@ -245,6 +248,14 @@ public class Controlevoluntariado implements Serializable {
 
 	public void setStatusprocesso(String statusprocesso) {
 		this.statusprocesso = statusprocesso;
+	}
+
+	public Date getDatachegadabrasil() {
+		return datachegadabrasil;
+	}
+
+	public void setDatachegadabrasil(Date datachegadabrasil) {
+		this.datachegadabrasil = datachegadabrasil;
 	}
 
 	@Override

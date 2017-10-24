@@ -84,6 +84,9 @@ public class Controlecurso implements Serializable {
     private String obsvisto;
     @Column(name = "urgenciavisto")
     private boolean urgenciavisto;
+    @Column(name = "datachegadabrasil")
+    @Temporal(TemporalType.DATE)
+    private Date datachegadabrasil;
     
     public Controlecurso() {
     	docs="VM";
@@ -264,9 +267,16 @@ public class Controlecurso implements Serializable {
 
 	public void setUrgenciavisto(boolean urgenciavisto) {
 		this.urgenciavisto = urgenciavisto;
+	} 
+	
+	public Date getDatachegadabrasil() {
+		return datachegadabrasil;
 	}
 
-	
+	public void setDatachegadabrasil(Date datachegadabrasil) {
+		this.datachegadabrasil = datachegadabrasil;
+	}
+
 	@Override
     public int hashCode() {
         int hash = 0;
