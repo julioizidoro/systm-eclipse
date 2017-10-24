@@ -17,12 +17,14 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CartaoCreditoFacade;
+import br.com.travelmate.facade.CartaoCreditoLancamentoContasFacade;
 import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.PlanoContaFacade; 
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Cartaocredito;
 import br.com.travelmate.model.Cartaocreditolancamento;
+import br.com.travelmate.model.Cartaocreditolancamentocontas;
 import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Planoconta;
@@ -50,6 +52,9 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	private boolean habilitarValorRecorrente = true;
 	private boolean desabiltarMoeda = true;
 	private boolean habilitarMoeda = false;
+	private int mes;
+	private int ano;
+	private int nParcelas;
 
 	@PostConstruct
 	public void init() {
@@ -209,14 +214,27 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				lancarContasPagar();
 			}else{
 				CartaoCreditoLancamentoFacade cartaoCreditoFacade = new CartaoCreditoLancamentoFacade();
+				mes = Formatacao.getMesData(lancamento.getData()) + 1;
+				ano = Formatacao.getAnoData(lancamento.getData());
+				nParcelas = Integer.parseInt(lancamento.getNumeroparcelas());
 				lancamento.setCartaocredito(cartaocredito);
 				lancamento.setPlanoconta(planoconta);
 				lancamento.setUsuario(usuarioLogadoMB.getUsuario());
 				lancamento.setMoedas(moedas);
 				lancamento.setValorlancado(lancamento.getValorinformado() / Integer.parseInt(lancamento.getNumeroparcelas()));
+				if (Formatacao.getDiaData(lancamento.getData()) > lancamento.getCartaocredito().getDatafechamento()) {
+					mes = mes + 1;
+				}
+				String dataLancamento = "" + lancamento.getCartaocredito().getDatavencimento() + "/" + mes + "/"
+						+ ano;
+				lancamento.setData(Formatacao.ConvercaoStringData(dataLancamento));
+				lancamento.setNumeroparcelas(1 + "/" + lancamento.getNumeroparcelas());
 				lancamento = cartaoCreditoFacade.salvar(lancamento);
+				if (lancamento.isValorrecorrente()) {
+					gerarLancamentoRecorrente();
+				}
 				Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
-			}
+			} 
 			RequestContext.getCurrentInstance().closeDialog(null); 
 			return "";
 		} else {
@@ -255,39 +273,74 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	}
 	
 	
-	public void lancarContasPagar(){
-		if(lancamento.getLancado()){
+	public void lancarContasPagar() {
+		if (lancamento.getLancado()) {
 			Mensagem.lancarMensagemInfo("Contas a Pagar já está lançado!", "");
-		}else{
-			Contaspagar contaspagar = new Contaspagar();
-			contaspagar.setBanco(lancamento.getCartaocredito().getBanco());
-			String comp;
-			int mes = Formatacao.getMesData(lancamento.getData()); 
-			if(mes<10){
-				comp="0"+mes+"/"+Formatacao.getAnoData(lancamento.getData());
-			}else comp = mes+"/"+Formatacao.getAnoData(lancamento.getData());
-			contaspagar.setCompetencia(comp); 
-			contaspagar.setDataEmissao(new Date());
-			contaspagar.setDescricao(lancamento.getDescricao());
-			contaspagar.setPlanoconta(lancamento.getPlanoconta());
-			contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
-			contaspagar.setValorentrada(lancamento.getValorlancado());
-			contaspagar.setValorsaida(0.0f);
+		} else {
+				Contaspagar contaspagar = new Contaspagar();
+				contaspagar.setBanco(lancamento.getCartaocredito().getBanco());
+				String comp;
+				int mes = Formatacao.getMesData(lancamento.getData());
+				if (mes < 10) {
+					comp = "0" + mes + "/" + Formatacao.getAnoData(lancamento.getData());
+				} else
+					comp = mes + "/" + Formatacao.getAnoData(lancamento.getData());
+				contaspagar.setCompetencia(comp);
+				contaspagar.setDataEmissao(new Date());
+				contaspagar.setDescricao(lancamento.getDescricao());
+				contaspagar.setPlanoconta(lancamento.getPlanoconta());
+				contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
+				contaspagar.setValorentrada(lancamento.getValorlancado());
+				contaspagar.setValorsaida(0.0f);
+				contaspagar.setDatacompensacao(lancamento.getData());
+				contaspagar.setDatavencimento(lancamento.getData());
+				ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
+				contaspagar = contasPagarFacade.salvar(contaspagar);
+				lancamento.setLancado(true);
+				CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
+				lancamento = cartaoCreditoLancamentoFacade.salvar(lancamento);
+				CartaoCreditoLancamentoContasFacade cartaoCreditoLancamentoContasFacade = new CartaoCreditoLancamentoContasFacade();
+				Cartaocreditolancamentocontas cartaocreditolancamentocontas = new Cartaocreditolancamentocontas();
+				cartaocreditolancamentocontas.setCartaocreditolancamento(lancamento);
+				cartaocreditolancamentocontas.setContaspagar(contaspagar);
+				cartaocreditolancamentocontas = cartaoCreditoLancamentoContasFacade.salvar(cartaocreditolancamentocontas);
+				Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");
+		}
+	}
+	
+	public void gerarLancamentoRecorrente(){
+		CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
+		Cartaocreditolancamento lancamentoRecorrente;
+		Integer parcelas = 2;
+		for (int i = 0; i < nParcelas - 1; i++) {
 			mes = mes + 1;
-			if (Formatacao.getDiaData(new Date()) > lancamento.getCartaocredito().getDatafechamento()) {
-				mes = mes + 1;
+			if (mes > 12) {
+				mes = 1;
+				ano = ano + 1;
 			}
-			String  dataCompensacao = ""  +  lancamento.getCartaocredito().getDatavencimento() + "/" + mes + "/" + new Year();
+			String dataLancamento = "" + lancamento.getCartaocredito().getDatavencimento() + "/" + mes + "/"
+					+ ano;
+			lancamentoRecorrente = new Cartaocreditolancamento();
+			lancamentoRecorrente.setCartaocredito(lancamento.getCartaocredito());
+			lancamentoRecorrente.setConferido(lancamento.getConferido());
+			lancamentoRecorrente.setData(Formatacao.ConvercaoStringData(dataLancamento));
+			lancamentoRecorrente.setDescricao(lancamento.getDescricao());
+			lancamentoRecorrente.setEstabelecimento(lancamento.getEstabelecimento());
+			lancamentoRecorrente.setHabilitarmoeda(lancamento.isHabilitarmoeda());
+			lancamentoRecorrente.setMoedas(lancamento.getMoedas());
+			lancamentoRecorrente.setLancado(lancamento.getLancado());
+			lancamentoRecorrente.setNumeroparcelas(parcelas + "/" + nParcelas);
+			lancamentoRecorrente.setObservacao(lancamento.getObservacao());
+			lancamentoRecorrente.setPlanoconta(lancamento.getPlanoconta());
+			lancamentoRecorrente.setUsuario(lancamento.getUsuario());
+			lancamentoRecorrente.setValorcambio(lancamento.getValorcambio());
+			lancamentoRecorrente.setValorinformado(lancamento.getValorinformado());
+			lancamentoRecorrente.setValorlancado(lancamento.getValorlancado());
+			lancamentoRecorrente.setValorrecorrente(lancamento.isValorrecorrente());
+			cartaoCreditoLancamentoFacade.salvar(lancamentoRecorrente);
+			parcelas = parcelas + 1;
+
 			
-			contaspagar.setDatacompensacao(
-					Formatacao.ConvercaoStringData(dataCompensacao));
-			contaspagar.setDatavencimento(lancamento.getData());
-			ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
-			contaspagar = contasPagarFacade.salvar(contaspagar);
-			lancamento.setLancado(true);
-			CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
-			lancamento = cartaoCreditoLancamentoFacade.salvar(lancamento);
-			Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");
 		}
 	}
 	

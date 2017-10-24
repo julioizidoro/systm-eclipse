@@ -396,5 +396,4 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	}
 	
 	
-	
 }

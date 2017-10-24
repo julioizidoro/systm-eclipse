@@ -161,7 +161,7 @@
 							<h:outputText value="#{lancamento.descricao}" />
 						</p:column>
 						<p:column style="width:35px;text-align:center;">
-							<p:commandLink disabled="#{cartaoCreditoLancamentoMB.vefirificarBotaoEditar(lancamento)}"
+							<p:commandLink  disabled="#{lancamento.lancado}"
 								action="#{cartaoCreditoLancamentoMB.editar(lancamento)}" title="Editar" style="text-decoration: none" >  
 								<p:ajax event="dialogReturn" listener="#{cartaoCreditoLancamentoMB.gerarListaLancamentos()}" update=":consLancamentoCartao:tabelaCartaoCredito"/>
 								<img src="../../resources/img/editaricon.png" width="28"/>
@@ -169,7 +169,7 @@
 						</p:column> 
 						<p:column headerText="" style="width:35px;text-align:center;"
 							rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
-							<p:commandLink
+							<p:commandLink disabled="#{lancamento.lancado}" 
 								action="#{cartaoCreditoLancamentoMB.confirmarLancamentos(lancamento)}"
 								title="Confirmar lançamento" style="text-decoration: none"
 								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">
@@ -179,7 +179,7 @@
 						</p:column>   
 						<p:column headerText="" style="width:35px;text-align:center;"   
 							>
-							<p:commandLink
+							<p:commandLink disabled="#{lancamento.lancado}"
 								action="#{cartaoCreditoLancamentoMB.excluirLancamento(lancamento)}"
 								title="Excluir um lançamento" style="text-decoration: none"
 								update=":consLancamentoCartao:growl,:consLancamentoCartao:tabelaCartaoCredito">

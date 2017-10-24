@@ -2,7 +2,10 @@ package br.com.travelmate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -71,8 +76,13 @@ public class Cartaocreditolancamento implements Serializable {
     private boolean valorrecorrente;
     @Column(name = "habilitarmoeda")
     private boolean habilitarmoeda;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cartaocreditolancamento")
+    private List<Cartaocreditolancamentocontas> cartaocreditolancamentocontasList;
+    @Transient
+    private int idContasPagar;
 
     public Cartaocreditolancamento() {
+    	idContasPagar = 0;
     }
 
     public Cartaocreditolancamento(Integer idcartaocreditolancamento) {
@@ -213,6 +223,23 @@ public class Cartaocreditolancamento implements Serializable {
 
 	public void setHabilitarmoeda(boolean habilitarmoeda) {
 		this.habilitarmoeda = habilitarmoeda;
+	}
+
+	public List<Cartaocreditolancamentocontas> getCartaocreditolancamentocontasList() {
+		return cartaocreditolancamentocontasList;
+	}
+
+	public void setCartaocreditolancamentocontasList(
+			List<Cartaocreditolancamentocontas> cartaocreditolancamentocontasList) {
+		this.cartaocreditolancamentocontasList = cartaocreditolancamentocontasList;
+	}
+
+	public int getIdContasPagar() {
+		return idContasPagar;
+	}
+
+	public void setIdContasPagar(int idContasPagar) {
+		this.idContasPagar = idContasPagar;
 	}
 
 	@Override
