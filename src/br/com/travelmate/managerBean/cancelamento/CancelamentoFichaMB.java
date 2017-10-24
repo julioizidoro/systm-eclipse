@@ -217,6 +217,7 @@ public class CancelamentoFichaMB implements Serializable {
 				venda.setPontoescola(pontos[1]);
 				venda = vendasFacade.salvar(venda);
 				metaRunnersMB.carregarListaRunners();
+				emitirNotificacao();
 	
 				if ((venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) || 
 						(venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado())) {
@@ -277,13 +278,13 @@ public class CancelamentoFichaMB implements Serializable {
 						vendas.setPontoescola(pontos[1]);
 						vendas = vendasFacade.salvar(vendas);
 						metaRunnersMB.carregarListaRunners();
+						emitirNotificacao();
 					}
 				}
 			} 
 			if(venda1!=null){
 				cancelarVenda1();
 			}  
-			emitirNotificacao();
 			RequestContext.getCurrentInstance().closeDialog(null);
 			Mensagem.lancarMensagemInfo("Cancelamento Solicitado!", "");
 		}
