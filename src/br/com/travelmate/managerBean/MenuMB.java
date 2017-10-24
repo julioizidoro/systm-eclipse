@@ -1420,7 +1420,7 @@ public class MenuMB implements Serializable {
 	
 	public void retornoDialogPesquisaLancamentos(){
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/systm_eclipse/pages/cartaocreditolancamento/consPesquisaLancamentosCredito.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/inicio/pages/cartaocreditolancamento/consPesquisaLancamentosCredito.jsf");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
