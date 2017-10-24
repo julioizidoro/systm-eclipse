@@ -86,6 +86,9 @@ public class CadArquivoMB implements Serializable {
 	private List<String> listaNomeArquivo;
 	private List<UploadedFile> listaFile;
 	private List<Arquivos> listaArquivos;
+	private boolean camposbilhete=false;
+	private Date dataembarque;
+	private Date datachegadabrasil;
 
 	@PostConstruct
 	public void init() {
@@ -104,8 +107,7 @@ public class CadArquivoMB implements Serializable {
 		}
 		if (listaArquivos == null) {
 			listaArquivos = new ArrayList<Arquivos>();
-		}
-
+		} 
 	}
 
 	public FileUploadEvent getEx() {
@@ -218,6 +220,30 @@ public class CadArquivoMB implements Serializable {
 
 	public void setMetaRunnersMB(MateRunnersMB metaRunnersMB) {
 		this.metaRunnersMB = metaRunnersMB;
+	}
+
+	public boolean isCamposbilhete() {
+		return camposbilhete;
+	}
+
+	public void setCamposbilhete(boolean camposbilhete) {
+		this.camposbilhete = camposbilhete;
+	}
+
+	public Date getDataembarque() {
+		return dataembarque;
+	}
+
+	public void setDataembarque(Date dataembarque) {
+		this.dataembarque = dataembarque;
+	}
+
+	public Date getDatachegadabrasil() {
+		return datachegadabrasil;
+	}
+
+	public void setDatachegadabrasil(Date datachegadabrasil) {
+		this.datachegadabrasil = datachegadabrasil;
 	}
 
 	public void gerarListaTipoArquivo() {
@@ -1166,5 +1192,12 @@ public class CadArquivoMB implements Serializable {
 				avisousuario = avisosFacade.salvar(avisousuario);
 			}
 		}
+	}
+	
+	public void habilitarCambosBilhete() {
+		if(tipoarquivo!=null && tipoarquivo.getIdtipoarquivoproduto()!=null &&
+				tipoarquivo.getTipoarquivo().getIdtipoArquivo()==4) {
+			camposbilhete=true;
+		}else camposbilhete=false;
 	}
 }
