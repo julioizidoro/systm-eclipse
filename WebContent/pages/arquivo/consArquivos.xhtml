@@ -23,7 +23,7 @@
                       	 <p:commandButton value="Voltar" icon="ui-icon-arrowreturn-1-w" action="#{arquivoMB.voltarTela()}"  style="font-size:12px;width:67px;"/>
 		                 <p:commandButton rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.enviaremail}" value="Enviar E-mail" icon="ui-icon-mail-closed" action="#{arquivoMB.gerarListaSelecionada()}"  style="font-size:12px;width:111px;"/>
                    	 	 <p:commandButton value="Novo Arquivo" icon="ui-icon-plus" action="#{arquivoMB.novoArquivo()}"  style="font-size:12px;width:117px;">
-	                     	<p:ajax listener="#{arquivoMB.retornoDialog}" event="dialogReturn" update="tabelaConsultaArquivos"/>
+	                     	<p:ajax listener="#{arquivoMB.retornoDialog}" event="dialogReturn" update="tabelaConsultaArquivos, growl"/>
 	                     </p:commandButton>
 	                  </h:panelGrid> 
 	                  <h:panelGroup id="painelkitviagem" rendered="#{arquivoMB.rendererBotaoKitiViagem()}" style="margin-left:2.7%;">

@@ -29,6 +29,7 @@ import br.com.travelmate.facade.ArquivosKitViagemFacade;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -40,6 +41,7 @@ import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Tipoarquivo;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Usuario;
@@ -307,11 +309,17 @@ public class ArquivoMB implements Serializable {
 		if (event.getObject() instanceof Arquivos) {
 			Arquivos arquivos = (Arquivos) event.getObject();
 			if (arquivos.getIdarquivos() != null) {
+				
 				Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 				listarArquivos = (List<Arquivos>) session.getAttribute("listaArquivos");
 				session.removeAttribute("listaArquivos");
+				String msg = (String) session.getAttribute("msgBilhete");
+				session.removeAttribute("msgBilehte");
+				if (msg.length()>0) {
+					Mensagem.lancarMensagemInfo("Atenção","Data de vigencia do SEGURO VIAGEM esta em desacordo com data do Bilhete aéreo");
+				}
 			}
 		}
 	}
@@ -489,5 +497,7 @@ public class ArquivoMB implements Serializable {
 			desabilitarEdicaoArquivo = false;
 		}
 	}
+	
+	
 
 }

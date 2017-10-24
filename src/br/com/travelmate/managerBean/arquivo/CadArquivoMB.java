@@ -32,11 +32,13 @@ import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
 import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
@@ -44,17 +46,21 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
+import br.com.travelmate.model.Controlecurso;
+import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Regravenda;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Usuariopontos;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -327,10 +333,16 @@ public class CadArquivoMB implements Serializable {
 			if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 				if (aplicacaoMB.getParametrosprodutos().getCursos() == idproduto) {
 					verificarDocumentosCursos();
+					if (validarBilheteAereo()) {
+						validarSeguroViagem();
+					}
 				} else if (aplicacaoMB.getParametrosprodutos().getHighereducation() == idproduto) {
 					verificarDocumentosHE();
 				} else if (aplicacaoMB.getParametrosprodutos().getVoluntariado() == idproduto) {
 					verificarDocumentosVoluntariado();
+					if (validarBilheteAereo()) {
+						validarSeguroViagem();
+					}
 				} else if (aplicacaoMB.getParametrosprodutos().getAupair() == idproduto) {
 					verificarDocumentosAupair();
 				} else if (aplicacaoMB.getParametrosprodutos().getDemipair() == idproduto) {
@@ -343,6 +355,10 @@ public class CadArquivoMB implements Serializable {
 					verificarDocumentosHighSchool();
 				} else if (aplicacaoMB.getParametrosprodutos().getProgramasTeens() == idproduto) {
 					verificarDocumentosCursosTeens();
+				}else if (aplicacaoMB.getParametrosprodutos().getSeguroPrivado() == idproduto) {
+					if (validarBilheteAereo()) {
+						validarSeguroViagem();
+					}
 				}
 			} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				if ((tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58)
@@ -350,8 +366,10 @@ public class CadArquivoMB implements Serializable {
 					dataRecebimentoInvoice();
 				}
 			}
+			
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("msgBilhete", "");
 			session.setAttribute("listaArquivos", listaArquivos);
 			RequestContext.getCurrentInstance().closeDialog(arquivos);
 		} else {
@@ -1199,5 +1217,60 @@ public class CadArquivoMB implements Serializable {
 				tipoarquivo.getTipoarquivo().getIdtipoArquivo()==4) {
 			camposbilhete=true;
 		}else camposbilhete=false;
+	}
+	
+	public void validarSeguroViagem() {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+		boolean possuiSeguro = false;
+		if (seguroviagem == null) {
+			seguroviagem = seguroViagemFacade.consultar(vendas.getIdvendas());
+			if (seguroviagem == null) {
+				possuiSeguro = false;
+			} else if (seguroviagem.getPossuiSeguro().equalsIgnoreCase("Não")) {
+				possuiSeguro = false;
+			} else
+				possuiSeguro = true;
+		} else if (seguroviagem.getPossuiSeguro().equalsIgnoreCase("Não")) {
+			possuiSeguro = false;
+		} else possuiSeguro = true;
+		if (possuiSeguro) {
+			if ((!seguroviagem.getDataInicio().after(this.dataembarque))
+					|| (!seguroviagem.getDataTermino().before(this.datachegadabrasil))) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("msgBilhete", "lancar");
+			} else {
+				seguroviagem.getControleseguro().setDataembarque(this.getDataembarque());
+				seguroViagemFacade.salvarControle(seguroviagem.getControleseguro());
+				if (seguroviagem.getControle().equalsIgnoreCase("Curso")) {
+					CursoFacade cursoFacade = new CursoFacade();
+					Controlecurso controle = cursoFacade.consultarControleCursos(vendas.getIdvendas());
+					if (controle != null) {
+						controle.setDatachegadabrasil(this.datachegadabrasil);
+						controle.setDataEmbarque(this.dataembarque);
+						cursoFacade.salvar(controle);
+					}
+				} else if (seguroviagem.getControle().equalsIgnoreCase("Voluntariado")) {
+					VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+					Controlevoluntariado controle = voluntariadoFacade.consultarControle(vendas.getIdvendas());
+					if (controle != null) {
+						controle.setDatachegadabrasil(this.datachegadabrasil);
+						controle.setDataembarque(this.dataembarque);
+						voluntariadoFacade.salvar(controle);
+					}
+				}
+			}
+		}
+
+	}
+	
+	public boolean validarBilheteAereo() {
+		for (int i = 0; i < listaArquivos.size(); i++) {
+			if (listaArquivos.get(i).getTipoarquivo().getIdtipoArquivo() == 4) {
+				return true;
+			} 
+		}
+		return false;
 	}
 }
