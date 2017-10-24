@@ -3520,7 +3520,7 @@ public class CadCursoMB implements Serializable {
 	
 	public void verificarSeguroCancelamento() {
 		if(seguroViagem.getValoresseguro().isSegurocancelamento()) {
-			segurocancelamento = false; 
+			segurocancelamento = true; 
 		} else {
 			segurocancelamento = false; 
 		}
