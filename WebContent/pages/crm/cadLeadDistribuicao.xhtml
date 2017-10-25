@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadLead"
+		style="text-align:left;font-size: 10px; margin-left:2%; ">
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<title>CADASTRO NOVO LEAD</title>
+		<div align="right" style="width: 93%;">
+			<h:panelGroup id="painelCliente" rendered="#{cadLeadDistribuicaoMB.pesquisanome}">
+				<p:inputText id="buscarCliente" placeholder="BUSCAR CLIENTE"
+					value="#{cadLeadDistribuicaoMB.nomeCliente}" style="width:35%;">
+					<p:ajax event="keyup" listener="#{cadLeadDistribuicaoMB.buscarCliente()}"
+						update="tabelaCliente" />
+				</p:inputText>
+				<p:commandLink id="btnTelefone" title="Pesquisa por telefone do cliente."
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+					action="#{cadLeadDistribuicaoMB.mudarPesquisa()}" update="@form" style="text-decoration:none;">
+					<img src="../../resources/img/crm/pesquisatelefone.png" />
+				</p:commandLink> 
+			</h:panelGroup>
+			<h:panelGroup id="painelTelefone" rendered="#{cadLeadDistribuicaoMB.pesquisatelefone}">
+				<p:inputMask id="buscarTelefone"  mask="(99)99999-9999"
+					value="#{cadLeadDistribuicaoMB.nomeCliente}" style="width:20%;">
+					<p:ajax event="keyup" listener="#{cadLeadDistribuicaoMB.buscarTelefone()}"
+						update="tabelaClienteFone" />
+				</p:inputMask>
+				<p:commandLink id="btnNomeCliente" title="Pesquisa por nome ou e-mail do cliente." 
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+					action="#{cadLeadDistribuicaoMB.mudarPesquisa()}" update="@form" style="text-decoration:none;">
+					<img src="../../resources/img/crm/pesquisanomecliente.png" />
+				</p:commandLink>  
+			</h:panelGroup>  
+		</div>
+		<p:overlayPanel id="painelClienteTelefone" for="buscarTelefone"
+			hideEffect="fade" style="width:400px;background:#fff;">
+			<p:dataScroller id="tabelaClienteFone" var="cliente"
+				value="#{cadLeadDistribuicaoMB.listaCliente}" chunkSize="10" mode="inline"
+				scrollHeight="110">
+				<p:outputPanel>    
+					<h:panelGrid columns="3" style="width:100%;"
+						columnClasses="tamanhoavisos2, tamanhoavisos2, tamanho6">
+						<h:outputLabel value="#{cliente.nome}"
+							style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+						<h:outputLabel value="#{cliente.foneCelular}"
+							style="font-size: 13px;color:#4C4C4C;font-weight: 500;float:right;" />
+						<p:commandLink id="btnSelecionarCliente"
+							action="#{cadLeadDistribuicaoMB.selecionarCliente(cliente)}"
+							onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+							style="float:right;" title="Selecionar Cliente" update="@form">
+							<img src="../../resources/img/crm/confirmar.png" width="22" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dataScroller> 
+		</p:overlayPanel>
+		<p:overlayPanel id="painelAdicionar" for="buscarCliente"
+			hideEffect="fade" style="width:400px;background:#fff;">
+			<p:dataScroller id="tabelaCliente" var="cliente"
+				value="#{cadLeadDistribuicaoMB.listaCliente}" chunkSize="10" mode="inline"
+				scrollHeight="110">
+				<p:outputPanel>    
+					<h:panelGrid columns="3" style="width:100%;"
+						columnClasses="tamanhoavisos2, tamanhoavisos2, tamanho6">
+						<h:outputLabel value="#{cliente.nome}"
+							style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+						<h:outputLabel value="#{cliente.email}"
+							style="font-size: 13px;color:#4C4C4C;font-weight: 500;float:right;" />
+						<p:commandLink id="btnSelecionarCliente"
+							action="#{cadLeadDistribuicaoMB.selecionarCliente(cliente)}" 
+							onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+							style="float:right;" title="Selecionar Cliente" update="@form">
+							<img src="../../resources/img/crm/confirmar.png" width="22" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dataScroller> 
+		</p:overlayPanel>
+		<br></br>
+		<h:panelGrid columns="2"
+			columnClasses="tamanhonotificacao2, tamanhonotificacao2"
+			style="width:95%;margin-left:3%;">
+			<p:outputLabel value="Email" for="email" />
+			<p:outputLabel value="Unidade" for="unidade" />
+
+			<p:inputText id="email" style="width:90%;"
+				value="#{cadLeadDistribuicaoMB.cliente.email}">
+				<p:ajax event="blur" listener="#{cadLeadDistribuicaoMB.validarEmail()}"
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+					update="nome, unidade, telefone, consultor, origem, :cadLead:growl" />
+			</p:inputText> 
+			<p:selectOneMenu id="unidade" value="#{cadLeadDistribuicaoMB.unidadenegocio}"
+				disabled="#{cadLeadDistribuicaoMB.desabilitarUnidade}" style="width:90%;"
+				filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+				converter="UnidadeNegocioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{cadLeadDistribuicaoMB.listaUnidadeNegocio}"
+					var="unidade" itemLabel="#{unidade.nomerelatorio}"
+					itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{cadLeadDistribuicaoMB.listaUnidadeNegocio}" />
+				<p:ajax event="change" listener="#{cadLeadDistribuicaoMB.gerarListaConsultor()}"
+					update="consultor" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Nome" for="telefone" />
+			<p:outputLabel value="Consultor" for="consultor" />
+
+			<p:inputText id="nome" style="width:90%;"
+				value="#{cadLeadDistribuicaoMB.cliente.nome}" /> 
+			<p:selectOneMenu id="consultor" value="#{cadLeadDistribuicaoMB.consultor}"
+				style="width:90%;" filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px" converter="UsuarioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{cadLeadDistribuicaoMB.listaConsultor}" var="usuario"
+					itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+				<f:attribute name="listaUsuario" value="#{cadLeadDistribuicaoMB.listaConsultor}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Telefone" for="email" />
+			<p:outputLabel value="Origem" for="origem" />
+
+			<p:inputMask id="telefone" mask="(99)99999-9999" style="width:90%;"
+				value="#{cadLeadDistribuicaoMB.cliente.foneCelular}" />
+			<p:selectOneMenu id="origem" value="#{cadLeadDistribuicaoMB.publicidade}"
+				style="width:90%;" filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px" converter="PublicidadeConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idPublicidade"
+					value="#{cadLeadDistribuicaoMB.listaPublicidades}" var="publicidade"
+					itemLabel="#{publicidade.descricao}" itemValue="#{publicidade}" />
+				<f:attribute name="listaPublicidade"
+					value="#{cadLeadDistribuicaoMB.listaPublicidades}" />
+			</p:selectOneMenu>
+
+			
+		</h:panelGrid><br/>
+		<h:panelGrid columns="1" style="width:95%;margin-left:3%;">  
+			<p:outputLabel value="Notas"/>  
+			<p:inputTextarea value="#{cadLeadDistribuicaoMB.lead.notas}" placeholder="Informe uma descrição..."
+				style="width:95%;background: #ffffff;font-size:13px;color:#4C4C4C;"
+				id="notas" rows="4" />      
+		</h:panelGrid>       
+		<h:panelGroup id="mensagemClienteCadastro"
+			rendered="#{cadLeadDistribuicaoMB.lead.jaecliente}">
+			<div style="margin-left: 2.5%; margin-top: 0.5%;">
+				<img src="../../resources/img/crm/atencao.png" width="20" />
+				<p:outputLabel id="mensagemAtencao"
+					style="margin-left:1%;color:#333333;font-style: italic;"
+					value="#{cadLeadDistribuicaoMB.mensagem}" />
+			</div>
+		</h:panelGroup>
+		<br></br>
+		<div align="center">
+			<p:commandButton value="Confirmar" icon="ui-icon-check"
+				action="#{cadLeadDistribuicaoMB.salvar()}" update="growl" style="font-size:12px;"/>
+			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
+				value="Cancelar" action="#{cadLeadDistribuicaoMB.fechar()}" /> 
+		</div>   
+		<br></br> 
+		<div style="margin-top: 20px; background: #ffffff;"> 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:commandLink>
+					<img src="../../resources/img/ajax-loader.gif" />
+				</p:commandLink>
+			</p:dialog>           
+		</div> 
+	</h:form>
+</h:body>
+</html>
