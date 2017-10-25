@@ -29,6 +29,21 @@
 				</h:panelGrid>    
 				<br></br>
 				<h:panelGrid style="width:98%;margin-left:0.5%;" columns="1">
+				<h:panelGroup id="leadControle" rendered="#{leadMB.habilitarDadosLead}"> 
+					<br /> <b style="font-size: 12px; margin-left: 0.5%; color: #000;">
+						<p:outputLabel value="N° Últimos leads: #{leadMB.leadcontrole.numeroleads}"/>
+					</b>
+ 					<b style="font-size: 12px; margin-left: 2.3%; color: #000;">
+ 						<p:outputLabel value="Data: "/>
+ 						<p:outputLabel value="#{leadMB.leadcontrole.data}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:outputLabel>
+						</b>  
+ 					<b style="font-size: 12px; margin-left: 2.3%; color: #000;">
+ 						<p:outputLabel value="Hora: #{leadMB.leadcontrole.hora}"/>
+ 					</b>
+ 				</h:panelGroup>
 					<p:dataTable id="tabelaLeads" var="lead"
 						value="#{leadMB.listaLead}" style="font-size:11px;"
 						scrollable="true" scrollHeight="400" editable="true"

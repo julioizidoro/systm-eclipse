@@ -15,13 +15,15 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
- 
+
+import br.com.travelmate.facade.LeadControleFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade; 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Leadcontrole;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Unidadenegocio; 
 
@@ -40,6 +42,8 @@ public class LeadMB implements Serializable {
 	private List<Lead> listaLead;
 	private boolean acessomaster = false;
 	private boolean acessounidade = true;
+	private Leadcontrole leadcontrole;
+	private boolean habilitarDadosLead = false;
 
 	@PostConstruct()
 	public void init() {
@@ -47,6 +51,10 @@ public class LeadMB implements Serializable {
 		unidadenegocio = new Unidadenegocio();
 		gerarListaUnidadeNegocio();
 		gerarListaLead();
+		buscarUltimoLeadControle();
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+			habilitarDadosLead = true;
+		}
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -96,6 +104,22 @@ public class LeadMB implements Serializable {
 
 	public void setAcessounidade(boolean acessounidade) {
 		this.acessounidade = acessounidade;
+	}
+
+	public Leadcontrole getLeadcontrole() {
+		return leadcontrole;
+	}
+
+	public void setLeadcontrole(Leadcontrole leadcontrole) {
+		this.leadcontrole = leadcontrole;
+	}
+
+	public boolean isHabilitarDadosLead() {
+		return habilitarDadosLead;
+	}
+
+	public void setHabilitarDadosLead(boolean habilitarDadosLead) {
+		this.habilitarDadosLead = habilitarDadosLead;
 	}
 
 	public void gerarListaUnidadeNegocio() {
@@ -197,4 +221,17 @@ public class LeadMB implements Serializable {
 		}
 		return cliente.getFoneResidencial();
 	}
+	
+	public void buscarUltimoLeadControle(){
+		LeadControleFacade leadControleFacade = new LeadControleFacade();
+		String sql = "SELECT l FROM Leadcontrole l WHERE l.idleadcontrole= (SELECT MAX(le.idleadcontrole) From Leadcontrole le)";
+		leadcontrole = leadControleFacade.consultar(sql);
+		if (leadcontrole == null) {
+			leadcontrole = new Leadcontrole();
+		}   
+	}  
+	
+	   
+	   
+	
 }
