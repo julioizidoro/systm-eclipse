@@ -2392,23 +2392,19 @@ public class CadCursoMB implements Serializable {
 	public void calcularDataTermino() {
 		if (cliente != null) {
 			int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
-			if (seguroViagem.getValoresseguro().isAdiconal70()) {
-				if (idadeCliente >= 70) {
-					dataTermino70anos();
+			if ((idadeCliente < seguroplanos.getIdademinima()) || (idadeCliente>= seguroplanos.getIdademaxima()) ) {
 					Mensagem.lancarMensagemInfo("Atenção",
-							"aplica-se aumento de 50 % no valor do seguro para clientes acima de 70 anos!");
-				} else {
-					dataTermino();
-				}
+							"emissão não permitida para cliente com " + idadeCliente + " anos");
 			} else {
-				if (seguroViagem.getValoresseguro().getIdadelimite()>0 && idadeCliente>seguroViagem.getValoresseguro().getIdadelimite()) {
-					Mensagem.lancarMensagemErro("Atenção", "Cliente acima da idade permitida!");
-				} else {
-					dataTermino();
+				if (seguroViagem.getNumeroSemanas()>0) {
+					if (seguroViagem.getNumeroSemanas()< seguroplanos.getDiasemissaominima()) {
+						Mensagem.lancarMensagemInfo("Atenção",
+								"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
+					}
 				}
+				dataTermino();
 			}
-		} else
-			Mensagem.lancarMensagemErro("Atenção", "Cliente não selecionado");
+		} else 	Mensagem.lancarMensagemErro("Atenção", "Cliente não selecionado");
 	}
 
 	public void dataTermino() {

@@ -63,9 +63,7 @@ public class Valoresseguro implements Serializable {
     private String tarifario;
     @Column(name = "adiconal70")
     private boolean adiconal70;
-    @Column(name = "idadelimite")
-    private int idadelimite;
-    @JoinColumn(name = "seguroplanos_idseguroplanos", referencedColumnName = "idseguroplanos")
+     @JoinColumn(name = "seguroplanos_idseguroplanos", referencedColumnName = "idseguroplanos")
     @ManyToOne(optional = false)
     private Seguroplanos seguroplanos;
     @Column(name = "segurocancelamento")
@@ -182,14 +180,6 @@ public class Valoresseguro implements Serializable {
 
 	public void setAdiconal70(boolean adicional70) {
 		this.adiconal70 = adicional70;
-	}
-
-	public int getIdadelimite() {
-		return idadelimite;
-	}
-
-	public void setIdadelimite(int idadelimite) {
-		this.idadelimite = idadelimite;
 	}
 
 	public Seguroplanos getSeguroplanos() {
