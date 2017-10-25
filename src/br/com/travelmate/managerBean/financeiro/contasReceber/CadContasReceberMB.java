@@ -152,10 +152,8 @@ public class CadContasReceberMB implements Serializable{
         if (conta.getIdcontasreceber() != null) {
 	        if (conta.getCrmcobrancaconta() != null) {
 	        	if (dataVencimentoOriginal.before(conta.getDatavencimento())) {
-	    			if (conta.getDatavencimento().after(new Date())) {
-	    				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
-	    				crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
-	    			}
+	    			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+	    			crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
 				}
 			}
 		}
