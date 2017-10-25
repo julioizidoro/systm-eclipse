@@ -183,6 +183,14 @@
 							<p:column headerText="Seguro Canc." style="width:55px;text-align:center;">
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(financeiro)}.png" width="24" />
 							</p:column>
+							<p:column headerText="Imprimir" style="width:55px;text-align:center;">
+								<p:commandLink action="#{controleSeguroMB.imprimirFicha(financeiro.seguroviagem)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink> 
+							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(financeiro)}" style="font-size:12px;">
@@ -267,6 +275,14 @@
 							</p:column>
 							<p:column headerText="Seguro Canc." style="width:55px;text-align:center;">
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(andamento)}.png" width="24" />
+							</p:column>
+							<p:column headerText="Imprimir" style="width:55px;text-align:center;">
+								<p:commandLink action="#{controleSeguroMB.imprimirFicha(andamento.seguroviagem)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink> 
 							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
@@ -353,6 +369,14 @@
 							<p:column headerText="Seguro Canc." style="width:55px;text-align:center;">
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(finalizado)}.png" width="24" />
 							</p:column>
+							<p:column headerText="Imprimir" style="width:55px;text-align:center;">
+								<p:commandLink action="#{controleSeguroMB.imprimirFicha(finalizado.seguroviagem)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink> 
+							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(finalizado)}" style="font-size:12px;">
@@ -438,6 +462,14 @@
 							<p:column headerText="Seguro Canc." style="width:55px;text-align:center;">
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(cancelado)}.png" width="24" />
 							</p:column>  
+							<p:column headerText="Imprimir" style="width:55px;text-align:center;">
+								<p:commandLink action="#{controleSeguroMB.imprimirFicha(cancelado.seguroviagem)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink> 
+							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(cancelado)}" style="font-size:12px;">
@@ -523,6 +555,14 @@
 							<p:column headerText="Seguro Canc." style="width:55px;text-align:center;">
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(seguroCancelamento)}.png" width="24" />
 							</p:column>  
+							<p:column headerText="Imprimir" style="width:55px;text-align:center;">
+								<p:commandLink action="#{controleSeguroMB.imprimirFicha(seguroCancelamento.seguroviagem)}"
+									title="Ficha"
+									ajax="false" target="_blank"
+									style="width:25px;"> 
+									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
+								</p:commandLink> 
+							</p:column>
 							<p:column style="width:70px;text-align:left;">
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(seguroCancelamento)}" style="font-size:12px;">

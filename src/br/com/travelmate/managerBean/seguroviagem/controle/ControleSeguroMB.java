@@ -1,6 +1,10 @@
 package br.com.travelmate.managerBean.seguroviagem.controle;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,26 +12,37 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.ControleSeguroFacade; 
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.ControleSeguroFacade;
+import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controleseguro; 
+import br.com.travelmate.model.Controleseguro;
+import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarRelatorio;
+import net.sf.jasperreports.engine.JRException;
 
 @Named
 @ViewScoped
@@ -577,7 +592,7 @@ public class ControleSeguroMB implements Serializable {
 			Vendas vendas = vendasFacade.consultarVendas(controleseguro.getSeguroviagem().getIdvendacurso());
 			session.setAttribute("vendas", vendas);
 		} 
-		RequestContext.getCurrentInstance().openDialog("cadArquivos", options, null); 
+		RequestContext.getCurrentInstance().openDialog("cadArquivo", options, null); 
 		return "";
 	}
 	
@@ -605,6 +620,43 @@ public class ControleSeguroMB implements Serializable {
 				listaControleSeguro.get(i).setDataemissao(data);
 				controleSeguroFacade.salvarControle(listaControleSeguro.get(i));
 			}
+		}
+	}
+	
+	public void imprimirFicha(Seguroviagem seguro) {
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+				.getContext();
+		String caminhoRelatorio;
+		if (seguro.getIdvendacurso() > 0) {
+			caminhoRelatorio = ("/reports/seguro/FichaSeguroCursoPagina01.jasper");
+		} else {
+			caminhoRelatorio = ("/reports/seguro/FichaSeguroPagina01.jasper");
+		}
+		Map parameters = new HashMap();
+		try {
+			if(seguro.getIdvendacurso()>0){
+				CursoFacade cursoFacade = new CursoFacade();
+				Curso curso = cursoFacade.consultarCursos(seguro.getIdvendacurso());
+				if(curso!=null){
+					seguro.setNomeContatoEmergencia(curso.getNomeContatoEmergencia());
+					seguro.setFoneContatoEmergencia(curso.getFoneContatoEmergencia());
+					seguro.setPaisDestino(curso.getPais());
+					SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+					seguro = seguroViagemFacade.salvar(seguro);
+				}
+			}
+			parameters.put("idvendas", seguro.getVendas().getIdvendas());
+			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
+			BufferedImage logo = ImageIO.read(f);
+			parameters.put("logo", logo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		GerarRelatorio gerarRelatorioContrato = new GerarRelatorio();
+		try {
+			gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "fichaSeguroViagem", null);
+		} catch (JRException | IOException | SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }
