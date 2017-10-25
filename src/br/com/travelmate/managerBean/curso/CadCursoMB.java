@@ -191,6 +191,7 @@ public class CadCursoMB implements Serializable {
 	private Seguroplanos seguroplanos;
 	private boolean segurocancelamento=false;
 	private boolean desabilitarAlergiaAlimento = true;
+	private float valorAlterarSeguro = 0.0f;
 
 	@PostConstruct()
 	public void init() {
@@ -1187,7 +1188,8 @@ public class CadCursoMB implements Serializable {
 			ContasReceberBean contasReceberBean = new ContasReceberBean();
 			if (venda.getIdvendas()!=null){
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), venda.getIdvendas(), usuarioLogadoMB);
+					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), venda.getIdvendas(), usuarioLogadoMB,
+							formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
 				}
 			}
 			formaPagamento.getParcelamentopagamentoList().remove(linha);
@@ -1244,11 +1246,16 @@ public class CadCursoMB implements Serializable {
 				Mensagem.lancarMensagemWarn("Data Vencimento", "Data da ultima parcela dos "
 						+ parcelamento.getFormaPagamento() + " é maior que data início do Curso");
 			}
+
 			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			if (venda.getIdvendas()!=null){
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
 					contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+//					FacesContext fc = FacesContext.getCurrentInstance();
+//					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//					parcelamento = (Parcelamentopagamento) session.getAttribute("parcelamento");
+//					session.removeAttribute("parcelamento");
 				}
 			}
 			calcularParcelamentoPagamento();
@@ -1865,6 +1872,38 @@ public class CadCursoMB implements Serializable {
 						metaRunnersMB.carregarListaRunners();
 					}
 				}
+			}else {
+				int mes = Formatacao.getMesData(new Date()) + 1;
+				int mesVenda = Formatacao.getMesData(vendaSeguro.getDataVenda()) + 1;
+					if (enviarFicha) {
+						if (mes == mesVenda) {
+							dashBoardMB.getMetamensal()
+									.setValoralcancado((dashBoardMB.getMetamensal().getValoralcancado()
+											- valorAlterarSeguro) + vendaSeguro.getValor());
+							dashBoardMB.getMetamensal()
+									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
+											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
+							dashBoardMB.getMetaAnual().setMetaalcancada((dashBoardMB.getMetaAnual().getMetaalcancada()
+									- valorAlterarSeguro) + vendaSeguro.getValor());
+							dashBoardMB.getMetaAnual()
+									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
+											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
+							dashBoardMB.setMetaparcialsemana((
+									dashBoardMB.getMetaparcialsemana() - valorAlterarSeguro) + vendaSeguro.getValor());
+							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
+									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
+							float valor = dashBoardMB.getMetamensal().getValoralcancado();
+							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+							dashBoardBean.calcularMetaMensal(vendaSeguro, valorAlterarSeguro, false);
+							dashBoardBean.calcularMetaAnual(vendaSeguro, valorAlterarSeguro, false);
+							int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false);
+							vendaSeguro.setPonto(pontos[0]);
+							vendaSeguro.setPontoescola(pontos[1]);
+							vendaSeguro = vendasFacade.salvar(vendaSeguro);
+							metaRunnersMB.carregarListaRunners();
+						}
+						
+					}
 			}
 		}
 		return vendaSeguro;
@@ -2728,7 +2767,7 @@ public class CadCursoMB implements Serializable {
 			listarPlanosSeguro();
 			seguroplanos = seguroViagem.getValoresseguro().getSeguroplanos();
 			listarValoresSeguro();
-			valorVendaAlterar = valorVendaAlterar + seguroViagem.getValorSeguro();
+			valorAlterarSeguro = seguroViagem.getValorSeguro();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");
