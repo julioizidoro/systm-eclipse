@@ -119,6 +119,8 @@ public class Contasreceber implements Serializable {
     @Column(name = "datanovovencimento")
     @Temporal(TemporalType.DATE)
     private Date datanovovencimento;
+    @Column(name = "idparcelamentopagamento")
+    private Integer idparcelamentopagamento;
 
     public Contasreceber() {
     	setCodigoocorrencia("00");
@@ -384,6 +386,14 @@ public class Contasreceber implements Serializable {
 
 	public void setDatanovovencimento(Date datanovovencimento) {
 		this.datanovovencimento = datanovovencimento;
+	}
+
+	public Integer getIdparcelamentopagamento() {
+		return idparcelamentopagamento;
+	}
+
+	public void setIdparcelamentopagamento(Integer idparcelamentopagamento) {
+		this.idparcelamentopagamento = idparcelamentopagamento;
 	}
 
 	@Override

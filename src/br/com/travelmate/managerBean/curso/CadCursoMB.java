@@ -1188,8 +1188,7 @@ public class CadCursoMB implements Serializable {
 			ContasReceberBean contasReceberBean = new ContasReceberBean();
 			if (venda.getIdvendas()!=null){
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), venda.getIdvendas(), usuarioLogadoMB,
-							formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
+					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), venda.getIdvendas(), usuarioLogadoMB);
 				}
 			}
 			formaPagamento.getParcelamentopagamentoList().remove(linha);
