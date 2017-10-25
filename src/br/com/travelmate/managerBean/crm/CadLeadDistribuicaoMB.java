@@ -20,7 +20,9 @@ import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
+import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -64,10 +66,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	private List<Publicidade> listaPublicidades;
 	private Lead lead;
 	private String mensagem;
-	private Produtos produto;
-    private List<Produtos> listaProdutos;
-    private boolean desabilitarUnidade=true;
-    private List<Paisproduto> listaPais;
+	private boolean desabilitarUnidade=true;
     private boolean pesquisanome=true;
     private boolean pesquisatelefone=false;
     private String telaRetorno;
@@ -91,11 +90,9 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			consultor = usuarioLogadoMB.getUsuario();
 		}
 		gerarListaPublicidade();
-		listaProdutos = GerarListas.listarProdutos("");
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 		int idProduto = 0;
 		idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
-		listaPais = paisProdutoFacade.listar(idProduto);
 	}
 
 	public String getNomeCliente() {
@@ -194,22 +191,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		this.mensagem = mensagem;
 	}
 
-	public Produtos getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produtos produto) {
-		this.produto = produto;
-	}
-
-	public List<Produtos> getListaProdutos() {
-		return listaProdutos;
-	}
-
-	public void setListaProdutos(List<Produtos> listaProdutos) {
-		this.listaProdutos = listaProdutos;
-	}
-
+	
 	public boolean isDesabilitarUnidade() {
 		return desabilitarUnidade;
 	}
@@ -218,14 +200,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		this.desabilitarUnidade = desabilitarUnidade;
 	}
 
-	public List<Paisproduto> getListaPais() {
-		return listaPais;
-	}
-
-	public void setListaPais(List<Paisproduto> listaPais) {
-		this.listaPais = listaPais;
-	}
-
+	
 	public AplicacaoMB getAplicacaoMB() {
 		return aplicacaoMB;
 	}
@@ -345,7 +320,10 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			lead.setSituacao(1);
 			lead.setUnidadenegocio(unidadenegocio);
 			lead.setUsuario(consultor);
-			lead.setProdutos(produto); 
+			PaisFacade paisFacade = new PaisFacade();
+			lead.setPais(paisFacade.consultar(5));
+			ProdutoFacade produtoFacade = new ProdutoFacade();
+			lead.setProdutos(produtoFacade.consultar(21)); 
 			lead.setDataenvio(new Date()); 
 			lead.setHoraenvio(Formatacao.foramtarHoraString()); 
 			lead.setDataproximocontato(new Date()); 
@@ -372,11 +350,19 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				avisos.setTexto("Você recebeu uma nova lead.");
 				avisos.setIdunidade(0); 
 				List<Avisousuario> lista = new ArrayList<Avisousuario>();
-				Avisousuario avisousuario = new Avisousuario();  
-				avisousuario.setAvisos(avisos);
-				avisousuario.setUsuario(consultor);
-				avisousuario.setVisto(false); 
-				lista.add(avisousuario);
+				LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+				List<Leadresponsavel> listaResponsavel = leadResponsavelFacade.lista("SELECT l FROM Leadresponsavel l where l.usuario.unidadenegocio.idunidadeNegocio=" + consultor.getUnidadenegocio().getIdunidadeNegocio() +
+						" and l.usuaruio.situacao='Ativo'");
+				if (listaResponsavel!=null) {
+					for (int i=0;i<listaResponsavel.size();i++) {
+						Avisousuario avisousuario = new Avisousuario();  
+						avisousuario.setAvisos(avisos);
+						avisousuario.setUsuario(listaResponsavel.get(i).getUsuario());
+						avisousuario.setVisto(false); 
+						lista.add(avisousuario);
+					}
+				}
+				
 				avisos.setAvisousuarioList(lista);
 				avisos = avisosFacade.salvar(avisos);
 			}
@@ -398,12 +384,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			return false;
 		}
 		if(consultor==null || consultor.getIdusuario()==null){
-			return false;
-		}
-		if (produto==null){
-			return false;
-		}
-		if (lead.getPais()==null){
 			return false;
 		}
 		if(!Formatacao.validarEmail(cliente.getEmail())){

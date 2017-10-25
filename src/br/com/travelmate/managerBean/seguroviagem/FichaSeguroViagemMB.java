@@ -595,22 +595,19 @@ public class FichaSeguroViagemMB implements Serializable {
 	}
 
 	public void calcularDataTermino() {
-		seguro.setValoresseguro(valoresseguro);
-		if (valoresseguro.isAdiconal70()) {
-			if (idade >= 70) {
-				dataTermino70Anos();
-				Mensagem.lancarMensagemInfo("Atenção",
-						"aplica-se aumento de 50 % no valor do seguro para clientes acima de 70 anos!");
+		if (cliente != null) {
+			int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
+			if ((idadeCliente < seguroplanos.getIdademinima()) || (idadeCliente>= seguroplanos.getIdademaxima()) ) {
+					Mensagem.lancarMensagemInfo("Atenção",
+							"emissão não permitida para cliente com " + idadeCliente + " anos");
 			} else {
+				if (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima()) {
+					Mensagem.lancarMensagemInfo("Atenção",
+							"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
+				}
 				dataTermino();
 			}
-		} else {
-			if (valoresseguro.getIdadelimite() > 0 && idade > valoresseguro.getIdadelimite()) {
-				Mensagem.lancarMensagemErro("Atenção", "Cliente acima da idade permitida!");
-			} else {
-				dataTermino();
-			}
-		}
+		} else 	Mensagem.lancarMensagemErro("Atenção", "Cliente não selecionado");
 	}
 
 	public void dataTermino() {

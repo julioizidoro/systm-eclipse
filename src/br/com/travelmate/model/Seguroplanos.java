@@ -31,9 +31,16 @@ public class Seguroplanos implements Serializable {
     private String nome;
     @Column(name = "ativo")
     private Boolean ativo;
+    @Column(name = "idademinima")
+    private int idademinima;
+    @Column(name = "idademaxima")
+    private int idademaxima;
+    @Column(name = "diasemissaominima")
+    private int diasemissaominima;
     @JoinColumn(name = "fornecedor_idfornecedor", referencedColumnName = "idfornecedor")
     @ManyToOne(optional = false)
     private Fornecedor fornecedor;
+    
 
     public Seguroplanos() {
     }
@@ -74,7 +81,31 @@ public class Seguroplanos implements Serializable {
         this.fornecedor = fornecedor;
     }
 
-    @Override
+    public int getIdademinima() {
+		return idademinima;
+	}
+
+	public void setIdademinima(int idademinima) {
+		this.idademinima = idademinima;
+	}
+
+	public int getIdademaxima() {
+		return idademaxima;
+	}
+
+	public void setIdademaxima(int idademaxima) {
+		this.idademaxima = idademaxima;
+	}
+
+	public int getDiasemissaominima() {
+		return diasemissaominima;
+	}
+
+	public void setDiasemissaominima(int diasemissaominima) {
+		this.diasemissaominima = diasemissaominima;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idseguroplanos != null ? idseguroplanos.hashCode() : 0);
