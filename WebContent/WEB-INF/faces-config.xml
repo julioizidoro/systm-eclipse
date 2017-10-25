@@ -2230,8 +2230,8 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>consPesquisaLancamentosCredito</from-outcome>
-			<to-view-id>/pages/cartaocreditolancamento/consPesquisaLancamentosCredito.xhtml</to-view-id>
+			<from-outcome>cadArquivo</from-outcome>
+			<to-view-id>/pages/arquivo/cadArquivo.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
