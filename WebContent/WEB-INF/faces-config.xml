@@ -1001,7 +1001,7 @@
 	<navigation-rule> 
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>relatorioCancelamento</from-outcome>
+			<from-outcome>filtroRelatorioCancelamento</from-outcome>
 			<to-view-id>/pages/cancelamento/filtroRelatorioCancelamento.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
@@ -2232,6 +2232,38 @@
 		<navigation-case>
 			<from-outcome>cadArquivo</from-outcome>
 			<to-view-id>/pages/arquivo/cadArquivo.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>emissaocancelamento</from-outcome>
+			<to-view-id>/pages/cancelamento/emissaocancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>finalizarCancelamento</from-outcome>
+			<to-view-id>/pages/cancelamento/finalizarCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioCancelamento</from-outcome>
+			<to-view-id>/pages/cancelamento/relatorioCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioCancelamentoFatura</from-outcome>
+			<to-view-id>/pages/cancelamento/relatorioCancelamentoFatura.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

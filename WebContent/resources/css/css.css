@@ -1799,7 +1799,7 @@ body {
 	    background: #D7D8DC;
 	    height:27px;
 	    width: 99%;
-	}
+	} 
 	
 	.topInicial{  
 		 margin-top:48px !important;
@@ -1807,7 +1807,7 @@ body {
 }
 
 .tabelacambio {  
-	    background: #D7D8DC;
+	    background:#EED2EE;
 	    height:27px;
 	    width: 99%;
 }
@@ -1884,8 +1884,8 @@ body {
 	}
 	
 	#chart #bars {
-	  display: inline-block;
-	  background:#F0F0F0;
+	  display: inline-block;  
+	  background:#c64c85;
 	  width:0%; 
 	  height:0px; 
 	   margin:-5000px 0% 0% 0%;   
@@ -2020,14 +2020,14 @@ body {
   display: block;
   width:40px;
   margin-left:25px;  
-  background: #A0C637;
+  background: #c64c85;
   position: absolute;
   bottom: 0;
   
-}
+} 
 
 #chart #bars li .bar:hover {
-  background: #1F8871;
+  background: #CD1076;
   cursor: pointer;
 }
 

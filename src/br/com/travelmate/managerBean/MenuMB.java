@@ -551,11 +551,8 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioCancelamento() {
-		atualizaTempoLogado();
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 520);
-		RequestContext.getCurrentInstance().openDialog("relatorioCancelamento", options, null);
-		return "";
+		atualizaTempoLogado(); 
+		return "relatorioCancelamento";
 	}
 
 	public String cambio() {
@@ -1409,6 +1406,11 @@ public class MenuMB implements Serializable {
 	public String consUtil() {
 		atualizaTempoLogado();
 		return "consUtil";
+	}
+	
+	public String relatorioCancelamentoFatura() {
+		atualizaTempoLogado();
+		return "relatorioCancelamentoFatura";
 	}
 	
 	public String pesquisarLancamentosCredito() {  
