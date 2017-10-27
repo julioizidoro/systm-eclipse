@@ -1689,6 +1689,10 @@ public class FiltrarEscolaMB implements Serializable {
 										+ " semanas FREE.");
 								listaCurso.get(0).setPromocao(true);
 								fpb.getOcurso().setNumerosemanasbrinde(numeroSemana);
+								int nsemanastotal=numeroSemanasCurso+numeroSemana;
+								Date datatermino = calcularDataTerminoCurso
+										(fpb.getOcurso().getDatainicio(), nsemanastotal);
+								fpb.getOcurso().setDatatermino(datatermino);
 								listaCurso.get(0).setPromocao(true);
 								int idtaxatm = filtrarEscolaBean.getTaxaTM().getIdproduto();
 								for (int i = 0; i < listaObrigatorio.size(); i++) {
