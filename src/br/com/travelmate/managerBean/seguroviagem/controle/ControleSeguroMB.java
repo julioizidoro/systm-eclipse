@@ -486,14 +486,21 @@ public class ControleSeguroMB implements Serializable {
 		listaVendasFinanceiro = new ArrayList<Controleseguro>();
 		listaVendasSeguroCancelamento = new ArrayList<Controleseguro>();
 		Date data = null; 
+		Date dataemissao = null;
 		try {
 			data = Formatacao.SomarDiasDatas(new Date(), 10);
+			dataemissao = Formatacao.SomarDiasDatas(new Date(), 3);
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
 		for (int i = 0; i < listaControleSeguro.size(); i++) { 
-			if(pesquisa) {
-				if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento()) {
+			if(pesquisa) { 
+				if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento() 
+						&& listaControleSeguro.get(i).getDataemissao()==null) {
+					nFichaSeguroCancelamento = nFichaSeguroCancelamento + 1;
+					listaVendasSeguroCancelamento.add(listaControleSeguro.get(i));
+				}else if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento() 
+						&& dataemissao.before(dataemissao)) {
 					nFichaSeguroCancelamento = nFichaSeguroCancelamento + 1;
 					listaVendasSeguroCancelamento.add(listaControleSeguro.get(i));
 				}else if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
@@ -515,7 +522,12 @@ public class ControleSeguroMB implements Serializable {
 				}
 			}else {
 				if(listaControleSeguro.get(i).getSeguroviagem().getDataInicio()!=null) {
-					if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento()) {
+					if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento() 
+							&& listaControleSeguro.get(i).getDataemissao()==null) {
+						nFichaSeguroCancelamento = nFichaSeguroCancelamento + 1;
+						listaVendasSeguroCancelamento.add(listaControleSeguro.get(i));
+					}else if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento() 
+							&& dataemissao.before(dataemissao)) {
 						nFichaSeguroCancelamento = nFichaSeguroCancelamento + 1;
 						listaVendasSeguroCancelamento.add(listaControleSeguro.get(i));
 					}else if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
