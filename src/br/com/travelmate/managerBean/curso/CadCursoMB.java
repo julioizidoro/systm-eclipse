@@ -1824,7 +1824,11 @@ public class CadCursoMB implements Serializable {
 			vendaSeguro.setValor(seguroViagem.getValorSeguro());
 			vendaSeguro.setDataVenda(venda.getDataVenda());
 			vendaSeguro.setVendasMatriz(venda.getVendasMatriz());
-			vendaSeguro.setSituacaogerencia("F");
+			if (enviarFicha) {
+				vendaSeguro.setSituacaogerencia("F");
+			}else {
+				vendaSeguro.setSituacaogerencia("P");
+			}
 			VendasFacade vendasFacade = new VendasFacade();
 			vendaSeguro = vendasFacade.salvar(vendaSeguro);
 			float novaValorVenda = venda.getValor() - seguroViagem.getValorSeguro();
