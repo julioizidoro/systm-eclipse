@@ -3,6 +3,7 @@ package br.com.travelmate.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -92,6 +94,8 @@ public class Lead implements Serializable {
 	private String horarecebimento;
 	@Transient
 	private boolean selecionado;
+	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "lead")
+	private Leadposvenda leadposvenda;
 
 	public Lead() {
 	}
@@ -266,6 +270,14 @@ public class Lead implements Serializable {
 
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
+	}
+
+	public Leadposvenda getLeadposvenda() {
+		return leadposvenda;
+	}
+
+	public void setLeadposvenda(Leadposvenda leadposvenda) {
+		this.leadposvenda = leadposvenda;
 	}
 
 	@Override

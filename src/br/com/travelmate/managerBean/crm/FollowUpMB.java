@@ -20,12 +20,14 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
+import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
@@ -89,6 +91,11 @@ public class FollowUpMB implements Serializable {
 	private String status;
 	private Date dataInseridoInicial;
 	private Date dataInseridoFinal;
+	private boolean mostrarLeads;
+	private boolean mostrarPosVenda;
+	private int posvenda;
+	private List<Leadposvenda> listaPosVenda;
+	private String imagemPosVenda = "posvenda";
 
 	@PostConstruct()
 	public void init() {
@@ -144,15 +151,18 @@ public class FollowUpMB implements Serializable {
 				dataInseridoInicial = pesquisa.getDataInseridoInicial();
 				dataInseridoFinal = pesquisa.getDataInseridoFinal();
 				pesquisar();
+				pesquisarPosVenda();
 				mudarCoresBotões(funcao);
 			} else if (!acessoResponsavelGerencial) {
 				pesquisar();
+				gerarListaPosVenda();
 				mudarCoresBotões(funcao);
 			} else {
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 				gerarListaConsultor();
 				usuario = usuarioLogadoMB.getUsuario();
 				pesquisar();
+				gerarListaPosVenda();
 			}
 			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 			int idProduto = 0;
@@ -162,6 +172,8 @@ public class FollowUpMB implements Serializable {
 				gerarListaLead(sql);
 			}
 		}
+		mostrarPosVenda = false;
+		mostrarLeads = true;
 	}
 
 	public String getImagemNovos() {
@@ -500,6 +512,46 @@ public class FollowUpMB implements Serializable {
 		this.listaLeadTotal = listaLeadTotal;
 	}
 
+	public boolean isMostrarPosVenda() {
+		return mostrarPosVenda;
+	}
+
+	public void setMostrarPosVenda(boolean mostrarPosVenda) {
+		this.mostrarPosVenda = mostrarPosVenda;
+	}
+
+	public int getPosvenda() {
+		return posvenda;
+	}
+
+	public void setPosvenda(int posvenda) {
+		this.posvenda = posvenda;
+	}
+
+	public List<Leadposvenda> getListaPosVenda() {
+		return listaPosVenda;
+	}
+
+	public void setListaPosVenda(List<Leadposvenda> listaPosVenda) {
+		this.listaPosVenda = listaPosVenda;
+	}
+
+	public String getImagemPosVenda() {
+		return imagemPosVenda;
+	}
+
+	public void setImagemPosVenda(String imagemPosVenda) {
+		this.imagemPosVenda = imagemPosVenda;
+	}
+
+	public boolean isMostrarLeads() {
+		return mostrarLeads;
+	}
+
+	public void setMostrarLeads(boolean mostrarLeads) {
+		this.mostrarLeads = mostrarLeads;
+	}
+
 	public String novoLead() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 550);
@@ -520,6 +572,9 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
+			imagemPosVenda = "posvenda"; 
+			mostrarPosVenda = false;
+			mostrarLeads = true;
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
 				if (listaLeadTotal.get(i).getDataultimocontato() == null
 						&& listaLeadTotal.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
@@ -532,6 +587,9 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
+			imagemPosVenda = "posvenda"; 
+			mostrarPosVenda = false;
+			mostrarLeads = true;
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
 				if(listaLeadTotal.get(i).getDataproximocontato()!=null) {
 					String dataprox = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
@@ -547,6 +605,9 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasadoClick";
 			imagemProx = "prox";
 			imagemTodos = "todos";
+			imagemPosVenda = "posvenda"; 
+			mostrarPosVenda = false;
+			mostrarLeads = true;
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
 				if (listaLeadTotal.get(i).getDataultimocontato() != null
 						&& listaLeadTotal.get(i).getDataproximocontato()!=null
@@ -560,6 +621,9 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasados";
 			imagemProx = "proxClick";
 			imagemTodos = "todos";
+			imagemPosVenda = "posvenda"; 
+			mostrarPosVenda = false;
+			mostrarLeads = true;
 			Date data;
 			try {
 				data = Formatacao.SomarDiasDatas(new Date(), 7);
@@ -580,7 +644,19 @@ public class FollowUpMB implements Serializable {
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todosClick";
+			imagemPosVenda = "posvenda"; 
 			listaLead = listaLeadTotal;
+			mostrarPosVenda = false;
+			mostrarLeads = true;
+		} else if (funcao.equalsIgnoreCase("posvenda")) { 
+			imagemNovos = "novos";
+			imagemHoje = "hoje";
+			imagemAtrasados = "atrasados";
+			imagemProx = "prox";
+			imagemTodos = "todos";
+			imagemPosVenda = "posvendaClick";  
+			mostrarPosVenda = true;
+			mostrarLeads = false;
 		}
 	}
 
@@ -619,6 +695,28 @@ public class FollowUpMB implements Serializable {
 		session.setAttribute("listaLead", listaLead);
 		session.setAttribute("posicao", posicao);
 		session.setAttribute("funcao", funcao);
+		PesquisaBean pesquisa = new PesquisaBean();
+		pesquisa.setDataProxFinal(dataProxFinal);
+		pesquisa.setDataProxInicio(dataProxInicio);
+		pesquisa.setDataUltFinal(dataUltFinal);
+		pesquisa.setDataUltInicio(dataUltInicio);
+		pesquisa.setNomeCliente(nomeCliente);
+		pesquisa.setProgramas(programas);
+		pesquisa.setSituacao(situacao);
+		pesquisa.setTipocontato(tipocontato);
+		pesquisa.setUnidadenegocio(unidadenegocio);
+		pesquisa.setStatus(status);
+		pesquisa.setUsuario(usuario);
+		pesquisa.setDataInseridoInicial(dataInseridoInicial);
+		pesquisa.setDataInseridoFinal(dataInseridoFinal);
+		session.setAttribute("pesquisa", pesquisa);
+		return "historicoCliente";
+	}
+	
+	public String historicoCliente(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+		session.setAttribute("lead", lead); 
 		PesquisaBean pesquisa = new PesquisaBean();
 		pesquisa.setDataProxFinal(dataProxFinal);
 		pesquisa.setDataProxInicio(dataProxInicio);
@@ -675,7 +773,7 @@ public class FollowUpMB implements Serializable {
 		}
 		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
 			funcao = "todos";
-			sql = sql + " and l.situacao='" + situacao + "'";
+			sql = sql + " and l.situacao='" + situacao + "' and l.situacao<>'6'";
 		} else {
 			sql = sql + " and l.situacao<'6' ";
 		}
@@ -772,6 +870,7 @@ public class FollowUpMB implements Serializable {
 		dataInseridoInicial = null;
 		dataInseridoInicial = null;
 		pesquisar();
+		gerarListaPosVenda();
 	}
 
 	public void atualizarFollowUp(Lead lead) {
@@ -872,6 +971,75 @@ public class FollowUpMB implements Serializable {
 				listaLead.remove(lead);
 			}
 		}
+	}
+	
+	public void gerarListaPosVenda() {
+		Date data = null;
+		try {
+			data = Formatacao.SomarDiasDatas(new Date(), 5);
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA'";
+		if(!acessoResponsavelGerencial) {
+			sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			if(!acessoResponsavelUnidade) {
+				sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+			}
+		}
+		sql = sql + " AND l.datachegada>='"+Formatacao.ConvercaoDataSql(data)+"'"
+				+ " OR l.datachegada is null";
+		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+		listaPosVenda = leadPosVendaFacade.listar(sql);
+		if(listaPosVenda==null) {
+			listaPosVenda = new ArrayList<Leadposvenda>();
+		}
+		posvenda = listaPosVenda.size();
+	}
+	
+	public void pesquisarPosVenda() { 
+		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA'";
+		if(!acessoResponsavelGerencial) {
+			sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			if(!acessoResponsavelUnidade) {
+				sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+			}else {
+				if(usuario!=null && usuario.getIdusuario()!=null) {
+					sql = sql + " AND l.vendas.usuario.idusuario=" + usuario.getIdusuario();
+				}
+			}
+		}else {
+			if(unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null) {
+				sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+			}
+			if(usuario!=null && usuario.getIdusuario()!=null) {
+				sql = sql + " AND l.vendas.usuario.idusuario=" + usuario.getIdusuario();
+			}
+		}
+		if (dataProxInicio != null && dataProxFinal != null) {
+			sql = sql + " AND l.lead.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' AND "
+					+ "l.lead.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
+		}
+		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
+			funcao = "todos";
+			sql = sql + " AND l.lead.situacao='" + situacao + "'";
+		}
+		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
+			sql = sql + " AND l.lead.tipocontato.idtipocontato=" + tipocontato.getIdtipocontato();
+		}
+		if (nomeCliente != null && nomeCliente.length() > 0) {
+			sql = sql + " and (l.vendas.cliente.nome like '" + nomeCliente + "%' or l.vendas.cliente.email like '"
+					  + nomeCliente + "%')";
+		}
+		if (programas != null && programas.getIdprodutos() != null) {
+			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
+		}
+		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+		listaPosVenda = leadPosVendaFacade.listar(sql);
+		if(listaPosVenda==null) {
+			listaPosVenda = new ArrayList<Leadposvenda>();
+		}
+		posvenda = listaPosVenda.size();
 	}
 
 }

@@ -12,6 +12,7 @@ import br.com.travelmate.facade.CancelamentoVendaFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.VendasFacade; 
@@ -25,6 +26,7 @@ import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
@@ -75,6 +77,15 @@ public class ProgramasBean {
 		if (lead!=null){
 			venda.setIdlead(lead.getIdlead());
 			finalizarLead(lead);
+			if(venda.getLeadposvenda()==null) {
+				Leadposvenda leadposvenda = new Leadposvenda();
+				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+				leadposvenda.setLead(lead);
+				leadposvenda.setVendas(venda);
+				leadposvenda.setDatachegada(null);
+				leadposvenda.setDataembarque(null);
+				leadPosVendaFacade.salvar(leadposvenda);
+			}
 		}else venda.setIdlead(0);
 		venda = VendasFacade.salvar(venda);
 		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){

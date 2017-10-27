@@ -32,7 +32,7 @@
 								<f:selectItem itemLabel="Prospect" itemValue="3" />
 								<f:selectItem itemLabel="Oportunidade Real" itemValue="4" />
 								<f:selectItem itemLabel="Negociação Final" itemValue="5" />
-								<f:selectItem itemLabel="Venda efetuada" itemValue="6" />
+								<f:selectItem itemLabel="Pós Venda" itemValue="6" />
 								<f:selectItem itemLabel="Lead Cancelada" itemValue="7" />
 								<f:selectItem itemLabel="Lead Stand By" itemValue="8" />
 								<p:ajax listener="#{followUpMB.mensagemPesquisa()}" update=":followUp:growl"/>
@@ -91,8 +91,9 @@
 									<p:ajax event="blur" />
 								</p:calendar>
 							</h:panelGroup>             
-							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-								action="#{followUpMB.pesquisar()}" update="@form" />
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " 
+								actionListener="#{followUpMB.pesquisar()}"
+								action="#{followUpMB.pesquisarPosVenda()}" update="@form" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 								action="#{followUpMB.limparPesquisa()}" update="@form" />
 						</h:panelGrid>
@@ -179,7 +180,7 @@
 								<f:selectItem itemLabel="Prospect" itemValue="3" />
 								<f:selectItem itemLabel="Oportunidade Real" itemValue="4" />
 								<f:selectItem itemLabel="Negociação Final" itemValue="5" />
-								<f:selectItem itemLabel="Venda efetuada" itemValue="6" />
+								<f:selectItem itemLabel="Pós Venda" itemValue="6" />
 								<f:selectItem itemLabel="Lead Cancelada" itemValue="7" />
 								<f:selectItem itemLabel="Lead Stand By" itemValue="8" />
 								<p:ajax listener="#{followUpMB.mensagemPesquisa()}" update=":followUp:growl"/>
@@ -254,7 +255,8 @@
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
 									action="#{followUpMB.limparPesquisa()}" update="@form" />
 								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-									action="#{followUpMB.pesquisar()}" update="@form" style="font-size:11px;float:right;"/>
+									actionListener="#{followUpMB.pesquisar()}"
+								    action="#{followUpMB.pesquisarPosVenda()}" update="@form" style="font-size:11px;float:right;"/>
 							</h:panelGroup>
 						</h:panelGrid>   
 					</p:tab>     
@@ -264,7 +266,7 @@
 				<h:panelGrid style="margin-left:3%;width:90%;" columns="2"
 					columnClasses="tamanho9, tamanhoavisos">
 					<h:panelGroup id="painelBotoes">
-						<h:panelGrid style="width:90%;" columns="6">
+						<h:panelGrid style="width:90%;" columns="7">
 							<img src="../../resources/img/crm/logoLead.png" width="190" />
 							<p:commandLink id="btnNovos" style="margin-left:1%;"
 								action="#{followUpMB.mudarCoresBotões('novos')}" update="@form">
@@ -320,7 +322,17 @@
 										style="font-size:12px;margin-bottom: -12px;" />
 								</h:panelGrid>
 							</p:commandLink>  
-						</h:panelGrid>
+							<p:commandLink id="btnPosVenda" style="margin-left:2%;"
+								action="#{followUpMB.mudarCoresBotões('posvenda')}" update="@form">
+								<h:panelGrid columns="1" style="text-align:center;">
+									<img src="../../resources/img/crm/#{followUpMB.imagemPosVenda}.png"
+										width="40" />
+									<p:outputLabel value="PÓS VENDA" style="font-size:12px;" />
+									<p:outputLabel value="(#{followUpMB.posvenda})"
+										style="font-size:12px;margin-bottom: -12px;" />
+								</h:panelGrid>
+							</p:commandLink>
+						</h:panelGrid> 
 					</h:panelGroup>
 					<h:panelGroup>
 						<div align="right">
@@ -340,7 +352,7 @@
 					</h:panelGroup>
 				</h:panelGrid>
 				<br></br>  
-				<h:panelGrid style="width:98%;margin-left:1%;" columns="1">
+				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarLeads}">
 					<p:dataTable id="tabelaLeads" var="lead" scrollable="true" scrollHeight="400"
 						value="#{followUpMB.listaLead}" style="font-size:11px;"
 						editable="true" editMode="cell" rowIndexVar="rowIndex">
@@ -348,18 +360,18 @@
 						<p:ajax event="cellEdit" update="tabelaLeads, :followUp:growl" />
    
 						    
-						<p:column headerText="Nome" style="text-align:left;" width="150">   
+						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">   
 							<h:outputText value="#{lead.cliente.nome}" />   
 						</p:column>
-						<p:column headerText="Unidade" style="text-align:left;"
+						<p:column headerText="Unidade" style="text-align:left;" sortBy="#{lead.unidadenegocio.nomerelatorio}"
 							width="95" rendered="#{followUpMB.acessoResponsavelUnidade}">
 							<h:outputText value="#{lead.unidadenegocio.nomerelatorio}" />
 						</p:column>    
-						<p:column headerText="Consultor" style="text-align:left;"
+						<p:column headerText="Consultor" style="text-align:left;" sortBy="#{lead.usuario.nome}"
 							width="110" rendered="#{followUpMB.acessoResponsavelUnidade}">
 							<h:outputText value="#{lead.usuario.nome}" />
 						</p:column>
-						<p:column headerText="Programa" style="text-align:left;" width="100">
+						<p:column headerText="Programa" style="text-align:left;" width="100"  sortBy="#{lead.produtos.descricao}">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText id="outputProduto"
@@ -383,7 +395,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="País" style="text-align:left;" width="100">
+						<p:column headerText="País" style="text-align:left;" width="100" sortBy="#{lead.pais.nome}">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText id="outputPais"
@@ -405,28 +417,28 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>    
-						<p:column headerText="Situação" width="60"  
+						<p:column headerText="Situação" width="60" sortBy="#{lead.situacao}"  
 							style="text-align:center;">
 							<h:outputText value="#{lead.situacao}" class="badge bg-warning"
 								style="background-color:#{followUpMB.retornarCoresSituacao(lead.situacao)};padding: 6px 8px;" />
 						</p:column>
 
-						<p:column headerText="Tipo" width="95" style="text-align:left;">
+						<p:column headerText="Tipo" width="95" style="text-align:left;" sortBy="#{lead.tipocontato.tipo}">
 							<h:outputText value="#{lead.tipocontato.tipo}" />  
 						</p:column>   
-						<p:column headerText="Data Receb." width="80" style="text-align:center;">
+						<p:column headerText="Data Receb." width="80" style="text-align:center;" sortBy="#{lead.dataenvio}">
 							<h:outputText value="#{lead.dataenvio}" title="Data de Recimento">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 							</h:outputText>   
 						</p:column>
-						<p:column headerText="Último Contato" width="80"  
+						<p:column headerText="Último Contato" width="80"  sortBy="#{lead.dataultimocontato}" 
 							style="text-align:center;">
 							<h:outputText value="#{lead.dataultimocontato}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>
-						<p:column headerText="Próximo Contato" width="85"
+						<p:column headerText="Próximo Contato" width="85" sortBy="#{lead.dataproximocontato}"
 							style="text-align:center;">
 							<h:outputText value="#{lead.dataproximocontato}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -445,6 +457,67 @@
 							style="text-align:center;">
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
 								action="#{followUpMB.historicoCliente(rowIndex)}">
+								<img src="../../resources/img/crm/historico.png" width="30" />
+							</p:commandLink>
+						</p:column> 
+					</p:dataTable>
+				</h:panelGrid>
+				
+				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarPosVenda}">
+					<p:dataTable id="tabelaPosVenda" var="posvenda" scrollable="true" scrollHeight="400"
+						value="#{followUpMB.listaPosVenda}" style="font-size:11px;"
+						editable="true" editMode="cell" rowIndexVar="rowIndex"> 
+						<p:ajax event="cellEdit" update="tabelaPosVenda, :followUp:growl" /> 
+						<p:column headerText="Nome" sortBy="#{posvenda.vendas.cliente.nome}" style="text-align:left;" width="150">   
+							<h:outputText value="#{posvenda.vendas.cliente.nome}" />   
+						</p:column>
+						<p:column headerText="Unidade" sortBy="#{posvenda.vendas.unidadenegocio.nomerelatorio}" style="text-align:left;"
+							width="95" rendered="#{followUpMB.acessoResponsavelUnidade}">
+							<h:outputText value="#{posvenda.vendas.unidadenegocio.nomerelatorio}" />
+						</p:column>    
+						<p:column headerText="Consultor" sortBy="#{posvenda.vendas.usuario.nome}" style="text-align:left;"
+							width="110" rendered="#{followUpMB.acessoResponsavelUnidade}">
+							<h:outputText value="#{posvenda.vendas.usuario.nome}" />
+						</p:column>
+						<p:column headerText="Programa" sortBy="#{posvenda.vendas.produtos.descricao}" style="text-align:left;" width="100">  
+							<h:outputText value="#{posvenda.lead.produtos.descricao}" /> 
+						</p:column>
+						<p:column headerText="País" sortBy="#{posvenda.vendas.fornecedorcidade.cidade.pais.nome}" style="text-align:left;" width="100">  
+							<h:outputText id="outputPais"
+									value="#{posvenda.vendas.fornecedorcidade.cidade.pais.nome}" /> 
+						</p:column>    
+						<p:column headerText="Situação" width="60" sortBy="#{posvenda.lead.situacao}"  
+							style="text-align:center;">
+							<h:outputText value="#{posvenda.lead.situacao}" class="badge bg-warning"
+								style="background-color:#{followUpMB.retornarCoresSituacao(posvenda.lead.situacao)};padding: 6px 8px;" />
+						</p:column>
+
+						<p:column headerText="Tipo" width="95" style="text-align:left;" sortBy="#{posvenda.lead.tipocontato.tipo}">
+							<h:outputText value="#{posvenda.lead.tipocontato.tipo}" />  
+						</p:column>   
+						<p:column headerText="Data Embarque" width="80" style="text-align:center;" sortBy="#{posvenda.dataembarque}">
+							<h:outputText value="#{posvenda.dataembarque}" title="Data de Recimento">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+							</h:outputText>   
+						</p:column>
+						<p:column headerText="Data Chegada" width="80" sortBy="#{posvenda.datachegada}" 
+							style="text-align:center;">
+							<h:outputText value="#{posvenda.datachegada}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Próximo Contato" width="85" sortBy="#{posvenda.lead.dataproximocontato}"
+							style="text-align:center;">
+							<h:outputText value="#{posvenda.lead.dataproximocontato}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</p:column>        
+						<p:column headerText="Histórico" width="75"    
+							style="text-align:center;">
+							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
+								action="#{followUpMB.historicoCliente(posvenda.lead)}">
 								<img src="../../resources/img/crm/historico.png" width="30" />
 							</p:commandLink>
 						</p:column> 
@@ -478,7 +551,7 @@
 					
 				<h:outputText value="6" class="badge bg-warning"
 					style="background-color:#228B22;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Venda Efetuada"
+				<h:outputText value="Pós Venda"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 					
 				<h:outputText value="7" class="badge bg-warning"

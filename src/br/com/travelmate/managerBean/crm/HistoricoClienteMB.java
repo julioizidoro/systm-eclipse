@@ -26,13 +26,13 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
-import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.ContasReceberFacade; 
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.OCursoFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade;
+import br.com.travelmate.facade.OrcamentoCursoFacade; 
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -40,7 +40,7 @@ import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoManualPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory; 
-import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
@@ -81,6 +81,8 @@ public class HistoricoClienteMB implements Serializable {
 	private boolean camposcursodemipair;
 	private boolean camposvoluntariado;
 	private String voltar;
+	private boolean mostrarLeads;
+	private boolean mostrarPosVenda;
 
 	@PostConstruct
 	public void init() {
@@ -119,6 +121,13 @@ public class HistoricoClienteMB implements Serializable {
 				camposcursodemipair = true;
 			}else if(idvoluntariado == lead.getProdutos().getIdprodutos()){
 				camposvoluntariado = true;
+			}
+			if(lead.getLeadposvenda()==null) {
+				mostrarLeads = true;
+				mostrarPosVenda = false;
+			}else {
+				mostrarLeads = false;
+				mostrarPosVenda = true;
 			}
 		}
 	}
@@ -243,6 +252,30 @@ public class HistoricoClienteMB implements Serializable {
 
 	public void setCamposcursodemipair(boolean camposcursodemipair) {
 		this.camposcursodemipair = camposcursodemipair;
+	}
+
+	public String getVoltar() {
+		return voltar;
+	}
+
+	public void setVoltar(String voltar) {
+		this.voltar = voltar;
+	}
+
+	public boolean isMostrarLeads() {
+		return mostrarLeads;
+	}
+
+	public void setMostrarLeads(boolean mostrarLeads) {
+		this.mostrarLeads = mostrarLeads;
+	}
+
+	public boolean isMostrarPosVenda() {
+		return mostrarPosVenda;
+	}
+
+	public void setMostrarPosVenda(boolean mostrarPosVenda) {
+		this.mostrarPosVenda = mostrarPosVenda;
 	}
 
 	public String followUp() {
@@ -868,5 +901,61 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("cliente", lead.getCliente());
 		return "filtrarVoluntariadoProjetoOrcamento";
 	}
-	 
+	
+	
+	public String informacoes(Vendas vendas) { 
+		if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
+			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vendas); 
+			session.setAttribute("voltar", voltar);
+			return "consLogVenda";
+		}
+	}
+	
+	public String documentacao(Vendas vendas) { 
+		if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
+			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vendas); 
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
+	}
+	
+	public String gerarRelatorioRecibo(Vendas vendas) throws SQLException, IOException {
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		funcoesFichasBean.gerarRelatorioRecibo();
+		return "";
+	}
+	
+	public String gerarRelatorioTermoVisto(Vendas vendas) throws SQLException, IOException {
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		funcoesFichasBean.gerarRelatorioTermoVisto(usuarioLogadoMB);
+		return "";
+	}
+	
+	public String gerarRelatorioContrato(Vendas vendas) throws SQLException, IOException {
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		funcoesFichasBean.gerarRelatorioContrato();
+		return "";
+	}
+	
+	public String boletos(Vendas vendas) {
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		funcoesFichasBean.boletos();
+		return "";
+	}
+	
+	public String imprimirFicha(Vendas vendas) throws IOException {
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		funcoesFichasBean.gerarRelatorioFicha();
+		return ""; 
+	}
 }

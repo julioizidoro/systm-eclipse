@@ -136,8 +136,8 @@ public class Vendas implements Serializable {
     private Vendapendencia vendapendencia; 
 	@Transient
 	private boolean selecionado;
-	
-	
+	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "vendas")
+	private Leadposvenda leadposvenda; 
 
 	public Vendas() {
 		setStatuscobranca("p");
@@ -474,6 +474,14 @@ public class Vendas implements Serializable {
 		this.situacaofinanceiro = situacaofinanceiro;
 	}
  
+	public Leadposvenda getLeadposvenda() {
+		return leadposvenda;
+	}
+
+	public void setLeadposvenda(Leadposvenda leadposvenda) {
+		this.leadposvenda = leadposvenda;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
