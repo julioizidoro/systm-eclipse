@@ -611,6 +611,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	}
 
 	public void dataTermino() {
+		seguro.setValoresseguro(valoresseguro);
 		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
