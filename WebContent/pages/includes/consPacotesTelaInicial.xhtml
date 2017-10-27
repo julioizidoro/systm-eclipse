@@ -20,12 +20,12 @@
 									<div id="divImagem">
 										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 										<p:outputLabel value="CURSOS DE IDIOMAS"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#A0C637;" />
+											style="font-size:43px;font-weight: initial;margin-left:2%;color:#c64c85;" />
 									</div>
 								</h:panelGroup>
-							</h:panelGrid>
+							</h:panelGrid>      
 							<hr
-								style="color: #A0C637; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
+								style="color: #c64c85; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #c64c85; border-bottom-color: #c64c85; background: #c64c85;" />
 							<br />
 							<ui:repeat value="#{pacotesAtivosMB.listaCursosPacotes}"
 								var="pacote">
@@ -53,7 +53,7 @@
 												columnClasses="tamanho98">
 												<h:panelGroup>
 													<p:outputLabel value="#{pacote.valoravista}"
-														style="font-size:26px;color:#A0C637;margin-left:1%;">
+														style="font-size:26px;color:#c64c85;margin-left:1%;">
 													</p:outputLabel>
 												</h:panelGroup>
 												<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
@@ -80,11 +80,11 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:12px;" icon="ui-icon-info" />
+													style="font-size:12px;background:#c64c85;border-color:#c64c85;" icon="ui-icon-info" />
 												<p:commandButton value="Orçamento" icon="ui-icon-cart"
 													title="Gerar orçamento com este pacote"
 													action="#{pacotesAtivosMB.gerarOrçamento(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;">
+													style="margin-left:2%;font-size:12px;background:#c64c85;border-color:#c64c85;">
 													<p:ajax event="dialogReturn"
 														listener="#{pacotesAtivosMB.retornoDialog()}" />
 												</p:commandButton>
@@ -102,12 +102,12 @@
 									<div id="divImagemHS">
 										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 										<p:outputLabel value="TEENS"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#722672;" />
+											style="font-size:43px;font-weight: initial;margin-left:2%;color:#c64c85;" />
 									</div>  
 								</h:panelGroup>
 							</h:panelGrid>
 							<hr
-								style="color: #722672; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #722672; border-bottom-color: #722672; background: #722672;" />
+								style="color: #c64c85; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #c64c85; border-bottom-color: #c64c85; background: #c64c85;" />
 							<ui:repeat value="#{pacotesAtivosMB.listaTeensPacotes}"
 								var="pacote">
 								<div class="col-md-3">
@@ -140,7 +140,7 @@
 												columnClasses="tamanho98">
 												<h:panelGroup>
 													<p:outputLabel value="#{pacote.valoravista}"
-														style="font-size:26px;color:#722672;margin-left:1%;">
+														style="font-size:26px;color:#c64c85;margin-left:1%;">
 													</p:outputLabel>
 												</h:panelGroup>
 												<p:outputLabel value="#{pacote.duracao}"
@@ -162,13 +162,13 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:11px;background:#722672;border-color:#722672;"
+													style="font-size:11px;background:#c64c85;border-color:#c64c85;"
 													icon="ui-icon-info" />
 												<p:commandButton value="Informativo" icon="ui-icon-cart"
 													ajax="false" title="Informativo do programa"
 													onclick="this.form.target='_blank'"
 													action="#{pacotesAtivosMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:11px;background:#722672;border-color:#722672;" />
+													style="margin-left:2%;font-size:11px;background:#c64c85;border-color:#c64c85;" />
 											</div>
 											<br />
 										</div>
@@ -183,12 +183,12 @@
 									<div id="divImagemTrabalho">
 										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 										<p:outputLabel value="PROGRAMAS DE TRABALHO"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#8B0000;" />
+											style="font-size:43px;font-weight: initial;margin-left:2%;color:#c64c85;" />
 									</div>
 								</h:panelGroup>
 							</h:panelGrid>
 							<hr
-								style="color: #8B0000; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #8B0000; border-bottom-color: #8B0000; background: #8B0000;" />
+								style="color: #c64c85; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #c64c85; border-bottom-color: #c64c85; background: #c64c85;" />
 							<ui:repeat value="#{pacotesAtivosMB.listaTrabalhoPacotes}"
 								var="pacote">
 								<div class="col-md-3">
@@ -214,7 +214,7 @@
 												columnClasses="tamanho98">
 												<h:panelGroup>
 													<p:outputLabel value="#{pacote.valoravista}"
-														style="font-size:26px;color:#8B0000;margin-left:1%;">
+														style="font-size:26px;color:#c64c85;margin-left:1%;">
 													</p:outputLabel>
 												</h:panelGroup>
 												<p:outputLabel value="#{pacote.duracao}"
@@ -237,13 +237,13 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
+													style="font-size:12px;background:#c64c85;border-color:#c64c85;"
+													icon="ui-icon-info" />  
 												<p:commandButton value="Informativo" icon="ui-icon-cart"
 													ajax="false" title="Informativo do programa"
 													onclick="this.form.target='_blank'"
 													action="#{pacotesAtivosMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;" />
+													style="margin-left:2%;font-size:12px;background:#c64c85;border-color:#c64c85;" />
 											</div>
 											<br />
 										</div>
@@ -270,7 +270,7 @@
 												columnClasses="tamanho98">
 												<h:panelGroup>
 													<p:outputLabel value="#{pacote.valoravista}"
-														style="font-size:26px;color:#8B0000;margin-left:1%;">
+														style="font-size:26px;color:#c64c85;margin-left:1%;">
 													</p:outputLabel>
 												</h:panelGroup>
 												<p:outputLabel value="#{pacote.duracao}"
@@ -292,13 +292,13 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
+													style="font-size:12px;background:#c64c85;border-color:#c64c85;"
 													icon="ui-icon-info" />
 												<p:commandButton value="Informativo" icon="ui-icon-cart"
 													ajax="false" title="Informativo do programa"
 													onclick="this.form.target='_blank'"
 													action="#{pacotesAtivosMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;" />
+													style="margin-left:2%;font-size:12px;background:#c64c85;border-color:#c64c85;" />
 											</div>
 											<br />
 										</div>
@@ -313,12 +313,12 @@
 									<div id="divImagemTurismo"> 
 										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 										<p:outputLabel value="TURISMO"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#EE7600;" />
+											style="font-size:43px;font-weight: initial;margin-left:2%;color:#c64c85;" />
 									</div>
 								</h:panelGroup>     
 							</h:panelGrid>   
 							<hr
-								style="color: #EE7600; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #EE7600; border-bottom-color: #EE7600; background: #EE7600;" />
+								style="color: #c64c85; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #c64c85; border-bottom-color: #c64c85; background: #c64c85;" />
 							<br />
 							<ui:repeat value="#{pacotesAtivosMB.listaTurismoPacotes}"
 								var="pacote">
@@ -345,7 +345,7 @@
 												columnClasses="tamanho98">
 												<h:panelGroup>
 													<p:outputLabel value="#{pacote.valoravista}"
-														style="font-size:26px;color:#EE7600;margin-left:1%;">
+														style="font-size:26px;color:#c64c85;margin-left:1%;">
 													</p:outputLabel>
 												</h:panelGroup>
 												<p:outputLabel
@@ -360,12 +360,12 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#EE7600;border-color:#EE7600;" icon="ui-icon-info" />
+													style="font-size:12px;background:#c64c85;border-color:#c64c85;" icon="ui-icon-info" />
 												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
+													ajax="false" title="Informativo do programa"  
 													onclick="this.form.target='_blank'"
 													action="#{pacotesAtivosMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#EE7600;border-color:#EE7600;" />
+													style="margin-left:2%;font-size:12px;background:#c64c85;border-color:#c64c85;" />
 											</div>
 											<br />
 										</div>
