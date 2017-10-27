@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;
+import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
@@ -76,10 +80,10 @@ public class ContasReceberBean {
 	}
 
 	public void apagarContasReceber(Parcelamentopagamento parcelamento, int idVenda,
-			UsuarioLogadoMB usuarioLogadoBean) {
+			UsuarioLogadoMB usuarioLogadoBean, int idParcelamentoPagamento) {
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 		List<Contasreceber> lista = contasReceberFacade.listar("SELECT c FROM Contasreceber c where c.vendas.idvendas="
-				+ idVenda + " and c.tipodocumento='" + parcelamento.getFormaPagamento() + "'");
+				+ idVenda + " and c.tipodocumento='" + parcelamento.getFormaPagamento() + "' and c.idparcelamentopagamento=" + idParcelamentoPagamento);
 		if (lista == null) {
 			lista = new ArrayList<>();
 		}
@@ -97,24 +101,27 @@ public class ContasReceberBean {
 						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 						crmCobrancaBean.baixar(lista.get(i), usuarioLogadoBean.getUsuario());
 					}
-				}
+				}  
 			}else {
 				valorJaRecebido = valorJaRecebido + lista.get(i).getValorpago();
 			}
 		}
 	}
 
-	public void gerarParcelasIndividuais(Parcelamentopagamento parcelamento, int numeroParcela, Vendas venda,
+	public Parcelamentopagamento gerarParcelasIndividuais(Parcelamentopagamento parcelamento, int numeroParcela, Vendas venda,
 			UsuarioLogadoMB usuarioLogadoBean) {
+		ParcelamentoPagamentoFacade pagamentoFacade = new ParcelamentoPagamentoFacade();
 		this.venda = venda;
 		this.usuarioLogadoBean = usuarioLogadoBean;
 		if (parcelamento.getTipoParcelmaneto().equalsIgnoreCase("Matriz")) {
 			this.listaContas = new ArrayList<Contasreceber>();
+			parcelamento = pagamentoFacade.salvar(parcelamento);
 			gerarParcelas(parcelamento, numeroParcela);
 			if (listaContas.size() > 0) {
 				salvarContasReceber();
 			}
 		}
+		return parcelamento;
 	}
 
 	public void verificarParcelamento() {
@@ -187,6 +194,7 @@ public class ContasReceberBean {
 			}
 			conta.setBoletoenviado(false);
 			conta.setVendas(venda);
+			conta.setIdparcelamentopagamento(parcela.getIdparcemlamentoPagamento());
 			listaContas.add(conta);
 			if (cmes == 12) {
 				cmes = 1;

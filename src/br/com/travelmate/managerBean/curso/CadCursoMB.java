@@ -1188,7 +1188,8 @@ public class CadCursoMB implements Serializable {
 			ContasReceberBean contasReceberBean = new ContasReceberBean();
 			if (venda.getIdvendas()!=null){
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), venda.getIdvendas(), usuarioLogadoMB);
+					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha), venda.getIdvendas(), usuarioLogadoMB,
+							formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
 				}
 			}
 			formaPagamento.getParcelamentopagamentoList().remove(linha);
@@ -1246,17 +1247,13 @@ public class CadCursoMB implements Serializable {
 						+ parcelamento.getFormaPagamento() + " é maior que data início do Curso");
 			}
 
-			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			if (venda.getIdvendas()!=null){
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
-					contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
-//					FacesContext fc = FacesContext.getCurrentInstance();
-//					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//					parcelamento = (Parcelamentopagamento) session.getAttribute("parcelamento");
-//					session.removeAttribute("parcelamento");
-				}
+					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+				 }
 			}
+			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			calcularParcelamentoPagamento();
 			valorParcela = 0;
 			this.valorParcela = 0;
@@ -1409,8 +1406,8 @@ public class CadCursoMB implements Serializable {
 				formaPagamento = cadCursoBean.salvarFormaPagamento(cancelamento);
 				cliente = cadCursoBean.salvarCliente(cliente);
 				if (enviarFicha) {
-					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem);
-				} 
+					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem,  formaPagamento);
+				}   
 				if(cursospacote!=null && cursospacote.getIdcursospacote()!=null){
 					VendasPacoteFacade vendasPacoteFacade = new VendasPacoteFacade();
 					Vendaspacote vendaspacote = new Vendaspacote();

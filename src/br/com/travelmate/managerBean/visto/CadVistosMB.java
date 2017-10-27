@@ -450,14 +450,14 @@ public class CadVistosMB implements Serializable {
 			if (formaPagamento != null) {
 				parcelamento.setFormapagamento(formaPagamento);
 			}
-			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			if (vendas.getIdvendas() != null) {
 				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO") && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
-					contasReceberBean.gerarParcelasIndividuais(parcelamento,
+					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento,
 							formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB);
 				}
 			}
+			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			calcularParcelamentoPagamento();
 			valorParcela = 0;
 			saldoParcelar = 0;
@@ -524,7 +524,7 @@ public class CadVistosMB implements Serializable {
 			if (vendas.getIdvendas() != null) {
 				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO") && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha),
-							vendas.getIdvendas(), usuarioLogadoMB);
+							vendas.getIdvendas(), usuarioLogadoMB, formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
 				}
 			}
 			if (contasReceberBean.getValorJaRecebido() > 0) {

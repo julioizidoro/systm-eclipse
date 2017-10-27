@@ -128,10 +128,10 @@ public class CadCursoBean {
 
 	}
 
-	public void salvarNovaFichha(AplicacaoMB aplicacaoMB, Seguroviagem seguroViagem) {
+	public void salvarNovaFichha(AplicacaoMB aplicacaoMB, Seguroviagem seguroViagem, Formapagamento forma) {
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+					 forma.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
 			
 		}
 		float valorPrevisto = 0.0f;

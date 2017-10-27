@@ -573,14 +573,14 @@ public class CadWorkTravelMB implements Serializable {
 				if (formaPagamento != null) {
 					parcelamentopagamento.setFormapagamento(formaPagamento);
 				}
-				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
 				if (venda.getIdvendas() != null) {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
-						contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
+						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
 								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
 					}
 				}
+				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")
 						|| (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("cheque"))) {
 					parcelamentopagamento.setVerificarParcelamento(Formatacao.calcularDataParcelamento(
@@ -657,7 +657,7 @@ public class CadWorkTravelMB implements Serializable {
 			if (venda.getIdvendas() != null) {
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha),
-							venda.getIdvendas(), usuarioLogadoMB);
+							venda.getIdvendas(), usuarioLogadoMB, formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
 				}
 			}
 			if (contasReceberBean.getValorJaRecebido() > 0) {
