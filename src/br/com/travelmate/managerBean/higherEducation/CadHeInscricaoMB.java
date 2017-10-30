@@ -1091,7 +1091,7 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, venda.getSituacao(), cliente, venda.getValor(),
-					produto, fornecedorCidade, cambio, orcamento.getValorCambio(), lead );
+					produto, fornecedorCidade, cambio, orcamento.getValorCambio(), lead,  he.getDatainicio(), he.getDatatermino());
 			LogVendaFacade logVendaFacade = new LogVendaFacade();
 			Logvenda logvenda = logVendaFacade.consultar(venda.getIdvendas());
 			if(valorVendaAlterada>0){

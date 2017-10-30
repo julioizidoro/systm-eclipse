@@ -977,7 +977,7 @@ public class CadWorkTravelMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getWork());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead);
+						lead, work.getDataInicioPretendida01(), work.getDataTerminoPretendida01());
 				CadWorkTravelBean cadWorkTravelBean = new CadWorkTravelBean(venda, formaPagamento, orcamento,
 						usuarioLogadoMB, work);
 				if (enviarFicha) {

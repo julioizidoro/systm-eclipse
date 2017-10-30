@@ -18,13 +18,18 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
-
+import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Controlecurso;
+import br.com.travelmate.model.Controlehighschool;
+import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
 import br.com.travelmate.model.Leadposvenda;
@@ -989,6 +994,7 @@ public class FollowUpMB implements Serializable {
 		}
 		sql = sql + " AND l.datachegada>='"+Formatacao.ConvercaoDataSql(data)+"'"
 				+ " OR l.datachegada is null";
+		sql = sql + " order by l.datachegada";
 		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
 		listaPosVenda = leadPosVendaFacade.listar(sql);
 		if(listaPosVenda==null) {
@@ -1034,12 +1040,44 @@ public class FollowUpMB implements Serializable {
 		if (programas != null && programas.getIdprodutos() != null) {
 			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
 		}
+		sql = sql + " order by l.datachegada";
 		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
 		listaPosVenda = leadPosVendaFacade.listar(sql);
 		if(listaPosVenda==null) {
 			listaPosVenda = new ArrayList<Leadposvenda>();
 		}
 		posvenda = listaPosVenda.size();
+	}
+	
+	public void salvarDataControle(Leadposvenda leadposvenda) { 
+		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+		leadposvenda = leadPosVendaFacade.salvar(leadposvenda);
+		int idproduto = leadposvenda.getVendas().getProdutos().getIdprodutos();
+		if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
+			CursoFacade cursoFacade = new CursoFacade();
+			Controlecurso controle = cursoFacade.consultarControleCursos(leadposvenda.getVendas().getIdvendas());
+			if (controle != null) {
+				controle.setDatachegadabrasil(leadposvenda.getDatachegada());
+				controle.setDataEmbarque(leadposvenda.getDataembarque());
+				cursoFacade.salvar(controle);
+			}
+		} else if (idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+			VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+			Controlevoluntariado controle = voluntariadoFacade.consultarControle(leadposvenda.getVendas().getIdvendas());
+			if (controle != null) {
+				controle.setDatachegadabrasil(leadposvenda.getDatachegada());
+				controle.setDataembarque(leadposvenda.getDataembarque());
+				voluntariadoFacade.salvar(controle);
+			}
+		} else if (idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+			HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
+			Controlehighschool controle = highSchoolFacade.consultarControle(leadposvenda.getVendas().getIdvendas());
+			if (controle != null) {
+				controle.setDataRetorno(leadposvenda.getDatachegada());
+				controle.setDataEmbarque(leadposvenda.getDataembarque());
+				highSchoolFacade.salvar(controle);
+			}
+		} 
 	}
 
 }

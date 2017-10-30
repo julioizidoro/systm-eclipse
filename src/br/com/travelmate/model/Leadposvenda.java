@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType; 
@@ -35,10 +36,10 @@ public class Leadposvenda implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date datachegada;
 	@JoinColumn(name = "lead_idlead", referencedColumnName = "idlead")
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	private Lead lead;
 	@JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	private Vendas vendas;
 
 	public Leadposvenda() {

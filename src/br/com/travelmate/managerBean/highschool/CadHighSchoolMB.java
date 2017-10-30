@@ -1052,7 +1052,7 @@ public class CadHighSchoolMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getHighSchool());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead);
+						lead, highschool.getValoreshighschool().getDatainicio(), null);
 				highschool.setControle("Processo");
 				highschool.setVendas(venda);
 				highschool.setValoreshighschool(valoreshighschool);

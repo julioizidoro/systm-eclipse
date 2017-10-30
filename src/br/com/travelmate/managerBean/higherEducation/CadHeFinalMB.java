@@ -907,7 +907,7 @@ public class CadHeFinalMB implements Serializable {
 			LeadFacade leadFacade = new LeadFacade();
 			Lead lead = leadFacade.consultar("select l from Lead l where l.idlead="+venda.getIdlead());
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, venda.getSituacao(), venda.getCliente(), venda.getValor(),
-					produto, venda.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead);
+					produto, venda.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, he.getDatainicio(), he.getDatatermino());
 			LogVendaFacade logVendaFacade = new LogVendaFacade();
 			Logvenda logvenda = logVendaFacade.consultar(venda.getIdvendas());
 			logvenda.setVendas(he.getVendas());

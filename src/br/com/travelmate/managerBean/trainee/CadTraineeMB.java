@@ -1172,7 +1172,7 @@ public class CadTraineeMB implements Serializable {
 			this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getTrainee());
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 					formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-					lead);
+					lead, null, null);
 			CadTraineeBean cadTraineeBean = new CadTraineeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			if (enviarFicha) {
 				cadTraineeBean.SalvarAlteracaoFinanceiro(listaParcelamentoPagamentoAntiga,

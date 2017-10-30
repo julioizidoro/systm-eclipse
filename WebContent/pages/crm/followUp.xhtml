@@ -496,16 +496,39 @@
 							<h:outputText value="#{posvenda.lead.tipocontato.tipo}" />  
 						</p:column>   
 						<p:column headerText="Data Embarque" width="80" style="text-align:center;" sortBy="#{posvenda.dataembarque}">
-							<h:outputText value="#{posvenda.dataembarque}" title="Data de Recimento">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-							</h:outputText>   
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{posvenda.dataembarque}" title="Data de Recimento">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									</h:outputText>   
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="dataembarque"
+										value="#{posvenda.dataembarque}"
+										size="12" locale="pt" pattern="dd/MM/yyyy">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										<p:ajax event="dateSelect" listener="#{followUpMB.salvarDataControle(posvenda)}" update="tabelaPosVenda"/>
+									</p:calendar>
+								</f:facet>
+							</p:cellEditor>  
 						</p:column>
 						<p:column headerText="Data Chegada" width="80" sortBy="#{posvenda.datachegada}" 
 							style="text-align:center;">
-							<h:outputText value="#{posvenda.datachegada}">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</h:outputText>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{posvenda.datachegada}" title="Data de Recimento">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									</h:outputText>   
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="datachegada"
+										value="#{posvenda.datachegada}"
+										size="12" locale="pt" pattern="dd/MM/yyyy">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										<p:ajax event="dateSelect" listener="#{followUpMB.salvarDataControle(posvenda)}" update="tabelaPosVenda"/>
+									</p:calendar>
+								</f:facet>
+							</p:cellEditor>  
 						</p:column>
 						<p:column headerText="Próximo Contato" width="85" sortBy="#{posvenda.lead.dataproximocontato}"
 							style="text-align:center;">

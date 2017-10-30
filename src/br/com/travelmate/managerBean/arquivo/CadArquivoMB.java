@@ -31,6 +31,7 @@ import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.InvoiceFacade;
+import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
@@ -53,14 +54,14 @@ import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Invoice;
+import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Regravenda;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Usuariopontos;
-import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Voluntariado;
+import br.com.travelmate.model.Vendas; 
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -1259,6 +1260,13 @@ public class CadArquivoMB implements Serializable {
 						controle.setDataembarque(this.dataembarque);
 						voluntariadoFacade.salvar(controle);
 					}
+				}
+				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+				Leadposvenda leadposvenda = leadPosVendaFacade.consultar("SELECT l FROM Leadposvenda l WHERE l.vendas.idvendas="+vendas.getIdvendas());
+				if(leadposvenda!=null) {
+					leadposvenda.setDataembarque(dataembarque);
+					leadposvenda.setDatachegada(datachegadabrasil);
+					leadposvenda = leadPosVendaFacade.salvar(leadposvenda);
 				}
 			}
 		}

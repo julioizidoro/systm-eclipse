@@ -1065,7 +1065,7 @@ public class CadAupairMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getAupair());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead);
+						lead, null, null);
 				aupair.setControle("Processo");
 				aupair.setVendas(venda);
 				aupair.setValoresAupair(valoresAupair);

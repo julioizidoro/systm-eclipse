@@ -1044,7 +1044,7 @@ public class CadCursosTeensMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getProgramasTeens());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead);
+						lead, programasTeens.getDataInicioCurso(), programasTeens.getDataTerminoCurso());
 				if (venda.getIdvendas() != null) {
 					if (venda.getCambio() != cambio) {
 						cambioAlterado = "Sim";

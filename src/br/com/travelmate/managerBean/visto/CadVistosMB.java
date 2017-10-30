@@ -643,7 +643,7 @@ public class CadVistosMB implements Serializable {
 		vendas.setUsuario(usuarioLogadoMB.getUsuario());
 		vendas.setValorcambio(0.0f);
 		vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, "FINALIZADA", cliente,
-				formaPagamento.getValorTotal(), produto, fornecedorcidade, cambio, cambio.getValor(), lead);
+				formaPagamento.getValorTotal(), produto, fornecedorcidade, cambio, cambio.getValor(), lead, null, null);
 		vistos.setVendas(vendas);
 		vistos.setControle("Processo");
 		vistos.setPaisDestino(pais.getNome());

@@ -675,7 +675,7 @@ public class CadTraducaoMB implements Serializable {
 			venda.setVendasMatriz(vendaMatriz);
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 					formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-					lead);
+					lead, null, null);
 			traducao.setVendas(venda);
 			TraducaoJuramentadaFacade juramentadaFacade = new TraducaoJuramentadaFacade();
 			traducao = juramentadaFacade.salvar(traducao);

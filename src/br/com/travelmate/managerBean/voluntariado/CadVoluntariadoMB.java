@@ -1054,7 +1054,7 @@ public class CadVoluntariadoMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getVoluntariado());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead);
+						lead, voluntariado.getDataInicio(), voluntariado.getDataTermino());
 				CadVoluntariadoBean cadVoluntariadoBean = new CadVoluntariadoBean(venda, formaPagamento, orcamento,
 						usuarioLogadoMB, valorSeguroAntigo);
 				if (!novaFicha) {

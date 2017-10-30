@@ -980,10 +980,11 @@ public class CadDemiPairMB implements Serializable {
 					}
 				}
 				ProgramasBean programasBean = new ProgramasBean();
+				Date datatermino = Formatacao.calcularDataFinal(demipair.getDatainicio(), demipair.getNumerosemanas());
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getDemipair());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead);
+						lead, demipair.getDatainicio(), datatermino);
 				CadDemiPairBean cadDemiPairBean = new CadDemiPairBean(venda, formaPagamento, orcamento,
 						usuarioLogadoMB);
 				if (enviarFicha) {

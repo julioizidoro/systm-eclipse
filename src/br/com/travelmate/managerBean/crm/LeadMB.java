@@ -176,7 +176,7 @@ public class LeadMB implements Serializable {
 	public String novoLead() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 550);
-		RequestContext.getCurrentInstance().openDialog("cadLead", options, null);
+		RequestContext.getCurrentInstance().openDialog("cadLeadDistribuicao", options, null);
 		return "";
 	}
 

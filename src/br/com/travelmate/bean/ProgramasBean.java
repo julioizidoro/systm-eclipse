@@ -33,12 +33,13 @@ import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.util.Formatacao;
 
 @Named
 public class ProgramasBean {
 	
 	
-	public Vendas salvarVendas(Vendas venda, UsuarioLogadoMB usuarioLogadoMB, String situacao, Cliente cliente, Float valorTotal, Produtos produto, Fornecedorcidade fornecedorCidade, Cambio cambio, Float valorCambio, Lead lead) {
+	public Vendas salvarVendas(Vendas venda, UsuarioLogadoMB usuarioLogadoMB, String situacao, Cliente cliente, Float valorTotal, Produtos produto, Fornecedorcidade fornecedorCidade, Cambio cambio, Float valorCambio, Lead lead, Date datainicio, Date datatermino) {
 		Logvenda logVenda = new Logvenda();
 		if (venda.getIdvendas() == null) {
 			logVenda.setOperacao("NOVA");
@@ -82,8 +83,24 @@ public class ProgramasBean {
 				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
 				leadposvenda.setLead(lead);
 				leadposvenda.setVendas(venda);
-				leadposvenda.setDatachegada(null);
-				leadposvenda.setDataembarque(null);
+				Date data = null;
+				Date datachegada = null;
+				if(datainicio!=null) {
+					try {
+						data = Formatacao.SomarDiasDatas(datainicio, -2); 
+					} catch (Exception e) { 
+						e.printStackTrace();
+					}
+				}
+				if(datatermino!=null) {
+					try { 
+						datachegada = Formatacao.SomarDiasDatas(datatermino, 2);
+					} catch (Exception e) { 
+						e.printStackTrace();
+					}
+				}
+				leadposvenda.setDatachegada(datachegada);
+				leadposvenda.setDataembarque(data);
 				leadPosVendaFacade.salvar(leadposvenda);
 			}
 		}else venda.setIdlead(0);

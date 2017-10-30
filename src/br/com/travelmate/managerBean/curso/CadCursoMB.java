@@ -1388,7 +1388,7 @@ public class CadCursoMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
 
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente, totalPagar, produto,
-						fornecedorCidade, cambio, orcamento.getValorCambio(), lead);
+						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino());
 				salvarSeguroViagem();
 				CadCursoBean cadCursoBean = new CadCursoBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 				if (enviarFicha && !novaFicha) {
