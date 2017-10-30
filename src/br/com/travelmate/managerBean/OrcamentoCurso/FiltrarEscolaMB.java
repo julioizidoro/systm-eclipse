@@ -548,7 +548,7 @@ public class FiltrarEscolaMB implements Serializable {
 								if (suplementoMenorDeIdade == 0) {
 									if (filtrarEscolaBean.getListaGrupoObrigatorio().get(i).getProduto()
 											.isSuplementemenoridade()) { 
-										if (idadeestudante <= idadeVinculados) {
+										if (idadeestudante < idadeVinculados) {
 											String sqlSuplementoIdade = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 													+ fornecedorProdutosBean.getFornecedorcidadeidioma()
 															.getIdfornecedorcidadeidioma()
