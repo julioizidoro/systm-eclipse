@@ -11,6 +11,7 @@ import br.com.travelmate.facade.FornecedorPaisFacade;
 import br.com.travelmate.facade.IdiomaFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -612,4 +613,22 @@ public class CoProdutosMB implements Serializable {
 		coProdutosFacade.excluir(coprodutos.getIdcoprodutos());
 		listaCoProdutos.remove(coprodutos);
 	}
+	
+	public String editarValoresEscola() {
+		if (cidade != null && idioma != null && fornecedorCidadeIdioma != null) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("fornecedorcidadeidioma", fornecedorCidadeIdioma);
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			options.put("modal", true);
+			RequestContext.getCurrentInstance().openDialog("editarValoresCoProdutos", options, null);
+			return "";
+		} else {
+			Mensagem.lancarMensagemErro("Atenção! ", "Campos obrigatórios não preenchidos."); 
+			return "";
+		}
+	}
+	
+	
 }

@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+		<title>Editar Valores</title>
+		<br></br>
+		<p:outputLabel value="Informações Antigas" style="color:#2E8B57;font-size:12px;" /><br />
+		<p:outputLabel id="produto" value="Produtos" style="margin-left:3%;" />
+		<br />
+		<p:selectOneMenu id="idproduto" value="#{editarValoresCoProdutosMB.produto}"
+			style="width:150px;font-size: 10px;margin-left:3%;">
+			<f:selectItem itemLabel="Selecione" itemValue="sn"
+				noSelectionOption="true" />
+			<f:selectItem itemLabel="Obrigatório" itemValue="Obrigatorio" />
+			<f:selectItem itemLabel="Acomodação" itemValue="Acomodacao" />
+			<f:selectItem itemLabel="Transfer" itemValue="Transfer" />
+			<f:selectItem itemLabel="Opcional" itemValue="Opcional" />
+			<f:selectItem itemLabel="Acom. Opcional" itemValue="AcOpcional" />
+			<p:ajax event="change"   />
+		</p:selectOneMenu><br />
+		<p:selectOneRadio id="tipodata"
+			value="#{editarValoresCoProdutosMB.tipodata}" layout="custom">
+			<f:selectItem itemLabel="Data Inscrição" itemValue="DM" />
+			<f:selectItem itemLabel="Data Início" itemValue="DI" />
+			<f:selectItem itemLabel="Data Suplemento" itemValue="DS" />
+		</p:selectOneRadio>
+		<p:radioButton id="opt1" for="tipodata" itemIndex="1"
+			class="espacocobranca28" />
+		<h:outputLabel for="opt1" value="Data Inscrição"
+			class="espacocobranca29" />
+
+		<p:radioButton id="opt2" for="tipodata" itemIndex="2"
+			class="espacocobranca28" />
+		<h:outputLabel for="opt2" value="Data Início" class="espacocobranca29" />
+
+		<p:radioButton id="opt3" for="tipodata" itemIndex="3"
+			class="espacocobranca28" />
+		<h:outputLabel for="opt3" value="Data Suplemento"
+			class="espacocobranca29" />
+		<br></br>
+		<h:panelGrid columns="1" style="margin-left:10%;width:80%;">
+			<p:outputLabel value="Período" for="datainicio" />
+			<h:panelGroup>
+				<p:inputMask id="datainicio"
+					value="#{editarValoresCoProdutosMB.dataInicialAntiga}" size="10"
+					mask="99/99/9999" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="datafinal" size="10"
+					value="#{editarValoresCoProdutosMB.dataFinalAntiga}"
+					mask="99/99/9999" maxlength="15" style="margin-left:3%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+			</h:panelGroup>
+		</h:panelGrid>
+		<br></br>
+		<p:outputLabel value="Informações Novas" style="color:#2E8B57;font-size:12px;" /><br/>
+		<p:selectOneRadio id="tipodatanovo"
+			value="#{editarValoresCoProdutosMB.tipodataNovo}" layout="custom">
+			<f:selectItem itemLabel="Data Inscrição" itemValue="DM" />
+			<f:selectItem itemLabel="Data Início" itemValue="DI" />
+			<f:selectItem itemLabel="Data Suplemento" itemValue="DS" />
+		</p:selectOneRadio>
+		<p:radioButton id="opt4" for="tipodatanovo" itemIndex="1"
+			class="espacocobranca28" />
+		<h:outputLabel for="opt4" value="Data Inscrição"
+			class="espacocobranca29" />
+
+		<p:radioButton id="opt5" for="tipodatanovo" itemIndex="2"
+			class="espacocobranca28" />
+		<h:outputLabel for="opt5" value="Data Início" class="espacocobranca29" />
+
+		<p:radioButton id="opt6" for="tipodatanovo" itemIndex="3"
+			class="espacocobranca28" />
+		<h:outputLabel for="opt6" value="Data Suplemento"  
+			class="espacocobranca29" />
+		<br></br>
+		<h:panelGrid columns="1" style="margin-left:10%;width:80%;">
+			<p:outputLabel value="Período" for="datainicionovo" />
+			<h:panelGroup>
+				<p:inputMask id="datainicionovo"
+					value="#{editarValoresCoProdutosMB.dataInicialNova}" size="10"
+					mask="99/99/9999" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="datafinalnovo" size="10"
+					value="#{editarValoresCoProdutosMB.dataFinalNova}" mask="99/99/9999"
+					maxlength="15" style="margin-left:3%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>  
+			</h:panelGroup> 
+		</h:panelGrid>
+		<br></br>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar"
+				action="#{editarValoresCoProdutosMB.salvar()}" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{editarValoresCoProdutosMB.cancelar()}"
+				style="margin-left:3%;" />
+		</div>
+		<p:ajaxStatus onstart="PF('carregandoDialog').show()"
+			onsuccess="PF('carregandoDialog').hide()" />
+
+		<p:dialog widgetVar="carregandoDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink>
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

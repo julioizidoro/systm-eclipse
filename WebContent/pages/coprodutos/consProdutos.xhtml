@@ -85,11 +85,11 @@
 						<f:attribute name="listaFornecedorCidadeIdioma"
 							value="#{coProdutosMB.listaFornecedorIdioma}" />
 						<p:ajax event="change"
-							update="tabelaprodutos, bntAddProduto, bntAddAcomodacao, habilitarsegundocurso,ano, moeda"
+							update="tabelaprodutos, bntAddProduto, bntAddAcomodacao, habilitarsegundocurso,ano, moeda, btnEditarValor"
 							listener="#{coProdutosMB.listarCoProdutos()}" />
 					</p:selectOneMenu>
 					<p:commandLink action="#{coProdutosMB.adicionarFornecedorIdioma()}"
-						title="Salvar ano" >
+						title="Salvar ano" >  
 						<img src="../../resources/img/adicionar.png"></img>
 					</p:commandLink>
 
@@ -120,7 +120,7 @@
 					<b>Consulta de Produtos Curso</b>
 				</legend>
 				<p:commandButton id="bntAddProduto" icon="ui-icon-plus" 
-					style="font-size:12px;margin-left: 2.5%;width:12%;" value="Novo Curso"
+					style="font-size:12px;margin-left: 2.5%;width:10%;" value="Novo Curso"
 					action="#{coProdutosMB.cadProduto()}"
 					disabled="#{coProdutosMB.habilitarBotoes}">   
 					<p:ajax event="dialogReturn"
@@ -130,7 +130,7 @@
 				<p:commandButton id="bntAddAcomodacao" value="Acomodações"
 					action="#{coProdutosMB.cadFornecedorCidadeIdiomaAcomodacao()}"
 					disabled="#{coProdutosMB.habilitarBotoes}"
-					style="font-size:12px;margin-left: 2.5%;width:12%;" icon="ui-icon-home" > 
+					style="font-size:12px;margin-left: 2.5%;width:10%;" icon="ui-icon-home" > 
 				</p:commandButton>
 				<p:commandButton id="bntAddProdutoOrcamento" value="Novo Produto"
 					action="#{coProdutosMB.produtosOrcamento()}"
@@ -138,14 +138,18 @@
 				</p:commandButton>
 				<p:commandButton id="bntCadPacotes" value="Pacotes"
 					action="#{coProdutosMB.pacotes()}"
-					style="font-size:12px;margin-left: 2.5%;width:12%;" icon="ui-icon-suitcase">
+					style="font-size:12px;margin-left: 2.5%;width:10%;" icon="ui-icon-suitcase">
+				</p:commandButton>
+				<p:commandButton id="btnEditarValor" value="Editar Valores" disabled="#{coProdutosMB.habilitarBotoes}"   
+					action="#{coProdutosMB.editarValoresEscola()}"
+					style="font-size:12px;margin-left: 2.5%;width:12%;" icon="ui-icon-pencil">
 				</p:commandButton>
 				<p:selectBooleanCheckbox id="situacaoprodutos"
 					value="#{coProdutosMB.situacao}" class="espacopreto" style="margin-left:2%">
 					<p:ajax event="change"
 						listener="#{coProdutosMB.listarCoProdutos()}"  update="tabelaprodutos"/>
 				</p:selectBooleanCheckbox>
-				<p:outputLabel value="Produtos Ativos"
+				<p:outputLabel value="Produtos Ativos"     
 					style="margin-left:1%;font-size:13px" />  
 				<p:selectBooleanCheckbox id="habilitarsegundocurso"
 					value="#{coProdutosMB.fornecedorCidadeIdioma.fornecedorcidade.fornecedor.habilitarorcamento}"

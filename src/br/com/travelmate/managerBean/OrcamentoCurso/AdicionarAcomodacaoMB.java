@@ -13,13 +13,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
-
-import br.com.travelmate.facade.CoProdutosFacade;
+ 
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Coprodutos;
+import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Promocaoacomodacao;
 import br.com.travelmate.model.Promocaoacomodacaocidade;
 import br.com.travelmate.model.Valorcoprodutos;
