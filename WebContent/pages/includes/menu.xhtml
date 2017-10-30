@@ -36,6 +36,15 @@
 								style="margin-top: 3px;" />  
 						</p:commandLink>  
 					</h:panelGroup></li>     
+				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
+							<p:commandLink id="funcoes" class="dropdown-toggle"  
+								data-toggle="dropdown" title="Departamentos"
+								style="font-size:11px;padding: 13px 9px;"
+								action="#{menuMB.visualizarFuncao()}" update="@all">
+								<img src="../../resources/img/paginainicial/organograma.png" width="22"
+									style="margin-top: 3px;" />  
+							</p:commandLink>   
+						</h:panelGroup></li>         
 				<li class="dropdown"><p:commandLink id="atencao" title="Avisos"
 						class="dropdown-toggle" data-toggle="dropdown"
 						action="#{usuarioLogadoMB.carregarNotificacao('aviso', 'lead')}">

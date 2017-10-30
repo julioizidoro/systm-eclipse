@@ -42,11 +42,11 @@
 							class="icon-bar"></span>
 					</button>
 					<ul class="nav-notification clearfix">
-						<li class="dropdown" style="margin-top: 3%;"><h:panelGroup
+						<li class="dropdown" style="margin-top: 1.5%;"><h:panelGroup
 								id="painelImagembtn" rendered="#{dashBoardMB.retornarImagem()}">
 								<p:commandLink id="mudarDashboardImg" class="dropdown-toggle"
 									data-toggle="dropdown" title="Conteúdo"
-									style="font-size:11px;padding: 13px 9px;"
+									style="font-size:11px;padding: 13px 9px;" 
 									action="#{dashBoardMB.mudarDashboard()}" update="@all">
 									<img src="resources/img/paginainicial/conteudo.png" width="27"
 										style="margin-top: 3px;" />
@@ -80,6 +80,15 @@
 								style="font-size:11px;padding: 13px 9px;"
 								action="#{menuMB.escolas()}" update="@all">
 								<img src="resources/img/paginainicial/destinos.png" width="22"
+									style="margin-top: 3px;" />  
+							</p:commandLink>   
+						</h:panelGroup></li>    
+						<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
+							<p:commandLink id="funcoes" class="dropdown-toggle"
+								data-toggle="dropdown" title="Departamentos"
+								style="font-size:11px;padding: 13px 9px;"
+								action="#{menuMB.visualizarFuncao()}" update="@all">
+								<img src="resources/img/paginainicial/organograma.png" width="22"
 									style="margin-top: 3px;" />  
 							</p:commandLink>   
 						</h:panelGroup></li>         
