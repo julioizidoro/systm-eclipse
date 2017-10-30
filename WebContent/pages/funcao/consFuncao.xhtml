@@ -10,40 +10,7 @@
 		<h:form id="idFormConsFuncao" style="font-size:11px;">
 			<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 			<div id="centro">
-				<br></br> <br></br>
-				<p:accordionPanel class="painel" activeIndex="-1" style="width: 85%;margin-left: 7.3%;">
-					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
-						title="Pesquisar">
-						
-						<h:panelGrid columns="1"
-							columnClasses="tamanho24">
-							<h:panelGrid width="40%" columns="2">
-								<p:outputLabel value="Departamento" for="departamento" />
-								<br/>
-								<p:selectOneMenu id="departamento" disabled="#{funcaoMB.habilitarDepartamento}"
-									value="#{funcaoMB.departamento}"
-									style="width:250px;" converter="DepartamentoConverter"
-									filter="true" filterMatchMode="startsWith">
-									<f:selectItem itemLabel="Departamento" itemValue="0"
-										noSelectionOption="true" />
-									<f:selectItems id="iddepartamento"
-										value="#{funcaoMB.listaDepartamento}" var="departamento"
-										itemLabel="#{departamento.nome}" itemValue="#{departamento}" />
-									<f:attribute name="listaDepartamento"
-										value="#{funcaoMB.listaDepartamento}" />
-								</p:selectOneMenu>
-								<p:commandButton value="Pesquisar" disabled="#{funcaoMB.habilitarDepartamento}" icon=" ui-icon-search "
-									update="idFormConsFuncao:idTabelaFuncao"
-									action="#{funcaoMB.pesquisar()}" style="margin-left:5%;"/>
-							</h:panelGrid>  
-						</h:panelGrid>
-						<br></br> 
-
-					</p:tab>
-				</p:accordionPanel>
-				
-				<br></br><br/><br/>
-				
+				<br></br> <br></br> 
 				<p:commandButton id="bntNovaFuncao" style="font-size:12px;float:right;margin-right:1%;" icon="ui-icon-plus"
 							value="Nova Função"
 							action="#{funcaoMB.cadastroFuncao()}">

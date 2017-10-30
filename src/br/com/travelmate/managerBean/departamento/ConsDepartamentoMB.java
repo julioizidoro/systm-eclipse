@@ -122,13 +122,19 @@ public class ConsDepartamentoMB implements Serializable{
 	
 	
 	public String visualizarFuncaoDepartamento(Departamento departamento){
-		FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 500);
-	    options.put("closable", false);
-	    session.setAttribute("departamento", departamento);
-	    return "consFuncao";
+		int iddepartamento = usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
+		if(iddepartamento==1 || iddepartamento==departamento.getIddepartamento()) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 500);
+		    options.put("closable", false);
+		    session.setAttribute("departamento", departamento);
+		    return "consFuncao";
+		}else {
+			Mensagem.lancarMensagemInfo("Atenção!", "Acesso negado.");
+			return "";
+		}
 	}
 
 }

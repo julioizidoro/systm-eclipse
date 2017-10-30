@@ -41,22 +41,23 @@ public class CadFuncaoMB implements Serializable{
 	private List<Usuario> listaUsuario;
 	private Departamento departamento;
 	private List<Departamento> listaDepartamento;
-	private boolean habilitarDepartamento = false;
+	private boolean habilitarDepartamento = true;
 	
 	
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        funcao = (Funcao) session.getAttribute("funcao");
+        funcao = (Funcao) session.getAttribute("funcao");  
         session.removeAttribute("funcao");
         gerarListaDepartamento();
+        departamento = (Departamento) session.getAttribute("departamento");
+		session.removeAttribute("departamento");
+        gerarListaUsuario();
         if (funcao == null) {
-			funcao = new Funcao();
-		}else{
-			departamento = funcao.getUsuario().getDepartamento();
-			usuario = funcao.getUsuario();
-			gerarListaUsuario();
+			funcao = new Funcao(); 
+		}else{ 
+			usuario = funcao.getUsuario(); 
 		}
         if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			departamento = usuarioLogadoMB.getUsuario().getDepartamento();

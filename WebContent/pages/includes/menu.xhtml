@@ -35,7 +35,16 @@
 							<img src="../../resources/img/paginainicial/destinos.png" width="22"
 								style="margin-top: 3px;" />  
 						</p:commandLink>  
-					</h:panelGroup></li>     
+					</h:panelGroup></li> 
+				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
+							<p:commandLink id="cambios" class="dropdown-toggle"
+								data-toggle="dropdown" title="Consulta de Câmbio"
+								style="font-size:11px;padding: 13px 9px;"
+								action="#{menuMB.cambioFranquia()}" update="@all">
+								<img src="../../resources/img/paginainicial/conscambio.png" width="24"
+									style="margin-top: 3px;" />  
+							</p:commandLink>   
+						</h:panelGroup></li>        
 				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
 							<p:commandLink id="funcoes" class="dropdown-toggle"  
 								data-toggle="dropdown" title="Departamentos"

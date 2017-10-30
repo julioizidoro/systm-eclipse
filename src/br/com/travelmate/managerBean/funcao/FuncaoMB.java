@@ -99,6 +99,9 @@ public class FuncaoMB implements Serializable {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 600);
 		options.put("closable", false);
+		FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("departamento", departamento);
 		RequestContext.getCurrentInstance().openDialog("cadFuncao", options, null);
 		return "";
 	}
