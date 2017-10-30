@@ -17,6 +17,25 @@
 					class="icon-bar"></span>
 			</button> 
 			<ul class="nav-notification clearfix">
+				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup
+						rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">
+						<p:commandLink id="calculadoraFinanceira" class="dropdown-toggle"
+							data-toggle="dropdown" title="Calculadora Financeira"
+							style="font-size:11px;padding: 13px 9px;"
+							action="#{menuMB.calculadoraMargem()}" update="@all">
+							<img src="../../resources/img/paginainicial/calcularora.png" width="22"
+								style="margin-top: 3px;" />  
+						</p:commandLink>  
+					</h:panelGroup></li>     
+				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
+						<p:commandLink id="destinos" class="dropdown-toggle"
+							data-toggle="dropdown" title="Destinos"
+							style="font-size:11px;padding: 13px 9px;"
+							action="#{menuMB.escolas()}" update="@all">
+							<img src="../../resources/img/paginainicial/destinos.png" width="22"
+								style="margin-top: 3px;" />  
+						</p:commandLink>  
+					</h:panelGroup></li>     
 				<li class="dropdown"><p:commandLink id="atencao" title="Avisos"
 						class="dropdown-toggle" data-toggle="dropdown"
 						action="#{usuarioLogadoMB.carregarNotificacao('aviso', 'lead')}">
