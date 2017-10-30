@@ -41,7 +41,6 @@ import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Complementocurso;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidade;

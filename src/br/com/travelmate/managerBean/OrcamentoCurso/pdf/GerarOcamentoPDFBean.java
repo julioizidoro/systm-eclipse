@@ -462,6 +462,10 @@ public class GerarOcamentoPDFBean {
 		} else if (produtoCurso.getValorcoprodutos().getCoprodutos().isAcomodacao()) {
 			composicao = composicao + " + ACOMODAÇÃO";
 			OrcamentoPDFBean o = carregarDados();
+			int numero = produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getNumerosemanas();
+			if(produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getNumerosemanas()==0) {
+				numero = produtoCurso.getOcurso().getNumerosemanas();
+			}
 			o.setDescricaolista(produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao()
 					.getTipoacomodacao() + ", "
 					+ produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTipoquarto()
@@ -470,7 +474,7 @@ public class GerarOcamentoPDFBean {
 					+ ", Banheiro "
 					+ produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTipobanheiro()
 					+", "+produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getComplemento()
-					+", "+produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getNumerosemanas()+" Semana(s)");
+					+", "+numero+" Semana(s)");
 			o.setIdgrupo(2);  
 			o.setTituloLista("ACOMODAÇÃO");
 			totalAcMe = 0.00f;
