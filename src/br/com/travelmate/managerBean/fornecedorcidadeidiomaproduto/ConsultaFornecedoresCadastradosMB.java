@@ -78,6 +78,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	private Fornecedorcidadeidiomaproduto fornecedorcidadeidiomaproduto;
 	private String nomeProdutosOrcamento;
 	private boolean filtrarProduto;
+	private boolean informaçõesEscola;
 
 	@PostConstruct
 	public void init() {
@@ -325,6 +326,14 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	public void setNomeProdutosOrcamento(String nomeProdutosOrcamento) {
 		this.nomeProdutosOrcamento = nomeProdutosOrcamento;
+	}
+
+	public boolean isInformaçõesEscola() {
+		return informaçõesEscola;
+	}
+
+	public void setInformaçõesEscola(boolean informaçõesEscola) {
+		this.informaçõesEscola = informaçõesEscola;
 	}
 
 	public String arquivos(Fornecedorcidade fornecedorcidade) {
@@ -845,5 +854,23 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 			} 
 		}
 		return "";
+	}
+	
+	public void visualizarInformacoesEscola() {
+		if(informaçõesEscola) {
+			informaçõesEscola=false;
+		}else informaçõesEscola =true;
+	}
+	  
+	public String imagemInformacaoEscola() {
+		if(informaçõesEscola) {
+			return "../../resources/img/esconderOpcoes.png";
+		}else return "../../resources/img/expandirOpcoes.png";
+	}
+	
+	public String titleInformacaoEscola() {
+		if(!informaçõesEscola) {
+			return "Expandir informações da escola.";
+		}else return "Esconder informações da escola.";
 	}
 }
