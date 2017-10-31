@@ -297,7 +297,8 @@ public class EnviarEmail {
 		corpoEmail = corpoEmail + " <img src=\"http://www.systm.com.br:82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
 		corpoEmail = corpoEmail + " <br></br>\n";
 		if (listaDadosEscolas != null && listaDadosEscolas.size() > 0) {
-			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br><br></br>";
+			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br>";
+			corpoEmail = corpoEmail + "	<label style=\"font-size:13px;\">"+ texto +"</label><br></br><br></br>";
 			gerarCorpoOrcamento();
 		} else if (nomeArquivo != null && nomeArquivo.length() > 0) {
 			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">"+ texto +"</label><br></br><br></br>";
