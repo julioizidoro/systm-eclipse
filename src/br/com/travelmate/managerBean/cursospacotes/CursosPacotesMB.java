@@ -59,14 +59,22 @@ public class CursosPacotesMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) { 
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			sql = (String) session.getAttribute("sql");
+			fornecedorCidadeIdioma = (Fornecedorcidadeidioma) session.getAttribute("fornecedorcidadeidioma");
+			session.removeAttribute("fornecedorcidadeidioma"); 
 			session.removeAttribute("sql");
-			if(sql!=null && sql.length()>0){
-				CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade(); 
-				listaCursosPacotes = cursosPacotesFacade.listar(sql); 
+			if(fornecedorCidadeIdioma!=null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma()!=null){
+				produtos = fornecedorCidadeIdioma.getFornecedorcidade().getProdutos();
+				gerarListaPais();
+				pais = fornecedorCidadeIdioma.getFornecedorcidade().getCidade().getPais();
+				cidade = fornecedorCidadeIdioma.getFornecedorcidade().getCidade();
+				listarIdiomas();
+				idioma = fornecedorCidadeIdioma.getIdioma(); 
+				listarFornecedorCidadeIdioma();
+				listarCursosPacotes();
 			}
 			getAplicacaoMB();
 			listaProdutos = GerarListas.listarProdutos(""); 

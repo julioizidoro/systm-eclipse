@@ -176,7 +176,8 @@ public class CadCursosPacotesMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");  
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("sql", sql);
+			session.setAttribute("sql", sql); 
+			session.setAttribute("fornecedorcidadeidioma", cursospacote.getFornecedorcidadeidioma());
 			return "cursospacotes";
 		}
 		return "";
