@@ -742,13 +742,24 @@ public class OrcamentoCursoMB implements Serializable {
 			if (produtosOrcamentoBean.getNumeroSemanas() != resultadoOrcamentoBean.getOcurso().getNumerosemanas()) {
 				ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 				Valorcoprodutos valorcoprodutos = null;
-				String sql = "Select v from  Valorcoprodutos v where v.datainicial<='"
-						+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "' and v.datafinal>='"
-						+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta())
-						+ "' and v.numerosemanainicial<=" + produtosOrcamentoBean.getNumeroSemanas()
+				String sql = "Select v from  Valorcoprodutos v where v.numerosemanainicial<="
+						+ produtosOrcamentoBean.getNumeroSemanas()
 						+ " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas()
 						+ " and v.coprodutos.idcoprodutos="
 						+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos();
+				if(produtosOrcamentoBean.getValorcoprodutos().getTipodata().equalsIgnoreCase("DI")) {
+					sql = sql + " AND v.datainicial<='" 
+							+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "' and v.datafinal>='" 
+							+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "'";
+				}else if(produtosOrcamentoBean.getValorcoprodutos().getTipodata().equalsIgnoreCase("DS")) {
+					sql = sql + " AND v.datainicial<='" 
+							+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "' and v.datafinal>='" 
+							+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "'";
+				}if(produtosOrcamentoBean.getValorcoprodutos().getTipodata().equalsIgnoreCase("DM")) {
+					sql = sql + " AND v.datainicial<='" 
+							+ Formatacao.ConvercaoDataSql(new Date()) + "' and v.datafinal>='" 
+							+ Formatacao.ConvercaoDataSql(new Date()) + "'";
+				}
 				List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
 				if (listaValorcoprodutoses != null) {
 					for (int n = 0; n < listaValorcoprodutoses.size(); n++) {
@@ -797,13 +808,24 @@ public class OrcamentoCursoMB implements Serializable {
 			}
 			ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 			Valorcoprodutos valorcoprodutos = null;
-			String sql = "Select v from  Valorcoprodutos v where v.datainicial<='"
-					+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "' and v.datafinal>='"
-					+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta())
-					+ "' and v.numerosemanainicial<=" + produtosOrcamentoBean.getNumeroSemanas()
+			String sql = "Select v from  Valorcoprodutos v where v.numerosemanainicial<="
+					+ produtosOrcamentoBean.getNumeroSemanas()
 					+ " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas()
 					+ " and v.coprodutos.idcoprodutos="
 					+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos();
+			if(produtosOrcamentoBean.getValorcoprodutos().getTipodata().equalsIgnoreCase("DI")) {
+				sql = sql + " AND v.datainicial<='" 
+						+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "' and v.datafinal>='" 
+						+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "'";
+			}else if(produtosOrcamentoBean.getValorcoprodutos().getTipodata().equalsIgnoreCase("DS")) {
+				sql = sql + " AND v.datainicial<='" 
+						+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "' and v.datafinal>='" 
+						+ Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getDataConsulta()) + "'";
+			}if(produtosOrcamentoBean.getValorcoprodutos().getTipodata().equalsIgnoreCase("DM")) {
+				sql = sql + " AND v.datainicial<='" 
+						+ Formatacao.ConvercaoDataSql(new Date()) + "' and v.datafinal>='" 
+						+ Formatacao.ConvercaoDataSql(new Date()) + "'";
+			}
 			List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
 			if (listaValorcoprodutoses != null) {
 				for (int n = 0; n < listaValorcoprodutoses.size(); n++) {
