@@ -254,7 +254,7 @@
 								action="#{consultaFornecedoresCadastradosMB.gerarListaFornecedorCidadeIdiomaProduto()}"
 								update="consultaFornecedorCadastrado:painelDados, consultaFornecedorCadastrado:growl" />
 						</p:column>   
-						<p:column headerText="Categoria"  rendered="#{consultaFornecedoresCadastradosMB.informaçõesEscola}"
+						<p:column headerText="Categoria" 
 							style="text-align:center;width:125px">
 							<p:dataScroller
 								value="#{consultaFornecedoresCadastradosMB.retornarListaImagem(escolas)}"
@@ -262,7 +262,7 @@
 								<img src="#{tmstar.imagem}" width="15" />
 							</p:dataScroller>
 						</p:column>
-						<p:column style="width:41px;"  rendered="#{consultaFornecedoresCadastradosMB.informaçõesEscola}">
+						<p:column style="width:41px;">
 							<p:commandLink id="btnEscola"
 								action="#{consultaFornecedoresCadastradosMB.selecionarFornecedorCidade(escolas)}"
 								onclick="PF('descricaoEscolaCidade').show();"
@@ -271,14 +271,14 @@
 								<img src="../../resources/img/boletoFicha.png" width="25" />
 							</p:commandLink>
 						</p:column>
-						<p:column style="width:41px;" rendered="#{consultaFornecedoresCadastradosMB.informaçõesEscola}">
+						<p:column style="width:41px;" >
 							<p:commandLink id="btnEscolaArquivo"
 								action="#{consultaFornecedoresCadastradosMB.documentosFornecedor(escolas)}"
 								title="Documentos">
 								<img src="../../resources/img/arquivosUpload.png" width="25" />
 							</p:commandLink>
 						</p:column>
-						<p:column style="width:41px;" rendered="#{consultaFornecedoresCadastradosMB.informaçõesEscola}">
+						<p:column style="width:41px;"  >
 							<p:commandLink id="btnGuia"
 								action="#{consultaFornecedoresCadastradosMB.guia(escolas)}"
 								title="Guia"
@@ -286,21 +286,13 @@
 								<img src="../../resources/img/guiaescolas.png" width="25" />
 							</p:commandLink>
 						</p:column>
-						<p:column style="width:43px;"  rendered="#{consultaFornecedoresCadastradosMB.informaçõesEscola}">
+						<p:column style="width:43px;" >
 							<p:commandLink id="btnDepoimentos"
 								action="#{consultaFornecedoresCadastradosMB.depoimentos(escolas)}"
 								title="Depoimentos">
 								<img src="../../resources/img/depoimentos.png" />
 							</p:commandLink>
-						</p:column>
-						<p:column style="width:41px;">
-							<p:commandLink id="btnMostrarInformacoes"
-								action="#{consultaFornecedoresCadastradosMB.visualizarInformacoesEscola()}" 
-								title="#{consultaFornecedoresCadastradosMB.titleInformacaoEscola()}"
-								update=":consultaFornecedorCadastrado:idTabelaEscola">
-								<img src="#{consultaFornecedoresCadastradosMB.imagemInformacaoEscola()}" width="25" />
-							</p:commandLink>      
-						</p:column>  
+						</p:column> 
 					</p:dataTable>
 					<p:dataTable id="idTabelaProdutos" var="produtos"
 						rendered="#{consultaFornecedoresCadastradosMB.mostrarProdutosFuncao()}"
@@ -322,7 +314,7 @@
 							<p:commandLink value="#{produtos.produtosorcamento.descricao}"
 								action="#{consultaFornecedoresCadastradosMB.selecionarFornecedorCidadeIdiomaProduto(produtos)}"
 								update="consultaFornecedorCadastrado:painelDados, 
-								 consultaFornecedorCadastrado:growl" />   
+								 consultaFornecedorCadastrado:growl" title="Grupo: #{produtos.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.descricao}" />   
 						</p:column>    
 					</p:dataTable>     
 					<p:dataTable id="idTabelaProdutosSemFuncao" var="produtos"
@@ -336,12 +328,8 @@
 			            </p:column>     
 						<p:column headerText="Produtos" style="width:150px;"  
 							styleClass="alinharCenter" filterStyle="width:95%;" filterBy="#{produtos.produtosorcamento.descricao}" filterMatchMode="contains">  
-							<p:outputLabel value="#{produtos.produtosorcamento.descricao}"  />   
-						</p:column>
-						<p:column headerText="Grupo" style="width:150px;"  
-							styleClass="alinharCenter" filterStyle="width:95%;" filterBy="#{produtos.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.descricao}" filterMatchMode="contains">  
-							<p:outputLabel value="#{produtos.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.descricao}"  />   
-						</p:column>
+							<p:outputLabel value="#{produtos.produtosorcamento.descricao}" title="Grupo: #{produtos.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.descricao}" />   
+						</p:column> 
 					</p:dataTable>     
 					<p:outputLabel />
 					<p:outputLabel />
