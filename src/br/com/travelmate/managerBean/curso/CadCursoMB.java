@@ -3221,6 +3221,7 @@ public class CadCursoMB implements Serializable {
 					listaProdutosOrcamento.remove(filtroorcamentoproduto);
 				}
 				calcularValorTotalOrcamento();
+				formaPagamento.setObservacoes("PACOTE PROMOCIONAL TRAVELMATE");
 			} 
 		}
 	}
