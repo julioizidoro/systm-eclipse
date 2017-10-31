@@ -524,7 +524,7 @@ public class CursoMB implements Serializable {
 		if ((dataInicio != null) && (dataTermino != null)) {
 			sql = sql + " and c.dataInscricao>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and c.dataInscricao<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
-		} else {
+		} else if (idVenda==0){
 			if (nome.length() == 0) {
 				String dataConsulta = Formatacao.SubtarirDatas(new Date(), 365, "yyyy-MM-dd");
 				sql = sql + " and c.vendas.dataVenda>='" + dataConsulta + "'";
