@@ -58,15 +58,6 @@ public class Usuario implements Serializable {
     @Size(max = 100)
     @Column(name = "email")
     private String email;
-    @Size(max = 50)
-    @Column(name = "funcao")
-    private String funcao;
-    @Size(max = 200)
-    @Column(name = "localsalvar")
-    private String localsalvar;
-    @Size(max = 200)
-    @Column(name = "locarlvisualizar")
-    private String locarlvisualizar;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "usuario")
     private List<Vendascomissao> vendascomissaoList;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "usuario")
@@ -183,30 +174,7 @@ public class Usuario implements Serializable {
         this.email = email;
     } 
 
-    public String getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(String funcao) {
-		this.funcao = funcao;
-	}
-
-	public String getLocalsalvar() {
-        return localsalvar;
-    }
-
-    public void setLocalsalvar(String localsalvar) {
-        this.localsalvar = localsalvar;
-    }
-
-    public String getLocarlvisualizar() {
-        return locarlvisualizar;
-    }
-
-    public void setLocarlvisualizar(String locarlvisualizar) {
-        this.locarlvisualizar = locarlvisualizar;
-    }
-
+    
     public List<Vendascomissao> getVendascomissaoList() {
         return vendascomissaoList;
     }

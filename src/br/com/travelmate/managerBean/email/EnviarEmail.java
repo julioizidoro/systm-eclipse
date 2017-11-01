@@ -329,7 +329,7 @@ public class EnviarEmail {
 				+ "    	    	        <td><span style=\"DISPLAY: block; FONT-SIZE: 12px; COLOR: #333; FONT-FAMILY: tahoma; font-weight:bold\">"
 				+ usuario.getNome() + "</span></td>\n" + "    	    	      </tr>\n" + "    	    	      <tr>\n"
 				+ "    	    	        <td><span style=\"font-family: arial; font-size: 11px; color: #333\">"
-				+ usuario.getFuncao() + "</span></td>\n" + "     	    	      </tr>\n"
+				+ usuario.getCargo().getNome() + "</span></td>\n" + "     	    	      </tr>\n"
 				+ "    	    	      <tr>\n" + "     	    	        <td><A href=\"mailto:" + usuario.getEmail()
 				+ "\" target=\"_blank\" class=headline style=\"DISPLAY: block; FONT-SIZE: 11px; COLOR: #333; FONT-FAMILY:arial;\">"
 				+ usuario.getEmail() + "</A></td></tr>\n" + "     	    	        <tr>\n"
