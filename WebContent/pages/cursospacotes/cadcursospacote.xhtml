@@ -36,12 +36,12 @@
 								value="#{cadCursosPacotesMB.voluntariadopacote.voluntariadoprojetovalor}"
 								readonly="true" style="width:85%;" />
 							<p:commandLink id="selecionarvoluntariadoprojetovalor"
-								action="#{cadCursosPacotesMB.calcularValorTotalVoluntariado()}"
+								action="#{cadCursosPacotesMB.selecionarVoluntariadoValor('')}"
 								style="margin-left:1%;text-decoration:none;"
 								title="Selecione um projeto">
 								<img src="../../resources/img/visualizarBola.png" />
 								<p:ajax event="dialogReturn"
-									update="valorcurso, :cadastroproduto:growl" />
+									update="valorprojeto, :cadastroproduto:growl" />
 							</p:commandLink>
 						</h:panelGroup>
 					</h:panelGrid>
@@ -61,8 +61,8 @@
 							value="#{cadCursosPacotesMB.cursospacote.numerosemanacurso}"
 							style="width:75%;text-align:right;">
 							<p:ajax event="blur"
-								listener="#{cadCursosPacotesMB.calcularValorTotalCurso()}"
-								update="totalcurso, :cadastroproduto:growl, totalpacote" />
+								listener="#{cadCursosPacotesMB.calcularValorTotalVoluntariado()}"
+								update="valorprojeto, :cadastroproduto:growl, totalprojeto" />
 						</p:inputText>
 						<p:inputText id="valorprojeto"
 							value="#{cadCursosPacotesMB.voluntariadopacote.voluntariadoprojetovalor.valor}"

@@ -71,6 +71,7 @@ public class CadCursosPacotesMB implements Serializable {
 				formapagamento = new Cursopacoteformapagamento();
 				if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
 					voluntariadopacote = new Voluntariadopacote();
+					voluntariadopacote.setCursospacote(cursospacote);
 				}
 			} else{
 				CursosPacotesFormaPagamentoFacade cursosPacotesFormaPagamentoFacade = new CursosPacotesFormaPagamentoFacade();
