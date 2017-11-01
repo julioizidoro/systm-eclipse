@@ -72,7 +72,7 @@ public class CalcularComissao {
         if (listaUsuario!=null){
             for(int i=0;i<listaUsuario.size();i++){
                 if (listaUsuario.get(i).getSituacao().equalsIgnoreCase("Ativo")){
-                    if (listaUsuario.get(i).getFuncao().equalsIgnoreCase("Consultor")){
+                    if ((listaUsuario.get(i).getCargo().getIdcargo()==2) || (listaUsuario.get(i).getCargo().getIdcargo()==15)){
                         gerarComissaoConsultor(listaUsuario.get(i));
                     }
                 }
@@ -82,7 +82,7 @@ public class CalcularComissao {
         if (listaUsuario!=null){
             for(int i=0;i<listaUsuario.size();i++){
                 if (listaUsuario.get(i).getSituacao().equalsIgnoreCase("Ativo")){
-                    if (listaUsuario.get(i).getFuncao().equalsIgnoreCase("Consultor")){
+                	if ((listaUsuario.get(i).getCargo().getIdcargo()==2) || (listaUsuario.get(i).getCargo().getIdcargo()==15)){
                         gerarComissaoConsultor(listaUsuario.get(i));
                     }
                 }
@@ -93,7 +93,7 @@ public class CalcularComissao {
         if (listaUsuario!=null){
             for(int i=0;i<listaUsuario.size();i++){
                 if (listaUsuario.get(i).getSituacao().equalsIgnoreCase("Ativo")){
-                    if (listaUsuario.get(i).getFuncao().equalsIgnoreCase("Consultor")){
+                	if ((listaUsuario.get(i).getCargo().getIdcargo()==2) || (listaUsuario.get(i).getCargo().getIdcargo()==15)){
                         gerarComissaoConsultor(listaUsuario.get(i));
                     }
                 }
