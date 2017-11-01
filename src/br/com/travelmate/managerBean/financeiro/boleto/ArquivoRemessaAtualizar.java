@@ -6,6 +6,7 @@
 package br.com.travelmate.managerBean.financeiro.boleto;
 
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import java.io.IOException;
 import java.util.Date;
@@ -19,19 +20,22 @@ public class ArquivoRemessaAtualizar {
     private String branco = "                                        ";
     private String zeros = "000000000000000000000";
     
-    public String gerarHeader(Contasreceber conta, int numeroSequencial) throws IOException{
+    public String gerarHeader(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade, String agencia, String contaBanco, String digitoConta) throws IOException{
         String linha="";
         linha = linha  + ("0");
         linha = linha  + ("1");
         linha = linha  + ("REMESSA");
         linha = linha  + ("01");
         linha = linha  + ("COBRANCA       ");
-        linha = linha  + (conta.getVendas().getUnidadenegocio().getBanco().getAgencia());
+        linha = linha  + (agencia);
         linha = linha  + ("00");
-        linha = linha  + (conta.getVendas().getUnidadenegocio().getBanco().getConta());
-        linha = linha  + (conta.getVendas().getUnidadenegocio().getBanco().getDigitoconta());
+        linha = linha  + (contaBanco);
+        linha = linha  + (digitoConta);
         linha = linha  + (branco.substring(0, 8));
-        String nomeEmpresa = conta.getVendas().getUnidadenegocio().getRazaoSocial();
+        String nomeEmpresa = unidade.getRazaoSocial();
+        if (nomeEmpresa == null) {
+			nomeEmpresa = "Sem Empresa";
+		}
         nomeEmpresa = nomeEmpresa.toUpperCase();
         if (nomeEmpresa.length()<30){
             nomeEmpresa = nomeEmpresa + branco.substring(0, 30 - nomeEmpresa.length());
@@ -51,15 +55,15 @@ public class ArquivoRemessaAtualizar {
         return linha;
     }
     
-    public String gerarDetalhe(Contasreceber conta, int numeroSequencial) throws IOException, Exception{
+    public String gerarDetalhe(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade, String agencia, String contaBanco, String digitoConta) throws IOException, Exception{
         String linha="";
         linha = linha  + ("1");
         linha = linha  + ("00");
         linha = linha  + ("00000000000000");
-        linha = linha  + (conta.getVendas().getUnidadenegocio().getBanco().getAgencia());
+        linha = linha  + (agencia);
         linha = linha  + ("00");
-        linha = linha  + (conta.getVendas().getUnidadenegocio().getBanco().getConta());
-        linha = linha  + (conta.getVendas().getUnidadenegocio().getBanco().getDigitoconta());
+        linha = linha  + (contaBanco);
+        linha = linha  + (digitoConta);
         linha = linha  + (branco.substring(0, 4));
         linha = linha  + ("00");
         linha = linha  + (branco.substring(0, 25));

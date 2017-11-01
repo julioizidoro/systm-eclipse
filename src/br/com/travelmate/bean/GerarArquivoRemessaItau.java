@@ -119,18 +119,36 @@ public class GerarArquivoRemessaItau {
     }
     
     private void atualizarBoleto(Contasreceber conta) throws IOException, Exception{
-        numeroSequencial++;
+    	Unidadenegocio unidadePassar = null;
+		Banco bancoPassar = null;    
+    		numeroSequencial++;
         ArquivoRemessaAtualizar arquivoRemessaAtualizar = new ArquivoRemessaAtualizar();
-        remessa.write(arquivoRemessaAtualizar.gerarHeader(conta, numeroSequencial));
+        if (conta.getVendas().getUnidadenegocio().getIdunidadeNegocio()>2){
+        		unidadePassar = unidadeMatriz;
+        		bancoPassar = bancoFranquia;
+        }else {
+    			bancoPassar = conta.getVendas().getUnidadenegocio().getBanco();
+    			unidadePassar =conta.getVendas().getUnidadenegocio();	
+        }
+        remessa.write(arquivoRemessaAtualizar.gerarHeader(conta, numeroSequencial, unidadePassar, bancoPassar.getAgencia(), bancoPassar.getConta(), bancoPassar.getDigitoconta()));
         numeroSequencial++;
-        remessa.write(arquivoRemessaAtualizar.gerarDetalhe(conta, numeroSequencial));
+        remessa.write(arquivoRemessaAtualizar.gerarDetalhe(conta, numeroSequencial, unidadePassar, bancoPassar.getAgencia(), bancoPassar.getConta(), bancoPassar.getDigitoconta()));
         numeroSequencial++;
         remessa.write(arquivoRemessaAtualizar.gerarTrailer(numeroSequencial));
     }
     
     private void cancelarBoleto(Contasreceber conta) throws IOException, Exception {
+    		Unidadenegocio unidadePassar = null;
+    		Banco bancoPassar = null;
         numeroSequencial++;
         ArquivoRemessaCancelar arquivoRemessaCancelar = new ArquivoRemessaCancelar();
+        if (conta.getVendas().getUnidadenegocio().getIdunidadeNegocio()>2){
+        		unidadePassar = unidadeMatriz;
+        		bancoPassar = bancoFranquia;
+        }else {
+    			bancoPassar = conta.getVendas().getUnidadenegocio().getBanco();
+    			unidadePassar =conta.getVendas().getUnidadenegocio();	
+        }
         remessa.write(arquivoRemessaCancelar.gerarHeader(conta, numeroSequencial));
         numeroSequencial++;
         remessa.write(arquivoRemessaCancelar.gerarDetalhe(conta, numeroSequencial));

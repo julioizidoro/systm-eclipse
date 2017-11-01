@@ -1969,7 +1969,7 @@ public class FiltrarEscolaMB implements Serializable {
 				List<Fornecedorcidadeidiomaprodutodata> lista =
 						dataFacade.listar("SELECT f FROM Fornecedorcidadeidiomaprodutodata f WHERE"
 								+ " f.fornecedorcidadeidiomaproduto.idfornecedorcidadeidiomaproduto="
-								+fornecedorcidadeidiomaproduto.getIdfornecedorcidadeidiomaproduto());
+								+fornecedorcidadeidiomaproduto.getIdfornecedorcidadeidiomaproduto() + " and f.datainicio>='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
 				if(lista!=null){
 					listaFornecedorCidadeDatas= new ArrayList<>();
 					listaDatas = new ArrayList<>();
