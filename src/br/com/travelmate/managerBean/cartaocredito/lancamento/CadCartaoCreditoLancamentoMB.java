@@ -21,7 +21,8 @@ import br.com.travelmate.facade.CartaoCreditoLancamentoContasFacade;
 import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.PlanoContaFacade; 
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cartaocredito;
 import br.com.travelmate.model.Cartaocreditolancamento;
 import br.com.travelmate.model.Cartaocreditolancamentocontas;
@@ -221,7 +222,16 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				lancamento.setPlanoconta(planoconta);
 				lancamento.setUsuario(usuarioLogadoMB.getUsuario());
 				lancamento.setMoedas(moedas);
-				lancamento.setValorlancado(lancamento.getValorinformado() / Integer.parseInt(lancamento.getNumeroparcelas()));
+				lancamento.setValorlancado(lancamento.getValorinformado());
+				if (lancamento.isHabilitarmoeda()) {
+					CambioFacade cambioFacade = new CambioFacade();
+					Cambio cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(new Date()), moedas.getIdmoedas());
+					if (cambio != null) {
+						lancamento.setValorcambio(cambio.getValor());
+						lancamento.setValorlancado(lancamento.getValorlancado() * cambio.getValor());
+					}
+				}
+				lancamento.setValorlancado(lancamento.getValorlancado() / Integer.parseInt(lancamento.getNumeroparcelas()));
 				if (Formatacao.getDiaData(lancamento.getData()) > lancamento.getCartaocredito().getDatafechamento()) {
 					mes = mes + 1;
 				}
@@ -230,9 +240,7 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				lancamento.setData(Formatacao.ConvercaoStringData(dataLancamento));
 				lancamento.setNumeroparcelas(1 + "/" + lancamento.getNumeroparcelas());
 				lancamento = cartaoCreditoFacade.salvar(lancamento);
-				if (lancamento.isValorrecorrente()) {
-					gerarLancamentoRecorrente();
-				}
+				gerarLancamentoRecorrente();
 				Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
 			} 
 			RequestContext.getCurrentInstance().closeDialog(null); 

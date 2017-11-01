@@ -235,16 +235,15 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 				diaFinal = "28";
 			}
 			if (recorrente) {
-				sql = sql + " and c.data>'" + ano + "-" + mes + "-" + diaFinal + "' "; 
-			}else{
-				sql = sql + " and c.data>='" + ano + "-" + mes + "-01' and c.data<='" + ano + "-" + mes + "-" + diaFinal + "' "; 
+				sql = sql + " and c.valorrecorrente=1 "; 
 			}
+			sql = sql + " and c.data>='" + ano + "-" + mes + "-01' and c.data<='" + ano + "-" + mes + "-" + diaFinal + "' "; 
 		}
 		sql = sql + " order by c.data desc"; 
 		listaLancamento = cartaoCreditoLancamentoFacade.listar(sql);
 		valorTotal = 0.0f;
 		for (int i = 0; i < listaLancamento.size(); i++) {
-			valorTotal = valorTotal + listaLancamento.get(i).getValorinformado();
+			valorTotal = valorTotal + listaLancamento.get(i).getValorlancado();
 		}
 	}
 	
@@ -289,7 +288,7 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		}
 		valorTotal = 0.0f;
 		for (int i = 0; i < listaLancamento.size(); i++) {
-			valorTotal = valorTotal + listaLancamento.get(i).getValorinformado();
+			valorTotal = valorTotal + listaLancamento.get(i).getValorlancado();
 		}
 		
 	}
@@ -322,8 +321,8 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 			contaspagar.setDescricao(lancamento.getDescricao());
 			contaspagar.setPlanoconta(lancamento.getPlanoconta());
 			contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
-			contaspagar.setValorentrada(lancamento.getValorlancado());
-			contaspagar.setValorsaida(0.0f);
+			contaspagar.setValorentrada(0.0f);
+			contaspagar.setValorsaida(lancamento.getValorlancado());
 			ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 			contaspagar = contasPagarFacade.salvar(contaspagar);
 			lancamento.setLancado(true);
