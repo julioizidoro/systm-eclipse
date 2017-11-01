@@ -18,7 +18,7 @@
 							<p:outputLabel value="Mostrar Escola" style="margin-left:2%;"/>
 						</h:panelGroup>
 						<p:outputLabel value="Produto" />  
-						<h:panelGroup>
+						<h:panelGroup rendered="#{cadCursosPacotesMB.informacoesCurso}">
 							<p:inputText id="coproduto"
 								value="#{cadCursosPacotesMB.cursospacote.valorcoprodutos_curso.coprodutos.nome}"
 								readonly="true" style="width:85%;" />
@@ -31,13 +31,63 @@
 									update="valorcurso, :cadastroproduto:growl" />
 							</p:commandLink>
 						</h:panelGroup>
+						<h:panelGroup rendered="#{cadCursosPacotesMB.informacoesVoluntariado}" >
+							<p:inputText id="voluntariadoprojetovalor"
+								value="#{cadCursosPacotesMB.voluntariadopacote.voluntariadoprojetovalor}"
+								readonly="true" style="width:85%;" />
+							<p:commandLink id="selecionarvoluntariadoprojetovalor"
+								action="#{cadCursosPacotesMB.calcularValorTotalVoluntariado()}"
+								style="margin-left:1%;text-decoration:none;"
+								title="Selecione um projeto">
+								<img src="../../resources/img/visualizarBola.png" />
+								<p:ajax event="dialogReturn"
+									update="valorcurso, :cadastroproduto:growl" />
+							</p:commandLink>
+						</h:panelGroup>
 					</h:panelGrid>
 					<br />
-					<h:panelGrid columns="3" style="margin-left:14%;width:70%;"
-						columnClasses="colunaVintenove,colunaVintenove,colunaVintenove">
+					<h:panelGrid columns="4" style="margin-left:14%;width:70%;" rendered="#{cadCursosPacotesMB.informacoesVoluntariado}"
+						columnClasses="espacocobranca21botao, espacocobranca21botao,colunaVintenove,colunaVintenove">
+						<p:outputLabel value="Ano Tarifario" />
+						<p:outputLabel value="Nº Semanas" />
+						<p:outputLabel value="Valor" />
+						<p:outputLabel value="Total do Projeto" />
+						<p:inputText id="anotarifariovoluntarido"
+							value="#{cadCursosPacotesMB.cursospacote.anotarifario}"
+							style="width:75%;text-align:right;">
+							<p:ajax event="blur"  />
+						</p:inputText>
+						<p:inputText id="numerosemanavoluntariado"
+							value="#{cadCursosPacotesMB.cursospacote.numerosemanacurso}"
+							style="width:75%;text-align:right;">
+							<p:ajax event="blur"
+								listener="#{cadCursosPacotesMB.calcularValorTotalCurso()}"
+								update="totalcurso, :cadastroproduto:growl, totalpacote" />
+						</p:inputText>
+						<p:inputText id="valorprojeto"
+							value="#{cadCursosPacotesMB.voluntariadopacote.voluntariadoprojetovalor.valor}"
+							readonly="true" style="width:80%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="totalprojeto"
+							value="#{cadCursosPacotesMB.cursospacote.valortotalcurso}"
+							style="width:87%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid columns="4" style="margin-left:14%;width:70%;" rendered="#{cadCursosPacotesMB.informacoesCurso}"
+						columnClasses="espacocobranca21botao,espacocobranca21botao,colunaVintenove,colunaVintenove">
+						<p:outputLabel value="Ano Tarifario" />
 						<p:outputLabel value="Nº Semanas" />
 						<p:outputLabel value="Valor" />
 						<p:outputLabel value="Total do curso" />
+						<p:inputText id="anotarifario"
+							value="#{cadCursosPacotesMB.cursospacote.anotarifario}"
+							style="width:75%;text-align:right;">
+							<p:ajax event="blur"  />
+						</p:inputText>
 						<p:inputText id="numerosemana"
 							value="#{cadCursosPacotesMB.cursospacote.numerosemanacurso}"
 							style="width:75%;text-align:right;">
@@ -109,7 +159,7 @@
 					<br />
 					<p:outputLabel value="Dados da Acomodação"
 						style="font-size:14px;margin-left:14%;color:#4C816D;" />
-					<h:panelGrid columns="1" style="margin-left:14%;width:78.7%;">
+					<h:panelGrid columns="1" style="margin-left:14%;width:78.7%;" rendered="#{cadCursosPacotesMB.informacoesCurso}">
 						<p:outputLabel value="Acomodação" />
 						<h:panelGroup>
 							<p:inputText id="coprodutoacomodacao"

@@ -137,10 +137,14 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setAupair(true);
 					listaTrabalhoPacotes.add(lista.get(i));
 					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
-					lista.get(i).setHighschool(true);
-					listaTeensPacotes.add(lista.get(i));
-					teens = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
+					lista.get(i).setAupair(true);
+					listaTrabalhoPacotes.add(lista.get(i));
+					trabalho = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+					lista.get(i).setVoluntariado(true);
+					listaTrabalhoPacotes.add(lista.get(i));
+					trabalho = true;
 				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getWork()) {
 					lista.get(i).setWorktravel(true);
 					listaTrabalhoPacotes.add(lista.get(i));
@@ -169,9 +173,13 @@ public class PacotesAtivosMB implements Serializable {
 			if(pacotesinicial.getNumerosemanaacomodacao()!=null && pacotesinicial.getNumerosemanaacomodacao()>0){
 				return "Incluída "+Formatacao.formatarFloatStringNumero(pacotesinicial.getNumerosemanaacomodacao())+" semana(s)";
 			}else return "Não incluso";  
-		}if(pacotesinicial.isTurismo()) {
+		}else if(pacotesinicial.isTurismo()) {
 			if(pacotesinicial.getDescritivoacomodacao()!=null && pacotesinicial.getDescritivoacomodacao().length()>0){
 				return pacotesinicial.getDescritivoacomodacao();
+			}else return "Não incluso";  
+		}else if(pacotesinicial.isVoluntariado()) {
+			if(pacotesinicial.getDescritivoacomodacao()!=null && pacotesinicial.getDescritivoacomodacao().length()>0){
+				return "Incluída "+Formatacao.formatarFloatStringNumero(pacotesinicial.getNumerosemanaacomodacao())+" semana(s)";
 			}else return "Não incluso";  
 		}else {
 			if(pacotesinicial.getNumerosemanaacomodacao()!=null && pacotesinicial.getNumerosemanaacomodacao()>0){

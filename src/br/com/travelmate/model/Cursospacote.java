@@ -128,6 +128,8 @@ public class Cursospacote implements Serializable {
     private int ano1;
     @Column(name = "ano2")
     private int ano2;
+    @Column(name = "anotarifario")
+    private int anotarifario;
 
     public Cursospacote() {
     	setValortotalacomodacao(0.0f);
@@ -492,6 +494,14 @@ public class Cursospacote implements Serializable {
 
 	public void setMostrarescola(boolean mostrarescola) {
 		this.mostrarescola = mostrarescola;
+	}
+
+	public int getAnotarifario() {
+		return anotarifario;
+	}
+
+	public void setAnotarifario(int anotarifario) {
+		this.anotarifario = anotarifario;
 	}
 
 	@Override

@@ -81,8 +81,7 @@ public class SalvarOrcamentoOcurso {
 		ocurso.setCargahoraria(cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso()
 				.getCargahoraria() + " "
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso().getTipocargahoraria());
-		ocurso.setCliente(cliente);
-		ocurso.setDatainicio(datainicio);
+		ocurso.setCliente(cliente); 
 		ocurso.setDataorcamento(new Date());
 		ocurso.setDatavalidade(cursospacote.getDataterminovenda());
 		ocurso.setDatatermino(Formatacao.calcularDataFinal(datainicio, cursospacote.getNumerosemanacurso()));
@@ -354,8 +353,13 @@ public class SalvarOrcamentoOcurso {
 	}
 
 	public Date retornarDataConsultaOrcamento() {
-		int anoFornecedor = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
+		int anoFornecedor = 0;
+		if(cursospacote.getAnotarifario()>0) {
+			anoFornecedor = cursospacote.getAnotarifario();
+		}else {
+			anoFornecedor = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
 				.getAnotarifario();
+		}
 		Calendar c = new GregorianCalendar();
 		c.setTime(datainicio);
 		int ano = Formatacao.getAnoData(datainicio);
