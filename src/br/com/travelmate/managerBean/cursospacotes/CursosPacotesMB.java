@@ -207,8 +207,7 @@ public class CursosPacotesMB implements Serializable {
 		if (listaIdiomas == null) {
 			listaIdiomas = new ArrayList<Idioma>();
 		}
-		idioma = null;
-		fornecedorCidadeIdioma=null;
+		idioma = null; 
 		listaFornecedorIdioma = new ArrayList<>();
 		listaCursosPacotes = new ArrayList<>();
 	}

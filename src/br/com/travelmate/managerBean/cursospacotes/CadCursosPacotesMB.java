@@ -4,6 +4,7 @@ import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.CursosPacotesFormaPagamentoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
+import br.com.travelmate.facade.VoluntariadoPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Coeficientejuros;
@@ -12,6 +13,8 @@ import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Valorcoprodutos;
+import br.com.travelmate.model.Voluntariadopacote;
+import br.com.travelmate.model.Voluntariadoprojetoacomodacao;
 import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
@@ -41,6 +44,9 @@ public class CadCursosPacotesMB implements Serializable {
 	private String sql;
 	private Cursopacoteformapagamento formapagamento;
 	private Produtos produtos;
+	private Voluntariadopacote voluntariadopacote;
+	private boolean informacoesVoluntariado;
+	private boolean informacoesCurso;
 
 	@PostConstruct
 	public void init() {
@@ -55,18 +61,37 @@ public class CadCursosPacotesMB implements Serializable {
 			session.removeAttribute("cursospacote");
 			session.removeAttribute("sql");
 			session.removeAttribute("fornecedorcidadeidioma"); 
+			int idproduto = 0;
+			if(produtos!=null) {
+				idproduto = produtos.getIdprodutos();
+			} 
 			if (cursospacote == null) {
 				cursospacote = new Cursospacote();
 				cursospacote.setFornecedorcidadeidioma(fornecedorCidadeIdioma);  
 				formapagamento = new Cursopacoteformapagamento();
+				if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+					voluntariadopacote = new Voluntariadopacote();
+					voluntariadopacote.setCursospacote(cursospacote);
+				}
 			} else{
 				CursosPacotesFormaPagamentoFacade cursosPacotesFormaPagamentoFacade = new CursosPacotesFormaPagamentoFacade();
 				formapagamento = cursosPacotesFormaPagamentoFacade.consultar("select c from Cursopacoteformapagamento c where"
 						+ " c.cursospacote.idcursospacote="+cursospacote.getIdcursospacote());
 				if(formapagamento==null){
 					formapagamento = new Cursopacoteformapagamento();
-				}
+				} 
 				produtos = cursospacote.getProdutos();
+				idproduto = produtos.getIdprodutos();
+				if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+					VoluntariadoPacoteFacade voluntariadoPacoteFacade = new VoluntariadoPacoteFacade();
+					voluntariadopacote = voluntariadoPacoteFacade.consultar("SELECT v FROM Voluntariadopacote v WHERE"
+							+ " v.cursospacote.idcursospacote="+cursospacote.getIdcursospacote());
+				}
+			}
+			if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+				informacoesVoluntariado = true;
+			}else if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
+				informacoesCurso = true;
 			}
 		}   
 	}  
@@ -117,6 +142,30 @@ public class CadCursosPacotesMB implements Serializable {
 
 	public void setAplicacaoMB(AplicacaoMB aplicacaoMB) {
 		this.aplicacaoMB = aplicacaoMB;
+	}
+
+	public Voluntariadopacote getVoluntariadopacote() {
+		return voluntariadopacote;
+	}
+
+	public void setVoluntariadopacote(Voluntariadopacote voluntariadopacote) {
+		this.voluntariadopacote = voluntariadopacote;
+	}
+
+	public boolean isInformacoesVoluntariado() {
+		return informacoesVoluntariado;
+	}
+
+	public void setInformacoesVoluntariado(boolean informacoesVoluntariado) {
+		this.informacoesVoluntariado = informacoesVoluntariado;
+	}
+
+	public boolean isInformacoesCurso() {
+		return informacoesCurso;
+	}
+
+	public void setInformacoesCurso(boolean informacoesCurso) {
+		this.informacoesCurso = informacoesCurso;
 	}
 
 	public String cancelar() {
@@ -422,6 +471,30 @@ public class CadCursosPacotesMB implements Serializable {
 			}
 		}
 	}
+	
+	public String selecionarVoluntariadoValor(String tipo) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+		session.setAttribute("voluntariadopacote", voluntariadopacote);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("selecionarVoluntariadoValor", options, null);
+		return "";
+	}
  
+	public void calcularValorTotalVoluntariado() {
+		if (voluntariadopacote.getVoluntariadoprojetovalor() != null) { 
+			cursospacote.setValortotalcurso(voluntariadopacote.getVoluntariadoprojetovalor().getValor()); 
+			if(voluntariadopacote.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList()!=null) {
+				Voluntariadoprojetoacomodacao voluntariadoprojetoacomodacao = voluntariadopacote.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList().get(0);
+				String descricao = voluntariadoprojetoacomodacao.getTipoacomodacao()+", "+voluntariadoprojetoacomodacao.getTipoquarto()
+					+", "+voluntariadoprojetoacomodacao.getTiporefeicao()+", "+voluntariadoprojetoacomodacao.getTipobanheiro();
+				cursospacote.setDescritivoacomodacao(descricao);
+				cursospacote.setNumerosemanaacomodacao(voluntariadopacote.getVoluntariadoprojetovalor().getNumerosemanainicial().floatValue());
+			}
+		} else {
+			Mensagem.lancarMensagemErro("Atenção!", "Selecione um projeto.");
+		}
+	}
 
 }

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script src="../../resources/js/calendario.js" type="text/javascript" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="selecionarVoluntariadoValor"
+		style="text-align:left;font-size: 10px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title>Selecionar Produtos</title>
+		<h:panelGrid columns="1" style="margin-left:8%;width:90%;">
+			<p:outputLabel value="Nome" />
+			<h:panelGroup>
+				<p:inputText id="nome" value="#{selecionarVoluntariadoValorMB.nome}" style="width:85%;" />
+				<p:commandLink id="pesquisar" action="#{selecionarVoluntariadoValorMB.gerarListaProdutos()}"
+					update=":selecionarVoluntariadoValor:tabelaprodutos"
+					style="margin-left:1%;text-decoration:none;" title="Pesquisar">
+					<img src="../../resources/img/visualizarBola.png" />
+				</p:commandLink>
+			</h:panelGroup>   
+		</h:panelGrid><br/>  
+		<p:dataTable id="tabelaprodutos" var="produtos"
+			value="#{selecionarVoluntariadoValorMB.listaProdutos}" class="tabela"
+			scrollable="true" scrollHeight="400">
+			<p:column headerText="Curso" style="width:150px;">
+				<h:outputText value="#{produtos.voluntariadoprojeto.descricao}" />
+			</p:column>  
+			<p:column headerText="Nº Sem." style="width:65px;text-align:right;">
+				<h:outputText value="#{produtos.numerosemanainicial}-#{produtos.numerosemanafinal}" />
+			</p:column>      
+			<p:column headerText="Início"
+				style="width:72px;text-align:center;">
+				<h:outputText value="#{produtos.datainicial}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Termino"
+				style="width:80px;text-align:center;">
+				<h:outputText value="#{produtos.datafinal}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>  
+			</p:column> 
+			<p:column headerText="Valor" style="width:75px;text-align:right;">
+				<h:outputText value="#{produtos.valor}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>   
+			<p:column style="width:35px;text-align:center;">
+				<p:commandLink action="#{selecionarVoluntariadoValorMB.selecionar(produtos)}"
+					title="Selecionar produto para pacote." style="text-decoration:none;">
+					<img src="../../resources/img/deposito.png" /> 
+				</p:commandLink>   
+			</p:column>
+		</p:dataTable>   
+		<br />
+		<div align="center"> 
+			<p:commandButton id="btnCancelar" value="Cancelar"
+				action="#{selecionarVoluntariadoValorMB.cancelar()}" icon="ui-icon-close"
+				style="margin-left:2%;font-size:12px;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

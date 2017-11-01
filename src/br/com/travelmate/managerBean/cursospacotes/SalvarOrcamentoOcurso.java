@@ -81,10 +81,10 @@ public class SalvarOrcamentoOcurso {
 		ocurso.setCargahoraria(cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso()
 				.getCargahoraria() + " "
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso().getTipocargahoraria());
-		ocurso.setCliente(cliente);
-		ocurso.setDatainicio(datainicio);
+		ocurso.setCliente(cliente); 
 		ocurso.setDataorcamento(new Date());
 		ocurso.setDatavalidade(cursospacote.getDataterminovenda());
+		ocurso.setDatainicio(datainicio);
 		ocurso.setDatatermino(Formatacao.calcularDataFinal(datainicio, cursospacote.getNumerosemanacurso()));
 		ocurso.setFornecedorcidadeidioma(cursospacote.getFornecedorcidadeidioma());
 		ocurso.setIdioma(cursospacote.getFornecedorcidadeidioma().getIdioma());
@@ -354,21 +354,38 @@ public class SalvarOrcamentoOcurso {
 	}
 
 	public Date retornarDataConsultaOrcamento() {
-		int anoFornecedor = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
+		int anoFornecedor = 0;
+		if(cursospacote.getAnotarifario()>0) {
+			anoFornecedor = cursospacote.getAnotarifario();
+			Calendar c = new GregorianCalendar();
+			c.setTime(datainicio);
+			int ano = Formatacao.getAnoData(datainicio);
+			if (anoFornecedor == ano) {
+				return datainicio;
+			} else {
+				String sData = Formatacao.ConvercaoDataPadrao(datainicio);
+				String dia = sData.substring(0, 2);
+				String mes = sData.substring(3, 5);
+				sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+				return Formatacao.ConvercaoStringDataBrasil(sData);
+			} 
+		}else {
+			anoFornecedor = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
 				.getAnotarifario();
-		Calendar c = new GregorianCalendar();
-		c.setTime(datainicio);
-		int ano = Formatacao.getAnoData(datainicio);
-		if (anoFornecedor >= ano) {
+			Calendar c = new GregorianCalendar();
+			c.setTime(datainicio);
+			int ano = Formatacao.getAnoData(datainicio);
+			if (anoFornecedor >= ano) {
+				return datainicio;
+			} else if (anoFornecedor < ano) {
+				String sData = Formatacao.ConvercaoDataPadrao(datainicio);
+				String dia = sData.substring(0, 2);
+				String mes = sData.substring(3, 5);
+				sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+				return Formatacao.ConvercaoStringDataBrasil(sData);
+			}
 			return datainicio;
-		} else if (anoFornecedor < ano) {
-			String sData = Formatacao.ConvercaoDataPadrao(datainicio);
-			String dia = sData.substring(0, 2);
-			String mes = sData.substring(3, 5);
-			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
-			return Formatacao.ConvercaoStringDataBrasil(sData);
-		}
-		return datainicio;
+		} 
 	}
 
 	public void listarValores(Valorcoprodutos valorcoprodutos, String tipo) {
