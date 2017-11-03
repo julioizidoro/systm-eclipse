@@ -35,12 +35,13 @@
 							<p:inputText id="unidade" rows="8" style="width:90%;" readonly="true"
 								value="#{verrFuncaoMB.usuario.unidadenegocio.nomeFantasia}" />
 								
-							<p:outputLabel value="Telefone" for="telefone" />
-							<p:outputLabel/>
+							<p:outputLabel value="Skype" for="skype" />
+							<p:outputLabel value="WhatsApp" for="whatsapp"/>
 							
-							<p:inputText id="telefone" rows="8" style="width:35%;" readonly="true"
-								value="#{verrFuncaoMB.usuario.unidadenegocio.fone}" />
-							
+							<p:inputText id="skype" style="width:50%;" readonly="true"
+								value="#{verrFuncaoMB.skype}" />
+							<p:inputText id="whatsapp" style="width:50%;" readonly="true"
+								value="#{verrFuncaoMB.whatsapp}" />
 						</h:panelGrid>
 						<br></br>
 						<h:panelGrid columns="1"

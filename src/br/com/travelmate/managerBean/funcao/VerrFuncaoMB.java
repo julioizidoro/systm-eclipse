@@ -16,89 +16,92 @@ import br.com.travelmate.model.Usuario;
 
 @Named
 @ViewScoped
-public class VerrFuncaoMB implements Serializable{
+public class VerrFuncaoMB implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Funcao funcao;
 	private Usuario usuario;
 	private String descricao;
-	
-	
+	private String skype;
+	private String whatsapp;
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
-	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-	        usuario = (Usuario) session.getAttribute("usuario");
-	        if (usuario != null) {
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			usuario = (Usuario) session.getAttribute("usuario");
+			if (usuario != null) {
 				pegarInformacoesUsuario();
 			}
 		}
 	}
 
-
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
 		return usuarioLogadoMB;
 	}
-
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
-
 	public Funcao getFuncao() {
 		return funcao;
 	}
 
-
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
 	}
-	
-	
 
-	
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
-
 
 	public String getDescricao() {
 		return descricao;
 	}
 
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
+	public String getSkype() {
+		return skype;
+	}
 
-	public void pegarInformacoesUsuario(){
+	public void setSkype(String skype) {
+		this.skype = skype;
+	}
+
+	public String getWhatsapp() {
+		return whatsapp;
+	}
+
+	public void setWhatsapp(String whatsapp) {
+		this.whatsapp = whatsapp;
+	}
+
+	public void pegarInformacoesUsuario() {
 		FuncaoFacade funcaoFacade = new FuncaoFacade();
 		funcao = funcaoFacade.consultar("Select f From Funcao f Where f.usuario.idusuario=" + usuario.getIdusuario());
 		if (funcao == null) {
 			funcao = new Funcao();
 			descricao = "Nenhuma função informada";
-		}else{
+		} else {
 			descricao = funcao.getDescricao();
+			skype = funcao.getSkype();
+			whatsapp = funcao.getWhatsapp();
 		}
 	}
-	
-	
 
 }

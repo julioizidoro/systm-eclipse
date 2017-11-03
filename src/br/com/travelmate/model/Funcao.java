@@ -29,6 +29,10 @@ public class Funcao implements Serializable {
 	private Integer idfuncao;
 	@Column(name = "descricao")
     private String descricao;
+	@Column(name = "skype")
+    private String skype;
+	@Column(name = "whatsapp")
+    private String whatsapp;
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false, cascade = CascadeType.REFRESH)
 	private Usuario usuario;
@@ -68,6 +72,26 @@ public class Funcao implements Serializable {
 	}
 	
 	
+	public String getSkype() {
+		return skype;
+	}
+
+
+	public void setSkype(String skype) {
+		this.skype = skype;
+	}
+
+
+	public String getWhatsapp() {
+		return whatsapp;
+	}
+
+
+	public void setWhatsapp(String whatsapp) {
+		this.whatsapp = whatsapp;
+	}
+
+
 	@Override
     public int hashCode() {
         int hash = 0;

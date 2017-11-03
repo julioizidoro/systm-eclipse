@@ -54,6 +54,16 @@
 							<p:inputTextarea id="nome" rows="8" style="width:90%;"
 								value="#{cadFuncaoMB.funcao.descricao}" />
 						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="2"
+							style="width:100%;" id="panelInformacoes3">
+							<p:outputLabel value="Skype" for="skype" />
+							<p:outputLabel value="whats" for="whats" />
+							<p:inputText id="skype" style="width:90%;"
+								value="#{cadFuncaoMB.funcao.skype}" />
+							<p:inputMask id="whats" style="width:90%;" mask="(99)99999-9999"
+								value="#{cadFuncaoMB.funcao.whatsapp}" />
+						</h:panelGrid>
 				<br></br><br/>
 				<div align="center">
 					<p:commandButton id="btnConfirmar" value="Confirmar"
