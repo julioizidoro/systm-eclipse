@@ -617,8 +617,9 @@ public class ControleCursoMB implements Serializable {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("vendas", curso.getVendas());
-			voltar = "consultafichacurso";
+			voltar = "controleCurso";
 			session.setAttribute("voltar", voltar);
+			session.setAttribute("listaControle", listaControle);
 			return "consLogVenda";
 		}
 	}
