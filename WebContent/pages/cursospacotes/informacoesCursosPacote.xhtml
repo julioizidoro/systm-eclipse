@@ -17,7 +17,7 @@
 		style="text-align:left;font-size:12px;color:#434A54;">
 		<p:growl id="growl" showDetail="true" sticky="false"
 			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-		<title>CURSOS DE IDIOMAS</title>
+		<title>MAIS INFORMAÇÕES</title>
 		<h:panelGrid columns="1" style="margin-left:2%;width:98%;">
 			<h:panelGroup>
 				<p:outputLabel
@@ -42,6 +42,13 @@
 			</h:panelGroup>
 			<h:panelGroup
 				rendered="#{informacoesCursosPacoteMB.cursospacote.highschool}">   
+				<p:outputLabel value="Escola:" style="font-weight: initial;" />
+				<p:outputLabel
+					value="#{informacoesCursosPacoteMB.cursospacote.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}"
+					style="margin-left:1%;" />
+			</h:panelGroup>
+			<h:panelGroup
+				rendered="#{informacoesCursosPacoteMB.cursospacote.voluntariado}">   
 				<p:outputLabel value="Escola:" style="font-weight: initial;" />
 				<p:outputLabel
 					value="#{informacoesCursosPacoteMB.cursospacote.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}"
@@ -76,6 +83,13 @@
 				<p:outputLabel value="Curso:" style="font-weight: initial;" />
 				<p:outputLabel
 					value="#{informacoesCursosPacoteMB.cursospacote.valorcoprodutos_curso.coprodutos.produtosorcamento.descricao}"
+					style="margin-left:1%;" />
+			</h:panelGroup>
+			<h:panelGroup
+				rendered="#{informacoesCursosPacoteMB.cursospacote.voluntariado}">
+				<p:outputLabel value="Projeto:" style="font-weight: initial;" />
+				<p:outputLabel
+					value="#{informacoesCursosPacoteMB.cursospacote.projetovoluntariado}"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 			<h:panelGroup
@@ -160,6 +174,20 @@
 					style="margin-left:1%;" />
 			</h:panelGroup>
 			<h:panelGroup rendered="#{informacoesCursosPacoteMB.cursospacote.cursos}">
+				<p:outputLabel value="Taxa de Matrícula:"
+					style="font-weight: initial;" />
+				<p:outputLabel
+					value="#{informacoesCursosPacoteMB.cursospacote.taxamatricula}"
+					style="margin-left:1%;" />      
+			</h:panelGroup>
+			<h:panelGroup rendered="#{informacoesCursosPacoteMB.cursospacote.voluntariado}">
+				<p:outputLabel value="Material Didático:"
+					style="font-weight: initial;" />
+				<p:outputLabel
+					value="#{informacoesCursosPacoteMB.cursospacote.taxamaterial}"
+					style="margin-left:1%;" />
+			</h:panelGroup>
+			<h:panelGroup rendered="#{informacoesCursosPacoteMB.cursospacote.voluntariado}">
 				<p:outputLabel value="Taxa de Matrícula:"
 					style="font-weight: initial;" />
 				<p:outputLabel

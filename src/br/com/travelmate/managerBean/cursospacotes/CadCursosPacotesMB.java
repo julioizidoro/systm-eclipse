@@ -222,6 +222,11 @@ public class CadCursosPacotesMB implements Serializable {
 			formapagamento.setCursospacote(cursospacote);
 			CursosPacotesFormaPagamentoFacade pacotesFormaPagamentoFacade = new CursosPacotesFormaPagamentoFacade();
 			formapagamento = pacotesFormaPagamentoFacade.salvar(formapagamento);
+			if(idcurso==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+				VoluntariadoPacoteFacade voluntariadoPacoteFacade = new VoluntariadoPacoteFacade();
+				voluntariadopacote.setCursospacote(cursospacote);
+				voluntariadopacote = voluntariadoPacoteFacade.salvar(voluntariadopacote);
+			}
 			Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");  
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -491,6 +496,7 @@ public class CadCursosPacotesMB implements Serializable {
 					+", "+voluntariadoprojetoacomodacao.getTiporefeicao()+", "+voluntariadoprojetoacomodacao.getTipobanheiro();
 				cursospacote.setDescritivoacomodacao(descricao);
 				cursospacote.setNumerosemanaacomodacao(voluntariadopacote.getVoluntariadoprojetovalor().getNumerosemanainicial().floatValue());
+				cursospacote.setProjetovoluntariado(voluntariadopacote.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getDescricao());
 			}
 		} else {
 			Mensagem.lancarMensagemErro("Atenção!", "Selecione um projeto.");

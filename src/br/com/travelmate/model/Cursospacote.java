@@ -2,7 +2,10 @@ package br.com.travelmate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne; 
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -120,6 +124,8 @@ public class Cursospacote implements Serializable {
     private boolean worktravel;
     @Transient
     private boolean highschool;
+    @Transient
+    private boolean voluntariado;
     @Column(name = "descontotm1")
     private Float descontotm1;
     @Column(name = "descontotm2")
@@ -130,6 +136,10 @@ public class Cursospacote implements Serializable {
     private int ano2;
     @Column(name = "anotarifario")
     private int anotarifario;
+    @Column(name = "projetovoluntariado")
+    private String projetovoluntariado;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cursospacote")
+    private List<Voluntariadopacote> voluntariadopacoteList;
 
     public Cursospacote() {
     	setValortotalacomodacao(0.0f);
@@ -502,6 +512,30 @@ public class Cursospacote implements Serializable {
 
 	public void setAnotarifario(int anotarifario) {
 		this.anotarifario = anotarifario;
+	}
+
+	public String getProjetovoluntariado() {
+		return projetovoluntariado;
+	}
+
+	public void setProjetovoluntariado(String projetovoluntariado) {
+		this.projetovoluntariado = projetovoluntariado;
+	}
+
+	public boolean isVoluntariado() {
+		return voluntariado;
+	}
+
+	public void setVoluntariado(boolean voluntariado) {
+		this.voluntariado = voluntariado;
+	}
+
+	public List<Voluntariadopacote> getVoluntariadopacoteList() {
+		return voluntariadopacoteList;
+	}
+
+	public void setVoluntariadopacoteList(List<Voluntariadopacote> voluntariadopacoteList) {
+		this.voluntariadopacoteList = voluntariadopacoteList;
 	}
 
 	@Override

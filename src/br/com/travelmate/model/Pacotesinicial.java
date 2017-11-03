@@ -87,6 +87,8 @@ public class Pacotesinicial implements Serializable {
     private boolean turismo;
     @Transient
     private boolean voluntariado;
+    @Column(name = "projetovoluntariado")
+    private String projetovoluntariado;
 
     public Pacotesinicial() { 
     }
@@ -321,6 +323,14 @@ public class Pacotesinicial implements Serializable {
 
 	public void setVoluntariado(boolean voluntariado) {
 		this.voluntariado = voluntariado;
+	}
+
+	public String getProjetovoluntariado() {
+		return projetovoluntariado;
+	}
+
+	public void setProjetovoluntariado(String projetovoluntariado) {
+		this.projetovoluntariado = projetovoluntariado;
 	}
  
       

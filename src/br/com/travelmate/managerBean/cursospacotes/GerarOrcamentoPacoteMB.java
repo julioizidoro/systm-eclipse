@@ -7,17 +7,19 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB; 
+import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutosOrcamentoBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ResultadoOrcamentoBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
+import br.com.travelmate.managerBean.voluntariadoprojeto.orcamento.GerarOrcamentoVoluntariadoPDFBean;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Coeficientejuros;
 import br.com.travelmate.model.Cursopacoteformapagamento;
 import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Ocurso;
+import br.com.travelmate.model.Orcamentoprojetovoluntariado;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
@@ -68,6 +70,8 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	private boolean formapagamento2;
 	private boolean formapagamento3;
 	private boolean formapagamento4;
+	private boolean curso;
+	private boolean voluntariado;
 
 	@PostConstruct
 	public void init() {
@@ -76,6 +80,12 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		cursospacote = (Cursospacote) session.getAttribute("cursospacote");
 		session.removeAttribute("cursospacote");
 		getAplicacaoMB();
+		int produto = cursospacote.getProdutos().getIdprodutos();
+		if(produto==aplicacaoMB.getParametrosprodutos().getCursos()) {
+			curso = true;
+		}else if(produto==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+			voluntariado=true;
+		}
 		consultarFormaPagamento(); 
 	}
 
@@ -165,6 +175,22 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 
 	public void setFormapagamento4(boolean formapagamento4) {
 		this.formapagamento4 = formapagamento4;
+	}
+
+	public boolean isCurso() {
+		return curso;
+	}
+
+	public void setCurso(boolean curso) {
+		this.curso = curso;
+	}
+
+	public boolean isVoluntariado() {
+		return voluntariado;
+	}
+
+	public void setVoluntariado(boolean voluntariado) {
+		this.voluntariado = voluntariado;
 	}
 
 	public String cancelar() { 
@@ -659,6 +685,170 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 					formapagamento4 = true;
 				}
 			}
+		}
+	} 
+	
+	public void gerarOrcamentoPDFVoluntariado() throws IOException { 
+		SalvarVoluntariadoProjeto salvarVoluntariadoProjeto = new SalvarVoluntariadoProjeto
+				(cliente, datainicio, cursospacote.getVoluntariadopacoteList().get(0).getVoluntariadoprojetovalor(), 
+						cursospacote, aplicacaoMB, usuarioLogadoMB, formapagamento);
+		Orcamentoprojetovoluntariado orcamentoprojetovoluntariado = salvarVoluntariadoProjeto
+				.gerarOrcamento();
+		GerarOrcamentoVoluntariadoPDFBean o = new GerarOrcamentoVoluntariadoPDFBean(orcamentoprojetovoluntariado);
+		OrcamentoPDFFactory.setLista(o.getLista());
+
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+				.getContext();
+		String caminhoRelatorio = "/reports/orcamentovoluntariadopdf/orcamentoPagina01.jasper";
+		 
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//orcamentovoluntariadopdf//"));
+		File f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/mascote.png"));
+		BufferedImage mascote = null;
+		try {
+			mascote = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("mascote", mascote);
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pagina01.png"));
+		BufferedImage pagina01 = null;
+		try {
+			pagina01 = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("pagina01", pagina01);
+
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/logocinza.png"));
+		BufferedImage logocinza = null;
+		try {
+			logocinza = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("logocinza", logocinza);
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/curso.png"));
+		BufferedImage curso = null;
+		try {
+			curso = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("curso", curso);
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pais.png"));
+		BufferedImage pais = null;
+		try {
+			pais = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("pais", pais);
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/orcamento.png"));
+		BufferedImage orcamento = null;
+		try {
+			orcamento = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("orcamento", orcamento);
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/icon.png"));
+		BufferedImage icon = null;
+		try {
+			icon = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("icon", icon);
+		//
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/logo.png"));
+		BufferedImage logo = null;
+		try {
+			logo = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("logo", logo);
+		//
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pagamento.png"));
+		BufferedImage pagamento = null;
+		try {
+			pagamento = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("pagamento", pagamento);
+		//
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/outroscustos.png"));
+		BufferedImage adicionais = null;
+		try {
+			adicionais = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("adicionais", adicionais);
+
+		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/observacoes.png"));
+		BufferedImage obs = null;
+		try {
+			obs = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		parameters.put("obs", obs);
+
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		Ftpdados dadosFTP = null;
+
+		try {
+			dadosFTP = ftpDadosFacade.getFTPDados();
+		} catch (SQLException ex) {
+			Logger.getLogger(ConsultaOrcamentoMB.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		ftp.conectar();
+		InputStream is = ftp.receberArquivo("",
+				orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade().getCidade().getPais().getIdpais() + ".png",
+				"/systm/pais/");
+		Image imgPais = null;
+		try {
+			imgPais = ImageIO.read(is);
+			if (imgPais == null) {
+				is = ftp.receberArquivo("", "0.png", "/systm/pais/");
+				imgPais = ImageIO.read(is);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ftp.desconectar();
+		ftp.conectar();
+		is = ftp.receberArquivo("",
+				orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade().getIdfornecedorcidade() + ".png",
+				"/systm/fornecedorcidade/");
+		Image imgCidade = null;
+		try {
+			imgCidade = ImageIO.read(is);
+			if (imgCidade == null) {
+				is = ftp.receberArquivo("", "0.png", "/systm/fornecedorcidade/");
+				imgCidade = ImageIO.read(is);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ftp.desconectar();
+
+		parameters.put("pais", imgPais);
+		parameters.put("fornecedorcidade", imgCidade);
+		parameters.put("nometipo", "Tipo de Projeto");
+		parameters.put("lista", OrcamentoPDFFactory.getLista());
+
+		JRDataSource jrds = new JRBeanCollectionDataSource(OrcamentoPDFFactory.getLista());
+		GerarRelatorio gerarRelatorio = new GerarRelatorio();
+		String nomeArquivo = "TM-" + String.valueOf("vol"+orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado()) + ".pdf";
+		try {
+			gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, nomeArquivo);
+		} catch (JRException e) { 
+			e.printStackTrace();
 		}
 	}
 }

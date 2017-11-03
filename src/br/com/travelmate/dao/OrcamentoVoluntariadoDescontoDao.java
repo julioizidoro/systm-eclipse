@@ -19,8 +19,7 @@ public class OrcamentoVoluntariadoDescontoDao {
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			orcamentovoluntariadodesconto = manager.merge(orcamentovoluntariadodesconto);
-	        tx.commit();
-	        
+	        tx.commit(); 
 	        return orcamentovoluntariadodesconto;
 	    }
 	    

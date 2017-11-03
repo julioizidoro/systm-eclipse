@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Orcamentovoluntariadoformapagamento;
+import br.com.travelmate.model.Orcamentovoluntariadoformapagamento; 
 
 public class OrcamentoVoluntariadoFormaPagamentoDao {
 
@@ -16,7 +16,10 @@ public class OrcamentoVoluntariadoFormaPagamentoDao {
 	public Orcamentovoluntariadoformapagamento salvar(Orcamentovoluntariadoformapagamento orcamentovoluntariadoformapagamento) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
 		orcamentovoluntariadoformapagamento = manager.merge(orcamentovoluntariadoformapagamento);
+        tx.commit(); 
         return orcamentovoluntariadoformapagamento;
     }
     

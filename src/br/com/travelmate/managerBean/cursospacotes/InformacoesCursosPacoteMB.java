@@ -43,6 +43,8 @@ public class InformacoesCursosPacoteMB implements Serializable {
 			cursospacote.setHighschool(true);
 		}else if(idproduto == aplicacaoMB.getParametrosprodutos().getWork()) {
 			cursospacote.setWorktravel(true);
+		}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+			cursospacote.setVoluntariado(true);
 		}
 	}
 

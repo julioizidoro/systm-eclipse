@@ -297,19 +297,36 @@
 				</h:panelGrid>  
 			</p:fieldset>
 			<br />
-			<div align="center">
-				<p:commandButton id="btnOrcamento" value="Gerar PDF"
-					title="Imprimir orçamento em PDF." ajax="false"
-					icon="ui-icon-document" style="font-size:12px;"
-					action="#{gerarOrcamentoPacoteMB.salvar()}"
-					update=":gerarOrcamentoPacote:growl"
-					onclick="this.form.target='_blank'"  
-					onstart="PF('dialog').show()"
-					onsuccess="PF('dialog').hide()" />
-				<p:commandButton id="btnFechar" value="Voltar"   
-					action="#{gerarOrcamentoPacoteMB.cancelar()}"
-					icon="ui-icon-arrowreturnthick-1-w" style="margin-left:2%;font-size:12px;"  />
-			</div>
+			<h:panelGroup rendered="#{gerarOrcamentoPacoteMB.curso}">
+				<div align="center"> 
+					<p:commandButton id="btnOrcamento" value="Gerar PDF"
+						title="Imprimir orçamento em PDF." ajax="false"
+						icon="ui-icon-document" style="font-size:12px;"
+						action="#{gerarOrcamentoPacoteMB.salvar()}"
+						update=":gerarOrcamentoPacote:growl"
+						onclick="this.form.target='_blank'"  
+						onstart="PF('dialog').show()"
+						onsuccess="PF('dialog').hide()"/>
+					<p:commandButton id="btnFechar" value="Voltar"   
+						action="#{gerarOrcamentoPacoteMB.cancelar()}"
+						icon="ui-icon-arrowreturnthick-1-w" style="margin-left:2%;font-size:12px;"  />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{gerarOrcamentoPacoteMB.voluntariado}">
+				<div align="center"> 
+					<p:commandButton id="btnOrcamentoVol" value="Gerar PDF"
+						title="Imprimir orçamento em PDF Voluntariado." ajax="false"
+						icon="ui-icon-document" style="font-size:12px;"
+						action="#{gerarOrcamentoPacoteMB.gerarOrcamentoPDFVoluntariado()}"
+						update=":gerarOrcamentoPacote:growl"
+						onclick="this.form.target='_blank'"  
+						onstart="PF('dialog').show()"
+						onsuccess="PF('dialog').hide()" />
+					<p:commandButton  value="Voltar"   
+						action="#{gerarOrcamentoPacoteMB.cancelar()}"
+						icon="ui-icon-arrowreturnthick-1-w" style="margin-left:2%;font-size:12px;"  />
+				</div>
+			</h:panelGroup> 
 			<p:dialog widgetVar="dialog" modal="true" draggable="false"
 				closable="false" resizable="false" showHeader="false">
 				<p:commandLink>
