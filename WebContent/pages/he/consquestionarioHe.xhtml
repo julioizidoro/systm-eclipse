@@ -714,7 +714,7 @@
 									hideEffect="fade"
 									style="background:#F0F0F0;width:550px; border:none;">
 									<p:outputLabel
-										value="#{finalizado.he.vendas.idvendas} - #{finalizado.he.vendas.cliente.nome}"
+										value="#{finalizado.idvenda} - #{finalizado.nomecliente}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
@@ -738,7 +738,7 @@
 											<h:panelGrid columns="1" style="text-align:1px;">
 												<p:outputLabel value="DOCS" style="font-size:11px;" />
 											</h:panelGrid>
-										</p:commandLink>
+										</p:commandLink> 
 
 										<p:commandLink action="#{higherEducationMB.informacoes(finalizado)}"
 											update=":consHe:growl" title="INFORMAÇÕES DA VENDA">
