@@ -988,7 +988,7 @@ public class FollowUpMB implements Serializable {
 		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA'";
 		if(!acessoResponsavelGerencial) {
 			sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			if(!acessoResponsavelUnidade) {
+			if(!acessoResponsavelUnidade && !usuarioLogadoMB.getUsuario().getAcessounidade().isPosvendaunidade()) {
 				sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 			}
 		}

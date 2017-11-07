@@ -38,6 +38,8 @@ public class Acessounidade implements Serializable {
     private boolean crm; 
     @Column(name = "margemfinanceira")
    	private boolean margemfinanceira;
+    @Column(name = "posvendaunidade")
+   	private boolean posvendaunidade;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @OneToOne(optional = false)
     private Usuario usuario; 
@@ -111,6 +113,14 @@ public class Acessounidade implements Serializable {
 
 	public void setMargemfinanceira(boolean margemfinanceira) {
 		this.margemfinanceira = margemfinanceira;
+	}
+
+	public boolean isPosvendaunidade() {
+		return posvendaunidade;
+	}
+
+	public void setPosvendaunidade(boolean posvendaunidade) {
+		this.posvendaunidade = posvendaunidade;
 	}
 
 	@Override
