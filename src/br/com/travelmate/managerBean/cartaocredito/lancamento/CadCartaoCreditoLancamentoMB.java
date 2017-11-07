@@ -312,9 +312,39 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				cartaocreditolancamentocontas.setCartaocreditolancamento(lancamento);
 				cartaocreditolancamentocontas.setContaspagar(contaspagar);
 				cartaocreditolancamentocontas = cartaoCreditoLancamentoContasFacade.salvar(cartaocreditolancamentocontas);
+				if (lancamento.isValorrecorrente()) {
+					lancamentoRecorrente(lancamento);
+				}
 				Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");
 		}
 	}
+	
+	public void lancamentoRecorrente(Cartaocreditolancamento cartaocreditolancamento) {
+		CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
+		Cartaocreditolancamento cartao = new Cartaocreditolancamento();
+		cartao.setCartaocredito(cartaocreditolancamento.getCartaocredito());
+		cartao.setConferido(false);
+		cartao.setDescricao(cartaocreditolancamento.getDescricao());
+		cartao.setEstabelecimento(cartaocreditolancamento.getEstabelecimento());
+		cartao.setHabilitarmoeda(cartaocreditolancamento.isHabilitarmoeda());
+		cartao.setLancado(false);
+		cartao.setMoedas(cartaocreditolancamento.getMoedas());
+		cartao.setNumeroparcelas(cartaocreditolancamento.getNumeroparcelas());
+		cartao.setObservacao(cartaocreditolancamento.getObservacao());
+		cartao.setPlanoconta(cartaocreditolancamento.getPlanoconta());
+		cartao.setUsuario(cartaocreditolancamento.getUsuario());
+		cartao.setValorcambio(cartaocreditolancamento.getValorcambio());
+		cartao.setValorinformado(cartaocreditolancamento.getValorinformado());
+		cartao.setValorlancado(cartaocreditolancamento.getValorlancado());
+		cartao.setValorrecorrente(cartaocreditolancamento.isValorrecorrente());
+		try {
+			cartao.setData(Formatacao.SomarDiasDatas(cartaocreditolancamento.getData(), 30));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		cartaoCreditoLancamentoFacade.salvar(cartao);
+	}
+	
 	
 	public void gerarLancamentoRecorrente(){
 		CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
