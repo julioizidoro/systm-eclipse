@@ -117,18 +117,18 @@ public class SalvarVoluntariadoProjeto {
 		orcamento.setVoluntariadoprojetovalor(voluntariadoprojetovalor);
 		orcamento.setValor(voluntariadoprojetovalor.getValor());
 		Cambio cambio = consultarCambio();
-		orcamento.setValorRS(voluntariadoprojetovalor.getValor() * cambio.getValor());
-		orcamento.setNumeroSemanasAdicionais(0);
-		orcamento.setValorSemanaAdc(voluntariadoprojetovalor.getValorsemanaadicional() * 0);
-		orcamento.setValorSemanaAdcRS(orcamento.getValorSemanaAdc() * cambio.getValor());
-		orcamento.setDatainicial(datainicial);
-		orcamento.setDatatermino(calcularDataTermino());
 		orcamento.setCambio(cambio);
 		if (cursospacote.getValorcambio() != null && cursospacote.getValorcambio() > 0) {
 			orcamento.setValorcambio(cursospacote.getValorcambio());
 		} else {
 			orcamento.setValorcambio(cambio.getValor());
 		}
+		orcamento.setValorRS(voluntariadoprojetovalor.getValor() * cursospacote.getValorcambio());
+		orcamento.setNumeroSemanasAdicionais(0);
+		orcamento.setValorSemanaAdc(voluntariadoprojetovalor.getValorsemanaadicional() * 0);
+		orcamento.setValorSemanaAdcRS(orcamento.getValorSemanaAdc() * cursospacote.getValorcambio());
+		orcamento.setDatainicial(datainicial);
+		orcamento.setDatatermino(calcularDataTermino());
 		orcamento.setTotalnumerosemanas(voluntariadoprojetovalor.getNumerosemanainicial() + " Semana(s)");
 		// curso
 		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList() != null
