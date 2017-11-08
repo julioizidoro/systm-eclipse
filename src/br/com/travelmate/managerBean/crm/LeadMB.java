@@ -134,7 +134,7 @@ public class LeadMB implements Serializable {
 		boolean responsavel = retornarResponsavelUnidade();
 		if (responsavel) {
 			String sql;
-			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1  || usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialdistribuicaoleads()) {
 				sql = "select l from Lead l where l.dataenvio is null";
 			}else if (usuarioLogadoMB.getUsuario().getIdusuario() == 212) {
 				sql = "select l from Lead l where l.dataenvio is null and (l.unidadenegocio.idunidadeNegocio="
@@ -167,7 +167,7 @@ public class LeadMB implements Serializable {
 				}
 			}
 		}
-		if(usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1) {
+		if(usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1 || usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialdistribuicaoleads()) {
 			return true;
 		}
 		return false;

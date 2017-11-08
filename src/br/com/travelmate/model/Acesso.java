@@ -190,6 +190,8 @@ public class Acesso implements Serializable {
 	private boolean cadastrounidade; 
 	@Column(name = "utilti")
 	private boolean utilti; 
+	@Column(name = "gerencialdistribuicaoleads")
+	private boolean gerencialdistribuicaoleads; 
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -846,6 +848,14 @@ public class Acesso implements Serializable {
 
 	public void setUtilti(boolean utilti) {
 		this.utilti = utilti;
+	}
+
+	public boolean isGerencialdistribuicaoleads() {
+		return gerencialdistribuicaoleads;
+	}
+
+	public void setGerencialdistribuicaoleads(boolean gerencialdistribuicaoleads) {
+		this.gerencialdistribuicaoleads = gerencialdistribuicaoleads;
 	}
 
 	@Override
