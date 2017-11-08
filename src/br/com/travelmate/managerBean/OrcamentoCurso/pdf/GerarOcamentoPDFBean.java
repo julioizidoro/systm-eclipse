@@ -2,11 +2,11 @@ package br.com.travelmate.managerBean.OrcamentoCurso.pdf;
 
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 import br.com.travelmate.facade.EscolaPadraoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.AplicacaoMB; 
 import br.com.travelmate.model.Escolapadrao;
 import br.com.travelmate.model.Occliente;
 import br.com.travelmate.model.Ocrusoprodutos;
@@ -360,7 +360,7 @@ public class GerarOcamentoPDFBean {
 		}
 		if (ocurso.getOcursoseguroList() != null) {
 			if (ocurso.getOcursoseguroList().size() > 0 && !ocurso.getOcursoseguroList().get(0).isSomarvalortotal()) {
-				o.setDescricaolista("Seguro Viagem - "+ocurso.getOcursoseguroList().get(0).getValoresseguro().getPlano());
+				o.setDescricaolista("Seguro Viagem - "+ocurso.getOcursoseguroList().get(0).getValoresseguro().getSeguroplanos().getNome());
 				o.setSubDescricaoLista(String.valueOf(ocurso.getOcursoseguroList().get(0).getNumerodias()) + " dias");
 				o.setValorme(ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getValorcambio()));
@@ -368,7 +368,7 @@ public class GerarOcamentoPDFBean {
 				o.setIdgrupo(5);
 				lista.add(o);
 				totalCeMe = totalCeMe + (ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getValorcambio());
-				totalCeRs = totalCeRs + ocurso.getOcursoseguroList().get(0).getValor();
+				totalCeRs = totalCeRs + ocurso.getOcursoseguroList().get(0).getValor(); 
 			} 
 		}
 
@@ -542,7 +542,7 @@ public class GerarOcamentoPDFBean {
 			if (ocurso.getOcursoseguroList() != null) {
 				if (ocurso.getOcursoseguroList().size() > 0 && ocurso.getOcursoseguroList().get(0).isSomarvalortotal()) {
 					o = carregarDados();
-					o.setDescricaolista("Seguro Viagem: "+ocurso.getOcursoseguroList().get(0).getValoresseguro().getPlano()
+					o.setDescricaolista("Seguro Viagem: "+ocurso.getOcursoseguroList().get(0).getValoresseguro().getSeguroplanos().getNome()
 							+" - "+String.valueOf(ocurso.getOcursoseguroList().get(0).getNumerodias()) + " dias");
 					o.setSubDescricaoLista("");
 					o.setValorme(ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao
@@ -552,7 +552,7 @@ public class GerarOcamentoPDFBean {
 					o.setTituloLista("ITENS ADICIONAIS");
 					lista.add(o);
 					totalAdMe = totalAdMe + (ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getValorcambio());
-					totalAdRs = totalAdRs + ocurso.getOcursoseguroList().get(0).getValor();
+					totalAdRs = totalAdRs + ocurso.getOcursoseguroList().get(0).getValor(); 
 				} 
 			}
 			o.setTotalmelista(

@@ -46,6 +46,8 @@ public class Ocursoseguro implements Serializable {
 	private boolean somarvalortotal;
 	@Column(name = "valorseguroorcamento")
 	private Float valorseguroorcamento;
+	@Column(name = "segurocancelamento")
+	private boolean segurocancelamento;
 
 	public Ocursoseguro() {
 	}
@@ -140,6 +142,14 @@ public class Ocursoseguro implements Serializable {
 
 	public void setValorseguroorcamento(Float valorseguroorcamento) {
 		this.valorseguroorcamento = valorseguroorcamento;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	@Override

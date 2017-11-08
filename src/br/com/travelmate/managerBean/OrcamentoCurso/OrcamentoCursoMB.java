@@ -109,6 +109,8 @@ public class OrcamentoCursoMB implements Serializable {
 	private float valorTotalSeguroDola = 0.0f;
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
+	private boolean segurocancelamento=false;
+	private String numero="3";
 
 	@PostConstruct
 	public void init() { 
@@ -405,6 +407,22 @@ public class OrcamentoCursoMB implements Serializable {
 		this.seguroplanos = seguroplanos;
 	}
 
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
 	public String habilitarSeguro() {
 		if (seguroSelecionado) {
 			return acomodacaoHabiliada = "false";
@@ -460,10 +478,18 @@ public class OrcamentoCursoMB implements Serializable {
 		if (seguroviagem != null && seguroviagem.getValorSeguro()!=null) {
 			if (seguroviagem.getValorSeguro() != null && !seguroviagem.isSomarvalortotal()) {
 				valorTotalAdicionaisRS = valorTotalAdicionaisRS + seguroviagem.getValorSeguro();
+				if(seguroviagem.isSegurocancelamento()) {
+					valorTotalAdicionaisRS = valorTotalAdicionaisRS + 
+							(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor());
+				}
 				valorTotalAdicionais = valorTotalAdicionais
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
 			} else if (seguroviagem.getValorSeguro() != null && seguroviagem.isSomarvalortotal()) {
 				valorTotalRS = valorTotalRS + seguroviagem.getValorSeguro();
+				if(seguroviagem.isSegurocancelamento()) {
+					valorTotalRS = valorTotalRS + 
+							(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor());
+				}
 				valorTotal = valorTotal
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
 			}
@@ -2840,4 +2866,33 @@ public class OrcamentoCursoMB implements Serializable {
 			return true;
 		}else return false;
 	}
+	
+	public void seguroCancelamento() {
+		if(seguroviagem.isSegurocancelamento() && seguroviagem.getValoresseguro().isSegurocancelamento()) {
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getOcurso().getCambio().getData()),
+					seguroviagem.getValoresseguro().getMoedas().getIdmoedas()); 
+			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+					* cambioSeguro.getValor();
+			seguroviagem.setValorSeguro(seguroviagem.getValorSeguro()+valorsegurocancelamento);
+		} 
+	}
+	
+	public void selecionarSeguroCancelamento() {
+		if(seguroviagem.isSegurocancelamento() && seguroviagem.getValoresseguro().isSegurocancelamento()) { 
+			calcularTotais();
+		} else if(seguroviagem.getValoresseguro().isSegurocancelamento()) { 
+			calcularTotais();
+		} 
+	}
+	
+	public void verificarSeguroCancelamento() {
+		if(seguroviagem.getValoresseguro().isSegurocancelamento()) {
+			segurocancelamento = true;
+			numero="4";
+		} else {
+			segurocancelamento = false;
+			numero="3";
+		}
+	} 
 }

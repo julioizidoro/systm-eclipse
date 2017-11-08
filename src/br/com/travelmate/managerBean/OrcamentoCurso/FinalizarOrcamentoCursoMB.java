@@ -6,6 +6,7 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
+import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadHistoricoFacade;
@@ -18,6 +19,7 @@ import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Coeficientejuros;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
@@ -540,6 +542,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				ocursoseguro.setValor(resultadoOrcamentoBean.getSeguroviagem().getValorSeguro());
 				ocursoseguro.setSomarvalortotal(resultadoOrcamentoBean.getSeguroviagem().isSomarvalortotal());
 				ocursoseguro.setValorseguroorcamento(resultadoOrcamentoBean.getCambio().getValor());
+				ocursoseguro.setSegurocancelamento(resultadoOrcamentoBean.getSeguroviagem().isSegurocancelamento());
 				OcursoSeguroViagemFacade ocursoSeguroViagemFacade = new OcursoSeguroViagemFacade();
 				ocursoseguro = ocursoSeguroViagemFacade.salvar(ocursoseguro);
 				ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
@@ -557,8 +560,30 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				}
 				produto.setTipo(7);
 				produto.setNomegrupo("Seguro Viagem Privado");
-				produto.setOcurso(ocurso);
+				produto.setOcurso(ocurso); 
 				oCursoProdutoFacade.salvar(produto);
+				if(resultadoOrcamentoBean.getSeguroviagem().isSegurocancelamento()) {
+					produto = new Ocrusoprodutos();
+					produto.setNumerosemanas(0.0);
+					produto.setValorcoprodutos(valorcoprodutos);
+					CambioFacade cambioFacade = new CambioFacade();
+					Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(ocurso.getCambio().getData()),
+							resultadoOrcamentoBean.getSeguroviagem().getValoresseguro().getMoedas().getIdmoedas()); 
+					produto.setValororiginal(
+							aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor() * cambioSeguro.getValor());
+					produto.setValorpromocional(0.0f);
+					produto.setNome("Seguro Cancelamento");
+					produto.setDescricao("Seguro Cancelamento"); 
+					produto.setTipo(7);
+					if(resultadoOrcamentoBean.getSeguroviagem().isSomarvalortotal()) {
+						produto.setNomegrupo("Adicionais");
+					}else {
+						produto.setNomegrupo("CustosExtras");
+					} 
+					produto.setOcurso(ocurso);
+					produto.setSomavalortotal(resultadoOrcamentoBean.getSeguroviagem().isSomarvalortotal());
+					oCursoProdutoFacade.salvar(produto);
+				}
 			}
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

@@ -302,8 +302,7 @@
 											</div>
 											<br />
 										</div>
-									</h:panelGroup>
-									<br /> <br /> 
+									</h:panelGroup> 
 									<h:panelGroup rendered="#{pacote.voluntariado}">
 										<div class="borderSombra" style="height: 330px;">
 											<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
@@ -327,7 +326,7 @@
 												columnClasses="tamanho98">
 												<h:panelGroup>
 													<p:outputLabel value="#{pacote.valoravista}"
-														style="font-size:26px;color:#A0C637;margin-left:1%;">
+														style="font-size:26px;color:#8B0000;margin-left:1%;">
 													</p:outputLabel>
 												</h:panelGroup>
 												<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
@@ -351,11 +350,11 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:12px;" icon="ui-icon-info" />
+													style="font-size:12px;background:#8B0000;border-color:#8B0000;" icon="ui-icon-info" />
 												<p:commandButton value="Orçamento" icon="ui-icon-cart"
 													title="Gerar orçamento com este pacote"
 													action="#{pacotesAtivosMB.gerarOrçamento(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;">
+													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;">
 													<p:ajax event="dialogReturn"
 														listener="#{pacotesAtivosMB.retornoDialog()}" />
 												</p:commandButton>

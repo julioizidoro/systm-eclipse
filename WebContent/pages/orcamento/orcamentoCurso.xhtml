@@ -436,6 +436,9 @@
 							<p:ajax event="change"   
 								listener="#{orcamentoCursoMB.convertendoValoresSeguro()}"
 								update="orcamentoCurso:tabelatotal, valorunitarioRS, valormoeda" />
+							<p:ajax event="change"   
+								listener="#{orcamentoCursoMB.verificarSeguroCancelamento()}"
+								update="tabelaAdicionarSeguro" />
 						</p:selectOneMenu>
 						<p:outputLabel value="Cobrança:" for="cobranca"
 							style="font-weight:bold;font-size: 12px;margin-left:35%" />
@@ -521,6 +524,15 @@
 						disabled="#{orcamentoCursoMB.habilitarSeguro()}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</p:inputText>
+					<br></br> 
+					<h:panelGroup id="segurocancel" rendered="#{orcamentoCursoMB.segurocancelamento}">
+						<br></br> 
+						<p:selectBooleanCheckbox value="#{orcamentoCursoMB.seguroviagem.segurocancelamento}" style="margin-left:2%;">
+							<p:ajax event="change" listener="#{orcamentoCursoMB.selecionarSeguroCancelamento()}"
+								update="orcamentoCurso:tabelatotal, valorunitarioRS, valorseguro, valormoeda" />         
+						</p:selectBooleanCheckbox> 
+						<p:outputLabel value="Adicionar Seguro Cancelamento" style="margin-left:0.5%;font-size:12px;"/>
+					</h:panelGroup>  
 				</p:fieldset>
 				<br></br> <br></br>
 				<p:fieldset legend="Acomodação" toggleable="true"

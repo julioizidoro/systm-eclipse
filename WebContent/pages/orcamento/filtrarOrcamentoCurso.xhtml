@@ -219,7 +219,7 @@
 								var="fornecedor" itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
 								itemValue="#{fornecedor}" />      
 							<p:column style="width:10%">  
-				                <img src="http://systm.com.br:82/ftproot/systm//estrelas/#{filtrarEscolaMB.retornarEstrela(f)}" width="65"/>
+				                <img src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/estrelas/#{filtrarEscolaMB.retornarEstrela(f)}" width="65"/>
 				            </p:column>  
 				            <p:column>
 				                <h:outputText value="#{f.fornecedorcidade.fornecedor.nome}" />
