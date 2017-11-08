@@ -80,7 +80,7 @@
 								action="#{higherEducationMB.pesquisar()}"
 								update="consHe:acordionPainel" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="consHe:acordionPainel, situacao, unidade, dataFinal, dataIni, cliente,idVenda"
+								update="consHe:acordionPainel, situacao, unidade, dataFinal, dataIni, cliente,"
 								action="#{higherEducationMB.limpar()}" />
 						</h:panelGrid>
 						<br></br>
@@ -399,7 +399,7 @@
 											<h:panelGrid columns="1" style="text-align:1px;">
 												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
 											</h:panelGrid>
-										</p:commandLink>
+										</p:commandLink>   
 
 										<p:commandLink action="#{higherEducationMB.documentacao(financeiro)}"
 											title="DOCUMENTOS">
@@ -714,7 +714,7 @@
 									hideEffect="fade"
 									style="background:#F0F0F0;width:550px; border:none;">
 									<p:outputLabel
-										value="#{finalizado.idvenda} - #{finalizado.nomecliente}"
+										value="#{finalizado.idVenda} - #{finalizado.nomecliente}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
