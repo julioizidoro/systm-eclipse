@@ -7,36 +7,38 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/default.xhtml">
 	<ui:define name="corpo">
-		<h:form id="telaCadOrcamento" style="font-size: 10px;"   
+		<h:form id="telaCadOrcamento" style="font-size: 10px;"
 			acceptcharset="ISO-8859-1">
 			<div style="margin-top: 20px; background: #ffffff;">
 				<p:ajaxStatus onstart="PF('statusDialog').hide()"
-					onsuccess="PF('statusDialog').hide()" />    
+					onsuccess="PF('statusDialog').hide()" />
 				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
 					closable="false" resizable="false" showHeader="false">
-					<p:commandLink>   
+					<p:commandLink>
 						<img src="../../resources/img/ajax-loader.gif" />
 					</p:commandLink>
-				</p:dialog>    
+				</p:dialog>
 			</div>
-			
+
 			<div id="centro">
 				<br></br>
-				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 				<p:commandButton id="bntLead" icon="ui-icon-arrowreturnthick-1-w"
-						style="font-size:12px;margin-left:11%" value="Voltar para Lead"
-						action="#{cadOrcamentoManualMB.retornaHistoricoLead()}" title="Retornar para Histórico da Lead" >
-				</p:commandButton>	   
-				<h:outputLabel value="Orçamento de Curso"  
+					style="font-size:12px;margin-left:11%" value="Voltar para Lead"
+					action="#{cadOrcamentoManualMB.retornaHistoricoLead()}"
+					title="Retornar para Histórico da Lead">
+				</p:commandButton>
+				<h:outputLabel value="Orçamento de Curso"
 					style="font-size: 22px;color: #1F8871;margin-left:20%" />
-				<p:accordionPanel id="acordGeral" class="painelhighSchool"   
+				<p:accordionPanel id="acordGeral" class="painelhighSchool"
 					style="background:#1F8871;">
 					<p:tab title="Curso" class="tab" titleStyle="font-size: 11px">
 						<legend id="iUsu3" style="margin-left: 11%; width: 50%">
 							<b>Dados do Cliente</b>
-							
+
 						</legend>
-						<h:panelGroup rendered="#{cadOrcamentoManualMB.painelOcCliente}">  
+						<h:panelGroup rendered="#{cadOrcamentoManualMB.painelOcCliente}">
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
 								columnClasses="tamanho1,colunaRS,tamanho2">
 								<h:outputLabel value="Cliente" for="idoccliente" />
@@ -46,10 +48,10 @@
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
 								columnClasses="tamanho1,colunaRS,tamanho2">
 								<h:inputText id="idoccliente" style="width:93%;" readonly="true"
-									value="#{cadOrcamentoManualMB.occliente.nome}"/>
+									value="#{cadOrcamentoManualMB.occliente.nome}" />
 								<h:outputLabel />
 								<h:inputText id="idocemail" style="width:70%;" maxlength="100"
-									value="#{cadOrcamentoManualMB.occliente.email}"/>
+									value="#{cadOrcamentoManualMB.occliente.email}" />
 							</h:panelGrid>
 							<br></br>
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
@@ -61,23 +63,24 @@
 									</p:selectBooleanCheckbox>
 									<h:outputText value="9 Digitos"
 										style="margin-left:1%;font-size:11px;" />
-								</p:panelGrid> 
+								</p:panelGrid>
 								<p:panelGrid></p:panelGrid>
 								<p:panelGrid></p:panelGrid>
 							</h:panelGrid>
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
 								columnClasses="tamanho4,tamanho4,tamanho5">
-								<h:outputLabel value="Fone Residencial" for="ocidfoneresidencial" />
+								<h:outputLabel value="Fone Residencial"
+									for="ocidfoneresidencial" />
 								<h:outputLabel value="Fone Celular" for="ocidfonecelular" />
 								<h:outputLabel value="Como conheceu a TravelMate?" />
 								<p:inputMask id="ocidfoneresidencial" style="width:63%;"
 									value="#{cadOrcamentoManualMB.occliente.foneresidencial}"
 									mask="#{cadOrcamentoManualMB.validarMascaraFoneResidencial()}" />
-	
+
 								<p:inputMask id="ocidfonecelular" style="width:63%;"
-									mask="(99)99999-9999"  
+									mask="(99)99999-9999"
 									value="#{cadOrcamentoManualMB.occliente.fonecelular}" />
-	
+
 								<p:selectOneMenu id="ocidconheceutravel"
 									value="#{cadOrcamentoManualMB.occliente.publicidade}"
 									converter="PublicidadeConverter" filter="true"
@@ -113,7 +116,7 @@
 									<f:selectItem itemLabel="Selecione" itemValue="selecione"
 										noSelectionOption="true" />
 									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
-									<f:selectItem itemLabel="Masculino" itemValue="Masculino" /> 
+									<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
 								</p:selectOneMenu>
 								<p:commandButton id="ocbtnImportarModeloOrcamento"
 									value="Importar Modelo"
@@ -123,7 +126,7 @@
 									<p:ajax event="dialogReturn" process="@this"
 										listener="#{cadOrcamentoManualMB.retornoDialogModelos}"
 										update="@all" />
-								</p:commandButton>  
+								</p:commandButton>
 							</h:panelGrid>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{cadOrcamentoManualMB.painelcliente}">
@@ -136,10 +139,10 @@
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%"
 								columnClasses="tamanho1,colunaRS,tamanho2">
 								<h:inputText id="idcliente" style="width:93%;" readonly="true"
-									value="#{cadOrcamentoManualMB.cliente.nome}"/>
+									value="#{cadOrcamentoManualMB.cliente.nome}" />
 								<h:outputLabel />
 								<h:inputText id="idemail" style="width:70%;" maxlength="100"
-									value="#{cadOrcamentoManualMB.cliente.email}"/>
+									value="#{cadOrcamentoManualMB.cliente.email}" />
 							</h:panelGrid>
 							<br></br>
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
@@ -152,7 +155,8 @@
 									<h:outputText value="9 Digitos"
 										style="margin-left:1%;font-size:11px;" />
 								</p:panelGrid>
-								<p:panelGrid>  </p:panelGrid>  
+								<p:panelGrid>
+								</p:panelGrid>
 								<p:panelGrid></p:panelGrid>
 							</h:panelGrid>
 							<h:panelGrid columns="3" style="margin-left:11.5%;width:88.8%;"
@@ -163,11 +167,11 @@
 								<p:inputMask id="idfoneresidencial" style="width:63%;"
 									value="#{cadOrcamentoManualMB.cliente.foneResidencial}"
 									mask="(99)99999-9999" />
-	
+
 								<p:inputMask id="idfonecelular" style="width:63%;"
 									mask="#{cadOrcamentoManualMB.validarMascaraFoneCelular()}"
 									value="#{cadOrcamentoManualMB.cliente.foneCelular}" />
-	
+
 								<p:selectOneMenu id="idconheceutravel"
 									value="#{cadOrcamentoManualMB.cliente.publicidade}"
 									converter="PublicidadeConverter" filter="true"
@@ -203,7 +207,7 @@
 									<f:selectItem itemLabel="Selecione" itemValue="selecione"
 										noSelectionOption="true" />
 									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
-									<f:selectItem itemLabel="Masculino" itemValue="Masculino" /> 
+									<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
 								</p:selectOneMenu>
 								<p:commandButton id="btnImportarModeloOrcamento"
 									value="Importar Modelo"
@@ -240,19 +244,22 @@
 									itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
 								<f:attribute name="listaPais"
 									value="#{cadOrcamentoManualMB.listaPais}" />
-								<p:ajax event="change" update="moeda, idvalorcambio" listener="#{cadOrcamentoManualMB.selecionarCambio()}"/>
-								<p:ajax event="change" update="cidade" listener="#{cadOrcamentoManualMB.listarCidades()}"/>
+								<p:ajax event="change" update="moeda, idvalorcambio"
+									listener="#{cadOrcamentoManualMB.selecionarCambio()}" />
+								<p:ajax event="change" update="cidade"
+									listener="#{cadOrcamentoManualMB.listarCidades()}" />
 							</p:selectOneMenu>
 
 							<p:selectOneMenu id="cidade"
 								value="#{cadOrcamentoManualMB.cidade}"
-								converter="CidadeProdutoConverter" style="width:150px;" filter="true"
-								filterMatchMode="startsWith" panelStyle="width:180px">
+								converter="CidadeProdutoConverter" style="width:150px;"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
 								<f:selectItem itemLabel="Cidade" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems id="idcidade2"
-									value="#{cadOrcamentoManualMB.listaCidade}"
-									var="cursocidade" itemLabel="#{cursocidade.cidade.nome}"
+									value="#{cadOrcamentoManualMB.listaCidade}" var="cursocidade"
+									itemLabel="#{cursocidade.cidade.nome}"
 									itemValue="#{cursocidade.cidade}" />
 								<f:attribute name="listaCidadeProduto"
 									value="#{cadOrcamentoManualMB.listaCidade}" />
@@ -312,9 +319,9 @@
 								<p:ajax event="blur"
 									listener="#{cadOrcamentoManualMB.calcularDataTerminoCurso()}"
 									update="datatermino2" />
-							</h:inputText>  
+							</h:inputText>
 
-							<p:calendar id="datatermino2"  
+							<p:calendar id="datatermino2"
 								value="#{cadOrcamentoManualMB.orcamentocurso.dataTermino}"
 								locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -341,8 +348,7 @@
 						<h:panelGrid columns="3"
 							columnClasses="tamanho8,tamanho11,tamanho9"
 							style="margin-left:11.5%;" cellpadding="5">
-							<h:inputText id="cargahoraria2" style="width:60%;"
-								maxlength="11"
+							<h:inputText id="cargahoraria2" style="width:60%;" maxlength="11"
 								value="#{cadOrcamentoManualMB.orcamentocurso.aulasSemana}"
 								converterMessage="Digite somente número">
 								<f:convertNumber integerOnly="true" minIntegerDigits="2"
@@ -374,15 +380,16 @@
 								value="#{cadOrcamentoManualMB.orcamentocurso.tipoAcomodacao}"
 								style="width:120px;">
 								<f:selectItem itemLabel="Sem acomodação"
-									itemValue="Sem acomodação" /> 
-								<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+									itemValue="Sem acomodação" />
+								<f:selectItem itemLabel="Casa de família"
+									itemValue="Casa de família" />
 								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
 								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
-								<f:selectItem itemLabel="Flat" itemValue="Flat"/>
-								<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
-								<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+								<f:selectItem itemLabel="Flat" itemValue="Flat" />
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel" />
+								<f:selectItem itemLabel="Hostel" itemValue="Hostel" />
 								<f:selectItem itemLabel="Residência" itemValue="Residência" />
-								<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+								<f:selectItem itemLabel="Studio" itemValue="Studio" />
 								<p:ajax event="change"
 									listener="#{cadOrcamentoManualMB.carregarCamposAcomodacao()}"
 									update="quarto, refeicao, numsemanas,banheiro" />
@@ -447,17 +454,18 @@
 							<p:outputLabel style="margin-left:2%;" />
 						</div>
 						<br />
-						<h:panelGrid columns="6" style="margin-left: 3%;width:93%;"
+						<h:panelGrid id="painelseguro" columns="6"
+							style="margin-left: 3%;width:93%;"
 							columnClasses="tamanho14, tamanho14, tamanho14, tamanho14">
 							<p:outputLabel value="Seguradora" for="seguradora" />
 							<p:outputLabel value="Plano" for="plano" />
 							<p:outputLabel value="Tarifario" for="tarifario" />
 							<p:outputLabel value="Cobrança" for="cobranca" />
 							<p:outputLabel value="Valor:" for="valorunitario"
-								style="font-weight:bold;font-size: 11px;"/>
+								style="font-weight:bold;font-size: 11px;" />
 							<p:outputLabel value="Valor em R$:" for="valorunitarioRS"
 								style="font-weight:bold;font-size: 11px;margin-left: 15%;">
-								  
+
 							</p:outputLabel>
 
 							<p:selectOneMenu style="width:160px;" id="seguradora"
@@ -471,17 +479,21 @@
 									itemValue="#{ccidade}" />
 								<f:attribute name="listaFornecedorCidade"
 									value="#{cadOrcamentoManualMB.listaFornecedorCidadeSeguro}" />
-								<p:ajax event="change" update="plano" listener="#{cadOrcamentoManualMB.listarPlanosSeguro()}"/>
+								<p:ajax event="change" update="plano"
+									listener="#{cadOrcamentoManualMB.listarPlanosSeguro()}" />
 							</p:selectOneMenu>
-							<p:selectOneMenu id="plano" style="width:163px;" converter="SeguroPlanosConverter"
+							<p:selectOneMenu id="plano" style="width:163px;"
+								converter="SeguroPlanosConverter"
 								value="#{cadOrcamentoManualMB.seguroplanos}">
 								<f:selectItem itemLabel="Plano" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems id="idplano"
 									value="#{cadOrcamentoManualMB.listaSeguroPlanos}" var="plano"
 									itemLabel="#{plano.nome}" itemValue="#{plano}" />
-								<f:attribute name="listaSeguroPlanos" value="#{cadOrcamentoManualMB.listaSeguroPlanos}" />
-								<p:ajax event="change" update="tarifario" listener="#{cadOrcamentoManualMB.listarValoresSeguro()}"/>
+								<f:attribute name="listaSeguroPlanos"
+									value="#{cadOrcamentoManualMB.listaSeguroPlanos}" />
+								<p:ajax event="change" update="tarifario"
+									listener="#{cadOrcamentoManualMB.listarValoresSeguro()}" />
 							</p:selectOneMenu>
 							<p:selectOneMenu id="tarifario" style="width:170px;"
 								value="#{cadOrcamentoManualMB.seguroViagem.valoresseguro}"
@@ -496,28 +508,30 @@
 									value="#{cadOrcamentoManualMB.listaValoresSeguro}" />
 								<p:ajax
 									listener="#{cadOrcamentoManualMB.carregarCobrancaSeguro()}"
-									update="cobranca" />
+									update="cobranca, painelseguro" />
 								<p:ajax
 									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}"
 									update="valorunitario, valorunitarioRS, datainicio, semanas, datatermino, valormoeda, valorseguro" />
 							</p:selectOneMenu>
-    
+
 							<p:inputText id="cobranca"
 								value="#{cadOrcamentoManualMB.seguroViagem.valoresseguro.cobranca}"
 								style="width:80%;" maxlength="45" readonly="true" />
-								
-							<p:inputText id="valorunitario" 
+
+							<p:inputText id="valorunitario"
 								value="#{cadOrcamentoManualMB.seguroViagem.valoresseguro.valorgross}"
-								style="width:90px;margin-left:1%;font-size:13px;text-align:right;" maxlength="45"
-								readonly="true" >
-								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								style="width:90px;margin-left:1%;font-size:13px;text-align:right;"
+								maxlength="45" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
 							</p:inputText>
-							
-							<p:inputText id="valorunitarioRS" 
+
+							<p:inputText id="valorunitarioRS"
 								value="#{cadOrcamentoManualMB.valorUtilitarioRS}"
-								style="width:90px;margin-left:1%;font-size:13px;text-align:right;margin-left: 15%;" maxlength="45"
-								readonly="true" >
-								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								style="width:90px;margin-left:1%;font-size:13px;text-align:right;margin-left: 15%;"
+								maxlength="45" readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
 							</p:inputText>
 
 							<p:outputLabel value="Data inicial" for="datainicio" />
@@ -526,8 +540,8 @@
 							<p:outputLabel value="Valor Total do Seguro" for="valormoeda" />
 							<p:outputLabel value="Valor Total em R$:" for="valorseguro"
 								style="font-weight:bold;font-size: 11px;" />
-								<p:outputLabel/>
-								
+							<p:outputLabel />
+
 							<p:calendar id="datainicio"
 								value="#{cadOrcamentoManualMB.seguroViagem.datainicio}"
 								size="20" locale="pt" pattern="dd/MM/yyyy">
@@ -536,7 +550,7 @@
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect" />
 							</p:calendar>
-   
+
 							<p:inputText id="semanas"
 								value="#{cadOrcamentoManualMB.seguroViagem.numerodias}"
 								style="width:35%;" maxlength="11">
@@ -558,13 +572,13 @@
 									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
 									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}" />
 							</p:calendar>
-							
+
 							<p:inputText id="valormoeda"
 								value="#{cadOrcamentoManualMB.valorTotalSeguroDola}"
 								style="width:90px;margin-left:1%" maxlength="45" readonly="true"
-								class="loginButtonr"
-								>
-								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+								class="loginButtonr">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
 							</p:inputText>
 
 							<p:inputText id="valorseguro"
@@ -574,10 +588,25 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:inputText>
+							<br />
+							<h:panelGroup id="segurocancelamento"
+								rendered="#{cadOrcamentoManualMB.segurocancelamento}">
+								<br />
+								<p:selectBooleanCheckbox id="checkBoxSeguro"
+									value="#{cadOrcamentoManualMB.seguroViagem.segurocancelamento}">
+									<p:ajax event="change"
+										listener="#{cadOrcamentoManualMB.adicionarSeguroCancelamento()}"
+										update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem,
+									 idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, 
+									 valortotal, valoreal, valor, idpagamentoavista" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adicionar Seguro Cancelamento"
+									style="margin-left:0.5%;" />
+							</h:panelGroup>
 						</h:panelGrid>
 						<br />
 						<br />
-					</p:tab>  
+					</p:tab>
 					<p:tab id="tabProduto" title="Produtos"
 						titleStyle="font-size: 11px">
 						<br></br>
@@ -687,7 +716,7 @@
 								headerText="#{cadOrcamentoManualMB.tituloMoedaEstrangeira()}"
 								style="text-align:right">
 								<h:outputText value="#{produtoscurso.valorMoedaEstrangeira}">
-									<f:convertNumber pattern="##,###,###,###.##"   
+									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
@@ -722,7 +751,7 @@
 					<p:tab title="Observações">
 						<br></br>
 						<div>
-							<h:inputTextarea class="comment-text-area" 
+							<h:inputTextarea class="comment-text-area"
 								value="#{cadOrcamentoManualMB.orcamentocurso.observacao}"
 								id="obs" rows="10" />
 						</div>
@@ -756,14 +785,14 @@
 							<p:fieldset id="idpagamentoavista"
 								legend="Opção 01 - Pagamento á Vista" toggleable="true"
 								style="font-size: 11px;width: 95%;margin-left: 2.5%">
-								<h:panelGrid style="margin-left:8%" >
-									<h:outputLabel value="Valor R$"/>
+								<h:panelGrid style="margin-left:8%">
+									<h:outputLabel value="Valor R$" />
 									<h:inputText id="idvalorRS01"
 										value="#{cadOrcamentoManualMB.orcamentocurso.valor}"
 										style="text-align: right">
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
-									</h:inputText> 
+									</h:inputText>
 								</h:panelGrid>
 							</p:fieldset>
 							<br></br>
@@ -779,34 +808,34 @@
 								<p:fieldset id="idparcelamentoantesviagem"
 									legend="Opção 02 - Parcelamento antes da viagem"
 									toggleable="true" class="comment-text-area">
-									<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+									<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 										columnClasses="dezoito,dezoito,dezoito,dezoito">
 										<p:outputLabel value="% Entrada" />
-										<p:outputLabel value="Valor da Entrada R$" />  
-										<p:outputLabel value="Nº Parcelas"/>
+										<p:outputLabel value="Valor da Entrada R$" />
+										<p:outputLabel value="Nº Parcelas" />
 										<p:outputLabel value="Valor da Parcela" />
-										
+
 										<h:inputText id="idpercentual2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualEntrada2}"
 											style="text-align: right;width:60%;"
 											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
 											<f:convertNumber pattern="##,###,###,###.##"
-												minFractionDigits="2" /> 
+												minFractionDigits="2" />
 											<p:ajax event="blur"
 												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 												update="idparcelamentoantesviagem" />
-										</h:inputText> 
+										</h:inputText>
 										<h:inputText id="idvalorentrada2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorEntrada2}"
 											style="text-align: right;width:60%;"
 											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
 											<f:convertNumber pattern="##,###,###,###.##"
-												minFractionDigits="2" /> 
+												minFractionDigits="2" />
 											<p:ajax event="blur"
 												listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
 												update="idparcelamentoantesviagem" />
-										</h:inputText> 
-										<p:selectOneMenu  id="nparcela2"
+										</h:inputText>
+										<p:selectOneMenu id="nparcela2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelas02}"
 											style="width:80px;"
 											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
@@ -825,7 +854,7 @@
 											<p:ajax
 												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 												update="idvalorparcela2" />
-										</p:selectOneMenu> 
+										</p:selectOneMenu>
 										<h:inputText id="idvalorparcela2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorParcela02}"
 											style="text-align: right;width:60%;"
@@ -835,13 +864,13 @@
 												minFractionDigits="2" />
 										</h:inputText>
 									</h:panelGrid>
-									<br></br> 
-									<h:panelGrid style="margin-left:8%;width:80%;" columns="4" 
+									<br></br>
+									<h:panelGrid style="margin-left:8%;width:80%;" columns="4"
 										columnClasses="dezoito,dezoito,dezoito,dezoito">
 										<p:outputLabel value="% Saldo" />
-										<p:outputLabel value="Saldo R$"/>
-										<p:outputLabel value=""/>
-										<p:outputLabel value=""/>    
+										<p:outputLabel value="Saldo R$" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
 										<h:inputText id="idpersentualsaldo2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualSaldo2}"
 											style="text-align: right;width:60%;"
@@ -852,7 +881,7 @@
 											<p:ajax event="blur"
 												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 												update="idvalorsaldo2, idvalorparcela2" />
-										</h:inputText> 
+										</h:inputText>
 										<h:inputText id="idvalorsaldo2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorSaldo2}"
 											style="text-align: right;width:60%;"
@@ -860,7 +889,7 @@
 											readonly="true">
 											<f:convertNumber pattern="##,###,###,###.##"
 												minFractionDigits="2" />
-										</h:inputText> 
+										</h:inputText>
 									</h:panelGrid>
 								</p:fieldset>
 							</h:panelGrid>
@@ -877,13 +906,13 @@
 								legend="Opção 03 - Parcelamento em cartão de crédito em até 12x"
 								toggleable="true"
 								style="font-size: 10px;width: 95%;margin-left: 2.5%">
-								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
-									<p:outputLabel value="% Entrada"/>
+									<p:outputLabel value="% Entrada" />
 									<p:outputLabel value="Valor da Entrada R$" />
-									<p:outputLabel value="Nº Parcelas"/>
+									<p:outputLabel value="Nº Parcelas" />
 									<p:outputLabel value="Valor da Parcela" />
-					
+
 									<h:inputText id="idpercentualentrada3"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualEntrada3}"
 										style="text-align: right;width:60%;"
@@ -893,7 +922,7 @@
 										<p:ajax event="blur"
 											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 											update="idparcelamentoemcartaocredito" />
-									</h:inputText>  
+									</h:inputText>
 									<h:inputText id="idvalorentrada3"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorEntrada3}"
 										style="text-align: right;width:60%;"
@@ -903,7 +932,7 @@
 										<p:ajax event="blur"
 											listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
 											update="idparcelamentoemcartaocredito" />
-									</h:inputText> 
+									</h:inputText>
 									<p:selectOneMenu id="nparcela3"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelas03}"
 										style="width:80px;"
@@ -923,7 +952,7 @@
 										<p:ajax
 											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 											update="idvalorparcela3" />
-									</p:selectOneMenu> 
+									</p:selectOneMenu>
 									<h:inputText
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorParcela03}"
 										style="text-align: right;width:60%;"
@@ -933,13 +962,13 @@
 											minFractionDigits="2" />
 									</h:inputText>
 								</h:panelGrid>
-								<br></br> 
-								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+								<br></br>
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Saldo" />
 									<p:outputLabel value="Saldo R$" />
-									<p:outputLabel value=""/>
-									<p:outputLabel value=""/>   
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
 
 									<h:inputText id="idvalorsaldo3"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualSaldo3}"
@@ -948,7 +977,7 @@
 										readonly="true">
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
-									</h:inputText> 
+									</h:inputText>
 									<h:inputText id="idvalorparcela3"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorSaldo3}"
 										style="text-align: right"
@@ -973,13 +1002,13 @@
 								legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*"
 								toggleable="true"
 								style="font-size: 10px;width: 95%;margin-left: 2.5%">
-								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Entrada" />
 									<p:outputLabel value="Valor da Entrada R$" />
 									<p:outputLabel value="Nº Parcelas" />
 									<p:outputLabel value="Valor da Parcela" />
- 
+
 									<p:inputText id="idpercentualentrada4"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualEntrada4}"
 										style="text-align: right;width:60%;"
@@ -989,7 +1018,7 @@
 										<p:ajax event="blur"
 											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 											update="idparcelamentoemcheque" />
-									</p:inputText> 
+									</p:inputText>
 									<p:inputText id="idvalorentrada4"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorEntrada4}"
 										style="text-align: right;width:60%;"
@@ -999,7 +1028,7 @@
 										<p:ajax event="blur"
 											listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
 											update="idparcelamentoemcheque" />
-									</p:inputText> 
+									</p:inputText>
 									<p:selectOneMenu id="nparcela4"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelasFinanciamento}"
 										style="width:80px;"
@@ -1018,7 +1047,7 @@
 										<p:ajax
 											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 											update=":telaCadOrcamento:acordGeral:idvalorparcela4" />
-									</p:selectOneMenu> 
+									</p:selectOneMenu>
 									<h:inputText id="idvalorparcela4"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.finaciamento}"
 										style="text-align: right;width:60%;"
@@ -1027,14 +1056,14 @@
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
 									</h:inputText>
-								</h:panelGrid>  
-								<br></br> 
-								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
-									columnClasses="dezoito,dezoito,dezoito,dezoito"> 
+								</h:panelGrid>
+								<br></br>
+								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
+									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Saldo" />
-									<p:outputLabel value="Saldo R$"/>
-									<p:outputLabel value=""/>
-									<p:outputLabel value=""/> 
+									<p:outputLabel value="Saldo R$" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
 									<p:inputText id="porcentagemSaldo4"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.percentualSaldo4}"
 										style="width:60%;text-align: right"
@@ -1042,7 +1071,7 @@
 										readonly="true">
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
-									</p:inputText> 
+									</p:inputText>
 									<p:inputText id="idvalorsaldo4"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorSaldo4}"
 										style="width:60%;text-align: right"
@@ -1050,7 +1079,7 @@
 										readonly="true">
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
-									</p:inputText> 
+									</p:inputText>
 								</h:panelGrid>
 							</p:fieldset>
 						</p:tab>
@@ -1060,21 +1089,21 @@
 					<br></br>
 					<p:commandButton class="imagemm" icon="ui-icon-check"
 						value="Confirmar" onstart="PF('dialogcarregar').show()"
-							onsuccess="PF('dialogcarregar').hide()"
+						onsuccess="PF('dialogcarregar').hide()"
 						action="#{cadOrcamentoManualMB.confirmarOrcamento()}"
 						update="telaCadOrcamento:growl" />
 					<p:commandButton class="espacocampos" icon="ui-icon-close"
 						value="Cancelar" onstart="PF('dialogcarregar').show()"
-							onsuccess="PF('dialogcarregar').hide()"
+						onsuccess="PF('dialogcarregar').hide()"
 						action="#{cadOrcamentoManualMB.cancelarOrcamento()}" />
 					<br></br> <br></br>
 				</p>
 				<p:dialog widgetVar="dialogcarregar" modal="true" draggable="false"
 					closable="false" resizable="false" showHeader="false">
-					<p:commandLink> 
-						<img src="../../resources/img/ajax-loader.gif" />     
+					<p:commandLink>
+						<img src="../../resources/img/ajax-loader.gif" />
 					</p:commandLink>
-				</p:dialog>  
+				</p:dialog>
 			</div>
 		</h:form>
 

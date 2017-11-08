@@ -47,6 +47,8 @@ public class Orcamentomanualseguro implements Serializable {
     private Valoresseguro valoresseguro;
     @Column(name = "somarvalortotal")
     private boolean somarvalortotal;
+    @Column(name = "segurocancelamento")
+    private boolean segurocancelamento;
     
 
     public Orcamentomanualseguro() {
@@ -118,6 +120,14 @@ public class Orcamentomanualseguro implements Serializable {
 
 	public void setSomarvalortotal(boolean somarvalortotal) {
 		this.somarvalortotal = somarvalortotal;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	@Override

@@ -3180,8 +3180,7 @@ public class CadCursoMB implements Serializable {
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getOcursoseguroList().get(0).getValorseguroorcamento());
 				orcamentoprodutosorcamento.setValorMoedaNacional(
 						orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
-				orcamentoprodutosorcamento.setTipo("S");
-				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+				orcamentoprodutosorcamento.setTipo("S"); 
 				seguroViagem = new Seguroviagem();
 				fornecedorSeguro = ocurso.getOcursoseguroList().get(0).getValoresseguro().getFornecedorcidade();
 				listarPlanosSeguro();
@@ -3195,7 +3194,9 @@ public class CadCursoMB implements Serializable {
 				seguroViagem.setValorMoedaEstrangeira(ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getOcursoseguroList().get(0).getValorseguroorcamento());
 				seguroViagem.setValorSeguro(orcamentoprodutosorcamento.getValorMoedaNacional());
 				seguroViagem.setValoresseguro(ocurso.getOcursoseguroList().get(0).getValoresseguro());
+				seguroViagem.setSegurocancelamento(ocurso.getOcursoseguroList().get(0).isSegurocancelamento());
 				carregarCobrancaSeguro();
+				adicionarSeguroCancelamento();
 				camposSeguroViagem = "false";
 			}
 		}

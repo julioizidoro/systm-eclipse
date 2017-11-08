@@ -32,7 +32,7 @@ import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade;
+import br.com.travelmate.facade.OrcamentoCursoFacade; 
 import br.com.travelmate.facade.OrcamentoManualSeguroFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -59,7 +59,7 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Occliente;
 import br.com.travelmate.model.Orcamentocurso;
 import br.com.travelmate.model.Orcamentocursoformapagamento;
-import br.com.travelmate.model.Orcamentomanualseguro;
+import br.com.travelmate.model.Orcamentomanualseguro; 
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtoorcamentocurso;
@@ -128,6 +128,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	private List<Cidadepaisproduto> listaCidade;
 	private Lead lead;
 	private String funcao;
+	private boolean segurocancelamento=false;
 
 	@PostConstruct
 	public void init() {
@@ -522,6 +523,14 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void setSeguroplanos(Seguroplanos seguroplanos) {
 		this.seguroplanos = seguroplanos;
+	}
+
+	public boolean isSegurocancelamento() {
+		return segurocancelamento;
+	}
+
+	public void setSegurocancelamento(boolean segurocancelamento) {
+		this.segurocancelamento = segurocancelamento;
 	}
 
 	public void gerarListaPublicidade() {
@@ -1673,6 +1682,7 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void carregarCobrancaSeguro() {
 		seguroViagem.getValoresseguro().setCobranca(seguroViagem.getValoresseguro().getCobranca());
+		verificarSeguroCancelamento();
 	}
 
 	public void salvarSeguro() {
@@ -1739,5 +1749,51 @@ public class CadOrcamentoManualMB implements Serializable {
 			}
 		}
 		return "";
+	}
+	
+	public void verificarSeguroCancelamento() {
+		if(seguroViagem.getValoresseguro().isSegurocancelamento()) {
+			segurocancelamento = true; 
+		} else {
+			segurocancelamento = false; 
+		}
+	} 
+	
+	public void adicionarSeguroCancelamento() { 
+		if (segurocancelamento && seguroViagem.getValoresseguro().isSegurocancelamento()) { 
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			Produtosorcamento produto = produtoOrcamentoFacade
+					.consultar(aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid());
+			ProdutoOrcamentoCursoBean pob = new ProdutoOrcamentoCursoBean();
+			pob.setIdProdutoOrcamentoCurso(0);
+			pob.setDescricaoProdutoOrcamento(produto.getDescricao());
+			pob.setIdProdutoOrcamento(produto.getIdprodutosOrcamento());
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
+			pob.setValorMoedaEstrangeira(0.0f);
+			pob.setValorMoedaReal(
+					aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor()); 
+			pob.setApagar(false);
+			pob.setNovo(true);
+			pob.setSomarvalortotal(seguroViagem.isSomarvalortotal());
+			listaProdutoOrcamentoBean.add(pob);
+			calcularValorTotalOrcamento();
+			this.valorMoedaEstrangeira = 0.0f;
+			this.valorMoedaReal = 0.0f;
+		} else { 
+			if (listaProdutoOrcamentoBean != null) {
+				int idseguroCancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid();
+				for (int i = 0; i < listaProdutoOrcamentoBean.size(); i++) {
+					int idProdutoOrcamento = listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento();
+					if (idseguroCancelamento == idProdutoOrcamento) { 
+						listaProdutoOrcamentoBean.remove(i);
+						calcularValorTotalOrcamento();
+						this.valorMoedaEstrangeira = 0.0f;
+						this.valorMoedaReal = 0.0f;
+					}
+				}
+			}
+		}
 	}
 }
