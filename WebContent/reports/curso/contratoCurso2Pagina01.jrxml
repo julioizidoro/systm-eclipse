@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoCursoPagina01" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="20" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
-	<property name="ireport.x" value="30"/>
-	<property name="ireport.y" value="64"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="592"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -528,7 +528,7 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 
 Fica o(a)  PARTICIPANTE desde já advertido e ciente que o serviço prestado pela  TM destina-se meramente a viabilizar sua inscrição no programa de intercâmbio cultural,  dando orientações pertinentes ao mesmo conforme disposto nos termos do presente contrato, devendo ainda constar o seguinte:
 
-a) A  TM não se responsabilizará por ato(s) do(a) próprio(a)  PARTICIPANTE que venha(m) a impedir a realização do presente contrato, incluindo ato(s) que ofenda(m) a legislação nacional e/ou do país de destino, bem como casos fortuitos, de força maior e fato do príncipe, que ocorre quando o cumprimento do contrato se torne impossível face a algum ato de governo tanto do país de destino como brasileiro;
+a) A  TM não se responsabilizará por ato(s) do(a) próprio(a)  PARTICIPANTE que venha(m) a impedir a realização do presente contrato, incluindo ato(s) que ofenda(m) a legislação nacional e/ou do país de destino, bem como casos fortuitos, de força maior e fato do principio, que ocorre quando o cumprimento do contrato se torne impossível face a algum ato de governo tanto do país de destino como brasileiro;
 b) A TM não se responsabilizará por qualquer prejuízo causado ao(à)   PARTICIPANTE referente ao contrato de transporte aéreo, decorrente da passagem adquirida.
 c) A  TM não se responsabilizará caso o(a)   PARTICIPANTE tenha seu visto consular negado ou seja impedido de ]]></text>
 			</staticText>
