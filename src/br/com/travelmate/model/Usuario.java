@@ -94,7 +94,9 @@ public class Usuario implements Serializable {
     @Column(name = "pertencematriz")
     private boolean pertencematriz; 
     @Column(name = "recebeleadautomatica")
-    private boolean recebeleadautomatica;  
+    private boolean recebeleadautomatica; 
+    @Column(name = "emailagenda")
+    private String emailagenda;
     @Transient
     private boolean selecionado;
     @Transient
@@ -302,6 +304,14 @@ public class Usuario implements Serializable {
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
+	}
+
+	public String getEmailagenda() {
+		return emailagenda;
+	}
+
+	public void setEmailagenda(String emailagenda) {
+		this.emailagenda = emailagenda;
 	}
 
 	@Override

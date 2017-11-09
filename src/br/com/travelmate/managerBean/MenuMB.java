@@ -1427,4 +1427,11 @@ public class MenuMB implements Serializable {
 			e.printStackTrace();
 		}  
 	}
+	
+	public String consAgenda() {
+		atualizaTempoLogado();
+		return "consAgenda";
+	}
+	
+	
 }
