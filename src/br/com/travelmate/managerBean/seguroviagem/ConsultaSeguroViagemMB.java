@@ -85,6 +85,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	private List<Seguroviagem> listaVendasProcesso;
 	private List<Seguroviagem> listaVendasFinanceiro;
 	private String numeroFichas;
+	private String voltar = "";
 
 	@PostConstruct
 	public void init() {
@@ -319,6 +320,14 @@ public class ConsultaSeguroViagemMB implements Serializable {
 
 	public void setNumeroFichas(String numeroFichas) {
 		this.numeroFichas = numeroFichas;
+	}
+
+	public String getVoltar() {
+		return voltar;
+	}
+
+	public void setVoltar(String voltar) {
+		this.voltar = voltar;
 	}
 
 	public void carregarListaSeguro() {
@@ -576,8 +585,9 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+			session.setAttribute("vendas", venda);
+			session.setAttribute("voltar", "consultaSeguro");
+			return "emissaocancelamento";
 		} else {
 			VendasFacade vendasFacade = new VendasFacade();
 			venda.setSituacao("CANCELADA");
@@ -767,6 +777,27 @@ public class ConsultaSeguroViagemMB implements Serializable {
 				nFichaCancelada = nFichaCancelada + 1;
 				listaVendasCancelada.add(listaSeguro.get(i));
 			}
+		}
+	}
+	
+	
+	public String documentacao(Seguroviagem seguroviagem) {
+		if (seguroviagem.getVendas().getSituacao().equalsIgnoreCase("Processo")) {
+			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			if(seguroviagem.getControle().equalsIgnoreCase("Avulso")) {
+				session.setAttribute("vendas", seguroviagem.getVendas());
+			}else {
+				VendasFacade vendasFacade = new VendasFacade();
+				Vendas vendas = vendasFacade.consultarVendas(seguroviagem.getIdvendacurso());
+				session.setAttribute("vendas", vendas);
+			} 
+			voltar = "consultaSeguro";
+			session.setAttribute("voltar", voltar);   
+			return "consArquivos";
 		}
 	}
 
