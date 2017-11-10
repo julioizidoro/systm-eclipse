@@ -5,6 +5,7 @@ import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedordocs;
+import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 @Named
 @ViewScoped
@@ -125,8 +127,15 @@ public class FornecedorDocsMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("fornecedordocs", fornecedordocs);
+		session.setAttribute("listaDocs", listaDocs);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 400);
 		RequestContext.getCurrentInstance().openDialog("excluirFornecedorCidadeDocs", options, null);
+	}
+	
+	
+	public void retornoDialogExcluir(SelectEvent event) {
+		listaDocs = (List<Fornecedordocs>) event.getObject();
+		Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
 	}
 }

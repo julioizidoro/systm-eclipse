@@ -10,7 +10,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
+
 import br.com.travelmate.facade.FornecedorCidadeDocsFacade;
+import br.com.travelmate.facade.FornecedorDocsFacade;
 import br.com.travelmate.model.Fornecedorcidadedocs;
 import br.com.travelmate.model.Fornecedordocs;
 import br.com.travelmate.util.Mensagem;
@@ -26,6 +29,7 @@ public class ExcluirFornecedorCidadeDocsMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private boolean todos;
 	private Fornecedordocs fornecedordocs;
+	private List<Fornecedordocs> listaDocs;
 	
 	
 	
@@ -34,7 +38,9 @@ public class ExcluirFornecedorCidadeDocsMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		fornecedordocs = (Fornecedordocs) session.getAttribute("fornecedordocs");
+		listaDocs = (List<Fornecedordocs>) session.getAttribute("listaDocs");
 		session.removeAttribute("fornecedordocs");
+		session.removeAttribute("listaDocs");
 	}
 
 
@@ -72,6 +78,7 @@ public class ExcluirFornecedorCidadeDocsMB implements Serializable{
 	
 	
 	public void excluir(){
+		FornecedorDocsFacade fornecedorDocsFacade = new FornecedorDocsFacade();
 		boolean excluiu = false;
 		List<Fornecedorcidadedocs> listaFornecedorCidadeDocs = new ArrayList<>();
 		Fornecedorcidadedocs fornecedorcidadedocs;
@@ -90,6 +97,12 @@ public class ExcluirFornecedorCidadeDocsMB implements Serializable{
 					fornecedordocs.getFornecedorcidadedocsList().remove(listaFornecedorCidadeDocs.get(i));
 				}
 				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+			}
+			
+			if (fornecedordocs.getFornecedorcidadedocsList().size() == 0) {
+				fornecedorDocsFacade.excluir(fornecedordocs.getIdfornecedordocs());
+				listaDocs.remove(fornecedordocs);
+				RequestContext.getCurrentInstance().closeDialog(listaDocs);
 			}
 		}
 	}

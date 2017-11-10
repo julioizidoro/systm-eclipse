@@ -89,6 +89,7 @@
 						<p:commandLink id="btnExcluir"
 							action="#{fornecedorDocsMB.excluirArquivos(docs)}">
 							<img src="../../resources/img/excluir.png" />
+							<p:ajax event="dialogReturn" listener="#{fornecedorDocsMB.retornoDialogExcluir}" update="consfornecedordocs"/>
 						</p:commandLink> 
 					</p:column>
 					<p:column style="width:30px;" styleClass="alinharCenter">
