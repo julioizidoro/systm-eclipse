@@ -163,11 +163,12 @@
 						
 					</h:panelGrid> 
 					<br />
-					<h:panelGrid columns="3"
-						columnClasses="tamanho6, tamanho6,tamanho6"
+					<h:panelGrid columns="4"
+						columnClasses="tamanho6, tamanho6, tamanho6, tamanho6"
 						style="width:67%;">
 						<p:outputLabel value="Sigla Unidade" />
 						<p:outputLabel/>  
+						<p:outputLabel/>
 						<p:outputLabel/>
 						<p:inputText id="sigla" style="width:55%;"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />   
@@ -181,6 +182,12 @@
 							<p:selectBooleanCheckbox id="idleadautomatica" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.unidadenegocio.leadautomatica}" style="background:white !important; color:white !important;"/> 
 							<h:outputText value="Distribuição automatizada das lead"
+								style="margin-left:1%;font-size:12px;font-weight: bold;" />  
+						</h:panelGroup>
+						<h:panelGroup> 
+							<p:selectBooleanCheckbox id="idsituacao" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
+								value="#{cadUnidadeNegocioMB.unidadenegocio.situacao}" style="background:white !important; color:white !important;"/> 
+							<h:outputText value="Unidade Ativa"
 								style="margin-left:1%;font-size:12px;font-weight: bold;" />  
 						</h:panelGroup>
 					</h:panelGrid>
