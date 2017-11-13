@@ -320,7 +320,7 @@
 				<textElement>
 					<font fontName="Franklin Gothic Book" size="11"/>
 				</textElement>
-				<text><![CDATA[Duração do Curso]]></text>
+				<text><![CDATA[Duração do Projeto]]></text>
 			</staticText>
 			<line>
 				<reportElement x="13" y="181" width="572" height="1" forecolor="#A5A6A9" uuid="0e3bebe5-857d-4c14-b226-117439eb1e9a"/>
