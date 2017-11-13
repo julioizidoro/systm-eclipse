@@ -262,7 +262,7 @@
 				<textElement>
 					<font fontName="Franklin Gothic Book" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CURSO NO EXTERIOR"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["VOLUNTARIADO NO EXTERIOR"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="13" y="100" width="572" height="1" forecolor="#A5A6A9" uuid="048466b8-f288-464b-8d10-87fc6aafdc65"/>

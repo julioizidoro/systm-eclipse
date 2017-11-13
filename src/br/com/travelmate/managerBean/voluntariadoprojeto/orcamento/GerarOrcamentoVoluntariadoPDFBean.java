@@ -103,9 +103,7 @@ public class GerarOrcamentoVoluntariadoPDFBean {
 				+ orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto()
 						.getFornecedorcidade().getCidade().getPais().getNome());
 		o.setInstituicao(orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto()
-				.getFornecedorcidade().getFornecedor().getNome() + " "
-				+ orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto()
-						.getFornecedorcidade().getCidade().getNome());
+				.getFornecedorcidade().getFornecedor().getNome());
 		o.setTipCurso(
 				orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getDescricao());
 		o.setDataInicio(Formatacao.ConvercaoDataPadrao(orcamentoprojetovoluntariado.getDatainicial()));
