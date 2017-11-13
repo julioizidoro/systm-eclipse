@@ -10,7 +10,7 @@
         <h:form id="consPastas" >
       			<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
         	   <br />
-        	   <p:commandButton value="Adicionar Pasta" icon="ui-icon-plus" rendered="#{pasta1VideoMB.verificarAcesso()}"  styleClass="btn btn-danger" action="#{pasta1VideoMB.cadastroPasta1Videos()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
+        	   <p:commandButton value="Adicionar Pasta" icon="ui-icon-plus" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessogerencialdocs}"  styleClass="btn btn-danger" action="#{pasta1VideoMB.cadastroPasta1Videos()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
         	   		<p:ajax listener="#{pasta1VideoMB.retornoDialogNovo}" event="dialogReturn" update="@form, growl"/>
         	   </p:commandButton>
         	   <hr style="width: 98%;"/>

@@ -10,10 +10,10 @@
         <h:form id="consPastas4Videos3" style="text-align:left;font-size: 10px; margin-left: 1%; "><br></br>
         	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
         	
-			<p:commandButton value="Adicionar Pasta" rendered="#{pastas4Videos3MB.verificarAcesso()}" icon="ui-icon-plus" styleClass="btn btn-danger" action="#{pastas4Videos3MB.cadastroPastaVideos4()}" style="margin-left:61%;font-size:12px;width:15%;background:green;border:green;">
+			<p:commandButton value="Adicionar Pasta" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessogerencialdocs}" icon="ui-icon-plus" styleClass="btn btn-danger" action="#{pastas4Videos3MB.cadastroPastaVideos4()}" style="margin-left:61%;font-size:12px;width:15%;background:green;border:green;">
 				<p:ajax event="dialogReturn" listener="#{pastas4Videos3MB.retornoDialogNovaPasta}" update="@form, growl"/>
 			</p:commandButton>
-            <p:commandButton value="Adicionar Video" icon="ui-icon-document" rendered="#{pastas4Videos3MB.verificarAcesso()}"  styleClass="btn btn-danger" action="#{pastas4Videos3MB.cadastroVideos3()}" style="margin-left:2%;font-size:12px;width:15%;background:green;border:green;">
+            <p:commandButton value="Adicionar Video" icon="ui-icon-document" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessogerencialdocs}"  styleClass="btn btn-danger" action="#{pastas4Videos3MB.cadastroVideos3()}" style="margin-left:2%;font-size:12px;width:15%;background:green;border:green;">
             	<p:ajax event="dialogReturn" listener="#{pastas4Videos3MB.retornoDialogNovoVideo}" update="@form, growl"/>
             </p:commandButton>
             <hr style="width: 98%;"/>

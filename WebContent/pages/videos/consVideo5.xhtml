@@ -11,7 +11,7 @@
         	<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
         	
 			
-            <p:commandButton value="Adicionar Video" rendered="#{videos5MB.verificarAcesso()}" icon="ui-icon-document"  styleClass="btn btn-danger" action="#{videos5MB.cadastroVideo5()}" style="margin-left:70%;font-size:12px;width:15%;background:green;border:green;">
+            <p:commandButton value="Adicionar Video" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessogerencialdocs}" icon="ui-icon-document"  styleClass="btn btn-danger" action="#{videos5MB.cadastroVideo5()}" style="margin-left:70%;font-size:12px;width:15%;background:green;border:green;">
             	<p:ajax event="dialogReturn" listener="#{videos5MB.retornoDialogNovoVideo}" update="@form, growl"/>
             </p:commandButton>
             <hr style="width: 98%;"/> 
