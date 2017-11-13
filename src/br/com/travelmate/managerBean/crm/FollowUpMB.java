@@ -992,8 +992,8 @@ public class FollowUpMB implements Serializable {
 				sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 			}
 		}
-		sql = sql + " AND l.datachegada>='"+Formatacao.ConvercaoDataSql(data)+"'"
-				+ " OR l.datachegada is null";
+		sql = sql + " AND (l.datachegada>='"+Formatacao.ConvercaoDataSql(data)+"'"
+				+ " OR l.datachegada is null) ";
 		sql = sql + " order by l.datachegada";
 		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
 		listaPosVenda = leadPosVendaFacade.listar(sql);
