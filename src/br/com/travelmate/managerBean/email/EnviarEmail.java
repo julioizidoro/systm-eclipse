@@ -294,7 +294,7 @@ public class EnviarEmail {
 				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
 				+ "</head>\n" + "<body style=\"font-family: arial;width:70%;\">\n"  
 				+ " <div align=\"center\" style=\"width:100%;\">\n";
-		corpoEmail = corpoEmail + " <img src=\"http://www.systm.com.br:82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
+		corpoEmail = corpoEmail + " <img src=\"http://"+ ftpDados.getHost() +":82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
 		corpoEmail = corpoEmail + " <br></br>\n";
 		if (listaDadosEscolas != null && listaDadosEscolas.size() > 0) {
 			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br>";
