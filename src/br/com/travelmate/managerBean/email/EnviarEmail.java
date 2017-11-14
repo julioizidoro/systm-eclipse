@@ -366,7 +366,7 @@ public class EnviarEmail {
 					+ " <a href=\"http://" + ftpDados.getHost() + ":82/ftproot/systm/orcamento/"
 					+ listaDadosEscolas.get(j).getNomeArquivo()
 					+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
-					+ " <img src=\"http:/"+ ftpDados.getHost() +":82/ftproot/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
+					+ " <img src=\"http://"+ ftpDados.getHost() +":82/ftproot/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
 		}
 	}
 
