@@ -1402,6 +1402,7 @@ public class CadHighSchoolMB implements Serializable {
 			highschool.setCidadeEscola(fornecedorCidade.getCidade().getNome());
 			highschool.setEscolaIntercambio(fornecedorCidade.getFornecedor().getNome());
 			highschool.setDataInicio(valoreshighschool.getInicio());
+			highschool.setValoreshighschool(valoreshighschool);
 		}
 	}
 
