@@ -524,6 +524,11 @@ public class ConsultaSeguroViagemMB implements Serializable {
 					seguro = seguroViagemFacade.salvar(seguro);
 				}
 			}
+			if (seguro.isSegurocancelamento()) {
+				parameters.put("segurocancelamento", "Sim");
+			}else{
+				parameters.put("segurocancelamento", "Não");
+			}
 			parameters.put("idvendas", seguro.getVendas().getIdvendas());
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 			BufferedImage logo = ImageIO.read(f);
