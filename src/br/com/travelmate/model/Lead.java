@@ -96,6 +96,10 @@ public class Lead implements Serializable {
 	private boolean selecionado;
 	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "lead")
 	private Leadposvenda leadposvenda;
+	@Column(name = "Urlclient")
+	private String urlclient;
+	@Column(name = "idcontrole")
+	private Integer idcontrole;
 
 	public Lead() {
 	}
@@ -278,6 +282,22 @@ public class Lead implements Serializable {
 
 	public void setLeadposvenda(Leadposvenda leadposvenda) {
 		this.leadposvenda = leadposvenda;
+	}
+
+	public String getUrlclient() {
+		return urlclient;
+	}
+
+	public void setUrlclient(String urlclient) {
+		this.urlclient = urlclient;
+	}
+
+	public Integer getIdcontrole() {
+		return idcontrole;
+	}
+
+	public void setIdcontrole(Integer idcontrole) {
+		this.idcontrole = idcontrole;
 	}
 
 	@Override
