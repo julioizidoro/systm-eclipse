@@ -801,6 +801,11 @@ public class ControleVendasMB implements Serializable {
 				}
 			}
 			parameters.put("idvendas", seguroViagem.getVendas().getIdvendas());
+			if (seguroViagem.isSegurocancelamento()) {
+				parameters.put("segurocancelamento", "Sim");
+			}else{
+				parameters.put("segurocancelamento", "Não");
+			}
 		}else if(vendas.getProdutos().getIdprodutos() == 3){
 			caminhoRelatorio = "/reports/visto/FichaOrcamentoVistoPagina01.jasper";
 			parameters.put("idvisto", vistos.getIdvistos());
