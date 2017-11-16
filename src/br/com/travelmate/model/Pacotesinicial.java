@@ -75,6 +75,8 @@ public class Pacotesinicial implements Serializable {
    	private String idade;  
     @Column(name = "mostrarescola")
    	private boolean mostrarescola; 
+    @Column(name = "especial")
+   	private boolean especial; 
     @Transient
     private boolean cursos;
     @Transient
@@ -331,6 +333,14 @@ public class Pacotesinicial implements Serializable {
 
 	public void setProjetovoluntariado(String projetovoluntariado) {
 		this.projetovoluntariado = projetovoluntariado;
+	}
+
+	public boolean isEspecial() {
+		return especial;
+	}
+
+	public void setEspecial(boolean especial) {
+		this.especial = especial;
 	}
  
       

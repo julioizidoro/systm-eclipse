@@ -138,6 +138,8 @@ public class Cursospacote implements Serializable {
     private int anotarifario;
     @Column(name = "projetovoluntariado")
     private String projetovoluntariado;
+    @Column(name = "especial")
+    private boolean especial;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cursospacote")
     private List<Voluntariadopacote> voluntariadopacoteList;
 
@@ -536,6 +538,14 @@ public class Cursospacote implements Serializable {
 
 	public void setVoluntariadopacoteList(List<Voluntariadopacote> voluntariadopacoteList) {
 		this.voluntariadopacoteList = voluntariadopacoteList;
+	}
+
+	public boolean isEspecial() {
+		return especial;
+	}
+
+	public void setEspecial(boolean especial) {
+		this.especial = especial;
 	}
 
 	@Override

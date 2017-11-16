@@ -33,16 +33,19 @@ public class PacotesAtivosMB implements Serializable {
 	private List<Pacotesinicial> listaTrabalhoPacotes; 
 	private List<Pacotesinicial> listaTeensPacotes;  
 	private List<Pacotesinicial> listaTurismoPacotes;  
+	private List<Pacotesinicial> listaPacotesEspeciais;  
 	private boolean curso;
 	private boolean teens;
 	private boolean trabalho;
 	private boolean turismo;
+	private boolean especial;
 	@Inject
 	private AplicacaoMB aplicacaoMB; 
 
 	@PostConstruct
 	public void init() {
 		listarCursosPacotes(); 
+		listarPacotesEspecial();
 		getAplicacaoMB(); 
 	} 
 	
@@ -118,8 +121,24 @@ public class PacotesAtivosMB implements Serializable {
 		this.turismo = turismo;
 	}
 
+	public List<Pacotesinicial> getListaPacotesEspeciais() {
+		return listaPacotesEspeciais;
+	}
+
+	public void setListaPacotesEspeciais(List<Pacotesinicial> listaPacotesEspeciais) {
+		this.listaPacotesEspeciais = listaPacotesEspeciais;
+	}
+
+	public boolean isEspecial() {
+		return especial;
+	}
+
+	public void setEspecial(boolean especial) {
+		this.especial = especial;
+	}
+
 	public void listarCursosPacotes(){ 
-		String sql = "SELECT c FROM Pacotesinicial c ORDER BY c.idproduto, c.pais";
+		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE ORDER BY c.idproduto, c.pais";
 		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
 		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
 		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();
@@ -133,10 +152,14 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setCursos(true);
 					listaCursosPacotes.add(lista.get(i));
 					curso = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
-					lista.get(i).setAupair(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+					lista.get(i).setHighschool(true);
+					listaTeensPacotes.add(lista.get(i));
+					teens = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
+					lista.get(i).setHighschool(true);
+					listaTeensPacotes.add(lista.get(i));
+					teens = true;
 				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
 					lista.get(i).setAupair(true);
 					listaTrabalhoPacotes.add(lista.get(i));
@@ -153,6 +176,47 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setTurismo(true);
 					listaTurismoPacotes.add(lista.get(i));
 					turismo = true;  
+				}
+			}
+		}
+	}  
+	
+	public void listarPacotesEspecial(){ 
+		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=TRUE ORDER BY c.idproduto, c.pais";
+		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
+		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
+		listaPacotesEspeciais = new ArrayList<Pacotesinicial>(); 
+		if(lista!=null && lista.size()>0) {
+			for (int i = 0; i < lista.size(); i++) {
+				int idproduto = lista.get(i).getIdproduto();
+				if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
+					lista.get(i).setCursos(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+					lista.get(i).setHighschool(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
+					lista.get(i).setHighschool(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
+					lista.get(i).setAupair(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+					lista.get(i).setVoluntariado(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getWork()) {
+					lista.get(i).setWorktravel(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getPacotes()) {
+					lista.get(i).setTurismo(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;  
 				}
 			}
 		}

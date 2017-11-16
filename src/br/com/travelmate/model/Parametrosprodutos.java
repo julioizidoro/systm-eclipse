@@ -166,6 +166,8 @@ import javax.persistence.TemporalType;
      private float segurocancelamentovalor; 
      @Column(name = "traducaojuramentada")
      private int traducaojuramentada; 
+     @Column(name = "pacoteespecialimg")
+     private String pacoteespecialimg; 
 
 	public int getPctransferencia() {
 		return pctransferencia;
@@ -740,6 +742,14 @@ import javax.persistence.TemporalType;
 
 	public void setTraducaojuramentada(int traducaojuramentada) {
 		this.traducaojuramentada = traducaojuramentada;
+	}
+
+	public String getPacoteespecialimg() {
+		return pacoteespecialimg;
+	}
+
+	public void setPacoteespecialimg(String pacoteespecialimg) {
+		this.pacoteespecialimg = pacoteespecialimg;
 	}
 
 	@Override

@@ -19,9 +19,9 @@ hr {
 
 
 .borderSombra {
-    box-shadow: 5px 5px 10px #D7D8DC;
-    -webkit-box-shadow: 5px 5px 10px #D7D8DC;
-    -moz-box-shadow: 5px 5px 10px #0076a3; 
+    box-shadow: 7px 7px 8px #363636;
+    -webkit-box-shadow: 7px 7px 8px #363636;
+    -moz-box-shadow: 7px 7px 8px #363636; 
     background: #f5f3e5;
 } 
 
@@ -113,4 +113,13 @@ hr {
                 2px 2px #8B8682,
                 3px 3px #8B8682;     
 }   
+
+#divImagemEspecial{
+	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('http://162.144.44.7:82/ftproot/systm/informativospacotes/especial.jpg') repeat 0 0;
+	background-repeat: no-repeat;
+    background-size:100%;    
+	width:100%;                 
+	height: 220px;    
+}
+
  

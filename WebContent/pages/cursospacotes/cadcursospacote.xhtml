@@ -282,9 +282,10 @@
 							style="width:74.5%;" maxlength="100"/>
 					</h:panelGrid>
 					<br /> 
-					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;" columnClasses="tamanhonotificacao2,tamanhonotificacao2">
+					<h:panelGrid columns="3" style="margin-left:14%;width:95%;" columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,tamanhonotificacao2">
 						<p:outputLabel value="Duração" />
 						<p:outputLabel value="Provincia" />
+						<p:outputLabel value="" />
 						
 						<p:inputText id="duracao"
 							value="#{cadCursosPacotesMB.cursospacote.duracao}"
@@ -292,6 +293,11 @@
 						<p:inputText id="provincia"
 							value="#{cadCursosPacotesMB.cursospacote.provincia}"
 							style="width:88%;" maxlength="40"/>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCursosPacotesMB.cursospacote.especial}" />
+							<h:outputText value="Pacote Especial" style="margin-left:2%;" />
+						</h:panelGroup>
 					</h:panelGrid>
 					<br />    
 					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;" columnClasses="tamanhonotificacao2,tamanhonotificacao2">
