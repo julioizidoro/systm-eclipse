@@ -23,13 +23,13 @@
 							</h:panelGrid>
 							<hr
 								style="color: #13FE0D; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #13FE0D; border-bottom-color: #13FE0D; background: #13FE0D;" />
-							<br />
+							<br />    
 							<ui:repeat value="#{pacotesAtivosMB.listaPacotesEspeciais}"
 								var="pacote">
 								<div class="col-md-3">
 									<h:panelGroup rendered="#{pacote.cursos}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
+										<div class="borderSombra" style="height: 375px;">
+											<div style="height: 300px;">
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
 													<h:panelGroup>
@@ -38,8 +38,12 @@
 															style="width:99%;margin-left:0.5%;">
 															<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 																width="40" />
-															<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
-																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.pais}"
+																style="font-size:15px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:15px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
+																style="font-size:15px;margin-left:2%;" />
 															<img
 																src="#{pacotesAtivosMB.retornarImagemEscola(pacote)}"
 																width="40" />
@@ -94,8 +98,8 @@
 										</div>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{pacote.highschool}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
+										<div class="borderSombra" style="height: 375px;">
+											<div style="height: 300px;">
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
 													<h:panelGroup>
@@ -104,7 +108,11 @@
 															style="width:99%;margin-left:0.5%;">
 															<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 																width="40" />
-															<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
+															<p:outputLabel value="#{pacote.pais}"
+																style="font-size:15px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:15px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
 																style="font-size:15px;margin-left:2%;" />
 														</h:panelGrid>
 													</h:panelGroup>
@@ -159,8 +167,8 @@
 										</div>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{pacote.aupair}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
+										<div class="borderSombra" style="height: 375px;">
+											<div style="height: 300px;">
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
 													<h:panelGroup>
@@ -217,8 +225,8 @@
 										</div>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{pacote.worktravel}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
+										<div class="borderSombra" style="height: 375px;">
+											<div style="height: 300px;">
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
 													<h:panelGroup>
@@ -274,8 +282,8 @@
 										</div>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{pacote.voluntariado}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
+										<div class="borderSombra" style="height: 375px;">
+											<div style="height: 300px;">
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
 													<h:panelGroup>
@@ -284,7 +292,11 @@
 															style="width:99%;margin-left:0.5%;">
 															<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 																width="40" />
-															<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
+															<p:outputLabel value="#{pacote.pais}"
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
 																style="font-size:14px;margin-left:2%;" />
 															<img
 																src="#{pacotesAtivosMB.retornarImagemEscola(pacote)}"
@@ -339,8 +351,8 @@
 										</div>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{pacote.turismo}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
+										<div class="borderSombra" style="height: 375px;">
+											<div style="height: 300px;">
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
 													<h:panelGroup>
@@ -349,7 +361,11 @@
 															style="width:99%;margin-left:0.5%;">
 															<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 																width="40" />
-															<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
+															<p:outputLabel value="#{pacote.pais}"
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
 																style="font-size:14px;margin-left:2%;" />
 															<p:outputLabel />
 															<p:outputLabel value="#{pacote.escola}"
@@ -409,11 +425,11 @@
 							style="color: #A0C637; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
 						<br />
 						<ui:repeat value="#{pacotesAtivosMB.listaCursosPacotes}"
-							var="pacote">
-							<div class="col-md-3">
+							var="pacote">    
+							<div class="col-md-3">     
 								<h:panelGroup rendered="#{pacote.cursos}">
-									<div class="borderSombra" style="height: 330px;">
-										<div style="height: 265px;">
+									<div class="borderSombra" style="height: 375px;">
+										<div style="height: 300px;">   
 											<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 												<br />
 												<h:panelGroup>
@@ -422,8 +438,12 @@
 														style="width:99%;margin-left:0.5%;">
 														<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 															width="40" />
-														<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
-															style="font-size:14px;margin-left:2%;" />
+														<p:outputLabel value="#{pacote.pais}"
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
+																style="font-size:14px;margin-left:2%;" />
 														<img src="#{pacotesAtivosMB.retornarImagemEscola(pacote)}"
 															width="40" />
 														<p:outputLabel value="#{pacote.escola}"
@@ -505,8 +525,12 @@
 														style="width:99%;margin-left:0.5%;">
 														<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 															width="40" />
-														<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
-															style="font-size:15px;margin-left:2%;" />
+														<p:outputLabel value="#{pacote.pais}"
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
+																style="font-size:14px;margin-left:2%;" />
 													</h:panelGrid>
 												</h:panelGroup>
 												<h:panelGroup rendered="#{pacote.mostrarescola}">
@@ -703,8 +727,12 @@
 														style="width:99%;margin-left:0.5%;">
 														<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 															width="40" />
-														<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
-															style="font-size:14px;margin-left:2%;" />
+														<p:outputLabel value="#{pacote.pais}"
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
+																style="font-size:14px;margin-left:2%;" />
 														<img src="#{pacotesAtivosMB.retornarImagemEscola(pacote)}"
 															width="40" />
 														<p:outputLabel value="#{pacote.escola}"
@@ -786,8 +814,12 @@
 														style="width:99%;margin-left:0.5%;">
 														<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 															width="40" />
-														<p:outputLabel value="#{pacote.pais} | #{pacote.cidade}"
-															style="font-size:14px;margin-left:2%;" />
+														<p:outputLabel value="#{pacote.pais}"
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value=" "
+																style="font-size:14px;margin-left:2%;" />
+															<p:outputLabel value="#{pacote.cidade}"
+																style="font-size:14px;margin-left:2%;" />
 														<p:outputLabel />
 														<p:outputLabel value="#{pacote.escola}"
 															style="font-size:14px;margin-left:2%;" />
