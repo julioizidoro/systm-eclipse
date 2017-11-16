@@ -75,7 +75,7 @@ public class ProgramasBean {
 		venda.setFornecedor(fornecedorCidade.getFornecedor());
 		venda.setFornecedorcidade(fornecedorCidade);
 		venda.setCambio(cambio);
-		if (lead!=null){
+		if ((lead!=null) && (lead.getIdlead()!=null)){
 			venda.setIdlead(lead.getIdlead());
 			finalizarLead(lead);
 			if(venda.getLeadposvenda()==null) {
