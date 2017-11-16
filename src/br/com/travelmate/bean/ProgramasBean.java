@@ -75,36 +75,37 @@ public class ProgramasBean {
 		venda.setFornecedor(fornecedorCidade.getFornecedor());
 		venda.setFornecedorcidade(fornecedorCidade);
 		venda.setCambio(cambio);
+		venda = VendasFacade.salvar(venda);
 		if ((lead!=null) && (lead.getIdlead()!=null)){
 			venda.setIdlead(lead.getIdlead());
 			finalizarLead(lead);
+			if(venda.getLeadposvenda()==null) {
+				Leadposvenda leadposvenda = new Leadposvenda();
+				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+				leadposvenda.setLead(lead);
+				leadposvenda.setVendas(venda);
+				Date data = null;
+				Date datachegada = null;
+				if(datainicio!=null) {
+					try {
+						data = Formatacao.SomarDiasDatas(datainicio, -2); 
+					} catch (Exception e) { 
+						e.printStackTrace();
+					}
+				}
+				if(datatermino!=null) {
+					try { 
+						datachegada = Formatacao.SomarDiasDatas(datatermino, 2);
+					} catch (Exception e) { 
+						e.printStackTrace();
+					}
+				}
+				leadposvenda.setDatachegada(datachegada);
+				leadposvenda.setDataembarque(data);
+				leadPosVendaFacade.salvar(leadposvenda);
+			}
 		}else venda.setIdlead(0);
 		venda = VendasFacade.salvar(venda);
-		if(venda.getLeadposvenda()==null) {
-			Leadposvenda leadposvenda = new Leadposvenda();
-			LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-			leadposvenda.setLead(lead);
-			leadposvenda.setVendas(venda);
-			Date data = null;
-			Date datachegada = null;
-			if(datainicio!=null) {
-				try {
-					data = Formatacao.SomarDiasDatas(datainicio, -2); 
-				} catch (Exception e) { 
-					e.printStackTrace();
-				}
-			}
-			if(datatermino!=null) {
-				try { 
-					datachegada = Formatacao.SomarDiasDatas(datatermino, 2);
-				} catch (Exception e) { 
-					e.printStackTrace();
-				}
-			}
-			leadposvenda.setDatachegada(datachegada);
-			leadposvenda.setDataembarque(data);
-			leadPosVendaFacade.salvar(leadposvenda);
-		}
 		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
 			logVenda.setSituacao(venda.getSituacao());
 			logVenda.setUsuario(usuarioLogadoMB.getUsuario());
@@ -112,7 +113,7 @@ public class ProgramasBean {
 			LogVendaFacade logVendaFacade = new LogVendaFacade();
 			logVendaFacade.salvar(logVenda);
 		}
-		
+		   
 		return venda;
 	}
 	
