@@ -79,6 +79,8 @@ public class Coprodutos implements Serializable {
     private Complementoacomodacao complementoacomodacao;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "coprodutos")
     private Complementocurso complementocurso;
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "coprodutos")
+    private Complementoacomodacaodiasemana complementoacomodacaodiasemana;
     @Transient
     private boolean selecione; 
     
@@ -251,6 +253,14 @@ public class Coprodutos implements Serializable {
 
 	public void setAdvertenciaseguro(String advertenciaseguro) {
 		this.advertenciaseguro = advertenciaseguro;
+	}
+
+	public Complementoacomodacaodiasemana getComplementoacomodacaodiasemana() {
+		return complementoacomodacaodiasemana;
+	}
+
+	public void setComplementoacomodacaodiasemana(Complementoacomodacaodiasemana complementoacomodacaodiasemana) {
+		this.complementoacomodacaodiasemana = complementoacomodacaodiasemana;
 	}
 
 	@Override

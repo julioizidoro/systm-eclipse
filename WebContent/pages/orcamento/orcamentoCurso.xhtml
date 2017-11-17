@@ -560,6 +560,11 @@
 								columnClasses="tamanhonotificacao2, tamanhoavisos"
 								style="width:100%">
 								<h:panelGroup> 
+									<h:panelGroup rendered="#{acomodacao.valorcoprodutos.coprodutos.fornecedorcidadeidioma.acomodacaoindependente}">
+										<h:outputText
+											value="#{acomodacao.valorcoprodutos.coprodutos.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome} - "
+											style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
+									</h:panelGroup>
 									<h:outputText
 										value="#{acomodacao.valorcoprodutos.coprodutos.complementoacomodacao.tipoacomodacao},"
 										style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
@@ -748,6 +753,11 @@
 							<h:panelGrid columns="2" columnClasses="tamanhonotificacao2, tamanhoavisos"
 								style="width:100%">
 								<h:panelGroup> 
+									<h:panelGroup rendered="#{acOpcional.valorcoprodutos.coprodutos.fornecedorcidadeidioma.acomodacaoindependente}">
+										<h:outputText
+											value="#{acOpcional.valorcoprodutos.coprodutos.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome} - "
+											style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
+									</h:panelGroup>
 									<h:outputText value="#{acOpcional.valorcoprodutos.coprodutos.descricao}"
 										style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%"/> 
 								</h:panelGroup>
@@ -875,8 +885,15 @@
 								<p:outputLabel style="margin-left:2%;" />
 							</div>
 							<h:panelGrid columns="3" columnClasses="tamanho61, tamanho12rigth, tamanho12rigth" style="width:98%;">  
-								<h:outputText value="#{transfer.valorcoprodutos.coprodutos.descricao}"
-									style="font-weight:bold;font-size: 13px;" /> 
+								<h:panelGroup>
+									<h:panelGroup rendered="#{transfer.valorcoprodutos.coprodutos.fornecedorcidadeidioma.acomodacaoindependente}">
+										<h:outputText
+											value="#{transfer.valorcoprodutos.coprodutos.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome} - "
+											style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
+									</h:panelGroup>
+									<h:outputText value="#{transfer.valorcoprodutos.coprodutos.descricao}"
+										style="font-weight:bold;font-size: 13px;" /> 
+								</h:panelGroup> 
 								<h:panelGroup>
 									<h:outputText value="#{orcamentoCursoMB.resultadoOrcamentoBean.cambio.moedas.sigla} "
 										style="font-size:13px;"/>

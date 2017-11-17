@@ -38,66 +38,138 @@
 				</div>   
 			</p:outputPanel>
 		</p:dialog>
-		<p:dataScroller id="idtabelaTransfer"
-			emptyMessage="Nenhum Transfer Encontrado"
-			value="#{adicionarTransferMB.listaTransfer}" mode="inline"
-			scrollHeight="400" var="transfer" chunkSize="20"
-			style="background:#1F8871">
-			<p:outputPanel style="text-align: left;width:100%">
-				<br></br>
-				<div align="right">
-					<p:outputLabel value="Incluso no Total do Programa" />
-					<p:selectBooleanCheckbox style="margin-left:1%;"
-						value="#{transfer.somarvalortotal}" />
-					<p:outputLabel style="margin-left:2%;" />
-				</div>
-				<h:panelGrid columns="3" columnClasses="tamanho61, onze,onze"
-					style="width:100%;">
-					<h:outputText
-						value="#{transfer.valorcoprodutos.coprodutos.descricao}"
-						style="font-weight:bold;font-size:12px;" />
-					<h:panelGroup>
+		<div align="center">
+				<p:outputLabel value="Transfer da Escola" style="font-size:14px;"/>
+			</div> 
+		<h:panelGroup rendered="#{adicionarTransferMB.mostrarTransferEscola()}">
+			<p:dataScroller id="idtabelaTransfer"
+				emptyMessage="Nenhum Transfer Encontrado"
+				value="#{adicionarTransferMB.listaTransfer}" mode="inline"  
+				scrollHeight="#{adicionarTransferMB.tabelaTransferEscola()}" var="transfer" chunkSize="20"
+				style="background:#1F8871">
+				<p:outputPanel style="text-align: left;width:100%">
+					<br></br>
+					<div align="right">
+						<p:outputLabel value="Incluso no Total do Programa" />
+						<p:selectBooleanCheckbox style="margin-left:1%;"
+							value="#{transfer.somarvalortotal}" />
+						<p:outputLabel style="margin-left:2%;" />
+					</div>
+					<h:panelGrid columns="3" columnClasses="tamanho61, onze,onze"
+						style="width:100%;">
 						<h:outputText
-							value="#{adicionarTransferMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
-						<p:outputLabel id="valortransfer"
-							value="#{transfer.valorcoprodutos.valororiginal}"
-							style="font-size:12px;text-align: right;margin-left:0.5%;">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</p:outputLabel>
-					</h:panelGroup>
-					<h:panelGroup>
-						<h:outputText value="R$ " />
-						<p:outputLabel id="valortransferRS"
-							value="#{adicionarTransferMB.calcularValorRealTransfer(transfer)}"
-							style="font-size:12px;text-align: right;margin-left:0.5%">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</p:outputLabel>
-					</h:panelGroup>
-				</h:panelGrid>
-				<div align="right">
-					<p:commandButton value="Incluir"
-						action="#{adicionarTransferMB.adicionar(transfer)}"
-						rendered="#{adicionarTransferMB.mostrarBtnConfirmar(transfer)}"
-						icon="ui-icon-check" />
-					<p:commandButton value="Incluir"
-						rendered="#{adicionarTransferMB.mostrarBtnMensagem(transfer)}"
-						icon="ui-icon-check" update=":adicionarTransfer:dialog"
-						oncomplete="PF('dialogMensagem').show();">
-						<f:setPropertyActionListener value="#{transfer}"
-							target="#{adicionarTransferMB.transfer}" />
-					</p:commandButton>
-				</div>
-				<br></br>
-				<div class="line_1"></div>
-			</p:outputPanel>
-		</p:dataScroller>
+							value="#{transfer.valorcoprodutos.coprodutos.descricao}"
+							style="font-weight:bold;font-size:12px;" />
+						<h:panelGroup>
+							<h:outputText
+								value="#{adicionarTransferMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
+							<p:outputLabel id="valortransfer"
+								value="#{transfer.valorcoprodutos.valororiginal}"
+								style="font-size:12px;text-align: right;margin-left:0.5%;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+						<h:panelGroup>
+							<h:outputText value="R$ " />
+							<p:outputLabel id="valortransferRS"
+								value="#{adicionarTransferMB.calcularValorRealTransfer(transfer)}"
+								style="font-size:12px;text-align: right;margin-left:0.5%">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+					</h:panelGrid>
+					<div align="right">
+						<p:commandButton value="Incluir"
+							action="#{adicionarTransferMB.adicionar(transfer)}"
+							rendered="#{adicionarTransferMB.mostrarBtnConfirmar(transfer)}"
+							icon="ui-icon-check" />
+						<p:commandButton value="Incluir"
+							rendered="#{adicionarTransferMB.mostrarBtnMensagem(transfer)}"
+							icon="ui-icon-check" update=":adicionarTransfer:dialog"
+							oncomplete="PF('dialogMensagem').show();">
+							<f:setPropertyActionListener value="#{transfer}"
+								target="#{adicionarTransferMB.transfer}" />
+						</p:commandButton>
+					</div>
+					<br></br>
+					<div class="line_1"></div>
+				</p:outputPanel>
+			</p:dataScroller>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{adicionarTransferMB.mostrarTransferIndependente()}">
+			<br></br><br></br>
+			<div align="center">
+				<p:outputLabel value="Transfer da Acomodação Independente" style="font-size:14px;"/>
+			</div> 
+			<p:dataScroller id="idtabelaTransferIndependente"
+				emptyMessage="Nenhum Transfer Encontrado"
+				value="#{adicionarTransferMB.listaTransferIndependente}" mode="inline"
+				scrollHeight="#{adicionarTransferMB.tabelaTransferIndependente()}" var="transferIndependente" chunkSize="20"
+				style="background:#1F8871">
+				<p:outputPanel style="text-align: left;width:100%">
+					<br></br>
+					<div align="right">
+						<p:outputLabel value="Incluso no Total do Programa" />
+						<p:selectBooleanCheckbox style="margin-left:1%;"
+							value="#{transferIndependente.somarvalortotal}" />
+						<p:outputLabel style="margin-left:2%;" />
+					</div>
+					<h:panelGrid columns="3" columnClasses="tamanho61, onze,onze"
+						style="width:100%;">
+						<h:panelGroup>
+							<h:outputText
+							value="#{transferIndependente.valorcoprodutos.coprodutos.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome} - "
+							style="font-weight:bold;font-size:12px;" />
+							<h:outputText
+								value="#{transferIndependente.valorcoprodutos.coprodutos.descricao}"
+								style="font-weight:bold;font-size:12px;" />
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<h:outputText
+								value="#{adicionarTransferMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
+							<p:outputLabel id="valortransferIndependente"
+								value="#{transferIndependente.valorcoprodutos.valororiginal}"
+								style="font-size:12px;text-align: right;margin-left:0.5%;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+						<h:panelGroup>
+							<h:outputText value="R$ " />
+							<p:outputLabel id="valortransferRSIndependente"
+								value="#{adicionarTransferMB.calcularValorRealTransfer(transferIndependente)}"
+								style="font-size:12px;text-align: right;margin-left:0.5%">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:outputLabel>
+						</h:panelGroup>
+					</h:panelGrid>
+					<div align="right">
+						<p:commandButton value="Incluir"
+							action="#{adicionarTransferMB.adicionar(transferIndependente)}"
+							rendered="#{adicionarTransferMB.mostrarBtnConfirmar(transferIndependente)}"
+							icon="ui-icon-check" />
+						<p:commandButton value="Incluir"
+							rendered="#{adicionarTransferMB.mostrarBtnMensagem(transferIndependente)}"
+							icon="ui-icon-check" update=":adicionarTransfer:dialog"
+							oncomplete="PF('dialogMensagem').show();">
+							<f:setPropertyActionListener value="#{transferIndependente}"
+								target="#{adicionarTransferMB.transfer}" />
+						</p:commandButton>
+					</div>
+					<br></br>
+					<div class="line_1"></div>
+				</p:outputPanel>
+			</p:dataScroller>  
+		</h:panelGroup>
 		<br></br>
 		<div align="center">
 			<p:commandButton id="btnCancelar" value="Fechar"
 				icon="ui-icon-closethick" action="#{adicionarTransferMB.cancelar()}" />
-		</div>
+		</div>    
 		<p:ajaxStatus onstart="PF('carregandoDialog').show()"
 			onsuccess="PF('carregandoDialog').hide()" />
 

@@ -10,8 +10,7 @@ import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FornecedorPaisFacade;
 import br.com.travelmate.facade.IdiomaFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
-import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.ValorCoProdutosFacade;
+import br.com.travelmate.facade.UsuarioFacade; 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -628,6 +627,18 @@ public class CoProdutosMB implements Serializable {
 			Mensagem.lancarMensagemErro("Atenção! ", "Campos obrigatórios não preenchidos."); 
 			return "";
 		}
+	}
+	
+	public String complementoAcomodacaoDiaSemana(Coprodutos coprodutos) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("coproduto", coprodutos);
+		if (coprodutos.getProdutosorcamento().getTipo().equalsIgnoreCase("A")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 500);
+			RequestContext.getCurrentInstance().openDialog("complementoAcomodacaoDiaSemana");
+		}
+		return "";
 	}
 	
 	

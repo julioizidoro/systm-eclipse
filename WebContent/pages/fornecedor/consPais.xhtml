@@ -1,101 +1,148 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <ui:composition template="/pages/templates/default.xhtml">
-        <ui:define name="corpo">
-            <h:form id="consultapais">
-                <div id="centro">
-                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-                    <br></br> 
-                    <legend id="iUsu2" ><b>Consulta de País</b></legend>
-                    
-                    <p:outputLabel value="País" for="pais"  style="font-size: 11px;margin-left: 11.5%"/>
-                    <br></br> 
-                    <h:panelGrid columns="4" style="margin-left: 11.5%">
-	                    <p:selectOneMenu id="pais" value="#{paisMB.pais}" style="width:300px;font-size: 10px;"  
-	                                     converter="PaisFornecedorConverter" filter="true" filterMatchMode="startsWith" >
-	                        <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
-	                        <f:selectItems id="idpais" value="#{paisMB.listaPais}" var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}"/>
-	                        <f:attribute name="listaPaisFornecedor" value="#{paisMB.listaPais}"/>
-	                        <p:ajax event="change" listener="#{paisMB.listarCidade()}" update=":consultapais:tabelacidade"/> 
-	                    </p:selectOneMenu>
-	                    <p:commandButton id="bnteditarpais" icon="ui-icon-pencil" title="Editar pais" style="font-size:12px;margin-left:30%" value="Editar Pais" action="#{paisMB.editarPais(paisMB.pais)}" update="growl">
-	                        <p:ajax event="dialogReturn" listener="#{paisMB.gerarListaPais()}" process="@this" update=":consultapais:pais"/>                        
-	                    </p:commandButton>
-	                    <p:commandButton id="btnUploadVisto" icon="ui-icon-arrowthickstop-1-s" title="Upload documento de visto" style="font-size:12px;margin-left:10%" 
-	                    	value="Upload Visto" action="#{paisMB.uploadVisto(paisMB.pais)}" update="growl"/>
-	                    <p:commandButton id="bntnovopais"  icon="ui-icon-plus" title="Cadastrar um novo pais" style="font-size:12px;margin-left:10%" value="Novo Pais" action="#{paisMB.cadPais()}">
-	                        <p:ajax event="dialogReturn" listener="#{paisMB.retornoDialogNovoPais}" process="@this" update=":consultapais:pais, :consultapais:tabelacidadepaisproduto"/>                        
-	                    </p:commandButton>
-                    </h:panelGrid>   
-                    <legend id="iUsu2" ><b>Consulta de Cidade</b></legend>
-                    <p:commandButton id="bntnovocidade" icon="ui-icon-plus" style="font-size:12px;margin-left:11.5%" value="Nova Cidade" action="#{paisMB.cadCidade()}" update="growl">
-                        <p:ajax event="dialogReturn" listener="#{paisMB.retornoDialogNovoCidade}" process="@this" update=":consultapais:tabelacidade, :consultapais:tabelacidadepaisproduto"/>                        
-                    </p:commandButton>
-                    <p:commandButton id="bntvoltar"  style="font-size:12px;margin-left:1%;" value="Voltar" action="#{paisMB.voltar()}"  icon=" ui-icon-arrowreturnthick-1-w" />
-                   <br></br>  
-                   <h:panelGrid columns="2" style="margin-left: 11.5%;width:88%;" columnClasses="tamanho11,tamanho11">
-                   		<h:panelGroup>
-	                   		<p:outputLabel value="P" style="color:#fff;font-size:34px;"/>   
-		                    <p:dataTable id="tabelacidade" var="cidade"  value="#{paisMB.listaCidade}" 
-		                        scrollable="true" scrollHeight="460"  style="margin-bottom:20px;font-size:12px;width:95%" > 
-		                        <p:column headerText="Cidade"  >
-		                        		<p:commandLink title="Visualizar Produtos" action="#{paisMB.selecionarCidade(cidade)}"
-		                        			update=":consultapais:tabelacidadepaisproduto">
-		                           	 	<p:outputLabel value="#{cidade.nome}" />  
-		                           	</p:commandLink>
-		                        </p:column>  
-		                        <p:column headerText="Ativo" style="width:50px;"> 
-		                        		<p:selectBooleanCheckbox value="#{cidade.ativa}">
-            								<p:ajax update=":consultapais:growl, :consultapais:tabelacidade" listener="#{paisMB.salvarAtivo(cidade)}" />
-        								</p:selectBooleanCheckbox>
-		                        </p:column>
-		                    </p:dataTable>
-		                </h:panelGroup>  
-	                    <h:panelGroup>
-	                    	<h:panelGrid style="margin-left:1%;width:98%;">
-	                    		<p:outputLabel value="Produtos" style="font-size:12px;"/> 
-	                    		<h:panelGroup>
-	                    			<h:panelGrid columns="2" style="width:65%;font-size:11px;">
-		                    			<p:selectOneMenu id="produto" value="#{paisMB.produtos}"
-											style="width:150px;" converter="ProdutoConverter" filter="true"
-											filterMatchMode="startsWith">
-											<f:selectItem itemLabel="Selecione" itemValue="0"
-												noSelectionOption="true" />
-											<f:selectItems id="idproduto"
-												value="#{paisMB.listaProduto}" var="cproduto"
-												itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
-											<f:attribute name="listaProdutos"
-												value="#{paisMB.listaProduto}" /> 
-											<p:ajax event="change" /> 
-										</p:selectOneMenu>     
-										<p:commandButton value="Adicionar" action="#{paisMB.adicionarCidadePaisProduto()}"
-											id="btnAdicionarProduto" icon="ui-icon-plus" update=":consultapais:growl, :consultapais:tabelacidadepaisproduto"
-											style="font-size:11px;"/>
-									</h:panelGrid>         
-	                    		</h:panelGroup>
-	                    		<p:dataTable id="tabelacidadepaisproduto" var="cidadepaisproduto"  
-	                    			value="#{paisMB.listaCidadePaisProduto}" 
-			                        scrollable="true" scrollHeight="460"  style="margin-bottom:20px;font-size:12px;width:95%" > 
-			                        <p:column headerText="Produtos"  > 
-			                           	 <p:outputLabel value="#{cidadepaisproduto.paisproduto.produtos.descricao}" /> 
-			                        </p:column>    
-			                        <p:column headerText="Excluir" style="width:55px;">
-		                        		<p:commandLink title="Excluir Produtos" action="#{paisMB.excluirProdutos(cidadepaisproduto)}"
-		                        			update=":consultapais:tabelacidadepaisproduto, :consultapais:growl">
-		                           	 	<img src="../../resources/img/excluir.png" />  
-		                           	</p:commandLink>
-		                        </p:column>  
-			                    </p:dataTable>
-	                    	</h:panelGrid>
-	                    </h:panelGroup>
-	               </h:panelGrid> 
-                </div>
-            </h:form> 
-        </ui:define>   
-    </ui:composition>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultapais">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2">
+					<b>Consulta de País</b>
+				</legend>
+
+				<p:outputLabel value="País" for="pais"
+					style="font-size: 11px;margin-left: 11.5%" />
+				<br></br>
+				<h:panelGrid columns="4" style="margin-left: 11.5%">
+					<p:selectOneMenu id="pais" value="#{paisMB.pais}"
+						style="width:300px;font-size: 10px;"
+						converter="PaisFornecedorConverter" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{paisMB.listaPais}" var="cpais"
+							itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+						<f:attribute name="listaPaisFornecedor"
+							value="#{paisMB.listaPais}" />
+						<p:ajax event="change" listener="#{paisMB.listarCidade()}"
+							update=":consultapais:tabelacidade" />
+					</p:selectOneMenu>
+					<p:commandButton id="bnteditarpais" icon="ui-icon-pencil"
+						title="Editar pais" style="font-size:12px;margin-left:30%"
+						value="Editar Pais" action="#{paisMB.editarPais(paisMB.pais)}"
+						update="growl">
+						<p:ajax event="dialogReturn" listener="#{paisMB.gerarListaPais()}"
+							process="@this" update=":consultapais:pais" />
+					</p:commandButton>
+					<p:commandButton id="btnUploadVisto"
+						icon="ui-icon-arrowthickstop-1-s"
+						title="Upload documento de visto"
+						style="font-size:12px;margin-left:10%" value="Upload Visto"
+						action="#{paisMB.uploadVisto(paisMB.pais)}" update="growl" />
+					<p:commandButton id="bntnovopais" icon="ui-icon-plus"
+						title="Cadastrar um novo pais"
+						style="font-size:12px;margin-left:10%" value="Novo Pais"
+						action="#{paisMB.cadPais()}">
+						<p:ajax event="dialogReturn"
+							listener="#{paisMB.retornoDialogNovoPais}" process="@this"
+							update=":consultapais:pais, :consultapais:tabelacidadepaisproduto" />
+					</p:commandButton>
+				</h:panelGrid>
+				<legend id="iUsu2">
+					<b>Consulta de Cidade</b>
+				</legend>
+				<p:commandButton id="bntnovocidade" icon="ui-icon-plus"
+					style="font-size:12px;margin-left:11.5%" value="Nova Cidade"
+					action="#{paisMB.cadCidade()}" update="growl">
+					<p:ajax event="dialogReturn"
+						listener="#{paisMB.retornoDialogNovoCidade}" process="@this"
+						update=":consultapais:tabelacidade, :consultapais:tabelacidadepaisproduto" />
+				</p:commandButton>
+				<p:commandButton id="bntvoltar"
+					style="font-size:12px;margin-left:1%;" value="Voltar"
+					action="#{paisMB.voltar()}" icon=" ui-icon-arrowreturnthick-1-w" />
+				<br></br>
+				<h:panelGrid columns="2" style="margin-left: 11.5%;width:88%;"
+					columnClasses="tamanho11,tamanho11">
+					<h:panelGroup>
+						<p:outputLabel value="P" style="color:#fff;font-size:34px;" />
+						<p:dataTable id="tabelacidade" var="cidade"
+							value="#{paisMB.listaCidade}" scrollable="true"
+							scrollHeight="460"
+							style="margin-bottom:20px;font-size:12px;width:95%">
+							<p:column headerText="Cidade">
+								<p:commandLink title="Visualizar Produtos"
+									action="#{paisMB.selecionarCidade(cidade)}"
+									update=":consultapais:tabelacidadepaisproduto">
+									<p:outputLabel value="#{cidade.nome}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Ativo" style="width:50px;text-align:center;">
+								<p:selectBooleanCheckbox value="#{cidade.ativa}">  
+									<p:ajax
+										update=":consultapais:growl, :consultapais:tabelacidade"
+										listener="#{paisMB.salvarAtivo(cidade)}" />
+								</p:selectBooleanCheckbox>
+							</p:column>   
+							<p:column headerText="Acomodação Independente" style="width:100px;text-align:center;">
+								<p:selectBooleanCheckbox value="#{cidade.acomodacaoindepentende}">
+									<p:ajax update=":consultapais:growl, :consultapais:tabelacidade"
+										listener="#{paisMB.salvarCidade(cidade)}" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+						</p:dataTable>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:panelGrid style="margin-left:1%;width:98%;">
+							<p:outputLabel value="Produtos" style="font-size:12px;" />
+							<h:panelGroup>
+								<h:panelGrid columns="2" style="width:65%;font-size:11px;">
+									<p:selectOneMenu id="produto" value="#{paisMB.produtos}"
+										style="width:150px;" converter="ProdutoConverter"
+										filter="true" filterMatchMode="startsWith">
+										<f:selectItem itemLabel="Selecione" itemValue="0"
+											noSelectionOption="true" />
+										<f:selectItems id="idproduto" value="#{paisMB.listaProduto}"
+											var="cproduto" itemLabel="#{cproduto.descricao}"
+											itemValue="#{cproduto}" />
+										<f:attribute name="listaProdutos"
+											value="#{paisMB.listaProduto}" />
+										<p:ajax event="change" />
+									</p:selectOneMenu>
+									<p:commandButton value="Adicionar"
+										action="#{paisMB.adicionarCidadePaisProduto()}"
+										id="btnAdicionarProduto" icon="ui-icon-plus"
+										update=":consultapais:growl, :consultapais:tabelacidadepaisproduto"
+										style="font-size:11px;" />
+								</h:panelGrid>
+							</h:panelGroup>
+							<p:dataTable id="tabelacidadepaisproduto" var="cidadepaisproduto"
+								value="#{paisMB.listaCidadePaisProduto}" scrollable="true"
+								scrollHeight="460"
+								style="margin-bottom:20px;font-size:12px;width:95%">
+								<p:column headerText="Produtos">
+									<p:outputLabel
+										value="#{cidadepaisproduto.paisproduto.produtos.descricao}" />
+								</p:column>
+								<p:column headerText="Excluir" style="width:55px;">
+									<p:commandLink title="Excluir Produtos"
+										action="#{paisMB.excluirProdutos(cidadepaisproduto)}"
+										update=":consultapais:tabelacidadepaisproduto, :consultapais:growl">
+										<img src="../../resources/img/excluir.png" />
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

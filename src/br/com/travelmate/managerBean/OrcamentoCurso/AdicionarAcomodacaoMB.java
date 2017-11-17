@@ -2,7 +2,9 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,11 +15,12 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
- 
+
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Promocaoacomodacao;
 import br.com.travelmate.model.Promocaoacomodacaocidade;
 import br.com.travelmate.model.Valorcoprodutos;
@@ -37,6 +40,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaAcomodacoes;
+	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente;
 	private ProdutosOrcamentoBean acomodacao;
 
 	@PostConstruct
@@ -46,6 +50,10 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaAcomodacao();
+		if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
+				.isAcomodacaoindepentende()) {
+			gerarListaAcomodacaoIndependente();
+		}
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -88,6 +96,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		this.acomodacao = acomodacao;
 	}
 
+	public List<ProdutosOrcamentoBean> getListaAcomodacoesIndependente() {
+		return listaAcomodacoesIndependente;
+	}
+
+	public void setListaAcomodacoesIndependente(List<ProdutosOrcamentoBean> listaAcomodacoesIndependente) {
+		this.listaAcomodacoesIndependente = listaAcomodacoesIndependente;
+	}
+
 	public void gerarListaAcomodacao() {
 		listaAcomodacoes = new ArrayList<>();
 		ValorCoProdutosFacade coProdutosFacade = new ValorCoProdutosFacade();
@@ -106,16 +122,19 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
 				ProdutosOrcamentoBean po = consultarValores("DI",
 						listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
-						resultadoOrcamentoBean.getDataConsulta(), resultadoOrcamentoBean.getOcurso().getNumerosemanas());
+						resultadoOrcamentoBean.getDataConsulta(),
+						resultadoOrcamentoBean.getOcurso().getNumerosemanas());
 				if (po != null) {
 					listaAcomodacoes.add(po);
 				} else {
-					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date(), resultadoOrcamentoBean.getOcurso().getNumerosemanas());
+					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date(),
+							resultadoOrcamentoBean.getOcurso().getNumerosemanas());
 					if (po != null) {
 						listaAcomodacoes.add(po);
 					} else {
 						po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
-								resultadoOrcamentoBean.getDataConsulta(), resultadoOrcamentoBean.getOcurso().getNumerosemanas());
+								resultadoOrcamentoBean.getDataConsulta(),
+								resultadoOrcamentoBean.getOcurso().getNumerosemanas());
 						if (po != null) {
 							listaAcomodacoes.add(po);
 						}
@@ -123,26 +142,19 @@ public class AdicionarAcomodacaoMB implements Serializable {
 				}
 			}
 		}
-	} 
-	
-	public ProdutosOrcamentoBean consultarValores(String tipoData, int idCoProdutos, Date dataconsulta, double numerosemana) {
+	}
+
+	public ProdutosOrcamentoBean consultarValores(String tipoData, int idCoProdutos, Date dataconsulta,
+			double numerosemana) {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
 		int nsemanas = Formatacao.formatarDouble(numerosemana);
 		String sql = "Select v from  Valorcoprodutos v where v.produtosuplemento='valor' and v.datainicial<='"
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "' and v.datafinal>='"
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "'  and v.tipodata='" + tipoData
-				+ "' and v.numerosemanainicial<=" + nsemanas
-				+ " and v.numerosemanafinal>=" + nsemanas
+				+ "' and v.numerosemanainicial<=" + nsemanas + " and v.numerosemanafinal>=" + nsemanas
 				+ " and v.coprodutos.idcoprodutos=" + idCoProdutos + " ORDER BY v.valororiginal";
 		List<Valorcoprodutos> listaValorCoprodutos = valorCoProdutosFacade.listar(sql);
-		int ano;
-		if (resultadoOrcamentoBean.getFornecedorcidadeidioma() != null) {
-			ano = resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
-					.getAnotarifario();
-		} else {
-			ano = Formatacao.getAnoData(new Date());
-		}
 		if (listaValorCoprodutos != null) {
 			for (int n = 0; n < listaValorCoprodutos.size(); n++) {
 				if (valorcoprodutos == null) {
@@ -200,9 +212,16 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public void calcularValorAcomodacao(ProdutosOrcamentoBean produtosOrcamentoBean) {
 		Valorcoprodutos valorcoprodutos = produtosOrcamentoBean.getValorcoprodutos();
+		Date dataconsulta = resultadoOrcamentoBean.getDataConsulta();
+		if (produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+				.isAcomodacaoindependente()) {
+			dataconsulta = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
+					produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+							.getFornecedorcidade().getFornecedor());
+		}
 		ProdutosOrcamentoBean po = consultarValores("DI",
-				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(),
-				resultadoOrcamentoBean.getDataConsulta(), produtosOrcamentoBean.getNumeroSemanas());
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(), dataconsulta,
+				produtosOrcamentoBean.getNumeroSemanas());
 		if (po != null) {
 			valorcoprodutos = po.getValorcoprodutos();
 		} else {
@@ -212,8 +231,8 @@ public class AdicionarAcomodacaoMB implements Serializable {
 				valorcoprodutos = po.getValorcoprodutos();
 			} else {
 				po = consultarValores("DS",
-						produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(),
-						resultadoOrcamentoBean.getDataConsulta(), produtosOrcamentoBean.getNumeroSemanas());
+						produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(), dataconsulta,
+						produtosOrcamentoBean.getNumeroSemanas());
 				if (po != null) {
 					valorcoprodutos = po.getValorcoprodutos();
 				}
@@ -223,7 +242,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			valorcoprodutos = new Valorcoprodutos();
 			valorcoprodutos = produtosOrcamentoBean.getValorcoprodutos();
 		} else {
-			valorcoprodutos = compararValores(valorcoprodutos,produtosOrcamentoBean.getValorcoprodutos());
+			valorcoprodutos = compararValores(valorcoprodutos, produtosOrcamentoBean.getValorcoprodutos());
 		}
 		if (valorcoprodutos != null) {
 			produtosOrcamentoBean.setValorcoprodutos(valorcoprodutos);
@@ -249,88 +268,95 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		String sql = "select p From Promocaoacomodacaocidade p where p.promocaoacomodacao.datavalidadeinicial<='"
 				+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaoacomodacao.datavalidadefinal>='"
 				+ Formatacao.ConvercaoDataSql(new Date()) + "'  and p.fornecedorcidadeidioma.idfornecedorcidadeidioma="
-				+ resultadoOrcamentoBean.getOcurso().getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+				+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+						.getIdfornecedorcidadeidioma()
 				+ " group by p.promocaoacomodacao.idpromoacaoacomodacao";
 		PromocaoAcomodacaoCidadeFacade cidadeFacade = new PromocaoAcomodacaoCidadeFacade();
-		Promocaoacomodacaocidade promocaoacomodacaocidade = cidadeFacade.consultar(sql);
+		List<Promocaoacomodacaocidade> promocaoacomodacaocidade = cidadeFacade.listar(sql);
 		Valorcoprodutos valorcoprodutos = null;
 		if (produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getComplementoacomodacao() != null) {
 			valorcoprodutos = produtosOrcamentoBean.getValorcoprodutos();
 		}
 		if (promocaoacomodacaocidade != null && valorcoprodutos != null) {
-			boolean tempromocao = verificarPromocaoAcomodacaoValida(promocaoacomodacaocidade.getPromocaoacomodacao(),
-					valorcoprodutos, produtosOrcamentoBean);
-			if (tempromocao) {
-				float valordesconto = 0.0f;
-				if (resultadoOrcamentoBean.getOcurso().getDatavalidade() == null) {
-					resultadoOrcamentoBean.getOcurso()
-							.setDatavalidade(promocaoacomodacaocidade.getPromocaoacomodacao().getDatavalidadefinal());
-				} else if (resultadoOrcamentoBean.getOcurso().getDatavalidade() != null
-						&& resultadoOrcamentoBean.getOcurso().getDatavalidade()
-								.after(promocaoacomodacaocidade.getPromocaoacomodacao().getDatavalidadefinal())) {
-					resultadoOrcamentoBean.getOcurso()
-							.setDatavalidade(promocaoacomodacaocidade.getPromocaoacomodacao().getDatavalidadefinal());
-				}
-				if (promocaoacomodacaocidade.getPromocaoacomodacao().getTipodesconto().equalsIgnoreCase("P")) {
-					if (promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() != null
-							&& promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() > 0) {
-						valordesconto = valorcoprodutos.getValororiginal()
-								* (promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() / 100);
-						valordesconto = (float) (valordesconto * produtosOrcamentoBean.getNumeroSemanas());
-					} else if (promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() != null
-							&& promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() > 0) {
-						valordesconto = (float) (valorcoprodutos.getValororiginal()
-								* produtosOrcamentoBean.getNumeroSemanas());
-						valordesconto = valordesconto
-								* (promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() / 100);
+			for (int i = 0; i < promocaoacomodacaocidade.size(); i++) {
+				boolean tempromocao = verificarPromocaoAcomodacaoValida(
+						promocaoacomodacaocidade.get(i).getPromocaoacomodacao(), valorcoprodutos, produtosOrcamentoBean);
+				if (tempromocao) { 
+					float valordesconto = 0.0f;
+					if (resultadoOrcamentoBean.getOcurso().getDatavalidade() == null) {
+						resultadoOrcamentoBean.getOcurso().setDatavalidade(
+								promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getDatavalidadefinal());
+					} else if (resultadoOrcamentoBean.getOcurso().getDatavalidade() != null
+							&& resultadoOrcamentoBean.getOcurso().getDatavalidade()
+									.after(promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getDatavalidadefinal())) {
+						resultadoOrcamentoBean.getOcurso().setDatavalidade(
+								promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getDatavalidadefinal());
 					}
-				} else if (promocaoacomodacaocidade.getPromocaoacomodacao().getTipodesconto().equalsIgnoreCase("V")) {
-					if (promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() != null
-							&& promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() > 0) {
-						valordesconto = (float) (promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana()
-								* produtosOrcamentoBean.getNumeroSemanas());
-					} else if (promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() != null
-							&& promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() > 0) {
-						valordesconto = promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal();
-					}
-				} else if (promocaoacomodacaocidade.getPromocaoacomodacao().getTipodesconto().equalsIgnoreCase("T")) {
-					if (promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() != null
-							&& promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana() > 0) {
-						valordesconto = valorcoprodutos.getValororiginal()
-								- promocaoacomodacaocidade.getPromocaoacomodacao().getValorsemana();
-						if (valorcoprodutos.getCobranca().equalsIgnoreCase("S")) {
+					if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getTipodesconto().equalsIgnoreCase("P")) {
+						if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() != null
+								&& promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() > 0) {
+							valordesconto = valorcoprodutos.getValororiginal()
+									* (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() / 100);
 							valordesconto = (float) (valordesconto * produtosOrcamentoBean.getNumeroSemanas());
+						} else if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() != null
+								&& promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() > 0) {
+							valordesconto = (float) (valorcoprodutos.getValororiginal()
+									* produtosOrcamentoBean.getNumeroSemanas());
+							valordesconto = valordesconto
+									* (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() / 100);
 						}
-					} else if (promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() != null
-							&& promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal() > 0) {
-						valordesconto = (float) (valorcoprodutos.getValororiginal()
+					} else if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getTipodesconto()
+							.equalsIgnoreCase("V")) {
+						if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() != null
+								&& promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() > 0) {
+							valordesconto = (float) (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana()
+									* produtosOrcamentoBean.getNumeroSemanas());
+						} else if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() != null
+								&& promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() > 0) {
+							valordesconto = promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal();
+						}
+					} else if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getTipodesconto()
+							.equalsIgnoreCase("T")) {
+						if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() != null
+								&& promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana() > 0) {
+							valordesconto = valorcoprodutos.getValororiginal()
+									- promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValorsemana();
+							if (valorcoprodutos.getCobranca().equalsIgnoreCase("S")) {
+								valordesconto = (float) (valordesconto * produtosOrcamentoBean.getNumeroSemanas());
+							}
+						} else if (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() != null
+								&& promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal() > 0) {
+							valordesconto = (float) (valorcoprodutos.getValororiginal()
+									* produtosOrcamentoBean.getNumeroSemanas());
+							valordesconto = valordesconto
+									- promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValortotal();
+						}
+					}
+					if ((promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValormaximodesconto() != null)
+							&& (promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValormaximodesconto() > 0)) {
+						if (valordesconto > promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValormaximodesconto()) {
+							valordesconto = promocaoacomodacaocidade.get(i).getPromocaoacomodacao().getValormaximodesconto();
+						}
+					}
+					if (valordesconto > 0) {
+						float valorOriginal = (float) (valorcoprodutos.getValororiginal()
 								* produtosOrcamentoBean.getNumeroSemanas());
-						valordesconto = valordesconto
-								- promocaoacomodacaocidade.getPromocaoacomodacao().getValortotal();
+						produtosOrcamentoBean.setValorOrigianl(valorOriginal);
+						produtosOrcamentoBean.setValorOriginalRS(produtosOrcamentoBean.getValorOrigianl()
+								* resultadoOrcamentoBean.getOcurso().getValorcambio());
+						produtosOrcamentoBean
+								.setValorPromocional(produtosOrcamentoBean.getValorOrigianl() - valordesconto);
+						produtosOrcamentoBean.setValorPromocionalRS(produtosOrcamentoBean.getValorPromocional()
+								* resultadoOrcamentoBean.getOcurso().getValorcambio());
+						produtosOrcamentoBean.setPromocao(true);
+						i = 10000;
 					}
+				} else {
+					produtosOrcamentoBean.setValorPromocional(0.0f);
+					produtosOrcamentoBean.setValorPromocionalRS(0.0f);
+					produtosOrcamentoBean.setPromocao(false); 
 				}
-				if ((promocaoacomodacaocidade.getPromocaoacomodacao().getValormaximodesconto() != null)
-						&& (promocaoacomodacaocidade.getPromocaoacomodacao().getValormaximodesconto() > 0)) {
-					if (valordesconto > promocaoacomodacaocidade.getPromocaoacomodacao().getValormaximodesconto()) {
-						valordesconto = promocaoacomodacaocidade.getPromocaoacomodacao().getValormaximodesconto();
-					}
-				}
-				if (valordesconto > 0) {
-					float valorOriginal = (float) (valorcoprodutos.getValororiginal()
-							* produtosOrcamentoBean.getNumeroSemanas());
-					produtosOrcamentoBean.setValorOrigianl(valorOriginal);
-					produtosOrcamentoBean.setValorOriginalRS(produtosOrcamentoBean.getValorOrigianl()
-							* resultadoOrcamentoBean.getOcurso().getValorcambio());
-					produtosOrcamentoBean.setValorPromocional(produtosOrcamentoBean.getValorOrigianl() - valordesconto);
-					produtosOrcamentoBean.setValorPromocionalRS(produtosOrcamentoBean.getValorPromocional()
-							* resultadoOrcamentoBean.getOcurso().getValorcambio());
-					produtosOrcamentoBean.setPromocao(true);
-				}
-			} else {
-				produtosOrcamentoBean.setValorPromocional(0.0f);
-				produtosOrcamentoBean.setValorPromocionalRS(0.0f);
-				produtosOrcamentoBean.setPromocao(false);
-			}
+			} 
 		} else {
 			produtosOrcamentoBean.setValorPromocional(0.0f);
 			produtosOrcamentoBean.setValorPromocionalRS(0.0f);
@@ -454,5 +480,92 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			return true;
 		}
 		return false;
+	}
+
+	public void gerarListaAcomodacaoIndependente() {
+		listaAcomodacoesIndependente = new ArrayList<>();
+		ValorCoProdutosFacade coProdutosFacade = new ValorCoProdutosFacade();
+		String sql = "Select c from Valorcoprodutos c where c.coprodutos.fornecedorcidadeidioma.fornecedorcidade.cidade.idcidade="
+				+ resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getIdcidade()
+				+ " and c.coprodutos.fornecedorcidadeidioma.acomodacaoindependente=TRUE"
+				+ " and c.coprodutos.tipo='Acomodacao" + "' and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
+				+ aplicacaoMB.getParametrosprodutos().getSuplementoidade()
+				+ " and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
+				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
+				+ " and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
+				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao()
+				+ " and c.coprodutos.apenaspacote=FALSE" + " GROUP BY c.coprodutos.idcoprodutos"
+				+ " ORDER BY c.valororiginal";
+		List<Valorcoprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		if (listaCoProdutos != null) {
+			for (int i = 0; i < listaCoProdutos.size(); i++) {
+				Date dataconsulta = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
+						listaCoProdutos.get(i).getCoprodutos().getFornecedorcidadeidioma().getFornecedorcidade()
+								.getFornecedor());
+				ProdutosOrcamentoBean po = consultarValores("DI",
+						listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), dataconsulta,
+						resultadoOrcamentoBean.getOcurso().getNumerosemanas());
+				if (po != null) {
+					listaAcomodacoesIndependente.add(po);
+				} else {
+					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date(),
+							resultadoOrcamentoBean.getOcurso().getNumerosemanas());
+					if (po != null) {
+						listaAcomodacoesIndependente.add(po);
+					} else {
+						po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
+								dataconsulta, resultadoOrcamentoBean.getOcurso().getNumerosemanas());
+						if (po != null) {
+							listaAcomodacoesIndependente.add(po);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public Date retornarDataConsultaOrcamento(Date dataInicio, Fornecedor fornecedor) {
+		int anoFornecedor = fornecedor.getAnotarifario();
+		Calendar c = new GregorianCalendar();
+		c.setTime(dataInicio);
+		int ano = Formatacao.getAnoData(dataInicio);
+		if (anoFornecedor >= ano) {
+			return dataInicio;
+		} else if (anoFornecedor < ano) {
+			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
+			String dia = sData.substring(0, 2);
+			String mes = sData.substring(3, 5);
+			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+			return Formatacao.ConvercaoStringDataBrasil(sData);
+		}
+		return dataInicio;
+	}
+
+	public boolean mostrarAcomodacaoIndependente() {
+		if (listaAcomodacoesIndependente == null || listaAcomodacoesIndependente.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	public String tabelaAcomodacaoEscola() {
+		if (listaAcomodacoesIndependente == null || listaAcomodacoesIndependente.size() == 0) {
+			return "480";
+		} else
+			return "200";
+	}
+
+	public boolean mostrarAcomodacaoEscola() {
+		if (listaAcomodacoes == null || listaAcomodacoes.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	public String tabelaAcomodacaoIndependente() {
+		if (listaAcomodacoes == null || listaAcomodacoes.size() == 0) {
+			return "480";
+		} else
+			return "200";
 	}
 }

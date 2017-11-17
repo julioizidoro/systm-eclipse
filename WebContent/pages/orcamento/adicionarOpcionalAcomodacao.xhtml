@@ -14,140 +14,289 @@
 	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
 </h:head>
 <h:body style="background:#DDDDE1;">
-	<h:form id="adicionarAcOpcional" style="text-align:left;font-size: 10px;">
+	<h:form id="adicionarAcOpcional"
+		style="text-align:left;font-size: 10px;">
 		<p:growl id="growl" showDetail="true" sticky="false"
 			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 		<br></br>
-		<p:dataScroller id="idtabelaAcOpcional" mode="inline" scrollHeight="450"
-			value="#{adicionarOpcionalAcomodacaoMB.listaAcOpcional}"
-			var="acOpcional"  style="background:#1F8871">
-			<br />
-			<div align="right" style="width:98%">
-				<p:outputLabel value="Incluso no Total do Programa" />
-				<p:selectBooleanCheckbox style="margin-left:1%;" value="#{acOpcional.somarvalortotal}"/>
+		<h:panelGroup
+			rendered="#{adicionarOpcionalAcomodacaoMB.mostrarAcomodacaoEscola()}">
+			<div align="center">
+				<p:outputLabel value="Acomodações da Escola" style="font-size:14px;" />
 			</div>
-			<p:outputPanel style="text-align: left;width:98%">
-				<br></br>
-				<h:panelGrid columns="2"
-					columnClasses="tamanhonotificacao2, tamanhoavisos" style="width:98%">
-					<h:panelGroup>
-						<h:outputText value="#{acOpcional.valorcoprodutos.coprodutos.descricao}"
-							style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<h:panelGrid columns="2"
-							columnClasses="tamanhoavisos,tamanhoavisos" style="width:100%;">
-							<h:panelGroup>
-								<h:outputText value="Nº Semanas " style="margin-left:4%;"/>
-								<h:outputText style="margin-left:10%;"
-									value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
-								<p:outputLabel id="valorAcOpcional"
-									value="#{acOpcional.valorcoprodutos.valororiginal}"
-									style="font-size:12px;text-align: right;margin-left:0.5%">
-									<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-								</p:outputLabel>
-								
-								<p:selectOneMenu  style="margin-left:4%;width:50px;"
-									value="#{acOpcional.numeroSemanasAcOpcional}" >
-									<f:selectItem itemLabel="0" itemValue="0" />
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="2" itemValue="2" />
-									<f:selectItem itemLabel="3" itemValue="3" />
-									<f:selectItem itemLabel="4" itemValue="4" />  
-									<f:selectItem itemLabel="5" itemValue="5" />
-									<f:selectItem itemLabel="6" itemValue="6" />
-									<f:selectItem itemLabel="7" itemValue="7" />
-									<f:selectItem itemLabel="8" itemValue="8" />
-									<f:selectItem itemLabel="9" itemValue="9" />
-									<f:selectItem itemLabel="10" itemValue="10" />
-									<f:selectItem itemLabel="11" itemValue="11" />
-									<f:selectItem itemLabel="12" itemValue="12" />
-									<f:selectItem itemLabel="13" itemValue="13" />
-									<f:selectItem itemLabel="14" itemValue="14" />
-									<f:selectItem itemLabel="15" itemValue="15" />
-									<f:selectItem itemLabel="16" itemValue="16" />
-									<f:selectItem itemLabel="17" itemValue="17" />
-									<f:selectItem itemLabel="18" itemValue="18" />
-									<f:selectItem itemLabel="19" itemValue="19" />
-									<f:selectItem itemLabel="20" itemValue="20" />
-									<f:selectItem itemLabel="21" itemValue="21" />
-									<f:selectItem itemLabel="22" itemValue="22" />
-									<f:selectItem itemLabel="23" itemValue="23" />
-									<f:selectItem itemLabel="24" itemValue="24" />
-									<f:selectItem itemLabel="25" itemValue="25" />
-									<f:selectItem itemLabel="26" itemValue="26" />
-									<f:selectItem itemLabel="27" itemValue="27" />
-									<f:selectItem itemLabel="28" itemValue="28" />
-									<f:selectItem itemLabel="29" itemValue="29" />
-									<f:selectItem itemLabel="30" itemValue="30" />
-									<f:selectItem itemLabel="31" itemValue="31" />
-									<f:selectItem itemLabel="32" itemValue="32" />
-									<f:selectItem itemLabel="33" itemValue="33" />
-									<f:selectItem itemLabel="34" itemValue="34" />
-									<f:selectItem itemLabel="35" itemValue="35" />
-									<f:selectItem itemLabel="36" itemValue="36" />
-									<f:selectItem itemLabel="37" itemValue="37" />
-									<f:selectItem itemLabel="38" itemValue="38" />
-									<f:selectItem itemLabel="39" itemValue="39" />
-									<f:selectItem itemLabel="40" itemValue="40" />
-									<f:selectItem itemLabel="41" itemValue="41" />
-									<f:selectItem itemLabel="42" itemValue="42" />
-									<f:selectItem itemLabel="43" itemValue="43" />
-									<f:selectItem itemLabel="44" itemValue="44" />
-									<f:selectItem itemLabel="45" itemValue="45" />
-									<f:selectItem itemLabel="46" itemValue="46" />
-									<f:selectItem itemLabel="47" itemValue="47" />
-									<f:selectItem itemLabel="48" itemValue="48" />
-									<p:ajax
-										listener="#{adicionarOpcionalAcomodacaoMB.calcularValorAcOpcional(acOpcional)}"
-										update=":adicionarAcOpcional:idtabelaAcOpcional" />
-								</p:selectOneMenu>
-							</h:panelGroup>
-							<h:panelGroup>
-								<div align="right">
-									<h:outputText
-										value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla}"
-										style="margin-left:4%" class="espacocobranca29" />
-									<p:outputLabel id="valorAcOriginal"
-										value="#{acOpcional.valorOriginalAcOpcional}"
-										style="font-size:12px;text-align: right;margin-left:0.5%">
-										<f:convertNumber pattern="##,###,###,###.##"
-											minFractionDigits="2" />
-									</p:outputLabel>
-									<h:outputText value="R$" style="margin-left:2%;" />
-									<p:outputLabel id="valorAcOriginalrs"
-										value="#{acOpcional.valorRSacOpcional}"
-										style="font-size:12px;text-align: right;margin-left:0.5%">
-										<f:convertNumber pattern="##,###,###,###.##"
-											minFractionDigits="2" />
-									</p:outputLabel>
-								</div>
-							</h:panelGroup>
-						</h:panelGrid>
-					</h:panelGroup>
-				</h:panelGrid>
-				<div align="right" style="width:98%">
-					<p:commandButton value="Incluir" action="#{adicionarOpcionalAcomodacaoMB.adicionar(acOpcional)}" icon="ui-icon-check" />
+			<p:dataScroller id="idtabelaAcOpcional" mode="inline"
+				scrollHeight="450"
+				value="#{adicionarOpcionalAcomodacaoMB.listaAcOpcional}"
+				var="acOpcional" style="background:#1F8871">
+				<br />
+				<div align="right" style="width: 98%">
+					<p:outputLabel value="Incluso no Total do Programa" />
+					<p:selectBooleanCheckbox style="margin-left:1%;"
+						value="#{acOpcional.somarvalortotal}" />
 				</div>
-				<br></br>
-				<div class="line_1"></div>
-			</p:outputPanel>
-		</p:dataScroller>
+				<p:outputPanel style="text-align: left;width:98%">
+					<br></br>
+					<h:panelGrid columns="2"
+						columnClasses="tamanhonotificacao2, tamanhoavisos"
+						style="width:98%">
+						<h:panelGroup>
+							<h:outputText
+								value="#{acOpcional.valorcoprodutos.coprodutos.descricao}"
+								style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<h:panelGrid columns="2"
+								columnClasses="tamanhoavisos,tamanhoavisos" style="width:100%;">
+								<h:panelGroup>
+									<h:outputText value="Nº Semanas " style="margin-left:4%;" />
+									<h:outputText style="margin-left:10%;"
+										value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
+									<p:outputLabel id="valorAcOpcional"
+										value="#{acOpcional.valorcoprodutos.valororiginal}"
+										style="font-size:12px;text-align: right;margin-left:0.5%">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:outputLabel>
+
+									<p:selectOneMenu style="margin-left:4%;width:50px;"
+										value="#{acOpcional.numeroSemanasAcOpcional}">
+										<f:selectItem itemLabel="0" itemValue="0" />
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="2" itemValue="2" />
+										<f:selectItem itemLabel="3" itemValue="3" />
+										<f:selectItem itemLabel="4" itemValue="4" />
+										<f:selectItem itemLabel="5" itemValue="5" />
+										<f:selectItem itemLabel="6" itemValue="6" />
+										<f:selectItem itemLabel="7" itemValue="7" />
+										<f:selectItem itemLabel="8" itemValue="8" />
+										<f:selectItem itemLabel="9" itemValue="9" />
+										<f:selectItem itemLabel="10" itemValue="10" />
+										<f:selectItem itemLabel="11" itemValue="11" />
+										<f:selectItem itemLabel="12" itemValue="12" />
+										<f:selectItem itemLabel="13" itemValue="13" />
+										<f:selectItem itemLabel="14" itemValue="14" />
+										<f:selectItem itemLabel="15" itemValue="15" />
+										<f:selectItem itemLabel="16" itemValue="16" />
+										<f:selectItem itemLabel="17" itemValue="17" />
+										<f:selectItem itemLabel="18" itemValue="18" />
+										<f:selectItem itemLabel="19" itemValue="19" />
+										<f:selectItem itemLabel="20" itemValue="20" />
+										<f:selectItem itemLabel="21" itemValue="21" />
+										<f:selectItem itemLabel="22" itemValue="22" />
+										<f:selectItem itemLabel="23" itemValue="23" />
+										<f:selectItem itemLabel="24" itemValue="24" />
+										<f:selectItem itemLabel="25" itemValue="25" />
+										<f:selectItem itemLabel="26" itemValue="26" />
+										<f:selectItem itemLabel="27" itemValue="27" />
+										<f:selectItem itemLabel="28" itemValue="28" />
+										<f:selectItem itemLabel="29" itemValue="29" />
+										<f:selectItem itemLabel="30" itemValue="30" />
+										<f:selectItem itemLabel="31" itemValue="31" />
+										<f:selectItem itemLabel="32" itemValue="32" />
+										<f:selectItem itemLabel="33" itemValue="33" />
+										<f:selectItem itemLabel="34" itemValue="34" />
+										<f:selectItem itemLabel="35" itemValue="35" />
+										<f:selectItem itemLabel="36" itemValue="36" />
+										<f:selectItem itemLabel="37" itemValue="37" />
+										<f:selectItem itemLabel="38" itemValue="38" />
+										<f:selectItem itemLabel="39" itemValue="39" />
+										<f:selectItem itemLabel="40" itemValue="40" />
+										<f:selectItem itemLabel="41" itemValue="41" />
+										<f:selectItem itemLabel="42" itemValue="42" />
+										<f:selectItem itemLabel="43" itemValue="43" />
+										<f:selectItem itemLabel="44" itemValue="44" />
+										<f:selectItem itemLabel="45" itemValue="45" />
+										<f:selectItem itemLabel="46" itemValue="46" />
+										<f:selectItem itemLabel="47" itemValue="47" />
+										<f:selectItem itemLabel="48" itemValue="48" />
+										<p:ajax
+											listener="#{adicionarOpcionalAcomodacaoMB.calcularValorAcOpcional(acOpcional)}"
+											update=":adicionarAcOpcional:idtabelaAcOpcional" />
+									</p:selectOneMenu>
+								</h:panelGroup>
+								<h:panelGroup>
+									<div align="right">
+										<h:outputText
+											value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla}"
+											style="margin-left:4%" class="espacocobranca29" />
+										<p:outputLabel id="valorAcOriginal"
+											value="#{acOpcional.valorOriginalAcOpcional}"
+											style="font-size:12px;text-align: right;margin-left:0.5%">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel>
+										<h:outputText value="R$" style="margin-left:2%;" />
+										<p:outputLabel id="valorAcOriginalrs"
+											value="#{acOpcional.valorRSacOpcional}"
+											style="font-size:12px;text-align: right;margin-left:0.5%">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel>
+									</div>
+								</h:panelGroup>
+							</h:panelGrid>
+						</h:panelGroup>
+
+					</h:panelGrid>
+
+					<div align="right" style="width: 98%">
+						<p:commandButton value="Incluir"
+							action="#{adicionarOpcionalAcomodacaoMB.adicionar(acOpcional)}"
+							icon="ui-icon-check" />
+					</div>
+					<br></br>
+					<div class="line_1"></div>
+				</p:outputPanel>
+			</p:dataScroller>
+		</h:panelGroup>
+		<br></br>
+		<h:panelGroup
+			rendered="#{adicionarOpcionalAcomodacaoMB.mostrarAcomodacaoIndependente()}">
+			<div align="center">
+				<p:outputLabel value="Acomodações Independente"
+					style="font-size:14px;" />
+			</div>
+			<p:dataScroller id="idtabelaAcOpcionalIndependente" mode="inline"
+				scrollHeight="450"
+				value="#{adicionarOpcionalAcomodacaoMB.listaAcOpcionalIndependente}"
+				var="acOpcionalIndependente" style="background:#1F8871">
+				<br />
+				<div align="right" style="width: 98%">
+					<p:outputLabel value="Incluso no Total do Programa" />
+					<p:selectBooleanCheckbox style="margin-left:1%;"
+						value="#{acOpcionalIndependente.somarvalortotal}" />
+				</div>
+				<p:outputPanel style="text-align: left;width:98%">
+					<br></br>
+					<h:panelGrid columns="2"
+						columnClasses="tamanhonotificacao2, tamanhoavisos"
+						style="width:98%">
+						<h:panelGroup>
+							<h:outputText
+								value="#{acOpcionalIndependente.valorcoprodutos.coprodutos.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome} 
+								- #{acOpcionalIndependente.valorcoprodutos.coprodutos.descricao}"
+								style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<h:panelGrid columns="2"
+								columnClasses="tamanhoavisos,tamanhoavisos" style="width:100%;">
+								<h:panelGroup>
+									<h:outputText value="Nº Semanas " style="margin-left:4%;" />
+									<h:outputText style="margin-left:10%;"
+										value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
+									<p:outputLabel id="valorAcOpcionalIndependente"
+										value="#{acOpcionalIndependente.valorcoprodutos.valororiginal}"
+										style="font-size:12px;text-align: right;margin-left:0.5%">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</p:outputLabel>
+
+									<p:selectOneMenu style="margin-left:4%;width:50px;"
+										value="#{acOpcionalIndependente.numeroSemanasAcOpcional}">
+										<f:selectItem itemLabel="0" itemValue="0" />
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="2" itemValue="2" />
+										<f:selectItem itemLabel="3" itemValue="3" />
+										<f:selectItem itemLabel="4" itemValue="4" />
+										<f:selectItem itemLabel="5" itemValue="5" />
+										<f:selectItem itemLabel="6" itemValue="6" />
+										<f:selectItem itemLabel="7" itemValue="7" />
+										<f:selectItem itemLabel="8" itemValue="8" />
+										<f:selectItem itemLabel="9" itemValue="9" />
+										<f:selectItem itemLabel="10" itemValue="10" />
+										<f:selectItem itemLabel="11" itemValue="11" />
+										<f:selectItem itemLabel="12" itemValue="12" />
+										<f:selectItem itemLabel="13" itemValue="13" />
+										<f:selectItem itemLabel="14" itemValue="14" />
+										<f:selectItem itemLabel="15" itemValue="15" />
+										<f:selectItem itemLabel="16" itemValue="16" />
+										<f:selectItem itemLabel="17" itemValue="17" />
+										<f:selectItem itemLabel="18" itemValue="18" />
+										<f:selectItem itemLabel="19" itemValue="19" />
+										<f:selectItem itemLabel="20" itemValue="20" />
+										<f:selectItem itemLabel="21" itemValue="21" />
+										<f:selectItem itemLabel="22" itemValue="22" />
+										<f:selectItem itemLabel="23" itemValue="23" />
+										<f:selectItem itemLabel="24" itemValue="24" />
+										<f:selectItem itemLabel="25" itemValue="25" />
+										<f:selectItem itemLabel="26" itemValue="26" />
+										<f:selectItem itemLabel="27" itemValue="27" />
+										<f:selectItem itemLabel="28" itemValue="28" />
+										<f:selectItem itemLabel="29" itemValue="29" />
+										<f:selectItem itemLabel="30" itemValue="30" />
+										<f:selectItem itemLabel="31" itemValue="31" />
+										<f:selectItem itemLabel="32" itemValue="32" />
+										<f:selectItem itemLabel="33" itemValue="33" />
+										<f:selectItem itemLabel="34" itemValue="34" />
+										<f:selectItem itemLabel="35" itemValue="35" />
+										<f:selectItem itemLabel="36" itemValue="36" />
+										<f:selectItem itemLabel="37" itemValue="37" />
+										<f:selectItem itemLabel="38" itemValue="38" />
+										<f:selectItem itemLabel="39" itemValue="39" />
+										<f:selectItem itemLabel="40" itemValue="40" />
+										<f:selectItem itemLabel="41" itemValue="41" />
+										<f:selectItem itemLabel="42" itemValue="42" />
+										<f:selectItem itemLabel="43" itemValue="43" />
+										<f:selectItem itemLabel="44" itemValue="44" />
+										<f:selectItem itemLabel="45" itemValue="45" />
+										<f:selectItem itemLabel="46" itemValue="46" />
+										<f:selectItem itemLabel="47" itemValue="47" />
+										<f:selectItem itemLabel="48" itemValue="48" />
+										<p:ajax
+											listener="#{adicionarOpcionalAcomodacaoMB.calcularValorAcOpcional(acOpcionalIndependente)}"
+											update=":adicionarAcOpcional:idtabelaAcOpcionalIndependente" />
+									</p:selectOneMenu>
+								</h:panelGroup>
+								<h:panelGroup>
+									<div align="right">
+										<h:outputText
+											value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla}"
+											style="margin-left:4%" class="espacocobranca29" />
+										<p:outputLabel id="valorAcOriginalIndependente"
+											value="#{acOpcionalIndependente.valorOriginalAcOpcional}"
+											style="font-size:12px;text-align: right;margin-left:0.5%">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel>
+										<h:outputText value="R$" style="margin-left:2%;" />
+										<p:outputLabel id="valorAcOriginalrsIndependente"
+											value="#{acOpcionalIndependente.valorRSacOpcional}"
+											style="font-size:12px;text-align: right;margin-left:0.5%">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
+										</p:outputLabel>
+									</div>
+								</h:panelGroup>
+							</h:panelGrid>
+						</h:panelGroup>
+
+					</h:panelGrid>
+
+					<div align="right" style="width: 98%">
+						<p:commandButton value="Incluir"
+							action="#{adicionarOpcionalAcomodacaoMB.adicionar(acOpcionalIndependente)}"
+							icon="ui-icon-check" />
+					</div>
+					<br></br>
+					<div class="line_1"></div>
+				</p:outputPanel>
+			</p:dataScroller>
+		</h:panelGroup>
 		<br></br>
 		<div align="center">
 			<p:commandButton id="btnCancelar" value="Fechar"
-				icon="ui-icon-closethick" action="#{adicionarOpcionalAcomodacaoMB.cancelar()}" />
+				icon="ui-icon-closethick"
+				action="#{adicionarOpcionalAcomodacaoMB.cancelar()}" />
 		</div>
 		<p:ajaxStatus onstart="PF('carregandoDialog').show()"
-							onsuccess="PF('carregandoDialog').hide()" />
-			
-						<p:dialog widgetVar="carregandoDialog" modal="true" draggable="false"
-							closable="false" resizable="false" showHeader="false"> 
-							<p:commandLink >
-								<img src="../../resources/img/ajax-loader.gif" />
-							</p:commandLink>
-						</p:dialog>
+			onsuccess="PF('carregandoDialog').hide()" />
+
+		<p:dialog widgetVar="carregandoDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink>
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>

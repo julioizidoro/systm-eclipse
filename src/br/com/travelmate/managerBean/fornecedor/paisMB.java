@@ -11,7 +11,6 @@ import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
-import br.com.travelmate.model.Worksponsor;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
@@ -31,49 +30,49 @@ import org.primefaces.event.SelectEvent;
 
 @Named
 @ViewScoped
-public class paisMB implements Serializable{
-    
-    /**
+public class paisMB implements Serializable {
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Pais> listaPais;
-    private Pais pais;
-    private Cidade cidade;
-    private List<Cidadepaisproduto> listaCidadePaisProduto;
-    private Produtos produtos;
-    private List<Produtos> listaProduto;
-    private List<Cidade> listaCidade;
-    private String voltar;
-    
-    @PostConstruct
-    public void init() {
-    		FacesContext fc = FacesContext.getCurrentInstance();
+	private Pais pais;
+	private Cidade cidade;
+	private List<Cidadepaisproduto> listaCidadePaisProduto;
+	private Produtos produtos;
+	private List<Produtos> listaProduto;
+	private List<Cidade> listaCidade;
+	private String voltar;
+
+	@PostConstruct
+	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		voltar = (String) session.getAttribute("voltar");
 		session.removeAttribute("voltar");
-        pais = new Pais();
-        gerarListaPais();
-        listaProduto = GerarListas.listarProdutos("");
-    }
+		pais = new Pais();
+		gerarListaPais();
+		listaProduto = GerarListas.listarProdutos("");
+	}
 
-    public List<Pais> getListaPais() {
-        return listaPais;
-    }
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
 
-    public void setListaPais(List<Pais> listaPais) {
-        this.listaPais = listaPais;
-    }
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
 
-    public Pais getPais() {
-        return pais;
-    }
+	public Pais getPais() {
+		return pais;
+	}
 
-    public void setPais(Pais pais) {
-        this.pais = pais;
-    }
-    
-    public Cidade getCidade() {
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+	public Cidade getCidade() {
 		return cidade;
 	}
 
@@ -113,87 +112,88 @@ public class paisMB implements Serializable{
 		this.listaCidade = listaCidade;
 	}
 
-	public void gerarListaPais(){
-        PaisFacade paisFacade = new PaisFacade();
-        listaPais = paisFacade.listar("");
-        if(listaPais==null){
-            listaPais = new ArrayList<Pais>();
-        }
-    }
-    
-    public String cadPais(){
-        Map<String,Object> options = new HashMap<String, Object>();
-        options.put("contentWidth", 430);
-        options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("cadPais", options, null);
-        return "";
-    }
-    
-    public String cadCidade(){
-        if(pais!=null){
-            FacesContext fc = FacesContext.getCurrentInstance();
-            HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-            session.setAttribute("pais", pais);    
-            RequestContext.getCurrentInstance().openDialog("cadCidade");
-        }else{
-            FacesMessage mensagem = new FacesMessage("Pais não selecionado! ", "campos obrigatorios não preenchidos.");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-        }
-        return "";
-    }
-    
-    public String voltar(){
-        return voltar;
-    }
-    
-    public void retornoDialogNovoPais(SelectEvent event) {
-        Pais pais = (Pais) event.getObject();
-        listaPais.add(pais);
-    }
+	public void gerarListaPais() {
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listar("");
+		if (listaPais == null) {
+			listaPais = new ArrayList<Pais>();
+		}
+	}
 
-    public void retornoDialogNovoCidade(SelectEvent event) {
-        Cidade cidade = (Cidade) event.getObject();
-        pais.getCidadeList().add(cidade);
-    }
-    
-    
-    public String editarPais(Pais pais){
-	    	if(pais!=null){
-		        Map<String,Object> options = new HashMap<String, Object>();
-		        options.put("contentWidth", 430);
-		        options.put("modal", true);
-		        FacesContext fc = FacesContext.getCurrentInstance();
-		        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		        session.setAttribute("pais", pais);    
-		        RequestContext.getCurrentInstance().openDialog("cadPais", options, null);
-	    	}else Mensagem.lancarMensagemErro("Selecione um País", "");
-        return "";
-    }
-    
-    public String uploadVisto(Pais pais){
-	    	if(pais!=null){
-		        Map<String,Object> options = new HashMap<String, Object>();
-		        options.put("contentWidth", 430);
-		        options.put("modal", true);
-		        FacesContext fc = FacesContext.getCurrentInstance();
-		        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		        session.setAttribute("pais", pais);    
-		        RequestContext.getCurrentInstance().openDialog("uploadVisto", options, null);
-	    	}else Mensagem.lancarMensagemErro("Selecione um País", "");
-        return "";
-    }
-    
-    public void selecionarCidade(Cidade cidade) {
-	    	this.cidade = cidade;
-	    	CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
-	    	listaCidadePaisProduto = cidadePaisProdutosFacade.listar(
-	    			"SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade="+cidade.getIdcidade());
-	    	if(listaCidadePaisProduto==null) {
-	    		listaCidadePaisProduto = new ArrayList<>();
-	    	}
-    }
-    
-    public void adicionarCidadePaisProduto() {
+	public String cadPais() {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 430);
+		options.put("modal", true);
+		RequestContext.getCurrentInstance().openDialog("cadPais", options, null);
+		return "";
+	}
+
+	public String cadCidade() {
+		if (pais != null) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("pais", pais);
+			RequestContext.getCurrentInstance().openDialog("cadCidade");
+		} else {
+			FacesMessage mensagem = new FacesMessage("Pais não selecionado! ", "campos obrigatorios não preenchidos.");
+			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		}
+		return "";
+	}
+
+	public String voltar() {
+		return voltar;
+	}
+
+	public void retornoDialogNovoPais(SelectEvent event) {
+		Pais pais = (Pais) event.getObject();
+		listaPais.add(pais);
+	}
+
+	public void retornoDialogNovoCidade(SelectEvent event) {
+		Cidade cidade = (Cidade) event.getObject();
+		pais.getCidadeList().add(cidade);
+	}
+
+	public String editarPais(Pais pais) {
+		if (pais != null) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 430);
+			options.put("modal", true);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("pais", pais);
+			RequestContext.getCurrentInstance().openDialog("cadPais", options, null);
+		} else
+			Mensagem.lancarMensagemErro("Selecione um País", "");
+		return "";
+	}
+
+	public String uploadVisto(Pais pais) {
+		if (pais != null) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 430);
+			options.put("modal", true);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("pais", pais);
+			RequestContext.getCurrentInstance().openDialog("uploadVisto", options, null);
+		} else
+			Mensagem.lancarMensagemErro("Selecione um País", "");
+		return "";
+	}
+
+	public void selecionarCidade(Cidade cidade) {
+		this.cidade = cidade;
+		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+		listaCidadePaisProduto = cidadePaisProdutosFacade
+				.listar("SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade=" + cidade.getIdcidade());
+		if (listaCidadePaisProduto == null) {
+			listaCidadePaisProduto = new ArrayList<>();
+		}
+	}
+
+	public void adicionarCidadePaisProduto() {
 		if (cidade != null && cidade.getIdcidade() != null) {
 			if (produtos != null && produtos.getIdprodutos() != null) {
 				CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
@@ -202,9 +202,9 @@ public class paisMB implements Serializable{
 								+ " AND c.paisproduto.produtos.idprodutos=" + produtos.getIdprodutos());
 				if (lista == null || lista.size() == 0) {
 					PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-					Paisproduto paisproduto = paisProdutoFacade.consultar(
-							"SELECT p FROM Paisproduto p WHERE p.produtos.idprodutos=" + produtos.getIdprodutos()
-							+ " AND p.pais.idpais="+pais.getIdpais());
+					Paisproduto paisproduto = paisProdutoFacade
+							.consultar("SELECT p FROM Paisproduto p WHERE p.produtos.idprodutos="
+									+ produtos.getIdprodutos() + " AND p.pais.idpais=" + pais.getIdpais());
 					if (paisproduto == null || paisproduto.getIdpaisproduto() == null) {
 						paisproduto = new Paisproduto();
 						paisproduto.setPais(cidade.getPais());
@@ -223,38 +223,45 @@ public class paisMB implements Serializable{
 				Mensagem.lancarMensagemErro("Atenção!", "Selecione um produto.");
 		} else
 			Mensagem.lancarMensagemErro("Atenção!", "Selecione uma cidade.");
-    }
-    
-    public void salvarAtivo(Cidade cidade) {
-	    	CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
-	    	listaCidadePaisProduto = cidadePaisProdutosFacade.listar(
-	    			"SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade="+cidade.getIdcidade());
-	    	FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
-	    	List<Fornecedorcidade> listaFornecedor = fornecedorCidadeFacade.listar(
-	    			"SELECT f FROM Fornecedorcidade f WHERE f.cidade.idcidade="+cidade.getIdcidade()
-	    				+" and f.ativo=TRUE");
-	    	if(listaCidadePaisProduto==null || listaCidadePaisProduto.size()==0
-	    			|| listaFornecedor==null || listaFornecedor.size()==0) {
-	    		CidadeFacade cidadeFacade = new CidadeFacade(); 
-	    		cidade = cidadeFacade.salvar(cidade);
-	    }else { 
-		    	if(cidade.isAtiva()) {
-	    			cidade.setAtiva(false);
-	    		}else cidade.setAtiva(true);
-	    		Mensagem.lancarMensagemErro("Atenção!", "Cidade só poderá ser desativada após excluir os produtos e desativar os parceiros.");
-	    }
-    }
-    
-    public void excluirProdutos(Cidadepaisproduto cidadepaisproduto) {
-    		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
-    		listaCidadePaisProduto.remove(cidadepaisproduto);
-    		cidadePaisProdutosFacade.excluir(cidadepaisproduto.getIdcidadepaisproduto());
-    		Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
-    }
-    
-    public void listarCidade() {
-    		CidadeFacade cidadeFacade = new CidadeFacade();
-    		listaCidade = cidadeFacade.listar(pais.getIdpais());
-    }
-    
+	}
+
+	public void salvarAtivo(Cidade cidade) {
+		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+		listaCidadePaisProduto = cidadePaisProdutosFacade
+				.listar("SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade=" + cidade.getIdcidade());
+		FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+		List<Fornecedorcidade> listaFornecedor = fornecedorCidadeFacade
+				.listar("SELECT f FROM Fornecedorcidade f WHERE f.cidade.idcidade=" + cidade.getIdcidade()
+						+ " and f.ativo=TRUE");
+		if (listaCidadePaisProduto == null || listaCidadePaisProduto.size() == 0 || listaFornecedor == null
+				|| listaFornecedor.size() == 0) {
+			CidadeFacade cidadeFacade = new CidadeFacade();
+			cidade = cidadeFacade.salvar(cidade);
+		} else {
+			if (cidade.isAtiva()) {
+				cidade.setAtiva(false);
+			} else
+				cidade.setAtiva(true);
+			Mensagem.lancarMensagemErro("Atenção!",
+					"Cidade só poderá ser desativada após excluir os produtos e desativar os parceiros.");
+		}
+	}
+
+	public void excluirProdutos(Cidadepaisproduto cidadepaisproduto) {
+		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+		listaCidadePaisProduto.remove(cidadepaisproduto);
+		cidadePaisProdutosFacade.excluir(cidadepaisproduto.getIdcidadepaisproduto());
+		Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
+	}
+
+	public void listarCidade() {
+		CidadeFacade cidadeFacade = new CidadeFacade();
+		listaCidade = cidadeFacade.listar(pais.getIdpais());
+	}
+
+	public void salvarCidade(Cidade cidade) {
+		CidadeFacade cidadeFacade = new CidadeFacade();
+		cidade = cidadeFacade.salvar(cidade);
+	}
+
 }

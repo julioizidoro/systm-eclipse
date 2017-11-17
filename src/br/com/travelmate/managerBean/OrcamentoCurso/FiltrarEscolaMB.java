@@ -287,6 +287,7 @@ public class FiltrarEscolaMB implements Serializable {
 					+ filtrarEscolaBean.getCidade().getCidade().getIdcidade() + " and f.idioma.ididioma ="
 					+ filtrarEscolaBean.getIdioma().getIdidioma()
 					+ " and f.fornecedorcidade.fornecedor.habilitarorcamento=true"
+					+ " and f.acomodacaoindependente=FALSE"
 					+ " and f.habilitada=true order by f.fornecedorcidade.fornecedor.nome";
 			FornecedorCidadeIdiomaFacade fornecedorCidadeIdiomaFacade = new FornecedorCidadeIdiomaFacade();
 			filtrarEscolaBean.setListaFornecedorCidadeIdioma(fornecedorCidadeIdiomaFacade.listar(sql));

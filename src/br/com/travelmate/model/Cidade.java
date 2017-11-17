@@ -39,6 +39,8 @@ public class Cidade implements Serializable {
     private String nome;
     @Column(name = "ativa")
     private boolean ativa;
+    @Column(name = "acomodacaoindepentende")
+    private boolean acomodacaoindepentende;
     @JoinColumn(name = "pais_idpais", referencedColumnName = "idpais")
     @ManyToOne(optional = false)
     private Pais pais; 
@@ -92,6 +94,14 @@ public class Cidade implements Serializable {
 
 	public void setAtiva(boolean ativa) {
 		this.ativa = ativa;
+	}
+
+	public boolean isAcomodacaoindepentende() {
+		return acomodacaoindepentende;
+	}
+
+	public void setAcomodacaoindepentende(boolean acomodacaoindepentende) {
+		this.acomodacaoindepentende = acomodacaoindepentende;
 	}
 
 	@Override

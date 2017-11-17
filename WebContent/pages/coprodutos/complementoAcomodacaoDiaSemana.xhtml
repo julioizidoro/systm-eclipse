@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="complementoAcomodacao"
+		style="text-align:left;font-size: 11px;">
+		<title>Complemento Acomodação</title>
+		<br></br>
+
+		<h:panelGrid columns="2" columnClasses="tamanhoavisos, tamanhoavisos"
+			style="width:85%;margin-left:8%;">
+			<p:outputLabel value="Dia Semana Inicial" />
+			<p:outputLabel value="Dia Semana Final" />
+
+			<p:selectOneMenu
+				value="#{complementoAcamodacaoDiaSemanaMB.complemento.diasemanainicial1}"
+				style="width:80%;">
+				<f:selectItem itemLabel="Selecione" itemValue="-1"
+					noSelectionOption="true" />
+				<f:selectItem itemLabel="Domingo" itemValue="0" />
+				<f:selectItem itemLabel="Segunda-Feira" itemValue="1" />
+				<f:selectItem itemLabel="Terça-Feira" itemValue="2" />
+				<f:selectItem itemLabel="Quarta-Feira" itemValue="3" />
+				<f:selectItem itemLabel="Quinta-Feira" itemValue="4" />
+				<f:selectItem itemLabel="Sexta-Feira" itemValue="5" />
+				<f:selectItem itemLabel="Sábado" itemValue="6" />
+			</p:selectOneMenu>
+			<p:selectOneMenu
+				value="#{complementoAcamodacaoDiaSemanaMB.complemento.diasemanafinal1}"
+				style="width:80%;">
+				<f:selectItem itemLabel="Selecione" itemValue="-1"
+					noSelectionOption="true" />
+				<f:selectItem itemLabel="Domingo" itemValue="0" />
+				<f:selectItem itemLabel="Segunda-Feira" itemValue="1" />
+				<f:selectItem itemLabel="Terça-Feira" itemValue="2" />
+				<f:selectItem itemLabel="Quarta-Feira" itemValue="3" />
+				<f:selectItem itemLabel="Quinta-Feira" itemValue="4" />
+				<f:selectItem itemLabel="Sexta-Feira" itemValue="5" />
+				<f:selectItem itemLabel="Sábado" itemValue="6" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br></br>
+		<h:panelGrid columns="2" columnClasses="tamanhoavisos, tamanhoavisos"
+			style="width:85%;margin-left:8%;">
+			<p:outputLabel value="Dia Semana Inicial" />
+			<p:outputLabel value="Dia Semana Final" />
+
+			<p:selectOneMenu
+				value="#{complementoAcamodacaoDiaSemanaMB.complemento.diasemanainicial2}"
+				style="width:80%;">
+				<f:selectItem itemLabel="Selecione" itemValue="-1"
+					noSelectionOption="true" />
+				<f:selectItem itemLabel="Domingo" itemValue="0" />
+				<f:selectItem itemLabel="Segunda-Feira" itemValue="1" />
+				<f:selectItem itemLabel="Terça-Feira" itemValue="2" />
+				<f:selectItem itemLabel="Quarta-Feira" itemValue="3" />
+				<f:selectItem itemLabel="Quinta-Feira" itemValue="4" />
+				<f:selectItem itemLabel="Sexta-Feira" itemValue="5" />
+				<f:selectItem itemLabel="Sábado" itemValue="6" />
+			</p:selectOneMenu>
+			<p:selectOneMenu
+				value="#{complementoAcamodacaoDiaSemanaMB.complemento.diasemanafinal2}"
+				style="width:80%;">
+				<f:selectItem itemLabel="Selecione" itemValue="-1"
+					noSelectionOption="true" />
+				<f:selectItem itemLabel="Domingo" itemValue="0" />
+				<f:selectItem itemLabel="Segunda-Feira" itemValue="1" />    
+				<f:selectItem itemLabel="Terça-Feira" itemValue="2" />
+				<f:selectItem itemLabel="Quarta-Feira" itemValue="3" />
+				<f:selectItem itemLabel="Quinta-Feira" itemValue="4" />
+				<f:selectItem itemLabel="Sexta-Feira" itemValue="5" />
+				<f:selectItem itemLabel="Sábado" itemValue="6" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br></br>
+		<br></br>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar"
+				action="#{complementoAcamodacaoDiaSemanaMB.salvar}" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{complementoAcamodacaoDiaSemanaMB.cancelar}" style="margin-left:2%;" />
+		</div>
+		<br></br>
+		<br></br>
+	</h:form>
+</h:body>
+</html>

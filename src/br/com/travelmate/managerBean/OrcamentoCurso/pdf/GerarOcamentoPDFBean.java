@@ -125,8 +125,13 @@ public class GerarOcamentoPDFBean {
 					if (lista.get(i).isPossuipromocao()) {
 						if (listaDesconto != null && listaDesconto.size() > 0) {
 							Ocrusoprodutos ocrusoprodutos = new Ocrusoprodutos();
-							ocrusoprodutos.setDescricao("Promoção Escola Acomodação");
-							ocrusoprodutos.setNome("Promoção Escola Acomodação");
+							if(lista.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+								ocrusoprodutos.setDescricao("Promoção Acomodação");
+								ocrusoprodutos.setNome("Promoção Acomodação");
+							}else {
+								ocrusoprodutos.setDescricao("Promoção Escola Acomodação");
+								ocrusoprodutos.setNome("Promoção Escola Acomodação");
+							}
 							ocrusoprodutos.setNomegrupo("Desconto");
 							ocrusoprodutos.setNumerosemanas(ocurso.getNumerosemanas().doubleValue());
 							ocrusoprodutos.setOcurso(ocurso);
@@ -138,8 +143,13 @@ public class GerarOcamentoPDFBean {
 						} else {
 							listaDesconto = new ArrayList<Ocrusoprodutos>();
 							Ocrusoprodutos ocrusoprodutos = new Ocrusoprodutos();
-							ocrusoprodutos.setDescricao("Promoção Escola Acomodação");
-							ocrusoprodutos.setNome("Promoção Escola Acomodação");
+							if(lista.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+								ocrusoprodutos.setDescricao("Promoção Acomodação");
+								ocrusoprodutos.setNome("Promoção Acomodação");
+							}else {
+								ocrusoprodutos.setDescricao("Promoção Escola Acomodação");
+								ocrusoprodutos.setNome("Promoção Escola Acomodação");
+							}
 							ocrusoprodutos.setNomegrupo("Desconto");
 							ocrusoprodutos.setNumerosemanas(ocurso.getNumerosemanas().doubleValue());
 							ocrusoprodutos.setOcurso(ocurso);
@@ -167,10 +177,17 @@ public class GerarOcamentoPDFBean {
 					if (lista.get(i).isPossuipromocao()) {
 						if (listaDesconto != null && listaDesconto.size() > 0) {
 							Ocrusoprodutos ocrusoprodutos = new Ocrusoprodutos();
-							ocrusoprodutos.setDescricao("Promoção Escola " + lista.get(i).getValorcoprodutos()
-									.getCoprodutos().getProdutosorcamento().getDescricao());
-							ocrusoprodutos.setNome("Promoção Escola " + lista.get(i).getValorcoprodutos()
-									.getCoprodutos().getProdutosorcamento().getDescricao());
+							if(lista.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+								ocrusoprodutos.setDescricao("Promoção " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+								ocrusoprodutos.setNome("Promoção " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+							}else {
+								ocrusoprodutos.setDescricao("Promoção Escola " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+								ocrusoprodutos.setNome("Promoção Escola " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+							} 
 							ocrusoprodutos.setNomegrupo("Desconto");
 							ocrusoprodutos.setNumerosemanas(ocurso.getNumerosemanas().doubleValue());
 							ocrusoprodutos.setOcurso(ocurso);
@@ -182,10 +199,17 @@ public class GerarOcamentoPDFBean {
 						} else {
 							listaDesconto = new ArrayList<Ocrusoprodutos>();
 							Ocrusoprodutos ocrusoprodutos = new Ocrusoprodutos();
-							ocrusoprodutos.setDescricao("Promoção Escola " + lista.get(i).getValorcoprodutos()
-									.getCoprodutos().getProdutosorcamento().getDescricao());
-							ocrusoprodutos.setNome("Promoção Escola " + lista.get(i).getValorcoprodutos()
-									.getCoprodutos().getProdutosorcamento().getDescricao());
+							if(lista.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+								ocrusoprodutos.setDescricao("Promoção " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+								ocrusoprodutos.setNome("Promoção " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+							}else {
+								ocrusoprodutos.setDescricao("Promoção Escola " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+								ocrusoprodutos.setNome("Promoção Escola " + lista.get(i).getValorcoprodutos()
+										.getCoprodutos().getProdutosorcamento().getDescricao());
+							}  
 							ocrusoprodutos.setNomegrupo("Desconto");
 							ocrusoprodutos.setNumerosemanas(ocurso.getNumerosemanas().doubleValue());
 							ocrusoprodutos.setOcurso(ocurso);
@@ -436,7 +460,12 @@ public class GerarOcamentoPDFBean {
 			for (int i = 0; i < listaAcomodacao.size(); i++) {
 				o = carregarDados();
 				int numeroSemana = listaAcomodacao.get(i).getNumerosemanas().intValue(); 
-				o.setDescricaolista(listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
+				String nomeacomodacao = "";
+				if(listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+					nomeacomodacao = listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
+							.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome()+" - ";
+				}
+				o.setDescricaolista(nomeacomodacao+listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
 						.getComplementoacomodacao().getTipoacomodacao()
 						+ ", "
 						+ listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao()

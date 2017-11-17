@@ -2,7 +2,9 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +20,8 @@ import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Coprodutos; 
+import br.com.travelmate.model.Coprodutos;
+import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
 
@@ -38,6 +41,8 @@ public class AdicionarTransferMB implements Serializable {
 	private List<ProdutosOrcamentoBean> listaTransfer;
 	private ProdutosOrcamentoBean transfer;
 	private String mensagem;
+	private boolean transferIndependente;
+	private List<ProdutosOrcamentoBean> listaTransferIndependente;
 
 	@PostConstruct
 	public void init() { 
@@ -46,6 +51,10 @@ public class AdicionarTransferMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaTransfer();
+		if(resultadoOrcamentoBean.getListaAcomodacoes()!=null && resultadoOrcamentoBean.getListaAcomodacoes().size()>0 &&
+				resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+			gerarListaTransferIndependente();
+		}
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -94,6 +103,22 @@ public class AdicionarTransferMB implements Serializable {
 
 	public void setTransfer(ProdutosOrcamentoBean transfer) {
 		this.transfer = transfer;
+	}
+
+	public boolean isTransferIndependente() {
+		return transferIndependente;
+	}
+
+	public void setTransferIndependente(boolean transferIndependente) {
+		this.transferIndependente = transferIndependente;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaTransferIndependente() {
+		return listaTransferIndependente;
+	}
+
+	public void setListaTransferIndependente(List<ProdutosOrcamentoBean> listaTransferIndependente) {
+		this.listaTransferIndependente = listaTransferIndependente;
 	}
 
 	public void gerarListaTransfer() {
@@ -208,4 +233,82 @@ public class AdicionarTransferMB implements Serializable {
 			return true;
 		}return false;
 	} 
+	
+	public void gerarListaTransferIndependente() {
+		listaTransferIndependente = new ArrayList<>();
+		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
+		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+			+ resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos()
+			.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()+ " and c.tipo='Transfer'"
+			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementoidade()
+			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
+			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
+		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		if (listaCoProdutos != null) {
+			Date dataconsulta = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
+						resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+								.getFornecedorcidade().getFornecedor()); 
+			for (int i = 0; i < listaCoProdutos.size(); i++) {
+				ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(), dataconsulta);
+				if (po != null) {
+					listaTransferIndependente.add(po);
+				} else {
+					po = consultarValores("DM", listaCoProdutos.get(i).getIdcoprodutos(), new Date());
+					if (po != null) {
+						listaTransferIndependente.add(po);
+					} else {
+						po = consultarValores("DS", listaCoProdutos.get(i).getIdcoprodutos(), dataconsulta);
+						if (po != null) {
+							listaTransferIndependente.add(po);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public boolean mostrarTransferIndependente() {
+		if (listaTransferIndependente == null || listaTransferIndependente.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	public String tabelaTransferEscola() {
+		if (listaTransferIndependente == null || listaTransferIndependente.size() == 0) {
+			return "480";
+		} else
+			return "200";
+	}
+
+	public boolean mostrarTransferEscola() {
+		if (listaTransfer == null || listaTransfer.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	public String tabelaTransferIndependente() {
+		if (listaTransfer == null || listaTransfer.size() == 0) {
+			return "480";
+		} else
+			return "200";
+	}
+	
+	public Date retornarDataConsultaOrcamento(Date dataInicio, Fornecedor fornecedor) {
+		int anoFornecedor = fornecedor.getAnotarifario();
+		Calendar c = new GregorianCalendar();
+		c.setTime(dataInicio);
+		int ano = Formatacao.getAnoData(dataInicio);
+		if (anoFornecedor >= ano) {
+			return dataInicio;
+		} else if (anoFornecedor < ano) {
+			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
+			String dia = sData.substring(0, 2);
+			String mes = sData.substring(3, 5);
+			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+			return Formatacao.ConvercaoStringDataBrasil(sData);
+		}
+		return dataInicio;
+	}
 }

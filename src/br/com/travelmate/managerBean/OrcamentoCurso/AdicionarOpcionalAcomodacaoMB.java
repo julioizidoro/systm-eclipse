@@ -2,7 +2,9 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +21,7 @@ import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Coprodutos;
+import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
 
@@ -36,6 +39,7 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaAcOpcional;
+	private List<ProdutosOrcamentoBean> listaAcOpcionalIndependente;
 
 	@PostConstruct
 	public void init() {
@@ -44,6 +48,10 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaAcOpcional();
+		if(resultadoOrcamentoBean.getListaAcomodacoes()!=null && resultadoOrcamentoBean.getListaAcomodacoes().size()>0 &&
+				resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+			gerarListaAcOpcionalIndependente();
+		}
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -76,6 +84,14 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaAcOpcionalIndependente() {
+		return listaAcOpcionalIndependente;
+	}
+
+	public void setListaAcOpcionalIndependente(List<ProdutosOrcamentoBean> listaAcOpcionalIndependente) {
+		this.listaAcOpcionalIndependente = listaAcOpcionalIndependente;
 	}
 
 	public void gerarListaAcOpcional() {
@@ -184,10 +200,16 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 				produtosOrcamentoBean.setValorcoprodutos(valorcoprodutos);
 			}
 		}
+		int multiplicador = 1;
+		if (produtosOrcamentoBean.getValorcoprodutos().getCobranca().equalsIgnoreCase("S")) {
+			multiplicador = (int) numeroSemanas.intValue();
+		} else if (produtosOrcamentoBean.getValorcoprodutos().getCobranca().equalsIgnoreCase("D")) {
+			multiplicador = (int) (numeroSemanas * 7);
+		}
 		produtosOrcamentoBean.setValorOriginalAcOpcional(
-				numeroSemanas.floatValue() * produtosOrcamentoBean.getValorcoprodutos().getValororiginal());
+				multiplicador * produtosOrcamentoBean.getValorcoprodutos().getValororiginal());
 		produtosOrcamentoBean.setValorRSacOpcional(
-				numeroSemanas.floatValue() * (produtosOrcamentoBean.getValorcoprodutos().getValororiginal()
+				multiplicador * (produtosOrcamentoBean.getValorcoprodutos().getValororiginal()
 						* resultadoOrcamentoBean.getOcurso().getValorcambio()));
 	}
 
@@ -206,5 +228,89 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 		Float valorReal = produtosOrcamentoBean.getValorcoprodutos().getValororiginal()
 				* resultadoOrcamentoBean.getOcurso().getValorcambio();
 		return valorReal;
+	}
+	
+	public void gerarListaAcOpcionalIndependente() {
+		listaAcOpcionalIndependente = new ArrayList<>();
+		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
+		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+				+  resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos()
+				.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+				+ " and c.tipo='AcOpcional'" + " and c.produtosorcamento.idprodutosOrcamento<>"
+				+ aplicacaoMB.getParametrosprodutos().getSuplementoidade()
+				+ " and c.produtosorcamento.idprodutosOrcamento<>"
+				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
+				+ " and c.produtosorcamento.idprodutosOrcamento<>"
+				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
+		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		if (listaCoProdutos != null) {
+			Date dataconsulta = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
+					resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+							.getFornecedorcidade().getFornecedor()); 
+			for (int i = 0; i < listaCoProdutos.size(); i++) {
+				ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(),
+						dataconsulta);
+				if (po != null) {
+					listaAcOpcionalIndependente.add(po);
+				} else {
+					po = consultarValores("DM", listaCoProdutos.get(i).getIdcoprodutos(), new Date());
+					if (po != null) {
+						listaAcOpcionalIndependente.add(po);
+					} else {
+						po = consultarValores("DS", listaCoProdutos.get(i).getIdcoprodutos(),
+								dataconsulta);
+						if (po != null) {
+							listaAcOpcionalIndependente.add(po);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public Date retornarDataConsultaOrcamento(Date dataInicio, Fornecedor fornecedor) {
+		int anoFornecedor = fornecedor.getAnotarifario();
+		Calendar c = new GregorianCalendar();
+		c.setTime(dataInicio);
+		int ano = Formatacao.getAnoData(dataInicio);
+		if (anoFornecedor >= ano) {
+			return dataInicio;
+		} else if (anoFornecedor < ano) {
+			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
+			String dia = sData.substring(0, 2);
+			String mes = sData.substring(3, 5);
+			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+			return Formatacao.ConvercaoStringDataBrasil(sData);
+		}
+		return dataInicio;
+	}
+	
+	
+	public boolean mostrarAcomodacaoIndependente() {
+		if (listaAcOpcionalIndependente == null || listaAcOpcionalIndependente.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	public String tabelaAcomodacaoEscola() {
+		if (listaAcOpcionalIndependente == null || listaAcOpcionalIndependente.size() == 0) {
+			return "480";
+		} else
+			return "200";
+	}
+
+	public boolean mostrarAcomodacaoEscola() {
+		if (listaAcOpcional == null || listaAcOpcional.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	public String tabelaAcomodacaoIndependente() {
+		if (listaAcOpcional == null || listaAcOpcional.size() == 0) {
+			return "480";
+		} else
+			return "200";
 	}
 }
