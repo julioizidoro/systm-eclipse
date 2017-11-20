@@ -20,18 +20,12 @@
 							style="margin-left:8%" />
 							<br/>
 						<h:panelGroup columns="2" layout="grid"  
-							style="background: transparent;border:none;margin-left:7%"
+							style="background: transparent;border:none;margin-left:7%;width:50%;"
 							styleClass="panelgrid-noborder"
 							columnClasses="colunaBotao,colunaQuarenta">
 							<p:inputText id="idcliente" readonly="true" style="width:41%;margin-left: 1%;"
 								maxlength="100" value="#{cadTraineeMB.cliente.nome}" />
-							<p:commandLink style="text-decoration: none"
-								action="#{cadTraineeMB.pesquisarCliente()}">
-								<img src="../../resources/img/pesquisar.png" width="40px" />
-								<p:ajax event="dialogReturn"
-									listener="#{cadTraineeMB.retornoDialogCliente}"
-									update="idcliente" />
-							</p:commandLink>
+							 
 						</h:panelGroup>
 
 						<br></br>

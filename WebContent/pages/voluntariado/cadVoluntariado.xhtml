@@ -18,19 +18,13 @@
 					<p:tab title="Informações" titleStyle="font-size:11px">
 						<h:panelGrid columns="2"
 							columnClasses="colunaBotao,colunaQuarenta"
-							style="margin-left:8%;">
+							style="margin-left:8%;width:50%;">
 							<p:outputLabel value="Cliente" for="idcliente" />
 							<p:outputLabel />
 
 							<p:inputText id="idcliente" readonly="true" style="width:97%;"
 								value="#{cadVoluntariadoMB.cliente.nome}" />
-							<p:commandLink style="text-decoration: none" disabled="#{cadVoluntariadoMB.habilitarTrocaCliente()}"
-								actionListener="#{cadVoluntariadoMB.pesquisarCliente()}">
-								<img src="../../resources/img/pesquisar.png" />
-								<p:ajax event="dialogReturn" process="@this"   
-									listener="#{cadVoluntariadoMB.retornoDialogCliente}"
-									update="@all" />
-							</p:commandLink>
+							 
 						</h:panelGrid>
 
 						<br></br>

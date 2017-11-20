@@ -16,20 +16,14 @@
 				<p:accordionPanel class="painelhighSchool"
 					style="width: 97%;margin-left: 1.5%">
 					<p:tab title="Informações" class="tab">
-						<h:panelGrid columns="2" style="margin-left:14%;"
+						<h:panelGrid columns="2" style="margin-left:14%;width:50%;"
 							columnClasses="colunaBotao,colunaQuarenta">
 							<p:outputLabel value="Cliente" for="idcliente" />
 							<p:outputLabel />
 
 							<p:inputText id="idcliente" readonly="true" style="width:97%;"
 								maxlength="100" value="#{cadAupairMB.cliente.nome}" />   
-							<p:commandLink style="text-decoration: none" disabled="#{cadAupairMB.edicaoFicha}"
-								action="#{cadAupairMB.pesquisarCliente()}">
-								<img src="../../resources/img/pesquisar.png" />
-								<p:ajax event="dialogReturn"
-									listener="#{cadAupairMB.retornoDialogCliente}"
-									update="idcliente" />
-							</p:commandLink>
+							 
 						</h:panelGrid>
 						<br></br>
 						<h:panelGrid columns="2" style="margin-left:14%;"

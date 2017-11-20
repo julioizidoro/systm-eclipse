@@ -14,20 +14,14 @@
 					style="font-size: 22px;color: #1F8871; margin-left:30%" />
 				<br />
 				<br />
-				<h:panelGrid columns="2" style="margin-left:8%;"
+				<h:panelGrid columns="2" style="margin-left:8%;width:50%;"
 					columnClasses="colunaBotao,colunaQuarenta">
 					<p:outputLabel value="Cliente" for="idcliente" />
 					<p:outputLabel />
 
 					<p:inputText id="idcliente" readonly="true" style="width:97%;"
 						maxlength="100" value="#{cadQuestionarioHeMB.cliente.nome}" />
-					<p:commandLink style="text-decoration: none"
-						action="#{cadQuestionarioHeMB.pesquisarCliente()}">
-						<img src="../../resources/img/pesquisar.png" />
-						<p:ajax event="dialogReturn"
-							listener="#{cadQuestionarioHeMB.retornoDialogCliente}"
-							update="@form" />
-					</p:commandLink>
+					 
 				</h:panelGrid>
 				<br />
 				<h:panelGrid columns="2"

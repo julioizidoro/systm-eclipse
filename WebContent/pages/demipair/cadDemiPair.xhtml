@@ -22,14 +22,7 @@
 							style="margin-left:14%;width:50%;" 
 							columnClasses="espaco75,tamanho14">
 							<p:inputText id="idcliente" readonly="true" style="width:95%;"   
-								maxlength="100" value="#{cadDemiPairMB.cliente.nome}" />
-							<p:commandLink style="text-decoration: none" disabled="#{cadDemiPairMB.habilitarTrocaCliente()}"
-								action="#{cadDemiPairMB.pesquisarCliente()}">
-								<img src="../../resources/img/pesquisar.png" width="27%" />
-								<p:ajax event="dialogReturn"
-									listener="#{cadDemiPairMB.retornoDialogCliente}"
-									update="idcliente" />
-							</p:commandLink>
+								maxlength="100" value="#{cadDemiPairMB.cliente.nome}" /> 
 						</h:panelGrid>
 						<br></br>
 						<legend id="iUsu3" style="margin-left: 14%; width: 60%">

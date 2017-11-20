@@ -25,13 +25,7 @@
 							<p:outputLabel value="Tamanho Camiseta"/> 
 							<p:inputText id="idcliente" readonly="true" style="width:95%;"
 								maxlength="100" value="#{cadCursosTeensMB.cliente.nome}" />   
-							<p:commandLink action="#{cadCursosTeensMB.pesquisarCliente()}"
-								style="text-decoration: none;" disabled="#{cadCursosTeensMB.habilitarTrocaCliente()}">   
-								<img src="../../resources/img/pesquisar.png" width="70%" />      
-								<p:ajax event="dialogReturn"
-									listener="#{cadCursosTeensMB.retornoDialogCliente}"
-									update="idcliente" />
-							</p:commandLink>
+							<p:outputLabel/>
 							<p:selectOneMenu id="tamanhocamisa"
 								value="#{cadCursosTeensMB.programasTeens.tamanhocamisa}" style="width:128px">   
 								<f:selectItem itemValue="Baby Look M" itemLabel="Baby Look M" />

@@ -33,19 +33,14 @@
 						<br></br>
 						<div class="ui-fluid" style="margin-left: 11.6%;">
 							<h:panelGrid columns="2"
-								columnClasses="colunaBotao,colunaQuarenta">
+								columnClasses="colunaBotao,colunaQuarenta" style="width:50%;">
 								<p:outputLabel value="Cliente" for="idcliente"
 									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
 								<p:outputLabel />
 
 								<p:inputText id="idcliente" readonly="true" style="width:97%;"
 									maxlength="100" value="#{cadCursoMB.cliente.nome}" />
-								<p:commandLink actionListener="#{cadCursoMB.pesquisarCliente()}"
-									style="text-decoration: none" disabled="#{cadCursoMB.habilitarTrocaCliente()}">
-									<img src="../../resources/img/pesquisar.png" width="85%" />
-									<p:ajax event="dialogReturn" process="@this"
-										listener="#{cadCursoMB.retornoDialogCliente}" update="@all" />
-								</p:commandLink>
+								 
 							</h:panelGrid>
 						</div>
 						<br></br>

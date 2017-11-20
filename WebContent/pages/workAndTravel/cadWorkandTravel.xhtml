@@ -39,13 +39,7 @@
 						</p:selectOneMenu>
 						<p:inputText id="idcliente" readonly="true" style="width:300px; "
 							value="#{cadWorkTravelMB.cliente.nome}" />
-						<p:commandLink style="text-decoration: none; "
-							action="#{cadWorkTravelMB.pesquisarCliente()}">
-							<img src="../../resources/img/pesquisar.png" />
-							<p:ajax event="dialogReturn"
-								listener="#{cadWorkTravelMB.retornoDialogCliente}"
-								update="idcliente" />
-						</p:commandLink>
+						 
 					</h:panelGrid>
 					<br></br>
 					<legend id="iUsu3"
