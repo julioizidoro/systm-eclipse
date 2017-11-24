@@ -21,7 +21,7 @@
 				<p:ajax event="dialogReturn" listener="#{pasta4Arquivo3MB.retornoDialogNovaPasta}"  update="@form, growl"/>
 			</p:commandButton>
 			<p:commandButton value="Adicionar Arquivo" icon="ui-icon-document"  rendered="#{pasta4Arquivo3MB.verificarAcesso()}"  styleClass="btn btn-danger" action="#{pasta4Arquivo3MB.cadastroArquivo3()}" style="margin-left:2%;font-size:12px;width:15%;background:green;border:green;">
-				<p:ajax listener="#{pasta4Arquivo3MB.retornoDialogNovoArquivo}" event="dialogReturn" update="@form, growl"/>
+				<p:ajax listener="#{pasta4Arquivo3MB.retornoDialogNovoArquivo}" event="dialogReturn" update="idPanelArquivos, tabelaArquivo, idTabelaArquivos, growl"/>
 			</p:commandButton>
 			<hr style="width: 98%;"/>
             <legend style="width:98%;">

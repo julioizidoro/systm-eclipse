@@ -18,7 +18,7 @@
         		<img src="../../resources/img/iconeLista.png" width="20" height="20" style="font-size:12px;margin:0.2%;margin-top:-0.7%;"/>
         	</p:commandLink>
 			<p:commandButton value="Adicionar Arquivo" rendered="#{arquivo5MB.verificarAcesso()}" icon="ui-icon-document"  styleClass="btn btn-danger" action="#{arquivo5MB.cadastroArquivo5()}" style="margin-left:84%;font-size:12px;width:15%;background:green;border:green;">
-				<p:ajax listener="#{arquivo5MB.retornoDialogNovoArquivo}" event="dialogReturn" update="@form, growl"/>
+				<p:ajax listener="#{arquivo5MB.retornoDialogNovoArquivo}" event="dialogReturn" update="idPanelArquivos, tabelaArquivo, idTabelaArquivos, growl"/>
 			</p:commandButton>
             <legend style="width:98%;">
             	<p:commandLink ajax="false" action="#{arquivo5MB.voltarConsDepartamento()}" value="Departamentos"/>
