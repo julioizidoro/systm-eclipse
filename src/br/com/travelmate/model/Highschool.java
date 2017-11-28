@@ -201,6 +201,8 @@ public class Highschool implements Serializable {
     private String imagem;
     @Transient
     private String tituloFicha;
+    @Transient
+    private String inicioAnoInicio;
 
     public Highschool() {
     }
@@ -655,6 +657,14 @@ public class Highschool implements Serializable {
 
 	public void setTituloFicha(String tituloFicha) {
 		this.tituloFicha = tituloFicha;
+	}
+
+	public String getInicioAnoInicio() {
+		return inicioAnoInicio;
+	}
+
+	public void setInicioAnoInicio(String inicioAnoInicio) {
+		this.inicioAnoInicio = inicioAnoInicio;
 	}
 
 	@Override

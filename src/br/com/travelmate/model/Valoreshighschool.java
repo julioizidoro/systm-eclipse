@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 
@@ -76,6 +77,8 @@ public class Valoreshighschool implements Serializable {
     private Date datavalidade;
     @Column(name = "anoinicio") 
     private String anoinicio;
+    @Transient
+    private String inicioAnoInicio;
 
     public Valoreshighschool() {
     }
@@ -219,6 +222,14 @@ public class Valoreshighschool implements Serializable {
 
 	public void setDatainicio(Date datainicio) {
 		this.datainicio = datainicio;
+	}
+
+	public String getInicioAnoInicio() {
+		return inicioAnoInicio;
+	}
+
+	public void setInicioAnoInicio(String inicioAnoInicio) {
+		this.inicioAnoInicio = inicioAnoInicio;
 	}
 
 	@Override

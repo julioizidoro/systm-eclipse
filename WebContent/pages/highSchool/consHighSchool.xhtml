@@ -182,8 +182,8 @@
 									style="#{highSchoolMB.corNome(highSchoolProcesso)}" />
 							</p:column>
 							<p:column headerText="Data Início"
-								sortBy="#{highSchoolProcesso.vendas.dataVenda}" style="width:125px;">
-								<h:outputText value="#{highSchoolProcesso.valoreshighschool.inicio}"
+								sortBy="#{highSchoolProcesso.inicioAnoInicio}" style="width:125px;">
+								<h:outputText value="#{highSchoolProcesso.inicioAnoInicio}"
 									style="#{highSchoolMB.cor(highSchoolProcesso)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -382,8 +382,8 @@
 									style="#{highSchoolMB.corNome(highSchoolFinanceiro)}" />
 							</p:column>
 							<p:column headerText="Data Início"
-								sortBy="#{highSchoolFinanceiro.vendas.dataVenda}" style="width:125px;">
-								<h:outputText value="#{highSchoolFinanceiro.valoreshighschool.inicio}"
+								sortBy="#{highSchoolFinanceiro.inicioAnoInicio}" style="width:125px;">
+								<h:outputText value="#{highSchoolFinanceiro.inicioAnoInicio}"
 									style="#{highSchoolMB.cor(highSchoolFinanceiro)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -581,8 +581,8 @@
 								<h:outputText value="#{highSchoolAndamento.vendas.cliente.nome}"
 									style="#{highSchoolMB.corNome(highSchoolAndamento)}" />
 							</p:column>
-							<p:column headerText="Data Início" style="width:125px;">
-								<h:outputText value="#{highSchoolAndamento.valoreshighschool.inicio}"
+							<p:column headerText="Data Início" style="width:125px;" sortBy="#{highSchoolAndamento.inicioAnoInicio}">
+								<h:outputText value="#{highSchoolAndamento.inicioAnoInicio}"
 									style="#{highSchoolMB.cor(highSchoolAndamento)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -780,8 +780,8 @@
 								<h:outputText value="#{highSchoolFinalizado.vendas.cliente.nome}"
 									style="#{highSchoolMB.corNome(highSchoolFinalizado)}" />
 							</p:column>
-							<p:column headerText="Data Início" style="width:125px;">
-								<h:outputText value="#{highSchoolFinalizado.valoreshighschool.inicio}"
+							<p:column headerText="Data Início" style="width:125px;" sortBy="#{highSchoolFinalizado.inicioAnoInicio}">
+								<h:outputText value="#{highSchoolFinalizado.inicioAnoInicio}"
 									style="#{highSchoolMB.cor(highSchoolFinalizado)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -979,8 +979,8 @@
 								<h:outputText value="#{highSchoolCancelada.vendas.cliente.nome}"
 									style="#{highSchoolMB.corNome(highSchoolCancelada)}" />
 							</p:column>
-							<p:column headerText="Data Início" style="width:125px;">
-								<h:outputText value="#{highSchoolCancelada.valoreshighschool.inicio}"
+							<p:column headerText="Data Início" style="width:125px;" sortBy="#{highSchoolCancelada.inicioAnoInicio}">
+								<h:outputText value="#{highSchoolCancelada.inicioAnoInicio}"
 									style="#{highSchoolMB.cor(highSchoolCancelada)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -1178,9 +1178,9 @@
 							<h:outputText value="#{highSchool.vendas.cliente.nome}"
 								style="#{highSchoolMB.corNome(highSchool)}" />
 						</p:column>
-						<p:column headerText="Data Início"
-							sortBy="#{highSchool.vendas.dataVenda}" style="width:125px;">
-							<h:outputText value="#{highSchool.valoreshighschool.inicio}"
+						<p:column headerText="Data Início" 
+							sortBy="#{highSchool.inicioAnoInicio}" style="width:125px;">
+							<h:outputText value="#{highSchool.inicioAnoInicio}"
 								style="#{highSchoolMB.cor(highSchool)}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />

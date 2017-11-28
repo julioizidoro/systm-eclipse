@@ -859,6 +859,9 @@ public class HighSchoolMB implements Serializable {
 		listaVendasProcesso = new ArrayList<>();
 		listaVendasFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaHighSchool.size(); i++) {
+			if (!listaHighSchool.get(i).getValoreshighschool().getAnoinicio().equalsIgnoreCase("0000") && listaHighSchool.get(i).getValoreshighschool().getAnoinicio().length() ==4) {
+				listaHighSchool.get(i).setInicioAnoInicio(listaHighSchool.get(i).getValoreshighschool().getInicio() + " - " + listaHighSchool.get(i).getValoreshighschool().getAnoinicio());
+			}
 			if (listaHighSchool.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasFinalizada.add(listaHighSchool.get(i));

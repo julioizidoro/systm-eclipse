@@ -445,24 +445,47 @@
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>       
-						<p:column headerText="Encaminhar" width="75"    
+						<p:column headerText="" width="120"    
 							style="text-align:center;" > 
+							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
+								action="#{followUpMB.historicoCliente(rowIndex)}">
+								<img src="../../resources/img/crm/historico.png" width="30" />
+							</p:commandLink>
+							<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
+										action="#{followUpMB.emitirVenda(lead)}" actionListener="#{followUpMB.pegarLead(lead)}"
+										oncomplete="PF('novaficha').show();">
+										<img src="../../resources/img/crm/emitirvendas.png"
+											width="30" />
+							</p:commandLink>
 							<p:commandLink id="btnEncaminharLead" action="#{followUpMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" >
 								<img src="../../resources/img/crm/envelope.png" width="30" />
 								<p:ajax event="dialogReturn"  listener="#{followUpMB.dialogReturnEncaminharLead}" update="tabelaLeads" />
 							</p:commandLink>   
 						</p:column>  
-						<p:column headerText="Histórico" width="75"    
-							style="text-align:center;">
-							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
-								action="#{followUpMB.historicoCliente(rowIndex)}">
-								<img src="../../resources/img/crm/historico.png" width="30" />
-							</p:commandLink>
-						</p:column> 
 					</p:dataTable>
 				</h:panelGrid>
-				
+				<p:dialog message="Trainee" showEffect="fade" hideEffect="fade"
+					width="40%" icon="ui-icon-alert" widgetVar="novaficha"
+					style="font-size:14px">
+					<p:outputLabel value="Qual país do estágio?" style="margin-left:2%" />
+					<br></br>
+					<br></br>
+					<p:commandLink
+						action="#{followUpMB.emitirVendaTrainee('Australia')}"
+						oncomplete="PF('novaficha').hide();"
+						styleClass="ui-confirmdialog-yes" update=":followUp:growl"
+						style="margin-left:2%;font-size:12px">
+						<img src="../../resources/img/AUS.png" />
+					</p:commandLink>
+					<p:commandLink
+						action="#{followUpMB.emitirVendaTrainee('EUA')}"
+						oncomplete="PF('novaficha').hide();"
+						styleClass="ui-confirmdialog-no" update=":followUp:growl"
+						style="font-size:12px;margin-left:8%;">
+						<img src="../../resources/img/USA.png" />
+					</p:commandLink>
+				</p:dialog>
 				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarPosVenda}">
 					<p:dataTable id="tabelaPosVenda" var="posvenda" scrollable="true" scrollHeight="400"
 						value="#{followUpMB.listaPosVenda}" style="font-size:11px;"
@@ -537,14 +560,44 @@
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>        
-						<p:column headerText="Histórico" width="75"    
+						<p:column headerText="" width="75"    
 							style="text-align:center;">
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
 								action="#{followUpMB.historicoCliente(posvenda.lead)}">
 								<img src="../../resources/img/crm/historico.png" width="30" />
 							</p:commandLink>
-						</p:column> 
+							<p:commandLink id="btnEmitirVendaPos" title="Emissão de vendas"  
+								action="#{followUpMB.selecionarLead(posvenda.lead)}"
+								oncomplete="PF('escolhaprodutovenda').show();">
+								<img src="../../resources/img/crm/emitirvendas.png" width="30" />
+							</p:commandLink>
+						</p:column>    
 					</p:dataTable>
+					<p:dialog message="Escolha o Produto" showEffect="fade"
+						hideEffect="fade" width="20%" icon="ui-icon-alert"
+						widgetVar="escolhaprodutovenda" style="font-size:14px">
+						<p:outputLabel value="Programa"
+							style="margin-left:1%" />
+						<br></br>
+						<p:selectOneMenu id="produto" value="#{followUpMB.produto}"
+							style="width:90%;" converter="ProdutoConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{followUpMB.listaProdutos}" var="produtos"
+								itemLabel="#{produtos.descricao}" itemValue="#{produtos}" />
+							<f:attribute name="listaProdutos"
+								value="#{followUpMB.listaProdutos}" />
+						</p:selectOneMenu>
+						<br></br>
+						<br></br>
+						<p:commandButton id="bntAddConta" icon="ui-icon-plus" action="#{followUpMB.emitirVendaPos()}"
+							class="botaoAdicionar" style="font-size:12px;margin-left:10%"
+							value="Emitir" oncomplete="PF('escolhaprodutovenda').hide();" />
+						<p:commandButton id="bntFechar" icon="ui-icon-plus"
+							class="botaoFechar" style="font-size:12px;margin-left:5%"
+							value="Fechar" oncomplete="PF('escolhaprodutovenda').hide();" />
+					</p:dialog>
 				</h:panelGrid>
 				<br></br>
 				<h:outputText value="1" class="badge bg-warning"

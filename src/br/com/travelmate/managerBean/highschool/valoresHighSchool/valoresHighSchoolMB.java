@@ -143,6 +143,11 @@ public class valoresHighSchoolMB implements Serializable {
 	public void carregarValores() {
 		ValoresHighSchoolFacade ValoresHighSchoolFacade = new ValoresHighSchoolFacade();
 		listaValores = ValoresHighSchoolFacade.listar(sql);
+		for (int i = 0; i < listaValores.size(); i++) {
+			if (!listaValores.get(i).getAnoinicio().equalsIgnoreCase("0000") && listaValores.get(i).getAnoinicio().length() ==4) {
+				listaValores.get(i).setInicioAnoInicio(listaValores.get(i).getInicio() + " - "  + listaValores.get(i).getAnoinicio());
+			}
+		}
 	}
 	
 	public void mudarSituacao(Valoreshighschool valores){ 
@@ -226,5 +231,6 @@ public class valoresHighSchoolMB implements Serializable {
 	        RequestContext.getCurrentInstance().openDialog("cadValoresHigh", options, null);
 	    	return "";
 	 }
+	 
 	    
 }

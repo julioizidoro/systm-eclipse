@@ -101,6 +101,7 @@ public class FollowUpMB implements Serializable {
 	private int posvenda;
 	private List<Leadposvenda> listaPosVenda;
 	private String imagemPosVenda = "posvenda";
+	private Lead lead;
 
 	@PostConstruct()
 	public void init() {
@@ -555,6 +556,14 @@ public class FollowUpMB implements Serializable {
 
 	public void setMostrarLeads(boolean mostrarLeads) {
 		this.mostrarLeads = mostrarLeads;
+	}
+
+	public Lead getLead() {
+		return lead;
+	}
+
+	public void setLead(Lead lead) {
+		this.lead = lead;
 	}
 
 	public String novoLead() {
@@ -1079,5 +1088,79 @@ public class FollowUpMB implements Serializable {
 			}
 		} 
 	}
+	
+	
+	public String emitirVenda(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		int idprodutos = lead.getProdutos().getIdprodutos();
+		if (idprodutos != 13) {
+			session.setAttribute("cliente", lead.getCliente());
+			session.setAttribute("lead", lead); 
+			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+				return "cadCliente";
+			}else {
+				return "questionarioHe";
+			}
+		}
+		return "";
+	}  
+	
+	
+	public String emitirVendaTrainee(String tipo) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
+		session.setAttribute("tipo", tipo);
+		return "cadCliente";
+	}
+	
+	public void pegarLead(Lead lead){
+		this.lead = lead;
+	}
+	
+	public void selecionarLead(Lead lead){
+		this.lead = lead;
+	}
+	
+	public String emitirVendaPos() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		int idprodutos = lead.getProdutos().getIdprodutos();
+		if (idprodutos != 13) {
+			session.setAttribute("cliente", lead.getCliente());
+			session.setAttribute("lead", lead); 
+			if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getAupair()) {
+				return "cadAuPair";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) {
+				return "cadFichaCurso";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getDemipair()) {
+				return "cadDemiPair";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
+				return "cadCursosTeens";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+				return "cadHighSchool";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getTrainee()) {
+				session.setAttribute("tipo", "EUA"); 
+				return "cadTrainee";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+				return "cadVoluntariado";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getWork()) {
+				return "cadWorkandTravel";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getPacotes()) {
+				return "cadpacote";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getPassagem()) {
+				return "cadPassagem";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVisto()) {
+				return "cadVistos";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getSeguroPrivado()) {
+				return "fichaSeguroViagem";
+			}else if(produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighereducation()){
+				return "questionarioHe";
+			}
+		}
+		return "";
+	} 
 
 }
