@@ -269,7 +269,7 @@ public class RelatorioApplicationMB implements Serializable {
 			} else if (curso.getTipoQuarto().equalsIgnoreCase("Quarto duplo")) {
 				cursotraducao.setTipoquarto("Twin Room");
 			} else if (curso.getTipoQuarto().equalsIgnoreCase("Quarto triplo")) {
-				cursotraducao.setTipoquarto("Twin Room");
+				cursotraducao.setTipoquarto("Triple Room");
 			} else if (curso.getTipoQuarto().equalsIgnoreCase("Compartilhado")) {
 				cursotraducao.setTipoquarto("Shared Room");
 			} else if (curso.getTipoQuarto().equalsIgnoreCase("Dois Quartos")) {
