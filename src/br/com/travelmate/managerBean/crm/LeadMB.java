@@ -25,7 +25,8 @@ import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadcontrole;
 import br.com.travelmate.model.Leadresponsavel;
-import br.com.travelmate.model.Unidadenegocio; 
+import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.util.Mensagem; 
 
 @Named
 @ViewScoped
@@ -230,6 +231,15 @@ public class LeadMB implements Serializable {
 			leadcontrole = new Leadcontrole();
 		}   
 	}  
+	
+	
+	public void retornoDialogNovoLead(SelectEvent event){
+		Lead lead = (Lead) event.getObject();
+		if (lead.getIdlead() != null) {
+			listaLead.add(lead);
+			Mensagem.lancarMensagemInfo("Cadastro com sucesso", "");
+		}
+	}
 	
 	   
 	   

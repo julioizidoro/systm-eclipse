@@ -97,7 +97,7 @@
 				value="#{cadLeadMB.cliente.email}">
 				<p:ajax event="blur" listener="#{cadLeadMB.validarEmail()}"
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-					update="nome, unidade, telefone, consultor, origem, :cadLead:growl" />
+					update="nome, unidade, telefone, consultor, origem, :cadLead:growl, botaoConfirmar" />
 			</p:inputText> 
 			<p:selectOneMenu id="unidade" value="#{cadLeadMB.unidadenegocio}"
 				disabled="#{cadLeadMB.desabilitarUnidade}" style="width:90%;"
@@ -191,8 +191,8 @@
 		</h:panelGroup>
 		<br></br>
 		<div align="center">
-			<p:commandButton value="Confirmar" icon="ui-icon-check"
-				action="#{cadLeadMB.salvar()}" update="growl" style="font-size:12px;"/>
+			<p:commandButton value="Confirmar" icon="ui-icon-check" disabled="#{cadLeadMB.desabilitarConfirmar}"
+				action="#{cadLeadMB.salvar()}" update="growl" id="botaoConfirmar" style="font-size:12px;"/>
 			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
 				value="Cancelar" action="#{cadLeadMB.fechar()}" /> 
 		</div>   

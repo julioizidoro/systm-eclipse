@@ -29,8 +29,9 @@
 							<p:outputLabel id="programa"
 								value="Programa de #{historicoClienteMB.lead.produtos.descricao}"
 								style="font-size:16px;" />
-							<p:outputLabel></p:outputLabel>
-
+							<p:outputLabel></p:outputLabel>  
+							<p:outputLabel style="font-size:14px;" value="Consultor: #{historicoClienteMB.lead.usuario.nome} - #{historicoClienteMB.lead.usuario.unidadenegocio.nomerelatorio}"/>
+							<p:outputLabel></p:outputLabel> 
 							<p:outputLabel id="nomeCliente"
 								value="#{historicoClienteMB.lead.cliente.nome}"
 								style="font-size:29px;" />
@@ -140,7 +141,7 @@
 								href="#{historicoClienteMB.lead.urlclient}"
 								title="#{historicoClienteMB.lead.urlclient}"  target="_blank">
 								<p:outputLabel id="url"
-								value="#{historicoClienteMB.lead.urlclient}"
+								value="URL DA PÁGINA"
 								style="font-size:14px;margin-left: 2%;" />
 							</a>
 						<br></br>
@@ -262,7 +263,7 @@
 										</p:commandLink>
 									</p:dialog>
 									<p:commandLink id="btnCancelar" style="margin-left:8%;"
-										title="Cancelamento de lead"
+										title="Cancelamento de lead" action="#{historicoClienteMB.habilitarDescricaoCancelamento()}"
 										oncomplete="PF('cancelarLead').show();">
 										<h:panelGrid columns="1" style="text-align:center;">
 											<img src="../../resources/img/crm/cancelar.png" width="45" />
@@ -289,13 +290,13 @@
 												itemValue="#{motivos}" />
 											<f:attribute name="listaMotivo"
 												value="#{historicoClienteMB.listaMotivoCancelamento}" />
-											<p:ajax event="change" />
+											<p:ajax event="change" update="motivoCancelamento" listener="#{historicoClienteMB.habilitarDescricaoCancelamento()}"/>
 										</p:selectOneMenu>
 										<br></br>
 										<p:outputLabel value="Descrição"
 											style="font-size:12px;color:#777777;" />
 										<div>
-											<h:inputTextarea class="comment-text-area"
+											<h:inputTextarea class="comment-text-area" disabled="#{historicoClienteMB.habilitarDescricao}"
 												value="#{historicoClienteMB.lead.motivocancelamento}"
 												style="margin-left: 0%;color:#4C4C4C;background:#D7D8DC;border:none;"
 												id="motivoCancelamento" rows="3" cols="40"
@@ -314,7 +315,7 @@
 								</h:panelGrid>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{historicoClienteMB.mostrarPosVenda}">
-								<h:panelGrid style="width:100%;" columns="8">  
+								<h:panelGrid style="width:100%;" columns="9">  
 									<p:commandLink
 										action="#{historicoClienteMB.imprimirFicha(historicoClienteMB.lead.leadposvenda.vendas)}"
 										title="IMPRESSÃO DA FICHA" ajax="false"
@@ -378,6 +379,39 @@
 											<p:outputLabel value=" " />
 										</h:panelGrid> 
 									</p:commandLink>
+									<p:commandLink action="#{historicoClienteMB.selecionarLead(historicoClienteMB.lead)}" oncomplete="PF('escolhaprodutovenda').show();"
+										title="NOVA VENDA">
+										<img src="../../resources/img/emissaovenda.png" width="36" />
+										<h:panelGrid columns="1" style="text-align:center;">  
+											<p:outputLabel value="NOVA" style="font-size:11px;" />
+											<p:outputLabel value="VENDA" />
+										</h:panelGrid> 
+									</p:commandLink>
+									<p:dialog message="Escolha o Produto" showEffect="fade"
+											hideEffect="fade" width="20%" icon="ui-icon-alert"
+											widgetVar="escolhaprodutovenda" style="font-size:14px">
+											<p:outputLabel value="Programa"
+												style="margin-left:1%" />
+											<br></br>
+											<p:selectOneMenu id="produto" value="#{historicoClienteMB.produto}"
+												style="width:90%;" converter="ProdutoConverter" filter="true"
+												filterMatchMode="startsWith" panelStyle="width:180px">
+												<f:selectItem itemLabel="Selecione" itemValue="0"
+													noSelectionOption="true" />
+												<f:selectItems value="#{historicoClienteMB.listaProduto}" var="produtos"
+													itemLabel="#{produtos.descricao}" itemValue="#{produtos}" />
+												<f:attribute name="listaProdutos"
+													value="#{historicoClienteMB.listaProduto}" />
+											</p:selectOneMenu>
+											<br></br>
+											<br></br>
+											<p:commandButton id="bntAddConta" icon="ui-icon-plus" action="#{historicoClienteMB.emitirVendaPos()}"
+												class="botaoAdicionar" style="font-size:12px;margin-left:10%"
+												value="Emitir" oncomplete="PF('escolhaprodutovenda').hide();" />
+											<p:commandButton id="bntFechar" icon="ui-icon-plus"
+												class="botaoFechar" style="font-size:12px;margin-left:5%"
+												value="Fechar" oncomplete="PF('escolhaprodutovenda').hide();" />
+										</p:dialog>
 								</h:panelGrid>
 							</h:panelGroup>
 						</h:panelGroup>

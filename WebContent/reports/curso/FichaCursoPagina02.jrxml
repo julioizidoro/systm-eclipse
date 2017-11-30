@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ficha Curso - Segunda Folha" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="20" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="272"/>
+	<property name="ireport.y" value="240"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="logo" class="java.awt.Image"/>
 	<parameter name="sqlpagina2" class="java.lang.String"/>
+	<parameter name="segurocancelamento" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{sqlpagina2}]]>
 	</queryString>
@@ -287,7 +288,7 @@
 				<textFieldExpression><![CDATA[$F{possuiSeguro}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="217" y="210" width="205" height="15" uuid="bb71556d-2c39-41a9-99c4-90c37575adc7"/>
+				<reportElement x="217" y="210" width="129" height="15" uuid="bb71556d-2c39-41a9-99c4-90c37575adc7"/>
 				<textFieldExpression><![CDATA[$F{seguradora}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -299,19 +300,19 @@
 				<text><![CDATA[Seguradora :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="230" width="34" height="15" uuid="ade95167-2eeb-4562-8880-d78f2fb0df3c"/>
+				<reportElement x="380" y="210" width="34" height="15" uuid="ade95167-2eeb-4562-8880-d78f2fb0df3c"/>
 				<text><![CDATA[Plano :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="54" y="230" width="125" height="15" uuid="e94b8dd5-cddb-49e7-9772-6c3a686ef4d6"/>
+				<reportElement x="417" y="210" width="125" height="15" uuid="e94b8dd5-cddb-49e7-9772-6c3a686ef4d6"/>
 				<textFieldExpression><![CDATA[$F{plano}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="259" y="230" width="103" height="15" uuid="ce8efa36-57e6-4e9e-98ab-de64b6a400bb"/>
+				<reportElement x="253" y="230" width="70" height="15" uuid="ce8efa36-57e6-4e9e-98ab-de64b6a400bb"/>
 				<textFieldExpression><![CDATA[$F{dataInicioSeguro}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="186" y="230" width="61" height="15" uuid="4689dae7-f300-4b30-ab86-5f014573db48"/>
+				<reportElement x="191" y="230" width="61" height="15" uuid="4689dae7-f300-4b30-ab86-5f014573db48"/>
 				<text><![CDATA[Data Início :]]></text>
 			</staticText>
 			<staticText>
@@ -399,19 +400,19 @@
 				<text><![CDATA[Chegada ao destino]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="447" y="230" width="95" height="15" uuid="c2d86975-f180-43c7-aff8-5a1226525715"/>
+				<reportElement x="485" y="230" width="57" height="15" uuid="c2d86975-f180-43c7-aff8-5a1226525715"/>
 				<textFieldExpression><![CDATA[$F{dataTerminoSeguro}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="366" y="230" width="73" height="15" uuid="74d9abcc-e1ee-4abf-8109-b93d72392805"/>
+				<reportElement x="412" y="230" width="73" height="15" uuid="74d9abcc-e1ee-4abf-8109-b93d72392805"/>
 				<text><![CDATA[Data Término :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="502" y="210" width="40" height="15" uuid="60f47c1e-9265-4c1e-a72c-789329c992f9"/>
+				<reportElement x="370" y="230" width="40" height="15" uuid="60f47c1e-9265-4c1e-a72c-789329c992f9"/>
 				<textFieldExpression><![CDATA[$F{numeroSemanasSeguro}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="429" y="210" width="65" height="15" uuid="52116add-560f-4fb2-bd3b-7e7961f32b1a"/>
+				<reportElement x="329" y="230" width="37" height="15" uuid="52116add-560f-4fb2-bd3b-7e7961f32b1a"/>
 				<text><![CDATA[Nº Dias :]]></text>
 			</staticText>
 			<staticText>
@@ -495,6 +496,14 @@
 				<reportElement x="16" y="278" width="85" height="15" uuid="f8724837-4011-4c1c-87b9-85b8f702ebc3"/>
 				<text><![CDATA[Seguro Viagem :]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="10" y="230" width="107" height="15" uuid="1a9c1623-fc8d-4bbc-bbc7-eaacf0fc49b4"/>
+				<text><![CDATA[Seguro Cancelamento:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="119" y="230" width="72" height="15" uuid="cd9c9631-b822-4292-bd32-3b885f0f79b9"/>
+				<textFieldExpression><![CDATA[$P{segurocancelamento}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>

@@ -75,6 +75,7 @@ public class CadLeadMB implements Serializable {
     private boolean pesquisanome=true;
     private boolean pesquisatelefone=false;
     private String telaRetorno;
+    private boolean desabilitarConfirmar = false;
 
 	@PostConstruct()
 	public void init() {
@@ -254,6 +255,14 @@ public class CadLeadMB implements Serializable {
 		this.pesquisatelefone = pesquisatelefone;
 	}
 
+	public boolean isDesabilitarConfirmar() {
+		return desabilitarConfirmar;
+	}
+
+	public void setDesabilitarConfirmar(boolean desabilitarConfirmar) {
+		this.desabilitarConfirmar = desabilitarConfirmar;
+	}
+
 	public void buscarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
 		String sql = "select c from Cliente c where (c.nome like '%" + nomeCliente + "%' or c.email like '%"+nomeCliente+"%')";
@@ -312,11 +321,13 @@ public class CadLeadMB implements Serializable {
 			this.lead.setJaecliente(true);
 			mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
 			consultor = lead.getUsuario();
+			desabilitarConfirmar = true;
 		}else{
 			this.lead.setJaecliente(false); 
 			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			gerarListaConsultor();
 			consultor = usuarioLogadoMB.getUsuario();
+			desabilitarConfirmar = false;
 		}
 	}
 	
@@ -441,10 +452,12 @@ public class CadLeadMB implements Serializable {
 				if(c!=null && c.getIdcliente()!=null){
 					Mensagem.lancarMensagemInfo("Cliente já existente.", "");
 					selecionarCliente(c);
+					desabilitarConfirmar = true;
 				}else {
 					String email = cliente.getEmail();
 					cliente = new Cliente();
 					cliente.setEmail(email);
+					desabilitarConfirmar = false;
 				}
 			}
 	}

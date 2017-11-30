@@ -93,6 +93,12 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 		int idProduto = 0;
 		idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		PublicidadeFacade publicidadeFacade = new PublicidadeFacade();
+		try {
+			publicidade = publicidadeFacade.consultar(9);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getNomeCliente() {
@@ -375,9 +381,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	
 	public boolean validarDados(){
 		if(cliente==null || cliente.getNome()==null || cliente.getFoneCelular()==null || cliente.getEmail()==null){
-			return false;
-		}
-		if(publicidade==null || publicidade.getIdpublicidade()==null){
 			return false;
 		}
 		if(unidadenegocio==null || unidadenegocio.getIdunidadeNegocio()==null){

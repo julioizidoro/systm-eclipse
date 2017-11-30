@@ -246,8 +246,15 @@ public class EncaminharLeadMB implements Serializable {
 			avisos.setImagem("lead");
 		}
 		avisos.setLiberar(true);
+		Date dataEnvio;
+		if (lead.getDataenvio() == null) {
+			dataEnvio = new Date();
+		}else{
+			dataEnvio = lead.getDataenvio();
+		}
 		avisos.setTexto("Você recebeu uma nova lead - "+lead.getCliente().getNome()+". Encaminhada por "+
-				usuarioLogadoMB.getUsuario().getNome()+".");
+				usuarioLogadoMB.getUsuario().getNome()+". Incluida no dia: " + Formatacao.ConvercaoDataPadrao(dataEnvio) + "; Distribuida no dia: " 
+				+ Formatacao.ConvercaoDataPadrao(new Date()));
 		avisos.setIdunidade(0); 
 		List<Avisousuario> lista = new ArrayList<Avisousuario>();
 		Avisousuario avisousuario = new Avisousuario();  

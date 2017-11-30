@@ -19,6 +19,7 @@
 							<img src="../../resources/img/crm/novoLead.png" width="55" />
 							<p:outputLabel value="NOVO LEAD" style="font-size:12px;" />
 						</h:panelGrid>  
+							<p:ajax event="dialogReturn" listener="#{leadMB.retornoDialogNovoLead}" update=":distribuicaoLeads:growl, :distribuicaoLeads:tabelaLeads"/>
 					</p:commandLink>
 					<p:commandLink id="btnExcluirLead" action="#{leadMB.excluirSelecionados()}" update="tabelaLeads">
 						<h:panelGrid columns="1" style="text-align:center;">

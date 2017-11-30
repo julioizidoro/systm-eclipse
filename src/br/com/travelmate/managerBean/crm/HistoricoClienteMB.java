@@ -47,8 +47,10 @@ import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamentocurso;
+import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Ftp;
+import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -83,10 +85,14 @@ public class HistoricoClienteMB implements Serializable {
 	private String voltar;
 	private boolean mostrarLeads;
 	private boolean mostrarPosVenda;
+	private boolean habilitarDescricao = true;
+	private Produtos produto;
+	private List<Produtos> listaProduto;
 
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+			listaProduto = GerarListas.listarProdutos("");
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			listaLead = (List<Lead>) session.getAttribute("listaLead");
@@ -276,6 +282,30 @@ public class HistoricoClienteMB implements Serializable {
 
 	public void setMostrarPosVenda(boolean mostrarPosVenda) {
 		this.mostrarPosVenda = mostrarPosVenda;
+	}
+
+	public boolean isHabilitarDescricao() {
+		return habilitarDescricao;
+	}
+
+	public void setHabilitarDescricao(boolean habilitarDescricao) {
+		this.habilitarDescricao = habilitarDescricao;
+	}
+
+	public Produtos getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produtos produto) {
+		this.produto = produto;
+	}
+
+	public List<Produtos> getListaProduto() {
+		return listaProduto;
+	}
+
+	public void setListaProduto(List<Produtos> listaProduto) {
+		this.listaProduto = listaProduto;
 	}
 
 	public String followUp() {
@@ -957,5 +987,57 @@ public class HistoricoClienteMB implements Serializable {
 		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
 		funcoesFichasBean.gerarRelatorioFicha();
 		return ""; 
+	}
+	
+	public void habilitarDescricaoCancelamento(){
+		if (lead.getMotivocancelamento1().isObservacao()) {
+			habilitarDescricao = false;
+		}else{
+			habilitarDescricao = true;
+		}
+	}
+	
+	
+	public String emitirVendaPos() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		int idprodutos = lead.getProdutos().getIdprodutos();
+		if (idprodutos != 13) {
+			session.setAttribute("cliente", lead.getCliente());
+			session.setAttribute("lead", lead); 
+			if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getAupair()) {
+				return "cadAuPair";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) {
+				return "cadFichaCurso";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getDemipair()) {
+				return "cadDemiPair";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
+				return "cadCursosTeens";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+				return "cadHighSchool";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getTrainee()) {
+				session.setAttribute("tipo", "EUA"); 
+				return "cadTrainee";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+				return "cadVoluntariado";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getWork()) {
+				return "cadWorkandTravel";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getPacotes()) {
+				return "cadpacote";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getPassagem()) {
+				return "cadPassagem";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVisto()) {
+				return "cadVistos";
+			} else if (produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getSeguroPrivado()) {
+				return "fichaSeguroViagem";
+			}else if(produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighereducation()){
+				return "questionarioHe";
+			}
+		}
+		return "";
+	} 
+	
+	public void selecionarLead(Lead lead){
+		this.lead = lead;
 	}
 }
