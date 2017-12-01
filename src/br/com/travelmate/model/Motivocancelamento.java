@@ -29,6 +29,8 @@ public class Motivocancelamento implements Serializable {
     @Size(max = 100)
     @Column(name = "motivo")
     private String motivo;
+    @Column(name = "observacao")
+    private boolean observacao;
    
 
     public Motivocancelamento() {
@@ -56,7 +58,15 @@ public class Motivocancelamento implements Serializable {
 
     
 
-    @Override
+    public boolean isObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(boolean observacao) {
+		this.observacao = observacao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idmotivocancelamento != null ? idmotivocancelamento.hashCode() : 0);
