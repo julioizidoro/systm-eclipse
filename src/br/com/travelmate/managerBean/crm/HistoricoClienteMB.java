@@ -412,7 +412,6 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public String cancelarLead() {
-		if (lead.getMotivocancelamento().length() > 0) {
 			if(lead.getMotivocancelamento1()!=null
 				&& lead.getMotivocancelamento1().getIdmotivocancelamento()!=1){
 				LeadFacade leadFacade = new LeadFacade();
@@ -426,10 +425,8 @@ public class HistoricoClienteMB implements Serializable {
 				return "followUp";
 			} else
 				Mensagem.lancarMensagemInfo("Selecione um motivo de cancelamento.", "");
-		} else
-			Mensagem.lancarMensagemInfo("Informe a descrição do cancelamento.", "");
 		return "";
-	}
+	}   
 
 	public String orcamentoManual(String tipo) {
 		FacesContext fc = FacesContext.getCurrentInstance();
