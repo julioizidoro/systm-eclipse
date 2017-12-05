@@ -1484,7 +1484,7 @@ public class OrcamentoCursoMB implements Serializable {
 				fornecedorcidadeidioma);
 		int nSemana = (int) produtosOrcamentoBean.getNumeroSemanas();
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
-		int numeroDias = 0;
+		int numeroDias = 0;  
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -1501,19 +1501,19 @@ public class OrcamentoCursoMB implements Serializable {
 		} else if ((po.getValorcoprodutos().getDatainicial().after(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
 
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(),
-					po.getValorcoprodutos().getDatafinal() );
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatafinal(),
+					po.getValorcoprodutos().getDatainicial());
 		} else if ((po.getValorcoprodutos().getDatainicial().after(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
+			numeroDias = Formatacao.subtrairDatas(dataTermino, po.getValorcoprodutos().getDatainicial());
 
 		} else if ((po.getValorcoprodutos().getDatainicial().before(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatafinal(), dataInical);
 		}
 		if ((valorSuplemento == 0) && (numeroDias > 0)) {
 			if (po.getValorcoprodutos().getCobranca().equalsIgnoreCase("S")) {
