@@ -69,6 +69,9 @@ public class CadQuestionarioHeMB implements Serializable {
 			questionarioHe = new Questionariohe();
 			cliente = new Cliente();
 			vendas = new Vendas();
+			if (lead != null) {
+				cliente = lead.getCliente();
+			}
 		} else {
 			cliente = questionarioHe.getCliente();
 			vendas = questionarioHe.getVendas();

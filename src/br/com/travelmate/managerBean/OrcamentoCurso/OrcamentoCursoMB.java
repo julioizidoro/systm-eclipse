@@ -1435,12 +1435,18 @@ public class OrcamentoCursoMB implements Serializable {
 			int idCoProdutos, Ocurso ocurso, Date dataConsulta) {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
-		String sql = "Select v from  Valorcoprodutos v where v.datainicial>='"
+		/*String sql = "Select v from  Valorcoprodutos v where v.datainicial>='"
 				+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
 						.getFornecedorcidade().getFornecedor().getAnotarifario()
 				+ "-01-01' and v.numerosemanainicial<=" + produtosOrcamentoBean.getNumeroSemanas()
 				+ " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas()
-				+ " and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação'";
+				+ " and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação'";*/
+		Date dataInicial = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
+				resultadoOrcamentoBean.getFornecedorcidadeidioma());
+		
+		String sql = "Select v from  Valorcoprodutos v where v.datainicial>='" + Formatacao.ConvercaoDataSql(dataInicial) + "'  and v.numerosemanainicial<="
+					+  produtosOrcamentoBean.getNumeroSemanas() + " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas() + 
+					" and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação'";
 
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
 		if (listaValorcoprodutoses != null) {
@@ -1485,6 +1491,11 @@ public class OrcamentoCursoMB implements Serializable {
 		int nSemana = (int) produtosOrcamentoBean.getNumeroSemanas();
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
 		int numeroDias = 0;  
+		boolean calcular = true;
+		if (po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)){
+			calcular = false;
+		}
+		if (calcular){
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -1501,19 +1512,23 @@ public class OrcamentoCursoMB implements Serializable {
 		} else if ((po.getValorcoprodutos().getDatainicial().after(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
 
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatafinal(),
-					po.getValorcoprodutos().getDatainicial());
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(),
+					po.getValorcoprodutos().getDatafinal());
 		} else if ((po.getValorcoprodutos().getDatainicial().after(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(dataTermino, po.getValorcoprodutos().getDatainicial());
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
 
 		} else if ((po.getValorcoprodutos().getDatainicial().before(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatafinal(), dataInical);
+			numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
+		}
+		}else {
+			valorSuplemento = -1;
+			numeroDias=0;
 		}
 		if ((valorSuplemento == 0) && (numeroDias > 0)) {
 			if (po.getValorcoprodutos().getCobranca().equalsIgnoreCase("S")) {
@@ -1526,6 +1541,9 @@ public class OrcamentoCursoMB implements Serializable {
 			valorSuplemento = po.getValorcoprodutos().getValororiginal();
 			valorSuplemento = valorSuplemento * numeroDias;
 		}
+		if (valorSuplemento<0){
+			valorSuplemento=0;
+		}   
 		return valorSuplemento;
 	}
 
@@ -2754,6 +2772,16 @@ public class OrcamentoCursoMB implements Serializable {
 		if(resultadoOrcamentoBean.getListaAcomodacoes().size()>0){
 			return true;
 		}else return false;
+	}
+	
+	public String adicionarTaxasOpcionais() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("adicionarTaxasOpcional", options, null);
+		return "";
 	}
 	
 	public void gerarPromocaoCurso(List<ProdutosOrcamentoBean> listaObrigatorios) {

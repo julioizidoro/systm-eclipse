@@ -654,14 +654,8 @@ public class FiltrarEscolaMB implements Serializable {
 				+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
-		int ano;
-		if (filtrarEscolaBean.getFornecedorcidadeidioma() != null) {
-			ano = filtrarEscolaBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getAnotarifario();
-		} else {
-			ano = Formatacao.getAnoData(new Date());
-		}
-		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='" + ano
-				+ "-01-01' and v.numerosemanainicial<=" + filtrarEscolaBean.getOcurso().getNumerosemanas()
+		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='" + Formatacao.ConvercaoDataSql(dataConsulta)
+				+ "' and v.numerosemanainicial<=" + filtrarEscolaBean.getOcurso().getNumerosemanas()
 				+ " and v.numerosemanafinal>=" + filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='"
 				+ tipoData + "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
@@ -673,7 +667,7 @@ public class FiltrarEscolaMB implements Serializable {
 					Valorcoprodutos valorSuplemente = listaValorcoprodutosSuplemento.get(n);
 					listarValores(valorSuplemente, fornecedorProdutosBean, tipo);
 				}
-			}
+			}  
 		}
 		if (listaValorcoprodutoses != null) {
 			for (int n = 0; n < listaValorcoprodutoses.size(); n++) {
@@ -1003,6 +997,11 @@ public class FiltrarEscolaMB implements Serializable {
 		float valorSuplemento = 0.0f; 
 		Date dataTermino = calcularDataTerminoCurso(dataInical, filtrarEscolaBean.getOcurso().getNumerosemanas());
 		int numeroDias = 0;
+		boolean calcular = true;
+		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino))){
+			calcular = false;
+		}
+		if (calcular) {
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -1033,6 +1032,10 @@ public class FiltrarEscolaMB implements Serializable {
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
 			numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
 		}
+		}else{
+			valorSuplemento = -1;   
+			numeroDias = 0;
+		}
 		if ((valorSuplemento == 0) && (numeroDias > 0)) {
 			if (po.getValorcoprodutos().getCobranca().equalsIgnoreCase("S")) {
 				int resto = (numeroDias % 7);
@@ -1043,6 +1046,9 @@ public class FiltrarEscolaMB implements Serializable {
 			}
 			valorSuplemento = po.getValorcoprodutos().getValororiginal();
 			valorSuplemento = valorSuplemento * numeroDias;
+		}
+		if (valorSuplemento < 0) {
+			valorSuplemento = 0;
 		}
 		return valorSuplemento;
 	}

@@ -18,7 +18,7 @@
 	<field name="cpf" class="java.lang.String">
 		<fieldDescription><![CDATA[cpf]]></fieldDescription>
 	</field>
-	<field name="dataviagem" class="java.lang.String">
+	<field name="dataviagem" class="java.util.Date">
 		<fieldDescription><![CDATA[dataviagem]]></fieldDescription>
 	</field>
 	<field name="fone" class="java.lang.String">
