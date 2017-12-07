@@ -14,7 +14,8 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB; 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Contasreceber; 
 import br.com.travelmate.model.Formapagamento;
@@ -737,32 +738,41 @@ public class CursosTeensMB implements Serializable {
     }
 	
 	
-	public String boletos(Programasteens programasteens){
-		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas=" + programasteens.getVendas().getIdvendas()
-				+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
-				+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
-		List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
-		if (listaContas!=null){
-			if (listaContas.size()>0){
-				GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
-				gerarBoletoConsultorBean.gerarBoleto(listaContas, String.valueOf(programasteens.getVendas().getIdvendas()));
-			}else {
+	public String boletos(Programasteens programasteens) {
+		ValidarClienteBean validarCliente = new ValidarClienteBean(programasteens.getVendas().getCliente());
+		if (validarCliente.getMsg().length() < 5) {
+			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+			String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas="
+					+ programasteens.getVendas().getIdvendas()
+					+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
+					+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
+			List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
+			if (listaContas != null) {
+				if (listaContas.size() > 0) {
+					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
+					gerarBoletoConsultorBean.gerarBoleto(listaContas,
+							String.valueOf(programasteens.getVendas().getIdvendas()));
+				} else {
+					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
+					relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
+				}
+			} else {
 				FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
-	            FacesContext.getCurrentInstance().addMessage(null, msg);
-	            RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
-	            relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
+				relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
 			}
-		}else{
+		} else {
 			FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
-            relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
+			relatorioErroBean.iniciarRelatorioErro("Dados do cliente não converefe " + validarCliente.getMsg());
 		}
-    	
-    	return "";
-    }
-	
+
+		return "";
+	}
 	
 	public String informacoes(Programasteens programasteens) {
 		if (programasteens.getVendas().getSituacao().equalsIgnoreCase("Processo")) {

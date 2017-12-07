@@ -36,6 +36,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.managerBean.trainee.TraineeMB; 
 import br.com.travelmate.model.Contasreceber;
@@ -821,16 +822,25 @@ public class VoluntariadoMB implements Serializable {
 	}
 
 	public String boletos(Voluntariado voluntariado) {
-		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas=" + voluntariado.getVendas().getIdvendas()
-				+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
-				+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
-		List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
-		if (listaContas != null) {
-			if (listaContas.size() > 0) {
-				GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
-				gerarBoletoConsultorBean.gerarBoleto(listaContas,
-						String.valueOf(voluntariado.getVendas().getIdvendas()));
+		ValidarClienteBean validarCliente = new ValidarClienteBean(voluntariado.getVendas().getCliente());
+		if (validarCliente.getMsg().length() < 5) {
+			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+			String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas="
+					+ voluntariado.getVendas().getIdvendas()
+					+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
+					+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
+			List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
+			if (listaContas != null) {
+				if (listaContas.size() > 0) {
+					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
+					gerarBoletoConsultorBean.gerarBoleto(listaContas,
+							String.valueOf(voluntariado.getVendas().getIdvendas()));
+				} else {
+					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
+					relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
+				}
 			} else {
 				FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -841,7 +851,7 @@ public class VoluntariadoMB implements Serializable {
 			FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
-			relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
+			relatorioErroBean.iniciarRelatorioErro("Dados do cliente não converefe " + validarCliente.getMsg());
 		}
 
 		return "";
