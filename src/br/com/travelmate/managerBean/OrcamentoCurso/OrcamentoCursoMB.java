@@ -111,6 +111,8 @@ public class OrcamentoCursoMB implements Serializable {
 	private Seguroplanos seguroplanos;
 	private boolean segurocancelamento=false;
 	private String numero="3";
+	private List<ProdutosOrcamentoBean> listaOpcionais;
+	private boolean desabilitarbtnOpcional = false;
 
 	@PostConstruct
 	public void init() { 
@@ -164,6 +166,11 @@ public class OrcamentoCursoMB implements Serializable {
 		verificarPacoteAcomodacao();
 		verificarPacoteTransfer();
 		verificarNumeroSemanas();  
+		listaOpcionais = resultadoOrcamentoBean.getListaOpcionais();
+		resultadoOrcamentoBean.setListaOpcionais(new ArrayList<ProdutosOrcamentoBean>());
+		if (listaOpcionais == null || listaOpcionais.size() <= 0) {
+			desabilitarbtnOpcional = true;
+		}
 	}
 
 	public String getCampoPromocaoImg() {
@@ -421,6 +428,22 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaOpcionais() {
+		return listaOpcionais;
+	}
+
+	public void setListaOpcionais(List<ProdutosOrcamentoBean> listaOpcionais) {
+		this.listaOpcionais = listaOpcionais;
+	}
+
+	public boolean isDesabilitarbtnOpcional() {
+		return desabilitarbtnOpcional;
+	}
+
+	public void setDesabilitarbtnOpcional(boolean desabilitarbtnOpcional) {
+		this.desabilitarbtnOpcional = desabilitarbtnOpcional;
 	}
 
 	public String habilitarSeguro() {
@@ -2778,10 +2801,36 @@ public class OrcamentoCursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
+		session.setAttribute("listaOpcionais", listaOpcionais);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 750);
 		RequestContext.getCurrentInstance().openDialog("adicionarTaxasOpcional", options, null);
 		return "";
+	}
+	
+	
+	public void retornoDialogoOpcional(SelectEvent event) {
+		ProdutosOrcamentoBean po = (ProdutosOrcamentoBean) event.getObject(); 
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaOpcionais = (List<ProdutosOrcamentoBean>) session.getAttribute("listaOpcionais");
+		session.removeAttribute("listaOpcionais");
+		if (listaOpcionais.size() > 0) {
+			desabilitarbtnOpcional = false;
+		}else{
+			desabilitarbtnOpcional = true;
+		}
+		if(po!=null){
+			resultadoOrcamentoBean.getListaOpcionais().add(po);
+			calcularTotais();
+		}
+	}
+	
+	public void excluirTaxaOpcional(ProdutosOrcamentoBean po) {  
+		po.setSelecionado(false); 
+		resultadoOrcamentoBean.getListaOpcionais().remove(po);
+		listaOpcionais.add(po);
+		calcularTotais();
 	}
 	
 	public void gerarPromocaoCurso(List<ProdutosOrcamentoBean> listaObrigatorios) {

@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Taxas Opcionais</title>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="adicionarAcomodacao"
+		style="text-align:left;font-size: 10px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<br></br>
+			<p:dataScroller id="tabelaprodutoOpcional" scrollHeight="400"   mode="inline"
+						value="#{adicionarTaxasOpcionalMB.listaOpcionais}"
+						var="opcional"  style="background:#1F8871">
+						<p:outputPanel style="text-align: right;width:100%">
+							<h:panelGrid columns="3" style="width:100%">
+								<p:outputPanel style="width:50%;text-align:left;">
+									<h:panelGrid columns="2">
+										<h:outputText
+											value="#{opcional.valorcoprodutos.coprodutos.produtosorcamento.descricao}"
+											style="font-weight:bold;font-size: 15px;" />
+									</h:panelGrid>
+									<h:panelGrid columns="1">
+										<h:outputText
+											value="#{opcional.valorcoprodutos.coprodutos.descricao}"
+											style="font-size: 15px;" />
+									</h:panelGrid>
+								</p:outputPanel>   
+							</h:panelGrid>
+						</p:outputPanel>
+						<br></br>
+						<p:outputPanel
+							style="text-align: right;width:100%;margin-top: -3%">
+							<h:panelGrid id="valoresOpcional" columns="1" cellpadding="5"
+								style="text-align: right;width:100%">
+								<p:commandLink id="valorPromocional2"
+									value="#{adicionarTaxasOpcionalMB.retornarValorString(opcional.valorOrigianl, adicionarTaxasOpcionalMB.resultadoOrcamentoBean.cambio.moedas.sigla)}"
+									style="font-weight:bold;font-size:14px;text-align: right;" />
+								<h:outputText id="valorRealOpcional"
+									value="#{adicionarTaxasOpcionalMB.retornarValorString(opcional.valorOriginalRS, R$)}"
+									style="font-weight:bold;font-size:14px;text-align: right;">
+								</h:outputText>
+								<p:overlayPanel id="painelDescricaoPromocional"
+									for="valorPromocional2" hideEffect="fade"
+									style="width:30%;background:#CCCCCC">
+									<h:outputText value="Valor Original:" style="font-weight:bold" />
+									<h:outputText
+										value="#{adicionarTaxasOpcionalMB.resultadoOrcamentoBean.cambio.moedas.sigla}"
+										style="font-weight:bold" class="espacocobranca29" />
+									<h:outputText value="#{opcional.valorOrigianl}"
+										style="font-weight:bold">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+									<br></br>
+									<br></br>
+									<h:outputText value="R$ " style="font-size:9px;"
+										class="espacocobranca29" />
+									<h:outputText value="#{opcional.valorOriginalRS}"
+										style="font-size:9px;">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+									<div align="right" style="width: 98%">
+										<p:commandButton value="Incluir"
+											action="#"
+											icon="ui-icon-check" />
+									</div>
+								</p:overlayPanel>
+								<div align="right" style="width: 98%">
+									<p:commandButton value="Incluir"
+										action="#{adicionarTaxasOpcionalMB.adicionar(opcional)}"
+										icon="ui-icon-check" />
+								</div>
+								<br></br>   
+							</h:panelGrid>   
+						</p:outputPanel>
+					</p:dataScroller>
+		<br></br>
+		<div align="center">
+			<p:commandButton id="btnCancelar" value="Fechar"
+				icon="ui-icon-closethick"
+				action="#{adicionarTaxasOpcionalMB.cancelar()}" />
+		</div>
+		
+	</h:form>
+</h:body>
+</html>

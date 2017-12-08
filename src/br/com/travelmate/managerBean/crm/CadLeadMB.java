@@ -18,6 +18,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -32,6 +33,7 @@ import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Paisproduto;
@@ -318,10 +320,20 @@ public class CadLeadMB implements Serializable {
 		String sql = "select l from Lead l where l.cliente.idcliente="+cliente.getIdcliente();
 		Lead lead = leadFacade.consultar(sql);
 		if(lead!=null && lead.getUsuario().getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
-			this.lead.setJaecliente(true);
-			mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
-			consultor = lead.getUsuario();
-			desabilitarConfirmar = true;
+			LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
+			Leadposvenda leadposvenda = leadPosVendaFacade.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
+			if (leadposvenda == null) {
+				this.lead.setJaecliente(true);
+				mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
+				consultor = lead.getUsuario();
+				desabilitarConfirmar = true;
+			}else{
+				this.lead.setJaecliente(false); 
+				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
+				gerarListaConsultor();
+				consultor = usuarioLogadoMB.getUsuario();
+				desabilitarConfirmar = false;
+			}  
 		}else{
 			this.lead.setJaecliente(false); 
 			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();

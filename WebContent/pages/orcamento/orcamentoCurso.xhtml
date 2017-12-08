@@ -287,7 +287,17 @@
 
 				<p:fieldset id="idtabelaOpcional" legend="Opcional"  toggleable="true"
 					style="font-size: 10px;">
-					
+					<p:commandButton id="bntAdiconarTaxasOpcionais"
+						style="font-size:12px;margin-left:89.5%;margin-top: -5%;"
+						value="Adicionar" disabled="#{orcamentoCursoMB.desabilitarbtnOpcional}"
+						action="#{orcamentoCursoMB.adicionarTaxasOpcionais()}"   
+						icon="ui-icon-check">
+						<p:ajax event="dialogReturn"
+							listener="#{orcamentoCursoMB.retornoDialogoOpcional}" process="@this"
+							update=":orcamentoCurso:idtabelaAcomodacao, :orcamentoCurso:tabelatotal,
+								orcamentoCurso:tabelaprodutoObrigatorio, orcamentoCurso:bntAdiconarAcomodacao, orcamentoCurso:tabelaprodutoOpcional,
+								:orcamentoCurso:idtabelaCurso, :orcamentoCurso:tabelaprodutocurso, orcamentoCurso:bntAdiconarTaxasOpcionais" />
+					</p:commandButton>     
 					<br/><br/>  
 					<p:dataScroller id="tabelaprodutoOpcional"  
 						value="#{orcamentoCursoMB.resultadoOrcamentoBean.listaOpcionais}"
@@ -296,11 +306,6 @@
 							<h:panelGrid columns="3" style="width:100%">
 								<p:outputPanel style="width:50%;text-align:left;">
 									<h:panelGrid columns="2">
-										<p:selectBooleanCheckbox       
-											value="#{opcional.selecionadoOpcional}">
-											<p:ajax listener="#{orcamentoCursoMB.calcularTotais()}"
-												update="orcamentoCurso:tabelatotal" />
-										</p:selectBooleanCheckbox>
 										<h:outputText
 											value="#{opcional.valorcoprodutos.coprodutos.produtosorcamento.descricao}"
 											style="font-weight:bold;font-size: 15px;" />
@@ -355,6 +360,11 @@
 											update="orcamentoCurso:tabelatotal" />
 									</p:selectBooleanCheckbox>
 									<p:outputLabel style="margin-left:2%;" />
+									<p:commandButton id="btnExcluir" value="excluir"
+									action="#{orcamentoCursoMB.excluirTaxaOpcional(opcional)}"  
+									update=":orcamentoCurso:idtabelaAcomodacao, :orcamentoCurso:tabelatotal,
+								orcamentoCurso:tabelaprodutoObrigatorio, orcamentoCurso:bntAdiconarAcomodacao, orcamentoCurso:tabelaprodutoOpcional,
+								:orcamentoCurso:idtabelaCurso, :orcamentoCurso:tabelaprodutocurso, orcamentoCurso:bntAdiconarTaxasOpcionais" style="margin-right:2%;"/>
 								</div>
 								<br></br>
 								<br></br>
