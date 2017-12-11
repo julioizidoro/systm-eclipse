@@ -1434,4 +1434,15 @@ public class MenuMB implements Serializable {
 	}
 	
 	
+	public String vendasCurso() {
+		atualizaTempoLogado();
+		return "consVendaCursos";
+	}
+	
+	public String vendasCliente() {
+		atualizaTempoLogado();
+		return "consVendasClientes";
+	}
+	
+	
 }

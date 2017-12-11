@@ -787,7 +787,7 @@ public class FollowUpMB implements Serializable {
 		}
 		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
 			funcao = "todos";
-			sql = sql + " and l.situacao='" + situacao + "' and l.situacao<>'6'";
+			sql = sql + " and l.situacao='" + situacao + "' and l.situacao='" + situacao + "'";
 		} else {
 			sql = sql + " and l.situacao<'6' ";
 		}
@@ -868,6 +868,7 @@ public class FollowUpMB implements Serializable {
 			}
 		}
 		listaLead = listaLeadTotal;
+		pesquisarPosVenda();
 	}
 
 	public void limparPesquisa() {

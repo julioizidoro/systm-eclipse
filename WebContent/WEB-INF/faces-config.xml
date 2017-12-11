@@ -856,7 +856,7 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>cancelarVenda</from-outcome>
-			<to-view-id>/pages/cancelamento/solicitacaocancelamento.xhtml</to-view-id>
+			<to-view-id>/pages/cancelamento/finalizarCancelamento.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -2283,6 +2283,24 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVendaCursos</from-outcome>
+			<to-view-id>/pages/vendascurso/consVendaCursos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consVendasClientes</from-outcome>
+			<to-view-id>/pages/vendascliente/consVendasClientes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

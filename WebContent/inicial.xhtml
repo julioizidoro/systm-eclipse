@@ -842,7 +842,11 @@
 									<li><p:commandLink action="#{menuMB.consControleVendas()}">
 											<span class="submenu-label">Vendas</span>
 										</p:commandLink></li>
-								</h:panelGroup>
+								</h:panelGroup> 
+								<li><p:commandLink
+													action="#{menuMB.vendasCliente()}">
+													<span class="submenu-label">Clientes de Curso</span>
+												</p:commandLink></li>
 							</ul></h:panelGroup></li>
 						<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;"
@@ -897,6 +901,12 @@
 														<span class="subsubmenu-label">Visto</span>
 													</p:commandLink></li>
 											</h:panelGroup>
+											<h:panelGroup>
+												<li><p:commandLink
+														action="#{menuMB.consControleVistos()}">
+														<span class="subsubmenu-label">Visto</span>
+													</p:commandLink></li>
+											</h:panelGroup>
 											<li><p:commandLink action="#{menuMB.invoicesCurso()}">
 													<span class="subsubmenu-label">Invoices</span>
 												</p:commandLink></li>
@@ -917,6 +927,10 @@
 													action="#{menuMB.relatorioCursoFranquias()}">
 													<span class="subsubmenu-label">Relatório Venda
 														Franquias</span>
+												</p:commandLink></li>
+												<li><p:commandLink
+													action="#{menuMB.vendasCurso()}">
+													<span class="subsubmenu-label">Relatório de Venda Curso</span>
 												</p:commandLink></li>
 
 											<li><p:commandLink action="#{menuMB.consTmStar()}">
@@ -1428,7 +1442,7 @@
 											<span class="submenu-label">Util</span>
 										</p:commandLink></li>
 								</h:panelGroup> 
-								<h:panelGroup rendered="false">
+								<h:panelGroup >
 									<li><p:commandLink action="#{menuMB.consAgenda()}" style="color:white;">
 											<span class="submenu-label">Agenda</span>
 										</p:commandLink></li>

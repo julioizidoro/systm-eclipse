@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultacursos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel rendered="true" class="painel" activeIndex="-1" >
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="3"
+							columnClasses="tamanho7, tamanho7, tamanhoavisos"
+							style="width:98%;margin-left:4%;">
+							<p:outputLabel value="Pais" for="pais" />
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:outputLabel value="Escola" for="fornecedor" />
+
+							<p:selectOneMenu id="pais" value="#{vendasClientesMB.pais}"
+								style="width:140px;font-size:11px;"
+								converter="PaisFornecedorConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:210px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{vendasClientesMB.listaPais}"
+									var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}" />
+								<f:attribute name="listaPaisFornecedor"
+									value="#{vendasCursoMB.listaPais}" />
+								<p:ajax event="change" listener="#{vendasClientesMB.gerarListaCidade()}" update="cidade"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade"
+								value="#{vendasClientesMB.cidade}"
+								style="width:200px;font-size:11px;" class="espacocampos2"
+								converter="CidadeConverter" filter="true"
+								filterMatchMode="contains" panelStyle="width:210px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade"
+									value="#{vendasClientesMB.listaCidade}"
+									var="cidade" itemLabel="#{cidade.nome}"
+									itemValue="#{cidade}" />
+								<f:attribute name="listaCidade"
+									value="#{vendasClientesMB.listaCidade}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="fornecedor"  
+								value="#{vendasClientesMB.fornecedor}" style="width:300px;"
+								converter="FornecedorConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Fornecedor" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{vendasClientesMB.listaFornecedor}" var="fornecedor"
+									itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedor"
+									value="#{vendasClientesMB.listaFornecedor}" /> 
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<br/>
+						<h:panelGrid columns="2"
+							columnClasses="tamanho7, tamanho1,tamanho8"
+							style="width:25%;margin-left:4%;">
+							<p:outputLabel value="Data Inicio Curso"  />
+							<p:outputLabel />
+								<p:calendar id="dataIniCurso" value="#{vendasClientesMB.dataIniCurso}" size="12" 
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>  
+								<p:calendar id="dataFinalCurso" value="#{vendasClientesMB.dataFinCurso}" 
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15" >   
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+						</h:panelGrid>
+						<br/>
+						<h:panelGroup style="float: right;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl"
+								
+								action="#{vendasClientesMB.gerarListaCurso()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								action="#{vendasClientesMB.limparPesquisa()}" update=":consultacursos:tbl, cidade, dataFinalCurso, dataIniCurso, fornecedor, pais"/>
+						</h:panelGroup>
+						<br></br> 
+					</p:tab>     
+				</p:accordionPanel>     
+				<legend id="iUsu2">  
+					<b>Consulta Venda Clientes</b>  
+				</legend> 
+				<br/><br/>   
+				
+				<p:dataTable id="tbl" var="cursos" value="#{vendasClientesMB.listaCurso}"
+			                 style="width: 99%;margin-left:1%;" scrollable="true"
+							scrollHeight="300">
+			 
+			        <p:column headerText="Cliente" style="width:180px;text-align:left;" sortBy="#{cursos.vendas.cliente.nome}">
+			            <h:outputText value="#{cursos.vendas.cliente.nome}" />
+			        </p:column>
+			        
+			         <p:column headerText="Pais" sortBy="#{cursos.pais}" style="width:120px;">
+			            <h:outputText value="#{cursos.pais}" />
+			        </p:column>
+			        
+			         <p:column headerText="Cidade" sortBy="#{cursos.cidade}" style="width:120px;">
+			            <h:outputText value="#{cursos.cidade}" />
+			        </p:column>
+			        
+			         <p:column headerText="Escola" sortBy="#{cursos.escola}">
+			            <h:outputText value="#{cursos.escola}" />
+			        </p:column>
+			        
+			         <p:column headerText="Data Inicio" style="width:80px;" sortBy="#{cursos.dataInicio}">
+			            <h:outputText value="#{cursos.dataInicio}" >
+			            	<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />   
+						</h:outputText>
+			        </p:column>
+			        
+			         <p:column headerText="Data Término" style="width:100px;" sortBy="#{cursos.dataTermino}">
+			            <h:outputText value="#{cursos.dataTermino}" >
+			            	<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />   
+						</h:outputText>
+			        </p:column>
+			 
+			        <p:column headerText="Unidade" style="width:100px;" sortBy="#{cursos.vendas.unidadenegocio.nomerelatorio}">
+			            <h:outputText value="#{cursos.vendas.unidadenegocio.nomerelatorio}" />
+			        </p:column>
+			 
+			        <p:column headerText="Consultor" sortBy="#{cursos.vendas.usuario.nome}" style="width:150px;">
+			            <h:outputText value="#{cursos.vendas.usuario.nome}" />
+			        </p:column>
+			        
+			    </p:dataTable>
+			 
+			<br></br> 
+			</div>    
+		</h:form>   
+	</ui:define>
+</ui:composition>
+</html>
