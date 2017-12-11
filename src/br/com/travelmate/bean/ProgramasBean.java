@@ -75,11 +75,12 @@ public class ProgramasBean {
 		venda.setFornecedor(fornecedorCidade.getFornecedor());
 		venda.setFornecedorcidade(fornecedorCidade);
 		venda.setCambio(cambio);
-		venda = VendasFacade.salvar(venda);
+		venda.setIdlead(0);
 		if ((lead!=null) && (lead.getIdlead()!=null)){
 			venda.setIdlead(lead.getIdlead());
+			venda = VendasFacade.salvar(venda);
 			finalizarLead(lead);
-			if(venda.getLeadposvenda()==null) {
+			if(lead.getLeadposvenda()==null) {
 				Leadposvenda leadposvenda = new Leadposvenda();
 				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
 				leadposvenda.setLead(lead);
@@ -104,8 +105,9 @@ public class ProgramasBean {
 				leadposvenda.setDataembarque(data);
 				leadPosVendaFacade.salvar(leadposvenda);
 			}
-		}else venda.setIdlead(0);
-		venda = VendasFacade.salvar(venda);
+		}else {
+			venda = VendasFacade.salvar(venda);
+		}
 		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
 			logVenda.setSituacao(venda.getSituacao());
 			logVenda.setUsuario(usuarioLogadoMB.getUsuario());
