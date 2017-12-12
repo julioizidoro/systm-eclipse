@@ -97,7 +97,7 @@
 				value="#{cadLeadDistribuicaoMB.cliente.email}">
 				<p:ajax event="blur" listener="#{cadLeadDistribuicaoMB.validarEmail()}"
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-					update="nome, unidade, telefone, consultor, origem, :cadLead:growl" />
+					update="nome, unidade, telefone, origem, :cadLead:growl" />
 			</p:inputText> 
 			<p:selectOneMenu id="unidade" value="#{cadLeadDistribuicaoMB.unidadenegocio}"
 				disabled="#{cadLeadDistribuicaoMB.desabilitarUnidade}" style="width:90%;"
@@ -111,30 +111,14 @@
 				<f:attribute name="listaUnidade"
 					value="#{cadLeadDistribuicaoMB.listaUnidadeNegocio}" />
 				<p:ajax event="change" listener="#{cadLeadDistribuicaoMB.gerarListaConsultor()}"
-					update="consultor" />
+					 />
 			</p:selectOneMenu>
 
 			<p:outputLabel value="Nome" for="telefone" />
-			<p:outputLabel value="Consultor" for="consultor" />
+			<p:outputLabel value="Origem" for="origem" />
 
 			<p:inputText id="nome" style="width:90%;"
 				value="#{cadLeadDistribuicaoMB.cliente.nome}" /> 
-			<p:selectOneMenu id="consultor" value="#{cadLeadDistribuicaoMB.consultor}"
-				style="width:90%;" filter="true" filterMatchMode="startsWith"
-				panelStyle="width:180px" converter="UsuarioConverter">
-				<f:selectItem itemLabel="Selecione" itemValue="0"
-					noSelectionOption="true" />
-				<f:selectItems value="#{cadLeadDistribuicaoMB.listaConsultor}" var="usuario"
-					itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
-				<f:attribute name="listaUsuario" value="#{cadLeadDistribuicaoMB.listaConsultor}" />
-				<p:ajax event="change" />
-			</p:selectOneMenu>
-
-			<p:outputLabel value="Telefone" for="email" />
-			<p:outputLabel value="Origem" for="origem" />
-
-			<p:inputMask id="telefone" mask="(99)99999-9999" style="width:90%;"
-				value="#{cadLeadDistribuicaoMB.cliente.foneCelular}" />
 			<p:selectOneMenu id="origem" value="#{cadLeadDistribuicaoMB.publicidade}"
 				style="width:90%;" filter="true" filterMatchMode="startsWith"
 				panelStyle="width:180px" converter="PublicidadeConverter">
@@ -146,6 +130,13 @@
 				<f:attribute name="listaPublicidade"
 					value="#{cadLeadDistribuicaoMB.listaPublicidades}" />
 			</p:selectOneMenu>
+
+			<p:outputLabel value="Telefone" for="email" />  
+			<p:outputLabel/>
+
+			<p:inputMask id="telefone" mask="(99)99999-9999" style="width:90%;"
+				value="#{cadLeadDistribuicaoMB.cliente.foneCelular}" />
+			
 
 			
 		</h:panelGrid><br/>

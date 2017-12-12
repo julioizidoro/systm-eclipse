@@ -311,11 +311,14 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	
 	public String salvar(){
 		if(validarDados()){
+			LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+			List<Leadresponsavel> listaResponsavel = leadResponsavelFacade.lista("SELECT l FROM Leadresponsavel l where l.usuario.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio() +
+					" and l.usuario.situacao='Ativo'");
 			ClienteFacade clienteFacade = new ClienteFacade();
 			if(cliente.getIdcliente()==null){   
 				lead.setJaecliente(false);
 			}
-			cliente.setPublicidade(publicidade);
+			cliente.setPublicidade(publicidade);    
 			cliente.setUnidadenegocio(unidadenegocio);
 			cliente = clienteFacade.salvar(cliente);
 			LeadFacade leadFacade = new LeadFacade(); 
@@ -325,14 +328,13 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			lead.setTipocontato(tipocontato);
 			lead.setSituacao(1);
 			lead.setUnidadenegocio(unidadenegocio);
-			lead.setUsuario(consultor);
+			if (listaResponsavel != null && listaResponsavel.size() > 0) {
+				lead.setUsuario(listaResponsavel.get(0).getUsuario());
+			}
 			PaisFacade paisFacade = new PaisFacade();
 			lead.setPais(paisFacade.consultar(5));
 			ProdutoFacade produtoFacade = new ProdutoFacade();
-			lead.setProdutos(produtoFacade.consultar(21)); 
-			lead.setDataenvio(new Date()); 
-			lead.setHoraenvio(Formatacao.foramtarHoraString()); 
-			lead.setDataproximocontato(new Date()); 
+			lead.setProdutos(produtoFacade.consultar(21));
 			lead.setPublicidade(publicidade);
 			MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();
 			Motivocancelamento motivo = motivoCancelamentoFacade.consultar("select m from Motivocancelamento m where m.idmotivocancelamento=1");
@@ -346,7 +348,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				session.setAttribute("lead", lead);
 			}
 
-			if(consultor.getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
+			if(listaResponsavel != null && listaResponsavel.size() >0){
 				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
 				avisos.setData(new Date());
@@ -355,24 +357,19 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				avisos.setLiberar(true);
 				avisos.setTexto("Você recebeu uma nova lead.");
 				avisos.setIdunidade(0); 
+				avisos = avisosFacade.salvar(avisos);
 				List<Avisousuario> lista = new ArrayList<Avisousuario>();
-				LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-				List<Leadresponsavel> listaResponsavel = leadResponsavelFacade.lista("SELECT l FROM Leadresponsavel l where l.usuario.unidadenegocio.idunidadeNegocio=" + consultor.getUnidadenegocio().getIdunidadeNegocio() +
-						" and l.usuaruio.situacao='Ativo'");
-				if (listaResponsavel!=null) {
-					for (int i=0;i<listaResponsavel.size();i++) {
-						Avisousuario avisousuario = new Avisousuario();  
-						avisousuario.setAvisos(avisos);
-						avisousuario.setUsuario(listaResponsavel.get(i).getUsuario());
-						avisousuario.setVisto(false); 
-						lista.add(avisousuario);
-					}
+				for (int i=0;i<listaResponsavel.size();i++) {
+					Avisousuario avisousuario = new Avisousuario();  
+					avisousuario.setAvisos(avisos);
+					avisousuario.setUsuario(listaResponsavel.get(i).getUsuario());
+					avisousuario.setVisto(false); 
+					lista.add(avisousuario);
 				}
-				
 				avisos.setAvisousuarioList(lista);
 				avisos = avisosFacade.salvar(avisos);
+				RequestContext.getCurrentInstance().closeDialog(lead);
 			}
-			RequestContext.getCurrentInstance().closeDialog(lead);
 		}else{
 			Mensagem.lancarMensagemErro("Atenção", "Campos Obrigatorio não preenchidos!");
 		}
