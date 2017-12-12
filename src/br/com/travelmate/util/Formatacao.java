@@ -642,7 +642,7 @@ public class Formatacao {
 			dataInicial = new Date();
 		}
 		int resultado = 0;
-		resultado = (int) ((dataInicial.getTime() - dataFinal.getTime()) / 86400000L);
+		resultado = (int) ((dataFinal.getTime() - dataInicial.getTime()) / 86400000L);
 		return resultado;
 	}
 

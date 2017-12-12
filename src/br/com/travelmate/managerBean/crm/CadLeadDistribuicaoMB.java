@@ -326,7 +326,9 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			TipoContatoFacade tipoContatoFacade = new TipoContatoFacade();
 			Tipocontato tipocontato = tipoContatoFacade.consultar(1);
 			lead.setTipocontato(tipocontato);
-			lead.setSituacao(1);
+			lead.setSituacao(1);   
+			lead.setDatarecebimento(new Date()); 
+			lead.setHorarecebimento(Formatacao.foramtarHoraString()); 
 			lead.setUnidadenegocio(unidadenegocio);
 			if (listaResponsavel != null && listaResponsavel.size() > 0) {
 				lead.setUsuario(listaResponsavel.get(0).getUsuario());
@@ -342,11 +344,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			lead = leadFacade.salvar(lead);
 			Mensagem.lancarMensagemInfo("", "Lead salvo com sucesso!");
 			
-			if (lead.getUsuario().getIdusuario() == usuarioLogadoMB.getUsuario().getIdusuario()) {
-				FacesContext fc = FacesContext.getCurrentInstance();
-				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-				session.setAttribute("lead", lead);
-			}
 
 			if(listaResponsavel != null && listaResponsavel.size() >0){
 				AvisosFacade avisosFacade = new AvisosFacade();
