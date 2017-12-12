@@ -383,9 +383,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		if(unidadenegocio==null || unidadenegocio.getIdunidadeNegocio()==null){
 			return false;
 		}
-		if(consultor==null || consultor.getIdusuario()==null){
-			return false;
-		}
 		if(!Formatacao.validarEmail(cliente.getEmail())){
 			return false;
 		}
