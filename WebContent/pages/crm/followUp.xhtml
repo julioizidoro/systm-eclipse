@@ -452,10 +452,11 @@
 								<img src="../../resources/img/crm/historico.png" width="30" />
 							</p:commandLink>
 							<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
-										action="#{followUpMB.emitirVenda(lead)}" actionListener="#{followUpMB.pegarLead(lead)}"
-										oncomplete="PF('novaficha').show();">
+										action="#{followUpMB.emitirVenda(lead)}" 
+										>
 										<img src="../../resources/img/crm/emitirvendas.png"
 											width="30" />
+											<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogEmissao}" update="@form"/>
 							</p:commandLink>
 							<p:commandLink id="btnEncaminharLead" action="#{followUpMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" >

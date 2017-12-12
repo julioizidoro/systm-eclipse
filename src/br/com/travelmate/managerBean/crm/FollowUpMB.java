@@ -838,15 +838,14 @@ public class FollowUpMB implements Serializable {
 			if (!listaLeadTotal.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
 			}
-			if (listaLeadTotal.get(i).getDataultimocontato() == null && !listaLeadTotal.get(i).getSituacao().equals("0")
-					&& listaLeadTotal.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
+			if (listaLeadTotal.get(i).getDataultimocontato() == null &&  listaLeadTotal.get(i).getSituacao() == 1) {
 				novos = novos + 1;
 			} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
 					&& (listaLeadTotal.get(i).getDataproximocontato()) != null
 					&& (Formatacao.ConvercaoDataSql(listaLeadTotal.get(i).getDataproximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
 					&& (!listaLeadTotal.get(i).getSituacao().equals("0"))) {
-				hoje = hoje + 1;
+				hoje = hoje + 1;   
 			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())
@@ -1095,9 +1094,12 @@ public class FollowUpMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		int idprodutos = lead.getProdutos().getIdprodutos();
-		if (idprodutos != 13) {
+		session.setAttribute("lead", lead); 
+		if (idprodutos == 13) {
+			session.setAttribute("tipoVenda", "trainee");
+			RequestContext.getCurrentInstance().openDialog("escolherPrograma");
+		}else{
 			session.setAttribute("cliente", lead.getCliente());
-			session.setAttribute("lead", lead); 
 			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
 				return "cadCliente";
 			}else {
@@ -1106,6 +1108,23 @@ public class FollowUpMB implements Serializable {
 		}
 		return "";
 	}  
+	
+	public String retornoDialogEmissao(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		String tipo = (String) session.getAttribute("tipo");
+		try {
+			if (tipo.equalsIgnoreCase("EUA")) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("../trainee/cadTrainee.jsf");
+			}else{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("../trainee/cadEstagioAustralia.jsf");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 	
 	
 	public String emitirVendaTrainee(String tipo) {

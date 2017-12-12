@@ -654,7 +654,8 @@ public class FiltrarEscolaMB implements Serializable {
 				+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
-		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='" + Formatacao.ConvercaoDataSql(dataConsulta)
+		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial<='" + Formatacao.ConvercaoDataSql(dataConsulta)  + "' and v.datafinal>='"
+				+ Formatacao.ConvercaoDataSql(dataConsulta)
 				+ "' and v.numerosemanainicial<=" + filtrarEscolaBean.getOcurso().getNumerosemanas()
 				+ " and v.numerosemanafinal>=" + filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='"
 				+ tipoData + "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
@@ -998,7 +999,8 @@ public class FiltrarEscolaMB implements Serializable {
 		Date dataTermino = calcularDataTerminoCurso(dataInical, filtrarEscolaBean.getOcurso().getNumerosemanas());
 		int numeroDias = 0;
 		boolean calcular = true;
-		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino))){
+		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)) ||
+				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
 			calcular = false;
 		}
 		if (calcular) {
