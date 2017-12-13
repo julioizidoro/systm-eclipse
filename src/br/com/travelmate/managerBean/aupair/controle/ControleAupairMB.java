@@ -513,7 +513,7 @@ public class ControleAupairMB implements Serializable {
 			return "../../resources/img/bolaCinza.png";
 		}else if(controle.getStatusprocesso().equalsIgnoreCase("Finalizado")){
 			return "../../resources/img/bolaVerde.png";
-		}else if(controle.getStatusprocesso().equalsIgnoreCase("Suspenso")){
+		}else if(controle.getStatusprocesso().equalsIgnoreCase("Left Program")){
 			return "../../resources/img/bolaVerdeMusgo.png";
 		}else if(controle.getStatusprocesso().equalsIgnoreCase("Transaction")){
 			return "../../resources/img/bolaEsverdiada.png";
@@ -578,7 +578,7 @@ public class ControleAupairMB implements Serializable {
 		}else if(controle.getStatusprocesso().equalsIgnoreCase("Finalizado")){
 			numeroFinalizado = numeroFinalizado+1;
 			listaControleFinalizado.add(controle);
-		}else if(controle.getStatusprocesso().equalsIgnoreCase("Suspenso")){
+		}else if(controle.getStatusprocesso().equalsIgnoreCase("Left Program")){
 			numeroSuspenso = numeroSuspenso+1;
 			listaControleSuspenso.add(controle);
 		} else if(controle.getStatusprocesso().equalsIgnoreCase("Transaction")){
