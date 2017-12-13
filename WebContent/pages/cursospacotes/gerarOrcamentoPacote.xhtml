@@ -14,22 +14,29 @@
 			<legend id="iUsu2" style="margin-left:3%;width:95%;">    
 					<b>Gerar Orçamento</b>  
 				</legend> 
-			<h:panelGrid columns="3" columnClasses="tamanho61, imagemTop, dezoito" style="margin-left:3%;width:70%;">
+			<h:panelGrid columns="4" columnClasses="tamanho61, imagemTop, imagemTop, dezoito" style="margin-left:3%;width:70%;">
 				<p:outputLabel value="Cliente" />
-				<p:outputLabel value="Data de Início"/> 
-				<p:outputLabel value="" />    
+				<p:outputLabel value="Data de Nascimento"/> 
+				<p:outputLabel value="Data de Início" />    
+				<p:outputLabel value="" /> 
 				
 				<p:inputText id="nomeCliente" value="#{gerarOrcamentoPacoteMB.nome}"   
 					style="width:95%;">
-					<p:ajax event="keyup"
+					<p:ajax event="keyup"    
 						listener="#{gerarOrcamentoPacoteMB.gerarListaCliente()}"
 						update="idtabelacliente" />
 				</p:inputText>
+				<p:calendar id="datanascimento" value="#{gerarOrcamentoPacoteMB.datanascimento}"
+					locale="pt" size="14" pattern="dd/MM/yyyy" mask="true"
+					maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"   
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>   
 				<p:calendar id="data" value="#{gerarOrcamentoPacoteMB.datainicio}"
 					locale="pt" size="14" pattern="dd/MM/yyyy" mask="true"
 					maxlength="15">
 					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
+						timeZone="America/Sao_Paulo" />   
 				</p:calendar>
 				<p:commandButton value="Saiba Mais"  
 						action="#{gerarOrcamentoPacoteMB.saibaMais()}"
@@ -47,11 +54,17 @@
 						<p:column headerText="Email">
 							<h:outputText value="#{cliente.email}" />
 						</p:column>
+						<p:column headerText="Data Nascimento">
+							<h:outputText value="#{cliente.dataNascimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>  
+						</p:column>
 						<p:column style="width:40px;text-align: center;">  
 							<p:commandLink
 								action="#{gerarOrcamentoPacoteMB.selecionarCliente(cliente)}"
 								title="Selecionar Cliente"
-								update=":gerarOrcamentoPacote:nomeCliente, :gerarOrcamentoPacote:painelCliente">
+								update=":gerarOrcamentoPacote:nomeCliente, :gerarOrcamentoPacote:painelCliente, :gerarOrcamentoPacote:datanascimento">
 								<img src="../../resources/img/deposito.png" width="22" />
 							</p:commandLink>
 						</p:column>

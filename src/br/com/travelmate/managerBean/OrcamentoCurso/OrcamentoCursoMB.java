@@ -484,7 +484,7 @@ public class OrcamentoCursoMB implements Serializable {
 				e.printStackTrace();
 			}
 			seguroviagem.setNumeroSemanas(
-					Formatacao.subtrairDatas(seguroviagem.getDataTermino(), seguroviagem.getDataInicio()));
+					Formatacao.subtrairDatas(seguroviagem.getDataInicio(), seguroviagem.getDataTermino()));
 			seguroviagem.setNumeroSemanas(seguroviagem.getNumeroSemanas() + 1);
 		} else {
 			seguroviagem = new Seguroviagem();

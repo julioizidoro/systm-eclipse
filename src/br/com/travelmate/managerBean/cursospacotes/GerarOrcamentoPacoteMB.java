@@ -20,6 +20,7 @@ import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamentoprojetovoluntariado;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
@@ -72,6 +73,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	private boolean formapagamento4;
 	private boolean curso;
 	private boolean voluntariado;
+	private Date datanascimento;
 
 	@PostConstruct
 	public void init() {
@@ -193,6 +195,14 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		this.voluntariado = voluntariado;
 	}
 
+	public Date getDatanascimento() {
+		return datanascimento;
+	}
+
+	public void setDatanascimento(Date datanascimento) {
+		this.datanascimento = datanascimento;
+	}
+
 	public String cancelar() { 
 		return "inicial";
 	}
@@ -212,6 +222,8 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	public void selecionarCliente(Cliente cliente) {
 		this.cliente = cliente;
 		nome = cliente.getNome();
+		datanascimento = cliente.getDataNascimento();
+		System.out.println(datanascimento);
 	} 
 
 	public String salvar() throws IOException {
@@ -431,6 +443,14 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		if(cliente==null || cliente.getIdcliente()==null){
 			Mensagem.lancarMensagemErro("Atenção!", "Selecione um cliente.");
 			return false;
+		}else{
+			if (cliente.getDataNascimento() == null) {
+				String datanascimentoMaiorIdadeString = Formatacao.SubtarirDatas(new Date(), 6750, "dd/MM/yyyy");
+				Date dataNasc = Formatacao.ConvercaoStringData(datanascimentoMaiorIdadeString);
+				cliente.setDataNascimento(dataNasc);    
+				ClienteFacade clienteFacade = new ClienteFacade();
+				cliente = clienteFacade.salvar(cliente);
+			}
 		}
 		if(datainicio==null){
 			Mensagem.lancarMensagemErro("Atenção!", "Informe uma data de início.");
