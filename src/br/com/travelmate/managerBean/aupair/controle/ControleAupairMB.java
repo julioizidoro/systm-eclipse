@@ -380,9 +380,9 @@ public class ControleAupairMB implements Serializable {
 	}
 
 	public void listarControle() {
-		AupairFacade aupairFacade = new AupairFacade(); 
+		AupairFacade aupairFacade = new AupairFacade();   
 		String data = Formatacao.SubtarirDatas(new Date(), 182, "yyyy/MM/dd");
-		sql = "select c from Controleaupair c where c.vendas.dataVenda>='" + data + "' order by c.vendas.dataVenda desc";
+		sql = "select c from Controleaupair c where c.vendas.dataVenda>='" + data + "' and c.vendas.situacao<>'CANCELADA' order by c.vendas.dataVenda desc";
 		listaControle = aupairFacade.listaControle(sql);
 		if (listaControle == null) {
 			listaControle = new ArrayList<Controleaupair>();
@@ -394,7 +394,7 @@ public class ControleAupairMB implements Serializable {
  
 	public void pesquisar() {
 		AupairFacade aupairFacade = new AupairFacade(); 
-		sql = "select c from Controleaupair c where c.vendas.cliente.nome like '%" + nomeCliente+ "%'";
+		sql = "select c from Controleaupair c where c.vendas.cliente.nome like '%" + nomeCliente+ "%' and c.vendas.situacao<>'CANCELADA' ";
 		if(idvenda>0){
 			sql = sql + " and c.vendas.idvendas="+idvenda;
 		}
