@@ -172,7 +172,6 @@ public class ControlerBean {
 			controle = new Controleaupair();
 			controle.setStatusprocesso("Processo");
 			controle.setVendas(aupair.getVendas());
-			controle.setDataembarque(aupair.getDataInicioPretendida01());
 			controle = aupairFacade.salvar(controle); 
 		}
 	}

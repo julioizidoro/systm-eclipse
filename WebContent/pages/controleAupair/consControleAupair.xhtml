@@ -67,10 +67,10 @@
 								<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
 								<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
 								<f:selectItem itemLabel="Transition" itemValue="Transition" />
-								<f:selectItem itemLabel="Suspenso" itemValue="Suspenso" />
+								<f:selectItem itemLabel="Left Program" itemValue="Suspenso" />
 								<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
 	                             <p:ajax event="change"/>
-	                         </p:selectOneMenu>
+	                         </p:selectOneMenu> 
 	                         <h:panelGroup>
 	                         	<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":idControleAupair:tabelas" 
 									action="#{controleAupairMB.pesquisar()}"/>
@@ -113,7 +113,7 @@
 											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
 											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
 											<f:selectItem itemLabel="Transition" itemValue="Transition" />
-											<f:selectItem itemLabel="Suspenso" itemValue="Suspenso" />
+											<f:selectItem itemLabel="Left Program" itemValue="Suspenso" />
 											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
 											<p:ajax event="change" />
 										</p:selectOneMenu>
@@ -146,6 +146,54 @@
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{aupair.vendas.fornecedorcidade.fornecedor.nome}" />
+							</p:column>
+							<p:column headerText="Data Online" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.dataonline}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupair.dataonline}" size="8" locale="pt"
+											pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Estado" style="width:95px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.estado}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{aupair.estado}" size="12"
+											maxlength="100" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Match" style="width:68px;"
+								styleClass="alinharCenter">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{aupair.datamatch}">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{aupair.datamatch}" size="8" locale="pt"
+											pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</f:facet>
+								</p:cellEditor>   
 							</p:column>
 							<p:column headerText="Data Embarque" style="width:70px;"
 								styleClass="alinharCenter">
@@ -180,54 +228,6 @@
 											<f:convertDateTime pattern="dd/MM/yyyy"
 												timeZone="America/Sao_Paulo" />
 										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Data Online" style="width:68px;"
-								styleClass="alinharCenter">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{aupair.dataonline}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar value="#{aupair.dataonline}" size="8" locale="pt"
-											pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-							<p:column headerText="Data Match" style="width:68px;"
-								styleClass="alinharCenter">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{aupair.datamatch}">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:calendar value="#{aupair.datamatch}" size="8" locale="pt"
-											pattern="dd/MM/yyyy">
-											<f:convertDateTime pattern="dd/MM/yyyy"
-												timeZone="America/Sao_Paulo" />
-										</p:calendar>
-									</f:facet>
-								</p:cellEditor>   
-							</p:column>
-							<p:column headerText="Estado" style="width:95px;"
-								styleClass="alinharCenter">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{aupair.estado}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{aupair.estado}" size="12"
-											maxlength="100" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>

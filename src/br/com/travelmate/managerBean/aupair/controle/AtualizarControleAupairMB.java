@@ -63,7 +63,6 @@ public class AtualizarControleAupairMB implements Serializable{
 	public void consultarAupair(){
 		AupairFacade aupairFacade = new AupairFacade();
 		aupair = aupairFacade.consultar(controleAupair.getVendas().getIdvendas());
-		controleAupair.setDataembarque(aupair.getDataInicioPretendida01());
 	}
 	
 	
