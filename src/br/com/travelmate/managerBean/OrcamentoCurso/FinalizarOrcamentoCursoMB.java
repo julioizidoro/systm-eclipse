@@ -710,12 +710,13 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		session.removeAttribute("filtrarEscolaBean");
 	}
 
+	//Mandar data invertida para não ficar negativo na subtração de datas
 	public void gerarListaNuneroParcelas(Date dataInicio) {
 		NumeroParcelasBean np = new NumeroParcelasBean();
 		np.setNumero(0);
 		np.setTitulo("0");
 		listaNumeroParcelas.add(np);
-		int dias = Formatacao.subtrairDatas(dataInicio, new Date());
+		int dias = Formatacao.subtrairDatas(new Date(), dataInicio);
 		if (dias > 30) {
 			int diaInicio = Formatacao.getDiaData(dataInicio);
 			int diaVenciamento = Formatacao.getDiaData(new Date());
