@@ -152,6 +152,10 @@
 			        <p:column headerText="Aluno" style="width:120px;">
 			            <h:outputText value="#{cursos.vendas.cliente.nome}" />
 			        </p:column>
+			        
+			        <p:column headerText="Idade" style="width:50px;">
+			            <h:outputText value="#{cursos.idade}" />
+			        </p:column>
 			 
 			        <p:column headerText="Curso">
 			            <h:outputText value="#{cursos.nomeCurso}" />
@@ -181,7 +185,7 @@
 			            <h:outputText value="#{cursos.numeroSenamas}" />
 			        </p:column>
 			        
-			         <p:column headerText="Data Inicio" style="width:75px;">
+			         <p:column headerText="Data Inicio" style="width:80px;">
 			            <h:outputText value="#{cursos.dataInicio}" >
 			            	<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />   
