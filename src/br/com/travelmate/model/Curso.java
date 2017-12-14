@@ -238,6 +238,8 @@ public class Curso implements Serializable {
 	private String tipoimportacaoorcamento;
 	@Transient
 	private String tituloFicha;
+	@Transient
+	private int idade;
 
 	public Curso() {
 		setFumante("Não");
@@ -881,6 +883,14 @@ public class Curso implements Serializable {
 
 	public String getTituloFicha() {
 		return tituloFicha;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}
 
 	public void setTituloFicha(String tituloFicha) {

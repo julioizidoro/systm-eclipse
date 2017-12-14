@@ -82,11 +82,11 @@
 						</h:panelGrid>
 						<br/>
 						<h:panelGroup style="float: right;">
-							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl"
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl, :consultacursos:idNumeroSemana"
 								
 								action="#{vendasClientesMB.gerarListaCurso()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								action="#{vendasClientesMB.limparPesquisa()}" update=":consultacursos:tbl, cidade, dataFinalCurso, dataIniCurso, fornecedor, pais"/>
+								action="#{vendasClientesMB.limparPesquisa()}" update=":consultacursos:tbl, cidade, dataFinalCurso, dataIniCurso, fornecedor, pais, :consultacursos:idNumeroSemana"/>
 						</h:panelGroup>
 						<br></br> 
 					</p:tab>     
@@ -95,7 +95,8 @@
 					<b>Consulta Venda Clientes</b>  
 				</legend> 
 				<br/><br/>   
-				
+				  
+				<p:outputLabel value="N° Total de Semanas: #{vendasClientesMB.numeroSemana}" style="margin-left:1%;" id="idNumeroSemana"/>
 				<p:dataTable id="tbl" var="cursos" value="#{vendasClientesMB.listaCurso}"
 			                 style="width: 99%;margin-left:1%;" scrollable="true"
 							scrollHeight="300">

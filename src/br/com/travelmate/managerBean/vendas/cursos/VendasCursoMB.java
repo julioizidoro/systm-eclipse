@@ -51,11 +51,12 @@ public class VendasCursoMB implements Serializable{
 	@PostConstruct
 	public void init(){
 		PaisFacade paisFacade = new PaisFacade();
+		listaCurso = new ArrayList<>();
 		listaPais = paisFacade.listar();
 		listaUnidadeNegocio = GerarListas.listarUnidade();
 		gerarListaFornecedor();
 	}  
-    
+        
 
 
 	public List<Curso> getListaCurso() {
@@ -291,6 +292,10 @@ public class VendasCursoMB implements Serializable{
 		listaCurso = cursoFacade.lista(sql);
 		if (listaCurso == null) {
 			listaCurso = new ArrayList<Curso>();
+		}
+		
+		for (int i = 0; i < listaCurso.size(); i++) {
+			listaCurso.get(i).setIdade(Formatacao.calcularIdade(listaCurso.get(i).getVendas().getCliente().getDataNascimento()));
 		}
 	}
 	

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,7 @@ public class AutorizacaoDebitoMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private AutorizacaoDebitoBean autorizacaoDebitoBean;
 	private Cambio cambio;
+	private Date dataViagem;
 
 	public AutorizacaoDebitoMB() {
 		autorizacaoDebitoBean = new AutorizacaoDebitoBean();
@@ -82,6 +84,9 @@ public class AutorizacaoDebitoMB implements Serializable {
 			autorizacaoDebitoBean.setValorcambio(Formatacao.formatarFloatString(cambio.getValor()));
 			ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 					.getContext();
+			if (dataViagem != null) {
+				autorizacaoDebitoBean.setDataviagem(Formatacao.ConvercaoDataPadrao(dataViagem));
+			}
 			String caminhoRelatorio = "/reports/relatorios/AutorizacaoCartao.jasper";
 			Map parameters = new HashMap();
 			String nomeArquivo = "AutorizacaoCartao.pdf";

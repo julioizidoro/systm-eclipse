@@ -39,6 +39,7 @@ public class VendasClientesMB implements Serializable{
 	private Cidade cidade;
 	private Date dataIniCurso;
 	private Date dataFinCurso;   
+	private int numeroSemana;
 	
 	
 	@PostConstruct
@@ -147,6 +148,16 @@ public class VendasClientesMB implements Serializable{
 	}
 
 
+	public int getNumeroSemana() {
+		return numeroSemana;
+	}
+
+
+	public void setNumeroSemana(int numeroSemana) {
+		this.numeroSemana = numeroSemana;
+	}
+
+
 	public void gerarListaCurso(){
 		String sql = "SELECT c FROM Curso c WHERE c.vendas.cliente.nome like '%%'";
 		if (pais != null) {
@@ -175,6 +186,9 @@ public class VendasClientesMB implements Serializable{
 		if (listaCurso == null) {
 			listaCurso = new ArrayList<Curso>();
 		}
+		for (int i = 0; i < listaCurso.size(); i++) {
+			numeroSemana = listaCurso.get(i).getNumeroSenamas();
+		}
 	}
 	
 	
@@ -201,6 +215,7 @@ public class VendasClientesMB implements Serializable{
 		fornecedor = null;
 		cidade = null;
 		pais = null;
+		numeroSemana = 0;
 	}
 
 }
