@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+
+</h:head>
+<h:body >  
+	<h:form id="cadLead"
+		style="text-align:left;font-size: 10px; margin-left:2%; ">
+		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<title>Relatório de LEAD</title>
+		<h:panelGrid columns="2"
+			columnClasses="tamanhonotificacao2, tamanhonotificacao2"
+			style="width:95%;margin-left:3%;">
+			<p:outputLabel value="Unidade" for="unidade" />
+			<p:outputLabel value="Consultor" for="consultor" />
+
+			
+			<p:selectOneMenu id="unidade" value="#{relatorioLeadsMB.unidadenegocio}"
+				 style="width:90%;" disabled="#{relatorioLeadsMB.desabilitarUnidade}"
+				filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
+				converter="UnidadeNegocioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{relatorioLeadsMB.listaUnidadeNegocio}"
+					var="unidade" itemLabel="#{unidade.nomerelatorio}"
+					itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{relatorioLeadsMB.listaUnidadeNegocio}" />
+				<p:ajax event="change" listener="#{relatorioLeadsMB.gerarListaConsultor()}"
+					update="consultor" />
+			</p:selectOneMenu> 
+			<p:selectOneMenu id="consultor" value="#{relatorioLeadsMB.consultor}"
+				style="width:90%;" filter="true" filterMatchMode="startsWith"
+				panelStyle="width:180px" converter="UsuarioConverter">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{relatorioLeadsMB.listaConsultor}" var="usuario"
+					itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+				<f:attribute name="listaUsuario" value="#{relatorioLeadsMB.listaConsultor}" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2"
+			columnClasses="tamanhonotificacao2, tamanhonotificacao2"
+			style="width:95%;margin-left:3%;">
+			<p:outputLabel value="Status" for="status" />
+			<p:outputLabel value="Data Recebimento"  />
+			<p:selectOneMenu id="status" style="width:90%;"
+				value="#{relatorioLeadsMB.status}">
+				<f:selectItem itemLabel="Selecione" itemValue="0" />
+				<f:selectItem itemLabel="Novos" itemValue="Novos" />
+				<f:selectItem itemLabel="Atrasados" itemValue="Atrasados" />
+				<f:selectItem itemLabel="Hoje" itemValue="Hoje" />
+				<f:selectItem itemLabel="Prox. 7 Dias" itemValue="Prox. 7 Dias" />
+				<f:selectItem itemLabel="Todos" itemValue="Todos" />
+			</p:selectOneMenu>
+			<h:panelGroup>
+				<p:calendar id="datarecebimentoInicial" value="#{relatorioLeadsMB.datarecebimentoInicial}"
+					size="12"  locale="pt" pattern="dd/MM/yyyy"
+					mask="true" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					<p:ajax event="blur" />
+				</p:calendar>
+				<p:calendar id="datarecebimentoFinal" value="#{relatorioLeadsMB.datarecebimentoFinal}"
+					 size="12" locale="pt"
+					pattern="dd/MM/yyyy" mask="true" maxlength="15"
+					style="margin-left: 2%;">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</h:panelGroup>
+			
+			<p:outputLabel value="Data Ultimo Contato"  />
+			<p:outputLabel value="Data Próximo Contato"  />
+			
+			<h:panelGroup>
+				<p:calendar id="dataultimocontatoInicial" value="#{relatorioLeadsMB.dataUltContatoInicial}"
+					size="12"  locale="pt" pattern="dd/MM/yyyy"
+					mask="true" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					<p:ajax event="blur" />
+				</p:calendar>
+				<p:calendar id="dataultimocontatoFinal" value="#{relatorioLeadsMB.dataUltContatoFinal}"
+					 size="12" locale="pt"
+					pattern="dd/MM/yyyy" mask="true" maxlength="15"
+					style="margin-left: 2%;">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</h:panelGroup>
+			<h:panelGroup>
+				<p:calendar id="dataproximocontatoInicial" value="#{relatorioLeadsMB.dataProxContatoInicial}"
+					size="12" locale="pt" pattern="dd/MM/yyyy"
+					mask="true" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					<p:ajax event="blur" />
+				</p:calendar>
+				<p:calendar id="dataproximocontatoFinal" value="#{relatorioLeadsMB.dataProxContatoFinal}"
+					size="12" locale="pt"
+					pattern="dd/MM/yyyy" mask="true" maxlength="15"
+					style="margin-left: 2%;">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</h:panelGroup>
+		</h:panelGrid>
+		<br/><br/>
+		<div align="center">
+			<p:commandButton value="Gerar PDF" icon="ui-icon-check" onclick="this.form.target='_blank'"
+				action="#{relatorioLeadsMB.gerarRelatorio()}" ajax="false" id="botaoConfirmar" style="font-size:12px;"/>
+			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
+				value="Cancelar" action="#" /> 
+		</div>  
+	</h:form>
+</h:body>
+</html>
