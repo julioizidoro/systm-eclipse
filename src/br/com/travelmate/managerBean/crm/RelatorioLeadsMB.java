@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
+import org.primefaces.context.RequestContext;
+
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -55,6 +57,7 @@ public class RelatorioLeadsMB implements Serializable{
 	private Date datarecebimentoInicial;
 	private Date datarecebimentoFinal;
 	private boolean desabilitarUnidade = false;
+	private String nomeUnidade = "Todos";
 	
 	
 	@PostConstruct
@@ -200,9 +203,14 @@ public class RelatorioLeadsMB implements Serializable{
 	
 	public void gerarListaConsultor() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaConsultor = usuarioFacade
-				.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
-						+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			listaConsultor = usuarioFacade
+					.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
+							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+			nomeUnidade = unidadenegocio.getNomerelatorio();
+		}else{
+			nomeUnidade = "Todos";
+		}
 		if (listaConsultor == null) {
 			listaConsultor = new ArrayList<Usuario>();
 		}
@@ -219,6 +227,12 @@ public class RelatorioLeadsMB implements Serializable{
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 			BufferedImage logo = ImageIO.read(f);
 			parameters.put("logo", logo); 
+			parameters.put("unidade", nomeUnidade);
+			if (consultor == null || consultor.getIdusuario() == null) {
+				parameters.put("consultor", "Todos");
+			} else {
+				parameters.put("consultor", consultor.getNome());
+			}
 			GerarRelatorio gerarRelatorio = new GerarRelatorio();
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "leads", "");
@@ -254,6 +268,10 @@ public class RelatorioLeadsMB implements Serializable{
 		}
 		sql = sql + " order by cliente.nome";
 		return sql;
+	}
+	
+	public void fechar(){
+		RequestContext.getCurrentInstance().closeDialog(null);
 	}
 
 }

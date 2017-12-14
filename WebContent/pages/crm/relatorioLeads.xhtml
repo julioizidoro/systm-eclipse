@@ -115,7 +115,7 @@
 			<p:commandButton value="Gerar PDF" icon="ui-icon-check" onclick="this.form.target='_blank'"
 				action="#{relatorioLeadsMB.gerarRelatorio()}" ajax="false" id="botaoConfirmar" style="font-size:12px;"/>
 			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
-				value="Cancelar" action="#" /> 
+				value="Cancelar" action="#{relatorioLeadsMB.fechar()}" /> 
 		</div>  
 	</h:form>
 </h:body>

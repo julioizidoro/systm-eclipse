@@ -5,6 +5,8 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="logo" class="java.awt.Image"/>
 	<parameter name="sql" class="java.lang.String"/>
+	<parameter name="unidade" class="java.lang.String"/>
+	<parameter name="consultor" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{sql}]]>
 	</queryString>
@@ -37,12 +39,34 @@
 				</textElement>
 				<text><![CDATA[RELATÓRIO DE CLIENTES DO CRM]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="363" y="14" width="179" height="13" uuid="6c26ddb2-e9ac-4556-a697-d586cdd50cb4"/>
+				<textFieldExpression><![CDATA[$P{unidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="308" y="14" width="53" height="13" uuid="870f520f-217b-4add-879c-6910b74e5752"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="27" width="53" height="13" uuid="3b3b22aa-9dad-428c-b926-0172301055f6"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultor:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="363" y="27" width="179" height="13" uuid="d965ab7d-6331-4db8-b965-52e6cd280e37"/>
+				<textFieldExpression><![CDATA[$P{consultor}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="6" y="21" width="100" height="14" uuid="70d34e46-333e-4d3f-aaa0-6000580f63e3"/>
+				<reportElement x="6" y="18" width="100" height="14" uuid="70d34e46-333e-4d3f-aaa0-6000580f63e3"/>
 				<textElement textAlignment="Left">
 					<font isBold="false"/>
 				</textElement>
@@ -56,29 +80,29 @@
 				<text><![CDATA[Programa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="234" y="18" width="60" height="14" uuid="fd7e9790-681a-4338-bd9d-4a80e60d985c"/>
+				<reportElement x="248" y="18" width="48" height="14" uuid="fd7e9790-681a-4338-bd9d-4a80e60d985c"/>
 				<textElement textAlignment="Left">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Data Rec.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="301" y="18" width="88" height="14" uuid="51719266-db29-4cdb-bf77-fe332f60fb8a"/>
+				<reportElement x="317" y="18" width="88" height="14" uuid="51719266-db29-4cdb-bf77-fe332f60fb8a"/>
 				<textElement textAlignment="Left">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Data Ult. Contato]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="395" y="18" width="92" height="14" uuid="c1baa8dd-25d2-4c05-8b5e-c5118dbbce42"/>
+				<reportElement x="415" y="18" width="92" height="14" uuid="c1baa8dd-25d2-4c05-8b5e-c5118dbbce42"/>
 				<textElement textAlignment="Left">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Data Prox. Contato]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="493" y="18" width="58" height="14" uuid="87f9cf3b-3b4a-4c3e-af28-951bbc2950c4"/>
-				<textElement textAlignment="Center">
+				<reportElement x="515" y="18" width="39" height="14" uuid="87f9cf3b-3b4a-4c3e-af28-951bbc2950c4"/>
+				<textElement textAlignment="Left">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Status]]></text>
@@ -86,32 +110,32 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="22">
+		<band height="23">
 			<rectangle>
 				<reportElement x="0" y="1" width="555" height="20" uuid="eaf17c4a-0a65-40f1-8010-58e8dffec7c6"/>
 			</rectangle>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="6" y="5" width="152" height="13" uuid="67d1445a-ba5c-460d-8bfe-9a1afd979589"/>
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="161" y="5" width="73" height="13" uuid="70e2667a-9d54-4707-8f84-5f7d989459b9"/>
+				<reportElement x="161" y="5" width="87" height="13" uuid="70e2667a-9d54-4707-8f84-5f7d989459b9"/>
 				<textFieldExpression><![CDATA[$F{programa}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="236" y="5" width="60" height="13" uuid="a2af6b07-a4d5-4d43-88e5-2882efc51ed1"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="248" y="5" width="60" height="13" uuid="a2af6b07-a4d5-4d43-88e5-2882efc51ed1"/>
 				<textFieldExpression><![CDATA[$F{datarecebimento}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="301" y="5" width="88" height="13" uuid="e952b604-80c2-491a-8d22-3286ed02c876"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="317" y="5" width="88" height="13" uuid="e952b604-80c2-491a-8d22-3286ed02c876"/>
 				<textFieldExpression><![CDATA[$F{dataultimocontato}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="399" y="5" width="89" height="13" uuid="c63e3861-aafe-4ebe-8637-625cdc6421d0"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="414" y="5" width="89" height="13" uuid="c63e3861-aafe-4ebe-8637-625cdc6421d0"/>
 				<textFieldExpression><![CDATA[$F{dataproximocontato}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="502" y="5" width="45" height="13" uuid="f81a1ef5-ac48-4b9b-982f-9292e70bb6ab"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="509" y="5" width="45" height="13" uuid="f81a1ef5-ac48-4b9b-982f-9292e70bb6ab"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
