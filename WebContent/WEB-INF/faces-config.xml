@@ -2311,6 +2311,24 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioHighSchoolAnual</from-outcome>
+			<to-view-id>/pages/controleHighSchool/relatorioHighSchoolAnual.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioHighSchoolMensal</from-outcome>
+			<to-view-id>/pages/controleHighSchool/relatorioHighSchoolMensal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

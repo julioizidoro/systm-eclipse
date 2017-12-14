@@ -1453,4 +1453,23 @@ public class MenuMB implements Serializable {
 	}
 	
 	
+	public String relatorioHSAnual() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 300);
+		RequestContext.getCurrentInstance().openDialog("relatorioHighSchoolAnual", options, null);
+		return "";
+	}
+	
+	public String relatorioHSMes() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 300);
+		RequestContext.getCurrentInstance().openDialog("relatorioHighSchoolMensal", options, null);
+		return "";
+	}
+	
+	
 }

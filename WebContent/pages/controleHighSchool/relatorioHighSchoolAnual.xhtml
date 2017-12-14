@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<script type="text/javascript" src="../../resources/js/calendario.js"/>
+	<link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" /> 
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="relatorioGeralHS"
+			style="text-align:left;font-size: 10px; margin-left: 7%; ">
+			<title>Relatório High School Anual</title>
+			<br></br>
+			<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%">
+			</p:outputLabel>
+			<br></br>
+			<p:selectOneMenu id="unidade" style="width:95%;margin-left:-1%"
+				value="#{relatorioHighSchoolAnualMB.unidadenegocio}"
+				converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="Selecione" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems value="#{relatorioHighSchoolAnualMB.listaUnidadeNegocio}"
+					var="unidade" itemLabel="#{unidade.nomerelatorio}"
+					itemValue="#{unidade}" />
+				<f:attribute name="listaUnidade"
+					value="#{relatorioHighSchoolAnualMB.listaUnidadeNegocio}" />
+				<p:ajax event="change"/>
+			</p:selectOneMenu> 
+			<br /><br />
+			
+			
+			<h:panelGrid columns="1" style="width:100%">
+				<p:outputLabel value="Ano Inicio" for="inicio"/>  
+				<p:selectOneMenu id="inicio"   
+					value="#{relatorioHighSchoolAnualMB.valoreshighschool}"
+					converter="ValoresHighSchoolConverter" style="width:30%;"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="idvalores"
+						value="#{relatorioHighSchoolAnualMB.listaValores}" var="valores"
+						itemLabel="#{valores.anoinicio}"
+						itemValue="#{valores}" />
+					<f:attribute name="listaValoresHighSchool"
+						value="#{relatorioHighSchoolAnualMB.listaValores}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<br /><br /><br />
+			<div align="center">
+				<p:commandButton value="Confirmar"  
+					onclick="this.form.target='_blank'" icon="ui-icon-check"
+					action="#{relatorioHighSchoolAnualMB.gerarRelatorio()}" ajax="false" />
+				<p:commandButton style="margin-left:1%" icon="ui-icon-close"
+					value="Cancelar" action="#{relatorioHighSchoolAnualMB.fechar()}"/>
+			</div>
+		</h:form>
+	</f:view>
+</h:body>
+</html>
