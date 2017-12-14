@@ -266,6 +266,24 @@ public class RelatorioLeadsMB implements Serializable{
 		if (consultor != null && consultor.getIdusuario() != null) {
 			sql = sql + " and lead.usuario_idusuario=" + consultor.getIdusuario();
 		}
+		if (status != null && status.length() > 0 && !status.equalsIgnoreCase("0")) {
+			if (status.equalsIgnoreCase("Novos")) {
+				sql = sql + " and lead.dataultimocontato is null and lead.situacao=1";
+			} else if (status.equalsIgnoreCase("Atrasados")) {
+				sql = sql + " and lead.dataproximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "' and lead.situacao<>6";
+			} else if (status.equalsIgnoreCase("Hoje")) {
+				sql = sql + " and llead.dataproximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+			} else if (status.equalsIgnoreCase("Prox. 7 Dias")) {
+				Date data7;
+				try {
+					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
+				} catch (Exception e) {
+					data7 = null;
+				}
+				sql = sql + " and lead.dataproximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
+						+ "' and lead.dataproximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
+			}
+		}
 		sql = sql + " order by cliente.nome";
 		return sql;
 	}
