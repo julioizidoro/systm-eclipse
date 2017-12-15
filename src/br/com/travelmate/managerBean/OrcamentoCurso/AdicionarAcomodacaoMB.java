@@ -42,6 +42,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private List<ProdutosOrcamentoBean> listaAcomodacoes;
 	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente;
 	private ProdutosOrcamentoBean acomodacao;
+	private ProdutosOrcamentoBean acomodacaoIndependente;
 
 	@PostConstruct
 	public void init() {
@@ -50,9 +51,11 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaAcomodacao();
-		if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
-				.isAcomodacaoindepentende()) {
-			gerarListaAcomodacaoIndependente();
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()<=2) {
+			if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
+					.isAcomodacaoindepentende()) {
+				gerarListaAcomodacaoIndependente();
+			}	
 		}
 	}
 
@@ -102,6 +105,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public void setListaAcomodacoesIndependente(List<ProdutosOrcamentoBean> listaAcomodacoesIndependente) {
 		this.listaAcomodacoesIndependente = listaAcomodacoesIndependente;
+	}
+
+	public ProdutosOrcamentoBean getAcomodacaoIndependente() {
+		return acomodacaoIndependente;
+	}
+
+	public void setAcomodacaoIndependente(ProdutosOrcamentoBean acomodacaoIndependente) {
+		this.acomodacaoIndependente = acomodacaoIndependente;
 	}
 
 	public void gerarListaAcomodacao() {
@@ -575,9 +586,9 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		if (listaAcomodacoesIndependente == null || listaAcomodacoesIndependente.size() == 0) {
 			return "480";
 		} else
-			return "200";
+			return "300";
 	}
-
+   
 	public boolean mostrarAcomodacaoEscola() {
 		if (listaAcomodacoes == null || listaAcomodacoes.size() == 0) {
 			return false;
@@ -589,6 +600,10 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		if (listaAcomodacoes == null || listaAcomodacoes.size() == 0) {
 			return "480";
 		} else
-			return "200";
+			return "300";
+	}
+	
+	public void selecionarAcomodacaoIndependente(ProdutosOrcamentoBean acomodacao){
+		this.acomodacaoIndependente = acomodacao;
 	}
 }

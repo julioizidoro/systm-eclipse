@@ -92,7 +92,7 @@
 								icon="ui-icon-triangle-1-e" value ="Iniciar"
 								actionListener="#{cadPacoteAgenciaMB.iniciarPacote()}"
 								disabled="#{cadPacoteAgenciaMB.btniniciar}"
-								update=":cadastropacote:growl, bntiniciar,btnfinalizar"
+								update=":cadastropacote:growl, bntiniciar,btnfinalizar, :cadastropacote:btnConfimarPacote"
 								action="#{cadPacoteAgenciaMB.verificarBotoes()}">
 							</p:commandButton>
 							<p:commandButton id="btnfinalizar"
@@ -100,10 +100,10 @@
 								value="Finalizar"
 								actionListener="#{cadPacoteAgenciaMB.finalizar()}"
 								disabled="#{cadPacoteAgenciaMB.btnfinalizar}"
-								update="bntiniciar ,btnfinalizar, valorOrca, totalpag, saldoreceber, saldoparcelar, valoraparcelar,tarifas, taxas, comissaoFornecedor, valorNet, comissao, valorGross, comissaoLoja"
+								update="bntiniciar ,btnfinalizar, valorOrca, totalpag, :cadastropacote:btnConfimarPacote, saldoreceber, saldoparcelar, valoraparcelar,tarifas, taxas, comissaoFornecedor, valorNet, comissao, valorGross, comissaoLoja"
 								action="#{cadPacoteAgenciaMB.verificarBotoes()}">
-							</p:commandButton>
-						</div>
+							</p:commandButton>   
+						</div>  
 						<legend id="iUsu4" style="margin-left: 13%">
 							<b>Trecho</b>
 						</legend>
@@ -704,7 +704,7 @@
 
 				<p class="botaocadpacote">
 					<br></br>
-					<p:commandButton class="imagemm" icon="ui-icon-check"
+					<p:commandButton class="imagemm" icon="ui-icon-check" id="btnConfimarPacote"
 						value="Confirmar" action="#{cadPacoteAgenciaMB.salvar()}"
 						update="growl" disabled="#{cadPacoteAgenciaMB.btniniciar}"></p:commandButton>
 					<p:commandButton class="espacocampos" icon="ui-icon-close"
