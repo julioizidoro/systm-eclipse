@@ -3063,7 +3063,7 @@ public class OrcamentoCursoMB implements Serializable {
 					seguroviagem.getValoresseguro().getMoedas().getIdmoedas()); 
 			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
 					* cambioSeguro.getValor();
-			seguroviagem.setValorSeguro(seguroviagem.getValorSeguro()+valorsegurocancelamento);
+			seguroviagem.setValorSeguro(seguroviagem.getValorSeguro());
 		} 
 	}
 	

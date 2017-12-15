@@ -584,9 +584,9 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public String tabelaAcomodacaoEscola() {
 		if (listaAcomodacoesIndependente == null || listaAcomodacoesIndependente.size() == 0) {
-			return "480";
+			return "450";
 		} else
-			return "300";
+			return "250";
 	}
    
 	public boolean mostrarAcomodacaoEscola() {
@@ -594,13 +594,13 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			return false;
 		} else
 			return true;
-	}
+	}  
 
 	public String tabelaAcomodacaoIndependente() {
 		if (listaAcomodacoes == null || listaAcomodacoes.size() == 0) {
-			return "480";
+			return "450";
 		} else
-			return "300";
+			return "250";
 	}
 	
 	public void selecionarAcomodacaoIndependente(ProdutosOrcamentoBean acomodacao){

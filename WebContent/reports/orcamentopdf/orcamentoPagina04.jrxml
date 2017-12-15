@@ -206,13 +206,6 @@
 				<imageExpression><![CDATA[$P{pagamento}]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="false">
-				<reportElement isPrintRepeatedValues="false" x="230" y="41" width="336" height="17" forecolor="#333333" uuid="d717d59e-12c3-4d53-922c-5cc5c135b922"/>
-				<textElement>
-					<font fontName="Franklin Gothic Book" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{composicao}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="false">
 				<reportElement isPrintRepeatedValues="false" x="311" y="189" width="245" height="17" forecolor="#333333" uuid="43dbcc92-2f3a-4126-9ae7-0c6fa8d05316"/>
 				<textElement>
 					<font fontName="Franklin Gothic Book" size="12" isBold="true"/>
