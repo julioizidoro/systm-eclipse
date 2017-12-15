@@ -92,8 +92,8 @@
 								</p:calendar>
 							</h:panelGroup>             
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search " 
-								actionListener="#{followUpMB.pesquisar()}"
-								action="#{followUpMB.pesquisarPosVenda()}" update="@form" />
+								actionListener="#{followUpMB.pesquisar()}" id="btnConfirmarLead"
+								action="#{followUpMB.pesquisarPosVenda()}" update=":followUp:tabelaLeads, :followUp:panelBotoes, :followUp:panelTabelaLead, :followUp:btnNovos" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 								action="#{followUpMB.limparPesquisa()}" update="@form" />
 						</h:panelGrid>
@@ -255,15 +255,17 @@
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
 									action="#{followUpMB.limparPesquisa()}" update="@form" />
 								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-									actionListener="#{followUpMB.pesquisar()}"
-								    action="#{followUpMB.pesquisarPosVenda()}" update="@form" style="font-size:11px;float:right;"/>
+									actionListener="#{followUpMB.pesquisar()}" id="btnConfirmarLead"
+								    action="#{followUpMB.pesquisarPosVenda()}" update=":followUp:panelPosLead, :followUp:tabelaLeads, :followUp:panelBotoes, :followUp:panelTabelaLead, :followUp:btnNovos
+								    		 " style="font-size:11px;float:right;"/>
+								  <p:defaultCommand target="btnConfirmarLead" />
 							</h:panelGroup>
 						</h:panelGrid>   
 					</p:tab>     
-				</p:accordionPanel>
+				</p:accordionPanel>  
 				<br></br>
 				<br></br>
-				<h:panelGrid style="margin-left:3%;width:90%;" columns="2"
+				<h:panelGrid style="margin-left:3%;width:90%;" columns="2" id="panelBotoes"
 					columnClasses="tamanho9, tamanhoavisos">
 					<h:panelGroup id="painelBotoes">
 						<h:panelGrid style="width:90%;" columns="7">
@@ -352,7 +354,7 @@
 					</h:panelGroup>
 				</h:panelGrid>
 				<br></br>  
-				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarLeads}">
+				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarLeads}" id="panelTabelaLead">
 					<p:dataTable id="tabelaLeads" var="lead" scrollable="true" scrollHeight="400"
 						value="#{followUpMB.listaLead}" style="font-size:11px;"
 						editable="true" editMode="cell" rowIndexVar="rowIndex">
@@ -487,7 +489,7 @@
 						<img src="../../resources/img/USA.png" />
 					</p:commandLink>
 				</p:dialog>
-				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarPosVenda}">
+				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarPosVenda}" id="panelPosLead">
 					<p:dataTable id="tabelaPosVenda" var="posvenda" scrollable="true" scrollHeight="400"
 						value="#{followUpMB.listaPosVenda}" style="font-size:11px;"
 						editable="true" editMode="cell" rowIndexVar="rowIndex"> 
