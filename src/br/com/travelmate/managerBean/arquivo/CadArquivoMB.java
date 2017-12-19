@@ -96,6 +96,7 @@ public class CadArquivoMB implements Serializable {
 	private boolean camposbilhete=false;
 	private Date dataembarque;
 	private Date datachegadabrasil;
+	private boolean arquivoEnviado = false;
 
 	@PostConstruct
 	public void init() {
@@ -253,6 +254,14 @@ public class CadArquivoMB implements Serializable {
 		this.datachegadabrasil = datachegadabrasil;
 	}
 
+	public boolean isArquivoEnviado() {
+		return arquivoEnviado;
+	}
+
+	public void setArquivoEnviado(boolean arquivoEnviado) {
+		this.arquivoEnviado = arquivoEnviado;
+	}
+
 	public void gerarListaTipoArquivo() {
 		TipoArquivoProdutoFacade tipoArquivoFacade = new TipoArquivoProdutoFacade();
 		try {
@@ -365,6 +374,8 @@ public class CadArquivoMB implements Serializable {
 				if ((tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58)
 						|| (tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 59)) {
 					dataRecebimentoInvoice();
+				} else if (aplicacaoMB.getParametrosprodutos().getHighereducation() == idproduto) {
+					verificarDocumentosHE();
 				}
 			}
 			
@@ -413,16 +424,18 @@ public class CadArquivoMB implements Serializable {
 	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
 		salvarArquivoFTP();
-		String nome = e.getFile().getFileName();
-		try {
-			nome = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
+		if (arquivoEnviado) {
+			String nome = e.getFile().getFileName();
+			try {
+				nome = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			if (listaNomeArquivo == null) {
+				listaNomeArquivo = new ArrayList<String>();
+			}
+			listaNomeArquivo.add(nome);
 		}
-		if (listaNomeArquivo == null) {
-			listaNomeArquivo = new ArrayList<String>();
-		}
-		listaNomeArquivo.add(nome);
 	}
 
 	public boolean salvarArquivoFTP() {
@@ -450,7 +463,12 @@ public class CadArquivoMB implements Serializable {
 		}
 		try {
 			nomeArquivoFTP = nomeArquivoSalvo();
-			msg = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/arquivos");
+			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/arquivos");
+			if (arquivoEnviado) {
+				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+			}else{
+				msg = " Erro no nome do arquivo";
+			}
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(msg, ""));
 			ftp.desconectar();
