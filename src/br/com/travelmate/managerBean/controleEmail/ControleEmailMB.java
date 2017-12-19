@@ -112,8 +112,9 @@ public class ControleEmailMB implements Serializable {
 
 	public void gerarListaEmail() {
 		ControleEmailFacade controleEmailFacade = new ControleEmailFacade();
+		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 5, "yyyy-mm-dd");
 		String sql = "Select c From Controleemail c Where c.usuario.idusuario="
-					+ usuarioLogadoMB.getUsuario().getIdusuario(); 
+					+ usuarioLogadoMB.getUsuario().getIdusuario() + " and c.data>='" + dataConsulta + "'  order by c.data desc"; 
 		listaControleEmail = controleEmailFacade.listar(sql);
 		if (listaControleEmail == null) {
 			listaControleEmail = new ArrayList<>();
@@ -126,14 +127,23 @@ public class ControleEmailMB implements Serializable {
 
 	public void pesquisar() {
 		ControleEmailFacade controleEmailFacade = new ControleEmailFacade();
-		String sql = "Select c From Controleemail c Where c.destinatarios like '%" + destinatario
-				+ "%' and c.assunto like '%" + assunto + "%'"
-				+ " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();   
+		
+		String sql = "Select c From Controleemail c Where c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario(); 
+		if (destinatario.length()>0) {
+			sql = sql + " and c.destinatarios like '%"  + destinatario + "%' ";
+		}
+		if (assunto.length()>0) {
+			sql = sql + " and c.assunto like '%" + assunto + "%' ";
+		}
+		if ((dataInicial!=null) && (dataFinal!=null)){
+			
+		}
 		if (dataInicial != null && dataFinal != null) {
 			sql = sql + " and c.data>='" + Formatacao.ConvercaoDataSql(dataInicial) + "' and c.data<='"
 					+ Formatacao.ConvercaoDataSql(dataFinal) + "'";
 
 		} 
+		sql = sql + " order by c.data desc";
 		listaControleEmail = controleEmailFacade.listar(sql); 
 		if (listaControleEmail == null) {
 			listaControleEmail = new ArrayList<>();
