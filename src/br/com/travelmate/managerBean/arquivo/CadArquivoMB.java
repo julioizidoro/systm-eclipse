@@ -460,7 +460,7 @@ public class CadArquivoMB implements Serializable {
 		} catch (IOException ex) {
 			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
+		}    
 		try {
 			nomeArquivoFTP = nomeArquivoSalvo();
 			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/arquivos");
