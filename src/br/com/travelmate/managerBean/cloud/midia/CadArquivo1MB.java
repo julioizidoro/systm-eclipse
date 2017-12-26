@@ -63,6 +63,7 @@ public class CadArquivo1MB implements Serializable{
 	private List<Arquivo1> listaArquivo1;
 	private boolean arquivoExistente = false;
 	private boolean restrito;
+	private boolean arquivoEnviado = false;
 	
 	@PostConstruct
 	public void init(){
@@ -362,7 +363,12 @@ public class CadArquivo1MB implements Serializable{
         }
         try {
         	nomeArquivoFTP = nomeArquivo();
-        	msg = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/cloud/departamentos/");
+        	arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/cloud/departamentos/");
+        	if (arquivoEnviado) {
+				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+			}else{
+				msg = "Erro ao salvar arquivo";
+			}
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(msg, ""));
             ftp.desconectar();
@@ -389,16 +395,18 @@ public class CadArquivo1MB implements Serializable{
 		}
 		listaFile.add(file);
 		salvarArquivoFTP();
-		String nome = e.getFile().getFileName();
-		try {
-			nome = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
+		if (arquivoEnviado) {
+			String nome = e.getFile().getFileName();
+			try {
+				nome = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			if (listaNomeArquivo == null) {
+				listaNomeArquivo = new ArrayList<String>();
+			}
+			listaNomeArquivo.add(nome);
 		}
-		if (listaNomeArquivo == null) {
-			listaNomeArquivo = new ArrayList<String>();
-		}
-		listaNomeArquivo.add(nome);
 	}
 	
 	

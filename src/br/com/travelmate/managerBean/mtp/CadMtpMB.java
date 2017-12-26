@@ -70,6 +70,7 @@ public class CadMtpMB implements Serializable {
 	private List<UploadedFile> listaFile;
 	private List<Arquivos> listaArquivos;
 	private String nomeArquivo;
+	private boolean arquivoEnviado = false;
 
 	public String getNomeArquivoFTP() {
 		return nomeArquivoFTP;
@@ -375,12 +376,14 @@ public class CadMtpMB implements Serializable {
 	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
 		salvarArquivoFTP();
-		String nome = e.getFile().getFileName();
-		try {
-			nomeArquivo = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		} 
+		if (arquivoEnviado) {
+			String nome = e.getFile().getFileName();
+			try {
+				nomeArquivo = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			} 
+		}
 	}
 
 	public boolean salvarArquivoFTP() {
@@ -408,7 +411,12 @@ public class CadMtpMB implements Serializable {
 		}
 		try {
 			nomeArquivoFTP = nomeArquivoSalvo();
-			msg = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/mtparquivo");
+			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/mtparquivo");
+			if (arquivoEnviado) {
+				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+			}else{
+				msg = "Erro ao salvar arquivo";
+			}
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(msg, ""));
 			ftp.desconectar();
