@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaHighSchoolPagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="327"/>
 	<subDataset name="dataset1" uuid="f8cafa69-5102-491b-a57e-0fab53caedbe"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="logo" class="java.awt.Image"/>
@@ -30,7 +30,7 @@ cliente.profissaomae, cliente.fonemae,
 usuario.nome as nomeUsuario,
 unidadeNegocio.nomeFantasia, orcamento.dataCambio, orcamento.valorCambio, orcamento.totalMoedaEstrangeira,
 orcamento.totalmoedanacional, orcamento.TaxaTm, formapagamento.condicao, formapagamento.valortotal,
-formapagamento.valorjuros,
+formapagamento.valorjuros, formapagamento.observacoes as observacoes,
 moedas.descricao as descricaoMoedas, cambio.idcambio, moedas.sigla,parcelamentopagamento.idparcemlamentoPagamento,
 parcelamentopagamento.formaPagamento,
 parcelamentopagamento.tipoParcelmaneto,
@@ -317,6 +317,7 @@ where
 	<field name="formaPagamento_idformaPagamento" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="observacoes" class="java.lang.String"/>
 	<title>
 		<band height="72" splitType="Stretch">
 			<staticText>
@@ -345,7 +346,7 @@ where
 		</band>
 	</title>
 	<pageHeader>
-		<band height="444">
+		<band height="623">
 			<staticText>
 				<reportElement x="13" y="360" width="366" height="14" uuid="530fc295-58cf-4159-940e-188d12c80ff4"/>
 				<text><![CDATA[Assinatura do responsável (aquele que responde pelo participante no Brasil)]]></text>
@@ -400,6 +401,15 @@ Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{nomeUsuario}+" - Representante TM"]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="13" y="451" width="529" height="166" uuid="34d68705-f75b-4dbd-8b99-8a09da7c92c9"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="431" width="69" height="14" uuid="c5732f2d-dc49-425c-bf4f-4da12f3ff2f6"/>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 </jasperReport>

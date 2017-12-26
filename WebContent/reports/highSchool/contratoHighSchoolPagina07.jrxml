@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina07" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.1"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="128"/>
+	<property name="ireport.y" value="353"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="logo" class="java.awt.Image"/>
 	<queryString>
@@ -27,7 +27,7 @@ cliente.email,cliente.escolaridade, cliente.nomePai, cliente.profissaopai, clien
 cliente.profissaomae, cliente.fonemae,
 usuario.nome as nomeUsuario,
 unidadeNegocio.nomeFantasia, orcamento.dataCambio, orcamento.valorCambio, orcamento.totalMoedaEstrangeira,
-orcamento.totalmoedanacional, orcamento.TaxaTm, formapagamento.condicao, formapagamento.valortotal,
+orcamento.totalmoedanacional, orcamento.TaxaTm, formapagamento.condicao, formapagamento.valortotal, formapagamento.observacoes as observacoes,
 formapagamento.valorjuros,parcelamentopagamento.idparcemlamentoPagamento,
 parcelamentopagamento.formaPagamento,
 parcelamentopagamento.tipoParcelmaneto,
@@ -323,6 +323,7 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 	<field name="sigla" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="observacoes" class="java.lang.String"/>
 	<title>
 		<band height="78" splitType="Stretch">
 			<rectangle>
@@ -335,7 +336,7 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="364" splitType="Stretch">
+		<band height="570" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="7" y="183" width="184" height="13" uuid="51fdd288-07c9-491f-9b44-a69092720c56"/>
 				<textElement textAlignment="Right"/>
@@ -397,6 +398,15 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nome}+" - CPF: "+$F{cpf}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="12" y="396" width="531" height="166" uuid="8621830b-2670-45a6-864d-c386a689a168"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="382" width="69" height="14" uuid="16ef71b9-24c4-4fed-a0c2-db283d7ba5f3"/>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 </jasperReport>
