@@ -80,17 +80,17 @@ public class Ftp {
         }
     }
     
-    public String enviarArquivoDOCS(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
+    public boolean enviarArquivoDOCS(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
         String nomeArquivo = arquivoFTP + "_" +  new String(uploadedFile.getFileName().trim().getBytes(Charset.defaultCharset()), "UTF-8");
         if (ftpClient.storeFile(nomeArquivo, arqEnviar)) {
         	arqEnviar.close();
-            return "Arquivo: "+ nomeArquivo + " salvo com Sucesso";
+            return true;
         } else {
         	arqEnviar.close();   
-            return "Erro Salvar Arquivo";
+            return false;
         }
     }
     
