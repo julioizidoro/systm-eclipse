@@ -43,7 +43,7 @@ public class RegraVistoBean {
 	}
 		
 	public boolean calcularRegraVisto(Date dataInicio, Regravisto regra){
-		int dias = Formatacao.subtrairDatas(dataInicio, new Date());
+		int dias = Formatacao.subtrairDatas(new Date(), dataInicio);
 		if (dias<regra.getNumerodias()){
 			msg = "Prazo insuficiente para aplicação do  visto. Necessário " + regra.getNumerodias() + " dias";
 			return false;
