@@ -110,7 +110,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 	private Cliente cliente;
 	private Parcelamentopagamento parcelamentopagamento;
 	private List<Parcelamentopagamento> listaParcelamento;
-	private float saldoParcelar;
+	private float saldoParcelar = 0;
 	private Vendas vendass;
 	private Formapagamento formaPagamento;
 	private float valorTotal = 0;
@@ -124,9 +124,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 	private Date dataPrimeiroPagamento;
 	private String tipoParcelamento;
 	private String formaPagamentoString;
-	private float totalTarifa;
-	private float totalTaxas;
-	private float totalComissaoFornecedor;
+	private float totalTarifa = 0;
+	private float totalTaxas = 0;
+	private float totalComissaoFornecedor = 0;
 	private String idvenda;
 	private Seguroviagem seguroviagem;
 	private List<Pacoteseguro> listaSeguro;
@@ -138,9 +138,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 	private boolean novaFicha;
 	private Usuario usuario;
 	private List<Usuario> listaUsuario;
-	private float valorVendaAlterar;
+	private float valorVendaAlterar = 0;
 	private Lead lead;
-	private float totalSeguro;
+	private float totalSeguro = 0;
 	private Cambio cambio;
 	private List<Parcelamentopagamento> listaParcelamentoPagamentoAntiga;
 	private List<Seguroplanos> listaSeguroPlanos;

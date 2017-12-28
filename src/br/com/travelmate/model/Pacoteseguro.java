@@ -31,6 +31,8 @@ public class Pacoteseguro implements Serializable {
 	private Seguroviagem seguroviagem;
 
 	public Pacoteseguro() {
+		totalvalornet = 0f;
+		valornet = 0f;
 	}
 
 	public Integer getIdpacoteseguro() {

@@ -94,6 +94,11 @@ public class Pacotehotel implements Serializable {
 	private Date datapagamentoparceiro;
 
 	public Pacotehotel() {
+		valormoedanacional = 0f;
+		tarifa = 0f;
+		taxa = 0f;
+		valorcambio = 0f;
+		comissaofornecedor = 0f;
 	}
 
 	public Pacotehotel(Integer idpacoteHotel) {

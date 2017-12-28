@@ -82,6 +82,11 @@ public class Pacotetrem implements Serializable {
     private Date datapagamentoparceiro;
 
     public Pacotetrem() {
+    	adt = 0;
+    	chd = 0;
+    	inf = 0;
+    	tarifa = 0f;
+    	taxa = 0f;
     }
 
     public Pacotetrem(Integer idpacotetrem) {

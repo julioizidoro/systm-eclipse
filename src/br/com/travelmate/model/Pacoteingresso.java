@@ -78,6 +78,12 @@ public class Pacoteingresso implements Serializable {
     private Date datapagamentoparceiro;
 
     public Pacoteingresso() {
+    	adt = 0;
+    	chd = 0;
+    	valorcambio = 0f;
+    	tarifa = 0f;
+    	inf = 0;
+    	taxa = 0f;
     }
 
     public Pacoteingresso(Integer idpacoteingresso) {

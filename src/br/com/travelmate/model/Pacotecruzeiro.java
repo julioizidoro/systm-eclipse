@@ -79,6 +79,9 @@ public class Pacotecruzeiro implements Serializable {
 	private Date datapagamentoparceiro;
     
     public Pacotecruzeiro() {
+    	tarifa = 0f;
+    	taxa = 0f;
+    	valorcambio = 0f;
     }
 
     public Pacotecruzeiro(Integer idpacotecruzeiro) {

@@ -53,6 +53,7 @@ public class Pacotesfornecedor implements Serializable {
     private Fornecedor fornecedor;
 
     public Pacotesfornecedor() {
+    	valor = 0f;
     }
 
     public Pacotesfornecedor(Integer idpacotesfornecedor) {

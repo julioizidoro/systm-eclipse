@@ -82,6 +82,12 @@ public class Pacotepasseio implements Serializable {
     
 
     public Pacotepasseio() {
+    	chd = 0;
+    	inf = 0;
+    	adt = 0;
+    	tarifa = 0f;
+    	taxa = 0f;
+    	valorcambio = 0f;
     }
 
     public Pacotepasseio(Integer idpacotepasseio) {

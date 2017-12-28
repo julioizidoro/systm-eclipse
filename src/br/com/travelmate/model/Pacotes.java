@@ -82,6 +82,11 @@ public class Pacotes implements Serializable {
     private List<Pacotetrecho> pacotetrechoList;
 
     public Pacotes() {
+    	valorgross = 0f;
+        valornet = 0f;
+        comissao = 0f;
+        comissaofornecedor = 0f;
+        comissaoloja = 0f;
     }
 
     public Pacotes(Integer idpacotes) {

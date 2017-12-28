@@ -79,6 +79,9 @@ public class Pacotetransfer implements Serializable {
     private Date datapagamentoparceiro;
 
     public Pacotetransfer() {
+    	tarifa = 0f;
+    	taxa = 0f;
+    	valorcambio = 0f;
     }
 
     public Pacotetransfer(Integer idpacotetransfer) {

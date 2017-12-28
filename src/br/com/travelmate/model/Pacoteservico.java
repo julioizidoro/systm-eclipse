@@ -38,6 +38,7 @@ public class Pacoteservico implements Serializable {
     private Pacotetrecho pacotetrecho;
 
     public Pacoteservico() {
+    	tarifa = 0f;
     }
 
     public Pacoteservico(Integer idpacoteservico) {

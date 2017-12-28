@@ -79,6 +79,9 @@ public class Pacotecircuito implements Serializable {
     private Date datapagamentoparceiro;
 
     public Pacotecircuito() {
+    	tarifa = 0f;
+    	taxas = 0f;
+    	valorcambio = 0f;
     }
 
     public Pacotecircuito(Integer idpacotecircuito) {

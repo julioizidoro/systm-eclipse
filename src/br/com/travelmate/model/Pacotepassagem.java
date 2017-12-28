@@ -98,6 +98,19 @@ public class Pacotepassagem implements Serializable {
     private Date datapagamentoparceiro;
 
     public Pacotepassagem() {
+    	adttarifa = 0f;
+    	adttaxas = 0f;
+    	adttaxaemissao = 0f;
+    	adtcomissao = 0f;
+    	chdtarifa = 0f;
+    	chdtaxas = 0f;
+    	chdtaxaemissao = 0f;
+    	chdcomissao = 0f;
+    	inftarifa = 0f;;
+    	inftaxas = 0f;
+    	inftaxaemissao = 0f;
+    	infcomissao = 0f;
+    	comissaofornecedor = 0f;
     }
 
     public Pacotepassagem(Integer idpacotepassagem) {

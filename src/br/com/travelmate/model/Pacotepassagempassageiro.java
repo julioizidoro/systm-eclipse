@@ -53,6 +53,7 @@ public class Pacotepassagempassageiro implements Serializable {
     
 
     public Pacotepassagempassageiro() {
+    	valor = 0f;
     }
 
     public Pacotepassagempassageiro(Integer idpacotepassagempassageiro) {
