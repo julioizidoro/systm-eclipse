@@ -1,42 +1,65 @@
 package br.com.travelmate.managerBean.cancelamento;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
-import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.facade.ArquivosFacade;
+import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
+import br.com.travelmate.facade.CartaoCreditoLancamentoContasFacade;
+import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
+import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.DepartamentoFacade;  
+import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.TipoArquivoFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade; 
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
+import br.com.travelmate.model.Arquivos;
+import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Cancelamento;
+import br.com.travelmate.model.Cartaocreditolancamentocontas;
 import br.com.travelmate.model.Condicaocancelamento;
+import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Departamento; 
+import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuariopontos; 
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -57,8 +80,15 @@ public class CancelamentoFichaMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB metaRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Vendas venda;
 	private Vendas venda1;
+	private List<String> listaNomeArquivo;
+	private UploadedFile file;
+	private String nomeArquivoFTP;
+	private List<Banco> listaBanco;
+	private Banco banco;
 
 	@PostConstruct
 	public void init() {
@@ -69,6 +99,7 @@ public class CancelamentoFichaMB implements Serializable {
 			venda1 = (Vendas) session.getAttribute("venda1");
 			session.removeAttribute("venda1");
 			session.removeAttribute("venda");
+			gerarListaBanco();
 			cancelamento = (Cancelamento) session.getAttribute("cancelamento");
 			if (cancelamento == null) {
 				cancelamento = new Cancelamento();
@@ -84,6 +115,7 @@ public class CancelamentoFichaMB implements Serializable {
 				cancelamento.setTotalrecebidomatriz(0.0f);
 				cancelamento.setTotalreembolso(0.0f);
 				cancelamento.setHora(Formatacao.foramtarHoraString());
+				cancelamento.setFormapagamento("Reembolso");
 				emissao = true;
 			} else {
 				emissao = false;
@@ -160,18 +192,54 @@ public class CancelamentoFichaMB implements Serializable {
 		return "consCancelamento";
 	}
 
+	public List<String> getListaNomeArquivo() {
+		return listaNomeArquivo;
+	}
+
+	public void setListaNomeArquivo(List<String> listaNomeArquivo) {
+		this.listaNomeArquivo = listaNomeArquivo;
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public String getNomeArquivoFTP() {
+		return nomeArquivoFTP;
+	}
+
+	public void setNomeArquivoFTP(String nomeArquivoFTP) {
+		this.nomeArquivoFTP = nomeArquivoFTP;
+	}
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
 	public String salvar() {
-		if (emissao) {
 			CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
 			cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
-			cancelamento.setSituacao("PROCESSO");
-			Condicaocancelamento condicaocancelamento = new Condicaocancelamento();
-			CondicaoCancelamentoFacade condicaoCancelamentoFacade = new CondicaoCancelamentoFacade();
-			condicaocancelamento = condicaoCancelamentoFacade.consultar(1);
-			cancelamento.setCondicaocancelamento(condicaocancelamento);
+			cancelamento.setSituacao("FINALIZADA");
 			cancelamento = cancelamentoFacade.salvar(cancelamento);
 			venda = cancelamento.getVendas();
 			venda.setSituacao("CANCELADA");
+			salvarArquivo();
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(venda);
 			cancelarContasReceber();
@@ -216,6 +284,7 @@ public class CancelamentoFichaMB implements Serializable {
 				venda.setPonto(pontos[0]);
 				venda.setPontoescola(pontos[1]);
 				venda = vendasFacade.salvar(venda);
+				productRunnersMB.calcularPontuacao(venda, pontos[0], true);
 				metaRunnersMB.carregarListaRunners();
 				emitirNotificacao();
 	
@@ -240,9 +309,6 @@ public class CancelamentoFichaMB implements Serializable {
 						cancelamento.setHora(Formatacao.foramtarHoraString());
 						cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
 						cancelamento.setSituacao("PROCESSO");
-						condicaocancelamento = new Condicaocancelamento();
-						condicaocancelamento = condicaoCancelamentoFacade.consultar(1);
-						cancelamento.setCondicaocancelamento(condicaocancelamento);
 						cancelamento = cancelamentoFacade.salvar(cancelamento);
 						vendas = cancelamento.getVendas();
 						vendas.setSituacao("CANCELADA");
@@ -277,6 +343,7 @@ public class CancelamentoFichaMB implements Serializable {
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						vendas = vendasFacade.salvar(vendas);
+						productRunnersMB.calcularPontuacao(vendas, pontos[0], true);
 						metaRunnersMB.carregarListaRunners();
 						emitirNotificacao();
 					}
@@ -287,7 +354,6 @@ public class CancelamentoFichaMB implements Serializable {
 			}  
 			RequestContext.getCurrentInstance().closeDialog(null);
 			Mensagem.lancarMensagemInfo("Cancelamento Solicitado!", "");
-		}
 		return "";
 	}
 	
@@ -337,6 +403,7 @@ public class CancelamentoFichaMB implements Serializable {
 			venda1.setPonto(pontos[0]);
 			venda1.setPontoescola(pontos[1]);
 			venda1 = vendasFacade.salvar(venda1);
+			productRunnersMB.calcularPontuacao(venda1, pontos[0], true);
 			metaRunnersMB.carregarListaRunners(); 
 		}
 	}
@@ -407,6 +474,127 @@ public class CancelamentoFichaMB implements Serializable {
 						crmCobrancaBean.baixar(lista.get(i), usuarioLogadoMB.getUsuario());
 					}
 				}
+			}
+		}
+	}
+	
+	
+	public void fileUploadListener(FileUploadEvent e) {
+		this.file = e.getFile();
+		salvarArquivoFTP();
+		if (listaNomeArquivo == null) {
+			listaNomeArquivo = new ArrayList<String>();
+		}
+		listaNomeArquivo.add(file.getFileName());
+		Mensagem.lancarMensagemInfo("Salvo com sucesso.", "");
+	}
+
+	public boolean salvarArquivoFTP() {
+		String msg = "";
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		Ftpdados dadosFTP = null;
+		String pasta = "";
+		try {
+			dadosFTP = ftpDadosFacade.getFTPDados();
+		} catch (SQLException ex) {
+			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro", "");
+		}
+		if (dadosFTP == null) {
+			return false;
+		}
+		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		try {
+			if (!ftp.conectar()) {
+				mostrarMensagem(null, "Erro conectar FTP", "");
+				return false;
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
+		}
+		try {
+			nomeArquivoFTP = nomeArquivo(file.getFileName().trim());
+			pasta = "/systm/arquivos/";
+			msg = ftp.enviarArquivo(file, nomeArquivoFTP, pasta);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(msg, ""));
+			ftp.desconectar();
+			return true;
+		} catch (IOException ex) {
+			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
+			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
+		}
+		return false;
+	}
+
+	public void mostrarMensagem(Exception ex, String erro, String titulo) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		erro = erro + " - " + ex;
+		context.addMessage(null, new FacesMessage(titulo, erro));
+	}
+	
+	
+	public String nomeArquivo(String nome) {
+		nomeArquivoFTP = cancelamento.getVendas().getIdvendas() + "_" + nome;
+		return nomeArquivoFTP;
+	}
+	
+	
+	public void lancarContasPagar() {
+		Contaspagar contaspagar = new Contaspagar();
+		PlanoContaFacade planoContaFacade = new PlanoContaFacade();
+		contaspagar.setBanco(banco);
+		String comp;
+		int mes = Formatacao.getMesData(cancelamento.getDatasolicitacao());
+		if (mes < 10) {
+			comp = "0" + mes + "/" + Formatacao.getAnoData(cancelamento.getDatasolicitacao());
+		} else
+			comp = mes + "/" + Formatacao.getAnoData(cancelamento.getDatasolicitacao());
+		contaspagar.setCompetencia(comp);
+		contaspagar.setDataEmissao(new Date());
+		contaspagar.setDescricao("Reembolso referente ao cancelamento da venda " + cancelamento.getVendas().getIdvendas() + ", Cliente "+ 
+				cancelamento.getVendas().getCliente().getNome() + ", com o plano de conta Reembolso a Clientes");
+		contaspagar.setPlanoconta(planoContaFacade.consultar(7));
+		contaspagar.setUnidadenegocio(cancelamento.getVendas().getUnidadenegocio());
+		contaspagar.setValorentrada(cancelamento.getValorreembolso());
+		contaspagar.setValorsaida(0.0f);
+		contaspagar.setDatacompensacao(cancelamento.getDatasolicitacao());
+		contaspagar.setDatavencimento(cancelamento.getDatasolicitacao());
+		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
+		contaspagar = contasPagarFacade.salvar(contaspagar);
+		Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");
+	}
+	
+	
+	public void gerarListaBanco() {
+        BancoFacade bancoFacade = new BancoFacade();
+        listaBanco = bancoFacade.listar();
+        if (listaBanco == null) {
+            listaBanco = new ArrayList<Banco>();
+        }
+    }
+	
+	
+	public void salvarArquivo() {
+		TipoArquivoFacade tipoarquivo = new TipoArquivoFacade();
+		ArquivosFacade arquivosFacade = new ArquivosFacade();
+		Arquivos arquivos;
+		if (listaNomeArquivo.size() > 0) {
+			for (int i = 0; i < listaNomeArquivo.size(); i++) {
+				arquivos = new Arquivos();
+				arquivos.setDataInclusao(new Date());
+				arquivos.setNomeArquivo(listaNomeArquivo.get(i));
+				arquivos.setNomesalvos(nomeArquivo(listaNomeArquivo.get(i)));
+				arquivos.setSe(false);
+				arquivos.setUsuario(usuarioLogadoMB.getUsuario());
+				arquivos.setVendas(cancelamento.getVendas());
+				try {
+					arquivos.setTipoarquivo(tipoarquivo.consultar(14));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				arquivosFacade.salvar(arquivos);
 			}
 		}
 	}
