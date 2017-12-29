@@ -2329,6 +2329,42 @@
 		</navigation-case>     
 	</navigation-rule>
 	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contratoCurso</from-outcome>
+			<to-view-id>/pages/contratos/curso/contratoCurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>graficoTop3Mes</from-outcome>
+			<to-view-id>/pages/produtcrunners/graficoTop3Mes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>graficoTopAno</from-outcome>
+			<to-view-id>/pages/produtcrunners/graficoTopAno.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaCurso</from-outcome>
+			<to-view-id>/pages/fichas/curso/fichaCurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

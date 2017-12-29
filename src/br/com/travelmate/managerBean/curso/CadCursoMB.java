@@ -54,6 +54,7 @@ import br.com.travelmate.facade.VendasPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -109,6 +110,8 @@ public class CadCursoMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB metaRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Vendas venda;
 	private Vendas vendaAlterada;
 	private Formapagamento formaPagamento;
@@ -1465,6 +1468,7 @@ public class CadCursoMB implements Serializable {
 							venda.setIdregravenda(pontos[2]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							metaRunnersMB.carregarListaRunners();
 							String titulo = "";
 							String operacao = "";

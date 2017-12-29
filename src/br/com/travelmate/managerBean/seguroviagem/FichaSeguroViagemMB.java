@@ -75,6 +75,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB mateRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Seguroviagem seguro;
 	private Seguroviagem seguroAlterado;
 	private Cliente cliente;
@@ -950,6 +952,7 @@ public class FichaSeguroViagemMB implements Serializable {
 							vendas.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							vendas = vendasFacade.salvar(vendas);
+							productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 						}
 					}
@@ -987,6 +990,7 @@ public class FichaSeguroViagemMB implements Serializable {
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						vendas = vendasFacade.salvar(vendas);
+						productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 						mateRunnersMB.carregarListaRunners();
 					}
 				}

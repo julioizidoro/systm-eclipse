@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -51,8 +52,13 @@ public class Produtos implements Serializable {
 	private List<Tipoarquivoproduto> tipoarquivoprodutoList;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos")
 	private List<Paisproduto> paisprodutoList;
+	@Transient
+	private String corTitulo;
+	@Column(name = "produtorunners")
+	private boolean produtorunners;
 
 	public Produtos() {
+		corTitulo = "";
 	}
 
 	public Produtos(Integer idprodutos) {
@@ -121,6 +127,22 @@ public class Produtos implements Serializable {
 
 	public void setTipoarquivoprodutoList(List<Tipoarquivoproduto> tipoarquivoprodutoList) {
 		this.tipoarquivoprodutoList = tipoarquivoprodutoList;
+	}
+
+	public String getCorTitulo() {
+		return corTitulo;
+	}
+
+	public void setCorTitulo(String corTitulo) {
+		this.corTitulo = corTitulo;
+	}
+
+	public boolean isProdutorunners() {
+		return produtorunners;
+	}
+
+	public void setProdutorunners(boolean produtorunners) {
+		this.produtorunners = produtorunners;
 	}
 
 	@Override

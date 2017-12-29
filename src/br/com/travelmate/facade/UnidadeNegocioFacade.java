@@ -80,4 +80,15 @@ public class UnidadeNegocioFacade {
         }
     }
     
+    
+    public List<Unidadenegocio> listarUnidade(String sql) {
+        unidadeNegocioDao = new UnidadeNegocioDao();
+        try {
+            return unidadeNegocioDao.listarUnidade(sql);
+        } catch (Exception ex) {
+            Logger.getLogger(UnidadeNegocioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 }

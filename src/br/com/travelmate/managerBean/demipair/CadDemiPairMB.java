@@ -38,6 +38,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -79,6 +80,8 @@ public class CadDemiPairMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB mateRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Demipair demipair;
 	private Vendas venda;
 	private Formapagamento formaPagamento;
@@ -1039,7 +1042,8 @@ public class CadDemiPairMB implements Serializable {
 							dashBoardBean.calcularNumeroVendasProdutos(venda, false);
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-							dashBoardBean.calcularPontuacao(venda, demipair.getNumerosemanas(), "", false);
+							int[] pontos = dashBoardBean.calcularPontuacao(venda, demipair.getNumerosemanas(), "", false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 							String titulo = "";
 							String operacao = "";

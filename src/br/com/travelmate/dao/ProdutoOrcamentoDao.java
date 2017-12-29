@@ -58,4 +58,16 @@ public class ProdutoOrcamentoDao {
         manager.close();
         return produto;
     }
+    
+    public Produtosorcamento consultar(String sql) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery(sql);
+        Produtosorcamento produto = null;
+        if (q.getResultList().size()>0){
+            produto =  (Produtosorcamento) q.getResultList().get(0);
+        }
+        manager.close();
+        return produto;
+    }
 }

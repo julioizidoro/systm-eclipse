@@ -42,6 +42,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
@@ -86,6 +87,8 @@ public class CadAupairMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	@Inject
 	private MateRunnersMB metaRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Aupair aupair;
 	private Valoresaupair valoresAupair;
 	private List<Valoresaupair> listaValores;
@@ -1146,6 +1149,7 @@ public class CadAupairMB implements Serializable {
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							metaRunnersMB.carregarListaRunners();
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);

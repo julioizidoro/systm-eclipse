@@ -38,6 +38,7 @@ import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cliente;
@@ -73,6 +74,8 @@ public class CadVistosMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB mateRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Cliente cliente;
 	private Vistos vistos;
 	private Vendas vendas;
@@ -720,6 +723,7 @@ public class CadVistosMB implements Serializable {
 					vendas.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					vendas = vendasFacade.salvar(vendas);
+					productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 					mateRunnersMB.carregarListaRunners();
 				}
 			}
@@ -756,6 +760,7 @@ public class CadVistosMB implements Serializable {
 					vendas.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					vendas = vendasFacade.salvar(vendas);
+					productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 					mateRunnersMB.carregarListaRunners();
 				}
 			}

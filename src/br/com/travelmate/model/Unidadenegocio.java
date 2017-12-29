@@ -119,6 +119,8 @@ public class Unidadenegocio implements Serializable {
     private boolean selecionado;
     @Transient
     private String tiponotificacao;
+    @Column(name = "categoria")
+    private String categoria;
 
     public Unidadenegocio() {
     }
@@ -384,6 +386,14 @@ public class Unidadenegocio implements Serializable {
 
 	public void setLeadresponsavelList(List<Leadresponsavel> leadresponsavelList) {
 		this.leadresponsavelList = leadresponsavelList;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override

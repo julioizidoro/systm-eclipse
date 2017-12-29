@@ -852,6 +852,10 @@
 													action="#{menuMB.vendasCliente()}">
 													<span class="submenu-label">Clientes de Curso</span>
 												</p:commandLink></li>
+								<li><p:commandLink
+													action="#{menuMB.contratosCurso()}">
+													<span class="submenu-label">Contratos</span>
+												</p:commandLink></li>
 							</ul></h:panelGroup></li>
 						<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;"
@@ -2088,12 +2092,231 @@
 												</ul>
 												<br /> <br /> <br />
 											</div>
-											<br></br> <br></br> <br></br>
+											<br></br> 
 										</div>
 										<!-- /panel -->
 									</div>
 								</div>
 							</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dashBoardMB.retornarConteudo()}">
+							<div class="row" style="margin-top: 1.5%;">
+								<div class="materunss">
+									<div class="col-lg-12"
+										style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+										<div class="col-lg-6">
+											<p:commandLink id="btnProductRunners" title=""
+												action="#"  >
+												<img src="resources/img/paginainicial/productRunners.png" width="390" style="margin-left: 62%;"/>   
+											</p:commandLink>
+										</div>    
+									</div>   
+								</div>
+							</div> 
+							<br/>
+							<ui:repeat var="produtos" value="#{productRunnersMB.listaProdutos}" varStatus="statuss">
+								<div id="metas" class="col-lg-3"  
+									style="background: #D7D8DC; height: 194px;border:8px solid;border-color:white;width: 20%;">
+								<h:panelGrid style="width: 116.5%;margin-left: -8%;background:#{produtos.corTitulo}">	
+								<p style="text-transform:highcase;font-size: 24px;color: white;width:100%;font-weight: bold;" align="center">#{produtos.descricao}</p>
+								</h:panelGrid>	   
+									<h:panelGrid columns="3" style="width:100%;" >
+										<img src="#{productRunnersMB.getFoto(produtos)}" alt=""  
+											class="imagemMatesRuns" />
+										<p:outputLabel value="#{productRunnersMB.getPontuacao(produtos)}" style="color:green;font-size: 60px;"/>
+										<h:panelGrid columns="1" style="width:100%;">
+											<p:outputLabel/>
+											<p:commandLink id="btnTop3" title="Os 3 melhores do mês"
+													action="#{productRunnersMB.graficoTop3Mes(produtos)}"  >
+													<img src="resources/img/top3.png" alt=""  
+													class="imagemMatesRuns" />
+												</p:commandLink>
+												<p:commandLink id="btnTopAno" title="Os melhores do ano"
+													action="#{productRunnersMB.graficoTopAno(produtos)}"  >
+													<img src="resources/img/topAno.png" alt=""  
+													class="imagemMatesRuns" style="margin-top: 2%;"/>
+												</p:commandLink>
+										</h:panelGrid>     
+									</h:panelGrid>
+								</div>
+							</ui:repeat>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dashBoardMB.retornarConteudo()}">
+							<div class="row" style="margin-top: 1.5%;">
+								<div class="materunss">
+									<div class="col-lg-12"
+										style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+										<div class="col-lg-6">
+											<p:commandLink id="btnTMRACE"
+												action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
+												<img src="resources/img/paginainicial/tmrace.png" width="300" style="margin-left: 62%;"/>   
+											</p:commandLink>
+										</div>    
+									</div>   
+								</div>
+							</div>
+							<br/>
+							<h:panelGrid columns="3" style="width:100%;">
+									<h:panelGroup rendered="#{dashBoardMB.mostrarDadosUnidade()}">
+										
+										<p style="font-size: 28px;color: green;background: gold;width:91.5%;" align="center">Gold</p>
+										<div id="metas" class="col-lg-11"
+											style="background: #D7D8DC; height: 167px;margin-top: -3%;">
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="#{tmRaceMB.getNomeUnidade(1)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(1)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:100%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="#{tmRaceMB.getNomeUnidade(2)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(2)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:80%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel value="#{tmRaceMB.getNomeUnidade(3)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(3)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:50%"></div>
+												</div> 
+											</div>
+										</div>
+								</h:panelGroup>
+								<h:panelGroup style="background:#E6E6E6;">
+									<p style="font-size: 28px;color: green;background:#BDBDBD;width:91.5%;" align="center">Silver</p>
+										<div id="metas" class="col-lg-11"
+											style="background: #D7D8DC; height: 167px;margin-top: -3%;">
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="#{tmRaceMB.getNomeUnidadeSinze(1)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(1)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:100%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="#{tmRaceMB.getNomeUnidadeSinze(2)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(2)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:80%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel value="#{tmRaceMB.getNomeUnidadeSinze(3)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(3)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:50%"></div>
+												</div> 
+											</div>
+										</div>
+								</h:panelGroup>
+								<h:panelGroup style="background:#E6E6E6;">
+								
+									<p style="font-size: 28px;color: green;background:#DF7401;margin-left: -2%;width: 83%;" align="center">Bronze</p>
+										<div id="metas" class="col-lg-10"
+											style="background: #D7D8DC; height: 167px;margin-left: -2%;margin-top: -3%;">
+											<div class="col-lg-12">
+												<p:outputLabel  
+													value="#{tmRaceMB.getNomeUnidadeBronze(1)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(1)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:100%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel
+													value="#{tmRaceMB.getNomeUnidadeBronze(2)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(2)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:80%"></div>
+												</div>
+											</div>
+											<br />
+											<div class="col-lg-12">
+												<p:outputLabel value="#{tmRaceMB.getNomeUnidadeBronze(3)}"
+													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+											</div>
+											<div class="col-lg-12" style="margin-top: -1.2%;">
+												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(3)}</span>
+											</div>
+											<div class="col-lg-12">
+												<div class="progress progress-striped active"
+													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+													<div class="progress-bar"
+														style="width:50%"></div>
+												</div> 
+											</div>
+										</div>
+								</h:panelGroup>
+							</h:panelGrid>
+						<br/>
 						</h:panelGroup>
 						<h:panelGroup id="painelImagem"
 							rendered="#{dashBoardMB.retornarImagem()}">

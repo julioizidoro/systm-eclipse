@@ -51,7 +51,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaAcomodacao();
-		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()<=2) {
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
 			if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
 					.isAcomodacaoindepentende()) {
 				gerarListaAcomodacaoIndependente();

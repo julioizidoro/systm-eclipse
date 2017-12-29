@@ -38,6 +38,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -74,6 +75,8 @@ public class CadHeFinalMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB metaRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Vendas venda;
 	private He he;
 	private Formapagamento formaPagamento;
@@ -958,6 +961,7 @@ public class CadHeFinalMB implements Serializable {
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					venda = vendasFacade.salvar(venda);
+					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 					metaRunnersMB.carregarListaRunners();
 
 					
@@ -1024,6 +1028,7 @@ public class CadHeFinalMB implements Serializable {
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							metaRunnersMB.carregarListaRunners();
 						}
 						String titulo = "Ficha Final de Higher Education Alterada";

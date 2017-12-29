@@ -62,4 +62,14 @@ public class ProdutoOrcamentoFacade {
             return null;
         }
     }
+    
+    public Produtosorcamento consultar(String sql) {
+        produtoOrcamentoDao = new ProdutoOrcamentoDao();
+        try {
+            return produtoOrcamentoDao.consultar(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoOrcamentoFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

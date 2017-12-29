@@ -68,4 +68,12 @@ public class UnidadeNegocioDao {
         return lista;
     }
     
+    public List<Unidadenegocio> listarUnidade(String sql) throws Exception{
+    	EntityManager manager;
+        manager = ConectionFactory.getInstance();
+        Query q = manager.createQuery(sql);
+        List<Unidadenegocio> lista = q.getResultList();
+        return lista;
+    }
+    
 }

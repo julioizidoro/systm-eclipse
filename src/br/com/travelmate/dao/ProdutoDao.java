@@ -47,6 +47,15 @@ public class ProdutoDao {
         return lista;
     }
     
+    public List<Produtos> listarProdutosSql(String sql) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery(sql);
+        List<Produtos> lista = q.getResultList();
+        manager.close();
+        return lista;
+    }
+    
     public Produtos consultar(int idProduto) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

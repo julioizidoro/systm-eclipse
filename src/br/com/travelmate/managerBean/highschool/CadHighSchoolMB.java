@@ -41,6 +41,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -83,6 +84,8 @@ public class CadHighSchoolMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB mateRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Highschool highschool;
 	private Valoreshighschool valoreshighschool;
 	private List<Valoreshighschool> listaValores;
@@ -1142,6 +1145,7 @@ public class CadHighSchoolMB implements Serializable {
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 							ContasReceberBean contasReceber = new ContasReceberBean(venda,
 									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
@@ -1219,6 +1223,7 @@ public class CadHighSchoolMB implements Serializable {
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 						}
 						String titulo = "Nova Ficha de High School";

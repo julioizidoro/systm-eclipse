@@ -167,11 +167,20 @@
 						columnClasses="tamanho6, tamanho6, tamanho6, tamanho6"
 						style="width:67%;">
 						<p:outputLabel value="Sigla Unidade" />
-						<p:outputLabel/>  
+						<p:outputLabel value="Categoria"/>  
 						<p:outputLabel/>
 						<p:outputLabel/>
 						<p:inputText id="sigla" style="width:55%;"
-							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />   
+							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />    
+						<p:selectOneMenu id="categoria"  value="#{cadUnidadeNegocioMB.unidadenegocio.categoria}">
+							<f:selectItem itemLabel="Selecione" itemValue="sn"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Gold" itemValue="Gold" />
+							<f:selectItem itemLabel="Sinze" itemValue="Sinze" />
+							<f:selectItem itemLabel="Bronze" itemValue="Bronze" />
+						</p:selectOneMenu> 
+						<p:outputLabel/>
+						<p:outputLabel/> 
 						<h:panelGroup> 
 							<p:selectBooleanCheckbox id="parcelamentoLoja" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.unidadenegocio.parcelamentojoja}"/> 

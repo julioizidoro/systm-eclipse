@@ -40,6 +40,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -81,6 +82,8 @@ public class CadHeInscricaoMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB metaRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private He he;
 	private Vendas venda;
 	private Formapagamento formaPagamento;
@@ -1168,6 +1171,7 @@ public class CadHeInscricaoMB implements Serializable {
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					venda = vendasFacade.salvar(venda);
+					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 					metaRunnersMB.carregarListaRunners();
 
 					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
@@ -1234,6 +1238,7 @@ public class CadHeInscricaoMB implements Serializable {
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							metaRunnersMB.carregarListaRunners();
 						}
 						String titulo = "Ficha de Higher Education Alterada";
