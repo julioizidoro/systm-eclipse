@@ -84,7 +84,7 @@
 					<p:outputLabel value="Controle Aupair" style="color:#495B6C;font-size:18px;"/>
 				</div>      
 				<p:tabView style="background:#ffffff;" id="tabelas">          
-					<p:tab title="Todos" titleStyle="font-size: 11px">
+					<p:tab title="Todos(#{controleAuPairMB.numeroTodos})" titleStyle="font-size: 11px">
 						<p:dataTable id="tabelaControleAupair" var="aupair"     
 							style="width:103%;margin-left:-1%;font-size:11px;"
 							value="#{controleAupairMB.listaControle}" scrollable="true"

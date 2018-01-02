@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -56,6 +55,8 @@ public class Produtos implements Serializable {
 	private String corTitulo;
 	@Column(name = "produtorunners")
 	private boolean produtorunners;
+	@Column(name = "ordem")
+	private Integer ordem;
 
 	public Produtos() {
 		corTitulo = "";
@@ -143,6 +144,14 @@ public class Produtos implements Serializable {
 
 	public void setProdutorunners(boolean produtorunners) {
 		this.produtorunners = produtorunners;
+	}
+
+	public Integer getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(Integer ordem) {
+		this.ordem = ordem;
 	}
 
 	@Override

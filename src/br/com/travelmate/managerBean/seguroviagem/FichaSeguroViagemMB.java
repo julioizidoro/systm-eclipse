@@ -26,6 +26,7 @@ import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ClienteFacade;
+import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -44,6 +45,7 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controleseguro;
+import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Lead;
@@ -954,6 +956,35 @@ public class FichaSeguroViagemMB implements Serializable {
 							vendas = vendasFacade.salvar(vendas);
 							productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							String titulo = "Nova Ficha de High School";
+							String operacao = "A";
+							String imagemNotificacao = "inserido";
+
+							if (novaFicha) {
+								titulo = "Nova Ficha de Curso";
+								operacao = "I";
+								imagemNotificacao = "inserido";
+							} else {
+								titulo = "Ficha de Curso Alterada";
+								operacao = "A";
+								imagemNotificacao = "alterado";
+								verificarDadosAlterado();
+							}
+							String vm = "Venda pela Matriz";
+							if (vendas.getVendasMatriz().equalsIgnoreCase("N")) {
+								vm = "Venda pela Loja";
+							}
+							DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+							List<Departamento> departamento = departamentoFacade
+									.listar("select d From Departamento d where d.usuario.idusuario="
+											+ vendas.getProdutos().getIdgerente());
+							if (departamento != null && departamento.size() > 0) {
+								Formatacao.gravarNotificacaoVendas(titulo, vendas.getUnidadenegocio(), cliente.getNome(),
+										vendas.getFornecedorcidade().getFornecedor().getNome(),
+										Formatacao.ConvercaoDataPadrao(seguro.getDataInicio()), vendas.getUsuario().getNome(), vm, vendas.getValor(),
+										vendas.getValorcambio(), vendas.getCambio().getMoedas().getSigla(), operacao,
+										departamento.get(0), imagemNotificacao, "I");
+							}
 						}
 					}
 				}
@@ -992,6 +1023,35 @@ public class FichaSeguroViagemMB implements Serializable {
 						vendas = vendasFacade.salvar(vendas);
 						productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 						mateRunnersMB.carregarListaRunners();
+						String titulo = "Nova Ficha de High School";
+						String operacao = "A";
+						String imagemNotificacao = "inserido";
+
+						if (novaFicha) {
+							titulo = "Nova Ficha de Curso";
+							operacao = "I";
+							imagemNotificacao = "inserido";
+						} else {
+							titulo = "Ficha de Curso Alterada";
+							operacao = "A";
+							imagemNotificacao = "alterado";
+							verificarDadosAlterado();
+						}
+						String vm = "Venda pela Matriz";
+						if (vendas.getVendasMatriz().equalsIgnoreCase("N")) {
+							vm = "Venda pela Loja";
+						}
+						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+						List<Departamento> departamento = departamentoFacade
+								.listar("select d From Departamento d where d.usuario.idusuario="
+										+ vendas.getProdutos().getIdgerente());
+						if (departamento != null && departamento.size() > 0) {
+							Formatacao.gravarNotificacaoVendas(titulo, vendas.getUnidadenegocio(), cliente.getNome(),
+									vendas.getFornecedorcidade().getFornecedor().getNome(),
+									Formatacao.ConvercaoDataPadrao(seguro.getDataInicio()), vendas.getUsuario().getNome(), vm, vendas.getValor(),
+									vendas.getValorcambio(), vendas.getCambio().getMoedas().getSigla(), operacao,
+									departamento.get(0), imagemNotificacao, "A");
+						}
 					}
 				}
 			}

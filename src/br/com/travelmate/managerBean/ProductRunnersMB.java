@@ -132,7 +132,7 @@ public class ProductRunnersMB implements Serializable{
 	
 	public void gerarListaProdutos(){
 		ProdutoFacade produtoFacade = new ProdutoFacade();
-		listaProdutos = produtoFacade.listarProdutosSql("SELECT p From Produtos p WHERE p.produtorunners=true");
+		listaProdutos = produtoFacade.listarProdutosSql("SELECT p From Produtos p WHERE p.produtorunners=true Order By p.ordem ");
 		if (listaProdutos == null) {
 			listaProdutos = new ArrayList<Produtos>();
 		}
