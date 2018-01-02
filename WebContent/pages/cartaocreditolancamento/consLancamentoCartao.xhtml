@@ -131,7 +131,7 @@
 				<br></br>
 				<div style="width: 85%; margin-left: 8%;">
 					<p:outputLabel value="Valor Total R$: #{cartaoCreditoLancamentoMB.valorTotal}" id="valorTotal">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<f:convertNumber pattern="##,###,###,###.00" minFractionDigits="2" />
 					</p:outputLabel>
 					<p:dataTable id="tabelaCartaoCredito"
 						value="#{cartaoCreditoLancamentoMB.listaLancamento}"
