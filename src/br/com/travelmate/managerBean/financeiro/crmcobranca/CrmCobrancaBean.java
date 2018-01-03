@@ -97,6 +97,10 @@ public class CrmCobrancaBean {
 			for (int i=0;i<lista.size();i++){
 				if (lista.get(i).getCrmcobrancaconta()==null){
 					criar(lista.get(i));
+				}else{
+					if (!lista.get(i).getCrmcobrancaconta().getCrmcobranca().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+						criar(lista.get(i));
+					}
 				}
 			}
 		}
