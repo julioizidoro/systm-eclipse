@@ -1874,6 +1874,7 @@ public class CadCursoMB implements Serializable {
 						vendasFacade = new VendasFacade();
 						vendaSeguro = vendasFacade.salvar(vendaSeguro);
 						metaRunnersMB.carregarListaRunners();
+						productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], false);
 					}
 				}
 			}else {
@@ -1905,6 +1906,7 @@ public class CadCursoMB implements Serializable {
 							vendaSeguro.setPontoescola(pontos[1]);
 							vendaSeguro = vendasFacade.salvar(vendaSeguro);
 							metaRunnersMB.carregarListaRunners();
+							productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], false);
 						}
 						
 					}
