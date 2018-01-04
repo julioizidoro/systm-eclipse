@@ -421,46 +421,53 @@ public class SalvarOrcamentoOcurso {
 		float valorSuplemento = 0.0f; 
 		Date dataTermino = calcularDataTerminoCurso(dataconsulta, cursospacote.getNumerosemanaacomodacao().intValue());
 		int numeroDias = 0;
-		if ((po.getValorcoprodutos().getDatainicial().before(dataconsulta)
-				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
-						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataconsulta)))
-				&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
-						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
-								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			valorSuplemento = po.getValorcoprodutos().getValororiginal() * multiplicador;
-
-		} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
-				&& (Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
-						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			valorSuplemento = po.getValorcoprodutos().getValororiginal() * multiplicador;
-
-		} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
-				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
-
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatafinal(),
-					po.getValorcoprodutos().getDatainicial());
-		} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
-				&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
-						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
-								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(dataTermino, po.getValorcoprodutos().getDatainicial());
-
-		} else if ((po.getValorcoprodutos().getDatainicial().before(dataconsulta))
-				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
-						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
-								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatafinal(), dataconsulta);
+		boolean calcular = true;
+		if (po.getValorcoprodutos().getDatainicial().after(dataconsulta) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
+				(po.getValorcoprodutos().getDatafinal().before(dataconsulta) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
+			calcular = false;
 		}
-		if ((valorSuplemento == 0) && (numeroDias > 0)) {
-			if (po.getValorcoprodutos().getCobranca().equalsIgnoreCase("S")) {
-				int resto = (numeroDias % 7);
-				numeroDias = numeroDias / 7;
-				if (resto > 0) {
-					numeroDias = numeroDias + 1;
-				}
+		if (calcular) {
+			if ((po.getValorcoprodutos().getDatainicial().before(dataconsulta)
+					|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
+							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataconsulta)))
+					&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
+							|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
+									.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
+				valorSuplemento = po.getValorcoprodutos().getValororiginal() * multiplicador;
+	
+			} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
+					&& (Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
+							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
+				valorSuplemento = po.getValorcoprodutos().getValororiginal() * multiplicador;
+	
+			} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
+					&& (po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
+	
+				numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(),
+						po.getValorcoprodutos().getDatafinal());
+			} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
+					&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
+							|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
+									.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
+				numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
+	
+			} else if ((po.getValorcoprodutos().getDatainicial().before(dataconsulta))
+					&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
+							|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
+									.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
+				numeroDias = Formatacao.subtrairDatas(dataconsulta, po.getValorcoprodutos().getDatafinal());
 			}
-			valorSuplemento = po.getValorcoprodutos().getValororiginal();
-			valorSuplemento = valorSuplemento * numeroDias;
+			if ((valorSuplemento == 0) && (numeroDias > 0)) {
+				if (po.getValorcoprodutos().getCobranca().equalsIgnoreCase("S")) {
+					int resto = (numeroDias % 7);
+					numeroDias = numeroDias / 7;
+					if (resto > 0) {
+						numeroDias = numeroDias + 1;
+					}
+				}
+				valorSuplemento = po.getValorcoprodutos().getValororiginal();
+				valorSuplemento = valorSuplemento * numeroDias;
+			}
 		}
 		return valorSuplemento;
 	}
