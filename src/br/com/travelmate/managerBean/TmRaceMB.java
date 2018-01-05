@@ -86,7 +86,7 @@ public class TmRaceMB implements Serializable{
 	public void gerarListaGold(){
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		int ano = Formatacao.getAnoData(new Date());
-		List<Integer> listaposicao = null;
+		List<TmRaceBean> listaposicao = null;
 		listaGold = new ArrayList<TmRaceBean>();
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		List<Unidadenegocio> listaUnidade = unidadeNegocioFacade.listarUnidade("SELECT u FROM Unidadenegocio u WHERE u.categoria like '%Gold%'");
@@ -111,16 +111,22 @@ public class TmRaceMB implements Serializable{
 			for (int j = 0; j < listaCorrida.size(); j++) {
 				tmRaceBean.setPontos(tmRaceBean.getPontos() + listaCorrida.get(j).getPontos());
 			}
-			if (listaCorrida.size() > 0 && listaGold.size() <= 3) {
+			if (listaCorrida.size() > 0 && listaGold.size() < 3) {
 				listaGold.add(tmRaceBean);
-			}else{
-				for (int l = 0; l < listaGold.size(); l++) {
-					if (listaGold.get(l).getPontos() < tmRaceBean.getPontos()) {
-						listaposicao.add(l);
+			}else if(listaCorrida.size() > 0 && listaGold.size() >= 3){
+					if ((listaGold.get(0).getPontos() < tmRaceBean.getPontos()) && (listaGold.get(0).getPontos() < listaGold.get(1).getPontos()) &&
+							(listaGold.get(0).getPontos() < listaGold.get(2).getPontos())) {
+						listaposicao.add(listaGold.get(0));
 						listaGold.add(tmRaceBean);
-						l = listaGold.size();
+					}else if ((listaGold.get(1).getPontos() < tmRaceBean.getPontos()) && (listaGold.get(1).getPontos() < listaGold.get(0).getPontos()) &&
+							(listaGold.get(1).getPontos() < listaGold.get(2).getPontos())) {
+						listaposicao.add(listaGold.get(1));
+						listaGold.add(tmRaceBean);
+					} else if ((listaGold.get(2).getPontos() < tmRaceBean.getPontos()) && (listaGold.get(2).getPontos() < listaGold.get(1).getPontos()) &&
+							(listaGold.get(2).getPontos() < listaGold.get(0).getPontos())) {
+						listaposicao.add(listaGold.get(2));
+						listaGold.add(tmRaceBean);
 					}
-				}
 				for (int j = 0; j < listaposicao.size(); j++) {
 					listaGold.remove(listaposicao.get(j));
 				}
@@ -173,7 +179,7 @@ public class TmRaceMB implements Serializable{
 	public void gerarListaSinze(){
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		int ano = Formatacao.getAnoData(new Date());
-		List<Integer> listaposicao = null;
+		List<TmRaceBean> listaposicao = null;
 		listaSinze = new ArrayList<TmRaceBean>();
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		List<Unidadenegocio> listaUnidade = unidadeNegocioFacade.listarUnidade("SELECT u FROM Unidadenegocio u WHERE u.categoria like '%Silver%'");
@@ -198,15 +204,21 @@ public class TmRaceMB implements Serializable{
 			for (int j = 0; j < listaCorrida.size(); j++) {
 				tmRaceBean.setPontos(tmRaceBean.getPontos() + listaCorrida.get(j).getPontos());
 			}
-			if (listaCorrida.size() > 0 && listaSinze.size() <= 3) {
+			if (listaCorrida.size() > 0 && listaSinze.size() < 3) {
 				listaSinze.add(tmRaceBean);
-			}else{
-				for (int l = 0; l < listaSinze.size(); l++) {
-					if (listaSinze.get(l).getPontos() < tmRaceBean.getPontos()) {
-						listaposicao.add(l);
-						listaSinze.add(tmRaceBean);
-						l = listaSinze.size();
-					}
+			}else if (listaCorrida.size() > 0 && listaSinze.size() >= 3){
+				if ((listaSinze.get(0).getPontos() < tmRaceBean.getPontos()) && (listaSinze.get(0).getPontos() < listaSinze.get(1).getPontos()) &&
+						(listaSinze.get(0).getPontos() < listaSinze.get(2).getPontos())) {
+					listaposicao.add(listaSinze.get(0));
+					listaSinze.add(tmRaceBean);
+				}else if ((listaSinze.get(1).getPontos() < tmRaceBean.getPontos()) && (listaSinze.get(1).getPontos() < listaSinze.get(0).getPontos()) &&
+						(listaSinze.get(1).getPontos() < listaSinze.get(2).getPontos())) {
+					listaposicao.add(listaSinze.get(1));
+					listaSinze.add(tmRaceBean);
+				} else if ((listaSinze.get(2).getPontos() < tmRaceBean.getPontos()) && (listaSinze.get(2).getPontos() < listaSinze.get(1).getPontos()) &&
+						(listaSinze.get(2).getPontos() < listaSinze.get(0).getPontos())) {
+					listaposicao.add(listaSinze.get(2));
+					listaSinze.add(tmRaceBean);
 				}
 				for (int j = 0; j < listaposicao.size(); j++) {
 					listaSinze.remove(listaposicao.get(j));
@@ -260,7 +272,7 @@ public class TmRaceMB implements Serializable{
 	public void gerarListaBronze(){
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		int ano = Formatacao.getAnoData(new Date());
-		List<Integer> listaposicao = null;
+		List<TmRaceBean> listaposicao = null;
 		listaBronze = new ArrayList<TmRaceBean>();
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		List<Unidadenegocio> listaUnidade = unidadeNegocioFacade.listarUnidade("SELECT u FROM Unidadenegocio u WHERE u.categoria like '%Bronze%'");
@@ -285,15 +297,21 @@ public class TmRaceMB implements Serializable{
 			for (int j = 0; j < listaCorrida.size(); j++) {
 				tmRaceBean.setPontos(tmRaceBean.getPontos() + listaCorrida.get(j).getPontos());
 			}
-			if (listaCorrida.size() > 0 && listaBronze.size() <= 3) {
-				listaSinze.add(tmRaceBean);
+			if (listaCorrida.size() > 0 && listaBronze.size() < 3) {
+				listaBronze.add(tmRaceBean);
 			}else{
-				for (int l = 0; l < listaBronze.size(); l++) {
-					if (listaBronze.get(l).getPontos() < tmRaceBean.getPontos()) {
-						listaposicao.add(l);
-						listaBronze.add(tmRaceBean);
-						l = listaBronze.size();
-					}
+				if ((listaBronze.get(0).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(0).getPontos() < listaBronze.get(1).getPontos()) &&
+						(listaBronze.get(0).getPontos() < listaBronze.get(2).getPontos())) {
+					listaposicao.add(listaBronze.get(0));
+					listaBronze.add(tmRaceBean);
+				}else if ((listaBronze.get(1).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(1).getPontos() < listaBronze.get(0).getPontos()) &&
+						(listaBronze.get(1).getPontos() < listaBronze.get(2).getPontos())) {
+					listaposicao.add(listaBronze.get(1));
+					listaBronze.add(tmRaceBean);
+				} else if ((listaBronze.get(2).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(2).getPontos() < listaBronze.get(1).getPontos()) &&
+						(listaBronze.get(2).getPontos() < listaBronze.get(0).getPontos())) {
+					listaposicao.add(listaBronze.get(2));
+					listaBronze.add(tmRaceBean);
 				}
 				for (int j = 0; j < listaposicao.size(); j++) {
 					listaBronze.remove(listaposicao.get(j));
