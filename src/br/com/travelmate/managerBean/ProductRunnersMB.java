@@ -78,6 +78,8 @@ public class ProductRunnersMB implements Serializable{
 		if (listaCorridaMes.size() > 0) {
 			if (listaCorridaMes.get(0).getUsuario().isFoto()) {
 				caminho = caminho + "/usuario/" + listaCorridaMes.get(0).getUsuario().getIdusuario() + ".jpg";
+			}else{
+				caminho = caminho + "/usuario/0.png";
 			}
 		}else{
 			caminho = caminho + "/usuario/0.png";
@@ -229,7 +231,6 @@ public class ProductRunnersMB implements Serializable{
 			}
 		}
 	}
-	
 	
 	
 	
