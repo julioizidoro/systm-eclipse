@@ -956,16 +956,16 @@ public class FichaSeguroViagemMB implements Serializable {
 							vendas = vendasFacade.salvar(vendas);
 							productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
-							String titulo = "Nova Ficha de High School";
+							String titulo = "Nova Ficha de Seguro";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";
 
 							if (novaFicha) {
-								titulo = "Nova Ficha de Curso";
+								titulo = "Nova Ficha de Seguro";
 								operacao = "I";
 								imagemNotificacao = "inserido";
 							} else {
-								titulo = "Ficha de Curso Alterada";
+								titulo = "Ficha de Seguro Alterada";
 								operacao = "A";
 								imagemNotificacao = "alterado";
 								verificarDadosAlterado();
