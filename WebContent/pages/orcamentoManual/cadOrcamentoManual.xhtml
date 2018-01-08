@@ -951,9 +951,9 @@
 										<f:selectItem itemLabel="12" itemValue="12" />
 										<p:ajax
 											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
-											update="idvalorparcela3" />
+											update="idvalorparcela3, valorParcelado" />
 									</p:selectOneMenu>
-									<h:inputText
+									<h:inputText id="valorParcelado"
 										value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorParcela03}"
 										style="text-align: right;width:60%;"
 										disabled="#{cadOrcamentoManualMB.habilitaFormaPagamento03}"
