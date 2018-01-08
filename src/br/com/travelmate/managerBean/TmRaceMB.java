@@ -299,7 +299,7 @@ public class TmRaceMB implements Serializable{
 			}
 			if (listaCorrida.size() > 0 && listaBronze.size() < 3) {
 				listaBronze.add(tmRaceBean);
-			}else{
+			}else if (listaCorrida.size() > 0 && listaBronze.size() >= 3){
 				if ((listaBronze.get(0).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(0).getPontos() < listaBronze.get(1).getPontos()) &&
 						(listaBronze.get(0).getPontos() < listaBronze.get(2).getPontos())) {
 					listaposicao.add(listaBronze.get(0));
