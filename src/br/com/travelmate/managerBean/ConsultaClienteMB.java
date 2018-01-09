@@ -37,6 +37,7 @@ public class ConsultaClienteMB implements Serializable{
     @Inject 
     UsuarioLogadoMB usuarioLogadoMB;
     private String tipo;
+    private  String cpf;
     
     @PostConstruct
     public void init() {
@@ -78,6 +79,14 @@ public class ConsultaClienteMB implements Serializable{
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public void limpar(){
 		nome = "";
 		carregarListaCliente();
@@ -89,6 +98,9 @@ public class ConsultaClienteMB implements Serializable{
         }
         ClienteFacade clienteFacade = new ClienteFacade();
         String sql = "select c from Cliente c where c.nome like '%" + nome + "%'";
+        if (cpf != null && !cpf.equalsIgnoreCase("")) {
+			sql = sql + " and c.cpf='" + cpf + "'";
+		}
         if (!tipo.equalsIgnoreCase("turismo")){
         	if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")){
             	sql = sql + "  and c.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 

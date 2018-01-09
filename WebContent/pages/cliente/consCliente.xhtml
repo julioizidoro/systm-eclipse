@@ -14,16 +14,23 @@
 				<p:accordionPanel class="painel" activeIndex="-1">
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
-						<p:outputLabel value="Pesquisar Cliente" for="cliente"
-							style="font-size: 11px;margin-left: 7.5%" />
-						<br></br>
-						<h:panelGrid columns="3">
-						<p:inputText id="cliente" size="60" maxlength="100"
-							class="camposs" value="#{consultaClienteMB.nome}" style="margin-left:17%" />
-						<p:commandButton value="Pesquisar" style="margin-left:20%"
-							icon=" ui-icon-search " update="consultacliente:clientetabela" action="#{consultaClienteMB.carregarListaCliente()}" />
-						<p:commandButton value="Limpar"  style="margin-left:15%" icon="ui-icon-arrowrefresh-1-w"
-							class="imgadd" update="consultacliente:clientetabela" action="#{consultaClienteMB.limpar()}" />
+						<h:panelGrid columns="4" style="width:100%;">
+						<p:outputLabel value="Nome" for="cliente"
+							style="font-size: 11px;margin-left: 1%" />
+						<p:outputLabel value="CPF" for="cpf"
+							style="font-size: 11px;" />
+						<p:outputLabel/>
+						<p:outputLabel/>
+						<p:inputText id="cliente" size="40" maxlength="100"
+							class="camposs" value="#{consultaClienteMB.nome}" style="margin-left:1%" />
+						<p:inputMask  mask="999.999.999-99" id="cpf" size="20" maxlength="100"
+							class="camposs" value="#{consultaClienteMB.cpf}" style="margin-left:1%" />
+						<h:panelGroup>
+							<p:commandButton value="Pesquisar" style="margin-left:20%"
+								icon=" ui-icon-search " update="consultacliente:clientetabela" action="#{consultaClienteMB.carregarListaCliente()}" />
+							<p:commandButton value="Limpar"   icon="ui-icon-arrowrefresh-1-w"
+								class="imgadd" update="consultacliente:clientetabela" action="#{consultaClienteMB.limpar()}" />
+						</h:panelGroup>
 						</h:panelGrid>
 					</p:tab>
 				</p:accordionPanel>
