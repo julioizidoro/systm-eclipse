@@ -30,6 +30,7 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cliente;
@@ -105,6 +106,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB mateRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private boolean btniniciar = false;
 	private boolean btnfinalizar = true;
 	private Cliente cliente;
@@ -1328,6 +1331,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 						vendass.setPontoescola(0);
 						vendass = vendasFacade.salvar(vendass);
 						mateRunnersMB.carregarListaRunners();
+						productRunnersMB.calcularPontuacao(vendass, pontos, false);
 					} else if (valorVendaAlterar != vendass.getValor()) {
 						int mes = Formatacao.getMesData(new Date()) + 1;
 						int mesVenda = Formatacao.getMesData(vendass.getDataVenda()) + 1;
