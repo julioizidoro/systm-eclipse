@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.travelmate.bean.TmRaceBean;
@@ -20,7 +21,7 @@ import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
 @Named
-@ApplicationScoped
+@ViewScoped
 public class TmRaceMB implements Serializable{
 
 	/**

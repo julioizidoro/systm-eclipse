@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -28,7 +29,7 @@ import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
 @Named
-@ApplicationScoped
+@ViewScoped
 public class ProductRunnersMB implements Serializable{
 	
 	/**
