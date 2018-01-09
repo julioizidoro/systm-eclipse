@@ -561,37 +561,37 @@ public class ControleAupairMB implements Serializable {
 		for (int i = 0; i < listaControle.size(); i++) {
 			if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Processo")){
 				numeroProcesso = numeroProcesso+1;
-				listaControleProcesso.add(controle);
+				listaControleProcesso.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("On line")){
 				numeroOnline = numeroOnline+1;
-				listaControleOnline.add(controle);
+				listaControleOnline.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Match")){
 				numeroMatch = numeroMatch+1;
-				listaControleMatch.add(controle);
+				listaControleMatch.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Visto Pendente")){
 				numeroVistoPen = numeroVistoPen+1;
-				listaControleVistoPen.add(controle);
+				listaControleVistoPen.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Visto Negado")){
 				numeroVistoNeg = numeroVistoNeg+1;
-				listaControleVistoNeg.add(controle);
+				listaControleVistoNeg.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Visto Aprovado")){
 				numeroVistoApro = numeroVistoApro+1;
-				listaControleVistoApro.add(controle);
+				listaControleVistoApro.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Cancelado")){
 				numeroCancelado = numeroCancelado+1;
-				listaControleCancelado.add(controle);
+				listaControleCancelado.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Embarcado")){
 				numeroEmbarcado = numeroEmbarcado+1;
-				listaControleEmbarcado.add(controle);
+				listaControleEmbarcado.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Finalizado")){
 				numeroFinalizado = numeroFinalizado+1;
-				listaControleFinalizado.add(controle);
+				listaControleFinalizado.add(listaControle.get(i));
 			}else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Left Program")){
 				numeroSuspenso = numeroSuspenso+1;
-				listaControleSuspenso.add(controle);
+				listaControleSuspenso.add(listaControle.get(i));
 			} else if(listaControle.get(i).getStatusprocesso().equalsIgnoreCase("Transaction")){
 				numeroTransaction = numeroTransaction+1;
-				listaControleTransaction.add(controle);
+				listaControleTransaction.add(listaControle.get(i));
 			} 
 		}
 	} 
