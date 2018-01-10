@@ -5,6 +5,7 @@ public class TmRaceBean {
 	private String nomeUnidade;
 	private int pontos;
 	private int posicao;
+	private float porcentagem;
 	
 	
 	public String getNomeUnidade() {
@@ -24,6 +25,12 @@ public class TmRaceBean {
 	}
 	public void setPosicao(int posicao) {
 		this.posicao = posicao;
+	}
+	public float getPorcentagem() {
+		return porcentagem;
+	}
+	public void setPorcentagem(float porcentagem) {
+		this.porcentagem = porcentagem;
 	}
 	
 	
