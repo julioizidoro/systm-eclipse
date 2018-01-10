@@ -547,6 +547,7 @@ public class ControleAupairMB implements Serializable {
 		numeroTransaction=0;
 		numeroSuspenso=0;
 		numeroCancelado=0;
+		numeroTodos = listaControle.size();
 		listaControleProcesso= new ArrayList<>();
 		listaControleOnline= new ArrayList<>();
 		listaControleMatch= new ArrayList<>();

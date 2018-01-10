@@ -89,6 +89,7 @@ public class ConsultaClienteMB implements Serializable{
 
 	public void limpar(){
 		nome = "";
+		cpf = "";
 		carregarListaCliente();
 	}
 	
