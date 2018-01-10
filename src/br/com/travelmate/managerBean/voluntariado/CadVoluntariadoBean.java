@@ -414,7 +414,11 @@ public class CadVoluntariadoBean {
 				vendaSeguro.setCliente(venda.getCliente());
 				vendaSeguro.setUnidadenegocio(venda.getUnidadenegocio());
 				vendaSeguro.setUsuario(venda.getUsuario());
-				vendaSeguro.setSituacaogerencia("F");
+				if (vendaSeguro.getSituacao().equalsIgnoreCase("PROCESSO")) {
+					vendaSeguro.setSituacaogerencia("P");
+				}else {
+					vendaSeguro.setSituacaogerencia("F");
+				}
 			} else
 				vendaSeguro = seguroViagem.getVendas();
 			vendaSeguro.setCambio(venda.getCambio());

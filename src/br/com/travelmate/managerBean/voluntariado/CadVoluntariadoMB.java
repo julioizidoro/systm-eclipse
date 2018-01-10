@@ -44,6 +44,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -91,6 +92,8 @@ public class CadVoluntariadoMB implements Serializable {
 	private MateRunnersMB mateRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private static final long serialVersionUID = 1L;
 	private Voluntariado voluntariadoAlterado;
 	private Voluntariado voluntariado;
@@ -1134,6 +1137,9 @@ public class CadVoluntariadoMB implements Serializable {
 							venda = vendasFacade.salvar(venda);
 							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 							String titulo = "";
 							String operacao = "";
 							String imagemNotificacao = "";
@@ -1210,6 +1216,9 @@ public class CadVoluntariadoMB implements Serializable {
 							venda = vendasFacade.salvar(venda);
 							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 						}
 						String titulo = "";
 						String operacao = "";

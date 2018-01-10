@@ -34,6 +34,8 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -68,6 +70,10 @@ public class CadTraducaoMB implements Serializable {
 	private MateRunnersMB mateRunnersMB;
 	@Inject
 	private DashBoardMB dashBoardMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
 	private Vendas venda;
 	private Formapagamento formaPagamento;
 	private Parcelamentopagamento parcelamentopagamento;
@@ -764,7 +770,11 @@ public class CadTraducaoMB implements Serializable {
 				venda.setPontoescola(pontos[1]);
 				VendasFacade vendaFacade = new VendasFacade();
 				venda = vendaFacade.salvar(venda);
+				productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 				mateRunnersMB.carregarListaRunners(); 
+				tmRaceMB.gerarListaGold();
+				tmRaceMB.gerarListaSinze();
+				tmRaceMB.gerarListaBronze();
 			}
 		} else if (valorVendaAlterar != venda.getValor()) {
 			int mes = Formatacao.getMesData(new Date()) + 1;
@@ -795,7 +805,11 @@ public class CadTraducaoMB implements Serializable {
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendaFacade = new VendasFacade();
 					venda = vendaFacade.salvar(venda);
+					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 					mateRunnersMB.carregarListaRunners();
+					tmRaceMB.gerarListaGold();
+					tmRaceMB.gerarListaSinze();
+					tmRaceMB.gerarListaBronze();
 				} 
 		}
 	}

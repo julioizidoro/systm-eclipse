@@ -42,6 +42,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -86,6 +87,8 @@ public class CadHighSchoolMB implements Serializable {
 	private MateRunnersMB mateRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private Highschool highschool;
 	private Valoreshighschool valoreshighschool;
 	private List<Valoreshighschool> listaValores;
@@ -1147,6 +1150,9 @@ public class CadHighSchoolMB implements Serializable {
 							venda = vendasFacade.salvar(venda);
 							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 							ContasReceberBean contasReceber = new ContasReceberBean(venda,
 									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
 							String titulo = "Nova Ficha de High School";
@@ -1225,6 +1231,9 @@ public class CadHighSchoolMB implements Serializable {
 							venda = vendasFacade.salvar(venda);
 							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 						}
 						String titulo = "Nova Ficha de High School";
 						String operacao = "A";

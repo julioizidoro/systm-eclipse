@@ -38,6 +38,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cidade;
@@ -77,6 +78,8 @@ public class CadPassagemMB implements Serializable {
 	private MateRunnersMB mateRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private Cliente cliente;
 	private Fornecedorcidade fornecedorCidade;
 	private Fornecedorcidade fornecedorCidadeAlterado;
@@ -777,6 +780,9 @@ public class CadPassagemMB implements Serializable {
 							vendas=vendasFacade.salvar(vendas);
 							productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 //						}
 //					}.start();
 				}  

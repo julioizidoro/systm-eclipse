@@ -31,6 +31,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cliente;
@@ -108,6 +109,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 	private MateRunnersMB mateRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private boolean btniniciar = false;
 	private boolean btnfinalizar = true;
 	private Cliente cliente;
@@ -1332,6 +1335,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 						vendass = vendasFacade.salvar(vendass);
 						mateRunnersMB.carregarListaRunners();
 						productRunnersMB.calcularPontuacao(vendass, pontos, false);
+						tmRaceMB.gerarListaGold();
+						tmRaceMB.gerarListaSinze();
+						tmRaceMB.gerarListaBronze();
 					} else if (valorVendaAlterar != vendass.getValor()) {
 						int mes = Formatacao.getMesData(new Date()) + 1;
 						int mesVenda = Formatacao.getMesData(vendass.getDataVenda()) + 1;
@@ -1365,6 +1371,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 							vendass.setPontoescola(0);
 							vendass = vendasFacade.salvar(vendass);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 						}
 					}
 					return "consultapacote";

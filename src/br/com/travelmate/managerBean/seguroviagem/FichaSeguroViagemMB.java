@@ -40,6 +40,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -79,6 +80,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	private MateRunnersMB mateRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private Seguroviagem seguro;
 	private Seguroviagem seguroAlterado;
 	private Cliente cliente;
@@ -956,6 +959,9 @@ public class FichaSeguroViagemMB implements Serializable {
 							vendas = vendasFacade.salvar(vendas);
 							productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 							String titulo = "Nova Ficha de Seguro";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";
@@ -1023,6 +1029,9 @@ public class FichaSeguroViagemMB implements Serializable {
 						vendas = vendasFacade.salvar(vendas);
 						productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
 						mateRunnersMB.carregarListaRunners();
+						tmRaceMB.gerarListaGold();
+						tmRaceMB.gerarListaSinze();
+						tmRaceMB.gerarListaBronze();
 						String titulo = "Nova Ficha de High School";
 						String operacao = "A";
 						String imagemNotificacao = "inserido";

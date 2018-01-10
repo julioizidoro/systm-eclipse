@@ -1,27 +1,23 @@
 package br.com.travelmate.managerBean;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.travelmate.bean.TmRaceBean;
-import br.com.travelmate.converter.UnidadeNegocioConverter;
 import br.com.travelmate.facade.CorridaProdutoAnoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.model.Corridaprodutoano;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
 
 @Named
-@ViewScoped
+@ApplicationScoped
 public class TmRaceMB implements Serializable{
 
 	/**
@@ -81,7 +77,7 @@ public class TmRaceMB implements Serializable{
 		this.listaBronze = listaBronze;
 	}
 	
-	
+	  
 	
 	
 	public void gerarListaGold(){
@@ -115,16 +111,16 @@ public class TmRaceMB implements Serializable{
 			if (listaCorrida.size() > 0 && listaGold.size() < 3) {
 				listaGold.add(tmRaceBean);
 			}else if(listaCorrida.size() > 0 && listaGold.size() >= 3){
-					if ((listaGold.get(0).getPontos() < tmRaceBean.getPontos()) && (listaGold.get(0).getPontos() < listaGold.get(1).getPontos()) &&
-							(listaGold.get(0).getPontos() < listaGold.get(2).getPontos())) {
+					if ((listaGold.get(0).getPontos() <= tmRaceBean.getPontos()) && (listaGold.get(0).getPontos() <= listaGold.get(1).getPontos()) &&
+							(listaGold.get(0).getPontos() <= listaGold.get(2).getPontos())) {
 						listaposicao.add(listaGold.get(0));
 						listaGold.add(tmRaceBean);
-					}else if ((listaGold.get(1).getPontos() < tmRaceBean.getPontos()) && (listaGold.get(1).getPontos() < listaGold.get(0).getPontos()) &&
-							(listaGold.get(1).getPontos() < listaGold.get(2).getPontos())) {
+					}else if ((listaGold.get(1).getPontos() <= tmRaceBean.getPontos()) && (listaGold.get(1).getPontos() <= listaGold.get(0).getPontos()) &&
+							(listaGold.get(1).getPontos() <= listaGold.get(2).getPontos())) {
 						listaposicao.add(listaGold.get(1));
 						listaGold.add(tmRaceBean);
-					} else if ((listaGold.get(2).getPontos() < tmRaceBean.getPontos()) && (listaGold.get(2).getPontos() < listaGold.get(1).getPontos()) &&
-							(listaGold.get(2).getPontos() < listaGold.get(0).getPontos())) {
+					} else if ((listaGold.get(2).getPontos() <= tmRaceBean.getPontos()) && (listaGold.get(2).getPontos() <= listaGold.get(1).getPontos()) &&
+							(listaGold.get(2).getPontos() <= listaGold.get(0).getPontos())) {
 						listaposicao.add(listaGold.get(2));
 						listaGold.add(tmRaceBean);
 					}
@@ -208,16 +204,16 @@ public class TmRaceMB implements Serializable{
 			if (listaCorrida.size() > 0 && listaSinze.size() < 3) {
 				listaSinze.add(tmRaceBean);
 			}else if (listaCorrida.size() > 0 && listaSinze.size() >= 3){
-				if ((listaSinze.get(0).getPontos() < tmRaceBean.getPontos()) && (listaSinze.get(0).getPontos() < listaSinze.get(1).getPontos()) &&
-						(listaSinze.get(0).getPontos() < listaSinze.get(2).getPontos())) {
+				if ((listaSinze.get(0).getPontos() <= tmRaceBean.getPontos()) && (listaSinze.get(0).getPontos() <= listaSinze.get(1).getPontos()) &&
+						(listaSinze.get(0).getPontos() <= listaSinze.get(2).getPontos())) {
 					listaposicao.add(listaSinze.get(0));
 					listaSinze.add(tmRaceBean);
-				}else if ((listaSinze.get(1).getPontos() < tmRaceBean.getPontos()) && (listaSinze.get(1).getPontos() < listaSinze.get(0).getPontos()) &&
-						(listaSinze.get(1).getPontos() < listaSinze.get(2).getPontos())) {
+				}else if ((listaSinze.get(1).getPontos() <= tmRaceBean.getPontos()) && (listaSinze.get(1).getPontos() <= listaSinze.get(0).getPontos()) &&
+						(listaSinze.get(1).getPontos() <= listaSinze.get(2).getPontos())) {
 					listaposicao.add(listaSinze.get(1));
 					listaSinze.add(tmRaceBean);
-				} else if ((listaSinze.get(2).getPontos() < tmRaceBean.getPontos()) && (listaSinze.get(2).getPontos() < listaSinze.get(1).getPontos()) &&
-						(listaSinze.get(2).getPontos() < listaSinze.get(0).getPontos())) {
+				} else if ((listaSinze.get(2).getPontos() <= tmRaceBean.getPontos()) && (listaSinze.get(2).getPontos() <= listaSinze.get(1).getPontos()) &&
+						(listaSinze.get(2).getPontos() <= listaSinze.get(0).getPontos())) {
 					listaposicao.add(listaSinze.get(2));
 					listaSinze.add(tmRaceBean);
 				}
@@ -301,16 +297,16 @@ public class TmRaceMB implements Serializable{
 			if (listaCorrida.size() > 0 && listaBronze.size() < 3) {
 				listaBronze.add(tmRaceBean);
 			}else if (listaCorrida.size() > 0 && listaBronze.size() >= 3){
-				if ((listaBronze.get(0).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(0).getPontos() < listaBronze.get(1).getPontos()) &&
-						(listaBronze.get(0).getPontos() < listaBronze.get(2).getPontos())) {
+				if ((listaBronze.get(0).getPontos() <= tmRaceBean.getPontos()) && (listaBronze.get(0).getPontos() <= listaBronze.get(1).getPontos()) &&
+						(listaBronze.get(0).getPontos() <= listaBronze.get(2).getPontos())) {
 					listaposicao.add(listaBronze.get(0));
 					listaBronze.add(tmRaceBean);
-				}else if ((listaBronze.get(1).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(1).getPontos() < listaBronze.get(0).getPontos()) &&
-						(listaBronze.get(1).getPontos() < listaBronze.get(2).getPontos())) {
+				}else if ((listaBronze.get(1).getPontos() <= tmRaceBean.getPontos()) && (listaBronze.get(1).getPontos() <= listaBronze.get(0).getPontos()) &&
+						(listaBronze.get(1).getPontos() <= listaBronze.get(2).getPontos())) {
 					listaposicao.add(listaBronze.get(1));
 					listaBronze.add(tmRaceBean);
-				} else if ((listaBronze.get(2).getPontos() < tmRaceBean.getPontos()) && (listaBronze.get(2).getPontos() < listaBronze.get(1).getPontos()) &&
-						(listaBronze.get(2).getPontos() < listaBronze.get(0).getPontos())) {
+				} else if ((listaBronze.get(2).getPontos() <= tmRaceBean.getPontos()) && (listaBronze.get(2).getPontos() <= listaBronze.get(1).getPontos()) &&
+						(listaBronze.get(2).getPontos() <= listaBronze.get(0).getPontos())) {
 					listaposicao.add(listaBronze.get(2));
 					listaBronze.add(tmRaceBean);
 				}
@@ -363,132 +359,7 @@ public class TmRaceMB implements Serializable{
 		}
 	}
 	
-//	public String getNomeUnidade(int posicao){
-//		if (listaGold != null && listaGold.size() > 0) {
-//			if (posicao == 1) {
-//				if (listaGold.size() == 1) {
-//						return listaGold.get(0).getNomeUnidade();
-//				}else if(listaGold.size() == 2){
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos())) {
-//						return listaGold.get(0).getNomeUnidade();
-//					}else{
-//						return listaGold.get(1).getNomeUnidade();
-//					}
-//				}else{
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(0).getNomeUnidade();
-//					}else if ((listaGold.get(1).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(1).getNomeUnidade();
-//					}else if((listaGold.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() >= listaGold.get(1).getPontos())){
-//						return listaGold.get(2).getNomeUnidade();
-//					}	
-//				}
-//			}else if (posicao == 2){
-//				if (listaGold.size() == 1) {
-//					return null;
-//				}else if(listaGold.size() == 2){
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos())) {
-//						return listaGold.get(1).getNomeUnidade();
-//					}else{
-//						return listaGold.get(0).getNomeUnidade();
-//					}
-//				}else{
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(0).getPontos() <= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(0).getNomeUnidade();
-//					}else if ((listaGold.get(1).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(1).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(1).getNomeUnidade();
-//					}else if((listaGold.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() <= listaGold.get(1).getPontos())
-//							|| (listaGold.get(2).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() >= listaGold.get(1).getPontos())){
-//						return listaGold.get(2).getNomeUnidade();
-//					}
-//				}
-//			}else if(posicao == 3){
-//				if (listaGold.size() == 1) {
-//					return null;
-//				}else if(listaGold.size() == 2){
-//					return null;
-//				}else if (listaGold.size() == 3) {
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(0).getPontos() <= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(0).getNomeUnidade();
-//					}else if ((listaGold.get(1).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(1).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(1).getNomeUnidade();
-//					}else if((listaGold.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() <= listaGold.get(1).getPontos())
-//							|| (listaGold.get(2).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() >= listaGold.get(1).getPontos())){
-//						return listaGold.get(2).getNomeUnidade();
-//					}
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	
-//	public int getPontos(int posicao){
-//		if (listaGold != null && listaGold.size() >0) {
-//			if (posicao == 1) {
-//				if (listaGold.size() == 1) {
-//						return listaGold.get(0).getPontos();
-//				}else if(listaGold.size() == 2){
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos())) {
-//						return listaGold.get(0).getPontos();
-//					}else{
-//						return listaGold.get(1).getPontos();
-//					}
-//				}else{
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(0).getPontos();
-//					}else if ((listaGold.get(1).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(1).getPontos();
-//					}else if((listaGold.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() >= listaGold.get(1).getPontos())){
-//						return listaGold.get(2).getPontos();
-//					}	
-//				}
-//			}else if (posicao == 2){
-//				if (listaGold.size() == 1) {
-//					return 0;
-//				}else if(listaGold.size() == 2){
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos())) {
-//						return listaGold.get(1).getPontos();
-//					}else{
-//						return listaGold.get(0).getPontos();
-//					}
-//				}else{
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(0).getPontos() <= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(0).getPontos();
-//					}else if ((listaGold.get(1).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(1).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(1).getPontos();
-//					}else if((listaGold.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() <= listaGold.get(1).getPontos())
-//							|| (listaGold.get(2).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() >= listaGold.get(1).getPontos())){
-//						return listaGold.get(2).getPontos();
-//					}
-//				}
-//			}else if(posicao == 3){
-//				if (listaGold.size() == 1) {
-//					return 0;
-//				}else if(listaGold.size() == 2){
-//					return 0;
-//				}else if (listaGold.size() == 3) {
-//					if ((listaGold.get(0).getPontos() >= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(0).getPontos() <= listaGold.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(0).getPontos();
-//					}else if ((listaGold.get(1).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() <= listaGold.get(2).getPontos())
-//							|| (listaGold.get(1).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos())) {
-//						return listaGold.get(1).getPontos();
-//					}else if((listaGold.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() <= listaGold.get(1).getPontos())
-//							|| (listaGold.get(2).getPontos() <= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() >= listaGold.get(1).getPontos())){
-//						return listaGold.get(2).getPontos();
-//					}
-//				}
-//			}
-//		}
-//		return 0;
-//	}
+
 	
 	public String getNomeUnidade(int posicao){
 		for (int i = 0; i < listaGold.size(); i++) {
@@ -526,132 +397,7 @@ public class TmRaceMB implements Serializable{
 		return 0;
 	}
 	
-//	public String getNomeUnidadeSinze(int posicao){
-//		if (listaSinze != null && listaSinze.size() >0) {
-//			if (posicao == 1) {
-//				if (listaSinze.size() == 1) {
-//						return listaSinze.get(0).getNomeUnidade();
-//				}else if(listaGold.size() == 2){
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos())) {
-//						return listaSinze.get(0).getNomeUnidade();
-//					}else{
-//						return listaSinze.get(1).getNomeUnidade();
-//					}
-//				}else{
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(0).getNomeUnidade();
-//					}else if ((listaSinze.get(1).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(1).getNomeUnidade();
-//					}else if((listaSinze.get(2).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() >= listaSinze.get(1).getPontos())){
-//						return listaSinze.get(2).getNomeUnidade();
-//					}	
-//				}
-//			}else if (posicao == 2){
-//				if (listaSinze.size() == 1) {
-//					return null;
-//				}else if(listaSinze.size() == 2){
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos())) {
-//						return listaSinze.get(1).getNomeUnidade();
-//					}else{
-//						return listaSinze.get(0).getNomeUnidade();
-//					}
-//				}else{
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(0).getPontos() <= listaSinze.get(1).getPontos()) && (listaGold.get(0).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(0).getNomeUnidade();
-//					}else if ((listaSinze.get(1).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(1).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(1).getNomeUnidade();
-//					}else if((listaSinze.get(2).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() <= listaSinze.get(1).getPontos())
-//							|| (listaSinze.get(2).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() >= listaSinze.get(1).getPontos())){
-//						return listaSinze.get(2).getNomeUnidade();
-//					}
-//				}
-//			}else if(posicao == 3){
-//				if (listaSinze.size() == 1) {
-//					return null;
-//				}else if(listaSinze.size() == 2){
-//					return null;
-//				}else if (listaSinze.size() == 3) {
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(0).getPontos() <= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(0).getNomeUnidade();
-//					}else if ((listaSinze.get(1).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(1).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(1).getNomeUnidade();
-//					}else if((listaSinze.get(2).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() <= listaSinze.get(1).getPontos())
-//							|| (listaSinze.get(2).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() >= listaSinze.get(1).getPontos())){
-//						return listaSinze.get(2).getNomeUnidade();
-//					}
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	
-//	public int getPontosSinze(int posicao){
-//		if (listaSinze != null && listaSinze.size() > 0) {
-//			if (posicao == 1) {
-//				if (listaSinze.size() == 1) {
-//						return listaSinze.get(0).getPontos();
-//				}else if(listaSinze.size() == 2){
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos())) {
-//						return listaSinze.get(0).getPontos();
-//					}else{
-//						return listaSinze.get(1).getPontos();
-//					}
-//				}else{
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(0).getPontos();
-//					}else if ((listaSinze.get(1).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(1).getPontos();
-//					}else if((listaSinze.get(2).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() >= listaSinze.get(1).getPontos())){
-//						return listaSinze.get(2).getPontos();
-//					}	
-//				}
-//			}else if (posicao == 2){
-//				if (listaSinze.size() == 1) {
-//					return 0;
-//				}else if(listaSinze.size() == 2){
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos())) {
-//						return listaSinze.get(1).getPontos();
-//					}else{
-//						return listaSinze.get(0).getPontos();
-//					}
-//				}else{
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(0).getPontos() <= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(0).getPontos();
-//					}else if ((listaSinze.get(1).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(1).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(1).getPontos();
-//					}else if((listaSinze.get(2).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() <= listaSinze.get(1).getPontos())
-//							|| (listaSinze.get(2).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() >= listaSinze.get(1).getPontos())){
-//						return listaSinze.get(2).getPontos();
-//					}
-//				}
-//			}else if(posicao == 3){
-//				if (listaSinze.size() == 1) {
-//					return 0;
-//				}else if(listaSinze.size() == 2){
-//					return 0;
-//				}else if (listaSinze.size() == 3) {
-//					if ((listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(0).getPontos() <= listaSinze.get(1).getPontos()) && (listaSinze.get(0).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(0).getPontos();
-//					}else if ((listaSinze.get(1).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() <= listaSinze.get(2).getPontos())
-//							|| (listaSinze.get(1).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(1).getPontos() >= listaSinze.get(2).getPontos())) {
-//						return listaSinze.get(1).getPontos();
-//					}else if((listaSinze.get(2).getPontos() >= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() <= listaSinze.get(1).getPontos())
-//							|| (listaSinze.get(2).getPontos() <= listaSinze.get(0).getPontos()) && (listaSinze.get(2).getPontos() >= listaSinze.get(1).getPontos())){
-//						return listaSinze.get(2).getPontos();
-//					}
-//				}
-//			}
-//		}
-//		return 0;
-//	}
+
 	
 	
 	public String getNomeUnidadeBronze(int posicao){
@@ -672,132 +418,37 @@ public class TmRaceMB implements Serializable{
 		return 0;
 	}
 	
-//	public String getNomeUnidadeBronze(int posicao){
-//		if (listaBronze != null && listaBronze.size() > 0) {
-//			if (posicao == 1) {
-//				if (listaBronze.size() == 1) {
-//						return listaBronze.get(0).getNomeUnidade();
-//				}else if(listaBronze.size() == 2){
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos())) {
-//						return listaBronze.get(0).getNomeUnidade();
-//					}else{
-//						return listaBronze.get(1).getNomeUnidade();
-//					}
-//				}else{
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(0).getNomeUnidade();
-//					}else if ((listaBronze.get(1).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(1).getNomeUnidade();
-//					}else if((listaBronze.get(2).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() >= listaBronze.get(1).getPontos())){
-//						return listaBronze.get(2).getNomeUnidade();
-//					}	
-//				}
-//			}else if (posicao == 2){
-//				if (listaBronze.size() == 1) {
-//					return null;
-//				}else if(listaBronze.size() == 2){
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos())) {
-//						return listaBronze.get(1).getNomeUnidade();
-//					}else{
-//						return listaBronze.get(0).getNomeUnidade();
-//					}
-//				}else{
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(0).getPontos() <= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(0).getNomeUnidade();
-//					}else if ((listaBronze.get(1).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(1).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(1).getNomeUnidade();
-//					}else if((listaBronze.get(2).getPontos() > listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() <= listaBronze.get(1).getPontos())
-//							|| (listaBronze.get(2).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() >= listaBronze.get(1).getPontos())){
-//						return listaBronze.get(2).getNomeUnidade();
-//					}
-//				}
-//			}else if(posicao == 3){
-//				if (listaBronze.size() == 1) {
-//					return null;
-//				}else if(listaBronze.size() == 2){
-//					return null;
-//				}else if (listaBronze.size() == 3) {
-//					if ((listaBronze.get(0).getPontos() > listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(0).getPontos() <= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(0).getNomeUnidade();
-//					}else if ((listaBronze.get(1).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(1).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(1).getNomeUnidade();
-//					}else if((listaBronze.get(2).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() <= listaBronze.get(1).getPontos())
-//							|| (listaBronze.get(2).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() >= listaBronze.get(1).getPontos())){
-//						return listaBronze.get(2).getNomeUnidade();
-//					}
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	
-//	public int getPontosBronze(int posicao){
-//		if (listaBronze != null && listaBronze.size() >0) {
-//			if (posicao == 1) {
-//				if (listaBronze.size() == 1) {
-//						return listaBronze.get(0).getPontos();
-//				}else if(listaBronze.size() == 2){
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos())) {
-//						return listaBronze.get(0).getPontos();
-//					}else{
-//						return listaBronze.get(1).getPontos();
-//					}
-//				}else{
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(0).getPontos();
-//					}else if ((listaBronze.get(1).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaGold.get(1).getPontos();
-//					}else if((listaBronze.get(2).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() >= listaBronze.get(1).getPontos())){
-//						return listaBronze.get(2).getPontos();
-//					}	
-//				}
-//			}else if (posicao == 2){
-//				if (listaBronze.size() == 1) {
-//					return 0;
-//				}else if(listaBronze.size() == 2){
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos())) {
-//						return listaBronze.get(1).getPontos();
-//					}else{
-//						return listaBronze.get(0).getPontos();
-//					}
-//				}else{
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(0).getPontos() <= listaGold.get(1).getPontos()) && (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(0).getPontos();
-//					}else if ((listaBronze.get(1).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(1).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(1).getPontos();
-//					}else if((listaBronze.get(2).getPontos() >= listaGold.get(0).getPontos()) && (listaGold.get(2).getPontos() <= listaGold.get(1).getPontos())
-//							|| (listaBronze.get(2).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() >= listaBronze.get(1).getPontos())){
-//						return listaBronze.get(2).getPontos();
-//					}
-//				}
-//			}else if(posicao == 3){
-//				if (listaBronze.size() == 1) {
-//					return 0;
-//				}else if(listaBronze.size() == 2){
-//					return 0;
-//				}else if (listaBronze.size() == 3) {
-//					if ((listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(0).getPontos() <= listaBronze.get(1).getPontos()) && (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(0).getPontos();
-//					}else if ((listaBronze.get(1).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() <= listaBronze.get(2).getPontos())
-//							|| (listaBronze.get(1).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(1).getPontos() >= listaBronze.get(2).getPontos())) {
-//						return listaBronze.get(1).getPontos();
-//					}else if((listaBronze.get(2).getPontos() >= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() <= listaBronze.get(1).getPontos())
-//							|| (listaBronze.get(2).getPontos() <= listaBronze.get(0).getPontos()) && (listaBronze.get(2).getPontos() >= listaBronze.get(1).getPontos())){
-//						return listaBronze.get(2).getPontos();
-//					}
-//				}
-//			}
-//		}
-//		return 0;
-//	}
+
+	
+	public float getPorcentagem(int posicao){
+		for (int i = 0; i < listaGold.size(); i++) {
+			if (listaGold.get(i).getPosicao() == posicao) {
+				float porcentagem = (listaGold.get(i).getPontos() * 100) / listaGold.get(0).getPontos();
+				return porcentagem;
+			}
+		}
+		return 0;
+	}
+	
+	public float getPorcentagemSinze(int posicao){
+		for (int i = 0; i < listaSinze.size(); i++) {
+			if (listaSinze.get(i).getPosicao() == posicao) {
+				float porcentagem = (listaSinze.get(i).getPontos() * 100) / listaSinze.get(0).getPontos();
+				return porcentagem;
+			}
+		}
+		return 0;
+	}
+	
+	public float getPorcentagemBronze(int posicao){
+		for (int i = 0; i < listaBronze.size(); i++) {
+			if (listaBronze.get(i).getPosicao() == posicao) {
+				float porcentagem = (listaBronze.get(i).getPontos() * 100) / listaBronze.get(0).getPontos();
+				return porcentagem;
+			}
+		}
+		return 0;
+	}
 	
 
 }

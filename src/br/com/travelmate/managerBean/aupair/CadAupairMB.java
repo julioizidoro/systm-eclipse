@@ -43,6 +43,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
@@ -89,6 +90,8 @@ public class CadAupairMB implements Serializable {
 	private MateRunnersMB metaRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private Aupair aupair;
 	private Valoresaupair valoresAupair;
 	private List<Valoresaupair> listaValores;
@@ -1151,6 +1154,9 @@ public class CadAupairMB implements Serializable {
 							venda = vendasFacade.salvar(venda);
 							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							metaRunnersMB.carregarListaRunners();
+							tmRaceMB.gerarListaGold();
+							tmRaceMB.gerarListaSinze();
+							tmRaceMB.gerarListaBronze();
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
 							String titulo = "Nova Ficha de Au Pair";

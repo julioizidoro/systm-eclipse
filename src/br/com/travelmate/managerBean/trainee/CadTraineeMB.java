@@ -40,6 +40,8 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -83,6 +85,10 @@ public class CadTraineeMB implements Serializable {
 	private DashBoardMB dashBoardMB;
 	@Inject
 	private MateRunnersMB mateRunnersMB;
+	@Inject
+	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private Trainee trainee;
 	private Valorestrainee valorestrainee;
 	private List<Valorestrainee> listaValoresTrainee;
@@ -1236,7 +1242,11 @@ public class CadTraineeMB implements Serializable {
 						venda.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						venda = vendasFacade.salvar(venda);
+						productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 						mateRunnersMB.carregarListaRunners();
+						tmRaceMB.gerarListaGold();
+						tmRaceMB.gerarListaSinze();
+						tmRaceMB.gerarListaBronze();
 						String titulo = "";
 						String operacao = "";
 						String imagemNotificacao = "";
@@ -1306,7 +1316,11 @@ public class CadTraineeMB implements Serializable {
 						venda.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						venda = vendasFacade.salvar(venda);
+						productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 						mateRunnersMB.carregarListaRunners();
+						tmRaceMB.gerarListaGold();
+						tmRaceMB.gerarListaSinze();
+						tmRaceMB.gerarListaBronze();
 					}
 					String titulo = "";
 					String operacao = "";

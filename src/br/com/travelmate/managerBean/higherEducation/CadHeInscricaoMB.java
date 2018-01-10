@@ -41,6 +41,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -84,6 +85,8 @@ public class CadHeInscricaoMB implements Serializable {
 	private MateRunnersMB metaRunnersMB;
 	@Inject
 	private ProductRunnersMB productRunnersMB;
+	@Inject
+	private TmRaceMB tmRaceMB;
 	private He he;
 	private Vendas venda;
 	private Formapagamento formaPagamento;
@@ -1173,6 +1176,9 @@ public class CadHeInscricaoMB implements Serializable {
 					venda = vendasFacade.salvar(venda);
 					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 					metaRunnersMB.carregarListaRunners();
+					tmRaceMB.gerarListaGold();
+					tmRaceMB.gerarListaSinze();
+					tmRaceMB.gerarListaBronze();
 
 					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
