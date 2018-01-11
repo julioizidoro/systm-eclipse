@@ -26,8 +26,6 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
-import br.com.travelmate.facade.CartaoCreditoLancamentoContasFacade;
-import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -114,6 +112,8 @@ public class CancelamentoFichaMB implements Serializable {
 				cancelamento.setTotalrecebidoloja(0.0f);
 				cancelamento.setTotalrecebidomatriz(0.0f);
 				cancelamento.setTotalreembolso(0.0f);
+				CondicaoCancelamentoFacade condicaoCancelamentoFacade = new CondicaoCancelamentoFacade();
+				cancelamento.setCondicaocancelamento(condicaoCancelamentoFacade.consultar(1));
 				cancelamento.setHora(Formatacao.foramtarHoraString());
 				cancelamento.setFormapagamento("Reembolso");
 				emissao = true;
@@ -239,7 +239,9 @@ public class CancelamentoFichaMB implements Serializable {
 			cancelamento = cancelamentoFacade.salvar(cancelamento);
 			venda = cancelamento.getVendas();
 			venda.setSituacao("CANCELADA");
-			salvarArquivo();
+			if (listaNomeArquivo!=null) {
+				salvarArquivo();
+			}
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(venda);
 			cancelarContasReceber();
