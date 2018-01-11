@@ -3207,6 +3207,7 @@ public class CadCursoMB implements Serializable {
 				seguroViagem.setValorSeguro(orcamentoprodutosorcamento.getValorMoedaNacional());
 				seguroViagem.setValoresseguro(ocurso.getOcursoseguroList().get(0).getValoresseguro());
 				seguroViagem.setSegurocancelamento(ocurso.getOcursoseguroList().get(0).isSegurocancelamento());
+				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				carregarCobrancaSeguro();
 				adicionarSeguroCancelamento();
 				camposSeguroViagem = "false";
