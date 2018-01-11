@@ -11,12 +11,15 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.facade.LancamentoCartaoCreditoFacade;
 import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.model.Lancamentocartaocredito;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
 
 
 @Named
@@ -37,6 +40,8 @@ public class RevisaoFinanceiroMB implements Serializable{
 	private Produtos produtos;
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private Unidadenegocio unidadenegocio;
+	private int nCartaoCredito = 0;
+	private List<Lancamentocartaocredito> listaCartaoCredito;
 	
 	
 	@PostConstruct
@@ -53,6 +58,7 @@ public class RevisaoFinanceiroMB implements Serializable{
 		}else{
 			gerarListaVendas();
 		}
+		gerarListaCartaoCredito();
 		listaProdutos = GerarListas.listarProdutos("");
 		listaUnidadeNegocio = GerarListas.listarUnidade();
 	}
@@ -242,6 +248,42 @@ public class RevisaoFinanceiroMB implements Serializable{
 
 
 
+	public int getnCartaoCredito() {
+		return nCartaoCredito;
+	}
+
+
+
+
+
+
+	public void setnCartaoCredito(int nCartaoCredito) {
+		this.nCartaoCredito = nCartaoCredito;
+	}
+
+
+
+
+
+
+	public List<Lancamentocartaocredito> getListaCartaoCredito() {
+		return listaCartaoCredito;
+	}
+
+
+
+
+
+
+	public void setListaCartaoCredito(List<Lancamentocartaocredito> listaCartaoCredito) {
+		this.listaCartaoCredito = listaCartaoCredito;
+	}
+
+
+
+
+
+
 	public String cadastroRevisaoFinanceiro(Vendas venda) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -305,5 +347,22 @@ public class RevisaoFinanceiroMB implements Serializable{
     	return "";
     }
 	
+	public void gerarListaCartaoCredito(){
+		LancamentoCartaoCreditoFacade lancamentoCartaoCreditoFacade = new LancamentoCartaoCreditoFacade();
+		listaCartaoCredito = lancamentoCartaoCreditoFacade.listar("Select l From Lancamentocartaocredito l Where l.lancado=false");
+		if (listaCartaoCredito == null) {
+			listaCartaoCredito = new ArrayList<>();
+		}
+		nCartaoCredito = listaCartaoCredito.size();
+	}
+	
+	public void confirmarLancamentoCartao(Lancamentocartaocredito lancamentocartaocredito){
+		LancamentoCartaoCreditoFacade lancamentoCartaoCreditoFacade = new LancamentoCartaoCreditoFacade();
+		lancamentocartaocredito.setLancado(true);
+		lancamentoCartaoCreditoFacade.salvar(lancamentocartaocredito);
+		listaCartaoCredito.remove(lancamentocartaocredito);
+		nCartaoCredito = nCartaoCredito - 1;
+		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
+	}
 
 }

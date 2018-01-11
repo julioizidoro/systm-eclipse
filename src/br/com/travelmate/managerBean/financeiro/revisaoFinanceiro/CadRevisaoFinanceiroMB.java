@@ -43,6 +43,7 @@ import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
+import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
@@ -82,6 +83,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     private Float valorRecebido;
     private float valorMatrizLoja;
 	private List<BolinhasBean> listaBolinhas;
+	private boolean botaocartaocredito = false;
 	
 	@PostConstruct
 	public void init(){
@@ -108,6 +110,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
             calcularValorTotal();
             verificarContasReceber();
             gerarBolinhasBean();
+            verificarParcelamento();       
         }
 	}
 	
@@ -347,6 +350,20 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 
 	public void setListaBolinhas(List<BolinhasBean> listaBolinhas) {
 		this.listaBolinhas = listaBolinhas;
+	}
+
+
+
+
+	public boolean isBotaocartaocredito() {
+		return botaocartaocredito;
+	}
+
+
+
+
+	public void setBotaocartaocredito(boolean botaocartaocredito) {
+		this.botaocartaocredito = botaocartaocredito;
 	}
 
 
@@ -749,6 +766,18 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		venda.setContasreceberList(listaContasReceber);
 	}
 	
+	public void verificarParcelamento(){
+		for (int i = 0; i < venda.getFormapagamento().getParcelamentopagamentoList().size(); i++) {
+			if (venda.getFormapagamento().getParcelamentopagamentoList().get(i).getFormaPagamento().equalsIgnoreCase("Cartão de crédito") || 
+					venda.getFormapagamento().getParcelamentopagamentoList().get(i).getFormaPagamento().equalsIgnoreCase("Cartão débito") ||
+					venda.getFormapagamento().getParcelamentopagamentoList().get(i).getFormaPagamento().equalsIgnoreCase("Cartão de crédito autorizado")) {
+				if (!botaocartaocredito) {
+					botaocartaocredito = true;
+					i = venda.getFormapagamento().getParcelamentopagamentoList().size();
+				}
+			}
+		}  
+	}
 	
 	public void gerarBolinhasBean() {
 		listaBolinhas = new ArrayList<BolinhasBean>();
@@ -789,6 +818,29 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		bolinhasBean.setCaminho("../../resources/img/bolaVerde.png");
 		bolinhasBean.setCor("Verde");
 		return bolinhasBean;
+	}
+	
+	public String lancarCartaoCredito() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", venda);
+		session.setAttribute("listaVendaNova", listaVendaNova);
+		session.setAttribute("listaVendaPendente", listaVendaPendente);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 250);
+		RequestContext.getCurrentInstance().openDialog("lancamentoCartaoCredito", options, null);
+		return "";
+	} 
+	
+	public void retornoDialogCartaoCredito(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		venda = (Vendas) session.getAttribute("venda");
+		listaVendaPendente = (List<Vendas>) session.getAttribute("listaVendaPendente");
+		listaVendaNova = (List<Vendas>) session.getAttribute("listaVendaNova");
+		session.removeAttribute("venda");
+		session.removeAttribute("listaVendaPendente");
+		session.removeAttribute("listaVendaNova");
 	}
     
 }

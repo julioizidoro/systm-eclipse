@@ -276,7 +276,7 @@
 				<br />
 				<hr style="width: 83%; margin-left: 8%;" />
 				<br />
-				<h:panelGrid columns="5" style="width:53%;margin-left:23%;">
+				<h:panelGrid columns="6" style="width:63%;margin-left:18%;">
 					<p:commandButton id="bLiberar" value="Liberar"
 						action="#{cadRevisaoFinanceiroMB.liberarVenda()}"
 						icon="ui-icon-plus" style="font-size:12px;width:110px;" />
@@ -301,6 +301,13 @@
 						<p:ajax event="dialogReturn"
 							listener="#{cadRevisaoFinanceiroMB.retornoDialogEmail}"
 							update="bPendencia, bHistorico" />
+					</p:commandButton>
+					<p:commandButton id="idcartaocredito" value="Cartão de Crédito"
+						action="#{cadRevisaoFinanceiroMB.lancarCartaoCredito()}"
+						icon="ui-icon-plus" style="font-size:12px;width:143px;" rendered="#{cadRevisaoFinanceiroMB.botaocartaocredito}">
+						<p:ajax event="dialogReturn"
+							listener="#{cadRevisaoFinanceiroMB.retornoDialogCartaoCredito}"
+							 />
 					</p:commandButton>
 					<p:commandButton id="bFechar" value="Fechar"
 						action="#{cadRevisaoFinanceiroMB.fechar()}"

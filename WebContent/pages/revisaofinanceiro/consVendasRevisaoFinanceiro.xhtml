@@ -170,6 +170,60 @@
 								<h:outputText value="#{vendas.usuario.nome}" style="#{revisaoFinanceiroMB.retonarCorVenda(vendas)}"/>
 							</p:column>   
 						</p:dataTable>    
+					</p:tab>
+					<p:tab title="Cartão de Crédito (#{revisaoFinanceiroMB.nCartaoCredito})" class="tab" titleStyle="font-size: 11px" id="panelCartaoCredito">
+						<p:dataTable id="tabelaCartaoCredito" var="lancamento" 
+							value="#{revisaoFinanceiroMB.listaCartaoCredito}" scrollable="true"  
+							scrollHeight="300"  >        
+							
+							<p:column headerText="ID"  style="width:50px;" sortBy="#{lancamento.vendas.idvendas}">
+								
+								<p:commandLink
+									action="#{revisaoFinanceiroMB.cadastroRevisaoFinanceiro(lancamento.vendas)}"
+									title="ID da Venda"
+									>
+									<h:outputText value="#{lancamento.vendas.idvendas}" style="border-bottom: 1px solid;#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}"/>  
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Cliente"  style="width:200px;" sortBy="#{lancamento.vendas.cliente.nome}">
+								<h:outputText value="#{lancamento.vendas.cliente.nome}"
+									 style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}"/>
+							</p:column>
+							<p:column headerText="Produto"  style="width:120px;" sortBy="#{lancamento.vendas.produtos.descricao}">
+								<h:outputText value="#{lancamento.vendas.produtos.descricao}"
+									 style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}"/>
+							</p:column>
+							<p:column headerText="Data Venda"    
+								style="text-align:center;width:75px;" sortBy="#{lancamento.vendas.dataVenda}">
+								<h:outputText value="#{lancamento.vendas.dataVenda}" style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>   
+							</p:column>
+							<p:column headerText="Próximo Contato" 
+								style="text-align:center;width:75px;" >
+								<h:outputText value="" style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />    
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade"  style="width:110px;"
+								styleClass="alinharCenter" sortBy="#{lancamento.vendas.unidadenegocio.nomerelatorio}">
+								<h:outputText style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}"
+									value="#{lancamento.vendas.unidadenegocio.nomerelatorio}" />        
+							</p:column>     
+							<p:column headerText="Consultor" style="width:150px;"
+								styleClass="alinharCenter" sortBy="#{lancamento.vendas.usuario.nome}">
+								<h:outputText value="#{lancamento.vendas.usuario.nome}" style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}"/>
+							</p:column>   
+							<p:column headerText="Conf." style="width:30px;"
+								styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{lancamento.lancado}"  >
+									<p:ajax event="change" listener="#{revisaoFinanceiroMB.confirmarLancamentoCartao(lancamento)}"
+										 update="@form, :consultaRevisaoFinanceiro:growl" />
+								</p:selectBooleanCheckbox>
+							</p:column>   
+						</p:dataTable>    
 					</p:tab> 
 				</p:tabView>      
 

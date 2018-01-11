@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<h:body>
+	<h:form id="formLancamentoCredito"
+		style="text-align:left;font-size:11px; margin-left: 1%; ">
+		<title>Lançamento Cartão de Crédito</title>
+		<p:growl id="growl" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/ajax-loader.gif" />
+		</p:dialog>
+		<p:outputLabel value="Data Lançamento" />
+		<br/>
+		<p:calendar id="datalancamento" size="12"
+			value="#{lancamentoCartaoCreditoMB.lancamentocartaocredito.datalancamento}" locale="pt" pattern="dd/MM/yyyy"
+			mask="true" maxlength="15">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		</p:calendar>
+		<br/>
+		<br/>
+		<br/>
+		<h:panelGrid columns="2" style="margin-left:1%;">
+			<p:commandButton id="btnConfirmar" value="Confirmar" action="#{lancamentoCartaoCreditoMB.salvar()}"
+				icon="ui-icon-check" update="@form, growl" style="font-size:12px;" />
+			<p:commandButton id="btnCancelar" value="Cancelar" action="#{lancamentoCartaoCreditoMB.cancelar()}"
+				icon="ui-icon-closethick" style="font-size:12px;margin-left:2%" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+
+</html>
