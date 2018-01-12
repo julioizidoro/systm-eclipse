@@ -155,6 +155,9 @@
 								style="width:46%;text-align: right;">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadVistosMB.calcularValorVisto()}"
+									update="vlrvisto, valorOrca, totalpag, saldoreceber, valoraparcelar, valorparcela,saldoparcelar" />
 							</p:inputText>
 
 							<p:outputLabel />

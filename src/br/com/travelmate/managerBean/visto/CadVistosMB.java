@@ -565,7 +565,7 @@ public class CadVistosMB implements Serializable {
 	}
 
 	public void calcularValorVisto() {
-		vistos.setValorEmissao(vistos.getTaxaconsular() + vistos.getTaxaextra() + vistos.getTaxatm());
+		vistos.setValorEmissao(vistos.getTaxaconsular() + vistos.getTaxaextra() + vistos.getTaxatm() + vistos.getTaxaloja());
 		vistos.setValorEmissao(vistos.getValorEmissao() - vistos.getDescontoloja() - vistos.getDescontomatriz());
 		formaPagamento.setValorOrcamento(vistos.getValorEmissao());
 		if (formaPagamento.getPossuiJuros() != null) {
