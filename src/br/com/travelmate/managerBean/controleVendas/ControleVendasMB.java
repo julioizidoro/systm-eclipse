@@ -1092,16 +1092,38 @@ public class ControleVendasMB implements Serializable {
 
 	public String documentacao(Vendas vendas) {
 		this.vendas = vendas;
-		if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
-			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
-			return "";
-		} else {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", vendas);
-			voltar = "consControleVendas";
-			session.setAttribute("voltar", voltar);
-			return "consArquivos";
+		if (vendas.getProdutos().getIdprodutos() != 2) {
+			if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
+				Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
+				return "";
+			} else {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("vendas", vendas);
+				voltar = "consControleVendas";
+				session.setAttribute("voltar", voltar);
+				return "consArquivos";
+			}
+		}else{
+			if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
+				Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
+				return "";
+			} else {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+				Seguroviagem seguroviagem = seguroViagemFacade.consultar(vendas.getIdvendas());
+				if(seguroviagem.getControle().equalsIgnoreCase("Avulso")) {
+					session.setAttribute("vendas", vendas);
+				}else {
+					VendasFacade vendasFacade = new VendasFacade();
+					Vendas vendasCurso = vendasFacade.consultarVendas(seguroviagem.getIdvendacurso());
+					session.setAttribute("vendas", vendasCurso);
+				} 
+				voltar = "consControleVendas";
+				session.setAttribute("voltar", voltar);
+				return "consArquivos";
+			}
 		}
 	}
 
