@@ -987,7 +987,7 @@
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="5">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;border:0px;" columns="6">
 										
 												<p:commandLink action="#{consultaSeguroViagemMB.boletos(seguros)}" disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}"
 													title="IMPRIMIR OS BOLETOS"
@@ -1017,6 +1017,16 @@
 														<img src="../../resources/img/informacao.png" width="36" />
 														<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="INFO" style="font-size:11px;"/>
+															<p:outputLabel value=" "/>
+														</h:panelGrid>
+													</p:commandLink>
+													   
+													<p:commandLink action="#{consultaSeguroViagemMB.documentacao(seguros)}"
+														 title="DOCUMENTOS"
+														 >
+														<img src="../../resources/img/arquivosUpload.png" width="36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="DOCS" style="font-size:10px;"/>
 															<p:outputLabel value=" "/>
 														</h:panelGrid>
 													</p:commandLink>
