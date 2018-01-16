@@ -604,16 +604,25 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void calcularDataTermino() {
 		if (cliente != null) {
-			int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
-			if ((idadeCliente < seguroplanos.getIdademinima()) || (idadeCliente>= seguroplanos.getIdademaxima()) ) {
-					Mensagem.lancarMensagemInfo("Atenção",
-							"emissão não permitida para cliente com " + idadeCliente + " anos");
-			} else {
+			if (seguroplanos.getIdademinima() > 0 || seguroplanos.getIdademaxima() > 0) {
+				int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
+				if ((idadeCliente < seguroplanos.getIdademinima()) || (idadeCliente>= seguroplanos.getIdademaxima()) ) {
+						Mensagem.lancarMensagemInfo("Atenção",
+								"emissão não permitida para cliente com " + idadeCliente + " anos");
+				} else {
+					if (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima()) {
+						Mensagem.lancarMensagemInfo("Atenção",
+								"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
+					}
+					dataTermino();
+				}
+			}else{
 				if (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima()) {
 					Mensagem.lancarMensagemInfo("Atenção",
 							"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
+				}else{
+					dataTermino();
 				}
-				dataTermino();
 			}
 		} else 	Mensagem.lancarMensagemErro("Atenção", "Cliente não selecionado");
 	}
