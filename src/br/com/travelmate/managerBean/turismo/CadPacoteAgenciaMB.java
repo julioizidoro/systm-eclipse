@@ -1330,11 +1330,11 @@ public class CadPacoteAgenciaMB implements Serializable {
 						dashBoardBean.calcularMetaMensal(vendass, 0, false);
 						dashBoardBean.calcularMetaAnual(vendass, 0, false);
 						int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario(), usuarioLogadoMB.getUsuario());
+						productRunnersMB.calcularPontuacaoPacote(usuarioLogadoMB.getUsuario(), pacotes.getUsuario(), vendass.getProdutos(), false, pontos);
 						vendass.setPonto(pontos);
 						vendass.setPontoescola(0);
 						vendass = vendasFacade.salvar(vendass);
 						mateRunnersMB.carregarListaRunners();
-						productRunnersMB.calcularPontuacao(vendass, pontos, false);
 						tmRaceMB.gerarListaGold();
 						tmRaceMB.gerarListaSinze();
 						tmRaceMB.gerarListaBronze();
@@ -1367,6 +1367,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 							dashBoardBean.calcularMetaMensal(vendass, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(vendass, valorVendaAlterar, false);
 							int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario(), usuarioLogadoMB.getUsuario());
+							productRunnersMB.calcularPontuacaoPacote(usuarioLogadoMB.getUsuario(), pacotes.getUsuario(), vendass.getProdutos(), false, pontos);
 							vendass.setPonto(pontos);
 							vendass.setPontoescola(0);
 							vendass = vendasFacade.salvar(vendass);

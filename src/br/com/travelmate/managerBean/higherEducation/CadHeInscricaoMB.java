@@ -1170,11 +1170,11 @@ public class CadHeInscricaoMB implements Serializable {
 					}else{
 						pontos = dashBoardBean.calcularPontuacao(venda, 0, "Inscrição", false);
 					}
+					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					venda = vendasFacade.salvar(venda);
-					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 					metaRunnersMB.carregarListaRunners();
 					tmRaceMB.gerarListaGold();
 					tmRaceMB.gerarListaSinze();

@@ -23,6 +23,7 @@ import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.model.Corridaprodutoano;
 import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Produtos;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
@@ -212,7 +213,7 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutomes.setUsuario(vendas.getUsuario());
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}else{
-				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos);
+				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos - vendas.getPonto());
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}
 			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
@@ -225,12 +226,23 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutoano.setUsuario(vendas.getUsuario());
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}else{
-				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos);
+				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos - vendas.getPonto());
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}
 		}
 	}
 	
+	
+	public void calcularPontuacaoPacote(Usuario usuarioConsultor, Usuario usuarioFranquia, Produtos produtos, boolean cancelamento, int pontos){
+		Vendas vendasConsultor = new Vendas();
+		vendasConsultor.setProdutos(produtos);
+		vendasConsultor.setUsuario(usuarioConsultor);
+		calcularPontuacao(vendasConsultor, pontos, cancelamento);
+		Vendas vendasFranquia = new Vendas();
+		vendasFranquia.setUsuario(usuarioFranquia);
+		vendasFranquia.setProdutos(produtos);
+		calcularPontuacao(vendasFranquia, pontos, cancelamento);
+	}
 	
 	
 	

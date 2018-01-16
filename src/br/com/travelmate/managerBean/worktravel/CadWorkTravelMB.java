@@ -1038,11 +1038,11 @@ public class CadWorkTravelMB implements Serializable {
 							dashBoardBean.calcularMetaMensal(venda, 0, false);
 							dashBoardBean.calcularMetaAnual(venda, 0, false);
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, work.getTipo(), false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();
@@ -1111,11 +1111,11 @@ public class CadWorkTravelMB implements Serializable {
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, work.getTipo(), false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();

@@ -1466,12 +1466,12 @@ public class CadCursoMB implements Serializable {
 							dashBoardBean.calcularMetaMensal(venda, 0, false);
 							dashBoardBean.calcularMetaAnual(venda, 0, false);
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							venda.setIdregravenda(pontos[2]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							metaRunnersMB.carregarListaRunners();
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();
@@ -1534,6 +1534,7 @@ public class CadCursoMB implements Serializable {
 								dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 								dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 								int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false);
+								productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
 								VendasFacade vendasFacade = new VendasFacade();

@@ -1131,11 +1131,11 @@ public class CadVoluntariadoMB implements Serializable {
 							}
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, nNumeroSemana, "",
 									false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();
@@ -1210,11 +1210,11 @@ public class CadVoluntariadoMB implements Serializable {
 							}
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, numeroSemana, "",
 									false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
 							mateRunnersMB.carregarListaRunners();
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();
