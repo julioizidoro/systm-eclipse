@@ -149,7 +149,7 @@
 							value="#{cadUnidadeNegocioMB.unidadenegocio.perconsultor}" >
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
-						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="banco"  style="width:130px;"  value="#{cadUnidadeNegocioMB.unidadenegocio.banco}" converter="BancoConverter">
+						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="banco"  style="width:130px;"  value="#{cadUnidadeNegocioMB.banco}" converter="BancoConverter">
                            <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
                            <f:selectItems value="#{cadUnidadeNegocioMB.listaBanco}" var="conta" itemLabel="#{conta.nome}" itemValue="#{conta}"/>
                            <f:attribute name="listaBanco" value="#{cadUnidadeNegocioMB.listaBanco}"/>
@@ -205,8 +205,11 @@
 			</div>
 			<br></br>
 			<div align="center">
-				<p:commandButton id="btnConfirmar" value="Confirmar" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" action="#{cadUnidadeNegocioMB.salvar()}"  onsuccess="PF('cd').show();"
-					 icon="ui-icon-check"
+				<p:commandButton id="btnConfirmar" value="Confirmar" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" action="#"  onsuccess="PF('cd').show();"
+					 icon="ui-icon-check" rendered="#{cadUnidadeNegocioMB.habilitarNovoCadastro}"
+					style="font-size:12px;" update="growl" />
+				<p:commandButton id="btnConfirmarEdicao" value="Confirmar" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" action="#{cadUnidadeNegocioMB.salvar()}" 
+					 icon="ui-icon-check" rendered="#{cadUnidadeNegocioMB.habilitarEdicao}"
 					style="font-size:12px;" update="growl" />
 				<p:commandButton id="btnCancelar" value="Cancelar"
 					action="#{cadUnidadeNegocioMB.cancelar()}"
@@ -217,16 +220,16 @@
 						icon="ui-icon-alert" widgetVar="cd"
 						style="width:60%;font-size:14px" >
 						<p:outputLabel
-							value="Valor da meta mensal" />
+							value="Meta mensal" />
 						<br/>
 						<p:inputText value="#{cadUnidadeNegocioMB.valorMetaMensal}" id="valorMetaMensal"
 								style="font-size: 11px;width:100%; text-align: right;">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:inputText>
-						<br/>  <br/>
+						<br/>  <br/>     
 						<p:commandButton value="Confirmar"
-							action="#{cadUnidadeNegocioMB.salvarMetaFaturamento()}"
+							action="#{cadUnidadeNegocioMB.salvar()}"
 							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
 							icon="ui-icon-check" update="cadUnidade:growl"
 							style="margin-left:17%;font-size:12px" />

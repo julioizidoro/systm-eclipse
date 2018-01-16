@@ -43,6 +43,9 @@ public class CadUnidadeNegocioMB implements Serializable {
 	private float valorMetaMensal = 0f;
 	private boolean novaUnidade;
 	private boolean somenteLeitura = false;
+	private Banco banco;
+	private boolean habilitarNovoCadastro = true;
+	private boolean habilitarEdicao = false;
 
 	@PostConstruct
 	public void init() {
@@ -55,8 +58,12 @@ public class CadUnidadeNegocioMB implements Serializable {
 			digitosTelefone=false;
 			unidadenegocio = new Unidadenegocio();
 			novaUnidade = true;
+			habilitarNovoCadastro = true;
+			habilitarEdicao = false;
 		} else{
 			novaUnidade = false;
+			habilitarNovoCadastro = false;
+			habilitarEdicao = true;
 			if(unidadenegocio.getFone()!=null && unidadenegocio.getFone().length()>13){
 				digitosTelefone=true;
 			}else digitosTelefone=false;
@@ -137,32 +144,63 @@ public class CadUnidadeNegocioMB implements Serializable {
 	}
 
 
-	public void validarDados(String msg) {
-		if (unidadenegocio.getBanco() == null && unidadenegocio.getBanco().getIdbanco() == null) {
-			msg = "Banco não selecionado.";
-		}  
-		if (unidadenegocio.getEmail() == null || unidadenegocio.getEmail().length() < 2) {
-			msg = msg + "\n" + "Email não informado.";
-		} else {
-			if (Formatacao.validarEmail(unidadenegocio.getEmail())) {
-				msg = msg + "\n" + "Email invalido.";
-			}
-		}
-		if (unidadenegocio.getRazaoSocial() == null || unidadenegocio.getRazaoSocial().length() < 2) {
-			msg = msg + "\n" + "Razão social não informado.";
-		}
-		if (unidadenegocio.getNomeFantasia() == null || unidadenegocio.getNomeFantasia().length() < 2) {
-			msg = msg + "\n" + "Nome Fantasia não informado.";
-		}
-		if (unidadenegocio.getNomerelatorio() == null || unidadenegocio.getNomerelatorio().length() < 2) {
-			msg = msg + "\n" + "Nome relatório não informado.";
-		}
+	public Banco getBanco() {
+		return banco;
 	}
 
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+
+	public boolean isHabilitarNovoCadastro() {
+		return habilitarNovoCadastro;
+	}
+
+
+	public void setHabilitarNovoCadastro(boolean habilitarNovoCadastro) {
+		this.habilitarNovoCadastro = habilitarNovoCadastro;
+	}
+
+
+	public boolean isHabilitarEdicao() {
+		return habilitarEdicao;
+	}
+
+
+	public void setHabilitarEdicao(boolean habilitarEdicao) {
+		this.habilitarEdicao = habilitarEdicao;
+	}
+
+
+	public boolean validarDados() {
+		if (banco == null || banco.getIdbanco() == null) {
+			Mensagem.lancarMensagemInfo("Banco não selecionado.", "");
+			return false;
+		}  
+		if (unidadenegocio.getEmail() == null || unidadenegocio.getEmail().length() < 2) {
+			Mensagem.lancarMensagemInfo("Email não informado.", "");
+			return false;
+		} 
+		if (unidadenegocio.getRazaoSocial() == null || unidadenegocio.getRazaoSocial().length() < 2) {
+			Mensagem.lancarMensagemInfo("Razão social não informado.", "");
+			return false;
+		}
+		if (unidadenegocio.getNomeFantasia() == null || unidadenegocio.getNomeFantasia().length() < 2) {
+			Mensagem.lancarMensagemInfo("Razão social não informado.", "");
+			return false;
+		}
+		if (unidadenegocio.getNomerelatorio() == null || unidadenegocio.getNomerelatorio().length() < 2) {
+			Mensagem.lancarMensagemInfo("Nome relatório não informado.", "");
+			return false;
+		}
+		return true;
+	}  
+
 	public String salvar() {
-		String msg = "";
-		validarDados(msg);
-		if (msg.length() < 2) {
+		if (validarDados()) {
+			unidadenegocio.setBanco(banco);
 			UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 			unidadenegocio.setSituacao(true); 
 			if(unidadenegocio.getIdunidadeNegocio()==null){
@@ -173,20 +211,19 @@ public class CadUnidadeNegocioMB implements Serializable {
 				}
 			}
 			unidadenegocio = unidadeNegocioFacade.salvar(unidadenegocio);
+			if (novaUnidade) {
+				salvarMetaFaturamento();
+			}
 			if (!novaUnidade) {
 				return "consUnidade";
 			}
-			return "";
-		} else {
-			Mensagem.lancarMensagemErro("Atenção!", msg);
-			return "";
-		}
+		}   
+		return ""; 
 	}
 	
 	
 	public String salvarMeta() {
 		String msg = "";
-		validarDados(msg);
 		if (msg.length() < 2) {
 			UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 			unidadenegocio.setSituacao(true); 
