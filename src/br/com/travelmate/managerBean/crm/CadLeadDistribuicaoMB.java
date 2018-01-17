@@ -312,7 +312,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	public String salvar(){
 		if(validarDados()){
 			LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-			List<Leadresponsavel> listaResponsavel = leadResponsavelFacade.lista("SELECT l FROM Leadresponsavel l where l.usuario.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio() +
+			List<Leadresponsavel> listaResponsavel = leadResponsavelFacade.lista("SELECT l FROM Leadresponsavel l where l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio() +
 					" and l.usuario.situacao='Ativo'");
 			ClienteFacade clienteFacade = new ClienteFacade();
 			if(cliente.getIdcliente()==null){   
