@@ -31,8 +31,6 @@ public class Tipoarquivoproduto implements Serializable {
     @JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos")
     @ManyToOne(optional = false)
     private Produtos produtos;
-    @Column(name = "observacao")
-    private String observacao;
 
     public Tipoarquivoproduto() {
     }
@@ -64,14 +62,6 @@ public class Tipoarquivoproduto implements Serializable {
     public void setProdutos(Produtos produtos) {
         this.produtos = produtos;
     }
-
-    public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
 
 	@Override
     public int hashCode() {
