@@ -87,6 +87,8 @@ public class Controlecurso implements Serializable {
     @Column(name = "datachegadabrasil")
     @Temporal(TemporalType.DATE)
     private Date datachegadabrasil;
+    @Transient
+    private String tipoOrcamento;
     
     public Controlecurso() {
     	docs="VM";
@@ -275,6 +277,14 @@ public class Controlecurso implements Serializable {
 
 	public void setDatachegadabrasil(Date datachegadabrasil) {
 		this.datachegadabrasil = datachegadabrasil;
+	}
+
+	public String getTipoOrcamento() {
+		return tipoOrcamento;
+	}
+
+	public void setTipoOrcamento(String tipoOrcamento) {
+		this.tipoOrcamento = tipoOrcamento;
 	}
 
 	@Override
