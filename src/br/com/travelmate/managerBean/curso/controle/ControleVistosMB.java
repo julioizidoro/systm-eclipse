@@ -20,7 +20,6 @@ import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Controlecurso;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -45,6 +44,7 @@ public class ControleVistosMB implements Serializable{
 		gerarListaEUA();
 		gerarListaCanada();
 		gerarListaInglaterra();
+		gerarListaEmiradosArabesUnidos();
 		nFichas = listaControleVistoBean.size();
 	}
 
@@ -174,6 +174,35 @@ public class ControleVistosMB implements Serializable{
 			controleVistosBean.setSituacao(listaInglaterra.get(i).getSituacao());
 			controleVistosBean.setPais(listaInglaterra.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
 			controleVistosBean.setUnidade(listaInglaterra.get(i).getVendas().getUnidadenegocio());
+			listaControleVistoBean.add(controleVistosBean);
+		}
+		
+	}
+	
+	public void gerarListaEmiradosArabesUnidos(){
+		CursoFacade cursoFacade = new CursoFacade();
+		ControleVistosBean controleVistosBean = new ControleVistosBean();
+		List<Controlecurso> listaEmirado = cursoFacade.listaControle(" Select c From Controlecurso c Where c.vendas.cliente.tipovisto='Estudante' and c.curso.numeroSenamas + c.curso.sNumeroSemanas>=12 "
+				+ "and c.vendas.fornecedorcidade.cidade.pais.idpais=42 and c.situacao<>'Finalizado' and c.situacao<>'FINALIZADA' "
+				+ " and c.situacao<>'Cancelado' and c.vendas.dataVenda>='2017-03-01'");
+		if (listaEmirado == null) {
+			listaEmirado = new ArrayList<>();
+		}
+		
+		if (listaControleVistoBean == null) {
+			listaControleVistoBean = new ArrayList<>();
+		}
+		
+		for (int i = 0; i < listaEmirado.size(); i++) {
+			controleVistosBean = new ControleVistosBean();
+			controleVistosBean.setDataEmbarque(listaEmirado.get(i).getDataEmbarque());
+			controleVistosBean.setDataInicio(listaEmirado.get(i).getCurso().getDataInicio());
+			controleVistosBean.setEscola(listaEmirado.get(i).getVendas().getFornecedor().getNome());
+			controleVistosBean.setNomeCliente(listaEmirado.get(i).getVendas().getCliente().getNome());
+			controleVistosBean.setControlecurso(listaEmirado.get(i));
+			controleVistosBean.setSituacao(listaEmirado.get(i).getSituacao());
+			controleVistosBean.setPais(listaEmirado.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
+			controleVistosBean.setUnidade(listaEmirado.get(i).getVendas().getUnidadenegocio());
 			listaControleVistoBean.add(controleVistosBean);
 		}
 		
