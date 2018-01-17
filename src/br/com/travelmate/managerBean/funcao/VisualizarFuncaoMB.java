@@ -48,17 +48,23 @@ public class VisualizarFuncaoMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		gerarListaDepartamento();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		departamento = (Departamento) session.getAttribute("departamento");
+		session.removeAttribute("departamento");
+		gerarListaUsuarios();
 		if (funcao == null) {
 			funcao = new Funcao();
 		}
-		listaUsuarioBean = new ArrayList<>();
+		if (listaUsuarioBean == null) {
+			listaUsuarioBean = new ArrayList<>();
+		}    
 	}
 
 	public List<Departamento> getListaDepartamento() {
 		return listaDepartamento;
 	}
-
+     
 	public void setListaDepartamento(List<Departamento> listaDepartamento) {
 		this.listaDepartamento = listaDepartamento;
 	}
@@ -127,15 +133,7 @@ public class VisualizarFuncaoMB implements Serializable {
 		this.aplicacaoMB = aplicacaoMB;
 	}
 
-	public void gerarListaDepartamento() {
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		listaDepartamento = departamentoFacade.listar("Select d From Departamento d Where d.lista=true");
-		if (listaDepartamento == null) {
-			listaDepartamento = new ArrayList<>();
-		}
-	}
-
-	public void gerarListaUsuarios(Departamento departamento) {
+	public void gerarListaUsuarios() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		listaUsuarioBean = new ArrayList<>();
 		String sql = "";
@@ -234,6 +232,10 @@ public class VisualizarFuncaoMB implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	public String voltarConsDepartamento() {
+		return "consDepartamentoFuncao";
 	}
 
 }

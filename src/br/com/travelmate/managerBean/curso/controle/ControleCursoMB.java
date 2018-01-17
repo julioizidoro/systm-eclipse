@@ -359,6 +359,13 @@ public class ControleCursoMB implements Serializable {
 		listaVendasCursoCancelada = new ArrayList<>(); 
 		listaVendasCursoFinanceiro = new ArrayList<>(); 
 		for (int i = 0; i < listaControle.size(); i++) {
+			if (listaControle.get(i).getCurso().getTipoimportacaoorcamento().equalsIgnoreCase("T")) {
+				listaControle.get(i).setTipoOrcamento("Tarifário");
+			}else if (listaControle.get(i).getCurso().getTipoimportacaoorcamento().equalsIgnoreCase("M")){
+				listaControle.get(i).setTipoOrcamento("Manual");
+			}else {
+				listaControle.get(i).setTipoOrcamento("Nenhum");
+			}
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasCursoFinalizada.add(listaControle.get(i));
@@ -767,5 +774,10 @@ public class ControleCursoMB implements Serializable {
 		} else { 
 			return "FICHA CANCELADA";
 		} 
-	}   
+	}  
+	
+	
+	public void tipoOrcamento(Curso curso){
+		
+	}
 }

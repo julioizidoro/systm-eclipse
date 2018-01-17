@@ -318,7 +318,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setLiberar(true);
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
 									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
-									" - " + tipoarquivo.getObservacao());
+									" | " + obs);
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
@@ -335,7 +335,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setIdvenda(vendas.getIdvendas());
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
 									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
-									" - " + tipoarquivo.getObservacao());
+									" | " + obs);
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);

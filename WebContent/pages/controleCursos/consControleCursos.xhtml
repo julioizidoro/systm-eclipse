@@ -238,6 +238,10 @@
 										width="24" />
 								</p:commandLink>
 							</p:column>
+							<p:column headerText="Orçamento"
+								style="width:68px;text-align:left;">
+								<h:outputText value="#{cursosFinanceiro.tipoOrcamento}"/>
+							</p:column>
 							<p:column headerText="Opções"
 								style="width:60px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -452,6 +456,10 @@
 										src="#{controleCursoMB.retornarIconeApplication(cursosAndamento)}"
 										width="24" />
 								</p:commandLink>
+							</p:column>
+							<p:column headerText="Orçamento"
+								style="width:68px;text-align:left;">
+								<h:outputText value="#{cursosAndamento.tipoOrcamento}"/>
 							</p:column>
 							<p:column headerText="Opções"
 								style="width:60px;text-align:center;">
@@ -668,6 +676,10 @@
 										width="24" />
 								</p:commandLink>
 							</p:column>
+							<p:column headerText="Orçamento"
+								style="width:68px;text-align:left;">
+								<h:outputText value="#{cursosFinalizado.tipoOrcamento}"/>
+							</p:column>
 							<p:column headerText="Opções"
 								style="width:60px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -883,6 +895,10 @@
 										width="24" />
 								</p:commandLink>
 							</p:column>
+							<p:column headerText="Orçamento"
+								style="width:68px;text-align:left;">
+								<h:outputText value="#{cursosCancelado.tipoOrcamento}"/>
+							</p:column>
 							<p:column headerText="Opções"
 								style="width:60px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -1093,6 +1109,10 @@
 									<img src="#{controleCursoMB.retornarIconeApplication(cursos)}"
 										width="24" />
 								</p:commandLink>
+							</p:column>
+							<p:column headerText="Orçamento"
+								style="width:68px;text-align:left;">
+								<h:outputText value="#{cursos.tipoOrcamento}"/>
 							</p:column>
 							<p:column headerText="Opções"
 								style="width:60px;text-align:center;">

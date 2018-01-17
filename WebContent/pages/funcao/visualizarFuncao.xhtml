@@ -7,25 +7,14 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/default.xhtml">
 	<ui:define name="corpo">
-		<h:form id="idFormConsViewsFuncao" style="font-size:11px;">
+		<h:form id="idFormConsViewsFuncao">
 			<div id="centro">
 				<br />
-				<h:panelGrid columns="2" style="width:98%;margin-left:2%;">
-					<h:panelGrid id="panelDepartamentos"
-						style="width:100%; border-right: 2px solid;border-color: black;">
-						<p:outputLabel value="Departamentos" />
-						<br />
-						<ui:repeat var="departamento"
-							value="#{visualizarFuncaoMB.listaDepartamento}"
-							varStatus="status">
-							<p:commandLink update=":idFormConsViewsFuncao:panelFuncionarios"
-								action="#{visualizarFuncaoMB.gerarListaUsuarios(departamento)}"
-								value="#{departamento.nome}" style="font-size:15px;">
-
-							</p:commandLink>
-							<br />
-						</ui:repeat>
-					</h:panelGrid>
+				<legend style="margin-left:1%; width:98%;"> 
+	        	   		<p:commandLink ajax="false" action="#{visualizarFuncaoMB.voltarConsDepartamento()}" value="Departamentos"/> > #{visualizarFuncaoMB.departamento.nome}
+	        	    </legend> 
+				<h:panelGrid columns="1" style="width:98%;margin-left:2%;">
+					    
 					<h:panelGrid id="panelFuncionarios"
 						style="width:100%;margin-left:2%;">
 						<h:dataTable id="tabelaArquivo" styleClass="table-transparent"
