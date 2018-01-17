@@ -22,6 +22,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
+import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.bean.ProdutoOrcamentoCursoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
@@ -129,6 +130,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	private Lead lead;
 	private String funcao;
 	private boolean segurocancelamento=false;
+	private List<NumeroParcelasBean> listaNumeroParcelas;
 
 	@PostConstruct
 	public void init() {
@@ -144,6 +146,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		session.removeAttribute("orcamentoManual");
 		gerarListaProdutos();
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
+		listaNumeroParcelas = new ArrayList<NumeroParcelasBean>();
 		int idProduto = 0;
 		if(tipo!=null && tipo.equalsIgnoreCase("Voluntariado")){
 			idProduto = aplicacaoMB.getParametrosprodutos().getVoluntariado();
@@ -533,6 +536,14 @@ public class CadOrcamentoManualMB implements Serializable {
 		this.segurocancelamento = segurocancelamento;
 	}
 
+	public List<NumeroParcelasBean> getListaNumeroParcelas() {
+		return listaNumeroParcelas;
+	}
+
+	public void setListaNumeroParcelas(List<NumeroParcelasBean> listaNumeroParcelas) {
+		this.listaNumeroParcelas = listaNumeroParcelas;
+	}
+
 	public void gerarListaPublicidade() {
 		PublicidadeFacade publicidadeFacade = new PublicidadeFacade();
 		try {
@@ -592,6 +603,7 @@ public class CadOrcamentoManualMB implements Serializable {
 					Logger.getLogger(CadOrcamentoManualMB.class.getName()).log(Level.SEVERE, null, ex);
 				}
 				orcamentocurso.setDataTermino(data);
+				gerarListaNuneroParcelas(orcamentocurso.getDataInicio());
 			}
 		}
 	}
@@ -1792,6 +1804,32 @@ public class CadOrcamentoManualMB implements Serializable {
 						this.valorMoedaEstrangeira = 0.0f;
 						this.valorMoedaReal = 0.0f;
 					}
+				}
+			}
+		}
+	}
+	
+	
+	public void gerarListaNuneroParcelas(Date dataInicio) {
+		listaNumeroParcelas = new ArrayList<>();
+		NumeroParcelasBean np = new NumeroParcelasBean();
+		np.setNumero(0);
+		np.setTitulo("0");
+		listaNumeroParcelas.add(np);
+		int dias = Formatacao.subtrairDatas(new Date(), dataInicio);
+		if (dias > 30) {
+			int diaInicio = Formatacao.getDiaData(dataInicio);
+			int diaVenciamento = Formatacao.getDiaData(new Date());
+			if (diaVenciamento < diaInicio) {
+				dias = dias - 30;
+			}
+			dias = dias / 30;
+			if (dias > 0) {
+				for (int i = 0; i < dias; i++) {
+					np = new NumeroParcelasBean();
+					np.setNumero(i + 1);
+					np.setTitulo(String.valueOf(i + 1));
+					listaNumeroParcelas.add(np);
 				}
 			}
 		}

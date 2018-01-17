@@ -318,8 +318,8 @@
 								value="#{cadOrcamentoManualMB.orcamentocurso.numeroSemanas}">
 								<p:ajax event="blur"
 									listener="#{cadOrcamentoManualMB.calcularDataTerminoCurso()}"
-									update="datatermino2" />
-							</h:inputText>
+									update="datatermino2, nparcela2" />
+							</h:inputText>   
 
 							<p:calendar id="datatermino2"
 								value="#{cadOrcamentoManualMB.orcamentocurso.dataTermino}"
@@ -835,26 +835,19 @@
 												listener="#{cadOrcamentoManualMB.calcularParcelamentoEntradaValor()}"
 												update="idparcelamentoantesviagem" />
 										</h:inputText>
-										<p:selectOneMenu id="nparcela2"
+										<p:selectOneMenu class="espacocobranca29" id="nparcela2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.numeroParcelas02}"
 											style="width:80px;"
 											disabled="#{cadOrcamentoManualMB.habilitarFormaPagamento2}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="2" itemValue="2" />
-											<f:selectItem itemLabel="3" itemValue="3" />
-											<f:selectItem itemLabel="4" itemValue="4" />
-											<f:selectItem itemLabel="5" itemValue="5" />
-											<f:selectItem itemLabel="6" itemValue="6" />
-											<f:selectItem itemLabel="7" itemValue="7" />
-											<f:selectItem itemLabel="8" itemValue="8" />
-											<f:selectItem itemLabel="9" itemValue="9" />
-											<f:selectItem itemLabel="10" itemValue="10" />
-											<f:selectItem itemLabel="11" itemValue="11" />
-											<f:selectItem itemLabel="12" itemValue="12" />
+											<f:selectItems id="idnumeroParcelas"
+												value="#{cadOrcamentoManualMB.listaNumeroParcelas}"
+												var="selnumeroparcelas"
+												itemLabel="#{selnumeroparcelas.titulo}"
+												itemValue="#{selnumeroparcelas.numero}" />
 											<p:ajax
 												listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 												update="idvalorparcela2" />
-										</p:selectOneMenu>
+										</p:selectOneMenu>  
 										<h:inputText id="idvalorparcela2"
 											value="#{cadOrcamentoManualMB.orcamentoCursoFormaPagamento.valorParcela02}"
 											style="text-align: right;width:60%;"
