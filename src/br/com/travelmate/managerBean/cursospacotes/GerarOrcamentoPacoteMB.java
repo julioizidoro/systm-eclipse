@@ -555,12 +555,12 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		if (formapagamento.getNparcelasfinanciamento()!=null && formapagamento.getNparcelasfinanciamento() > 0) {
 			if (formapagamento.getValorsaldofinanciamento() > 0) {
 				CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
-				Coeficientejuros cf = coneficienteJurosFacade.consultar(formapagamento.getNparcelasfinanciamento().intValue(), "Juros Cliente");
+				Coeficientejuros cf = coneficienteJurosFacade.consultar(formapagamento.getNparcelasfinanciamento().intValue(), "Juros Banco");
 				Double valor = formapagamento.getValorsaldofinanciamento().doubleValue() * cf.getCoeficiente();
 				formapagamento.setValorparcelafinanciamento(valor.floatValue());
 			} else {
 				CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
-				Coeficientejuros cf = coneficienteJurosFacade.consultar(formapagamento.getNparcelasfinanciamento().intValue(), "Juros Cliente");
+				Coeficientejuros cf = coneficienteJurosFacade.consultar(formapagamento.getNparcelasfinanciamento().intValue(), "Juros Banco");
 				Double valor = cursospacote.getValoravista() * cf.getCoeficiente();
 				formapagamento.setValorparcelafinanciamento(valor.floatValue());
 			}

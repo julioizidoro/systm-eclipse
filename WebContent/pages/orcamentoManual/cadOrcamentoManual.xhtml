@@ -992,7 +992,7 @@
 									update="idparcelamentoemcheque" />
 							</p:selectBooleanCheckbox>
 							<p:fieldset id="idparcelamentoemcheque"
-								legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*"
+								legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 18X via financeira*"
 								toggleable="true"
 								style="font-size: 10px;width: 95%;margin-left: 2.5%">
 								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
@@ -1037,6 +1037,12 @@
 										<f:selectItem itemLabel="10" itemValue="10" />
 										<f:selectItem itemLabel="11" itemValue="11" />
 										<f:selectItem itemLabel="12" itemValue="12" />
+										<f:selectItem itemLabel="13" itemValue="13" />
+										<f:selectItem itemLabel="14" itemValue="14" />
+										<f:selectItem itemLabel="15" itemValue="15" />
+										<f:selectItem itemLabel="16" itemValue="16" />
+										<f:selectItem itemLabel="17" itemValue="17" />
+										<f:selectItem itemLabel="18" itemValue="18" />
 										<p:ajax
 											listener="#{cadOrcamentoManualMB.calcularParcelamento()}"
 											update=":telaCadOrcamento:acordGeral:idvalorparcela4" />

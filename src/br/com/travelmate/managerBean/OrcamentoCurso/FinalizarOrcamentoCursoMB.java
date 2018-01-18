@@ -334,13 +334,13 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				if (formaPagamento04.getValorSaldo() > 0) {
 					CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
 					Coeficientejuros cf = coneficienteJurosFacade.consultar(formaPagamento04.getNumeroparcela(),
-							"Juros Cliente");
+							"Juros Banco");
 					Double valor = formaPagamento04.getValorSaldo().doubleValue() * cf.getCoeficiente();
 					formaPagamento04.setValorparcela(valor.floatValue());
 				} else {
 					CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
 					Coeficientejuros cf = coneficienteJurosFacade.consultar(formaPagamento04.getNumeroparcela(),
-							"Juros Cliente");
+							"Juros Banco");
 					Double valor = ocurso.getTotalmoedanacional() * cf.getCoeficiente();
 					formaPagamento04.setValorparcela(valor.floatValue());
 				}
@@ -447,13 +447,13 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				if (formaPagamento04.getValorSaldo() > 0) {
 					CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
 					Coeficientejuros cf = coneficienteJurosFacade.consultar(formaPagamento04.getNumeroparcela(),
-							"Juros Cliente");
+							"Juros Banco");
 					Double valor = formaPagamento04.getValorSaldo().doubleValue() * cf.getCoeficiente();
 					formaPagamento04.setValorparcela(valor.floatValue());
 				} else {
 					CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
 					Coeficientejuros cf = coneficienteJurosFacade.consultar(formaPagamento04.getNumeroparcela(),
-							"Juros Cliente");
+							"Juros Banco");
 					Double valor = ocurso.getTotalmoedanacional() * cf.getCoeficiente();
 					formaPagamento04.setValorparcela(valor.floatValue());
 				}
