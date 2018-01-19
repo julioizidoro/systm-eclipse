@@ -788,9 +788,7 @@ public class FollowUpMB implements Serializable {
 		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
 			funcao = "todos";
 			sql = sql + " and l.situacao='" + situacao + "' and l.situacao='" + situacao + "'";
-		} else {
-			sql = sql + " and l.situacao<'6' ";
-		}
+		} 
 		if (nomeCliente != null && nomeCliente.length() > 0) {
 			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente
 					+ "%')";
@@ -803,7 +801,7 @@ public class FollowUpMB implements Serializable {
 		if (dataUltInicio != null && dataUltFinal != null) {
 			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
 					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
-		}
+		}   
 		if (programas != null && programas.getIdprodutos() != null) {
 			sql = sql + " and l.produtos.idprodutos=" + programas.getIdprodutos();
 		}
