@@ -5,7 +5,8 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<div id="overlay" class="transparent"></div>
 	<div id="wrapper" class="preload">
-	<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 		<div id="top-nav" class="fixed skin-6">
 			<p:commandLink action="#{pollMB.paginaPrincipal()}" class="brand">
 				<img src="../../resources/img/paginainicial/travelmatelogo.png"
@@ -15,45 +16,45 @@
 				id="sidebarToggle">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-			</button> 
+			</button>
 			<ul class="nav-notification clearfix">
-				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup
+				<li class="dropdown" style="margin-top: -1.2%;"><h:panelGroup
 						rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">
 						<p:commandLink id="calculadoraFinanceira" class="dropdown-toggle"
 							data-toggle="dropdown" title="Calculadora Financeira"
 							style="font-size:11px;padding: 13px 9px;"
 							action="#{menuMB.calculadoraMargem()}" update="@all">
-							<img src="../../resources/img/paginainicial/calcularora.png" width="22"
-								style="margin-top: 3px;" />  
-						</p:commandLink>  
-					</h:panelGroup></li>     
-				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
+							<img src="../../resources/img/paginainicial/calcularora.png"
+								width="22" style="margin-top: 3px;" />
+						</p:commandLink>
+					</h:panelGroup></li>
+				<li class="dropdown" style="margin-top: -1.2%;"><h:panelGroup>
 						<p:commandLink id="destinos" class="dropdown-toggle"
 							data-toggle="dropdown" title="Destinos"
 							style="font-size:11px;padding: 13px 9px;"
 							action="#{menuMB.escolas()}" update="@all">
-							<img src="../../resources/img/paginainicial/destinos.png" width="22"
-								style="margin-top: 3px;" />  
-						</p:commandLink>  
-					</h:panelGroup></li> 
-				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
-							<p:commandLink id="cambios" class="dropdown-toggle"
-								data-toggle="dropdown" title="Consulta de Câmbio"
-								style="font-size:11px;padding: 13px 9px;"
-								action="#{menuMB.cambioFranquia()}" update="@all">
-								<img src="../../resources/img/paginainicial/conscambio.png" width="24"
-									style="margin-top: 3px;" />  
-							</p:commandLink>   
-						</h:panelGroup></li>        
-				<li class="dropdown" style="margin-top:-1.2%;"><h:panelGroup >
-							<p:commandLink id="funcoes" class="dropdown-toggle"  
-								data-toggle="dropdown" title="Departamentos"
-								style="font-size:11px;padding: 13px 9px;"
-								action="#{menuMB.visualizarFuncao()}" update="@all">
-								<img src="../../resources/img/paginainicial/organograma.png" width="22"
-									style="margin-top: 3px;" />  
-							</p:commandLink>   
-						</h:panelGroup></li>         
+							<img src="../../resources/img/paginainicial/destinos.png"
+								width="22" style="margin-top: 3px;" />
+						</p:commandLink>
+					</h:panelGroup></li>
+				<li class="dropdown" style="margin-top: -1.2%;"><h:panelGroup>
+						<p:commandLink id="cambios" class="dropdown-toggle"
+							data-toggle="dropdown" title="Consulta de Câmbio"
+							style="font-size:11px;padding: 13px 9px;"
+							action="#{menuMB.cambioFranquia()}" update="@all">
+							<img src="../../resources/img/paginainicial/conscambio.png"
+								width="24" style="margin-top: 3px;" />
+						</p:commandLink>
+					</h:panelGroup></li>
+				<li class="dropdown" style="margin-top: -1.2%;"><h:panelGroup>
+						<p:commandLink id="funcoes" class="dropdown-toggle"
+							data-toggle="dropdown" title="Departamentos"
+							style="font-size:11px;padding: 13px 9px;"
+							action="#{menuMB.visualizarFuncao()}" update="@all">
+							<img src="../../resources/img/paginainicial/organograma.png"
+								width="22" style="margin-top: 3px;" />
+						</p:commandLink>
+					</h:panelGroup></li>
 				<li class="dropdown"><p:commandLink id="atencao" title="Avisos"
 						class="dropdown-toggle" data-toggle="dropdown"
 						action="#{usuarioLogadoMB.carregarNotificacao('aviso', 'lead')}">
@@ -109,8 +110,10 @@
 					<a class="btn btn-sm" id="sizeToggle"> <span class="icon-bar"></span>
 						<span class="icon-bar"></span> <span class="icon-bar"></span>
 					</a>
-					<p:commandLink action="#{menuMB.consVersoes()}" value="Versões" style="color:white;float:right;margin-right:15%;" update=":inicial:growl">
-						
+					<p:commandLink action="#{menuMB.consVersoes()}" value="Versões"
+						style="color:white;float:right;margin-right:15%;"
+						update=":inicial:growl">
+
 					</p:commandLink>
 				</div>
 				<div class="user-block clearfix">
@@ -156,54 +159,68 @@
 								<span class="menu-hover"></span>
 							</p:commandLink>
 							<ul class="submenu">
-								<h:panelGroup
-									>
+								<h:panelGroup>
 									<li class="openable open"><p:commandLink>
 											<span class="submenu-label">Auxiliar <i
 												class="fa fa-chevron-down"></i></span>
 										</p:commandLink>
 										<ul class="submenu">
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acesso}">
-												<li><p:commandLink action="#{menuMB.consAcesso()}" >
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acesso}">
+												<li><p:commandLink action="#{menuMB.consAcesso()}">
 														<span class="subsubmenu-label">Acesso</span>
 													</p:commandLink></li>
 											</h:panelGroup>
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.banco}">
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.banco}">
 												<li><p:commandLink action="#{menuMB.consBanco()}">
 														<span class="subsubmenu-label">Banco</span>
 													</p:commandLink></li>
 											</h:panelGroup>
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cartaocredito}">
-												<li><p:commandLink action="#{menuMB.consCartaoCredito()}" >
-														<span class="subsubmenu-label">Cartão de Crédito</span> 
-													</p:commandLink></li>
-											</h:panelGroup> 
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.unidades}">
-												<li><p:commandLink action="#{menuMB.consUnidade()}" >
-														<span class="subsubmenu-label">Unidade Négocio</span>
-													</p:commandLink></li>
-											</h:panelGroup>
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.usuarios}">
-												<li><p:commandLink action="#{menuMB.consUsuario()}" >
-														<span class="subsubmenu-label">Usuário</span>
-													</p:commandLink></li>
-											</h:panelGroup>
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.departamento}">
-												<li><p:commandLink action="#{menuMB.consDepartamento()}" >
-														<span class="subsubmenu-label">Departamento</span>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cartaocredito}">
+												<li><p:commandLink
+														action="#{menuMB.consCartaoCredito()}">
+														<span class="subsubmenu-label">Cartão de Crédito</span>
 													</p:commandLink></li>
 											</h:panelGroup>
 											<h:panelGroup
-												rendered="true">
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.unidades}">
+												<li><p:commandLink action="#{menuMB.consUnidade()}">
+														<span class="subsubmenu-label">Unidade Négocio</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.usuarios}">
+												<li><p:commandLink action="#{menuMB.consUsuario()}">
+														<span class="subsubmenu-label">Usuário</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.departamento}">
+												<li><p:commandLink
+														action="#{menuMB.consDepartamento()}">
+														<span class="subsubmenu-label">Departamento</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup rendered="true">     
 												<li class="openable open"><p:commandLink>
 														<span class="subsubmenu-label">Funções <i
 															class="fa fa-chevron-down"></i></span>
 													</p:commandLink>
 													<ul class="submenu">
-														<h:panelGroup >
-															<li><p:commandLink action="#{menuMB.visualizarFuncao()}" >
-																<span class="subsubsubmenu-label">Visualizar Funções</span>
-															</p:commandLink></li>
+														<h:panelGroup rendered="true">
+															<li><p:commandLink action="#{menuMB.consFuncao()}">
+																	<span class="subsubsubmenu-label">Cadastro
+																		Funções</span>
+																</p:commandLink></li>
+														</h:panelGroup>
+														<h:panelGroup rendered="true">
+															<li><p:commandLink
+																	action="#{menuMB.visualizarFuncao()}">
+																	<span class="subsubsubmenu-label">Visualizar
+																		Funções</span>
+																</p:commandLink></li>
 														</h:panelGroup>
 													</ul></li>
 											</h:panelGroup>
@@ -232,72 +249,72 @@
 											<span class="submenu-label">Produtos <i
 												class="fa fa-chevron-down"></i></span>
 										</p:commandLink>
-										<ul class="submenu"> 
+										<ul class="submenu">
 											<li><p:commandLink action="#{menuMB.pacotes()}">
-												<span class="subsubmenu-label">Pacotes Promocionais</span>
+													<span class="subsubmenu-label">Pacotes Promocionais</span>
 												</p:commandLink></li>
 											<li><p:commandLink action="#{menuMB.produtos()}">
 													<span class="subsubmenu-label">Produtos</span>
 												</p:commandLink></li>
 											<li><p:commandLink action="#{menuMB.produtoCurso()}">
-												<span class="subsubmenu-label">Produtos Orçamento Curso</span>
+													<span class="subsubmenu-label">Produtos Orçamento
+														Curso</span>
 												</p:commandLink></li>
-											<li><p:commandLink action="#{menuMB.produtosOrcamentoVoluntariado()}">
-												<span class="subsubmenu-label">Projetos Voluntariado</span>
+											<li><p:commandLink
+													action="#{menuMB.produtosOrcamentoVoluntariado()}">
+													<span class="subsubmenu-label">Projetos Voluntariado</span>
 												</p:commandLink></li>
 											<li><p:commandLink action="#{menuMB.produtoremessa()}">
 													<span class="subsubmenu-label">Produtos Remessa</span>
 												</p:commandLink></li>
-											<li><p:commandLink action="#{menuMB.produtoOrcamentoGrupo()}">
+											<li><p:commandLink
+													action="#{menuMB.produtoOrcamentoGrupo()}">
 													<span class="subsubmenu-label">Produtos Familia</span>
-												</p:commandLink></li> 
+												</p:commandLink></li>
 											<li><p:commandLink action="#{menuMB.intervalosEscola()}">
 													<span class="subsubmenu-label">Intervalos</span>
 												</p:commandLink></li>
 										</ul></li>
-								</h:panelGroup>    
-									<h:panelGroup
+								</h:panelGroup>
+								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cliente}">
 									<li><p:commandLink action="#{menuMB.cliente()}">
 											<span class="submenu-label">Cliente</span>
 										</p:commandLink></li>
 								</h:panelGroup>
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fornecedor}">
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fornecedor}">
 									<li class="openable open"><p:commandLink>
 											<span class="submenu-label">Parceiro <i
 												class="fa fa-chevron-down"></i></span>
 										</p:commandLink>
 										<ul class="submenu">
 											<h:panelGroup rendered="true">
-												<li><p:commandLink action="#{menuMB.fornecedor()}" >
-													<span class="subsubmenu-label">Intercâmbio</span>
-												</p:commandLink></li>
+												<li><p:commandLink action="#{menuMB.fornecedor()}">
+														<span class="subsubmenu-label">Intercâmbio</span>
+													</p:commandLink></li>
 											</h:panelGroup>
 											<h:panelGroup rendered="true">
-												<li><p:commandLink action="#{menuMB.parceiroTurismo()}" >
-													<span class="subsubmenu-label">Turismo</span>
-												</p:commandLink></li>
+												<li><p:commandLink action="#{menuMB.parceiroTurismo()}">
+														<span class="subsubmenu-label">Turismo</span>
+													</p:commandLink></li>
 											</h:panelGroup>
 											<li class="openable open"><p:commandLink>
 													<span class="subsubmenu-label">Work &amp; Travel<i
 														class="fa fa-chevron-down"></i></span>
-												</p:commandLink>    
-												<ul class="submenu"> 
-													<li>
-														<p:commandLink action="#{menuMB.consWorkSponsor()}" >
+												</p:commandLink>
+												<ul class="submenu">
+													<li><p:commandLink
+															action="#{menuMB.consWorkSponsor()}">
 															<span class="subsubsubmenu-label">Sponsor</span>
-														</p:commandLink>
-													</li> 
-													<li>
-														<p:commandLink action="#{menuMB.consWorkEmpregador()}">
+														</p:commandLink></li>
+													<li><p:commandLink
+															action="#{menuMB.consWorkEmpregador()}">
 															<span class="subsubsubmenu-label">Empregador</span>
-														</p:commandLink>
-													</li> 
-												</ul>    
-											</li>
-										</ul>
-									</li> 
-								</h:panelGroup> 
+														</p:commandLink></li>
+												</ul></li>
+										</ul></li>
+								</h:panelGroup>
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.cadmotivocancelamento}">
 									<li><p:commandLink
@@ -307,7 +324,8 @@
 								</h:panelGroup>
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.motivopendencia}">
-									<li><p:commandLink action="#{menuMB.consultarMotivoPendencia()}">
+									<li><p:commandLink
+											action="#{menuMB.consultarMotivoPendencia()}">
 											<span class="submenu-label">Motivo Pendência</span>
 										</p:commandLink></li>
 								</h:panelGroup>
@@ -318,9 +336,11 @@
 										</p:commandLink>
 										<ul class="submenu">
 											<h:panelGroup rendered="true">
-												<li><p:commandLink action="#{menuMB.visualizarFuncao()}" >
-													<span class="subsubsubmenu-label">Visualizar Funções</span>
-												</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.visualizarFuncao()}">
+														<span class="subsubsubmenu-label">Visualizar
+															Funções</span>
+													</p:commandLink></li>
 											</h:panelGroup>
 										</ul></li>
 								</h:panelGroup>
@@ -342,30 +362,32 @@
 										<li><p:commandLink action="#{menuMB.orcamentoCurso()}">
 												<span class="subsubmenu-label">Orçamento Tarifario</span>
 											</p:commandLink></li>
-										<li><p:commandLink action="#{menuMB.orcamentoManual('Curso')}">
+										<li><p:commandLink
+												action="#{menuMB.orcamentoManual('Curso')}">
 												<span class="subsubmenu-label">Orçamento Manual</span>
 											</p:commandLink></li>
 										<li><p:commandLink
-											action="#{menuMB.modeloOrcamentoManual()}">
-											<span class="subsubmenu-label">Modelo Orçamento Manual</span>
-										</p:commandLink></li>   
-									</ul>
-								</li>
+												action="#{menuMB.modeloOrcamentoManual()}">
+												<span class="subsubmenu-label">Modelo Orçamento
+													Manual</span>
+											</p:commandLink></li>
+									</ul></li>
 								<li class="openable open"><p:commandLink>
 										<span class="submenu-label">Voluntariado <i
 											class="fa fa-chevron-down"></i></span>
 									</p:commandLink>
 									<ul class="submenu">
 										<h:panelGroup>
-											<li><p:commandLink action="#{menuMB.voluntariadoProjetoOrcamento()}">
+											<li><p:commandLink
+													action="#{menuMB.voluntariadoProjetoOrcamento()}">
 													<span class="subsubmenu-label">Orçamento Tarifario</span>
 												</p:commandLink></li>
-										</h:panelGroup>  
-										<li><p:commandLink action="#{menuMB.orcamentoManual('Voluntariado')}">
+										</h:panelGroup>
+										<li><p:commandLink
+												action="#{menuMB.orcamentoManual('Voluntariado')}">
 												<span class="subsubmenu-label">Orçamento Manual</span>
 											</p:commandLink></li>
-									</ul>
-								</li> 
+									</ul></li>
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.promocoes}">
 									<li class="openable open"><p:commandLink>
@@ -403,22 +425,21 @@
 												class="fa fa-chevron-down"></i></span>
 										</p:commandLink>
 										<ul class="submenu">
-											
-											<h:panelGroup >
-												<li><p:commandLink 
-													action="#{menuMB.relatoriosComissaoParceiros()}">   
-													<span class="subsubmenu-label">Cursos e Trabalho</span>
-												</p:commandLink></li>
+
+											<h:panelGroup>
+												<li><p:commandLink
+														action="#{menuMB.relatoriosComissaoParceiros()}">
+														<span class="subsubmenu-label">Cursos e Trabalho</span>
+													</p:commandLink></li>
 											</h:panelGroup>
-											
-											<h:panelGroup >
-												<li><p:commandLink 
-													action="#{menuMB.relatoriosComissaoParceirosTeens()}">   
-													<span class="subsubmenu-label">Teens</span>
-												</p:commandLink></li>
+
+											<h:panelGroup>
+												<li><p:commandLink
+														action="#{menuMB.relatoriosComissaoParceirosTeens()}">
+														<span class="subsubmenu-label">Teens</span>
+													</p:commandLink></li>
 											</h:panelGroup>
-										</ul>
-									</li>
+										</ul></li>
 								</h:panelGroup>
 								<li><p:commandLink action="#{menuMB.escolas()}">
 										<span class="submenu-label">Destinos</span>
@@ -427,7 +448,7 @@
 										action="#{menuMB.relatorioEscolasTarifario()}" ajax="false"
 										target="_blank">
 										<span class="submenu-label">Tarifário</span>
-									</p:commandLink></li> 
+									</p:commandLink></li>
 								<li><p:commandLink action="#{menuMB.promocoesAtivas()}">
 										<span class="submenu-label">Promoções</span>
 									</p:commandLink></li>
@@ -436,14 +457,17 @@
 											action="#{menuMB.liberacaoDepoimentos()}">
 											<span class="submenu-label">Liberação de Depoimentos</span>
 										</p:commandLink></li>
-								</h:panelGroup> 
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fornecedordocs}">
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fornecedordocs}">
 									<li><p:commandLink action="#{menuMB.fornecedorDocs()}">
 											<span class="submenu-label">Documentos</span>
 										</p:commandLink></li>
-								</h:panelGroup> 
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriodocsparceiro}">
-									<li><p:commandLink action="#{menuMB.relatorioDocsFornecedor()}">
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriodocsparceiro}">
+									<li><p:commandLink
+											action="#{menuMB.relatorioDocsFornecedor()}">
 											<span class="submenu-label">Relatório Docs Fornecedor</span>
 										</p:commandLink></li>
 								</h:panelGroup>
@@ -476,7 +500,7 @@
 										<li><p:commandLink action="#{menuMB.leadsEncaminhados()}">
 												<span class="submenu-label">Leads Encaminhados</span>
 											</p:commandLink></li>
-									</h:panelGroup> 
+									</h:panelGroup>
 								</ul></li>
 						</h:panelGroup>
 						<li class="openable"><p:commandLink
@@ -606,7 +630,7 @@
 													action="#{menuMB.relatorioCancelamento()}">
 													<span class="subsubmenu-label">Relatório de
 														Cancelamento</span>
-												</p:commandLink></li> 
+												</p:commandLink></li>
 										</ul></li>
 								</h:panelGroup>
 								<li><p:commandLink
@@ -719,77 +743,86 @@
 											</p:commandLink></li>
 									</ul></li>
 							</ul></li>
-						<li class="openable">
-							<h:panelGroup >
-							<p:commandLink
-								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
-								<span class="menu-icon"> <img
-									src="../../resources/img/emitirorcamentomanual.png" width="25" />
-								</span>
-								<span class="text"> Controle </span>
-								<span class="menu-hover"></span>        
-							</p:commandLink>  
-							<ul class="submenu">   
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
-									<li><p:commandLink
-											action="#{menuMB.consAcessoUnidade()}">
-											<span class="submenu-label">Acessos</span>
-										</p:commandLink></li>
-								</h:panelGroup>
-								<h:panelGroup
-									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
-									<li class="openable open"><p:commandLink>
-											<span class="submenu-label">Cartão Crédito <i
-												class="fa fa-chevron-down"></i></span>
-										</p:commandLink>
-										<ul class="submenu">
-											<li><p:commandLink action="#{menuMB.consLancamentoCartao()}">
-													<span class="subsubmenu-label">Lançamentos</span>
-												</p:commandLink></li> 
-											<li><p:commandLink action="#{menuMB.pesquisarLancamentosCredito()}">
-													<span class="subsubmenu-label">Relatório</span>
-													<p:ajax event="dialogReturn" listener="#{menuMB.retornoDialogPesquisaLancamentos}" update="@form"/>
-												</p:commandLink></li> 
-										</ul></li>
-								</h:panelGroup>
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">   
-									<li><p:commandLink action="#{menuMB.calculadoraMargem()}"
-											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">
-											<span class="submenu-label">Calculadora </span>   
-										</p:commandLink></li>   
-								</h:panelGroup>
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">   
-									<li><p:commandLink action="#{menuMB.imprimirFatura()}"
-											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">
-											<span class="submenu-label">Fatura </span>
-										</p:commandLink></li>   
-								</h:panelGroup>
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.recebimentos}">
-									<li><p:commandLink action="#{menuMB.consRecebimentos()}"
-											rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.recebimentos}">
-											<span class="submenu-label">Recebimentos </span>
-										</p:commandLink></li>
-								</h:panelGroup> 
-								<h:panelGroup rendered="true">
-									<li><p:commandLink action="#{menuMB.controleEmail()}">
-											<span class="submenu-label">E-mail</span>
-										</p:commandLink></li>
-								</h:panelGroup>
-								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.controledocumentos}">
-									<li><p:commandLink action="#{menuMB.consControleDocsVideos()}">
-											<span class="submenu-label">Documentos Vencidos</span>
-										</p:commandLink></li>
-								</h:panelGroup>
-								<h:panelGroup>
-									<li><p:commandLink action="#{menuMB.consControleVendas()}">
-											<span class="submenu-label">Vendas</span>
-										</p:commandLink></li>
-									<li><p:commandLink
-													action="#{menuMB.vendasCliente()}">
-													<span class="submenu-label">Clientes de Curso</span>
-												</p:commandLink></li>
-								</h:panelGroup>
-							</ul></h:panelGroup></li>   
+						<li class="openable"><h:panelGroup>
+								<p:commandLink
+									style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
+									<span class="menu-icon"> <img
+										src="../../resources/img/emitirorcamentomanual.png" width="25" />
+									</span>
+									<span class="text"> Controle </span>
+									<span class="menu-hover"></span>
+								</p:commandLink>
+								<ul class="submenu">
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
+										<li><p:commandLink action="#{menuMB.consAcessoUnidade()}">
+												<span class="submenu-label">Acessos</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.conferenciacartaocredito}">
+										<li class="openable open"><p:commandLink>
+												<span class="submenu-label">Cartão Crédito <i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+												<li><p:commandLink
+														action="#{menuMB.consLancamentoCartao()}">
+														<span class="subsubmenu-label">Lançamentos</span>
+													</p:commandLink></li>
+												<li><p:commandLink
+														action="#{menuMB.pesquisarLancamentosCredito()}">
+														<span class="subsubmenu-label">Relatório</span>
+														<p:ajax event="dialogReturn"
+															listener="#{menuMB.retornoDialogPesquisaLancamentos}"
+															update="@form" />
+													</p:commandLink></li>
+											</ul></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">
+										<li><p:commandLink action="#{menuMB.calculadoraMargem()}"
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.calculadorafinanceira}">
+												<span class="submenu-label">Calculadora </span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">
+										<li><p:commandLink action="#{menuMB.imprimirFatura()}"
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.fatura}">
+												<span class="submenu-label">Fatura </span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.recebimentos}">
+										<li><p:commandLink action="#{menuMB.consRecebimentos()}"
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.recebimentos}">
+												<span class="submenu-label">Recebimentos </span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup rendered="true">
+										<li><p:commandLink action="#{menuMB.controleEmail()}">
+												<span class="submenu-label">E-mail</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.controledocumentos}">
+										<li><p:commandLink
+												action="#{menuMB.consControleDocsVideos()}">
+												<span class="submenu-label">Documentos Vencidos</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+									<h:panelGroup>
+										<li><p:commandLink
+												action="#{menuMB.consControleVendas()}">
+												<span class="submenu-label">Vendas</span>
+											</p:commandLink></li>
+										<li><p:commandLink action="#{menuMB.vendasCliente()}">
+												<span class="submenu-label">Clientes de Curso</span>
+											</p:commandLink></li>
+									</h:panelGroup>
+								</ul>
+							</h:panelGroup></li>
 						<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;"
 								action="#{menuMB.departamentos()}" rendered="true">
@@ -838,8 +871,9 @@
 											<li><p:commandLink action="#{menuMB.controleCurso()}">
 													<span class="subsubmenu-label">Controle</span>
 												</p:commandLink></li>
-												<h:panelGroup>
-												<li><p:commandLink action="#{menuMB.consControleVistos()}">
+											<h:panelGroup>
+												<li><p:commandLink
+														action="#{menuMB.consControleVistos()}">
 														<span class="subsubmenu-label">Visto</span>
 													</p:commandLink></li>
 											</h:panelGroup>
@@ -864,9 +898,9 @@
 													<span class="subsubmenu-label">Relatório Venda
 														Franquias</span>
 												</p:commandLink></li>
-												<li><p:commandLink
-													action="#{menuMB.vendasCurso()}">
-													<span class="subsubmenu-label">Relatório de Venda Curso</span>
+											<li><p:commandLink action="#{menuMB.vendasCurso()}">
+													<span class="subsubmenu-label">Relatório de Venda
+														Curso</span>
 												</p:commandLink></li>
 
 											<li><p:commandLink action="#{menuMB.consTmStar()}">
@@ -935,13 +969,16 @@
 															class="fa fa-chevron-down"></i></span>
 													</p:commandLink>
 													<ul class="submenu">
-														<li><p:commandLink action="#{menuMB.relatorioGeralHS()}">
+														<li><p:commandLink
+																action="#{menuMB.relatorioGeralHS()}">
 																<span class="subsubmenu-label">Geral</span>
 															</p:commandLink></li>
-														<li><p:commandLink action="#{menuMB.relatorioVistoHS()}">
+														<li><p:commandLink
+																action="#{menuMB.relatorioVistoHS()}">
 																<span class="subsubmenu-label">Visto</span>
 															</p:commandLink></li>
-														<li><p:commandLink action="#{menuMB.relatorioPassagensHS()}">
+														<li><p:commandLink
+																action="#{menuMB.relatorioPassagensHS()}">
 																<span class="subsubmenu-label">Passagens</span>
 															</p:commandLink></li>
 													</ul></li>
@@ -993,9 +1030,10 @@
 												class="fa fa-chevron-down"></i></span>
 										</p:commandLink>
 										<ul class="submenu">
-											<li><p:commandLink action="#{menuMB.pacotesFornecedor()}">
+											<li><p:commandLink
+													action="#{menuMB.pacotesFornecedor()}">
 													<span class="subsubmenu-label">Controle</span>
-												</p:commandLink></li> 
+												</p:commandLink></li>
 										</ul></li>
 								</h:panelGroup>
 								<h:panelGroup
@@ -1052,49 +1090,52 @@
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menufinanceiro}">
 									<li><p:commandLink action="#{menuMB.comissaocontrole()}">
-												<span class="submenu-label">Comissão Controle</span>
+											<span class="submenu-label">Comissão Controle</span>
 										</p:commandLink></li>
 								</h:panelGroup>
 								<h:panelGroup
-										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menucontas}">
-										<li class="openable open"><p:commandLink>
-												<span class="submenu-label">Contas <i
-													class="fa fa-chevron-down"></i></span>
-											</p:commandLink>
-											<ul class="submenu">
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menucontas}">
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Contas <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
 
-												<h:panelGroup
-													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.contasreceber}">
-													<li><p:commandLink action="#{menuMB.contasReceber()}">
-															<span class="subsubmenu-label">Contas a Receber</span>
-														</p:commandLink></li>
-												</h:panelGroup>
-												<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.crmcobranca}">
-													<li><p:commandLink actionListener="#{menuMB.mensagemCobranca()}" update=":inicial:growl"
-															action="#{menuMB.followUpCobranca()}">
-															<span class="subsubmenu-label">CRM Cobrança</span>
-														</p:commandLink></li>
-												</h:panelGroup>
-												<h:panelGroup
-													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.outroslancamentos}">
-													<li><p:commandLink action="#{menuMB.contasPagar()}">
-															<span class="subsubmenu-label">Outros Lançamentos</span>
-														</p:commandLink></li>
-												</h:panelGroup>
-												<h:panelGroup
-													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.planoconta}">
-													<li><p:commandLink action="#{menuMB.planoConta()}">
-															<span class="subsubmenu-label">Plano de Contas</span>
-														</p:commandLink></li>
-												</h:panelGroup>   
-												<h:panelGroup>
-													<li><p:commandLink
-															action="#{menuMB.pacotesFornecedor()}">
-															<span class="subsubmenu-label">Controle Turismo </span>
-														</p:commandLink></li>
-												</h:panelGroup>
-											</ul></li>
-									</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.contasreceber}">
+												<li><p:commandLink action="#{menuMB.contasReceber()}">
+														<span class="subsubmenu-label">Contas a Receber</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.crmcobranca}">
+												<li><p:commandLink
+														actionListener="#{menuMB.mensagemCobranca()}"
+														update=":inicial:growl"
+														action="#{menuMB.followUpCobranca()}">
+														<span class="subsubmenu-label">CRM Cobrança</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.outroslancamentos}">
+												<li><p:commandLink action="#{menuMB.contasPagar()}">
+														<span class="subsubmenu-label">Outros Lançamentos</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.planoconta}">
+												<li><p:commandLink action="#{menuMB.planoConta()}">
+														<span class="subsubmenu-label">Plano de Contas</span>
+													</p:commandLink></li>
+											</h:panelGroup>
+											<h:panelGroup>
+												<li><p:commandLink
+														action="#{menuMB.pacotesFornecedor()}">
+														<span class="subsubmenu-label">Controle Turismo </span>
+													</p:commandLink></li>
+											</h:panelGroup>
+										</ul></li>
+								</h:panelGroup>
 								<h:panelGroup>
 									<li class="openable open"><p:commandLink>
 											<span class="submenu-label">Vendas <i
@@ -1107,7 +1148,8 @@
 											<li><p:commandLink action="#{menuMB.analiticoVendas()}">
 													<span class="subsubmenu-label">Analítico Vendas</span>
 												</p:commandLink></li>
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.revisaofinanceiro}">
+											<h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.revisaofinanceiro}">
 												<li><p:commandLink
 														action="#{menuMB.revisaoFinanceiro()}">
 														<span class="subsubmenu-label">Revisão Financeiro</span>
@@ -1129,7 +1171,8 @@
 													<span class="subsubmenu-label">Relatório de
 														Cancelamento</span>
 												</p:commandLink></li>
-											<li><p:commandLink action="#{menuMB.relatorioCancelamentoFatura()}">
+											<li><p:commandLink
+													action="#{menuMB.relatorioCancelamentoFatura()}">
 													<span class="subsubmenu-label">Relatório de
 														Cancelamento Fatura</span>
 												</p:commandLink></li>
@@ -1170,8 +1213,10 @@
 															<span class="subsubsubmenu-label">Pagamentos</span>
 														</p:commandLink></li>
 												</ul></li>
-											<li><p:commandLink action="#{menuMB.relatorioConferenciaCartao()}">
-													<span class="subsubmenu-label">Conferência Cartão de Crédito</span>
+											<li><p:commandLink
+													action="#{menuMB.relatorioConferenciaCartao()}">
+													<span class="subsubmenu-label">Conferência Cartão de
+														Crédito</span>
 												</p:commandLink></li>
 											<li><p:commandLink action="#{menuMB.relatorioVendas()}">
 													<span class="subsubmenu-label">Vendas</span>
@@ -1304,60 +1349,69 @@
 							</ul></li>
 						<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
-								<span class="menu-icon" > <i
-									class="fa fa-video-camera"
+								<span class="menu-icon"> <i class="fa fa-video-camera"
 									style="font-size: 20px; color: #737277;" />
-								</span>    
-								<span class="text"> Treinamentos </span>   
-								<span class="menu-hover"></span>   
+								</span>
+								<span class="text"> Treinamentos </span>
+								<span class="menu-hover"></span>
 							</p:commandLink>
-							<ul class="submenu">       
+							<ul class="submenu">
 								<h:panelGroup rendered="true">
-									<li><p:commandLink action="#{menuMB.mtp()}" style="color:white;">
+									<li><p:commandLink action="#{menuMB.mtp()}"
+											style="color:white;">
 											<span class="submenu-label">Agenda</span>
 										</p:commandLink></li>
-								</h:panelGroup>  
+								</h:panelGroup>
 								<h:panelGroup rendered="true">
-									<li><p:commandLink action="#{menuMB.consDepartamentos1Videos()}" style="color:white;">
+									<li><p:commandLink
+											action="#{menuMB.consDepartamentos1Videos()}"
+											style="color:white;">
 											<span class="submenu-label">Vídeos</span>
 										</p:commandLink></li>
-								</h:panelGroup>  
-								<li>  <a target="_blank"
-											href="https://docs.google.com/spreadsheets/d/1I8iTD0rQlMhcT5x-WCTOF13UmKLzSoocU1Ov8lm_7uo/edit?usp=sharing">
-											<span class="submenu-label">Guias</span>
-										</a> </li>
-							</ul></li>   
+								</h:panelGroup>
+								<li><a target="_blank"
+									href="https://docs.google.com/spreadsheets/d/1I8iTD0rQlMhcT5x-WCTOF13UmKLzSoocU1Ov8lm_7uo/edit?usp=sharing">
+										<span class="submenu-label">Guias</span>
+								</a></li>
+							</ul></li>
 						<li class="openable"><p:commandLink
 								style="color: #ffffff;font-weight: bold;font-family: unset;font-size:12.5px;">
-								<span class="menu-icon" > <i
-									class="fa fa-user fa-lg"
+								<span class="menu-icon"> <i class="fa fa-user fa-lg"
 									style="font-size: 20px; color: #737277;" />
 								</span>
 								<span class="text"> Suporte </span>
 								<span class="menu-hover"></span>
 							</p:commandLink>
-							<ul class="submenu">       
+							<ul class="submenu">
 								<h:panelGroup rendered="true">
-									<li><p:commandLink action="#" style="color:white;" onclick="PF('suporte').show();">
+									<li><p:commandLink action="#" style="color:white;"
+											onclick="PF('suporte').show();">
 											<span class="submenu-label">Contato</span>
 										</p:commandLink></li>
-								</h:panelGroup>  
-								<h:panelGroup  rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menusolicitacoes}">
-									<li><p:commandLink action="#{menuMB.consSolicitacoes()}" style="color:white;">
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.menusolicitacoes}">
+									<li><p:commandLink action="#{menuMB.consSolicitacoes()}"
+											style="color:white;">
 											<span class="submenu-label">Solicitações</span>
 										</p:commandLink></li>
-								</h:panelGroup>   
-								<h:panelGroup  rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriosolicitacoesti}">
-									<li><p:commandLink action="#{menuMB.relatorioSolicitacoes()}" style="color:white;">
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriosolicitacoesti}">
+									<li><p:commandLink
+											action="#{menuMB.relatorioSolicitacoes()}"
+											style="color:white;">
 											<span class="submenu-label">Relatório</span>
 										</p:commandLink></li>
-								</h:panelGroup>  
-								<h:panelGroup  rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.utilti}">
-									<li><p:commandLink action="#{menuMB.consUtil()}" style="color:white;">
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.utilti}">
+									<li><p:commandLink action="#{menuMB.consUtil()}"
+											style="color:white;">
 											<span class="submenu-label">Util</span>
 										</p:commandLink></li>
-								</h:panelGroup>  
-							</ul></li> 
+								</h:panelGroup>
+							</ul></li>
 						<a
 							href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/condicaomes/condicaomes.pdf"
 							target="_blank"
@@ -1370,7 +1424,8 @@
 						</a>
 						<br />
 						<p:outputLabel value="," style="color:#3B4A57;" />
-						<br/><br/>
+						<br />
+						<br />
 					</ul>
 				</div>
 			</div>

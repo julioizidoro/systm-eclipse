@@ -260,6 +260,13 @@
 													<ul class="submenu">
 														<h:panelGroup rendered="true">
 															<li><p:commandLink
+																	action="#{menuMB.consFuncao()}">
+																	<span class="subsubsubmenu-label">Cadastro
+																		Funções</span>
+																</p:commandLink></li>
+														</h:panelGroup>
+														<h:panelGroup rendered="true">
+															<li><p:commandLink
 																	action="#{menuMB.visualizarFuncao()}">
 																	<span class="subsubsubmenu-label">Visualizar
 																		Funções</span>
@@ -1451,7 +1458,7 @@
 											<span class="submenu-label">Util</span>
 										</p:commandLink></li>
 								</h:panelGroup> 
-								<h:panelGroup >
+								<h:panelGroup rendered="false">
 									<li><p:commandLink action="#{menuMB.consAgenda()}" style="color:white;">
 											<span class="submenu-label">Agenda</span>
 										</p:commandLink></li>

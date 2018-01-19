@@ -41,7 +41,7 @@ public class CadFuncaoMB implements Serializable{
 	private List<Usuario> listaUsuario;
 	private Departamento departamento;
 	private List<Departamento> listaDepartamento;
-	private boolean habilitarDepartamento = true;
+	private boolean habilitarDepartamento = false;
 	
 	
 	@PostConstruct
