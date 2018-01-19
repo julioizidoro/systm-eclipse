@@ -499,7 +499,7 @@ public class OrcamentoCursoMB implements Serializable {
 		valorTotalAdicionais = 0.0f;
 		valorTotalAdicionaisRS = 0.0f;
 		if (seguroviagem != null && seguroviagem.getValorSeguro()!=null) {
-			if (seguroviagem.getValorSeguro() != null && !seguroviagem.isSomarvalortotal()) {
+			if (seguroviagem.getValorSeguro() != null && !seguroviagem.isSomarvalortotal()) {;;
 				valorTotalAdicionaisRS = valorTotalAdicionaisRS + seguroviagem.getValorSeguro();
 				if(seguroviagem.isSegurocancelamento()) {
 					valorTotalAdicionaisRS = valorTotalAdicionaisRS + 
@@ -1464,12 +1464,13 @@ public class OrcamentoCursoMB implements Serializable {
 				+ "-01-01' and v.numerosemanainicial<=" + produtosOrcamentoBean.getNumeroSemanas()
 				+ " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas()
 				+ " and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação'";*/
-		Date dataInicial = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
-				resultadoOrcamentoBean.getFornecedorcidadeidioma());
+//		Date dataInicial = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
+//				resultadoOrcamentoBean.getFornecedorcidadeidioma());
 		
-		String sql = "Select v from  Valorcoprodutos v where v.datainicial>='" + Formatacao.ConvercaoDataSql(dataInicial) + "'  and v.numerosemanainicial<="
+		String sql = "Select v from  Valorcoprodutos v where v.datainicial>='" + produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+				.getFornecedorcidade().getFornecedor().getAnotarifario() + "-01-01'  and v.numerosemanainicial<="
 					+  produtosOrcamentoBean.getNumeroSemanas() + " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas() + 
-					" and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação'";
+					" and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação' Order By v.idvalorcoprodutos DESC";
 
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
 		if (listaValorcoprodutoses != null) {
@@ -1515,11 +1516,11 @@ public class OrcamentoCursoMB implements Serializable {
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
 		int numeroDias = 0;  
 		boolean calcular = true;
-		if (po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
-				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
-			calcular = false;
-		}
-		if (calcular){
+//		if (po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
+//				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
+//			calcular = false;
+//		}
+//		if (calcular){
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -1549,7 +1550,6 @@ public class OrcamentoCursoMB implements Serializable {
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
 			numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
-		}
 		}else {
 			valorSuplemento = -1;
 			numeroDias=0;
@@ -1578,13 +1578,14 @@ public class OrcamentoCursoMB implements Serializable {
 		int ano = Formatacao.getAnoData(dataInicio);
 		if (anoFornecedor >= ano) {
 			return dataInicio;
-		} else if (anoFornecedor < ano) {
-			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
-			String dia = sData.substring(0, 2);
-			String mes = sData.substring(3, 5);
-			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
-			return Formatacao.ConvercaoStringDataBrasil(sData);
 		}
+//		else if (anoFornecedor < ano) {
+//			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
+//			String dia = sData.substring(0, 2);
+//			String mes = sData.substring(3, 5);
+//			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+//			return Formatacao.ConvercaoStringDataBrasil(sData);
+//		}    
 		return dataInicio;
 	}
 
