@@ -97,7 +97,7 @@
 				value="#{cadLeadDistribuicaoMB.cliente.email}">
 				<p:ajax event="blur" listener="#{cadLeadDistribuicaoMB.validarEmail()}"
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-					update="nome, unidade, telefone, origem, :cadLead:growl" />
+					update="nome, unidade, telefone, origem, :cadLead:growl, botaoConfirmar" />
 			</p:inputText> 
 			<p:selectOneMenu id="unidade" value="#{cadLeadDistribuicaoMB.unidadenegocio}"
 				disabled="#{cadLeadDistribuicaoMB.desabilitarUnidade}" style="width:90%;"
@@ -156,11 +156,11 @@
 			</div>
 		</h:panelGroup>
 		<br></br>
-		<div align="center">
-			<p:commandButton value="Confirmar" icon="ui-icon-check"
+		<div align="center">    
+			<p:commandButton value="Confirmar" icon="ui-icon-check" id="botaoConfirmar" disabled="#{cadLeadDistribuicaoMB.desabilitarConfirmar}"
 				action="#{cadLeadDistribuicaoMB.salvar()}" update="growl" style="font-size:12px;"/>
 			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
-				value="Cancelar" action="#{cadLeadDistribuicaoMB.fechar()}" /> 
+				value="Cancelar" action="#{cadLeadDistribuicaoMB.fechar()}" />   
 		</div>   
 		<br></br> 
 		<div style="margin-top: 20px; background: #ffffff;"> 

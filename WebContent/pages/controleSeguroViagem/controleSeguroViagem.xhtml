@@ -196,12 +196,12 @@
 									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
 								</p:commandLink> 
 							</p:column>
-							<p:column style="width:65px;text-align:left;">
+							<p:column style="width:110px;text-align:left;">
 								<p:commandLink
-									action="#{controleSeguroMB.visualizarContasReceber(seguros)}"
-									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+									action="#{controleSeguroMB.visualizarContasReceber(financeiro.seguroviagem)}"
+									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(financeiro.seguroviagem)}"
 									title="VISUALIZAR CONTAS A RECEBER">
-									<img src="../../resources/img/invoice.png" width="36" />
+									<img src="../../resources/img/invoice.png" style="width:25px;" />
 									<h:panelGrid columns="1" style="text-align:center;">
 										<p:outputLabel value="CONTAS A" style="font-size:10px;" />
 										<p:outputLabel value="RECEBER" style="font-size:10px;" />
@@ -210,7 +210,7 @@
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(financeiro)}" style="font-size:12px;">
 									<img src="../../resources/img/confirmarBola.png"
-										style="width: 46%" />
+										style="width:25px;" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.finalizarSeguro()}"
 										process="@this" update="tabelaFinanceiro" />
@@ -219,7 +219,7 @@
 									action="#{controleSeguroMB.cancelarVenda(financeiro)}"
 									style="text-decoration: none" title="Cancelar Ficha"
 									update="tabelaFinanceiro">
-									<img src="../../resources/img/cancel.png" style="width: 46%" /> 
+									<img src="../../resources/img/cancel.png" style="width:25px;" /> 
 								</p:commandLink>
 							</p:column>
 						</p:dataTable>
@@ -304,12 +304,12 @@
 									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
 								</p:commandLink> 
 							</p:column>
-							<p:column style="width:70px;text-align:left;">
+							<p:column style="width:110px;text-align:left;">
 							<p:commandLink
-									action="#{controleSeguroMB.visualizarContasReceber(seguros)}"
-									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+									action="#{controleSeguroMB.visualizarContasReceber(andamento.seguroviagem)}"
+									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(andamento.seguroviagem)}"
 									title="VISUALIZAR CONTAS A RECEBER">
-									<img src="../../resources/img/invoice.png" width="36" />
+									<img src="../../resources/img/invoice.png" style="width:25px;" />
 									<h:panelGrid columns="1" style="text-align:center;">
 										<p:outputLabel value="CONTAS A" style="font-size:10px;" />
 										<p:outputLabel value="RECEBER" style="font-size:10px;" />
@@ -318,7 +318,7 @@
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(andamento)}"  style="font-size:12px;">
 									<img src="../../resources/img/confirmarBola.png"
-										style="width: 46%" />
+										style="width:25px;" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.finalizarSeguro()}"
 										process="@this" update="tabelaAndamento" />
@@ -327,7 +327,7 @@
 									action="#{controleSeguroMB.cancelarVenda(andamento)}"
 									style="text-decoration: none" title="Cancelar Ficha"
 									update="tabelaAndamento">
-									<img src="../../resources/img/cancel.png" style="width: 46%" /> 
+									<img src="../../resources/img/cancel.png" style="width:25px;" /> 
 								</p:commandLink>
 							</p:column>
 						</p:dataTable>
@@ -412,21 +412,17 @@
 									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
 								</p:commandLink> 
 							</p:column>
-							<p:column style="width:70px;text-align:left;">
+							<p:column style="width:110px;text-align:left;">
 							<p:commandLink
-									action="#{controleSeguroMB.visualizarContasReceber(seguros)}"
-									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+									action="#{controleSeguroMB.visualizarContasReceber(finalizado.seguroviagem)}"
+									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(finalizado.seguroviagem)}"
 									title="VISUALIZAR CONTAS A RECEBER">
-									<img src="../../resources/img/invoice.png" width="36" />
-									<h:panelGrid columns="1" style="text-align:center;">
-										<p:outputLabel value="CONTAS A" style="font-size:10px;" />
-										<p:outputLabel value="RECEBER" style="font-size:10px;" />
-									</h:panelGrid>
+									<img src="../../resources/img/invoice.png" style="width:25px;"/>
 								</p:commandLink>
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(finalizado)}" style="font-size:12px;">
 									<img src="../../resources/img/confirmarBola.png"
-										style="width: 46%" />
+										style="width:25px;" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.finalizarSeguro()}"
 										process="@this" update="tabelaFinalizado" />
@@ -435,7 +431,7 @@
 									action="#{controleSeguroMB.cancelarVenda(finalizado)}"
 									style="text-decoration: none" title="Cancelar Ficha"
 									update="tabelaFinalizado">
-									<img src="../../resources/img/cancel.png" style="width: 46%" /> 
+									<img src="../../resources/img/cancel.png" style="width:25px;" /> 
 								</p:commandLink>
 							</p:column>
 						</p:dataTable>
@@ -520,12 +516,12 @@
 									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
 								</p:commandLink> 
 							</p:column>
-							<p:column style="width:70px;text-align:left;">
+							<p:column style="width:110px;text-align:left;">
 							<p:commandLink
-									action="#{controleSeguroMB.visualizarContasReceber(seguros)}"
-									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+									action="#{controleSeguroMB.visualizarContasReceber(cancelado.seguroviagem)}"
+									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(cancelado.seguroviagem)}"
 									title="VISUALIZAR CONTAS A RECEBER">
-									<img src="../../resources/img/invoice.png" width="36" />
+									<img src="../../resources/img/invoice.png" style="width: 25px;" />
 									<h:panelGrid columns="1" style="text-align:center;">
 										<p:outputLabel value="CONTAS A" style="font-size:10px;" />
 										<p:outputLabel value="RECEBER" style="font-size:10px;" />
@@ -534,7 +530,7 @@
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(cancelado)}" style="font-size:12px;">
 									<img src="../../resources/img/confirmarBola.png"
-										style="width: 46%" />
+										style="width:25px;" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.finalizarSeguro()}"
 										process="@this" update="tabelaCancelado" />
@@ -543,7 +539,7 @@
 									action="#{controleSeguroMB.cancelarVenda(cancelado)}"
 									style="text-decoration: none" title="Cancelar Ficha"
 									update="tabelaCancelado">
-									<img src="../../resources/img/cancel.png" style="width: 46%" /> 
+									<img src="../../resources/img/cancel.png" style="width: 25px;" /> 
 								</p:commandLink>
 							</p:column>
 						</p:dataTable>
@@ -628,12 +624,12 @@
 									<img src="../../resources/img/imprimiFicha.png" style="width:25px;"/>  
 								</p:commandLink> 
 							</p:column>
-							<p:column style="width:70px;text-align:left;">
+							<p:column style="width:110px;text-align:left;">
 								<p:commandLink
-									action="#{controleSeguroMB.visualizarContasReceber(seguros)}"
-									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguros)}"
+									action="#{controleSeguroMB.visualizarContasReceber(seguroCancelamento.seguroviagem)}"
+									rendered="#{consultaSeguroViagemMB.retornarBotaoContasReceber(seguroCancelamento.seguroviagem)}"
 									title="VISUALIZAR CONTAS A RECEBER">
-									<img src="../../resources/img/invoice.png" width="36" />
+									<img src="../../resources/img/invoice.png" style="width:25px;" />
 									<h:panelGrid columns="1" style="text-align:center;">
 										<p:outputLabel value="CONTAS A" style="font-size:10px;" />
 										<p:outputLabel value="RECEBER" style="font-size:10px;" />
@@ -641,7 +637,7 @@
 								</p:commandLink>
 								<p:commandLink title="Emitir"
 									actionListener="#{controleSeguroMB.uploadApolise(seguroCancelamento)}" style="font-size:12px;">
-									<img src="../../resources/img/confirmarBola.png" style="width: 46%" />
+									<img src="../../resources/img/confirmarBola.png" style="width:25px;" />
 									<p:ajax event="dialogReturn"
 										listener="#{controleSeguroMB.finalizarSeguro()}"
 										process="@this" update="tabelaSeguroCancelamento" />
@@ -650,7 +646,7 @@
 									action="#{controleSeguroMB.cancelarVenda(seguroCancelamento)}"
 									style="text-decoration: none" title="Cancelar Ficha"
 									update="tabelaSeguroCancelamento">
-									<img src="../../resources/img/cancel.png" style="width: 46%" /> 
+									<img src="../../resources/img/cancel.png" style="width:25px;" /> 
 								</p:commandLink>
 							</p:column>
 						</p:dataTable>
