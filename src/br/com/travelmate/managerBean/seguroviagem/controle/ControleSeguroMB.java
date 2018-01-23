@@ -671,4 +671,14 @@ public class ControleSeguroMB implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public String visualizarContasReceber(Seguroviagem seguroviagem) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("venda", seguroviagem.getVendas());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 750);
+		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
+		return "";
+	}
 }

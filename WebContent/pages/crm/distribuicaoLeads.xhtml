@@ -56,7 +56,7 @@
 						<p:column style="width:32px;text-align: centerbackground: white !important;color: white !important;">
 							<p:selectBooleanCheckbox value="#{lead.selecionado}" style="background: #ffff !important;color: white !important;"/>
 						</p:column>  
-						<p:column headerText="Data" width="72" style="text-align:center;">
+						<p:column headerText="Data" width="72" style="text-align:center;" sortBy="#{lead.datarecebimento}">
 							<h:outputText value="#{lead.datarecebimento}">
 								<f:convertDateTime pattern="dd/MM/yyyy"   
 									timeZone="America/Sao_Paulo" />
@@ -65,10 +65,10 @@
 						<p:column headerText="Horário" style="text-align:left;" width="65">
 							<h:outputText value="#{lead.horarecebimento}" />
 						</p:column>
-						<p:column headerText="Nome" style="text-align:left;" width="150">
+						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">
 							<h:outputText value="#{lead.cliente.nome}" />
 						</p:column>
-						<p:column headerText="E-mail" style="text-align:left;" width="150">
+						<p:column headerText="E-mail" style="text-align:left;" width="150" sortBy="#{lead.cliente.email}">
 							<h:outputText value="#{lead.cliente.email}" />
 						</p:column>
 						<p:column headerText="Programa" style="text-align:left;" width="95">
@@ -77,7 +77,7 @@
 						<p:column headerText="Nota" style="text-align:left;" width="235">
 							<h:outputText value="#{lead.notas}" />
 						</p:column>
-						<p:column headerText="Unidade" style="text-align:left;" width="95">
+						<p:column headerText="Unidade" style="text-align:left;" width="95" sortBy="#{lead.unidadenegocio.nomerelatorio}">
 							<h:outputText value="#{lead.unidadenegocio.nomerelatorio}" />
 						</p:column> 
 						<p:column headerText="Telefone" style="text-align:left;" width="95">
