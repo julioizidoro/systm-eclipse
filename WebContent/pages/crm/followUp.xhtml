@@ -92,7 +92,7 @@
 								</p:calendar>
 							</h:panelGroup>             
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search " 
-								actionListener="#{followUpMB.pesquisar()}" id="btnConfirmarLead"
+								actionListener="#{followUpMB.filtrarPesquisa()}" id="btnConfirmarLead"
 								action="#{followUpMB.pesquisarPosVenda()}" update=":followUp:tabelaLeads, :followUp:panelBotoes, :followUp:panelTabelaLead, :followUp:btnNovos" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 								action="#{followUpMB.limparPesquisa()}" update="@form" />
@@ -255,7 +255,7 @@
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="font-size:11px;margin-left:1%;float:right;"
 									action="#{followUpMB.limparPesquisa()}" update="@form" />
 								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-									actionListener="#{followUpMB.pesquisar()}" id="btnConfirmarLead"
+									actionListener="#{followUpMB.filtrarPesquisa()}" id="btnConfirmarLead"
 								    action="#{followUpMB.pesquisarPosVenda()}" update=":followUp:panelPosLead, :followUp:tabelaLeads, :followUp:panelBotoes, :followUp:panelTabelaLead, :followUp:btnNovos
 								    		 " style="font-size:11px;float:right;"/>
 								  <p:defaultCommand target="btnConfirmarLead" />

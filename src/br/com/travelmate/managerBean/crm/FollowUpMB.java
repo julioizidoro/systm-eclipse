@@ -994,7 +994,7 @@ public class FollowUpMB implements Serializable {
 		tipocontato = null;
 		dataInseridoInicial = null;
 		dataInseridoInicial = null;
-		pesquisar();
+		gerarListaInicial();
 		gerarListaPosVenda();
 	}
 
@@ -1293,5 +1293,14 @@ public class FollowUpMB implements Serializable {
 		}
 		return "";
 	} 
+	
+	
+	public void filtrarPesquisa(){
+		if (nomeCliente != null && nomeCliente.length() > 0) {
+			pesquisar();
+		}else{
+			gerarListaInicial();
+		}
+	}
 
 }
