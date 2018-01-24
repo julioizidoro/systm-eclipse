@@ -113,7 +113,15 @@
 						</table>
 					</div>
 					<div style="margin-top: 20px;background: #ffffff;">
-						
+						<p:ajaxStatus onstart="PF('carregandoDialog').show()"
+							onsuccess="PF('carregandoDialog').hide()" />
+			
+						<p:dialog widgetVar="carregandoDialog" modal="true" draggable="false"
+							closable="false" resizable="false" showHeader="false">
+							<p:commandLink action="#">  
+								<img src="../../resources/img/ajax-loader.gif" />
+							</p:commandLink>
+						</p:dialog>   
 						<ui:insert name="corpo">
 				            Corpo</ui:insert>
 					</div>
