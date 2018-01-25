@@ -88,39 +88,10 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		listaNumeroParcelas = new ArrayList<NumeroParcelasBean>();
 		gerarListaNuneroParcelas(ocurso.getDatainicio());
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
-		formaPagamento02 = new Ocursoformapagamento();
-		formaPagamento02.setNumeroparcela(1);
-		formaPagamento02.setPercentualEntrada(30.0);
-		formaPagamento02.setPercentualSaldo(70.0);
-		formaPagamento02.setValorEntrada(0.0f);
-		formaPagamento02.setValorparcela(0.0f);
-		formaPagamento02.setValorSaldo(0.0f);
-		formaPagamento02.setSelecionado(false);
-		formaPagamento03 = new Ocursoformapagamento();
-		formaPagamento03.setNumeroparcela(2);
-		formaPagamento03.setPercentualEntrada(30.0);
-		formaPagamento03.setPercentualSaldo(70.0);
-		formaPagamento03.setValorEntrada(0.0f);
-		formaPagamento03.setValorparcela(0.0f);
-		formaPagamento03.setValorSaldo(0.0f);
-		formaPagamento03.setSelecionado(false);
-		formaPagamento04 = new Ocursoformapagamento();
-		formaPagamento04.setNumeroparcela(2);
-		formaPagamento04.setPercentualEntrada(30.0);
-		formaPagamento04.setPercentualSaldo(70.0);
-		formaPagamento04.setValorEntrada(0.0f);
-		formaPagamento04.setValorparcela(0.0f);
-		formaPagamento04.setValorSaldo(0.0f);
-		formaPagamento04.setSelecionado(false);
-		formaPagamento02.setTitulo("Opção 02 - Parcelamento antes da viagem");
-		formaPagamento03.setTitulo("Opção 03 - Parcelamento em cartão de crédito em até 12X* via TravelMate");
-		formaPagamento04.setTitulo("Opção 4 - Parcelamento em cheque via financeira");
-		formaPagamento02.setObservacao1("O valor da entrada não pode ser pago em cartão de crédito/débito");
-		formaPagamento02.setObservacao2("Parcelado mensalmente via boleto até 30 dias antes do embarque");
-		formaPagamento03.setObservacao1("O valor da entrada não pode ser pago em cartão de crédito/débito");
-		formaPagamento03.setObservacao2("Parcelado no cartão de crédito MASTER, VISA OU AMEX");
-		formaPagamento04.setObservacao1("Parcelamento em cheque via financeira");
-		formaPagamento04.setObservacao2(" ");
+		if (resultadoOrcamentoBean.getOcurso() != null && resultadoOrcamentoBean.getOcurso().getIdocurso() != null) {
+			ocurso = resultadoOrcamentoBean.getOcurso();
+		}
+		popularFormaPagamento();
 		calcularParcelamento();
 	}
 
@@ -756,5 +727,65 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		leadhistorico.setIdorcamento(ocurso.getIdocurso());
 		leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
 		resultadoOrcamentoBean.setClientelead(false);
+	}
+	
+	
+	public void popularFormaPagamento() throws SQLException{
+		formaPagamento02 = new Ocursoformapagamento();
+		formaPagamento02.setNumeroparcela(1);
+		formaPagamento02.setPercentualEntrada(30.0);
+		formaPagamento02.setPercentualSaldo(70.0);
+		formaPagamento02.setValorEntrada(0.0f);
+		formaPagamento02.setValorparcela(0.0f);
+		formaPagamento02.setValorSaldo(0.0f);
+		formaPagamento02.setSelecionado(false);
+		formaPagamento03 = new Ocursoformapagamento();
+		formaPagamento03.setNumeroparcela(2);
+		formaPagamento03.setPercentualEntrada(30.0);
+		formaPagamento03.setPercentualSaldo(70.0);
+		formaPagamento03.setValorEntrada(0.0f);
+		formaPagamento03.setValorparcela(0.0f);
+		formaPagamento03.setValorSaldo(0.0f);
+		formaPagamento03.setSelecionado(false);
+		formaPagamento04 = new Ocursoformapagamento();
+		formaPagamento04.setNumeroparcela(2);
+		formaPagamento04.setPercentualEntrada(30.0);
+		formaPagamento04.setPercentualSaldo(70.0);
+		formaPagamento04.setValorEntrada(0.0f);
+		formaPagamento04.setValorparcela(0.0f);
+		formaPagamento04.setValorSaldo(0.0f);
+		formaPagamento04.setSelecionado(false);
+		formaPagamento02.setTitulo("Opção 02 - Parcelamento antes da viagem");
+		formaPagamento03.setTitulo("Opção 03 - Parcelamento em cartão de crédito em até 12X* via TravelMate");
+		formaPagamento04.setTitulo("Opção 4 - Parcelamento em cheque via financeira");
+		formaPagamento02.setObservacao1("O valor da entrada não pode ser pago em cartão de crédito/débito");
+		formaPagamento02.setObservacao2("Parcelado mensalmente via boleto até 30 dias antes do embarque");
+		formaPagamento03.setObservacao1("O valor da entrada não pode ser pago em cartão de crédito/débito");
+		formaPagamento03.setObservacao2("Parcelado no cartão de crédito MASTER, VISA OU AMEX");
+		formaPagamento04.setObservacao1("Parcelamento em cheque via financeira");
+		formaPagamento04.setObservacao2(" ");
+		if (ocurso != null && ocurso.getIdocurso() != null) {
+			for (int i = 0; i < ocurso.getOcursoformapagamentoList().size(); i++) {
+				if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
+						.equalsIgnoreCase("Opção 02 - Parcelamento antes da viagem")) {
+					formaPagamento02 = ocurso.getOcursoformapagamentoList().get(i);
+					if (formaPagamento02.isSelecionado()) {
+						habilitaFormaPagamento02 = false;
+					}
+				} else if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
+						.equalsIgnoreCase("Opção 03 - Parcelamento em cartão de crédito em até 12X* via TravelMate")) {
+					formaPagamento03 = ocurso.getOcursoformapagamentoList().get(i);
+					if (formaPagamento03.isSelecionado()) {
+						habilitaFormaPagamento03 = false;
+					}
+				} else if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
+						.equalsIgnoreCase("Opção 4 - Parcelamento em cheque via financeira")) {
+					formaPagamento04 = ocurso.getOcursoformapagamentoList().get(i);
+					if (formaPagamento04.isSelecionado()) {
+						habilitaFormaPagamento04 = false;
+					}
+				}
+			}
+		}
 	}
 }
