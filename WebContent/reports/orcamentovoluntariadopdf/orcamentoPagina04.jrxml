@@ -267,11 +267,11 @@
 				<textFieldExpression><![CDATA["Taxas + entrada à vista."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="266" width="248" height="13" forecolor="#333333" uuid="66e50104-c10c-4340-b296-134b80827c49"/>
+				<reportElement x="310" y="266" width="262" height="13" forecolor="#333333" uuid="66e50104-c10c-4340-b296-134b80827c49"/>
 				<textElement>
 					<font fontName="Franklin Gothic Book" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Saldo em até 12 parcelas fixas através do financiamento Santander"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Saldo em até 12 parcelas fixas através do financiamento banco rendimento"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="310" y="278" width="248" height="13" forecolor="#333333" uuid="5a8cc93f-4e51-4d3a-b9f6-d6f930c70c84"/>

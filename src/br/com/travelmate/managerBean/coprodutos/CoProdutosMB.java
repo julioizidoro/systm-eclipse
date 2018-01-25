@@ -77,6 +77,7 @@ public class CoProdutosMB implements Serializable {
 	private Fornecedorpais fornecedorpais;
 	private boolean situacao;
 	private String produto;
+	private int maioridade;
 
 	@PostConstruct
 	public void init() {
@@ -105,6 +106,7 @@ public class CoProdutosMB implements Serializable {
 				cidade = new Cidade();
 				listarForCidadeIdioma();
 				fornecedorpais = new Fornecedorpais();
+				maioridade = 0;
 			} else {
 				Fornecedorcidadeidioma fornecedorcidadeidioma = new Fornecedorcidadeidioma();
 				fornecedorcidadeidioma = fornecedorCidadeIdioma;
@@ -114,6 +116,7 @@ public class CoProdutosMB implements Serializable {
 				listarForCidadeIdioma();
 				fornecedorCidadeIdioma = fornecedorcidadeidioma;
 				ano = fornecedorCidadeIdioma.getAno();
+				maioridade = fornecedorcidadeidioma.getMaioridade();
 				listarCoProdutos();
 				buscarFornecedorPais();
 			}
@@ -270,6 +273,14 @@ public class CoProdutosMB implements Serializable {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public int getMaioridade() {
+		return maioridade;
+	}
+
+	public void setMaioridade(int maioridade) {
+		this.maioridade = maioridade;
 	}
 
 	public void listarCoProdutos() {
@@ -435,6 +446,7 @@ public class CoProdutosMB implements Serializable {
 		if (fornecedorCidadeIdioma != null) {
 			FornecedorCidadeIdiomaFacade cidadeIdiomaFacade = new FornecedorCidadeIdiomaFacade();
 			fornecedorCidadeIdioma.setAno(ano);
+			fornecedorCidadeIdioma.setMaioridade(maioridade);
 			fornecedorCidadeIdioma = cidadeIdiomaFacade.salvar(fornecedorCidadeIdioma);
 			Fornecedor fornecedor = fornecedorCidadeIdioma.getFornecedorcidade().getFornecedor();
 			fornecedor.setAnotarifario(ano);
