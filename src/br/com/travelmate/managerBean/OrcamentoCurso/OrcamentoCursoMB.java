@@ -1677,11 +1677,21 @@ public class OrcamentoCursoMB implements Serializable {
 	}
 
 	public void gerarPromocaoAcomodacao(ProdutosOrcamentoBean produtosOrcamentoBean) {
-		String sql = "select p From Promocaoacomodacaocidade p where p.promocaoacomodacao.datavalidadeinicial<='"
-				+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaoacomodacao.datavalidadefinal>='"
-				+ Formatacao.ConvercaoDataSql(new Date()) + "'  and p.fornecedorcidadeidioma.idfornecedorcidadeidioma="
-				+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
-				+ " group by p.promocaoacomodacao.idpromoacaoacomodacao";
+		String sql = "";
+		if (produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao() != null) {
+			 sql = "select p From Promocaoacomodacaocidade p where p.promocaoacomodacao.datavalidadeinicial<='"
+					+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaoacomodacao.datavalidadefinal>='"
+					+ Formatacao.ConvercaoDataSql(new Date()) + "'  and p.fornecedorcidadeidioma.fornecedorcidade.cidade.idcidade="
+					+ produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao().getFornecedorcidade().getCidade().getIdcidade()
+					
+					+ " group by p.promocaoacomodacao.idpromoacaoacomodacao";
+		}else{
+			 sql = "select p From Promocaoacomodacaocidade p where p.promocaoacomodacao.datavalidadeinicial<='"
+					+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaoacomodacao.datavalidadefinal>='"
+					+ Formatacao.ConvercaoDataSql(new Date()) + "'  and p.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+					+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+					+ " group by p.promocaoacomodacao.idpromoacaoacomodacao";
+		}
 		PromocaoAcomodacaoCidadeFacade cidadeFacade = new PromocaoAcomodacaoCidadeFacade();
 		List<Promocaoacomodacaocidade> promocaoacomodacaocidade = cidadeFacade.listar(sql);
 		Valorcoprodutos valorcoprodutos = null;

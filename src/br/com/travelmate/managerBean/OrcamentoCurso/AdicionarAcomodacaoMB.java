@@ -225,6 +225,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		RequestContext.getCurrentInstance().closeDialog(po);
 		return "";
 	}
+	
+	public String adicionarIndependente(ProdutosOrcamentoBean po) {
+		po.setSelecionado(true);
+		po.setFornecedorcidadeidiomaAcomodacao(po.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma());
+		RequestContext.getCurrentInstance().closeDialog(po);
+		return "";
+	}
+
 
 	public String cancelar() {
 		RequestContext.getCurrentInstance().closeDialog(null);
