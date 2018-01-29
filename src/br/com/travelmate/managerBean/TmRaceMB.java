@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -84,6 +83,7 @@ public class TmRaceMB implements Serializable{
 	public void gerarListaGold(){
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		int ano = Formatacao.getAnoData(new Date());
+		int mes = Formatacao.getMesData(new Date()) + 1;
 		List<TmRaceBean> listaposicao = null;
 		listaGold = new ArrayList<TmRaceBean>();
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
@@ -96,7 +96,7 @@ public class TmRaceMB implements Serializable{
 		}
 		for (int i = 0; i < listaUnidade.size(); i++) {
 			listaposicao = new ArrayList<>();
-			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutoano c WHERE c.ano=" + ano + " and c.usuario.unidadenegocio.idunidadeNegocio="+
+			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
 					listaUnidade.get(i).getIdunidadeNegocio());
 			if (listaCorrida == null) {
 				listaCorrida = new ArrayList<Corridaprodutoano>();
@@ -197,6 +197,7 @@ public class TmRaceMB implements Serializable{
 	public void gerarListaSinze(){
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		int ano = Formatacao.getAnoData(new Date());
+		int mes = Formatacao.getMesData(new Date()) + 1;
 		List<TmRaceBean> listaposicao = null;
 		listaSinze = new ArrayList<TmRaceBean>();
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
@@ -209,7 +210,7 @@ public class TmRaceMB implements Serializable{
 		}
 		for (int i = 0; i < listaUnidade.size(); i++) {
 			listaposicao = new ArrayList<>();
-			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutoano c WHERE c.ano=" + ano + " and c.usuario.unidadenegocio.idunidadeNegocio="+
+			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
 					listaUnidade.get(i).getIdunidadeNegocio());
 			if (listaCorrida == null) {
 				listaCorrida = new ArrayList<Corridaprodutoano>();
@@ -310,6 +311,7 @@ public class TmRaceMB implements Serializable{
 	public void gerarListaBronze(){
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		int ano = Formatacao.getAnoData(new Date());
+		int mes = Formatacao.getMesData(new Date()) + 1;
 		List<TmRaceBean> listaposicao = null;
 		listaBronze = new ArrayList<TmRaceBean>();
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
@@ -322,7 +324,7 @@ public class TmRaceMB implements Serializable{
 		}
 		for (int i = 0; i < listaUnidade.size(); i++) {
 			listaposicao = new ArrayList<>();
-			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutoano c WHERE c.ano=" + ano + " and c.usuario.unidadenegocio.idunidadeNegocio="+
+			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
 					listaUnidade.get(i).getIdunidadeNegocio());
 			if (listaCorrida == null) {
 				listaCorrida = new ArrayList<Corridaprodutoano>();
