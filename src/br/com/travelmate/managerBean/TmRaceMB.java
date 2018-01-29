@@ -11,8 +11,10 @@ import javax.inject.Named;
 
 import br.com.travelmate.bean.TmRaceBean;
 import br.com.travelmate.facade.CorridaProdutoAnoFacade;
+import br.com.travelmate.facade.CorridaProdutoMesFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.model.Corridaprodutoano;
+import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 
@@ -24,7 +26,7 @@ public class TmRaceMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<Corridaprodutoano> listaCorrida;
+	private List<Corridaprodutomes> listaCorrida;
 	private List<TmRaceBean> listaGold;
 	private List<TmRaceBean> listaSinze;
 	private List<TmRaceBean> listaBronze;
@@ -38,14 +40,23 @@ public class TmRaceMB implements Serializable{
 	}
 
 
-	public List<Corridaprodutoano> getListaCorrida() {
+	
+
+
+	public List<Corridaprodutomes> getListaCorrida() {
 		return listaCorrida;
 	}
 
 
-	public void setListaCorrida(List<Corridaprodutoano> listaCorrida) {
+
+
+
+	public void setListaCorrida(List<Corridaprodutomes> listaCorrida) {
 		this.listaCorrida = listaCorrida;
 	}
+
+
+
 
 
 	public List<TmRaceBean> getListaGold() {
@@ -81,7 +92,7 @@ public class TmRaceMB implements Serializable{
 	
 	
 	public void gerarListaGold(){
-		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
+		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		List<TmRaceBean> listaposicao = null;
@@ -92,14 +103,14 @@ public class TmRaceMB implements Serializable{
 			listaUnidade = new ArrayList<>();
 		}
 		if (listaCorrida == null) {
-			listaCorrida = new ArrayList<Corridaprodutoano>();
+			listaCorrida = new ArrayList<Corridaprodutomes>();
 		}
 		for (int i = 0; i < listaUnidade.size(); i++) {
 			listaposicao = new ArrayList<>();
-			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
+			listaCorrida = corridaProdutoMesFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
 					listaUnidade.get(i).getIdunidadeNegocio());
 			if (listaCorrida == null) {
-				listaCorrida = new ArrayList<Corridaprodutoano>();
+				listaCorrida = new ArrayList<Corridaprodutomes>();
 			}
 			TmRaceBean tmRaceBean = new TmRaceBean();
 			if (listaCorrida.size() > 0) {
@@ -195,7 +206,7 @@ public class TmRaceMB implements Serializable{
 	}
 	
 	public void gerarListaSinze(){
-		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
+		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		List<TmRaceBean> listaposicao = null;
@@ -206,14 +217,14 @@ public class TmRaceMB implements Serializable{
 			listaUnidade = new ArrayList<>();
 		}
 		if (listaCorrida == null) {
-			listaCorrida = new ArrayList<Corridaprodutoano>();
+			listaCorrida = new ArrayList<Corridaprodutomes>();
 		}
 		for (int i = 0; i < listaUnidade.size(); i++) {
 			listaposicao = new ArrayList<>();
-			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
+			listaCorrida = corridaProdutoMesFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
 					listaUnidade.get(i).getIdunidadeNegocio());
 			if (listaCorrida == null) {
-				listaCorrida = new ArrayList<Corridaprodutoano>();
+				listaCorrida = new ArrayList<Corridaprodutomes>();
 			}
 			TmRaceBean tmRaceBean = new TmRaceBean();
 			if (listaCorrida.size() > 0) {
@@ -309,7 +320,7 @@ public class TmRaceMB implements Serializable{
 	}
 	
 	public void gerarListaBronze(){
-		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
+		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		List<TmRaceBean> listaposicao = null;
@@ -320,14 +331,14 @@ public class TmRaceMB implements Serializable{
 			listaUnidade = new ArrayList<>();
 		}
 		if (listaCorrida == null) {
-			listaCorrida = new ArrayList<Corridaprodutoano>();
+			listaCorrida = new ArrayList<Corridaprodutomes>();
 		}
 		for (int i = 0; i < listaUnidade.size(); i++) {
 			listaposicao = new ArrayList<>();
-			listaCorrida = corridaProdutoAnoFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
+			listaCorrida = corridaProdutoMesFacade.listar("SELECT c FROM Corridaprodutomes c WHERE c.ano=" + ano + " and c.mes="+ mes +" and c.usuario.unidadenegocio.idunidadeNegocio="+
 					listaUnidade.get(i).getIdunidadeNegocio());
 			if (listaCorrida == null) {
-				listaCorrida = new ArrayList<Corridaprodutoano>();
+				listaCorrida = new ArrayList<Corridaprodutomes>();
 			}
 			TmRaceBean tmRaceBean = new TmRaceBean();
 			if (listaCorrida.size() > 0) {
@@ -394,10 +405,10 @@ public class TmRaceMB implements Serializable{
 					listaBronze.get(1).setPorcentagem(100f);
 					if (listaBronze.get(0).getPontos() >= listaBronze.get(2).getPontos()) {
 						listaBronze.get(0).setPosicao(2);
-						listaBronze.get(1).setPorcentagem((listaBronze.get(1).getPontos() * 100) / listaBronze.get(1).getPontos());
+						listaBronze.get(0).setPorcentagem((listaBronze.get(0).getPontos() * 100) / listaBronze.get(1).getPontos());
 						listaBronze.get(2).setPosicao(3);
 						listaBronze.get(2).setPorcentagem((listaBronze.get(2).getPontos() * 100) / listaBronze.get(1).getPontos());
-					}else{
+					}else{  
 						listaBronze.get(0).setPosicao(3);
 						listaBronze.get(0).setPorcentagem((listaBronze.get(0).getPontos() * 100) / listaBronze.get(1).getPontos());
 						listaBronze.get(2).setPosicao(2);

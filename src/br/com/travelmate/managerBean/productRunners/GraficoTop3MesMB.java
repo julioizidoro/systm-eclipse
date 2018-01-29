@@ -50,11 +50,7 @@ public class GraficoTop3MesMB implements Serializable{
 		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
 		String sql = "SELECT c FROM Corridaprodutomes c where c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + produtos.getIdprodutos() +
 				" ORDER BY c.pontos DESC";
-		try {
-			listaPontos = corridaProdutoMesFacade.listar(sql);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		listaPontos = corridaProdutoMesFacade.listar(sql);
 		if (listaPontos==null){
 			listaPontos = new ArrayList<Corridaprodutomes>();   
 		} 

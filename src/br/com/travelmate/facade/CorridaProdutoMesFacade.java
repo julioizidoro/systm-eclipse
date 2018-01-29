@@ -22,9 +22,15 @@ public class CorridaProdutoMesFacade {
 	        }
 	    }
 	    
-	    public List<Corridaprodutomes> listar(String sql) throws SQLException{
+	    public List<Corridaprodutomes> listar(String sql){
 	    	corridaProdutoMesDao = new CorridaProdutoMesDao();
-	        return corridaProdutoMesDao.listar(sql);
+	        try {
+				return corridaProdutoMesDao.listar(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
 	    }
 	   
 	    public Corridaprodutomes consultar(int idcorrida) throws SQLException{

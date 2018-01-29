@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -44,6 +43,7 @@ public class ProductRunnersMB implements Serializable{
 	@PostConstruct
 	public void init(){
 		gerarListaProdutos();
+		System.out.println(aplicacaoMB.toString());
 	}   
 
 
@@ -66,12 +66,7 @@ public class ProductRunnersMB implements Serializable{
 		int ano = Formatacao.getAnoData(new Date());
 		String sql = "SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + produtos.getIdprodutos()
 						+ " ORDER BY c.pontos DESC";
-		try {
-			listaCorridaMes = corridaProdutoMesFacade.listar(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listaCorridaMes = corridaProdutoMesFacade.listar(sql);
 		if (listaCorridaMes == null) {
 			listaCorridaMes = new ArrayList<Corridaprodutomes>();
 		}
@@ -96,12 +91,7 @@ public class ProductRunnersMB implements Serializable{
 		int ano = Formatacao.getAnoData(new Date());
 		String sql = "SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + produtos.getIdprodutos()
 						+ " ORDER BY c.pontos DESC";
-		try {
-			listaCorridaMes = corridaProdutoMesFacade.listar(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listaCorridaMes = corridaProdutoMesFacade.listar(sql);
 		if (listaCorridaMes == null) {
 			listaCorridaMes = new ArrayList<Corridaprodutomes>();
 		}
