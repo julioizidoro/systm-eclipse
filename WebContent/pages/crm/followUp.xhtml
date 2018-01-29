@@ -362,8 +362,10 @@
 						<p:ajax event="cellEdit" update="tabelaLeads, :followUp:growl" />
    
 						    
-						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">   
-							<h:outputText value="#{lead.cliente.nome}" />   
+						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">
+							<p:commandLink id="btnNomeCliente" title="Alterações de dados do cliente" value="#{lead.cliente.nome}"
+								action="#{followUpMB.alterarDadosCliente(lead.cliente)}">
+							</p:commandLink>
 						</p:column>
 						<p:column headerText="Unidade" style="text-align:left;" sortBy="#{lead.unidadenegocio.nomerelatorio}"
 							width="95" rendered="#{followUpMB.acessoResponsavelUnidade}">
@@ -494,8 +496,10 @@
 						value="#{followUpMB.listaPosVenda}" style="font-size:11px;"
 						editable="true" editMode="cell" rowIndexVar="rowIndex"> 
 						<p:ajax event="cellEdit" update="tabelaPosVenda, :followUp:growl" /> 
-						<p:column headerText="Nome" sortBy="#{posvenda.vendas.cliente.nome}" style="text-align:left;" width="150">   
-							<h:outputText value="#{posvenda.vendas.cliente.nome}" />   
+						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{posvenda.vendas.cliente.nome}">
+							<p:commandLink id="btnNomeCliente" title="Alterações de dados do cliente" value="#{posvenda.vendas.cliente.nome}"
+								action="#{followUpMB.alterarDadosCliente(posvenda.vendas.cliente)}">
+							</p:commandLink>
 						</p:column>
 						<p:column headerText="Unidade" sortBy="#{posvenda.vendas.unidadenegocio.nomerelatorio}" style="text-align:left;"
 							width="95" rendered="#{followUpMB.acessoResponsavelUnidade}">

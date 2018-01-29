@@ -27,6 +27,7 @@ import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controlehighschool;
 import br.com.travelmate.model.Controlevoluntariado;
@@ -1302,5 +1303,17 @@ public class FollowUpMB implements Serializable {
 			gerarListaInicial();
 		}
 	}
+	
+	
+	public void alterarDadosCliente(Cliente cliente){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("cliente", cliente);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 300);
+		RequestContext.getCurrentInstance().openDialog("dadosCliente", options , null); 
+	}
+	
+	
 
 }
