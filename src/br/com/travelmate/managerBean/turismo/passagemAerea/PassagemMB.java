@@ -374,7 +374,7 @@ public class PassagemMB implements Serializable {
 	}
 
 	public String boletos(Passagemaerea passagemaerea) {
-		ValidarClienteBean validarCliente = new ValidarClienteBean(passagem.getVendas().getCliente());
+		ValidarClienteBean validarCliente = new ValidarClienteBean(passagemaerea.getVendas().getCliente());
 		if (validarCliente.getMsg().length() < 5) {
 			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 			String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas="
