@@ -87,6 +87,7 @@ public class CadArquivo4MB implements Serializable{
 		if (arquivo4 == null) {
 			arquivo4 = new Arquivo4();
 			listaNomeArquivo  = new ArrayList<>();
+			arquivo4.setDatainicio(dataInicio);
 		}
 	}
 

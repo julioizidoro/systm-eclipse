@@ -77,6 +77,7 @@ public class CadArquivo2MB implements Serializable{
 		if (arquivo2 == null) {
 			arquivo2 = new Arquivo2();
 			listaNomeArquivo = new ArrayList<>();
+			arquivo2.setDatainicio(new Date());
 		}
 	}
 
