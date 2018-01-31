@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Relatório Product Runners</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<div align="left">
+			<img src="../../resources/img/logoRelatorio.jpg" width="40%" style="margin-left:65%" />
+		</div>
+		<h:panelGrid columns="2" style="width:35%;">
+			<p:outputLabel value="TM RACE" style="font-family: Segoe UI Semibold;font-size:25px;"/>
+			<p:outputLabel value="#{resultadoTmRaceMB.mes}/#{resultadoTmRaceMB.ano}" style="font-family: Segoe UI Semibold;font-size:25px;"/>
+		</h:panelGrid>
+		<br/><br/>
+		<ui:repeat var="categoria"
+				value="#{resultadoTmRaceMB.listaCategoriaBean}"
+				varStatus="statuss">
+				<p:outputLabel value="#{categoria.categoria}" style="font-family: Segoe UI Semibold;font-size:25px;"/>
+				<hr/>
+			<p:dataTable reflow="true"  
+				styleClass="table table-striped dt-responsive"
+				value="#{categoria.listaUnidade}" var="unidade"
+				style="color:black; width:100%;border:none;" rows="5">
+				<p:column headerText="Unidade"
+					style="background:white;color:black;text-align: left;font-family: Segoe UI Semibold;border: 0px;">
+					<h:outputText value="#{unidade.nomeUnidade}" />
+				</p:column>
+				<p:column headerText="Ponto"
+					style="background:white;color:black;text-align: left;font-family: Segoe UI Semibold;border: 0px;">
+					<h:outputText value="#{unidade.pontos}" />
+				</p:column>
+	
+			</p:dataTable>
+			<br/><br/><br/>  
+		</ui:repeat>
+	</div>  
+</h:body>
+</html>

@@ -1292,12 +1292,29 @@
 											<span class="submenu-label">Regras Pontuação</span>
 										</p:commandLink></li>
 								</h:panelGroup>
-								<h:panelGroup>
-									<li><p:commandLink
-											action="#{menuMB.relatorioMateRunners()}">
-											<span class="submenu-label">Relatório MateRunners</span>
-										</p:commandLink></li>
-								</h:panelGroup>
+								<li class="openable open"><p:commandLink>
+												<span class="submenu-label">DashBoard <i
+													class="fa fa-chevron-down"></i></span>
+											</p:commandLink>
+											<ul class="submenu">
+												<h:panelGroup>
+													<li><p:commandLink
+															action="#{menuMB.relatorioMateRunners()}">
+															<span class="subsubmenu-label">MateRunners</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup rendered="true">
+													<li><p:commandLink action="#{menuMB.relatorioProtutoRunners()}" style="color:white;" target="_blank">
+															<span class="subsubmenu-label">Product Runners</span>
+														</p:commandLink></li> 
+												</h:panelGroup>  
+												<h:panelGroup rendered="true">
+													<li><p:commandLink action="#{menuMB.relatorioTmRace()}" style="color:white;" target="_blank">
+															<span class="subsubmenu-label">TM Race</span>
+														</p:commandLink></li> 
+												</h:panelGroup>  
+											</ul>
+									</li>
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.distribuicaolead}">
 									<li class="openable open"><p:commandLink>

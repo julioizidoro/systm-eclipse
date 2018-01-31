@@ -2365,6 +2365,62 @@
 			<redirect />
 		</navigation-case>     
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>reciboTermoQuitacao</from-outcome>
+			<to-view-id>/pages/cancelamento/reciboTermoQuitacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consDepartamentoFuncao</from-outcome>
+			<to-view-id>/pages/funcao/consDepartamentoFuncao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contrato</from-outcome>
+			<to-view-id>/contrato/contrato.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>resultadoProductRunners</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/resultadoProductRunners.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioProductRunners</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioProductRunners.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioTMRace</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioTMRace.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>resultadoTMRace</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/resultadoTMRace.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

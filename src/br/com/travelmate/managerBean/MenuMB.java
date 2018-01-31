@@ -1184,7 +1184,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String visualizarFuncao() {
-		return "visualizarFuncao";
+		return "consDepartamentoFuncao";
 	}
 
 	public String consControleVistos() {
@@ -1470,6 +1470,25 @@ public class MenuMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("relatorioHighSchoolMensal", options, null);
 		return "";
 	}
+	
+	public String contratosCurso(){
+		return "contratoCurso";
+	}
+	
+	
+	public void relatorioProtutoRunners(){
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 300);
+		RequestContext.getCurrentInstance().openDialog("relatorioProductRunners", options, null);
+	}
+	
+	public void relatorioTmRace(){
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 300);
+		RequestContext.getCurrentInstance().openDialog("relatorioTMRace", options, null);
+	}
+	    
+	
 	
 	
 }
