@@ -1370,7 +1370,7 @@
 												
 												<h:panelGroup >
 													<li><p:commandLink action="#{menuMB.filtrarDashBoard()}" style="color:white;">
-															<span class="submenu-label">Relatório DashBoard</span>
+															<span class="subsubmenu-label">Relatório DashBoard</span>
 														</p:commandLink></li>
 												</h:panelGroup>  
 											</ul>
@@ -2139,30 +2139,37 @@
 								</div>
 							</div> 
 							<br/>
-							<ui:repeat var="produtos" value="#{productRunnersMB.listaProdutos}" varStatus="statuss">
+							<ui:repeat var="corrida" value="#{productRunnersMB.listaCorrida}" varStatus="statuss">
 								<div id="metas" class="col-lg-3"  
-									style="background: #D7D8DC; height: 194px;border:8px solid;border-color:white;width: 20%;">
-								<h:panelGrid style="width: 116.5%;margin-left: -8%;background:#{produtos.corTitulo}">	
-								<p style="text-transform:highcase;font-size: 24px;color: white;width:100%;font-weight: bold;" align="center">#{produtos.descricao}</p>
-								</h:panelGrid>	   
+									style="background: #D7D8DC; height: 204px;border:8px solid;border-color:white;width: 20%;">
+								<h:panelGrid style="width: 116.5%;margin-left: -8%;background:#{corrida.produtos.corTitulo}">	
+								<p style="text-transform:highcase;font-size: 24px;color: white;width:100%;font-weight: bold;" align="center">#{corrida.produtos.descricao}</p>
+								</h:panelGrid>	  
+								
+									<h:panelGrid columns="2" style="width:100%">  
+										<p:outputLabel value="#{corrida.nomeConsultor}" style="color:black;font-size: 9px;"/>	
+										<p:outputLabel value="#{corrida.nomeUnidade}" style="color:black;font-size: 9px;"/>	
+									</h:panelGrid>  
 									<h:panelGrid columns="3" style="width:100%;" >
-										<img src="#{productRunnersMB.getFoto(produtos)}" alt=""  
+										<img src="#{corrida.foto}" alt=""  
 											class="imagemMatesRuns" />
-										<p:outputLabel value="#{productRunnersMB.getPontuacao(produtos)}" style="color:green;font-size: 60px;"/>
+										<p:outputLabel value="#{corrida.pontos}" style="color:green;font-size: 60px;"/>
 										<h:panelGrid columns="1" style="width:100%;">
 											<p:outputLabel/>
 											<p:commandLink id="btnTop3" title="Os 3 melhores do mês"
-													action="#{productRunnersMB.graficoTop3Mes(produtos)}"  >
+													action="#{productRunnersMB.graficoTop3Mes(corrida.produtos)}"  >
 													<img src="resources/img/top3.png" alt=""  
 													class="imagemMatesRuns" />
 												</p:commandLink>
 												<p:commandLink id="btnTopAno" title="Os melhores do ano"
-													action="#{productRunnersMB.graficoTopAno(produtos)}"  >
+													action="#{productRunnersMB.graficoTopAno(corrida.produtos)}"  >
 													<img src="resources/img/topAno.png" alt=""  
 													class="imagemMatesRuns" style="margin-top: 2%;"/>
 												</p:commandLink>
-										</h:panelGrid>     
-									</h:panelGrid>
+										</h:panelGrid> 
+										 
+									</h:panelGrid>  
+									<br/>  <br/>
 								</div>
 							</ui:repeat>
 						</h:panelGroup>

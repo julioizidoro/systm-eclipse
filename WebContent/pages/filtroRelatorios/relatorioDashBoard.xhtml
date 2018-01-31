@@ -159,30 +159,34 @@
 				</div>
 			</div>
 			<br />
-			<ui:repeat var="produtos" value="#{relatorioDashBoardMB.listaProdutos}"
+			<ui:repeat var="corrida" value="#{relatorioDashBoardMB.listaCorridaUsuario}"
 				varStatus="statuss">
 				<div id="metas" class="col-lg-3"
-					style="background: #D7D8DC; height: 194px; border: 8px solid; border-color: white; width: 20%;">
+					style="background: #D7D8DC; height: 204px; border: 8px solid; border-color: white; width: 20%;">
 					<h:panelGrid
-						style="width: 114.5%;margin-left: -7%;background:#{produtos.corTitulo}">
+						style="width: 114.5%;margin-left: -7%;background:#{corrida.produtos.corTitulo}">
 						<p
 							style="text-transform: highcase; font-size: 24px; color: white; width: 100%; font-weight: bold;"
-							align="center">#{produtos.descricao}</p>
+							align="center">#{corrida.produtos.descricao}</p>
 					</h:panelGrid>
+					<h:panelGrid columns="2" style="width:100%">  
+										<p:outputLabel value="#{corrida.nomeConsultor}" style="color:black;font-size: 9px;"/>	
+										<p:outputLabel value="#{corrida.nomeUnidade}" style="color:black;font-size: 9px;"/>	
+									</h:panelGrid> 
 					<h:panelGrid columns="3" style="width:100%;">   
-						<img src="#{relatorioDashBoardMB.getFoto(produtos)}" alt=""
-							class="imagemMatesRuns" />
-						<p:outputLabel value="#{relatorioDashBoardMB.getPontuacao(produtos)}"
+						<img src="#{corrida.foto}" alt=""
+							class="imagemMatesRuns" />   
+						<p:outputLabel value="#{corrida.pontos}"
 							style="color:green;font-size: 60px;" />
 						<h:panelGrid columns="1" style="width:100%;">
 							<p:outputLabel />
 							<p:commandLink id="btnTop3" title="Os 3 melhores do mês"
-								action="#{relatorioDashBoardMB.graficoTop3Mes(produtos)}">
-								<img src="resources/img/top3.png" alt="" class="imagemMatesRuns" />
+								action="#{relatorioDashBoardMB.graficoTop3Mes(corrida.produtos)}">
+								<img src="../../resources/img/top3.png" alt="" class="imagemMatesRuns" />
 							</p:commandLink>
 							<p:commandLink id="btnTopAno" title="Os melhores do ano"
-								action="#{relatorioDashBoardMB.graficoTopAno(produtos)}">
-								<img src="resources/img/topAno.png" alt=""
+								action="#{relatorioDashBoardMB.graficoTopAno(corrida.produtos)}">
+								<img src="../../resources/img/topAno.png" alt=""
 									class="imagemMatesRuns" style="margin-top: 2%;" />
 							</p:commandLink>
 						</h:panelGrid>

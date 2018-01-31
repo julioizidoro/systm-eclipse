@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.bean.UsuarioProdutoRunnersBean;
 import br.com.travelmate.facade.CorridaProdutoAnoFacade;
 import br.com.travelmate.facade.CorridaProdutoMesFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -38,12 +39,13 @@ public class ProductRunnersMB implements Serializable{
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private List<Produtos> listaProdutos;
+	private List<UsuarioProdutoRunnersBean> listaCorrida;
 	
 	
 	@PostConstruct
 	public void init(){
 		gerarListaProdutos();
-		System.out.println(aplicacaoMB.toString());
+		
 	}   
 
 
@@ -58,22 +60,21 @@ public class ProductRunnersMB implements Serializable{
 
 	
 	
-	public String getFoto(Produtos produtos) {
-		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
-		List<Corridaprodutomes> listaCorridaMes = null;
-		String caminho = null;
-		int mes = Formatacao.getMesData(new Date()) + 1;
-		int ano = Formatacao.getAnoData(new Date());
-		String sql = "SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + produtos.getIdprodutos()
-						+ " ORDER BY c.pontos DESC";
-		listaCorridaMes = corridaProdutoMesFacade.listar(sql);
-		if (listaCorridaMes == null) {
-			listaCorridaMes = new ArrayList<Corridaprodutomes>();
-		}
-		caminho = aplicacaoMB.getParametrosprodutos().getCaminhoimagens();
-		if (listaCorridaMes.size() > 0) {
-			if (listaCorridaMes.get(0).getUsuario().isFoto()) {
-				caminho = caminho + "/usuario/" + listaCorridaMes.get(0).getUsuario().getIdusuario() + ".jpg";
+	public List<UsuarioProdutoRunnersBean> getListaCorrida() {
+		return listaCorrida;
+	}
+
+
+	public void setListaCorrida(List<UsuarioProdutoRunnersBean> listaCorrida) {
+		this.listaCorrida = listaCorrida;
+	}
+
+
+	public String getFoto(Usuario usuario) {
+		String caminho = aplicacaoMB.getParametrosprodutos().getCaminhoimagens();
+		if (usuario != null) {
+			if (usuario.isFoto()) {
+				caminho = caminho + "/usuario/" + usuario.getIdusuario() + ".jpg";
 			}else{
 				caminho = caminho + "/usuario/0.png";
 			}
@@ -124,12 +125,15 @@ public class ProductRunnersMB implements Serializable{
 	}   
 	
 	public void gerarListaProdutos(){
+		UsuarioProdutoRunnersBean corrida;
+		listaCorrida = new ArrayList<UsuarioProdutoRunnersBean>();
 		ProdutoFacade produtoFacade = new ProdutoFacade();
 		listaProdutos = produtoFacade.listarProdutosSql("SELECT p From Produtos p WHERE p.produtorunners=true Order By p.ordem ");
 		if (listaProdutos == null) {
 			listaProdutos = new ArrayList<Produtos>();
 		}
 		for (int i = 0; i < listaProdutos.size(); i++) {
+			corrida = new UsuarioProdutoRunnersBean();
 			if (listaProdutos.get(i).getIdprodutos() ==1) {
 				listaProdutos.get(i).setCorTitulo("#b6c72c;");
 			} else if (listaProdutos.get(i).getIdprodutos() ==2) {
@@ -153,7 +157,36 @@ public class ProductRunnersMB implements Serializable{
 			}else {
 				listaProdutos.get(i).setCorTitulo("#decf25;");
 			}
+			corrida.setProdutos(listaProdutos.get(i));
+			corrida = gerarListaCorrida(corrida);
+			listaCorrida.add(corrida);
 		}
+	}
+	
+	
+	public UsuarioProdutoRunnersBean gerarListaCorrida(UsuarioProdutoRunnersBean corrida){
+		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
+		List<Corridaprodutomes> listaCorridaMes = null;
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		int ano = Formatacao.getAnoData(new Date());
+		String sql = "SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + corrida.getProdutos().getIdprodutos()
+						+ " ORDER BY c.pontos DESC";
+		listaCorridaMes = corridaProdutoMesFacade.listar(sql);
+		if (listaCorridaMes == null) {
+			listaCorridaMes = new ArrayList<Corridaprodutomes>();
+		}
+		if (listaCorridaMes.size() > 0) {
+			corrida.setFoto(getFoto(listaCorridaMes.get(0).getUsuario()));
+			corrida.setPontos(listaCorridaMes.get(0).getPontos());
+			corrida.setNomeConsultor(listaCorridaMes.get(0).getUsuario().getNome());
+			corrida.setNomeUnidade(listaCorridaMes.get(0).getUsuario().getUnidadenegocio().getNomerelatorio());
+		}else{
+			corrida.setFoto(getFoto(null));
+			corrida.setPontos(0);
+			corrida.setNomeConsultor("");
+			corrida.setNomeUnidade("");
+		}
+		return corrida;
 	}
 	
 	
