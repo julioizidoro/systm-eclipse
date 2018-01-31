@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="relatoriooriductrunners"
+			style="text-align:left;font-size: 10px; margin-left: 7%; ">
+			<br></br>
+
+			<title>Relatório DashBoard</title>
+			<br />
+			<h:panelGrid style="width:100%" columns="2">
+				<p:outputLabel value="Mês" for="idmes"
+					style="margin-left:3%">
+				</p:outputLabel>
+				<p:outputLabel value="Ano" for="idAno"
+					>
+				</p:outputLabel>
+	
+				<p:selectOneMenu id="idmes" class="espacocobranca28"
+					style="margin-left:3%;width:85%"
+					value="#{filtrarDashBoardMB.mes}">
+					<f:selectItem itemLabel="Todos" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="1" itemValue="1" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="3" itemValue="3" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+					<f:selectItem itemLabel="5" itemValue="5" />
+					<f:selectItem itemLabel="6" itemValue="6" />
+					<f:selectItem itemLabel="7" itemValue="7" />
+					<f:selectItem itemLabel="8" itemValue="8" />
+					<f:selectItem itemLabel="9" itemValue="9" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+					<f:selectItem itemLabel="11" itemValue="11" />
+					<f:selectItem itemLabel="12" itemValue="12" />
+				</p:selectOneMenu>
+				<p:inputText value="#{filtrarDashBoardMB.ano}" id="idAno" style="width:50%;"/>
+			</h:panelGrid>
+			<br />
+			<br /> 
+			<div align="center">  
+				<p:commandButton value="Confirmar"
+					onclick="this.form.target='_blank'" icon="ui-icon-check"
+					action="#{filtrarDashBoardMB.gerarRelatorio()}" ajax="false" />
+				<p:commandButton style="margin-left: 2%" icon="ui-icon-close"
+					value="Cancelar" action="#{filtrarDashBoardMB.fechar()}"></p:commandButton>
+			</div>
+			<br />
+		</h:form>
+	</f:view>
+</h:body>
+</html>

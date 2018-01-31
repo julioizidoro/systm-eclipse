@@ -1488,7 +1488,15 @@ public class MenuMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("relatorioTMRace", options, null);
 	}
 	    
+	public String relatorioDashBoard(){
+		return "relatorioDashBoard";
+	}
 	
+	public void filtrarDashBoard(){
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 300);
+		RequestContext.getCurrentInstance().openDialog("filtrarDashBoard", options, null);
+	}
 	
 	
 }

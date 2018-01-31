@@ -2421,6 +2421,22 @@
 			<redirect />
 		</navigation-case>     
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioDashBoard</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/relatorioDashBoard.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>filtrarDashBoard</from-outcome>
+			<to-view-id>/pages/filtroRelatorios/filtrarDashBoard.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="../../resources/css/endless.min.css" rel="stylesheet" />
+	<link href="../../resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="../../resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='../../resources/js/charBar.js'></script>
+</h:head>
+
+<h:body class="overflow-hidden">
+	<h:form id="inicial" style="height:10px;background:white;">
+	<br/>
+		<h:panelGrid columns="2" style="width:35%;">
+			<p:outputLabel value="RELATÓRIO DASHBOARD" style="font-family: Segoe UI Semibold;font-size:30px;margin-left:7%"/>
+		</h:panelGrid>
+		<br/><br/>
+		<div class="row" style="margin-top: 0.5%;background: #D7D8DC;">
+			<div style="width: 99%; margin-left: 5%;background: #D7D8DC;">
+				<div class="col-lg-11" style="background: #D7D8DC;">
+					<div class="panel-body" style="background: #D7D8DC; ">
+						<div id="chart">
+							<ul id="bars" style="background: #D7D8DC;">
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(0)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(0)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(0)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(0)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(0)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(1)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(1)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(1)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(1)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(1)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(2)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(2)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(2)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(2)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(2)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(3)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(3)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(3)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(3)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(3)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(4)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(4)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(4)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(4)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(4)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(5)}"
+										title="#{mateRunnersMB.getNumeroVendas(5)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(5)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(5)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(5)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(6)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(6)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(6)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(6)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(6)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(7)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(7)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(7)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(7)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(7)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(8)}"
+										title="#{mateRunnersMB.getNumeroVendas(8)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(8)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/> <br /> <p:outputLabel
+											value="#{relatorioDashBoardMB.getNome(8)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(8)}" /> </span></li>
+
+								<li><div
+										data-percentage="#{relatorioDashBoardMB.getPercentual(9)}"
+										title="#{relatorioDashBoardMB.getNumeroVendas(9)}" class="bar"></div>
+									<span><br /> <br /> <img
+										src="#{relatorioDashBoardMB.getFoto(9)}" alt=""
+										class="imagemMatesRuns" style="width:60px;"/><br /> <p:outputLabel
+											value="#{mateRunnersMB.getNome(9)}" /><br /> <p:outputLabel
+											style="font-weight:lighter;margin-top:-5%;"
+											value="#{relatorioDashBoardMB.getNomeUnidade(9)}" /> </span></li>
+							</ul>
+							<br /> <br /> <br />
+						</div>
+						<br></br>
+					</div>
+					<!-- /panel -->
+				</div>
+			</div>
+		</div>
+		<br/><br/><br /><br />
+		<h:panelGroup >
+			<div class="row" style="margin-top: 1.5%;">
+				<div class="materunss">
+					<div class="col-lg-12"
+						style="background: #D7D8DC; height: 55px; margin-top: 5px; css: none;">
+						<div class="col-lg-6">
+							<p:commandLink id="btnProductRunners" title="" action="#">
+								<img src="../../resources/img/paginainicial/productRunners.png"
+									width="390" style="margin-left: 62%;" />
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<ui:repeat var="produtos" value="#{relatorioDashBoardMB.listaProdutos}"
+				varStatus="statuss">
+				<div id="metas" class="col-lg-3"
+					style="background: #D7D8DC; height: 194px; border: 8px solid; border-color: white; width: 20%;">
+					<h:panelGrid
+						style="width: 114.5%;margin-left: -7%;background:#{produtos.corTitulo}">
+						<p
+							style="text-transform: highcase; font-size: 24px; color: white; width: 100%; font-weight: bold;"
+							align="center">#{produtos.descricao}</p>
+					</h:panelGrid>
+					<h:panelGrid columns="3" style="width:100%;">   
+						<img src="#{relatorioDashBoardMB.getFoto(produtos)}" alt=""
+							class="imagemMatesRuns" />
+						<p:outputLabel value="#{relatorioDashBoardMB.getPontuacao(produtos)}"
+							style="color:green;font-size: 60px;" />
+						<h:panelGrid columns="1" style="width:100%;">
+							<p:outputLabel />
+							<p:commandLink id="btnTop3" title="Os 3 melhores do mês"
+								action="#{relatorioDashBoardMB.graficoTop3Mes(produtos)}">
+								<img src="resources/img/top3.png" alt="" class="imagemMatesRuns" />
+							</p:commandLink>
+							<p:commandLink id="btnTopAno" title="Os melhores do ano"
+								action="#{relatorioDashBoardMB.graficoTopAno(produtos)}">
+								<img src="resources/img/topAno.png" alt=""
+									class="imagemMatesRuns" style="margin-top: 2%;" />
+							</p:commandLink>
+						</h:panelGrid>
+					</h:panelGrid>
+				</div>
+			</ui:repeat>
+		</h:panelGroup>
+		<br/><br/>
+		<h:panelGroup >
+			<div class="row" style="margin-top: 1.5%;">
+				<div class="materunss">
+					<div class="col-lg-12"
+						style="background: #D7D8DC; height: 55px; margin-top: 5px; css: none;">
+						<div class="col-lg-6">
+							<p:commandLink id="btnTMRACE" 
+								action="#{relatorioDashBoardMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}">
+								<img src="../../resources/img/paginainicial/tmrace.png" width="300"
+									style="margin-left: 62%;" />
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<h:panelGrid columns="3" style="width:100%;margin-left:1.5%;">
+				<h:panelGroup >
+
+					<p
+						style="font-size: 28px; color: green; background: gold; width: 91.5%;"
+						align="center">Gold</p>
+					<div id="metas" class="col-lg-11"
+						style="background: #D7D8DC; height: 167px; margin-top: -3%;">
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeGold(1)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontos(1)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar" style="width: 100%"></div>
+							</div>
+						</div>
+						<br />
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeGold(2)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontos(2)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar"
+									style="width: #{relatorioDashBoardMB.getPorcentagem(2)}%"></div>
+							</div>
+						</div>
+						<br />
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidade(3)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontos(3)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar"
+									style="width: #{relatorioDashBoardMB.getPorcentagem(3)}%"></div>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup style="background:#E6E6E6;">
+					<p
+						style="font-size: 28px; color: green; background: #BDBDBD; width: 91.5%;"
+						align="center">Silver</p>
+					<div id="metas" class="col-lg-11"
+						style="background: #D7D8DC; height: 167px; margin-top: -3%;">
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeSinze(1)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontosSinze(1)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar" style="width: 100%"></div>
+							</div>
+						</div>
+						<br />
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeSinze(2)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontosSinze(2)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar"
+									style="width: #{relatorioDashBoardMB.getPorcentagemSinze(2)}%"></div>
+							</div>
+						</div>
+						<br />
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeSinze(3)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontosSinze(3)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar"
+									style="width: #{relatorioDashBoardMB.getPorcentagemSinze(3)}%"></div>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup style="background:#E6E6E6;">
+
+					<p
+						style="font-size: 28px; color: green; background: #DF7401; margin-left: -2%; width: 91.5%;"
+						align="center">Bronze</p>
+					<div id="metas" class="col-lg-11"
+						style="background: #D7D8DC; height: 167px; margin-left: -2%; margin-top: -3%;">
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeBronze(1)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontosBronze(1)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar" style="width: 100%"></div>
+							</div>
+						</div>
+						<br />
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeBronze(2)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontosBronze(2)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar"
+									style="width: #{relatorioDashBoardMB.getPorcentagemBronze(2)}%"></div>
+							</div>
+						</div>
+						<br />
+						<div class="col-lg-12">
+							<p:outputLabel value="#{relatorioDashBoardMB.getNomeUnidadeBronze(3)}"
+								style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+						</div>
+						<div class="col-lg-12" style="margin-top: -1.2%;">
+							<span class="badge badge-info" style="float: right;">#{relatorioDashBoardMB.getPontosBronze(3)}</span>
+						</div>
+						<div class="col-lg-12">
+							<div class="progress progress-striped active"
+								style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+								<div class="progress-bar"
+									style="width: #{relatorioDashBoardMB.getPorcentagemBronze(3)}%"></div>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+			</h:panelGrid>
+			<br />
+		</h:panelGroup>
+    
+	<!-- Sparkline -->
+	<script src='../../resources/js/jquery.sparkline.min.js'></script>
+
+
+	<!-- Pace -->
+	<script src='../../resources/js/uncompressed/pace.js'></script>
+
+	<!-- Popup Overlay -->
+	<script src='../../resources/js/jquery.popupoverlay.min.js'></script>
+
+	<!-- Slimscroll -->
+	<script src='../../resources/js/jquery.slimscroll.min.js'></script>
+
+	<!-- Modernizr -->
+	<script src='../../resources/js/modernizr.min.js'></script>
+
+	<!-- Cookie -->
+	<script src='../../resources/js/jquery.cookie.min.js'></script>
+
+	<!-- Endless -->
+	<script src="../../resources/js/endless/endless.js"></script>
+
+	<script src="../../resources/js/jquery.nicescroll.js"></script>
+	</h:form>
+
+</h:body>
+</html>
