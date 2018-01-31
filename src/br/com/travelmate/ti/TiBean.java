@@ -6,12 +6,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.facade.CorridaProdutoMesFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.model.Parametrosprodutos;
@@ -151,9 +153,9 @@ public class TiBean {
 		for (int i = 0; i < lista.size(); i++) {
 			int idProduto = lista.get(i).getProdutos().getIdprodutos();
 			if ((idProduto == parametros.getVisto()) || (idProduto == parametros.getSeguroPrivado()
-					|| (idProduto == parametros.getTraducaojuramentada()))) {
+					|| (idProduto == parametros.getTraducaojuramentada()) || (idProduto == parametros.getPassagem()))) {
 				vendaproduto.setProduto(vendaproduto.getProduto() + 1);
-			} else if ((idProduto == parametros.getPassagem()) || (idProduto == parametros.getPacotes())) {
+			} else if ((idProduto == parametros.getPacotes())) {
 				vendaproduto.setTurismo(vendaproduto.getTurismo() + 1);
 			} else {
 				vendaproduto.setIntercambio(vendaproduto.getIntercambio() + 1);
@@ -251,5 +253,6 @@ public class TiBean {
 		}
 		meta = meFacade.salvar(meta);
 	}
+	
 
 }
