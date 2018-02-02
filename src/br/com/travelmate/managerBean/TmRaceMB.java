@@ -258,7 +258,7 @@ public class TmRaceMB implements Serializable{
 		if (listaSinze != null) {
 			if (listaSinze.size() == 1) {
 				listaSinze.get(0).setPosicao(1);
-				listaSinze.get(1).setPorcentagem(100f);
+				listaSinze.get(0).setPorcentagem(100f);
 			}else if (listaSinze.size() == 2){
 				if (listaSinze.get(0).getPontos() >= listaSinze.get(1).getPontos()) {
 					listaSinze.get(0).setPosicao(1);
