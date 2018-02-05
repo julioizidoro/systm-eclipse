@@ -1851,7 +1851,7 @@ public class CadCursoMB implements Serializable {
 				if (enviarFicha) {
 					if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
 							|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-						dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getProduto() + 1);
+						dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() + 1);
 						dashBoardMB.getMetamensal()
 								.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + novaValorVenda);
 						dashBoardMB.getMetamensal()

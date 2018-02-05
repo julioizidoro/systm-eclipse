@@ -366,7 +366,7 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 		np.setNumero(0);
 		np.setTitulo("0");
 		listaNumeroParcelas.add(np);
-    	int dias = Formatacao.subtrairDatas(dataInicio, new Date());
+    	int dias = Formatacao.subtrairDatas(new Date(), dataInicio);
     	if (dias>30){
     		dias = dias-30;
     		dias = dias/30;
