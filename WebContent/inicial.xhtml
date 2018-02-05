@@ -2012,21 +2012,14 @@
 													value="#{mateRunnersMB.getPontuacaoTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
 													style="font-size:27px;color:#1F8871;" />
 											</div>
+											<p:commandLink id="btnRight" 
+													action="#{mateRunnersMB.mudarPosicao(true)}"  
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
+													<img src="resources/img/botaoDi.png" style="width:35px;margin-top: 1%;" />   
+												</p:commandLink>  
 										</div>
 									</div>
 								</div>
-								<h:panelGrid columns="2" style="width:100%;margin-left: 22%;">
-									<p:commandLink id="btnEsquerdo" 
-													action="#{mateRunnersMB.mudarPosicao(false)}" 
-										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
-													<img src="resources/img/botaoEsquerdo.png" style="width:35px;" />   
-												</p:commandLink>
-									<p:commandLink id="btnDireito" 
-													action="#{mateRunnersMB.mudarPosicao(true)}"  
-										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
-													<img src="resources/img/botaoDireito.png" style="width:35px;" />   
-												</p:commandLink>
-								</h:panelGrid>   
 								<div class="row" style="margin-top: 0.5%;">
 									<div style="width: 99%; margin-left: 5%;">
 										<div class="col-lg-11">
@@ -2150,27 +2143,20 @@
 										<div class="col-lg-12"
 											style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
 											<div class="col-lg-6">
-												<p:commandLink id="btnProductRunners" title=""
-													action="#"  >
-													<img src="resources/img/paginainicial/productRunners.png" width="390" style="margin-left: 62%;"/>   
-												</p:commandLink>
+													<p:commandLink id="btnProductRunners" title=""
+														action="#"  >
+														<img src="resources/img/paginainicial/productRunners.png" width="390" style="margin-left: 62%;"/>   
+													</p:commandLink>
 											</div>    
+											
+													<p:commandLink id="btnRight2" 
+														action="#{mateRunnersMB.mudarPosicao(true)}" style="margin-left: 42%;" 
+														update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
+														<img src="resources/img/botaoDi.png" style="width:35px;margin-top: 1%;" />   
+													</p:commandLink> 
 										</div>   
 									</div>
 								</div> 
-								<br/>  
-								<h:panelGrid columns="2" style="width:100%;margin-left:21%;">
-									<p:commandLink id="btnEsquerdoProductRunners" 
-										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo"
-													action="#{mateRunnersMB.mudarPosicao(false)}"  >
-													<img src="resources/img/botaoEsquerdo.png" style="width:35px;" />   
-												</p:commandLink>
-									<p:commandLink id="btnDireitoProductRunners" 
-										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo"
-													action="#{mateRunnersMB.mudarPosicao(true)}"  >
-													<img src="resources/img/botaoDireito.png" style="width:35px;" />   
-												</p:commandLink>
-								</h:panelGrid>
 								<br/>
 								<ui:repeat var="corrida" value="#{productRunnersMB.listaCorrida}" varStatus="statuss">
 									<div id="metas" class="col-lg-3"  
@@ -2218,23 +2204,15 @@
 													action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
 													<img src="resources/img/paginainicial/tmrace.png" width="300" style="margin-left: 62%;"/>   
 												</p:commandLink>
-											</div>    
+											</div>  
+											<p:commandLink id="btnRight3" 
+														action="#{mateRunnersMB.mudarPosicao(true)}" style="margin-left: 42%;" 
+														update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
+														<img src="resources/img/botaoDi.png" style="width:35px;margin-top: 1%;" />   
+													</p:commandLink>   
 										</div>   
 									</div>
-								</div>
-								<br/>
-								<h:panelGrid columns="2" style="width:100%;margin-left: 24%;">
-									<p:commandLink id="btnEsquerdoTmRace" 
-										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalTmRace, :inicial:painelConteudo"
-													action="#{mateRunnersMB.mudarPosicao(false)}"  >
-													<img src="resources/img/botaoEsquerdo.png" style="width:35px;" />   
-												</p:commandLink>
-									<p:commandLink id="btnDireitoTmRace" 
-										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalTmRace, :inicial:painelConteudo"
-													action="#{mateRunnersMB.mudarPosicao(true)}"  >
-													<img src="resources/img/botaoDireito.png" style="width:35px;" />   
-												</p:commandLink>
-								</h:panelGrid>
+								</div>   
 								<br/>
 								<h:panelGrid columns="3" style="width:100%;">
 										<h:panelGroup rendered="#{dashBoardMB.mostrarDadosUnidade()}">
