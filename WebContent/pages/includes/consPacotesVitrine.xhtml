@@ -414,7 +414,7 @@
 						<ui:repeat value="#{pacotesMB.listaPais}"     
 							var="pais">
 							<div class="col-md-2">
-								<div class="borderSombra" style="height: 200px;border-radius: 13px;">
+								<div class="borderSombra" style="height: 200px;border-radius: 13px;background:white;">
 									<div style="height: 190px;">
 										<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 											<br />
@@ -423,7 +423,7 @@
 													style="font-size:20px;margin-left:2%;color:green;" />
 												<br/><br />
 												<p:commandLink action="#{pacotesMB.consultarListarCursosPacotes(pais)}" 
-													update=":inicial:cursospacotes:growl, :inicial:cursospacotes:tabelapacotes, :inicial:cursospacotes:pacotePais, :inicial:cursospacotes:panelTotalPais, :inicial:cursospacotes:panelTotalPacotes">
+													update=":cursospacotes:growl, :cursospacotes:tabelapacotes, :cursospacotes:pacotePais, :cursospacotes:panelTotalPais, :cursospacotes:panelTotalPacotes">
 													<img src="#{pacotesMB.retornarIPais(pais)}"
 														width="40" style="width: 124px;height: 90px;border-radius: 30px;"/>
 												</p:commandLink>
@@ -438,9 +438,9 @@
 				<h:panelGroup id="panelTotalPacotes">
 					<p:scrollPanel id="tabelapacotes" mode="native" style="width:98%;" rendered="#{pacotesMB.habilitarPacotes}">
 						<p:commandLink action="#{pacotesMB.voltarPais()}" 
-							update=":inicial:cursospacotes:growl, :inicial:cursospacotes:tabelapacotes, :inicial:cursospacotes:pacotePais, :inicial:cursospacotes:panelTotalPais, :inicial:cursospacotes:panelTotalPacotes" 
+							update=":cursospacotes:growl, :cursospacotes:tabelapacotes, :cursospacotes:pacotePais, :cursospacotes:panelTotalPais, :cursospacotes:panelTotalPacotes" 
 							title="Voltar">
-													<img src="resources/img/botaoEsquerdo.png"
+													<img src="../../resources/img/botaoEsquerdo.png"
 														width="40" style="width: 30px;"/>
 												</p:commandLink>
 						<h:panelGroup rendered="#{pacotesMB.curso}">
@@ -451,7 +451,7 @@
 										<p:outputLabel value="CURSOS DE IDIOMAS"
 											style="font-size:43px;font-weight: initial;margin-left:2%;color:#A0C637;" />
 									</div>
-								</h:panelGroup>
+								</h:panelGroup>   
 							</h:panelGrid> 
 							<hr
 								style="color: #A0C637; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
@@ -460,7 +460,7 @@
 								var="pacote">    
 								<div class="col-md-3">     
 									<h:panelGroup rendered="#{pacote.cursos}">
-										<div class="borderSombra" style="height: 375px;">
+										<div class="borderSombra" style="height: 375px;border-radius:10px;background:white;">
 											<div style="height: 300px;">   
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
