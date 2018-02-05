@@ -1969,386 +1969,429 @@
 									</h:panelGroup>
 								</div>
 							</div>
-
-							<div class="row" style="margin-top: 1.5%;">
-								<div class="materunss">
-									<div class="col-lg-12"
-										style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
-										<div class="col-lg-6">
-											<p:commandLink id="btnRelatorioMateRunners" title="Relatório de MateRunners da Unidade"
-												action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
-												<img src="resources/img/paginainicial/materunners.png" width="390" />   
-											</p:commandLink>
-										</div>    
-										<div class="col-lg-1" style="padding-right: 0px; width: 91px;css:none;">    
-											<p:commandLink action="#{menuMB.vendasUsuario()}">     
-												<img
-													src="#{mateRunnersMB.getFotoUsuarioPonto(usuarioLogadoMB.usuario.idusuario)}"
-													alt="" class="imagemusuario" />
-											</p:commandLink>
-										</div>
-										<div class="col-lg-3"
-											style="padding-left: 0px; padding-right: 0px;">
-											<p:outputLabel
-												value="#{mateRunnersMB.getTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
-												style="font-size:8px;color:#4F4F4F;" />
-											<div class="progress progress-striped active"
-												style="height: 17px; margin: 5px 0 0 0; margin-top: -2%; border-radius: 0px;">
-												<div class="progress-bar " style="width: 100%;"></div>
+							<h:panelGroup rendered="#{mateRunnersMB.habilitarMateRunners}" id="panelMateRunners">
+								<div class="row" style="margin-top: 1.5%;">
+									<div class="materunss">
+										<div class="col-lg-12"
+											style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+											<div class="col-lg-6">
+												<p:commandLink id="btnRelatorioMateRunners" title="Relatório de MateRunners da Unidade"
+													action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
+													<img src="resources/img/paginainicial/materunners.png" width="390" />   
+												</p:commandLink>
+											</div>    
+											<div class="col-lg-1" style="padding-right: 0px; width: 91px;css:none;">    
+												<p:commandLink action="#{menuMB.vendasUsuario()}">     
+													<img
+														src="#{mateRunnersMB.getFotoUsuarioPonto(usuarioLogadoMB.usuario.idusuario)}"
+														alt="" class="imagemusuario" />
+												</p:commandLink>
 											</div>
-											<p:outputLabel
-												value="#{mateRunnersMB.getNomeUnidadeTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
-												style="font-size:9px;color:#4F4F4F;" />
-										</div>
-										<div class="col-lg-1"
-											style="padding-left: 3px; padding-right: 0px; padding-top: 5px;">
-											<p:outputLabel
-												value="#{mateRunnersMB.getPontuacaoTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
-												style="font-size:27px;color:#1F8871;" />
+											<div class="col-lg-3"
+												style="padding-left: 0px; padding-right: 0px;">
+												<p:outputLabel
+													value="#{mateRunnersMB.getTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
+													style="font-size:8px;color:#4F4F4F;" />
+												<div class="progress progress-striped active"
+													style="height: 17px; margin: 5px 0 0 0; margin-top: -2%; border-radius: 0px;">
+													<div class="progress-bar " style="width: 100%;"></div>
+												</div>
+												<p:outputLabel
+													value="#{mateRunnersMB.getNomeUnidadeTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
+													style="font-size:9px;color:#4F4F4F;" />
+											</div>
+											<div class="col-lg-1"
+												style="padding-left: 3px; padding-right: 0px; padding-top: 5px;">
+												<p:outputLabel
+													value="#{mateRunnersMB.getPontuacaoTituloMateRunners(usuarioLogadoMB.usuario.idusuario)}"
+													style="font-size:27px;color:#1F8871;" />
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row" style="margin-top: 0.5%;">
-								<div style="width: 99%; margin-left: 5%;">
-									<div class="col-lg-11">
-										<div class="panel-body">
-											<div id="chart">
-												<ul id="bars">
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(0)}"
-															title="#{mateRunnersMB.getNumeroVendas(0)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(0)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(0)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(0)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(1)}"
-															title="#{mateRunnersMB.getNumeroVendas(1)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(1)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(1)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(1)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(2)}"
-															title="#{mateRunnersMB.getNumeroVendas(2)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(2)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(2)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(2)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(3)}"
-															title="#{mateRunnersMB.getNumeroVendas(3)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(3)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(3)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(3)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(4)}"
-															title="#{mateRunnersMB.getNumeroVendas(4)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(4)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(4)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(4)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(5)}"
-															title="#{mateRunnersMB.getNumeroVendas(5)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(5)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(5)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(5)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(6)}"
-															title="#{mateRunnersMB.getNumeroVendas(6)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(6)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(6)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(6)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(7)}"
-															title="#{mateRunnersMB.getNumeroVendas(7)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(7)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(7)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(7)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(8)}"
-															title="#{mateRunnersMB.getNumeroVendas(8)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(8)}" alt=""
-															class="imagemMatesRuns" /> <br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(8)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(8)}" /> </span></li>
-
-													<li><div
-															data-percentage="#{mateRunnersMB.getPercentual(9)}"
-															title="#{mateRunnersMB.getNumeroVendas(9)}" class="bar"></div>
-														<span><br /> <br /> <img
-															src="#{mateRunnersMB.getFoto(9)}" alt=""
-															class="imagemMatesRuns" /><br /> <p:outputLabel
-																value="#{mateRunnersMB.getNome(9)}" /><br /> <p:outputLabel
-																style="font-weight:lighter;margin-top:-5%;"
-																value="#{mateRunnersMB.getNomeUnidade(9)}" /> </span></li>
-												</ul>
-												<br /> <br /> <br />
+								<h:panelGrid columns="2" style="width:100%;margin-left: 22%;">
+									<p:commandLink id="btnEsquerdo" 
+													action="#{mateRunnersMB.mudarPosicao(false)}" 
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
+													<img src="resources/img/botaoEsquerdo.png" style="width:35px;" />   
+												</p:commandLink>
+									<p:commandLink id="btnDireito" 
+													action="#{mateRunnersMB.mudarPosicao(true)}"  
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
+													<img src="resources/img/botaoDireito.png" style="width:35px;" />   
+												</p:commandLink>
+								</h:panelGrid>   
+								<div class="row" style="margin-top: 0.5%;">
+									<div style="width: 99%; margin-left: 5%;">
+										<div class="col-lg-11">
+											<div class="panel-body">
+												<div id="chart">
+													<ul id="bars">
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(0)}"
+																title="#{mateRunnersMB.getNumeroVendas(0)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(0)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(0)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(0)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(1)}"
+																title="#{mateRunnersMB.getNumeroVendas(1)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(1)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(1)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(1)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(2)}"
+																title="#{mateRunnersMB.getNumeroVendas(2)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(2)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(2)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(2)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(3)}"
+																title="#{mateRunnersMB.getNumeroVendas(3)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(3)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(3)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(3)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(4)}"
+																title="#{mateRunnersMB.getNumeroVendas(4)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(4)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(4)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(4)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(5)}"
+																title="#{mateRunnersMB.getNumeroVendas(5)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(5)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(5)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(5)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(6)}"
+																title="#{mateRunnersMB.getNumeroVendas(6)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(6)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(6)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(6)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(7)}"
+																title="#{mateRunnersMB.getNumeroVendas(7)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(7)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(7)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(7)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(8)}"
+																title="#{mateRunnersMB.getNumeroVendas(8)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(8)}" alt=""
+																class="imagemMatesRuns" /> <br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(8)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(8)}" /> </span></li>
+	
+														<li><div
+																data-percentage="#{mateRunnersMB.getPercentual(9)}"
+																title="#{mateRunnersMB.getNumeroVendas(9)}" class="bar"></div>
+															<span><br /> <br /> <img
+																src="#{mateRunnersMB.getFoto(9)}" alt=""
+																class="imagemMatesRuns" /><br /> <p:outputLabel
+																	value="#{mateRunnersMB.getNome(9)}" /><br /> <p:outputLabel
+																	style="font-weight:lighter;margin-top:-5%;"
+																	value="#{mateRunnersMB.getNomeUnidade(9)}" /> </span></li>
+													</ul>
+													<br /> <br /> <br />
+												</div>
+												<br></br> 
 											</div>
-											<br></br> 
+											<!-- /panel -->
 										</div>
-										<!-- /panel -->
 									</div>
 								</div>
-							</div>
+							</h:panelGroup>
 						</h:panelGroup>
-						<h:panelGroup rendered="#{dashBoardMB.retornarConteudo()}">
-							<div class="row" style="margin-top: 1.5%;">
-								<div class="materunss">
-									<div class="col-lg-12"
-										style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
-										<div class="col-lg-6">
-											<p:commandLink id="btnProductRunners" title=""
-												action="#"  >
-												<img src="resources/img/paginainicial/productRunners.png" width="390" style="margin-left: 62%;"/>   
-											</p:commandLink>
-										</div>    
-									</div>   
-								</div>
-							</div> 
-							<br/>
-							<ui:repeat var="corrida" value="#{productRunnersMB.listaCorrida}" varStatus="statuss">
-								<div id="metas" class="col-lg-3"  
-									style="background: #D7D8DC; height: 204px;border:8px solid;border-color:white;width: 20%;">
-								<h:panelGrid style="width: 116.5%;margin-left: -8%;background:#{corrida.produtos.corTitulo}">	
-								<p style="text-transform:highcase;font-size: 24px;color: white;width:100%;font-weight: bold;" align="center">#{corrida.produtos.descricao}</p>
-								</h:panelGrid>	  
-								
-									<h:panelGrid columns="2" style="width:100%">  
-										<p:outputLabel value="#{corrida.nomeConsultor}" style="color:black;font-size: 9px;"/>	
-										<p:outputLabel value="#{corrida.nomeUnidade}" style="color:black;font-size: 9px;"/>	
-									</h:panelGrid>  
-									<h:panelGrid columns="3" style="width:100%;" >
-										<img src="#{corrida.foto}" alt=""  
-											class="imagemMatesRuns" />
-										<p:outputLabel value="#{corrida.pontos}" style="color:green;font-size: 60px;"/>
-										<h:panelGrid columns="1" style="width:100%;">
-											<p:outputLabel/>
-											<p:commandLink id="btnTop3" title="Os 3 melhores do mês"
-													action="#{productRunnersMB.graficoTop3Mes(corrida.produtos)}"  >
-													<img src="resources/img/top3.png" alt=""  
-													class="imagemMatesRuns" />
+						<h:panelGroup rendered="#{dashBoardMB.retornarConteudo()}" id="panelTotalProductRunners">
+							<h:panelGroup rendered="#{mateRunnersMB.habilitarProductRunners}" id="panelProductRunners">
+								<div class="row" style="margin-top: 1.5%;">
+									<div class="materunss">
+										<div class="col-lg-12"
+											style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+											<div class="col-lg-6">
+												<p:commandLink id="btnProductRunners" title=""
+													action="#"  >
+													<img src="resources/img/paginainicial/productRunners.png" width="390" style="margin-left: 62%;"/>   
 												</p:commandLink>
-												<p:commandLink id="btnTopAno" title="Os melhores do ano"
-													action="#{productRunnersMB.graficoTopAno(corrida.produtos)}"  >
-													<img src="resources/img/topAno.png" alt=""  
-													class="imagemMatesRuns" style="margin-top: 2%;"/>
+											</div>    
+										</div>   
+									</div>
+								</div> 
+								<br/>  
+								<h:panelGrid columns="2" style="width:100%;margin-left:21%;">
+									<p:commandLink id="btnEsquerdoProductRunners" 
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo"
+													action="#{mateRunnersMB.mudarPosicao(false)}"  >
+													<img src="resources/img/botaoEsquerdo.png" style="width:35px;" />   
 												</p:commandLink>
-										</h:panelGrid> 
-										 
-									</h:panelGrid>  
-									<br/>  <br/>
-								</div>
-							</ui:repeat>
+									<p:commandLink id="btnDireitoProductRunners" 
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo"
+													action="#{mateRunnersMB.mudarPosicao(true)}"  >
+													<img src="resources/img/botaoDireito.png" style="width:35px;" />   
+												</p:commandLink>
+								</h:panelGrid>
+								<br/>
+								<ui:repeat var="corrida" value="#{productRunnersMB.listaCorrida}" varStatus="statuss">
+									<div id="metas" class="col-lg-3"  
+										style="background: #D7D8DC; height: 204px;border:8px solid;border-color:white;width: 20%;">
+									<h:panelGrid style="width: 116.5%;margin-left: -8%;background:#{corrida.produtos.corTitulo}">	
+									<p style="text-transform:highcase;font-size: 24px;color: white;width:100%;font-weight: bold;" align="center">#{corrida.produtos.descricao}</p>
+									</h:panelGrid>	  
+									
+										<h:panelGrid columns="2" style="width:100%">  
+											<p:outputLabel value="#{corrida.nomeConsultor}" style="color:black;font-size: 9px;"/>	
+											<p:outputLabel value="#{corrida.nomeUnidade}" style="color:black;font-size: 9px;"/>	
+										</h:panelGrid>  
+										<h:panelGrid columns="3" style="width:100%;" >
+											<img src="#{corrida.foto}" alt=""  
+												class="imagemMatesRuns" />
+											<p:outputLabel value="#{corrida.pontos}" style="color:green;font-size: 60px;"/>
+											<h:panelGrid columns="1" style="width:100%;">
+												<p:outputLabel/>
+												<p:commandLink id="btnTop3" title="Os 3 melhores do mês"
+														action="#{productRunnersMB.graficoTop3Mes(corrida.produtos)}"  >
+														<img src="resources/img/top3.png" alt=""  
+														class="imagemMatesRuns" />
+													</p:commandLink>
+													<p:commandLink id="btnTopAno" title="Os melhores do ano"
+														action="#{productRunnersMB.graficoTopAno(corrida.produtos)}"  >
+														<img src="resources/img/topAno.png" alt=""  
+														class="imagemMatesRuns" style="margin-top: 2%;"/>
+													</p:commandLink>
+											</h:panelGrid> 
+											 
+										</h:panelGrid>  
+										<br/>  <br/>
+									</div>
+								</ui:repeat>
+							</h:panelGroup>
 						</h:panelGroup>
-						<h:panelGroup rendered="#{dashBoardMB.retornarConteudo()}">
-							<div class="row" style="margin-top: 1.5%;">
-								<div class="materunss">
-									<div class="col-lg-12"
-										style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
-										<div class="col-lg-6">
-											<p:commandLink id="btnTMRACE"
-												action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
-												<img src="resources/img/paginainicial/tmrace.png" width="300" style="margin-left: 62%;"/>   
-											</p:commandLink>
-										</div>    
-									</div>   
+						<h:panelGroup rendered="#{dashBoardMB.retornarConteudo()}" id="panelTotalTmRace">
+							<h:panelGroup rendered="#{mateRunnersMB.habilitarTmRace}" id="panelTmRace">
+								<div class="row" style="margin-top: 1.5%;">
+									<div class="materunss">
+										<div class="col-lg-12"
+											style="background: #D7D8DC; height: 55px; margin-top: 5px;css:none;">
+											<div class="col-lg-6">
+												<p:commandLink id="btnTMRACE"
+													action="#{mateRunnersMB.gerarGraficoUnidade(usuarioLogadoMB.usuario)}"  >
+													<img src="resources/img/paginainicial/tmrace.png" width="300" style="margin-left: 62%;"/>   
+												</p:commandLink>
+											</div>    
+										</div>   
+									</div>
 								</div>
-							</div>
-							<br/>
-							<h:panelGrid columns="3" style="width:100%;">
-									<h:panelGroup rendered="#{dashBoardMB.mostrarDadosUnidade()}">
-										
-										<p style="font-size: 28px;color: green;background: gold;width:91.5%;" align="center">Gold</p>
-										<div id="metas" class="col-lg-11"
-											style="background: #D7D8DC; height: 167px;margin-top: -3%;">
-											<div class="col-lg-12">
-												<p:outputLabel
-													value="#{tmRaceMB.getNomeUnidade(1)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(1)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:100%"></div>
+								<br/>
+								<h:panelGrid columns="2" style="width:100%;margin-left: 24%;">
+									<p:commandLink id="btnEsquerdoTmRace" 
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalTmRace, :inicial:painelConteudo"
+													action="#{mateRunnersMB.mudarPosicao(false)}"  >
+													<img src="resources/img/botaoEsquerdo.png" style="width:35px;" />   
+												</p:commandLink>
+									<p:commandLink id="btnDireitoTmRace" 
+										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalTmRace, :inicial:painelConteudo"
+													action="#{mateRunnersMB.mudarPosicao(true)}"  >
+													<img src="resources/img/botaoDireito.png" style="width:35px;" />   
+												</p:commandLink>
+								</h:panelGrid>
+								<br/>
+								<h:panelGrid columns="3" style="width:100%;">
+										<h:panelGroup rendered="#{dashBoardMB.mostrarDadosUnidade()}">
+											
+											<p style="font-size: 28px;color: green;background: gold;width:91.5%;" align="center">Gold</p>
+											<div id="metas" class="col-lg-11"
+												style="background: #D7D8DC; height: 167px;margin-top: -3%;">
+												<div class="col-lg-12">
+													<p:outputLabel
+														value="#{tmRaceMB.getNomeUnidade(1)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(1)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:100%"></div>
+													</div>
+												</div>
+												<br />
+												<div class="col-lg-12">
+													<p:outputLabel
+														value="#{tmRaceMB.getNomeUnidade(2)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(2)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:#{tmRaceMB.getPorcentagem(2)}%"></div>
+													</div>
+												</div>
+												<br />
+												<div class="col-lg-12">
+													<p:outputLabel value="#{tmRaceMB.getNomeUnidade(3)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(3)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:#{tmRaceMB.getPorcentagem(3)}%"></div>
+													</div> 
 												</div>
 											</div>
-											<br />
-											<div class="col-lg-12">
-												<p:outputLabel
-													value="#{tmRaceMB.getNomeUnidade(2)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(2)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:#{tmRaceMB.getPorcentagem(2)}%"></div>
+									</h:panelGroup>
+									<h:panelGroup style="background:#E6E6E6;">
+										<p style="font-size: 28px;color: green;background:#BDBDBD;width:91.5%;" align="center">Silver</p>
+											<div id="metas" class="col-lg-11"
+												style="background: #D7D8DC; height: 167px;margin-top: -3%;">
+												<div class="col-lg-12">
+													<p:outputLabel
+														value="#{tmRaceMB.getNomeUnidadeSinze(1)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(1)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:100%"></div>
+													</div>
+												</div>
+												<br />
+												<div class="col-lg-12">
+													<p:outputLabel
+														value="#{tmRaceMB.getNomeUnidadeSinze(2)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(2)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:#{tmRaceMB.getPorcentagemSinze(2)}%"></div>
+													</div>
+												</div>
+												<br />
+												<div class="col-lg-12">
+													<p:outputLabel value="#{tmRaceMB.getNomeUnidadeSinze(3)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(3)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:#{tmRaceMB.getPorcentagemSinze(3)}%"></div>
+													</div> 
 												</div>
 											</div>
-											<br />
-											<div class="col-lg-12">
-												<p:outputLabel value="#{tmRaceMB.getNomeUnidade(3)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontos(3)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:#{tmRaceMB.getPorcentagem(3)}%"></div>
-												</div> 
-											</div>
-										</div>
-								</h:panelGroup>
-								<h:panelGroup style="background:#E6E6E6;">
-									<p style="font-size: 28px;color: green;background:#BDBDBD;width:91.5%;" align="center">Silver</p>
-										<div id="metas" class="col-lg-11"
-											style="background: #D7D8DC; height: 167px;margin-top: -3%;">
-											<div class="col-lg-12">
-												<p:outputLabel
-													value="#{tmRaceMB.getNomeUnidadeSinze(1)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(1)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:100%"></div>
+									</h:panelGroup>
+									<h:panelGroup style="background:#E6E6E6;">
+									
+										<p style="font-size: 28px;color: green;background:#DF7401;margin-left: -2%;width: 83%;" align="center">Bronze</p>
+											<div id="metas" class="col-lg-10"
+												style="background: #D7D8DC; height: 167px;margin-left: -2%;margin-top: -3%;">
+												<div class="col-lg-12">
+													<p:outputLabel  
+														value="#{tmRaceMB.getNomeUnidadeBronze(1)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(1)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:100%"></div>
+													</div>
+												</div>
+												<br />
+												<div class="col-lg-12">
+													<p:outputLabel
+														value="#{tmRaceMB.getNomeUnidadeBronze(2)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(2)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:#{tmRaceMB.getPorcentagemBronze(2)}%"></div>
+													</div>
+												</div>
+												<br />
+												<div class="col-lg-12">
+													<p:outputLabel value="#{tmRaceMB.getNomeUnidadeBronze(3)}"
+														style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
+												</div>
+												<div class="col-lg-12" style="margin-top: -1.2%;">
+													<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(3)}</span>
+												</div>
+												<div class="col-lg-12">
+													<div class="progress progress-striped active"
+														style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
+														<div class="progress-bar"
+															style="width:#{tmRaceMB.getPorcentagemBronze(3)}%"></div>
+													</div> 
 												</div>
 											</div>
-											<br />
-											<div class="col-lg-12">
-												<p:outputLabel
-													value="#{tmRaceMB.getNomeUnidadeSinze(2)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(2)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:#{tmRaceMB.getPorcentagemSinze(2)}%"></div>
-												</div>
-											</div>
-											<br />
-											<div class="col-lg-12">
-												<p:outputLabel value="#{tmRaceMB.getNomeUnidadeSinze(3)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosSinze(3)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:#{tmRaceMB.getPorcentagemSinze(3)}%"></div>
-												</div> 
-											</div>
-										</div>
-								</h:panelGroup>
-								<h:panelGroup style="background:#E6E6E6;">
-								
-									<p style="font-size: 28px;color: green;background:#DF7401;margin-left: -2%;width: 83%;" align="center">Bronze</p>
-										<div id="metas" class="col-lg-10"
-											style="background: #D7D8DC; height: 167px;margin-left: -2%;margin-top: -3%;">
-											<div class="col-lg-12">
-												<p:outputLabel  
-													value="#{tmRaceMB.getNomeUnidadeBronze(1)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(1)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:100%"></div>
-												</div>
-											</div>
-											<br />
-											<div class="col-lg-12">
-												<p:outputLabel
-													value="#{tmRaceMB.getNomeUnidadeBronze(2)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(2)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:#{tmRaceMB.getPorcentagemBronze(2)}%"></div>
-												</div>
-											</div>
-											<br />
-											<div class="col-lg-12">
-												<p:outputLabel value="#{tmRaceMB.getNomeUnidadeBronze(3)}"
-													style="width:332px;font-size:12px;color:#4F4F4F;margin-top:3%;" />
-											</div>
-											<div class="col-lg-12" style="margin-top: -1.2%;">
-												<span class="badge badge-info" style="float: right;">#{tmRaceMB.getPontosBronze(3)}</span>
-											</div>
-											<div class="col-lg-12">
-												<div class="progress progress-striped active"
-													style="height: 8px; margin: 5px 0 0 0; margin-top: -0.5%;">
-													<div class="progress-bar"
-														style="width:#{tmRaceMB.getPorcentagemBronze(3)}%"></div>
-												</div> 
-											</div>
-										</div>
-								</h:panelGroup>
-							</h:panelGrid>
-						<br/>
+									</h:panelGroup>
+								</h:panelGrid>
+								<br/>
+							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup id="painelImagem"
 							rendered="#{dashBoardMB.retornarImagem()}">

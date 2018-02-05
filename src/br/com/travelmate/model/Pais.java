@@ -60,6 +60,8 @@ public class Pais implements Serializable {
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "pais")
     @OrderBy(value="nome") 
     private List<Cidade> cidadeList;
+    @Column(name = "modelo")
+    private boolean modelo;
     
     public Pais() {
     }
@@ -124,6 +126,14 @@ public class Pais implements Serializable {
 
 	public void setDocumentovisto(String documentovisto) {
 		this.documentovisto = documentovisto;
+	}
+
+	public boolean isModelo() {
+		return modelo;
+	}
+
+	public void setModelo(boolean modelo) {
+		this.modelo = modelo;
 	}
 
 	@Override

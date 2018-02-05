@@ -35,7 +35,7 @@ import br.com.travelmate.util.Mensagem;
 @Named
 @SessionScoped
 public class DashBoardMB implements Serializable {
-
+   
 	/**
 	 * 
 	 */
@@ -55,6 +55,10 @@ public class DashBoardMB implements Serializable {
 	private int atrasadas;
 	private boolean acessoResponsavelGerencial = false;
 	private String imagem = "dashboard";
+	private int posicao = 1;
+	private boolean habilitarMateRunners = true;
+	private boolean habilitarProductRunners = false;
+	private boolean habilitarTmRace = false;
 	
 
 	public DashBoardMB() {
@@ -64,6 +68,7 @@ public class DashBoardMB implements Serializable {
 	@PostConstruct
 	public void init() { 
 		gerarDadosDashBoard(); 
+		System.out.println(aplicacaoMB.toString());
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -170,6 +175,38 @@ public class DashBoardMB implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public int getPosicao() {
+		return posicao;
+	}
+
+	public void setPosicao(int posicao) {
+		this.posicao = posicao;
+	}
+
+	public boolean isHabilitarMateRunners() {
+		return habilitarMateRunners;
+	}
+
+	public void setHabilitarMateRunners(boolean habilitarMateRunners) {
+		this.habilitarMateRunners = habilitarMateRunners;
+	}
+
+	public boolean isHabilitarProductRunners() {
+		return habilitarProductRunners;
+	}
+
+	public void setHabilitarProductRunners(boolean habilitarProductRunners) {
+		this.habilitarProductRunners = habilitarProductRunners;
+	}
+
+	public boolean isHabilitarTmRace() {
+		return habilitarTmRace;
+	}
+
+	public void setHabilitarTmRace(boolean habilitarTmRace) {
+		this.habilitarTmRace = habilitarTmRace;
 	}
 
 	public void CalcularFaturamento(boolean nova, Vendas venda, float valorAnterior, Parametrosprodutos parametros) {
@@ -493,4 +530,37 @@ public class DashBoardMB implements Serializable {
 			}else return true;
 		}else return true;
 	}
+	
+	
+	
+	public void mudarPosicao(boolean tipo){
+		if (tipo) {
+			posicao = posicao + 1;
+		}else{
+			posicao = posicao - 1;
+		}
+		if (posicao <= 0) {
+			posicao = 3;
+		}else if(posicao > 3){
+			posicao = 1;
+		}
+		if (posicao == 1) {
+			habilitarMateRunners = true;
+			habilitarProductRunners = false;
+			habilitarTmRace = false;
+		}else if(posicao == 2){
+			habilitarMateRunners = false;
+			habilitarProductRunners = true;
+			habilitarTmRace = false;
+		}else if(posicao == 3){
+			habilitarMateRunners = false;
+			habilitarProductRunners = false;
+			habilitarTmRace = true;
+		}
+	}
+	
+	
+	
+	
+	
 }

@@ -285,12 +285,17 @@
 								<p:ajax event="change"/>
 							</p:selectOneMenu>
 						</h:panelGroup>
+						<h:panelGrid columns="2" style="width:100%;" id="idmodelo" rendered="#{filtrarEscolaMB.habilitarUpload}">
+							<p:outputLabel value="Modelo" 
+								style="color: #1F8871;" />
+							<p:selectBooleanCheckbox value="#">
+		        			</p:selectBooleanCheckbox>
+						</h:panelGrid>
 					</p:panelGrid>    
 				</div>
-				<br></br> <br></br>
-				<div class="ui-fluid">        
-					<p:panelGrid columns="1" layout="grid"
-						style="background: transparent;border:none;"
+				<br></br> <br></br>       
+					<p:panelGrid columns="2" layout="grid"
+						style="background: transparent;border:none;width:29%;margin-left:60%;"
 						styleClass="panelgrid-noborder" columnClasses="colunaBotao">
 						<p:commandButton id="idpesquisar" value="Pesquisar"
 							icon="ui-icon-search" onstart="PF('dialogcarregar').show()"
@@ -298,8 +303,11 @@
 							action="#{filtrarEscolaMB.localizarFornecedorCidade()}"
 							update="growl, fornecedor" style="float:right"   
 							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" />
+						<p:commandButton id="iduploadimagem" value="Upload" rendered="#{filtrarEscolaMB.habilitarUpload}"
+							icon="ui-icon-search" 
+							action="#{filtrarEscolaMB.uploadImagem()}"
+							update="growl, fornecedor" style="float:right"    />
 					</p:panelGrid>
-				</div>    
 				<p:dialog widgetVar="dialogcarregar" modal="true" draggable="false"
 					closable="false" resizable="false" showHeader="false">
 					<p:commandLink> 

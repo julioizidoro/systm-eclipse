@@ -59,4 +59,16 @@ public class PaisDao {
         } 
         return pais;
      }
+    
+    
+    public List<Pais> listarModelo(String sql) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getInstance();
+        Query q = manager.createQuery(sql);
+        List<Pais> listaPais = q.getResultList();
+        return listaPais;
+    }
+    
+    
+    
 }

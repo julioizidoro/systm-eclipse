@@ -44,6 +44,10 @@ public class MateRunnersMB implements Serializable {
 	private int mesReferencia;
 	private String nomeEscola;
 	private Ftpdados ftpdados;
+	private int posicao = 1;
+	private boolean habilitarMateRunners = true;
+	private boolean habilitarProductRunners = false;
+	private boolean habilitarTmRace = false;
 
 	@PostConstruct
 	public void init() {
@@ -52,7 +56,7 @@ public class MateRunnersMB implements Serializable {
 			mesReferencia = Formatacao.getMesData(new Date());
 			carregarListaRunners();
 		}
-	}
+	}    
 
 	public int getMesCorrente() {
 		return mesCorrente;
@@ -104,6 +108,38 @@ public class MateRunnersMB implements Serializable {
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+	public int getPosicao() {
+		return posicao;
+	}
+
+	public void setPosicao(int posicao) {
+		this.posicao = posicao;
+	}
+
+	public boolean isHabilitarMateRunners() {
+		return habilitarMateRunners;
+	}
+
+	public void setHabilitarMateRunners(boolean habilitarMateRunners) {
+		this.habilitarMateRunners = habilitarMateRunners;
+	}
+
+	public boolean isHabilitarProductRunners() {
+		return habilitarProductRunners;
+	}
+
+	public void setHabilitarProductRunners(boolean habilitarProductRunners) {
+		this.habilitarProductRunners = habilitarProductRunners;
+	}
+
+	public boolean isHabilitarTmRace() {  
+		return habilitarTmRace;
+	}
+
+	public void setHabilitarTmRace(boolean habilitarTmRace) {
+		this.habilitarTmRace = habilitarTmRace;
 	}
 
 	public void carregarListaRunners() {
@@ -329,5 +365,48 @@ public class MateRunnersMB implements Serializable {
 		options.put("contentWidth", 780); 
 		RequestContext.getCurrentInstance().openDialog("graficoMateRunnersUnidade", options,null);
 		return "";
+	}
+	
+	
+	public void mudarPosicao(boolean tipo){
+		if (tipo) {
+			posicao = posicao + 1;
+		}else{
+			posicao = posicao - 1;
+		}
+		if (posicao <= 0) {
+			posicao = 3;
+		}else if(posicao > 3){
+			posicao = 1;
+		}
+		if (posicao == 1) {
+			habilitarMateRunners = true;
+			habilitarProductRunners = false;
+			habilitarTmRace = false;
+		}else if(posicao == 2){
+			habilitarMateRunners = false;
+			habilitarProductRunners = true;
+			habilitarTmRace = false;
+		}else if(posicao == 3){
+			habilitarMateRunners = false;
+			habilitarProductRunners = false;
+			habilitarTmRace = true;
+		}
+	}
+	
+	public void mudar(){
+		if (posicao == 1) {
+			habilitarMateRunners = true;
+			habilitarProductRunners = false;
+			habilitarTmRace = false;
+		}else if(posicao == 2){
+			habilitarMateRunners = false;
+			habilitarProductRunners = true;
+			habilitarTmRace = false;
+		}else if(posicao == 3){
+			habilitarMateRunners = false;
+			habilitarProductRunners = false;
+			habilitarTmRace = true;
+		}
 	}
 }

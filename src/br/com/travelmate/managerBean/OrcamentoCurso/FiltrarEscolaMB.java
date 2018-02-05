@@ -95,6 +95,7 @@ public class FiltrarEscolaMB implements Serializable {
 	private DatasBean datasBean;
 	private Lead lead;
 	private String funcao;
+	private boolean habilitarUpload = true;
  
 	@PostConstruct
 	public void init() {
@@ -127,6 +128,11 @@ public class FiltrarEscolaMB implements Serializable {
 				.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), null);
 		digitosFoneResidencial = aplicacaoMB
 				.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), null);
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+			habilitarUpload = true;
+		}else{
+			habilitarUpload = false;
+		}
 	}
 
 	public void iniciarNovoOrcamento() {
@@ -231,6 +237,14 @@ public class FiltrarEscolaMB implements Serializable {
 
 	public void setDatasBean(DatasBean datasBean) {
 		this.datasBean = datasBean;
+	}
+
+	public boolean isHabilitarUpload() {
+		return habilitarUpload;
+	}
+
+	public void setHabilitarUpload(boolean habilitarUpload) {
+		this.habilitarUpload = habilitarUpload;
 	}
 
 	public void gerarListaIdioma() {
@@ -1002,7 +1016,7 @@ public class FiltrarEscolaMB implements Serializable {
 		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)) ||
 				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
 			calcular = false;
-		}
+		}   
 		if (calcular) {
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
@@ -1977,8 +1991,9 @@ public class FiltrarEscolaMB implements Serializable {
 				List<Fornecedorcidadeidiomaprodutodata> lista =
 						dataFacade.listar("SELECT f FROM Fornecedorcidadeidiomaprodutodata f WHERE"
 								+ " f.fornecedorcidadeidiomaproduto.idfornecedorcidadeidiomaproduto="
-								+fornecedorcidadeidiomaproduto.getIdfornecedorcidadeidiomaproduto() + " and f.datainicio>='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
-				if(lista!=null){
+								+fornecedorcidadeidiomaproduto.getIdfornecedorcidadeidiomaproduto() + " and f.datainicio>='" + Formatacao.ConvercaoDataSql(new Date()) + "' "
+										+ " order by f.datainicio");
+				if(lista!=null){    
 					listaFornecedorCidadeDatas= new ArrayList<>();
 					listaDatas = new ArrayList<>();
 					for (int i = 0; i < lista.size(); i++) { 
@@ -2062,6 +2077,13 @@ public class FiltrarEscolaMB implements Serializable {
 				return "historicoCliente";
 			}
 		}
+		return "";
+	}
+	
+	public String uploadImagem() {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 450);
+		RequestContext.getCurrentInstance().openDialog("uploadImagem", options, null);
 		return "";
 	}
 }

@@ -63,4 +63,15 @@ public class PaisFacade {
        }
    }
     
+    
+	public List<Pais> listarModelo(String sql) {
+		paisDao = new PaisDao();
+		try {
+			return paisDao.listarModelo(sql);
+		} catch (SQLException ex) {
+			Logger.getLogger(PaisFacade.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
+		}
+	}
+    
 }

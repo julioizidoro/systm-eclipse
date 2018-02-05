@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="idEditarImagem"
+		style="font-size: 11px; background-color:#DDDDE1;">
+		 <p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+		</p:dialog>
+		<div align="center">
+			<h:panelGrid columns="2">
+				<p:fileUpload multiple="true" label="Alterar Imagem"
+					fileUploadListener="#{uploadImagemMB.fileUploadListener}"
+					value="#{uploadImagemMB.file}" mode="advanced"
+					 allowTypes="/(\.|\/)(jpe?g)$/"
+					style="font-size: 11px;">
+				</p:fileUpload>
+			</h:panelGrid>
+			<br></br> <br />
+
+			<p:commandButton id="btnFechar" value="Fechar"
+				action="#" icon="ui-icon-closethick"
+				style="font-size:12px;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

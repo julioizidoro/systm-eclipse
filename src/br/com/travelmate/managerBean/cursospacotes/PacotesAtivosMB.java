@@ -2,10 +2,13 @@ package br.com.travelmate.managerBean.cursospacotes;
  
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB; 
 import br.com.travelmate.model.Cursospacote; 
-import br.com.travelmate.model.Pacotesinicial; 
+import br.com.travelmate.model.Pacotesinicial;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Mensagem;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -41,11 +44,14 @@ public class PacotesAtivosMB implements Serializable {
 	private boolean especial;
 	@Inject
 	private AplicacaoMB aplicacaoMB; 
+	private boolean habilitarPais = true;
+	private boolean habilitarPacotes = false;
+	private List<Pais> listaPais;
 
 	@PostConstruct
 	public void init() {
-		listarCursosPacotes(); 
-		listarPacotesEspecial();
+		gerarListaPais();
+		//listarPacotesEspecial();
 		getAplicacaoMB(); 
 	} 
 	
@@ -137,8 +143,32 @@ public class PacotesAtivosMB implements Serializable {
 		this.especial = especial;
 	}
 
-	public void listarCursosPacotes(){ 
-		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE ORDER BY c.idproduto, c.pais";
+	public boolean isHabilitarPais() {
+		return habilitarPais;
+	}
+
+	public void setHabilitarPais(boolean habilitarPais) {
+		this.habilitarPais = habilitarPais;
+	}
+
+	public boolean isHabilitarPacotes() {
+		return habilitarPacotes;
+	}
+
+	public void setHabilitarPacotes(boolean habilitarPacotes) {
+		this.habilitarPacotes = habilitarPacotes;
+	}
+
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
+
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
+
+	public void listarCursosPacotes(Pais pais){ 
+		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE and c.idpais="+ pais.getIdpais() +" ORDER BY c.idproduto, c.pais";
 		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
 		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
 		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();
@@ -178,6 +208,10 @@ public class PacotesAtivosMB implements Serializable {
 					turismo = true;  
 				}
 			}
+			habilitarPacotes = true;
+			habilitarPais = false;
+		}else{
+			Mensagem.lancarMensagemInfo("Sem Pacotes disponiveis", "");
 		}
 	}  
 	
@@ -327,4 +361,26 @@ public class PacotesAtivosMB implements Serializable {
 		}
 		return "";
 	}
+	
+	
+	public void gerarListaPais(){
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.modelo=true");
+		if (listaPais == null) {
+			listaPais = new ArrayList<Pais>();
+		}
+	}
+	
+	public String retornarIPais(Pais pais){
+		return aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/bandeirapais/"
+				+pais.getIdpais()+".png"; 
+	}
+	
+	
+	public void voltarPais(){
+		habilitarPacotes = false;
+		habilitarPais = true;
+	}  
+	
+	
 }
