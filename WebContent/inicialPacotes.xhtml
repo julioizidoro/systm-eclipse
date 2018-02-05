@@ -800,12 +800,6 @@
 								<span class="menu-hover"></span>       
 							</p:commandLink>
 							<ul class="submenu">
-								<h:panelGroup>
-									<li><p:commandLink
-											action="#{menuMB.pacoteVitrine()}">
-											<span class="submenu-label">Vitrine</span>
-										</p:commandLink></li>
-								</h:panelGroup>
 								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
 									<li><p:commandLink
 											action="#{menuMB.consAcessoUnidade()}">
@@ -2404,7 +2398,7 @@
 							<h:panelGroup id="painelPacotes"
 								rendered="#{dashBoardMB.retornarPacotes()}">
 								<ui:insert name="pacotes">
-									<ui:include src="/pages/includes/consPacotesTelaInicial.xhtml" />     
+									<ui:include src="/pages/includes/consPacotesVitrine.xhtml" />     
 								</ui:insert>  
 							</h:panelGroup>     
 							<h:panelGroup id="painelImagemAniversario"        

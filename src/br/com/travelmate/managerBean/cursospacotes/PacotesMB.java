@@ -1,18 +1,8 @@
 package br.com.travelmate.managerBean.cursospacotes;
- 
-import br.com.travelmate.facade.CursosPacotesFacade;
-import br.com.travelmate.facade.PacoteInicialFacade;
-import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.managerBean.AplicacaoMB; 
-import br.com.travelmate.model.Cursospacote; 
-import br.com.travelmate.model.Pacotesinicial;
-import br.com.travelmate.model.Pais;
-import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Mensagem;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +15,22 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext; 
+import org.primefaces.context.RequestContext;
+
+import br.com.travelmate.facade.CursosPacotesFacade;
+import br.com.travelmate.facade.PacoteInicialFacade;
+import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Cursospacote;
+import br.com.travelmate.model.Pacotesinicial;
+import br.com.travelmate.model.Pais;
+import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
-public class PacotesAtivosMB implements Serializable {
- 
+public class PacotesMB implements Serializable{
+	
 	private static final long serialVersionUID = 1L;  
 	private List<Pacotesinicial> listaCursosPacotes; 
 	private List<Pacotesinicial> listaTrabalhoPacotes; 
@@ -51,8 +51,8 @@ public class PacotesAtivosMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		gerarListaPais();
-		listarPacotesEspecial();
-		listarCursosPacotes();
+		//listarPacotesEspecial();
+		//listarCursosPacotes();
 		getAplicacaoMB(); 
 	} 
 	
@@ -429,6 +429,5 @@ public class PacotesAtivosMB implements Serializable {
 		habilitarPacotes = false;
 		habilitarPais = true;
 	}  
-	
-	
+
 }

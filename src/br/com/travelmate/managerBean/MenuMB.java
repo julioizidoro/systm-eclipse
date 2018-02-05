@@ -1499,4 +1499,8 @@ public class MenuMB implements Serializable {
 	}
 	
 	
+	public String pacoteVitrine(){
+		return "inicialPacotes";
+	}
+	
 }
