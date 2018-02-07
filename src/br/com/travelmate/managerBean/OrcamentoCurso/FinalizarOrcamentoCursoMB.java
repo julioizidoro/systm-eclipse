@@ -15,6 +15,7 @@ import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OCursoFormaPagamentoFacade;
 import br.com.travelmate.facade.OCursoProdutoFacade;
 import br.com.travelmate.facade.OcursoSeguroViagemFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -28,6 +29,7 @@ import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Ocursodesconto;
 import br.com.travelmate.model.Ocursoformapagamento;
 import br.com.travelmate.model.Ocursoseguro;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
@@ -432,7 +434,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		}
 	}
 
-	public String finalziar() {
+	public String finalziar(boolean modelo) {
 		OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
 		OCursoFacade orCursoFacade = new OCursoFacade();
 		try {
@@ -450,7 +452,14 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			ocurso.setOcursodescontoList(null);
 			ocurso.setOcursoformapagamentoList(null);
 			ocurso.setOcursoseguroList(null);
+			ocurso.setModelo(modelo);
 			ocurso = orCursoFacade.salvar(ocurso);
+			if (ocurso.isModelo()) {
+				PaisFacade paisFacade = new PaisFacade();
+				Pais pais = ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais();
+				pais.setModelo(pais.getModelo()+1);
+				paisFacade.salvar(pais);
+			}
 			salvarFormaPagamento();
 			if (resultadoOrcamentoBean.getListaOutrosProdutos() != null) {
 				for (int i = 0; i < resultadoOrcamentoBean.getListaOutrosProdutos().size(); i++) {
@@ -607,7 +616,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	}
 
 	public String adicionarDestinarios() {
-		finalziar();
+		finalziar(false);
 		limparSessao();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -787,5 +796,21 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				}
 			}
 		}
+	}
+	
+	public String salvarModelo() {
+		finalziar(true);
+		limparSessao();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("ocruso", ocurso);
+		return "consultaorcamentocurso";
+	}
+	
+	public boolean habiliitarSalvarModelo() {
+		if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isModeloorcamento()) {
+			return true;
+		}
+		return false;
 	}
 }

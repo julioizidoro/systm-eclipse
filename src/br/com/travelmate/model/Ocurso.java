@@ -113,6 +113,8 @@ public class Ocurso implements Serializable {
 	private Cliente cliente;
 	@Column(name = "occliente_idoccliente")
 	private int occliente; 
+	@Column(name = "modelo")
+	private boolean modelo; 
 	@Column(name = "enviadoemail")
 	private boolean enviadoemail;
 	@Column(name = "datavalidade")
@@ -124,6 +126,7 @@ public class Ocurso implements Serializable {
 	private boolean selecionado;
 	@Column(name = "valoravista")
 	private Float valoravista;
+	
 
 	public Ocurso() {
 		setOccliente(12);
@@ -403,6 +406,14 @@ public class Ocurso implements Serializable {
 
 	public void setValoravista(Float valoravista) {
 		this.valoravista = valoravista;
+	}
+
+	public boolean isModelo() {
+		return modelo;
+	}
+
+	public void setModelo(boolean modelo) {
+		this.modelo = modelo;
 	}
 
 	@Override

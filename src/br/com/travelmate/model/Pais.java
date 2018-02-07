@@ -61,7 +61,7 @@ public class Pais implements Serializable {
     @OrderBy(value="nome") 
     private List<Cidade> cidadeList;
     @Column(name = "modelo")
-    private boolean modelo;
+    private int modelo;
     
     public Pais() {
     }
@@ -128,11 +128,13 @@ public class Pais implements Serializable {
 		this.documentovisto = documentovisto;
 	}
 
-	public boolean isModelo() {
+	
+
+	public int getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(boolean modelo) {
+	public void setModelo(int modelo) {
 		this.modelo = modelo;
 	}
 

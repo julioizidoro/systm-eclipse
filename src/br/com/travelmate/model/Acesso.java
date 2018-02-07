@@ -194,6 +194,8 @@ public class Acesso implements Serializable {
 	private boolean gerencialdistribuicaoleads; 
 	@Column(name = "acessogerencialdocs")
 	private boolean acessogerencialdocs; 
+	@Column(name = "modeloorcamento")
+	private boolean modeloorcamento; 
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -866,6 +868,15 @@ public class Acesso implements Serializable {
 
 	public void setAcessogerencialdocs(boolean acessogerencialdocs) {
 		this.acessogerencialdocs = acessogerencialdocs;
+	}
+
+	
+	public boolean isModeloorcamento() {
+		return modeloorcamento;
+	}
+
+	public void setModeloorcamento(boolean modeloorcamento) {
+		this.modeloorcamento = modeloorcamento;
 	}
 
 	@Override

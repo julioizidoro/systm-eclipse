@@ -413,7 +413,7 @@ public class PacotesMB implements Serializable{
 	
 	public void gerarListaPais(){
 		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.modelo=true");
+		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.modelo>0");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

@@ -116,6 +116,9 @@ public class FollowUpMB implements Serializable {
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
 				acessoResponsavelUnidade = false;
+			}else if (usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
+				acessoResponsavelGerencial = true;
+				acessoResponsavelUnidade = false;
 			} else if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrmunidade()) {
 				acessoResponsavelUnidade = true;
 			}

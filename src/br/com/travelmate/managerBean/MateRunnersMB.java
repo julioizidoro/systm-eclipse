@@ -147,7 +147,7 @@ public class MateRunnersMB implements Serializable {
 		int ano = Formatacao.getAnoData(new Date());
 		UsuarioPontosFacade usuarioPontosFacade = new UsuarioPontosFacade();
 		String sql = "SELECT p FROM Usuariopontos p where p.mes=" + mes + " and p.ano=" + ano
-				+ " ORDER BY p.pontos DESC, p.usuario.nome";
+				+ " and p.usuario.vende=1 ORDER BY p.pontos DESC, p.usuario.nome";
 		listaPontos = usuarioPontosFacade.listar(sql);
 		if (listaPontos == null) {
 			listaPontos = new ArrayList<Usuariopontos>();
