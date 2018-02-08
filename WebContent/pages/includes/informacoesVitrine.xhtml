@@ -95,7 +95,7 @@
 			</h:panelGroup>
 			
 			<h:panelGroup
-				rendered="#{informacoesCursosPacoteMB.ocurso.produtoorcamento.descricao}">
+				rendered="#{informacoesVitrineMB.ocurso.produtosorcamento.descricao}">
 				<p:outputLabel value="Carga Horária:" style="font-weight: initial;" />
 				<p:outputLabel
 					value="#{informacoesVitrineMB.retornarCargaHoraria()}"
@@ -113,13 +113,13 @@
 			<h:panelGroup>
 				<p:outputLabel value="Outras Taxas:" style="font-weight: initial;" />
 				<p:outputLabel
-					value="#{informacoesCursosPacoteMB.cursospacote.outras}"
+					value="#"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 			<h:panelGroup>
 				<p:outputLabel value="Hospedagem:" style="font-weight: initial;" />
 				<p:outputLabel
-					value="#{informacoesCursosPacoteMB.cursospacote.descritivoacomodacao}"
+					value="#"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 		</h:panelGrid>
@@ -128,7 +128,7 @@
 			<h:panelGroup>
 				<p:outputLabel value="Boleto:" style="font-weight: initial;" />
 				<p:outputLabel
-					value="#{informacoesCursosPacoteMB.cursospacote.pagamentoboleto}"
+					value="#"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 		</h:panelGrid>
@@ -139,13 +139,13 @@
 				<p:outputLabel value="Cartão de Crédito:"
 					style="font-weight: initial;" />
 				<p:outputLabel
-					value="#{informacoesCursosPacoteMB.cursospacote.pagamentocartao}"
+					value="#"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 			<h:panelGroup>
 				<p:outputLabel value="Financiamento:" style="font-weight: initial;" />
 				<p:outputLabel
-					value="#{informacoesCursosPacoteMB.cursospacote.pagamentofinanciamento}"
+					value="#"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 		</h:panelGrid>
@@ -154,31 +154,31 @@
 			<h:panelGroup>
 				<p:outputLabel value="Comissão:" style="font-weight: initial;" />
 				<p:outputLabel
-					value="#{informacoesCursosPacoteMB.cursospacote.comissao}"
+					value="#"
 					style="margin-left:1%;" />
 			</h:panelGroup>
 		</h:panelGrid>
 		<h:panelGrid columns="1" style="margin-left:2%;width:98%;">
 			<p:outputLabel value="Descrição:" style="font-weight: initial;" />
 			<p:outputLabel
-				value="#{informacoesCursosPacoteMB.cursospacote.descricao}" />
+				value="#" />
 
 			<h:panelGroup>
 				<p:outputLabel value="Câmbio:"
 					style="font-weight: initial;" />
-				<p:outputLabel value="#{informacoesCursosPacoteMB.retornarCambio()}"
+				<p:outputLabel value=""
 					style="margin-left:1%;" />
 			</h:panelGroup>
 
 			<p:outputLabel
-				value="*#{informacoesCursosPacoteMB.cursospacote.valortotalpacote}"
+				value="*#"
 				style="float:right;font-size:27px;margin-right: 13px;" />
 			<p:outputLabel value="*Valor sujeito a alteração."
 				style="float:right;font-size:12px;margin-right: 13px;" />
 		</h:panelGrid>
 		<div align="center">
 			<p:commandButton id="btnFechar" value="Fechar"
-				action="#{informacoesCursosPacoteMB.cancelar()}"
+				action="#"
 				icon="ui-icon-close" style="font-size:12px;" />
 		</div>
 		<style>

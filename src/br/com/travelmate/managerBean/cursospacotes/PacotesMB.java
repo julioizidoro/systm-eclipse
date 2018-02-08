@@ -22,7 +22,9 @@ import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cursospacote;
+import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.model.Pais;
@@ -239,8 +241,7 @@ public class PacotesMB implements Serializable{
 	} 
 	
 	public String retornarDataInicio(Ocurso ocurso){
-		String retorno = Formatacao.ConvercaoDataPadrao(ocurso.getDatainicio())
-				+" até "+Formatacao.ConvercaoDataPadrao(ocurso.getDatatermino());
+		String retorno = Formatacao.ConvercaoDataPadrao(ocurso.getDatainicio());
 		return retorno;
 	}
 	
@@ -298,5 +299,32 @@ public class PacotesMB implements Serializable{
 		return aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/bandeirapais/"
 				+paisLogo.getIdpais()+".png"; 
 	}
+	
+	public String formatarTotalMoedaNacional(Ocurso ocurso) {
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), ocurso.getCambio().getMoedas());
+		return "R$ " + Formatacao.formatarFloatString(ocurso.getTotalmoedaestrangeira() * cambio.getValor());
+	}
 
+	public String formatarTotalMoedaEstrangeira(Ocurso ocurso) {
+		String valor = ocurso.getCambio().getMoedas().getSigla();
+		valor = valor + " " + Formatacao.formatarFloatString(ocurso.getTotalmoedaestrangeira()); 
+		return valor;
+	}
+	
+	public String gerarAcomodacao(Ocurso ocurso) {
+		List<Ocrusoprodutos> listaAcomodacao = new ArrayList<Ocrusoprodutos>();
+		List<Ocrusoprodutos> lista = ocurso.getOcrusoprodutosList();
+		if (lista!=null) {
+			for (int i = 0; i < lista.size(); i++) {
+				if (lista.get(i).getNomegrupo().equalsIgnoreCase("Acomodação")) {
+					listaAcomodacao.add(lista.get(i));
+				}
+			}
+		}
+		if (listaAcomodacao.size()>0) {
+			Integer numero = Formatacao.formatarDouble(listaAcomodacao.get(0).getNumerosemanas());
+			return "Acomodação: " + String.valueOf(numero)  + " semanas";
+		}
+		return "Acomodação: Sem acomodação";
+	}
 }

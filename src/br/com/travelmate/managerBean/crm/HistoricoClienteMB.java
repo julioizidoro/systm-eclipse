@@ -446,6 +446,15 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("lead", lead);
 		return "filtrarorcamento";
 	}
+	
+	public String orcamentoTarifarioModelo() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		lead.getCliente().setLead(lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
+		return "inicialPacotes";
+	}
 
 	public String emitirVenda() {
 		FacesContext fc = FacesContext.getCurrentInstance();

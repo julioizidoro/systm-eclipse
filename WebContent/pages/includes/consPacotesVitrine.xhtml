@@ -65,11 +65,7 @@
 														<h:panelGrid columns="2"
 															columnClasses="tamanho5,colunaBotao"
 															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.nome}"
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value=" "
+										 						<p:outputLabel value=" "
 																	style="font-size:14px;margin-left:2%;" />
 																<p:outputLabel value="#{pacote.fornecedorcidadeidioma.fornecedorcidade.cidade.nome}"
 																	style="font-size:14px;margin-left:2%;" />
@@ -83,7 +79,13 @@
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
 													columnClasses="tamanho98">
 													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
+														<p:outputLabel value="#{pacotesMB.formatarTotalMoedaNacional(pacote)}"
+															style="font-size:26px;color:#A0C637;margin-left:1%;">
+															<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+														</p:outputLabel> 
+													</h:panelGroup>
+													<h:panelGroup>
+														<p:outputLabel value="#{pacotesMB.formatarTotalMoedaEstrangeira(pacote)}"
 															style="font-size:26px;color:#A0C637;margin-left:1%;">
 															<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 														</p:outputLabel> 
@@ -99,18 +101,14 @@
 														value="Duração: #{pacote.numerosemanas} semana(s)"
 														style="font-size:12px;font-weight: initial;" />
 													<p:outputLabel
-														value="Início do Curso: #{pacotesMB.retornarDataInicio(pacote)}"
+														value="Início: #{pacotesMB.retornarDataInicio(pacote)}"
 														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}"
+													<p:outputLabel value="#{pacotesMB.gerarAcomodacao(pacote)}"
 														style="font-size:12px;font-weight: initial;" />
 												</h:panelGrid>
 											</div>
 											<br />
 											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;" icon="ui-icon-info" />
 												<p:commandButton value="Orçamento" icon="ui-icon-cart"
 													title="Gerar orçamento com este pacote"
 													action="#"
