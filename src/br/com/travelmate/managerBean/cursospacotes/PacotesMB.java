@@ -18,10 +18,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.CursosPacotesFacade;
+import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cursospacote;
+import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.util.Formatacao;
@@ -32,11 +34,7 @@ import br.com.travelmate.util.Mensagem;
 public class PacotesMB implements Serializable{
 	
 	private static final long serialVersionUID = 1L;  
-	private List<Pacotesinicial> listaCursosPacotes; 
-	private List<Pacotesinicial> listaTrabalhoPacotes; 
-	private List<Pacotesinicial> listaTeensPacotes;  
-	private List<Pacotesinicial> listaTurismoPacotes;  
-	private List<Pacotesinicial> listaPacotesEspeciais;  
+	private List<Ocurso> listaOCursos; 
 	private boolean curso;
 	private boolean teens;
 	private boolean trabalho;
@@ -47,6 +45,7 @@ public class PacotesMB implements Serializable{
 	private boolean habilitarPais = true;
 	private boolean habilitarPacotes = false;
 	private List<Pais> listaPais;
+	private Pais paisLogo;
 
 	@PostConstruct
 	public void init() {
@@ -64,28 +63,14 @@ public class PacotesMB implements Serializable{
 		this.aplicacaoMB = aplicacaoMB;
 	} 
 
-	public List<Pacotesinicial> getListaCursosPacotes() {
-		return listaCursosPacotes;
+	
+
+	public List<Ocurso> getListaOCursos() {
+		return listaOCursos;
 	}
 
-	public void setListaCursosPacotes(List<Pacotesinicial> listaCursosPacotes) {
-		this.listaCursosPacotes = listaCursosPacotes;
-	} 
-
-	public List<Pacotesinicial> getListaTrabalhoPacotes() {
-		return listaTrabalhoPacotes;
-	}
-
-	public void setListaTrabalhoPacotes(List<Pacotesinicial> listaTrabalhoPacotes) {
-		this.listaTrabalhoPacotes = listaTrabalhoPacotes;
-	}
-
-	public List<Pacotesinicial> getListaTeensPacotes() {
-		return listaTeensPacotes;
-	}
-
-	public void setListaTeensPacotes(List<Pacotesinicial> listaTeensPacotes) {
-		this.listaTeensPacotes = listaTeensPacotes;
+	public void setListaOCursos(List<Ocurso> listaOCursos) {
+		this.listaOCursos = listaOCursos;
 	}
 
 	public boolean isTeens() {
@@ -112,13 +97,7 @@ public class PacotesMB implements Serializable{
 		this.curso = curso;
 	} 
 
-	public List<Pacotesinicial> getListaTurismoPacotes() {
-		return listaTurismoPacotes;
-	}
-
-	public void setListaTurismoPacotes(List<Pacotesinicial> listaTurismoPacotes) {
-		this.listaTurismoPacotes = listaTurismoPacotes;
-	}
+	
 
 	public boolean isTurismo() {
 		return turismo;
@@ -128,13 +107,7 @@ public class PacotesMB implements Serializable{
 		this.turismo = turismo;
 	}
 
-	public List<Pacotesinicial> getListaPacotesEspeciais() {
-		return listaPacotesEspeciais;
-	}
 
-	public void setListaPacotesEspeciais(List<Pacotesinicial> listaPacotesEspeciais) {
-		this.listaPacotesEspeciais = listaPacotesEspeciais;
-	}
 
 	public boolean isEspecial() {
 		return especial;
@@ -166,152 +139,46 @@ public class PacotesMB implements Serializable{
 
 	public void setListaPais(List<Pais> listaPais) {
 		this.listaPais = listaPais;
+	}  
+
+	public Pais getPaisLogo() {
+		return paisLogo;
+	}
+
+	public void setPaisLogo(Pais paisLogo) {
+		this.paisLogo = paisLogo;
 	}
 
 	public void consultarListarCursosPacotes(Pais pais){ 
-		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE and c.idpais="+ pais.getIdpais() +" ORDER BY c.idproduto, c.pais";
-		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
-		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
-		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();
-		listaCursosPacotes =  new ArrayList<Pacotesinicial>();
-		listaTeensPacotes =  new ArrayList<Pacotesinicial>(); 
-		listaTurismoPacotes =  new ArrayList<Pacotesinicial>(); 
-		if(lista!=null && lista.size()>0) {
-			for (int i = 0; i < lista.size(); i++) {
-				int idproduto = lista.get(i).getIdproduto();
-				if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
-					lista.get(i).setCursos(true);
-					listaCursosPacotes.add(lista.get(i));
-					curso = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
-					lista.get(i).setHighschool(true);
-					listaTeensPacotes.add(lista.get(i));
-					teens = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
-					lista.get(i).setHighschool(true);
-					listaTeensPacotes.add(lista.get(i));
-					teens = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
-					lista.get(i).setAupair(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
-					lista.get(i).setVoluntariado(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getWork()) {
-					lista.get(i).setWorktravel(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getPacotes()) {
-					lista.get(i).setTurismo(true);
-					listaTurismoPacotes.add(lista.get(i));
-					turismo = true;  
-				}
-			}
+		String sql = "SELECT c FROM Ocurso c WHERE c.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.idpais="+ pais.getIdpais() +
+				" and c.modelo=true ORDER BY  c.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.idpais";
+		OCursoFacade oCursoFacade = new OCursoFacade();
+		listaOCursos = oCursoFacade.listar(sql);  
+		if(listaOCursos==null) {
+			listaOCursos = new ArrayList<Ocurso>();
+			habilitarPacotes = false;
+			habilitarPais = true;
+			curso = false;
+			paisLogo = null;
+			Mensagem.lancarMensagemInfo("Sem Pacotes disponiveis", "");
+		}else{
 			habilitarPacotes = true;
 			habilitarPais = false;
-		}else{
-			Mensagem.lancarMensagemInfo("Sem Pacotes disponiveis", "");
-		}
+			curso = true;
+			paisLogo = pais;
+		}   
 	}  
 	
-	public void listarCursosPacotes(){ 
-		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE ORDER BY c.idproduto, c.pais";
-		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
-		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
-		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();
-		listaCursosPacotes =  new ArrayList<Pacotesinicial>();
-		listaTeensPacotes =  new ArrayList<Pacotesinicial>(); 
-		listaTurismoPacotes =  new ArrayList<Pacotesinicial>(); 
-		if(lista!=null && lista.size()>0) {
-			for (int i = 0; i < lista.size(); i++) {
-				int idproduto = lista.get(i).getIdproduto();
-				if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
-					lista.get(i).setCursos(true);
-					listaCursosPacotes.add(lista.get(i));
-					curso = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
-					lista.get(i).setHighschool(true);
-					listaTeensPacotes.add(lista.get(i));
-					teens = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
-					lista.get(i).setHighschool(true);
-					listaTeensPacotes.add(lista.get(i));
-					teens = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
-					lista.get(i).setAupair(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
-					lista.get(i).setVoluntariado(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getWork()) {
-					lista.get(i).setWorktravel(true);
-					listaTrabalhoPacotes.add(lista.get(i));
-					trabalho = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getPacotes()) {
-					lista.get(i).setTurismo(true);
-					listaTurismoPacotes.add(lista.get(i));
-					turismo = true;  
-				}
-			}
-			habilitarPacotes = true;
-			habilitarPais = false;
-		}else{
-			Mensagem.lancarMensagemInfo("Sem Pacotes disponiveis", "");
-		}
-	}  
-	public void listarPacotesEspecial(){ 
-		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=TRUE ORDER BY c.idproduto, c.pais";
-		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
-		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
-		listaPacotesEspeciais = new ArrayList<Pacotesinicial>(); 
-		if(lista!=null && lista.size()>0) {
-			for (int i = 0; i < lista.size(); i++) {
-				int idproduto = lista.get(i).getIdproduto();
-				if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
-					lista.get(i).setCursos(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighSchool()) {
-					lista.get(i).setHighschool(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
-					lista.get(i).setHighschool(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getAupair()) {
-					lista.get(i).setAupair(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
-					lista.get(i).setVoluntariado(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getWork()) {
-					lista.get(i).setWorktravel(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;
-				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getPacotes()) {
-					lista.get(i).setTurismo(true);
-					listaPacotesEspeciais.add(lista.get(i));
-					especial = true;  
-				}
-			}
-		}
-	}  
+	   
 	
-	public String retornarImagemPais(Pacotesinicial pacotesinicial){
+	public String retornarImagemPais(Ocurso ocurso){
 		return aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/bandeirapais/"
-				+pacotesinicial.getIdpais()+".png"; 
+				+ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getIdpais()+".png"; 
 	}
 	
-	public String retornarImagemEscola(Pacotesinicial pacotesinicial){ 
+	public String retornarImagemEscola(Ocurso ocurso){ 
 		return aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/logoescola/"
-				+pacotesinicial.getLogo(); 
+				+ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getLogo(); 
 	}
 	
 	public String acomodacaoInclusa(Pacotesinicial pacotesinicial){ 
@@ -334,16 +201,13 @@ public class PacotesMB implements Serializable{
 		}
 	}
 	
-	public String saibaMais(int idpacote){  
-		CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
-		Cursospacote cursospacote = cursosPacotesFacade.consultar
-				("SELECT c FROM Cursospacote c WHERE c.idcursospacote="+idpacote); 
+	public String saibaMais(Ocurso ocurso){  
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("cursospacote", cursospacote);
+		session.setAttribute("ocurso", ocurso);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 600);
-		RequestContext.getCurrentInstance().openDialog("informacoesCursosPacote", options, null);
+		RequestContext.getCurrentInstance().openDialog("informacoesVitrine", options, null);
 		return ""; 
 	}
 	
@@ -374,9 +238,9 @@ public class PacotesMB implements Serializable{
         return "";  
 	} 
 	
-	public String retornarDataInicio(Pacotesinicial pacotesinicial){
-		String retorno = Formatacao.ConvercaoDataPadrao(pacotesinicial.getDatainiciocurso())
-				+" até "+Formatacao.ConvercaoDataPadrao(pacotesinicial.getDataterminocurso());
+	public String retornarDataInicio(Ocurso ocurso){
+		String retorno = Formatacao.ConvercaoDataPadrao(ocurso.getDatainicio())
+				+" até "+Formatacao.ConvercaoDataPadrao(ocurso.getDatatermino());
 		return retorno;
 	}
 	
@@ -429,5 +293,10 @@ public class PacotesMB implements Serializable{
 		habilitarPacotes = false;
 		habilitarPais = true;
 	}  
+	
+	public String ImgPais(){
+		return aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/bandeirapais/"
+				+paisLogo.getIdpais()+".png"; 
+	}
 
 }

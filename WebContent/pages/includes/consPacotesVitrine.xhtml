@@ -7,414 +7,17 @@
 		<div id="centro">
 			<p:growl id="growl" showDetail="true" sticky="false"
 				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-			<link href="resources/css/cssPacote.css" rel="stylesheet" />
+			<link href="../../resources/css/cssPacote.css" rel="stylesheet" />
 			<div style="margin-left: 2%; width: 98%;">
 				<div align="center">
 					<p:outputLabel value="Vitrine de Produtos" style="font-size:24px;" />
 				</div>
-				<p:scrollPanel id="tabelapacotesEspecial" mode="native" style="width:98%;" rendered="false">
-					<div>
-						<h:panelGroup rendered="#{pacotesMB.especial}">
-							<h:panelGrid style="width:100%;height: 220px;">
-								<h:panelGroup>
-									<div
-										style="background: linear-gradient(to bottom, rgba(255, 255, 280, 0.0) 0%, rgba(255, 255, 254, 0.4) 109%), url('#{pacotesMB.aplicacaoMB.parametrosprodutos.pacoteespecialimg}') repeat 0 0; background-repeat: no-repeat; background-size: 100%; width: 100%; height: 220px;"></div>
-								</h:panelGroup>
-							</h:panelGrid>
-							<hr
-								style="color: #13FE0D; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #13FE0D; border-bottom-color: #13FE0D; background: #13FE0D;" />
-							<br />    
-							<ui:repeat value="#{pacotesMB.listaPacotesEspeciais}"
-								var="pacote">
-								<div class="col-md-3">
-									<h:panelGroup rendered="#{pacote.cursos}">
-										<div class="borderSombra" style="height: 375px;">
-											<div style="height: 300px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:15px;margin-left:2%;" />
-															<p:outputLabel value=" "
-																style="font-size:15px;margin-left:2%;" />
-															<p:outputLabel value="#{pacote.cidade}"
-																style="font-size:15px;margin-left:2%;" />
-															<img
-																src="#{pacotesMB.retornarImagemEscola(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#A0C637;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel
-														value="#{pacote.numerosemanacurso} semana(s)"
-														style="font-size:13px;font-weight: initial;" />
-
-													<p:outputLabel value="Curso: #{pacote.curso}"
-														style="font-size:12px;font-weight: initial;margin-top:4%;" />
-													<p:outputLabel value="Turno: #{pacote.turno}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Duração: #{pacote.numerosemanacurso} semana(s)"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Início do Curso: #{pacotesMB.retornarDataInicio(pacote)}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
-														style="font-size:12px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;" icon="ui-icon-info" />
-												<p:commandButton value="Orçamento" icon="ui-icon-cart"
-													title="Gerar orçamento com este pacote"
-													action="#{pacotesMB.gerarOrçamento(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;">
-													<p:ajax event="dialogReturn"
-														listener="#{pacotesMB.retornoDialog()}" />
-												</p:commandButton>
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.highschool}">
-										<div class="borderSombra" style="height: 375px;">
-											<div style="height: 300px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:15px;margin-left:2%;" />
-															<p:outputLabel value=" "
-																style="font-size:15px;margin-left:2%;" />
-															<p:outputLabel value="#{pacote.cidade}"
-																style="font-size:15px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-													<h:panelGroup rendered="#{pacote.mostrarescola}">
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img
-																src="#{pacotesMB.retornarImagemEscola(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;font-weight: initial;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#722672;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.duracao}"
-														style="font-size:13px;font-weight: initial;" />
-													<br />
-													<p:outputLabel
-														value="Início: #{pacotesMB.retornarDataInicioHS(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacote.descritivoacomodacao}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Idade: #{pacote.idade}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#722672;border-color:#722672;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#722672;border-color:#722672;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.aupair}">
-										<div class="borderSombra" style="height: 375px;">
-											<div style="height: 300px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value="" />
-															<p:outputLabel value="AU PAIR"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#8B0000;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.duracao}"
-														style="font-size:13px;font-weight: initial;" />
-													<br />
-													<p:outputLabel
-														value="Início: #{pacotesMB.retornarDataInicioAupair(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacote.descritivoacomodacao}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Passagem Aérea: #{pacote.passagemaerea}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Idade: #{pacote.idade}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.worktravel}">
-										<div class="borderSombra" style="height: 375px;">
-											<div style="height: 300px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value="" />
-															<p:outputLabel value="WORK &amp; TRAVEL"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#8B0000;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.duracao}"
-														style="font-size:13px;font-weight: initial;" />
-													<br />
-													<p:outputLabel
-														value="Embarque: #{pacotesMB.retornarDataInicioHS(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacote.descritivoacomodacao}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Modalidade: #{pacote.modalidadework}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Idade: #{pacote.idade}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.voluntariado}">
-										<div class="borderSombra" style="height: 375px;">
-											<div style="height: 300px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value=" "
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value="#{pacote.cidade}"
-																style="font-size:14px;margin-left:2%;" />
-															<img
-																src="#{pacotesMB.retornarImagemEscola(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#8B0000;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel
-														value="#{pacote.numerosemanacurso} semana(s)"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Projeto: #{pacote.projetovoluntariado}"
-														style="font-size:12px;font-weight: initial;margin-top:4%;" />
-													<p:outputLabel
-														value="Duração: #{pacote.numerosemanacurso} semana(s)"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Início do Projeto: #{pacotesMB.retornarDataInicio(pacote)}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
-														style="font-size:12px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Orçamento" icon="ui-icon-cart"
-													title="Gerar orçamento com este pacote"
-													action="#{pacotesMB.gerarOrçamento(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;">
-													
-												</p:commandButton>
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.turismo}">
-										<div class="borderSombra" style="height: 375px;">
-											<div style="height: 300px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value=" "
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value="#{pacote.cidade}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#EE7600;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel
-														value="Período da Viagem: #{pacotesMB.retornarDataTurismo(pacote)}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#EE7600;border-color:#EE7600;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#EE7600;border-color:#EE7600;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<br /> <br />
-								</div>
-							</ui:repeat>
-						</h:panelGroup>
-					</div>
-				</p:scrollPanel>
 				<h:panelGroup id="panelTotalPais">
 					<p:scrollPanel id="pacotePais" rendered="#{pacotesMB.habilitarPais}">
 						<ui:repeat value="#{pacotesMB.listaPais}"     
 							var="pais">
 							<div class="col-md-2">
-								<div class="borderSombra" style="height: 200px;border-radius: 13px;background:white;">
+								<div class="borderSombra" style="height: 200px;border-radius: 13px;background:#f5f3e5;">
 									<div style="height: 190px;">
 										<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 											<br />
@@ -444,23 +47,17 @@
 														width="40" style="width: 30px;"/>
 												</p:commandLink>
 						<h:panelGroup rendered="#{pacotesMB.curso}">
-							<h:panelGrid style="width:100%;height: 220px;">
-								<h:panelGroup>
-									<div id="divImagem">
-										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-										<p:outputLabel value="CURSOS DE IDIOMAS"
+						<br/><br/><br/>
+										<p:outputLabel value="#{pacotesMB.paisLogo.nome}"
 											style="font-size:43px;font-weight: initial;margin-left:2%;color:#A0C637;" />
-									</div>
-								</h:panelGroup>   
-							</h:panelGrid> 
 							<hr
 								style="color: #A0C637; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
 							<br />
-							<ui:repeat value="#{pacotesMB.listaCursosPacotes}"
+							<ui:repeat value="#{pacotesMB.listaOCursos}"
 								var="pacote">    
 								<div class="col-md-3">     
-									<h:panelGroup rendered="#{pacote.cursos}">
-										<div class="borderSombra" style="height: 375px;border-radius:10px;background:white;">
+									<h:panelGroup>
+										<div class="borderSombra" style="height: 375px;border-radius:10px;background:#f5f3e5;">
 											<div style="height: 300px;">   
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
 													<br />
@@ -470,15 +67,15 @@
 															style="width:99%;margin-left:0.5%;">
 															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
 																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
+															<p:outputLabel value="#{pacote.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.nome}"
 																	style="font-size:14px;margin-left:2%;" />
 																<p:outputLabel value=" "
 																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value="#{pacote.cidade}"
+																<p:outputLabel value="#{pacote.fornecedorcidadeidioma.fornecedorcidade.cidade.nome}"
 																	style="font-size:14px;margin-left:2%;" />
 															<img src="#{pacotesMB.retornarImagemEscola(pacote)}"
 																width="40" />
-															<p:outputLabel value="#{pacote.escola}"
+															<p:outputLabel value="#{pacote.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}"
 																style="font-size:14px;margin-left:2%;" />
 														</h:panelGrid>
 													</h:panelGroup>
@@ -488,37 +85,35 @@
 													<h:panelGroup>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#A0C637;margin-left:1%;">
-														</p:outputLabel>
+															<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+														</p:outputLabel> 
 													</h:panelGroup>
-													<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
+													<p:outputLabel value="#{pacote.numerosemanas} semana(s)"
 														style="font-size:13px;font-weight: initial;" />
 	
-													<p:outputLabel value="Curso: #{pacote.curso}"
+													<p:outputLabel value="Curso: #{pacote.produtosorcamento.descricao}"
 														style="font-size:12px;font-weight: initial;margin-top:4%;" />
 													<p:outputLabel value="Turno: #{pacote.turno}"
 														style="font-size:12px;font-weight: initial;" />
 													<p:outputLabel
-														value="Duração: #{pacote.numerosemanacurso} semana(s)"
+														value="Duração: #{pacote.numerosemanas} semana(s)"
 														style="font-size:12px;font-weight: initial;" />
 													<p:outputLabel
 														value="Início do Curso: #{pacotesMB.retornarDataInicio(pacote)}"
 														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
+													<p:outputLabel value="Escola: #{pacote.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}"
 														style="font-size:12px;font-weight: initial;" />
 												</h:panelGrid>
 											</div>
 											<br />
 											<div align="center">
 												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
+													action="#"
 													title="Mais informações sobre este pacote"
 													style="font-size:12px;" icon="ui-icon-info" />
 												<p:commandButton value="Orçamento" icon="ui-icon-cart"
 													title="Gerar orçamento com este pacote"
-													action="#{pacotesMB.gerarOrçamento(pacote.idcursospacote)}"
+													action="#"
 													style="margin-left:2%;font-size:12px;">
 													<p:ajax event="dialogReturn"
 														listener="#{pacotesMB.retornoDialog()}" />
@@ -528,370 +123,6 @@
 										</div>
 									</h:panelGroup>
 									<br /> <br /> <br /> <br />
-								</div>
-							</ui:repeat>
-						</h:panelGroup>
-						<h:panelGroup rendered="#{pacotesMB.teens}">
-							<h:panelGrid style="width:100%;height: 220px;">
-								<h:panelGroup>
-									<div id="divImagemHS">
-										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-										<p:outputLabel value="TEENS"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#722672;" />
-									</div>
-								</h:panelGroup>
-							</h:panelGrid>
-							<hr
-								style="color: #722672; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #722672; border-bottom-color: #722672; background: #722672;" />
-							<ui:repeat value="#{pacotesMB.listaTeensPacotes}"
-								var="pacote">
-								<div class="col-md-3">
-									<h:panelGroup rendered="#{pacote.highschool}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value=" "
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value="#{pacote.cidade}"
-																	style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-													<h:panelGroup rendered="#{pacote.mostrarescola}">
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemEscola(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;font-weight: initial;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#722672;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.duracao}"
-														style="font-size:13px;font-weight: initial;" />
-													<br />
-													<p:outputLabel
-														value="Início: #{pacotesMB.retornarDataInicioHS(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacote.descritivoacomodacao}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Idade: #{pacote.idade}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:11px;background:#722672;border-color:#722672;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:11px;background:#722672;border-color:#722672;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<br /> <br /> <br /> <br />
-								</div>
-							</ui:repeat>
-						</h:panelGroup>
-						<h:panelGroup rendered="#{pacotesMB.trabalho}">
-							<h:panelGrid style="width:100%;height: 220px;">
-								<h:panelGroup>
-									<div id="divImagemTrabalho">
-										<br /> <br /> <br /> <br />
-										<p:outputLabel value="PROGRAMAS DE TRABALHO"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#8B0000;" />
-									</div>
-								</h:panelGroup>
-							</h:panelGrid>
-							<hr
-								style="color: #8B0000; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #8B0000; border-bottom-color: #8B0000; background: #8B0000;" />
-							<ui:repeat value="#{pacotesMB.listaTrabalhoPacotes}"
-								var="pacote">
-								<div class="col-md-3">
-									<h:panelGroup rendered="#{pacote.aupair}">
-										<div class="borderSombra" style="height: 330px;">
-										<img src="../../resources/img/pisca.gif"
-																width="40" />
-											<div style="height: 265px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value="" />
-															<p:outputLabel value="AU PAIR"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#8B0000;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.duracao}"
-														style="font-size:13px;font-weight: initial;" />
-													<br />
-													<p:outputLabel
-														value="Início: #{pacotesMB.retornarDataInicioAupair(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacote.descritivoacomodacao}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Passagem Aérea: #{pacote.passagemaerea}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Idade: #{pacote.idade}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.worktravel}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel value="" />
-															<p:outputLabel value="WORK &amp; TRAVEL"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#8B0000;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.duracao}"
-														style="font-size:13px;font-weight: initial;" />
-													<br />
-													<p:outputLabel
-														value="Embarque: #{pacotesMB.retornarDataInicioHS(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacote.descritivoacomodacao}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Modalidade: #{pacote.modalidadework}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Idade: #{pacote.idade}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{pacote.voluntariado}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value=" "
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value="#{pacote.cidade}"
-																	style="font-size:14px;margin-left:2%;" />
-															<img src="#{pacotesMB.retornarImagemEscola(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#8B0000;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel
-														value="Projeto: #{pacote.projetovoluntariado}"
-														style="font-size:12px;font-weight: initial;margin-top:4%;" />
-													<p:outputLabel
-														value="Duração: #{pacote.numerosemanacurso} semana(s)"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Início do Projeto: #{pacotesMB.retornarDataInicio(pacote)}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
-														style="font-size:12px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#8B0000;border-color:#8B0000;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Orçamento" icon="ui-icon-cart"
-													title="Gerar orçamento com este pacote"
-													action="#{pacotesMB.gerarOrçamento(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#8B0000;border-color:#8B0000;">
-													<p:ajax event="dialogReturn"
-														listener="#{pacotesMB.retornoDialog()}" />
-												</p:commandButton>
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<br /> <br /> <br /> <br />
-								</div>
-							</ui:repeat>
-						</h:panelGroup>
-						<h:panelGroup rendered="#{pacotesMB.turismo}">
-							<h:panelGrid style="width:100%;height: 220px;">
-								<h:panelGroup>
-									<div id="divImagemTurismo">
-										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-										<p:outputLabel value="TURISMO"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#EE7600;" />
-									</div>
-								</h:panelGroup>
-							</h:panelGrid>
-							<hr
-								style="color: #EE7600; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px; border-top-color: #EE7600; border-bottom-color: #EE7600; background: #EE7600;" />
-							<br />
-							<ui:repeat value="#{pacotesMB.listaTurismoPacotes}"
-								var="pacote">
-								<div class="col-md-3">
-									<h:panelGroup rendered="#{pacote.turismo}">
-										<div class="borderSombra" style="height: 330px;">
-											<div style="height: 265px;">
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
-													<br />
-													<h:panelGroup>
-														<h:panelGrid columns="2"
-															columnClasses="tamanho5,colunaBotao"
-															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesMB.retornarImagemPais(pacote)}"
-																width="40" />
-															<p:outputLabel value="#{pacote.pais}"
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value=" "
-																	style="font-size:14px;margin-left:2%;" />
-																<p:outputLabel value="#{pacote.cidade}"
-																	style="font-size:14px;margin-left:2%;" />
-															<p:outputLabel />
-															<p:outputLabel value="#{pacote.escola}"
-																style="font-size:14px;margin-left:2%;" />
-														</h:panelGrid>
-													</h:panelGroup>
-												</h:panelGrid>
-												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
-													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#EE7600;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
-													<p:outputLabel
-														value="Período da Viagem: #{pacotesMB.retornarDataTurismo(pacote)}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-												</h:panelGrid>
-											</div>
-											<br />
-											<div align="center">
-												<p:commandButton value="Saiba Mais"
-													action="#{pacotesMB.saibaMais(pacote.idcursospacote)}"
-													title="Mais informações sobre este pacote"
-													style="font-size:12px;background:#EE7600;border-color:#EE7600;"
-													icon="ui-icon-info" />
-												<p:commandButton value="Informativo" icon="ui-icon-cart"
-													ajax="false" title="Informativo do programa"
-													onclick="this.form.target='_blank'"
-													action="#{pacotesMB.visualizarInformativo(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;background:#EE7600;border-color:#EE7600;" />
-											</div>
-											<br />
-										</div>
-									</h:panelGroup>
-									<br /> <br />
 								</div>
 							</ui:repeat>
 						</h:panelGroup>
