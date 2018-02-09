@@ -110,11 +110,10 @@
 											<br />
 											<div align="center">
 												<p:commandButton value="Orçamento" icon="ui-icon-cart"
-													title="Gerar orçamento com este pacote"
-													action="#"
+													title="Gerar orçamento com este modelo"
+													action="#{pacotesMB.gerarOrcamento(pacote)}"
 													style="margin-left:2%;font-size:12px;">
-													<p:ajax event="dialogReturn"
-														listener="#{pacotesMB.retornoDialog()}" />
+													
 												</p:commandButton>
 											</div>
 											<br />
