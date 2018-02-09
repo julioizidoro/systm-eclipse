@@ -414,6 +414,10 @@
 											action="#{menuMB.modeloOrcamentoManual()}">
 											<span class="subsubmenu-label">Modelo Orçamento Manual</span>
 										</p:commandLink></li>   
+									<li><p:commandLink
+											action="#{menuMB.modeloOrcamentoTarifario()}">
+											<span class="submenu-label">Modelo Orçamento Tarifário</span>
+										</p:commandLink></li>
 									</ul>
 								</li>
 								<li class="openable open"><p:commandLink>
@@ -800,12 +804,7 @@
 								<span class="menu-hover"></span>       
 							</p:commandLink>
 							<ul class="submenu">
-								<h:panelGroup>
-									<li><p:commandLink
-											action="#{menuMB.pacoteVitrine()}">
-											<span class="submenu-label">Vitrine</span>
-										</p:commandLink></li>
-								</h:panelGroup>
+								
 								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
 									<li><p:commandLink
 											action="#{menuMB.consAcessoUnidade()}">

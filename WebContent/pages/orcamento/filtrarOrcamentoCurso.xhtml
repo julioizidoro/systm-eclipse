@@ -288,7 +288,7 @@
 					</p:panelGrid>    "
 				</div>
 				<br></br> <br></br>       
-					<p:panelGrid columns="2" layout="grid"
+					<p:panelGrid columns="1" layout="grid"
 						style="background: transparent;border:none;width:29%;margin-left:60%;"
 						styleClass="panelgrid-noborder" columnClasses="colunaBotao">
 						<p:commandButton id="idpesquisar" value="Pesquisar"
@@ -297,10 +297,7 @@
 							action="#{filtrarEscolaMB.localizarFornecedorCidade()}"
 							update="growl, fornecedor" style="float:right"   
 							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" />
-						<p:commandButton id="iduploadimagem" value="Upload" rendered="#{filtrarEscolaMB.habilitarUpload}"
-							icon="ui-icon-search" 
-							action="#{filtrarEscolaMB.uploadImagem()}"
-							update="growl, fornecedor" style="float:right"    />
+						
 					</p:panelGrid>
 				<p:dialog widgetVar="dialogcarregar" modal="true" draggable="false"
 					closable="false" resizable="false" showHeader="false">

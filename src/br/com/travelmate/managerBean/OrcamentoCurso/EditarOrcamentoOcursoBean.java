@@ -41,14 +41,16 @@ public class EditarOrcamentoOcursoBean {
 	private Ocrusoprodutos valorAcomodacao;
 	private List<Ocrusoprodutos> listaTransfer;
 	private List<Ocrusoprodutos> listaAcOpcional;
+	private int idOcruso;
 
 	public EditarOrcamentoOcursoBean(Ocurso ocurso, Cliente cliente, Date datainicio, AplicacaoMB aplicacaoMB,
-			UsuarioLogadoMB usuarioLogadoMB) {
+			UsuarioLogadoMB usuarioLogadoMB, int idOcurso) {
 		this.cliente = cliente;
 		this.datainicio = datainicio;
 		this.aplicacaoMB = aplicacaoMB;
 		this.usuarioLogadoMB = usuarioLogadoMB;
 		this.ocurso = ocurso;
+		this.idOcruso = idOcurso;
 		dataconsulta = retornarDataConsultaOrcamento(); 
 	}
 
@@ -152,7 +154,7 @@ public class EditarOrcamentoOcursoBean {
 
 	public List<ProdutosOrcamentoBean> addProdutosCurso() {
 		OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
-		listaProdutos = oCursoProdutoFacade.listar(ocurso.getIdocurso());
+		listaProdutos = oCursoProdutoFacade.listar(idOcruso);
 		List<ProdutosOrcamentoBean> listaCursoPrincipal = new ArrayList<>();
 		for (int i = 0; i < listaProdutos.size(); i++) {
 			if (listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getComplementocurso() != null
@@ -345,7 +347,7 @@ public class EditarOrcamentoOcursoBean {
 
 	public List<Ocursodesconto> addOcursoDesconto() {
 		OCursoDescontoFacade cursoDescontoFacade = new OCursoDescontoFacade();
-		List<Ocursodesconto> lista = cursoDescontoFacade.listar(ocurso.getIdocurso());
+		List<Ocursodesconto> lista = cursoDescontoFacade.listar(idOcruso);
 		ocurso.setOcursodescontoList(new ArrayList<Ocursodesconto>());
 		for (int i = 0; i < lista.size(); i++) {
 			Ocursodesconto ocursodesconto;
@@ -424,7 +426,7 @@ public class EditarOrcamentoOcursoBean {
 
 	public Seguroviagem buscarSeguroViagem() {
 		OcursoSeguroViagemFacade ocursoSeguroViagemFacade = new OcursoSeguroViagemFacade();
-		Ocursoseguro ocursoseguro = ocursoSeguroViagemFacade.consultar(ocurso.getIdocurso());
+		Ocursoseguro ocursoseguro = ocursoSeguroViagemFacade.consultar(idOcruso);
 		Seguroviagem seguroviagem = null;
 		if (ocursoseguro != null && ocursoseguro.getIdocursoseguro() != null) {
 			seguroviagem = new Seguroviagem();

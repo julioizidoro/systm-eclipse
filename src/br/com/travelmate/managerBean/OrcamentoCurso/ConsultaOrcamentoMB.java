@@ -338,7 +338,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					"Data de validade do orçamento expirada, inície um novo orçamento.");
 		} else {
 			EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, cliente,
-					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB);
+					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, ocurso.getIdocurso());
 			ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 			resultadoOrcamentoBean.setOcurso(ocurso);
 			resultadoOrcamentoBean.setCambio(editarOrcamentoOcurso.getOcurso().getCambio());

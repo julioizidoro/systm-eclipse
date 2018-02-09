@@ -126,6 +126,8 @@ public class Ocurso implements Serializable {
 	private boolean selecionado;
 	@Column(name = "valoravista")
 	private Float valoravista;
+	@Column(name = "nomecarimbo")
+	private String nomecarimbo;
 	
 
 	public Ocurso() {
@@ -448,5 +450,15 @@ public class Ocurso implements Serializable {
 	public void setOcursodescontoList(List<Ocursodesconto> ocursodescontoList) {
 		this.ocursodescontoList = ocursodescontoList;
 	}
+
+	public String getNomecarimbo() {
+		return nomecarimbo;
+	}
+
+	public void setNomecarimbo(String nomecarimbo) {
+		this.nomecarimbo = nomecarimbo;
+	}
+	
+	
 
 }

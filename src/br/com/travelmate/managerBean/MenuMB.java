@@ -1499,7 +1499,10 @@ public class MenuMB implements Serializable {
 	}
 	
 	
-	public String pacoteVitrine(){
+	public String modeloOrcamentoTarifario(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.removeAttribute("lead");
 		return "inicialPacotes";
 	} 
 	

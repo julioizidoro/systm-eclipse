@@ -360,98 +360,150 @@ public class PacotesMB implements Serializable{
 		return "Acomodação: Sem acomodação";
 	}
 	
-	public String gerarOrcamento(Ocurso ocurso) {
+	public boolean habilitarBotaoOrcamento() {
 		if (lead!=null) {
-			ocurso.setCliente(lead.getCliente());
+			return false;
 		}
+		return true;
+	}
+	
+	public String gerarOrcamento(Ocurso pacote) throws Exception {
+		Ocurso ocurso = new Ocurso();
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getCambio().getMoedas());
+		ocurso.setCliente(lead.getCliente());
+		ocurso.setCambio(cambio);
+		ocurso.setCargahoraria(pacote.getCargahoraria());
+		ocurso.setDatainicio(pacote.getDatainicio());
+		ocurso.setDataorcamento(new Date());
+		ocurso.setDatatermino(Formatacao.SomarDiasDatas(ocurso.getDatainicio(), pacote.getNumerosemanas().intValue()));
+		ocurso.setDatavalidade(Formatacao.SomarDiasDatas(ocurso.getDataorcamento(), 5));
+		ocurso.setDesconto(pacote.getDesconto());
+		ocurso.setEnviadoemail(false);
+		ocurso.setFornecedorcidadeidioma(pacote.getFornecedorcidadeidioma());
+		ocurso.setIdioma(pacote.getIdioma());
+		ocurso.setModelo(false);
+		ocurso.setNivelidioma(pacote.getNivelidioma());
+		ocurso.setNomecliente(ocurso.getCliente().getNome());
+		ocurso.setNumerodiasferiado(pacote.getNumerodiasferiado());
+		ocurso.setNumerosemanas(pacote.getNumerosemanas());
+		ocurso.setNumerosemanasbrinde(pacote.getNumerosemanasbrinde());
+		ocurso.setNumerosemanastotal(pacote.getNumerosemanastotal());
+		ocurso.setTotalmoedaestrangeira(pacote.getTotalmoedaestrangeira());
+		ocurso.setTotalmoedanacional(pacote.getTotalmoedanacional());
+		ocurso.setTurno(pacote.getTurno());
+		ocurso.setObservacao(pacote.getObservacao());
+		ocurso.setOccliente(1);
+		ocurso.setOcrusoprodutosList(pacote.getOcrusoprodutosList());
+		ocurso.setOcursodescontoList(pacote.getOcursodescontoList());
+		ocurso.setOcursoformapagamentoList(pacote.getOcursoformapagamentoList());
+		ocurso.setOcursoseguroList(pacote.getOcursoseguroList());
+		ocurso.setProdutosorcamento(pacote.getProdutosorcamento());
+		ocurso.setSelecionado(pacote.isSelecionado());
+		ocurso.setUsuario(usuarioLogadoMB.getUsuario());
+		ocurso.setValoravista(ocurso.getValoravista());
+		ocurso.setValorcambio(cambio.getValor());
+		ocurso.setValoroutros(pacote.getValoroutros());
+		ocurso.setValorpassagem(pacote.getValorpassagem());
+		ocurso.setValorvisto(pacote.getValorvisto());
 		
-			EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, lead.getCliente(),
-					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB);
-			ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
-			resultadoOrcamentoBean.setOcurso(ocurso);
-			resultadoOrcamentoBean.setCambio(editarOrcamentoOcurso.getOcurso().getCambio());
-			resultadoOrcamentoBean
-					.setFornecedorcidadeidioma(editarOrcamentoOcurso.getOcurso().getFornecedorcidadeidioma());
-			resultadoOrcamentoBean
-					.setFornecedorcidade(resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade());
-			resultadoOrcamentoBean.setDataConsulta(editarOrcamentoOcurso.getDataconsulta());
-			resultadoOrcamentoBean.setProdutoFornecedorBean(editarOrcamentoOcurso.retornarFornecedorProdutosBean());
-			resultadoOrcamentoBean.setListaOpcionais(editarOrcamentoOcurso.gerarListaValorCoProdutos("Opcional"));
-			// opcional selecionado
-			for (int i = 0; i < editarOrcamentoOcurso.getListaProdutos().size(); i++) {
-				if (editarOrcamentoOcurso.getListaProdutos().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")) {
-					int id = editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos()
-							.getIdvalorcoprodutos();
-					if (resultadoOrcamentoBean.getListaOpcionais() != null) {
-						for (int j = 0; j < resultadoOrcamentoBean.getListaOpcionais().size(); j++) {
-							if (resultadoOrcamentoBean.getListaOpcionais().get(j).getValorcoprodutos()
-									.getIdvalorcoprodutos() == id) {
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setSelecionadoOpcional(true);
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOrigianl(
-										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal());
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOriginalRS(
-										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal()
-												* ocurso.getValorcambio());
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setSomarvalortotal(
-										editarOrcamentoOcurso.getListaProdutos().get(i).isSomavalortotal());
-							}
+		EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, lead.getCliente(),
+				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso());
+		ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
+
+		resultadoOrcamentoBean.setOcurso(ocurso);
+		resultadoOrcamentoBean.setCambio(cambio);
+		resultadoOrcamentoBean.setFornecedorcidadeidioma(editarOrcamentoOcurso.getOcurso().getFornecedorcidadeidioma());
+		resultadoOrcamentoBean
+				.setFornecedorcidade(resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade());
+		resultadoOrcamentoBean.setDataConsulta(editarOrcamentoOcurso.getDataconsulta());
+		resultadoOrcamentoBean.setProdutoFornecedorBean(editarOrcamentoOcurso.retornarFornecedorProdutosBean());
+		resultadoOrcamentoBean.setListaOpcionais(editarOrcamentoOcurso.gerarListaValorCoProdutos("Opcional"));
+		// opcional selecionado
+		for (int i = 0; i < editarOrcamentoOcurso.getListaProdutos().size(); i++) {
+			if (editarOrcamentoOcurso.getListaProdutos().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")) {
+				int id = editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos().getIdvalorcoprodutos();
+				if (resultadoOrcamentoBean.getListaOpcionais() != null) {
+					for (int j = 0; j < resultadoOrcamentoBean.getListaOpcionais().size(); j++) {
+						if (resultadoOrcamentoBean.getListaOpcionais().get(j).getValorcoprodutos()
+								.getIdvalorcoprodutos() == id) {
+							resultadoOrcamentoBean.getListaOpcionais().get(j).setSelecionadoOpcional(true);
+							resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOrigianl(
+									editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal());
+							resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOriginalRS(
+									editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal()
+											* cambio.getValor());
+							resultadoOrcamentoBean.getListaOpcionais().get(j).setSomarvalortotal(
+									editarOrcamentoOcurso.getListaProdutos().get(i).isSomavalortotal());
 						}
 					}
 				}
 			}
-			resultadoOrcamentoBean.setListaOutrosProdutos(editarOrcamentoOcurso.gerarListaProdutosExtras());
-			resultadoOrcamentoBean.getOcurso().setOcursodescontoList(editarOrcamentoOcurso.addOcursoDesconto());
-			resultadoOrcamentoBean.setValorPassagemAerea(ocurso.getValorpassagem());
-			resultadoOrcamentoBean.setValorVistoConsular(ocurso.getValorvisto());
-			resultadoOrcamentoBean.setValorOutros(ocurso.getValoroutros());
-			Seguroviagem seguroviagem = editarOrcamentoOcurso.buscarSeguroViagem();
-			if (seguroviagem != null) {
-				resultadoOrcamentoBean.setSeguroSelecionado(true);
-				resultadoOrcamentoBean.setSeguroviagem(seguroviagem);
-			}
-			if (editarOrcamentoOcurso.getValorAcomodacao() != null) {
-				resultadoOrcamentoBean.setListaAcomodacoes(new ArrayList<ProdutosOrcamentoBean>());
+		}
+		resultadoOrcamentoBean.setListaOutrosProdutos(editarOrcamentoOcurso.gerarListaProdutosExtras());
+		resultadoOrcamentoBean.getOcurso().setOcursodescontoList(editarOrcamentoOcurso.addOcursoDesconto());
+		resultadoOrcamentoBean.setValorPassagemAerea(ocurso.getValorpassagem());
+		resultadoOrcamentoBean.setValorVistoConsular(ocurso.getValorvisto());
+		resultadoOrcamentoBean.setValorOutros(ocurso.getValoroutros());
+		Seguroviagem seguroviagem = editarOrcamentoOcurso.buscarSeguroViagem();
+		if (seguroviagem != null) {
+			resultadoOrcamentoBean.setSeguroSelecionado(true);
+			resultadoOrcamentoBean.setSeguroviagem(seguroviagem);
+		}
+		if (editarOrcamentoOcurso.getValorAcomodacao() != null) {
+			resultadoOrcamentoBean.setListaAcomodacoes(new ArrayList<ProdutosOrcamentoBean>());
+			ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
+			po.setSelecionado(true);
+			po.setValorcoprodutos(editarOrcamentoOcurso.getValorAcomodacao().getValorcoprodutos());
+			po.setNumeroSemanas(editarOrcamentoOcurso.getValorAcomodacao().getNumerosemanas());
+			po.setValorOrigianl(editarOrcamentoOcurso.getValorAcomodacao().getValororiginal());
+			po.setValorOriginalRS(editarOrcamentoOcurso.getValorAcomodacao().getValororiginal() * cambio.getValor());
+			resultadoOrcamentoBean.getListaAcomodacoes().add(po);
+		}
+		if (editarOrcamentoOcurso.getListaAcOpcional() != null) {
+			resultadoOrcamentoBean.setListaAcOpcional(new ArrayList<ProdutosOrcamentoBean>());
+			for (int i = 0; i < editarOrcamentoOcurso.getListaAcOpcional().size(); i++) {
 				ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
 				po.setSelecionado(true);
-				po.setValorcoprodutos(editarOrcamentoOcurso.getValorAcomodacao().getValorcoprodutos());
-				po.setNumeroSemanas(editarOrcamentoOcurso.getValorAcomodacao().getNumerosemanas());
-				po.setValorOrigianl(editarOrcamentoOcurso.getValorAcomodacao().getValororiginal());
-				po.setValorOriginalRS(
-						editarOrcamentoOcurso.getValorAcomodacao().getValororiginal() * ocurso.getValorcambio());
-				resultadoOrcamentoBean.getListaAcomodacoes().add(po);
+				po.setValorcoprodutos(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos());
+				po.setNumeroSemanas(editarOrcamentoOcurso.getListaAcOpcional().get(i).getNumerosemanas());
+				po.setValorOrigianl(
+						editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos().getValororiginal());
+				po.setValorOriginalRS(po.getValorOrigianl() * cambio.getValor());
+				po.setValorOriginalAcOpcional(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValororiginal());
+				po.setValorRSacOpcional(po.getValorOriginalAcOpcional() * cambio.getValor());
+				resultadoOrcamentoBean.getListaAcOpcional().add(po);
 			}
-			if (editarOrcamentoOcurso.getListaAcOpcional() != null) {
-				resultadoOrcamentoBean.setListaAcOpcional(new ArrayList<ProdutosOrcamentoBean>());
-				for (int i = 0; i < editarOrcamentoOcurso.getListaAcOpcional().size(); i++) {
-					ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
-					po.setSelecionado(true);
-					po.setValorcoprodutos(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos());
-					po.setNumeroSemanas(editarOrcamentoOcurso.getListaAcOpcional().get(i).getNumerosemanas());
-					po.setValorOrigianl(
-							editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos().getValororiginal());
-					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
-					po.setValorOriginalAcOpcional(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValororiginal());
-					po.setValorRSacOpcional(po.getValorOriginalAcOpcional() * ocurso.getValorcambio());
-					resultadoOrcamentoBean.getListaAcOpcional().add(po);
-				}
+		}
+		if (editarOrcamentoOcurso.getListaTransfer() != null) {
+			resultadoOrcamentoBean.setListaTransfer(new ArrayList<ProdutosOrcamentoBean>());
+			for (int i = 0; i < editarOrcamentoOcurso.getListaTransfer().size(); i++) {
+				ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
+				po.setSelecionado(true);
+				po.setValorcoprodutos(editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos());
+				po.setNumeroSemanas(editarOrcamentoOcurso.getListaTransfer().get(i).getNumerosemanas());
+				po.setValorOrigianl(
+						editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos().getValororiginal());
+				po.setValorOriginalRS(po.getValorOrigianl() * cambio.getValor());
+				resultadoOrcamentoBean.getListaTransfer().add(po);
 			}
-			if (editarOrcamentoOcurso.getListaTransfer() != null) {
-				resultadoOrcamentoBean.setListaTransfer(new ArrayList<ProdutosOrcamentoBean>());
-				for (int i = 0; i < editarOrcamentoOcurso.getListaTransfer().size(); i++) {
-					ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
-					po.setSelecionado(true);
-					po.setValorcoprodutos(editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos());
-					po.setNumeroSemanas(editarOrcamentoOcurso.getListaTransfer().get(i).getNumerosemanas());
-					po.setValorOrigianl(
-							editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos().getValororiginal());
-					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
-					resultadoOrcamentoBean.getListaTransfer().add(po);
-				}
+		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
+		// RequestContext.getCurrentInstance().closeDialog(null);
+		return "orcamentocursotarifario";
+	}
+	
+	public String retornaHistoricoLead() {
+		if (lead != null) {
+			if (lead.getIdlead() != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+				session.setAttribute("lead", lead);
+				session.setAttribute("posicao", 0);
+				return "historicoCliente";
 			}
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
-			//RequestContext.getCurrentInstance().closeDialog(null);
-			return "orcamentOCurso";
+		}
+		return "";
 	}
 }

@@ -38,7 +38,9 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -48,6 +50,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -812,6 +816,13 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			return true;
 		}
 		return false;
+	}
+	
+	public String uploadImagem() {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 450);
+		RequestContext.getCurrentInstance().openDialog("uploadImagem", options, null);
+		return "";
 	}
 }
   

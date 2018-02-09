@@ -207,16 +207,29 @@
 									</p:commandLink>
 									<p:commandLink id="btnOrcamento"
 										rendered="#{historicoClienteMB.camposcurso}"
-										title="Emissão de orçamento tarifário curso"
-										action="#{historicoClienteMB.orcamentoTarifario()}"
+										title="Opções de Orçamento de curso"
+										
 										style="margin-left:8%;">
 										<h:panelGrid columns="1" style="text-align:center;">
 											<img src="../../resources/img/crm/orcamento.png" width="48" />
 											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
-											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
-									<p:commandLink id="btnModeloOrcamento"
+									<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
+									hideEffect="fade" style="background:#F0F0F0;width:700px;">
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+									
+											<p:commandLink action="#{historicoClienteMB.orcamentoTarifario()}"
+												  title="Orçamento Tarifário" ajax="false">
+												<img src="../../resources/img/boletoFicha.png" width="36" /> 
+												<h:panelGrid columns="1" style="text-align:center;">  
+													<p:outputLabel value="Orçamento Tarifário" style="font-size:10px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>  
+											
+											<p:commandLink id="btnModeloOrcamento"
 										rendered="#{historicoClienteMB.camposcurso}"
 										title="Emissão de orçamento modelos"
 										action="#{historicoClienteMB.orcamentoTarifarioModelo()}"
@@ -239,6 +252,19 @@
 											<p:outputLabel value="MANUAL" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
+									</h:panelGrid>  
+								</p:overlayPanel>   
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
 									<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
 										action="#{historicoClienteMB.emitirVenda()}"
 										oncomplete="PF('novaficha').show();" style="margin-left:8%;">
