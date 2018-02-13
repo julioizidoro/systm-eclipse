@@ -73,7 +73,7 @@ public class DepartamentoFuncaoMB implements Serializable{
 	public Integer gerarTotalUsuario(Departamento departamento) {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		Integer numeroTotal = 0;
-		String sql = "Select u from Usuario u where u.departamento.iddepartamento=" + departamento.getIddepartamento();
+		String sql = "Select u from Usuario u where u.departamento.iddepartamento=" + departamento.getIddepartamento() + " and u.situacao='Ativo'";
 		List<Usuario> listaUsuario = usuarioFacade.listar(sql);
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<>();
