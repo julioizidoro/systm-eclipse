@@ -103,6 +103,8 @@ public class FollowUpMB implements Serializable {
 	private List<Leadposvenda> listaPosVenda;
 	private String imagemPosVenda = "posvenda";
 	private Lead lead;
+	private boolean campoCurso = false;
+	private boolean campoVoluntariado = false;
 
 	@PostConstruct()
 	public void init() {
@@ -568,6 +570,22 @@ public class FollowUpMB implements Serializable {
 
 	public void setLead(Lead lead) {
 		this.lead = lead;
+	}
+
+	public boolean isCampoCurso() {
+		return campoCurso;
+	}
+
+	public void setCampoCurso(boolean campoCurso) {
+		this.campoCurso = campoCurso;
+	}
+
+	public boolean isCampoVoluntariado() {
+		return campoVoluntariado;
+	}
+
+	public void setCampoVoluntariado(boolean campoVoluntariado) {
+		this.campoVoluntariado = campoVoluntariado;
 	}
 
 	public String novoLead() {
@@ -1315,6 +1333,61 @@ public class FollowUpMB implements Serializable {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("dadosCliente", options , null); 
+	}
+	
+	public boolean habilitarCampoCurso(Lead lead){
+		if (lead.getProdutos().getIdprodutos() == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean habilitarCampoVoluntariado(Lead lead){
+		if (lead.getProdutos().getIdprodutos() == 16) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean habiltiarCampos(Lead lead){
+		boolean resultado = false;
+		if (lead.getProdutos().getIdprodutos() == 1) {
+			resultado = habilitarCampoCurso(lead);
+		}else if(lead.getProdutos().getIdprodutos() == 16){
+			resultado = habilitarCampoVoluntariado(lead);
+		}
+		return resultado;
+	}
+	
+	
+	public String orcamentoManual(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		lead.getCliente().setLead(lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
+		session.setAttribute("tipoorcamento", lead.getProdutos().getDescricao());
+		return "cadOrcamentoManual";
+	}
+	
+	
+	public String orcamentoTarifario(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		lead.getCliente().setLead(lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
+		return "filtrarorcamento";
+	}
+	
+	public String orcamentoTarifarioModelo(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		lead.getCliente().setLead(lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
+		return "inicialPacotes";
 	}
 	
 	

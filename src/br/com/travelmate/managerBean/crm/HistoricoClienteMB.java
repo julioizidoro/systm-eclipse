@@ -1046,4 +1046,29 @@ public class HistoricoClienteMB implements Serializable {
 	public void selecionarLead(Lead lead){
 		this.lead = lead;
 	}
+	
+	public boolean habiltiarCampos(){
+		boolean resultado = false;
+		if (lead.getProdutos().getIdprodutos() == 1) {
+			resultado = habilitarCampoCurso();
+		}else if(lead.getProdutos().getIdprodutos() == 16){
+			resultado = habilitarCampoVoluntariado();
+		}
+		return resultado;
+	}
+	
+	public boolean habilitarCampoCurso(){
+		if (lead.getProdutos().getIdprodutos() == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean habilitarCampoVoluntariado(){
+		if (lead.getProdutos().getIdprodutos() == 16) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -394,7 +394,7 @@
 											value="#{followUpMB.listaProdutos}" />
 										<p:ajax event="change"
 											listener="#{followUpMB.atualizarFollowUp(lead)}"
-											update="outputProduto,produto" />
+											update="@all" />
 									</p:selectOneMenu>
 								</f:facet>
 							</p:cellEditor>
@@ -449,8 +449,8 @@
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>       
-						<p:column headerText="" width="120"    
-							style="text-align:center;" > 
+						<p:column headerText="" width="150"    
+							style="text-align:left;" id="emitirInformacoes"> 
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
 								action="#{followUpMB.historicoCliente(rowIndex)}">
 								<img src="../../resources/img/crm/historico.png" width="30" />
@@ -462,11 +462,78 @@
 											width="30" />
 											<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogEmissao}" update="@form"/>
 							</p:commandLink>
+							<p:commandLink id="btnOrcamento" style="border-color:transparent;border:none;"
+								title="ORÇAMENTO" rendered="#{followUpMB.habiltiarCampos(lead)}">
+									<img src="../../resources/img/crm/orcamento.png" width="30" />
+							</p:commandLink>
+							<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
+								hideEffect="fade" style="background:#F0F0F0;width:350px;">
+
+								<h:panelGrid
+									style="width:100%;border-color:transparent;border:none;"
+									columns="9">
+									
+									<p:commandLink id="btnModeloOrcamento" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
+										action="#{followUpMB.orcamentoTarifarioModelo(lead)}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="MODELO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+
+									<p:commandLink id="btnOrcamentoTarifario" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
+										action="#{followUpMB.orcamentoTarifario(lead)}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnOrcamentoManual" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
+										title="Emissão de orçamento manual curso"
+										action="#{followUpMB.orcamentoManual('Curso')}"
+										style="margin-left:8%;">  
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/emitirorcamentomanual.png"
+												width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="MANUAL" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									
+									<p:commandLink id="btnOrcamentoVoluntariado"
+										rendered="#{followUpMB.habilitarCampoVoluntariado(lead)}"
+										title="Emissão orçamento tarifário de voluntariado"
+										action="#{historicoClienteMB.novoOrcamentoVoluntariado()}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnOrcamentoManualVoluntariado"
+										rendered="#{followUpMB.habilitarCampoVoluntariado(lead)}"
+										title="Emissão orçamento manual de voluntariado"
+										action="#{historicoClienteMB.orcamentoManual('Voluntariado')}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/emitirorcamentomanual.png"
+												width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="MANUAL" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+								</h:panelGrid>
+							</p:overlayPanel>
 							<p:commandLink id="btnEncaminharLead" action="#{followUpMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" >
 								<img src="../../resources/img/crm/envelope.png" width="30" />
 								<p:ajax event="dialogReturn"  listener="#{followUpMB.dialogReturnEncaminharLead}" update="tabelaLeads" />
-							</p:commandLink>   
+							</p:commandLink>
 						</p:column>  
 					</p:dataTable>
 				</h:panelGrid>

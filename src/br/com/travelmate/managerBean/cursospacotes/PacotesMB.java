@@ -245,15 +245,7 @@ public class PacotesMB implements Serializable{
 		return ""; 
 	}
 	
-	public String gerarOrçamento(int idpacote){  
-		CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
-		Cursospacote cursospacote = cursosPacotesFacade.consultar
-				("SELECT c FROM Cursospacote c WHERE c.idcursospacote="+idpacote);
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-		session.setAttribute("cursospacote", cursospacote);    
-		return "gerarOrcamentoPacote";
-	}  
+	
 	
 	public String retornoDialog(){
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -505,5 +497,12 @@ public class PacotesMB implements Serializable{
 			}
 		}
 		return "";
+	}
+	
+	public boolean verificarCarimbo(Ocurso ocurso){
+		if (ocurso.getNomecarimbo() != null && ocurso.getNomecarimbo().length() > 0) {
+			return true;
+		}
+		return false;
 	}
 }

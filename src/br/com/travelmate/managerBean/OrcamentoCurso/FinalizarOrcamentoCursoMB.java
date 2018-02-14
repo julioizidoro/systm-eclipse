@@ -8,6 +8,7 @@ import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
+import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.facade.OCursoDescontoFacade;
@@ -20,8 +21,10 @@ import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.arquivo.CadArquivoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Coeficientejuros;
+import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Ocrusoprodutos;
@@ -33,8 +36,12 @@ import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Ftp;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +57,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -82,6 +92,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	private boolean habilitaFormaPagamento04 = true;
 	private List<NumeroParcelasBean> listaNumeroParcelas;
 	private NumeroParcelasBean numeroParcelaSelecionado;
+	private UploadedFile file;
 
 	@PostConstruct
 	public void init() throws SQLException {
@@ -217,6 +228,14 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		erro = erro + " - " + ex;
 		context.addMessage(null, new FacesMessage(titulo, erro));
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
 	}
 
 	public void calcularParcelamento() throws SQLException {
@@ -823,6 +842,72 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("uploadImagem", options, null);
 		return "";
+	}
+	
+	public void fecharUpload(){
+		
+		RequestContext.getCurrentInstance().closeDialog(null);
+	}
+	
+	
+	public void fileUploadListener(FileUploadEvent e) {
+		this.file = e.getFile();
+			String nome = e.getFile().getFileName();
+			try {
+				nome = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			ocurso.setNomecarimbo(nome);
+			salvarArquivoFTP(nome);
+	}
+
+	public boolean salvarArquivoFTP(String nome) {
+		String msg = "";
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		Ftpdados dadosFTP = null;
+		try {
+			dadosFTP = ftpDadosFacade.getFTPDados();
+		} catch (SQLException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro", "");
+		}
+		if (dadosFTP == null) {
+			return false;
+		}
+		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		try {
+			if (!ftp.conectar()) {
+				mostrarMensagem(null, "Erro conectar FTP", "");
+				return false;
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
+		}    
+		try {
+			boolean arquivoEnviado = false;
+			arquivoEnviado = ftp.enviarArquivoDOCS(file, nome, "/systm/atalhoOrcamento");
+			if (arquivoEnviado) {
+				msg = "Arquivo: " + nome  + " enviado com sucesso";
+			}else{
+				msg = " Erro no nome do arquivo";
+			}
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(msg, ""));
+			ftp.desconectar();
+			return true;
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
+		}
+		try {
+			ftp.desconectar();
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
+		}
+		return false;
 	}
 }
   
