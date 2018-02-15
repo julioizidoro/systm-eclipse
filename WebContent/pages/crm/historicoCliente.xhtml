@@ -182,29 +182,7 @@
 											<p:outputLabel value="RECEBER" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
-									<p:commandLink id="btnOrcamentoVoluntariado"
-										rendered="#{historicoClienteMB.camposvoluntariado}"
-										title="Emissão orçamento tarifário de voluntariado"
-										action="#{historicoClienteMB.novoOrcamentoVoluntariado()}"
-										style="margin-left:8%;">
-										<h:panelGrid columns="1" style="text-align:center;">
-											<img src="../../resources/img/crm/orcamento.png" width="48" />
-											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
-											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
-										</h:panelGrid>
-									</p:commandLink>
-									<p:commandLink id="btnOrcamentoManualVoluntariado"
-										rendered="#{historicoClienteMB.camposvoluntariado}"
-										title="Emissão orçamento manual de voluntariado"
-										action="#{historicoClienteMB.orcamentoManual('Voluntariado')}"
-										style="margin-left:8%;">
-										<h:panelGrid columns="1" style="text-align:center;">
-											<img src="../../resources/img/crm/emitirorcamentomanual.png"
-												width="48" />
-											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
-											<p:outputLabel value="MANUAL" style="font-size:11px;" />
-										</h:panelGrid>
-									</p:commandLink>
+									
 									<p:commandLink id="btnOrcamento"
 										rendered="#{historicoClienteMB.habiltiarCampos()}"
 										title="Opções de Orçamento de curso"
@@ -221,6 +199,30 @@
 										<h:panelGrid
 											style="width:100%;border-color:transparent;border:none;margin-left: 5%;"
 											columns="9">
+											<p:commandLink id="btnOrcamentoVoluntariado"
+												rendered="#{historicoClienteMB.camposvoluntariado}"
+												title="Emissão orçamento tarifário de voluntariado"
+												action="#{historicoClienteMB.novoOrcamentoVoluntariado()}"
+												style="margin-left:8%;">
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img src="../../resources/img/crm/orcamento.png" width="48" />
+													<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+													<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink id="btnOrcamentoManualVoluntariado"
+												rendered="#{historicoClienteMB.camposvoluntariado}"
+												title="Emissão orçamento manual de voluntariado"
+												action="#{historicoClienteMB.orcamentoManual('Voluntariado')}"
+												style="margin-left:8%;">
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img
+														src="../../resources/img/crm/emitirorcamentomanual.png"
+														width="48" />
+													<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+													<p:outputLabel value="MANUAL" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
 
 											<p:commandLink id="btnOrcamentoTari"
 												rendered="#{historicoClienteMB.camposcurso}"

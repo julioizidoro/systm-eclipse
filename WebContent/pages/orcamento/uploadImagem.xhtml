@@ -19,7 +19,7 @@
 		<div align="center">
 			<h:panelGrid columns="2">
 				<p:fileUpload multiple="true" label="Alterar Imagem"
-					fileUploadListener="#{uploadImagemMB.fileUploadListener}"
+					fileUploadListener="#{finalizarOrcamentoCursoMB.fileUploadListener}"
 					value="#{uploadImagemMB.file}" mode="advanced"
 					 allowTypes="/(\.|\/)(jpe?g)$/"
 					style="font-size: 11px;">
@@ -28,7 +28,7 @@
 			<br></br> <br />
 
 			<p:commandButton id="btnFechar" value="Fechar"
-				action="#" icon="ui-icon-closethick"
+				action="#{finalizarOrcamentoCursoMB.fecharUpload()}" icon="ui-icon-closethick"
 				style="font-size:12px;" />
 		</div>
 	</h:form>
