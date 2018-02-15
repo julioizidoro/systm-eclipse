@@ -449,7 +449,7 @@
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>       
-						<p:column headerText="" width="150"    
+						<p:column headerText="" width="130"    
 							style="text-align:left;" id="emitirInformacoes"> 
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
 								action="#{followUpMB.historicoCliente(rowIndex)}">
@@ -467,16 +467,15 @@
 									<img src="../../resources/img/crm/orcamento.png" width="30" />
 							</p:commandLink>
 							<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
-								hideEffect="fade" style="background:#F0F0F0;width:350px;">
-
-								<h:panelGrid
-									style="width:100%;border-color:transparent;border:none;"
-									columns="9">
+									hideEffect="fade" style="background:#F0F0F0;width:350px;">
+									<h:panelGrid
+									style="width:100%;border-color:transparent;border:transparent;"
+									columns="3">
 									
 									<p:commandLink id="btnModeloOrcamento" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
 										action="#{followUpMB.orcamentoTarifarioModelo(lead)}"
-										style="margin-left:8%;">
-										<h:panelGrid columns="1" style="text-align:center;">
+										style="margin-left:8%;border:transparent;">
+										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
 											<img src="../../resources/img/crm/orcamento.png" width="48" />
 											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
 											<p:outputLabel value="MODELO" style="font-size:11px;" />
@@ -527,8 +526,8 @@
 											<p:outputLabel value="MANUAL" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
-								</h:panelGrid>
-							</p:overlayPanel>
+								</h:panelGrid> 
+							</p:overlayPanel>  
 							<p:commandLink id="btnEncaminharLead" action="#{followUpMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" >
 								<img src="../../resources/img/crm/envelope.png" width="30" />
@@ -714,6 +713,36 @@
 				<h:outputText value="Stand By"
 					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 			</div>
+			<style>
+				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+					.ui-datatable tfoot th {
+					padding: 2px 2px;
+					overflow: hidden;
+					border-width: 0px;   
+					border-style: solid;
+				}
+				.ui-confirm-dialog-message {
+				    display: inline-block;
+				    margin-top: 1px;
+				    font-size: 17px !important;
+				}      
+				.ui-accordion .ui-accordion-content {
+				    padding: 1em 2.2em;
+				    border-top: 0;
+				    margin-top: -2px;
+				    position: relative;
+				    top: 1px;
+				    margin-bottom: 2px; 
+				    overflow: inherit !important;  
+				    zoom: 1;   
+				} 
+				.row {
+				    margin-right: -11px;
+				    margin-left: -15px;
+				    overflow: hidden;
+				}
+				
+				</style> 
 			<br></br><br></br>
 		</h:form>
 	</ui:define>
