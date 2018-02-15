@@ -887,7 +887,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		}    
 		try {
 			boolean arquivoEnviado = false;
-			arquivoEnviado = ftp.enviarArquivoDOCS(file, nome, "/systm/atalhoOrcamento");
+			arquivoEnviado = ftp.enviarArquivoOrcamento(file, nome, "/systm/atalhoOrcamento");
 			if (arquivoEnviado) {
 				msg = "Arquivo: " + nome  + " enviado com sucesso";
 			}else{
