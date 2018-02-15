@@ -1391,5 +1391,15 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	
+	public String novoOrcamentoVoluntariado(Lead lead){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+		lead.getCliente().setLead(lead);
+		lead.getCliente().setClienteLead(true);
+		session.setAttribute("cliente", lead.getCliente());
+		return "filtrarVoluntariadoProjetoOrcamento";
+	}
+	
+	
 
 }
