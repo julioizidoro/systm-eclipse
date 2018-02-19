@@ -2195,3 +2195,7 @@ body {
     padding-bottom: 5px;
 }
 
+table {
+	border:transparent;
+}
+

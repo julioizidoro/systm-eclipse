@@ -94,6 +94,20 @@ public class Ftp {
         }
     }
     
+    public boolean enviarArquivoOrcamento(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.changeWorkingDirectory(pasta);
+        ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+        FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
+        String nomeArquivo =  new String(uploadedFile.getFileName().trim().getBytes(Charset.defaultCharset()), "UTF-8");
+        if (ftpClient.storeFile(nomeArquivo, arqEnviar)) {
+        	arqEnviar.close();
+            return true;
+        } else {
+        	arqEnviar.close();   
+            return false;
+        }
+    }
+    
     
     public String enviarVideo(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
         ftpClient.changeWorkingDirectory(pasta);
