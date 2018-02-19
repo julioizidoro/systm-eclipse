@@ -160,7 +160,7 @@ public class TmRaceMB implements Serializable{
 			}else if(listaGold.size() == 3){
 				if (listaGold.get(0).getPontos() >= listaGold.get(1).getPontos() && listaGold.get(0).getPontos() >= listaGold.get(2).getPontos()) {
 					listaGold.get(0).setPosicao(1);
-					listaGold.get(1).setPorcentagem(100f);
+					listaGold.get(0).setPorcentagem(100f);
 					if (listaGold.get(1).getPontos() >= listaGold.get(2).getPontos()) {
 						listaGold.get(1).setPosicao(2);
 						listaGold.get(1).setPorcentagem((listaGold.get(1).getPontos() * 100) / listaGold.get(0).getPontos());
