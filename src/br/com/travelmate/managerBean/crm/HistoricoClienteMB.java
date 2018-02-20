@@ -1071,4 +1071,9 @@ public class HistoricoClienteMB implements Serializable {
 		}
 		return false;
 	}
+	
+	
+	public String orcamentoVitrine(){
+		return "paginainicial";
+	}  
 }

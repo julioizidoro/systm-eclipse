@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<h:body>
+	<h:form id="idDialogAnexarArquivo"
+		style="text-align:left;font-size:11px; margin-left: 1%; ">
+		<title  >INFORMAÇÕES</title>
+		<h:panelGrid columns="1"
+			columnClasses="tamanho61, imagemTop"
+			style="margin-left:1%;width:95%;">
+			<p:outputLabel value="Cliente" />
+			
+			<p:inputText id="nomeCliente" disabled="true" value="#{inserirDataInicioMB.lead.cliente.nome}"
+				style="width:95%;">
+			</p:inputText>
+		</h:panelGrid>
+		<br/>
+		<h:panelGrid columns="2"
+			columnClasses="tamanho61, imagemTop"
+			style="margin-left:1%;width:94%;">
+			<p:outputLabel value="Data de Nascimento" />
+			<p:outputLabel value="Data de Início" />
+
+			<p:calendar id="datanascimento"
+				value="#{inserirDataInicioMB.lead.cliente.dataNascimento}" locale="pt"
+				size="17" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:calendar>
+			<h:panelGroup id="datainicio"
+				rendered="#{inserirDataInicioMB.calendario}">
+				<p:calendar id="data" value="#{inserirDataInicioMB.dataInicio}"
+					locale="pt" size="14" pattern="dd/MM/yyyy" mask="true"
+					maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+			</h:panelGroup>
+			<h:panelGroup id="datas" rendered="#{inserirDataInicioMB.comboDatas}">
+				<p:selectOneMenu value="#{inserirDataInicioMB.datasBean}"
+					style="width:110px;" converter="DataInicioOrcamentoConverter">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems id="dataselecionada"
+						value="#{inserirDataInicioMB.listaDatas}" var="data"
+						itemLabel="#{data.descricao}" itemValue="#{data}" />
+					<f:attribute name="listaData" value="#{inserirDataInicioMB.listaDatas}" />
+					<p:ajax event="change" />
+				</p:selectOneMenu>
+			</h:panelGroup>  
+			<br />
+		</h:panelGrid>
+		<br />
+		<br /><br />    
+		<h:panelGroup>
+			<div align="center">
+				<p:commandButton id="btnOrcamento" value="Gerar PDF"
+					title="Imprimir orçamento em PDF." 
+					icon="ui-icon-document" style="font-size:12px;"
+					action="#{inserirDataInicioMB.selecionarData()}"
+					 />
+				<p:commandButton id="btnFechar" value="Cancelar"
+					action="#{inserirDataInicioMB.cancelar()}"
+					icon="ui-icon-closethick"
+					style="margin-left:2%;font-size:12px;" />
+			</div>  
+		</h:panelGroup>   
+
+	</h:form>
+</h:body>
+</html>

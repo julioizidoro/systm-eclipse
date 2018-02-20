@@ -21,11 +21,11 @@
 				<p:fileUpload multiple="true" label="Alterar Imagem"
 					fileUploadListener="#{finalizarOrcamentoCursoMB.fileUploadListener}"
 					value="#{uploadImagemMB.file}" mode="advanced"
-					 allowTypes="/(\.|\/)(jpe?g)$/"
+					 allowTypes="/(\.|\/)(jpe?g|png|PNG)$/"
 					style="font-size: 11px;">
 				</p:fileUpload>
 			</h:panelGrid>
-			<br></br> <br />
+			<br></br> <br />   
 
 			<p:commandButton id="btnFechar" value="Fechar"
 				action="#{finalizarOrcamentoCursoMB.fecharUpload()}" icon="ui-icon-closethick"

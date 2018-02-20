@@ -193,8 +193,8 @@
 											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
-									<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
-										hideEffect="fade" style="background:#F0F0F0;width:350px;">
+									<p:overlayPanel id="painelInformacoes" for="btnOrcamento"  
+										hideEffect="fade" style="background:#F0F0F0;width:500px;">
 										
 										<h:panelGrid
 											style="width:100%;border-color:transparent;border:none;margin-left: 5%;"
@@ -243,6 +243,17 @@
 													<img src="../../resources/img/crm/orcamento.png" width="48" />
 													<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
 													<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
+											
+											<p:commandLink id="btnOrcamentoVitrine"
+												rendered="#{historicoClienteMB.camposcurso}"
+												action="#{historicoClienteMB.orcamentoVitrine()}"
+												style="margin-left:8%;">
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img src="../../resources/img/crm/orcamento.png" width="48" />
+													<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+													<p:outputLabel value="VITRINE" style="font-size:11px;" />
 												</h:panelGrid>
 											</p:commandLink>
 											<p:commandLink id="btnOrcamentoManual"

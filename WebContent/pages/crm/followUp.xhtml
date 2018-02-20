@@ -467,10 +467,10 @@
 									<img src="../../resources/img/crm/orcamento.png" width="30" />
 							</p:commandLink>
 							<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
-									hideEffect="fade" style="background:#F0F0F0;width:350px;">
+									hideEffect="fade" style="background:#F0F0F0;width:450px;">
 									<h:panelGrid
 									style="width:100%;border-color:transparent;border:transparent;"
-									columns="3">
+									columns="4">
 									
 									<p:commandLink id="btnModeloOrcamento" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
 										action="#{followUpMB.orcamentoTarifarioModelo(lead)}"
@@ -489,6 +489,15 @@
 											<img src="../../resources/img/crm/orcamento.png" width="48" />
 											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
 											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnModeloOrcamentoVitrine" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
+										action="#{followUpMB.orcamentoVitrine()}"
+										style="margin-left:8%;border:transparent;">
+										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+											<p:outputLabel value="VITRINE" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
 									<p:commandLink id="btnOrcamentoManual" rendered="#{followUpMB.habilitarCampoCurso(lead)}"

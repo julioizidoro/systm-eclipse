@@ -17,6 +17,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.OCursoFacade;
@@ -58,6 +59,8 @@ public class PacotesMB implements Serializable{
 	private Lead lead;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	private Date dataInicio;
+	private Ocurso pacote;
 
 	@PostConstruct
 	public void init() {
@@ -181,6 +184,22 @@ public class PacotesMB implements Serializable{
 
 	public void setPaisLogo(Pais paisLogo) {
 		this.paisLogo = paisLogo;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Ocurso getPacote() {
+		return pacote;
+	}
+
+	public void setPacote(Ocurso pacote) {
+		this.pacote = pacote;
 	}
 
 	public void consultarListarCursosPacotes(Pais pais){ 
@@ -359,15 +378,15 @@ public class PacotesMB implements Serializable{
 		return true;
 	}
 	
-	public String gerarOrcamento(Ocurso pacote) throws Exception {
+	public String gerarOrcamento() throws Exception {
 		Ocurso ocurso = new Ocurso();
 		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getCambio().getMoedas());
 		ocurso.setCliente(lead.getCliente());
 		ocurso.setCambio(cambio);
 		ocurso.setCargahoraria(pacote.getCargahoraria());
-		ocurso.setDatainicio(pacote.getDatainicio());
+		ocurso.setDatainicio(pacote.getDatainicio());   
 		ocurso.setDataorcamento(new Date());
-		ocurso.setDatatermino(Formatacao.SomarDiasDatas(ocurso.getDatainicio(), pacote.getNumerosemanas().intValue()));
+		ocurso.setDatatermino(Formatacao.SomarDiasDatas(ocurso.getDatainicio(), (pacote.getNumerosemanas().intValue() * 7)));
 		ocurso.setDatavalidade(Formatacao.SomarDiasDatas(ocurso.getDataorcamento(), 5));
 		ocurso.setDesconto(pacote.getDesconto());
 		ocurso.setEnviadoemail(false);
@@ -505,4 +524,44 @@ public class PacotesMB implements Serializable{
 		}
 		return false;
 	}
+	
+	public void setarPacote(Ocurso pacote){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 350);
+		session.setAttribute("lead", lead);
+		session.setAttribute("pacote", pacote);
+		RequestContext.getCurrentInstance().openDialog("inserirDataInicio", options, null);
+	}
+	
+	
+	public String retornoDialogData(SelectEvent event){
+		Date dataInicio = (Date) event.getObject();
+		if (dataInicio != null) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			lead = (Lead) session.getAttribute("lead");
+			pacote = (Ocurso) session.getAttribute("pacote");
+			session.removeAttribute("pacote");
+			session.removeAttribute("lead");
+			pacote.setDatainicio(dataInicio);
+			try {   
+				gerarOrcamento();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/systm_eclipse/pages/orcamento/orcamentoCurso.jsf");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
+	
+	
+	
+	
+	
 }

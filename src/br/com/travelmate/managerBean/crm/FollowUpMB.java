@@ -1402,5 +1402,8 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	
+	public String orcamentoVitrine(){
+		return "paginainicial";
+	}
 
 }
