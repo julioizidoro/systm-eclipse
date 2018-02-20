@@ -776,6 +776,7 @@ public class FollowUpMB implements Serializable {
 			listaUsuario = GerarListas.listarUsuarios(
 					"Select u FROM Usuario u where u.situacao='Ativo'" + " and u.unidadenegocio.idunidadeNegocio="
 							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+			usuario = null;
 		}
 	}
 	

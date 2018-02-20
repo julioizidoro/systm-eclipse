@@ -324,11 +324,37 @@ public class CadLeadMB implements Serializable {
 			Leadposvenda leadposvenda = leadPosVendaFacade.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
 			if (leadposvenda == null) {
 				this.lead.setJaecliente(true);
-				mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
-				consultor = lead.getUsuario();
-				desabilitarConfirmar = true;
+				if (lead.getSituacao() != 6) {
+					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
+					consultor = lead.getUsuario();
+					desabilitarConfirmar = true;
+				}else if(lead.getSituacao() == 6  && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==lead.getUnidadenegocio().getIdunidadeNegocio()){
+					this.lead.setJaecliente(false); 
+					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
+					gerarListaConsultor();
+					consultor = usuarioLogadoMB.getUsuario();
+					desabilitarConfirmar = false;
+				}else{
+					this.lead.setJaecliente(false); 
+					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
+					gerarListaConsultor();
+					consultor = usuarioLogadoMB.getUsuario();
+					desabilitarConfirmar = false;
+				}
 			}else{
 				this.lead.setJaecliente(false); 
+				if (lead.getSituacao() != 6 && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()!=lead.getUnidadenegocio().getIdunidadeNegocio()) {
+					this.lead.setJaecliente(true);
+					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
+					consultor = lead.getUsuario();
+					desabilitarConfirmar = true;
+				}else{
+					this.lead.setJaecliente(false); 
+					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
+					gerarListaConsultor();
+					consultor = usuarioLogadoMB.getUsuario();
+					desabilitarConfirmar = false;
+				}
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 				gerarListaConsultor();
 				consultor = usuarioLogadoMB.getUsuario();
