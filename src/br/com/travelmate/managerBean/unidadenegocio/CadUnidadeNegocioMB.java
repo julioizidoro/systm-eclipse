@@ -70,6 +70,7 @@ public class CadUnidadeNegocioMB implements Serializable {
 			if (!usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isEditarunidade()) {
 				somenteLeitura = true;
 			}
+			banco = unidadenegocio.getBanco();
 		}
 	}
  
