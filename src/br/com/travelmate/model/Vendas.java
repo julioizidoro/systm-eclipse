@@ -146,6 +146,7 @@ public class Vendas implements Serializable {
 		setIdregravenda(0);
 		setSituacaofinanceiro("N");
 		setSituacaogerencia("P");
+		setSituacao("PROCESSO");
 	}
 
 	public boolean isRestricaoparcelamento() {
