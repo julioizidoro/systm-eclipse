@@ -473,8 +473,8 @@ public class GerarOcamentoPDFBean {
 						+ ", "
 						+ listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao()
 								.getTiporefeicao()
-						+ ", Banheiro " + listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
-								.getComplementoacomodacao().getTipobanheiro() + " - " + String.valueOf(numeroSemana) + " semanas");
+						+ ", WC " + listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
+								.getComplementoacomodacao().getTipobanheiro() + " - " + String.valueOf(numeroSemana) + " semana(s)");
 				o.setValorme(ocurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(listaAcomodacao.get(i).getValororiginal()));
 				o.setValorrs("R$ " + Formatacao
@@ -500,7 +500,7 @@ public class GerarOcamentoPDFBean {
 					+ produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTipoquarto()
 					+ ", "
 					+ produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTiporefeicao()
-					+ ", Banheiro "
+					+ ", WC "
 					+ produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTipobanheiro()
 					+", "+produtoCurso.getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getComplemento()
 					+", "+numero+" Semana(s)");
