@@ -111,6 +111,8 @@
 								</h:panelGroup>
 								<p:ajax event="dialogReturn"
 									listener="#{pollMB.gerarListaAviso(n)}" update="atencao" />
+								<p:ajax event="dialogReturn"
+									listener="#{usuarioLogadoMB.retornoDialogNotificacao}" update="atencao" />
 							</p:commandLink></li>
 						<li class="dropdown"><p:commandLink id="notificacaoTeste"
 								title="Notificações" class="dropdown-toggle"
@@ -809,6 +811,12 @@
 									<li><p:commandLink
 											action="#{menuMB.consAcessoUnidade()}">
 											<span class="submenu-label">Acessos</span>
+										</p:commandLink></li>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.acessounidade}">
+									<li><p:commandLink
+											action="#{menuMB.consultarNoticia()}">
+											<span class="submenu-label">Noticias</span>
 										</p:commandLink></li>
 								</h:panelGroup>
 								<h:panelGroup

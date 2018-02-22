@@ -2455,6 +2455,15 @@
 			<redirect />
 		</navigation-case>     
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consNoticias</from-outcome>
+			<to-view-id>/pages/noticias/consNoticias.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

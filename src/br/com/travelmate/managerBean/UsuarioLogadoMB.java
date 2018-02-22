@@ -5,17 +5,20 @@
  */
 package br.com.travelmate.managerBean;
    
+import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Avisos;
+import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas; 
 import br.com.travelmate.util.Criptografia;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 import java.io.IOException;
@@ -23,6 +26,7 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +79,7 @@ public class UsuarioLogadoMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		//gerarCidadeProduto();
-		usuario = new Usuario();  
+		usuario = new Usuario();
 	}
 
 	public Usuario getUsuario() {
@@ -356,16 +360,44 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 
 	public String carregarNotificacao(String tipo, String tipo2) {
+		AvisosFacade avisosFacade = new AvisosFacade();
+		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
+		int numeroAviso = 0;
+		List<Avisousuario> listaAvisos = avisosFacade.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
+				 "  and (a.avisos.imagem='aviso' or a.avisos.imagem='lead') and a.visto=false "+
+				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc");
+		if (listaAvisos == null) {
+			listaAvisos = new ArrayList<Avisousuario>();
+		}
+		numeroAviso = listaAvisos.size();
+		if (numeroAviso > 0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("tipo", tipo);
+			session.setAttribute("tipo2", tipo2);
+			session.setAttribute("idunidade", usuario.getUnidadenegocio().getIdunidadeNegocio());
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 750);
+			options.put("closable", false);
+			RequestContext.getCurrentInstance().openDialog("notificacoes", options, null);
+			return "";	
+		}else{
+			return "consNoticias";
+		}
+	}
+	
+	public void retornoDialogNotificacao(SelectEvent event){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("tipo", tipo);
-		session.setAttribute("tipo2", tipo2);
-		session.setAttribute("idunidade", usuario.getUnidadenegocio().getIdunidadeNegocio());
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 750);
-		options.put("closable", false);
-		RequestContext.getCurrentInstance().openDialog("notificacoes", options, null);
-		return "";
+		String feed = (String) session.getAttribute("feed");
+		session.removeAttribute("feed");
+		if (feed.equalsIgnoreCase("Sim")) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/systm_eclipse/pages/noticias/consNoticias.jsf");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public String carregarNotificacaoAviso() {

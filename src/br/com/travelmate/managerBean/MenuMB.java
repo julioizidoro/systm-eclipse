@@ -1506,4 +1506,8 @@ public class MenuMB implements Serializable {
 		return "inicialPacotes";
 	} 
 	
+	public String consultarNoticia(){
+		return "consNoticias";
+	}
+	
 }

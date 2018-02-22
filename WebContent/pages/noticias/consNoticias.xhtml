@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="formNoticias" style="font-size:11px;">
+			<p:growl id="growl" showDetail="true" sticky="false"
+				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+			<br></br>
+			<p:accordionPanel class="painel" activeIndex="-1">
+				<p:tab titleStyle="font-size:11px;background:#A0C637;"
+					title="Pesquisar">
+					<h:panelGrid columns="5"
+						columnClasses="tamanho12,tamanho10,tamanho8,tamanho8,tamanho8">
+						<p:outputLabel value="Periodo" for="dataIni" />
+						<p:outputLabel />
+						<p:outputLabel value="Departamento" />
+						<p:outputLabel value="Usuário" for="usuario" />
+						<p:outputLabel value="Tipo" for="situacao" />
+
+						<p:calendar id="dataIni" value="#{noticiaMB.dataInicial}"
+							size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+							maxlength="15">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="blur" />
+						</p:calendar>
+						<p:calendar id="dataFinal" value="#{noticiaMB.dataFinal}"
+							size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+							maxlength="15">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:ajax event="blur" />
+						</p:calendar>
+						<p:selectOneMenu id="iddepartamento"
+							value="#{noticiaMB.departamento}"
+							converter="DepartamentoConverter" style="width:88%;">
+							<f:selectItem itemLabel="Departamento" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="departamento"
+								value="#{noticiaMB.listaDepartamento}" var="sdepartamento"
+								itemLabel="#{sdepartamento.nome}" itemValue="#{sdepartamento}" />
+							<f:attribute name="listaDepartamento"
+								value="#{noticiaMB.listaDepartamento}" />
+							<p:ajax event="change"
+								listener="#{noticiaMB.gerarListaUsuario()}" update="usuario" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="usuario" value="#{noticiaMB.usuario}"
+							style="width:220px;" converter="UsuarioConverter">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idusuario" value="#{noticiaMB.listaUsuario}"
+								var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+							<f:attribute name="listaUsuario"
+								value="#{noticiaMB.listaUsuario}" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="situacao" value="#{noticiaMB.tipo}"
+							style="width:110px;">
+							<f:selectItem itemLabel="Todos" itemValue="" />
+							<f:selectItem itemLabel="Aviso" itemValue="aviso" />
+							<f:selectItem itemLabel="Upload" itemValue="Upload" />
+							<f:selectItem itemLabel="Informação" itemValue="informacao" />
+							<f:selectItem itemLabel="Lead" itemValue="lead" />
+							<f:selectItem itemLabel="Promoção" itemValue="promocao" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br></br>
+					<p:commandButton value="Pesquisar" style="margin-left:69.4%"
+						update=":formNoticias:panelTotalPacotes" icon=" ui-icon-search "
+						action="#{noticiaMB.pesquisarAvisosUsuario()}" />
+					<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+						update="@all" class="imgadd" action="#{noticiaMB.limpar()}" />
+				</p:tab>
+			</p:accordionPanel>
+			<br />
+			<legend id="iUsu2" style="margin-left: 2%;">
+				<b>Feed de Noticias</b>
+			</legend>
+			<h:panelGrid columns="2" style="width:77%;margin-left:8%;">
+				<h:panelGrid columns="6" style="width:100%;">
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:selectBooleanCheckbox value="#{noticiaMB.visualizado}" class="espacopreto"
+							id="visualizado" label="Visualizado">
+							<p:ajax event="change" listener="#{noticiaMB.filtrar()}"
+								update=":formNoticias:panelTotalPacotes" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Visualizado" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:selectBooleanCheckbox value="#{noticiaMB.informacao}"
+							class="espacopreto" id="informacao" label="Informação">
+							<p:ajax event="change" listener="#{noticiaMB.filtrar()}"
+								update=":formNoticias:panelTotalPacotes" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Informação" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:selectBooleanCheckbox value="#{noticiaMB.lead}"
+							class="espacopreto" id="lead" label="Lead">
+							<p:ajax event="blur" listener="#{noticiaMB.filtrar()}"
+								update=":formNoticias:panelTotalPacotes" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Lead" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:selectBooleanCheckbox value="#{noticiaMB.upload}"
+							class="espacopreto" id="upload" label="Upload">
+							<p:ajax event="change" listener="#{noticiaMB.filtrar()}"
+								update=":formNoticias:panelTotalPacotes" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Upload" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:selectBooleanCheckbox value="#{noticiaMB.aviso}"
+							class="espacopreto" id="aviso" label="Aviso">
+							<p:ajax event="change" listener="#{noticiaMB.filtrar()}"
+								update=":formNoticias:panelTotalPacotes" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Aviso" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:selectBooleanCheckbox value="#{noticiaMB.promocao}"
+							class="espacopreto" id="promocao" label="Promoção">
+							<p:ajax event="change" listener="#{noticiaMB.filtrar()}"
+								update=":formNoticias:panelTotalPacotes" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Promoção" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:panelGrid>
+			<hr style="margin-left: 2%; width: 98%;" />
+
+			<h:panelGroup id="panelTotalPacotes">
+				<br />
+				<ui:repeat value="#{noticiaMB.listaAvisosUsuario}" var="avisos">
+					<div class="col-sm-6 col-md-3">
+						<h:panelGroup>
+							<div class="panel-stat3 bg-info"
+								style="border-radius: 5px; background-color: #E0EEEE; color: black; border: 1px solid; border-color: #C1CDCD;">
+								<div style="height: 300px;">
+									<div>
+										<h:panelGrid columns="1" style="width:95%;margin-left:4%;">
+											<h:panelGroup>
+												<h:panelGrid columns="2" style="width:87%;">
+													<h:panelGrid columns="1"
+														style="width:99%;margin-left:0.5%;">
+														<img src="../../resources/img/questionario.png" width="30" />
+													</h:panelGrid>
+													<h:panelGrid columns="1" style="width:100%;">
+														<p:outputLabel value="#{avisos.avisos.imagem}"
+															style="font-size:14px;margin-left:2%;" />
+													</h:panelGrid>
+												</h:panelGrid>
+											</h:panelGroup>
+										</h:panelGrid>
+										<hr />
+									</div>
+									<div style="height: 218px;">
+										<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
+											columnClasses="tamanho98">
+
+											<h:panelGrid>
+												<p:outputLabel
+													value="Data Aviso: #{noticiaMB.retornarDataInicio(avisos.avisos.data)}"
+													style="font-size:12px;font-weight: initial;" />
+
+											</h:panelGrid>
+											<br />
+											<p:outputLabel value="#{noticiaMB.retornarTexto(avisos)}"
+												style="font-size:12px;font-weight: initial;text-align:justify;" />
+											<p:commandLink update=":formNoticias:panelTotalPacotes"
+												style="font-size: 32px;float: right;margin-top: -10%;"
+												title="Saiba Mais"
+												rendered="#{noticiaMB.verficiarTexto(avisos)}"
+												actionListener="#{noticiaMB.setarAviso(avisos)}" value="...">
+											</p:commandLink>
+										</h:panelGrid>
+									</div> 
+									<div>
+										<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
+											columnClasses="tamanho98">
+
+											<hr />
+											<p:outputLabel value="#{avisos.usuario.nome}"
+												style="font-size:12px;font-weight: initial;" />
+											<p:commandLink
+												style="font-size: 32px;float: right;margin-top: -10%;"
+												title="Confirmar Visualização"
+												rendered="#{noticiaMB.verificarVisto(avisos)}"
+												action="#{noticiaMB.limparVisualizacao(avisos)}">
+												<img src="../../resources/img/limpar.png" width="30"
+													style="float: right;" />
+											</p:commandLink>
+										</h:panelGrid>
+									</div>
+								</div>
+								<br />
+							</div>
+						</h:panelGroup>
+						<br /> <br /> <br />
+					</div>
+				</ui:repeat>
+			</h:panelGroup>
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -66,6 +66,8 @@
 						</h:panelGroup>
 						<p:ajax event="dialogReturn"
 							listener="#{pollMB.gerarListaAviso(n)}" update="atencao" />
+						<p:ajax event="dialogReturn"
+									listener="#{usuarioLogadoMB.retornoDialogNotificacao}" update="atencao" />
 					</p:commandLink></li>
 				<li class="dropdown hidden-xs"><p:commandLink
 						id="notificacaoTeste" title="Notificações" class="dropdown-toggle"

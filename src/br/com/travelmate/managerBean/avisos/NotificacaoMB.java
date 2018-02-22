@@ -160,6 +160,14 @@ public class NotificacaoMB implements Serializable{
 		 return "";
 	}
 	
+	public String feedNoticia(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("feed", "Sim");
+		 RequestContext.getCurrentInstance().closeDialog(null);
+		 return "";
+	}
+	
 	public String consultarArquivos(Avisousuario avisousuario){
 		if (avisousuario.getAvisos().getIdvenda()>0){
 			FacesContext fc = FacesContext.getCurrentInstance();
