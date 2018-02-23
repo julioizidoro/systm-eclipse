@@ -20,11 +20,16 @@
        		<h:panelGrid style="width:100%;text-align:right"> 
 				<p:commandButton icon="ui-icon-closethick" action="#{notificacaoMB.fechar()}" />
 			</h:panelGrid>
-       		<h:panelGrid columns="2" style="margin-left:86%">
-       			<p:commandLink value="Todas" action="#{notificacaoMB.limparTodasNotificacoes()}" style="text-decoration:underline;color:#49A006;font-size:19px" update="tabelaNotificacoes"/>
-       			<p:commandLink action="#{notificacaoMB.limparTodasNotificacoes()}" style="text-decoration:none;margin-left:0.7%" update="tabelaNotificacoes">
-					<img src="../../resources/img/limpar.png" width="25"/>
-				</p:commandLink>
+			<h:panelGrid columns="2" style="width:100%;">
+				<h:panelGrid columns="1" style="width:100%">
+					<p:commandLink value="Feed Noticias" action="#{notificacaoMB.feedNoticia()}" style="text-decoration:underline;color:#49A006;font-size:19px"/>
+				</h:panelGrid>
+	       		<h:panelGrid columns="2" style="margin-left:86%">
+	       			<p:commandLink value="Todas" action="#{notificacaoMB.limparTodasNotificacoes()}" style="text-decoration:underline;color:#49A006;font-size:19px" update="tabelaNotificacoes"/>
+	       			<p:commandLink action="#{notificacaoMB.limparTodasNotificacoes()}" style="text-decoration:none;margin-left:0.7%" update="tabelaNotificacoes">
+						<img src="../../resources/img/limpar.png" width="25"/>
+					</p:commandLink>
+				</h:panelGrid>
 			</h:panelGrid>
 	       		<p:dataScroller id="tabelaNotificacoes" value="#{notificacaoMB.listaAvisos}" var="notificacoes" mode="inline" scrollHeight="300" style="font-family: segoe ui, Arial, sans-serif;font-size:11px;font-weight: 100;"  >
 			        <h:panelGrid columns="3" layout="grid" 

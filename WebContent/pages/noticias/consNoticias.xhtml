@@ -101,7 +101,7 @@
 					<h:panelGrid columns="2" style="width:100%;">
 						<p:selectBooleanCheckbox value="#{noticiaMB.lead}"
 							class="espacopreto" id="lead" label="Lead">
-							<p:ajax event="blur" listener="#{noticiaMB.filtrar()}"
+							<p:ajax event="change" listener="#{noticiaMB.filtrar()}"
 								update=":formNoticias:panelTotalPacotes" />
 						</p:selectBooleanCheckbox>
 						<p:outputLabel value="Lead" />
