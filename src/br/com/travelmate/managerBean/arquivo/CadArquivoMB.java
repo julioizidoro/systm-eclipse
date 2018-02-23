@@ -275,7 +275,7 @@ public class CadArquivoMB implements Serializable {
 			if (listaTipoArquivo == null) {
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e) {  
 			e.printStackTrace();
 		}
 	}
