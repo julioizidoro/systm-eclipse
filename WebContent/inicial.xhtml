@@ -129,7 +129,7 @@
 							</p:commandLink></li>
 						<li class="dropdown"><p:commandLink id="promocao"
 								title="Promoção" class="dropdown-toggle" data-toggle="dropdown"
-								action="#{usuarioLogadoMB.carregarNotificacao('promocao', '')}">
+								action="#{usuarioLogadoMB.carregarNotificacaoPromocao('promocao', '')}">
 								<img src="resources/img/paginainicial/new.png" width="22" />
 								<h:panelGroup rendered="#{pollMB.habilitarNumeroPromocao()}">
 									<span id="idPromocao"
@@ -140,7 +140,7 @@
 							</p:commandLink></li>
 						<li class="dropdown"><p:commandLink id="upload"
 								title="Upload" class="dropdown-toggle" data-toggle="dropdown"
-								action="#{usuarioLogadoMB.carregarNotificacao('Upload', '')}">
+								action="#{usuarioLogadoMB.carregarNotificacaoUpload('Upload', '')}">
 								<img src="resources/img/paginainicial/upload.png" width="22" />
 								<h:panelGroup rendered="#{pollMB.habilitarNumeroUpload()}">
 									<span id="idUpload"
@@ -2016,7 +2016,7 @@
 											<p:commandLink id="btnRight" 
 													action="#{mateRunnersMB.mudarPosicao(true)}"  
 										update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
-													<img src="resources/img/botaoDi.png" style="width:35px;margin-top: 1%;" />   
+													<img src="resources/img/setaDi2.png" style="width:25px;margin-top: 1%;" />   
 												</p:commandLink>  
 										</div>
 									</div>
@@ -2028,7 +2028,7 @@
 												<div id="chart">
 													<ul id="bars">
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(0)}"
+																data-percentage="#{mateRunnersMB.getPercentual(0)}" style="height:#{mateRunnersMB.getPercentual(0)}%"
 																title="#{mateRunnersMB.getNumeroVendas(0)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(0)}" alt=""
@@ -2038,8 +2038,8 @@
 																	value="#{mateRunnersMB.getNomeUnidade(0)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(1)}"
-																title="#{mateRunnersMB.getNumeroVendas(1)}" class="bar"></div>
+																data-percentage="#{mateRunnersMB.getPercentual(1)}" style="height:#{mateRunnersMB.getPercentual(1)}%"
+																title="#{mateRunnersMB.getNumeroVendas(1)}" class="bar" ></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(1)}" alt=""
 																class="imagemMatesRuns" /><br /> <p:outputLabel
@@ -2048,7 +2048,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(1)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(2)}"
+																data-percentage="#{mateRunnersMB.getPercentual(2)}" style="height:#{mateRunnersMB.getPercentual(2)}%"
 																title="#{mateRunnersMB.getNumeroVendas(2)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(2)}" alt=""
@@ -2058,7 +2058,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(2)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(3)}"
+																data-percentage="#{mateRunnersMB.getPercentual(3)}" style="height:#{mateRunnersMB.getPercentual(3)}%"
 																title="#{mateRunnersMB.getNumeroVendas(3)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(3)}" alt=""
@@ -2068,7 +2068,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(3)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(4)}"
+																data-percentage="#{mateRunnersMB.getPercentual(4)}" style="height:#{mateRunnersMB.getPercentual(4)}%"
 																title="#{mateRunnersMB.getNumeroVendas(4)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(4)}" alt=""
@@ -2078,7 +2078,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(4)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(5)}"
+																data-percentage="#{mateRunnersMB.getPercentual(5)}" style="height:#{mateRunnersMB.getPercentual(5)}%"
 																title="#{mateRunnersMB.getNumeroVendas(5)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(5)}" alt=""
@@ -2088,7 +2088,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(5)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(6)}"
+																data-percentage="#{mateRunnersMB.getPercentual(6)}" style="height:#{mateRunnersMB.getPercentual(6)}%"
 																title="#{mateRunnersMB.getNumeroVendas(6)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(6)}" alt=""
@@ -2098,7 +2098,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(6)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(7)}"
+																data-percentage="#{mateRunnersMB.getPercentual(7)}" style="height:#{mateRunnersMB.getPercentual(7)}%"
 																title="#{mateRunnersMB.getNumeroVendas(7)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(7)}" alt=""
@@ -2108,7 +2108,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(7)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(8)}"
+																data-percentage="#{mateRunnersMB.getPercentual(8)}" style="height:#{mateRunnersMB.getPercentual(8)}%"
 																title="#{mateRunnersMB.getNumeroVendas(8)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(8)}" alt=""
@@ -2118,7 +2118,7 @@
 																	value="#{mateRunnersMB.getNomeUnidade(8)}" /> </span></li>
 	
 														<li><div
-																data-percentage="#{mateRunnersMB.getPercentual(9)}"
+																data-percentage="#{mateRunnersMB.getPercentual(9)}" style="height:#{mateRunnersMB.getPercentual(9)}%"
 																title="#{mateRunnersMB.getNumeroVendas(9)}" class="bar"></div>
 															<span><br /> <br /> <img
 																src="#{mateRunnersMB.getFoto(9)}" alt=""
@@ -2153,7 +2153,7 @@
 													<p:commandLink id="btnRight2" 
 														action="#{mateRunnersMB.mudarPosicao(true)}" style="margin-left: 42%;" 
 														update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
-														<img src="resources/img/botaoDi.png" style="width:35px;margin-top: 1%;" />   
+														<img src="resources/img/setaDi2.png" style="width:25px;margin-top: 1%;" />   
 													</p:commandLink> 
 										</div>   
 									</div>
@@ -2209,7 +2209,7 @@
 											<p:commandLink id="btnRight3" 
 														action="#{mateRunnersMB.mudarPosicao(true)}" style="margin-left: 42%;" 
 														update=":inicial:panelMateRunners, :inicial:panelProductRunners, :inicial:panelTmRace, :inicial:panelTotalTmRace, :inicial:panelTotalProductRunners, :inicial:painelConteudo" >
-														<img src="resources/img/botaoDi.png" style="width:35px;margin-top: 1%;" />   
+														<img src="resources/img/setaDi2.png" style="width:25px;margin-top: 1%;" />   
 													</p:commandLink>   
 										</div>   
 									</div>
