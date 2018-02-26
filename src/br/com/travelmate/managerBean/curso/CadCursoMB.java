@@ -3109,8 +3109,13 @@ public class CadCursoMB implements Serializable {
 								.getComplementoacomodacao().getTipoquarto());
 						curso.setRefeicoes(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 								.getComplementoacomodacao().getTiporefeicao());
-						curso.setBanheiroprivativo(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
-								.getCoprodutos().getComplementoacomodacao().getTipobanheiro()); 
+						String tipoBanheiro = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
+								.getCoprodutos().getComplementoacomodacao().getTipobanheiro();
+						if (tipoBanheiro.equalsIgnoreCase("Privado")) {
+							curso.setBanheiroprivativo("Sim"); 
+						} else{
+							curso.setBanheiroprivativo("Não");
+						}
 						curso.setDataChegada(verificarDataInicioAcomodacaoOrcamento(ocurso.getDatainicio(), ocurso.getNumerosemanas()));
 						if(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas()>0){
 							curso.setNumeroSemanasAcamodacao(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
