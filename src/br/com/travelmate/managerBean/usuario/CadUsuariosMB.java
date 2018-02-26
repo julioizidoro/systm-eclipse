@@ -48,6 +48,7 @@ public class CadUsuariosMB implements Serializable {
 	private String vende;
 	private boolean responsavelUnidade = false;
 	private String sql;
+	private boolean loginexistente = false;
 
 	@PostConstruct
 	public void init() {
@@ -153,6 +154,14 @@ public class CadUsuariosMB implements Serializable {
 		this.listaCargo = listaCargo;
 	}
 
+	public boolean isLoginexistente() {
+		return loginexistente;
+	}
+
+	public void setLoginexistente(boolean loginexistente) {
+		this.loginexistente = loginexistente;
+	}
+
 	public void gerarlistaUnidade() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidade = unidadeNegocioFacade.listar();
@@ -209,7 +218,7 @@ public class CadUsuariosMB implements Serializable {
 		String msg = "";
 		validarDados(msg);
 		if (msg.length() < 2) {
-			if (validarLogin()) {
+			if (verificarNovoLogin()) {
 				UsuarioFacade usuarioFacade = new UsuarioFacade();
 				if (foto.equalsIgnoreCase("Sim")) {
 					usuario.setFoto(true);
@@ -236,7 +245,7 @@ public class CadUsuariosMB implements Serializable {
 				session.setAttribute("sql", sql);
 				return "consUsuario";
 			} else {
-				Mensagem.lancarMensagemInfo("Usuário já existe.", "Escolha uma novo Login.");
+				Mensagem.lancarMensagemInfo("Usuário já existe.", "Escolha um novo Login.");
 				return "";
 			}
 		} else {
@@ -327,6 +336,24 @@ public class CadUsuariosMB implements Serializable {
 			acessounidade.setUsuario(usuario);
 			acessounidade = acessoUnidadeFacade.salvar(acessounidade);
 		}
-	}  
+	} 
+	
+	
+	public boolean verificarNovoLogin(){
+		if (usuario.getIdusuario() == null) {
+			if (usuario.getLogin().length() > 0) {
+				UsuarioFacade usuarioFacade = new UsuarioFacade();
+				List<Usuario> listaUsuario = usuarioFacade.listar("SELECT u FROM Usuario u WHERE u.login like '%" + usuario.getLogin() + "%'");
+				if (listaUsuario == null || listaUsuario.isEmpty()) {
+					return true;
+				}else{
+					Mensagem.lancarMensagemInfo("Login já existente", "");
+					return false;
+				}
+			}
+			
+		}
+		return true;
+	}
 	
 }

@@ -27,7 +27,9 @@
 						<p:inputText id="nome" style="width:90%;"
 							value="#{cadUsuariosMB.usuario.nome}" />
 						<p:inputText id="idusuario" style="width:70%;"
-							value="#{cadUsuariosMB.usuario.login}" />
+							value="#{cadUsuariosMB.usuario.login}">
+							<p:ajax event="blur" listener="#{cadUsuariosMB.verificarNovoLogin()}" update=":cadUsuario:growl"/>
+						</p:inputText>
 						<p:selectOneMenu id="cargo"
 							value="#{cadUsuariosMB.usuario.cargo}"
 							style="width:88%;" converter="CargoConverter"
