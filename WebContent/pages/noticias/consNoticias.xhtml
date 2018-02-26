@@ -174,7 +174,7 @@
 												style="font-size:12px;font-weight: initial;text-align:justify;" />
 											<p:commandLink update=":formNoticias:panelTotalPacotes"
 												style="font-size: 32px;float: right;margin-top: -10%;"
-												title="Saiba Mais"
+												title="Mais"
 												rendered="#{noticiaMB.verficiarTexto(avisos)}"
 												actionListener="#{noticiaMB.setarAviso(avisos)}" value="...">
 											</p:commandLink>
@@ -189,12 +189,16 @@
 												style="font-size:12px;font-weight: initial;" />
 											<p:commandLink
 												style="font-size: 32px;float: right;margin-top: -10%;"
-												title="Confirmar Visualização"
+												title="Confirmar Visualização" update=":formNoticias:panelTotalPacotes"
 												rendered="#{noticiaMB.verificarVisto(avisos)}"
 												action="#{noticiaMB.limparVisualizacao(avisos)}">
 												<img src="../../resources/img/limpar.png" width="30"
 													style="float: right;" />
 											</p:commandLink>
+											<h:panelGroup style="font-size: 32px;float: right;margin-top: -10%;" rendered="#{noticiaMB.verificarView(avisos)}">
+												<img src="../../resources/img/verOrcamento.png" width="35"
+														style="float: right;" title="Visto"/>
+											</h:panelGroup>
 										</h:panelGrid>
 									</div>
 								</div>

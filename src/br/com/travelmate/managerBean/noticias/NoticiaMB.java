@@ -351,7 +351,7 @@ public class NoticiaMB implements Serializable{
 		String  dataString = Formatacao.SubtarirDatas(new Date(), 15, "dd/MM/yyyy");
 		Date dataFiltro = Formatacao.ConvercaoStringData(dataString);
 		listaAvisosTudo = avisosFacade.listarAvisoUsuario("SELECT a FROM Avisousuario a WHERE a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario()
-				 + " and a.visto=0 and a.avisos.data>='" + Formatacao.ConvercaoDataSql(dataFiltro) + "'");
+				 + " and a.avisos.data>='" + Formatacao.ConvercaoDataSql(dataFiltro) + "' order by a.avisos.data DESC");
 		if (listaAvisosTudo == null) {
 			listaAvisosTudo = new ArrayList<Avisousuario>();
 		}
@@ -392,6 +392,7 @@ public class NoticiaMB implements Serializable{
 		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and a.avisos.usuario.idusuario=" + usuario.getIdusuario();
 		}
+		sql = sql + " order by a.avisos.data DESC";
 		listaAvisosTudo = avisosFacade.listarAvisoUsuario(sql);
 		if (listaAvisosTudo == null) {
 			listaAvisosTudo = new ArrayList<Avisousuario>();
@@ -537,6 +538,14 @@ public class NoticiaMB implements Serializable{
 				listaUsuario = new ArrayList<Usuario>();
 			}
 		}
+	}
+	
+	
+	public boolean verificarView(Avisousuario aviso){
+		if (aviso.getVisto()) {
+			return true;
+		}
+		return false;
 	}
 
 }
