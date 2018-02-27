@@ -137,6 +137,8 @@
 								</h:panelGroup>
 								<p:ajax event="dialogReturn"
 									listener="#{pollMB.gerarListaAviso(n)}" update="promocao" />
+								<p:ajax event="dialogReturn"
+									listener="#{usuarioLogadoMB.retornoDialogNotificacao}" update="promocao" />
 							</p:commandLink></li>
 						<li class="dropdown"><p:commandLink id="upload"
 								title="Upload" class="dropdown-toggle" data-toggle="dropdown"
@@ -148,6 +150,8 @@
 								</h:panelGroup>
 								<p:ajax event="dialogReturn"
 									listener="#{pollMB.gerarListaAviso(n)}" update="upload" />
+								<p:ajax event="dialogReturn"
+									listener="#{usuarioLogadoMB.retornoDialogNotificacao}" update="upload" />
 							</p:commandLink></li>
 					</ul>
 				</h:panelGroup>
