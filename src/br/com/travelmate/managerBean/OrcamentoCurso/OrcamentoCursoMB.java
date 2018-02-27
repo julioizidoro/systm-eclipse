@@ -2647,43 +2647,64 @@ public class OrcamentoCursoMB implements Serializable {
 	}
 
 	public void verificarPacote() {
-		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
-				.getCoprodutos().isPacote()) {
-			habilitarOpcaoPacote = "true";
+		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal() != null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().size() > 0) {
+			if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
+					.getCoprodutos().isPacote()) {
+				habilitarOpcaoPacote = "true";
+			} else {
+				habilitarOpcaoPacote = "false";
+			}
 		} else {
 			habilitarOpcaoPacote = "false";
 		}
 	}
 
 	public void esconderOpcionais() {
-		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
-				.getCoprodutos().isPacote()) {
-			escoderOpcionais = "false";
+		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal() != null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().size() > 0) {
+			if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
+					.getCoprodutos().isPacote()) {
+				escoderOpcionais = "false";
+			} else {
+				escoderOpcionais = "true";
+			}
 		} else {
 			escoderOpcionais = "true";
 		}
 	}
 
 	public void verificarPacoteAcomodacao() {
-		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
-				.getCoprodutos().isPacote()
-				&& resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
-						.getValorcoprodutos().getCoprodutos().isAcomodacao()) {
-			pacoteAcomodacao = "false";
+		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal() != null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().size() > 0) {
+			if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
+					.getCoprodutos().isPacote()
+					&& resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+							.getValorcoprodutos().getCoprodutos().isAcomodacao()) {
+				pacoteAcomodacao = "false";
+			} else {
+				pacoteAcomodacao = "true";
+			}
 		} else {
 			pacoteAcomodacao = "true";
 		}
 	}
 
 	public void verificarPacoteTransfer() {
-		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
-				.getCoprodutos().isPacote()
-				&& resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
-						.getValorcoprodutos().getCoprodutos().isTransfer()) {
-			pacoteTransfer = "false";
+		if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal() != null &&
+				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().size() > 0) {
+			if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0).getValorcoprodutos()
+					.getCoprodutos().isPacote()
+					&& resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+							.getValorcoprodutos().getCoprodutos().isTransfer()) {
+				pacoteTransfer = "false";
+			} else {
+				pacoteTransfer = "true";
+			}
 		} else {
 			pacoteTransfer = "true";
 		}
+			
 	}
 
 	public void verificarNumeroSemanas() {
