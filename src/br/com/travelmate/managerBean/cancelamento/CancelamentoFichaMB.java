@@ -31,6 +31,7 @@ import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.PacotesFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoFacade;
@@ -53,6 +54,8 @@ import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Pacotepassagempassageiro_;
+import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuariopontos; 
 import br.com.travelmate.model.Vendas;
@@ -99,6 +102,7 @@ public class CancelamentoFichaMB implements Serializable {
 			session.removeAttribute("venda");
 			gerarListaBanco();
 			cancelamento = (Cancelamento) session.getAttribute("cancelamento");
+			session.removeAttribute("cancelamento");
 			if (cancelamento == null) {
 				cancelamento = new Cancelamento();
 				cancelamento.setVendas(venda);
@@ -242,6 +246,9 @@ public class CancelamentoFichaMB implements Serializable {
 			if (listaNomeArquivo!=null) {
 				salvarArquivo();
 			}
+			if (cancelamento.getFormapagamento().equalsIgnoreCase("Reembolso")) {
+				lancarContasPagar();
+			}
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(venda);
 			cancelarContasReceber();
@@ -282,11 +289,21 @@ public class CancelamentoFichaMB implements Serializable {
 				dashBoardBean.calcularNumeroVendasProdutos(venda, true);
 				dashBoardBean.calcularMetaMensal(venda, 0, true);
 				dashBoardBean.calcularMetaAnual(venda, 0, true);
-				int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", true);
-				venda.setPonto(pontos[0]);
-				venda.setPontoescola(pontos[1]);
-				venda = vendasFacade.salvar(venda);
-				productRunnersMB.calcularPontuacao(venda, pontos[0], true);
+				if (venda.getProdutos().getIdprodutos() != 7) {
+					int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", true);
+					productRunnersMB.calcularPontuacao(venda, venda.getPonto(), true);
+					venda.setPonto(pontos[0]);
+					venda.setPontoescola(pontos[1]);
+					venda = vendasFacade.salvar(venda);
+				}else{
+					PacotesFacade pacotesFacade = new PacotesFacade();
+					Pacotes pacote = pacotesFacade.consultar(venda.getIdvendas());
+					int pontos = dashBoardBean.calcularPontuacaoPacate(venda, true, pacote, pacote.getUsuario(), venda.getUsuario());
+					productRunnersMB.calcularPontuacaoPacote(venda.getUsuario(), pacote.getUsuario(), venda.getProdutos(), true, venda.getPonto());
+					venda.setPonto(pontos);
+					venda.setPontoescola(pontos);
+					venda = vendasFacade.salvar(venda);
+				}
 				metaRunnersMB.carregarListaRunners();
 				emitirNotificacao();
 	
@@ -341,7 +358,7 @@ public class CancelamentoFichaMB implements Serializable {
 						dashBoardBean.calcularNumeroVendasProdutos(vendas, true);
 						dashBoardBean.calcularMetaMensal(vendas, 0, true);
 						dashBoardBean.calcularMetaAnual(vendas, 0, true);
-						pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", true);
+						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", true);
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						vendas = vendasFacade.salvar(vendas);
@@ -559,8 +576,8 @@ public class CancelamentoFichaMB implements Serializable {
 				cancelamento.getVendas().getCliente().getNome() + ", com o plano de conta Reembolso a Clientes");
 		contaspagar.setPlanoconta(planoContaFacade.consultar(7));
 		contaspagar.setUnidadenegocio(cancelamento.getVendas().getUnidadenegocio());
-		contaspagar.setValorentrada(cancelamento.getValorreembolso());
-		contaspagar.setValorsaida(0.0f);
+		contaspagar.setValorentrada(0.0f);
+		contaspagar.setValorsaida(cancelamento.getValorreembolso());
 		contaspagar.setDatacompensacao(cancelamento.getDatasolicitacao());
 		contaspagar.setDatavencimento(cancelamento.getDatasolicitacao());
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();

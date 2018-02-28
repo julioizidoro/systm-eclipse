@@ -204,7 +204,7 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutomes = new Corridaprodutomes();
 				corridaprodutomes.setAno(ano);
 				corridaprodutomes.setMes(mes);
-				corridaprodutomes.setPontos(pontos);
+				corridaprodutomes.setPontos(0);
 				corridaprodutomes.setProdutos(vendas.getProdutos());
 				corridaprodutomes.setUsuario(vendas.getUsuario());
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
@@ -217,7 +217,7 @@ public class ProductRunnersMB implements Serializable{
 			if (corridaprodutoano == null) {
 				corridaprodutoano = new Corridaprodutoano();
 				corridaprodutoano.setAno(ano);
-				corridaprodutoano.setPontos(pontos);
+				corridaprodutoano.setPontos(0);
 				corridaprodutoano.setProdutos(vendas.getProdutos());
 				corridaprodutoano.setUsuario(vendas.getUsuario());
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);

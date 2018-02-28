@@ -84,7 +84,7 @@
 					</p:commandLink></li>
 				<li class="dropdown"><p:commandLink id="promocao"
 						title="Promoção" class="dropdown-toggle" data-toggle="dropdown"
-						action="#{usuarioLogadoMB.carregarNotificacao('promocao', '')}">
+						action="#{usuarioLogadoMB.carregarNotificacaoPromocao('promocao', '')}">
 						<img src="../../resources/img/paginainicial/new.png" width="22" />
 						<h:panelGroup rendered="#{pollMB.habilitarNumeroPromocao()}">
 							<span id="idPromocao"
@@ -92,10 +92,12 @@
 						</h:panelGroup>
 						<p:ajax event="dialogReturn"
 							listener="#{pollMB.gerarListaAviso(n)}" update="promocao" />
+						<p:ajax event="dialogReturn"
+									listener="#{usuarioLogadoMB.retornoDialogNotificacao}" update="promocao" />
 					</p:commandLink></li>
 				<li class="dropdown"><p:commandLink id="upload" title="Upload"
 						class="dropdown-toggle" data-toggle="dropdown"
-						action="#{usuarioLogadoMB.carregarNotificacao('Upload', '')}">
+						action="#{usuarioLogadoMB.carregarNotificacaoUpload('Upload', '')}">
 						<img src="../../resources/img/paginainicial/upload.png" width="22" />
 						<h:panelGroup rendered="#{pollMB.habilitarNumeroUpload()}">
 							<span id="idUpload"
@@ -103,6 +105,8 @@
 						</h:panelGroup>
 						<p:ajax event="dialogReturn"
 							listener="#{pollMB.gerarListaAviso(n)}" update="upload" />
+						<p:ajax event="dialogReturn"
+									listener="#{usuarioLogadoMB.retornoDialogNotificacao}" update="upload" />
 					</p:commandLink></li>
 			</ul>
 		</div>

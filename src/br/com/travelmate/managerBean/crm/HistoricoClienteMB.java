@@ -415,8 +415,8 @@ public class HistoricoClienteMB implements Serializable {
 			if(lead.getMotivocancelamento1()!=null
 				&& lead.getMotivocancelamento1().getIdmotivocancelamento()!=1){
 				LeadFacade leadFacade = new LeadFacade();
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
-				lead.setSituacao(6);
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 7);
+				lead.setSituacao(7);
 				lead = leadFacade.salvar(lead);
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
