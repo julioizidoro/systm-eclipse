@@ -135,21 +135,39 @@ public class AdicionarAcomodacaoMB implements Serializable {
 						listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
 						resultadoOrcamentoBean.getDataConsulta());
 				if (po != null) {
+					po.setListaSemanas(new ArrayList<Integer>());
+					po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 					listaAcomodacoes.add(po);
 				} else {
 					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date() );
 					if (po != null) {
+						po.setListaSemanas(new ArrayList<Integer>());
+						po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 						listaAcomodacoes.add(po);
 					} else {
 						po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
 								resultadoOrcamentoBean.getDataConsulta() );
 						if (po != null) {
+							po.setListaSemanas(new ArrayList<Integer>());
+							po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 							listaAcomodacoes.add(po);
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	
+	public List<Integer> retornarNSemanas(Valorcoprodutos valorcoprodutos){
+		int diferencaSemanas = 48 - valorcoprodutos.getNumerosemanainicial();
+		List<Integer> listaSemanas = new ArrayList<Integer>();
+		Integer nSemana = 0;
+		for (int i = 0; i <= diferencaSemanas; i++) {
+			nSemana = valorcoprodutos.getNumerosemanainicial() + i;
+			listaSemanas.add(nSemana);
+		}
+		return listaSemanas;
 	}
 
 	public ProdutosOrcamentoBean consultarValores(String tipoData, int idCoProdutos, Date dataconsulta,
@@ -549,15 +567,21 @@ public class AdicionarAcomodacaoMB implements Serializable {
 				ProdutosOrcamentoBean po = consultarValores("DI",
 						listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), dataconsulta);
 				if (po != null) {
+					po.setListaSemanas(new ArrayList<Integer>());
+					po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 					listaAcomodacoesIndependente.add(po);
 				} else {
 					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date());
 					if (po != null) {
+						po.setListaSemanas(new ArrayList<Integer>());
+						po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 						listaAcomodacoesIndependente.add(po);
 					} else {
 						po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
 								dataconsulta);
 						if (po != null) {
+							po.setListaSemanas(new ArrayList<Integer>());
+							po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 							listaAcomodacoesIndependente.add(po);
 						}
 					}

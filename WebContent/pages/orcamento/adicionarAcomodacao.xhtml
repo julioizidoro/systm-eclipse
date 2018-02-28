@@ -104,56 +104,11 @@
 														minFractionDigits="2" />
 												</p:outputLabel> 
 												<p:selectOneMenu class="espacocobranca29" id="sexo"
-													value="#{acomodacao.numeroSemanas}" style="width:50px;">  
-													<f:selectItem itemLabel="0" itemValue="0" />
-													<f:selectItem itemLabel="1" itemValue="1" />
-													<f:selectItem itemLabel="2" itemValue="2" />
-													<f:selectItem itemLabel="3" itemValue="3" />
-													<f:selectItem itemLabel="4" itemValue="4" />
-													<f:selectItem itemLabel="5" itemValue="5" />
-													<f:selectItem itemLabel="6" itemValue="6" />
-													<f:selectItem itemLabel="7" itemValue="7" />
-													<f:selectItem itemLabel="8" itemValue="8" />
-													<f:selectItem itemLabel="9" itemValue="9" />
-													<f:selectItem itemLabel="10" itemValue="10" />
-													<f:selectItem itemLabel="11" itemValue="11" />
-													<f:selectItem itemLabel="12" itemValue="12" />
-													<f:selectItem itemLabel="13" itemValue="13" />
-													<f:selectItem itemLabel="14" itemValue="14" />
-													<f:selectItem itemLabel="15" itemValue="15" />
-													<f:selectItem itemLabel="16" itemValue="16" />
-													<f:selectItem itemLabel="17" itemValue="17" />
-													<f:selectItem itemLabel="18" itemValue="18" />
-													<f:selectItem itemLabel="19" itemValue="19" />
-													<f:selectItem itemLabel="20" itemValue="20" />
-													<f:selectItem itemLabel="21" itemValue="21" />
-													<f:selectItem itemLabel="22" itemValue="22" />
-													<f:selectItem itemLabel="23" itemValue="23" />
-													<f:selectItem itemLabel="24" itemValue="24" />
-													<f:selectItem itemLabel="25" itemValue="25" />
-													<f:selectItem itemLabel="26" itemValue="26" />
-													<f:selectItem itemLabel="27" itemValue="27" />
-													<f:selectItem itemLabel="28" itemValue="28" />
-													<f:selectItem itemLabel="29" itemValue="29" />
-													<f:selectItem itemLabel="30" itemValue="30" />
-													<f:selectItem itemLabel="31" itemValue="31" />
-													<f:selectItem itemLabel="32" itemValue="32" />
-													<f:selectItem itemLabel="33" itemValue="33" />
-													<f:selectItem itemLabel="34" itemValue="34" />
-													<f:selectItem itemLabel="35" itemValue="35" />
-													<f:selectItem itemLabel="36" itemValue="36" />
-													<f:selectItem itemLabel="37" itemValue="37" />
-													<f:selectItem itemLabel="38" itemValue="38" />
-													<f:selectItem itemLabel="39" itemValue="39" />
-													<f:selectItem itemLabel="40" itemValue="40" />
-													<f:selectItem itemLabel="41" itemValue="41" />
-													<f:selectItem itemLabel="42" itemValue="42" />
-													<f:selectItem itemLabel="43" itemValue="43" />
-													<f:selectItem itemLabel="44" itemValue="44" />
-													<f:selectItem itemLabel="45" itemValue="45" />
-													<f:selectItem itemLabel="46" itemValue="46" />
-													<f:selectItem itemLabel="47" itemValue="47" />
-													<f:selectItem itemLabel="48" itemValue="48" />
+													value="#{acomodacao.numeroSemanas}" style="width:100px;">  
+													<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+													<f:selectItems id="semanaSelecionada" value="#{acomodacao.listaSemanas}"
+														var="nsemana" itemLabel="#{nsemana}" itemValue="#{nsemana}" />
+													<f:attribute name="listaSemanas" value="#{acomodacao.listaSemanas}" />
 													<p:ajax
 														listener="#{adicionarAcomodacaoMB.calcularValorAcomodacao(acomodacao)}"
 														update="semPromocaoAcomodacao, comPromocaoAcomodacao, valoracomodacao" />
