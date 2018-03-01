@@ -1088,7 +1088,7 @@ public class CadVoluntariadoMB implements Serializable {
 				cliente = cadVoluntariadoBean.salvarCliente(cliente,
 						Formatacao.ConvercaoDataPadrao(voluntariado.getDataInicioVoluntariado()),
 						voluntariado.getDataTerminoVoluntariado(), null);
-				if (enviarFicha) {
+				if (novaFicha) {
 					cadVoluntariadoBean.salvarNovaFichha(aplicacaoMB);
 				} else {
 					cadVoluntariadoBean.verificarDadosAlterado(voluntariado, voluntariadoAlterado, fornecedorCidade,
