@@ -259,19 +259,44 @@
     <class>br.com.travelmate.model.Crmcobrancahistorico</class>
     <class>br.com.travelmate.model.Crmcobrancaconta</class>
     <class>br.com.travelmate.model.Acessounidade</class>
+    <class>br.com.travelmate.model.Tisolicitacoes</class>
+    <class>br.com.travelmate.model.Tisolicitacoeshistorico</class>
+    <class>br.com.travelmate.model.Notificacaouploadusuario</class>
+    <class>br.com.travelmate.model.Traducaojuramentada</class>
+    <class>br.com.travelmate.model.Cargo</class>
+    <class>br.com.travelmate.model.Parametrosfinanceiro</class>
+    <class>br.com.travelmate.model.Controleworkembarque</class>
+    <class>br.com.travelmate.model.Controleworkempregaor</class>
+    <class>br.com.travelmate.model.Controleworksponsor</class>
+    <class>br.com.travelmate.model.Controleworkentrevista</class>
+    <class>br.com.travelmate.model.Worksponsor</class>
+    <class>br.com.travelmate.model.Workempregador</class>
+    <class>br.com.travelmate.model.Worksponsorarquivos</class>
+    <class>br.com.travelmate.model.Leadsituacao</class>
+    <class>br.com.travelmate.model.Leadresponsavel</class>
+    <class>br.com.travelmate.model.Cartaocreditolancamentocontas</class>
+    <class>br.com.travelmate.model.Leadcontrole</class>
+    <class>br.com.travelmate.model.Leadposvenda</class>
+    <class>br.com.travelmate.model.Voluntariadopacote</class>
+    <class>br.com.travelmate.model.Credito</class>
+    <class>br.com.travelmate.model.Cancelamentocredito</class>
+    <class>br.com.travelmate.model.Complementoacomodacaodiasemana</class>
+    <class>br.com.travelmate.model.Corridaprodutoano</class>
+    <class>br.com.travelmate.model.Corridaprodutomes</class>
+    <class>br.com.travelmate.model.Lancamentocartaocredito</class>
     
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties>
-    	<property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
-    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.25.170:8082/systm"/>
+    	<property name="eclipselink.jdbc.batch-writing" value="None"/>
+    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://162.144.44.7:8081/systm"/>  
     	<property name="javax.persistence.jdbc.user" value="root"/>
     	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
     	<property name="eclipselink.jdbc.bind-parameters" value="true"/>
-    	<property name="eclipselink.jdbc.exclusive-connection.mode" value="Always"/>
     	<property name="eclipselink.exclude-eclipselink-orm" value="true"/>
+    	<property name="eclipselink.allow-zero-id" value="true"/>
     	<property name="javax.persistence.jdbc.password" value="simples"/>
-    	</properties>
+    	</properties> 
   </persistence-unit>
 </persistence>
