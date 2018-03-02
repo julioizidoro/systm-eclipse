@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.unidadenegocio;
 
+import java.io.IOException;
 import java.io.Serializable; 
 import java.util.ArrayList;
 import java.util.Date;
@@ -215,7 +216,13 @@ public class CadUnidadeNegocioMB implements Serializable {
 			if (novaUnidade) {
 				salvarMetaFaturamento();
 			}
-			if (!novaUnidade) {
+			if (novaUnidade) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("consUnidadeNegocio.jsf");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else {
 				return "consUnidade";
 			}
 		}   
@@ -270,8 +277,8 @@ public class CadUnidadeNegocioMB implements Serializable {
 		Metafaturamentoanual metafaturamentoanual = new Metafaturamentoanual();
 		Metasfaturamentomensal metasfaturamentomensal = new Metasfaturamentomensal();
 		Date dataAtual = new Date();
-		int numeroMes = Formatacao.getMesData(dataAtual);
-		int numeroTotalMes = (12- numeroMes) + 1;
+		int numeroMes = Formatacao.getMesData(dataAtual) + 1;
+		int numeroTotalMes = (12- numeroMes);
 		int ano = Formatacao.getAnoData(dataAtual);
 		float valorMetaTotal = valorMetaMensal * numeroMes;
 		metafaturamentoanual.setAno(ano);
@@ -283,17 +290,17 @@ public class CadUnidadeNegocioMB implements Serializable {
 		metafaturamentoanual.setUnidadenegocio(unidadenegocio);
 		mateFaturamentoAnualFacade.salvar(metafaturamentoanual);
 		metasfaturamentomensal.setAno(ano);
-		metasfaturamentomensal.setMes(numeroMes);
+		metasfaturamentomensal.setMes(numeroMes + 1);
 		metasfaturamentomensal.setValoralcancado(0f);
 		metasfaturamentomensal.setValormeta(valorMetaMensal);
 		metasfaturamentomensal.setValormetasemana(valorMetaMensal / 4);
 		metasfaturamentomensal.setPercentualalcancado(0f);
 		metasfaturamentomensal.setUnidadenegocio(unidadenegocio);
 		metaFaturamentoMensalFacade.salvar(metasfaturamentomensal);
-		for (int i = 0; i < numeroTotalMes; i++) {
+		for (int i = 1; i < numeroTotalMes; i++) {
 			metasfaturamentomensal = new Metasfaturamentomensal();
 			metasfaturamentomensal.setAno(ano);
-			metasfaturamentomensal.setMes(numeroMes + (i + 1));
+			metasfaturamentomensal.setMes(numeroMes +  i);
 			metasfaturamentomensal.setValoralcancado(0f);
 			metasfaturamentomensal.setValormeta(valorMetaMensal);
 			metasfaturamentomensal.setValormetasemana(valorMetaMensal / 4);
