@@ -336,7 +336,7 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 				<text><![CDATA[País :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="44" y="100" width="180" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
+				<reportElement x="44" y="100" width="107" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
 				<textFieldExpression><![CDATA[$F{nomePais}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -348,11 +348,11 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 				<textFieldExpression><![CDATA[$F{duracaointercambio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="238" y="100" width="98" height="13" uuid="627fdb24-9d7d-44d3-a107-26262c2880c7"/>
+				<reportElement x="306" y="100" width="98" height="13" uuid="627fdb24-9d7d-44d3-a107-26262c2880c7"/>
 				<text><![CDATA[Programa / Escola :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="333" y="100" width="209" height="13" uuid="4d7c599f-9957-4ab0-91cf-a0a133e4529e"/>
+				<reportElement x="407" y="100" width="135" height="13" uuid="4d7c599f-9957-4ab0-91cf-a0a133e4529e"/>
 				<textFieldExpression><![CDATA[$F{nomeForcedor}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -441,6 +441,14 @@ order by orcamentoprodutosorcamento.idorcamentoprodutosorcamento]]>
 				<reportElement x="359" y="6" width="196" height="54" uuid="a56d4a83-13d6-4ec3-bfd1-3356cb15898a"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="156" y="100" width="44" height="15" uuid="109fd0c5-50b3-4c60-a59b-edeed714af0f"/>
+				<text><![CDATA[Cidade :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="100" width="107" height="15" uuid="e8658d73-b3cb-48be-a40a-daec5e7c5857"/>
+				<textFieldExpression><![CDATA[$F{nomeCidade}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>

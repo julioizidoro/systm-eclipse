@@ -219,7 +219,7 @@ public class RelatorioEmbarqueMB implements Serializable {
 
 	public String gerarSql() {
 		String sql = "select distinct vendas.idvendas,controlecursos.situacao, pais.nome,cidade.nome as cidade, cliente.nome as cliente,controlecursos.dataEmbarque,fornecedor.nome as fornecedor,"
-				+ " unidadenegocio.nomerelatorio as unidade, controlecursos.LoasObs as obs,cursos.dataInicio from controlecursos "
+				+ " unidadenegocio.nomerelatorio as unidade, controlecursos.LoasObs as obs,cursos.dataInicio, cursos.numerosemanas from controlecursos "
 				+ " join vendas on controlecursos.vendas_idvendas=vendas.idvendas "
 				+ " join cursos on cursos.vendas_idvendas = vendas.idvendas"
 				+ " join cliente on  vendas.cliente_idcliente=cliente.idcliente "

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoHighSchoolPagina01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.2100000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="201"/>
+	<property name="ireport.y" value="128"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -383,7 +383,7 @@ $F{razaoSocial} +", adiante apenas   TRAVELMATE ou TM ,pessoa jurídica de direi
 $F{nome} + ", adiante apenas   PARTICIPANTE   , " + $F{paisnascimento}  + ", "  + $F{estadoCivil}+ ", " + $F{profissao} + ","+" portador" + "do CI/RG de nº " + $F{rg} + " e inscrito no CPF/MF sob o nº " + $F{clientecpf} + ", residente e domiciliado na "+ $F{clientetipologradouro} + " " + $F{clientelogradouro} + ", " + $F{clientenumero} + ", "+$F{clientebairro} + ", " + $F{complementocliente} + ", " + $F{clientecidade} + ", " + $F{clienteestado} + ", CEP : " +$F{clientecep} + ", têm entre si justos e acertados a celebração de contrato de prestação de serviços de intercâmbio cultural, nos termos e condições estabelecidas neste contrato. \n \n" +
 
 "1. OBJETO \n"+
-"O presente contrato tem como objeto a intermediação da prestação de serviços educacionais de intercâmbio cultural pela TRAVELMATE  (intermediadora) e seu parceiro internacional," + $F{escolaintercambio} + ", em favor do PARTICIPANTE visando sua inscrição no programa de intercâmbio High School,  com duração de " + $F{duracao} +" letivo(s)/escolar(es), em " + $F{paisintercambio} + ", com início previsto para " + $F{datainicio} + " - " + $F{anoinicio} + ", incluindo todas as atividades descritas neste instrumento. \n \n" +
+"O presente contrato tem como objeto a intermediação da prestação de serviços educacionais de intercâmbio cultural pela TRAVELMATE  (intermediadora) e seu parceiro internacional, " + $F{escolaintercambio} + ", em favor do PARTICIPANTE visando sua inscrição no programa de intercâmbio High School,  com duração de " + $F{duracao} +" letivo(s)/escolar(es), em " + $F{paisintercambio} + ", na cidade de " + $F{nomeCidade} + ", com início previsto para " + $F{datainicio} + " - " + $F{anoinicio} + ", incluindo todas as atividades descritas neste instrumento. \n \n" +
 
 "2. OBRIGAÇÕES DA TRAVELMATE INTERCÂMBIO E TURISMO - TM \n"+
 "a) Inscrever o(a) PARTICIPANTE no programa internacional para o qual se candidatou, desde este atenda aos pré-requisitos para participação (vide informativo do programa), bem como desde que recebida a ficha de inscrição completa, o contrato assinado, os documentos solicitados e o valor estipulado como mandatório para inscrição no referido programa/pacote; \n"+

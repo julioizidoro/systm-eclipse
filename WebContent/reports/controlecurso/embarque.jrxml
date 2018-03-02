@@ -61,7 +61,7 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="822" height="21" backcolor="#006666" uuid="c75eac36-c394-4ce4-bed1-0031e0c1eb62"/>
+				<reportElement x="2" y="3" width="820" height="17" backcolor="#006666" uuid="cf15837d-d4df-4dd0-a065-6a33593087dd"/>
 			</rectangle>
 			<staticText>
 				<reportElement style="Column header" x="127" y="4" width="113" height="17" forecolor="#FFFFFF" uuid="babbedfe-47dc-4efd-bde7-f805ee01ef54"/>
@@ -78,21 +78,21 @@
 				<text><![CDATA[SITUAÇÃO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="525" y="3" width="68" height="17" forecolor="#FFFFFF" uuid="c9e8e78d-30ec-4834-bc8e-4ff21764d2ad"/>
+				<reportElement style="Column header" x="489" y="3" width="68" height="17" forecolor="#FFFFFF" uuid="c9e8e78d-30ec-4834-bc8e-4ff21764d2ad"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<text><![CDATA[INÍCIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="244" y="3" width="92" height="17" forecolor="#FFFFFF" uuid="c4103acf-f6c3-4b3e-b1e9-b97fb2ce9604"/>
+				<reportElement style="Column header" x="244" y="3" width="74" height="17" forecolor="#FFFFFF" uuid="c4103acf-f6c3-4b3e-b1e9-b97fb2ce9604"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<text><![CDATA[UNIDADE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="341" y="4" width="90" height="17" forecolor="#FFFFFF" uuid="707566a8-3f7b-4376-9ade-f49b1aae9dcf"/>
+				<reportElement style="Column header" x="322" y="4" width="80" height="17" forecolor="#FFFFFF" uuid="707566a8-3f7b-4376-9ade-f49b1aae9dcf"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
@@ -106,18 +106,25 @@
 				<text><![CDATA[ EMBARQUE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="597" y="3" width="185" height="17" forecolor="#FFFFFF" uuid="55f6adb3-f692-45a8-a59d-7c5ad5dd0509"/>
+				<reportElement style="Column header" x="610" y="3" width="172" height="17" forecolor="#FFFFFF" uuid="55f6adb3-f692-45a8-a59d-7c5ad5dd0509"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<text><![CDATA[OBSERVAÇÃO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="442" y="4" width="80" height="17" forecolor="#FFFFFF" uuid="1296d57e-f54e-4074-baab-c99ee8f3bdb0"/>
+				<reportElement style="Column header" x="408" y="4" width="75" height="17" forecolor="#FFFFFF" uuid="1296d57e-f54e-4074-baab-c99ee8f3bdb0"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<text><![CDATA[CIDADE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="560" y="3" width="46" height="17" forecolor="#FFFFFF" uuid="17f9c595-58ff-415e-90df-8bfc872b31dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<text><![CDATA[SEM.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -134,21 +141,21 @@
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement style="Detail" x="244" y="1" width="92" height="15" uuid="c8a016ab-2650-48a2-a641-410c40e94147"/>
+				<reportElement style="Detail" x="244" y="1" width="74" height="15" uuid="c8a016ab-2650-48a2-a641-410c40e94147"/>
 				<textElement>
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement style="Detail" x="525" y="2" width="68" height="15" uuid="e20ccaf7-1892-44f3-8e5d-3c2580e77906"/>
+				<reportElement style="Detail" x="489" y="2" width="68" height="15" uuid="e20ccaf7-1892-44f3-8e5d-3c2580e77906"/>
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement style="Detail" x="341" y="2" width="90" height="15" uuid="43d3fd1f-8531-47eb-b20b-3b29606404c4"/>
+				<reportElement style="Detail" x="325" y="2" width="77" height="15" uuid="43d3fd1f-8531-47eb-b20b-3b29606404c4"/>
 				<textElement>
 					<font fontName="Verdana" size="9"/>
 				</textElement>
@@ -169,18 +176,25 @@
 				<textFieldExpression><![CDATA[$F{dataEmbarque}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement style="Detail" x="597" y="2" width="225" height="15" uuid="6aae0e33-fc33-4d39-992c-27aea1cad42c"/>
+				<reportElement style="Detail" x="610" y="2" width="212" height="15" uuid="6aae0e33-fc33-4d39-992c-27aea1cad42c"/>
 				<textElement>
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{obs}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement style="Detail" x="442" y="2" width="80" height="15" uuid="44e9c9a4-a6fd-4d54-88ea-ccbcfd10dbc0"/>
+				<reportElement style="Detail" x="411" y="2" width="72" height="15" uuid="44e9c9a4-a6fd-4d54-88ea-ccbcfd10dbc0"/>
 				<textElement>
 					<font fontName="Verdana" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="567" y="0" width="34" height="15" uuid="5596ad1c-2346-4aff-be74-09a226f11e7b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
