@@ -1510,4 +1510,8 @@ public class MenuMB implements Serializable {
 		return "consNoticias";
 	}
 	
+	public String vendasProduto(){
+		return "consVendasProduto";
+	}
+	
 }

@@ -975,6 +975,8 @@
 												</p:commandLink></li>
 										</ul></li>
 								</h:panelGroup>
+								
+								
 								<h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.gerenciasdemipair}">
 									<li class="openable open"><p:commandLink>
@@ -1120,6 +1122,20 @@
 											<li><p:commandLink action="#{menuMB.invoicesCurso()}">
 													<span class="subsubmenu-label">Invoices</span>
 												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+								
+								<h:panelGroup
+									>
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Relatório <i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+											<li><p:commandLink
+																action="#{menuMB.vendasProduto()}">
+																<span class="submenu-label">Vendas</span>
+															</p:commandLink></li>
 										</ul></li>
 								</h:panelGroup>
 								<h:panelGroup

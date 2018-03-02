@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaVendasProduto" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel rendered="true" class="painel" activeIndex="-1" >
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							columnClasses="tamanho7, tamanho7, tamanhoavisos, tamanho7"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="Produto"  />
+							<p:outputLabel value="Unidade" style="margin-left:4"/>
+							<p:outputLabel value="Consultor"  style="margin-left:8%"/>
+							<p:outputLabel value="Periodo Venda" for="dataIni" />
+							
+							<p:selectOneMenu id="produto" value="#{vendasProdutoMB.produtos}"
+								style="width:200px;" converter="ProdutoConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItems id="idproduto"
+									value="#{vendasProdutoMB.listaProdutos}" var="cproduto"
+									itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
+								<f:attribute name="listaProdutos"
+									value="#{vendasProdutoMB.listaProdutos}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="unidade" value="#{vendasProdutoMB.unidadenegocio}"
+								style="width:200px;margin-left:4%;" converter="UnidadeNegocioConverter"
+								
+								filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{vendasProdutoMB.listaUnidade}" var="sUnidade"  
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{vendasProdutoMB.listaUnidade}" />
+									<p:ajax event="change" listener="#{vendasProdutoMB.gerarListaConsultor()}" update="consultor"/>   
+							</p:selectOneMenu>
+							<p:selectOneMenu id="consultor" value="#{vendasProdutoMB.usuario}"
+								style="width:200px;margin-left:8%;" filter="true" filterMatchMode="startsWith"
+								converter="UsuarioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idconsultor"
+									value="#{vendasProdutoMB.listaUsuario}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{vendasProdutoMB.listaUsuario}" />
+								<p:ajax event="change"/>   
+							</p:selectOneMenu>   
+							
+							<h:panelGrid columns="2">
+								<p:calendar id="dataIni" value="#{vendasProdutoMB.dataInicio}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />  
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{vendasProdutoMB.dataFinal}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGrid>
+						</h:panelGrid>
+						<br></br>
+						
+						<br></br>
+						<h:panelGroup style="float: right;margin-right:6%;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " 
+								update=":consultaVendasProduto:tbl" 
+								action="#{vendasProdutoMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								
+								action="#" />
+						</h:panelGroup>
+						<br></br> 
+					</p:tab>     
+				</p:accordionPanel>     
+				<legend id="iUsu2">  
+					<b>Consulta Vendas de Produtos</b>  
+				</legend> 
+				<br/><br/>   
+				
+			        <h:panelGrid columns="2" style="margin-left:2%">
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_xls.png" width="36" />
+			                <p:dataExporter type="xls" target="tbl" fileName="venda" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_pdf.png" width="32" />
+			                <p:dataExporter type="pdf" target="tbl" fileName="venda"/>
+			            </h:commandLink>
+			        </h:panelGrid>
+			        
+				<p:dataTable id="tbl" var="venda" value="#{vendasProdutoMB.listaVendasComissao}"
+			                 style="width: 99%;margin-left:1%;" scrollable="true"
+							scrollHeight="300">
+			 
+			 
+			 		<p:column headerText="Data" style="width:80px;" sortBy="#{venda.vendas.dataVenda}">
+			            <h:outputText value="#{venda.vendas.dataVenda}" >
+			            	<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />   
+						</h:outputText>
+			        </p:column>
+			        
+			        <p:column headerText="Produto" style="width:100px;" sortBy="#{venda.vendas.produtos.descricao}">
+			            <h:outputText value="#{venda.vendas.produtos.descricao}" />
+			        </p:column>
+			        
+			        <p:column headerText="Consultor" style="width:150px;" sortBy="#{venda.vendas.usuario.nome}">
+			            <h:outputText value="#{venda.vendas.usuario.nome}" />
+			        </p:column>
+			        
+			        <p:column headerText="Unidade" style="width:100px;" sortBy="#{venda.vendas.unidadenegocio.nomerelatorio}">
+			            <h:outputText value="#{venda.vendas.unidadenegocio.nomerelatorio}" />
+			        </p:column>
+			 
+			        <p:column headerText="Valor Venda" sortBy="#{venda.vendas.valor}" style="width:80px;text-align:right;">
+			            <h:outputText value="#{venda.vendas.valor}" >
+			           		<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</h:outputText>
+			        </p:column>
+			 
+			        <p:column headerText="Comissão Matriz" style="width:80px;text-align:right;">
+			            <h:outputText value="#{vendasProdutoMB.retornarValorMatriz(venda)}" >
+			            		<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</h:outputText>
+			        </p:column>
+			 
+			        <p:column headerText="Comissão Franquia" sortBy="#{venda.liquidofranquia}" style="width:95px;text-align:right;">
+			            <h:outputText value="#{venda.liquidofranquia}" >
+			            		<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</h:outputText>
+			        </p:column>
+			        
+			        
+			        
+			    </p:dataTable>
+			 
+			<br></br> 
+			</div>    
+		</h:form>   
+	</ui:define>
+</ui:composition>
+</html>
