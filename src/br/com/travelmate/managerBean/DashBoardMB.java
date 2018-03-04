@@ -560,7 +560,10 @@ public class DashBoardMB implements Serializable {
 	}
 	
 	
-	
+	public String orcamentoTarifarioModelo() {
+		
+		return "inicialPacotes";
+	}
 	
 	
 }
