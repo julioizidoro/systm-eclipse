@@ -35,12 +35,12 @@ hr {
 }    
    
 #divImagem{
-	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('162.144.44.7:82/ftproot/systm/informativospacotes/capa.png') repeat 0 0;
+	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotecurso.jpg') repeat 0 0;
 	background-repeat: no-repeat;
     background-size:100%;    
 	width:100%;                 
-	height: 220px;    
-}
+	height: 220px;       
+} 
 
 #divImagem:hover{ 
 		background: linear-gradient(to bottom, rgba(255,255,280,0.4) 0%,rgba(255,255,254,0.8) 109%), url('../../resources/img/paginainicial/pacotecurso.jpg') repeat 0 0;
