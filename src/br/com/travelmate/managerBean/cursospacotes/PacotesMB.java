@@ -61,7 +61,6 @@ public class PacotesMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Date dataInicio;
 	private Ocurso pacote;
-	private boolean habilitarVoltaBtn = true;
 
 	@PostConstruct
 	public void init() {
@@ -73,11 +72,6 @@ public class PacotesMB implements Serializable{
 		//listarCursosPacotes();
 		getAplicacaoMB(); 
 		getUsuarioLogadoMB();
-		if (lead == null) {
-			habilitarVoltaBtn = false;
-		}else {
-			habilitarVoltaBtn = true;
-		}
 	} 
 	
 	public AplicacaoMB getAplicacaoMB() {
@@ -206,14 +200,6 @@ public class PacotesMB implements Serializable{
 
 	public void setPacote(Ocurso pacote) {
 		this.pacote = pacote;
-	}
-
-	public boolean isHabilitarVoltaBtn() {
-		return habilitarVoltaBtn;
-	}
-
-	public void setHabilitarVoltaBtn(boolean habilitarVoltaBtn) {
-		this.habilitarVoltaBtn = habilitarVoltaBtn;
 	}
 
 	public void consultarListarCursosPacotes(Pais pais){ 

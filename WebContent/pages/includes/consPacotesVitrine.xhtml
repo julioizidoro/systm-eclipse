@@ -11,7 +11,7 @@
 			<div style="margin-left: 2%; width: 98%;">
 			
 				<p:commandButton id="bntLead" icon="ui-icon-arrowreturnthick-1-w"
-						style="font-size:12px;" value="Voltar para Lead" rendered="#{pacotesMB.habilitarVoltaBtn}"
+						style="font-size:12px;" value="Voltar para Lead"
 						action="#{pacotesMB.retornaHistoricoLead()}" title="Retornar para Histórico da Lead" >
 				</p:commandButton>	
 				<div align="center">   
@@ -124,11 +124,11 @@
 											</div>
 											<br />
 											<div align="center">
-												<p:commandButton value="Orçamento" icon="ui-icon-cart"
+												<p:commandButton value="Orçamento" icon="ui-icon-cart"  
 													title="Gerar orçamento com este modelo"
-													action="#{pacotesMB.gerarOrcamento(pacote)}"
-													style="margin-left:2%;font-size:12px;" disabled="#{pacotesMB.habilitarBotaoOrcamento()}">
-													
+													action="#{pacotesMB.setarPacote(pacote)}"
+													style="margin-left:2%;font-size:12px;" >
+													<p:ajax event="dialogReturn" listener="#{pacotesMB.retornoDialogData}"/>
 												</p:commandButton>
 											</div>
 											<br />
