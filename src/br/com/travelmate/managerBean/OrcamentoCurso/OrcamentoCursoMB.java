@@ -1501,8 +1501,8 @@ public class OrcamentoCursoMB implements Serializable {
 //		Date dataInicial = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
 //				resultadoOrcamentoBean.getFornecedorcidadeidioma());
 		
-		String sql = "Select v from  Valorcoprodutos v where v.datainicial>='" + produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
-				.getFornecedorcidade().getFornecedor().getAnotarifario() + "-01-01'  and v.numerosemanainicial<="
+		String sql = "Select v from  Valorcoprodutos v where v.datainicial<='" + Formatacao.ConvercaoDataSql(dataConsulta) + "' "
+				+ " and v.datafinal>='"+ Formatacao.ConvercaoDataSql(dataConsulta) + "'  and v.numerosemanainicial<="
 					+  produtosOrcamentoBean.getNumeroSemanas() + " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas() + 
 					" and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação' Order By v.idvalorcoprodutos DESC";
 
@@ -1606,20 +1606,20 @@ public class OrcamentoCursoMB implements Serializable {
 	}
 
 	public Date retornarDataConsultaOrcamento(Date dataInicio, Fornecedorcidadeidioma fornecedorcidadeidioma) {
-		int anoFornecedor = fornecedorcidadeidioma.getAno();
+		int anoFornecedor = fornecedorcidadeidioma.getFornecedorcidade().getFornecedor().getAnotarifario();
 		Calendar c = new GregorianCalendar();
 		c.setTime(dataInicio);
 		int ano = Formatacao.getAnoData(dataInicio);
 		if (anoFornecedor >= ano) {
 			return dataInicio;
 		}
-//		else if (anoFornecedor < ano) {
-//			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
-//			String dia = sData.substring(0, 2);
-//			String mes = sData.substring(3, 5);
-//			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
-//			return Formatacao.ConvercaoStringDataBrasil(sData);
-//		}    
+		else if (anoFornecedor < ano) {
+			String sData = Formatacao.ConvercaoDataPadrao(dataInicio);
+			String dia = sData.substring(0, 2);
+			String mes = sData.substring(3, 5);
+			sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
+			return Formatacao.ConvercaoStringDataBrasil(sData);
+		}    
 		return dataInicio;
 	}
 

@@ -48,7 +48,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="9" isBold="true" isItalic="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Voluntariado  Nº 000"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Higher Education Nº 000"]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="312" y="11" width="243" height="57" uuid="9fdeca54-4be0-48e6-9302-eebe9b1ce8b7"/>
@@ -85,9 +85,7 @@ $F{razaoSocial} + " , adiante apenas  TRAVELMATE ou TM, pessoa jurídica de dire
 
 "e) Prestar serviços de assessoria como agente de viagens para compra das passagens aéreas e atendimento exclusivo e personalizado do INTERCAMBISTA na organização de sua viagem de ida e volta, conforme os termos deste contrato. \n"+
 
-"f) Os serviços de assessoria da TRAVELMATE continuarão a disposição do INTERCAMBISTA até o prazo de 60 (sessenta) dias após o início do curso superior na instituição, visando questões ligadas a sua adaptação acadêmica, esportiva, acertos financeiros e administrativos com a instituição. Após este período os departamentos responsáveis da instituição irão processar diretamente todas as solicitações. "
-
-]]></textFieldExpression>
+"f) Os serviços de assessoria da TRAVELMATE continuarão a disposição do INTERCAMBISTA até o prazo de 60 (sessenta) dias após o início do curso superior na instituição, visando questões ligadas a sua adaptação acadêmica, esportiva, acertos financeiros e administrativos com a instituição. Após este período os departamentos responsáveis da instituição irão processar diretamente todas as solicitações. "]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
