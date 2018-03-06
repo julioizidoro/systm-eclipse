@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
+import br.com.travelmate.bean.OCursoProdutosBean;
 import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
@@ -58,6 +59,8 @@ public class SalvarOrcamentoOcurso {
 	private Float valortotal;
 	private Cursopacoteformapagamento formapagamento;
 	private Ocrusoprodutos ocrusoprodutos;
+	private OCursoProdutosBean oCursoProdutosBean;
+	private List<OCursoProdutosBean> listaOcursoProdutosBean;
 	
 	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
 			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento) {
@@ -115,9 +118,30 @@ public class SalvarOrcamentoOcurso {
 			salvarTaxasAcomodacao();
 		}
 		salvarOcursoDesconto();
+//		ocurso.setTotalmoedaestrangeira(ocurso.getValoravista() / ocurso.getValorcambio());
+//		ocurso.setTotalmoedanacional(ocurso.getValoravista());
+//		if (valorCurso > 0f) {
+//			oCursoProdutosBean = new OCursoProdutosBean();
+//			oCursoProdutosBean.setTipoSoma("adicao");
+//			oCursoProdutosBean.setValor(valorCurso);
+//			if (listaOcursoProdutosBean == null) {
+//				listaOcursoProdutosBean = new ArrayList<OCursoProdutosBean>();
+//			}
+//			listaOcursoProdutosBean.add(oCursoProdutosBean);
+//		}
+		float valorAvista = 0f;
+		for (int i = 0; i < listaOcursoProdutosBean.size(); i++) {
+			if (listaOcursoProdutosBean.get(i).getTipoSoma().equalsIgnoreCase("adicao")) {
+				valorAvista = valorAvista + listaOcursoProdutosBean.get(i).getValor();
+			}else {
+				valorAvista = valorAvista - listaOcursoProdutosBean.get(i).getValor();
+			}
+			
+		}
+		ocurso.setValoravista(valorAvista* ocurso.getValorcambio());
 		salvarFormaPagamento();
-		ocurso.setTotalmoedaestrangeira(ocurso.getValoravista() / ocurso.getValorcambio());
-		ocurso.setTotalmoedanacional(ocurso.getValoravista());
+		ocurso.setTotalmoedaestrangeira(ocurso.getValoravista());
+		ocurso.setTotalmoedanacional(ocurso.getValoravista() * ocurso.getValorcambio());
 		try {     
 			ocurso = oCursoFacade.salvar(ocurso);
 			Ocursopacote ocursopacote = new Ocursopacote();
@@ -676,6 +700,13 @@ public class SalvarOrcamentoOcurso {
 		if (ocrusoprodutos == null) {
 			ocrusoprodutos = produto;
 		}
+		oCursoProdutosBean = new OCursoProdutosBean();
+		if (listaOcursoProdutosBean == null) {
+			listaOcursoProdutosBean = new ArrayList<>();
+		}
+		oCursoProdutosBean.setTipoSoma(tiposoma);
+		oCursoProdutosBean.setValor(valororiginal);
+		listaOcursoProdutosBean.add(oCursoProdutosBean);
 	}
 	
 	public void salvarFormaPagamento(){
@@ -685,9 +716,9 @@ public class SalvarOrcamentoOcurso {
 			if(formapagamento!=null){  
 				ocursoformapagamento = new Ocursoformapagamento();
 				if(formapagamento.getValorparcelaboleto()!=null && formapagamento.getValorparcelaboleto()>0){ 
-					ocursoformapagamento.setValorEntrada(formapagamento.getValorentradaboleto());
+					ocursoformapagamento.setValorEntrada(ocurso.getValoravista() * formapagamento.getEntradaboleto());
 					ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelasboleto());
-					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelaboleto());
+					ocursoformapagamento.setValorparcela(ocurso.getValoravista() * formapagamento.getNumeroparcelasboleto());
 					ocursoformapagamento.setOcurso(ocurso);
 					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento);
 				}else{
