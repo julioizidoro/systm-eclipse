@@ -178,7 +178,9 @@ public class CadClienteMB implements Serializable {
 						if (cliente.getRg() != null && cliente.getRg().length() > 0) {
 							if (cliente.getCpf() != null && cliente.getCpf().length() > 0) {
 								if (cliente.getDataNascimento() != null) {
-									cliente.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
+									if (cliente.getIdcliente() == null) {
+										cliente.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
+									}
 									cliente.setPublicidade(publicidade);
 									cliente.setDataCadastro(new Date());
 									ClienteFacade clienteFacade = new ClienteFacade();
