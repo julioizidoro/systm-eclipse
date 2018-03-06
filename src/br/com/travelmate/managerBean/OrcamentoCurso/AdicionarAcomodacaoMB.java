@@ -160,12 +160,22 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	
 	
 	public List<Integer> retornarNSemanas(Valorcoprodutos valorcoprodutos){
-		int diferencaSemanas = 48 - valorcoprodutos.getNumerosemanainicial();
+		int diferencaSemanas = 0;
+		if (valorcoprodutos.getNumerosemanafinal() > 48) {
+			diferencaSemanas = 48 - valorcoprodutos.getNumerosemanainicial();
+		}else {
+			diferencaSemanas = valorcoprodutos.getNumerosemanafinal() - valorcoprodutos.getNumerosemanainicial();
+		}
 		List<Integer> listaSemanas = new ArrayList<Integer>();
 		Integer nSemana = 0;
-		for (int i = 0; i <= diferencaSemanas; i++) {
-			nSemana = valorcoprodutos.getNumerosemanainicial() + i;
+		if (diferencaSemanas <=0) {
+			nSemana = valorcoprodutos.getNumerosemanainicial();
 			listaSemanas.add(nSemana);
+		}else {
+			for (int i = 0; i <= diferencaSemanas; i++) {
+				nSemana = valorcoprodutos.getNumerosemanainicial() + i;
+				listaSemanas.add(nSemana);
+			}
 		}
 		return listaSemanas;
 	}
