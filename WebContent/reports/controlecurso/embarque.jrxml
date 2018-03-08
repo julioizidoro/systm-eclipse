@@ -34,6 +34,9 @@
 	<field name="dataInicio" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="numeroSenamas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="total" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{idvendas}]]></variableExpression>
 	</variable>
@@ -194,7 +197,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Verdana" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{numeroSenamas}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

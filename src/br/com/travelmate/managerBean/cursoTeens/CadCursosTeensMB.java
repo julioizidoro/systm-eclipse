@@ -938,10 +938,19 @@ public class CadCursosTeensMB implements Serializable {
 									orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
 						}
 					}
-					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-					calcularValorTotalOrcamento();
-					produtosorcamento = null;
-					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					if (produtosorcamento.getValormaximo()==0) {
+						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+						calcularValorTotalOrcamento();
+						produtosorcamento = null;
+						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+						calcularValorTotalOrcamento();
+						produtosorcamento = null;
+						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					}else {
+						Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+					}
 				} else
 					Mensagem.lancarMensagemErro("", "Curso Teens já incluso");
 			} else

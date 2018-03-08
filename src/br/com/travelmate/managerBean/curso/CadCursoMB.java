@@ -1074,11 +1074,19 @@ public class CadCursoMB implements Serializable {
 									valorMoedaEstrangeira = valorMoedaReal / valorCambio;
 								}
 							}
-							orcamentoprodutosorcamento.setValorMoedaEstrangeira(valorMoedaEstrangeira);
-							orcamentoprodutosorcamento.setValorMoedaNacional(valorMoedaReal);
-							orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-							calcularValorTotalOrcamento();
-							produtosorcamento = null;
+							if (produtosorcamento.getValormaximo()==0) {
+								orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+								calcularValorTotalOrcamento();
+								produtosorcamento = null;
+								orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+							}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+								orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+								calcularValorTotalOrcamento();
+								produtosorcamento = null;
+								orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+							}else {
+								Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+							}
 						}
 					} else {
 						FacesContext context = FacesContext.getCurrentInstance();

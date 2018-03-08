@@ -942,10 +942,19 @@ public class CadHighSchoolMB implements Serializable {
 												/ orcamento.getValorCambio());
 							}
 						}
-						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-						calcularValorTotalOrcamento();
-						produtosorcamento = null;
-						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+						if (produtosorcamento.getValormaximo()==0) {
+							orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+							calcularValorTotalOrcamento();
+							produtosorcamento = null;
+							orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+						}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+							orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+							calcularValorTotalOrcamento();
+							produtosorcamento = null;
+							orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+						}else {
+							Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+						}
 					} else
 						Mensagem.lancarMensagemErro("", "High School já incluso");
 				} else

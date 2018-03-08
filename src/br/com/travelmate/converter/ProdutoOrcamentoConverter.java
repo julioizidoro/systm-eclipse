@@ -26,11 +26,12 @@ public class ProdutoOrcamentoConverter implements Converter{
             	if (produto instanceof Filtroorcamentoproduto){
             		Filtroorcamentoproduto filtro = (Filtroorcamentoproduto) produto;
             		if (filtro.getProdutosorcamento().getDescricao().equalsIgnoreCase(value)) {
-            			return filtro.getProdutosorcamento();
+            			Produtosorcamento produtosOrcamento = filtro.getProdutosorcamento();
+            			produtosOrcamento.setValormaximo(filtro.getValormaximo());
+            			return produtosOrcamento;
             		}
             	}else if (produto instanceof Produtosorcamento){
             		return (Produtosorcamento) produto;
-            			
                 }
             }
         } else {

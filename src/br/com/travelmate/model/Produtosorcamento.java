@@ -6,6 +6,7 @@
 package br.com.travelmate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
@@ -60,6 +63,9 @@ public class Produtosorcamento implements Serializable {
     private boolean selecionado;
     @Column(name = "novo")
     private boolean novo;
+    @Transient
+    private Float valormaximo;
+    
 
     public Produtosorcamento() {
     }
@@ -169,6 +175,14 @@ public class Produtosorcamento implements Serializable {
 
 	public void setProdutosorcamentogrupo(Produtosorcamentogrupo produtosorcamentogrupo) {
 		this.produtosorcamentogrupo = produtosorcamentogrupo;
+	}
+
+	public Float getValormaximo() {
+		return valormaximo;
+	}
+
+	public void setValormaximo(Float valormaximo) {
+		this.valormaximo = valormaximo;
 	}
 
 	@Override

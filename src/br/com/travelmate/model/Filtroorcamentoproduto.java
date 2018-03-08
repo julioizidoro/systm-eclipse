@@ -6,6 +6,7 @@
 package br.com.travelmate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -43,6 +46,11 @@ public class Filtroorcamentoproduto implements Serializable {
     private boolean hefichafinal;
     @Transient
     private boolean selecionado;
+    @Column(name = "valormaximo")
+    private Float valormaximo;
+    @Column(name = "datavalidade")
+	@Temporal(TemporalType.DATE)
+	private Date datavalidade;
 
     public Filtroorcamentoproduto() {
     }
@@ -91,6 +99,30 @@ public class Filtroorcamentoproduto implements Serializable {
 
 	public void setHefichafinal(boolean hefichafinal) {
 		this.hefichafinal = hefichafinal;
+	}
+
+	public boolean isSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(boolean selecionado) {
+		this.selecionado = selecionado;
+	}
+
+	public Float getValormaximo() {
+		return valormaximo;
+	}
+
+	public void setValormaximo(Float valormaximo) {
+		this.valormaximo = valormaximo;
+	}
+
+	public Date getDatavalidade() {
+		return datavalidade;
+	}
+
+	public void setDatavalidade(Date datavalidade) {
+		this.datavalidade = datavalidade;
 	}
 
 	@Override

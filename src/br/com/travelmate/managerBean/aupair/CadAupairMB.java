@@ -935,7 +935,8 @@ public class CadAupairMB implements Serializable {
 		FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
 		String sql = "select f from Filtroorcamentoproduto f where f.produtos.idprodutos="
 				+ aplicacaoMB.getParametrosprodutos().getAupair()
-				+ " and f.listar='S' order by f.produtosorcamento.descricao";
+				+ " and f.listar='S' and f.datavalidade>='"  + Formatacao.ConvercaoDataSql(new Date())
+				+ "' order by f.produtosorcamento.descricao";
 		listaProdutosOrcamento = filtroOrcamentoProdutoFacade.pesquisar(sql);
 		if (listaProdutosOrcamento == null) {
 			listaProdutosOrcamento = new ArrayList<Filtroorcamentoproduto>();
@@ -963,10 +964,20 @@ public class CadAupairMB implements Serializable {
 									orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
 						}
 					}
-					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-					calcularValorTotalOrcamento();
-					produtosorcamento = null;
-					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					if (produtosorcamento.getValormaximo()==0) {
+						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+						calcularValorTotalOrcamento();
+						produtosorcamento = null;
+						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+						calcularValorTotalOrcamento();
+						produtosorcamento = null;
+						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					}else {
+						Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+					}
+					
 				} else
 					Mensagem.lancarMensagemErro("", "Au Pair já incluso");
 			} else
