@@ -1075,15 +1075,17 @@ public class CadCursoMB implements Serializable {
 								}
 							}
 							if (produtosorcamento.getValormaximo()==0) {
+								orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+								orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 								orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 								calcularValorTotalOrcamento();
-								produtosorcamento = null;
-								orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-							}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+								produtosorcamento =  null ;
+							}else if (produtosorcamento.getValormaximo()>=valorMoedaReal){
+								orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+								orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 								orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 								calcularValorTotalOrcamento();
-								produtosorcamento = null;
-								orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+								produtosorcamento =  null ;
 							}else {
 								Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
 							}
