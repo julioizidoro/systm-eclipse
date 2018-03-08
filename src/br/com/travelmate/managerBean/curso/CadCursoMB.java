@@ -1087,7 +1087,7 @@ public class CadCursoMB implements Serializable {
 								calcularValorTotalOrcamento();
 								produtosorcamento =  null ;
 							}else {
-								Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+								Mensagem.lancarMensagemErro("", "Valor máximo permitido R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
 							}
 						}
 					} else {
