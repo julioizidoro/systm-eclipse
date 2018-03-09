@@ -1089,8 +1089,7 @@ public class OrcamentoCursoMB implements Serializable {
 						&& resultadoOrcamentoBean.getListaOutrosProdutos().size()>0){
 					boolean ok = false;
 					for (int i = 0; i < resultadoOrcamentoBean.getListaOutrosProdutos().size(); i++) {
-						if(resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getProdutosorcamento()
-								.getIdprodutosOrcamento()==85){
+						if(resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getDescricao().equalsIgnoreCase("Seguro OSHC")){
 							ok=true;
 						}
 					}
@@ -1507,6 +1506,14 @@ public class OrcamentoCursoMB implements Serializable {
 					" and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação' Order By v.idvalorcoprodutos DESC";
 
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
+		if (listaValorcoprodutoses == null) {
+			sql = "Select v from  Valorcoprodutos v where v.datainicial>='" + Formatacao.ConvercaoDataSql(dataConsulta) + "' "
+					+ " and v.datainicial<='" + Formatacao.ConvercaoDataSql(ocurso.getDatatermino()) + "'"
+					+ " and v.datafinal>='"+ Formatacao.ConvercaoDataSql(dataConsulta) + "'  and v.numerosemanainicial<="
+						+  produtosOrcamentoBean.getNumeroSemanas() + " and v.numerosemanafinal>=" + produtosOrcamentoBean.getNumeroSemanas() + 
+						" and v.coprodutos.idcoprodutos=" + idCoProdutos + " and v.produtosuplemento='Acomodação' Order By v.idvalorcoprodutos DESC";
+			listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
+		}
 		if (listaValorcoprodutoses != null) {
 			for (int n = 0; n < listaValorcoprodutoses.size(); n++) {
 				if (valorcoprodutos == null) {
