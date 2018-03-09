@@ -448,7 +448,7 @@ public class UsuarioLogadoMB implements Serializable {
 		if (feed != null) {
 			if (feed.equalsIgnoreCase("Sim")) {
 				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect("/inicio/pages/noticias/consNoticias.jsf");
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/noticias/consNoticias.jsf");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
