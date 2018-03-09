@@ -105,13 +105,13 @@ public class PollMB implements Serializable {
         if (redirecionar!=null){
         	if (redirecionar.equalsIgnoreCase("sim")){
         		try {
-					fc.getExternalContext().redirect("/inicio/pages/arquivo/consArquivos.jsf");
+					fc.getExternalContext().redirect("/ages/arquivo/consArquivos.jsf");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
         	}else if (redirecionar.equalsIgnoreCase("simLead")){
         		try {
-					fc.getExternalContext().redirect("/inicio/pages/crm/distribuicaoLeads.jsf");
+					fc.getExternalContext().redirect("/pages/crm/distribuicaoLeads.jsf");
 				} catch (IOException e) {
 					e.printStackTrace(); 
 				}
