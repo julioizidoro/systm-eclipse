@@ -716,7 +716,7 @@ public class SalvarOrcamentoOcurso {
 			if(formapagamento!=null){  
 				ocursoformapagamento = new Ocursoformapagamento();
 				if(formapagamento.getValorparcelaboleto()!=null && formapagamento.getValorparcelaboleto()>0){ 
-					ocursoformapagamento.setValorEntrada(formapagamento.getEntradaboleto());
+					ocursoformapagamento.setValorEntrada(formapagamento.getValorentradaboleto());
 					ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelasboleto());
 					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelaboleto());
 					ocursoformapagamento.setOcurso(ocurso);
