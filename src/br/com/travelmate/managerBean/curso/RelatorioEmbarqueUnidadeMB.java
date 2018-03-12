@@ -211,13 +211,14 @@ public class RelatorioEmbarqueUnidadeMB implements Serializable {
 
 	public String gerarSql() {
 		String sql = "select distinct vendas.idvendas,controlecursos.situacao, cliente.nome as cliente,controlecursos.dataEmbarque,fornecedor.nome as fornecedor,"
-				+ " unidadenegocio.nomerelatorio as unidade, controlecursos.LoasObs as obs,cursos.dataInicio, cidade.nome as cidade from controlecursos "
+				+ " unidadenegocio.nomerelatorio as unidade, controlecursos.LoasObs as obs,cursos.dataInicio, cidade.nome as cidade, pais.nome, cursos.numeroSenamas from controlecursos "
 				+ " join vendas on controlecursos.vendas_idvendas=vendas.idvendas "
 				+ " join cursos on cursos.vendas_idvendas = vendas.idvendas"
 				+ " join cliente on  vendas.cliente_idcliente=cliente.idcliente "
 				+ " join fornecedor on vendas.fornecedor_idfornecedor=fornecedor.idfornecedor"
 				+ " join fornecedorcidade on vendas.fornecedorcidade_idfornecedorcidade=fornecedorcidade.idfornecedorcidade"
 				+ " join cidade on fornecedorcidade.cidade_idcidade=cidade.idcidade"
+				+ " join pais on cidade.pais_idpais=pais.idpais "
 				+ " join unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio=unidadenegocio.idunidadeNegocio"
 				+ " join produtos on vendas.produtos_idprodutos=produtos.idprodutos where produtos.idprodutos=1"
 				+ " and vendas.situacao<>'CANCELADA' and vendas.unidadeNegocio_idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
