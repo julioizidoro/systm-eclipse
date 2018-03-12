@@ -1590,7 +1590,20 @@ public class OrcamentoCursoMB implements Serializable {
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
+			if (Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
+								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical))) {
+				numeroDias = 1;
+			}else {
+				numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
+			}
+		} else if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
+				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
+						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
+				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
+						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
+								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
+
 		}else {
 			valorSuplemento = -1;
 			numeroDias=0;

@@ -674,6 +674,17 @@ public class FiltrarEscolaMB implements Serializable {
 				+ " and v.numerosemanafinal>=" + filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='"
 				+ tipoData + "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
+		if (listaValorcoprodutosSuplemento == null) {
+			Date dataTermino = calcularDataTerminoCurso(dataConsulta, filtrarEscolaBean.getOcurso().getNumerosemanas());
+			sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='"
+					+ Formatacao.ConvercaoDataSql(dataConsulta) + "'" + " and v.datainicial<='"
+					+ Formatacao.ConvercaoDataSql(dataTermino) + "'" + " and v.datafinal>='"
+					+ Formatacao.ConvercaoDataSql(dataConsulta) + "' and v.numerosemanainicial<="
+					+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.numerosemanafinal>="
+					+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
+					+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
+			listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
+		}
 		if (listaValorcoprodutosSuplemento != null) {
 			for (int n = 0; n < listaValorcoprodutosSuplemento.size(); n++) {
 				if (listaValorcoprodutosSuplemento.get(n).getProdutosuplemento().equalsIgnoreCase("Curso")) {
@@ -1013,11 +1024,11 @@ public class FiltrarEscolaMB implements Serializable {
 		Date dataTermino = calcularDataTerminoCurso(dataInical, filtrarEscolaBean.getOcurso().getNumerosemanas());
 		int numeroDias = 0;
 		boolean calcular = true;
-		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)) ||
-				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
-			calcular = false;
-		}   
-		if (calcular) {
+//		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)) ||
+//				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
+//			calcular = false;
+//		}   
+//		if (calcular) {
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -1046,8 +1057,20 @@ public class FiltrarEscolaMB implements Serializable {
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
-		}
+			if (Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
+								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical))) {
+				numeroDias = 1;
+			}else {
+				numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
+			}
+		}else if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
+						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
+						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
+				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
+						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
+								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
+		
 		}else{
 			valorSuplemento = -1;   
 			numeroDias = 0;
