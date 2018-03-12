@@ -205,6 +205,10 @@ public class RelatorioApplicationMB implements Serializable {
 				cursotraducao.setNivelidioma("Intermediate");
 			} else if (curso.getNivelIdiomaEstudar().equalsIgnoreCase("Avançado")) {
 				cursotraducao.setNivelidioma("Advanced");
+			}else if(curso.getNivelIdiomaEstudar().equalsIgnoreCase("Alto")) {
+				cursotraducao.setNivelidioma("High");
+			}else if(curso.getNivelIdioma().equalsIgnoreCase("Fluente")) {
+				cursotraducao.setNivelidioma("Fluent");
 			}else cursotraducao.setNivelidioma(curso.getNivelIdiomaEstudar());
 		}
 		if (curso.getVendas().getCliente().getPaisNascimento() != null) {
