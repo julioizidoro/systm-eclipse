@@ -172,8 +172,8 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			nSemana = valorcoprodutos.getNumerosemanainicial();
 			listaSemanas.add(nSemana);
 		}else {
-			for (int i = 0; i <= diferencaSemanas; i++) {
-				nSemana = valorcoprodutos.getNumerosemanainicial() + i;
+			for (int i = 0; i <= 48; i++) {
+				nSemana = 1 + i;
 				listaSemanas.add(nSemana);
 			}
 		}
