@@ -32,11 +32,11 @@
 			<p:outputLabel value="Data de Nascimento" />
 			<p:outputLabel value="Data de Início" />
 
-			<p:calendar id="datanascimento"
-				value="#{inserirDataInicioMB.lead.cliente.dataNascimento}" locale="pt"
-				size="17" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+			<p:inputMask id="datanascimento"
+				value="#{inserirDataInicioMB.lead.cliente.dataNascimento}" 
+				size="16"  mask="99/99/9999" >
 				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-			</p:calendar>
+			</p:inputMask>
 			<h:panelGroup id="datainicio"
 				rendered="#{inserirDataInicioMB.calendario}">
 				<p:calendar id="data" value="#{inserirDataInicioMB.dataInicio}"

@@ -11,7 +11,7 @@
 			<div style="margin-left: 2%; width: 98%;">
 			
 				<p:commandButton id="bntLead" icon="ui-icon-arrowreturnthick-1-w"
-						style="font-size:12px;" value="Voltar para Lead"
+						style="font-size:12px;" value="Voltar para Lead" rendered="#{pacotesMB.habilitarVoltaBtn}"
 						action="#{pacotesMB.retornaHistoricoLead()}" title="Retornar para Histórico da Lead" >
 				</p:commandButton>	
 				<div align="center">   
@@ -50,12 +50,12 @@
 								<h:panelGroup>
 									<div id="divImagemAtalho" >
 										<img src="http://systm.com.br:82/ftproot/systm/atalhoOrcamento/idiomaCurso.png"
-																	style="width:100%;height:200px;" >
+																	style="width:100%;height:200px;" />
 											
 										<p:outputLabel value="#{pacotesMB.paisLogo.nome}"
 											style="font-size:43px;font-weight: initial;margin-left:2%;color:#8B0000;" />
-										</img>
 									</div>
+									<br/><br/>
 								</h:panelGroup>
 							<hr  
 								style="color: #A0C637; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
@@ -125,7 +125,7 @@
 											<br />
 											<div align="center">
 												<p:commandButton value="Orçamento" icon="ui-icon-cart"  
-													title="Gerar orçamento com este modelo"
+													title="Gerar orçamento com este modelo" disabled="#{pacotesMB.habilitarBotaoOrcamento()}"
 													action="#{pacotesMB.setarPacote(pacote)}"
 													style="margin-left:2%;font-size:12px;" >
 													<p:ajax event="dialogReturn" listener="#{pacotesMB.retornoDialogData}"/>
