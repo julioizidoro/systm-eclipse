@@ -472,7 +472,7 @@
 									style="width:100%;border-color:transparent;border:transparent;"
 									columns="4">
 									
-									<p:commandLink id="btnModeloOrcamento" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
+									<p:commandLink id="btnModeloOrcamento" rendered="#{followUpMB.habilitarCampoCursoModelo(lead)}"
 										action="#{followUpMB.orcamentoTarifarioModelo(lead)}"
 										style="margin-left:8%;border:transparent;">
 										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
@@ -491,7 +491,7 @@
 											<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
-									<p:commandLink id="btnModeloOrcamentoVitrine" rendered="#{followUpMB.habilitarCampoCurso(lead)}"
+									<p:commandLink id="btnModeloOrcamentoVitrine" rendered="#{followUpMB.habilitarCampoCursoModelo(lead)}"
 										action="#{followUpMB.orcamentoVitrine()}"
 										style="margin-left:8%;border:transparent;">
 										<h:panelGrid columns="1" style="text-align:center;border:transparent;">

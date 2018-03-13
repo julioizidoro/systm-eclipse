@@ -256,6 +256,17 @@
 													<p:outputLabel value="VITRINE" style="font-size:11px;" />
 												</h:panelGrid>
 											</p:commandLink>
+											
+											<p:commandLink id="btnOrcamentoTarifarioDemi"
+												rendered="#{historicoClienteMB.camposcursodemipair}"
+												action="#{historicoClienteMB.orcamentoTarifario()}"
+												style="margin-left:8%;">
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img src="../../resources/img/crm/orcamento.png" width="48" />
+													<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+													<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
 											<p:commandLink id="btnOrcamentoManual"
 												rendered="#{historicoClienteMB.camposcursodemipair}"
 												title="Emissão de orçamento manual curso"

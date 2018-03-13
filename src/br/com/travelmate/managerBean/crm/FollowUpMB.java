@@ -1337,6 +1337,13 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	public boolean habilitarCampoCurso(Lead lead){
+		if (lead.getProdutos().getIdprodutos() == 1 || lead.getProdutos().getIdprodutos() == 20) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean habilitarCampoCursoModelo(Lead lead){
 		if (lead.getProdutos().getIdprodutos() == 1) {
 			return true;
 		}
@@ -1353,7 +1360,7 @@ public class FollowUpMB implements Serializable {
 	
 	public boolean habiltiarCampos(Lead lead){
 		boolean resultado = false;
-		if (lead.getProdutos().getIdprodutos() == 1) {
+		if (lead.getProdutos().getIdprodutos() == 1 || lead.getProdutos().getIdprodutos() == 20) {
 			resultado = habilitarCampoCurso(lead);
 		}else if(lead.getProdutos().getIdprodutos() == 16){
 			resultado = habilitarCampoVoluntariado(lead);

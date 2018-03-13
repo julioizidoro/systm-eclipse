@@ -1049,7 +1049,7 @@ public class HistoricoClienteMB implements Serializable {
 	
 	public boolean habiltiarCampos(){
 		boolean resultado = false;
-		if (lead.getProdutos().getIdprodutos() == 1) {
+		if (lead.getProdutos().getIdprodutos() == 1 || lead.getProdutos().getIdprodutos() == 20) {
 			resultado = habilitarCampoCurso();
 		}else if(lead.getProdutos().getIdprodutos() == 16){
 			resultado = habilitarCampoVoluntariado();
@@ -1058,6 +1058,13 @@ public class HistoricoClienteMB implements Serializable {
 	}
 	
 	public boolean habilitarCampoCurso(){
+		if (lead.getProdutos().getIdprodutos() == 1 || lead.getProdutos().getIdprodutos() == 20) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean habilitarCampoCursoModelo(){
 		if (lead.getProdutos().getIdprodutos() == 1) {
 			return true;
 		}
