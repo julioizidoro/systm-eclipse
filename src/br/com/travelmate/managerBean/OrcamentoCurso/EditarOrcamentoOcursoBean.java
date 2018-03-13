@@ -438,6 +438,7 @@ public class EditarOrcamentoOcursoBean {
 			seguroviagem.setValorSeguro(ocursoseguro.getValor());
 			seguroviagem.setSomarvalortotal(ocursoseguro.isSomarvalortotal());
 			seguroviagem.setPlano(ocursoseguro.getValoresseguro().getPlano());
+			seguroviagem.setSegurocancelamento(ocursoseguro.isSegurocancelamento());
 		}
 		return seguroviagem;
 	}

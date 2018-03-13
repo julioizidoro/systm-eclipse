@@ -147,6 +147,13 @@ public class OrcamentoCursoMB implements Serializable {
 			listarValoresSeguro();
 			valorSeguro = resultadoOrcamentoBean.getSeguroviagem().getValoresseguro(); 
 			convertendoValoresSeguro();
+			verificarSeguroCancelamento();
+			if (cambioSeguro == null) {
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioSeguro = cambioFacade.consultarCambioMoeda(
+						Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
+						valorSeguro.getMoedas().getIdmoedas());
+			}
 		}   
 		if(resultadoOrcamentoBean.getListaOutrosProdutos()==null){
 			resultadoOrcamentoBean.setListaOutrosProdutos(new ArrayList<ProdutosExtrasBean>());
@@ -3162,12 +3169,14 @@ public class OrcamentoCursoMB implements Serializable {
 	}
 	
 	public void verificarSeguroCancelamento() {
-		if(seguroviagem.getValoresseguro().isSegurocancelamento()) {
-			segurocancelamento = true;
-			numero="4";
-		} else {
-			segurocancelamento = false;
-			numero="3";
+		if (seguroviagem != null) {
+			if(seguroviagem.getValoresseguro().isSegurocancelamento()) {
+				segurocancelamento = true;
+				numero="4";
+			} else {
+				segurocancelamento = false;
+				numero="3";
+			}
 		}
 	} 
 	
