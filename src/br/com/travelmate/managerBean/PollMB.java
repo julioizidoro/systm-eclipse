@@ -105,7 +105,7 @@ public class PollMB implements Serializable {
         if (redirecionar!=null){
         	if (redirecionar.equalsIgnoreCase("sim")){
         		try {
-					fc.getExternalContext().redirect("/ages/arquivo/consArquivos.jsf");
+					fc.getExternalContext().redirect("/pages/arquivo/consArquivos.jsf");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
