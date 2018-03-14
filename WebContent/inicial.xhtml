@@ -1042,6 +1042,7 @@
 														<li><p:commandLink action="#{menuMB.relatorioPassagensHS()}">
 																<span class="subsubsubmenu-label">Passagens</span>
 															</p:commandLink></li>
+														
 														<li><p:commandLink action="#{menuMB.relatorioHSAnual()}">
 																<span class="subsubsubmenu-label">High School Anual</span>
 															</p:commandLink></li>
@@ -1138,11 +1139,11 @@
 								
 								<h:panelGroup
 									>
-									<li class="openable open"><p:commandLink>
+									<li class="openable open"><p:commandLink rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriogerencia}">
 											<span class="submenu-label">Relatório <i
 												class="fa fa-chevron-down"></i></span>
 										</p:commandLink>
-										<ul class="submenu">
+										<ul class="subsubmenu">
 											<li><p:commandLink
 																action="#{menuMB.vendasProduto()}">
 																<span class="submenu-label">Vendas</span>

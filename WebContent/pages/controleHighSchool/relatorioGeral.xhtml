@@ -34,22 +34,29 @@
 			</p:calendar>
 			<br></br>
 			<br></br>
-			<p:outputLabel value="Período de Início" for="datainicial"
-				style="margin-left:-1%">
+			<p:outputLabel value="Inicio" 
+				/>
+			<p:outputLabel value="Ano" 
+				style="margin-left: 30%;">
 			</p:outputLabel>
 			<br />
-			<p:calendar id="datainicial"
-				value="#{relatorioGeralHighSchoolMB.dataInicio}" size="12"
-				style="margin-left: -1%;width: 20%" locale="pt" pattern="dd/MM/yyyy"
-				mask="true" maxlength="15">
-				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-			</p:calendar>
-			<p:calendar id="dataFinal"
-				value="#{relatorioGeralHighSchoolMB.dataTermino}" size="12"
-				style="margin-left:5%;width: 20%" locale="pt" pattern="dd/MM/yyyy"
-				mask="true" maxlength="15">
-				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-			</p:calendar>
+			<p:selectOneMenu id="inicio" value="#{relatorioGeralHighSchoolMB.valoresInicio}"
+				style="width:95px;">
+				<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+				<f:selectItem itemLabel="JAN/FEV" itemValue="JAN/FEV" />
+				<f:selectItem itemLabel="JUL/AGO" itemValue="JUL/AGO" />
+				<p:ajax event="change" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="anoinicio" value="#{relatorioGeralHighSchoolMB.valoresAnoInicio}"
+				style="width:95px;margin-left: 5%;">
+				<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+				<f:selectItem itemLabel="2017" itemValue="2017" />
+				<f:selectItem itemLabel="2018" itemValue="2018" />
+				<f:selectItem itemLabel="2019" itemValue="2019" />
+				<f:selectItem itemLabel="2020" itemValue="2020" />
+				<f:selectItem itemLabel="2021" itemValue="2021" />
+				<f:selectItem itemLabel="2022" itemValue="2022" />
+			</p:selectOneMenu>
 			<br></br>
 			<br></br>
 			<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%">

@@ -41,6 +41,7 @@ public class RelatorioHighSchoolAnualMB implements Serializable{
     private Unidadenegocio unidadenegocio;
     private Valoreshighschool valoreshighschool;
     private List<Valoreshighschool> listaValores;
+    private String valoresAnoInicio;
 	
 	
 	@PostConstruct
@@ -88,9 +89,18 @@ public class RelatorioHighSchoolAnualMB implements Serializable{
 	public void setListaValores(List<Valoreshighschool> listaValores) {
 		this.listaValores = listaValores;
 	}
-	
-	
-	
+
+
+	public String getValoresAnoInicio() {
+		return valoresAnoInicio;
+	}
+
+
+	public void setValoresAnoInicio(String valoresAnoInicio) {
+		this.valoresAnoInicio = valoresAnoInicio;
+	}
+
+
 	public void gerarListaUnidadeNegocio(){
         UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
         listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -118,8 +128,8 @@ public class RelatorioHighSchoolAnualMB implements Serializable{
                 + " JOIN unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadenegocio.idunidadeNegocio"
                 + " JOIN valoreshighschool on highschool.valoreshighschool_idvaloreshighschool=valoreshighschool.idvaloreshighschool"
                 + " WHERE vendas.situacao<>'CANCELADA' and vendas.situacao<>'PROCESSO' ";
-        if(valoreshighschool!=null){
-        	sql = sql + " and valoreshighschool.anoinicio='"+ valoreshighschool.getAnoinicio() +"'";
+        if(valoresAnoInicio != null && !valoresAnoInicio.equalsIgnoreCase("TODOS")){
+        		sql = sql + " and valoreshighschool.anoinicio='"+ valoresAnoInicio +"'";
         }  
         if (unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
             sql = sql + " and vendas.unidadeNegocio_idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();

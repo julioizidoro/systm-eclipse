@@ -44,6 +44,8 @@ public class RelatorioHighSchoolMesMB implements Serializable{
     private List<Valoreshighschool> listaValores;
     private Valoreshighschool valoreshighschoolAno;
     private List<Valoreshighschool> listaValoresAno;
+    private String valoresAnoInicio;
+    private String valoresInicio;
     
     
     @PostConstruct
@@ -114,6 +116,26 @@ public class RelatorioHighSchoolMesMB implements Serializable{
 	}
 
 
+	public String getValoresAnoInicio() {
+		return valoresAnoInicio;
+	}
+
+
+	public void setValoresAnoInicio(String valoresAnoInicio) {
+		this.valoresAnoInicio = valoresAnoInicio;
+	}
+
+
+	public String getValoresInicio() {
+		return valoresInicio;
+	}
+
+
+	public void setValoresInicio(String valoresInicio) {
+		this.valoresInicio = valoresInicio;
+	}
+
+
 	public void gerarListaUnidadeNegocio(){
         UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
         listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -149,12 +171,12 @@ public class RelatorioHighSchoolMesMB implements Serializable{
                 + " JOIN unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadenegocio.idunidadeNegocio"
                 + " JOIN valoreshighschool on highschool.valoreshighschool_idvaloreshighschool=valoreshighschool.idvaloreshighschool"
                 + " WHERE vendas.situacao<>'CANCELADA' and vendas.situacao<>'PROCESSO' ";
-        if(valoreshighschool!=null){
-        	sql = sql + " and valoreshighschool.inicio='"+ valoreshighschool.getInicio() +"'";
-        }  
-        if(valoreshighschoolAno!=null){
-        	sql = sql + " and valoreshighschool.anoinicio='"+ valoreshighschoolAno.getAnoinicio() +"'";
-        }  
+		if (valoresAnoInicio != null && !valoresAnoInicio.equalsIgnoreCase("TODOS")) {
+			sql = sql + " and valoreshighschool.anoinicio='" + valoresAnoInicio + "'";
+		}
+		if (valoresInicio != null && !valoresInicio.equalsIgnoreCase("TODOS")) {
+			sql = sql + " and valoreshighschool.inicio='" + valoresInicio + "'";
+		}
         if (unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
             sql = sql + " and vendas.unidadeNegocio_idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
         } 

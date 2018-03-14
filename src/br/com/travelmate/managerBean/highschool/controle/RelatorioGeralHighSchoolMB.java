@@ -48,6 +48,8 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
     private Date dataTermino;     
     private Fornecedorcidade fornecedorcidade;
     private List<Fornecedorcidade> listaFornecedorCidade;
+    private String valoresAnoInicio;
+    private String valoresInicio;
     
     @PostConstruct()
     public void init(){
@@ -128,6 +130,22 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
 		this.dataTerminoVenda = dataTerminoVenda;
 	}
 
+	public String getValoresAnoInicio() {
+		return valoresAnoInicio;
+	}
+
+	public void setValoresAnoInicio(String valoresAnoInicio) {
+		this.valoresAnoInicio = valoresAnoInicio;
+	}
+
+	public String getValoresInicio() {
+		return valoresInicio;
+	}
+
+	public void setValoresInicio(String valoresInicio) {
+		this.valoresInicio = valoresInicio;
+	}
+
 	public void gerarListaUnidadeNegocio(){
         UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
         listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -144,17 +162,19 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
             	+ " FROM Controlehighschool JOIN vendas on controlehighschool.vendas_idvendas = vendas.idvendas"
                 + " JOIN cliente on vendas.cliente_idcliente = cliente.idcliente"
                 + " JOIN highschool on controlehighschool.highschool_idhighschool = highschool.idhighschool"
-                + " JOIN valoreshighschool on highschool_idhighschool = valoreshighschool.idvaloreshighschool"
+                + " JOIN valoreshighschool on highschool.valoreshighschool_idvaloreshighschool = valoreshighschool.idvaloreshighschool"
                 + " JOIN unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio = unidadenegocio.idunidadeNegocio"
                 + " where (vendas.situacao='FINALIZADA' OR vendas.situacao='ANDAMENTO')";
         if(dataInicioVenda!=null && dataTerminoVenda!=null){
         	sql = sql + " and vendas.dataVenda >='"+Formatacao.ConvercaoDataSql(dataInicioVenda)
         			  +"' and vendas.dataVenda <='" + Formatacao.ConvercaoDataSql(dataTerminoVenda) + "'";
         } 
-        if(dataInicio!=null && dataTermino!=null){
-        	sql = sql + " and valoreshighschool.datainicio >='"+Formatacao.ConvercaoDataSql(dataInicio)
-        			  +"' and valoreshighschool.datainicio <='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
+        if(valoresAnoInicio!=null && !valoresAnoInicio.equalsIgnoreCase("TODOS")){
+        		sql = sql + " and valoreshighschool.anoinicio='"+ valoresAnoInicio + "'";
         }  
+        if(valoresInicio!=null && !valoresInicio.equalsIgnoreCase("TODOS")){
+    		sql = sql + " and valoreshighschool.inicio='"+ valoresInicio + "'";
+    } 
         if (unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
             sql = sql + " and vendas.unidadeNegocio_idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
         }

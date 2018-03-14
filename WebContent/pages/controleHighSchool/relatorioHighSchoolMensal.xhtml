@@ -35,33 +35,26 @@
 			
 			<h:panelGrid columns="2" style="width:100%">
 			<p:outputLabel value="Inicio" for="inicio"/>
-				<p:outputLabel value="Ano Inicio" for="anoinicio"/>  
-				<p:selectOneMenu id="inicio"   
-					value="#{relatorioHighSchoolMesMB.valoreshighschool}"
-					converter="ValoresHighSchoolConverter" style="width:60%;"
-					filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems id="idvalores"
-						value="#{relatorioHighSchoolMesMB.listaValores}" var="valores"
-						itemLabel="#{valores.inicio}"
-						itemValue="#{valores}" />
-					<f:attribute name="listaValoresHighSchool"
-						value="#{relatorioHighSchoolMesMB.listaValores}" />
+				<p:outputLabel value="Ano Inicio" for="anoinicio"/>
+				<p:selectOneMenu id="inicio"
+					value="#{relatorioHighSchoolMesMB.valoresInicio}"
+					style="width:95px;">
+					<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+					<f:selectItem itemLabel="JAN/FEV" itemValue="JAN/FEV" />
+					<f:selectItem itemLabel="JUL/AGO" itemValue="JUL/AGO" />
+					<p:ajax event="change" />
 				</p:selectOneMenu>
-				<p:selectOneMenu id="anoinicio"   
-					value="#{relatorioHighSchoolMesMB.valoreshighschoolAno}"
-					converter="ValoresHighSchoolConverter" style="width:60%;"
-					filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems id="idvaloresAno"
-						value="#{relatorioHighSchoolMesMB.listaValoresAno}" var="valores"
-						itemLabel="#{valores.anoinicio}"
-						itemValue="#{valores}" />
-					<f:attribute name="listaValoresHighSchool"
-						value="#{relatorioHighSchoolMesMB.listaValoresAno}" />
-				</p:selectOneMenu>   
+				<p:selectOneMenu id="anoinicio"
+					value="#{relatorioHighSchoolMesMB.valoresAnoInicio}"
+					style="width:95px;margin-left: 5%;">
+					<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+					<f:selectItem itemLabel="2017" itemValue="2017" />
+					<f:selectItem itemLabel="2018" itemValue="2018" />
+					<f:selectItem itemLabel="2019" itemValue="2019" />
+					<f:selectItem itemLabel="2020" itemValue="2020" />
+					<f:selectItem itemLabel="2021" itemValue="2021" />
+					<f:selectItem itemLabel="2022" itemValue="2022" />
+				</p:selectOneMenu>
 			</h:panelGrid>
 			<br /><br /><br />
 			<div align="center">
