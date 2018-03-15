@@ -247,6 +247,9 @@ public class VendasProdutoMB implements Serializable{
 	}
 	
 	public void CalcularTotais() {
+		totalFranquia = 0f;
+		totalMatriz = 0f;
+		totalVendas = 0f;
 		for (int i=0;i<listaVendasComissao.size();i++) {
 			totalVendas = totalVendas + listaVendasComissao.get(i).getVendas().getValor();
 			totalMatriz = totalMatriz + retornarValorMatriz(listaVendasComissao.get(i));

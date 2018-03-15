@@ -79,7 +79,7 @@
 						<br></br>
 						<h:panelGroup style="float: right;margin-right:6%;">
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search " 
-								update=":consultaVendasProduto:tbl" 
+								update=":consultaVendasProduto:tbl, :consultaVendasProduto:panelValores, :consultaVendasProduto:panelinformacoes" 
 								action="#{vendasProdutoMB.pesquisar()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 								
@@ -92,21 +92,26 @@
 					<b>Consulta Vendas de Produtos</b>  
 				</legend> 
 				<br/><br/>   
-				
-			        <h:panelGrid columns="2" style="margin-left:2%">
-			            <h:commandLink>
-			                <img src="../../resources/img/icone_xls.png" width="36" />
-			                <p:dataExporter type="xls" target="tbl" fileName="venda" />
-			            </h:commandLink>
-			 
-			            <h:commandLink>
-			                <img src="../../resources/img/icone_pdf.png" width="32" />
-			                <p:dataExporter type="pdf" target="tbl" fileName="venda"/>
-			            </h:commandLink>
+					<h:panelGrid columns="2" style="width:100%;" id="panelinformacoes">
+				        <h:panelGrid columns="2" style="margin-left:2%">
+				            <h:commandLink>
+				                <img src="../../resources/img/icone_xls.png" width="36" />
+				                <p:dataExporter type="xls" target="tbl" fileName="venda" />
+				            </h:commandLink>
+				 
+				            <h:commandLink>
+				                <img src="../../resources/img/icone_pdf.png" width="32" />
+				                <p:dataExporter type="pdf" target="tbl" fileName="venda"/>
+				            </h:commandLink>
+				        </h:panelGrid>
+				        <h:panelGrid style="float: right;margin-right: 2%;margin-top: 3%;">
+				        		<h:panelGrid>
+				        			<p:outputLabel value="Registros: #{vendasProdutoMB.totalRegistros}" style="font-size:14px;"/>
+				        		</h:panelGrid>
+				        </h:panelGrid>
 			        </h:panelGrid>
-			        
 				<p:dataTable id="tbl" var="venda" value="#{vendasProdutoMB.listaVendasComissao}"
-			                 style="width: 99%;margin-left:1%;" scrollable="true"
+			                 style="width: 98%;margin-left:1%;" scrollable="true"
 							scrollHeight="300">
 			 		<p:column headerText="Id" style="width:50px;" sortBy="#{venda.vendas.idvendas}">
 			            <h:outputText value="#{venda.vendas.idvendas}" />
@@ -155,8 +160,24 @@
 			        
 			        
 			    </p:dataTable>
-			 
-			<br></br> 
+			     <br></br> 
+				<h:panelGrid style="width:46.5%;margin-right: 1%;float:right;text-align:right;font-size:14px;" columns="3" id="panelValores">
+					<h:outputText value="Total Valor da Venda"  />
+					<h:outputText value="Total Comissão Matriz"  />
+					<h:outputText value="Total Comissão Franquia"  />
+					<h:outputText value="#{vendasProdutoMB.totalVendas}" title="Total Valor da Venda" size="15" style="text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+					<h:outputText value="#{vendasProdutoMB.totalMatriz}" title="Total Comissão Matriz" size="15" style="text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+					<h:outputText value="#{vendasProdutoMB.totalFranquia}" title="Total Comissão Franquia" size="15" style="text-align:right;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<br></br> <br></br> <br></br> 
 			</div>    
 		</h:form>   
 	</ui:define>
