@@ -17,7 +17,6 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.facade.ComissaoControleFacade;
 import br.com.travelmate.model.Comissaocontrole;
-import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;

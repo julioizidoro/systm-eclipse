@@ -108,7 +108,9 @@
 				<p:dataTable id="tbl" var="venda" value="#{vendasProdutoMB.listaVendasComissao}"
 			                 style="width: 99%;margin-left:1%;" scrollable="true"
 							scrollHeight="300">
-			 
+			 		<p:column headerText="Id" style="width:50px;" sortBy="#{venda.vendas.idvendas}">
+			            <h:outputText value="#{venda.vendas.idvendas}" />
+			        </p:column>
 			 
 			 		<p:column headerText="Data" style="width:80px;" sortBy="#{venda.vendas.dataVenda}">
 			            <h:outputText value="#{venda.vendas.dataVenda}" >

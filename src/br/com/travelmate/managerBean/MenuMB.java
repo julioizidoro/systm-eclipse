@@ -1471,10 +1471,6 @@ public class MenuMB implements Serializable {
 		return "";
 	}
 	
-	public String contratosCurso(){
-		return "contratoCurso";
-	}
-	
 	
 	public void relatorioProtutoRunners(){
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -1512,6 +1508,10 @@ public class MenuMB implements Serializable {
 	
 	public String vendasProduto(){
 		return "consVendasProduto";
+	}
+	
+	public String comissaoConsultor() {
+		return "comissaoConsultor";
 	}
 	
 }

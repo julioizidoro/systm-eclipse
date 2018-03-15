@@ -198,6 +198,8 @@ public class Acesso implements Serializable {
 	private boolean modeloorcamento; 
 	@Column(name = "relatoriogerencia")
 	private boolean relatoriogerencia; 
+	@Column(name = "comissaoconsultor")
+	private boolean comissaoconsultor; 
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -887,6 +889,14 @@ public class Acesso implements Serializable {
 
 	public void setRelatoriogerencia(boolean relatoriogerencia) {
 		this.relatoriogerencia = relatoriogerencia;
+	}
+
+	public boolean isComissaoconsultor() {
+		return comissaoconsultor;
+	}
+
+	public void setComissaoconsultor(boolean comissaoconsultor) {
+		this.comissaoconsultor = comissaoconsultor;
 	}
 
 	@Override

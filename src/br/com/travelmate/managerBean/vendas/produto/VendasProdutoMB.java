@@ -35,6 +35,10 @@ public class VendasProdutoMB implements Serializable{
 	private List<Produtos> listaProdutos;
 	private Date dataInicio;
 	private Date dataFinal;
+	private Float totalVendas;
+	private Float totalMatriz;
+	private Float totalFranquia;
+	private int totalRegistros;
 	
 	
 	
@@ -42,6 +46,10 @@ public class VendasProdutoMB implements Serializable{
 	public void init() {
 		gerarListaProdutos();
 		gerarListaUnidade();
+		totalFranquia = 0.0f;
+		totalMatriz = 0.0f;
+		totalVendas = 0.0f;
+		totalRegistros=0;
 	}
 
 
@@ -167,6 +175,54 @@ public class VendasProdutoMB implements Serializable{
 	
 	
 	
+	public Float getTotalVendas() {
+		return totalVendas;
+	}
+
+
+
+	public void setTotalVendas(Float totalVendas) {
+		this.totalVendas = totalVendas;
+	}
+
+
+
+	public Float getTotalMatriz() {
+		return totalMatriz;
+	}
+
+
+
+	public void setTotalMatriz(Float totalMatriz) {
+		this.totalMatriz = totalMatriz;
+	}
+
+
+
+	public Float getTotalFranquia() {
+		return totalFranquia;
+	}
+
+
+
+	public void setTotalFranquia(Float totalFranquia) {
+		this.totalFranquia = totalFranquia;
+	}
+
+
+
+	public int getTotalRegistros() {
+		return totalRegistros;
+	}
+
+
+
+	public void setTotalRegistros(int totalRegistros) {
+		this.totalRegistros = totalRegistros;
+	}
+
+
+
 	public void pesquisar() {
 		VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
 		String sql = "SELECT v FROM Vendascomissao v WHERE v.vendas.vendasMatriz like '%%' ";
@@ -187,6 +243,16 @@ public class VendasProdutoMB implements Serializable{
 		if (listaVendasComissao == null) {
 			listaVendasComissao = new ArrayList<Vendascomissao>();
 		}
+		CalcularTotais();
+	}
+	
+	public void CalcularTotais() {
+		for (int i=0;i<listaVendasComissao.size();i++) {
+			totalVendas = totalVendas + listaVendasComissao.get(i).getVendas().getValor();
+			totalMatriz = totalMatriz + retornarValorMatriz(listaVendasComissao.get(i));
+			totalFranquia = totalFranquia + listaVendasComissao.get(i).getLiquidofranquia();
+		}
+		totalRegistros = listaVendasComissao.size();
 	}
 	
 	

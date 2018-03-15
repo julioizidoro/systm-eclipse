@@ -2342,8 +2342,8 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>contratoCurso</from-outcome>
-			<to-view-id>/pages/contratos/curso/contratoCurso.xhtml</to-view-id>
+			<from-outcome>comissaoConsultor</from-outcome>
+			<to-view-id>/pages/comissaocontrole/consComissaoConsultor.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>     
 	</navigation-rule>
