@@ -140,8 +140,8 @@ public class SalvarOrcamentoOcurso {
 		}
 		ocurso.setValoravista(valorAvista* ocurso.getValorcambio());
 		salvarFormaPagamento();
-		ocurso.setTotalmoedaestrangeira(ocurso.getValoravista());
-		ocurso.setTotalmoedanacional(ocurso.getValoravista() * ocurso.getValorcambio());
+		ocurso.setTotalmoedaestrangeira(valorAvista);
+		ocurso.setTotalmoedanacional(valorAvista * ocurso.getValorcambio());
 		try {     
 			ocurso = oCursoFacade.salvar(ocurso);
 			Ocursopacote ocursopacote = new Ocursopacote();
