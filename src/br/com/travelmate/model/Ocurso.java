@@ -128,10 +128,13 @@ public class Ocurso implements Serializable {
 	private Float valoravista;
 	@Column(name = "nomecarimbo")
 	private String nomecarimbo;
+	@Column(name = "cambiocongelado")
+	private boolean cambiocongelado;
 	
 
 	public Ocurso() {
 		setOccliente(12);
+		setCambiocongelado(false);
 	}
 
 	public Ocurso(Integer idocurso) {
@@ -416,6 +419,14 @@ public class Ocurso implements Serializable {
 
 	public void setModelo(boolean modelo) {
 		this.modelo = modelo;
+	}
+
+	public boolean isCambiocongelado() {
+		return cambiocongelado;
+	}
+
+	public void setCambiocongelado(boolean cambiocongelado) {
+		this.cambiocongelado = cambiocongelado;
 	}
 
 	@Override

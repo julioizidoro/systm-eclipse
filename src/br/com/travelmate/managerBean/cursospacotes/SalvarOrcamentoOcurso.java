@@ -80,6 +80,7 @@ public class SalvarOrcamentoOcurso {
 		ocurso.setValorcambio(ocurso.getCambio().getValor());
 		if(cursospacote.getValorcambio()!=null && cursospacote.getValorcambio()>0){
 			ocurso.setValorcambio(cursospacote.getValorcambio()); 
+			ocurso.setCambiocongelado(true);
 		}
 		ocurso.setCargahoraria(cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso()
 				.getCargahoraria() + " "
