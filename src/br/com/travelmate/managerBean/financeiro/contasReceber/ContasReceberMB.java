@@ -37,7 +37,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.BolinhasBean;
 import br.com.travelmate.bean.LerRetornoItauBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.CobrancaFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HistoricoCobrancaFacade;
@@ -49,7 +49,6 @@ import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Historicocobranca;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -116,10 +115,9 @@ public class ContasReceberMB implements Serializable {
 			sql = (String) session.getAttribute("sqlContaReceber");
 			gerarListaUnidadeNegocio();
 			session.removeAttribute("contarecebe");
-			if (sql == null || sql.length() < 5) {
-				sqlInicial();
+			if (sql != null || sql.length() > 5) {
+				carregarContasReceber();
 			}
-			carregarContasReceber();
 			conta = new Contasreceber();
 			tipoDocumento = "Selecione";
 			gerarBolinhasBean();
