@@ -267,8 +267,21 @@
 													<p:outputLabel value="TARIFÁRIO" style="font-size:11px;" />
 												</h:panelGrid>
 											</p:commandLink>
-											<p:commandLink id="btnOrcamentoManual"
+											<p:commandLink id="btnOrcamentoManualDemiPair"
 												rendered="#{historicoClienteMB.camposcursodemipair}"
+												title="Emissão de orçamento manual curso"
+												action="#{historicoClienteMB.orcamentoManual('Curso')}"
+												style="margin-left:8%;">
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img
+														src="../../resources/img/crm/emitirorcamentomanual.png"
+														width="48" />
+													<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+													<p:outputLabel value="MANUAL" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink id="btnOrcamentoManual"
+												rendered="#{historicoClienteMB.camposcurso}"
 												title="Emissão de orçamento manual curso"
 												action="#{historicoClienteMB.orcamentoManual('Curso')}"
 												style="margin-left:8%;">

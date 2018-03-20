@@ -122,7 +122,6 @@ public class HistoricoClienteMB implements Serializable {
 			camposvoluntariado = false;
 			if(idcurso == lead.getProdutos().getIdprodutos()){
 				camposcurso=true; 
-				camposcursodemipair = true;
 			}else if(iddemipair == lead.getProdutos().getIdprodutos()) {
 				camposcursodemipair = true;
 			}else if(idvoluntariado == lead.getProdutos().getIdprodutos()){

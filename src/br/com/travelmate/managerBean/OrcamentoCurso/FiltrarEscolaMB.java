@@ -1675,8 +1675,10 @@ public class FiltrarEscolaMB implements Serializable {
 
 	public void gerarPromocaoBrindes(List<ProdutosOrcamentoBean> listaCurso,
 			List<ProdutosOrcamentoBean> listaObrigatorio, int numeroSemanasCurso, FornecedorProdutosBean fpb) {
-		filtrarEscolaBean.getOcurso()
+		if (listaCurso.get(0).getValorcoprodutos().getCoprodutos().getComplementocurso()!= null) {
+			filtrarEscolaBean.getOcurso()
 				.setTurno(listaCurso.get(0).getValorcoprodutos().getCoprodutos().getComplementocurso().getTurno());
+		}
 		String sql = "select p From Promocaobrindecursocidade p where p.promocaobrindecurso.datavalidadeinicial<='"
 				+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaobrindecurso.datavalidadefinal>='"
 				+ Formatacao.ConvercaoDataSql(new Date())
