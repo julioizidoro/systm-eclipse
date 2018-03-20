@@ -79,9 +79,10 @@ public class ComissaoConsultorMB implements Serializable{
 	}
 	
 	public String gerarRelatorioComissaoGerente(Comissaocontrole comissaoControle) throws IOException, SQLException {
-		String dataInicial = String.valueOf(comissaoControle.getAno())
+		String dataInicial = String.valueOf(comissaoControle.getAno()) + "-"
 				+ Formatacao.retornaDataInicia(comissaoControle.getMes());
-		String dataFinal = String.valueOf(comissaoControle.getAno());
+		String dataFinal = String.valueOf(comissaoControle.getAno())  + "-"
+				+ Formatacao.retornaDataFinal(comissaoControle.getMes());
 		 String sql = "SELECT distinct vendas.idvendas, vendas.dataVenda, produtos.descricao, unidadenegocio.nomefantasia, vendas.valor, "
 	                + "cliente.nome as nomecliente, vendascomissao.comissaogerente From "
 	            	+ " vendas join produtos on vendas.produtos_idprodutos = produtos.idprodutos"
@@ -115,9 +116,9 @@ public class ComissaoConsultorMB implements Serializable{
 	}
 	
 	public String gerarReltorioComissaoConsultor(Comissaocontrole comissaoControle) throws SQLException, IOException {
-		String dataInicial = String.valueOf(comissaoControle.getAno())
+		String dataInicial = String.valueOf(comissaoControle.getAno()) + "-"
 				+ Formatacao.retornaDataInicia(comissaoControle.getMes());
-		String dataFinal = String.valueOf(comissaoControle.getAno())
+		String dataFinal = String.valueOf(comissaoControle.getAno())  + "-"
 				+ Formatacao.retornaDataFinal(comissaoControle.getMes());
 		String sql = "SELECT distinct vendas.idvendas, vendas.dataVenda, produtos.descricao, unidadenegocio.nomefantasia, vendas.valor, "
 				+ "cliente.nome as nomecliente, vendascomissao.comissaoemissor From "
