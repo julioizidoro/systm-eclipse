@@ -115,8 +115,11 @@ public class ContasReceberMB implements Serializable {
 			sql = (String) session.getAttribute("sqlContaReceber");
 			gerarListaUnidadeNegocio();
 			session.removeAttribute("contarecebe");
-			if (sql != null || sql.length() > 5) {
-				carregarContasReceber();
+			listaContas = new ArrayList<Contasreceber>();
+			if (sql != null) {
+				if (sql.length() > 5) {
+					carregarContasReceber();
+				}
 			}
 			conta = new Contasreceber();
 			tipoDocumento = "Selecione";
