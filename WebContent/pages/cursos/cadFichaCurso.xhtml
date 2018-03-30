@@ -663,10 +663,10 @@
 								disabled="#{cadCursoMB.camposAcomodacao}">
 								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
 								<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
-								<f:selectItem itemLabel="Meia Pensão (2 Refeições)"
-									itemValue="Meia Pensão (2 Refeições)" />
-								<f:selectItem itemLabel="Pensão Completa (3 Refeições)"
-									itemValue="Pensão Completa (3 Refeições)" />
+								<f:selectItem itemLabel="Meia Pensão"
+									itemValue="Meia Pensão" />
+								<f:selectItem itemLabel="Pensão"
+									itemValue="Pensão Completa" />
 							</p:selectOneMenu>
 	
 							<p:selectOneMenu id="banheiroPrivado"
@@ -1244,8 +1244,10 @@
 						<div align="right" style="width:77.3%;">
 							<p:commandButton id="btnadicionarproduto"
 								action="#{cadCursoMB.adicionarProdutos()}" value="Adicionar"
-								update="tabelaprodutoscurso,produto, telaFichaCurso:growl, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar"
-								icon="ui-icon-plusthick"/> 
+								update="tabelaprodutoscurso,produto, telaFichaCurso:growl, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, produto"
+								icon="ui-icon-plusthick"> 
+								
+							</p:commandButton>						
 						</div>
 						
 						<br></br>   
