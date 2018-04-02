@@ -78,7 +78,7 @@
 							<h:outputText value="#{lead.notas}" />
 						</p:column>
 						<p:column headerText="Unidade" style="text-align:left;" width="95" sortBy="#{lead.unidadenegocio.nomerelatorio}">
-							<h:outputText value="#{lead.unidadenegocio.nomerelatorio}" />
+							<h:outputText value="#{leadMB.getNomeUnidade(lead)}" />
 						</p:column> 
 						<p:column headerText="Telefone" style="text-align:left;" width="95">
 							<h:outputText value="#{leadMB.verificarTelefone(lead.cliente)}" />

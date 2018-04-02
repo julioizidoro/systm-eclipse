@@ -99,6 +99,8 @@ public class Lead implements Serializable {
 	private String urlclient;
 	@Column(name = "idcontrole")
 	private Integer idcontrole;
+	@Column(name = "nomeunidade")
+	private String nomeunidade;
 
 	public Lead() {
 		idcontrole = 0;
@@ -298,6 +300,14 @@ public class Lead implements Serializable {
 
 	public void setIdcontrole(Integer idcontrole) {
 		this.idcontrole = idcontrole;
+	}
+
+	public String getNomeunidade() {
+		return nomeunidade;
+	}
+
+	public void setNomeunidade(String nomeunidade) {
+		this.nomeunidade = nomeunidade;
 	}
 
 	@Override
