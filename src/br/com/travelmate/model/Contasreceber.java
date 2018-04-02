@@ -96,8 +96,6 @@ public class Contasreceber implements Serializable {
     private int parcelaboleto;
     @Column(name = "codigoocorrencia")
     private String codigoocorrencia;
-    @Column(name = "controlenossonumero")
-    private int controlenossonumero;
     @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
     @ManyToOne(optional = false)
     private Banco banco;
@@ -119,12 +117,10 @@ public class Contasreceber implements Serializable {
     @Column(name = "datanovovencimento")
     @Temporal(TemporalType.DATE)
     private Date datanovovencimento;
-    @Column(name = "idparcelamentopagamento")
-    private Integer idparcelamentopagamento;
+    
 
     public Contasreceber() {
     	setCodigoocorrencia("00");
-    	setControlenossonumero(0);
     	setBoletogerado("NAO");
     }
 
@@ -356,14 +352,6 @@ public class Contasreceber implements Serializable {
 		this.codigoocorrencia = codigoocorrencia;
 	}
 
-	public int getControlenossonumero() {
-		return controlenossonumero;
-	}
-
-	public void setControlenossonumero(int controlenossonumero) {
-		this.controlenossonumero = controlenossonumero;
-	}
-
 	public Date getDatacancelamento() {
 		return datacancelamento;
 	}
@@ -388,13 +376,6 @@ public class Contasreceber implements Serializable {
 		this.datanovovencimento = datanovovencimento;
 	}
 
-	public Integer getIdparcelamentopagamento() {
-		return idparcelamentopagamento;
-	}
-
-	public void setIdparcelamentopagamento(Integer idparcelamentopagamento) {
-		this.idparcelamentopagamento = idparcelamentopagamento;
-	}
 
 	@Override
     public int hashCode() {

@@ -1068,8 +1068,7 @@ public class ContasReceberMB implements Serializable {
 		}
 		dadosBoletoBean.setNomeSacado(conta.getVendas().getCliente().getNome());
 		dadosBoletoBean.setNumeroContas(conta.getVendas().getUnidadenegocio().getBanco().getConta());
-		dadosBoletoBean.setNumeroDocumentos(Formatacao.gerarNumeroDocumentoBoleto(conta.getNumerodocumento(),
-				String.valueOf(conta.getParcelaboleto()), conta.getControlenossonumero()));
+		dadosBoletoBean.setNumeroDocumentos(Formatacao.gerarNumeroDocumentoBoleto(String.valueOf(conta.getIdcontasreceber())));
 		dadosBoletoBean.setValor(Formatacao.converterFloatBigDecimal(conta.getValorparcela()));
 		dadosBoletoBean.setValorJuros(calcularMultaJuros(conta.getValorparcela(),
 				conta.getVendas().getUnidadenegocio().getBanco().getValorjuros()));

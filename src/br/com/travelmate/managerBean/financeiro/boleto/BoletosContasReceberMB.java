@@ -105,7 +105,7 @@ public class BoletosContasReceberMB implements Serializable{
         dadosBoletoBean.setNomeCedente(usuarioLogadoMB.getUsuario().getUnidadenegocio().getRazaoSocial());
         dadosBoletoBean.setNomeSacado(cliente.getNome());
         dadosBoletoBean.setNumeroContas(usuarioLogadoMB.getUsuario().getUnidadenegocio().getBanco().getConta());
-        dadosBoletoBean.setNumeroDocumentos(Formatacao.gerarNumeroDocumentoBoleto(conta.getNumerodocumento(), String.valueOf(conta.getNumeroparcelas()), conta.getControlenossonumero()));
+        dadosBoletoBean.setNumeroDocumentos(Formatacao.gerarNumeroDocumentoBoleto(String.valueOf(conta.getIdcontasreceber())));
         dadosBoletoBean.setValor(Formatacao.converterFloatBigDecimal(conta.getValorparcela()));
         dadosBoletoBean.setNossoNumeros(dadosBoletoBean.getNumeroDocumentos());
         ContasReceberFacade contasReceberFacade = new ContasReceberFacade();

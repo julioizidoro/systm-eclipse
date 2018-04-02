@@ -173,7 +173,6 @@ public class ContasReceberBean {
 			} else {
 				conta.setNumeroparcelas((String.valueOf(i + 1)) + "/" + numeroParcelasFormatado);
 			}
-			conta.setControlenossonumero(idlista);
 			conta.setValorparcela(valorParcela);
 			conta.setDatavencimento(cData);
 			conta.setTipodocumento(parcela.getFormaPagamento());
@@ -194,7 +193,6 @@ public class ContasReceberBean {
 			}
 			conta.setBoletoenviado(false);
 			conta.setVendas(venda);
-			conta.setIdparcelamentopagamento(parcela.getIdparcemlamentoPagamento());
 			listaContas.add(conta);
 			if (cmes == 12) {
 				cmes = 1;

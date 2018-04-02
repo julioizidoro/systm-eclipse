@@ -793,19 +793,18 @@ public class Formatacao {
 		return dataFormatada;
 	}
 
-	public static String gerarNumeroDocumentoBoleto(String numeroVenda, String numeroParcela, int controleNossoNumero) {
-		if (numeroParcela.length() == 1) {
-			numeroParcela = "0" + numeroParcela;
+	public static String gerarNumeroDocumentoBoleto(String numeroDoc) {
+		String nossoNumero = "";
+		if (numeroDoc.length()==5) {
+			nossoNumero = "000" + numeroDoc;
+		}else if (numeroDoc.length()==6) {
+			nossoNumero = "00" + numeroDoc;
+		}else if (numeroDoc.length()==7) {
+			nossoNumero = "000" + numeroDoc;
+		}else if (numeroDoc.length()==8) {
+			nossoNumero= numeroDoc;
 		}
-		String numero = numeroVenda + String.valueOf(controleNossoNumero) + numeroParcela;
-		for (int i = 0; i < 8; i++) {
-			if (numero.length() < 8) {
-				numero = "0" + numero;
-			} else {
-				i = 100;
-			}
-		}
-		return numero;
+		return nossoNumero;
 	}
 
 	public static BigDecimal converterFloatBigDecimal(Float valor) {
