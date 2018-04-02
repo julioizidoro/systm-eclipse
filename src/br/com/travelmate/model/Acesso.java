@@ -200,6 +200,12 @@ public class Acesso implements Serializable {
 	private boolean relatoriogerencia; 
 	@Column(name = "comissaoconsultor")
 	private boolean comissaoconsultor; 
+	@Column(name = "descontotm")
+	private boolean descontotm; 
+	@Column(name = "relatorioleads")
+	private boolean relatorioleads; 
+	@Column(name = "relatoriocliente")
+	private boolean relatoriocliente; 
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -897,6 +903,30 @@ public class Acesso implements Serializable {
 
 	public void setComissaoconsultor(boolean comissaoconsultor) {
 		this.comissaoconsultor = comissaoconsultor;
+	}
+
+	public boolean isDescontotm() {
+		return descontotm;
+	}
+
+	public void setDescontotm(boolean descontotm) {
+		this.descontotm = descontotm;
+	}
+
+	public boolean isRelatorioleads() {
+		return relatorioleads;
+	}
+
+	public void setRelatorioleads(boolean relatorioleads) {
+		this.relatorioleads = relatorioleads;
+	}
+
+	public boolean isRelatoriocliente() {
+		return relatoriocliente;
+	}
+
+	public void setRelatoriocliente(boolean relatoriocliente) {
+		this.relatoriocliente = relatoriocliente;
 	}
 
 	@Override

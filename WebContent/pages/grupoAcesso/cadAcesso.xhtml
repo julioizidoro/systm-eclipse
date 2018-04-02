@@ -452,6 +452,28 @@
 								</h:panelGroup> 
 							</h:panelGrid>
 							<br></br>
+							<h:panelGrid columns="5"
+								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
+								style="width:95%;">
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.descontotm}" />
+									<h:outputText value="Desconto TM" style="margin-left:2%;" />
+								</h:panelGroup>
+								<h:panelGroup>
+									
+								</h:panelGroup>
+								<h:panelGroup>
+									
+								</h:panelGroup>
+								<h:panelGroup>
+									
+								</h:panelGroup>
+								<h:panelGroup>
+									
+								</h:panelGroup> 
+							</h:panelGrid>
+							<br></br>
 						</p:tab>
 						<p:tab title="CRM">
 							<br></br>
@@ -494,11 +516,15 @@
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.gerencialdistribuicaoleads}" />
-									<h:outputText value="Gerencial Distribuição Leads" style="margin-left:2%;" />
+									<h:outputText value="Gerencial Distribuição" style="margin-left:2%;" />
 								</h:panelGroup>
 								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.relatorioleads}" />
+									<h:outputText value="Relatório Leads" style="margin-left:2%;" />
 								</h:panelGroup>
 								<h:panelGroup>
+									
 								</h:panelGroup>
 								<h:panelGroup>
 								</h:panelGroup>
@@ -506,6 +532,34 @@
 								</h:panelGroup>
 							</h:panelGrid> 
 						</p:tab>  
+						<p:tab title="Comercial">
+							<br></br>
+							<h:panelGrid columns="5"
+								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
+								style="width:95%;">
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.menucomercial}" />
+									<h:outputText value="Menu Comercial" style="margin-left:2%;" />
+								</h:panelGroup> 
+								<h:panelGroup>
+									<p:selectBooleanCheckbox
+										value="#{cadGrupoAcessoMB.grupoacesso.acesso.relatoriocliente}" />
+									<h:outputText value="Relatório Clientes"
+										style="margin-left:2%;" />
+								</h:panelGroup> 
+								<h:panelGroup>
+									
+								</h:panelGroup>
+								<h:panelGroup>
+									
+								</h:panelGroup>
+								<h:panelGroup>
+									
+								</h:panelGroup> 
+							</h:panelGrid><br/>       
+							
+						</p:tab>
 						<p:tab title="Suporte">
 							<br></br> 
 							<h:panelGrid columns="5"
@@ -543,11 +597,7 @@
 							<h:panelGrid columns="5"
 								columnClasses="tamanho10, tamanho10, tamanho10, tamanho10,tamanho10"
 								style="width:95%;">
-								<h:panelGroup>
-									<p:selectBooleanCheckbox
-										value="#{cadGrupoAcessoMB.grupoacesso.acesso.menucomercial}" />
-									<h:outputText value="Menu Comercial" style="margin-left:2%;" />
-								</h:panelGroup> 
+								
 								<h:panelGroup>
 									<p:selectBooleanCheckbox
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.pacote}" />
@@ -571,6 +621,9 @@
 										value="#{cadGrupoAcessoMB.grupoacesso.acesso.enviaremail}" />
 									<h:outputText value="Enviar Email" 
 										style="margin-left:2%;" />
+								</h:panelGroup> 
+								<h:panelGroup>
+									
 								</h:panelGroup> 
 							</h:panelGrid><br/>       
 							<h:panelGrid columns="5"
