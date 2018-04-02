@@ -1446,10 +1446,7 @@ public class MenuMB implements Serializable {
 	
 	public String relatorioLead() {
 		atualizaTempoLogado();
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 510);
-		RequestContext.getCurrentInstance().openDialog("relatorioLeads", options, null); 
-		return "";
+		return "relatorioLeads";
 	}
 	
 	
@@ -1512,6 +1509,10 @@ public class MenuMB implements Serializable {
 	
 	public String comissaoConsultor() {
 		return "comissaoConsultor";
+	}
+	
+	public String consFiltroProdutosOrcamento() {
+		return "consFiltroProdutosOrcamento";
 	}
 	
 }

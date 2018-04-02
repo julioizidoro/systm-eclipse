@@ -449,6 +449,7 @@ public class FiltrarEscolaMB implements Serializable {
 				produtoFornecedor.setListaObrigaroerios(gerarListaValorCoProdutos(fpb, "Obrigatorio",
 						fornecedorCidadeIdioma.getIdfornecedorcidadeidioma(),
 						produtoFornecedor.getCoprodutos().getIdcoprodutos()));
+				produtoFornecedor.setListaObriSalvo(produtoFornecedor.getListaObrigaroerios());
 				if (produtoFornecedor.getCoprodutos().isPacote() == false) {
 					gerarPromocaoCurso(produtoFornecedor.getListaObrigaroerios());
 				}
@@ -475,9 +476,15 @@ public class FiltrarEscolaMB implements Serializable {
 				produtoFornecedor.setSvalorMoedaNacional(
 						"R$ " + Formatacao.formatarFloatString(produtoFornecedor.getValorMoedaNacional()));
 				produtoFornecedor.setLinhaFornecedor(0);
+				produtoFornecedor.setFornecedorCidadeIdioma(fornecedorCidadeIdioma);
 				fpb.getListaProdutoFornecedor().add(produtoFornecedor);
 			}
 			filtrarEscolaBean.getListaFornecedorProdutosBean().add(fpb);
+		}
+		for (int i = 0; i < filtrarEscolaBean.getListaFornecedorProdutosBean().size(); i++) {
+			for (int j = 0; j < filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().size(); j++) {
+				filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().get(j).setLinhaFornecedorProdutoBean(i);
+			}
 		}
 	}
 
@@ -668,33 +675,33 @@ public class FiltrarEscolaMB implements Serializable {
 				+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
-		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial<='" + Formatacao.ConvercaoDataSql(dataConsulta)  + "' and v.datafinal>='"
-				+ Formatacao.ConvercaoDataSql(dataConsulta)
-				+ "' and v.numerosemanainicial<=" + filtrarEscolaBean.getOcurso().getNumerosemanas()
-				+ " and v.numerosemanafinal>=" + filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='"
-				+ tipoData + "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
-		List<Valorcoprodutos> listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
-		if (listaValorcoprodutosSuplemento == null) {
-			Date dataTermino = calcularDataTerminoCurso(dataConsulta, filtrarEscolaBean.getOcurso().getNumerosemanas());
-			sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='"
-					+ Formatacao.ConvercaoDataSql(dataConsulta) + "'" + " and v.datainicial<='"
-					+ Formatacao.ConvercaoDataSql(dataTermino) + "'" + " and v.datafinal>='"
-					+ Formatacao.ConvercaoDataSql(dataConsulta) + "' and v.numerosemanainicial<="
-					+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.numerosemanafinal>="
-					+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
-					+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
-			listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
-		}
-		if (listaValorcoprodutosSuplemento != null) {
-			for (int n = 0; n < listaValorcoprodutosSuplemento.size(); n++) {
-				if (listaValorcoprodutosSuplemento.get(n).getProdutosuplemento().equalsIgnoreCase("Curso")) {
-					listaValorcoprodutosSuplemento.get(n).getCoprodutos().getProdutosorcamento().setDescricao(
-							listaValorcoprodutosSuplemento.get(n).getCoprodutos().getProdutosorcamento().getDescricao()+" - Curso");
-					Valorcoprodutos valorSuplemente = listaValorcoprodutosSuplemento.get(n);
-					listarValores(valorSuplemente, fornecedorProdutosBean, tipo);
-				}
-			}  
-		}
+//		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial<='" + Formatacao.ConvercaoDataSql(dataConsulta)  + "' and v.datafinal>='"
+//				+ Formatacao.ConvercaoDataSql(dataConsulta)
+//				+ "' and v.numerosemanainicial<=" + filtrarEscolaBean.getOcurso().getNumerosemanas()
+//				+ " and v.numerosemanafinal>=" + filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='"
+//				+ tipoData + "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
+//		List<Valorcoprodutos> listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
+//		if (listaValorcoprodutosSuplemento == null) {
+//			Date dataTermino = calcularDataTerminoCurso(dataConsulta, filtrarEscolaBean.getOcurso().getNumerosemanas());
+//			sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='"
+//					+ Formatacao.ConvercaoDataSql(dataConsulta) + "'" + " and v.datainicial<='"
+//					+ Formatacao.ConvercaoDataSql(dataTermino) + "'" + " and v.datafinal>='"
+//					+ Formatacao.ConvercaoDataSql(dataConsulta) + "' and v.numerosemanainicial<="
+//					+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.numerosemanafinal>="
+//					+ filtrarEscolaBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
+//					+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
+//			listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
+//		}
+//		if (listaValorcoprodutosSuplemento != null) {
+//			for (int n = 0; n < listaValorcoprodutosSuplemento.size(); n++) {
+//				if (listaValorcoprodutosSuplemento.get(n).getProdutosuplemento().equalsIgnoreCase("Curso")) {
+//					listaValorcoprodutosSuplemento.get(n).getCoprodutos().getProdutosorcamento().setDescricao(
+//							listaValorcoprodutosSuplemento.get(n).getCoprodutos().getProdutosorcamento().getDescricao()+" - Curso");
+//					Valorcoprodutos valorSuplemente = listaValorcoprodutosSuplemento.get(n);
+//					listarValores(valorSuplemente, fornecedorProdutosBean, tipo);
+//				}
+//			}  
+//		}
 		if (listaValorcoprodutoses != null) {
 			for (int n = 0; n < listaValorcoprodutoses.size(); n++) {
 				if(listaValorcoprodutoses.get(n).isDatalimite() 
@@ -1675,7 +1682,7 @@ public class FiltrarEscolaMB implements Serializable {
 
 	public void gerarPromocaoBrindes(List<ProdutosOrcamentoBean> listaCurso,
 			List<ProdutosOrcamentoBean> listaObrigatorio, int numeroSemanasCurso, FornecedorProdutosBean fpb) {
-		if (listaCurso.get(0).getValorcoprodutos().getCoprodutos().getComplementocurso()!= null) {
+		if (listaCurso != null && listaCurso.size() > 0 && listaCurso.get(0).getValorcoprodutos().getCoprodutos().getComplementocurso()!= null) {
 			filtrarEscolaBean.getOcurso()
 				.setTurno(listaCurso.get(0).getValorcoprodutos().getCoprodutos().getComplementocurso().getTurno());
 		}

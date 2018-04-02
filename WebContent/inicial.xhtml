@@ -1358,6 +1358,13 @@
 												<span class="submenu-label">Alterações Vendas</span>
 											</p:commandLink></li>
 									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.descontotm}">
+										<li><p:commandLink
+												action="#{menuMB.consFiltroProdutosOrcamento()}">
+												<span class="submenu-label">Desconto TM</span>
+											</p:commandLink></li>
+									</h:panelGroup>
 								</ul></li>
 						</h:panelGroup>
 						<h:panelGroup

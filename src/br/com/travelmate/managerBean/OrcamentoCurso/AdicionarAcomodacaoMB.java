@@ -16,10 +16,12 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Promocaoacomodacao;
 import br.com.travelmate.model.Promocaoacomodacaocidade;
@@ -43,6 +45,9 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente;
 	private ProdutosOrcamentoBean acomodacao;
 	private ProdutosOrcamentoBean acomodacaoIndependente;
+	private Coprodutos avisoSemAcomodacao;
+	private boolean habilitarAcomodacao = true;
+	private boolean habilitarAviso = false;
 
 	@PostConstruct
 	public void init() {
@@ -115,47 +120,94 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		this.acomodacaoIndependente = acomodacaoIndependente;
 	}
 
+	public Coprodutos getAvisoSemAcomodacao() {
+		return avisoSemAcomodacao;
+	}
+
+	public void setAvisoSemAcomodacao(Coprodutos avisoSemAcomodacao) {
+		this.avisoSemAcomodacao = avisoSemAcomodacao;
+	}
+
+	public boolean isHabilitarAcomodacao() {
+		return habilitarAcomodacao;
+	}
+
+	public void setHabilitarAcomodacao(boolean habilitarAcomodacao) {
+		this.habilitarAcomodacao = habilitarAcomodacao;
+	}
+
+	public boolean isHabilitarAviso() {
+		return habilitarAviso;
+	}
+
+	public void setHabilitarAviso(boolean habilitarAviso) {
+		this.habilitarAviso = habilitarAviso;
+	}
+
 	public void gerarListaAcomodacao() {
 		listaAcomodacoes = new ArrayList<>();
-		ValorCoProdutosFacade coProdutosFacade = new ValorCoProdutosFacade();
-		String sql = "Select c from Valorcoprodutos c where c.coprodutos.fornecedorcidadeidioma.idfornecedorcidadeidioma="
-				+ resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
-				+ " and c.coprodutos.tipo='Acomodacao" + "' and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
-				+ aplicacaoMB.getParametrosprodutos().getSuplementoidade()
-				+ " and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
-				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
-				+ " and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
-				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao()
-				+ " and c.coprodutos.apenaspacote=FALSE" + " GROUP BY c.coprodutos.idcoprodutos"
-				+ " ORDER BY c.valororiginal";
-		List<Valorcoprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
-		if (listaCoProdutos != null) {
-			for (int i = 0; i < listaCoProdutos.size(); i++) {
-				ProdutosOrcamentoBean po = consultarValores("DI",
-						listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
-						resultadoOrcamentoBean.getDataConsulta());
-				if (po != null) {
-					po.setListaSemanas(new ArrayList<Integer>());
-					po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
-					listaAcomodacoes.add(po);
-				} else {
-					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date() );
+		int idCoProdutos = validarDados();
+		if (idCoProdutos == 0) {
+			ValorCoProdutosFacade coProdutosFacade = new ValorCoProdutosFacade();
+			String sql = "Select c from Valorcoprodutos c where c.coprodutos.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+					+ resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+					+ " and c.coprodutos.tipo='Acomodacao" + "' and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
+					+ aplicacaoMB.getParametrosprodutos().getSuplementoidade()
+					+ " and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
+					+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
+					+ " and c.coprodutos.produtosorcamento.idprodutosOrcamento<>"
+					+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao()
+					+ " and c.coprodutos.apenaspacote=FALSE" + " GROUP BY c.coprodutos.idcoprodutos"
+					+ " ORDER BY c.valororiginal";
+			List<Valorcoprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+			if (listaCoProdutos != null) {
+				for (int i = 0; i < listaCoProdutos.size(); i++) {
+					ProdutosOrcamentoBean po = consultarValores("DI",
+							listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
+							resultadoOrcamentoBean.getDataConsulta());
 					if (po != null) {
 						po.setListaSemanas(new ArrayList<Integer>());
 						po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 						listaAcomodacoes.add(po);
 					} else {
-						po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
-								resultadoOrcamentoBean.getDataConsulta() );
+						po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date() );
 						if (po != null) {
 							po.setListaSemanas(new ArrayList<Integer>());
 							po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 							listaAcomodacoes.add(po);
+						} else {
+							po = consultarValores("DS", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(),
+									resultadoOrcamentoBean.getDataConsulta() );
+							if (po != null) {
+								po.setListaSemanas(new ArrayList<Integer>());
+								po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
+								listaAcomodacoes.add(po);
+							}
 						}
 					}
 				}
+				habilitarAcomodacao = true;
+				habilitarAviso = false;
 			}
+		}else {
+			CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
+			avisoSemAcomodacao = coProdutosFacade.consultar("SELECT c FROM Coprodutos c WHERE c.idcoprodutos=" + idCoProdutos);
+			habilitarAviso = true;
+			habilitarAcomodacao = false;
 		}
+	}
+	
+	
+	public int validarDados() {
+		int idCoProdutos = 0;
+		if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()==593) {
+			idCoProdutos = 22932;
+		}else if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()==594) {
+			idCoProdutos = 22933;
+		}else if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()==589) {
+			idCoProdutos = 22933;
+		}
+		return idCoProdutos;
 	}
 	
 	

@@ -3,6 +3,7 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 import java.util.List;
 
 import br.com.travelmate.model.Coprodutos;
+import br.com.travelmate.model.Fornecedorcidadeidioma;
 
 public class ProdutoFornecedorBean {
 	
@@ -16,6 +17,9 @@ public class ProdutoFornecedorBean {
     private Float valorDesconto;
     private String svalorDesconto;
     private Integer linhaFornecedor;
+    private Integer linhaFornecedorProdutoBean;
+    private Fornecedorcidadeidioma fornecedorCidadeIdioma;
+    private List<ProdutosOrcamentoBean> listaObriSalvo;
 	
     public Integer getLinhaFornecedor() {
 		return linhaFornecedor;
@@ -77,6 +81,24 @@ public class ProdutoFornecedorBean {
 	}
 	public void setListaCursoPrincipal(List<ProdutosOrcamentoBean> listaCursoPrincipal) {
 		this.listaCursoPrincipal = listaCursoPrincipal;
+	}
+	public Integer getLinhaFornecedorProdutoBean() {
+		return linhaFornecedorProdutoBean;
+	}
+	public void setLinhaFornecedorProdutoBean(Integer linhaFornecedorProdutoBean) {
+		this.linhaFornecedorProdutoBean = linhaFornecedorProdutoBean;
+	}
+	public Fornecedorcidadeidioma getFornecedorCidadeIdioma() {
+		return fornecedorCidadeIdioma;
+	}
+	public void setFornecedorCidadeIdioma(Fornecedorcidadeidioma fornecedorCidadeIdioma) {
+		this.fornecedorCidadeIdioma = fornecedorCidadeIdioma;
+	}
+	public List<ProdutosOrcamentoBean> getListaObriSalvo() {
+		return listaObriSalvo;
+	}
+	public void setListaObriSalvo(List<ProdutosOrcamentoBean> listaObriSalvo) {
+		this.listaObriSalvo = listaObriSalvo;
 	}
 	
 	

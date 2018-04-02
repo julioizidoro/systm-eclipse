@@ -31,6 +31,7 @@ public class FornecedorProdutosBean {
         private List<ProdutosOrcamentoBean> listaAcOpcional;
         private List<Ocursoferiado> listaOcrusoFeriado;
         private Date dataConsulta;
+        private int linhaFornecedor;
 
 	public Fornecedorcidadeidioma getFornecedorcidadeidioma() {
         return fornecedorcidadeidioma;
@@ -121,6 +122,14 @@ public class FornecedorProdutosBean {
 
 	public void setDataConsulta(Date dataConsulta) {
 		this.dataConsulta = dataConsulta;
+	}
+
+	public int getLinhaFornecedor() {
+		return linhaFornecedor;
+	}
+
+	public void setLinhaFornecedor(int linhaFornecedor) {
+		this.linhaFornecedor = linhaFornecedor;
 	}
 
 	

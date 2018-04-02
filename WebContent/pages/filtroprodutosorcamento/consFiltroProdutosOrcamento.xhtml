@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaFiltroProdutoOrcamento">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+
+
+				<legend id="iUsu2">
+					<b>Produtos Orçamento</b>
+				</legend>
+
+				<br /> <br />
+				<p:dataTable reflow="true" id="tabelaFiltroProduto" var="filtro" 
+					class="tabela" value="#{filtroProdutosOrcamentoMB.listaOrcamentoProduto}"
+					scrollable="true" scrollHeight="300" style="margin-bottom:20px;">
+
+					<p:column headerText="Produto Orçamento" sortBy="#{filtro.produtosorcamento.descricao}"
+						style="text-align:left; width:115px;">
+						<h:outputText value="#{filtro.produtosorcamento.descricao}"
+							 />
+					</p:column>
+					<p:column headerText="Programa" sortBy="#{filtro.produtos.descricao}"
+						style="text-align:left; width:115px;">
+						<h:outputText value="#{filtro.produtos.descricao}"
+							 />
+					</p:column>
+					<p:column headerText="Valor Máximo" style="width:50px;text-align:right;" sortBy="#{filtro.valormaximo}">
+						<h:outputText value="#{filtro.valormaximo}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column style="width:23px;" styleClass="alinharCenter">
+						<p:commandLink action="#{filtroProdutosOrcamentoMB.editar(filtro)}"
+							style="text-decoration: none">
+							<img src="../../resources/img/editaricon.png" />
+							<p:ajax event="dialogReturn" listener="#{filtroProdutosOrcamentoMB.retornoDialogEditar}" update=":consultaFiltroProdutoOrcamento:tabelaFiltroProduto, :consultaFiltroProdutoOrcamento:growl"/>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<br></br> <br></br>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

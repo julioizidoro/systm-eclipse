@@ -1,39 +1,26 @@
 package br.com.travelmate.managerBean.crm;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 
-import org.primefaces.context.RequestContext;
-
-import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.crm.relatorios.OrigemLeadMB;
+import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Publicidade;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarRelatorio;
-import br.com.travelmate.util.Mensagem;
-import net.sf.jasperreports.engine.JRException;
 
 @Named
 @ViewScoped
@@ -58,11 +45,17 @@ public class RelatorioLeadsMB implements Serializable{
 	private Date datarecebimentoFinal;
 	private boolean desabilitarUnidade = false;
 	private String nomeUnidade = "Todos";
+	private List<Publicidade> listaPublicidades;
+	private Publicidade publicidade;
+	private String nomeCliente = "";
+	private List<Lead> listaLeads;
+	private boolean habilitarGroupBy = false;
 	
 	
 	@PostConstruct
 	public void init(){
 		gerarListaUnidadeNegocio();
+		gerarListaPublicidade();
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			desabilitarUnidade = true;
 			gerarListaConsultor();
@@ -192,6 +185,66 @@ public class RelatorioLeadsMB implements Serializable{
 	}
 
 
+	public String getNomeUnidade() {
+		return nomeUnidade;
+	}
+
+
+	public void setNomeUnidade(String nomeUnidade) {
+		this.nomeUnidade = nomeUnidade;
+	}
+
+
+	public Publicidade getPublicidade() {
+		return publicidade;
+	}
+
+
+	public void setPublicidade(Publicidade publicidade) {
+		this.publicidade = publicidade;
+	}
+
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+
+	public List<Publicidade> getListaPublicidades() {
+		return listaPublicidades;
+	}
+
+
+	public void setListaPublicidades(List<Publicidade> listaPublicidades) {
+		this.listaPublicidades = listaPublicidades;
+	}
+
+
+	public List<Lead> getListaLeads() {
+		return listaLeads;
+	}
+
+
+	public void setListaLeads(List<Lead> listaLeads) {
+		this.listaLeads = listaLeads;
+	}
+
+
+	public boolean isHabilitarGroupBy() {
+		return habilitarGroupBy;
+	}
+
+
+	public void setHabilitarGroupBy(boolean habilitarGroupBy) {
+		this.habilitarGroupBy = habilitarGroupBy;
+	}
+
+
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -217,79 +270,43 @@ public class RelatorioLeadsMB implements Serializable{
 	}
 	
 	
-	public String gerarRelatorio() throws SQLException, IOException {
-			ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-					.getContext();
-			String caminhoRelatorio = "";
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			caminhoRelatorio = "reports/crm/relatorioLead.jasper"; 
-			parameters.put("sql", gerarSql());
-			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
-			BufferedImage logo = ImageIO.read(f);
-			parameters.put("logo", logo); 
-			parameters.put("unidade", nomeUnidade);
-			if (consultor == null || consultor.getIdusuario() == null) {
-				parameters.put("consultor", "Todos");
-			} else {
-				parameters.put("consultor", consultor.getNome());
-			}
-			GerarRelatorio gerarRelatorio = new GerarRelatorio();
-			try {
-				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "leads", "");
-			} catch (JRException ex) {
-				Logger.getLogger(OrigemLeadMB.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		return "";
-	}
 	
 	
-	public String gerarSql() {    
-		String sql = "Select distinct cliente.nome as cliente, lead.datarecebimento, lead.dataultimocontato, lead.dataproximocontato, lead.situacao, produtos.descricao as programa, lead.situacao as status "
-				+" from lead join produtos on lead.produtos_idprodutos=produtos.idprodutos "
-				+ " join cliente on lead.cliente_idcliente=cliente.idcliente "
-				+" where cliente.nome like '%%' ";
-		if ((dataProxContatoInicial != null) && (dataProxContatoFinal != null)) {
-			sql = sql + " and lead.dataenvio>='" + Formatacao.ConvercaoDataSql(dataProxContatoInicial) + "' and lead.dataenvio<='"
-					+ Formatacao.ConvercaoDataSql(dataProxContatoFinal) + "'";
-		}
+	public void gerarPesquisaLeads() {
+		String sql = "SELECT l FROM Lead l WHERE l.cliente.nome like '%"+ nomeCliente +"%' ";
+		
 		if ((datarecebimentoInicial != null) && (datarecebimentoFinal != null)) {
-			sql = sql + " and lead.dataenvio>='" + Formatacao.ConvercaoDataSql(datarecebimentoInicial) + "' and lead.dataenvio<='"
+			sql = sql + " and l.dataenvio>='" + Formatacao.ConvercaoDataSql(datarecebimentoInicial) + "' and l.dataenvio<='"
 					+ Formatacao.ConvercaoDataSql(datarecebimentoFinal) + "'";
 		}
-		if ((dataUltContatoInicial != null) && (dataUltContatoFinal != null)) {
-			sql = sql + " and lead.dataenvio>='" + Formatacao.ConvercaoDataSql(dataUltContatoInicial) + "' and lead.dataenvio<='"
-					+ Formatacao.ConvercaoDataSql(dataUltContatoFinal) + "'";
-		}
 		if(unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
-			sql = sql + " and lead.unidadenegocio_idunidadenegocio=" + unidadenegocio.getIdunidadeNegocio();
+			sql = sql + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 		}
-		if (consultor != null && consultor.getIdusuario() != null) {
-			sql = sql + " and lead.usuario_idusuario=" + consultor.getIdusuario();
+		
+		if (publicidade != null && publicidade.getIdpublicidade() != null) {
+			sql = sql + " and l.publicidade.idpublicidade=" +  publicidade.getIdpublicidade();
 		}
-		if (status != null && status.length() > 0 && !status.equalsIgnoreCase("0")) {
-			if (status.equalsIgnoreCase("Novos")) {
-				sql = sql + " and lead.dataultimocontato is null and lead.situacao=1";
-			} else if (status.equalsIgnoreCase("Atrasados")) {
-				sql = sql + " and lead.dataproximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "' and lead.situacao<>6";
-			} else if (status.equalsIgnoreCase("Hoje")) {
-				sql = sql + " and llead.dataproximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			} else if (status.equalsIgnoreCase("Prox. 7 Dias")) {
-				Date data7;
-				try {
-					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
-				} catch (Exception e) {
-					data7 = null;
-				}
-				sql = sql + " and lead.dataproximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-						+ "' and lead.dataproximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
-			}
+		if (habilitarGroupBy) {
+			sql = sql + " Group by l.unidadenegocio, l.publicidade";
 		}
-		sql = sql + " order by cliente.nome";
-		return sql;
+		LeadFacade leadFacade = new LeadFacade();
+		listaLeads = leadFacade.lista(sql);
+		if (listaLeads == null) {
+			listaLeads = new ArrayList<Lead>();
+		}
 	}
 	
-	public void fechar(){
-		RequestContext.getCurrentInstance().closeDialog(null);
+	
+	public void gerarListaPublicidade() {
+		PublicidadeFacade publicidadeFacade = new PublicidadeFacade(); 
+		try {
+			listaPublicidades = publicidadeFacade.listar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (listaPublicidades == null) {
+			listaPublicidades = new ArrayList<Publicidade>();
+		} 
 	}
 
 }

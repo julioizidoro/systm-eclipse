@@ -3,120 +3,128 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-	<link href="../../resources/css/css.css" rel="stylesheet"
-		type="text/css" />
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultacursos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel rendered="true" class="painel" activeIndex="-1" >
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							columnClasses="tamanho7, tamanhoavisos, tamanhoavisos, tamanho7"
+							style="width:98%;margin-left:4%;">
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Tipo" style="margin-left:5%;"/>
+							<p:outputLabel value="Data Recebimento" />
+							<p:outputLabel/>
 
-</h:head>
-<h:body >  
-	<h:form id="cadLead"
-		style="text-align:left;font-size: 10px; margin-left:2%; ">
-		<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-		<title>Relatório de LEAD</title>
-		<h:panelGrid columns="2"
-			columnClasses="tamanhonotificacao2, tamanhonotificacao2"
-			style="width:95%;margin-left:3%;">
-			<p:outputLabel value="Unidade" for="unidade" />
-			<p:outputLabel value="Consultor" for="consultor" />
-
-			
-			<p:selectOneMenu id="unidade" value="#{relatorioLeadsMB.unidadenegocio}"
-				 style="width:90%;" disabled="#{relatorioLeadsMB.desabilitarUnidade}"
-				filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
-				converter="UnidadeNegocioConverter">
-				<f:selectItem itemLabel="Selecione" itemValue="0"
-					noSelectionOption="true" />
-				<f:selectItems value="#{relatorioLeadsMB.listaUnidadeNegocio}"
-					var="unidade" itemLabel="#{unidade.nomerelatorio}"
-					itemValue="#{unidade}" />
-				<f:attribute name="listaUnidade"
-					value="#{relatorioLeadsMB.listaUnidadeNegocio}" />
-				<p:ajax event="change" listener="#{relatorioLeadsMB.gerarListaConsultor()}"
-					update="consultor" />
-			</p:selectOneMenu> 
-			<p:selectOneMenu id="consultor" value="#{relatorioLeadsMB.consultor}"
-				style="width:90%;" filter="true" filterMatchMode="startsWith"
-				panelStyle="width:180px" converter="UsuarioConverter">
-				<f:selectItem itemLabel="Selecione" itemValue="0"
-					noSelectionOption="true" />
-				<f:selectItems value="#{relatorioLeadsMB.listaConsultor}" var="usuario"
-					itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
-				<f:attribute name="listaUsuario" value="#{relatorioLeadsMB.listaConsultor}" />
-				<p:ajax event="change" />
-			</p:selectOneMenu>
-		</h:panelGrid>
-		<h:panelGrid columns="2"
-			columnClasses="tamanhonotificacao2, tamanhonotificacao2"
-			style="width:95%;margin-left:3%;">
-			<p:outputLabel value="Status" for="status" />
-			<p:outputLabel value="Data Recebimento"  />
-			<p:selectOneMenu id="status" style="width:90%;"
-				value="#{relatorioLeadsMB.status}">
-				<f:selectItem itemLabel="Selecione" itemValue="0" />
-				<f:selectItem itemLabel="Novos" itemValue="Novos" />
-				<f:selectItem itemLabel="Atrasados" itemValue="Atrasados" />
-				<f:selectItem itemLabel="Hoje" itemValue="Hoje" />
-				<f:selectItem itemLabel="Prox. 7 Dias" itemValue="Prox. 7 Dias" />
-				<f:selectItem itemLabel="Todos" itemValue="Todos" />
-			</p:selectOneMenu>
-			<h:panelGroup>
-				<p:calendar id="datarecebimentoInicial" value="#{relatorioLeadsMB.datarecebimentoInicial}"
-					size="12"  locale="pt" pattern="dd/MM/yyyy"
-					mask="true" maxlength="15">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" />
-				</p:calendar>
-				<p:calendar id="datarecebimentoFinal" value="#{relatorioLeadsMB.datarecebimentoFinal}"
-					 size="12" locale="pt"
-					pattern="dd/MM/yyyy" mask="true" maxlength="15"
-					style="margin-left: 2%;">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" />
-				</p:calendar>
-			</h:panelGroup>
-			
-			<p:outputLabel value="Data Ultimo Contato"  />
-			<p:outputLabel value="Data Próximo Contato"  />
-			
-			<h:panelGroup>
-				<p:calendar id="dataultimocontatoInicial" value="#{relatorioLeadsMB.dataUltContatoInicial}"
-					size="12"  locale="pt" pattern="dd/MM/yyyy"
-					mask="true" maxlength="15">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" />
-				</p:calendar>
-				<p:calendar id="dataultimocontatoFinal" value="#{relatorioLeadsMB.dataUltContatoFinal}"
-					 size="12" locale="pt"
-					pattern="dd/MM/yyyy" mask="true" maxlength="15"
-					style="margin-left: 2%;">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" />
-				</p:calendar>
-			</h:panelGroup>
-			<h:panelGroup>
-				<p:calendar id="dataproximocontatoInicial" value="#{relatorioLeadsMB.dataProxContatoInicial}"
-					size="12" locale="pt" pattern="dd/MM/yyyy"
-					mask="true" maxlength="15">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" />
-				</p:calendar>
-				<p:calendar id="dataproximocontatoFinal" value="#{relatorioLeadsMB.dataProxContatoFinal}"
-					size="12" locale="pt"
-					pattern="dd/MM/yyyy" mask="true" maxlength="15"
-					style="margin-left: 2%;">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" />
-				</p:calendar>
-			</h:panelGroup>
-		</h:panelGrid>
-		<br/><br/>
-		<div align="center">
-			<p:commandButton value="Gerar PDF" icon="ui-icon-check" onclick="this.form.target='_blank'"
-				action="#{relatorioLeadsMB.gerarRelatorio()}" ajax="false" id="botaoConfirmar" style="font-size:12px;"/>
-			<p:commandButton style="margin-left: 1%;font-size:12px;" icon="ui-icon-close"
-				value="Cancelar" action="#{relatorioLeadsMB.fechar()}" /> 
-		</div>  
-	</h:form>
-</h:body>
+							<p:selectOneMenu id="unidade" value="#{relatorioLeadsMB.unidadenegocio}"
+								style="width:200px;" converter="UnidadeNegocioConverter"
+								
+								filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{relatorioLeadsMB.listaUnidadeNegocio}" var="sUnidade"  
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{relatorioLeadsMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="origem" value="#{relatorioLeadsMB.publicidade}"
+								style="width:70%;margin-left:5%;" filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px" converter="PublicidadeConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idPublicidade"
+									value="#{relatorioLeadsMB.listaPublicidades}" var="publicidade"
+									itemLabel="#{publicidade.descricao}" itemValue="#{publicidade}" />
+								<f:attribute name="listaPublicidade"
+									value="#{relatorioLeadsMB.listaPublicidades}" />
+							</p:selectOneMenu>
+							<h:panelGrid columns="2" style="width:57%;">
+								<p:calendar id="dataIni" value="#{relatorioLeadsMB.datarecebimentoInicial}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{relatorioLeadsMB.datarecebimentoFinal}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGrid>
+							<h:panelGrid columns="2" style="width:100%;margin-left: -110%;">
+								<p:selectBooleanCheckbox style="margin-left:-1%;"  value="#{relatorioLeadsMB.habilitarGroupBy}"
+									class="espacopreto" id="confirmado" label="Confirmado" 
+									>
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Agrupar"/>
+							</h:panelGrid>
+						</h:panelGrid>
+						<br></br><br></br>
+						<h:panelGroup style="float: right;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl"
+								
+								action="#{relatorioLeadsMB.gerarPesquisaLeads()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update=" unidade, dataFinal, dataIni"
+								action="#" />
+						</h:panelGroup>
+						<br></br> 
+					</p:tab>     
+				</p:accordionPanel>     
+				<legend id="iUsu2">  
+					<b>Relatório Leads</b>  
+				</legend> 
+				<br/><br/>   
+				
+			        <h:panelGrid columns="2" style="margin-left:2%">
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_xls.png" width="36" />
+			                <p:dataExporter type="xls" target="tbl" fileName="cursos" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_pdf.png" width="32" />
+			                <p:dataExporter type="pdf" target="tbl" fileName="cursos"/>
+			            </h:commandLink>
+			        </h:panelGrid>
+			        
+				<p:dataTable id="tbl" var="leads" value="#{relatorioLeadsMB.listaLeads}"
+			                 style="width: 99%;margin-left:1%;" scrollable="true"
+							scrollHeight="300">
+			 
+			        <p:column headerText="Cliente" sortBy="#{leads.cliente.nome}" style="width:120px;text-align:left;">
+			            <h:outputText value="#{leads.cliente.nome}" />
+			        </p:column>
+			        <p:column headerText="Unidade" sortBy="#{leads.unidadenegocio.nomerelatorio}" style="width:100px;text-align:left;">
+			            <h:outputText value="#{leads.unidadenegocio.nomerelatorio}" />
+			        </p:column>
+			        <p:column headerText="Data Envio" sortBy="#{leads.dataenvio}" style="width:50px;text-align:center;">
+			            <h:outputText value="#{leads.dataenvio}" >
+			            	<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />   
+						</h:outputText>
+			        </p:column>
+			 
+			        <p:column headerText="Tipo" sortBy="#{leads.publicidade.descricao}" style="width:120px;text-align:left;">
+			            <h:outputText value="#{leads.publicidade.descricao}" />
+			        </p:column>
+			 
+			      
+			    </p:dataTable>
+			 
+			<br></br> <br></br> <br></br> <br></br> 
+			</div>    
+		</h:form>   
+	</ui:define>
+</ui:composition>
 </html>
