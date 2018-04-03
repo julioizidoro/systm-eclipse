@@ -2,6 +2,8 @@ package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Idioma;
+import br.com.travelmate.model.Lead;
+
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -34,4 +36,15 @@ public class IdiomaDao {
         manager.close();
         return lista;
     }
+    
+    public Idioma consultar(String sql) throws SQLException {
+		EntityManager manager;
+		manager = ConectionFactory.getInstance();
+		Query q = manager.createQuery(sql);
+		Idioma idioma = null;
+		if (q.getResultList().size() > 0) {
+			idioma = (Idioma) q.getResultList().get(0);
+		}
+		return idioma;
+	}
 }

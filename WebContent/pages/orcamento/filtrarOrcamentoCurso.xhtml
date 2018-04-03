@@ -53,6 +53,7 @@
 					</p:panelGrid> 
 				</div> 
 				<div class="ui-fluid">
+				<br/>
 					<p:panelGrid columns="6" layout="grid"
 						style="background: transparent;border:none;margin-top:-15px;"
 						styleClass="panelgrid-noborder"
@@ -72,65 +73,33 @@
 						</p:panelGrid>
 
 					</p:panelGrid>
-					<p:panelGrid columns="6" layout="grid"
+					
+					<p:panelGrid columns="8" layout="grid"
 						style="background: transparent;border:none;margin-top:-15px;"
 						styleClass="panelgrid-noborder"
-						columnClasses="colunaVinteSeis,colunaquatrorze,colunaSeis,dezoito,onze,colunaEspaco">
-						<p:outputLabel value="Fone Residencial:" for="idfoneresidencial"
+						>
+						<p:outputLabel value="Fone Residêncial:" for="idfoneresidencial"
 							style="color: #1F8871;" />
 						<p:inputMask id="idfoneresidencial"
 							mask="#{filtrarEscolaMB.validarMascaraFoneResidencial()}" 
 							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.foneResidencial}" />
 
 						<p:outputLabel value="Fone Celular:" for="idfonecelular"
-							style="color: #1F8871" />
+							style="color: #1F8871;margin-left: 20%;" />
 						<p:inputMask id="idfonecelular"
 							mask="(99)99999-9999"
 							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.foneCelular}" />
 
-						<p:outputLabel value="Como conheceu a TravelMate?"
-							for="idconheceutravel" style="color: #1F8871" />
-						<p:selectOneMenu id="idconheceutravel"
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.publicidade}"
-							style="width:226px;" converter="PublicidadeConverter"
-							filter="true" filterMatchMode="startsWith"
-							panelStyle="width:180px">
-							<f:selectItem itemLabel="Selecione" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems id="idPublicidade"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPublicidades}"
-								var="publicidade" itemLabel="#{publicidade.descricao}"
-								itemValue="#{publicidade}" />
-							<f:attribute name="listaPublicidade"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPublicidades}" />
-							<p:ajax event="change" update="cidade" />
-						</p:selectOneMenu>
-					</p:panelGrid>
-				</div>
-				<br></br>
-				<div class="ui-fluid">
-					<p:panelGrid columns="8" layout="grid"
-						style="background: transparent;border:none;"
-						styleClass="panelgrid-noborder"
-						columnClasses="colunaVintePontoSeis,colunaVinteNoveTres,onze,colunatrintadois,colunacinco,colunadezenove,colunacinco,colunaVintenove">
 						<p:outputLabel value="Data de Nascimento:" for="datanasci"
-							style="color: #1F8871" />
+							style="color: #1F8871;margin-left: 20%;" />
 						<p:inputMask
 							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.dataNascimento}"
-							mask="99/99/9999" id="datanasci" style="margin-left:-2%">
+							mask="99/99/9999" id="datanasci" >
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</p:inputMask>
-						<p:outputLabel value="Sexo:" for="sexo" style="color: #1F8871" />
-						<p:selectOneMenu id="sexo"
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.sexo}"
-							style="width:130px;margin-left:-8%">
-							<f:selectItem itemLabel="Selecione" itemValue="selecione"
-								noSelectionOption="true" />
-							<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
-							<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
-						</p:selectOneMenu>
-						<p:outputLabel value="Idioma:" for="idioma" style="color:#1F8871" />
+						
+						<p:outputLabel value="Idioma:" for="idioma" style="color:#1F8871;margin-left: 20%;" />
 						<p:selectOneMenu id="idioma"
 							value="#{filtrarEscolaMB.filtrarEscolaBean.idioma}"
 							style="width:100px;" converter="IdiomaConverter">
@@ -146,23 +115,10 @@
 								listener="#{filtrarEscolaMB.verificarIdiomaSelecionado()}"
 								update=":filtrarOrcamentocurso:cidade,:filtrarOrcamentocurso:pais,:filtrarOrcamentocurso:growl" />
 						</p:selectOneMenu>
-						<p:outputLabel value="Nível:" for="nivel"
-							style="color: #1F8871;margin-left:-3%" />
-						<p:selectOneMenu id="nivel"
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.nivelidioma}"
-							style="width:110px;margin-left:-5%">
-							<f:selectItem itemLabel="Selecione" itemValue="selecione"
-								noSelectionOption="true" />
-							<f:selectItem itemLabel="Básico" itemValue="Básico" />
-							<f:selectItem itemLabel="Pré-Intermediário"
-								itemValue="Pré-Intermediário" />
-							<f:selectItem itemLabel="Intermediário" itemValue="Intermediário" />
-							<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
-							<f:selectItem itemLabel="Alto" itemValue="Alto" />
-							<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
-						</p:selectOneMenu>
 					</p:panelGrid>
 				</div>
+				
+				
 				<br></br>
 				<legend id="iUsu3">
 					<b>Dados do Curso</b>

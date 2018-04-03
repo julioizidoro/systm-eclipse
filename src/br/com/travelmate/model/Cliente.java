@@ -182,6 +182,8 @@ public class Cliente implements Serializable {
 	private boolean clienteLead;
 	@Transient
 	private Lead lead;
+	@Column(name = "idioma")
+	private int idioma;
 
 	public Cliente() {
 	}
@@ -588,6 +590,14 @@ public class Cliente implements Serializable {
 
 	public void setLead(Lead lead) {
 		this.lead = lead;
+	}
+
+	public int getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(int idioma) {
+		this.idioma = idioma;
 	}
 
 	@Override

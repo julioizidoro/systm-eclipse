@@ -8,6 +8,7 @@ package br.com.travelmate.facade;
 
 import br.com.travelmate.dao.IdiomaDao;
 import br.com.travelmate.model.Idioma;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,5 +41,16 @@ public class IdiomaFacade {
             return null;
         }
     }
+   
+   
+   public Idioma consultar(String sql) {
+   	idiomaDao = new IdiomaDao();
+       try { 
+           return idiomaDao.consultar(sql);
+       } catch (SQLException ex) {
+           Logger.getLogger(IdiomaDao.class.getName()).log(Level.SEVERE, null, ex);
+           return null;
+       }
+   }
     
 }

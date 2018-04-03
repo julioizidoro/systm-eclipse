@@ -123,6 +123,12 @@ public class FiltrarEscolaMB implements Serializable {
 			filtrarEscolaBean.setLead(filtrarEscolaBean.getOcurso().getCliente().getLead());
 		}
 		gerarListaIdioma();
+		if (lead != null) {
+			if (lead.getCliente().getIdioma() > 0) {
+				IdiomaFacade idiomaFacade = new IdiomaFacade();
+				filtrarEscolaBean.setIdioma(idiomaFacade.consultar("SELECT i FROM Idioma i WHERE i.ididioma=" + lead.getCliente().getIdioma()));
+			}
+		}
 		gerarListaPublicidade();
 		digitosFoneCelular = aplicacaoMB
 				.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), null);
@@ -261,10 +267,7 @@ public class FiltrarEscolaMB implements Serializable {
 		if (filtrarEscolaBean.getIdioma() == null) {
 			mensagem = mensagem + "Selecione um idioma\r\n";
 		}
-		if ((filtrarEscolaBean.getOcurso().getNivelidioma().length() == 0)
-				|| (filtrarEscolaBean.getOcurso().getNivelidioma() == null)) {
-			mensagem = mensagem + "Selecione o nível de idioma\r\n";
-		}
+		
 		if (filtrarEscolaBean.getOcurso().getCliente() == null) {
 			mensagem = mensagem + "Selecione o cliente\r\n";
 		}
@@ -371,6 +374,9 @@ public class FiltrarEscolaMB implements Serializable {
 							filtrarEscolaBean.getOcurso().setUsuario(usuarioLogadoMB.getUsuario());
 							ClienteFacade clienteFacade = new ClienteFacade();
 							Cliente cliente = filtrarEscolaBean.getOcurso().getCliente();
+							if (cliente.getIdioma() != filtrarEscolaBean.getIdioma().getIdidioma()) {
+								cliente.setIdioma(filtrarEscolaBean.getIdioma().getIdidioma());
+							}
 							cliente = clienteFacade.salvar(cliente);
 							filtrarEscolaBean.getOcurso().setCliente(cliente);
 							FacesContext fc = FacesContext.getCurrentInstance();
