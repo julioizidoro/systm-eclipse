@@ -51,5 +51,15 @@ public class LeadFacade {
 			e.printStackTrace();
 		} 
     }
+    
+	public Integer consultarNumLead(String sql) {
+		leadDao = new LeadDao();
+		try {
+			return leadDao.consultarNumLead(sql);
+		} catch (SQLException ex) {
+			Logger.getLogger(LeadFacade.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
+		}
+	}
      
 }

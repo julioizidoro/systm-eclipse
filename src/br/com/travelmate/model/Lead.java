@@ -101,6 +101,8 @@ public class Lead implements Serializable {
 	private Integer idcontrole;
 	@Column(name = "nomeunidade")
 	private String nomeunidade;
+	@Transient
+	private Integer numeroPublicidade;
 
 	public Lead() {
 		idcontrole = 0;
@@ -308,6 +310,14 @@ public class Lead implements Serializable {
 
 	public void setNomeunidade(String nomeunidade) {
 		this.nomeunidade = nomeunidade;
+	}
+
+	public Integer getNumeroPublicidade() {
+		return numeroPublicidade;
+	}
+
+	public void setNumeroPublicidade(Integer numeroPublicidade) {
+		this.numeroPublicidade = numeroPublicidade;
 	}
 
 	@Override

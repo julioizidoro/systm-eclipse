@@ -1515,4 +1515,8 @@ public class MenuMB implements Serializable {
 		return "consFiltroProdutosOrcamento";
 	}
 	
+	public String relatorioCliente() {
+		return "relatorioCliente";
+	}
+	
 }

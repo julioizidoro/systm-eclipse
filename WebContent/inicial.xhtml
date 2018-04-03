@@ -1442,6 +1442,7 @@
 																action="#{menuMB.cidadesVendidas()}">
 																<span class="subsubsubmenu-label">Cidade</span>
 															</p:commandLink></li>
+														
 													</ul></li>
 												<h:panelGroup>
 													<li><p:commandLink
@@ -1465,6 +1466,12 @@
 													<li><p:commandLink action="#{menuMB.origemLeads()}">
 															<span class="subsubmenu-label">Origem Leads</span>
 														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriocliente}">
+													<li><p:commandLink
+																action="#{menuMB.relatorioCliente()}">
+																<span class="subsubmenu-label">Relatório Cliente</span>
+															</p:commandLink></li>
 												</h:panelGroup>
 											</ul></li>
 									</h:panelGroup>

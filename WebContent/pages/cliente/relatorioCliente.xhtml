@@ -14,75 +14,55 @@
 				<p:accordionPanel rendered="true" class="painel" activeIndex="-1" >
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
-						<h:panelGrid columns="4"
-							columnClasses="tamanho7, tamanhoavisos, tamanhoavisos, tamanho7"
-							style="width:98%;margin-left:4%;">
+						<h:panelGrid columns="2"
+							columnClasses="tamanho7, tamanho7"
+							style="width:56%;margin-left:4%;">
 							<p:outputLabel value="Unidade" for="unidade" />
-							<p:outputLabel value="Tipo" style="margin-left:5%;"/>
-							<p:outputLabel value="Data Recebimento" />
-							<p:outputLabel/>
+							<p:outputLabel value="Data Cadastro" />
 
-							<p:selectOneMenu id="unidade" value="#{relatorioLeadsMB.unidadenegocio}"
+							<p:selectOneMenu id="unidade" disabled="#{relatorioClienteMB.habilitarUnidade}" value="#{relatorioClienteMB.unidadenegocio}"
 								style="width:200px;" converter="UnidadeNegocioConverter"
 								
 								filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems id="idunidade"
-									value="#{relatorioLeadsMB.listaUnidadeNegocio}" var="sUnidade"  
+									value="#{relatorioClienteMB.listaUnidadeNegocio}" var="sUnidade"  
 									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
 								<f:attribute name="listaUnidade"
-									value="#{relatorioLeadsMB.listaUnidadeNegocio}" />
-							</p:selectOneMenu>
-							<p:selectOneMenu id="origem" value="#{relatorioLeadsMB.publicidade}"
-								style="width:70%;margin-left:5%;" filter="true" filterMatchMode="startsWith"
-								panelStyle="width:180px" converter="PublicidadeConverter">
-								<f:selectItem itemLabel="Selecione" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems id="idPublicidade"
-									value="#{relatorioLeadsMB.listaPublicidades}" var="publicidade"
-									itemLabel="#{publicidade.descricao}" itemValue="#{publicidade}" />
-								<f:attribute name="listaPublicidade"
-									value="#{relatorioLeadsMB.listaPublicidades}" />
+									value="#{relatorioClienteMB.listaUnidadeNegocio}" />
 							</p:selectOneMenu>
 							<h:panelGrid columns="2" style="width:57%;">
-								<p:calendar id="dataIni" value="#{relatorioLeadsMB.datarecebimentoInicial}"
+								<p:calendar id="dataIni" value="#{relatorioClienteMB.dataInicial}"
 									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
 									maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinal" value="#{relatorioLeadsMB.datarecebimentoFinal}"
+								<p:calendar id="dataFinal" value="#{relatorioClienteMB.dataFinal}" style="margin-left: 10%;"
 									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
 									maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-							</h:panelGrid>
-							<h:panelGrid columns="2" style="width:100%;margin-left: -110%;">
-								<p:selectBooleanCheckbox style="margin-left:-1%;"  value="#{relatorioLeadsMB.habilitarGroupBy}"
-									class="espacopreto" id="confirmado" label="Confirmado" 
-									>
-								</p:selectBooleanCheckbox>
-								<p:outputLabel value="Agrupar"/>
 							</h:panelGrid>
 						</h:panelGrid>
 						<br></br><br></br>
 						<h:panelGroup style="float: right;">
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl"
 								
-								action="#{relatorioLeadsMB.gerarPesquisaLeads()}" />
+								action="#{relatorioClienteMB.gerarListaCliente()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update=" unidade, dataFinal, dataIni, origem, :consultacursos:tbl, confirmado"
-								action="#{relatorioLeadsMB.limpar()}" />
+								update=" unidade, dataFinal, dataIni, :consultacursos:tbl"
+								action="#{relatorioClienteMB.limpar()}" />
 						</h:panelGroup>
 						<br></br> 
 					</p:tab>     
 				</p:accordionPanel>     
 				<legend id="iUsu2">  
-					<b>Relatório Leads</b>  
+					<b>Relatório Clientes</b>  
 				</legend> 
 				<br/><br/>   
 				
@@ -98,29 +78,17 @@
 			            </h:commandLink>
 			        </h:panelGrid>
 			        
-				<p:dataTable id="tbl" var="leads" value="#{relatorioLeadsMB.listaLeads}"
+				<p:dataTable id="tbl" var="cliente" value="#{relatorioClienteMB.listaCliente}"
 			                 style="width: 99%;margin-left:1%;" scrollable="true"
 							scrollHeight="300">
 			 
-			        
-			        <p:column headerText="Unidade" sortBy="#{leads.unidadenegocio.nomerelatorio}" style="width:100px;text-align:left;" >
-			            <h:outputText value="#{leads.unidadenegocio.nomerelatorio}" />
+			        <p:column headerText="Cliente" sortBy="#{cliente.nome}" style="width:120px;text-align:left;">
+			            <h:outputText value="#{cliente.nome}" />
 			        </p:column>
-			        <p:column headerText="Data Envio" rendered="#{relatorioLeadsMB.habilitarDataEnvio}" sortBy="#{leads.dataenvio}" style="width:50px;text-align:center;">
-			            <h:outputText value="#{leads.dataenvio}" >
-			            	<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />   
-						</h:outputText>
+			        <p:column headerText="E-mail" sortBy="#{cliente.unidadenegocio.nomerelatorio}" style="width:130px;text-align:left;">
+			            <h:outputText value="#{cliente.unidadenegocio.nomerelatorio}" />
 			        </p:column>
-			        
-			        <p:column headerText="Tipo" sortBy="#{leads.publicidade.descricao}" style="width:120px;text-align:left;">
-			            <h:outputText value="#{leads.publicidade.descricao}" />
-			        </p:column>
-			        <p:column headerText="Total Tipo" sortBy="#{leads.numeroPublicidade}" style="width:50px;text-align:right;" rendered="#{relatorioLeadsMB.habilitarNumeroPub}">
-			             <h:outputText value="#{leads.numeroPublicidade}" />
-			        </p:column>
-			 
-			 
+			       
 			      
 			    </p:dataTable>
 			 

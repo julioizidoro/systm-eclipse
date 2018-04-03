@@ -50,6 +50,8 @@ public class RelatorioLeadsMB implements Serializable{
 	private String nomeCliente = "";
 	private List<Lead> listaLeads;
 	private boolean habilitarGroupBy = false;
+	private boolean habilitarDataEnvio = true;
+	private boolean habilitarNumeroPub = false;
 	
 	
 	@PostConstruct
@@ -245,6 +247,26 @@ public class RelatorioLeadsMB implements Serializable{
 	}
 
 
+	public boolean isHabilitarDataEnvio() {
+		return habilitarDataEnvio;
+	}
+
+
+	public void setHabilitarDataEnvio(boolean habilitarDataEnvio) {
+		this.habilitarDataEnvio = habilitarDataEnvio;
+	}
+
+
+	public boolean isHabilitarNumeroPub() {
+		return habilitarNumeroPub;
+	}
+
+
+	public void setHabilitarNumeroPub(boolean habilitarNumeroPub) {
+		this.habilitarNumeroPub = habilitarNumeroPub;
+	}
+
+
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -294,8 +316,30 @@ public class RelatorioLeadsMB implements Serializable{
 		if (listaLeads == null) {
 			listaLeads = new ArrayList<Lead>();
 		}
+		if (habilitarGroupBy) {
+			for (int i = 0; i < listaLeads.size(); i++) {
+				String sqlPublicidade = "";
+				sqlPublicidade = "Select count(l.publicidade) from Lead l where l.publicidade.idpublicidade=" + listaLeads.get(i).getPublicidade().getIdpublicidade();
+				if ((datarecebimentoInicial != null) && (datarecebimentoFinal != null)) {
+					sqlPublicidade = sqlPublicidade + " and l.dataenvio>='" + Formatacao.ConvercaoDataSql(datarecebimentoInicial) + "' and l.dataenvio<='"
+							+ Formatacao.ConvercaoDataSql(datarecebimentoFinal) + "'";
+				}
+				if(unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
+					sqlPublicidade = sqlPublicidade + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+				}
+				
+				if (habilitarGroupBy) {
+					sqlPublicidade = sqlPublicidade + " Group by l.unidadenegocio, l.publicidade";
+				}
+				listaLeads.get(i).setNumeroPublicidade(leadFacade.consultarNumLead(sqlPublicidade));
+			}
+			habilitarDataEnvio = false;
+			habilitarNumeroPub = true;
+		}else {
+			habilitarDataEnvio = true;
+			habilitarNumeroPub = false;
+		}
 	}
-	
 	
 	public void gerarListaPublicidade() {
 		PublicidadeFacade publicidadeFacade = new PublicidadeFacade(); 
@@ -307,6 +351,18 @@ public class RelatorioLeadsMB implements Serializable{
 		if (listaPublicidades == null) {
 			listaPublicidades = new ArrayList<Publicidade>();
 		} 
+	}
+	
+	
+	public void limpar() {
+		unidadenegocio = null;
+		publicidade = null;
+		datarecebimentoFinal = null;
+		datarecebimentoInicial = null;
+		listaLeads = new ArrayList<Lead>();
+		habilitarDataEnvio = true;
+		habilitarGroupBy = false;
+		habilitarNumeroPub = false;
 	}
 
 }

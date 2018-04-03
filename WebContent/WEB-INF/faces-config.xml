@@ -2391,14 +2391,7 @@
 			<redirect />
 		</navigation-case>     
 	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>contrato</from-outcome>
-			<to-view-id>/contrato/contrato.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>     
-	</navigation-rule>
+	
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -2470,6 +2463,158 @@
 			<to-view-id>/pages/vendasProduto/consVendasProduto.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contrato</from-outcome>
+			<to-view-id>//http://systm.com.br:82/ftproot/systm/arquivos/Contrato.html</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaCurso</from-outcome>
+			<to-view-id>/pages/fichas/cursos/fichaCurso.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaAuPair</from-outcome>
+			<to-view-id>/pages/fichas/aupair/fichaAuPair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaCursosTeens</from-outcome>
+			<to-view-id>/pages/fichas/cursosteens/fichaCursosTeens.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichasDemiPair</from-outcome>
+			<to-view-id>/pages/fichas/demipair/fichasDemiPair.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichasSeguroViagem</from-outcome>
+			<to-view-id>/pages/fichas/SeguroViagem/fichasSeguroViagem.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichasVistos</from-outcome>
+			<to-view-id>/pages/fichas/vistos/fichasVistos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichasPacotes</from-outcome>
+			<to-view-id>/pages/fichas/pacotes/fichasPacotes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaWorkTravel</from-outcome>
+			<to-view-id>/pages/fichas/worktravel/fichaWorkTravel.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFiltroProdutosOrcamento</from-outcome>
+			<to-view-id>/pages/filtroprodutosorcamento/consFiltroProdutosOrcamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>validarTrocaCambioPIN</from-outcome>
+			<to-view-id>/pages/cambio/validarTrocaCambioPIN.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>visualizarIdCredito</from-outcome>
+			<to-view-id>/pages/cancelamento/visualizarIdCredito.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaVoluntariado</from-outcome>
+			<to-view-id>/pages/fichas/voluntariado/fichaVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaHE</from-outcome>
+			<to-view-id>/pages/fichas/he/fichaHE.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaTraineeEUA</from-outcome>
+			<to-view-id>/pages/fichas/trainee/fichaTraineeEUA.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaTraineeAus</from-outcome>
+			<to-view-id>/pages/fichas/trainee/fichaTraineeAus.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaHighSchool</from-outcome>
+			<to-view-id>/pages/fichas/highschool/fichaHighSchool.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioCliente</from-outcome>
+			<to-view-id>/pages/cliente/relatorioCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 	
 	<application>
