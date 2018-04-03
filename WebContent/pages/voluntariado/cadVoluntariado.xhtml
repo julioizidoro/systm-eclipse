@@ -995,14 +995,16 @@
 							<p:commandButton id="btnadicionarproduto"
 								action="#{cadVoluntariadoMB.adicionarProdutos()}"
 								value="Adicionar"
-								update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar"
-								icon="ui-icon-plusthick" />
+								update="tabelaprodutos, produto, cadVoluntariado:growl, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar"
+								icon="ui-icon-plusthick" >
+								<p:ajax event="dialogReturn" listener="#{cadVoluntariadoMB.retornoDialogProdutoOrcamento}" update="tabelaprodutos, produto, cadVoluntariado:growl, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar"/>
+							</p:commandButton>
 							
 						</div>
 						<br></br>
 						<br></br>
 						<legend id="iUsu3">
-							<b>Produtos</b>
+							<b>Produtos</b>   
 						</legend>
 						<p:dataTable id="tabelaprodutos" var="produtos"
 							value="#{cadVoluntariadoMB.orcamento.orcamentoprodutosorcamentoList}"

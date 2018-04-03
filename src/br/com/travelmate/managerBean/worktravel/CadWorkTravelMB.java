@@ -2,6 +2,8 @@ package br.com.travelmate.managerBean.worktravel;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -589,14 +591,56 @@ public class CadWorkTravelMB implements Serializable {
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")
 						|| (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("cheque"))) {
+					Date dataInicio = null;
+					if (valoreswork != null) {
+						dataInicio = valoreswork.getDatainicio();
+					}else {
+						dataInicio = new Date();
+					}
 					parcelamentopagamento.setVerificarParcelamento(Formatacao.calcularDataParcelamento(
 							parcelamentopagamento.getDiaVencimento(), parcelamentopagamento.getNumeroParcelas(),
-							aplicacaoMB.getParametrosprodutos().getDatainiciowork()));
+							dataInicio));
 				} else
 					parcelamentopagamento.setVerificarParcelamento(false);
 				if (parcelamentopagamento.isVerificarParcelamento()) {
 					Mensagem.lancarMensagemWarn("Data Vencimento", "Data da ultima parcela dos "
 							+ parcelamentopagamento.getFormaPagamento() + " é maior que data início do Curso");
+				}
+				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					boolean horarioExcedido = false;
+					int numeroAdicionar = 0;
+					int diaSemana = Formatacao.diaSemana(parcelamentopagamento.getDiaVencimento());
+					String horaAtual = Formatacao.foramtarHoraString();
+					String horaMaxima = "16:00:00";
+					Time horatime = null;
+					Time horaMaxTime = null;
+					try {
+						horatime = Formatacao.converterStringHora(horaAtual);
+						horaMaxTime = Formatacao.converterStringHora(horaMaxima);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (horatime.after(horaMaxTime)) {
+						numeroAdicionar = 1;
+						horarioExcedido = true;
+					}
+		
+					if (diaSemana == 1) {
+						numeroAdicionar = 1;
+						horarioExcedido = true;
+					}else if(diaSemana == 7) {
+						numeroAdicionar = 2;
+						horarioExcedido = true;
+					}
+					if (horarioExcedido) {
+						try {
+							parcelamentopagamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
+							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
 				}
 				parcelamentopagamento = new Parcelamentopagamento();
 				calcularParcelamentoPagamento();
@@ -903,6 +947,15 @@ public class CadWorkTravelMB implements Serializable {
 			Mensagem.lancarMensagemErro("Produto não pode ser excluído.", "");
 		} else {
 			if (ilinha >= 0) {
+				FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
+				int idproduto = orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
+						.getIdprodutosOrcamento();
+				if (idproduto == 33) {
+					Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
+					if (listaProdutosOrcamento != null) {
+						listaProdutosOrcamento.add(filtroorcamentoproduto);
+					}
+				}
 				if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha)
 						.getIdorcamentoProdutosOrcamento() != null) {
 					OrcamentoFacade orcamentoFacade = new OrcamentoFacade();

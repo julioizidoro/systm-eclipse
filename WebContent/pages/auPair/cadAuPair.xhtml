@@ -439,7 +439,9 @@
 							<p:commandButton id="btnadicionarproduto"
 								icon="ui-icon-plusthick"
 								action="#{cadAupairMB.adicionarProdutos()}" value="Adicionar"
-								update="tabelaprodutosaupair,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadAupair:growl" />
+								update="tabelaprodutosaupair,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadAupair:growl">
+								<p:ajax event="dialogReturn" listener="#{cadAupairMB.retornoDialogProdutoOrcamento}" update="tabelaprodutosaupair,produto, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadAupair:growl" />
+							</p:commandButton>
 							
 						</div>
 						<br></br>

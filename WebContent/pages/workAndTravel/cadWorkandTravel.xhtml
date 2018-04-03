@@ -961,7 +961,9 @@
 						<p:commandButton id="btnadicionarproduto"
 							action="#{cadWorkTravelMB.adicionarProdutos()}" value="Adicionar"
 							update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, telaFichaWorkTravel:growl"
-							icon="ui-icon-plusthick" style="margin-left:55%" />
+							icon="ui-icon-plusthick" style="margin-left:55%" >
+							<p:ajax event="dialogReturn" listener="#{cadWorkTravelMB.retornoDialogProdutoOrcamento}" update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, telaFichaWorkTravel:growl"/>
+						</p:commandButton>
 						
 					</div>
 					<br></br>

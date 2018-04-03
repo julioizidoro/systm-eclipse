@@ -2,6 +2,8 @@ package br.com.travelmate.managerBean.voluntariado;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -771,6 +773,7 @@ public class CadVoluntariadoMB implements Serializable {
 									orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
 						}
 					}
+					boolean excluirDescontoTM = true;
 					if (produtosorcamento.getValormaximo()==0) {
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
@@ -782,7 +785,28 @@ public class CadVoluntariadoMB implements Serializable {
 						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					}else {
-						Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+						FacesContext fc = FacesContext.getCurrentInstance();
+				        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				        Map<String, Object> options = new HashMap<String, Object>();
+						options.put("contentWidth", 230);
+				        session.setAttribute("valorOriginal", 0f);
+				        session.setAttribute("novoValor", 0f);
+						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
+						//Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+						excluirDescontoTM = false;
+					}
+					if (excluirDescontoTM) {
+						if (produtosorcamento.getIdprodutosOrcamento() == 33) {
+							Filtroorcamentoproduto filtro = null;
+							for (int i = 0; i < listaProdutosOrcamento.size(); i++) {
+								if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos()==aplicacaoMB.getParametrosprodutos().getCursos()) {
+									if (listaProdutosOrcamento.get(i).getProdutosorcamento().getIdprodutosOrcamento() == 33) {
+										filtro = listaProdutosOrcamento.get(i);
+									}
+								}
+							}
+							listaProdutosOrcamento.remove(filtro);
+						}
 					}
 				}
 			} else {
@@ -792,6 +816,50 @@ public class CadVoluntariadoMB implements Serializable {
 		} else {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Cambio não selecionado", ""));
+		}
+	}
+	
+	public void retornoDialogProdutoOrcamento() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        String adicionar = (String) session.getAttribute("adicionar");
+        session.removeAttribute("adicionar");
+        if (adicionar != null) {
+			if (adicionar.equalsIgnoreCase("sim")) {
+				FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
+				Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
+				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+				orcamentoprodutosorcamento.setDescricao(filtroorcamentoproduto.getProdutosorcamento().getDescricao());
+				orcamentoprodutosorcamento.setProdutosorcamento(filtroorcamentoproduto.getProdutosorcamento());
+				if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
+						&& (orcamento.getValorCambio() > 0)) {
+					orcamentoprodutosorcamento.setValorMoedaNacional(
+							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+				} else {
+					if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
+							&& (orcamento.getValorCambio() > 0)) {
+						orcamentoprodutosorcamento
+								.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional()
+										/ orcamento.getValorCambio());
+					}
+				}
+				orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+				orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+				calcularValorTotalOrcamento();
+				if (filtroorcamentoproduto.getProdutosorcamento().getIdprodutosOrcamento() == 33) {
+					Filtroorcamentoproduto filtro = null;
+					for (int i = 0; i < listaProdutosOrcamento.size(); i++) {
+						if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos()==aplicacaoMB.getParametrosprodutos().getCursos()) {
+							if (listaProdutosOrcamento.get(i).getProdutosorcamento().getIdprodutosOrcamento() == 33) {
+								filtro = listaProdutosOrcamento.get(i);
+							}
+						}
+					}
+					listaProdutosOrcamento.remove(filtro);
+				}
+				produtosorcamento = null;
+			}
 		}
 	}
 
@@ -859,6 +927,13 @@ public class CadVoluntariadoMB implements Serializable {
 				}
 				if (idproduto == aplicacaoMB.getParametrosprodutos().getVistoOrcamento()) {
 					voluntariado.setVistoConsular("clienteprovidencia");
+				}
+				FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
+				if (idproduto == 33) {
+					Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
+					if (listaProdutosOrcamento != null) {
+						listaProdutosOrcamento.add(filtroorcamentoproduto);
+					}
 				}
 				if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha)
 						.getIdorcamentoProdutosOrcamento() != null) {
@@ -945,6 +1020,42 @@ public class CadVoluntariadoMB implements Serializable {
 				if (parcelamentopagamento.isVerificarParcelamento()) {
 					Mensagem.lancarMensagemWarn("Data Vencimento", "Data da ultima parcela dos "
 							+ parcelamentopagamento.getFormaPagamento() + " é maior que data início do programa.");
+				}
+				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					boolean horarioExcedido = false;
+					int numeroAdicionar = 0;
+					int diaSemana = Formatacao.diaSemana(parcelamentopagamento.getDiaVencimento());
+					String horaAtual = Formatacao.foramtarHoraString();
+					String horaMaxima = "16:00:00";
+					Time horatime = null;
+					Time horaMaxTime = null;
+					try {
+						horatime = Formatacao.converterStringHora(horaAtual);
+						horaMaxTime = Formatacao.converterStringHora(horaMaxima);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (horatime.after(horaMaxTime)) {
+						numeroAdicionar = 1;
+						horarioExcedido = true;
+					}
+		
+					if (diaSemana == 1) {
+						numeroAdicionar = 1;
+						horarioExcedido = true;
+					}else if(diaSemana == 7) {
+						numeroAdicionar = 2;
+						horarioExcedido = true;
+					}
+					if (horarioExcedido) {
+						try {
+							parcelamentopagamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
+							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
 				}
 				parcelamentopagamento = new Parcelamentopagamento();
 				calcularParcelamentoPagamento();

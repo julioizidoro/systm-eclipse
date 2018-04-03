@@ -1246,7 +1246,7 @@
 								action="#{cadCursoMB.adicionarProdutos()}" value="Adicionar"
 								update="tabelaprodutoscurso,produto, telaFichaCurso:growl, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, produto"
 								icon="ui-icon-plusthick"> 
-								
+								<p:ajax event="dialogReturn" listener="#{cadCursoMB.retornoDialogProdutoOrcamento}" update="tabelaprodutoscurso,produto, telaFichaCurso:growl, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, produto" />
 							</p:commandButton>						
 						</div>
 						

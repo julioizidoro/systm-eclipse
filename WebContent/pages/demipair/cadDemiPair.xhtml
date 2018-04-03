@@ -429,7 +429,9 @@
 							<p:commandButton id="btnadicionarproduto"
 								action="#{cadDemiPairMB.adicionarProdutos()}" value="Adicionar"
 								update="tabelaprodutosdemipair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadDemipair:growl"
-								icon="ui-icon-plusthick" />
+								icon="ui-icon-plusthick" >
+								<p:ajax event="dialogReturn" listener="#{cadDemiPairMB.retornoDialogProdutoOrcamento}" update="tabelaprodutosdemipair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadDemipair:growl" />
+							</p:commandButton>
 						</div>
 						<br></br>
 						<br></br>

@@ -563,7 +563,9 @@
 								action="#{cadCursosTeensMB.adicionarProdutos()}"
 								value="Adicionar"
 								update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, idfrmFichaTeens:growl"
-								icon="ui-icon-plusthick" /> 
+								icon="ui-icon-plusthick" >
+								<p:ajax event="dialogReturn" listener="#{cadCursosTeensMB.retornoDialogProdutoOrcamento}" update="tabelaprodutos,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, idfrmFichaTeens:growl" />
+							</p:commandButton> 
 						</div>
 						<br></br>
 						<br></br>

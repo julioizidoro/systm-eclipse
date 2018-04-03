@@ -445,7 +445,9 @@
 							<p:commandButton id="btnadicionarproduto"
 								action="#{cadTraineeMB.adicionarProdutos()}" value="Adicionar"
 								update="tabelaprodutosaupair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadEstagioAustralia:growl"
-								icon="ui-icon-plusthick" />
+								icon="ui-icon-plusthick" >
+								<p:ajax event="dialogReturn" listener="#{cadTraineeMB.retornoDialogProdutoOrcamento}" update="tabelaprodutosaupair,produto, valortotal, valoreal, valorrr, totalpag, saldoreceber, valorOrca, valoraparcelar, saldoparcelar, cadEstagioAustralia:growl" />
+							</p:commandButton>
 							<p:commandButton id="btnCalcularBackOffice"
 								action="#" value="Comissão"
 								icon="ui-icon-calculator" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.btncomissaoficha}"/>

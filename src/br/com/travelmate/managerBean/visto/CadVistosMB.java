@@ -2,6 +2,8 @@ package br.com.travelmate.managerBean.visto;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,6 +60,7 @@ import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.model.Vistos;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -461,6 +464,42 @@ public class CadVistosMB implements Serializable {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
 					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento,
 							formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB);
+				}
+			}
+			if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+				boolean horarioExcedido = false;
+				int numeroAdicionar = 0;
+				int diaSemana = Formatacao.diaSemana(parcelamento.getDiaVencimento());
+				String horaAtual = Formatacao.foramtarHoraString();
+				String horaMaxima = "16:00:00";
+				Time horatime = null;
+				Time horaMaxTime = null;
+				try {
+					horatime = Formatacao.converterStringHora(horaAtual);
+					horaMaxTime = Formatacao.converterStringHora(horaMaxima);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (horatime.after(horaMaxTime)) {
+					numeroAdicionar = 1;
+					horarioExcedido = true;
+				}
+	
+				if (diaSemana == 1) {
+					numeroAdicionar = 1;
+					horarioExcedido = true;
+				}else if(diaSemana == 7) {
+					numeroAdicionar = 2;
+					horarioExcedido = true;
+				}
+				if (horarioExcedido) {
+					try {
+						parcelamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamento.getDiaVencimento(), numeroAdicionar));
+						Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			formaPagamento.getParcelamentopagamentoList().add(parcelamento);

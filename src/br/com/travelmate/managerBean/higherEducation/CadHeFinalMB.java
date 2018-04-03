@@ -2,6 +2,8 @@ package br.com.travelmate.managerBean.higherEducation;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -768,6 +770,42 @@ public class CadHeFinalMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+					}
+				}
+				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					boolean horarioExcedido = false;
+					int numeroAdicionar = 0;
+					int diaSemana = Formatacao.diaSemana(parcelamentopagamento.getDiaVencimento());
+					String horaAtual = Formatacao.foramtarHoraString();
+					String horaMaxima = "16:00:00";
+					Time horatime = null;
+					Time horaMaxTime = null;
+					try {
+						horatime = Formatacao.converterStringHora(horaAtual);
+						horaMaxTime = Formatacao.converterStringHora(horaMaxima);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (horatime.after(horaMaxTime)) {
+						numeroAdicionar = 1;
+						horarioExcedido = true;
+					}
+		
+					if (diaSemana == 1) {
+						numeroAdicionar = 1;
+						horarioExcedido = true;
+					}else if(diaSemana == 7) {
+						numeroAdicionar = 2;
+						horarioExcedido = true;
+					}
+					if (horarioExcedido) {
+						try {
+							parcelamentopagamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
+							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
