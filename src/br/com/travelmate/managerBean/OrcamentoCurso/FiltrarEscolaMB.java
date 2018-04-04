@@ -127,6 +127,7 @@ public class FiltrarEscolaMB implements Serializable {
 			if (lead.getCliente().getIdioma() > 0) {
 				IdiomaFacade idiomaFacade = new IdiomaFacade();
 				filtrarEscolaBean.setIdioma(idiomaFacade.consultar("SELECT i FROM Idioma i WHERE i.ididioma=" + lead.getCliente().getIdioma()));
+				filtrarEscolaBean.setIdiomaescolhido(false);
 			}
 		}
 		gerarListaPublicidade();
