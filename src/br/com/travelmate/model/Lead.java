@@ -105,6 +105,7 @@ public class Lead implements Serializable {
 	private Integer numeroPublicidade;
 
 	public Lead() {
+		setNomeunidade("");
 		idcontrole = 0;
 	}
 

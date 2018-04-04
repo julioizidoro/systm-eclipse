@@ -401,6 +401,7 @@ public class CadLeadMB implements Serializable {
 			lead.setProdutos(produto); 
 			lead.setDataenvio(new Date()); 
 			lead.setHoraenvio(Formatacao.foramtarHoraString()); 
+			lead.setNomeunidade(unidadenegocio.getNomerelatorio());
 			lead.setDataproximocontato(new Date()); 
 			lead.setPublicidade(publicidade);
 			MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();

@@ -387,6 +387,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			ProdutoFacade produtoFacade = new ProdutoFacade();
 			lead.setProdutos(produtoFacade.consultar(21));
 			lead.setPublicidade(publicidade);
+			lead.setNomeunidade(unidadenegocio.getNomerelatorio());
 			MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();
 			Motivocancelamento motivo = motivoCancelamentoFacade.consultar("select m from Motivocancelamento m where m.idmotivocancelamento=1");
 			lead.setMotivocancelamento1(motivo);

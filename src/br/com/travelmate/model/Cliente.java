@@ -186,6 +186,7 @@ public class Cliente implements Serializable {
 	private int idioma;
 
 	public Cliente() {
+		setIdioma(0);
 	}
 
 	public Cliente(Integer idcliente) {
