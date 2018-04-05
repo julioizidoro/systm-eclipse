@@ -69,12 +69,12 @@
 			        <h:panelGrid columns="2" style="margin-left:2%">
 			            <h:commandLink>
 			                <img src="../../resources/img/icone_xls.png" width="36" />
-			                <p:dataExporter type="xls" target="tbl" fileName="cursos" />
+			                <p:dataExporter type="xls" target="tbl" fileName="relatorioCliente'" />
 			            </h:commandLink>
 			 
 			            <h:commandLink>
 			                <img src="../../resources/img/icone_pdf.png" width="32" />
-			                <p:dataExporter type="pdf" target="tbl" fileName="cursos"/>
+			                <p:dataExporter type="pdf" target="tbl" fileName="relatorioCliente"/>
 			            </h:commandLink>
 			        </h:panelGrid>
 			        
@@ -85,10 +85,12 @@
 			        <p:column headerText="Cliente" sortBy="#{cliente.nome}" style="width:120px;text-align:left;">
 			            <h:outputText value="#{cliente.nome}" />
 			        </p:column>
-			        <p:column headerText="E-mail" sortBy="#{cliente.unidadenegocio.nomerelatorio}" style="width:130px;text-align:left;">
+			        <p:column headerText="E-mail" sortBy="#{cliente.email}" style="width:130px;text-align:left;">
+			            <h:outputText value="#{cliente.email}" />
+			        </p:column>
+			       	 <p:column headerText="Unidade" sortBy="#{cliente.unidadenegocio.nomerelatorio}" style="width:130px;text-align:left;">
 			            <h:outputText value="#{cliente.unidadenegocio.nomerelatorio}" />
 			        </p:column>
-			       
 			      
 			    </p:dataTable>
 			 
