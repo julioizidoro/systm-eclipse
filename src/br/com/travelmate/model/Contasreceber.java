@@ -117,6 +117,8 @@ public class Contasreceber implements Serializable {
     @Column(name = "datanovovencimento")
     @Temporal(TemporalType.DATE)
     private Date datanovovencimento;
+    @Column(name = "idparcelamentopagamento")
+    private Integer idparcelamentopagamento;
     
 
     public Contasreceber() {
@@ -376,6 +378,14 @@ public class Contasreceber implements Serializable {
 		this.datanovovencimento = datanovovencimento;
 	}
 
+
+	public Integer getIdparcelamentopagamento() {
+		return idparcelamentopagamento;
+	}
+
+	public void setIdparcelamentopagamento(Integer idparcelamentopagamento) {
+		this.idparcelamentopagamento = idparcelamentopagamento;
+	}
 
 	@Override
     public int hashCode() {
