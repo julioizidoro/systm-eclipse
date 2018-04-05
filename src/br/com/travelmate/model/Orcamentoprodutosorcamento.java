@@ -49,9 +49,12 @@ public class Orcamentoprodutosorcamento implements Serializable {
     private Produtosorcamento produtosorcamento;
     @Transient
     private boolean podeExcluir;
+    @Transient
+    private int linha;
 
     public Orcamentoprodutosorcamento() {
     		podeExcluir=true;
+    		linha = 0;
     }
 
     public Orcamentoprodutosorcamento(Integer idorcamentoProdutosOrcamento) {
@@ -120,6 +123,14 @@ public class Orcamentoprodutosorcamento implements Serializable {
 
 	public void setPodeExcluir(boolean podeExcluir) {
 		this.podeExcluir = podeExcluir;
+	}
+
+	public int getLinha() {
+		return linha;
+	}
+
+	public void setLinha(int linha) {
+		this.linha = linha;
 	}
 
 	@Override

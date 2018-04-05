@@ -1382,6 +1382,18 @@ public class CadWorkTravelMB implements Serializable {
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
 			}
 			orcamentoprodutosorcamento.setPodeExcluir(false);
+			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getDescricao().equalsIgnoreCase("Work and Travel")) {
+					if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getIdorcamentoProdutosOrcamento() != null) {
+						Orcamentoprodutosorcamento o = orcamento.getOrcamentoprodutosorcamentoList().get(i);
+						orcamento.getOrcamentoprodutosorcamentoList().remove(o);
+					}else {
+						orcamento.getOrcamentoprodutosorcamentoList().remove(orcamento.getOrcamentoprodutosorcamentoList().get(i).getLinha());
+					}
+					i = 100000000;
+				}
+			}
+			orcamentoprodutosorcamento.setLinha(orcamento.getOrcamentoprodutosorcamentoList().size());
 			orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 			calcularValorTotalOrcamento();
