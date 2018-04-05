@@ -36,7 +36,10 @@ public class CoeficienteJurosDao {
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Coeficientejuros c where c.numeroParcelas=" + numeroParcelas + 
         		" and c.tipo='" + tipo + "'");
-        Coeficientejuros coeficientejuros = (Coeficientejuros) q.getSingleResult();
+        Coeficientejuros coeficientejuros = null;
+        if (q.getResultList().size()>0){
+        		coeficientejuros = (Coeficientejuros) q.getSingleResult();
+        }
         manager.close();
         return coeficientejuros;
     }
@@ -45,7 +48,10 @@ public class CoeficienteJurosDao {
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Coeficientejuros c order by c.numeroParcelas");
-        List<Coeficientejuros> lista = q.getResultList();
+        List<Coeficientejuros> lista = null;
+        if (q.getResultList().size()>0){
+        		lista = q.getResultList();
+        }
         manager.close();
         return lista;
     }
@@ -53,8 +59,11 @@ public class CoeficienteJurosDao {
     public List<Coeficientejuros> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
+        List<Coeficientejuros> lista = null;
         Query q = manager.createQuery(sql);
-        List<Coeficientejuros> lista = q.getResultList();
+        if (q.getResultList().size()>0){
+        		lista = q.getResultList();
+        }
         manager.close();
         return lista;
     }
