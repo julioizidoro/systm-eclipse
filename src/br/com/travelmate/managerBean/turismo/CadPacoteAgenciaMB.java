@@ -1471,7 +1471,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendass, usuarioLogadoMB);
 					}
 				}
-				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
 					boolean horarioExcedido = false;
 					int numeroAdicionar = 0;
 					int diaSemana = Formatacao.diaSemana(parcelamentopagamento.getDiaVencimento());
@@ -1500,7 +1500,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 					}
 					if (horarioExcedido) {
 						try {
-							parcelamentopagamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
+							parcelamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
 							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
 						} catch (Exception e) {
 							e.printStackTrace();
