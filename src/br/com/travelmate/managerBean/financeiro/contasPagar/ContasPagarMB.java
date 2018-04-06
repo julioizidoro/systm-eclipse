@@ -1,12 +1,15 @@
 package br.com.travelmate.managerBean.financeiro.contasPagar;
 
+import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
+import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Planoconta;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,6 +47,8 @@ public class ContasPagarMB implements Serializable{
     private int id;
     private String sql;
     private String competencia;
+    private List<Banco> listaBanco;
+    private Banco banco;
 
 	@PostConstruct
     public void init(){
@@ -56,6 +61,7 @@ public class ContasPagarMB implements Serializable{
         carregarPlanoConta();
         carregarUnidadeNegocio();
         listaContasPagar = new ArrayList<Contaspagar>();
+        listaBanco = GerarListas.listarBancos();
     }
 
     public Contaspagar getConta() {
@@ -137,6 +143,22 @@ public class ContasPagarMB implements Serializable{
 	}
 	
 	
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
 
 	public String getCompetencia() {
 		return competencia;
@@ -233,6 +255,9 @@ public class ContasPagarMB implements Serializable{
      	if (competencia.length()>0){
      		sql = sql +" and c.competencia='" +competencia +"' "; 
      	}
+     	if (banco != null && banco.getIdbanco() != null) {
+			sql = sql + " and c.banco.idbanco=" + banco.getIdbanco();
+		}
      	sql = sql + " order by c.datacompensacao, c.descricao";
      	ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
      	listaContasPagar = contasPagarFacade.listar(sql);
@@ -256,4 +281,9 @@ public class ContasPagarMB implements Serializable{
      public void retornoDialogNovaTransferencia(SelectEvent event){
          
      }
+     
+     
+     
+     
+     
 }

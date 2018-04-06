@@ -17,12 +17,12 @@
 						title="Pesquisar">
 						<h:panelGrid columns="5"
 							columnClasses="tamanhoavisos2,tamanho5,tamanho8,tamanho8,tamanho8"
-							style="margin-left: 2.5%">
+							style="margin-left: 2.5%;width:100%;">
 							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="ID" for="id" />
+							<p:outputLabel value="Competência" for="competencia" />
 							<p:outputLabel value="Periodo" for="dataInicial" />
 							<p:outputLabel />
-							<p:outputLabel value="Nº de Lançamento" for="id" />
-							<p:outputLabel value="Competência" for="competencia" />
 
 
 							<p:selectOneMenu id="unidade" style="width:250px;"
@@ -36,30 +36,31 @@
 								<f:attribute name="listaUnidade"
 									value="#{contasPagarMB.listaUnidadeNegocio}" />
 							</p:selectOneMenu>
-							<p:calendar id="dataInicial" value="#{contasPagarMB.dataInicial}"
-								title="Data Inícial" locale="pt" pattern="dd/MM/yyyy"
-								mask="true" size="10" maxlength="15">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-							<p:calendar id="dataFinal" value="#{contasPagarMB.dataFinal}"
-								title="Data Final" locale="pt" pattern="dd/MM/yyyy" mask="true"
-								size="10" maxlength="15" style="margin-left:2.5%;">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
 							<p:inputText id="id" value="#{contasPagarMB.id}" size="10" />
 							<p:inputText id="competencia"
 								value="#{contasPagarMB.competencia}" size="14" />
-
+							<h:panelGrid columns="2" style="width:100%;">
+								<p:calendar id="dataInicial" value="#{contasPagarMB.dataInicial}"
+									title="Data Inícial" locale="pt" pattern="dd/MM/yyyy"
+									mask="true" size="10" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{contasPagarMB.dataFinal}"
+									title="Data Final" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									size="10" maxlength="15" style="margin-left:2.5%;">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+							</h:panelGrid>
 						</h:panelGrid>
 						<br></br>  
 						<h:panelGrid columns="5"
 							columnClasses="tamanhoavisos2,tamanho5,tamanho8,tamanho6,tamanho8"  
-							style="margin-left: 2.5%">  
+							style="margin-left: 2.5%;width:100%;">  
 							<p:outputLabel value="Plano de Contas" for="planocontas"/>
 							<p:outputLabel value="Descrição" for="descricao" />
-							<p:outputLabel />
+							<p:outputLabel value="Banco" style="margin-left: 7%;"/>
 							<p:outputLabel />
 							<p:outputLabel />
 
@@ -76,17 +77,32 @@
 								<f:attribute name="listaPlanoConta"
 									value="#{contasPagarMB.listaPlanoConta}" />
 							</p:selectOneMenu>
-							<p:inputText id="descricao" value="#{contasPagarMB.descricao}" size="35"/>
-							<p:outputLabel /> 
-							<p:commandButton id="btnPesquisa"
-								action="#{contasPagarMB.gerarPesquisa()}" value="Pesquisar" icon=" ui-icon-search "
-								update=":contasPagar:tabelacontaPagar" />
-							<p:commandButton id="btnLimpar"
-								action="#{contasPagarMB.limparFiltro()}" value="Limpar"
-								icon="ui-icon-arrowrefresh-1-w" 
-								update=":contasPagar:tabelacontaPagar" /> 
+							<p:inputText id="descricao" value="#{contasPagarMB.descricao}"
+								size="35" />
+							<p:selectOneMenu id="banco" style="width:150px;margin-left: 7%;"
+								value="#{contasPagarMB.banco}"
+								converter="BancoConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{contasPagarMB.listaBanco}"
+									var="bancoDebito" itemLabel="#{bancoDebito.nome}"
+									itemValue="#{bancoDebito}" />
+								<f:attribute name="listaBanco"
+									value="#{contasPagarMB.listaBanco}" />
+							</p:selectOneMenu>
 
+							<h:panelGrid columns="2" style="width:20%;">
+								<p:commandButton id="btnPesquisa"
+									action="#{contasPagarMB.gerarPesquisa()}" value="Pesquisar"
+									icon=" ui-icon-search " update=":contasPagar:tabelacontaPagar" />
+								<p:commandButton id="btnLimpar"
+									action="#{contasPagarMB.limparFiltro()}" value="Limpar"
+									icon="ui-icon-arrowrefresh-1-w"
+									update=":contasPagar:tabelacontaPagar" />
+							</h:panelGrid>
 						</h:panelGrid>
+						<br/>
+						
 						<br></br>
 					</p:tab>
 				</p:accordionPanel>
@@ -153,6 +169,10 @@
 					</p:column>
 					<p:column headerText="Competência" style="width:70px;">
 						<h:outputText value="#{contasPagar.competencia}"
+							style="text-align:left;" />
+					</p:column>
+					<p:column headerText="Banco" style="width:70px;">
+						<h:outputText value="#{contasPagar.banco.nome}"
 							style="text-align:left;" />
 					</p:column>
 					<p:column style="width:38px;" styleClass="alinharCenter">
