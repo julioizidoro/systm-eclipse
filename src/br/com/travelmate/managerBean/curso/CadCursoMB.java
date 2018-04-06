@@ -2943,6 +2943,8 @@ public class CadCursoMB implements Serializable {
 			orcamento.setValorCambio(cambio.getValor());
 			moeda = cambio.getMoedas();
 			carregarCambio();
+			valorCambio = orcamento.getValorCambio();
+			cambio.setValor(valorCambio);
 			calcularValorTotalOrcamento();
 			carregarCamposAcomodacao();
 		}

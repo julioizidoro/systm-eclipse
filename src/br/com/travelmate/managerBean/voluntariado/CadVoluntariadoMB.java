@@ -777,12 +777,10 @@ public class CadVoluntariadoMB implements Serializable {
 					if (produtosorcamento.getValormaximo()==0) {
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
-						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
-						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					}else {
 						FacesContext fc = FacesContext.getCurrentInstance();
@@ -808,6 +806,7 @@ public class CadVoluntariadoMB implements Serializable {
 							listaProdutosOrcamento.remove(filtro);
 						}
 					}
+					produtosorcamento = null;
 				}
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();

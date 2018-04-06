@@ -112,7 +112,7 @@ public class FiltrarEscolaMB implements Serializable {
 		int idProduto = 0;
 		getUsuarioLogadoMB();
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-		idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		idProduto = lead.getProdutos().getIdprodutos();
 		filtrarEscolaBean.setListaPais(paisProdutoFacade.listar(idProduto));
 		filtrarEscolaBean.getOcurso().setCliente((Cliente) session.getAttribute("cliente"));
 		session.removeAttribute("cliente");
@@ -292,9 +292,7 @@ public class FiltrarEscolaMB implements Serializable {
 		if (filtrarEscolaBean.getOcurso().getNumerosemanas() == 0) {
 			mensagem = mensagem + "Número de semanas não informado";
 		}
-		if (filtrarEscolaBean.getOcurso().getCliente().getPublicidade() == null) {
-			mensagem = mensagem + "Selecione um tipo de Publicidade";
-		}
+		
 		return mensagem;
 	}
 
@@ -306,7 +304,7 @@ public class FiltrarEscolaMB implements Serializable {
 					+ filtrarEscolaBean.getIdioma().getIdidioma()
 					+ " and f.fornecedorcidade.fornecedor.habilitarorcamento=true"
 					+ " and f.acomodacaoindependente=FALSE"
-					+ " and f.habilitada=true order by f.fornecedorcidade.fornecedor.nome";
+					+ " and f.habilitada=true and f.fornecedorcidade.produtos.idprodutos="+ lead.getProdutos().getIdprodutos() +" order by f.fornecedorcidade.fornecedor.nome";
 			FornecedorCidadeIdiomaFacade fornecedorCidadeIdiomaFacade = new FornecedorCidadeIdiomaFacade();
 			filtrarEscolaBean.setListaFornecedorCidadeIdioma(fornecedorCidadeIdiomaFacade.listar(sql));
 			if (filtrarEscolaBean.getListaFornecedorCidadeIdioma() == null) {
@@ -2071,7 +2069,7 @@ public class FiltrarEscolaMB implements Serializable {
 	public void listarCidades() {
 		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
 		String sql = "SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.pais.idpais="+filtrarEscolaBean.getPais().getIdpais()
-				+ " and c.paisproduto.produtos.idprodutos="+aplicacaoMB.getParametrosprodutos().getCursos()
+				+ " and c.paisproduto.produtos.idprodutos="+lead.getProdutos().getIdprodutos()
 				+ " ORDER BY c.cidade.nome";
 		filtrarEscolaBean.setListaCidade(cidadePaisProdutosFacade.listar(sql));  
 	}
