@@ -434,7 +434,7 @@ public class RelatorioTmRaceMB implements Serializable{
 		if (listaBronze != null) {
 			if (listaBronze.size() == 1) {
 				listaBronze.get(0).setPosicao(1);
-				listaSinze.get(0).setPorcentagem(100f);
+				listaBronze.get(0).setPorcentagem(100f);
 			}else if (listaBronze.size() == 2){
 				if (listaBronze.get(0).getPontos() >= listaBronze.get(1).getPontos()) {
 					listaBronze.get(0).setPosicao(1);
