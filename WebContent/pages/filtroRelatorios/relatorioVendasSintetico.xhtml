@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idtelaAnaliticoVendas" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="3"
+							columnClasses="tamanho1, tamanho1,tamanho1"
+							style="width:80%;margin-left:2%;">
+							<p:outputLabel value="Unidade" />
+							<p:outputLabel value="Período" />
+							<p:outputLabel />
+
+							<p:selectOneMenu id="unidades"
+								value="#{relatorioVendasSinteticoMB.unidadenegocio}" style="width:250px"
+								converter="UnidadeNegocioConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todas as Unidades" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idnidade"
+									value="#{relatorioVendasSinteticoMB.listaUnidade}"
+									var="unidadeNegocio"
+									itemLabel="#{unidadeNegocio.nomerelatorio}"
+									itemValue="#{unidadeNegocio}" />
+								<f:attribute name="listaUnidade"  
+									value="#{relatorioVendasSinteticoMB.listaUnidade}" />
+									
+							</p:selectOneMenu>
+							<h:panelGrid columns="2" style="width:81%;">
+								<p:calendar id="dataIni" value="#{relatorioVendasSinteticoMB.dataInicial}"
+									title="Data Inicial" locale="pt" pattern="dd/MM/yyyy"
+									mask="true" size="10">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:calendar id="dataFinal" value="#{relatorioVendasSinteticoMB.dataFinal}"
+									title="Data Final" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									size="10">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								</h:panelGrid>
+							<h:panelGrid columns="2" style="width:78%;">
+								<p:commandButton value="Pesquisar" 
+									icon=" ui-icon-search "
+									action="#{relatorioVendasSinteticoMB.gerarListaUnidade()}"
+									update=":idtelaAnaliticoVendas:idtabelasinteticovendas" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									style="margin-left:1%" action="#{relatorioVendasSinteticoMB.limpar()}"
+									update=":idtelaAnaliticoVendas:idtabelasinteticovendas, unidades, dataIni, dataFinal" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<br></br> 
+						
+
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Relatório de Sintéticos Vendas</b>
+				</legend>
+				<br></br>
+				<h:panelGrid columns="2" style="margin-left:1%">
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_xls.png" width="36" />
+			                <p:dataExporter type="xls" target="idtabelasinteticovendas" fileName="sinteticoVendas" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_pdf.png" width="32" />
+			                <p:dataExporter type="pdf" target="idtabelasinteticovendas" fileName="sinteticoVendas"/>
+			            </h:commandLink>
+			        </h:panelGrid>
+			        <br/>
+				<p:dataTable id="idtabelasinteticovendas" var="venda"
+					value="#{relatorioVendasSinteticoMB.listaSintetico}" scrollable="true"
+					scrollHeight="300"
+					rowIndexVar="rowIx"
+					style="margin-bottom:20px;font-size:11px;width:99%;margin-left:0.5%;margin-top:-1.5%">
+					<p:column headerText="Unidade" style="width:100px;">
+						<h:outputText value="#{venda.unidade}" />
+					</p:column>
+					<p:column headerText="Cursos" style="width:95px;font-size:10px;text-align: right">
+						<h:outputText value="#{venda.curso}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Trabalho" style="width:80px;font-size:10px;text-align: right">
+						<h:outputText value="#{venda.trabalho}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="HS/Teens" style="width:80px;text-align: right">
+						<h:outputText value="#{venda.highschool}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="HE"
+						style="width:80px;text-align: right">
+						<h:outputText value="#{venda.teens}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Seguro"
+						style="width:80px;text-align: right">
+						<h:outputText value="#{venda.seguro}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Vistos" style="width:80px;text-align: right">
+						<h:outputText value="#{venda.vistos}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Passagem" style="width:80px;text-align: right">
+						<h:outputText value="#{venda.passagem}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>   
+					<p:column headerText="Pacotes" style="width:80px;text-align: right">
+						<h:outputText value="#{venda.pacotes}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="VTM" style="width:80px;text-align: right">
+						<h:outputText value="#{venda.vtm}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Total"
+						style="width:80px;text-align: right">
+						<h:outputText value="#{venda.total}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
