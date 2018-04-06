@@ -1006,12 +1006,10 @@ public class CadAupairMB implements Serializable {
 					if (produtosorcamento.getValormaximo()==0) {
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
-						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
-						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					}else {
 						FacesContext fc = FacesContext.getCurrentInstance();
@@ -1037,6 +1035,7 @@ public class CadAupairMB implements Serializable {
 							listaProdutosOrcamento.remove(filtro);
 						}
 					}
+					produtosorcamento = null;
 				} else
 					Mensagem.lancarMensagemErro("", "Au Pair já incluso");
 			} else
