@@ -54,10 +54,10 @@
 								<p:commandButton value="Pesquisar" 
 									icon=" ui-icon-search "
 									action="#{relatorioVendasSinteticoMB.gerarListaUnidade()}"
-									update=":idtelaAnaliticoVendas:idtabelasinteticovendas" />
+									update=":idtelaAnaliticoVendas:idtabelasinteticovendas, :idtelaAnaliticoVendas:panelExporta" />
 								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 									style="margin-left:1%" action="#{relatorioVendasSinteticoMB.limpar()}"
-									update=":idtelaAnaliticoVendas:idtabelasinteticovendas, unidades, dataIni, dataFinal" />
+									update=":idtelaAnaliticoVendas:idtabelasinteticovendas, unidades, dataIni, dataFinal, :idtelaAnaliticoVendas:panelExporta" />
 							</h:panelGrid>
 						</h:panelGrid>
 						<br></br> 
@@ -71,15 +71,15 @@
 					<b>Relatório de Sintéticos Vendas</b>
 				</legend>
 				<br></br>
-				<h:panelGrid columns="2" style="margin-left:1%">
+				<h:panelGrid columns="2" style="margin-left:1%" id="panelExporta">
 			            <h:commandLink>
 			                <img src="../../resources/img/icone_xls.png" width="36" />
 			                <p:dataExporter type="xls" target="idtabelasinteticovendas" fileName="sinteticoVendas" />
 			            </h:commandLink>
 			 
-			            <h:commandLink>
+			            <h:commandLink action="#{relatorioVendasSinteticoMB.iniciarRelatorio()}" rendered="#{relatorioVendasSinteticoMB.habilitarPdf}" target="_blank">
 			                <img src="../../resources/img/icone_pdf.png" width="32" />
-			                <p:dataExporter type="pdf" target="idtabelasinteticovendas" fileName="sinteticoVendas"/>
+			                
 			            </h:commandLink>
 			        </h:panelGrid>
 			        <br/>

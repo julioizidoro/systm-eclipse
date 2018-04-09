@@ -1,20 +1,33 @@
 package br.com.travelmate.managerBean.financeiro.relatorios;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 
+import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.GerarRelatorio;
+import br.com.travelmate.util.Mensagem;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named
 @ViewScoped
@@ -31,6 +44,7 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 	private Date dataInicial;
 	private Date dataFinal;
 	private Unidadenegocio unidadenegocio;
+	private boolean habilitarPdf = false;
 	
 	
 	@PostConstruct
@@ -87,6 +101,16 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 
 	public void setUnidadenegocio(Unidadenegocio unidadenegocio) {
 		this.unidadenegocio = unidadenegocio;
+	}
+
+
+	public boolean isHabilitarPdf() {
+		return habilitarPdf;
+	}
+
+
+	public void setHabilitarPdf(boolean habilitarPdf) {
+		this.habilitarPdf = habilitarPdf;
 	}
 
 
@@ -175,6 +199,11 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 				}
 			}
 		}
+		if (listaSintetico != null && listaSintetico.size() > 0) {
+			habilitarPdf = true;
+		}else {
+			habilitarPdf = false;
+		}
 	}
 	
 	
@@ -195,7 +224,35 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 		unidadenegocio = null;
 		dataFinal = null;
 		dataInicial = null;
-		
+		habilitarPdf = false;
+	}
+	
+	
+	public String iniciarRelatorio(){
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+		Map parameters = new HashMap();
+		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
+		BufferedImage logo = null;
+		try {
+			logo = ImageIO.read(f);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			Mensagem.lancarMensagemFatal("Erro Sistema", "Erro gerar ler logo " + e1.getMessage());
+		}  
+		parameters.put("logo", logo);
+		String periodo = Formatacao.ConvercaoDataPadrao(dataInicial) + " - " + Formatacao.ConvercaoDataPadrao(dataFinal);
+		parameters.put("periodo", periodo);
+		String caminhoRelatorio = "/reports/financeiro/sinteticovendas.jasper";
+		GerarRelatorio gerarRelatorio = new GerarRelatorio();
+		JRDataSource jrds = new JRBeanCollectionDataSource(listaSintetico);
+		try {
+			gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, "SinteticoVendas.pdf");
+		} catch (Exception e) {
+			Mensagem.lancarMensagemErro("Erro Relatório", "Erro gerar relatório Sintetico de Vendas " + e.getMessage());
+			RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
+			relatorioErroBean.iniciarRelatorioErro("Erro gerar relatório Sintetico de Vendas."); 
+		}
+		return "";
 	}
 	
 
