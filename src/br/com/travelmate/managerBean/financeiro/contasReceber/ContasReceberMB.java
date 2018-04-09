@@ -44,6 +44,7 @@ import br.com.travelmate.facade.HistoricoCobrancaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.boleto.DadosBoletoBean;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Cliente;
@@ -617,6 +618,14 @@ public class ContasReceberMB implements Serializable {
 			cobranca.setVendas(conta.getVendas());
 			cobranca = cobrancaFacade.salvar(cobranca);
 		}
+		 if (conta.getIdcontasreceber() != null) {
+		        if (conta.getCrmcobrancaconta() != null) {
+		        	if (dataAnterior.before(conta.getDatavencimento())) {
+		    			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+		    			crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+					}
+				}
+			}
 		Historicocobranca historicocobranca = new Historicocobranca();
 		historicocobranca.setAssunto("Data de vencimento alterada de " + Formatacao.ConvercaoDataPadrao(dataAnterior)
 				+ " por " + usuarioLogadoMB.getUsuario().getNome());
