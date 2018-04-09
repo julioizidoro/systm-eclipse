@@ -71,11 +71,11 @@
 						</h:panelGrid>
 						<br></br><br></br>
 						<h:panelGroup style="float: right;">
-							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl"
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl, :consultacursos:numeroTotal"
 								
 								action="#{relatorioLeadsMB.gerarPesquisaLeads()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update=" unidade, dataFinal, dataIni, origem, :consultacursos:tbl, confirmado"
+								update=" unidade, dataFinal, dataIni, origem, :consultacursos:tbl, confirmado, :consultacursos:numeroTotal"
 								action="#{relatorioLeadsMB.limpar()}" />
 						</h:panelGroup>
 						<br></br> 
@@ -123,7 +123,7 @@
 			 
 			      
 			    </p:dataTable>
-			 
+			 	<h:outputText id="numeroTotal" value="Total da lista: #{relatorioLeadsMB.numTotal}" style="margin-right:1%;float:right;font-size:14px;"/>
 			<br></br> <br></br> <br></br> <br></br> 
 			</div>    
 		</h:form>   

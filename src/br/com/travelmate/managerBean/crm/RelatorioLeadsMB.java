@@ -52,6 +52,7 @@ public class RelatorioLeadsMB implements Serializable{
 	private boolean habilitarGroupBy = false;
 	private boolean habilitarDataEnvio = true;
 	private boolean habilitarNumeroPub = false;
+	private int numTotal = 0;
 	
 	
 	@PostConstruct
@@ -267,6 +268,16 @@ public class RelatorioLeadsMB implements Serializable{
 	}
 
 
+	public int getNumTotal() {
+		return numTotal;
+	}
+
+
+	public void setNumTotal(int numTotal) {
+		this.numTotal = numTotal;
+	}
+
+
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -333,9 +344,11 @@ public class RelatorioLeadsMB implements Serializable{
 				}
 				listaLeads.get(i).setNumeroPublicidade(leadFacade.consultarNumLead(sqlPublicidade));
 			}
+			numTotal = listaLeads.size();
 			habilitarDataEnvio = false;
 			habilitarNumeroPub = true;
 		}else {
+			numTotal = listaLeads.size();
 			habilitarDataEnvio = true;
 			habilitarNumeroPub = false;
 		}
@@ -363,6 +376,7 @@ public class RelatorioLeadsMB implements Serializable{
 		habilitarDataEnvio = true;
 		habilitarGroupBy = false;
 		habilitarNumeroPub = false;
+		numTotal = 0;
 	}
 
 }
