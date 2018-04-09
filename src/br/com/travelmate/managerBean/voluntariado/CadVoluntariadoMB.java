@@ -1013,7 +1013,7 @@ public class CadVoluntariadoMB implements Serializable {
 						|| (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("cheque"))) {
 					parcelamentopagamento.setVerificarParcelamento(
 							Formatacao.calcularDataParcelamento(parcelamentopagamento.getDiaVencimento(),
-									parcelamentopagamento.getNumeroParcelas(), voluntariado.getDataInicio()));
+									parcelamentopagamento.getNumeroParcelas(), voluntariado.getDataInicioVoluntariado()));
 				} else
 					parcelamentopagamento.setVerificarParcelamento(false);
 				if (parcelamentopagamento.isVerificarParcelamento()) {
