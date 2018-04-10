@@ -8,11 +8,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Docs;
 import br.com.travelmate.model.Lead; 
 
 public class LeadDao {
 
+	
+	
+	
 	public List<Lead> lista(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

@@ -47,12 +47,11 @@ public class CoProdutosDao {
     
     public void excluir(int id) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Coprodutos coprodutos = manager.find(Coprodutos.class, id);
         manager.remove(coprodutos);
         tx.commit();
-        manager.close();
     }
 }

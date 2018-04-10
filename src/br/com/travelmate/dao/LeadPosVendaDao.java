@@ -15,6 +15,9 @@ import javax.persistence.Query;
  */
 public class LeadPosVendaDao {
 
+	
+	
+	
 	public Leadposvenda salvar(Leadposvenda leadposvenda) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();

@@ -12,6 +12,9 @@ import br.com.travelmate.model.Leadhistorico;
 
 public class LeadHistoricoDao {
 
+	
+	
+	
 	public List<Leadhistorico> lista(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

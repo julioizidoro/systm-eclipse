@@ -13,6 +13,9 @@ import br.com.travelmate.model.Leadcontrole;
 
 public class LeadControleDao {
 	
+	
+	
+	
 	public List<Leadcontrole> lista(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

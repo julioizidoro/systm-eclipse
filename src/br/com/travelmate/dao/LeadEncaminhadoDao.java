@@ -15,6 +15,9 @@ import javax.persistence.Query;
  */
 public class LeadEncaminhadoDao {
 
+	
+	
+	
 	public Leadencaminhado salvar(Leadencaminhado leadencaminhado) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();

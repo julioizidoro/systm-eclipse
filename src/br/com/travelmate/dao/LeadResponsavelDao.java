@@ -12,13 +12,15 @@ import br.com.travelmate.model.Leadresponsavel;
 
 public class LeadResponsavelDao { 
 	 
+	
+	
+	
 	public Leadresponsavel salvar(Leadresponsavel leadresponsavel) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		leadresponsavel = manager.merge(leadresponsavel);
         tx.commit();
-        manager.close();
         return leadresponsavel; 
     } 
     
@@ -39,7 +41,6 @@ public class LeadResponsavelDao {
 		Leadresponsavel leadresponsavel = manager.find(Leadresponsavel.class, idleadresponsavel);
         manager.remove(leadresponsavel);  
         tx.commit();
-        manager.close();
     }
      
     public List<Leadresponsavel> lista(String sql) throws SQLException {
