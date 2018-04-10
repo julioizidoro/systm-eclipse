@@ -52,6 +52,8 @@ public class EncaminharLeadMB implements Serializable {
 	private List<Usuario> listaUsuario;
 	private int situacao;
 	private boolean habilitarComboUnidade = true;
+	private boolean trocaUnidade = false;
+	private List<Leadresponsavel> listaResponsavel;
 
 	@PostConstruct
 	public void init() {
@@ -64,6 +66,10 @@ public class EncaminharLeadMB implements Serializable {
 		listaUnidade = GerarListas.listarUnidade();
 		listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
 		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")){
+			listaResponsavel = retornarResponsavelUsuario();
+			if (listaResponsavel != null && listaResponsavel.size() > 0) {
+				habilitarComboUnidade = false;
+			}
 			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			gerarListaUsuario();  
 		}  else{
@@ -163,6 +169,22 @@ public class EncaminharLeadMB implements Serializable {
 		this.situacao = situacao;
 	}
 
+	public boolean isTrocaUnidade() {
+		return trocaUnidade;
+	}
+
+	public void setTrocaUnidade(boolean trocaUnidade) {
+		this.trocaUnidade = trocaUnidade;
+	}
+
+	public List<Leadresponsavel> getListaResponsavel() {
+		return listaResponsavel;
+	}
+
+	public void setListaResponsavel(List<Leadresponsavel> listaResponsavel) {
+		this.listaResponsavel = listaResponsavel;
+	}
+
 	public String retornarCoresSituacao(int numeroSituacao) {
 		if (numeroSituacao == 1) {
 			return "#1E90FF;";
@@ -216,6 +238,9 @@ public class EncaminharLeadMB implements Serializable {
 			lead.setDataenvio(new Date());
 			lead.setHoraenvio(Formatacao.foramtarHoraString());
 		} 
+		if (lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
+			trocaUnidade = true;
+		}
 		lead.setUnidadenegocio(unidadenegocio);
 		lead.setSituacao(situacao);
 		lead.setTipocontato(tipocontato);
@@ -256,20 +281,53 @@ public class EncaminharLeadMB implements Serializable {
 				usuarioLogadoMB.getUsuario().getNome()+". Incluida no dia: " + Formatacao.ConvercaoDataPadrao(dataEnvio) + "; Distribuida no dia: " 
 				+ Formatacao.ConvercaoDataPadrao(new Date()));
 		avisos.setIdunidade(0); 
-		List<Avisousuario> lista = new ArrayList<Avisousuario>();
-		Avisousuario avisousuario = new Avisousuario();  
-		avisousuario.setAvisos(avisos);
-		avisousuario.setUsuario(usuario);
-		avisousuario.setVisto(false); 
-		lista.add(avisousuario);
-		avisos.setAvisousuarioList(lista);
-		avisos = avisosFacade.salvar(avisos);
+		if (trocaUnidade) {
+			listaResponsavel = retornarResponsavelUnidade();
+			if (listaResponsavel != null) {
+				for (int i = 0; i < listaResponsavel.size(); i++) {
+					List<Avisousuario> lista = new ArrayList<Avisousuario>();
+					Avisousuario avisousuario = new Avisousuario();  
+					avisousuario.setAvisos(avisos);
+					avisousuario.setUsuario(usuario);
+					avisousuario.setVisto(false); 
+					lista.add(avisousuario);
+					avisos.setAvisousuarioList(lista);
+					avisos = avisosFacade.salvar(avisos);
+				}
+			}
+		}else {
+			List<Avisousuario> lista = new ArrayList<Avisousuario>();
+			Avisousuario avisousuario = new Avisousuario();  
+			avisousuario.setAvisos(avisos);
+			avisousuario.setUsuario(usuario);
+			avisousuario.setVisto(false); 
+			lista.add(avisousuario);
+			avisos.setAvisousuarioList(lista);
+			avisos = avisosFacade.salvar(avisos);
+		}
 	}
 	
 	public List<Leadresponsavel> retornarResponsavelUnidade() { 
 		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
 		List<Leadresponsavel> lista = leadResponsavelFacade
 				.lista(unidadenegocio.getIdunidadeNegocio()); 
+		if (lista == null) {
+			lista = new ArrayList<Leadresponsavel>();
+		}
 		return lista;
 	}
+	
+	
+	public List<Leadresponsavel> retornarResponsavelUsuario() { 
+		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
+		List<Leadresponsavel> lista = leadResponsavelFacade
+				.lista("SELECT l FROM Leadresponsavel l WHERE l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() + " and l.unidadenegocio.idunidadeNegocio=" + 
+						usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()); 
+		if (lista == null) {
+			lista = new ArrayList<Leadresponsavel>();
+		}
+		return lista;
+	}
+	
+	
 }
