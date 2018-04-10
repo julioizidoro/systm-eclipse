@@ -51,10 +51,13 @@ public class Orcamentoprodutosorcamento implements Serializable {
     private boolean podeExcluir;
     @Transient
     private int linha;
+    @Column(name = "importado")
+    private boolean importado;
 
     public Orcamentoprodutosorcamento() {
     		podeExcluir=true;
     		linha = 0;
+    		importado = false;
     }
 
     public Orcamentoprodutosorcamento(Integer idorcamentoProdutosOrcamento) {
@@ -131,6 +134,14 @@ public class Orcamentoprodutosorcamento implements Serializable {
 
 	public void setLinha(int linha) {
 		this.linha = linha;
+	}
+
+	public boolean isImportado() {
+		return importado;
+	}
+
+	public void setImportado(boolean importado) {
+		this.importado = importado;
 	}
 
 	@Override

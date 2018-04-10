@@ -1067,6 +1067,7 @@ public class CadCursoMB implements Serializable {
 					if (produtosorcamento.getIdprodutosOrcamento() != idProdTx) {
 						if (produtosorcamento != null) {
 							Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+							orcamentoprodutosorcamento.setImportado(false);
 							orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 							orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 							if ((valorMoedaEstrangeira > 0) && (valorCambio > 0)) {
@@ -3272,6 +3273,7 @@ public class CadCursoMB implements Serializable {
 					orcamentoprodutosorcamento.setValorMoedaNacional(
 							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
 					orcamentoprodutosorcamento.setTipo("A");
+					orcamentoprodutosorcamento.setImportado(true);
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					float valororiginal=0.0f;
 					if (ocurso.getOcrusoprodutosList().get(i).getValororiginal()!=null){
@@ -3297,6 +3299,7 @@ public class CadCursoMB implements Serializable {
 						orcamentoprodutosorcamento.setValorMoedaNacional(
 								orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
 						orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
+						orcamentoprodutosorcamento.setImportado(true);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					}
 				}
@@ -3329,6 +3332,7 @@ public class CadCursoMB implements Serializable {
 				seguroViagem.setValorSeguro(orcamentoprodutosorcamento.getValorMoedaNacional());
 				seguroViagem.setValoresseguro(ocurso.getOcursoseguroList().get(0).getValoresseguro());
 				seguroViagem.setSegurocancelamento(ocurso.getOcursoseguroList().get(0).isSegurocancelamento());
+				orcamentoprodutosorcamento.setImportado(true);
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				carregarCobrancaSeguro();
 				adicionarSeguroCancelamento();
@@ -3350,6 +3354,7 @@ public class CadCursoMB implements Serializable {
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valor/cambio.getValor());
 				orcamentoprodutosorcamento.setValorMoedaNacional(valor);
 				orcamentoprodutosorcamento.setTipo("S");
+				orcamentoprodutosorcamento.setImportado(true);
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				if (listaProdutosOrcamento != null && listaProdutosOrcamento.size() > 0) {
 					FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
@@ -3488,6 +3493,7 @@ public class CadCursoMB implements Serializable {
 							.setValorMoedaEstrangeira(listaProdutosOrcamentoCurso.get(i).getValorMoedaEstrangeira());
 					orcamentoprodutosorcamento.setValorMoedaNacional(
 							listaProdutosOrcamentoCurso.get(i).getValorMoedaEstrangeira() * cambio.getValor());
+					orcamentoprodutosorcamento.setImportado(true);
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					calcularValorTotalOrcamento();
 					produtosorcamento = null;
