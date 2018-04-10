@@ -1138,13 +1138,15 @@ public class CadHeInscricaoMB implements Serializable {
 					produto, fornecedorCidade, cambio, orcamento.getValorCambio(), lead,  he.getDatainicio(), he.getDatatermino());
 			LogVendaFacade logVendaFacade = new LogVendaFacade();
 			Logvenda logvenda = logVendaFacade.consultar(venda.getIdvendas());
-			if(valorVendaAlterada>0){
-				logvenda.setOperacao("ALTERAÇÃO FICHA INSCRIÇÃO");
-			}else{
-				logvenda.setOperacao("NOVA FICHA INSCRIÇÃO");
+			if (logvenda != null) {
+				if(valorVendaAlterada>0){
+					logvenda.setOperacao("ALTERAÇÃO FICHA INSCRIÇÃO");
+				}else{
+					logvenda.setOperacao("NOVA FICHA INSCRIÇÃO");
+				}
+				logvenda.setSituacao(venda.getSituacao());
+				logvenda = logVendaFacade.salvar(logvenda); 
 			}
-			logvenda.setSituacao(venda.getSituacao());
-			logvenda = logVendaFacade.salvar(logvenda); 
 			if(novaFicha){
 				VendasFacade vendasFacade = new VendasFacade();
 				Vendas vendas = new Vendas();
