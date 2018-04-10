@@ -60,7 +60,7 @@
 				</p:inputMask>
 				<p:selectOneMenu id="tipo"
 					value="#{cadHistoricoClienteMB.leadHistorico.tipocontato}"
-					style="width:95%;" filter="true" converter="TipoContatoConverter"
+					style="width:95%;" filter="true" converter="TipoContatoConverterLead"
 					filterMatchMode="startsWith" panelStyle="width:180px">
 					<f:selectItem itemLabel="Selecione" itemValue="0"
 						noSelectionOption="true" />
@@ -108,7 +108,7 @@
 				</p:calendar>
 				<p:selectOneMenu id="tipoProx"
 					value="#{cadHistoricoClienteMB.lead.tipocontato}" style="width:95%;"
-					filter="true" converter="TipoContatoConverter"
+					filter="true" converter="TipoContatoConverterLead"
 					filterMatchMode="startsWith" panelStyle="width:180px">
 					<f:selectItem itemLabel="Selecione" itemValue="0"
 						noSelectionOption="true" />
