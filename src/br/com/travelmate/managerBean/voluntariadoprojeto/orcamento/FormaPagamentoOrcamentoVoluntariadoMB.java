@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
 
 
+import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.LeadFacade;
@@ -401,6 +402,10 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 			if(lead!=null){
 				LeadFacade leadFacade = new LeadFacade();
 				lead.setDataultimocontato(new Date());
+				if (lead.getSituacao() < 3) {
+					LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+        			lead.setSituacao(3);
+				}
 				lead = leadFacade.salvar(lead);
 			}
 		}
