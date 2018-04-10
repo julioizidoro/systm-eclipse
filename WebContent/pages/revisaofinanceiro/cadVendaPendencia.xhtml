@@ -20,7 +20,7 @@
 				<p:outputLabel value="Motivo da Pendência" for="motivopendencia"   />
 				
 			   
-				<p:calendar id="proximocontato" mask="true" size="14" maxlength="14"
+				<p:calendar id="proximocontato" mask="true" size="14" maxlength="14" readonly="true"
 					value="#{cadVendaPendenciaMB.vendapendencia.dataproximocontato}" 
 					 pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo">
 					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />

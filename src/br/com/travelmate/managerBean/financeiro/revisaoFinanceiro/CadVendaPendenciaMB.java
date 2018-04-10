@@ -64,6 +64,7 @@ public class CadVendaPendenciaMB implements Serializable{
 		session.removeAttribute("venda");
 		if (venda.getVendapendencia() == null) {
 			vendapendencia = new Vendapendencia();
+			vendapendencia.setDataproximocontato(new Date());
 		}else{
 			vendapendencia = venda.getVendapendencia();
 			vendamotivopendencia = venda.getVendapendencia().getVendamotivopendencia();
