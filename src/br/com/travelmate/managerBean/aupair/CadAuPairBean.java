@@ -46,7 +46,7 @@ public class CadAuPairBean {
 	}
 	
 	public Orcamento salvarOrcamento(Orcamento orcamento, Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado){
-		programasBean.salvarOrcamento(orcamento, cambio, orcamento.getTotalMoedaNacional(),
+		orcamento = programasBean.salvarOrcamento(orcamento, cambio, orcamento.getTotalMoedaNacional(),
 				orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), venda, cambioAlterado);
 		venda.setOrcamento(orcamento);
 		return orcamento;
