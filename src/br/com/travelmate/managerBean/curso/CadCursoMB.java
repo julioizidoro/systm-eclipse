@@ -1525,10 +1525,10 @@ public class CadCursoMB implements Serializable {
 				this.orcamento = cadCursoBean.salvarOrcamento(cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio,
 						cambioAlterado);
 				formaPagamento = cadCursoBean.salvarFormaPagamento(cancelamento);
-				cliente = cadCursoBean.salvarCliente(cliente);
 				if (enviarFicha) {
 					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem,  formaPagamento);
 				}   
+				cliente = cadCursoBean.salvarCliente(cliente);
 				if(cursospacote!=null && cursospacote.getIdcursospacote()!=null){
 					VendasPacoteFacade vendasPacoteFacade = new VendasPacoteFacade();
 					Vendaspacote vendaspacote = new Vendaspacote();
@@ -2484,7 +2484,7 @@ public class CadCursoMB implements Serializable {
 	public void listarFornecedorCidade() {
 		if (cidade != null) {
 			String sql = "select f from Fornecedorcidade f where f.cidade.idcidade=" + cidade.getIdcidade() +
-					" and f.ativo=1";
+					" and f.ativo=1 order by f.fornecedor.nome";
 			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
 			listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
 			if (listaFornecedorCidade == null) {
@@ -2892,6 +2892,7 @@ public class CadCursoMB implements Serializable {
 			seguroplanos = seguroViagem.getValoresseguro().getSeguroplanos();
 			listarValoresSeguro();
 			valorAlterarSeguro = seguroViagem.getValorSeguro();
+			segurocancelamento = seguroViagem.isSegurocancelamento();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");
