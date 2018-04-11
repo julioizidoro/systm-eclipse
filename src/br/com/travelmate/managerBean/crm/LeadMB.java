@@ -242,9 +242,7 @@ public class LeadMB implements Serializable {
 	}
 	
 	public String getNomeUnidade(Lead lead) {
-		if (lead.getNomeunidade()!=null) {
-			return lead.getNomeunidade();
-		}else if (lead.getNomeunidade().length()>0) {
+		if (lead.getNomeunidade()!=null && lead.getNomeunidade().length()>0) {
 			return lead.getNomeunidade();
 		}else return lead.getUnidadenegocio().getNomerelatorio();
 	}
