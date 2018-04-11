@@ -3178,12 +3178,13 @@ public class CadCursoMB implements Serializable {
 		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 				ocurso.getCambio().getMoedas().getIdmoedas());
 		orcamento.setValorCambio(cambio.getValor());
+		orcamento.setOrcamentoprodutosorcamentoList(new ArrayList<Orcamentoprodutosorcamento>());
 		if (ocurso.getOcrusoprodutosList() != null) {
-			int idtxTM = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
+			//int idtxTM = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			for (int i = 0; i < ocurso.getOcrusoprodutosList().size(); i++) {
-				int idproduto = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
-						.getProdutosorcamento().getIdprodutosOrcamento();
-				if (idtxTM != idproduto) {
+				//int idproduto = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+					//	.getProdutosorcamento().getIdprodutosOrcamento();
+				//if (idtxTM != idproduto) {
 					Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 							.getComplementocurso() != null && 
@@ -3240,7 +3241,13 @@ public class CadCursoMB implements Serializable {
 						} 
 						calcularDataTerminoAcomodacao();
 						orcamentoprodutosorcamento.setDescricao("Acomodação");
-					} else {
+					} else if(ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("Adicionais")) {
+						orcamentoprodutosorcamento.setDescricao(ocurso.getOcrusoprodutosList().get(i).getDescricao());
+						orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento());
+						orcamentoprodutosorcamento.setValorMoedaEstrangeira(ocurso.getOcrusoprodutosList().get(i).getValororiginal());
+						orcamentoprodutosorcamento.setValorMoedaNacional(ocurso.getOcrusoprodutosList().get(i).getValororiginal() * cambio.getValor());
+						orcamentoprodutosorcamento.setImportado(true);
+					}else {
 						orcamentoprodutosorcamento.setDescricao(ocurso.getOcrusoprodutosList().get(i)
 								.getValorcoprodutos().getCoprodutos().getDescricao());
 					}
@@ -3259,8 +3266,14 @@ public class CadCursoMB implements Serializable {
 									.consultar(aplicacaoMB.getParametrosprodutos().getDescontoloja()); 
 							orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 						}else {
-							orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i)
-								.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
+							if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getIdcoprodutos() == 5043) {
+								Produtosorcamento produtosorcamento = produtoOrcamentoFacade
+										.consultar("SELECT p FROM Produtosorcamento p WHERE p.descricao='"+ ocurso.getOcrusoprodutosList().get(i).getDescricao() +"'"); 
+								orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+							}else {
+								orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i)
+									.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
+							}
 						}
 					}
 					if(orcamentoprodutosorcamento.getDescricao()!=null
@@ -3303,7 +3316,7 @@ public class CadCursoMB implements Serializable {
 						orcamentoprodutosorcamento.setImportado(true);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					}
-				}
+				//}
 			}
 		}
 		if (ocurso.getOcursoseguroList() != null) {
