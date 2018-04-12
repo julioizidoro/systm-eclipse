@@ -78,7 +78,7 @@
 						<p:selectOneMenu id="consultor"
 							value="#{encaminharLeadMB.usuario}" style="width:90%;"
 							filter="true" filterMatchMode="startsWith"
-							converter="UsuarioConverter">
+							converter="UsuarioConverter" disabled="#{encaminharLeadMB.desabilitarUsuario}">
 							<f:selectItem itemLabel="Selecione" itemValue="0"
 								noSelectionOption="true" />
 							<f:selectItems id="idconsultor"

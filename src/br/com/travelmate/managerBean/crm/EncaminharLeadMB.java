@@ -54,6 +54,7 @@ public class EncaminharLeadMB implements Serializable {
 	private boolean habilitarComboUnidade = true;
 	private boolean trocaUnidade = false;
 	private List<Leadresponsavel> listaResponsavel;
+	private boolean desabilitarUsuario = false;
 
 	@PostConstruct
 	public void init() {
@@ -185,6 +186,14 @@ public class EncaminharLeadMB implements Serializable {
 		this.listaResponsavel = listaResponsavel;
 	}
 
+	public boolean isDesabilitarUsuario() {
+		return desabilitarUsuario;
+	}
+
+	public void setDesabilitarUsuario(boolean desabilitarUsuario) {
+		this.desabilitarUsuario = desabilitarUsuario;
+	}
+
 	public String retornarCoresSituacao(int numeroSituacao) {
 		if (numeroSituacao == 1) {
 			return "#1E90FF;";
@@ -215,9 +224,20 @@ public class EncaminharLeadMB implements Serializable {
 				for (int i = 0; i < listaResponsavel.size(); i++) {
 					listaUsuario.add(listaResponsavel.get(i).getUsuario());
 				} 
+			}else if(lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
+				listaUsuario = new ArrayList<Usuario>();
+				for (int i = 0; i < listaResponsavel.size(); i++) {
+					listaUsuario.add(listaResponsavel.get(i).getUsuario());
+				} 
+				if (listaUsuario != null && listaUsuario.size() > 0) {
+					lead.setUsuario(listaUsuario.get(0));
+					usuario = listaUsuario.get(0);
+				}
+				desabilitarUsuario = true;
 			}else {
 				listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+				desabilitarUsuario = false;
 			}
 		}
 	}
@@ -234,14 +254,17 @@ public class EncaminharLeadMB implements Serializable {
 		LeadEncaminhadoFacade leadEncaminhadoFacade = new LeadEncaminhadoFacade();
 		leadEncaminhadoFacade.salvar(leadencaminhado); 
 		LeadFacade leadFacade = new LeadFacade();
-		if(lead.getUnidadenegocio().getIdunidadeNegocio()!=6 || !unidadenegocio.isLeadautomatica()) {
-			lead.setDataenvio(new Date());
-			lead.setHoraenvio(Formatacao.foramtarHoraString());
-		} 
 		if (lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
 			trocaUnidade = true;
 		}
+		if (!trocaUnidade) {
+			if(lead.getUnidadenegocio().getIdunidadeNegocio()!=6 || !unidadenegocio.isLeadautomatica()) {
+				lead.setDataenvio(new Date());
+				lead.setHoraenvio(Formatacao.foramtarHoraString());
+			} 
+		}
 		lead.setUnidadenegocio(unidadenegocio);
+		lead.setNomeunidade(unidadenegocio.getNomerelatorio());
 		lead.setSituacao(situacao);
 		lead.setTipocontato(tipocontato);
 		lead.setUsuario(usuario); 
@@ -284,16 +307,16 @@ public class EncaminharLeadMB implements Serializable {
 		if (trocaUnidade) {
 			listaResponsavel = retornarResponsavelUnidade();
 			if (listaResponsavel != null) {
+				List<Avisousuario> lista = new ArrayList<Avisousuario>();
 				for (int i = 0; i < listaResponsavel.size(); i++) {
-					List<Avisousuario> lista = new ArrayList<Avisousuario>();
 					Avisousuario avisousuario = new Avisousuario();  
 					avisousuario.setAvisos(avisos);
-					avisousuario.setUsuario(usuario);
+					avisousuario.setUsuario(listaResponsavel.get(i).getUsuario());
 					avisousuario.setVisto(false); 
 					lista.add(avisousuario);
-					avisos.setAvisousuarioList(lista);
-					avisos = avisosFacade.salvar(avisos);
 				}
+				avisos.setAvisousuarioList(lista);
+				avisos = avisosFacade.salvar(avisos);
 			}
 		}else {
 			List<Avisousuario> lista = new ArrayList<Avisousuario>();
