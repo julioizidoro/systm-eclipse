@@ -73,12 +73,12 @@
 							<h:panelGroup>
 								<p:calendar id="datainicio" locale="pt"
 									pattern="dd/MM/yyyy"
-									value="#{cadPacoteAgenciaMB.pacotes.datainicio}" size="14">
+									value="#{cadPacoteAgenciaMB.pacotes.datainicio}" size="14" mask="true">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</p:calendar>
 								<p:calendar id="datatermino" style="margin-left:2%" locale="pt"
-									pattern="dd/MM/yyyy"  value="#{cadPacoteAgenciaMB.pacotes.datetermino}" size="14">
+									pattern="dd/MM/yyyy"  value="#{cadPacoteAgenciaMB.pacotes.datetermino}" size="14" mask="true">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</p:calendar>
@@ -286,7 +286,7 @@
 						</p:inputText>
 						<p:calendar id="datainicioseguro"
 							value="#{cadPacoteAgenciaMB.seguroviagem.dataInicio}" size="12"
-							style="margin-left:7.8%" locale="pt" pattern="dd/MM/yyyy">
+							style="margin-left:7.8%" locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
@@ -306,7 +306,7 @@
 						<p:calendar id="dataterminoseguro"
 							value="#{cadPacoteAgenciaMB.seguroviagem.dataTermino}" size="12"
 							class="espacocampos" style="margin-left:3.5%" locale="pt"
-							pattern="dd/MM/yyyy">
+							pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="dateSelect"
@@ -577,7 +577,7 @@
 						<h:panelGrid columns="4">
 							<p:calendar id="primeirovencimento"
 								value="#{cadPacoteAgenciaMB.dataPrimeiroPagamento}" size="18"
-								style="margin-left:158%;" locale="pt" pattern="dd/MM/yyyy">
+								style="margin-left:158%;" locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>

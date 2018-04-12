@@ -152,8 +152,6 @@ public class CadProdutosOrcamentoMB implements Serializable{
 			filtroorcamentoproduto.setProdutos(produtos);
 			filtroorcamentoproduto.setListar("N");
 			filtroorcamentoproduto = filtroOrcamentoProdutoFacade.salvar(filtroorcamentoproduto);
-			produtosorcamento = new Produtosorcamento();
-			filtroorcamentoproduto = new Filtroorcamentoproduto(); 
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
 		}

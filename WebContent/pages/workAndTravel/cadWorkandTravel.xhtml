@@ -120,7 +120,7 @@
 						</p:selectOneMenu>
 						<p:calendar id="dataMatricula"
 							value="#{cadWorkTravelMB.work.dataMatricula}" size="20"
-							locale="pt" pattern="dd/MM/yyyy">
+							locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
@@ -128,7 +128,7 @@
 						</p:calendar>
 						<p:calendar id="dataTermino"
 							value="#{cadWorkTravelMB.work.dataEstimadaTermino}" size="20"
-							locale="pt" pattern="dd/MM/yyyy">
+							locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
@@ -178,7 +178,7 @@
 					<h:panelGrid style="margin-left:11.5%;" columns="3">
 						<p:calendar id="datainicioviagem"
 							value="#{cadWorkTravelMB.work.dataInicioPretendida01}" size="20"
-							locale="pt" pattern="dd/MM/yyyy">
+							locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
@@ -186,7 +186,7 @@
 						</p:calendar>
 						<p:calendar id="datavoltaviagem"
 							value="#{cadWorkTravelMB.work.dataTerminoPretendida01}" size="20"
-							style="margin-left:31.8%;" locale="pt" pattern="dd/MM/yyyy">
+							style="margin-left:31.8%;" locale="pt" pattern="dd/MM/yyyy"  mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
@@ -785,7 +785,7 @@
 						value="#{cadWorkTravelMB.work.dataEntragaDocumentosVisto}"
 						size="20" locale="pt" pattern="dd/MM/yyyy"
 						style="margin-left:11.6%;"
-						disabled="#{cadWorkTravelMB.camposVisto}">
+						disabled="#{cadWorkTravelMB.camposVisto}" mask="true">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
@@ -1134,7 +1134,7 @@
 
 						<p:calendar id="primeirovencimento"
 							value="#{cadWorkTravelMB.parcelamentopagamento.diaVencimento}"
-							size="20" locale="pt" pattern="dd/MM/yyyy">
+							size="20" locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</p:calendar>

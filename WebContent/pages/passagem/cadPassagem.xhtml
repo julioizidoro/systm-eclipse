@@ -103,10 +103,10 @@
 							</h:panelGroup>
 							<p:calendar id="dataviagem" size="17"
 								value="#{cadPassagemMB.passagem.dataviagem}" locale="pt"
-								pattern="dd/MM/yyyy" />
+								pattern="dd/MM/yyyy" mask="true" />
 							<p:calendar id="datavolta" size="17"  
 								value="#{cadPassagemMB.passagem.datavolta}" locale="pt"
-								pattern="dd/MM/yyyy" />
+								pattern="dd/MM/yyyy" mask="true"/>
 						</h:panelGrid>  
 						<br></br>
 					</p:tab>
@@ -499,7 +499,7 @@
 
 							<p:calendar id="primeirovencimento"
 								value="#{cadPassagemMB.dataPrimeiroPagamento}" size="20"
-								locale="pt" pattern="dd/MM/yyyy">
+								locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>

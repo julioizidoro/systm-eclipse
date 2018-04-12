@@ -104,7 +104,7 @@
 
 							<p:calendar id="datainicio" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}"
 								value="#{cadHeInscricaoMB.he.datainicio}" size="14" locale="pt"
-								pattern="dd/MM/yyyy">
+								pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
@@ -118,7 +118,7 @@
 							</p:inputText>
 							<p:calendar id="datatermino" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}"
 								value="#{cadHeInscricaoMB.he.datatermino}" size="14" locale="pt"
-								pattern="dd/MM/yyyy">
+								pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>
@@ -541,7 +541,7 @@
 
 							<p:calendar id="primeirovencimento"
 								value="#{cadHeInscricaoMB.parcelamentopagamento.diaVencimento}"
-								size="20" locale="pt" pattern="dd/MM/yyyy">
+								size="20" locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>

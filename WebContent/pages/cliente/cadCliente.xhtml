@@ -70,12 +70,12 @@
 									<p:inputText id="nPassaporte" value="#{cadClienteMB.cliente.numeroPassaporte}" size="29"/>
 									
 									<p:outputLabel value="Data Validade:" for="dataValidade" />
-									<p:calendar id="dataValidade" pattern="dd/MM/yyyy" value="#{cadClienteMB.cliente.validadePassaporte}">
+									<p:calendar id="dataValidade" pattern="dd/MM/yyyy" value="#{cadClienteMB.cliente.validadePassaporte}" mask="true">
 										<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 									</p:calendar>
 									
 									<p:outputLabel value="Data Expedição:" for="dataExpedicao" />
-									<p:calendar id="dataExpedicao" pattern="dd/MM/yyyy" value="#{cadClienteMB.cliente.dataExpedicaoPassaporte}" size="16">
+									<p:calendar id="dataExpedicao" pattern="dd/MM/yyyy" value="#{cadClienteMB.cliente.dataExpedicaoPassaporte}" size="16" mask="true">
 										<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 									</p:calendar>
 								</p:panelGrid>
