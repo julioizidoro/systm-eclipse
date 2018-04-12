@@ -66,6 +66,7 @@ public class ComissaoPacotesBean {
         vendasComissao.setDescontofornecedor(0.0f);
         vendasComissao.setDesagio(comissaoBean.calcularDesagio(listaParcelamento, aplicacaoMB, vendasComissao));
         vendasComissao.setTaxatm(0.0f);
+        vendasComissao.setJurospago(comissaoBean.calcularJurosPagos(listaParcelamento));
         vendasComissao.setVendas(venda);
         vendasComissao.setValorbruto(pacote.getValorgross());
         vendasComissao.setProdutos(venda.getProdutos());
