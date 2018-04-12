@@ -1046,7 +1046,7 @@
 											listener="#{cadCursoMB.calcularDataTermino()}" />
 									</p:inputText> 
 									<p:calendar id="datatermino" 
-										value="#{cadCursoMB.seguroViagem.dataTermino}" size="13" locale="pt" pattern="dd/MM/yyyy"
+										value="#{cadCursoMB.seguroViagem.dataTermino}" size="13" locale="pt" pattern="dd/MM/yyyy" mask="true"
 										disabled="#{cadCursoMB.camposSeguroViagem}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />

@@ -19,8 +19,10 @@ public class LeadDao {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
-		List<Lead> lista = q.getResultList();
-
+		List<Lead> lista = null;
+		if (q.getResultList().size() > 0) {
+			lista = q.getResultList();
+		}
 		return lista;
 	}
 
