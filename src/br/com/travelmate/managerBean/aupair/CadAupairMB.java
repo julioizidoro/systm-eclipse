@@ -1217,7 +1217,6 @@ public class CadAupairMB implements Serializable {
 				float valorPrevisto = 0.0f;
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
 						|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-					float valorVendaatual = venda.getValor();
 					Vendascomissao vendasComissao = venda.getVendascomissao();
 					if (vendasComissao == null) {
 						vendasComissao = new Vendascomissao();
