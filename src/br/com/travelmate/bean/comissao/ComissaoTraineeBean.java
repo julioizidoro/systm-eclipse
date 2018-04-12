@@ -82,6 +82,7 @@ public class ComissaoTraineeBean {
         vendasComissao.setDescontofornecedor(0.0f);
         vendasComissao.setDesagio(comissaoBean.calcularDesagio(listaParcelamento, aplicacaoMB, vendasComissao));
         vendasComissao.setTaxatm(comissaoBean.calcularTaxaTM(listaProdutosGeral, aplicacaoMB));
+        vendasComissao.setJurospago(comissaoBean.calcularJurosPagos(listaParcelamento));
         vendasComissao.setVendas(venda);
         vendasComissao.setValorbruto(venda.getValor() + vendasComissao.getDescontoloja() + vendasComissao.getDescontotm());
         vendasComissao.setProdutos(venda.getProdutos());
