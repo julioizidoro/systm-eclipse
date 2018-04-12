@@ -110,6 +110,8 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "cargo_idcargo", referencedColumnName = "idcargo")
     @ManyToOne(optional = false)
     private Cargo cargo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Leadresponsavel responsavel;
 
     public Usuario() {
     	setDashboard("I");
@@ -312,6 +314,14 @@ public class Usuario implements Serializable {
 
 	public void setEmailagenda(String emailagenda) {
 		this.emailagenda = emailagenda;
+	}
+
+	public Leadresponsavel getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(Leadresponsavel responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	@Override

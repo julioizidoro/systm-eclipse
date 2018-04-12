@@ -2421,8 +2421,41 @@
 								<br/>
 							</h:panelGroup>
 						</h:panelGroup>
-						<h:panelGroup id="painelImagem"
+						<h:panelGrid id="painelImagemDistribuicao" style="width:100%;background:#00FFFF;"
+								rendered="#{dashBoardMB.fecharDistribuicao}" >
+							<div align="left">
+
+								<p:dialog visible="#{dashBoardMB.fecharDistribuicao}" header="AVISO">
+									<h:panelGrid columns="1" style="width:99%;margin-left:6%;">
+										<p:outputLabel value="VOCÊ TEM #{dashBoardMB.numeroLeads} DISTRIBUICÃO DE LEADS!!"
+											style="color:red;" />
+										<p:outputLabel />
+										
+										<h:panelGrid columns="2" style="width:72%;float:right;">
+											<p:commandButton value="Distribuição"
+												action="#{dashBoardMB.distribuicao()}"
+												style="font-size:12px;" update="@all" icon="ui-icon-check"
+												title="Visualizar Distribuição de Leads" />
+											<p:commandButton value="Fechar"
+												action="#{dashBoardMB.fecharNotificacao()}"
+												style="font-size:12px;" update="@all" icon="ui-icon-close"
+												title="Fechar Notificação" />
+										</h:panelGrid>
+									</h:panelGrid>
+								</p:dialog>
+							</div>
+							<p:dialog widgetVar="dialog" modal="true" draggable="false"
+									closable="false" resizable="false" showHeader="false">
+									oi
+									<p:commandLink>
+										<img src="resources/img/ajax-loader.gif" />
+									</p:commandLink>
+								</p:dialog>
+							</h:panelGrid>
+						<h:panelGrid id="painelImagem" style="width:100%;"
 							rendered="#{dashBoardMB.retornarImagem()}">
+
+							
 							<h:panelGroup id="painelPacotes"
 								rendered="#{dashBoardMB.retornarPacotes()}">
 								<ui:insert name="pacotes">
@@ -2446,7 +2479,7 @@
 									url="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/usuario/#{dashBoardMB.imagem}.png"
 									style="width:102.8%;margin-left: -20px;margin-top:-44px;max-width:102.8%;" />  
 							</h:panelGroup>
-						</h:panelGroup>  
+						</h:panelGrid>  
 					</h:panelGroup>
 				</div>
 			</div>

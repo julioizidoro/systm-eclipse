@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -14,18 +15,23 @@ import javax.servlet.http.HttpSession;
 import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.bean.MetasFaturamentoBean;  
+import br.com.travelmate.bean.MetasFaturamentoBean;
+import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
-import br.com.travelmate.facade.VersaoUsuarioFacade; 
+import br.com.travelmate.facade.VersaoUsuarioFacade;
+import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.model.Parametrosprodutos;
 import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendaproduto;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Versaousuario;
@@ -59,6 +65,10 @@ public class DashBoardMB implements Serializable {
 	private boolean habilitarMateRunners = true;
 	private boolean habilitarProductRunners = false;
 	private boolean habilitarTmRace = false;
+	private Ftpdados ftpdados;
+	private boolean responsavel = false;
+	private boolean fecharDistribuicao = false;
+	private int numeroLeads = 0;
 	
 
 	public DashBoardMB() {
@@ -68,7 +78,13 @@ public class DashBoardMB implements Serializable {
 	@PostConstruct
 	public void init() { 
 		gerarDadosDashBoard(); 
-		System.out.println(aplicacaoMB.toString());
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		try {
+			ftpdados = ftpDadosFacade.getFTPDados();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		fecharDistribuicao = verificarDistribuicaoLead();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -207,6 +223,38 @@ public class DashBoardMB implements Serializable {
 
 	public void setHabilitarTmRace(boolean habilitarTmRace) {
 		this.habilitarTmRace = habilitarTmRace;
+	}
+
+	public Ftpdados getFtpdados() {
+		return ftpdados;
+	}
+
+	public void setFtpdados(Ftpdados ftpdados) {
+		this.ftpdados = ftpdados;
+	}
+
+	public boolean isResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(boolean responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	public boolean isFecharDistribuicao() {
+		return fecharDistribuicao;
+	}
+
+	public void setFecharDistribuicao(boolean fecharDistribuicao) {
+		this.fecharDistribuicao = fecharDistribuicao;
+	}
+
+	public int getNumeroLeads() {
+		return numeroLeads;
+	}
+
+	public void setNumeroLeads(int numeroLeads) {
+		this.numeroLeads = numeroLeads;
 	}
 
 	public void CalcularFaturamento(boolean nova, Vendas venda, float valorAnterior, Parametrosprodutos parametros) {
@@ -565,5 +613,41 @@ public class DashBoardMB implements Serializable {
 		return "inicialPacotes";
 	}
 	
+	
+	public boolean verificarDistribuicaoLead() {
+		List<Lead> listaLead;
+		Usuario usuario = usuarioLogadoMB.getUsuario();
+		if (usuario.getResponsavel() != null) {
+			String sql;
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1  || usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialdistribuicaoleads()) {
+				sql = "select l from Lead l where l.dataenvio is null";
+			}else if (usuarioLogadoMB.getUsuario().getIdusuario() == 212) {
+				sql = "select l from Lead l where l.dataenvio is null and (l.unidadenegocio.idunidadeNegocio="
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
+						+ " or  l.unidadenegocio.idunidadeNegocio=6)";
+			} else {
+				sql = "select l from Lead l where l.dataenvio is null and l.unidadenegocio.idunidadeNegocio="
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			}
+			LeadFacade leadFacade = new LeadFacade();
+			listaLead = leadFacade.lista(sql);
+			if (listaLead != null && listaLead.size() > 0) {
+				numeroLeads = listaLead.size();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
+	public String distribuicao() {
+		return "distribuicaoLeads";
+	}
+	
+	
+	public void fecharNotificacao() {
+		fecharDistribuicao = false;
+	}
 	
 }

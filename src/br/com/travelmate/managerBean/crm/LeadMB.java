@@ -19,7 +19,8 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.facade.LeadControleFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadResponsavelFacade;
-import br.com.travelmate.facade.UnidadeNegocioFacade; 
+import br.com.travelmate.facade.UnidadeNegocioFacade;
+import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
@@ -38,6 +39,8 @@ public class LeadMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
+	@Inject
+	private DashBoardMB dashBoardMB;
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private Unidadenegocio unidadenegocio;
 	private List<Lead> listaLead;
@@ -213,14 +216,20 @@ public class LeadMB implements Serializable {
 				Lead lead = (Lead) event.getObject();
 				listaLead.remove(lead);
 			}
+			if (listaLead != null && listaLead.size() == 0) {
+				dashBoardMB.setFecharDistribuicao(false);
+			}
 		}
 	}
 
 	public String verificarTelefone(Cliente cliente) {
-		if (cliente.getFoneCelular() != null && cliente.getFoneCelular().length() > 0) {
-			return cliente.getFoneCelular();
+		if (cliente != null) {
+			if (cliente.getFoneCelular() != null && cliente.getFoneCelular().length() > 0) {
+				return cliente.getFoneCelular();
+			}
+			return cliente.getFoneResidencial();
 		}
-		return cliente.getFoneResidencial();
+		return "";	
 	}
 	
 	public void buscarUltimoLeadControle(){
