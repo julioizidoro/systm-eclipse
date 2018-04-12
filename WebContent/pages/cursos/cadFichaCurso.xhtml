@@ -183,7 +183,7 @@
 
 						<p:calendar id="datainicio3"
 							value="#{cadCursoMB.curso.dataInicio}" size="20"
-							style="margin-left:11.5%;" locale="pt" pattern="dd/MM/yyyy">
+							style="margin-left:11.5%;" locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
@@ -199,7 +199,7 @@
 
 						<p:calendar id="datatermino2"
 							value="#{cadCursoMB.curso.dataTermino}" size="20"
-							style="margin-left:7%;" locale="pt" pattern="dd/MM/yyyy">
+							style="margin-left:7%;" locale="pt" pattern="dd/MM/yyyy" mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</p:calendar>
@@ -276,7 +276,7 @@
 									value="#{cadCursoMB.curso.SDataInicio}" maxlength="20"
 									locale="pt" style="margin-left:11.5%"
 									disabled="#{cadCursoMB.camposSegundoCurso}"
-									pattern="dd/MM/yyyy">
+									pattern="dd/MM/yyyy" mask="true">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="change" />
@@ -295,7 +295,7 @@
 									value="#{cadCursoMB.curso.SDataTermino}" style="margin-left:7%"
 									maxlength="20" locale="pt"
 									disabled="#{cadCursoMB.camposSegundoCurso}"
-									pattern="dd/MM/yyyy">
+									pattern="dd/MM/yyyy" mask="true">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</p:calendar>
@@ -1029,7 +1029,7 @@
 								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
 									<p:calendar id="datainicio" 
 										value="#{cadCursoMB.seguroViagem.dataInicio}" size="13"
-										 locale="pt" pattern="dd/MM/yyyy"
+										 locale="pt" pattern="dd/MM/yyyy" mask="true"
 										disabled="#{cadCursoMB.camposSeguroViagem}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
@@ -1422,7 +1422,7 @@
 						
 							<p:calendar id="primeirovencimento"
 								value="#{cadCursoMB.dataPrimeiroPagamento}" size="20"
-								locale="pt" pattern="dd/MM/yyyy">
+								locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>
