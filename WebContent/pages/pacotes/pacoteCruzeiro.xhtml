@@ -68,7 +68,7 @@
                                 <f:attribute name="listaFornecedorCidade" value="#{pacoteCruzeiroMB.listaFornecedorCidade}"/>
                                 <p:ajax event="change" />
                             </p:selectOneMenu>
-				            <p:calendar id="datapagamentoparceiro" value="#{pacoteCruzeiroMB.pacotecruzeiro.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+				            <p:calendar id="datapagamentoparceiro" value="#{pacoteCruzeiroMB.pacotecruzeiro.datapagamentoparceiro}"  size="14" locale="pt"  pattern="dd/MM/yyyy" mask="true">
 				                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 				            </p:calendar>
 				    </h:panelGrid>
@@ -78,10 +78,10 @@
                             <p:outputLabel value="Intinerario" for="intinerario" class="espacocobranca14" style="font-size: 11px;"/>
                             <p:outputLabel value="Tipo de Cabine" for="tipoCabine" style="font-size: 11px;margin-left: 26%"/>
                             <br></br>
-                            <p:calendar id="datasaida" locale="pt"  pattern="dd/MM/yyyy"  value="#{pacoteCruzeiroMB.pacotecruzeiro.datasaida}" style="font-size: 11px;margin-left:3%;" size="11">
+                            <p:calendar id="datasaida" locale="pt"  pattern="dd/MM/yyyy"  value="#{pacoteCruzeiroMB.pacotecruzeiro.datasaida}" mask="true" style="font-size: 11px;margin-left:3%;" size="11">
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </p:calendar>
-                            <p:calendar id="datachegada" locale="pt"  pattern="dd/MM/yyyy"  value="#{pacoteCruzeiroMB.pacotecruzeiro.datechegada}" size="10"  class="imgadd">
+                            <p:calendar id="datachegada" locale="pt"  pattern="dd/MM/yyyy" mask="true" value="#{pacoteCruzeiroMB.pacotecruzeiro.datechegada}" size="10"  class="imgadd">
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </p:calendar>
                             <p:inputText id="intinerario" value="#{pacoteCruzeiroMB.pacotecruzeiro.intinerario}" style="width:30%;" class="espacocampos"/>

@@ -70,7 +70,7 @@
                                 <f:selectItems id="idfornecedor" value="#{pacoteIngressoMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
                                 <f:attribute name="listaFornecedorCidade" value="#{pacoteIngressoMB.listaFornecedorCidade}"/>
                             </p:selectOneMenu>
-				            <p:calendar id="datapagamentoparceiro" value="#{pacoteIngressoMB.pacoteingresso.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+				            <p:calendar id="datapagamentoparceiro" value="#{pacoteIngressoMB.pacoteingresso.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" mask="true">
 				                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 				            </p:calendar>
                        </h:panelGrid>
@@ -82,7 +82,7 @@
                             <br></br>
                             <p:inputText id="pais" value="#{pacoteIngressoMB.pacoteingresso.pais}" style="width:38%;" maxlength="50" class="espacocampos2"/>
                             <p:inputText id="cidade" value="#{pacoteIngressoMB.pacoteingresso.cidade}" style="width:35%;" maxlength="50" class="espacocampos"/>
-                            <p:calendar id="data" value="#{pacoteIngressoMB.pacoteingresso.data}" size="12" class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" >
+                            <p:calendar id="data" value="#{pacoteIngressoMB.pacoteingresso.data}" size="12" class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" mask="true">
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </p:calendar>
 

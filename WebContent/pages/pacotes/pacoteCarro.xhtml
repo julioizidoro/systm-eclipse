@@ -41,7 +41,7 @@
                                 <f:selectItems id="idfornecedor" value="#{pacoteCarroMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
                                 <f:attribute name="listaFornecedorCidade" value="#{pacoteCarroMB.listaFornecedorCidade}"/>
                             </p:selectOneMenu>
-				            <p:calendar id="datapagamentoparceiro" value="#{pacoteCarroMB.pacotecarro.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+				            <p:calendar id="datapagamentoparceiro" value="#{pacoteCarroMB.pacotecarro.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" mask="true">
 				                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 				            </p:calendar>
                    </h:panelGrid>
@@ -53,7 +53,7 @@
                             <br></br>
                             <p:inputText id="localizador" value="#{pacoteCarroMB.pacotecarro.localizador}" style="width:25%;margin-left: 3%" maxlength="45" class="espacocampos2"/>
                             <p:inputText id="locaretirada" value="#{pacoteCarroMB.pacotecarro.locaretirada}" style="width:30%;" maxlength="100" class="espacocampos"/>
-                            <p:calendar id="dataretirada" value="#{pacoteCarroMB.pacotecarro.dataretirada}" size="12"  class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" >
+                            <p:calendar id="dataretirada" value="#{pacoteCarroMB.pacotecarro.dataretirada}" size="12"  class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" mask="true">
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </p:calendar>
                             <p:inputMask id="horaretirada" value="#{pacoteCarroMB.pacotecarro.horaritirada}" style="width:13%;" mask="99:99" class="espacocampos"/>
@@ -64,7 +64,7 @@
                             <p:outputLabel value="Categoria" for="categoria" class="espacocobranca20" style="font-size:11px;"/>
                             <br></br>
                             <p:inputText id="localdevolucao" value="#{pacoteCarroMB.pacotecarro.localdevolucao}" style="width:25%;margin-left: 3%" maxlength="45" class="espacocampos2"/>
-                            <p:calendar id="datadevolucao" value="#{pacoteCarroMB.pacotecarro.datadevolucao}" size="13"  class="espacocampos2" locale="pt"  pattern="dd/MM/yyyy" style="margin-left: 4.5%">
+                            <p:calendar id="datadevolucao" value="#{pacoteCarroMB.pacotecarro.datadevolucao}" size="13"  class="espacocampos2" locale="pt" mask="true"  pattern="dd/MM/yyyy" style="margin-left: 4.5%">
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </p:calendar>
                             <p:inputMask id="horadevolucao" value="#{pacoteCarroMB.pacotecarro.horadevolucao}" style="width:12.5%;" mask="99:99" class="espacocampos"/>

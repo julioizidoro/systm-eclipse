@@ -66,7 +66,7 @@
 	                <f:selectItems id="idfornecedor" value="#{pacoteHotelMB.listaFornecedorCidade}" var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}" itemValue="#{fornecedor}"/>
 	                <f:attribute name="listaFornecedorCidade" value="#{pacoteHotelMB.listaFornecedorCidade}"/>
 	            </p:selectOneMenu>
-	            <p:calendar id="datapagamentoparceiro" value="#{pacoteHotelMB.pacotehotel.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" >
+	            <p:calendar id="datapagamentoparceiro" value="#{pacoteHotelMB.pacotehotel.datapagamentoparceiro}" size="14" locale="pt"  pattern="dd/MM/yyyy" mask="true">
 	                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 	            </p:calendar>
 	         </h:panelGrid>
@@ -79,7 +79,7 @@
             <br></br>
             <p:inputText id="pais" value="#{pacoteHotelMB.pacotehotel.pais}" style="width:26%;margin-left:3%" maxlength="50" class="espacocampos2"/>
             <p:inputText id="cidade" value="#{pacoteHotelMB.pacotehotel.cidade}" style="width:25.7%" maxlength="50" class="espacocampos"/>
-            <p:calendar id="dataCheckin" value="#{pacoteHotelMB.pacotehotel.datacheckin}" size="14"  class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" >
+            <p:calendar id="dataCheckin" value="#{pacoteHotelMB.pacotehotel.datacheckin}" size="14"  class="espacocampos" locale="pt"  pattern="dd/MM/yyyy" mask="true">
                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
             </p:calendar>
             <p:inputMask id="horaCheckin" value="#{pacoteHotelMB.pacotehotel.horacheckin}" mask="99:99" style="width:15%" class="espacocampos"/>
@@ -94,7 +94,7 @@
             <p:inputText id="tipoquarto" value="#{pacoteHotelMB.pacotehotel.tipoquarto}"  style="width:16%;margin-left:3%" maxlength="10" class="espacocampos2"/>
             <p:inputText id="categoria" value="#{pacoteHotelMB.pacotehotel.categoria}" style="width:12%" maxlength="10" class="espacocampos"/>
             <p:inputText id="regime" value="#{pacoteHotelMB.pacotehotel.regime}"  style="width:20%" maxlength="20" class="espacocampos"/>
-            <p:calendar id="dataCheckout" value="#{pacoteHotelMB.pacotehotel.datacheckout}" size="14" style="margin-left: 3.7%" locale="pt"  pattern="dd/MM/yyyy" >
+            <p:calendar id="dataCheckout" value="#{pacoteHotelMB.pacotehotel.datacheckout}" size="14" style="margin-left: 3.7%" locale="pt"  pattern="dd/MM/yyyy" mask="true">
                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
             </p:calendar>
             <p:inputMask id="horaCheckout" value="#{pacoteHotelMB.pacotehotel.horacheckout}" mask="99:99"  style="width:15%" class="espacocampos"/>
