@@ -3241,7 +3241,8 @@ public class CadCursoMB implements Serializable {
 						} 
 						calcularDataTerminoAcomodacao();
 						orcamentoprodutosorcamento.setDescricao("Acomodação");
-					} else if(ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("Adicionais")) {
+					} else if(ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("Adicionais")
+								|| ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")) {
 						orcamentoprodutosorcamento.setDescricao(ocurso.getOcrusoprodutosList().get(i).getDescricao());
 						orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 						orcamentoprodutosorcamento.setValorMoedaEstrangeira(ocurso.getOcrusoprodutosList().get(i).getValororiginal());
@@ -3276,7 +3277,7 @@ public class CadCursoMB implements Serializable {
 							}
 						}
 					}
-					if(orcamentoprodutosorcamento.getDescricao()!=null
+					if(orcamentoprodutosorcamento.getDescricao()!=null && orcamentoprodutosorcamento.getDescricao().length()<=0
 							&& !orcamentoprodutosorcamento.getDescricao().equalsIgnoreCase("Suplemento de Curso")
 							&&  !orcamentoprodutosorcamento.getDescricao().equalsIgnoreCase("Suplemento de Acomodação")){
 						orcamentoprodutosorcamento
@@ -3349,7 +3350,7 @@ public class CadCursoMB implements Serializable {
 				orcamentoprodutosorcamento.setImportado(true);
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				carregarCobrancaSeguro();
-				adicionarSeguroCancelamento();
+				//adicionarSeguroCancelamento();
 				camposSeguroViagem = "false";
 			}
 		}

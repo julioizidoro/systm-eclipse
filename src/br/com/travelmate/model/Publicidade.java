@@ -43,6 +43,8 @@ public class Publicidade implements Serializable {
     private List<Cliente> clienteList;
     @Column(name = "situacao")
     private Boolean situacao;
+    @Column(name = "mostrar")
+    private Boolean mostrar;
     
 
     public Publicidade() {

@@ -40,7 +40,7 @@ public class PublicidadeDao {
     public List<Publicidade> listar() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
-        Query q = manager.createQuery("select p from Publicidade  p order by p.descricao");
+        Query q = manager.createQuery("select p from Publicidade  p WHERE p.mostrar=1 order by p.descricao");
         List<Publicidade> lista = q.getResultList();
         manager.close();
         return lista;
