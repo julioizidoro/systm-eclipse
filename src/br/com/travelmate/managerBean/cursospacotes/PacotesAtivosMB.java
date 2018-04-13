@@ -431,13 +431,13 @@ public class PacotesAtivosMB implements Serializable {
 		habilitarPais = true;
 	}  
 	
-	public String calcularValorCambioAtual(Pacotesinicial pacote) {
-		String valorInicial = pacote.getValoravista();
+	public float calcularValorCambioAtual(Pacotesinicial pacote) {
+		float valorInicial = pacote.getValoravista();
 		if (pacote.getValorcambio()==0) {
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getMoeda());
 			if (cambio!=null) {
 				float valor = pacote.getValormoedaestrangeira() * cambio.getValor();
-				valorInicial = Formatacao.formatarFloatString(valor);
+				valorInicial = valor;
 			}
 			
 		}

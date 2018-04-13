@@ -57,6 +57,7 @@
 													<h:panelGroup>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#A0C637;margin-left:1%;">
+															<f:convertNumber currencySymbol="" type="currency"/>
 														</p:outputLabel>
 													</h:panelGroup>
 													<p:outputLabel
@@ -456,9 +457,12 @@
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
 													columnClasses="tamanho98">
 													<h:panelGroup>
+												 	<p:outputLabel value="R$"
+															style="font-size:26px;color:#A0C637;margin-left:1%;"/>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#A0C637;margin-left:1%;">
-														</p:outputLabel>
+															<f:convertNumber currencySymbol="" type="currency"/>
+														</p:outputLabel> 
 													</h:panelGroup>
 													<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
 														style="font-size:13px;font-weight: initial;" />

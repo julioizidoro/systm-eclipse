@@ -43,7 +43,7 @@ public class Cursospacote implements Serializable {
     @Column(name = "numerosemanaacomodacao")
     private Float numerosemanaacomodacao;
     @Column(name = "valortotalpacote")
-    private String valortotalpacote;
+    private float valortotalpacote;
     @Lob    
     @Size(max = 16777215)
     @Column(name = "descricao")
@@ -191,14 +191,6 @@ public class Cursospacote implements Serializable {
     public void setNumerosemanaacomodacao(Float numerosemanaacomodacao) {
         this.numerosemanaacomodacao = numerosemanaacomodacao;
     } 
-
-    public String getValortotalpacote() {
-		return valortotalpacote;
-	}
-
-	public void setValortotalpacote(String valortotalpacote) {
-		this.valortotalpacote = valortotalpacote;
-	}
 
 	public String getDescricao() {
         return descricao;
@@ -558,6 +550,14 @@ public class Cursospacote implements Serializable {
 
 	public void setValormoedaestrangeira(float valormoedaestrangeira) {
 		this.valormoedaestrangeira = valormoedaestrangeira;
+	}
+
+	public float getValortotalpacote() {
+		return valortotalpacote;
+	}
+
+	public void setValortotalpacote(float valortotalpacote) {
+		this.valortotalpacote = valortotalpacote;
 	}
 
 	@Override

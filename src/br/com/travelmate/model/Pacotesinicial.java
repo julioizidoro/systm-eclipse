@@ -37,7 +37,7 @@ public class Pacotesinicial implements Serializable {
     @Column(name = "curso")
     private String curso;
     @Column(name = "valoravista")
-    private String valoravista;   
+    private float valoravista;   
     @Column(name = "numerosemanacurso")
     private Integer numerosemanacurso; 
     @Column(name = "turno")
@@ -126,11 +126,13 @@ public class Pacotesinicial implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public String getValoravista() {
+	
+
+	public float getValoravista() {
 		return valoravista;
 	}
 
-	public void setValoravista(String valoravista) {
+	public void setValoravista(float valoravista) {
 		this.valoravista = valoravista;
 	}
 

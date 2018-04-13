@@ -13,6 +13,7 @@ import br.com.travelmate.managerBean.OrcamentoCurso.ResultadoOrcamentoBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
 import br.com.travelmate.managerBean.voluntariadoprojeto.orcamento.GerarOrcamentoVoluntariadoPDFBean;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Coeficientejuros;
 import br.com.travelmate.model.Cursopacoteformapagamento;
@@ -20,6 +21,7 @@ import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamentoprojetovoluntariado;
+import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarRelatorio;
@@ -88,6 +90,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		}else if(produto==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
 			voluntariado=true;
 		}
+		calcularValorCambioAtual();
 		consultarFormaPagamento(); 
 	}
 
@@ -870,5 +873,19 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		} catch (JRException e) { 
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public void calcularValorCambioAtual() {
+		float valorInicial = cursospacote.getValoravista();
+		if (cursospacote.getValorcambio()==0) {
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas());
+			if (cambio!=null) {
+				float valor = cursospacote.getValormoedaestrangeira() * cambio.getValor();
+				valorInicial = valor;
+			}
+			
+		}
+		cursospacote.setValoravista(valorInicial);
 	}
 }
