@@ -236,11 +236,12 @@
 							style="width:65%;text-align:right;"/> 
 					</h:panelGrid>   
 					<br/>
-					<h:panelGrid columns="3" style="margin-left:14%;width:55%;"
-						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis">
+					<h:panelGrid columns="4" style="margin-left:14%;width:54%;"
+						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis, colunaVintePontoSeis">
 						<p:outputLabel value="Promoção escola" /> 
 						<p:outputLabel value="Câmbio" />
 						<p:outputLabel value="Total" />
+						<p:outputLabel value="Total R$" />
 						<p:inputText id="promocaoescola"
 							value="#{cadCursosPacotesMB.cursospacote.promocaoescola}"
 							style="width:78.7%;text-align:right;">
@@ -254,8 +255,16 @@
 								minFractionDigits="2" />
 						</p:inputText>
 						<p:inputText id="totalpacote"
+							value="#{cadCursosPacotesMB.cursospacote.valormoedaestrangeira}"
+							style="width:84%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="totalpacote"
 							value="#{cadCursosPacotesMB.cursospacote.valortotalpacote}"
 							style="width:84%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
 					<br />
