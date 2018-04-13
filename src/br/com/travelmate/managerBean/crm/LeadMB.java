@@ -245,6 +245,9 @@ public class LeadMB implements Serializable {
 	public void retornoDialogNovoLead(SelectEvent event){
 		Lead lead = (Lead) event.getObject();
 		if (lead.getIdlead() != null) {
+			if (listaLead == null) {
+				listaLead = new ArrayList<Lead>();
+			}
 			listaLead.add(lead);
 			Mensagem.lancarMensagemInfo("Cadastro com sucesso", "");
 		}
