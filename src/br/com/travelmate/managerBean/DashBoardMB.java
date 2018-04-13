@@ -2,6 +2,7 @@ package br.com.travelmate.managerBean;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -468,6 +469,9 @@ public class DashBoardMB implements Serializable {
 		sql = sql + " order by l.dataproximocontato";
 		LeadFacade leadFacade = new LeadFacade();
 		List<Lead> listaLead = leadFacade.lista(sql);
+		if (listaLead == null) {
+			listaLead = new ArrayList<Lead>();
+		}
 		for (int i = 0; i < listaLead.size(); i++) {
 			if (listaLead.get(i).getDataultimocontato() == null && listaLead.get(i).getSituacao() > 0
 					&& listaLead.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
