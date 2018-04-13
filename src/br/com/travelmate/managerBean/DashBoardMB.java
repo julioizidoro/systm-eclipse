@@ -18,7 +18,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.MetasFaturamentoBean;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -26,7 +25,6 @@ import br.com.travelmate.facade.VendaProdutoFacade;
 import br.com.travelmate.facade.VersaoUsuarioFacade;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Lead;
-import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.model.Parametrosprodutos;
@@ -258,16 +256,12 @@ public class DashBoardMB implements Serializable {
 	}
 
 	public void CalcularFaturamento(boolean nova, Vendas venda, float valorAnterior, Parametrosprodutos parametros) {
-		boolean fazertodas = false; 
 		if (nova) {
 			salvarVendaProduto(venda, parametros);
-			fazertodas = true;
 			valorAnterior = 0;
 		} else {
 			if (venda.getValor() != valorAnterior) {
-				fazertodas = true;
 			} else {
-				fazertodas = false;
 				valorAnterior = 0;
 			}
 		}
@@ -475,19 +469,19 @@ public class DashBoardMB implements Serializable {
 		LeadFacade leadFacade = new LeadFacade();
 		List<Lead> listaLead = leadFacade.lista(sql);
 		for (int i = 0; i < listaLead.size(); i++) {
-			if (listaLead.get(i).getDataultimocontato() == null && !listaLead.get(i).getSituacao().equals("0")
+			if (listaLead.get(i).getDataultimocontato() == null && listaLead.get(i).getSituacao() > 0
 					&& listaLead.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
 				novos = novos + 1;
 			} else if ((listaLead.get(i).getDataultimocontato() != null)
 					&& (listaLead.get(i).getDataproximocontato()) != null
 					&& (Formatacao.ConvercaoDataSql(listaLead.get(i).getDataproximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
-					&& (!listaLead.get(i).getSituacao().equals("0"))) {
+					&& (listaLead.get(i).getSituacao() > 0)) {
 				hoje = hoje + 1;
 			} else if (listaLead.get(i).getDataultimocontato() != null
 					&& listaLead.get(i).getDataproximocontato() != null
 					&& listaLead.get(i).getDataproximocontato().before(new Date())
-					&& !listaLead.get(i).getSituacao().equals("0")) {
+					&& listaLead.get(i).getSituacao() > 0) {
 				atrasadas = atrasadas + 1;
 			}
 		}
