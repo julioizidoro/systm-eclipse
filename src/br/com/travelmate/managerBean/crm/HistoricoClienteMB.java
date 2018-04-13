@@ -455,13 +455,17 @@ public class HistoricoClienteMB implements Serializable {
 		return "inicialPacotes";
 	}
 
+	
 	public String emitirVenda() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		int idprodutos = lead.getProdutos().getIdprodutos();
-		if (idprodutos != 13) {
+		session.setAttribute("lead", lead); 
+		if (idprodutos == 13) {
+			session.setAttribute("tipoVenda", "trainee");
+			RequestContext.getCurrentInstance().openDialog("escolherPrograma");
+		}else{
 			session.setAttribute("cliente", lead.getCliente());
-			session.setAttribute("lead", lead); 
 			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
 				return "cadCliente";
 			}else {
@@ -469,7 +473,23 @@ public class HistoricoClienteMB implements Serializable {
 			}
 		}
 		return "";
-	}   
+	}  
+	
+	public String retornoDialogEmissao(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		String tipo = (String) session.getAttribute("tipo");
+		try {
+			if (tipo.equalsIgnoreCase("EUA")) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("../trainee/cadTrainee.jsf");
+			}else{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("../trainee/cadEstagioAustralia.jsf");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 	
 	public String emitirVendaTrainee(String tipo) {
 		FacesContext fc = FacesContext.getCurrentInstance();
