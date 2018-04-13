@@ -2426,12 +2426,12 @@
 							<div align="left">
 
 								<p:dialog visible="#{dashBoardMB.fecharDistribuicao}" header="AVISO">
-									<h:panelGrid columns="1" style="width:99%;margin-left:6%;">
+									<h:panelGrid columns="1" style="width:100%;margin-left:1%;">
 										<p:outputLabel value="VOCÊ TEM #{dashBoardMB.numeroLeads} DISTRIBUICÃO DE LEADS!!"
 											style="color:red;" />
 										<p:outputLabel />
 										
-										<h:panelGrid columns="2" style="width:72%;float:right;">
+										<h:panelGrid columns="2" style="width:72%;margin-left: 13%;">
 											<p:commandButton value="Distribuição"
 												action="#{dashBoardMB.distribuicao()}"
 												style="font-size:12px;" update="@all" icon="ui-icon-check"
@@ -2444,13 +2444,6 @@
 									</h:panelGrid>
 								</p:dialog>
 							</div>
-							<p:dialog widgetVar="dialog" modal="true" draggable="false"
-									closable="false" resizable="false" showHeader="false">
-									oi
-									<p:commandLink>
-										<img src="resources/img/ajax-loader.gif" />
-									</p:commandLink>
-								</p:dialog>
 							</h:panelGrid>
 						<h:panelGrid id="painelImagem" style="width:100%;"
 							rendered="#{dashBoardMB.retornarImagem()}">
