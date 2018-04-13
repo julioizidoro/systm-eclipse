@@ -142,14 +142,18 @@ public class Cursospacote implements Serializable {
     private boolean especial;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cursospacote")
     private List<Voluntariadopacote> voluntariadopacoteList;
-
+    @Column(name = "valormoedaestrangeira")
+    private float valormoedaestrangeira;
+    
+    
+    
     public Cursospacote() {
-    	setValortotalacomodacao(0.0f);
-    	setValortotalcurso(0.0f);
-    	setPromocaoescola(0.0f);
-    	setDescontotm1(0.0f);
-    	setDescontotm2(0.0f);
-    	setValorcambio(0.0f);
+    		setValortotalacomodacao(0.0f);
+    		setValortotalcurso(0.0f);
+    		setPromocaoescola(0.0f);
+    		setDescontotm1(0.0f);
+    		setDescontotm2(0.0f);
+    		setValorcambio(0.0f);
     }
 
     public Cursospacote(Integer idcursospacote) {
@@ -546,6 +550,14 @@ public class Cursospacote implements Serializable {
 
 	public void setEspecial(boolean especial) {
 		this.especial = especial;
+	}
+
+	public float getValormoedaestrangeira() {
+		return valormoedaestrangeira;
+	}
+
+	public void setValormoedaestrangeira(float valormoedaestrangeira) {
+		this.valormoedaestrangeira = valormoedaestrangeira;
 	}
 
 	@Override

@@ -3,7 +3,8 @@ package br.com.travelmate.managerBean.cursospacotes;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.managerBean.AplicacaoMB; 
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cursospacote; 
 import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.model.Pais;
@@ -429,6 +430,19 @@ public class PacotesAtivosMB implements Serializable {
 		habilitarPacotes = false;
 		habilitarPais = true;
 	}  
+	
+	public String calcularValorCambioAtual(Pacotesinicial pacote) {
+		String valorInicial = pacote.getValoravista();
+		if (pacote.getValorcambio()==0) {
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getMoeda());
+			if (cambio!=null) {
+				float valor = pacote.getValormoedaestrangeira() * cambio.getValor();
+				valorInicial = Formatacao.formatarFloatString(valor);
+			}
+			
+		}
+		return valorInicial;
+	}
 	
 	
 }

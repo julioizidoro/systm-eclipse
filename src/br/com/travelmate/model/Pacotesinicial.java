@@ -91,6 +91,13 @@ public class Pacotesinicial implements Serializable {
     private boolean voluntariado;
     @Column(name = "projetovoluntariado")
     private String projetovoluntariado;
+    @Column(name = "valorcambio")
+    private float valorcambio;
+    @Column(name = "valormoedaestrangeira")
+    private float valormoedaestrangeira;
+    @Column(name = "moeda")
+    private int moeda;
+    
 
     public Pacotesinicial() { 
     }
@@ -342,6 +349,32 @@ public class Pacotesinicial implements Serializable {
 	public void setEspecial(boolean especial) {
 		this.especial = especial;
 	}
+
+	public float getValorcambio() {
+		return valorcambio;
+	}
+
+	public void setValorcambio(float valorcambio) {
+		this.valorcambio = valorcambio;
+	}
+
+	public float getValormoedaestrangeira() {
+		return valormoedaestrangeira;
+	}
+
+	public void setValormoedaestrangeira(float valormoedaestrangeira) {
+		this.valormoedaestrangeira = valormoedaestrangeira;
+	}
+
+	public int getMoeda() {
+		return moeda;
+	}
+
+	public void setMoeda(int moeda) {
+		this.moeda = moeda;
+	}
+
+	
  
       
 }

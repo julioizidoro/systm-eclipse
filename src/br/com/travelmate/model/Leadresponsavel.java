@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +30,7 @@ public class Leadresponsavel implements Serializable {
     @ManyToOne(optional = false)
     private Unidadenegocio unidadenegocio;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Usuario usuario;
 
     public Leadresponsavel() {

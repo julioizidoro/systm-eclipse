@@ -1117,6 +1117,18 @@ public class Formatacao {
 		}
 		return null;
 	}
+	
+	public static Cambio carregarCambioDia(List<Cambio> listaCambio, int idmoeda) {
+		if (listaCambio != null) {
+			for (int i = 0; i < listaCambio.size(); i++) {
+				int idmoedacambio = listaCambio.get(i).getMoedas().getIdmoedas();
+				if (idmoeda == idmoedacambio) {
+					return listaCambio.get(i);
+				}
+			}
+		}
+		return null;
+	}
 
 	public static void gravarNotificacaoVendas(String titulo, Unidadenegocio unidade, String cliente, String fornecedor,
 			String datainicio, String consultor, String tipovenda, float valorVenda, float valorCambio, String moeda,
