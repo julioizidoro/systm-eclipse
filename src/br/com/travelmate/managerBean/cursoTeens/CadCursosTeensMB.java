@@ -876,6 +876,8 @@ public class CadCursosTeensMB implements Serializable {
 			}
 			venda.setValor(venda.getValor() + formaPagamento.getValorJuros());
 			formaPagamento.setValorTotal(venda.getValor());
+			valorMoedaEstrangeira = 0.0f;
+			valorMoedaReal = 0.0f;
 			calcularParcelamentoPagamento();
 			parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
 		}
@@ -965,23 +967,23 @@ public class CadCursosTeensMB implements Serializable {
 				if (produtosorcamento.getIdprodutosOrcamento() != idProduto) {
 					orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 					orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
-					if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
-							&& (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento.setValorMoedaNacional(
-								orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+					if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
 					} else {
-						if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
-								&& (orcamento.getValorCambio() > 0)) {
-							orcamentoprodutosorcamento.setValorMoedaEstrangeira(
-									orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
+						if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+							valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 						}
 					}
 					boolean excluirDescontoTM = true;
 					if (produtosorcamento.getValormaximo()==0) {
+						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-					}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+					}else if (produtosorcamento.getValormaximo()>=valorMoedaReal){
+						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
@@ -1033,16 +1035,11 @@ public class CadCursosTeensMB implements Serializable {
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				orcamentoprodutosorcamento.setDescricao(filtroorcamentoproduto.getProdutosorcamento().getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(filtroorcamentoproduto.getProdutosorcamento());
-				if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
-						&& (orcamento.getValorCambio() > 0)) {
-					orcamentoprodutosorcamento.setValorMoedaNacional(
-							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+				if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+					valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
 				} else {
-					if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
-							&& (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento
-								.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional()
-										/ orcamento.getValorCambio());
+					if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 					}
 				}
 				orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
