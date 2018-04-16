@@ -1096,7 +1096,7 @@ public class OrcamentoCursoMB implements Serializable {
 						&& resultadoOrcamentoBean.getListaOutrosProdutos().size()>0){
 					boolean ok = false;
 					for (int i = 0; i < resultadoOrcamentoBean.getListaOutrosProdutos().size(); i++) {
-						if(resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getDescricao().equalsIgnoreCase("Seguro OSHC")){
+						if (resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getProdutosorcamento().getDescricao().equalsIgnoreCase("Seguro OSHC")) {
 							ok=true;
 						}
 					}
