@@ -111,5 +111,17 @@ public class InformacoesCursosPacoteMB implements Serializable {
 		String retorno = ""+ano;
 		return retorno;
 	}
+	
+	public String calcularValorCambioAtual(Cursospacote pacote) {
+		Float valorInicial = pacote.getValoravista();
+		if (pacote.getValorcambio()==0) {
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas().getIdmoedas());
+			if (cambio!=null) {
+				valorInicial = pacote.getValormoedaestrangeira() * cambio.getValor();
+			}
+			
+		}
+		return Formatacao.formatarFloatString(valorInicial);
+	}
 	 
 }
