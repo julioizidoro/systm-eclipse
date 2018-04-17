@@ -48,13 +48,10 @@ import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Cancelamento;
-import br.com.travelmate.model.Cartaocreditolancamentocontas;
-import br.com.travelmate.model.Condicaocancelamento;
 import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
-import br.com.travelmate.model.Pacotepassagempassageiro_;
 import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuariopontos; 
@@ -120,9 +117,11 @@ public class CancelamentoFichaMB implements Serializable {
 				cancelamento.setCondicaocancelamento(condicaoCancelamentoFacade.consultar(1));
 				cancelamento.setHora(Formatacao.foramtarHoraString());
 				cancelamento.setFormapagamento("Reembolso");
+				cancelamento.setDatareembolso(new Date());
 				emissao = true;
 			} else {
 				emissao = false;
+				cancelamento.setDatareembolso(new Date());
 			}
 		}
 	}
@@ -563,9 +562,13 @@ public class CancelamentoFichaMB implements Serializable {
 	public void lancarContasPagar() {
 		Contaspagar contaspagar = new Contaspagar();
 		PlanoContaFacade planoContaFacade = new PlanoContaFacade();
+		if (banco == null) {
+			BancoFacade bancoFacade = new BancoFacade();
+			banco = bancoFacade.getBanco("SELECT b FROM Banco b WHERE b.idbanco=1");
+		}
 		contaspagar.setBanco(banco);
 		String comp;
-		int mes = Formatacao.getMesData(cancelamento.getDatasolicitacao());
+		int mes = Formatacao.getMesData(cancelamento.getDatasolicitacao()) + 1;
 		if (mes < 10) {
 			comp = "0" + mes + "/" + Formatacao.getAnoData(cancelamento.getDatasolicitacao());
 		} else
@@ -573,7 +576,7 @@ public class CancelamentoFichaMB implements Serializable {
 		contaspagar.setCompetencia(comp);
 		contaspagar.setDataEmissao(new Date());
 		contaspagar.setDescricao("Reembolso referente ao cancelamento da venda " + cancelamento.getVendas().getIdvendas() + ", Cliente "+ 
-				cancelamento.getVendas().getCliente().getNome() + ", com o plano de conta Reembolso a Clientes");
+				cancelamento.getVendas().getCliente().getNome());
 		contaspagar.setPlanoconta(planoContaFacade.consultar(7));
 		contaspagar.setUnidadenegocio(cancelamento.getVendas().getUnidadenegocio());
 		contaspagar.setValorentrada(0.0f);
