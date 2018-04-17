@@ -154,7 +154,7 @@
 									style="text-decoration: none;" disabled="#{voluntariadoMB.botoesHabilitados(voluntariadoProcesso)}">
 									<img src="../../resources/img/editaricon.png" width="28" />
 									<p:ajax event="dialogReturn" process="@this"
-										update=":idfrmconsultavoluntariado:tabelaConsultaProcesso" />
+										update="tabelaConsultaProcesso" />
 								</p:commandLink>
 							</p:column>    
 							<p:column headerText="Imprimir" rendered="#{voluntariadoMB.esconderFicha}"

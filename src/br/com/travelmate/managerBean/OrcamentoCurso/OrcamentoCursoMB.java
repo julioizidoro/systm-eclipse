@@ -1329,8 +1329,8 @@ public class OrcamentoCursoMB implements Serializable {
 		}
 		resultadoOrcamentoBean.getOcurso().setTotalmoedaestrangeira(valorTotal);
 		resultadoOrcamentoBean.getOcurso().setTotalmoedanacional(valorTotalRS);
+		resultadoOrcamentoBean.setSeguroSelecionado(seguroSelecionado);
 		if (seguroSelecionado) {
-			resultadoOrcamentoBean.setSeguroSelecionado(seguroSelecionado);
 			resultadoOrcamentoBean.setFornecedorcidade(fornecedorcidade);
 			resultadoOrcamentoBean.setValoresSeguro(valorSeguro);
 			resultadoOrcamentoBean.setSeguroviagem(seguroviagem);
