@@ -324,6 +324,8 @@ public class CancelamentoFichaMB implements Serializable {
 						cancelamento.setTotalrecebidoloja(0.0f);
 						cancelamento.setTotalrecebidomatriz(0.0f);
 						cancelamento.setTotalreembolso(0.0f);
+						CondicaoCancelamentoFacade condicaoCancelamentoFacade = new CondicaoCancelamentoFacade();
+						cancelamento.setCondicaocancelamento(condicaoCancelamentoFacade.consultar(1));
 						cancelamento.setHora(Formatacao.foramtarHoraString());
 						cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
 						cancelamento.setSituacao("PROCESSO");
