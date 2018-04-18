@@ -962,6 +962,12 @@ public class CadDemiPairMB implements Serializable {
 			if (produtosorcamento.getIdprodutosOrcamento() != idProdTx) {
 				orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+				if (orcamentoprodutosorcamento.getValorMoedaEstrangeira() == null) {
+					orcamentoprodutosorcamento.setValorMoedaEstrangeira(0f);
+				}
+				if (orcamentoprodutosorcamento.getValorMoedaNacional() == null) {
+					orcamentoprodutosorcamento.setValorMoedaNacional(0f);
+				}
 				if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0) && (orcamento.getValorCambio() > 0)) {
 					orcamentoprodutosorcamento.setValorMoedaNacional(
 							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
