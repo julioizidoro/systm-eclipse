@@ -39,7 +39,7 @@ public class UnidadeNegocioDao {
     public List<Unidadenegocio> listar() throws Exception{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
-        Query q = manager.createQuery("select u from Unidadenegocio u order by u.nomeFantasia");
+        Query q = manager.createQuery("select u from Unidadenegocio u order by u.nomerelatorio");
         List<Unidadenegocio> lista = q.getResultList();
         return lista;
     }

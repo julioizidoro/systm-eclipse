@@ -818,7 +818,7 @@
 
 							<h:panelGroup>
 								<h:panelGrid columns="3" style="width:100%;" columnClasses="tamanho14, tamanho14, tamanho14"> 
-									<p:calendar id="datainicio"
+									<p:calendar id="datainicio" mask="true"
 										value="#{cadVoluntariadoMB.seguroViagem.dataInicio}" size="13"
 										locale="pt" pattern="dd/MM/yyyy"
 										disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
@@ -836,7 +836,7 @@
 											listener="#{cadVoluntariadoMB.calcularDataTermino()}"
 											update="datatermino, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber" />
 									</p:inputText> 
-									<p:calendar id="datatermino"
+									<p:calendar id="datatermino" mask="true"
 										value="#{cadVoluntariadoMB.seguroViagem.dataTermino}" size="13"
 										locale="pt" pattern="dd/MM/yyyy"
 										disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
@@ -1175,7 +1175,7 @@
 							<p:outputLabel value="No. Parcelas" for="nparcela" />
 							<p:outputLabel value="Valor da Parcela" for="valorparcela" />
 
-							<p:calendar id="primeirovencimento"
+							<p:calendar id="primeirovencimento" mask="true"
 								value="#{cadVoluntariadoMB.parcelamentopagamento.diaVencimento}"
 								size="20" locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy"
