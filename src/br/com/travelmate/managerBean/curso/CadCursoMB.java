@@ -1003,6 +1003,7 @@ public class CadCursoMB implements Serializable {
 		cursoAlterado.setSDataInicio(curso.getSDataInicio());
 		cursoAlterado.setSDataTermino(curso.getSDataTermino());
 		cursoAlterado.setSNumeroSemanas(curso.getSNumeroSemanas());
+		cursoAlterado.setIdorcamento(curso.getIdorcamento());
 	}
 
 	public void carregarSeguro() {
@@ -3162,6 +3163,7 @@ public class CadCursoMB implements Serializable {
 		curso.setNivelIdiomaEstudar(ocurso.getNivelidioma());
 		curso.setNomeCurso(ocurso.getProdutosorcamento().getDescricao());
 		curso.setEscola(ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome());
+		curso.setIdorcamento(ocurso.getIdocurso());
 		pais = ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais();
 		cidade = ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade();
 		listarFornecedorCidade();

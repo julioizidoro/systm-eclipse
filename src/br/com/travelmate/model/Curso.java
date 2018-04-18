@@ -240,6 +240,8 @@ public class Curso implements Serializable {
 	private String tituloFicha;
 	@Transient
 	private int idade;
+	@Column(name = "idorcamento")
+	private int idorcamento;
 
 	public Curso() {
 		setFumante("Não");
@@ -249,6 +251,7 @@ public class Curso implements Serializable {
 		setTransferin("Não");
 		setTransferouto("Não");
 		setTipoimportacaoorcamento("N");
+		setIdorcamento(0);
 	}
 
 	public Curso(Integer idcursos) {
@@ -895,6 +898,14 @@ public class Curso implements Serializable {
 
 	public void setTituloFicha(String tituloFicha) {
 		this.tituloFicha = tituloFicha;
+	}
+
+	public int getIdorcamento() {
+		return idorcamento;
+	}
+
+	public void setIdorcamento(int idorcamento) {
+		this.idorcamento = idorcamento;
 	}
 
 	@Override

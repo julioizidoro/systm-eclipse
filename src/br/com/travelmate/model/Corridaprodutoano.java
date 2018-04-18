@@ -35,6 +35,8 @@ public class Corridaprodutoano implements Serializable{
 	@JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos")
 	@ManyToOne(optional = false)
 	private Produtos produtos;
+	@Column(name = "pontosnegativo")
+	private Integer pontosnegativo;
 	
 	
 	public Corridaprodutoano() {
@@ -93,6 +95,16 @@ public class Corridaprodutoano implements Serializable{
 	
 	
 	
+	public Integer getPontosnegativo() {
+		return pontosnegativo;
+	}
+
+
+	public void setPontosnegativo(Integer pontosnegativo) {
+		this.pontosnegativo = pontosnegativo;
+	}
+
+
 	@Override
     public int hashCode() {
         int hash = 0;

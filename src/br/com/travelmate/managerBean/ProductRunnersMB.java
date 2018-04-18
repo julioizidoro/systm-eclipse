@@ -258,17 +258,99 @@ public class ProductRunnersMB implements Serializable{
 	
 	
 	public void calcularPontuacaoPacote(Usuario usuarioConsultor, Usuario usuarioFranquia, Produtos produtos, boolean cancelamento, int pontos){
+		int pontonegativo = 0;
 		Vendas vendasConsultor = new Vendas();
 		vendasConsultor.setProdutos(produtos);
 		vendasConsultor.setUsuario(usuarioConsultor);
-		calcularPontuacao(vendasConsultor, pontos, cancelamento);
-		Vendas vendasFranquia = new Vendas();
-		vendasFranquia.setUsuario(usuarioFranquia);
-		vendasFranquia.setProdutos(produtos);
-		calcularPontuacao(vendasFranquia, pontos, cancelamento);
+		int idusuarioConsultor = usuarioConsultor.getIdusuario();
+		int idusuarioFranquia = usuarioFranquia.getIdusuario();
+		if (idusuarioConsultor != idusuarioFranquia) {
+			pontonegativo = pontos;
+		}
+		calcularPontuacaoPacote(vendasConsultor, pontos, cancelamento, pontonegativo);
+		if (usuarioConsultor.getIdusuario() != usuarioFranquia.getIdusuario()) {
+			Vendas vendasFranquia = new Vendas();
+			vendasFranquia.setUsuario(usuarioFranquia);
+			vendasFranquia.setProdutos(produtos);
+			calcularPontuacaoPacote(vendasFranquia, pontos, cancelamento, 0);
+		}
 	}
 	
 	
+	
+	public void calcularPontuacaoPacote(Vendas vendas, int pontos, boolean cancelamento, int pontonegativo){
+		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
+		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
+		Corridaprodutomes corridaprodutomes;
+		Corridaprodutoano corridaprodutoano;
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		int ano = Formatacao.getAnoData(new Date());
+		if (cancelamento) {
+			corridaprodutomes = corridaProdutoMesFacade.consultar("SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + 
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+			if (corridaprodutomes == null) {
+				corridaprodutomes = new Corridaprodutomes();
+				corridaprodutomes.setAno(ano);
+				corridaprodutomes.setMes(mes);
+				corridaprodutomes.setPontos(0);
+				corridaprodutomes.setProdutos(vendas.getProdutos());
+				corridaprodutomes.setUsuario(vendas.getUsuario());
+				corridaprodutomes.setPontosnegativo(0);
+				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
+			}else{
+				corridaprodutomes.setPontos(corridaprodutomes.getPontos() - pontos);
+				corridaprodutomes.setPontosnegativo(corridaprodutomes.getPontosnegativo() - pontos);
+				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
+			}
+			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+			if (corridaprodutoano == null) {
+				corridaprodutoano = new Corridaprodutoano();
+				corridaprodutoano.setAno(ano);
+				corridaprodutoano.setPontos(0);
+				corridaprodutoano.setProdutos(vendas.getProdutos());
+				corridaprodutoano.setUsuario(vendas.getUsuario());
+				corridaprodutoano.setPontosnegativo(0);
+				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
+			}else{
+				corridaprodutoano.setPontos(corridaprodutoano.getPontos() - pontos);
+				corridaprodutoano.setPontosnegativo(corridaprodutoano.getPontosnegativo() - pontos);
+				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
+			}
+		}else{
+			corridaprodutomes = corridaProdutoMesFacade.consultar("SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + 
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+			if (corridaprodutomes == null) {
+				corridaprodutomes = new Corridaprodutomes();
+				corridaprodutomes.setAno(ano);
+				corridaprodutomes.setMes(mes);
+				corridaprodutomes.setPontos(pontos);
+				corridaprodutomes.setProdutos(vendas.getProdutos());
+				corridaprodutomes.setUsuario(vendas.getUsuario());
+				corridaprodutomes.setPontosnegativo(pontonegativo);
+				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
+			}else{
+				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos - vendas.getPonto());
+				corridaprodutomes.setPontosnegativo(corridaprodutomes.getPontosnegativo() + pontonegativo - vendas.getPonto());
+				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
+			}
+			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+			if (corridaprodutoano == null) {
+				corridaprodutoano = new Corridaprodutoano();
+				corridaprodutoano.setAno(ano);
+				corridaprodutoano.setPontos(pontos);
+				corridaprodutoano.setProdutos(vendas.getProdutos());
+				corridaprodutoano.setUsuario(vendas.getUsuario());
+				corridaprodutoano.setPontosnegativo(pontonegativo);
+				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
+			}else{
+				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos - vendas.getPonto());
+				corridaprodutoano.setPontosnegativo(corridaprodutomes.getPontosnegativo() + pontonegativo - vendas.getPonto());
+				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
+			}
+		}
+	}
 	
 	
 }

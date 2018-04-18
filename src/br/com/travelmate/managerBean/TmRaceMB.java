@@ -118,7 +118,7 @@ public class TmRaceMB implements Serializable{
 				tmRaceBean.setPontos(0);	
 			}
 			for (int j = 0; j < listaCorrida.size(); j++) {
-				tmRaceBean.setPontos(tmRaceBean.getPontos() + listaCorrida.get(j).getPontos());
+				tmRaceBean.setPontos((tmRaceBean.getPontos() + listaCorrida.get(j).getPontos()) - listaCorrida.get(j).getPontosnegativo());
 			}
 			if (listaCorrida.size() > 0 && listaGold.size() < 3) {
 				listaGold.add(tmRaceBean);
@@ -232,7 +232,7 @@ public class TmRaceMB implements Serializable{
 				tmRaceBean.setPontos(0);	
 			}
 			for (int j = 0; j < listaCorrida.size(); j++) {
-				tmRaceBean.setPontos(tmRaceBean.getPontos() + listaCorrida.get(j).getPontos());
+				tmRaceBean.setPontos((tmRaceBean.getPontos() + listaCorrida.get(j).getPontos()) - listaCorrida.get(j).getPontosnegativo());
 			}
 			if (listaCorrida.size() > 0 && listaSinze.size() < 3) {
 				listaSinze.add(tmRaceBean);
@@ -346,7 +346,7 @@ public class TmRaceMB implements Serializable{
 				tmRaceBean.setPontos(0);	
 			}
 			for (int j = 0; j < listaCorrida.size(); j++) {
-				tmRaceBean.setPontos(tmRaceBean.getPontos() + listaCorrida.get(j).getPontos());
+				tmRaceBean.setPontos((tmRaceBean.getPontos() + listaCorrida.get(j).getPontos()) - listaCorrida.get(j).getPontosnegativo());
 			}
 			if (listaCorrida.size() > 0 && listaBronze.size() < 3) {
 				listaBronze.add(tmRaceBean);
