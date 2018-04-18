@@ -306,7 +306,7 @@ public class ListaEscolasMB implements Serializable {
 //							produtoFornecedorBean.getListaObrigaroerios(), nsemanas, produtoFornecedorBean.get);
 //				}
 				Integer linhaFornecedorBean = produtoFornecedorBean.getLinhaFornecedorProdutoBean();
-				verificarCursoPossuiValor(produtoFornecedorBean.getCoprodutos(), FiltrarEscolaBean.getListaFornecedorProdutosBean().get(linhaFornecedorBean));
+				verificarCursoPossuiValor(produtoFornecedorBean.getCoprodutos(), FiltrarEscolaBean.getListaFornecedorProdutosBean().get(index));
 				List<ProdutosOrcamentoBean> listaValoresObriatorio = new ArrayList<ProdutosOrcamentoBean>();
 				listaValoresObriatorio = produtoFornecedorBean.getListaObriSalvo();
 				produtoFornecedorBean.setListaObrigaroerios(gerarListaValorCoProdutos("Obrigatorio"));

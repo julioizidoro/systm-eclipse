@@ -905,6 +905,7 @@ public class FiltrarEscolaMB implements Serializable {
 	}
 
 	public void verificarListaEscolas() {
+		List<FornecedorProdutosBean> listaFornecedorProduto = new ArrayList<FornecedorProdutosBean>();
 		for (int i = 0; i < filtrarEscolaBean.getListaFornecedorProdutosBean().size(); i++) {
 			for (int n = 0; n < filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor()
 					.size(); n++) {
@@ -913,9 +914,13 @@ public class FiltrarEscolaMB implements Serializable {
 					filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().remove(n);
 				}
 			}
-			if (filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().size() == 0) {
-				filtrarEscolaBean.getListaFornecedorProdutosBean().remove(i);
+			if (filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().size() > 0) {
+				listaFornecedorProduto.add(filtrarEscolaBean.getListaFornecedorProdutosBean().get(i));
 			}
+		}
+		filtrarEscolaBean.getListaFornecedorProdutosBean().clear();
+		for (int i = 0; i < listaFornecedorProduto.size(); i++) {
+			filtrarEscolaBean.getListaFornecedorProdutosBean().add(listaFornecedorProduto.get(i));
 		}
 		gerarIndiceEscola();
 	}
