@@ -307,7 +307,7 @@
 
 							<p:calendar id="datainicio3"
 								value="#{cadOrcamentoManualMB.orcamentocurso.dataInicio}"
-								locale="pt" pattern="dd/MM/yyyy">
+								locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
@@ -321,7 +321,7 @@
 									update="datatermino2, nparcela2" />
 							</h:inputText>   
 
-							<p:calendar id="datatermino2"
+							<p:calendar id="datatermino2" mask="true"
 								value="#{cadOrcamentoManualMB.orcamentocurso.dataTermino}"
 								locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -542,7 +542,7 @@
 								style="font-weight:bold;font-size: 11px;" />
 							<p:outputLabel />
 
-							<p:calendar id="datainicio"
+							<p:calendar id="datainicio"  mask="true"
 								value="#{cadOrcamentoManualMB.seguroViagem.datainicio}"
 								size="20" locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -563,7 +563,7 @@
 									listener="#{cadOrcamentoManualMB.convertendoValoresSeguro()}" />
 							</p:inputText>
 
-							<p:calendar id="datatermino"
+							<p:calendar id="datatermino" mask="true"
 								value="#{cadOrcamentoManualMB.seguroViagem.datatermino}"
 								size="20" locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -698,7 +698,9 @@
 								action="#{cadOrcamentoManualMB.adicionarProdutos()}"
 								value="Adicionar"
 								update="idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
-								icon="ui-icon-plusthick" />
+								icon="ui-icon-plusthick" >
+								<p:ajax event="dialogReturn" listener="#{cadOrcamentoManualMB.retornoDialogProdutoOrcamento}" update="idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista" />
+							</p:commandButton>
 
 						</h:panelGrid>
 						<br></br>

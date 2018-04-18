@@ -60,7 +60,8 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Occliente;
 import br.com.travelmate.model.Orcamentocurso;
 import br.com.travelmate.model.Orcamentocursoformapagamento;
-import br.com.travelmate.model.Orcamentomanualseguro; 
+import br.com.travelmate.model.Orcamentomanualseguro;
+import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtoorcamentocurso;
@@ -774,19 +775,86 @@ public class CadOrcamentoManualMB implements Serializable {
 					} else if ((valorReal != 0) && (valorCambio > 0)) {
 						valorEstrangeira = valorReal / valorCambio;
 					}
-					pob.setValorMoedaReal(valorReal);
-					pob.setValorMoedaEstrangeira(valorEstrangeira);
-					pob.setApagar(false);
-					pob.setNovo(true);
-					pob.setSomarvalortotal(true);
-					listaProdutoOrcamentoBean.add(pob);
+					if (produtosorcamento.getValormaximo()==0) {
+						pob . setValorMoedaEstrangeira (valorEstrangeira);
+						pob . setValorMoedaReal (valorReal);
+
+						pob.setApagar(false);
+						pob.setNovo(true);
+						pob.setSomarvalortotal(true);
+						listaProdutoOrcamentoBean.add(pob);
+						calcularValorTotalOrcamento();
+						this.valorMoedaEstrangeira = 0.0f;
+						this.valorMoedaReal = 0.0f;
+					}else if (produtosorcamento.getValormaximo()>=valorReal){
+						pob . setValorMoedaEstrangeira (valorEstrangeira);
+						pob . setValorMoedaReal (valorMoedaReal);
+
+						pob.setApagar(false);
+						pob.setNovo(true);
+						pob.setSomarvalortotal(true);
+						listaProdutoOrcamentoBean.add(pob);
+						calcularValorTotalOrcamento();
+						this.valorMoedaEstrangeira = 0.0f;
+						this.valorMoedaReal = 0.0f;
+					}else {
+						FacesContext fc = FacesContext.getCurrentInstance();
+				        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				        Map<String, Object> options = new HashMap<String, Object>();
+						options.put("contentWidth", 230);
+				        session.setAttribute("valorOriginal", 0f);
+				        session.setAttribute("novoValor", 0f);
+						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
+						
+					}  
 					calcularValorTotalOrcamento();
-					this.valorMoedaEstrangeira = 0.0f;
-					this.valorMoedaReal = 0.0f;
 				}
 			}
 		} else {
 			Mensagem.lancarMensagemErro("", "Cambio não selecionado");
+		}
+	}
+	
+	public void retornoDialogProdutoOrcamento() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		String adicionar = (String) session.getAttribute("adicionar");
+		session.removeAttribute("adicionar");
+		if (adicionar != null) {
+			if (adicionar.equalsIgnoreCase("sim")) {
+
+				ProdutoOrcamentoCursoBean pob = new ProdutoOrcamentoCursoBean();
+				pob.setIdProdutoOrcamentoCurso(0);
+				pob.setDescricaoProdutoOrcamento(produtosorcamento.getDescricao());
+				pob.setIdProdutoOrcamento(produtosorcamento.getIdprodutosOrcamento());
+				float valorEstrangeira = 0.0f;
+				float valorReal = 0.0f;
+				if (valorMoedaEstrangeira > 0) {
+					valorEstrangeira = valorMoedaEstrangeira;
+				} else {
+					if (valorMoedaReal > 0) {
+						valorReal = valorMoedaReal;
+					}
+				}
+				if ((valorEstrangeira != 0) && (valorCambio > 0)) {
+					valorReal = valorEstrangeira * valorCambio;
+				} else if ((valorReal != 0) && (valorCambio > 0)) {
+					valorEstrangeira = valorReal / valorCambio;
+				}
+
+				pob.setValorMoedaEstrangeira(valorEstrangeira);
+				pob.setValorMoedaReal(valorMoedaReal);
+
+				pob.setApagar(false);
+				pob.setNovo(true);
+				pob.setSomarvalortotal(true);
+				listaProdutoOrcamentoBean.add(pob);
+
+				calcularValorTotalOrcamento();
+				produtosorcamento = null;
+				this.valorMoedaEstrangeira = 0.0f;
+				this.valorMoedaReal = 0.0f;
+			}
 		}
 	}
 
