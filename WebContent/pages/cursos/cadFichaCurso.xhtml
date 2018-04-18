@@ -1386,7 +1386,6 @@
 								style="width:120px;font-size: 10px;">
 								<f:selectItem itemLabel="Selecione" itemValue="sn"
 									noSelectionOption="true" />
-								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
 								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
 								<f:selectItem itemLabel="Cartão de crédito"
 									itemValue="Cartão de crédito" />
@@ -1395,6 +1394,7 @@
 								<f:selectItem itemLabel="Cartão débito"
 									itemValue="Cartão débito" />
 								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
 								<f:selectItem itemLabel="Credito" itemValue="Credito" />
 								<f:selectItem itemLabel="Déposito" itemValue="Déposito" />
 								<f:selectItem itemLabel="Financiamento banco"
@@ -1486,7 +1486,7 @@
 								update="formapagamentotabela, telaFichaCurso:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber"
 								icon="ui-icon-plusthick" />
 							<p:commandButton id="btnCredito" icon="ui-icon-triangle-1-s"
-								value="Crédito"
+								value="Crédito" update="telaFichaCurso:growl"
 								action="#{cadCursoMB.selecionarCreditoCancelamento()}"
 								style="margin-left:3%">
 								<p:ajax event="dialogReturn"

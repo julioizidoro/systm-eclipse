@@ -98,7 +98,7 @@
 							
 							<p:calendar id="datainicio"
 								value="#{fichaSeguroViagemMB.seguro.dataInicio}" size="11"
-								locale="pt" pattern="dd/MM/yyyy">
+								locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
@@ -116,7 +116,7 @@
 
 							<p:calendar id="datatermino"
 								value="#{fichaSeguroViagemMB.seguro.dataTermino}" size="11"
-								locale="pt" pattern="dd/MM/yyyy">
+								locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="dateSelect"
@@ -287,7 +287,6 @@
 								style="width:145px;font-size: 10px;">
 								<f:selectItem itemLabel="Selecione" itemValue="sn"
 									noSelectionOption="true" />
-								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
 								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
 								<f:selectItem itemLabel="Cartão de crédito"
 									itemValue="Cartão de crédito" />
@@ -297,6 +296,7 @@
 									itemValue="Cartão débito" />
 								<f:selectItem itemLabel="Cheque" itemValue="Cheque" />
 								<f:selectItem itemLabel="Crédito" itemValue="Credito" />
+								<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
 								<f:selectItem itemLabel="Déposito" itemValue="Depósito" />
 								<f:selectItem itemLabel="Financiamento banco"
 									itemValue="Financiamento Banco" />
@@ -323,7 +323,7 @@
 
 							<p:calendar id="primeirovencimento"
 								value="#{fichaSeguroViagemMB.dataPrimeiroPagamento}" size="20"
-								locale="pt" pattern="dd/MM/yyyy">
+								locale="pt" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>
