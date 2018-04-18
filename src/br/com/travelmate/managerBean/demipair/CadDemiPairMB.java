@@ -673,16 +673,12 @@ public class CadDemiPairMB implements Serializable {
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				orcamentoprodutosorcamento.setDescricao(filtroorcamentoproduto.getProdutosorcamento().getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(filtroorcamentoproduto.getProdutosorcamento());
-				if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
-						&& (orcamento.getValorCambio() > 0)) {
-					orcamentoprodutosorcamento.setValorMoedaNacional(
-							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+				
+				if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+					valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
 				} else {
-					if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
-							&& (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento
-								.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional()
-										/ orcamento.getValorCambio());
+					if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 					}
 				}
 				orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
@@ -968,24 +964,25 @@ public class CadDemiPairMB implements Serializable {
 				if (orcamentoprodutosorcamento.getValorMoedaNacional() == null) {
 					orcamentoprodutosorcamento.setValorMoedaNacional(0f);
 				}
-				if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0) && (orcamento.getValorCambio() > 0)) {
-					orcamentoprodutosorcamento.setValorMoedaNacional(
-							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+				if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+					valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
 				} else {
-					if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0) && (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento.setValorMoedaEstrangeira(
-								orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
+					if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 					}
 				}
+				
 				boolean excluirDescontoTM = true;
 				if (produtosorcamento.getValormaximo()==0) {
+					orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+					orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					calcularValorTotalOrcamento();
-					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+					orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+					orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					calcularValorTotalOrcamento();
-					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				}else {
 					FacesContext fc = FacesContext.getCurrentInstance();
 			        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

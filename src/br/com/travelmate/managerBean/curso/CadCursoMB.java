@@ -3594,6 +3594,8 @@ public class CadCursoMB implements Serializable {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("closable", false);
 			RequestContext.getCurrentInstance().openDialog("utilizarCredito", options, null);
+		}else  {
+			Mensagem.lancarMensagemInfo("", "Selecione a Forma de pagamento Credito");
 		}
 		return "";
 	}

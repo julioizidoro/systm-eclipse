@@ -1062,16 +1062,11 @@ public class CadAupairMB implements Serializable {
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				orcamentoprodutosorcamento.setDescricao(filtroorcamentoproduto.getProdutosorcamento().getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(filtroorcamentoproduto.getProdutosorcamento());
-				if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
-						&& (orcamento.getValorCambio() > 0)) {
-					orcamentoprodutosorcamento.setValorMoedaNacional(
-							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+				if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+					valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
 				} else {
-					if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
-							&& (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento
-								.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional()
-										/ orcamento.getValorCambio());
+					if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 					}
 				}
 				orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
