@@ -48,7 +48,7 @@
 
   <session-config>
         <session-timeout>
-            90
+            180
         </session-timeout>
     </session-config>
   <resource-env-ref>  
