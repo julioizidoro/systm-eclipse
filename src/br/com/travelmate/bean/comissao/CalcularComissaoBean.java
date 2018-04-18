@@ -248,9 +248,7 @@ public class CalcularComissaoBean {
     
     public Float calcularValorFornecedor(Vendascomissao vendasComissao, List<Parcelamentopagamento> listaParcelamento){
     	Float valor = vendasComissao.getValorbruto() - (vendasComissao.getComissaotm() + vendasComissao.getTaxatm() + valorPagoFornecedor(listaParcelamento));
-    	if (vendasComissao.getVendas().getValorcambio()>0) {
-    		valor = valor / vendasComissao.getVendas().getValorcambio();
-    	}else if (vendasComissao.getVendas().getCambio().getValor()>0){
+    	if (vendasComissao.getVendas().getCambio().getValor()>0) {
     		valor = valor / vendasComissao.getVendas().getCambio().getValor();
     	}else {
     		valor =0.0f;

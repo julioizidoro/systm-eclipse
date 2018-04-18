@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.model.Vendascomissao;
+import br.com.travelmate.util.Formatacao;
 
 
 /**
@@ -39,7 +40,9 @@ public class CalcularComissaoFranquiaMB implements Serializable{
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         vendasComissao = (Vendascomissao) session.getAttribute("vendascomissao");
-        percentualComissao = (Double) session.getAttribute("percentualcomissao"); 
+        float percentualComissaoFloat =  (float) session.getAttribute("percentualcomissao"); 
+        String percentualString = Formatacao.formatarFloatString(percentualComissaoFloat);
+        percentualComissao = Formatacao.formatarStringDouble(percentualString);
         desagio = vendasComissao.getDesagio();
         session.removeAttribute("vendascomissao"); 
         session.removeAttribute("percentualcomissao");
