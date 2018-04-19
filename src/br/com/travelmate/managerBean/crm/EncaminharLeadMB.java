@@ -233,7 +233,10 @@ public class EncaminharLeadMB implements Serializable {
 					lead.setUsuario(listaUsuario.get(0));
 					usuario = listaUsuario.get(0);
 				}
-				desabilitarUsuario = true;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==1 || usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==2) {
+
+					desabilitarUsuario = false;
+				}else desabilitarUsuario = true;
 			}else {
 				listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
