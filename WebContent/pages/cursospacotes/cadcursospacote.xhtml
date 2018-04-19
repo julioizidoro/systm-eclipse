@@ -209,15 +209,23 @@
 							style="width:84%;" maxlength="200"/>
 					</h:panelGrid>
 					<br/>
-					<h:panelGrid columns="4" style="margin-left:14%;width:57%;"
-						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis"> 
+					<h:panelGrid columns="6" style="margin-left:14%;width:70%;"
+						> 
 						<p:outputLabel value="Desconto TM" />
+						<p:outputLabel value="Desconto TM R$" />
 						<p:outputLabel value="Ano Desconto" />
 						<p:outputLabel value="Desconto TM" />
+						<p:outputLabel value="Desconto TM R$" />
 						<p:outputLabel value="Ano Desconto" /> 
 					
 						<p:inputText id="descontotm1"
 							value="#{cadCursosPacotesMB.cursospacote.descontotm1}"
+							style="width:78.7%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
+						<p:inputText id="descontotmreal1"
+							value="#{cadCursosPacotesMB.cursospacote.descontotmreal1}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
@@ -231,9 +239,15 @@
 							<f:convertNumber pattern="##,###,###,###.##"   
 								minFractionDigits="2" />
 						</p:inputText>
+						<p:inputText id="descontotmreal2"  
+							value="#{cadCursosPacotesMB.cursospacote.descontotmreal2}"
+							style="width:78.7%;text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:inputText>
 						<p:inputText id="ano2"
 							value="#{cadCursosPacotesMB.cursospacote.ano2}"
-							style="width:65%;text-align:right;"/> 
+							style="width:78.7%;text-align:right;"/> 
 					</h:panelGrid>   
 					<br/>
 					<h:panelGrid columns="4" style="margin-left:14%;width:54%;"

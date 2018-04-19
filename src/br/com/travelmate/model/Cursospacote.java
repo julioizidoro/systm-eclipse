@@ -144,6 +144,11 @@ public class Cursospacote implements Serializable {
     private List<Voluntariadopacote> voluntariadopacoteList;
     @Column(name = "valormoedaestrangeira")
     private float valormoedaestrangeira;
+    @Column(name = "descontotmreal1")
+    private int descontotmreal1;
+    @Column(name = "descontotmreal2")
+    private int descontotmreal2;
+    
     
     
     
@@ -558,6 +563,22 @@ public class Cursospacote implements Serializable {
 
 	public void setValortotalpacote(float valortotalpacote) {
 		this.valortotalpacote = valortotalpacote;
+	}
+
+	public int getDescontotmreal1() {
+		return descontotmreal1;
+	}
+
+	public void setDescontotmreal1(int descontotmreal1) {
+		this.descontotmreal1 = descontotmreal1;
+	}
+
+	public int getDescontotmreal2() {
+		return descontotmreal2;
+	}
+
+	public void setDescontotmreal2(int descontotmreal2) {
+		this.descontotmreal2 = descontotmreal2;
 	}
 
 	@Override
