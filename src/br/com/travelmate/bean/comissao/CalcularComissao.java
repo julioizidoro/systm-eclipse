@@ -28,7 +28,6 @@ public class CalcularComissao {
         this.dataFinal = dataFinal;
         listaComissao = new  ArrayList<ComissaoBean>();
         iniciarCalculoComissao();
-        System.out.println("");
     }
 
     

@@ -226,7 +226,6 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		this.cliente = cliente;
 		nome = cliente.getNome();
 		datanascimento = cliente.getDataNascimento();
-		System.out.println(datanascimento);
 	} 
 
 	public String salvar() throws IOException {

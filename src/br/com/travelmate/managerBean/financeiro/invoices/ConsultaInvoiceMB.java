@@ -614,7 +614,6 @@ public class ConsultaInvoiceMB implements Serializable {
 				}
 			}
 		}
-		System.out.println("Terminou");
 	}
 
 	public String selecionarInvoice(Vendas vendas) throws SQLException {

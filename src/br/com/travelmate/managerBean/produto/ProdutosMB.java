@@ -98,7 +98,6 @@ public class ProdutosMB implements Serializable{
     public void gerarListaProdutos(){
         ProdutoFacade produtoFacade = new ProdutoFacade();
         listaProdutos = produtoFacade.listarProdutos();
-        //System.out.println(listaProdutos.get(3).getVendasList().size());
         if(listaProdutos==null){
             listaProdutos = new ArrayList<Produtos>();
         }

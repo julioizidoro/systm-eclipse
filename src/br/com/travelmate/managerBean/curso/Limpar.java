@@ -25,7 +25,6 @@ public class Limpar {
 				}
 			}
 		}
-		System.out.println("Terminou");
 	}
 
 }
