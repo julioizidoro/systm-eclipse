@@ -874,6 +874,8 @@ public class CadDemiPairMB implements Serializable {
 			}
 			venda.setValor(venda.getValor() + formaPagamento.getValorJuros());
 			formaPagamento.setValorTotal(venda.getValor());
+			valorMoedaEstrangeira = 0.0f;
+			valorMoedaReal = 0.0f;
 			calcularParcelamentoPagamento();
 			parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
 		}
@@ -956,6 +958,8 @@ public class CadDemiPairMB implements Serializable {
 		if (orcamento.getValorCambio() > 0) {
 			int idProdTx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			if (produtosorcamento.getIdprodutosOrcamento() != idProdTx) {
+				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+				orcamentoprodutosorcamento.setImportado(false);
 				orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 				if (orcamentoprodutosorcamento.getValorMoedaEstrangeira() == null) {
