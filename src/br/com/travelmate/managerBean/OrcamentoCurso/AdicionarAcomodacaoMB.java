@@ -212,22 +212,11 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	
 	
 	public List<Integer> retornarNSemanas(Valorcoprodutos valorcoprodutos){
-		int diferencaSemanas = 0;
-		if (valorcoprodutos.getNumerosemanafinal() > 48) {
-			diferencaSemanas = 48 - valorcoprodutos.getNumerosemanainicial();
-		}else {
-			diferencaSemanas = valorcoprodutos.getNumerosemanafinal() - valorcoprodutos.getNumerosemanainicial();
-		}
+		int nSemana = 0;
 		List<Integer> listaSemanas = new ArrayList<Integer>();
-		Integer nSemana = 0;
-		if (diferencaSemanas <=0) {
-			nSemana = valorcoprodutos.getNumerosemanainicial();
+		for (int i = 0; i < 48; i++) {
+			nSemana = 1 + i;
 			listaSemanas.add(nSemana);
-		}else {
-			for (int i = 0; i <= 48; i++) {
-				nSemana = 1 + i;
-				listaSemanas.add(nSemana);
-			}
 		}
 		return listaSemanas;
 	}
@@ -272,15 +261,8 @@ public class AdicionarAcomodacaoMB implements Serializable {
 				+ Formatacao.ConvercaoDataSql(dataconsulta) + "'  and v.tipodata='" + tipoData 
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos + " ORDER BY v.valororiginal";
 		List<Valorcoprodutos> listaValorCoprodutos = valorCoProdutosFacade.listar(sql);
-		if (listaValorCoprodutos != null) {
-			for (int n = 0; n < listaValorCoprodutos.size(); n++) {
-				if (valorcoprodutos == null) {
-					valorcoprodutos = new Valorcoprodutos();
-					valorcoprodutos = listaValorCoprodutos.get(n);
-				} else {
-					valorcoprodutos = compararValores(listaValorCoprodutos.get(n), valorcoprodutos);
-				}
-			}
+		if (listaValorCoprodutos != null && listaValorCoprodutos.size() > 0) {
+			valorcoprodutos = listaValorCoprodutos.get(0);
 		}
 		if (valorcoprodutos != null) {
 			ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
