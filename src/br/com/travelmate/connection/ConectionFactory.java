@@ -60,6 +60,25 @@ public class ConectionFactory {
         return entityManager;
     }
     
+    public static void getInstanceClose() {
+    	if ((emf1==null) || (entityManager==null) || (!entityManager.isOpen())){
+            emf1 = Persistence.createEntityManagerFactory("systmPU");
+            entityManager = emf1.createEntityManager();
+            if (!entityManager.isOpen()) {
+            	Mensagem.lancarMensagemErro("ERRO", "Verifique conexão com banco de dados");
+            }
+    	}  
+    	if (entityManager.getTransaction()!=null){
+    		if (entityManager.getTransaction().isActive()){
+        		entityManager.getTransaction().commit();
+        	}
+    	}
+        entityManager.close();
+        emf1.close();
+        emf1=null;
+        entityManager = null;
+    }
+    
 	public static Connection getConexao() {
 		Connection conexao = null;
 		try {
