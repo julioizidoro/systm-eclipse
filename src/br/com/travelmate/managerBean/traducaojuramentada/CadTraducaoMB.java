@@ -25,6 +25,7 @@ import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
+import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
@@ -117,6 +118,14 @@ public class CadTraducaoMB implements Serializable {
 		produto = produtoFacade.consultar(aplicacaoMB.getParametrosprodutos().getTraducaojuramentada());
 		if (traducao == null) {
 			iniciarNovo();
+			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+			fornecedorCidade = fornecedorCidadeFacade.getFornecedorCidade(1873);
+			CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+			cidadepaisproduto = cidadePaisProdutosFacade.consultar("SELECT c FROM Cidadepaisproduto c WHERE c.cidade.idcidade=" + fornecedorCidade.getCidade().getIdcidade() + 
+					" and c.paisproduto.produtos.idprodutos=" + produto.getIdprodutos());
+			paisProduto = cidadepaisproduto.getPaisproduto();
+			listarCidade();
+			listarFornecedorCidade();
 			novaFicha = true;
 		} else {
 			alterarTraducao();
@@ -624,7 +633,7 @@ public class CadTraducaoMB implements Serializable {
 	
 	public void gerarListaTipoParcelamento() {
 		listaTipoParcelamento = Formatacao.gerarListaTipoParcelamento(
-				usuarioLogadoMB.getUsuario().getUnidadenegocio().isParcelamentojoja(),
+				true,
 				parcelamentopagamento.getFormaPagamento(),
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
 	}
