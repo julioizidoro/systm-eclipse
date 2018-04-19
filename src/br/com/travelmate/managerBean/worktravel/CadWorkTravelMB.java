@@ -155,6 +155,7 @@ public class CadWorkTravelMB implements Serializable {
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
 			}
+			vendaAlterada = work.getVendas();
 			novaFicha = false;
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
