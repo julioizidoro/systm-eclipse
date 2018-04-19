@@ -843,7 +843,7 @@ public class CadOrcamentoManualMB implements Serializable {
 				}
 
 				pob.setValorMoedaEstrangeira(valorEstrangeira);
-				pob.setValorMoedaReal(valorMoedaReal);
+				pob.setValorMoedaReal(valorReal);
 
 				pob.setApagar(false);
 				pob.setNovo(true);
