@@ -43,7 +43,7 @@ public class Corridaprodutomes implements Serializable {
 	
 	
 	public Corridaprodutomes() {
-	
+		pontosnegativo = 0;
 	}
 
 

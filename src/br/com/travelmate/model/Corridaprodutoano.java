@@ -40,7 +40,7 @@ public class Corridaprodutoano implements Serializable{
 	
 	
 	public Corridaprodutoano() {
-		// TODO Auto-generated constructor stub
+		pontosnegativo = 0;
 	}
 
 
