@@ -38,6 +38,8 @@ public class Complementocurso implements Serializable {
     @JoinColumn(name = "coprodutos_idcoprodutos", referencedColumnName = "idcoprodutos", updatable=true)
     @OneToOne(optional = false)
     private Coprodutos coprodutos;
+    @Column(name = "descricao")
+    private String descricao;
 
     public Complementocurso() {
     }
@@ -86,7 +88,15 @@ public class Complementocurso implements Serializable {
         this.coprodutos = coprodutos;
     }
 
-    @Override
+    public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idcomplementocurso != null ? idcomplementocurso.hashCode() : 0);

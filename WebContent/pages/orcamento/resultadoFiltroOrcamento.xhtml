@@ -85,19 +85,19 @@
 											width="57" />
 									</div>
 								</h:panelGroup>
-								<h:panelGrid columns="4" style="background:#fff"
+								<h:panelGrid columns="4" style="background:#fff;width:100%;"
 									columnClasses="tamanho10,tamanhoavisos2, tamanho4, tamanho4">
 									<p:commandLink
 										action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
 										style="text-decoration: none;margin-left:6%;"     
-										value="#{listaEscolas.ocurso.produtosorcamento.descricao}" />
+										value="#{listaEscolas.ocurso.produtosorcamento.descricao} - #{produtosFornecedor.coprodutos.complementocurso.descricao}" />
 
-									<h:panelGroup>      
+									<h:panelGroup style="margin-left:5%;">      
 										<p:commandLink
 											rendered="#{produtosFornecedor.coprodutos.pacote}"
 											action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
 											style="text-decoration: none"
-											value="#{produtosFornecedor.coprodutos.descricao}, " />
+											value="#{produtosFornecedor.coprodutos.descricao} , " />
 										<p:commandLink
 											action="#{listaEscolasMB.orcamentoResultado(produtosFornecedor)}"
 											style="text-decoration: none"

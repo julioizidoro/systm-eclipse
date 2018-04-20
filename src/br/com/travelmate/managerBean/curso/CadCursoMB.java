@@ -3216,7 +3216,8 @@ public class CadCursoMB implements Serializable {
 							curso.setTipoDuracao("Horas por semana");
 						}
 						orcamentoprodutosorcamento.setDescricao(ocurso.getOcrusoprodutosList().get(i)
-								.getValorcoprodutos().getCoprodutos().getProdutosorcamento().getDescricao());
+								.getValorcoprodutos().getCoprodutos().getProdutosorcamento().getDescricao() + " - " + ocurso.getOcrusoprodutosList().get(i)
+								.getValorcoprodutos().getCoprodutos().getComplementocurso().getDescricao());
 					} else if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 							.getComplementoacomodacao() != null && 
 							!ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getProdutosuplemento()
