@@ -87,25 +87,25 @@ public class UsuarioDao {
     
     public Pincambio salvar(Pincambio pincambio) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         pincambio = manager.merge(pincambio);
         tx.commit();
-        
+        manager.close();
         return pincambio;
     }
     
     public Pincambio consultar(String pin, int idUsuario) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
        Query q = manager.createQuery("select p from Pincambio p where p.numero='" + pin + "' and p.consultor=" + idUsuario +
                 " and p.utilizado='N'");
        Pincambio pincambio = null;
        if (q.getResultList().size()>0){
             pincambio = (Pincambio) q.getResultList().get(0);
        }
-       
+       manager.close();
        return pincambio;
     }
     
