@@ -18,7 +18,8 @@ import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade; 
+import br.com.travelmate.facade.LeadResponsavelFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
@@ -226,12 +227,17 @@ public class EncaminharLeadMB implements Serializable {
 				} 
 			}else if(lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
 				listaUsuario = new ArrayList<Usuario>();
-				for (int i = 0; i < listaResponsavel.size(); i++) {
-					listaUsuario.add(listaResponsavel.get(i).getUsuario());
-				} 
-				if (listaUsuario != null && listaUsuario.size() > 0) {
-					lead.setUsuario(listaUsuario.get(0));
-					usuario = listaUsuario.get(0);
+				if (lead.getUnidadenegocio().getIdunidadeNegocio() == 6 && unidadenegocio.getIdunidadeNegocio() ==2) {
+					UsuarioFacade usuarioFacade = new UsuarioFacade();
+					listaUsuario = usuarioFacade.listar("SELECT u FROM Usuario u WHERE u.unidadenegocio.idunidadeNegocio=2 and u.situacao='Ativo'");
+				}else {
+					for (int i = 0; i < listaResponsavel.size(); i++) {
+						listaUsuario.add(listaResponsavel.get(i).getUsuario());
+					} 
+					if (listaUsuario != null && listaUsuario.size() > 0) {
+						lead.setUsuario(listaUsuario.get(0));
+						usuario = listaUsuario.get(0);
+					}
 				}
 				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==1 || usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==2) {
 
