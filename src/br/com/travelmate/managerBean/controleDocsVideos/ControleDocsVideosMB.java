@@ -65,6 +65,8 @@ public class ControleDocsVideosMB implements Serializable{
 	private Ftpdados ftpDados;
 	private boolean todosdocumentos;
 	private boolean todosdocumentosfornecedor;
+	private Date datainicio;
+	private Date dataTermino;
 	
 	
 	
@@ -252,9 +254,38 @@ public class ControleDocsVideosMB implements Serializable{
 
 
 
+	public Date getDatainicio() {
+		return datainicio;
+	}
+
+
+
+	public void setDatainicio(Date datainicio) {
+		this.datainicio = datainicio;
+	}
+
+
+
+	public Date getDataTermino() {
+		return dataTermino;
+	}
+
+
+
+	public void setDataTermino(Date dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+
+
+
 	public void gerarListaArquivo1(){
 		Arquivo1Facade arquivo1Facade = new Arquivo1Facade();
-		listaArquivo1 = arquivo1Facade.listar("Select a From Arquivo1 a Where a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		if (datainicio != null && dataTermino != null) {
+			listaArquivo1 = arquivo1Facade.listar("Select a From Arquivo1 a Where a.datavalidade>='" + Formatacao.ConvercaoDataSql(datainicio) + "'"
+					+ " and a.datavalidade<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'");
+		}else {
+			listaArquivo1 = arquivo1Facade.listar("Select a From Arquivo1 a WHERE  a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		}
 		if (listaArquivo1 == null) {
 			listaArquivo1 = new ArrayList<>();
 		}
@@ -277,7 +308,12 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void gerarListaArquivo2(){
 		Arquivo2Facade arquivo2Facade = new Arquivo2Facade();
-		listaArquivo2 = arquivo2Facade.listar("Select a From Arquivo2 a Where a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		if (datainicio != null && dataTermino != null) {
+			listaArquivo2 = arquivo2Facade.listar("Select a From Arquivo2 a Where a.datavalidade>='" + Formatacao.ConvercaoDataSql(datainicio) + "'"
+					+ " and a.datavalidade<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'");
+		}else {
+			listaArquivo2 = arquivo2Facade.listar("Select a From Arquivo2 a WHERE  a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		}
 		if (listaArquivo2 == null) {
 			listaArquivo2 = new ArrayList<>();
 		}
@@ -300,7 +336,12 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void gerarListaArquivo3(){
 		Arquivo3Facade arquivo3Facade = new Arquivo3Facade();
-		listaArquivo3 = arquivo3Facade.listar("Select a From Arquivo3 a Where a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		if (datainicio != null && dataTermino != null) {
+			listaArquivo3 = arquivo3Facade.listar("Select a From Arquivo3 a Where a.datavalidade>='" + Formatacao.ConvercaoDataSql(datainicio) + "'"
+					+ " and a.datavalidade<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'");
+		}else {
+			listaArquivo3 = arquivo3Facade.listar("Select a From Arquivo3 a WHERE  a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		}
 		if (listaArquivo3 == null) {
 			listaArquivo3 = new ArrayList<>();
 		}
@@ -323,7 +364,12 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void gerarListaArquivo4(){
 		Arquivo4Facade arquivo4Facade = new Arquivo4Facade();
-		listaArquivo4 = arquivo4Facade.listar("Select a From Arquivo4 a Where a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		if (datainicio != null && dataTermino != null) {
+			listaArquivo4 = arquivo4Facade.listar("Select a From Arquivo4 a Where a.datavalidade>='" + Formatacao.ConvercaoDataSql(datainicio) + "'"
+					+ " and a.datavalidade<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'");
+		}else {
+			listaArquivo4 = arquivo4Facade.listar("Select a From Arquivo4 a WHERE  a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		}
 		if (listaArquivo4 == null) {
 			listaArquivo4 = new ArrayList<>();
 		}
@@ -347,7 +393,12 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void gerarListaArquivo5(){
 		Arquivo5Facade arquivo5Facade = new Arquivo5Facade();
-		listaArquivo5 = arquivo5Facade.listar("Select a From Arquivo5 a Where a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		if (datainicio != null && dataTermino != null) {
+			listaArquivo5 = arquivo5Facade.listar("Select a From Arquivo5 a Where a.datavalidade>='" + Formatacao.ConvercaoDataSql(datainicio) + "'"
+					+ " and a.datavalidade<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'");
+		}else {
+			listaArquivo5 = arquivo5Facade.listar("Select a From Arquivo5  a WHERE a.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
+		}
 		if (listaArquivo5 == null) {
 			listaArquivo5 = new ArrayList<>();
 		}
@@ -371,7 +422,13 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void gerarListaDocsFornecedorCidade(){
 		FornecedorCidadeDocsFacade fornecedorCidadeDocsFacade = new FornecedorCidadeDocsFacade();
-		String sql = "Select f From Fornecedorcidadedocs f Where f.fornecedordocs.datavalidade<='"+ Formatacao.ConvercaoDataSql(new Date()) + "'"; 
+		String sql = "";
+		if (datainicio != null && dataTermino != null) {
+			 sql = "Select f From Fornecedorcidadedocs f Where f.fornecedordocs.datavalidade>='"+ Formatacao.ConvercaoDataSql(datainicio) + "'" +
+					 " and f.fornecedordocs.datavalidade<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'"; 
+		}else {
+			 sql = "Select f From Fornecedorcidadedocs f Where  f.fornecedordocs.datavalidade<='" + Formatacao.ConvercaoDataSql(new Date()) + "'"; 
+		}
 		listaFornecedorCidadeDocs = fornecedorCidadeDocsFacade.listar(sql);
 		if (listaFornecedorCidadeDocs == null) {
 			listaFornecedorCidadeDocs = new ArrayList<>();
@@ -579,5 +636,20 @@ public class ControleDocsVideosMB implements Serializable{
 		}
 	}
 	
+	
+	public void pesquisarLista() {
+		 listaArquivo = new ArrayList<>();
+		buscarFtpDados();
+		gerarListaArquivo1();
+		gerarListaArquivo2();
+		gerarListaArquivo3();
+		gerarListaArquivo4();
+		gerarListaArquivo5();
+		gerarListaDocsFornecedorCidade();
+	}
+	
+	public void limpar() {
+		listaArquivo = new ArrayList<>();
+	}
 
 }
