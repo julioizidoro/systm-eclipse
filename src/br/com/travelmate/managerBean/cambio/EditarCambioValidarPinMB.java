@@ -83,10 +83,15 @@ public class EditarCambioValidarPinMB implements Serializable{
         Pincambio pincambio = usuarioFacade.consultar(pinCambio, usuarioLogadoMB.getUsuario().getIdusuario());
         if (pincambio == null) {
         	FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("PIN inv�lido", ""));
+            context.addMessage(null, new FacesMessage("PIN inválido", ""));
         } else {
             salvarPinCambio(pincambio);
             valorOriginal = novoValor;
+            if (novoValor == 0) {
+	            	FacesContext fc = FacesContext.getCurrentInstance();
+	    	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+	    	        session.setAttribute("adicionar", "sim");
+			}
             RequestContext.getCurrentInstance().closeDialog(novoValor);
         }
 	}
@@ -100,6 +105,11 @@ public class EditarCambioValidarPinMB implements Serializable{
     }
 
 	public String cancelar(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        if (valorOriginal > 0) {
+			session.setAttribute("valorOriginal", valorOriginal);
+		}
 		RequestContext.getCurrentInstance().closeDialog(null);
 		return "";
     }
