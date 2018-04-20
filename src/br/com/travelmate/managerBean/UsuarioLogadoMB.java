@@ -5,6 +5,7 @@
  */
 package br.com.travelmate.managerBean;
    
+import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
@@ -348,6 +349,9 @@ public class UsuarioLogadoMB implements Serializable {
 	public String deslogar() {
 		Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		sessionMap.clear();
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		session.invalidate();
+		ConectionFactory.getInstanceClose();
 		if(usuario!=null && usuario.getIdusuario()!=null) {
 			verificarLogin.deslogarUsuarioSessao(usuario.getIdusuario());
 		}
