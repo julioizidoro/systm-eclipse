@@ -13,7 +13,23 @@
 				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />         
 			<legend id="iUsu2" style="margin-left:3%;width:95%;">    
 					<b>Gerar Orçamento</b>  
-				</legend> 
+				</legend>
+			<p:dialog visible="#{gerarOrcamentoPacoteMB.dataInicioExcedida}" header="ATENÇÃO" id="panelInformacaoData">
+				<h:panelGrid columns="1" style="width:100%;margin-left:1%;">
+					<p:outputLabel
+						value="Data início permitida até #{gerarOrcamentoPacoteMB.dataBrasil}!!"
+						style="color:red;" />
+					<p:outputLabel />
+
+					<h:panelGrid columns="2" style="width:72%;margin-left: 31%;">
+						
+						<p:commandButton value="Fechar"
+							action="#{gerarOrcamentoPacoteMB.fecharNotificacao()}"
+							style="font-size:12px;" update="panelInformacaoData" icon="ui-icon-close"
+							title="Fechar Notificação" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
 			<h:panelGrid columns="4" columnClasses="tamanho61, imagemTop, imagemTop, dezoito" style="margin-left:3%;width:70%;">
 				<p:outputLabel value="Cliente" />
 				<p:outputLabel value="Data de Nascimento"/> 
@@ -37,6 +53,7 @@
 					maxlength="15">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />   
+					<p:ajax event="blur" listener="#{gerarOrcamentoPacoteMB.verificarDataInicio()}" update="panelInformacaoData"/>
 				</p:calendar>
 				<p:commandButton value="Saiba Mais"  
 						action="#{gerarOrcamentoPacoteMB.saibaMais()}"

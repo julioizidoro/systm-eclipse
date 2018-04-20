@@ -76,6 +76,8 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	private boolean curso;
 	private boolean voluntariado;
 	private Date datanascimento;
+	private boolean dataInicioExcedida;
+	private String dataBrasil;
 
 	@PostConstruct
 	public void init() {
@@ -206,8 +208,24 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		this.datanascimento = datanascimento;
 	}
 
+	public boolean isDataInicioExcedida() {
+		return dataInicioExcedida;
+	}
+
+	public void setDataInicioExcedida(boolean dataInicioExcedida) {
+		this.dataInicioExcedida = dataInicioExcedida;
+	}
+
+	public String getDataBrasil() {
+		return dataBrasil;
+	}
+
+	public void setDataBrasil(String dataBrasil) {
+		this.dataBrasil = dataBrasil;
+	}
+
 	public String cancelar() { 
-		return "inicial";
+		return "paginainicial";
 	}
 
 	public void gerarListaCliente() {
@@ -876,7 +894,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	
 	
 	public void calcularValorCambioAtual() {
-		float valorInicial = cursospacote.getValoravista();
+		float valorInicial = cursospacote.getValortotalpacote();
 		if (cursospacote.getValorcambio()==0) {
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas());
 			if (cambio!=null) {
@@ -887,4 +905,20 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		}
 		cursospacote.setValoravista(valorInicial);
 	}
+	
+	
+	public void verificarDataInicio() {
+		if (datainicio.after(cursospacote.getDataterminocurso())) {
+			dataInicioExcedida = true;
+			dataBrasil = Formatacao.ConvercaoDataPadrao(cursospacote.getDataterminocurso());
+		}else {
+			dataInicioExcedida = false;
+		}
+	}
+	
+	
+	public void fecharNotificacao() {
+		dataInicioExcedida = false;
+	}
+	
 }

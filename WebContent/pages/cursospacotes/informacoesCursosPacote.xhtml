@@ -290,8 +290,10 @@
 			</h:panelGroup>
 
 			<p:outputLabel
-				value="*#{informacoesCursosPacoteMB.cursospacote.valortotalpacote}"
-				style="float:right;font-size:27px;margin-right: 13px;" />
+				value="#{informacoesCursosPacoteMB.valorPacote}"
+				style="float:right;font-size:27px;margin-right: 13px;" >
+				<f:convertNumber currencySymbol="" type="currency"/>
+			</p:outputLabel>
 			<p:outputLabel value="*Valor sujeito a alteração."
 				style="float:right;font-size:12px;margin-right: 13px;" />
 		</h:panelGrid>

@@ -27,6 +27,7 @@ public class InformacoesCursosPacoteMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private static final long serialVersionUID = 1L;  
 	private Cursospacote cursospacote;    
+	private Float valorPacote = 0f;
 
 	@PostConstruct
 	public void init() { 
@@ -46,6 +47,7 @@ public class InformacoesCursosPacoteMB implements Serializable {
 		}else if(idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
 			cursospacote.setVoluntariado(true);
 		}
+		valorPacote = calcularValorCambioAtual();
 	}
 
 	 
@@ -57,6 +59,16 @@ public class InformacoesCursosPacoteMB implements Serializable {
 		this.cursospacote = cursospacote;
 	}
  
+	public Float getValorPacote() {
+		return valorPacote;
+	}
+
+
+	public void setValorPacote(Float valorPacote) {
+		this.valorPacote = valorPacote;
+	}
+
+
 	public String cancelar() { 
 		RequestContext.getCurrentInstance().closeDialog(null); 
 		return "";
@@ -112,16 +124,16 @@ public class InformacoesCursosPacoteMB implements Serializable {
 		return retorno;
 	}
 	
-	public String calcularValorCambioAtual(Cursospacote pacote) {
-		Float valorInicial = pacote.getValoravista();
-		if (pacote.getValorcambio()==0) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas().getIdmoedas());
+	public Float calcularValorCambioAtual() {
+		Float valorInicial = cursospacote.getValoravista();
+		if (cursospacote.getValorcambio()==0) {
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas().getIdmoedas());
 			if (cambio!=null) {
-				valorInicial = pacote.getValormoedaestrangeira() * cambio.getValor();
+				valorInicial = cursospacote.getValormoedaestrangeira() * cambio.getValor();
 			}
 			
 		}
-		return Formatacao.formatarFloatString(valorInicial);
+		return valorInicial;
 	}
 	 
 }

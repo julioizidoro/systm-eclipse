@@ -52,7 +52,7 @@ public class LeadResponsavelDao {
     
     public List<Leadresponsavel> lista(int idunidade) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
-        Query q = manager.createQuery("SELECT l FROM Leadresponsavel l WHERE l.unidadenegocio.idunidadeNegocio="+idunidade
+        Query q = manager.createQuery("SELECT l FROM Leadresponsavel l WHERE l.unidadenegocio.idunidadeNegocio="+idunidade + " and u.situacao='Ativo' "
         		+ " ORDER BY l.usuario.nome");
         List<Leadresponsavel> lista = q.getResultList();
         return lista; 
