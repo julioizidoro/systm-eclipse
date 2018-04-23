@@ -27,14 +27,15 @@ public class MtpDao {
 	    
 	    public Mtp consultarMtp(int idMtp) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 	        Mtp mtp = manager.find(Mtp.class, idMtp);
+	        manager.close();
 	        return mtp;
 	    }
 	    
 	    public void excluir(int idMtp) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			if (!tx.isActive()) {
 				tx.begin();
@@ -42,15 +43,17 @@ public class MtpDao {
 			Mtp mtp = manager.find(Mtp.class, idMtp);
 	        manager.remove(mtp);
 	        tx.commit();
+	        manager.close();
 	    }
 	    
 	 
 	    
 	    public List<Mtp> lista(String sql) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);
 	        List<Mtp> lista = q.getResultList();
+	        manager.close();
 	        return lista;
 	    }
 	    

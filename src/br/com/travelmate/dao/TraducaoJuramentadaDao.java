@@ -13,7 +13,7 @@ import br.com.travelmate.model.Traducaojuramentada;
 public class TraducaoJuramentadaDao {
 	
 	public Traducaojuramentada salvar(Traducaojuramentada traducaojuramentada) throws SQLException{
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		traducaojuramentada = manager.merge(traducaojuramentada);
@@ -23,7 +23,7 @@ public class TraducaoJuramentadaDao {
     } 
     
     public Traducaojuramentada consultar(String sql) throws SQLException {
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Traducaojuramentada traducaojuramentada = null; 
         if (q.getResultList().size() > 0) {
@@ -34,7 +34,7 @@ public class TraducaoJuramentadaDao {
     }
     
     public void excluir(int id) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Traducaojuramentada traducaojuramentada = manager.find(Traducaojuramentada.class, id);
@@ -45,7 +45,7 @@ public class TraducaoJuramentadaDao {
     
     
     public List<Traducaojuramentada> lista(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Traducaojuramentada> lista = q.getResultList();
         manager.close();

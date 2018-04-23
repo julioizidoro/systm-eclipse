@@ -16,26 +16,27 @@ public class OrcamentoVoluntariadoProdutosExtrasDao {
 	
 	public Orcamentovoluntariadoprodutosextras salvar(Orcamentovoluntariadoprodutosextras orcamentovoluntariadoprodutosextras) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		orcamentovoluntariadoprodutosextras = manager.merge(orcamentovoluntariadoprodutosextras);
         tx.commit();
-        
+        manager.close();
         return orcamentovoluntariadoprodutosextras;
     }
     
     public List<Orcamentovoluntariadoprodutosextras> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Orcamentovoluntariadoprodutosextras> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public void excluir(int idOrcamento) throws SQLException {
     	EntityManager manager;
-    	manager = ConectionFactory.getInstance();
+    	manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select c from Orcamentovoluntariadoprodutosextras c where c.idorcamentovoluntariadoprodutosextras=" + idOrcamento);
@@ -43,6 +44,7 @@ public class OrcamentoVoluntariadoProdutosExtrasDao {
         	Orcamentovoluntariadoprodutosextras orcamentovoluntariadoprodutosextras = (Orcamentovoluntariadoprodutosextras) q.getResultList().get(0);
             manager.remove(orcamentovoluntariadoprodutosextras);
         }
+        manager.close();
         tx.commit();
         
     }

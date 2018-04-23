@@ -10,22 +10,24 @@ public class InvoiceRemssaInvoiceDao {
 	
 	public Invoiceremessainvoice salvar(Invoiceremessainvoice invoiceRemessaInvoice){
 		EntityManager manager;
-	    manager = ConectionFactory.getInstance();
+	    manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 	    invoiceRemessaInvoice = manager.merge(invoiceRemessaInvoice);
 	    tx.commit();
+	    manager.close();
 	    return invoiceRemessaInvoice;
 	}
 	
 	public void excluir(Invoiceremessainvoice invoiceRemessaInvoice){
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		invoiceRemessaInvoice = manager.find(Invoiceremessainvoice.class, invoiceRemessaInvoice.getIdinvoiceremessainvoice());
         manager.remove(invoiceRemessaInvoice);
         tx.commit();
+        manager.close();
 	}
 	
 

@@ -44,7 +44,7 @@ public class ConectionFactory {
         return manager;
     }
     
-    public static EntityManager getInstance() {
+   /* public static EntityManager getInstance() {
     	if ((emf1==null) || (entityManager==null) || (!entityManager.isOpen())){
             emf1 = Persistence.createEntityManagerFactory("systmPU");
             entityManager = emf1.createEntityManager();
@@ -58,7 +58,7 @@ public class ConectionFactory {
         	}
     	}
         return entityManager;
-    }
+    }*/
     
     public static void getInstanceClose() {
     	if ((emf1==null) || (entityManager==null) || (!entityManager.isOpen())){

@@ -14,43 +14,43 @@ public class PromocaoCursoDao {
     
     public Promocaocurso salvar(Promocaocurso promocaoCurso) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         promocaoCurso = manager.merge(promocaoCurso);
         tx.commit();
-        
+        manager.close();
         return promocaoCurso;
     }
     
     
     public List<Promocaocurso> listar(String sql)throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Promocaocurso> lista = null;
         if (q.getResultList().size()>0){
             lista =  q.getResultList();
         }
-        
+        manager.close();
         return lista;
     }
     
     
     public Promocaocurso consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Promocaocurso Promocaocurso = null;
         if(q.getResultList().size()>0){
             Promocaocurso =  (Promocaocurso) q.getResultList().get(0);
         }
-        
-        return null;
+        manager.close();
+        return Promocaocurso;
     }
     
     public void excluir(Promocaocurso promocaocurso) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         promocaocurso = manager.find(Promocaocurso.class, promocaocurso.getIdpromoacaocurso());

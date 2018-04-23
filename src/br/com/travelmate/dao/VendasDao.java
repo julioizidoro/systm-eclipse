@@ -22,7 +22,7 @@ public class VendasDao {
     
     public Vendas salvar(Vendas venda) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         venda = manager.merge(venda);
@@ -32,14 +32,14 @@ public class VendasDao {
     
     public Vendas consultarVendas(int idVenda) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Vendas venda = manager.find(Vendas.class, idVenda);
         return venda;
     }
     
     public void excluir(int idVenda) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Vendas venda = manager.find(Vendas.class, idVenda);
@@ -49,7 +49,7 @@ public class VendasDao {
     
     public Vendas vendaCliente(int idCliente) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("Select v from Vendas v where v.cliente=" + idCliente);
         Vendas venda = null;
         if (q.getResultList().size()>0){
@@ -60,7 +60,7 @@ public class VendasDao {
     
     public List<Vendas> lista(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Vendas> lista = q.getResultList();
         return lista;
@@ -69,11 +69,12 @@ public class VendasDao {
     public Double saldoAcumulado(String sql)throws SQLException{
     	EntityManager manager;
     	Double valor = 0.0;
-    	manager = ConectionFactory.getInstance();
+    	manager = ConectionFactory.getConnection();
         Query query = manager.createNativeQuery(sql);
         if (query.getSingleResult()!=null){
             valor =  (Double) query.getSingleResult();   
         }
+        manager.close();
     	return valor;
     	
     }
@@ -81,22 +82,24 @@ public class VendasDao {
     public Long numVendas(String sql)throws SQLException{
     	EntityManager manager;
     	Long valor =  0L;
-    	manager = ConectionFactory.getInstance();
+    	manager = ConectionFactory.getConnection();
 		Query query = manager.createNativeQuery(sql); 
         if (query.getResultList().size()>0){
         	valor =  (Long) query.getResultList().get(0);        
         }
+        manager.close();
     	return valor; 
     }
     
 	public BigDecimal percentualVendas(String sql) throws SQLException {
 		EntityManager manager;
 		BigDecimal valor = BigDecimal.valueOf(0.0);
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query query = manager.createNativeQuery(sql);
 		if (query.getResultList().size() > 0) {
 			valor = (BigDecimal) query.getResultList().get(0);
 		}
+		manager.close();
 		return valor;
 	}
 }

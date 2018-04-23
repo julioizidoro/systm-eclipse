@@ -14,26 +14,26 @@ public class Video4Dao {
 
 	public Video4 salvar(Video4 video4) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		video4 = manager.merge(video4);
         tx.commit();
-        
+        manager.close();
         return video4;
     }
     
     public List<Video4> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Video4> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
     public void excluir(int idvideo4) throws SQLException {
-        EntityManager manager = ConectionFactory.getInstance();
+        EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select v from Video4 v where v.idvideo4=" + idvideo4);
@@ -42,6 +42,6 @@ public class Video4Dao {
             manager.remove(video4);
         }
         tx.commit();
-        
+        manager.close();
     }
 }

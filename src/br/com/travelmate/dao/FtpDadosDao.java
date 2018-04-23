@@ -21,9 +21,10 @@ public class FtpDadosDao {
     
     public Ftpdados getFTPDados()throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select f from Ftpdados f");
         Ftpdados ftpDados = (Ftpdados) q.getSingleResult();
+        manager.close();
         return ftpDados;
     } 
     

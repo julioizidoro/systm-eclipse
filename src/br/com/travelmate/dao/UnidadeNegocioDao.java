@@ -21,40 +21,44 @@ public class UnidadeNegocioDao {
     
     public Unidadenegocio salvar(Unidadenegocio unidadeNegocio) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         unidadeNegocio = manager.merge(unidadeNegocio);
         tx.commit();
+        manager.close();
         return unidadeNegocio;
     }
     
     public Unidadenegocio consultar(int idUnidadeNegocio) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Unidadenegocio unidadeNegocio = manager.find(Unidadenegocio.class, idUnidadeNegocio);
+        manager.close();
         return unidadeNegocio;
     }
     
     public List<Unidadenegocio> listar() throws Exception{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Unidadenegocio u order by u.nomerelatorio");
         List<Unidadenegocio> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public List<Unidadenegocio> listar(boolean sitaucao) throws Exception{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Unidadenegocio u where u.situacao=" + sitaucao + " order by u.nomerelatorio");
         List<Unidadenegocio> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public List<Unidadenegocio> listarContasPagar() throws Exception{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Unidadenegocio u where u.cp=true order by u.nomeFantasia");
         List<Unidadenegocio> lista = q.getResultList();
         return lista;
@@ -62,7 +66,7 @@ public class UnidadeNegocioDao {
     
     public List<Unidadenegocio> listar(String nome) throws Exception{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Unidadenegocio u where u.nomeFantasia like '%" + nome + "%' order by u.nomeFantasia");
         List<Unidadenegocio> lista = q.getResultList();
         return lista;
@@ -70,7 +74,7 @@ public class UnidadeNegocioDao {
     
     public List<Unidadenegocio> listarUnidade(String sql) throws Exception{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Unidadenegocio> lista = q.getResultList();
         return lista;

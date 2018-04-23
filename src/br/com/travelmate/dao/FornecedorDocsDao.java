@@ -22,43 +22,47 @@ public class FornecedorDocsDao {
     
     public Fornecedordocs salvar(Fornecedordocs fornecedordocs) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		fornecedordocs = manager.merge(fornecedordocs);
         tx.commit();
+        manager.close();
         return fornecedordocs;
     }
     
     public Fornecedordocs consultar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getInstance();
+         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Fornecedordocs fornecedordocs = null;
         if (q.getResultList().size()>0){
         	fornecedordocs = (Fornecedordocs) q.getResultList().get(0);
         }
+        manager.close();
         return fornecedordocs;
     }
     
     public void excluir(int idFornecedordocs) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Fornecedordocs fornecedordocs = manager.find(Fornecedordocs.class, idFornecedordocs);
         manager.remove(fornecedordocs);
         tx.commit();
+        manager.close();
     }
     
     public List<Fornecedordocs> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Fornecedordocs> fornecedordocs = null;
         if (q.getResultList().size()>0){
         	fornecedordocs =  q.getResultList();
         }  
+        manager.close();
         return fornecedordocs;  
     }
     

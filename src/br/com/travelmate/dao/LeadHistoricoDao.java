@@ -17,41 +17,45 @@ public class LeadHistoricoDao {
 	
 	public List<Leadhistorico> lista(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Leadhistorico> lista = q.getResultList();
+		manager.close();
 		return lista;
 	}
 
 	public Leadhistorico consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		Leadhistorico leadhistorico = null;
 		if (q.getResultList().size() > 0) {
 			leadhistorico = (Leadhistorico) q.getResultList().get(0);
 		}
+		manager.close();
 		return leadhistorico;
 	}
 
 	public Leadhistorico salvar(Leadhistorico leadhistorico) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		leadhistorico = manager.merge(leadhistorico);
 		tx.commit();
+		manager.close();
 		return leadhistorico;
 	}
 	
 	public void excluir(int idLeadhistorico) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Leadhistorico leadhistorico = manager.find(Leadhistorico.class, idLeadhistorico);
         manager.remove(leadhistorico);
         tx.commit();
+        manager.close();
     }
 
 }

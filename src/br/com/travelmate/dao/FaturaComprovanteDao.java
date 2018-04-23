@@ -16,26 +16,27 @@ public class FaturaComprovanteDao {
 	
 	   public Faturacomprovante salvar(Faturacomprovante faturacomprovante) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			faturacomprovante = manager.merge(faturacomprovante);
 	        tx.commit();
-	        
+	        manager.close();
 	        return faturacomprovante;
 	    }
 	    
 	    public List<Faturacomprovante> listar(String sql)throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);
 	        List<Faturacomprovante> lista = q.getResultList();
+	        manager.close();
 	        return lista;
 	    }
 	    
 	    public void excluir(int idfaturacomprovante) throws SQLException {
 	    	EntityManager manager;
-	    	manager = ConectionFactory.getInstance();
+	    	manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 	        Query q = manager.createQuery("Select c from Faturacomprovante c where c.idfaturacomprovante=" + idfaturacomprovante);
@@ -44,7 +45,7 @@ public class FaturaComprovanteDao {
 	            manager.remove(faturacomprovante);
 	        }
 	        tx.commit();
-	        
+	        manager.close();
 	    }
 
 }

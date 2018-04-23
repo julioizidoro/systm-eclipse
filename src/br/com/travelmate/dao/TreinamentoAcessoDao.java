@@ -14,31 +14,33 @@ public class TreinamentoAcessoDao {
     
     public Treinamentoacesso salvar(Treinamentoacesso treinamentoacesso) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		treinamentoacesso = manager.merge(treinamentoacesso);
         tx.commit();
-        
+        manager.close();
         return treinamentoacesso;
     }
     
     public List<Treinamentoacesso> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Treinamentoacesso> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public Treinamentoacesso consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Treinamentoacesso treinamentoacesso = null;
         if (q.getResultList().size() > 0) {
         	treinamentoacesso =   (Treinamentoacesso) q.getResultList().get(0);
         }
+        manager.close();
         return treinamentoacesso;
     }
      

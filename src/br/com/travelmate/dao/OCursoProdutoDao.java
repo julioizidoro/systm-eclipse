@@ -64,7 +64,7 @@ public class OCursoProdutoDao {
     
     public void excluir(int idOcursoprodutos) throws SQLException {
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
         tx.begin();
         Query q = manager.createQuery("Select c from Ocrusoprodutos c where c.idocrusoprodutos=" + idOcursoprodutos);
@@ -73,6 +73,6 @@ public class OCursoProdutoDao {
             manager.remove(ocrusoprodutos);
         }    
         tx.commit();
-        
+        manager.close();
     }
 }

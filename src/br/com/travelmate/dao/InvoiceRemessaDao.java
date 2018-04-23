@@ -16,30 +16,33 @@ public class InvoiceRemessaDao {
 	
 	public Invoiceremessa salvar(Invoiceremessa invoiceRemessa){
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         invoiceRemessa = manager.merge(invoiceRemessa);
         tx.commit();
+        manager.close();
         return invoiceRemessa;
 	}
 	
 	public List<Invoiceremessa> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Invoiceremessa> lista = q.getResultList();
+        manager.close();
         return lista;
     }
 	
 	public void excluir(Invoiceremessa invoiceRemessa){
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         invoiceRemessa = manager.find(Invoiceremessa.class, invoiceRemessa.getIdinvoiceremessa());
         manager.remove(invoiceRemessa);
         tx.commit();
+        manager.close();
 	}
 
 }

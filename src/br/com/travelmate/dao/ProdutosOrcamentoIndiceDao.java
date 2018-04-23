@@ -15,26 +15,27 @@ public class ProdutosOrcamentoIndiceDao {
 
 	 public Produtosorcamentoindice salvar(Produtosorcamentoindice produtosorcamentogrupo) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			produtosorcamentogrupo = manager.merge(produtosorcamentogrupo);
 	        tx.commit();
-	        
+	        manager.close();
 	        return produtosorcamentogrupo;
 	    }
 	    
 	    public List<Produtosorcamentoindice> listar(String sql)throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);
 	        List<Produtosorcamentoindice> lista = q.getResultList();
+	        manager.close();
 	        return lista;
 	    }
 	    
 	    public void excluir(int idProdutoOrcamentoIndice) throws SQLException {
 	    	EntityManager manager;
-	    	manager = ConectionFactory.getInstance();
+	    	manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 	        Query q = manager.createQuery("Select c from Produtosorcamentoindice c where c.idProdutosorcamentoindice=" + idProdutoOrcamentoIndice);
@@ -43,6 +44,6 @@ public class ProdutosOrcamentoIndiceDao {
 	            manager.remove(produtosorcamentoindice);
 	        }
 	        tx.commit();
-	        
+	        manager.close();
 	    }
 }

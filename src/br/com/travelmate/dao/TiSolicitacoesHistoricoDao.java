@@ -15,26 +15,27 @@ public class TiSolicitacoesHistoricoDao {
 	
 	 public Tisolicitacoeshistorico salvar(Tisolicitacoeshistorico tisolicitacoeshistorico) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			tisolicitacoeshistorico = manager.merge(tisolicitacoeshistorico);
 	        tx.commit();
-	        
+	        manager.close();
 	        return tisolicitacoeshistorico;
 	    }
 	    
 	    public List<Tisolicitacoeshistorico> listar(String sql)throws SQLException{
 	    		EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);
 	        List<Tisolicitacoeshistorico> lista = q.getResultList();
+	        manager.close();
 	        return lista;
 	    }
 	    
 	    public void excluir(int idtisolicitacoeshistorico) throws SQLException {
 	    	EntityManager manager;
-	    	manager = ConectionFactory.getInstance();
+	    	manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 	        Query q = manager.createQuery("Select t from Tisolicitacoeshistorico t where t.idtisolicitacoeshistorico=" + idtisolicitacoeshistorico);
@@ -43,6 +44,6 @@ public class TiSolicitacoesHistoricoDao {
 	            manager.remove(tisolicitacoeshistorico);
 	        }
 	        tx.commit();
-	        
+	        manager.close();
 	    }
 }

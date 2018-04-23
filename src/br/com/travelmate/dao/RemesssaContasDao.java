@@ -14,27 +14,27 @@ public class RemesssaContasDao {
 
 	public Remessacontas salvar(Remessacontas remessacontas) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		remessacontas = manager.merge(remessacontas);
 		tx.commit();
-		
+		manager.close();
 		return remessacontas;
 	}
 
 	public List<Remessacontas> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Remessacontas> lista = q.getResultList();
-		
+		manager.close();
 		return lista;
 	}
 
 	public void excluir(int idremessacontas) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		manager.getTransaction().begin();
 		Query q = manager.createQuery("Select r from Remessacontas r where r.idremessacontas=" + idremessacontas);
@@ -43,6 +43,6 @@ public class RemesssaContasDao {
 			manager.remove(remessacontas);
 		}
 		tx.commit();
-		
+		manager.close();
 	}
 }

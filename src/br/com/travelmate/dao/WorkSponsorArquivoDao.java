@@ -22,34 +22,37 @@ import javax.persistence.Query;
 public class WorkSponsorArquivoDao {
     
     public Worksponsorarquivos salvar(Worksponsorarquivos worksponsor) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		worksponsor = manager.merge(worksponsor);
         tx.commit();
+        manager.close();
         return worksponsor;
     }
     
     public List<Worksponsorarquivos> listar(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Worksponsorarquivos> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public Worksponsorarquivos consulta(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Worksponsorarquivos worksponsor = null;
         if (q.getResultList().size()>0){
         	worksponsor = (Worksponsorarquivos) q.getResultList().get(0);
         }
+        manager.close();
         return worksponsor;
     } 
     
 
 	public void excluir(int idArquivos) throws SQLException{
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Worksponsorarquivos arquivos = manager.find(Worksponsorarquivos.class, idArquivos);

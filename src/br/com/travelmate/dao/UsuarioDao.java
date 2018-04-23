@@ -21,67 +21,68 @@ public class UsuarioDao {
     
     public Usuario salvar(Usuario usuario) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         usuario = manager.merge(usuario);
         tx.commit();
-        
+        manager.close();
         return usuario;
     }
     
     public Usuario consultar(int idUsuario) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Usuario usuario = manager.find(Usuario.class, idUsuario);
-        
+        manager.close();
         return usuario; 
     }
     
     public Usuario consultar(String login, String senha) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 	    Query q = manager.createQuery("select u from Usuario u where u.login='" + login + "' and u.senha='" + senha + "'  order by u.nome");
         Usuario usuario = null;
         if (q.getResultList().size()>0){
             usuario = (Usuario) q.getResultList().get(0);
         }
+        manager.close();
         return usuario;
     }
     
     public List<Usuario> listaUsuario() throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Usuario u order by u.nome");
         List<Usuario> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
     public List<Usuario> listaUsuarioUnidade(int idUnidade) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Usuario u where u.unidadenegocio.idunidadeNegocio=" + idUnidade + " order by u.nome");
         List<Usuario> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
      public List<Usuario> listar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Usuario> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
     public List<Usuario> listaUsuario(String nome) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select u from Usuario u where u.nome like '%" + nome + "%' order by u.nome" );
         List<Usuario> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
@@ -111,10 +112,10 @@ public class UsuarioDao {
     
     public List<Usuario> consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Usuario> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     

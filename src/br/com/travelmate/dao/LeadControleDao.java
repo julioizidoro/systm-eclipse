@@ -18,42 +18,44 @@ public class LeadControleDao {
 	
 	public List<Leadcontrole> lista(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Leadcontrole> lista = q.getResultList();
-
+		manager.close();
 		return lista;
 	}
 
 	public Leadcontrole consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		Leadcontrole lead = null;
 		if (q.getResultList().size() > 0) {
 			lead = (Leadcontrole) q.getResultList().get(0);
 		}
+		manager.close();
 		return lead;
 	}
 
 	public Leadcontrole salvar(Leadcontrole leadcontrole) throws SQLException {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		leadcontrole = manager.merge(leadcontrole);
 		tx.commit();
-
+		manager.close();
 		return leadcontrole;
 	}
 
 	public void excluir(int idlead) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Lead lead = manager.find(Lead.class, idlead);
         manager.remove(lead);
         tx.commit();
+        manager.close();
     }
 	
 

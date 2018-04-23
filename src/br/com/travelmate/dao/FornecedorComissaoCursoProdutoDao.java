@@ -21,32 +21,35 @@ public class FornecedorComissaoCursoProdutoDao {
     
     public Fornecedorcomissaocursoproduto salvar(Fornecedorcomissaocursoproduto fornecedor) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         fornecedor = manager.merge(fornecedor);
         tx.commit();
+        manager.close();
         return fornecedor;
     }
     
     public List<Fornecedorcomissaocursoproduto> listar(int idFornecedorcomissaocurso) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select f from Fornecedorcomissaocursoproduto f where f.fornecedorcomissaocurso.idfornecedorcomissao=" + idFornecedorcomissaocurso + " order by f.produtosorcamento.descricao");
         List<Fornecedorcomissaocursoproduto> listaFornecedor = q.getResultList();
+        manager.close();
         return listaFornecedor;
     }
     
     public List<Fornecedorcomissaocursoproduto> listar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Fornecedorcomissaocursoproduto> listaFornecedor = q.getResultList();
+        manager.close();
         return listaFornecedor;
     }
     
     public void excluir(int idFornecedorcomissaocursoproduto) throws SQLException {
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("select f from Fornecedorcomissaocursoproduto f where f.idfornecedorcomissaocursoproduto=" + idFornecedorcomissaocursoproduto);
@@ -55,16 +58,18 @@ public class FornecedorComissaoCursoProdutoDao {
             manager.remove(fornecedorcomissaocursoproduto);
         }
         tx.commit();
+        manager.close();
     }
     
     public Fornecedorcomissaocursoproduto pesquisar(int idfornecedorcomissaocurso, int idprodutoOrcamento) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select f from Fornecedorcomissaocursoproduto f where f.fornecedorcomissaocurso.idfornecedorcomissao=" + idfornecedorcomissaocurso  
         		+ " and f.produtosorcamento.idprodutosOrcamento=" +idprodutoOrcamento);
         Fornecedorcomissaocursoproduto fornecedorproduto = null;
         if (q.getResultList().size()>0){
         	fornecedorproduto = (Fornecedorcomissaocursoproduto) q.getResultList().get(0);
         }
+        manager.close();
         return fornecedorproduto;
     }
     

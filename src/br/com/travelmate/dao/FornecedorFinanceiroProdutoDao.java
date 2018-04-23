@@ -22,37 +22,41 @@ import javax.persistence.Query;
 public class FornecedorFinanceiroProdutoDao {
     
     public Fornecedorfinanceiroproduto salvar(Fornecedorfinanceiroproduto fornecedorfinanceiro) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		fornecedorfinanceiro = manager.merge(fornecedorfinanceiro);
         tx.commit();
+        manager.close();
         return fornecedorfinanceiro;
     }
     
     public List<Fornecedorfinanceiroproduto> listar(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Fornecedorfinanceiroproduto> listaFornecedorfinanceiro = q.getResultList();
+        manager.close();
         return listaFornecedorfinanceiro;
     }
     
     public Fornecedorfinanceiroproduto consulta(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Fornecedorfinanceiroproduto fornecedorfinanceiro = null;
         if (q.getResultList().size()>0){
         	fornecedorfinanceiro = (Fornecedorfinanceiroproduto) q.getResultList().get(0);
         }
+        manager.close();
         return fornecedorfinanceiro;
     } 
     
     public void excluir(int idFornecedorfinanceiroproduto) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Fornecedorfinanceiroproduto fornecedorfinanceiroproduto = manager.find(Fornecedorfinanceiroproduto.class, idFornecedorfinanceiroproduto);
         manager.remove(fornecedorfinanceiroproduto);
         tx.commit();
+        manager.close();
     }
 }

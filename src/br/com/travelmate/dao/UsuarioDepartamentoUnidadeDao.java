@@ -15,37 +15,39 @@ public class UsuarioDepartamentoUnidadeDao {
 	public Usuariodepartamentounidade salvar(Usuariodepartamentounidade usuariodepartamentounidade)
 			throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		usuariodepartamentounidade = manager.merge(usuariodepartamentounidade);
 		tx.commit();
+		manager.close();
 		return usuariodepartamentounidade;
 	}
 
 	public Usuariodepartamentounidade consultar(String sql) throws SQLException {
 		Usuariodepartamentounidade usuariodepartamentounidade = null;
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         if (q.getResultList().size()>0){
         	usuariodepartamentounidade = (Usuariodepartamentounidade) q.getResultList().get(0);
         }
+        manager.close();
         return usuariodepartamentounidade;
     }
 
 	public List<Usuariodepartamentounidade> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Usuariodepartamentounidade> lista = q.getResultList();
-
+		manager.close();
 		return lista;
 	}
 
 	public void excluir(int idUsuariodepartamentounidade) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery("Select u from Usuariodepartamentounidade u where u.idusuariodepartamentounidade="
@@ -55,6 +57,7 @@ public class UsuarioDepartamentoUnidadeDao {
 					.get(0);
 			manager.remove(csuariodepartamentounidade);
 		}
+		manager.close();
 		tx.commit();
 
 	}

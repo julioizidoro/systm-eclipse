@@ -14,33 +14,36 @@ public class MetaFaturamentoMensalDao {
 	
 	public Metasfaturamentomensal salvar(Metasfaturamentomensal meta) throws SQLException{
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         meta = manager.merge(meta);
         tx.commit();
+        manager.close();
         return meta;
     }
 	
 	public List<Metasfaturamentomensal> listar(String sql)throws SQLException{
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
        Query q = manager.createQuery(sql);
        List<Metasfaturamentomensal> lista = null;
        if (q.getResultList().size()>0){
            lista =  q.getResultList();
        }
+       manager.close();
        return lista;
    }
 	
 	public Metasfaturamentomensal getMeta(String sql)throws SQLException{
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
        Query q = manager.createQuery(sql);
        Metasfaturamentomensal meta = null;
        if (q.getResultList().size()>0){
            meta=  (Metasfaturamentomensal) q.getResultList().get(0);
        }
+       manager.close();
        return meta;
    }
 

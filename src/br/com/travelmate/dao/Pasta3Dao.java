@@ -14,26 +14,26 @@ public class Pasta3Dao {
     
     public Pasta3 salvar(Pasta3 pasta3) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         pasta3 = manager.merge(pasta3);
         tx.commit();
-        
+        manager.close();
         return pasta3;
     }
     
     public List<Pasta3> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Pasta3> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
     public void excluir(int idpasta3) throws SQLException {
-        EntityManager manager = ConectionFactory.getInstance();
+        EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select c from Pasta3 c where c.idpasta3=" + idpasta3);
@@ -42,6 +42,6 @@ public class Pasta3Dao {
             manager.remove(pasta3);
         }
         tx.commit();
-        
+        manager.close();
     }
 }

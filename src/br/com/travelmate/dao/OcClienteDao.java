@@ -20,43 +20,48 @@ import javax.persistence.Query;
 public class OcClienteDao {
     
     public Occliente salvar(Occliente ocCliente) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         ocCliente = manager.merge(ocCliente);
         tx.commit();
+        manager.close();
         return ocCliente;
     }
     
     public Occliente consultar(int idocCliente) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Occliente ocCliente = manager.find(Occliente.class, idocCliente);
+        manager.close();
         return ocCliente;
     }
     
     public Occliente consultarEmail(String email) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery("select c from Occliente c where c.email='" + email + "'" );
         Occliente cliente = null;
         if (q.getResultList().size()>0){
             cliente =  (Occliente) q.getSingleResult();
         } 
-        return null;
+        manager.close();
+        return cliente;
     }
     
     public List<Occliente> consultarNome(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Occliente> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public List<Occliente> listar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Occliente> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     

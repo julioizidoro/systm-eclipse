@@ -17,7 +17,7 @@ public class LeadDao {
 	
 	public List<Lead> lista(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Lead> lista = null;
 		if (q.getResultList().size() > 0) {
@@ -28,39 +28,41 @@ public class LeadDao {
 
 	public Lead consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		Lead lead = null;
 		if (q.getResultList().size() > 0) {
 			lead = (Lead) q.getResultList().get(0);
 		}
+		manager.close();
 		return lead;
 	}
 
 	public Lead salvar(Lead lead) throws SQLException {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		lead = manager.merge(lead);
 		tx.commit();
-
+		manager.close();
 		return lead;
 	}
 
 	public void excluir(int idlead) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Lead lead = manager.find(Lead.class, idlead);
         manager.remove(lead);
         tx.commit();
+        manager.close();
     }
 	
 	
 	public Integer consultarNumLead(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		Integer numero = null;
 		Long numLong = null;
@@ -68,6 +70,7 @@ public class LeadDao {
 			numLong = (Long) q.getResultList().get(0);
 		}
 		numero = numLong.intValue();
+		manager.close();
 		return numero;
 	}
 }

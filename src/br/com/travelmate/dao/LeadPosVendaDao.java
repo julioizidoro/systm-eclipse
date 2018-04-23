@@ -19,41 +19,45 @@ public class LeadPosVendaDao {
 	
 	
 	public Leadposvenda salvar(Leadposvenda leadposvenda) throws SQLException {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		leadposvenda = manager.merge(leadposvenda);
 		tx.commit();
+		manager.close();
 		return leadposvenda;
 	}
 
 	public Leadposvenda consultar(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		Leadposvenda leadposvenda = null;
 		if (q.getResultList().size() > 0) {
 			leadposvenda = (Leadposvenda) q.getResultList().get(0);
 		}
+		manager.close();
 		return leadposvenda;
 	}  
 
 	public void excluir(int idleadposvenda) throws SQLException {
-		EntityManager manager= ConectionFactory.getInstance();
+		EntityManager manager= ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Leadposvenda leadposvenda = manager.find(Leadposvenda.class, idleadposvenda);
 		manager.remove(leadposvenda);
 		tx.commit();
+		manager.close();
 	}
 
 	public List<Leadposvenda> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Leadposvenda> lista = null;
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
+		manager.close();
 		return lista;
 	}
 

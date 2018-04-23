@@ -45,15 +45,15 @@ public class OcursoSeguroViagemDao {
     
     public void excluir(int idOcursoseguro) throws SQLException {
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
         tx.begin();
         Query q = manager.createQuery("Select c from Ocursoseguro c where c.idocursoseguro=" + idOcursoseguro);
         if (q.getResultList().size()>0){
         	Ocursoseguro ocursoseguro = (Ocursoseguro) q.getResultList().get(0);   
             manager.remove(ocursoseguro);
-        }    
+        }   
         tx.commit();
-        
+        manager.close();
     }
 }

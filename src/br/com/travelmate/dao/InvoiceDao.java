@@ -133,13 +133,13 @@ public class InvoiceDao {
     
     public void excluir(int idInvoice) throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Invoice invoice = manager.find(Invoice.class, idInvoice);
 		manager.remove(invoice);
 		tx.commit();
-		
+		manager.close();
 	}
     
 }

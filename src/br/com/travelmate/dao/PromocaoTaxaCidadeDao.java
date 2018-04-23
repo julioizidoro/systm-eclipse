@@ -14,53 +14,50 @@ public class PromocaoTaxaCidadeDao {
     
     public Promocaotaxacidade salvar(Promocaotaxacidade promocaotaxacidade) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         promocaotaxacidade = manager.merge(promocaotaxacidade);
         tx.commit();
-        
+        manager.close();
         return promocaotaxacidade;
     }
     
     
     public List<Promocaotaxacidade> listar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getInstance();
+         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Promocaotaxacidade> lista = null;
         if (q.getResultList().size()>0){
             lista =  q.getResultList();
         }
-        
+        manager.close();
         return lista;
     }
     
     
     public Promocaotaxacidade consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Promocaotaxacidade Promocaotaxacidade = null;
         if(q.getResultList().size()>0){
         	Promocaotaxacidade =  (Promocaotaxacidade) q.getResultList().get(0);
         }
-        
-        if(Promocaotaxacidade!=null){
-        	return Promocaotaxacidade;
-        }
-        return null;
+        manager.close();
+        return Promocaotaxacidade;
     }
     
     
     public void excluir(Promocaotaxacidade promocaotaxacidade) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         promocaotaxacidade = manager.find(Promocaotaxacidade.class, promocaotaxacidade.getIdpromocaotaxacidade());
         manager.remove(promocaotaxacidade);
         tx.commit();
-        
+        manager.close();
     }
 }

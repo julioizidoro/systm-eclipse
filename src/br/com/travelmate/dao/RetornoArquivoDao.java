@@ -15,27 +15,27 @@ public class RetornoArquivoDao {
 	
 	public Retornoarquivo salvar(Retornoarquivo retornoarquivo) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		retornoarquivo = manager.merge(retornoarquivo);
 		tx.commit();
-		
+		manager.close();
 		return retornoarquivo;
 	}
 
 	public List<Retornoarquivo> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Retornoarquivo> lista = q.getResultList();
-		
+		manager.close();
 		return lista;
 	}
 
 	public void excluir(int idretornoarquivo) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		manager.getTransaction().begin();
 		Query q = manager.createQuery("Select r from Retornoarquivo r where r.idretornoarquivo=" + idretornoarquivo);
@@ -44,6 +44,6 @@ public class RetornoArquivoDao {
 			manager.remove(retornoarquivo);
 		}
 		tx.commit();
-		
+		manager.close();
 	}
 }

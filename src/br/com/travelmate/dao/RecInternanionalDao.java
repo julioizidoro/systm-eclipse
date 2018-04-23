@@ -15,26 +15,27 @@ public class RecInternanionalDao {
 	
 	public Recinternacional salvar(Recinternacional recinternacional) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		recinternacional = manager.merge(recinternacional);
         tx.commit();
-        
+        manager.close();
         return recinternacional;
     }
     
     public List<Recinternacional> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Recinternacional> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public void excluir(int idrecinternacional) throws SQLException {
     	EntityManager manager;
-    	manager = ConectionFactory.getInstance();
+    	manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select c from Recinternacional c where c.idrecinternacional=" + idrecinternacional);
@@ -43,6 +44,7 @@ public class RecInternanionalDao {
             manager.remove(recinternacional);
         }
         tx.commit();
+        manager.close();
         
     }
 }

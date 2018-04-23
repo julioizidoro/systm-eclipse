@@ -39,12 +39,13 @@ public class IdiomaDao {
     
     public Idioma consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		Idioma idioma = null;
 		if (q.getResultList().size() > 0) {
 			idioma = (Idioma) q.getResultList().get(0);
 		}
+		manager.close();
 		return idioma;
 	}
 }
