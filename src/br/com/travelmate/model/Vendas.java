@@ -130,9 +130,9 @@ public class Vendas implements Serializable {
 	@Column(name = "dataprocesso")
 	@Temporal(TemporalType.DATE)
 	private Date dataprocesso;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas", fetch=FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "vendas", fetch=FetchType.LAZY)
     private Arquivoskitviagem arquivoskitviagem;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas", fetch=FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "vendas", fetch=FetchType.LAZY)
     private Vendapendencia vendapendencia; 
 	@Transient
 	private boolean selecionado;

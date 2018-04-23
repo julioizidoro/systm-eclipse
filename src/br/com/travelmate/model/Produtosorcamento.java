@@ -57,7 +57,7 @@ public class Produtosorcamento implements Serializable {
     private boolean pathway;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtosorcamento")
     private List<Produtoremessa> produtoremessaList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produtosorcamento")
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "produtosorcamento")
     private Produtosorcamentogrupo produtosorcamentogrupo;
     @Transient
     private boolean selecionado;

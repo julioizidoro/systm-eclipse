@@ -30,7 +30,7 @@ public class Vendamotivopendencia implements Serializable {
     @Size(max = 40)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendamotivopendencia")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "vendamotivopendencia")
     private List<Vendapendencia> vendapendenciaList;
 
     public Vendamotivopendencia() {

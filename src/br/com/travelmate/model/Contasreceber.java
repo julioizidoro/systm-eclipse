@@ -108,7 +108,7 @@ public class Contasreceber implements Serializable {
     @Column(name = "datacancelamento")
     @Temporal(TemporalType.DATE)
     private Date datacancelamento;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contasreceber", fetch=FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "contasreceber", fetch=FetchType.LAZY)
     private Crmcobrancaconta crmcobrancaconta;
     @Transient
     private boolean selecionado;

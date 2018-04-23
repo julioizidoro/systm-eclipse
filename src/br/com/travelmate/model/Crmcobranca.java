@@ -51,7 +51,7 @@ public class Crmcobranca implements Serializable {
     @Column(name = "datainiciocobranca")
     @Temporal(TemporalType.DATE)
     private Date datainiciocobranca;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crmcobranca")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "crmcobranca")
     private List<Crmcobrancaconta> crmcobrancacontaList;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)

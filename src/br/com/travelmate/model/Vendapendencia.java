@@ -47,7 +47,7 @@ public class Vendapendencia implements Serializable {
     @JoinColumn(name = "vendamotivopendencia_idvendamotivopendencia", referencedColumnName = "idvendamotivopendencia")
     @ManyToOne(optional = false)
     private Vendamotivopendencia vendamotivopendencia;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendapendencia")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "vendapendencia")
     private List<Vendapendenciahistorico> vendapendenciahistoricoList;
 
     public Vendapendencia() {

@@ -103,14 +103,14 @@ public class Usuario implements Serializable {
     private String dashboard; 
     @Transient
     private boolean fecharaniversario; 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUpload")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "usuarioUpload")
     private List<Notificacaouploadusuario> notificacaoUploadNotificarList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "usuario")
     private Acessounidade acessounidade;
     @JoinColumn(name = "cargo_idcargo", referencedColumnName = "idcargo")
     @ManyToOne(optional = false)
     private Cargo cargo;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "usuario")
     private Leadresponsavel responsavel;
 
     public Usuario() {

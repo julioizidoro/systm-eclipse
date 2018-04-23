@@ -31,7 +31,7 @@ public class Produtosorcamentoindice implements Serializable {
     @Size(max = 100)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtosorcamentoindice")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtosorcamentoindice")
     private List<Produtosorcamentogrupo> produtosorcamentogrupoList;
 
     public Produtosorcamentoindice() {

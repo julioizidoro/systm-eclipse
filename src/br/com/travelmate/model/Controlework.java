@@ -79,7 +79,7 @@ public class Controlework implements Serializable {
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas; 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "controlework")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "controlework")
     @OrderBy("idcontroleworkentrevista DESC") 
     @Size(max=1)
     private List<Controleworkentrevista> controleworkentrevistaList;

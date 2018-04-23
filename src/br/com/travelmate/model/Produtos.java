@@ -47,7 +47,7 @@ public class Produtos implements Serializable {
 	private boolean mostrar;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos", fetch = FetchType.LAZY)  
 	private List<Fornecedorcidade> fornecedorcidadeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtos")
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos")
 	private List<Tipoarquivoproduto> tipoarquivoprodutoList;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtos")
 	private List<Paisproduto> paisprodutoList;

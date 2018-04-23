@@ -85,7 +85,7 @@ public class Ocurso implements Serializable {
 	private Usuario usuario;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "ocurso")
 	private List<Ocursodesconto> ocursodescontoList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ocurso", fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "ocurso", fetch=FetchType.EAGER)
 	private List<Ocrusoprodutos> OcrusoprodutosList;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "ocurso")
 	private List<Ocursoseguro> OcursoseguroList;

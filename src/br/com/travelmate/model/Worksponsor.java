@@ -72,7 +72,7 @@ public class Worksponsor implements Serializable {
     @JoinColumn(name = "fornecedorcidade_idfornecedorcidade", referencedColumnName = "idfornecedorcidade")
     @ManyToOne(optional = false)
     private Fornecedorcidade fornecedorcidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "worksponsor")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "worksponsor")
     private List<Worksponsorarquivos> worksponsorarquivosList;
 
     public Worksponsor() {
