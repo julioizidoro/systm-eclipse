@@ -19,21 +19,23 @@ public class CursoTraducaoDao {
     
     public Cursotraducao salvar(Cursotraducao cursotraducao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		cursotraducao = manager.merge(cursotraducao);
         tx.commit();
+        manager.close();
         return cursotraducao;
     } 
      
     public Cursotraducao consultar(int idcurso) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Cursotraducao c where c.curso.idcursos="+idcurso);
         Cursotraducao cursotraducao = null;
         if (q.getResultList().size()>0){
         	cursotraducao = (Cursotraducao) q.getResultList().get(0);
         }
+        manager.close();
         return cursotraducao;
     }
     

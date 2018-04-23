@@ -18,7 +18,7 @@ public class CargoDao {
 	private static final long serialVersionUID = 1L; 
 	 
 	public Cargo salvar(Cargo cargo) throws SQLException{
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		cargo = manager.merge(cargo);
@@ -28,17 +28,18 @@ public class CargoDao {
     } 
     
     public Cargo consultar(String sql)  throws SQLException  {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql); 
 		Cargo cargo = null; 
         if (q.getResultList().size() > 0) {
         	cargo =  (Cargo) q.getResultList().get(0);
         } 
+        manager.close();
         return cargo;
     }
      
     public void excluir(int idCargo) throws SQLException  {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Cargo cargo = manager.find(Cargo.class, idCargo);
@@ -48,9 +49,10 @@ public class CargoDao {
     }
      
     public List<Cargo> lista(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Cargo> lista = q.getResultList();
+        manager.close();
         return lista; 
     }
 

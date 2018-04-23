@@ -15,28 +15,31 @@ import javax.persistence.Query;
 public class BancoDao {
     
     public List<Banco> listar() throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select b from Banco b order by b.nome");
         List<Banco> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     
     public List<Banco> listar(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Banco> lista = q.getResultList();
+        manager.close();
         return lista;
     }
     
     public Banco getBanco(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Banco banco = null;
         if (q.getResultList().size()>0){
         	banco = (Banco) q.getResultList().get(0);
         }
+        manager.close();
         return banco;
     }
     
@@ -44,11 +47,12 @@ public class BancoDao {
     
     public Banco salvar(Banco banco) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         banco = manager.merge(banco);
         tx.commit();
+        manager.close();
         return banco;
     }
     

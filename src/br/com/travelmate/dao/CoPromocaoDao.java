@@ -14,7 +14,7 @@ public class CoPromocaoDao {
     
     public Copromocao salvar(Copromocao coPromocao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         coPromocao = manager.merge(coPromocao);
@@ -25,31 +25,31 @@ public class CoPromocaoDao {
     
     public List<Copromocao> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
        Query q = manager.createQuery(sql);
        List<Copromocao> lista = null;
        if (q.getResultList().size()>0){
            lista =  q.getResultList();
        }
-       
+       manager.close();
        return lista;
    }
     
     public Copromocao consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Copromocao copromocao = null;
         if(q.getResultList().size()>0){
             copromocao =  (Copromocao) q.getResultList().get(0);
         }
-        
+        manager.close();
         return copromocao;
     }
     
     public void excluir(Copromocao coPromocao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         coPromocao = manager.find(Copromocao.class, coPromocao.getIdcopromocao());
@@ -57,6 +57,6 @@ public class CoPromocaoDao {
         	manager.remove(coPromocao);
         }
         tx.commit();
-        
+        manager.close();
     }
 }

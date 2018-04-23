@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Cancelamento;
+import br.com.travelmate.model.Crmcobranca;
 
 public class CancelamentoDao {
 	
@@ -33,6 +34,18 @@ public class CancelamentoDao {
 		}
 		manager.close();
 		return lista;
+	}
+	
+	
+	public Cancelamento consultar(int idcancelamento) throws SQLException {
+		EntityManager manager = ConectionFactory.getConnection();
+		Query q = manager.createQuery("SELECT c FROM Cancelamento c WHERE c.vendas.idvendas=" + idcancelamento);
+		Cancelamento cancelamento = null;
+		if (q.getResultList().size() > 0) {
+			cancelamento = (Cancelamento) q.getResultList().get(0);
+		}
+		manager.close();
+		return cancelamento;
 	}
 
 }

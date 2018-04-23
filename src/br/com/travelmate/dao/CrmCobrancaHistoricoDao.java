@@ -14,7 +14,7 @@ public class CrmCobrancaHistoricoDao {
 	
 	
 	public Crmcobrancahistorico salvar(Crmcobrancahistorico crmcobranca) throws SQLException{
-		EntityManager manager = ConectionFactory.getInstance();
+		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		crmcobranca = manager.merge(crmcobranca);
@@ -26,7 +26,7 @@ public class CrmCobrancaHistoricoDao {
    
     
     public Crmcobrancahistorico consultar(int idcrm) throws SQLException {
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("SELECT c FROM Crmcobrancahistorico c WHERE c.idcrmcobrancahistorico=" + idcrm);
         Crmcobrancahistorico crmcobranca = null; 
         if (q.getResultList().size() > 0) {
@@ -37,7 +37,7 @@ public class CrmCobrancaHistoricoDao {
     }
     
     public void excluir(int idcrm) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Crmcobrancahistorico crmcobranca = manager.find(Crmcobrancahistorico.class, idcrm);
@@ -48,7 +48,7 @@ public class CrmCobrancaHistoricoDao {
     
     
     public List<Crmcobrancahistorico> lista(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getInstance();
+    		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Crmcobrancahistorico> lista = q.getResultList();
         manager.close();

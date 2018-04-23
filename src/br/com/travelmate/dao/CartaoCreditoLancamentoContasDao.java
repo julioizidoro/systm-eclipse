@@ -15,20 +15,22 @@ public class CartaoCreditoLancamentoContasDao {
 	    
 	    
 	    public List<Cartaocreditolancamentocontas> listar(String sql) throws SQLException{
-	    	EntityManager manager = ConectionFactory.getInstance();
+	    	EntityManager manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);
 	        List<Cartaocreditolancamentocontas> lista = q.getResultList();
+	        manager.close();
 	        return lista;
 	    }
 	    
 	    public Cartaocreditolancamentocontas consultar(String sql) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);
 	        Cartaocreditolancamentocontas cartaocreditolancamentocontas = null;
 	        if (q.getResultList().size()>0){
 	        	cartaocreditolancamentocontas = (Cartaocreditolancamentocontas) q.getResultList().get(0);
 	        }
+	        manager.close();
 	        return cartaocreditolancamentocontas;
 	    }
 	    
@@ -36,17 +38,18 @@ public class CartaoCreditoLancamentoContasDao {
 	    
 	    public Cartaocreditolancamentocontas salvar(Cartaocreditolancamentocontas cartaocreditolancamentocontas) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getInstance();
+	        manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			cartaocreditolancamentocontas = manager.merge(cartaocreditolancamentocontas);
 	        tx.commit();
+	        manager.close();
 	        return cartaocreditolancamentocontas;
 	    }
 	    
 	    
 	    public void excluir(int idCartaoCreditoLancamento) throws SQLException  {
-			EntityManager manager = ConectionFactory.getInstance();
+			EntityManager manager = ConectionFactory.getConnection();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			Cartaocreditolancamentocontas cartaocreditolancamentocontas = manager.find(Cartaocreditolancamentocontas.class, idCartaoCreditoLancamento);

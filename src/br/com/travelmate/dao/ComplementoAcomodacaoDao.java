@@ -13,32 +13,35 @@ public class ComplementoAcomodacaoDao {
 	
 	public Complementoacomodacao salvar(Complementoacomodacao complemento) throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		complemento = manager.merge(complemento);
 		tx.commit();
+		manager.close();
 		return complemento;
 	}
 	
 	public Complementoacomodacao consultar(int idComplemento) throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Complementoacomodacao complemento = manager.find(Complementoacomodacao.class, idComplemento); 
 		tx.commit();
+		manager.close();
 		return complemento;
 	}
 	
 	public Complementoacomodacao consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Complementoacomodacao complementoacomodacao = null;
         if (q.getResultList().size()>0){
         	complementoacomodacao =  (Complementoacomodacao) q.getResultList().get(0);
         }
+        manager.close();
         return complementoacomodacao;
     }
     

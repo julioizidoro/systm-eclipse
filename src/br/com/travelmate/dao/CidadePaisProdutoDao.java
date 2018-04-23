@@ -15,17 +15,18 @@ public class CidadePaisProdutoDao {
 
 	public Cidadepaisproduto salvar(Cidadepaisproduto cidade) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		cidade = manager.merge(cidade);
 		tx.commit();
+		manager.close();
 		return cidade;
 	}
 
 	public List<Cidadepaisproduto> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Cidadepaisproduto> lista = q.getResultList();
 		if (lista != null) {
@@ -33,12 +34,13 @@ public class CidadePaisProdutoDao {
 				return null;
 			}
 		}
+		manager.close();
 		return lista;
 	}
 
 	public void excluir(int idcidade) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery("Select c from Cidadepaisproduto c where c.idcidadepaisproduto=" + idcidade);
@@ -47,7 +49,7 @@ public class CidadePaisProdutoDao {
 			manager.remove(cidade);
 		}
 		tx.commit();
-
+		manager.close();
 	}
 
 	public Cidadepaisproduto consultar(String sql) throws SQLException {

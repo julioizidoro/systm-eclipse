@@ -15,26 +15,27 @@ public class CancelamentoCreditoDao {
 	
 	public Cancelamentocredito salvar(Cancelamentocredito cancelamentocredito) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		cancelamentocredito = manager.merge(cancelamentocredito);
 		tx.commit();
-
+		manager.close();
 		return cancelamentocredito;
 	}
 
 	public List<Cancelamentocredito> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Cancelamentocredito> lista = q.getResultList();
+		manager.close();
 		return lista;
 	}
 
 	public void excluir(int idcancelamentocredito) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery(
@@ -44,7 +45,7 @@ public class CancelamentoCreditoDao {
 			manager.remove(arquivo1);
 		}
 		tx.commit();
-
+		manager.close();
 	}
 
 }

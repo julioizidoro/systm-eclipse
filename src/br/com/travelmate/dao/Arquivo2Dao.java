@@ -14,26 +14,26 @@ public class Arquivo2Dao {
 
     public Arquivo2 salvar(Arquivo2 arquivo2) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         arquivo2 = manager.merge(arquivo2);
         tx.commit();
-        
+        manager.close();
         return arquivo2;
     }
     
     public List<Arquivo2> listar(String sql)throws SQLException{
     	EntityManager manager;  
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Arquivo2> lista = q.getResultList();
-        
+        manager.close();
         return lista;
     }
     
     public void excluir(int idarquivo2) throws SQLException {
-        EntityManager manager = ConectionFactory.getInstance();
+        EntityManager manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select c from Arquivo2 c where c.idarquivo2=" + idarquivo2);
@@ -42,6 +42,6 @@ public class Arquivo2Dao {
             manager.remove(arquivo2);
         }
         tx.commit();
-        
+        manager.close();
     }
 }
