@@ -145,9 +145,9 @@ public class Cursospacote implements Serializable {
     @Column(name = "valormoedaestrangeira")
     private float valormoedaestrangeira;
     @Column(name = "descontotmreal1")
-    private int descontotmreal1;
+    private float descontotmreal1;
     @Column(name = "descontotmreal2")
-    private int descontotmreal2;
+    private float descontotmreal2;
     
     
     
@@ -565,16 +565,22 @@ public class Cursospacote implements Serializable {
 		this.valortotalpacote = valortotalpacote;
 	}
 
-	public int getDescontotmreal1() {
+	
+
+	public float getDescontotmreal1() {
 		return descontotmreal1;
 	}
 
-	public void setDescontotmreal1(int descontotmreal1) {
+	public void setDescontotmreal1(float descontotmreal1) {
 		this.descontotmreal1 = descontotmreal1;
 	}
 
-	public int getDescontotmreal2() {
+	public float getDescontotmreal2() {
 		return descontotmreal2;
+	}
+
+	public void setDescontotmreal2(float descontotmreal2) {
+		this.descontotmreal2 = descontotmreal2;
 	}
 
 	public void setDescontotmreal2(int descontotmreal2) {
