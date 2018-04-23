@@ -332,6 +332,7 @@
 													<p:outputLabel value="Escola: #{pacote.escola}"
 														style="font-size:12px;font-weight: initial;" />
 												</h:panelGrid>
+												
 											</div>
 											<br />
 											<div align="center">
@@ -552,11 +553,7 @@
 												</h:panelGrid>
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
 													columnClasses="tamanho98">
-													<h:panelGroup>
-														<p:outputLabel value="#{pacote.valoravista}"
-															style="font-size:26px;color:#722672;margin-left:1%;">
-														</p:outputLabel>
-													</h:panelGroup>
+													
 													<p:outputLabel value="#{pacote.duracao}"
 														style="font-size:13px;font-weight: initial;" />
 													<br />
@@ -631,6 +628,7 @@
 													<h:panelGroup>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#8B0000;margin-left:1%;">
+															<f:convertNumber currencySymbol="" type="currency"/>
 														</p:outputLabel>
 													</h:panelGroup>
 													<p:outputLabel value="#{pacote.duracao}"
@@ -689,6 +687,7 @@
 													<h:panelGroup>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#8B0000;margin-left:1%;">
+															<f:convertNumber currencySymbol="" type="currency"/>
 														</p:outputLabel>
 													</h:panelGroup>
 													<p:outputLabel value="#{pacote.duracao}"
@@ -751,6 +750,7 @@
 													<h:panelGroup>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#8B0000;margin-left:1%;">
+															<f:convertNumber currencySymbol="" type="currency"/>
 														</p:outputLabel>
 													</h:panelGroup>
 													<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
@@ -837,6 +837,7 @@
 													<h:panelGroup>
 														<p:outputLabel value="#{pacote.valoravista}"
 															style="font-size:26px;color:#EE7600;margin-left:1%;">
+															<f:convertNumber currencySymbol="" type="currency"/>
 														</p:outputLabel>
 													</h:panelGroup>
 													<p:outputLabel
