@@ -97,32 +97,48 @@ public class CadHistoricoClienteMB implements Serializable {
    
 
 	public void salvarHistorico() {
-		if (leadHistorico.getTipocontato() != null && leadHistorico.getTipocontato().getIdtipocontato() != null) {
-			if (leadHistorico.getHistorico() != null && !leadHistorico.getHistorico().equalsIgnoreCase(" ")) {
-				if (lead.getTipocontato() != null && lead.getTipocontato().getIdtipocontato() != null) {
-					// salvarHistorico
-					leadHistorico.setCliente(lead.getCliente());
-					LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
-					leadHistorico = leadHistoricoFacade.salvar(leadHistorico);
+		if (validarDados()) {
+			// salvarHistorico
+			leadHistorico.setCliente(lead.getCliente());
+			LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
+			leadHistorico = leadHistoricoFacade.salvar(leadHistorico);
+
+			// atualizarLead
+			LeadFacade leadFacade = new LeadFacade();
+			lead.setDataproximocontato(leadHistorico.getDataproximocontato());
+			lead.setHoraproximocontato(leadHistorico.getHoraporximocontato());
+			lead.setDataultimocontato(leadHistorico.getDatahistorico());
+			if (lead.getSituacao() < 2) {
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2);
+				lead.setSituacao(2);
+			}
+			lead = leadFacade.salvar(lead);
+			Mensagem.lancarMensagemInfo("Histórico salvo com sucesso", "");
+			RequestContext.getCurrentInstance().closeDialog(null);
+		}
+	}
 	
-					// atualizarLead
-					LeadFacade leadFacade = new LeadFacade();
-					lead.setDataproximocontato(leadHistorico.getDataproximocontato());
-					lead.setHoraproximocontato(leadHistorico.getHoraporximocontato());
-					lead.setDataultimocontato(leadHistorico.getDatahistorico());
-					if (lead.getSituacao() < 2) {
-						LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2);
-						lead.setSituacao(2);
-					}
-					lead = leadFacade.salvar(lead); 
-					Mensagem.lancarMensagemInfo("Histórico salvo com sucesso", "");  
-					RequestContext.getCurrentInstance().closeDialog(null);  
-				} else
-					Mensagem.lancarMensagemInfo("Tipo de próximo contato não preenchido!", "");
-			} else
-				Mensagem.lancarMensagemInfo("Histórico não preenchido!", "");
-		} else
+	
+	public boolean validarDados() {
+		if (leadHistorico.getTipocontato() == null && leadHistorico.getTipocontato().getIdtipocontato() == null) {
 			Mensagem.lancarMensagemInfo("Tipo de contato não preenchido!", "");
-	} 
+			return false;
+		}
+		if (leadHistorico.getHistorico() == null && leadHistorico.getHistorico().equalsIgnoreCase(" ")) {
+			Mensagem.lancarMensagemInfo("Histórico não preenchido!", "");
+			return false;
+		}
+		if (lead.getTipocontato() == null && lead.getTipocontato().getIdtipocontato() == null) {
+			Mensagem.lancarMensagemInfo("Tipo de próximo contato não preenchido!", "");
+			return false;
+		}
+		if (leadHistorico.getDataproximocontato() == null) {
+			Mensagem.lancarMensagemErro("Data do próximo contato não inserida!", "");
+			return false;
+		}
+		return true;
+	}
+	
+	
 	 
 }
