@@ -1474,7 +1474,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
 					boolean horarioExcedido = false;
 					int numeroAdicionar = 0;
-					int diaSemana = Formatacao.diaSemana(parcelamentopagamento.getDiaVencimento());
+					int diaSemana = Formatacao.diaSemana(parcelamento.getDiaVencimento());
 					String horaAtual = Formatacao.foramtarHoraString();
 					String horaMaxima = "16:00:00";
 					Time horatime = null;
@@ -1500,7 +1500,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 					}
 					if (horarioExcedido) {
 						try {
-							parcelamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
+							parcelamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamento.getDiaVencimento(), numeroAdicionar));
 							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
 						} catch (Exception e) {
 							e.printStackTrace();
