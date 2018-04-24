@@ -129,11 +129,11 @@ public class CadCursoBean {
 	}
 
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB, Seguroviagem seguroViagem, Formapagamento forma) {
-		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-					 forma.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
-			
-		}
+//		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
+//			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+//					 forma.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+//			
+//		}
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -145,6 +145,7 @@ public class CadCursoBean {
 				vendasComissao = new Vendascomissao();
 				vendasComissao.setVendas(venda);
 				vendasComissao.setPaga("Não");
+				vendasComissao.setProdutos(venda.getProdutos());
 			}
 			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
 				float valorJuros = 0.0f;

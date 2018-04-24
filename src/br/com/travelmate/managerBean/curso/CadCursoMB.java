@@ -51,6 +51,7 @@ import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
+import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.VendasPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -1512,7 +1513,6 @@ public class CadCursoMB implements Serializable {
 
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente, totalPagar, produto,
 						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino());
-				salvarSeguroViagem();
 				CadCursoBean cadCursoBean = new CadCursoBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 				if (enviarFicha && !novaFicha) {
 					cadCursoBean.SalvarAlteracaoFinanceiro(listaParcelamentoPagamentoAntiga, listaParcelamentoPagamentoOriginal, venda.getUsuario());
@@ -1530,6 +1530,9 @@ public class CadCursoMB implements Serializable {
 				if (enviarFicha) {
 					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem,  formaPagamento);
 				}   
+				VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
+				venda.setVendascomissao(vendasComissaoFacade.consultar(venda.getIdvendas()));
+				salvarSeguroViagem();
 				cliente = cadCursoBean.salvarCliente(cliente);
 				if(cursospacote!=null && cursospacote.getIdcursospacote()!=null){
 					VendasPacoteFacade vendasPacoteFacade = new VendasPacoteFacade();
@@ -1593,6 +1596,8 @@ public class CadCursoMB implements Serializable {
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
+							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
 							String titulo = "";
 							String operacao = "";
 							String imagemNotificacao = "";
