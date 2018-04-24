@@ -22,33 +22,30 @@ public class FornecedorDao {
     
     public Fornecedor salvar(Fornecedor fornecedor) throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
+    	manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         fornecedor = manager.merge(fornecedor);
         tx.commit();
-        manager.close();
         return fornecedor;
     }
     
     public List<Fornecedor> listar(String sql) throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
+    	manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedor> listaFornecedor = q.getResultList();
-        manager.close();
         return listaFornecedor;
     }
     
     public Fornecedor consultar(int idFornecedor) throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
+    	manager = ConectionFactory.getInstance();
          Query q = manager.createQuery("select v from Fornecedor  v where v.idfornecedor=" + idFornecedor);
          Fornecedor fornecedor = null;
          if(q.getResultList().size()>0){
              fornecedor =  (Fornecedor) q.getResultList().get(0);
          }
-         manager.close();
          return fornecedor;
      }
 }

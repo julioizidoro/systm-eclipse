@@ -20,44 +20,40 @@ import javax.persistence.Query;
 public class FaturaFranquiasDao {
     
     public Faturafranquias salvar(Faturafranquias faturafranquias) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         faturafranquias = manager.merge(faturafranquias);
         tx.commit();
-        manager.close();
         return faturafranquias;
     }
     
     public Faturafranquias getFaturaFranquia(int idVendasComissao)throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
  	    Query q = manager.createQuery("Select f from Faturafranquias f where f.vendascomissao.idvendascomissao=" + idVendasComissao);
         Faturafranquias fatura = null;
         if (q.getResultList().size()>0){
             fatura = (Faturafranquias) q.getResultList().get(0);
         }
-        manager.close();
         return fatura;
     }
     
     public void excluir(int idFaturaFranquias) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Faturafranquias fatura = manager.find(Faturafranquias.class, idFaturaFranquias);
         manager.remove(fatura);
         tx.commit();
-        manager.close();
     }
     
     public List<Faturafranquias> listar(String sql)throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Faturafranquias> fatura = null;
         if (q.getResultList().size()>0){
             fatura =  q.getResultList();
         }
-        manager.close();
         return fatura;
     }    
 }

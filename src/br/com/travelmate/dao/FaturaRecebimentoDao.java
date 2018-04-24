@@ -11,12 +11,11 @@ import br.com.travelmate.model.Faturarecebimento;
 public class FaturaRecebimentoDao {
 	
 	public Faturarecebimento salvar(Faturarecebimento faturaRecebimento) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		faturaRecebimento = manager.merge(faturaRecebimento);
         tx.commit();
-        manager.close();
         return faturaRecebimento;
     }
 

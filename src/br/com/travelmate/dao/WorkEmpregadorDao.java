@@ -21,31 +21,28 @@ import javax.persistence.Query;
 public class WorkEmpregadorDao {
     
     public Workempregador salvar(Workempregador workempregador) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		workempregador = manager.merge(workempregador);
         tx.commit();
-        manager.close();
         return workempregador;
     }
      
     public List<Workempregador> listar(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Workempregador> lista = q.getResultList();
-        manager.close();
         return lista;
     }
     
     public Workempregador consulta(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Workempregador workempregador = null;
         if (q.getResultList().size()>0){
         	workempregador = (Workempregador) q.getResultList().get(0);
         }
-        manager.close();
         return workempregador;
     } 
 }

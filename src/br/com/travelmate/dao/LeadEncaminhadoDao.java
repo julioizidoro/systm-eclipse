@@ -24,6 +24,7 @@ public class LeadEncaminhadoDao {
 		tx.begin();
 		leadencaminhado = manager.merge(leadencaminhado);
 		tx.commit();
+		manager.clear();
 		manager.close();
 		return leadencaminhado;
 	}
@@ -35,6 +36,7 @@ public class LeadEncaminhadoDao {
 		if (q.getResultList().size() > 0) {
 			leadencaminhado = (Leadencaminhado) q.getResultList().get(0);
 		}
+		manager.clear();
 		manager.close();
 		return leadencaminhado;
 	}  
@@ -46,6 +48,7 @@ public class LeadEncaminhadoDao {
 		Leadencaminhado leadencaminhado = manager.find(Leadencaminhado.class, idleadencaminhado);
 		manager.remove(leadencaminhado);
 		tx.commit();
+		manager.clear();
 		manager.close();
 	}
 
@@ -57,6 +60,7 @@ public class LeadEncaminhadoDao {
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
+		manager.clear();
 		manager.close();
 		return lista;
 	}

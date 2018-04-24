@@ -16,25 +16,23 @@ public class PacoteInicialDao {
 
 	public Pacotesinicial consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		Pacotesinicial pacotesinicial = null;
 		if (q.getResultList().size() > 0) {
 			pacotesinicial = (Pacotesinicial) q.getResultList().get(0);
 		}
-		manager.close();
 		return pacotesinicial;
 	}   
 
 	public List<Pacotesinicial> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Pacotesinicial> lista = null;
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
-		manager.close();
 		return lista;
 	}
 

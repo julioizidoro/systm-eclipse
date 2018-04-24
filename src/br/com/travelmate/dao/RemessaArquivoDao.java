@@ -15,27 +15,27 @@ public class RemessaArquivoDao {
 	
 	public Remessaarquivo salvar(Remessaarquivo remessaarquivo) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		remessaarquivo = manager.merge(remessaarquivo);
 		tx.commit();
-		manager.close();
+		
 		return remessaarquivo;
 	}
 
 	public List<Remessaarquivo> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Remessaarquivo> lista = q.getResultList();
-		manager.close();
+		
 		return lista;
 	}
 
 	public void excluir(int idremessaarquivo) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		manager.getTransaction().begin();
 		Query q = manager.createQuery("Select r from Remessaarquivo r where r.idremessaarquivo=" + idremessaarquivo);
@@ -44,6 +44,6 @@ public class RemessaArquivoDao {
 			manager.remove(remessaarquivo);
 		}
 		tx.commit();
-		manager.close();
+		
 	}
 }

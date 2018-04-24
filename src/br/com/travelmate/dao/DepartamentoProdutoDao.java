@@ -24,18 +24,16 @@ public class DepartamentoProdutoDao {
      }
 	
 	 public List<Departamentoproduto> listar(int iddepartamento) throws SQLException {
-		 EntityManager manager  = ConectionFactory.getConnection();
+		 EntityManager manager  = ConectionFactory.getInstance();
          Query q = manager.createQuery("select d from Departamentoproduto d where d.departamento.iddepartamento=" + iddepartamento);
          List<Departamentoproduto> lista = q.getResultList();
-         manager.close();
          return lista;    
      }
 	
 	public List<Departamentoproduto> listar() throws SQLException {
-		 EntityManager manager  = ConectionFactory.getConnection();
+		 EntityManager manager  = ConectionFactory.getInstance();
         Query q = manager.createQuery("select d from Departamentoproduto d order by d.produtos.descricao");
         List<Departamentoproduto> lista = q.getResultList();
-        manager.close();
         return lista;    
     }
 

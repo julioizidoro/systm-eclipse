@@ -13,7 +13,7 @@ import br.com.travelmate.model.Crmcobrancaconta;
 public class CrmCobrancaContaDao {
 	
 	public Crmcobrancaconta salvar(Crmcobrancaconta crmcobranca) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		crmcobranca = manager.merge(crmcobranca);
@@ -25,7 +25,7 @@ public class CrmCobrancaContaDao {
    
     
     public Crmcobrancaconta consultar(int idcrm) throws SQLException {
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("SELECT c FROM Crmcobrancaconta c WHERE c.idcrmcobrancaconta=" + idcrm);
         Crmcobrancaconta crmcobranca = null; 
         if (q.getResultList().size() > 0) {
@@ -36,7 +36,7 @@ public class CrmCobrancaContaDao {
     }
     
     public void excluir(int idcrm) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Crmcobrancaconta crmcobranca = manager.find(Crmcobrancaconta.class, idcrm);
@@ -47,7 +47,7 @@ public class CrmCobrancaContaDao {
     
     
     public List<Crmcobrancaconta> lista(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Crmcobrancaconta> lista = q.getResultList();
         manager.close();

@@ -14,34 +14,34 @@ public class TmStarDao {
 
 	public List<Tmstar> lista() throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery("select t from Tmstar t");
 		List<Tmstar> lista = q.getResultList();
-		manager.close();
+		
 		return lista;
 	}
 
 	public Tmstar consultar(int idtmstars) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Tmstar tmstars = manager.find(Tmstar.class, idtmstars);
-		manager.close();
+		
 		return tmstars;
 	}
 
 	public Tmstar salvar(Tmstar tmstars) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		tmstars = manager.merge(tmstars);
 		tx.commit();
-		manager.close();
+		
 		return tmstars;
 	}
 
 	public void excluir(int idTmstar) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery("select t from Tmstar t where t.idtmstar=" + idTmstar);
@@ -50,6 +50,6 @@ public class TmStarDao {
 			manager.remove(tmstars);
 		}
 		tx.commit();
-		manager.close();
+		
 	}
 }

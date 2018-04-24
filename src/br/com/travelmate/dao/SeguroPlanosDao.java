@@ -21,41 +21,37 @@ import javax.persistence.Query;
 public class SeguroPlanosDao {
     
     public Seguroplanos salvar(Seguroplanos seguroplanos) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		seguroplanos = manager.merge(seguroplanos);
         tx.commit();
-        manager.close();
         return seguroplanos;
     }
     
     public List<Seguroplanos> listar(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Seguroplanos> listaSeguroplanos = q.getResultList();
-        manager.close();
         return listaSeguroplanos;
     }
     
     public Seguroplanos consulta(String sql) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Seguroplanos seguroplanos = null;
         if (q.getResultList().size()>0){
         	seguroplanos = (Seguroplanos) q.getResultList().get(0);
         }
-        manager.close();
         return seguroplanos;
     } 
     
     public void excluir(int idSeguroplanos) throws SQLException{
-    		EntityManager manager = ConectionFactory.getConnection();
+    		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Seguroplanos seguroplanos = manager.find(Seguroplanos.class, idSeguroplanos);
         manager.remove(seguroplanos);
         tx.commit();
-        manager.close();
     }
 }

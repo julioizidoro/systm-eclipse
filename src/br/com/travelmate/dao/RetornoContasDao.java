@@ -15,27 +15,27 @@ public class RetornoContasDao {
 	
 	public Retornocontas salvar(Retornocontas retornocontas) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		retornocontas = manager.merge(retornocontas);
 		tx.commit();
-		manager.close();
+		
 		return retornocontas;
 	}
 
 	public List<Retornocontas> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Retornocontas> lista = q.getResultList();
-		manager.close();
+		
 		return lista;
 	}
 
 	public void excluir(int idretornocontas) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery("Select r from Retornocontas r where r.idretornocontas=" + idretornocontas);
@@ -44,7 +44,6 @@ public class RetornoContasDao {
 			manager.remove(retornocontas);
 		}
 		tx.commit();
-		manager.close();
 		
 	}
 }

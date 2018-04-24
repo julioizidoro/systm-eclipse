@@ -14,35 +14,35 @@ public class DepartamentoDao {
     
     public Departamento salvar(Departamento departamento) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         departamento = manager.merge(departamento);
         tx.commit();
-        manager.close();
+        
         return departamento;
     }
     
     public Departamento consultar(int idDepartamento) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Departamento departamento = manager.find(Departamento.class, idDepartamento);
-        manager.close();
+        
         return departamento;
     }
     
     public List<Departamento> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Departamento> lista = q.getResultList();
-        manager.close();
+        
         return lista;
     }
     
     public void excluir(int idDepartamento) throws SQLException {
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select d from Departamento d where d.iddepartamento=" + idDepartamento);
@@ -51,7 +51,7 @@ public class DepartamentoDao {
             manager.remove(departamento);
         }
         tx.commit();
-        manager.close();
+        
     }
     
    

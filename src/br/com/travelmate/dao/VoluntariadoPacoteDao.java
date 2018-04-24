@@ -18,7 +18,7 @@ public class VoluntariadoPacoteDao {
 	private static final long serialVersionUID = 1L; 
 	 
 	public Voluntariadopacote salvar(Voluntariadopacote voluntariadopacote) throws SQLException{
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		voluntariadopacote = manager.merge(voluntariadopacote);
@@ -28,7 +28,7 @@ public class VoluntariadoPacoteDao {
     } 
     
     public Voluntariadopacote consultar(String sql)  throws SQLException  {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql); 
 		Voluntariadopacote voluntariadopacote = null; 
         if (q.getResultList().size() > 0) {
@@ -38,7 +38,7 @@ public class VoluntariadoPacoteDao {
     }
      
     public void excluir(int idvoluntariadopacote) throws SQLException  {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Voluntariadopacote voluntariadopacote = manager.find(Voluntariadopacote.class, idvoluntariadopacote);
@@ -48,7 +48,7 @@ public class VoluntariadoPacoteDao {
     }
      
     public List<Voluntariadopacote> lista(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Voluntariadopacote> lista = q.getResultList();
         return lista; 

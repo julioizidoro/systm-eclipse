@@ -21,31 +21,28 @@ import javax.persistence.Query;
 public class WorkSponsorDao {
     
     public Worksponsor salvar(Worksponsor worksponsor) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		worksponsor = manager.merge(worksponsor);
         tx.commit();
-        manager.close();
         return worksponsor;
     }
     
     public List<Worksponsor> listar(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Worksponsor> lista = q.getResultList();
-        manager.close();
         return lista;
     }
     
     public Worksponsor consulta(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Worksponsor worksponsor = null;
         if (q.getResultList().size()>0){
         	worksponsor = (Worksponsor) q.getResultList().get(0);
         }
-        manager.close();
         return worksponsor;
     } 
 }

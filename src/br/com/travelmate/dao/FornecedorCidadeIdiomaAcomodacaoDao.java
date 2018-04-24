@@ -22,18 +22,17 @@ public class FornecedorCidadeIdiomaAcomodacaoDao {
     
     public Fornecedorcidadeidiomaacomodacao salvar(Fornecedorcidadeidiomaacomodacao fornecedorcidadeidiomaacomodacao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		fornecedorcidadeidiomaacomodacao = manager.merge(fornecedorcidadeidiomaacomodacao);
         tx.commit();
-        manager.close();
         return fornecedorcidadeidiomaacomodacao;
     }
     
     public Fornecedorcidadeidiomaacomodacao consultar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getConnection();
+         manager = ConectionFactory.getInstance();
  		EntityTransaction tx = manager.getTransaction();
  		tx.begin();
         Query q = manager.createQuery(sql);
@@ -42,30 +41,27 @@ public class FornecedorCidadeIdiomaAcomodacaoDao {
         	fornecedorcidadeidiomaacomodacao = (Fornecedorcidadeidiomaacomodacao) q.getResultList().get(0);
         }
         tx.commit();
-        manager.close();
         return fornecedorcidadeidiomaacomodacao;
     }
     
     public void excluir(int idFornecedorcidadeidiomaacomodacao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Fornecedorcidadeidiomaacomodacao voluntariadoprojetoacomodacao = manager.find(Fornecedorcidadeidiomaacomodacao.class, idFornecedorcidadeidiomaacomodacao);
         manager.remove(voluntariadoprojetoacomodacao);
         tx.commit();
-        manager.close();
     }
     
     public List<Fornecedorcidadeidiomaacomodacao> listar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getConnection();
+         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedorcidadeidiomaacomodacao> lista = null;
         if (q.getResultList().size()>0){
         	lista =  q.getResultList();
         }  
-        manager.close();
         return lista;
     }
     

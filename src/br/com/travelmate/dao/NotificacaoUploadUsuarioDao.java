@@ -13,7 +13,7 @@ import br.com.travelmate.model.Notificacaouploadusuario;
 public class NotificacaoUploadUsuarioDao {
 
 	public Notificacaouploadusuario salvar(Notificacaouploadusuario notificacaouploadusuario) throws SQLException{
-		EntityManager manager = ConectionFactory.getConnection(); 
+		EntityManager manager = ConectionFactory.getInstance(); 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		notificacaouploadusuario = manager.merge(notificacaouploadusuario); 
@@ -23,32 +23,32 @@ public class NotificacaoUploadUsuarioDao {
 	    
 	public Notificacaouploadusuario consultar(int idnotificacao) throws SQLException{
 		EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Notificacaouploadusuario notificacaouploadusuario = manager.find(Notificacaouploadusuario.class, idnotificacao);
-        manager.close();
+        
         return notificacaouploadusuario;
     }
 	    
 	public void excluir(int idnotificacao) throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Notificacaouploadusuario notificacaouploadusuario = manager.find(Notificacaouploadusuario.class, idnotificacao);
 		manager.remove(notificacaouploadusuario);
 		tx.commit();
-		manager.close();
+		
 	}
 	    
 	public List<Notificacaouploadusuario> listar(String sql)throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Notificacaouploadusuario> lista = null;
 		if (q.getResultList().size()>0){
 			lista =  q.getResultList();
 		}
-		manager.close();
+		
 		return lista;
 	}
 }

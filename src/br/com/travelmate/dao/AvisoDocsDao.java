@@ -13,31 +13,28 @@ import br.com.travelmate.model.Avisodocs;
 public class AvisoDocsDao{
 	
 	public List<Avisodocs> listar(String sql) throws SQLException{
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Avisodocs> lista = q.getResultList();
-        manager.close();
         return lista;
     }
 	
 	public Avisodocs salvar(Avisodocs aviso) throws SQLException{
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         aviso = manager.merge(aviso);
         tx.commit();
-        manager.close();
         return aviso;
     }
     
     public void excluir(Avisodocs aviso) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         aviso = manager.find(Avisodocs.class, aviso.getIdavisodocs());
         manager.remove(aviso);
         tx.commit();
-        manager.close();
     }
     
     

@@ -38,13 +38,12 @@ public class CancelamentoDao {
 	
 	
 	public Cancelamento consultar(int idcancelamento) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery("SELECT c FROM Cancelamento c WHERE c.vendas.idvendas=" + idcancelamento);
 		Cancelamento cancelamento = null;
 		if (q.getResultList().size() > 0) {
 			cancelamento = (Cancelamento) q.getResultList().get(0);
 		}
-		manager.close();
 		return cancelamento;
 	}
 

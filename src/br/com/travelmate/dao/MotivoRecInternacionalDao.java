@@ -14,27 +14,26 @@ public class MotivoRecInternacionalDao {
 
 	 public Motivorecinternacional salvar(Motivorecinternacional motivorecinternacional) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getConnection();
+	        manager = ConectionFactory.getInstance();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			motivorecinternacional = manager.merge(motivorecinternacional);
 	        tx.commit();
-	        manager.close();
+	        
 	        return motivorecinternacional;
 	    }
 	    
 	    public List<Motivorecinternacional> listar(String sql)throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getConnection();
+	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);
 	        List<Motivorecinternacional> lista = q.getResultList();
-	        manager.close();
 	        return lista;
 	    }
 	    
 	    public void excluir(int idmotivo) throws SQLException {
 	    	EntityManager manager;
-	    	manager = ConectionFactory.getConnection();
+	    	manager = ConectionFactory.getInstance();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 	        Query q = manager.createQuery("Select c from Motivorecinternacional c where c.idmotivorecinternacional=" + idmotivo);
@@ -43,6 +42,6 @@ public class MotivoRecInternacionalDao {
 	            manager.remove(motivorecinternacional);
 	        }
 	        tx.commit();
-	        manager.close();
+	        
 	    }
 }

@@ -15,27 +15,26 @@ public class ControleEmailDao {
 	
 	 public Controleemail salvar(Controleemail controleemail) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getConnection();
+	        manager = ConectionFactory.getInstance();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			controleemail = manager.merge(controleemail);
 	        tx.commit();
-	        manager.close();
+	        
 	        return controleemail;
 	    }
 	    
 	    public List<Controleemail> listar(String sql)throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getConnection();
+	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);
 	        List<Controleemail> lista = q.getResultList();
-	        manager.close();
 	        return lista;
 	    }
 	    
 	    public void excluir(int idControleemail) throws SQLException {
 	    	EntityManager manager;
-	    	manager = ConectionFactory.getConnection();
+	    	manager = ConectionFactory.getInstance();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 	        Query q = manager.createQuery("Select c from Controleemail c where c.idcontroleemail=" + idControleemail);
@@ -44,6 +43,6 @@ public class ControleEmailDao {
 	            manager.remove(controleemail);
 	        }
 	        tx.commit();
-	        manager.close();
+	        
 	    }
 }

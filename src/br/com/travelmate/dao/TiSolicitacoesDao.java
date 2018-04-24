@@ -15,27 +15,26 @@ public class TiSolicitacoesDao {
 	
 	 public Tisolicitacoes salvar(Tisolicitacoes tisolicitacoes) throws SQLException{
 	    	EntityManager manager;
-	        manager = ConectionFactory.getConnection();
+	        manager = ConectionFactory.getInstance();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 			tisolicitacoes = manager.merge(tisolicitacoes);
 	        tx.commit();
-	        manager.close();
+	        
 	        return tisolicitacoes;
 	    }
 	    
 	    public List<Tisolicitacoes> listar(String sql)throws SQLException{
 	    		EntityManager manager;
-	        manager = ConectionFactory.getConnection();
+	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);
 	        List<Tisolicitacoes> lista = q.getResultList();
-	        manager.close();
 	        return lista;
 	    }
 	    
 	    public void excluir(int idtisolicitacoes) throws SQLException {
 	    	EntityManager manager;
-	    	manager = ConectionFactory.getConnection();
+	    	manager = ConectionFactory.getInstance();
 			EntityTransaction tx = manager.getTransaction();
 			tx.begin();
 	        Query q = manager.createQuery("Select t from Tisolicitacoes t where t.idtisolicitacoes=" + idtisolicitacoes);
@@ -44,7 +43,7 @@ public class TiSolicitacoesDao {
 	            manager.remove(tisolicitacoes);
 	        }
 	        tx.commit();
-	        manager.close();
+	        
 	    }
 
 }

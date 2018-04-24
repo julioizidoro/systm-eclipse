@@ -18,6 +18,7 @@ public class LeadSituacaoDao {
 		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Leadsituacao> lista = q.getResultList();
+		manager.clear();
 		manager.close();
 		return lista;
 	}
@@ -30,6 +31,7 @@ public class LeadSituacaoDao {
 		if (q.getResultList().size() > 0) {
 			lead = (Leadsituacao) q.getResultList().get(0);
 		}
+		manager.clear();
 		manager.close();
 		return lead;
 	}
@@ -40,6 +42,8 @@ public class LeadSituacaoDao {
 		tx.begin();
 		lead = manager.merge(lead);
 		tx.commit();
+
+		manager.clear();
 		manager.close();
 		return lead;
 	}
@@ -52,7 +56,8 @@ public class LeadSituacaoDao {
 		Leadsituacao lead = manager.find(Leadsituacao.class, idlead);
         manager.remove(lead);
         tx.commit();
-        manager.close();
+		manager.clear();
+		manager.close();
     }
 
 }

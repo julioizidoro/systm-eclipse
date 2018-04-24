@@ -24,6 +24,7 @@ public class LeadPosVendaDao {
 		tx.begin();
 		leadposvenda = manager.merge(leadposvenda);
 		tx.commit();
+		manager.clear();
 		manager.close();
 		return leadposvenda;
 	}
@@ -35,6 +36,7 @@ public class LeadPosVendaDao {
 		if (q.getResultList().size() > 0) {
 			leadposvenda = (Leadposvenda) q.getResultList().get(0);
 		}
+		manager.clear();
 		manager.close();
 		return leadposvenda;
 	}  
@@ -46,6 +48,7 @@ public class LeadPosVendaDao {
 		Leadposvenda leadposvenda = manager.find(Leadposvenda.class, idleadposvenda);
 		manager.remove(leadposvenda);
 		tx.commit();
+		manager.clear();
 		manager.close();
 	}
 
@@ -57,6 +60,7 @@ public class LeadPosVendaDao {
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
+		manager.clear();
 		manager.close();
 		return lista;
 	}

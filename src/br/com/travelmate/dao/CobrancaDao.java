@@ -51,13 +51,12 @@ public class CobrancaDao {
     
     public List<Cobranca> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Cobranca> listaCobranca= null;
         if (q.getResultList().size()>0){
             listaCobranca = q.getResultList();
         } 
-        manager.close();
         return listaCobranca;
     }
     

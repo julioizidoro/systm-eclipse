@@ -14,32 +14,32 @@ public class AvisoDocsUsuarioDao {
 
 	public List<Avisodocsusuario> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Avisodocsusuario> lista = q.getResultList();
-		manager.close();
+		
 		return lista;
 	}
 
 	public Avisodocsusuario salvar(Avisodocsusuario aviso) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		aviso = manager.merge(aviso);
 		tx.commit();
-		manager.close();
+		
 		return aviso;
 	}
 
 	public void excluir(Avisodocsusuario aviso) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		aviso = manager.find(Avisodocsusuario.class, aviso.getIdavisodocsusuario());
 		manager.remove(aviso);
 		tx.commit();
-		manager.close();
+		
 	}
 }

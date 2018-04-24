@@ -26,36 +26,33 @@ public class FornecedorCidadeIdiomaDao {
     
     public List<Fornecedorcidadeidioma> listar(String sql)throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
+    	manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedorcidadeidioma> lista = null;
         if (q.getResultList().size()>0){
             lista =  q.getResultList();
         }
-        manager.close();
         return lista;
     }
     
     public void excluir(int idFornecedorcidadeidioma) throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
+    	manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Fornecedorcidadeidioma fornecedorcidadeidioma = manager.find(Fornecedorcidadeidioma.class, idFornecedorcidadeidioma);
         manager.remove(fornecedorcidadeidioma);
         tx.commit();
-        manager.close();
     }
     
     public Fornecedorcidadeidioma consultar(String sql) throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
+    	manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Fornecedorcidadeidioma fornecedorcidadeidioma = null;
         if (q.getResultList().size() > 0) {
         	fornecedorcidadeidioma = (Fornecedorcidadeidioma) q.getResultList().get(0);
         } 
-        manager.close();
         return fornecedorcidadeidioma;
      }
 }

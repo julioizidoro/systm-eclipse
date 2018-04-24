@@ -14,24 +14,22 @@ public class NotificacaoDao {
 	
 	public Notificacao salvar(Notificacao notificacao)throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		notificacao = manager.merge(notificacao);
 		tx.commit();
-		manager.close();
 		return notificacao; 
 	}
 	
 	public List<Notificacao> listar(String sql)throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Notificacao> lista = null;
 		if (q.getResultList().size()>0){
 			lista =  q.getResultList();
 		}
-		manager.close();
 		return lista;
 	}
 

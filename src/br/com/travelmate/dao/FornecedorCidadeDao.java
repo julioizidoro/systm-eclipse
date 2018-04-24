@@ -20,38 +20,34 @@ import javax.persistence.Query;
 public class FornecedorCidadeDao {
     
     public Fornecedorcidade salvar(Fornecedorcidade fornecedorcidade) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         fornecedorcidade = manager.merge(fornecedorcidade);
         tx.commit();
-        manager.close();
         return fornecedorcidade;
     }
     
     public List<Fornecedorcidade> listar(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedorcidade> listaFornecedorCidade = q.getResultList();
-        manager.close();
         return listaFornecedorCidade;
     }
     
     public Fornecedorcidade getFonecedorCidade(int idFornecedor, int idCidade) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("Select f from Fornecedorcidade f where f.fornecedor.idfornecedor=" + idFornecedor + " and f.cidade.idcidade=" + idCidade);
         Fornecedorcidade fornecedorcidade = null;
         if (q.getResultList().size()>0){
             fornecedorcidade = (Fornecedorcidade) q.getResultList().get(0);
         }
-        manager.close();
         return fornecedorcidade;
     }
     
     public Fornecedorcidade getFornecedorCidade(int idFornecedorCidade) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Fornecedorcidade fornecedorcidade = manager.find(Fornecedorcidade.class, idFornecedorCidade);
-        manager.close();
         return fornecedorcidade;
     }
     
@@ -59,13 +55,12 @@ public class FornecedorCidadeDao {
     public Fornecedorcidade getFonecedorCidade(int idCodigo) throws SQLException{
     	EntityManager manager;
         if (idCodigo > 0) {
-            manager = ConectionFactory.getConnection();
+            manager = ConectionFactory.getInstance();
             Query q = manager.createQuery("Select f from Fornecedorcidade f where f.codigo=" + idCodigo);
             Fornecedorcidade fornecedorcidade = null;
             if (q.getResultList().size() > 0) {
                 fornecedorcidade = (Fornecedorcidade) q.getResultList().get(0);
             }
-            manager.close();
             return fornecedorcidade;
         }
         return null;

@@ -18,7 +18,7 @@ public class ControleWorkEntrevistaDao {
 	private static final long serialVersionUID = 1L; 
 	 
 	public Controleworkentrevista salvar(Controleworkentrevista controleworkentrevista) throws SQLException{
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		controleworkentrevista = manager.merge(controleworkentrevista);
@@ -28,18 +28,17 @@ public class ControleWorkEntrevistaDao {
     } 
     
     public Controleworkentrevista consultar(String sql)  throws SQLException  {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql); 
 		Controleworkentrevista controleworkentrevista = null; 
         if (q.getResultList().size() > 0) {
         	controleworkentrevista =  (Controleworkentrevista) q.getResultList().get(0);
         } 
-        manager.close();
         return controleworkentrevista;
     }
      
     public void excluir(int idcontroleworkentrevista) throws SQLException  {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Controleworkentrevista controleworkentrevista = manager.find(Controleworkentrevista.class, idcontroleworkentrevista);
@@ -49,10 +48,9 @@ public class ControleWorkEntrevistaDao {
     }
      
     public List<Controleworkentrevista> lista(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Controleworkentrevista> lista = q.getResultList();
-        manager.close();
         return lista; 
     }
 

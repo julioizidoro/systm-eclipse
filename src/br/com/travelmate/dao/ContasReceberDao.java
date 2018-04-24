@@ -25,67 +25,60 @@ import javax.persistence.Query;
 public class ContasReceberDao {
     
     public Contasreceber salvar(Contasreceber conta) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         conta = manager.merge(conta);
         tx.commit();
-        manager.close();
         return conta;
     }
     
     public Contasreceber consultar(int idConta) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Contasreceber conta = manager.find(Contasreceber.class, idConta);
-        manager.close();
         return conta;
     }
     
     public void excluir(int idConta) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Contasreceber conta = manager.find(Contasreceber.class, idConta);
         manager.remove(conta);
         tx.commit();
-        manager.close();
     }
     
     public List<Contasreceber> listar(String sql)throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Contasreceber> lista = q.getResultList();
-        manager.close();
         return lista;
     }
     
     public List<Eventocontasreceber> listarEventosContasReceber(String sql)throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Eventocontasreceber> lista = q.getResultList();
-        manager.close();
         return lista;
     }
     
     public Contasreceber consultar(String sql)throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Contasreceber conta = null;
         if (q.getResultList().size()>0){
             conta = (Contasreceber) q.getResultList().get(0);
         }
-        manager.close();
         return conta;
     }
     
     
     public void excluirEventoContasReceber(int idConta) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Eventocontasreceber conta = manager.find(Eventocontasreceber.class, idConta);
         manager.remove(conta);
         tx.commit();
-        manager.close();
     }
 }

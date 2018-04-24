@@ -21,38 +21,35 @@ import javax.persistence.Query;
 public class FornecedorComissaoCursoDao {
 
 	public Fornecedorcomissaocurso salvar(Fornecedorcomissaocurso fornecedorcomissaocurso) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection(); 
+		EntityManager manager = ConectionFactory.getInstance(); 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		fornecedorcomissaocurso = manager.merge(fornecedorcomissaocurso);
 		tx.commit();
-		manager.close();
 		return fornecedorcomissaocurso;
 	}
 
 	public List<Fornecedorcomissaocurso> listar(int idFornecedor, int idPais) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery("Select f from Fornecedorcomissaocurso f where f.fornecedor.idfornecedor="
 				+ idFornecedor + " and f.pais.idpais=" + idPais);
 		List<Fornecedorcomissaocurso> listaFornecedor = q.getResultList();
-		manager.close();
 		return listaFornecedor;
 	}
 
 	public Fornecedorcomissaocurso consultar(int idFornecedor, int idPais) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection(); 
+		EntityManager manager = ConectionFactory.getInstance(); 
 		Query q = manager.createQuery("Select f from Fornecedorcomissaocurso f where f.fornecedor.idfornecedor="
 				+ idFornecedor + " and f.pais.idpais=" + idPais);
 		Fornecedorcomissaocurso fornecedorComisao = null;
 		if (q.getResultList().size() > 0) {
 			fornecedorComisao = (Fornecedorcomissaocurso) q.getResultList().get(0);
 		}
-		manager.close();
 		return fornecedorComisao;
 	}
 
 	public void excluir(int idFornecedorcomissaocurso) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection(); 
+		EntityManager manager = ConectionFactory.getInstance(); 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery(
@@ -62,7 +59,6 @@ public class FornecedorComissaoCursoDao {
 			manager.remove(fornecedorcomissaocurso);
 		} 
 		tx.commit();
-		manager.close();
 	}
 
 }

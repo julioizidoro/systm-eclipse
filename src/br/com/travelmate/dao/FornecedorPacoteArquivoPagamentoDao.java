@@ -21,31 +21,28 @@ import javax.persistence.Query;
 public class FornecedorPacoteArquivoPagamentoDao {
     
     public Fornecedorpacotearquivopagamento salvar(Fornecedorpacotearquivopagamento pacotesfornecedor) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		pacotesfornecedor = manager.merge(pacotesfornecedor);
         tx.commit();
-        manager.close();
         return pacotesfornecedor;
     }
     
     public List<Fornecedorpacotearquivopagamento> listar(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedorpacotearquivopagamento> listaPacotesfornecedor = q.getResultList();
-        manager.close();
         return listaPacotesfornecedor;
     }
     
     public Fornecedorpacotearquivopagamento consulta(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Fornecedorpacotearquivopagamento pacotesfornecedor = null;
         if (q.getResultList().size()>0){
         	pacotesfornecedor = (Fornecedorpacotearquivopagamento) q.getResultList().get(0);
         }
-        manager.close();
         return pacotesfornecedor;
     } 
 }

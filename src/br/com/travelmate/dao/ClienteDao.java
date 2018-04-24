@@ -20,73 +20,66 @@ public class ClienteDao {
     
     public Cliente salvar(Cliente cliente) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         cliente = manager.merge(cliente);
         tx.commit();
-        manager.close();
         return cliente;
     }
     
     public Cliente consultar(int idCliente) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Cliente cliente = manager.find(Cliente.class, idCliente);
-        manager.close();
         return cliente;
     }
     
     public Cliente consultarEmail(String email) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 	    Query q = manager.createQuery("select c from Cliente c where c.email='" + email + "'" );
         Cliente cliente = null;
         if (q.getResultList().size()>0){
             cliente = (Cliente) q.getResultList().get(0);
         } 
-        manager.close();
         return cliente;
     }
     
     public Cliente consultarCpf(String cpf) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 	    Query q = manager.createQuery("select c from Cliente c where c.cpf='" + cpf + "'" );
         Cliente cliente = null;
         if (q.getResultList().size()>0){
             cliente =  (Cliente) q.getSingleResult();
         } 
-        manager.close();
         return cliente;
     }
        
     
     public Cliente consultarCpfLista(String cpf) throws SQLException{
-    	EntityManager manager = ConectionFactory.getConnection();
+    	EntityManager manager = ConectionFactory.getInstance();
 	    Query q = manager.createQuery("select c from Cliente c where c.cpf='" + cpf + "'" );
         Cliente cliente = null;
         if (q.getResultList().size()>0){
             cliente =  (Cliente) q.getResultList().get(0);
         } 
-        manager.close();
         return cliente;
     }
     
     public List<Cliente> consultarNome(String nome) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select c from Cliente c where c.nome like '%" + nome + "%'" );
         List<Cliente> lista = q.getResultList();
-        manager.close();
         return lista;
     }
     
     public List<Cliente> listar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Cliente> lista = q.getResultList();
-        manager.close();
         return lista;
     }
     

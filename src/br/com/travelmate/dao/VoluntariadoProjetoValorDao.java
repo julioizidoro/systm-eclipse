@@ -22,47 +22,46 @@ public class VoluntariadoProjetoValorDao {
     
     public Voluntariadoprojetovalor salvar(Voluntariadoprojetovalor voluntariadoprojetovalor) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		voluntariadoprojetovalor = manager.merge(voluntariadoprojetovalor);
         tx.commit();
-        manager.close();
         return voluntariadoprojetovalor;
     }
     
     public Voluntariadoprojetovalor consultar(String sql)throws SQLException{
     	EntityManager manager;
-    	manager = ConectionFactory.getConnection();
- 	    Query q = manager.createQuery(sql);
+         manager = ConectionFactory.getInstance();
+ 		EntityTransaction tx = manager.getTransaction();
+ 		tx.begin();
+        Query q = manager.createQuery(sql);
         Voluntariadoprojetovalor voluntariadoprojetovalor = null;
         if (q.getResultList().size()>0){
             voluntariadoprojetovalor = (Voluntariadoprojetovalor) q.getResultList().get(0);
         }
-        manager.close();
+        tx.commit();
         return voluntariadoprojetovalor;
     }
     
     public void excluir(int idVoluntariadoprojetovalor) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Voluntariadoprojetovalor voluntariadoprojetovalor = manager.find(Voluntariadoprojetovalor.class, idVoluntariadoprojetovalor);
         manager.remove(voluntariadoprojetovalor);
         tx.commit();
-        manager.close();
     }
     
     public List<Voluntariadoprojetovalor> listar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getConnection();
+         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Voluntariadoprojetovalor> voluntariadoprojetovalors = null;
         if (q.getResultList().size()>0){
             voluntariadoprojetovalors =  q.getResultList();
         }  
-        manager.close();
         return voluntariadoprojetovalors;
     }
     

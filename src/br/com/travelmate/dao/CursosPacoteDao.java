@@ -16,47 +16,43 @@ public class CursosPacoteDao {
 
 	public Cursospacote salvar(Cursospacote cursospacote) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		cursospacote = manager.merge(cursospacote);
 		tx.commit();
-		manager.close();
 		return cursospacote;
 	}
 
 	public Cursospacote consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		Cursospacote cursospacote = null;
 		if (q.getResultList().size() > 0) {
 			cursospacote = (Cursospacote) q.getResultList().get(0);
 		}
-		manager.close();
 		return cursospacote;
 	}  
 
 	public void excluir(int idcursospacote) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Cursospacote cursospacote = manager.find(Cursospacote.class, idcursospacote);
 		manager.remove(cursospacote);
 		tx.commit();
-		manager.close();
 	}
 
 	public List<Cursospacote> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Cursospacote> fatura = null;
 		if (q.getResultList().size() > 0) {
 			fatura = q.getResultList();
 		}
-		manager.close();
 		return fatura;
 	}
 

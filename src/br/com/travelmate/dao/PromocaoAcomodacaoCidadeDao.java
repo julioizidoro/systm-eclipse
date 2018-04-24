@@ -14,50 +14,53 @@ public class PromocaoAcomodacaoCidadeDao {
     
     public Promocaoacomodacaocidade salvar(Promocaoacomodacaocidade Promocaoacomodacaocidade) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Promocaoacomodacaocidade = manager.merge(Promocaoacomodacaocidade);
         tx.commit();
-        manager.close();
+        
         return Promocaoacomodacaocidade;
     }
     
     
     public List<Promocaoacomodacaocidade> listar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getConnection();
+         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Promocaoacomodacaocidade> lista = null;
         if (q.getResultList().size()>0){
             lista =  q.getResultList();
         }
-        manager.close();
+        
         return lista;
     }
     
     
     public Promocaoacomodacaocidade consultar(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         Promocaoacomodacaocidade Promocaoacomodacaocidade = null;
         if(q.getResultList().size()>0){
            Promocaoacomodacaocidade =  (Promocaoacomodacaocidade) q.getResultList().get(0);
         }
-        manager.close();
-        return  Promocaoacomodacaocidade;
+        
+        if(Promocaoacomodacaocidade!=null){
+        	return Promocaoacomodacaocidade;
+        }
+        return null;
     }
     
     
     public void excluir(Promocaoacomodacaocidade promocao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         promocao = manager.find(Promocaoacomodacaocidade.class, promocao.getIdpromocaoacomodacaocidade());
         manager.remove(promocao);
         tx.commit();
-        manager.close();
+        
     }
 }

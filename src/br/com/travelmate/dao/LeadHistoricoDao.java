@@ -20,6 +20,7 @@ public class LeadHistoricoDao {
 		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);
 		List<Leadhistorico> lista = q.getResultList();
+		manager.clear();
 		manager.close();
 		return lista;
 	}
@@ -32,6 +33,7 @@ public class LeadHistoricoDao {
 		if (q.getResultList().size() > 0) {
 			leadhistorico = (Leadhistorico) q.getResultList().get(0);
 		}
+		manager.clear();
 		manager.close();
 		return leadhistorico;
 	}
@@ -43,6 +45,7 @@ public class LeadHistoricoDao {
 		tx.begin();
 		leadhistorico = manager.merge(leadhistorico);
 		tx.commit();
+		manager.clear();
 		manager.close();
 		return leadhistorico;
 	}
@@ -55,7 +58,8 @@ public class LeadHistoricoDao {
 		Leadhistorico leadhistorico = manager.find(Leadhistorico.class, idLeadhistorico);
         manager.remove(leadhistorico);
         tx.commit();
-        manager.close();
+		manager.clear();
+		manager.close();
     }
 
 }

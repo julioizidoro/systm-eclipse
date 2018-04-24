@@ -14,27 +14,27 @@ public class VideoDao {
     
     public Video salvar(Video video) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         video = manager.merge(video);
         tx.commit();
-        manager.close();
+        
         return video;
     }
     
     public List<Video> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Video> lista = q.getResultList();
-        manager.close();
+        
         return lista;
     }
     
     public void excluir(int idvideo) throws SQLException {
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         Query q = manager.createQuery("Select v from Video v where v.idvideo=" + idvideo);
@@ -43,7 +43,7 @@ public class VideoDao {
             manager.remove(video);
         }
         tx.commit();
-        manager.close();
+        
     }
 
 }

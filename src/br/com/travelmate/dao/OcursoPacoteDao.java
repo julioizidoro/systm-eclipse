@@ -17,7 +17,7 @@ public class OcursoPacoteDao {
 
 	public Ocursopacote salvar(Ocursopacote ocursopacote) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		ocursopacote = manager.merge(ocursopacote);
@@ -27,36 +27,33 @@ public class OcursoPacoteDao {
 
 	public Ocursopacote consultar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		Ocursopacote ocursopacote = null;
 		if (q.getResultList().size() > 0) {
 			ocursopacote = (Ocursopacote) q.getResultList().get(0);
 		}
-		manager.close();
 		return ocursopacote;
 	}  
 
 	public void excluir(int idOcursopacote) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Ocursopacote ocursopacote = manager.find(Ocursopacote.class, idOcursopacote);
 		manager.remove(ocursopacote);
 		tx.commit();
-		manager.close();
 	}
 
 	public List<Ocursopacote> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Ocursopacote> ocursopacote = null;
 		if (q.getResultList().size() > 0) {
 			ocursopacote = q.getResultList();
 		}
-		manager.close();
 		return ocursopacote;
 	}
 

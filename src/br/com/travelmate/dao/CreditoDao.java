@@ -14,27 +14,26 @@ public class CreditoDao {
 
 	public Credito salvar(Credito credito) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		credito = manager.merge(credito);
 		tx.commit();
-		manager.close();
+
 		return credito;
 	}
 
 	public List<Credito> listar(String sql) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
 		List<Credito> lista = q.getResultList();
-		manager.close();
 		return lista;
 	}
 
 	public void excluir(int idcredito) throws SQLException {
 		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Query q = manager.createQuery("Select c from Credito c where c.idcredito=" + idcredito);
@@ -43,7 +42,6 @@ public class CreditoDao {
 			manager.remove(credito);
 		}
 		tx.commit();
-		manager.close();
 	}
 
 }

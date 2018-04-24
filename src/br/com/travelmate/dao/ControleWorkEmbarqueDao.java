@@ -19,7 +19,7 @@ public class ControleWorkEmbarqueDao {
 	private static final long serialVersionUID = 1L; 
 	 
 	public Controleworkembarque salvar(Controleworkembarque controleworkembarque) throws SQLException{
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		controleworkembarque = manager.merge(controleworkembarque);
@@ -29,18 +29,17 @@ public class ControleWorkEmbarqueDao {
     } 
     
     public Controleworkembarque consultar(String sql)  throws SQLException  {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql); 
 		Controleworkembarque controleworkembarque = null; 
         if (q.getResultList().size() > 0) {
         		controleworkembarque =  (Controleworkembarque) q.getResultList().get(0);
         } 
-        manager.close();
         return controleworkembarque;
     }
      
     public void excluir(int idcontroleworkembarque) throws SQLException  {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Controleworkembarque controleworkembarque = manager.find(Controleworkembarque.class, idcontroleworkembarque);
@@ -50,10 +49,9 @@ public class ControleWorkEmbarqueDao {
     }
      
     public List<Controleworkembarque> lista(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Controleworkembarque> lista = q.getResultList();
-        manager.close();
         return lista; 
     }
 

@@ -22,47 +22,46 @@ public class VoluntariadoProjetoAcomodacaoDao {
     
     public Voluntariadoprojetoacomodacao salvar(Voluntariadoprojetoacomodacao voluntariadoprojetoacomodacao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		voluntariadoprojetoacomodacao = manager.merge(voluntariadoprojetoacomodacao);
         tx.commit();
-        manager.close();
         return voluntariadoprojetoacomodacao;
     }
     
     public Voluntariadoprojetoacomodacao consultar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
- 	    Query q = manager.createQuery(sql);
+         manager = ConectionFactory.getInstance();
+ 		EntityTransaction tx = manager.getTransaction();
+ 		tx.begin();
+        Query q = manager.createQuery(sql);
         Voluntariadoprojetoacomodacao voluntariadoprojetoacomodacao = null;
         if (q.getResultList().size()>0){
             voluntariadoprojetoacomodacao = (Voluntariadoprojetoacomodacao) q.getResultList().get(0);
         }
-        manager.close();
+        tx.commit();
         return voluntariadoprojetoacomodacao;
     }
     
     public void excluir(int idVoluntariadoprojetoacomodacao) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+        manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Voluntariadoprojetoacomodacao voluntariadoprojetoacomodacao = manager.find(Voluntariadoprojetoacomodacao.class, idVoluntariadoprojetoacomodacao);
         manager.remove(voluntariadoprojetoacomodacao);
         tx.commit();
-        manager.close();
     }
     
     public List<Voluntariadoprojetoacomodacao> listar(String sql)throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Voluntariadoprojetoacomodacao> lista = null;
         if (q.getResultList().size()>0){
         	lista =  q.getResultList();
         }  
-        manager.close();
         return lista;
     }
     

@@ -23,6 +23,8 @@ public class LeadDao {
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
+		manager.clear();
+		manager.close();
 		return lista;
 	}
 
@@ -34,6 +36,7 @@ public class LeadDao {
 		if (q.getResultList().size() > 0) {
 			lead = (Lead) q.getResultList().get(0);
 		}
+		manager.clear();
 		manager.close();
 		return lead;
 	}
@@ -44,6 +47,7 @@ public class LeadDao {
 		tx.begin();
 		lead = manager.merge(lead);
 		tx.commit();
+		manager.clear();
 		manager.close();
 		return lead;
 	}
@@ -56,6 +60,7 @@ public class LeadDao {
 		Lead lead = manager.find(Lead.class, idlead);
         manager.remove(lead);
         tx.commit();
+        manager.clear();
         manager.close();
     }
 	
@@ -70,6 +75,7 @@ public class LeadDao {
 			numLong = (Long) q.getResultList().get(0);
 		}
 		numero = numLong.intValue();
+		manager.clear();
 		manager.close();
 		return numero;
 	}
