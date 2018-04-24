@@ -106,6 +106,7 @@ public class ContasReceberMB implements Serializable {
 	private Unidadenegocio unidadeMatriz;
 	private boolean selecionarTodos;
 	private List<RetornoBean> listaRetorno;
+	private int idconta;
 
 	@PostConstruct
 	public void init() {
@@ -384,6 +385,14 @@ public class ContasReceberMB implements Serializable {
 	public void setListaRetorno(List<RetornoBean> listaRetorno) {
 		this.listaRetorno = listaRetorno;
 	} 
+
+	public int getIdconta() {
+		return idconta;
+	}
+
+	public void setIdconta(int idconta) {
+		this.idconta = idconta;
+	}
 
 	public void carregarContasReceber() {
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
@@ -727,6 +736,9 @@ public class ContasReceberMB implements Serializable {
 		}
 		if (idVenda > 0) {
 			sql = sql + " and c.vendas.idvendas=" + idVenda;
+		}
+		if (idconta > 0) {
+			sql = sql + " and c.idcontasreceber=" + idconta;
 		}
 		if ((nDocumento != null) && (nDocumento.length() > 0)) {
 			sql = sql + " and c.numerodocumento like '%" + nDocumento + "%' ";

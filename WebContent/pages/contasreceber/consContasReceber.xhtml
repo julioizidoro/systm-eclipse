@@ -15,20 +15,25 @@
 				<p:accordionPanel id="idtab" class="painel">
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
-						<h:panelGrid columns="6"
-							columnClasses="tamanho7,tamanho7,tamanho10,tamanho1,tamanho7,tamanho7"
-							style="width:95%;margin-left:4%;">
-							<p:outputLabel value="Nº Documento" for="nDocumento" />
+						<h:panelGrid columns="7"
+							columnClasses="tamanho7,tamanho7,tamanho10,tamanho1,tamanho10,tamanho7,tamanho7"
+							style="width:98%;margin-left:4%;">
 							<p:outputLabel value="Id da Venda" for="idvenda" />
+							<p:outputLabel value="Id da Conta"  />
+							<p:outputLabel value="Nº Documento" for="nDocumento" />
 							<p:outputLabel value="Cliente" for="idnomecliente" />
 							<p:outputLabel value="Periodo" for="dataIni" />
 							<p:outputLabel value="Status" for="status" />
-							<p:outputLabel value=""  />
-
-							<p:inputText id="nDocumento" style="width:90%;" maxlength="100"
-								class="fontebranca" value="#{contasReceberMB.nDocumento}" />
+							<p:outputLabel/>
+							
+							
 							<p:inputText id="idvenda" style="width:90%;" maxlength="100"
 								value="#{contasReceberMB.idVenda}" />
+								
+							<p:inputText id="idconta" style="width:90%;" maxlength="100"
+								value="#{contasReceberMB.idconta}" />
+							<p:inputText id="nDocumento" style="width:90%;" maxlength="100"
+								class="fontebranca" value="#{contasReceberMB.nDocumento}" />
 							<p:inputText id="idnomecliente"
 								value="#{contasReceberMB.nomeCliente}" maxlength="100"
 								style="width:90%;" />
@@ -59,7 +64,7 @@
 						<br></br>
 						<h:panelGrid columns="6"
 							columnClasses="tamanho8,tamanho7,tamanho1,tamanho7,tamanho4,tamanho4"
-							style="width:98%;margin-left:4%;">
+							style="width:91%;margin-left:4%;">
 							<p:outputLabel value="Unidade" for="unidade" />
 							<p:outputLabel value="Situação" for="situacao" />
 							<p:outputLabel value="Tipo Documento" for="situacao" />

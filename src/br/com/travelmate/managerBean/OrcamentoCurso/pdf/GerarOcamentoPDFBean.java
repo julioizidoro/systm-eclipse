@@ -278,9 +278,9 @@ public class GerarOcamentoPDFBean {
 		o.setInstituicao(ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome() + " "
 				+ ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getNome());
 		if (produtoCurso.getValorcoprodutos().getCoprodutos().isPacote()) {
-			o.setTipCurso("Pacote " + ocurso.getProdutosorcamento().getDescricao());
+			o.setTipCurso("Pacote " + ocurso.getProdutosorcamento().getDescricao() + " - " + produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso().getDescricao());
 		} else
-			o.setTipCurso(ocurso.getProdutosorcamento().getDescricao());
+			o.setTipCurso(ocurso.getProdutosorcamento().getDescricao() + " - " + produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso().getDescricao());
 
 		o.setDataInicio(Formatacao.ConvercaoDataPadrao(ocurso.getDatainicio()));
 		o.setDataTermino(Formatacao.ConvercaoDataPadrao(ocurso.getDatatermino()));
