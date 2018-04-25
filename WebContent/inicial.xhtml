@@ -564,10 +564,15 @@
 												<span class="submenu-label">Leads Encaminhados</span>
 											</p:commandLink></li>
 									</h:panelGroup> 
-									
-								<li><p:commandLink rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}"
-													action="#{menuMB.relatorioLead()}">
-													<span class="submenu-label">Relatório Lead</span>
+									<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}">
+											<li><p:commandLink rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}"
+																action="#{menuMB.relatorioLead()}">
+																<span class="submenu-label">Relatório Lead</span>
+															</p:commandLink></li>
+									</h:panelGroup>
+								<li><p:commandLink 
+													action="#{menuMB.consClienteLead()}">
+													<span class="submenu-label">Relatório Cliente</span>
 												</p:commandLink></li>
 								</ul></li>
 						</h:panelGroup>   

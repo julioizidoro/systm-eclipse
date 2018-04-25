@@ -1523,4 +1523,8 @@ public class MenuMB implements Serializable {
 		return "relatorioVendasSintetico";
 	}
 	
+	public String consClienteLead() {
+		return "consClienteLead";
+	}
+	
 }
