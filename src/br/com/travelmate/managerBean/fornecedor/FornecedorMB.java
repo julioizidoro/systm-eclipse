@@ -286,7 +286,7 @@ public class FornecedorMB implements Serializable{
     	if (produto!=null && pais!=null) {
 	    	CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
 	    	listaCidade = cidadePaisProdutosFacade.listar("SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.idpaisproduto="
-	    			+ pais.getIdpaisproduto());
+	    			+ pais.getIdpaisproduto() + " order by c.cidade.nome");
     	}
     }
     
