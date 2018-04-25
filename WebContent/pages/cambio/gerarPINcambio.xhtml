@@ -12,14 +12,14 @@
 </h:head>
 <h:body style="background:#DDDDE1;"> 
 	<h:form id="gerarPin"
-		style="text-align:left;font-size: 10px; margin-left: 7%; ">
+		style="text-align:left;font-size: 12px; margin-left: 7%; ">
 		<title>Gerar PIN</title>
 		<p:outputLabel value="Unidade" for="unidade" style="margin-left:-1%">
 		</p:outputLabel>
 		<br></br>
 		<p:selectOneMenu id="unidade" style="width:95%;margin-left:-1%"
 			value="#{gerarPinMB.unidadenegocio}"
-			converter="UnidadeNegocioConverter">
+			converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
 			<f:selectItem itemLabel="Selecione" itemValue="0"
 				noSelectionOption="true" />
 			<f:selectItems value="#{gerarPinMB.listaUnidadeNegocio}"
@@ -39,7 +39,7 @@
 		<br></br>
 		<h:panelGrid columns="2">
 			<p:selectOneMenu id="consultor" style="width:240px;margin-left:-1%"
-				value="#{gerarPinMB.usuario}" converter="UsuarioConverter">
+				value="#{gerarPinMB.usuario}" converter="UsuarioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
 				<f:selectItem itemLabel="Selecione" itemValue="0"
 					noSelectionOption="true" />
 				<f:selectItems value="#{gerarPinMB.listaConsultor}"
@@ -48,7 +48,7 @@
 					value="#{gerarPinMB.listaConsultor}" />
 				<p:ajax event="change"/> 
 			</p:selectOneMenu>
-			<p:commandButton value="Gerar PIN" style="margin-left:43.4%" 
+			<p:commandButton value="Gerar PIN" style="margin-left:30.4%" 
 				 icon="ui-icon-locked" action="#{gerarPinMB.gerarPIN()}" update=":gerarPin:pin"/>
 		</h:panelGrid>
 		<div align="center" style="width: 90%">  
