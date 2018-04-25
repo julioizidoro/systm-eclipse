@@ -26,26 +26,63 @@
 							 
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="2" style="margin-left:14%;"
+						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
+							<b>Sponsor</b>
+						</legend>
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2,tamanhoavisos2"
+							style="width:70%;margin-left:14%;">
+							<p:outputLabel value="País" for="pais" />
+							<p:outputLabel value="Valores Au Pair" for="valores" />
+							<p:outputLabel value="Valor" for="valor" />
+
+							<p:selectOneMenu id="pais" value="#{cadAupairMB.pais}"
+								style="width:150px;" converter="PaisConverter"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{cadAupairMB.listaPais}"
+									var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
+								<f:attribute name="listaPais"
+									value="#{cadAupairMB.listaPais}" />
+								<p:ajax event="change" update="idvalorcambio, moeda, :cadAupair:growl, valores" listener="#{cadAupairMB.selecionarCambio()}"/>
+							</p:selectOneMenu>
+							
+							
+
+							<p:selectOneMenu id="valores"
+								value="#{cadAupairMB.valoresAupair}" style="width:150px;"
+								filter="true" filterMatchMode="startsWith"
+								converter="ValoresAupairConverter" panelStyle="width:190px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idvalores"
+									value="#{cadAupairMB.listaValores}" var="valores"
+									itemLabel="#{valores.descricao}" itemValue="#{valores}" />
+								<f:attribute name="listaValoresAupair"
+									value="#{cadAupairMB.listaValores}" />
+								<p:ajax event="change"
+									listener="#{cadAupairMB.calcularValorProdutos()}"
+									update="valor, tabelaprodutosaupair,valorOrca, totalpag, saldoreceber, saldoparcelar, valoraparcelar, valorparcela, formapagamentotabela, valortotal, idvalorcambio, moeda" />
+							</p:selectOneMenu>
+							<p:inputText id="valor" style="width:40%;text-align:right;"
+								maxlength="100" value="#{cadAupairMB.valoresAupair.valorgross}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br/><br/>
+						<h:panelGrid columns="1" style="margin-left:14%;"
 							columnClasses="tamanhoavisos,tamanho9">
-							<p:outputLabel value="País de Interesse" for="paisInteresse" />
 							<p:outputLabel
 								value="Você tem amigos ou Familiares no país que deseja ir?"
 								for="familiares" />
 
-							<p:selectOneMenu id="paisInteresse"
-								value="#{cadAupairMB.aupair.paisinteresse}" style="width:60%;"
-								filter="true" filterMatchMode="startsWith"
-								panelStyle="width:180px">
-								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
-									noSelectionOption="true" />
-								<f:selectItem itemLabel="Alemanha" itemValue="Alemanha" />
-								<f:selectItem itemLabel="EUA" itemValue="EUA" />
-								<f:selectItem itemLabel="França" itemValue="França" />
-							</p:selectOneMenu>
+							
 							<p:selectOneMenu id="familiares"
 								value="#{cadAupairMB.aupair.possuiAmigosPais}"
-								style="width:60%;">
+								style="width:120px;">
 								<f:selectItem itemLabel="Não" itemValue="Não" />
 								<f:selectItem itemLabel="Sim" itemValue="Sim" />
 								<p:ajax event="change"
@@ -53,7 +90,6 @@
 									update="nome, telefone, endereco, relacao, digitosFoneAmigo" />
 							</p:selectOneMenu>
 						</h:panelGrid>
-						<br></br>
 						<br></br>
 						<h:panelGrid columns="2"
 							columnClasses="tamanhoavisos, tamanhoavisos2"
@@ -92,7 +128,7 @@
 								disabled="#{cadAupairMB.camposAmigo}" />
 						</h:panelGrid>
 						<br></br>
-
+						
 						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
 							<b>Dados do Aluno</b>
 						</legend>
@@ -118,87 +154,7 @@
 								value="#{cadAupairMB.aupair.tempocnh}" />
 						</h:panelGrid>
 						<br></br>
-						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
-							<b>Sponsor</b>
-						</legend>
-						<h:panelGrid columns="3"
-							columnClasses="tamanhoavisos2, tamanhoavisos2,tamanhoavisos2"
-							style="width:70%;margin-left:14%;">
-							<p:outputLabel value="País" for="pais" />
-							<p:outputLabel value="Cidade" for="cidade" />
-							<p:outputLabel value="Sponsor" for="fornecedor" />
-
-							<p:selectOneMenu id="pais" value="#{cadAupairMB.pais}"
-								style="width:192px;" converter="PaisFornecedorConverter"
-								filter="true" filterMatchMode="startsWith"
-								panelStyle="width:180px">
-								<f:selectItem itemLabel="País" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems id="idpais" value="#{cadAupairMB.listaPais}"
-									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
-								<f:attribute name="listaPaisFornecedor"
-									value="#{cadAupairMB.listaPais}" />
-								<p:ajax event="change" update="cidade, idvalorcambio, moeda" listener="#{cadAupairMB.selecionarCambio()}"/>
-							</p:selectOneMenu>
-							<p:selectOneMenu id="cidade" value="#{cadAupairMB.cidade}"
-								converter="CidadeConverter" style="width:192px;" filter="true"
-								filterMatchMode="startsWith" panelStyle="width:180px">
-								<f:selectItem itemLabel="Cidade" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems id="idcidade2"
-									value="#{cadAupairMB.pais.cidadeList}" var="cidade"
-									itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
-								<f:attribute name="listaCidade"
-									value="#{cadAupairMB.pais.cidadeList}" />
-								<p:ajax event="change"
-									listener="#{cadAupairMB.listarFornecedorCidade()}"
-									update="fornecedor" />
-							</p:selectOneMenu>
-							<p:selectOneMenu id="fornecedor"
-								value="#{cadAupairMB.fornecedorCidade}" style="width:192px;"
-								filter="true" filterMatchMode="startsWith"
-								converter="FornecedorCidadeConverter" panelStyle="width:180px">
-								<f:selectItem itemLabel="Selecione" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems id="idfornecedor"
-									value="#{cadAupairMB.listaFornecedorCidade}" var="fornecedor"
-									itemLabel="#{fornecedor.fornecedor.nome}"
-									itemValue="#{fornecedor}" />
-								<f:attribute name="listaFornecedorCidade"
-									value="#{cadAupairMB.listaFornecedorCidade}" />
-								<p:ajax event="change" update="valores"
-									listener="#{cadAupairMB.carregarValores()}" />
-							</p:selectOneMenu>
-
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-
-							<p:outputLabel value="Valores Au Pair" for="valores" />
-							<p:outputLabel value="Valor" for="valor" />
-							<p:outputLabel />
-
-							<p:selectOneMenu id="valores"
-								value="#{cadAupairMB.valoresAupair}" style="width:192px;"
-								filter="true" filterMatchMode="startsWith"
-								converter="ValoresAupairConverter" panelStyle="width:190px">
-								<f:selectItem itemLabel="Selecione" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems id="idvalores"
-									value="#{cadAupairMB.listaValores}" var="valores"
-									itemLabel="#{valores.descricao}" itemValue="#{valores}" />
-								<f:attribute name="listaValoresAupair"
-									value="#{cadAupairMB.listaValores}" />
-								<p:ajax event="change"
-									listener="#{cadAupairMB.calcularValorProdutos()}"
-									update="valor, tabelaprodutosaupair,valorOrca, totalpag, saldoreceber, saldoparcelar, valoraparcelar, valorparcela, formapagamentotabela, valortotal, idvalorcambio, moeda" />
-							</p:selectOneMenu>
-							<p:inputText id="valor" style="width:60%;text-align:right;"
-								maxlength="100" value="#{cadAupairMB.valoresAupair.valorgross}">
-								<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-							</p:inputText>
-						</h:panelGrid>
+						
 						<br></br>
 						<br></br>
 					</p:tab>
