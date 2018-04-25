@@ -520,11 +520,19 @@ public class CadVistosMB implements Serializable {
 			msg = msg + "Campo forma de pagamento obrigatório";
 		}
 
-		if (dataPrimeiroPagamento == null) {
-			msg = msg + "Data do 1º Vencimento Obrigatorio";
-		}
 		if (formaPagamentoString.equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";
+		}
+		if (dataPrimeiroPagamento == null) {
+			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (formaPagamentoString.equalsIgnoreCase("Boleto")){
+				try {
+					msg = msg + Formatacao.validarDataBoleto(dataPrimeiroPagamento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		if (valorParcela <= 0) {
 			msg = msg + "Valor da parcela não pode ser 0";

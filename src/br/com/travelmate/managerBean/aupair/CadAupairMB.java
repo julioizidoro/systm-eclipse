@@ -36,6 +36,7 @@ import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
@@ -64,6 +65,7 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
+import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
@@ -106,7 +108,7 @@ public class CadAupairMB implements Serializable {
 	private Fornecedorcidade fornecedorCidade;
 	private List<Fornecedorcidade> listaFornecedorCidade;
 	private Pais pais;
-	private List<Pais> listaPais;
+	private List<Paisproduto> listaPais;
 	private Cidade cidade;
 	private Cliente cliente;
 	private Produtos produto;
@@ -155,8 +157,9 @@ public class CadAupairMB implements Serializable {
 		session.removeAttribute("cliente");
 		session.removeAttribute("lead");
 		session.removeAttribute("aupair");
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		PaisProdutoFacade paisFacade = new PaisProdutoFacade();
+		int idproduto = aplicacaoMB.getParametrosprodutos().getAupair();
+		listaPais = paisFacade.listar(idproduto);
 		carregarComboMoedas();
 		gerarListaProdutos();
 		if (aupair == null) {
@@ -400,11 +403,13 @@ public class CadAupairMB implements Serializable {
 		this.orcamentoprodutosorcamento = orcamentoprodutosorcamento;
 	}
 
-	public List<Pais> getListaPais() {
+	
+
+	public List<Paisproduto> getListaPais() {
 		return listaPais;
 	}
 
-	public void setListaPais(List<Pais> listaPais) {
+	public void setListaPais(List<Paisproduto> listaPais) {
 		this.listaPais = listaPais;
 	}
 
@@ -630,6 +635,12 @@ public class CadAupairMB implements Serializable {
 			if (listaFornecedorCidade == null) {
 				listaFornecedorCidade = new ArrayList<Fornecedorcidade>();
 			}
+			if (listaFornecedorCidade.size() > 0) {
+				fornecedorCidade = listaFornecedorCidade.get(0);
+				carregarValores();
+			}else {
+				Mensagem.lancarMensagemErro("", "Sem fornecedor encontrado");
+			}
 		}
 	}
 
@@ -737,6 +748,14 @@ public class CadAupairMB implements Serializable {
 		}
 		if (parcelamentopagamento.getDiaVencimento() == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")){
+				try {
+					msg = msg + Formatacao.validarDataBoleto(parcelamentopagamento.getDiaVencimento());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";
@@ -1971,6 +1990,22 @@ public class CadAupairMB implements Serializable {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
 			consultarCambio();
+			gerandoValoresAuPair();
 		}
 	}
+	
+	
+	public void gerandoValoresAuPair() {
+		if (pais.getCidadeList() != null && pais.getCidadeList().size() > 0) {
+			cidade = pais.getCidadeList().get(0);
+			listarFornecedorCidade();
+		}else {
+			Mensagem.lancarMensagemErro("", "Nenhuma cidade encontrado");
+		}
+	}
+	
+	
+	
+	
+	
 }

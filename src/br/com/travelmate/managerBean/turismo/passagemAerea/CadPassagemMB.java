@@ -688,6 +688,14 @@ public class CadPassagemMB implements Serializable {
 		}
 		if (dataPrimeiroPagamento == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (formaPagamentoString.equalsIgnoreCase("Boleto")){
+				try {
+					msg = msg + Formatacao.validarDataBoleto(dataPrimeiroPagamento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		if(valorParcelar > (valorSaltoParcelar+0.01)){
 			msg = msg + "Valor a parcelar mais alto que saldo em aberto.";

@@ -715,6 +715,14 @@ public class CadDemiPairMB implements Serializable {
 		}
 		if (parcelamentopagamento.getDiaVencimento() == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")){
+				try {
+					msg = msg + Formatacao.validarDataBoleto(parcelamentopagamento.getDiaVencimento());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";

@@ -1078,11 +1078,20 @@ public class CadVoluntariadoMB implements Serializable {
 			}
 
 		}
-		if (parcelamentopagamento.getDiaVencimento() == null) {
-			msg = msg + "Data do 1º Vencimento Obrigatorio";
-		}
+
 		if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";
+		}
+		if (parcelamentopagamento.getDiaVencimento() == null) {
+			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")){
+				try {
+					msg = msg + Formatacao.validarDataBoleto(parcelamentopagamento.getDiaVencimento());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		if (parcelamentopagamento.getValorParcela() <= 0) {
 			msg = msg + "Valor da parcela não pode ser 0";
