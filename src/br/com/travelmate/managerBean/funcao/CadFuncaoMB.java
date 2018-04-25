@@ -144,7 +144,7 @@ public class CadFuncaoMB implements Serializable{
 
 	public void gerarListaDepartamento(){
 		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		listaDepartamento = departamentoFacade.listar("Select d From Departamento d");
+		listaDepartamento = departamentoFacade.listar("Select d From Departamento d order by d.nome");
 		if (listaDepartamento == null) {
 			listaDepartamento = new ArrayList<>();
 		}
@@ -153,7 +153,7 @@ public class CadFuncaoMB implements Serializable{
 	
 	public void gerarListaUsuario(){
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		String sql = "Select u From Usuario u Where u.situacao='Ativo' ";
+		String sql = "Select u From Usuario u Where u.situacao='Ativo' order by u.nome";
 		if (departamento != null) {
 			sql = sql + " and u.departamento.iddepartamento=" + departamento.getIddepartamento();
 		}
