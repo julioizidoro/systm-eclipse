@@ -1208,7 +1208,7 @@
 								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, telaFichaWorkTravel:growl" />
 						</p:commandButton>
 						<p:commandButton id="btnCalcularBackOffice"
-								action="#" value="Comissão" style="margin-left:3%"
+								action="#{cadWorkTravelMB.calcularComissaoFranquia()}" value="Comissão" style="margin-left:3%"
 								icon="ui-icon-calculator" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.btncomissaoficha}"/>
 					</div>
 					<br></br>

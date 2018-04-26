@@ -25,6 +25,7 @@ import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
+import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -62,6 +63,7 @@ import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Valoreswork;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
@@ -587,6 +589,27 @@ public class CadWorkTravelMB implements Serializable {
 		if (listaValoresWork == null || listaValoresWork.size() == 0) {
 			Mensagem.lancarMensagemInfo("Valores", "Programa não possui valor ativo. Entre em contato com a Gerencia");
 		}
+	}
+	
+	public String calcularComissaoFranquia() {
+		Vendascomissao vendascomissao = new Vendascomissao();
+		if (venda.getIdvendas() == null) {
+			venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
+			venda.setCambio(cambio);
+			produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
+			venda.setProdutos(produto);
+		}
+		ComissaoCursoBean comissaoCursoBean = new ComissaoCursoBean(aplicacaoMB, venda,
+				orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao, formaPagamento.getParcelamentopagamentoList(),
+				work.getDataMatricula(), vendascomissao, formaPagamento.getValorJuros(), false);
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendascomissao", vendascomissao);
+		session.setAttribute("percentualcomissao", comissaoCursoBean.getPercentualComissao());
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 380);
+		RequestContext.getCurrentInstance().openDialog("calcularcomissao", options, null);
+		return "";
 	}
 
 	public void adicionarFormaPagamento() {
@@ -1163,6 +1186,36 @@ public class CadWorkTravelMB implements Serializable {
 					cadWorkTravelBean.verificarDadosAlterado(work, workAlterado, fornecedorCidade, vendaAlterada,
 							valorVendaAlterar);
 				}
+				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+					String titulo = "";
+					String operacao = "";
+					String imagemNotificacao = "";
+					if (novaFicha) {
+						titulo = "Nova Ficha de Work & Travel " + work.getTipo();
+						operacao = "A";
+						imagemNotificacao = "inserido";
+					} else {
+						titulo = "Ficha de Work & Travel Alterado " + work.getTipo();
+						operacao = "I";
+						imagemNotificacao = "alterado";
+					}
+					String vm = "Venda pela Matriz";
+					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
+						vm = "Venda pela Loja";
+					}
+					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+					List<Departamento> departamento = departamentoFacade
+							.listar("select d From Departamento d where d.usuario.idusuario="
+									+ venda.getProdutos().getIdgerente());
+					if (departamento != null && departamento.size() > 0) {
+						Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+								venda.getFornecedorcidade().getFornecedor().getNome(),
+								Formatacao.ConvercaoDataPadrao(work.getDataInicioPretendida01()),
+								venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
+								venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+								imagemNotificacao, "I");
+					}
+				}
 				if (novaFicha) {
 					if (enviarFicha) {
 						if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
@@ -1205,34 +1258,8 @@ public class CadWorkTravelMB implements Serializable {
 							tmRaceMB.gerarListaGold();
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
-							String titulo = "";
-							String operacao = "";
-							String imagemNotificacao = "";
-							if (novaFicha) {
-								titulo = "Nova Ficha de Work & Travel " + work.getTipo();
-								operacao = "A";
-								imagemNotificacao = "inserido";
-							} else {
-								titulo = "Ficha de Work & Travel Alterado " + work.getTipo();
-								operacao = "I";
-								imagemNotificacao = "alterado";
-							}
-							String vm = "Venda pela Matriz";
-							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-								vm = "Venda pela Loja";
-							}
-							DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-							List<Departamento> departamento = departamentoFacade
-									.listar("select d From Departamento d where d.usuario.idusuario="
-											+ venda.getProdutos().getIdgerente());
-							if (departamento != null && departamento.size() > 0) {
-								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-										venda.getFornecedorcidade().getFornecedor().getNome(),
-										Formatacao.ConvercaoDataPadrao(work.getDataInicioPretendida01()),
-										venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-										venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-										imagemNotificacao, "I");
-							}
+							
+							
 							// }
 							// }.start();
 						}
@@ -1279,34 +1306,34 @@ public class CadWorkTravelMB implements Serializable {
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
 						}
-						String titulo = "";
-						String operacao = "";
-						String imagemNotificacao = "";
-						if (novaFicha) {
-							titulo = "Nova Ficha de Work and Travel";
-							operacao = "A";
-							imagemNotificacao = "inserido";
-						} else {
-							titulo = "Ficha de Work and Travel Alterado";
-							operacao = "I";
-							imagemNotificacao = "alterado";
-						}
-						String vm = "Venda pela Matriz";
-						if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-							vm = "Venda pela Loja";
-						}
-						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-						List<Departamento> departamento = departamentoFacade
-								.listar("select d From Departamento d where d.usuario.idusuario="
-										+ venda.getProdutos().getIdgerente());
-						if (departamento != null && departamento.size() > 0) {
-							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-									venda.getFornecedorcidade().getFornecedor().getNome(),
-									Formatacao.ConvercaoDataPadrao(work.getDataInicioPretendida01()),
-									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-									imagemNotificacao, "A");
-						}
+//						String titulo = "";
+//						String operacao = "";
+//						String imagemNotificacao = "";
+//						if (novaFicha) {
+//							titulo = "Nova Ficha de Work and Travel";
+//							operacao = "A";
+//							imagemNotificacao = "inserido";
+//						} else {
+//							titulo = "Ficha de Work and Travel Alterado";
+//							operacao = "I";
+//							imagemNotificacao = "alterado";
+//						}
+//						String vm = "Venda pela Matriz";
+//						if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
+//							vm = "Venda pela Loja";
+//						}
+//						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+//						List<Departamento> departamento = departamentoFacade
+//								.listar("select d From Departamento d where d.usuario.idusuario="
+//										+ venda.getProdutos().getIdgerente());
+//						if (departamento != null && departamento.size() > 0) {
+//							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+//									venda.getFornecedorcidade().getFornecedor().getNome(),
+//									Formatacao.ConvercaoDataPadrao(work.getDataInicioPretendida01()),
+//									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
+//									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+//									imagemNotificacao, "A");
+//						}
 						// }
 						// }.start();
 					}
