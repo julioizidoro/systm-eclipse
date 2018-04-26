@@ -788,7 +788,7 @@ public class CadOrcamentoManualMB implements Serializable {
 						this.valorMoedaReal = 0.0f;
 					}else if (produtosorcamento.getValormaximo()>=valorReal){
 						pob . setValorMoedaEstrangeira (valorEstrangeira);
-						pob . setValorMoedaReal (valorMoedaReal);
+						pob . setValorMoedaReal (valorReal);
 
 						pob.setApagar(false);
 						pob.setNovo(true);
