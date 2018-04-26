@@ -38,6 +38,7 @@ public class CadHistoricoClienteMB implements Serializable {
 	private Lead lead;
 	private List<Tipocontato> listaTipoContato;
 	private List<Leadhistorico> listaHistorico; 
+	private boolean desabilitarProximoContato = false;
 
 	@PostConstruct
 	public void init() {
@@ -52,6 +53,9 @@ public class CadHistoricoClienteMB implements Serializable {
 			leadHistorico = new Leadhistorico();
 			leadHistorico.setTipocontato(lead.getTipocontato());
 			leadHistorico.setDatahistorico(new Date());
+		}
+		if (lead.getSituacao() == 8) {
+			desabilitarProximoContato = true;
 		}
 	}
 
@@ -96,6 +100,14 @@ public class CadHistoricoClienteMB implements Serializable {
 	}
    
 
+	public boolean isDesabilitarProximoContato() {
+		return desabilitarProximoContato;
+	}
+
+	public void setDesabilitarProximoContato(boolean desabilitarProximoContato) {
+		this.desabilitarProximoContato = desabilitarProximoContato;
+	}
+
 	public void salvarHistorico() {
 		if (validarDados()) {
 			// salvarHistorico
@@ -132,9 +144,11 @@ public class CadHistoricoClienteMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Tipo de próximo contato não preenchido!", "");
 			return false;
 		}
-		if (leadHistorico.getDataproximocontato() == null) {
-			Mensagem.lancarMensagemErro("Data do próximo contato não inserida!", "");
-			return false;
+		if (!desabilitarProximoContato) {
+			if (leadHistorico.getDataproximocontato() == null) {
+				Mensagem.lancarMensagemErro("Data do próximo contato não inserida!", "");
+				return false;
+			}
 		}
 		return true;
 	}
