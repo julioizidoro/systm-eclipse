@@ -21,7 +21,6 @@ public class LeadResponsavelDao {
 		tx.begin();
 		leadresponsavel = manager.merge(leadresponsavel);
         tx.commit();
-		manager.clear();
 		manager.close();
         return leadresponsavel; 
     } 
@@ -33,7 +32,6 @@ public class LeadResponsavelDao {
         if (q.getResultList().size() > 0) {
         		leadresponsavel =  (Leadresponsavel) q.getResultList().get(0);
         } 
-		manager.clear();
 		manager.close();
         return leadresponsavel;
     }
@@ -45,7 +43,6 @@ public class LeadResponsavelDao {
 		Leadresponsavel leadresponsavel = manager.find(Leadresponsavel.class, idleadresponsavel);
         manager.remove(leadresponsavel);  
         tx.commit();
-		manager.clear();
 		manager.close();
     }
      
@@ -53,7 +50,6 @@ public class LeadResponsavelDao {
 		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Leadresponsavel> lista = q.getResultList();
-		manager.clear();
 		manager.close();
         return lista; 
     }
@@ -63,7 +59,6 @@ public class LeadResponsavelDao {
         Query q = manager.createQuery("SELECT l FROM Leadresponsavel l WHERE l.unidadenegocio.idunidadeNegocio="+idunidade + " and l.usuario.situacao='Ativo' "
         		+ " ORDER BY l.usuario.nome");
         List<Leadresponsavel> lista = q.getResultList();
-		manager.clear();
 		manager.close();
         return lista; 
     }
