@@ -1219,7 +1219,7 @@ public class CadWorkTravelMB implements Serializable {
 				if (novaFicha) {
 					if (enviarFicha) {
 						if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-								|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
+								|| !venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 							dashBoardMB.getVendaproduto()
 									.setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
 							dashBoardMB.getMetamensal().setValoralcancado(
