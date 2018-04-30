@@ -161,8 +161,8 @@ public class CadQuestionarioHeMB implements Serializable {
 	public String salvar(String situacao) {
 		if (cliente != null && cliente.getIdcliente() != null) {
 			questionarioHe.setCliente(cliente);
-			questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario()); 
 			if (questionarioHe.getIdquestionariohe() == null) {
+				questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario()); 
 				questionarioHe.setDataenvio(new Date());
 				questionarioHe.setAutorizado(false);
 				VendasFacade vendasFacade = new VendasFacade();
