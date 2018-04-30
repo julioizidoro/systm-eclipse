@@ -2,9 +2,15 @@ package br.com.travelmate.facade;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 import br.com.travelmate.dao.CancelamentoDao;
+import br.com.travelmate.dao.CrmCobrancaDao;
 import br.com.travelmate.model.Cancelamento;
+import br.com.travelmate.model.Crmcobranca;
 
 public class CancelamentoFacade {
 	
@@ -26,6 +32,18 @@ public class CancelamentoFacade {
 			return cancelamentoDao.listar(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	public Cancelamento consultar(int idcancelamento) {
+		cancelamentoDao = new CancelamentoDao();
+		try {
+			return cancelamentoDao.consultar(idcancelamento);
+		} catch (SQLException ex) {
+			Logger.getLogger(CrmCobrancaFacade.class.getName()).log(Level.SEVERE, null, ex);
+			JOptionPane.showMessageDialog(null, "Erro consultar Curso " + ex);
 			return null;
 		}
 	}

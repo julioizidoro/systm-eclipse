@@ -6,15 +6,18 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -81,9 +84,21 @@ public class Cancelamento implements Serializable {
     private String formapagamento;
     @Column(name = "hora")
     private String hora;
+    @Column(name = "uploadtermo")
+    private boolean uploadtermo;
+    @Transient
+    private String nomeArquivo;
+    @Transient
+    private String imagemTermo;
+    @Transient
+    private boolean semrecibo;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "cancelamento")
+	private Cancelamentocredito cancelamentocredito;
     
 
     public Cancelamento() {
+    	semrecibo = true;
+    	imagemTermo = "../../resources/img/semrecibo.png";
     }
 
     public Cancelamento(Integer idcancelamento) {
@@ -266,6 +281,46 @@ public class Cancelamento implements Serializable {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public boolean isUploadtermo() {
+		return uploadtermo;
+	}
+
+	public void setUploadtermo(boolean uploadtermo) {
+		this.uploadtermo = uploadtermo;
+	}
+
+	public String getNomeArquivo() {
+		return nomeArquivo;
+	}
+
+	public void setNomeArquivo(String nomeArquivo) {
+		this.nomeArquivo = nomeArquivo;
+	}
+
+	public String getImagemTermo() {
+		return imagemTermo;
+	}
+
+	public void setImagemTermo(String imagemTermo) {
+		this.imagemTermo = imagemTermo;
+	}
+
+	public boolean isSemrecibo() {
+		return semrecibo;
+	}
+
+	public void setSemrecibo(boolean semrecibo) {
+		this.semrecibo = semrecibo;
+	}
+
+	public Cancelamentocredito getCancelamentocredito() {
+		return cancelamentocredito;
+	}
+
+	public void setCancelamentocredito(Cancelamentocredito cancelamentocredito) {
+		this.cancelamentocredito = cancelamentocredito;
 	}
 
 	@Override
