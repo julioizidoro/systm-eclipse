@@ -320,39 +320,39 @@ public class DashBoardBean {
 			if ((regra.getValorinicial() <= venda.getValor()) && (regra.getValorfinal() >= venda.getValor())) {
 				validar = true;
 			} else
-				return false;
+				validar =  false;
 		}
 		if ((regra.getNumerosemanasinicial() != null) && (regra.getNumerosemanafinal() != null)
 				&& (regra.getNumerosemanasinicial() > 0) && (regra.getNumerosemanafinal() > 0)) {
 			if ((regra.getNumerosemanasinicial() <= numeroSemanas) && (regra.getNumerosemanafinal() >= numeroSemanas)) {
 				validar = true;
 			} else
-				return false;
+				validar = false;
 		}
 		if (regra.getPrograma() != null && regra.getPrograma().length() > 0) {
 			if (regra.getPrograma().equalsIgnoreCase(programa)) {
 				validar = true;
 			} else
-				return false;
+				validar = false;
 		}
 		if (regra.getPais() != null && regra.getPais() > 0) {
 			if (regra.getPais() == venda.getFornecedorcidade().getCidade().getPais().getIdpais()) {
 				validar = true;
 			} else
-				return false;
+				validar = false;
 		}
 		if (regra.getFornecedor() != null && regra.getFornecedor() > 0) {
 			int fornecedor = venda.getFornecedor().getIdfornecedor();
 			if (regra.getFornecedor() == fornecedor) {
 				validar = true;
 			} else
-				return false;
+				validar = false;
 		}
 		if (regra.getCidade() != null && regra.getCidade() > 0) {
 			if (regra.getCidade()==venda.getFornecedorcidade().getCidade().getIdcidade()) {
 				validar = true;
 			} else
-				return false;
+				validar = false;
 		}
 		return validar;
 
