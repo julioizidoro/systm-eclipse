@@ -455,7 +455,7 @@
 								action="#{followUpMB.historicoCliente(rowIndex)}">
 								<img src="../../resources/img/crm/historico.png" width="30" />
 							</p:commandLink>
-							<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
+							<p:commandLink id="btnEmitirVenda" title="Emissão de vendas" rendered="#{followUpMB.habiltiarVenda(lead)}"
 										action="#{followUpMB.emitirVenda(lead)}" 
 										>
 										<img src="../../resources/img/crm/emitirvendas.png"

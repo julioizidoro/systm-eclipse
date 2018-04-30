@@ -299,7 +299,7 @@
 
 
 									<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
-										action="#{historicoClienteMB.emitirVenda()}"
+										action="#{historicoClienteMB.emitirVenda()}" rendered="#{historicoClienteMB.habiltiarVenda()}"
 										 style="margin-left:8%;">
 										<h:panelGrid columns="1" style="text-align:center;">
 											<img src="../../resources/img/crm/emitirvendas.png"

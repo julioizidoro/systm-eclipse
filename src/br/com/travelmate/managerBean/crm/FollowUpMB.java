@@ -1373,6 +1373,14 @@ public class FollowUpMB implements Serializable {
 		return resultado;
 	}
 	
+	public boolean habiltiarVenda(Lead lead){
+		boolean resultado = true;
+		if (lead.getProdutos().getIdprodutos() == 21) {
+			resultado = false;
+		}
+		return resultado;
+	}
+	
 	
 	public String orcamentoManual(Lead lead) {
 		FacesContext fc = FacesContext.getCurrentInstance();

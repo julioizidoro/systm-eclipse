@@ -1102,4 +1102,13 @@ public class HistoricoClienteMB implements Serializable {
 	public String orcamentoVitrine(){
 		return "paginainicial";
 	}  
+	
+	
+	public boolean habiltiarVenda(){
+		boolean resultado = true;
+		if (lead.getProdutos().getIdprodutos() == 21) {
+			resultado = false;
+		}
+		return resultado;
+	}
 }
