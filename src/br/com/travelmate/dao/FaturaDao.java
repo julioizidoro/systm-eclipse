@@ -21,43 +21,47 @@ public class FaturaDao {
     
     public Fatura salvar(Fatura fatura) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		fatura = manager.merge(fatura);
         tx.commit();
+        manager.close();
         return fatura;
     }
     
     public Fatura getFatura(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getInstance();
+         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         Fatura fatura = null;
         if (q.getResultList().size()>0){
             fatura = (Fatura) q.getResultList().get(0);
         }
+        manager.close();
         return fatura;
     }
     
     public void excluir(int idFatura) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Fatura fatura = manager.find(Fatura.class, idFatura);
         manager.remove(fatura);
         tx.commit();
+        manager.close();
     }
     
     public List<Fatura> listar(String sql)throws SQLException{
     	EntityManager manager;
-         manager = ConectionFactory.getInstance();
+         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Fatura> fatura = null;
         if (q.getResultList().size()>0){
             fatura =  q.getResultList();
         }  
+        manager.close();
         return fatura;
     }
     

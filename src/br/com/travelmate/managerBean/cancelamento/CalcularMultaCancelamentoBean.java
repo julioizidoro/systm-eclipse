@@ -20,9 +20,11 @@ public class CalcularMultaCancelamentoBean {
 		int idcondicao = cancelamento.getCondicaocancelamento().getIdcondicaocancelamento();
 		if (idcondicao==1){
 			return 0.0f;
-		}else if ((idcondicao==2) || (idcondicao==3) || (idcondicao==10) || (idcondicao==11)){
+		}else if (idcondicao==2){
 			return (float) (cancelamento.getVendas().getValor() * 0.30);
-		}else if (idcondicao==4){ 
+		}else if (idcondicao==3){
+			return (float) (cancelamento.getVendas().getValor() * 0.30);
+		}else if (idcondicao==4){
 			return  1500 * cancelamento.getVendas().getValorcambio();
 		}else if (idcondicao==5){
 			float valorMulta = 1500 * cancelamento.getVendas().getValorcambio();
@@ -36,12 +38,16 @@ public class CalcularMultaCancelamentoBean {
 			return 750 * cancelamento.getVendas().getValorcambio();
 		}else if (idcondicao==9){
 			return 850 * cancelamento.getVendas().getValorcambio();
-		}else if(idcondicao==12) {
+		}else if (idcondicao==10){
+			return (float) (cancelamento.getVendas().getValor() * 0.30);
+		}else if (idcondicao==11){
+			return (float) (cancelamento.getVendas().getValor() * 0.30);
+		}else if (idcondicao==12){
 			return 0.0f;
 		}else if (idcondicao==13){
 			return (float) (cancelamento.getVendas().getValor() * 0.60);
 		}else if (idcondicao==14){
-			return (float) (cancelamento.getVendas().getValor() * 0.10);
+			return (float) (cancelamento.getVendas().getValor() * 0.60);
 		}else if (idcondicao==15){
 			return 700 * cancelamento.getVendas().getValorcambio();
 		}else if (idcondicao==16){
@@ -50,9 +56,45 @@ public class CalcularMultaCancelamentoBean {
 			return 0.0f;
 		}else if (idcondicao==18){
 			return 0.0f;
-		}else if ((idcondicao==19) || (idcondicao==20)){
-			return cancelamento.getVendas().getValor();
+		}else if (idcondicao==19){
+			return 0.0f;
+		}else if (idcondicao==20){
+			return 0.0f;
+		}else if (idcondicao==21){
+			return 0.0f;
+		}else if (idcondicao==22){
+			return 0.0f;
+		}else if (idcondicao==23){
+			return 0.0f;
+		}else if (idcondicao==24){
+			return 0.0f;
+		}else if (idcondicao==25){
+			return 0.0f;
+		}else if (idcondicao==26){
+			return 0.0f;
+		}else if (idcondicao==27){
+			return 0.0f;
+		}else if (idcondicao==28){
+			return 0.0f;
+		}else if (idcondicao==29){
+			return (float) (cancelamento.getVendas().getValor() * 0.30);
+		}else if (idcondicao==30){
+			return 0.0f;
+		}else if (idcondicao==31){
+			return 0.0f;
+		}else if (idcondicao==32){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.50);
+		}else if (idcondicao==33){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.65);
+		}else if (idcondicao==34){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
 		}else return 0.0f;
+		
+		
+		
+		
+		
+		
 	}
 	
 	public Cancelamento calcularTotais(Cancelamento cancelamento){
@@ -72,16 +114,35 @@ public class CalcularMultaCancelamentoBean {
 		int idcondicao = cancelamento.getCondicaocancelamento().getIdcondicaocancelamento();
 		if (idcondicao==1){
 			return 0.0f;
-		}else if ((idcondicao==2) || (idcondicao==3) ||  (idcondicao==13) 
-				  || (idcondicao==16)){
+		}else if (idcondicao==2){
 			return 0.0f;
-		}else if ((idcondicao==4) || (idcondicao==5)) {
+		}else if (idcondicao==3){
+			return 0.0f;
+		}else if (idcondicao==4){
 			return (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao()) * 0.75);
-		}else if ((idcondicao==6) || (idcondicao==10)){
-			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao()) * 0.75);
-		}else if ((idcondicao==7) || (idcondicao==8) || (idcondicao==9) || (idcondicao==15)){
+		}else if (idcondicao==5){
 			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
-		}else if((idcondicao==11) ){
+		}else if (idcondicao==6){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
+		}else if (idcondicao==7){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
+		}else if (idcondicao==8){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
+		}else if (idcondicao==9){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
+		}else if (idcondicao==10){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
+		}else if (idcondicao==11){
+			return 0.0f;
+		}else if (idcondicao==12){
+			return calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao());
+		}else if (idcondicao==13){
+			return 0.0f;
+		}else if (idcondicao==14){
+			return calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao());
+		}else if (idcondicao==15){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
+		}else if (idcondicao==16){
 			return 0.0f;
 		}else if (idcondicao==17){
 			return calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao());
@@ -91,12 +152,35 @@ public class CalcularMultaCancelamentoBean {
 			return 0.0f;
 		}else if (idcondicao==20){
 			return 0.0f;
-		}else if (idcondicao==29) {
+		}else if (idcondicao==21){
 			return 0.0f;
-		}else if ((idcondicao==12) || (idcondicao==14)) {
-			return calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao());
-		
-		}return 0.0f;
+		}else if (idcondicao==22){
+			return 0.0f;
+		}else if (idcondicao==23){
+			return 0.0f;
+		}else if (idcondicao==24){
+			return 0.0f;
+		}else if (idcondicao==25){
+			return 0.0f;
+		}else if (idcondicao==26){
+			return 0.0f;
+		}else if (idcondicao==27){
+			return 0.0f;
+		}else if (idcondicao==28){
+			return 0.0f;
+		}else if (idcondicao==29){
+			return 0.0f;
+		}else if (idcondicao==30){
+			return 0.0f;
+		}else if (idcondicao==31){
+			return 0.0f;
+		}else if (idcondicao==32){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.50);
+		}else if (idcondicao==33){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.50);
+		}else if (idcondicao==34){
+			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.25);
+		}else return 0.0f;
 	}
 	
 	public float calcularComissaoFranquia(Vendascomissao vendaComissao) {
