@@ -187,5 +187,10 @@ public class CadCursoBean {
 			}
 		}
 	}
+	
+	public void pegarCurso(Curso curso, Vendas venda) {
+		this.curso = curso;
+		this.venda = venda;
+	}
 
 }
