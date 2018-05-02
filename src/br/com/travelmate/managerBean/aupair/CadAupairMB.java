@@ -28,6 +28,7 @@ import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -52,6 +53,7 @@ import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
+import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controlealteracoes;
 import br.com.travelmate.model.Departamento;
@@ -2008,8 +2010,11 @@ public class CadAupairMB implements Serializable {
 	
 	
 	public void gerandoValoresAuPair() {
-		if (pais.getCidadeList() != null && pais.getCidadeList().size() > 0) {
-			cidade = pais.getCidadeList().get(0);
+		int produtoAuPair = aplicacaoMB.getParametrosprodutos().getAupair();
+		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+		List<Cidadepaisproduto> listaCidade = cidadePaisProdutosFacade.listar("Select c From Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=" + produtoAuPair);
+		if (listaCidade != null && listaCidade.size() > 0) {
+			cidade = listaCidade.get(0).getCidade();
 			listarFornecedorCidade();
 		}else {
 			Mensagem.lancarMensagemErro("", "Nenhuma cidade encontrado");
