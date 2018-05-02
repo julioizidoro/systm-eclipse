@@ -1745,6 +1745,7 @@ public class CadOrcamentoManualMB implements Serializable {
 				if (seguroViagem.isSomarvalortotal()) {
 					calcularValorTotalOrcamento();
 				}
+				calcularValorSeguroPrivadoListaProdutos();
 			}
 			}
 		}
@@ -1856,7 +1857,7 @@ public class CadOrcamentoManualMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			pob.setValorMoedaEstrangeira(0.0f);
+			pob.setValorMoedaEstrangeira(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor());
 			pob.setValorMoedaReal(
 					aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor()); 
 			pob.setApagar(false);
@@ -1905,6 +1906,42 @@ public class CadOrcamentoManualMB implements Serializable {
 					listaNumeroParcelas.add(np);
 				}
 			}
+		}
+	}
+	
+	
+	public void calcularValorSeguroPrivadoListaProdutos() {
+		List<ProdutoOrcamentoCursoBean> listaProdutosBean = new ArrayList<>();
+		int codSeguroPrivado = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
+		for (int i = 0; i < listaProdutoOrcamentoBean.size(); i++) {
+			int codigoLista = listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento();
+			if (codSeguroPrivado != codigoLista) {
+				listaProdutosBean.add(listaProdutoOrcamentoBean.get(i));
+			}
+		}
+		listaProdutoOrcamentoBean = listaProdutosBean;
+		float valorEstrangeira = 0.0f;
+		float valorReal = 0.0f;
+		if (seguroViagem != null) {
+				ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+				Produtosorcamento produto = produtoOrcamentoFacade
+						.consultar(aplicacaoMB.getParametrosprodutos().getSeguroOrcamento());
+				ProdutoOrcamentoCursoBean pob = new ProdutoOrcamentoCursoBean();
+				pob.setIdProdutoOrcamentoCurso(0);
+				pob.setDescricaoProdutoOrcamento(produto.getDescricao());
+				pob.setIdProdutoOrcamento(produto.getIdprodutosOrcamento());
+				CambioFacade cambioFacade = new CambioFacade();
+				Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+						seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
+				valorReal = seguroViagem.getValor();
+				valorEstrangeira = seguroViagem.getValor() / cambioSeguro.getValor();
+				pob.setValorMoedaEstrangeira(valorEstrangeira);
+				pob.setValorMoedaReal(valorReal); 
+				pob.setApagar(false);
+				pob.setNovo(true);
+				pob.setSomarvalortotal(seguroViagem.isSomarvalortotal());
+				listaProdutoOrcamentoBean.add(pob);
+				calcularValorTotalOrcamento();
 		}
 	}
 }
