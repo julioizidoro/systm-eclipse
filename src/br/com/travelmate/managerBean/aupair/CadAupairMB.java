@@ -144,6 +144,7 @@ public class CadAupairMB implements Serializable {
 	private Lead lead;
 	private String voltarControleVendas = "";
 	private boolean edicaoFicha;
+	private boolean desabilitarParcelamento = false;
 
 	@PostConstruct()
 	public void init() {
@@ -579,6 +580,14 @@ public class CadAupairMB implements Serializable {
 
 	public void setEdicaoFicha(boolean edicaoFicha) {
 		this.edicaoFicha = edicaoFicha;
+	}
+
+	public boolean isDesabilitarParcelamento() {
+		return desabilitarParcelamento;
+	}
+
+	public void setDesabilitarParcelamento(boolean desabilitarParcelamento) {
+		this.desabilitarParcelamento = desabilitarParcelamento;
 	}
 
 	public void iniciarNovo() {
@@ -1991,6 +2000,9 @@ public class CadAupairMB implements Serializable {
 			moeda = pais.getMoedas();
 			consultarCambio();
 			gerandoValoresAuPair();
+			if (pais.getNome().equalsIgnoreCase("Holanda")) {
+				desabilitarParcelamento = true;
+			}
 		}
 	}
 	

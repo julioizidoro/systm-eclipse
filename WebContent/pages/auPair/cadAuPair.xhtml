@@ -46,7 +46,7 @@
 									var="cpais" itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
 								<f:attribute name="listaPais"
 									value="#{cadAupairMB.listaPais}" />
-								<p:ajax event="change" update="idvalorcambio, moeda, :cadAupair:growl, valores" listener="#{cadAupairMB.selecionarCambio()}"/>
+								<p:ajax event="change" update="idvalorcambio, moeda, :cadAupair:growl, valores, nparcela" listener="#{cadAupairMB.selecionarCambio()}"/>
 							</p:selectOneMenu>
 							
 							
@@ -436,7 +436,7 @@
 						<br></br>
 						<br></br>
 					</p:tab>
-					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px">
+					<p:tab title="Forma de Pagto" titleStyle="font-size: 11px" id="panelFormaPgto">
 						<legend id="iUsu3" style="font-size: 11px;">
 							<b>Pagamentos</b>
 						</legend>
@@ -587,29 +587,29 @@
 								value="#{cadAupairMB.parcelamentopagamento.numeroParcelas}"
 								style="width:80px;">
 								<f:selectItem itemLabel="01" itemValue="01" />
-								<f:selectItem itemLabel="02" itemValue="02" />
-								<f:selectItem itemLabel="03" itemValue="03" />
-								<f:selectItem itemLabel="04" itemValue="04" />
-								<f:selectItem itemLabel="05" itemValue="05" />
-								<f:selectItem itemLabel="06" itemValue="06" />
-								<f:selectItem itemLabel="07" itemValue="07" />
-								<f:selectItem itemLabel="08" itemValue="08" />
-								<f:selectItem itemLabel="09" itemValue="09" />
-								<f:selectItem itemLabel="10" itemValue="10" />
-								<f:selectItem itemLabel="11" itemValue="11" />
-								<f:selectItem itemLabel="12" itemValue="12" />
-								<f:selectItem itemLabel="13" itemValue="13" />
-								<f:selectItem itemLabel="14" itemValue="14" />
-								<f:selectItem itemLabel="15" itemValue="15" />
-								<f:selectItem itemLabel="16" itemValue="16" />
-								<f:selectItem itemLabel="17" itemValue="17" />
-								<f:selectItem itemLabel="18" itemValue="18" />
-								<f:selectItem itemLabel="19" itemValue="19" />
-								<f:selectItem itemLabel="20" itemValue="20" />
-								<f:selectItem itemLabel="21" itemValue="21" />
-								<f:selectItem itemLabel="22" itemValue="22" />
-								<f:selectItem itemLabel="23" itemValue="23" />
-								<f:selectItem itemLabel="24" itemValue="24" />
+								<f:selectItem itemLabel="02" itemValue="02" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="03" itemValue="03" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="04" itemValue="04" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="05" itemValue="05" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="06" itemValue="06" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="07" itemValue="07" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="08" itemValue="08" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="09" itemValue="09" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="10" itemValue="10" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="11" itemValue="11" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="12" itemValue="12" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="13" itemValue="13" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="14" itemValue="14" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="15" itemValue="15" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="16" itemValue="16" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="17" itemValue="17" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="18" itemValue="18" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="19" itemValue="19" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="20" itemValue="20" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="21" itemValue="21" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="22" itemValue="22" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="23" itemValue="23" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
+								<f:selectItem itemLabel="24" itemValue="24" itemDisabled="#{cadAupairMB.desabilitarParcelamento}"/>
 								<p:ajax event="change"
 									listener="#{cadAupairMB.calcularValorParcelas()}"
 									update="valorparcela" />
