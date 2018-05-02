@@ -1941,7 +1941,6 @@ public class CadOrcamentoManualMB implements Serializable {
 				pob.setNovo(true);
 				pob.setSomarvalortotal(seguroViagem.isSomarvalortotal());
 				listaProdutoOrcamentoBean.add(pob);
-				calcularValorTotalOrcamento();
 		}
 	}
 }
