@@ -2012,7 +2012,8 @@ public class CadAupairMB implements Serializable {
 	public void gerandoValoresAuPair() {
 		int produtoAuPair = aplicacaoMB.getParametrosprodutos().getAupair();
 		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
-		List<Cidadepaisproduto> listaCidade = cidadePaisProdutosFacade.listar("Select c From Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=" + produtoAuPair);
+		List<Cidadepaisproduto> listaCidade = cidadePaisProdutosFacade.listar("Select c From Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=" + produtoAuPair
+				+ " and c.paisproduto.pais.idpais=" + pais.getIdpais());
 		if (listaCidade != null && listaCidade.size() > 0) {
 			cidade = listaCidade.get(0).getCidade();
 			listarFornecedorCidade();
