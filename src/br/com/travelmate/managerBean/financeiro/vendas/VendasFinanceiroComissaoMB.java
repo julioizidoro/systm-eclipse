@@ -6,6 +6,7 @@
 package br.com.travelmate.managerBean.financeiro.vendas;
 
  
+import br.com.travelmate.bean.FaturaFranquiaBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
 import br.com.travelmate.facade.FaturaFranquiasFacade;
@@ -277,7 +278,6 @@ public class VendasFinanceiroComissaoMB implements Serializable{
         VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
         vendascomissao.setTerceiros(terceiros);
         vendascomissao = vendasComissaoFacade.salvar(vendascomissao);
-       
         return "consVendas";
     }
     
