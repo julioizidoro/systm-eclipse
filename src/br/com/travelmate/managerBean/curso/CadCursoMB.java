@@ -1531,8 +1531,10 @@ public class CadCursoMB implements Serializable {
 					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem,  formaPagamento);
 				}   
 				VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
-				venda.setVendascomissao(vendasComissaoFacade.consultar(venda.getIdvendas()));
+				//venda.setVendascomissao(vendasComissaoFacade.consultar(venda.getIdvendas()));
 				salvarSeguroViagem();
+				curso.setVendas(venda);
+				cadCursoBean.pegarCurso(curso, venda);
 				cliente = cadCursoBean.salvarCliente(cliente);
 				if(cursospacote!=null && cursospacote.getIdcursospacote()!=null){
 					VendasPacoteFacade vendasPacoteFacade = new VendasPacoteFacade();
@@ -1917,6 +1919,7 @@ public class CadCursoMB implements Serializable {
 				VendasFacade vendasFacade = new VendasFacade();
 				vendasSeguro = seguroViagem.getVendas();
 				vendasSeguro.setSituacao("CANCELADA");
+				vendasSeguro.setVendascomissao(venda.getVendascomissao());
 				vendasFacade.salvar(vendasSeguro);
 			} else {
 				seguroViagem.setVendas(venda);
@@ -3205,8 +3208,14 @@ public class CadCursoMB implements Serializable {
 								.getComplementocurso().getCargahoraria() != null
 								&& ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 										.getComplementocurso().getCargahoraria().length() > 0) {
-							curso.setAulassemana(Formatacao.formatarStringDouble(ocurso.getOcrusoprodutosList().get(i)
-									.getValorcoprodutos().getCoprodutos().getComplementocurso().getCargahoraria()));
+							 Double cargaHoraria = Formatacao.formatarStringDouble(ocurso.getOcrusoprodutosList().get(i)
+										.getValorcoprodutos().getCoprodutos().getComplementocurso().getCargahoraria());
+							if (curso.getAulassemana() == null ) {
+								curso.setAulassemana(cargaHoraria);
+								
+							}else if(curso.getAulassemana() < cargaHoraria){
+								curso.setAulassemana(cargaHoraria);
+							}
 						}
 						curso.setCodigo(ocurso.getOcrusoprodutosList().get(i).getCodigo());
 						if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isPacote()) {
