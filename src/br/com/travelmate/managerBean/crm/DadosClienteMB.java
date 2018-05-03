@@ -28,6 +28,7 @@ public class DadosClienteMB implements Serializable{
 	private String nome;
 	private String email;
 	private String telefone;
+	private String emailAnterior;
 	
 	
 	@PostConstruct
@@ -40,6 +41,7 @@ public class DadosClienteMB implements Serializable{
 			nome = cliente.getNome();
 			email = cliente.getEmail();
 			telefone = cliente.getFoneCelular();
+			emailAnterior = cliente.getEmail();
 		}
 	}
     
@@ -88,8 +90,13 @@ public class DadosClienteMB implements Serializable{
 	public boolean validarEmail() {
 		if (Formatacao.validarEmail(email)) {
 			ClienteFacade clienteFacade = new ClienteFacade();
-			Cliente c = clienteFacade.consultarEmail(email);
-			if (c != null && c.getIdcliente() != null) {
+			Cliente c = null;
+			if (!emailAnterior.equalsIgnoreCase(email)) {
+				c = clienteFacade.consultarEmail(email);
+			}
+			if (c == null || c.getIdcliente() == null) {
+				return true;
+			} else {
 				if (c.getIdcliente() == cliente.getIdcliente()) {
 					return true;
 				} else {
