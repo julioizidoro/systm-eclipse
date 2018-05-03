@@ -2002,6 +2002,9 @@ public class CadAupairMB implements Serializable {
 			moeda = pais.getMoedas();
 			consultarCambio();
 			gerandoValoresAuPair();
+			if (aupair != null) {
+				aupair.setPaisinteresse(pais.getNome());
+			}
 			if (pais.getNome().equalsIgnoreCase("Holanda")) {
 				desabilitarParcelamento = true;
 			}
