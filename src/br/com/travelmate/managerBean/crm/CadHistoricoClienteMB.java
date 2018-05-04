@@ -20,7 +20,8 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Leadsituacao;
-import br.com.travelmate.model.Tipocontato; 
+import br.com.travelmate.model.Tipocontato;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
@@ -147,6 +148,15 @@ public class CadHistoricoClienteMB implements Serializable {
 		if (!desabilitarProximoContato) {
 			if (leadHistorico.getDataproximocontato() == null) {
 				Mensagem.lancarMensagemErro("Data do próximo contato não inserida!", "");
+				return false;
+			}
+			Date dataHoje = new Date();
+			Date dataHistorico = leadHistorico.getDatahistorico();
+			String dataPadraohoje = Formatacao.ConvercaoDataPadrao(dataHoje);
+			String dataPadraoHistorico = Formatacao.ConvercaoDataPadrao(dataHistorico);
+			if (dataHistorico.before(dataHoje) && !dataPadraohoje.equalsIgnoreCase(dataPadraoHistorico)
+					) {
+				Mensagem.lancarMensagemInfo("Data do próximo contato não pode ser anterior ao dia de hoje", "");
 				return false;
 			}
 		}
