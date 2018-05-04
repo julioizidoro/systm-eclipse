@@ -221,14 +221,16 @@ public class PacoteIngressoMB implements Serializable{
     }
     
     public String excluirItem(Pacoteingresso pacoteingresso){
-    	PacoteIngressoFacade pacoteIngressoFacade = new PacoteIngressoFacade();
-        pacoteIngressoFacade.excluir(pacoteingresso.getIdpacoteingresso());
-        listaPacoteIngresso.remove(pacoteingresso);
-        pacoteingresso.getPacotetrecho().getPacoteingressoList().remove(pacoteingresso);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Ingresso Excluído", ""));
-        return "";
-    }
+		PacoteIngressoFacade pacoteIngressoFacade = new PacoteIngressoFacade();
+		if (pacoteingresso.getIdpacoteingresso() != null) {
+			pacoteIngressoFacade.excluir(pacoteingresso.getIdpacoteingresso());
+		}
+		listaPacoteIngresso.remove(pacoteingresso);
+		pacoteingresso.getPacotetrecho().getPacoteingressoList().remove(pacoteingresso);
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Ingresso Excluído", ""));
+		return "";
+	}
     
     public void carregarValorCambio(){
 		valorCambio = cambio.getValor();
