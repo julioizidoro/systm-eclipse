@@ -134,14 +134,14 @@
 					<p:column headerText="Imprimir"
 						style="width:110px;text-align:center;" styleClass="alinharCenter">
 						<h:commandButton
-							action="#{pacoteMB.fichaPacotes(conspacoteagencia)}"
+							action="#{pacoteMB.gerarRelatorioFicha(conspacoteagencia)}"
 							title="Ficha" image="../../resources/img/imprimiFicha.png"
 							style="width:25%;margin-left:0%" ajax="false"
 							onclick="this.form.target='_blank'"
 							disabled="#{pacoteMB.botoesHabilitados(conspacoteagencia)}">
 						</h:commandButton>
 						<h:commandButton
-							action="#{pacoteMB.contrato(conspacoteagencia)}"
+							action="#{pacoteMB.gerarRelatorioContrato(conspacoteagencia)}"
 							title="Ficha" image="../../resources/img/imprimiContrato.png"
 							style="width:25%;margin-left:4%" ajax="false"
 							onclick="this.form.target='_blank'"
@@ -151,7 +151,7 @@
 							action="#{pacoteMB.imprimirRecibo(conspacoteagencia)}"
 							title="Recibo" image="../../resources/img/imprimiRecibo.png"
 							style="width:25%;margin-left:4%" ajax="false"
-							onclick="this.form.target='_blank'"
+							onclick="this.form.target='_blank'"  
 							disabled="#{pacoteMB.botoesHabilitados(conspacoteagencia)}">
 						</h:commandButton>
 					</p:column>
