@@ -221,7 +221,9 @@ public class PacotePasseioMB implements Serializable{
     
     public String excluirItem(Pacotepasseio pacotepasseio){
         PacotePasseioFacade pacotePasseioFacdde = new PacotePasseioFacade();
-        pacotePasseioFacdde.excluir(pacotepasseio.getIdpacotepasseio());
+        if (pacotepasseio.getIdpacotepasseio() != null) {
+    			pacotePasseioFacdde.excluir(pacotepasseio.getIdpacotepasseio());
+		}
         listaPacotePasseio.remove(pacotepasseio);
         pacotepasseio.getPacotetrecho().getPacotepasseioList().remove(pacotepasseio);
         FacesContext context = FacesContext.getCurrentInstance();
