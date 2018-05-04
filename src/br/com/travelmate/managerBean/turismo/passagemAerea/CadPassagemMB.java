@@ -1031,18 +1031,18 @@ public class CadPassagemMB implements Serializable {
 
 	public void editarValores() {
 		for (int i = 0; i < listaPassageiros.size(); i++) {
-			if (passagempassageiro.getCategoria().equalsIgnoreCase("ADT")) {
-				passagempassageiro
-						.setValor(passagem.getAdttarifa() + passagem.getAdttaxas() + passagem.getAdttaxaemissao());
-			} else if (passagempassageiro.getCategoria().equalsIgnoreCase("CHD")) {
-				passagempassageiro
-						.setValor(passagem.getChdtarifa() + passagem.getChdtaxas() + passagem.getChdtaxaemissao());
-			} else {
-				passagempassageiro
-						.setValor(passagem.getInftarifa() + passagem.getInftaxas() + passagem.getInftaxaemissao());
+			if (listaPassageiros.get(i).getCategoria() != null) {
+				if (listaPassageiros.get(i).getCategoria().equalsIgnoreCase("ADT")) {
+					listaPassageiros.get(i)
+							.setValor(passagem.getAdttarifa() + passagem.getAdttaxas() + passagem.getAdttaxaemissao());
+				} else if (listaPassageiros.get(i).getCategoria().equalsIgnoreCase("CHD")) {
+					listaPassageiros.get(i)
+							.setValor(passagem.getChdtarifa() + passagem.getChdtaxas() + passagem.getChdtaxaemissao());
+				} else {
+					listaPassageiros.get(i)
+							.setValor(passagem.getInftarifa() + passagem.getInftaxas() + passagem.getInftaxaemissao());
+				}
 			}
-			listaPassageiros.add(passagempassageiro);
-			passagempassageiro = new Passagempassageiro();
 		}
 		calcularValorTotal();
 	}
