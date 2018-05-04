@@ -151,7 +151,7 @@ public class CadHistoricoClienteMB implements Serializable {
 				return false;
 			}
 			Date dataHoje = new Date();
-			Date dataHistorico = leadHistorico.getDatahistorico();
+			Date dataHistorico = leadHistorico.getDataproximocontato();
 			String dataPadraohoje = Formatacao.ConvercaoDataPadrao(dataHoje);
 			String dataPadraoHistorico = Formatacao.ConvercaoDataPadrao(dataHistorico);
 			if (dataHistorico.before(dataHoje) && !dataPadraohoje.equalsIgnoreCase(dataPadraoHistorico)
