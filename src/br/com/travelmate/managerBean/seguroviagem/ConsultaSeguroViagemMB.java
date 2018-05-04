@@ -36,6 +36,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
@@ -585,23 +586,23 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		return "fichaSeguroViagem";
 	}
 
-	public String cancelarVenda(Vendas venda) {
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", venda);
-			session.setAttribute("voltar", "consultaSeguro");
-			return "emissaocancelamento";
-		} else {
-			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
-			carregarListaSeguro();
-		}
-		return "";
-	}
+//	public String cancelarVenda(Vendas venda) {
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("vendas", venda);
+//			session.setAttribute("voltar", "consultaSeguro");
+//			return "emissaocancelamento";
+//		} else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			carregarListaSeguro();
+//		}
+//		return "";
+//	}
 
 	public String corNome(Seguroviagem seguroviagem) {
 		if (seguroviagem.getVendas().getSituacao().equals("CANCELADA")) {
@@ -814,6 +815,41 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			voltar = "consultaSeguro";
 			session.setAttribute("voltar", voltar);   
 			return "consArquivos";
+		}
+	}
+	
+	
+	public String cancelarVenda(Vendas vendas) {
+		if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vendas);
+			session.setAttribute("voltar", "consultaSeguro");
+			return "emissaocancelamento";
+		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			vendas.setSituacao("CANCELADA");
+			vendasFacade.salvar(vendas);
+		}
+		return "";
+	}   
+	
+	public String fichaSeguroViagem(Seguroviagem seguroviagem){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("seguroviagem", seguroviagem);
+		return "fichasSeguroViagem";
+	}
+	
+	
+	public boolean habilitarEdicao(Seguroviagem seguroviagem) {
+		if (seguroviagem.getControle().equalsIgnoreCase("Avulso") && !seguroviagem.getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
+			return false;
+		}else {
+			return true;
 		}
 	}
 

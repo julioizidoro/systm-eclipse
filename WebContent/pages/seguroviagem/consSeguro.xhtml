@@ -204,7 +204,7 @@
 								styleClass="alinharCenter">
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosProcesso)}"
 									style="text-decoration: none;"
-									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosProcesso)}">
+									disabled="#{consultaSeguroViagemMB.habilitarEdicao(segurosProcesso)}">
 									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaProcesso" />
@@ -355,7 +355,7 @@
 								styleClass="alinharCenter">
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosFinanceiro)}"
 									style="text-decoration: none;"
-									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinanceiro)}">
+									disabled="#{consultaSeguroViagemMB.habilitarEdicao(segurosFinanceiro)}">
 									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaFinanceiro" />
@@ -506,7 +506,7 @@
 								styleClass="alinharCenter">
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosAndamento)}"
 									style="text-decoration: none;"
-									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosAndamento)}">
+									disabled="#{consultaSeguroViagemMB.habilitarEdicao(segurosAndamento)}">
 									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaAndamento" />
@@ -657,7 +657,7 @@
 								styleClass="alinharCenter">
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosFinalizado)}"
 									style="text-decoration: none;"
-									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosFinalizado)}">
+									disabled="#{consultaSeguroViagemMB.habilitarEdicao(segurosFinalizado)}">
 									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaFinalizado" />
@@ -808,7 +808,7 @@
 								styleClass="alinharCenter">
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(segurosCancelado)}"
 									style="text-decoration: none;"
-									disabled="#{consultaSeguroViagemMB.botoesHabilitados(segurosCancelado)}">
+									disabled="#{consultaSeguroViagemMB.habilitarEdicao(segurosCancelado)}">
 									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaConsultaCancelado" />
@@ -961,7 +961,7 @@
 								styleClass="alinharCenter">
 								<p:commandLink action="#{consultaSeguroViagemMB.editar(seguros)}"
 									style="text-decoration: none;"
-									disabled="#{consultaSeguroViagemMB.botoesHabilitados(seguros)}">
+									disabled="#{consultaSeguroViagemMB.habilitarEdicao(seguros)}">
 									<img src="../../resources/img/editaricon.png" style="width:25px;"/>
 									<p:ajax event="dialogReturn" process="@this"
 										update="tabelaseguros" />
