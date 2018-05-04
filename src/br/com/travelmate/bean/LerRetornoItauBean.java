@@ -207,10 +207,10 @@ public class LerRetornoItauBean {
         Date data= Formatacao.ConvercaoStringData(dataPagamento);
         int diaSemana = Formatacao.diaSemana(data);
         if (diaSemana==5){
-        	data = Formatacao.SomarDiasDatas(data,4);
+        	data = Formatacao.SomarDiasDatas(data,2);
         }else if (diaSemana==6){
-        	data = Formatacao.SomarDiasDatas(data,3);
-        }else data = Formatacao.SomarDiasDatas(data,2);
+        	data = Formatacao.SomarDiasDatas(data,1);
+        }
         return data;
     }
     
