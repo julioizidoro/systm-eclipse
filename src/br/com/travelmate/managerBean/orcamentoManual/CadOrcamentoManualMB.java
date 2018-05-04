@@ -1359,13 +1359,13 @@ public class CadOrcamentoManualMB implements Serializable {
 							.consultarProdutoOrcamentoCurso(listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento());
 					produto.setProdutosOrcamento(produtosorcamentos);
 					produto.setSomarvalortotal(listaProdutoOrcamentoBean.get(i).isSomarvalortotal());
-					orcamentoCursoFacade.salvar(produto); 
-					if(produtosorcamentos.getTipoorcamento().equalsIgnoreCase("C")){
+					orcamentoCursoFacade.salvar(produto);
+					if (produtosorcamentos.getTipoorcamento().equalsIgnoreCase("C")) {
 						if (produtosorcamentos.getDescricao().equalsIgnoreCase("Voluntariado")) {
 							orcamento.setTipoorcamento("Voluntariado");
-							orcamentoCursoFacade.salvar(orcamento); 
-						} 
-					}  
+							orcamentoCursoFacade.salvar(orcamento);
+						}
+					}
 				} else {
 					produto = orcamentoCursoFacade.consultarProdutoOrcamentoCuros(
 							listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamentoCurso());
@@ -1374,12 +1374,12 @@ public class CadOrcamentoManualMB implements Serializable {
 						produto.setValorMoedaNacional(listaProdutoOrcamentoBean.get(i).getValorMoedaReal());
 						produto.setSomarvalortotal(listaProdutoOrcamentoBean.get(i).isSomarvalortotal());
 						orcamentoCursoFacade.salvar(produto);
-						if(produto.getProdutosOrcamento().getTipoorcamento().equalsIgnoreCase("C")){
+						if (produto.getProdutosOrcamento().getTipoorcamento().equalsIgnoreCase("C")) {
 							if (produto.getProdutosOrcamento().getDescricao().equalsIgnoreCase("Voluntariado")) {
 								orcamento.setTipoorcamento("Voluntariado");
-								orcamentoCursoFacade.salvar(orcamento); 
-							} 
-						}  
+								orcamentoCursoFacade.salvar(orcamento);
+							}
+						}
 					}
 				}
 			}
