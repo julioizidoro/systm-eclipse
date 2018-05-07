@@ -34,7 +34,7 @@ public class SelecionarCreditoCancelamentoMB implements Serializable {
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         String idcliente = (String) session.getAttribute("idcliente");
         session.removeAttribute("idcliente");
-		String sql = "SELECT c FROM Cancelamento c where c.idvendacredito=0 and c.vendas.cliente.idcliente=" + Integer.parseInt(idcliente) +
+		String sql = "SELECT c FROM Cancelamento c where c.idvendacredito=0 and c.vendas.cliente.idcliente=" + Integer.parseInt(idcliente) + " and c.situacao='FINALIZADA' and c.formapagamento<>'Reembolso' " +
 				" order by c.datasolicitacao";
 		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
 		listaCancelamento = cancelamentoFacade.listar(sql);
@@ -52,6 +52,9 @@ public class SelecionarCreditoCancelamentoMB implements Serializable {
 	}
 	
 	public String selecioneCancelamento(Cancelamento cancelamento){
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		cancelamento.setIdvendacredito(cancelamento.getVendas().getIdvendas());
+		cancelamento = cancelamentoFacade.salvar(cancelamento);
 		RequestContext.getCurrentInstance().closeDialog(cancelamento);
 		return "";
 	}

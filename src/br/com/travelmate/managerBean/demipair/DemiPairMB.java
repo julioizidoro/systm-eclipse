@@ -28,21 +28,27 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Controledemipair; 
+import br.com.travelmate.model.Controledemipair;
+import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Parcelamentopagamento; 
+import br.com.travelmate.model.Highschool;
+import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -653,22 +659,22 @@ public class DemiPairMB implements Serializable {
 		this.demipair = demipair;
 	}
 
-	public String cancelarVenda(Vendas venda){
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
-			Map<String, Object> options = new HashMap<String, Object>();
-	    	options.put("contentWidth", 400);
-	    	FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		}else {
-			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
-			carregarListaVendas();
-		}
-		return "";
-	}
+//	public String cancelarVenda(Vendas venda){
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
+//			Map<String, Object> options = new HashMap<String, Object>();
+//	    	options.put("contentWidth", 400);
+//	    	FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		}else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			carregarListaVendas();
+//		}
+//		return "";
+//	}
 	
 	public void salvarControle() throws SQLException{
     	Controledemipair controledemipair = new Controledemipair();
@@ -866,5 +872,86 @@ public class DemiPairMB implements Serializable {
 	
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
+	}
+	
+	
+	public String cancelarVenda(Vendas vendas) {
+		if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vendas);
+			session.setAttribute("voltar", "consultaDemiPair");
+			return "emissaocancelamento";
+		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			vendas.setSituacao("CANCELADA");
+			vendasFacade.salvar(vendas);
+			carregarListaVendas();
+		}
+		return "";
+	}   
+	
+	public String contrato(Demipair demipair){
+		this.demipair = demipair;
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(demipair.getVendas(), "DemiPair");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + demipair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					demipair.getVendas().getUsuario().getIdusuario() + demipair.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	public String fichaDemiPair(Demipair demipair){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("demipair", demipair);
+		return "fichasDemiPair";
+	}
+	
+	
+	public void verificarIdCredito(Demipair demipair) {
+		if (demipair.getVendas().getCancelamento() != null) {
+			if (demipair.getVendas().getCancelamento().getCancelamentocredito() != null) {
+				if (demipair.getVendas().getCancelamento().getCancelamentocredito().getCredito().getTipocredito().equalsIgnoreCase("Crédito")) {
+					Credito credito = demipair.getVendas().getCancelamento().getCancelamentocredito().getCredito();
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					session.setAttribute("credito", credito);
+					Map<String, Object> options = new HashMap<String, Object>();
+					options.put("contentWidth", 150);
+					RequestContext.getCurrentInstance().openDialog("visualizarIdCredito", options, null);
+				}else {
+					Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+				}
+			}else {
+				Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+			}
+		}else {
+			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+		}
+	}
+	
+	public String relatorioTermoQuitacao(Demipair demipair) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		Cancelamento cancelamento = cancelamentoFacade.consultar(demipair.getVendas().getIdvendas());
+		session.setAttribute("cancelamento", cancelamento);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
+		return "";
 	}
 }

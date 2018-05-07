@@ -135,7 +135,7 @@
 							</p:column>   
 							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairProcesso)}"
+								<h:commandButton action="#{auPairMB.fichaAupair(aupairProcesso)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -177,7 +177,7 @@
 														</h:panelGrid>
 													</p:commandLink>
 											
-											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairProcesso)}" title="IMPRIMIR O CONTRATO" 
+											<p:commandLink action="#{auPairMB.contrato(aupairProcesso)}" title="IMPRIMIR O CONTRATO" 
 												 ajax="false" 
 												target="_blank"
 												disabled="#{auPairMB.botoesHabilitados(aupairProcesso)}">
@@ -297,7 +297,7 @@
 							</p:column>   
 							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairFinanceiro)}"
+								<h:commandButton action="#{auPairMB.fichaAupair(aupairFinanceiro)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -339,7 +339,7 @@
 														</h:panelGrid>
 													</p:commandLink>
 											
-											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairFinanceiro)}" title="IMPRIMIR O CONTRATO" 
+											<p:commandLink action="#{auPairMB.contrato(aupairFinanceiro)}" title="IMPRIMIR O CONTRATO" 
 												 ajax="false" 
 												target="_blank"
 												disabled="#{auPairMB.botoesHabilitados(aupairFinanceiro)}">
@@ -459,7 +459,7 @@
 							</p:column>   
 							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairAndamento)}"
+								<h:commandButton action="#{auPairMB.fichaAupair(aupairAndamento)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -501,7 +501,7 @@
 														</h:panelGrid>
 													</p:commandLink>
 											
-											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairAndamento)}" title="IMPRIMIR O CONTRATO" 
+											<p:commandLink action="#{auPairMB.contrato(aupairAndamento)}" title="IMPRIMIR O CONTRATO" 
 												 ajax="false" 
 												target="_blank"
 												disabled="#{auPairMB.botoesHabilitados(aupairAndamento)}">
@@ -621,7 +621,7 @@
 							</p:column>   
 							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairFinalizado)}"
+								<h:commandButton action="#{auPairMB.fichaAupair(aupairFinalizado)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -663,7 +663,7 @@
 														</h:panelGrid>
 													</p:commandLink>
 											
-											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairFinalizado)}" title="IMPRIMIR O CONTRATO" 
+											<p:commandLink action="#{auPairMB.contrato(aupairFinalizado)}" title="IMPRIMIR O CONTRATO" 
 												 ajax="false" 
 												target="_blank"
 												disabled="#{auPairMB.botoesHabilitados(aupairFinalizado)}">
@@ -783,7 +783,7 @@
 							</p:column>   
 							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupairCancelado)}"
+								<h:commandButton action="#{auPairMB.fichaAupair(aupairCancelado)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -795,111 +795,45 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:750px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:400px;">
 									<p:outputLabel
 										value="#{aupairCancelado.vendas.idvendas} - #{aupairCancelado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
-										
-											<p:commandLink action="#{auPairMB.boletos(aupairCancelado)}" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}"
-												title="IMPRIMIR OS BOLETOS"
-												ajax="false" target="_blank"
-												style="width:100%;margin-left:4%" >
-												<img src="../../resources/img/boletoFicha.png" width="36"/>
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
+											
+											<p:commandLink action="#{auPairMB.relatorioTermoQuitacao(aupairCancelado)}"
+													style="text-decoration: none" title="IMPRIMIR TERMO"
+													 >
+													<img src="../../resources/img/cancel.png" style="width: 36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="IMPRIMIR TERMO" style="font-size:10px;"/>
+															<p:outputLabel value="CANCELAMENTO" style="font-size:10px;"/>
+														</h:panelGrid>
+											</p:commandLink>   
+											
+											<p:commandLink action="#{auPairMB.documentacao(aupairCancelado)}"
+												update=":idfrmconsultaaupair:growl" title="DOCUMENTOS"
+												 >
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
 												<h:panelGrid columns="1" style="text-align:center;">
-													<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
+													<p:outputLabel value="DOCS" style="font-size:10px;"/>
 													<p:outputLabel value=" "/>
 												</h:panelGrid>
-											</p:commandLink>  
-												
-												<p:commandLink actionListener="#{auPairMB.buscarAupair(aupairCancelado)}" style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-														update=":idfrmconsultaaupair:dialog_obsTM"
-														oncomplete="PF('obstm').show()"> 
-														<p:ajax listener="#{auPairMB.buscarObsTM(aupairCancelado)}" />  
-														<img src="#{auPairMB.retornarIconeObsTM(aupairCancelado)}" width="36" />
-														<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="OBS" style="font-size:11px;"/>
-															<p:outputLabel value="TM"/>
-														</h:panelGrid>
-													</p:commandLink>
-											
-											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupairCancelado)}" title="IMPRIMIR O CONTRATO" 
-												 ajax="false" 
-												target="_blank"
-												disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
-												<img src="../../resources/img/imprimiContrato.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:center;">
-														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-													</h:panelGrid>
 											</p:commandLink>
-											<p:commandLink action="#{auPairMB.gerarRelatorioTermoVisto(aupairCancelado)}" title="IMPRIMIR O TERMO DE VISTO"
-												
-												ajax="false" target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
-												<img src="../../resources/img/imprimiContrato.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:center;">
-														<p:outputLabel value="TERMO" style="font-size:11px;"/>
-														<p:outputLabel value="VISTO" style="font-size:11px;"/>
-													</h:panelGrid>
+											<p:commandLink action="#{auPairMB.verificarIdCredito(aupairCancelado)}"
+												update=":idfrmconsultaaupair:growl" title="Verificar ID de Crédito"
+												 >
+												<img src="../../resources/img/numerosFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="VISUALIZAR" style="font-size:10px;"/>
+													<p:outputLabel value="ID CRÉDITO" style="font-size:10px;"/>
+												</h:panelGrid>
 											</p:commandLink>
-											
-											<p:commandLink action="#{auPairMB.gerarRelatorioRecibo(aupairCancelado)}" title="IMPRIMIR O RECIBO"
-												image="../../resources/img/imprimiRecibo.png" style="width:21%;margin-left:4%" ajax="false" 
-												target="_blank" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
-												<img src="../../resources/img/imprimiContrato.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:center;">
-														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-													</h:panelGrid>
-											</p:commandLink>
-											  
-											<p:commandLink action="#{auPairMB.documentacao(aupairCancelado)}"
-													title="DOCUMENTOS" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
-													<img src="../../resources/img/arquivosUpload.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:center;">
-														<p:outputLabel value="DOCS" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-													</h:panelGrid>
-											</p:commandLink>
-											
-												<p:commandLink action="#{auPairMB.informacoes(aupairCancelado)}"    
-													title="INFORMAÇÕES DA VENDA"
-													disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}">
-													<img src="../../resources/img/informacao.png" width="36" />
-													<h:panelGrid columns="1" style="text-align:center;">
-														<p:outputLabel value="INFO" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-													</h:panelGrid>
-												</p:commandLink>
-												
-												<p:commandLink
-														action="#{auPairMB.visualizarContasReceber(aupairCancelado)}"
-														title="VISUALIZAR CONTAS A RECEBER" 
-														
-														 >
-														<img src="../../resources/img/invoice.png" width="36" />
-														<h:panelGrid columns="1" style="text-align:center;"> 
-															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
-														</h:panelGrid>
-													</p:commandLink> 
-												
-												<p:commandLink action="#{auPairMB.cancelarVenda(aupairCancelado.vendas)}" disabled="#{auPairMB.botoesHabilitados(aupairCancelado)}"
-													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaCancelado">
-													<img src="../../resources/img/cancel.png" width="36"/>
-													<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-													<p:ajax event="dialogReturn" listener="#{auPairMB.carregarListaVendas()}" update=":idfrmconsultaaupair:growl, tabelaConsultaCancelado"/>
-													<h:panelGrid>
-														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-													</h:panelGrid>
-												</p:commandLink>
-											
-									</h:panelGrid>
-								</p:overlayPanel>
-							</p:column> 
+									</h:panelGrid>    
+								</p:overlayPanel>   
+							</p:column>   
 						</p:dataTable>
 					</p:tab>
 					<p:tab title="Todos (#{auPairMB.numeroFichas})"
@@ -945,7 +879,7 @@
 							</p:column>   
 							<p:column headerText="Imprimir" rendered="#{auPairMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{auPairMB.gerarRelatorioFicha(aupair)}"
+								<h:commandButton action="#{auPairMB.fichaAupair(aupair)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -987,7 +921,7 @@
 														</h:panelGrid>
 													</p:commandLink>
 											
-											<p:commandLink action="#{auPairMB.gerarRelatorioContrato(aupair)}" title="IMPRIMIR O CONTRATO" 
+											<p:commandLink action="#{auPairMB.contrato(aupair)}" title="IMPRIMIR O CONTRATO" 
 												 ajax="false" 
 												target="_blank"
 												disabled="#{auPairMB.botoesHabilitados(aupair)}">

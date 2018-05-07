@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Higher Education</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../../resources/img/fichaCursoLogo.PNG" width="98%" />
+	</div>
+	<br/>
+	
+	<div align="left">
+		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />
+	</div>
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaHEMB.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nascimento:</b> <h:outputText
+						value="#{contratoCursoMB.curso.vendas.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaHEMB.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>   
+					<b>Local de Nascimento:</b> #{fichaHEMB.vendas.cliente.cidadeNascimento}, #{fichaHEMB.vendas.cliente.paisNascimento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>RG: </b> #{fichaHEMB.vendas.cliente.rg}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF: </b> #{fichaHEMB.vendas.cliente.cpf}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Passaporte: </b> #{fichaHEMB.vendas.cliente.numeroPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Expedição: </b> #{fichaHEMB.vendas.cliente.dataExpedicaoPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichaHEMB.vendas.cliente.validadePassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Profissão: </b> #{fichaHEMB.vendas.cliente.profissao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Primeira Lingua: </b> #{fichaHEMB.he.primeiralingua}
+				</h:panelGroup>
+				<h:panelGroup/>
+			</h:panelGrid>   
+
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>
+					<b>Segunda Lingua: </b> #{fichaHEMB.he.segundalingua}
+				</h:panelGroup>
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>INFORMAÇÕES ACADÊMICAS </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<h:panelGrid
+			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup>
+					<b>Você possui algum exame de proficiência ?</b> #{fichaHEMB.he.possuiexame}</h:panelGroup>
+				<h:panelGroup>
+					<b>Pretende Cursar programa pathway ? </b> #{fichaHEMB.he.cursarparhaway}</h:panelGroup>
+				<h:panelGroup>
+					<b>Nome do Exame: </b> #{fichaHEMB.he.nomeexame}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Nota do Exame :</b> #{fichaHEMB.he.notaexame}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data do Exame:</b>
+					<h:outputText value="#{fichaHEMB.he.dataexame}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Última instituição que estudou:
+						#{fichaHEMB.he.nomeinstituicaoestudou}</b>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Maior grau de formação adquirido:
+						#{fichaHEMB.he.maiorgrauformacao}</b>
+				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+
+				<br />
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b> IDIOMA PARA FINS ACADÊMICOS (PATHWAY) </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<h:panelGrid
+			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup>
+					<b>Parceiro:</b> #{fichaHEMB.vendas.fornecedor.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Local: </b> #{fichaHEMB.vendas.fornecedorcidade.cidade.nome} , #{fichaHEMB.vendas.fornecedorcidade.cidade.pais.nome} </h:panelGroup>
+				<h:panelGroup>
+					<b>Data Início:</b>
+					<h:outputText value="#{fichaHEMB.he.datainicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>N Semanas :</b> #{fichaHEMB.he.numerosemanas}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término:</b>
+					<h:outputText value="#{fichaHEMB.he.datatermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				
+
+				<br />
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b> PROGRAMAS DE HIGHER EDUCATION </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<h:panelGrid
+			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup>
+					<b>Opção 1 Parceiro:</b> #{fichaHEMB.he.instituicao2}</h:panelGroup>
+				<h:panelGroup>
+					<b>Local: </b> #{fichaHEMB.vendas.fornecedorcidade.cidade.nome} , #{fichaHEMB.vendas.fornecedorcidade.cidade.pais.nome}</h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Curso:</b> #{fichaHEMB.he.curso1}</h:panelGroup>
+				<h:panelGroup>
+					<b>Código: </b> #{fichaHEMB.he.codigo1}</h:panelGroup>
+				<h:panelGroup>
+					<b>Mês/Ano: </b> #{fichaHEMB.he.mesano1}</h:panelGroup>
+				<h:panelGroup>
+					<b>Opção 2 Parceiro:</b> #{fichaHEMB.he.instituicao2}</h:panelGroup>
+				<h:panelGroup>
+					<b>Local: </b> #{fichaHEMB.vendas.fornecedorcidade.cidade.nome} , #{fichaHEMB.vendas.fornecedorcidade.cidade.pais.nome}</h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Curso:</b> #{fichaHEMB.he.curso2}</h:panelGroup>
+				<h:panelGroup>
+					<b>Código: </b> #{fichaHEMB.he.codigo2}</h:panelGroup>
+				<h:panelGroup>
+					<b>Mês/Ano: </b> #{fichaHEMB.he.mesano2}</h:panelGroup>
+				<h:panelGroup>
+					<b>Opção 3 Parceiro:</b> #{fichaHEMB.he.instituicao3}</h:panelGroup>
+				<h:panelGroup>
+					<b>Local: </b> #{fichaHEMB.vendas.fornecedorcidade.cidade.nome} , #{fichaHEMB.vendas.fornecedorcidade.cidade.pais.nome}</h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Curso:</b> #{fichaHEMB.he.curso3}</h:panelGroup>
+				<h:panelGroup>
+					<b>Código: </b> #{fichaHEMB.he.codigo3}</h:panelGroup>
+				<h:panelGroup>
+					<b>Mês/Ano: </b> #{fichaHEMB.he.mesano3}</h:panelGroup>
+				
+
+				<br />
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+		
+		<br /><br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/precoFormaFicha.PNG" width="53%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p:dataTable id="idTabelaArquivos" var="produtos"
+				styleClass="table-transparent"
+				value="#{fichaHEMB.vendas.orcamento.orcamentoprodutosorcamentoList}"
+				style="border:transparent;width:97%;">
+
+				<p:column headerText=""
+					style="background:white; font-size:12px; color:white; border:none; text-align:left;color: black;width:75px;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.descricao}"
+						style="color: black;font-size:12px;" />
+				</p:column>
+				<p:column
+					headerText="#{fichaHEMB.vendas.orcamento.cambio.moedas.sigla}"
+					style="width:30px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaEstrangeira}"
+						style="color: black;font-size:12px;color: black;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="R$"
+					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaNacional}"
+						style="color: black;font-size:12px;">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+			</p:dataTable>
+			<h:panelGrid style="width:100%;">
+				<h:panelGrid style="width:97.3%;background-color:#CFCFCF;font-size:12px;" columns="2">
+					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
+					
+					<h:panelGrid style="width:88%;float:right;float: right;" columns="2">
+						<h:panelGroup style="text-align:right;float: right;">
+							#{fichaHEMB.vendas.orcamento.cambio.moedas.sigla}: <h:outputText
+								value="#{fichaHEMB.vendas.orcamento.totalMoedaEstrangeira}">  
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup style="text-align:right;float: right;">
+							R$: <h:outputText
+								value="#{fichaHEMB.vendas.orcamento.totalMoedaNacional}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGrid>
+	
+				<h:panelGrid style="width:100%;" columns="1">
+					<h:panelGroup>Moeda: #{fichaHEMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
+						 <h:outputText value="#{fichaHEMB.vendas.valorcambio}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Juros: R$ 
+						<h:outputText
+							value="#{fichaHEMB.vendas.formapagamento.valorJuros}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Final: R$ 
+						<h:outputText
+								value="#{fichaHEMB.vendas.formapagamento.valorTotal}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+					</h:panelGroup>
+	
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<ui:repeat var="parcelamento"
+				value="#{fichaHEMB.vendas.formapagamento.parcelamentopagamentoList}"
+				varStatus="statuss">
+				<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+				<hr style="width:97%;float: left;"/>
+				<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+							N° Parcelas: #{parcelamento.numeroParcelas}
+						</h:panelGroup>
+						<h:panelGroup>
+							Valor Parcela: R$ <h:outputText value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+				</h:panelGrid>
+				<br/>
+			</ui:repeat>
+		</h:panelGrid>
+		<br /><br />
+		<div align="left">
+			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid
+			style="border: 1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p style="margin: 1%;">Autorizo a TravelMATE Intercâmbio e
+				Turismo LTDA a me representar durante o processo de inscrição na
+				instituição estrangeira de ensino superior acima mencionada; Declaro
+				por meio deste fórmulario estar ciente de que o processo seletivo é
+				de responsabilidade exclusiva da Instituição e todas as regras e
+				condições estão disponíveis no site da mesma.</p>
+		</h:panelGrid>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do Estudante</p>
+		<br/> <br/>
+		
+		<p style="text-align:center;font-size:28px;">Autorização de Débito em Cartão de Crédito</p>
+		
+		
+		
+		<br/>
+		<h:panelGroup style="color:green;"><b> Autorizo e reconheço o débito em minha conta do Cartão de Crédito abaixo: </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<h:panelGrid
+			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup>
+					<b>Taxa de inscrição:</b> #{fichaHEMB.he.valorinscricao}</h:panelGroup>
+				<h:panelGroup>
+					<b>Câmbio: </b> #{fichaHEMB.vendas.valorcambio}</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup>
+					<b>Bandeira:</b> #{fichaHEMB.he.bandeiracartao}</h:panelGroup>
+				<h:panelGroup>
+					<b>Cartão de Crédito n: </b> #{fichaHEMB.he.numerocartao}</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichaHEMB.he.datavlidade}</h:panelGroup>
+				
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>
+					<b>Nome do Titular do Cartão:</b> #{fichaHEMB.he.nometitular}</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup>
+					<b>Cliente: </b> #{fichaHEMB.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF:</b> #{fichaHEMB.vendas.cliente.cpf}</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone: </b> #{fichaHEMB.vendas.cliente.foneCelular}</h:panelGroup>
+				
+
+				<br />
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<br/><br/>
+		<h:panelGrid
+			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+
+			<p style="margin: 1%;">
+				Autorizo a TravelMATE Intercâmbio e Turismo e a respectiva
+				instituição de ensino superior estrangeira destacada nesta ficha de
+				inscrição a debitar o valor indicado acima para fins de início do
+				processo seletivo. 
+			</p>
+			<b style="font-size:24px;margin: 1%;">DECLARAÇÃO</b><br/>
+			<p style="margin: 1%;">
+				Declaro que todas as informações contidas
+				nesta ficha de inscrição são verdadeiras. Compreendo que toda
+				informação falsa ou incompleta pode comprometer o meu processo
+				seletivo perante as instituições de ensino superior estrangeiras.
+				Reconheço que cada instituição de ensino possui um processo
+				específico com termos e condições próprias. Declaro optar pela
+				TravelMATE lntercâmbio e Turismo para me representar perante este
+				processo e me informar dos procedimentos e valores envolvidos.
+				Declaro estar ciente de gue as taxas de inscrição e de asssessoria
+				não são reembolsáveis independente do resultado do processo
+				seletivo. Resultado cujo processo depende exclusivamente da análise
+				acadêmica da instituição de ensino superior. Declaro estar ciente de
+				que a TravelMATE lntercâmbio e Turismo presta um serviço de
+				orientação e assessoria durante o processo de admissão do ensino
+				superior. Declaro, igualmente, que se em virtude do resultado do
+				processo consular o meu visto não for concedido por qualquer motivo
+				apontado pela instituição consular não há qualquer processo de
+				reembolso dos valores das taxas de inscrição e da assessoria de
+				Higher Education.
+
+			</p>
+			<br/>
+				<b style="font-size:28px;margin: 1%;">CHECKLIST</b><br/>
+			
+			<p style="margin: 1%;">
+				( )Ficha de lnscrição de Higher Education da TravelMATE assinada;
+			</p>
+			<p style="margin: 1%;">
+				( )Histórico e Certificado de Conclusão do Ensino Médio (Original em
+				Português E Tradução Juramentada);
+			</p>
+			<p style="margin: 1%;">
+				( )Passaporte com validade de no
+				mínimo de 6 meses da data de término do curso;
+			</p>
+			<p style="margin: 1%;">
+				( )Assesoria de Higher
+				Education da TravelMATE, não reembolsável;
+			</p>
+			<p style="margin: 1%;">
+				( )Autorização de Débito em
+				Cartão de Crédito assinada no valor da Taxa de lnscrição do Processo
+				Seletivo;</p>
+			
+			
+		</h:panelGrid>
+		
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do(a)  #{fichaHEMB.vendas.cliente.nome} - CPF: #{fichaHEMB.vendas.cliente.cpf}</p>
+		
+		
+	</div>
+</h:body>
+</html>

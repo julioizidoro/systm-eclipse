@@ -31,10 +31,13 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.VistosFacade;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
-import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
+import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -463,22 +466,41 @@ public class VistosMB implements Serializable {
 		return "vendaMatriz";
 	}
 
-	public String cancelarVenda(Vendas venda) {
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//	public String cancelarVenda(Vendas venda) {
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			carregarListaVisto();
+//		}
+//		return "";
+//	}
+	
+	public String cancelarVenda(Vistos vistos) {
+		if (vistos.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| vistos.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else {
+			session.setAttribute("vendas", vistos.getVendas());
+			session.setAttribute("voltar", "consultaVistos");
+			return "emissaocancelamento";
+		} else if (vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
+			vistos.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(vistos.getVendas());
 			carregarListaVisto();
 		}
 		return "";
-	}
+	}   
 
 	public String corNome(Vistos vistos) {
 		if (vistos.getVendas().getSituacao().equals("CANCELADA")) {
@@ -699,5 +721,29 @@ public class VistosMB implements Serializable {
 				listaVendasCancelada.add(listaVistos.get(i));
 			}
 		}
+	}
+	
+	public String fichasVistos(Vistos vistos){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vistos", vistos);
+		return "fichasVistos";
+	}
+	
+	public String contrato(Vistos vistos){
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(vistos.getVendas(), "vistos");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + vistos.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					vistos.getVendas().getUsuario().getIdusuario() + vistos.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

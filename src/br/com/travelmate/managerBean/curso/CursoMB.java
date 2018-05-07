@@ -29,7 +29,8 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -40,13 +41,16 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
 import br.com.travelmate.model.Cambio;
+import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlecurso;
+import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
@@ -106,6 +110,7 @@ public class CursoMB implements Serializable {
 	private List<Curso> listaVendasCursoCancelada;
 	private List<Curso> listaVendasCursoProcesso;
 	private List<Curso> listaVendasCursoFinanceiro;
+	private boolean segurocancelamento = false;
 
 	@PostConstruct()
 	public void init() {
@@ -601,6 +606,11 @@ public class CursoMB implements Serializable {
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
 		parameters.put("idvendas", curso.getVendas().getIdvendas());
 		parameters.put("sqlpagina2", gerarSqlSeguroViagems());
+		if (segurocancelamento) {
+			parameters.put("segurocancelamento", "Sim");
+		}else {
+			parameters.put("segurocancelamento", "Não");
+		}
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -822,6 +832,7 @@ public class CursoMB implements Serializable {
 			seguro = seguroViagemController.consultar(curso.getVendas().getIdvendas());
 			sqlseguro = " join seguroviagem on seguroviagem.vendas_idvendas = vendas.idvendas ";
 		} else {
+			segurocancelamento = seguro.isSegurocancelamento();
 			sqlseguro = " join seguroviagem on seguroviagem.idvendacurso = vendas.idvendas";
 		}
 		String sql = "Select distinct vendas.dataVenda, vendas.valor as valorVenda, cursos.nomeCurso, cursos.escola,"
@@ -927,23 +938,23 @@ public class CursoMB implements Serializable {
 		}
 	}
 
-	public String cancelarVenda(Curso curso) {
-		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", curso.getVendas());
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
-			curso.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(curso.getVendas());
-			carregarListaVendasCursos();
-		}
-		return "";
-	}
+//	public String cancelarVenda(Curso curso) {
+//		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+//				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", curso.getVendas());
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			curso.getVendas().setSituacao("CANCELADA");
+//			vendasFacade.salvar(curso.getVendas());
+//			carregarListaVendasCursos();
+//		}
+//		return "";
+//	}
 
 	public String visualizarContasReceber(Vendas venda) {
 		if ((venda.getOrcamento() != null)) {
@@ -1119,5 +1130,91 @@ public class CursoMB implements Serializable {
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
 	}
+	
+	
+	public String cancelarVenda(Curso curso) {
+		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", curso.getVendas());
+			session.setAttribute("voltar", "consultafichacurso");
+			return "emissaocancelamento";
+		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			curso.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(curso.getVendas());
+			carregarListaVendasCursos();
+		}
+		return "";
+	}    
+	
+	public String contrato(Curso curso){
+		this.curso = curso;
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(curso.getVendas(), "Curso");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + curso.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					curso.getVendas().getUsuario().getIdusuario() + curso.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	public String fichaCurso(Curso curso){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("curso", curso);
+		return "fichaCurso";
+	}
+	
+	
+	public String relatorioTermoQuitacao(Curso cursos) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		Cancelamento cancelamento = cancelamentoFacade.consultar(cursos.getVendas().getIdvendas());
+		session.setAttribute("cancelamento", cancelamento);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
+		return "";
+	}
+	
+	
+	public void verificarIdCredito(Curso cursos) {
+		if (cursos.getVendas().getCancelamento() != null) {
+			if (cursos.getVendas().getCancelamento().getCancelamentocredito() != null) {
+				if (cursos.getVendas().getCancelamento().getCancelamentocredito().getCredito().getTipocredito().equalsIgnoreCase("Crédito")) {
+					Credito credito = cursos.getVendas().getCancelamento().getCancelamentocredito().getCredito();
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					session.setAttribute("credito", credito);
+					Map<String, Object> options = new HashMap<String, Object>();
+					options.put("contentWidth", 150);
+					RequestContext.getCurrentInstance().openDialog("visualizarIdCredito", options, null);
+				}else {
+					Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+				}
+			}else {
+				Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+			}
+		}else {
+			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+		}
+	}
+	
+	
+	
+	
 	
 }

@@ -35,12 +35,15 @@ import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
-import br.com.travelmate.model.Contasreceber; 
+import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He; 
 import br.com.travelmate.model.Questionariohe;
-import br.com.travelmate.model.Unidadenegocio; 
+import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -811,6 +814,30 @@ public class HigherEducationMB implements Serializable {
 		return "";
 	}
 	
+	public String fichaHE(ListaHeBean listaHeBean){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("he", listaHeBean.getHe());
+		return "fichaHE";
+	}
+	
+	public String contrato(ListaHeBean listaHeBean){
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(listaHeBean.getHe().getVendas1(), "HE");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + listaHeBean.getHe().getVendas1().getUnidadenegocio().getIdunidadeNegocio() + 
+					listaHeBean.getHe().getVendas1().getUsuario().getIdusuario() + listaHeBean.getHe().getVendas1().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
 	public String documentacao(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
@@ -832,29 +859,29 @@ public class HigherEducationMB implements Serializable {
 		return "consLogVenda"; 
 	}
 	
-	public String cancelarVenda(ListaHeBean listaHeBean) {
-		if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", listaHeBean.getQuestionariohe().getVendas());
-			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
-				session.setAttribute("venda1", listaHeBean.getHe().getVendas1());
-			}
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
-			listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());
-			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
-			listaHeBean.getQuestionariohe().setSituacao("CANCELADA");
-			listaHeBean.setQuestionariohe(questionarioHeFacade.salvar(listaHeBean.getQuestionariohe()));
-			gerarListaHe();
-		}
-		return "";
-	}
+//	public String cancelarVenda(ListaHeBean listaHeBean) {
+//		if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+//				|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", listaHeBean.getQuestionariohe().getVendas());
+//			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
+//				session.setAttribute("venda1", listaHeBean.getHe().getVendas1());
+//			}
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
+//			vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());
+//			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+//			listaHeBean.getQuestionariohe().setSituacao("CANCELADA");
+//			listaHeBean.setQuestionariohe(questionarioHeFacade.salvar(listaHeBean.getQuestionariohe()));
+//			gerarListaHe();
+//		}
+//		return "";
+//	}
 	
 	public String boletos(ListaHeBean listaHeBean) {
 		ValidarClienteBean validarCliente = new ValidarClienteBean(listaHeBean.getHe().getVendas().getCliente());
@@ -1018,5 +1045,34 @@ public class HigherEducationMB implements Serializable {
 			}
 		} else return true;
 	}
+	
+	
+	public String cancelarVenda(ListaHeBean listaHeBean) {
+		if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
+				session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
+			}else {
+				session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
+			}
+			session.setAttribute("voltar", "consquestionarioHe");
+			return "emissaocancelamento";
+		}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());
+			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+			listaHeBean.getQuestionariohe().setSituacao("CANCELADA");
+			listaHeBean.setQuestionariohe(questionarioHeFacade.salvar(listaHeBean.getQuestionariohe()));
+			gerarListaHe();
+		}
+		return "";
+	}   
+	
+	
 
 }

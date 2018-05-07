@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Seguro Viagem</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../../resources/img/fichaCursoLogo.PNG" width="100%" />
+	</div>
+	<br/>
+	
+	<div align="left">
+		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />
+	</div>
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nascimento:</b> <h:outputText
+						value="#{fichaDemiPairMB.demipair.vendas.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>   
+					<b>Local de Nascimento:</b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.cidadeNascimento}, #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.paisNascimento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>RG: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.rg}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.cpf}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Passaporte: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.numeroPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Expedição: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.dataExpedicaoPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.validadePassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Endereço: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.tipologradouro} #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.logradouro} , #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.numero}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Bairro: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Complemento: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+				</h:panelGroup>
+			</h:panelGrid>   
+  
+		</h:panelGrid>
+		 
+		<br/>
+		<h:panelGroup style="color:green;"><b>INFORMAÇÕES DO SEGURO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Seguradora:</b> #{fichasSeguroViagemMB.seguroviagem.seguradora}</h:panelGroup>
+				<h:panelGroup><b>Tippo de Plano: </b> #{fichasSeguroViagemMB.seguroviagem.valoresseguro.seguroplanos.nome}</h:panelGroup>
+				<h:panelGroup><b>Seguro Cancelamento: </b> #{fichasSeguroViagemMB.seguroviagem.segurocancelamento}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Pais destino :</b> #{fichasSeguroViagemMB.seguroviagem.paisDestino}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Início:</b> <h:outputText
+						value="#{fichasSeguroViagemMB.seguroviagem.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				
+				<h:panelGroup><b>N dias: </b> #{fichasSeguroViagemMB.seguroviagem.numeroSemanas}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Termino:</b> <h:outputText
+						value="#{fichasSeguroViagemMB.seguroviagem.dataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<br/>  
+			</h:panelGrid> 
+		</h:panelGrid>  
+		<br/>
+		<h:panelGroup style="margin-left: 0.3%;">CONTATO DE EMERGÊNCIA NO BRASIL</h:panelGroup>
+		<hr style="color: green;"/>
+		<h:panelGrid style="width:100%;" columns="1">
+					<h:panelGroup> <b>Nome:</b> #{fichasSeguroViagemMB.seguroviagem.nomeContatoEmergencia} 
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>Telefone:</b> #{fichasSeguroViagemMB.seguroviagem.foneContatoEmergencia} 
+					</h:panelGroup>
+		</h:panelGrid> 
+		<br /><br />
+		<div align="left">
+			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br/><br/>
+		<br/><br/>
+		<hr width="80%"  align="left"/>
+		<p>#{fichasSeguroViagemMB.vendas.usuario.unidadenegocio.nomeFantasia}</p>
+	</div>
+</h:body>
+</html>

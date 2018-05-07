@@ -134,14 +134,14 @@
 					<p:column headerText="Imprimir"
 						style="width:110px;text-align:center;" styleClass="alinharCenter">
 						<h:commandButton
-							action="#{pacoteMB.gerarRelatorioFicha(conspacoteagencia)}"
+							action="#{pacoteMB.fichaPacotes(conspacoteagencia)}"
 							title="Ficha" image="../../resources/img/imprimiFicha.png"
 							style="width:25%;margin-left:0%" ajax="false"
 							onclick="this.form.target='_blank'"
 							disabled="#{pacoteMB.botoesHabilitados(conspacoteagencia)}">
 						</h:commandButton>
 						<h:commandButton
-							action="#{pacoteMB.gerarRelatorioContrato(conspacoteagencia)}"
+							action="#{pacoteMB.contrato(conspacoteagencia)}"
 							title="Ficha" image="../../resources/img/imprimiContrato.png"
 							style="width:25%;margin-left:4%" ajax="false"
 							onclick="this.form.target='_blank'"
@@ -151,7 +151,7 @@
 							action="#{pacoteMB.imprimirRecibo(conspacoteagencia)}"
 							title="Recibo" image="../../resources/img/imprimiRecibo.png"
 							style="width:25%;margin-left:4%" ajax="false"
-							onclick="this.form.target='_blank'"  
+							onclick="this.form.target='_blank'"
 							disabled="#{pacoteMB.botoesHabilitados(conspacoteagencia)}">
 						</h:commandButton>
 					</p:column>
@@ -164,7 +164,7 @@
 					</p:column>
 					<p:column style="width:42px;" styleClass="alinharCenter">
 						<p:commandLink
-							action="#{pacoteMB.cancelarVenda(conspacoteagencia.vendas)}"
+							action="#{pacoteMB.cancelarVenda(conspacoteagencia)}"
 							style="text-decoration: none" title="Cancelar Ficha"
 							update=":telapacotes:idconspacoteagencia"
 							disabled="#{pacoteMB.botoesHabilitados(conspacoteagencia)}">

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,16 +104,19 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
     	ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
    	 	String caminhoRelatorio = ("/reports/cancelamento/termoQuitacao.jasper");
         Map parameters = new HashMap();
-        parameters.put("idcancelamento", cancelamento.getIdcancelamento());
         File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
         BufferedImage logo = ImageIO.read(f);  
         parameters.put("logo", logo);
+        banco =   new String(banco.getBytes("ISO-8859-1"), "UTF-8");
         parameters.put("banco", banco);
         parameters.put("agencia", agencia);
         parameters.put("conta", conta);
         parameters.put("titular", titular);
+        parameters.put("texto", gerarTexto());
+        parameters.put("cpfcliente", cancelamento.getVendas().getCliente().getCpf());
         parameters.put("cpf", cpf);
-        parameters.put("valorreembolso", Formatacao.formatarFloatString(cancelamento.getValorreembolso()));
+        parameters.put("nome", cancelamento.getVendas().getCliente().getNome());
+        parameters.put("sql", "SELECT idcancelamento  FROM cancelamento WHERE idcancelamento=1");
         GerarRelatorio gerarRelatorioTermo = new GerarRelatorio();
         try {
         	gerarRelatorioTermo.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "TermoCancelamento"+cancelamento.getVendas().getIdvendas()+".pdf", null);
@@ -128,5 +132,24 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
     	RequestContext.getCurrentInstance().closeDialog(null);
     	return "";
     }
+    
+    
+    public String gerarTexto() {
+    		String texto = "Eu, "  +  cancelamento.getVendas().getCliente().getNome()  + ", brasileiro, portador do CPF/MF n.º  " +
+    				  cpf + ", residente e domiciliado na " + cancelamento.getVendas().getCliente().getTipologradouro() + 
+    				  cancelamento.getVendas().getCliente().getLogradouro() + " CEP " + cancelamento.getVendas().getCliente().getCep() +
+    				 ", " + cancelamento.getVendas().getCliente().getCidade() + ", " + cancelamento.getVendas().getCliente().getEstado() +
+    				 ", declaro a quem possa interessar que recebi da empresa TRAVELMATE INTERCÂMBIO E TURISMO LTDA, pessoa jurídica de direito privado, "
+    				 + "inscrita sob o CNPJ/MF n.º 05.138.734/0001-55, a quantia de R$ " +
+    				 Formatacao.formatarFloatString(cancelamento.getValorreembolso()) + ", referente a reembolso em decorrência do cancelamento do programa de " +
+    				 "" + cancelamento.getVendas().getProdutos().getDescricao() + " no " + cancelamento.getVendas().getFornecedorcidade().getCidade().getPais().getNome() + " .";
+    				 
+    		return texto;
+    }
+    
+    
+    
+    
+    
 	
 }

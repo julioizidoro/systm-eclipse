@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Work and Travel</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../../resources/img/fichaCursoLogo.PNG" width="100%" />
+	</div>
+	<br/>
+	
+	<div align="left">
+		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />
+	</div>
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaWorkTravelMB.worktravel.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nascimento:</b> <h:outputText
+						value="#{fichaWoirkTravelMB.worktravel.vendas.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaWorkTravelMB.worktravel.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>   
+					<b>Local de Nascimento:</b> #{fichaWorkTravelMB.worktravel.vendas.cliente.cidadeNascimento}, #{fichaWorkTravelMB.worktravel.vendas.cliente.paisNascimento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>RG: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.rg}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.cpf}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Passaporte: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.numeroPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Expedição: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.dataExpedicaoPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.validadePassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Endereço: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.tipologradouro} #{fichaWorkTravelMB.worktravel.vendas.cliente.logradouro} , #{fichaWorkTravelMB.worktravel.vendas.cliente.numero}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Bairro: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.bairro}
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Complemento: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.complemento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.cep}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.cidade} , #{fichaWorkTravelMB.worktravel.vendas.cliente.estado}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.pais}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.foneResidencial}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.foneCelular}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.email}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Profissão: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.profissao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Nível Estudo: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.escolaridade}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>ESCOLARIDADE </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Instituição onde Estuda:</b> #{fichaWorkTravelMB.worktravel.intituicaoEstuda}</h:panelGroup>
+				<h:panelGroup><b>Curso: </b> #{fichaWorkTravelMB.worktravel.cursoEstuda}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Duração: </b>  #{fichaWorkTravelMB.worktravel.duracaoCurso}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Cursando qual período :</b> #{fichaWorkTravelMB.worktravel.periodoCurso}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Turno: </b>  #{fichaWorkTravelMB.worktravel.peirodoEstuda}
+				</h:panelGroup>
+				<h:panelGroup><b>Idioma:</b> #{fichaWorkTravelMB.worktravel.idioma01}</h:panelGroup>
+				<h:panelGroup><b>Nível:</b> #{fichaWorkTravelMB.worktravel.nivelidioma01}</h:panelGroup>
+				<h:panelGroup>
+					<b>Tempo estudo: </b>  #{fichaWorkTravelMB.worktravel.tempoidioma01}
+				</h:panelGroup>
+				<h:panelGroup><b>Idioma:</b> #{fichaWorkTravelMB.worktravel.idioma02}</h:panelGroup>
+				<h:panelGroup><b>Nível:</b> #{fichaWorkTravelMB.worktravel.nivelidioma02}</h:panelGroup>
+				<h:panelGroup>
+					<b>Tempo estudo: </b>  #{fichaWorkTravelMB.worktravel.tempoidioma02}
+				</h:panelGroup>
+				<h:panelGroup><b>Idioma:</b> #{fichaWorkTravelMB.worktravel.idioma03}</h:panelGroup>
+				<h:panelGroup><b>Nível:</b> #{fichaWorkTravelMB.worktravel.nivelidioma03}</h:panelGroup>
+				<h:panelGroup>
+					<b>Tempo estudo: </b>   #{fichaWorkTravelMB.worktravel.tempoidioma03}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>DISPONIBILIDADE PARA VIAGEM </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup>
+					<b>Data de Início Pretendida:</b> <h:outputText
+						value="#{fichaWorkTravelMB.worktravel.dataInicioPretendida01}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>   
+				<h:panelGroup>
+					<b>Data de volta Pretendida:</b> <h:outputText
+						value="#{fichaWorkTravelMB.worktravel.dataTerminoPretendida01}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>   
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>PREFERÊNCIAS - TIPO DE TRABALHO </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.camareira)}) - Camareira/Governança </h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.cozinha)}) - Cozinha </h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.salvavidas)}) - Salva Vidas 
+				</h:panelGroup>
+				<h:panelGroup>   
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.recepcao)}) - Recepção 
+				</h:panelGroup>
+				<h:panelGroup>
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.garcon)}) - Garçon/Garçonete 
+				</h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.trabalhosexternos)}) - Trabalhos Externos </h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.lavadeira)}) - Lavanderia </h:panelGroup>
+				<h:panelGroup>
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.indiferenteocupacao)}) - Indiferente 
+				</h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.outraocupacao)}) - Outra </h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.especificarOutraOcupacao)}) - Faço parte do programa Independente </h:panelGroup>
+				
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>PREFERÊNCIAS - LOCAL DE TRABALHO </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.parquetematico)}) - Parque Temático </h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.hotel)}) - Hotel/Resort </h:panelGroup>
+				<h:panelGroup>
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.restaurante)}) - Restaurante 
+				</h:panelGroup>
+				<h:panelGroup>   
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.lojas)}) - Lojas/Mercados 
+				</h:panelGroup>
+				<h:panelGroup>
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.cassino)}) - Cassino 
+				</h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.piscina)}) - Priscinas/Praias </h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.estacaoesqui)}) - Estação de Esqui </h:panelGroup>
+				<h:panelGroup>
+					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.indiferentelocal)}) - Indiferente 
+				</h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.outralocal)}) - Outra </h:panelGroup>
+				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.programaodependente01)}) - Faço parte do programa Independente </h:panelGroup>
+				<h:panelGrid></h:panelGrid>
+			</h:panelGrid >   
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup><b>Clima:</b> #{fichaWorkTravelMB.worktravel.clima}</h:panelGroup>
+				<h:panelGroup><b>Adicionais:</b> #{fichaWorkTravelMB.worktravel.adicionais}</h:panelGroup>
+			</h:panelGrid>
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>INFORMAÇÕES </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Sabe nadar ?</b> #{fichaWorkTravelMB.worktravel.sabernadar}</h:panelGroup>
+				<h:panelGroup><b>Treinamento para Salva-Vidas, possui certificado ? </b> #{fichaWorkTravelMB.worktravel.treinamentosalvavidas}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Sabe esquiar ou fazer snewboard ? </b>  #{fichaWorkTravelMB.worktravel.sabeesquiar}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Tem CNH ?</b> #{fichaWorkTravelMB.worktravel.carteiraHabilitacao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Disposto a dirigir nos EUA ? </b>  #{fichaWorkTravelMB.worktravel.dirigirEua}
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Viagem recentes ao exterior </b>
+				</h:panelGroup>
+			</h:panelGrid>   
+			<h:panelGrid style="width:100%;" columns="3">
+			
+				<h:panelGroup><b>Nome do Páis:</b> </h:panelGroup>
+				<h:panelGroup><b>Motivo da Estadia: </b></h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup>#{fichaWorkTravelMB.worktravel.nomePais01} </h:panelGroup>
+				<h:panelGroup>#{fichaWorkTravelMB.worktravel.motivoEstadia01}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					#{fichaWorkTravelMB.worktravel.periodoEstadia01}
+				</h:panelGroup>
+				<h:panelGroup>#{fichaWorkTravelMB.worktravel.nomePais02} </h:panelGroup>
+				<h:panelGroup>#{fichaWorkTravelMB.worktravel.motivoEstadia02}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					#{fichaWorkTravelMB.worktravel.periodoEstadia02}
+				</h:panelGroup>
+				<h:panelGroup>#{fichaWorkTravelMB.worktravel.nomePais03} </h:panelGroup>
+				<h:panelGroup>#{fichaWorkTravelMB.worktravel.motivoEstadia03}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					#{fichaWorkTravelMB.worktravel.peirodoEstadia03}
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>COMPANHEIROS DE VIAGEM </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup><b>Nome Completo:</b> #{fichaWorkTravelMB.worktravel.campanheiroViagem01}</h:panelGroup>
+				<h:panelGroup><b>Nome Completo: </b> #{fichaWorkTravelMB.worktravel.companheiroViagem02}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Nome Completo: </b>  #{fichaWorkTravelMB.worktravel.companheiroViagem03}
+				</h:panelGroup>
+				
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>JÁ TRABALHO NOS EUA COM VISTO J-1? </b> - #{fichaWorkTravelMB.worktravel.trabalhoVistoJ1}</h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Quanto:</b> #{fichaWorkTravelMB.worktravel.quantoVistoj1}</h:panelGroup>
+				<h:panelGroup><b>N Social Security: </b> #{fichaWorkTravelMB.worktravel.numeroSocialSecurity}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Tipo Programa nos EUA: </b>  #{fichaWorkTravelMB.worktravel.tipoProgramaEua}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Sponsor nos EUA e agência no Brasil :</b> #{fichaWorkTravelMB.worktravel.agenciaBrasil}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Posição exercida: </b>  #{fichaWorkTravelMB.worktravel.posicaoExcercida}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>ESTÁ SE INSCREVENDO NA OPÇÃO INDEPENDENTE? </b> - #{fichaWorkTravelMB.worktravel.opcaoIndependente}</h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Já possui oferta de trabalho ?</b> #{fichaWorkTravelMB.worktravel.possuiOfertaTrabalho}</h:panelGroup>
+				<h:panelGroup><b>Qual o nome do Empregador ? </b> #{fichaWorkTravelMB.worktravel.nomeEmpregador}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Qual a posição que você irá exercer ? </b>  #{fichaWorkTravelMB.worktravel.possicarqueiraExercer}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>INFORMAÇÕES DE SAÚDE </b></h:panelGroup>
+		<hr style="color:green;"/>
+		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup><b>Tem alguma deficiência fisíca?</b> #{fichaWorkTravelMB.worktravel.possuiDeficienciaFisica}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Tem algum problema de saúde que prejudique suas funções no emprego pretendido? </b>  #{fichaWorkTravelMB.worktravel.problemaSaude} , #{fichaWorkTravelMB.worktravel.especifiqueProblemaSaude}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Necessita de tratamento médico ou algum medicamento controlado?:</b> #{fichaWorkTravelMB.worktravel.tratamentoMedico} , #{fichaWorkTravelMB.worktravel.especifiqueTratamentoMedico}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Já teve tratamento devido ao uso de drogas ou algum medicamento para distúrbios psicológicos?: </b>  #{fichaWorkTravelMB.worktravel.tratamentoUsoDrogas} , #{fichaWorkTravelMB.worktravel.especifiqueTratamentoUsoDrogas}
+				</h:panelGroup>
+				<h:panelGroup><b>Liste alguma alergia ou dieta especial:</b> #{fichaWorkTravelMB.worktravel.listaAlergias}</h:panelGroup>
+				
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br />
+		<div align="left">
+			<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGroup rendered="#{fichaWorkTravelMB.habilitarCartãoVtm}" style="margin-left: 0.3%;">CARTÃO VTM</h:panelGroup>
+		<hr style="color: green;"/>
+		<h:panelGrid rendered="#{fichaWorkTravelMB.habilitarCartãoVtm}" style="width:100%;" columns="3">
+					<h:panelGroup> (x) #{fichaWorkTravelMB.worktravel.caratoVTM} 
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<b>N° Cartão:</b> #{fichaWorkTravelMB.worktravel.numeroCartaoVTM} 
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>Moeda:</b> #{fichaWorkTravelMB.worktravel.moedaCartaoVTM}
+					</h:panelGroup>
+		</h:panelGrid>   
+		<br/>
+		<h:panelGroup style="margin-left: 0.3%;">PASSAGEM AÉREA QUANDO NÃO INCLUIDA NO PROGRAMA</h:panelGroup>
+		<hr style="color: green;"/>
+		<h:panelGrid style="width:100%;" columns="2">
+					<h:panelGroup> <b>Tipo de Emissão:</b> #{fichaWorkTravelMB.worktravel.tipoEmissaoPassagem} 
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<b>Observações:</b> #{fichaWorkTravelMB.worktravel.observacaoPassagem} 
+					</h:panelGroup>
+		</h:panelGrid> 
+		<br/>
+		<h:panelGroup style="margin-left: 0.3%;">SOLICITAÇÃO DE VISTA CONSULAR</h:panelGroup>
+		<hr style="color: green;"/>
+		<h:panelGrid style="width:100%;" columns="2">
+					<h:panelGroup> <b>Tipo de Solicitação:</b> #{fichaWorkTravelMB.worktravel.tipoEmissaoVisto} 
+					</h:panelGroup>
+					<h:panelGroup>
+						Observações: #{fichaWorkTravelMB.worktravel.observacaoVisto} 
+					</h:panelGroup>
+		</h:panelGrid> 
+		<br/>
+		<h:panelGroup style="margin-left: 0.3%;">CONTATO DE EMERGÊNCIA NO BRASIL</h:panelGroup>
+		<hr style="color: green;"/>
+		<h:panelGrid style="width:100%;" columns="1">
+					<h:panelGroup> <b>Nome:</b> #{fichaWorkTravelMB.worktravel.nomeContatoEmergencia} 
+					</h:panelGroup>
+		</h:panelGrid> 
+		<h:panelGrid style="width:100%;" columns="3">
+					<h:panelGroup> <b>Relação:</b> #{fichaWorkTravelMB.worktravel.relacaoContatoEmergencia} 
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<b>E-mail:</b> #{fichaWorkTravelMB.worktravel.emailContatoEmergencia} 
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<b>Telefone:</b> #{fichaWorkTravelMB.worktravel.foneContatoEmergencia} 
+					</h:panelGroup>
+		</h:panelGrid> 
+		
+		<br />
+		<div align="left">
+			<img src="../../../resources/img/precoFormaFicha.PNG" width="47%" />
+		</div>
+		<br/>
+		<p:dataTable  id="idTabelaArquivos" var="produtos"
+				styleClass="table-transparent" value="#{fichaWorkTravelMB.vendas.orcamento.orcamentoprodutosorcamentoList}"
+				style="border:transparent;width:97%;" 
+				 
+				>
+
+				<p:column headerText=""
+					style="background:white; font-size:12px; color:white; border:none; text-align:left;color: black;width:75px;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.descricao}" style="color: black;font-size:12px;"/>
+				</p:column>
+				<p:column headerText="#{fichaWorkTravelMB.vendas.orcamento.cambio.moedas.sigla}"
+					style="width:30px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaEstrangeira}" style="color: black;font-size:12px;color: black;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="R$"
+					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaNacional}" style="color: black;font-size:12px;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+			</p:dataTable>
+		<h:panelGrid style="width:100%;">
+			<h:panelGrid style="width:97.3%;background-color:#CFCFCF;font-size:12px;" columns="2">
+					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
+					
+					<h:panelGrid style="width:94%;float:right;float: right;" columns="2">
+						<h:panelGroup style="text-align:right;float: right;">
+							#{fichaWorkTravelMB.vendas.orcamento.cambio.moedas.sigla}: <h:outputText
+								value="#{fichaWorkTravelMB.vendas.orcamento.totalMoedaEstrangeira}">  
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup style="text-align:right;float: right;">
+							R$: <h:outputText
+								value="#{fichaWorkTravelMB.vendas.orcamento.totalMoedaNacional}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGrid>
+
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>Moeda: #{fichaWorkTravelMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
+					 <h:outputText value="#{fichaWorkTravelMB.vendas.valorcambio}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText> | Valor Juros: R$ 
+					<h:outputText
+						value="#{fichaWorkTravelMB.vendas.formapagamento.valorJuros}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText> | Valor Final: R$ 
+					<h:outputText
+							value="#{fichaWorkTravelMB.vendas.formapagamento.valorTotal}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText>
+				</h:panelGroup>
+
+			</h:panelGrid>
+		</h:panelGrid>
+		<br />
+		<ui:repeat var="parcelamento"
+			value="#{fichaWorkTravelMB.vendas.formapagamento.parcelamentopagamentoList}"
+			varStatus="statuss">
+			<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+			<hr/>
+			<h:panelGrid style="width:100%;" columns="4">
+					<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+							value="#{parcelamento.valorParcelamento}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						Data Vencimento: <h:outputText
+							value="#{parcelamento.diaVencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</h:panelGroup>
+					<h:panelGroup>
+						N° Parcelas: #{parcelamento.numeroParcelas}
+					</h:panelGroup>
+					<h:panelGroup>
+						Valor Parcela: R$ <h:outputText value="#{parcelamento.valorParcela}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</h:panelGroup>
+			</h:panelGrid>
+			<br/>
+		</ui:repeat>
+		<br /><br />
+		<div align="left">
+			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+			<p>Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição. O saldo deverá ser quitado 
+			conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista. Não sendo cumprido o 
+			plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional 
+			organizadora   do   curso/programa/pacote   em   questão.   A   confirmação   final   do   curso/programa/pacote,   
+			acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da 
+			confirmação final do prestador final do serviço (instituição contratada) no exterior.
+			Em caso de cancelamento e reembolso:<br/>
+			• O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);<br/>
+			• Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso
+			  dos demais valores;<br/>
+			• A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituiçã
+			  do exterior;<br/>
+			• A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido
+			  de reembolso.<br/>
+			Esta é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o 
+			CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura 
+			de tal Contrato, e entrega ao mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não 
+			abordadas nesta Ficha de Inscrição.
+			Em  caso  de  dúvidas  solicite  o  CONTRATO  DE  PRESTAÇÃO  DE  SERVIÇOS  e  as  regras  específicas  
+			referentes ao programa de seu interesse.
+			Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
+		</h:panelGrid>
+		<br/><br/><br/><br/>
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do(a)  #{fichaWorkTravelMB.vendas.cliente.nome} - CPF: #{fichaWorkTravelMB.vendas.cliente.cpf}</p>
+		<br/><br/>
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do responsável (aquele que responde pelo participante no Brasil)</p>
+		<br/><br/>
+		<hr width="80%"  align="left"/>
+		<p>#{fichaWorkTravelMB.vendas.usuario.nome} - Representante TM</p>
+	</div>
+</h:body>
+</html>

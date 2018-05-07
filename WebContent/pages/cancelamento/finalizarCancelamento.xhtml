@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+	<title>Finalizar Cancelamento</title>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cancelarVenda" style="text-align:left;font-size: 10px;">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/ajax-loader.gif" />
+		</p:dialog>
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<br></br>
+		<p:selectOneRadio id="tipo"
+			value="#{cancelamentoFichaMB.cancelamento.formapagamento}"
+			style="width:95%;margin-left:2%;">
+			<f:selectItem itemLabel="Reembolso" itemValue="Reembolso"
+				class="loginButtonn" />
+			<f:selectItem itemLabel="Crédito" itemValue="Crédito"
+				style="margin-left:5%" />
+			<f:selectItem itemLabel="Reembolso/Crédito" itemValue="Ambos"
+				class="loginButtonn" />
+		</p:selectOneRadio>
+		<br></br>
+		<h:panelGrid columns="4" style="width:98%;" columnClasses="colunadezenove,tamanho14,tamanho12 , tamanho14">
+			<p:outputLabel value="Data" style="float:right;" />  
+			<p:calendar id="data" size="12" style="margin-left:5%;" locale="pt"
+				pattern="dd/MM/yyyy" mask="true" maxlength="15" value="#{cancelamentoFichaMB.cancelamento.datareembolso}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />  
+			</p:calendar>    
+			<p:outputLabel value="Valor" style="float:right;" />
+			<p:inputText id="valor" value="#{cancelamentoFichaMB.cancelamento.valorreembolso}"
+				style="width:60%;text-align:right;margin-left:5%;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText> 
+			<p:outputLabel/>
+			<p:outputLabel/>   
+			<p:outputLabel/>
+			<p:outputLabel/>
+			<p:outputLabel value="Multa Parceiro" style="float:right;" />
+			<p:inputText id="multa" value="#{cancelamentoFichaMB.cancelamento.multafornecedor}" 
+				style="width:74%;text-align:right;margin-left:5%;">
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			</p:inputText>
+			<p:outputLabel value="Banco" style="float:right;" />
+			 <p:selectOneMenu id="banco" value="#{cancelamentoFichaMB.banco}" style="width:140px;margin-left:5%;" class="espacocobranca14"  converter="BancoConverter" >
+                    <f:selectItem itemLabel="Banco" itemValue="0" noSelectionOption="true"/> 
+                    <f:selectItems value="#{cancelamentoFichaMB.listaBanco}" var="banco" itemLabel="#{banco.nome}" itemValue="#{banco}"/>
+                    <f:attribute name="listaBanco" value="#{cancelamentoFichaMB.listaBanco}"/>
+                </p:selectOneMenu>
+		</h:panelGrid>
+		<br></br>
+		<h:panelGrid style="width:62.2%;margin-left:2%;">
+			<p:fileUpload style="width:97.6%;" multiple="true" label="Anexar"
+				fileUploadListener="#{cancelamentoFichaMB.fileUploadListener}"
+				value="#{cancelamentoFichaMB.file}" mode="advanced" update="growl"
+				fileLimit="6"
+				sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}"
+				allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}">
+			</p:fileUpload>
+		</h:panelGrid>
+		<br></br>
+		<br></br>
+		<div align="center">
+			<p:commandButton value="Confirmar" icon="ui-icon-check"
+				action="#{cancelamentoFichaMB.salvar()}" style="font-size:11px;"
+				update="growl" />
+			<p:commandButton value="Cancelar" icon="ui-icon-close"
+				action="#{cancelamentoFichaMB.cancelar()}"
+				style="font-size:11px;margin-left:3%" />
+		</div>
+	</h:form>
+</h:body>
+</html>

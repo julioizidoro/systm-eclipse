@@ -192,7 +192,7 @@
 								rendered="#{cursosTeensMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{cursosTeensMB.gerarRelatorioFicha(cursosTeensProcesso)}"
+									action="#{cursosTeensMB.fichaCursosTeens(cursosTeensProcesso)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -238,7 +238,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioContratoCurso(cursosTeensProcesso)}"
+											action="#{cursosTeensMB.contrato(cursosTeensProcesso)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:1px;">
@@ -384,7 +384,7 @@
 								rendered="#{cursosTeensMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{cursosTeensMB.gerarRelatorioFicha(cursosTeensFinanceiro)}"
+									action="#{cursosTeensMB.fichaCursosTeens(cursosTeensFinanceiro)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -430,7 +430,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioContratoCurso(cursosTeensFinanceiro)}"
+											action="#{cursosTeensMB.contrato(cursosTeensFinanceiro)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:1px;">
@@ -576,7 +576,7 @@
 								rendered="#{cursosTeensMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{cursosTeensMB.gerarRelatorioFicha(cursosTeensAndamento)}"
+									action="#{cursosTeensMB.fichaCursosTeens(cursosTeensAndamento)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -622,7 +622,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioContratoCurso(cursosTeensAndamento)}"
+											action="#{cursosTeensMB.contrato(cursosTeensAndamento)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:1px;">
@@ -768,7 +768,7 @@
 								rendered="#{cursosTeensMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{cursosTeensMB.gerarRelatorioFicha(cursosTeensFinalizada)}"
+									action="#{cursosTeensMB.fichaCursosTeens(cursosTeensFinalizada)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -814,7 +814,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioContratoCurso(cursosTeensFinalizada)}"
+											action="#{cursosTeensMB.contrato(cursosTeensFinalizada)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:1px;">
@@ -966,116 +966,51 @@
 									style="width:30px;margin-left:4%">
 								</h:commandButton>
 							</p:column>
-							<p:column headerText="Opções"
-								style="width:75px;text-align:center;">
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade"
-									style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:400px;">
 									<p:outputLabel
 										value="#{cursosTeensCancelada.vendas.idvendas} - #{cursosTeensCancelada.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid
-										style="width:100%;border-color:transparent;border:none;"
-										columns="9">
-										<p:commandLink
-											action="#{cursosTeensMB.boletos(cursosTeensCancelada)}"
-											title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
-											<img src="../../resources/img/boletoFicha.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											actionListener="#{cursosTeensMB.buscarCursosTeens(cursosTeensCancelada)}"
-											style="text-decoration: none"
-											title="OBSERVAÇÕES GERÊNCIAS TM"
-											update="consultacursosteens:dialog_obsTM"
-											oncomplete="PF('obstm').show()">
-											<img
-												src="#{cursosTeensMB.retornarIconeObsTM(cursosTeensCancelada)}"
-												width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="OBS" style="font-size:11px;" />
-												<p:outputLabel value="TM" />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioContratoCurso(cursosTeensCancelada)}"
-											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
-											<img src="../../resources/img/imprimiContrato.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="CONTRATO" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioTermoVisto(cursosTeensCancelada)}"
-											title="IMPRIMIR O TERMO DE VISTO" ajax="false"
-											target="_blank">
-											<img src="../../resources/img/imprimiVisto.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="TERMO" style="font-size:11px;" />
-												<p:outputLabel value="VISTO" />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioRecibo(cursosTeensCancelada)}"
-											title="IMPRIMIR O RECIBO" ajax="false" target="_blank">
-											<img src="../../resources/img/imprimiRecibo.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="RECIBO" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											action="#{cursosTeensMB.documentacao(cursosTeensCancelada)}"
-											title="DOCUMENTOS">
-											<img src="../../resources/img/arquivosUpload.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="DOCS" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>   
-										<p:commandLink
-											action="#{cursosTeensMB.informacoes(cursosTeensCancelada)}"
-											title="INFORMAÇÕES DA VENDA">
-											<img src="../../resources/img/informacao.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="INFO" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-												action="#{cursosTeensMB.visualizarContasReceber(cursosTeensCancelada)}"
-												title="VISUALIZAR CONTAS A RECEBER" 
-												
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
+											
+											<p:commandLink action="#{cursosTeensMB.relatorioTermoQuitacao(cursosTeensCancelada)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update=":consultacursosteens:acordionPainel:tabelaConsultaCancelada"
+													 >
+													<img src="../../resources/img/cancel.png" style="width: 36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="IMPRIMIR TERMO" style="font-size:10px;"/>
+															<p:outputLabel value="CANCELAMENTO" style="font-size:10px;"/>
+														</h:panelGrid>
+											</p:commandLink>   
+											
+											<p:commandLink action="#{cursosTeensMB.documentacao(cursosTeensCancelada)}"
+												update=":consultacursosteens:growl" title="DOCUMENTOS"
 												 >
-												<img src="../../resources/img/invoice.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:center;"> 
-													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="DOCS" style="font-size:10px;"/>
+													<p:outputLabel value=" "/>
 												</h:panelGrid>
-											</p:commandLink> 
-										<p:commandLink
-											action="#{cursosTeensMB.cancelarVenda(cursosTeensCancelada.vendas)}"
-											style="text-decoration: none" title="CANCELAR FICHA">
-											<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-											<img src="../../resources/img/cancel.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-									</h:panelGrid>
-								</p:overlayPanel>
-							</p:column>    
+											</p:commandLink>
+											<p:commandLink action="#{cursosTeensMB.verificarIdCredito(cursosTeensCancelada)}"
+												update=":consultacursosteens:growl" title="Verificar ID de Crédito"
+												 >
+												<img src="../../resources/img/numerosFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="VISUALIZAR" style="font-size:10px;"/>
+													<p:outputLabel value="ID CRÉDITO" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+									</h:panelGrid>    
+								</p:overlayPanel>   
+							</p:column>   
 						</p:dataTable>
 					</p:tab>
 					<p:tab title="Todos (#{cursosTeensMB.numeroFichas})"
@@ -1149,7 +1084,7 @@
 								rendered="#{cursosTeensMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{cursosTeensMB.gerarRelatorioFicha(cursosTeens)}"
+									action="#{cursosTeensMB.fichaCursosTeens(cursosTeens)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -1196,7 +1131,7 @@
 										</p:commandLink>
 
 										<p:commandLink
-											action="#{cursosTeensMB.gerarRelatorioContratoCurso(cursosTeens)}"
+											action="#{cursosTeensMB.contrato(cursosTeens)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:1px;">

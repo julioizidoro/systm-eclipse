@@ -27,21 +27,24 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
-import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB; 
+import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
+import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlework;
+import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Worktravel;
@@ -669,22 +672,22 @@ public class WorkTravelMB implements Serializable {
 		this.work = work;
 	}
 
-	public String cancelarVenda(Vendas venda) {
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else {
-			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
-			carregarListaVendasWork();
-		}
-		return "";
-	}
+//	public String cancelarVenda(Vendas venda) {
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			carregarListaVendasWork();
+//		}
+//		return "";
+//	}
 
 	public void salvarControle() throws SQLException {
 		Controlework controlework = new Controlework();
@@ -887,5 +890,91 @@ public class WorkTravelMB implements Serializable {
 	
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
+	}
+	
+	
+	public String cancelarVenda(Vendas vendas) {
+		if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vendas);
+			session.setAttribute("voltar", "consultaWorkandTravel");
+			return "emissaocancelamento";
+		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			vendas.setSituacao("CANCELADA");
+			vendasFacade.salvar(vendas);
+		}
+		return "";
+	}  
+	
+	
+	public String contrato(Worktravel worktravel){
+		this.work = worktravel;
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(worktravel.getVendas(), "WorkTravel");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + worktravel.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					worktravel.getVendas().getUsuario().getIdusuario() + worktravel.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public String fichaWorkTravel(Worktravel worktravel){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("worktravel", worktravel);
+		return "fichaWorkTravel";
+	}
+	
+	public String termoContratutal(Worktravel worktravel){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("worktravel", worktravel);
+		return "termoContratual";
+	}
+	
+	
+	public void verificarIdCredito(Worktravel worktravel) {
+		if (worktravel.getVendas().getCancelamento() != null) {
+			if (worktravel.getVendas().getCancelamento().getCancelamentocredito() != null) {
+				if (worktravel.getVendas().getCancelamento().getCancelamentocredito().getCredito().getTipocredito().equalsIgnoreCase("Crédito")) {
+					Credito credito = worktravel.getVendas().getCancelamento().getCancelamentocredito().getCredito();
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					session.setAttribute("credito", credito);
+					Map<String, Object> options = new HashMap<String, Object>();
+					options.put("contentWidth", 150);
+					RequestContext.getCurrentInstance().openDialog("visualizarIdCredito", options, null);
+				}else {
+					Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+				}
+			}else {
+				Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+			}
+		}else {
+			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+		}
+	}
+	
+	public String relatorioTermoQuitacao(Worktravel worktravel) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		Cancelamento cancelamento = cancelamentoFacade.consultar(worktravel.getVendas().getIdvendas());
+		session.setAttribute("cancelamento", cancelamento);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
+		return "";
 	}
 }

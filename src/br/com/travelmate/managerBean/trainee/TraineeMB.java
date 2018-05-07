@@ -27,24 +27,31 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Controletrainee; 
+import br.com.travelmate.model.Controletrainee;
+import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Parcelamentopagamento; 
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -680,22 +687,41 @@ public class TraineeMB implements Serializable {
 		this.trainee = trainee;
 	}
 
-	public String cancelarVenda(Vendas venda) {
-		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
+//	public String cancelarVenda(Vendas venda) {
+//		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			carregarListaVendasTrainee();
+//		}
+//		return "";
+//	}
+	
+	public String cancelarVenda(Trainee trainee) {
+		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| trainee.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+			session.setAttribute("vendas", trainee.getVendas());
+			session.setAttribute("voltar", "consultaTrainee");
+			return "emissaocancelamento";
+		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
+			trainee.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(trainee.getVendas());
 			carregarListaVendasTrainee();
 		}
 		return "";
-	}
+	}   
 
 	public void salvarControle() throws SQLException {
 		Controletrainee controletrainee = new Controletrainee();
@@ -890,5 +916,69 @@ public class TraineeMB implements Serializable {
 	
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
+	}
+	
+	
+	public String contrato(Trainee trainee){
+		this.trainee = trainee;
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(trainee.getVendas(), "Trainee");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + trainee.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					trainee.getVendas().getUsuario().getIdusuario() + trainee.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	public void verificarIdCredito(Trainee trainee) {
+		if (trainee.getVendas().getCancelamento() != null) {
+			if (trainee.getVendas().getCancelamento().getCancelamentocredito() != null) {
+				if (trainee.getVendas().getCancelamento().getCancelamentocredito().getCredito().getTipocredito().equalsIgnoreCase("Crédito")) {
+					Credito credito = trainee.getVendas().getCancelamento().getCancelamentocredito().getCredito();
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					session.setAttribute("credito", credito);
+					Map<String, Object> options = new HashMap<String, Object>();
+					options.put("contentWidth", 150);
+					RequestContext.getCurrentInstance().openDialog("visualizarIdCredito", options, null);
+				}else {
+					Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+				}
+			}else {
+				Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+			}
+		}else {
+			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+		}
+	}
+	
+	public String relatorioTermoQuitacao(Trainee trainee) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		Cancelamento cancelamento = cancelamentoFacade.consultar(trainee.getVendas().getIdvendas());
+		session.setAttribute("cancelamento", cancelamento);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
+		return "";
+	}
+	
+	public String fichaTrainee(Trainee trainee){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("trainee", trainee);
+		if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+			return "fichaTraineeAus";
+		}
+		return "fichaTraineeEUA";
 	}
 }

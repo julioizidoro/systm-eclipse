@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha High School</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../../resources/img/fichaCursoLogo.PNG" width="98%" />
+	</div>
+	<br/>
+	
+	<div align="left">
+		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />
+	</div>
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaHighSchoolMB.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nascimento:</b> <h:outputText
+						value="#{fichaHighSchoolMB.vendas.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaHighSchoolMB.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>   
+					<b>Local de Nascimento:</b> #{fichaHighSchoolMB.vendas.cliente.cidadeNascimento}, #{fichaHighSchoolMB.vendas.cliente.paisNascimento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>RG: </b> #{fichaHighSchoolMB.vendas.cliente.rg}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF: </b> #{fichaHighSchoolMB.vendas.cliente.cpf}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Passaporte: </b> #{fichaHighSchoolMB.vendas.cliente.numeroPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Expedição: </b> #{fichaHighSchoolMB.vendas.cliente.dataExpedicaoPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichaHighSchoolMB.vendas.cliente.validadePassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Endereço: </b> #{fichaHighSchoolMB.vendas.cliente.tipologradouro} #{fichaHighSchoolMB.vendas.cliente.logradouro} , #{fichaHighSchoolMB.vendas.cliente.numero}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Bairro: </b> #{fichaHighSchoolMB.vendas.cliente.bairro}
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Complemento: </b> #{fichaHighSchoolMB.vendas.cliente.complemento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichaHighSchoolMB.vendas.cliente.cep}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichaHighSchoolMB.vendas.cliente.cidade} , #{fichaHighSchoolMB.vendas.cliente.estado}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichaHighSchoolMB.vendas.cliente.pais}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichaHighSchoolMB.vendas.cliente.foneResidencial}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichaHighSchoolMB.vendas.cliente.foneCelular}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichaHighSchoolMB.vendas.cliente.email}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		
+		<br/>
+		<h:panelGroup style="color:green;"><b>FILIAÇÃO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome Pai:</b> #{fichaHighSchoolMB.vendas.cliente.nomePai}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup><b>Profissão do Pai: </b> #{fichaHighSchoolMB.vendas.cliente.profissaoPai}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>N CPF Pai: </b> #{fichaHighSchoolMB.highschool.cpfpai}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>N RG Pai:</b> #{fichaHighSchoolMB.highschool.rgpai}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nasc. Pai:</b> <h:outputText
+						value="#{fichaHighSchoolMB.highschool.datanascimentopai}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Nome Mãe: </b> #{fichaHighSchoolMB.vendas.cliente.nomeMae}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup><b>Profissão da Mãe: </b> #{fichaHighSchoolMB.vendas.cliente.profissaoMae}</h:panelGroup>
+				<h:panelGroup>
+					<b>N CPF MÃE: </b> #{fichaHighSchoolMB.highschool.cpfmae}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>N RG MÃE:</b> #{fichaHighSchoolMB.highschool.rgmae}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nasc. Mãe:</b> <h:outputText
+						value="#{fichaHighSchoolMB.highschool.datanascimentomae}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Fone Pai: </b> #{fichaHighSchoolMB.vendas.cliente.fonePai}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup><b>Fone Mãe: </b> #{fichaHighSchoolMB.vendas.cliente.foneMae}</h:panelGroup>
+				<br/>  
+			</h:panelGrid>   
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Nome Irmão: </b> #{fichaHighSchoolMB.highschool.nomeIrmao01}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nasc.:</b> <h:outputText
+						value="#{fichaHighSchoolMB.highschool.dnIrmao01}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Nome Irmão: </b> #{fichaHighSchoolMB.highschool.nomeIrmao02}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nasc.:</b> <h:outputText
+						value="#{fichaHighSchoolMB.highschool.dnIrmao02}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Nome Irmão: </b> #{fichaHighSchoolMB.highschool.nomeirmao03}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nasc.:</b> <h:outputText
+						value="#{fichaHighSchoolMB.highschool.dnIrmao03}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>ESCOLARIDADE </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Escolca:</b> #{fichaHighSchoolMB.highschool.nomeEscola}</h:panelGroup>
+				<h:panelGroup><b>Série/GRAU: </b> #{fichaHighSchoolMB.highschool.serie}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Local :</b> #{fichaHighSchoolMB.highschool.cidadeEscola}, #{fichaHighSchoolMB.highschool.estadoEscola}
+				</h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup><b>Reprovado? #{fichaHighSchoolMB.highschool.reprovadoEscola}</b></h:panelGroup>
+				<h:panelGroup><b>Quando? #{fichaHighSchoolMB.highschool.quandoReprovado}</b></h:panelGroup>
+				
+				
+				<br/>  
+			</h:panelGrid>   
+			
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>IDIOMAS </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="4">
+				<h:panelGroup><b>Idioma:</b> #{fichaHighSchoolMB.highschool.idioma01}</h:panelGroup>
+				<h:panelGroup><b>Escola: </b> #{fichaHighSchoolMB.highschool.escolaIdioma01}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Tempo :</b> #{fichaHighSchoolMB.highschool.tempoIdioma01}
+				</h:panelGroup>
+				<h:panelGroup><b>Nivel: #{fichaHighSchoolMB.highschool.nivelIdioma01}</b></h:panelGroup>
+				<h:panelGroup><b>Idioma:</b> #{fichaHighSchoolMB.highschool.idioma02}</h:panelGroup>
+				<h:panelGroup><b>Escola: </b> #{fichaHighSchoolMB.highschool.escolaIdioma02}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Tempo :</b> #{fichaHighSchoolMB.highschool.tempoIdioma02}
+				</h:panelGroup>
+				<h:panelGroup><b>Nivel: #{fichaHighSchoolMB.highschool.nivelIdioma02}</b></h:panelGroup>
+				<h:panelGroup><b>Idioma:</b> #{fichaHighSchoolMB.highschool.idioma03}</h:panelGroup>
+				<h:panelGroup><b>Escola: </b> #{fichaHighSchoolMB.highschool.escolaIdioma03}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Tempo :</b> #{fichaHighSchoolMB.highschool.tempoIdioma03}
+				</h:panelGroup>
+				<h:panelGroup><b>Nivel: #{fichaHighSchoolMB.highschool.nivelIdioma03}</b></h:panelGroup>
+				
+				<br/>  
+			</h:panelGrid>   
+			
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>SAÚDE </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup><b>Você é vegetariano?</b> #{fichaHighSchoolMB.highschool.vegetariano}</h:panelGroup>
+				<h:panelGroup><b>Você tem Alergia a algum medicamento ou alimento? Se sim quais? </b> #{fichaHighSchoolMB.highschool.alergia} , #{fichaHighSchoolMB.highschool.alergiaobs}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Toma algum tipo de medicação controlada? Se sim quais?</b> #{fichaHighSchoolMB.highschool.medicacao}, #{fichaHighSchoolMB.highschool.medicacaoobs}
+				</h:panelGroup>
+				
+				
+				<br/>  
+			</h:panelGrid>   
+			
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b> PROGRAMA ESCOLHIDO </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Programa/Escola:</b> #{fichaHighSchoolMB.highschool.escolaIntercambio}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Local :</b> #{fichaHighSchoolMB.highschool.paisIntercambio}
+				</h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup><b>Duração: #{fichaHighSchoolMB.highschool.duracaoIntercambio}</b></h:panelGroup>
+				<h:panelGroup><b>Início: #{fichaHighSchoolMB.highschool.valoreshighschool.inicio}/#{fichaHighSchoolMB.highschool.valoreshighschool.anoinicio}</b></h:panelGroup>
+				
+				<br/>  
+			</h:panelGrid>   
+			
+		</h:panelGrid>
+		<br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
+		</div>
+			
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">CONTATO DE EMERGÊNCIA NO BRASIL</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="1">
+						<h:panelGroup> <b>Nome:</b> #{fichaHighSchoolMB.highschool.nomeContatoEmergencia} 
+						</h:panelGroup>
+			</h:panelGrid> 
+			<h:panelGrid style="width:100%;" columns="3">
+						<h:panelGroup> <b>Relação:</b> #{fichaHighSchoolMB.highschool.foneContatoEmergencia} 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>E-mail:</b> #{fichaHighSchoolMB.highschool.emailConatoEmergencia} 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>Telefone:</b> #{fichaHighSchoolMB.highschool.foneContatoEmergencia} 
+						</h:panelGroup>
+			</h:panelGrid> 
+		<br /><br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/precoFormaFicha.PNG" width="53%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p:dataTable  id="idTabelaArquivos" var="produtos"
+				styleClass="table-transparent" value="#{fichaHighSchoolMB.vendas.orcamento.orcamentoprodutosorcamentoList}"
+				style="border:transparent;width:97%;" 
+				 
+				>
+
+				<p:column headerText=""
+					style="background:white; font-size:12px; color:white; border:none; text-align:left;color: black;width:75px;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.descricao}" style="color: black;font-size:12px;"/>
+				</p:column>
+				<p:column headerText="#{fichaHighSchoolMB.vendas.orcamento.cambio.moedas.sigla}"
+					style="width:30px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaEstrangeira}" style="color: black;font-size:12px;color: black;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="R$"
+					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaNacional}" style="color: black;font-size:12px;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+			</p:dataTable>
+			<h:panelGrid style="width:100%;">
+				<h:panelGrid style="width:97.3%;background-color:#CFCFCF;font-size:12px;" columns="2">
+					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
+					
+					<h:panelGrid style="width:88%;float:right;float: right;" columns="2">
+						<h:panelGroup style="text-align:right;float: right;">
+							#{fichaHighSchoolMB.vendas.orcamento.cambio.moedas.sigla}: <h:outputText
+								value="#{fichaHighSchoolMB.vendas.orcamento.totalMoedaEstrangeira}">  
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup style="text-align:right;float: right;">
+							R$: <h:outputText
+								value="#{fichaHighSchoolMB.vendas.orcamento.totalMoedaNacional}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGrid>
+	
+				<h:panelGrid style="width:100%;" columns="1">
+					<h:panelGroup>Moeda: #{fichaHighSchoolMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
+						 <h:outputText value="#{fichaHighSchoolMB.vendas.valorcambio}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Juros: R$ 
+						<h:outputText
+							value="#{fichaHighSchoolMB.vendas.formapagamento.valorJuros}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Final: R$ 
+						<h:outputText
+								value="#{fichaHighSchoolMB.vendas.formapagamento.valorTotal}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+					</h:panelGroup>
+	
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<ui:repeat var="parcelamento"
+				value="#{fichaHighSchoolMB.vendas.formapagamento.parcelamentopagamentoList}"
+				varStatus="statuss">
+				<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+				<hr style="width:97%;float: left;"/>
+				<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+							N° Parcelas: #{parcelamento.numeroParcelas}
+						</h:panelGroup>
+						<h:panelGroup>
+							Valor Parcela: R$ <h:outputText value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+				</h:panelGrid>
+				<br/>
+			</ui:repeat>
+		</h:panelGrid>
+		<br /><br />
+		<div align="left">
+			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border: 1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p style="margin:1%;">Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição. O saldo deverá ser quitado 
+			conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista. Não sendo cumprido o 
+			plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional 
+			organizadora   do   curso/programa/pacote   em   questão.   A   confirmação   final   do   curso/programa/pacote,   
+			acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da 
+			confirmação final do prestador final do serviço (instituição contratada) no exterior.
+			Em caso de cancelamento e reembolso:<br/>
+			• O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);<br/>
+			• Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso
+			  dos demais valores;<br/>
+			• A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituiçã
+			  do exterior;<br/>
+			• A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido
+			  de reembolso.<br/>
+			Esta é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o 
+			CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura 
+			de tal Contrato, e entrega ao mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não 
+			abordadas nesta Ficha de Inscrição.
+			Em  caso  de  dúvidas  solicite  o  CONTRATO  DE  PRESTAÇÃO  DE  SERVIÇOS  e  as  regras  específicas  
+			referentes ao programa de seu interesse.
+			Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
+		</h:panelGrid>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do(a)  #{fichaHighSchoolMB.vendas.cliente.nome} - CPF: #{fichaHighSchoolMB.vendas.cliente.cpf}</p>
+		<br/><br/><br /><br /><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do responsável (aquele que responde pelo participante no Brasil)</p>
+		<br/><br/><br /><br /><br />
+		<hr width="80%"  align="left"/>
+		<p>#{fichaHighSchoolMB.vendas.usuario.nome} - Representante TM</p>
+	</div>
+</h:body>
+</html>

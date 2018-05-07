@@ -47,7 +47,7 @@ public class CalcularMultaCancelamentoBean {
 		}else if (idcondicao==13){
 			return (float) (cancelamento.getVendas().getValor() * 0.60);
 		}else if (idcondicao==14){
-			return (float) (cancelamento.getVendas().getValor() * 0.60);
+			return (float) (cancelamento.getVendas().getValor() * 0.10);
 		}else if (idcondicao==15){
 			return 700 * cancelamento.getVendas().getValorcambio();
 		}else if (idcondicao==16){
@@ -103,6 +103,9 @@ public class CalcularMultaCancelamentoBean {
 		float totalreembolso = cancelamento.getTotalrecebido() - cancelamento.getMultacliente();
 		cancelamento.setTotalreembolso(totalreembolso);
 		float saldoCancelamento = cancelamento.getMultacliente() + cancelamento.getEstornoloja();
+		if (cancelamento.getMultafornecedor() == null) {
+			cancelamento.setMultafornecedor(0.0f);
+		}
 		if (cancelamento.getVendas().getVendascomissao()!=null){
 			saldoCancelamento = saldoCancelamento - (cancelamento.getVendas().getVendascomissao().getComissaotm() + cancelamento.getVendas().getVendascomissao().getTaxatm() + (cancelamento.getMultafornecedor()* cancelamento.getVendas().getValorcambio()));
 		}

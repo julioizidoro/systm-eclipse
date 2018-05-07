@@ -6,6 +6,7 @@
 package br.com.travelmate.managerBean.turismo;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
+import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -16,8 +17,10 @@ import br.com.travelmate.facade.PacoteTremFacade;
 import br.com.travelmate.facade.PacotesCarroFacade;
 import br.com.travelmate.facade.PacotesHotelFacade;
 import br.com.travelmate.facade.PacotesPassagemFacade;
+import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber; 
@@ -31,8 +34,10 @@ import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Pacotetransfer;
 import br.com.travelmate.model.Pacotetrem;
 import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vistos;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -569,18 +574,46 @@ public class PacoteMB implements Serializable {
 		}
 	}
 
-	public String cancelarVenda(Vendas venda) {
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//	public String cancelarVenda(Vendas venda) {
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
+//			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
+//			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+//				sql = sql + "and p.unidadenegocio.idunidadeNegocio="
+//						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+//			}
+//			sql = sql + " and p.vendas.dataVenda>='" + dataConsulta + "' order by p.vendas.dataVenda desc";
+//			listaPacotesAgencia = GerarListas.listarPacotes(sql);
+//		}
+//		return "";
+//	}
+	
+	
+	public String cancelarVenda(Pacotes pacotes) {
+		if (pacotes.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| pacotes.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else {
+			session.setAttribute("vendas", pacotes.getVendas());
+			session.setAttribute("voltar", "consultapacotesagencia");
+			return "emissaocancelamento";
+		}  else if (pacotes.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
+			Vendas vendas = pacotes.getVendas();
+			vendas.setSituacao("CANCELADA");
+			vendasFacade.salvar(vendas);
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -591,7 +624,7 @@ public class PacoteMB implements Serializable {
 			listaPacotesAgencia = GerarListas.listarPacotes(sql);
 		}
 		return "";
-	}
+	}   
 
 	public String corNome(Pacotes pacotes) {
 		if (pacotes.getVendas().getSituacao().equals("CANCELADA")) {
@@ -662,5 +695,32 @@ public class PacoteMB implements Serializable {
 			session.setAttribute("voltar", voltar);
 			return "consLogVenda";
 		}
+	}
+	
+	
+	public String contrato(Pacotes pacotes){
+		this.pacotes = pacotes;
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(pacotes.getVendas(), "Pacotes");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + pacotes.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					pacotes.getVendas().getUsuario().getIdusuario() + pacotes.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	public String fichaPacotes(Pacotes pacotes){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("pacotes", pacotes);
+		return "fichasPacotes";
 	}
 }

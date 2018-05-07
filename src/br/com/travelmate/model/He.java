@@ -142,6 +142,13 @@ public class He implements Serializable {
     private String localconclusaoensinomedo;
     @Column(name = "desistencia")
     private boolean desistencia;
+    @Column(name = "instituicao1")
+    private String instituicao1;
+    @Column(name = "instituicao2")
+    private String instituicao2;
+    @Column(name = "instituicao3")
+    private String instituicao3;
+    
 
     public He() {
     }
@@ -461,6 +468,30 @@ public class He implements Serializable {
 
 	public void setDesistencia(boolean desistencia) {
 		this.desistencia = desistencia;
+	}
+
+	public String getInstituicao1() {
+		return instituicao1;
+	}
+
+	public void setInstituicao1(String instituicao1) {
+		this.instituicao1 = instituicao1;
+	}
+
+	public String getInstituicao2() {
+		return instituicao2;
+	}
+
+	public void setInstituicao2(String instituicao2) {
+		this.instituicao2 = instituicao2;
+	}
+
+	public String getInstituicao3() {
+		return instituicao3;
+	}
+
+	public void setInstituicao3(String instituicao3) {
+		this.instituicao3 = instituicao3;
 	}
 
 	@Override

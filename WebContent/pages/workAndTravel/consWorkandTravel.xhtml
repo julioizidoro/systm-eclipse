@@ -205,7 +205,7 @@
 											</p:commandLink>
 											
 											<p:commandLink target="_blank"
-												action="#{workTravelMB.gerarRelatorioContrato(workTravelProcesso)}"
+												action="#{workTravelMB.contrato(workTravelProcesso)}"
 												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}">
 												<img src="../../resources/img/imprimiContrato.png" width="36"/>
 														<h:panelGrid columns="1" style="text-align:1px;">
@@ -221,6 +221,16 @@
 														<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="TERMO" style="font-size:11px;"/>
 															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.termoContratutal(workTravelProcesso)}"
+												title="IMPRIMIR O TERMO CONTRATUAL" ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="CONTRATUAL"  style="font-size:11px;"/>
 														</h:panelGrid>
 											</p:commandLink>
 											<p:commandLink
@@ -343,7 +353,7 @@
 							</p:column>  
 							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelFinanceiro)}"
+								<h:commandButton action="#{workTravelMB.fichaWorkTravel(workTravelFinanceiro)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png" 
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -356,13 +366,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:900px; border:none;">
 									<p:outputLabel
 										value="#{workTravelFinanceiro.vendas.idvendas} - #{workTravelFinanceiro.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="10">
 										
 											<p:commandLink action="#{workTravelMB.boletos(workTravelFinanceiro)}" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}"
 												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
@@ -386,7 +396,7 @@
 											</p:commandLink>
 											
 											<p:commandLink target="_blank"
-												action="#{workTravelMB.gerarRelatorioContrato(workTravelFinanceiro)}"
+												action="#{workTravelMB.contrato(workTravelFinanceiro)}"
 												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelFinanceiro)}">
 												<img src="../../resources/img/imprimiContrato.png" width="36"/>
 														<h:panelGrid columns="1" style="text-align:1px;">
@@ -402,6 +412,16 @@
 														<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="TERMO" style="font-size:11px;"/>
 															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.termoContratutal(workTravelFinanceiro)}"
+												title="IMPRIMIR O TERMO CONTRATUAL" ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="CONTRATUAL"  style="font-size:11px;"/>
 														</h:panelGrid>
 											</p:commandLink>
 											<p:commandLink
@@ -524,7 +544,7 @@
 							</p:column>  
 							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelAndamento)}"
+								<h:commandButton action="#{workTravelMB.fichaWorkTravel(workTravelAndamento)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png" 
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -537,13 +557,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:900px; border:none;">
 									<p:outputLabel
 										value="#{workTravelAndamento.vendas.idvendas} - #{workTravelAndamento.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="10">
 										
 											<p:commandLink action="#{workTravelMB.boletos(workTravelAndamento)}" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}"
 												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
@@ -567,7 +587,7 @@
 											</p:commandLink>
 											
 											<p:commandLink target="_blank"
-												action="#{workTravelMB.gerarRelatorioContrato(workTravelAndamento)}"
+												action="#{workTravelMB.contrato(workTravelAndamento)}"
 												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelAndamento)}">
 												<img src="../../resources/img/imprimiContrato.png" width="36"/>
 														<h:panelGrid columns="1" style="text-align:1px;">
@@ -583,6 +603,16 @@
 														<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="TERMO" style="font-size:11px;"/>
 															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.termoContratutal(workTravelAndamento)}"
+												title="IMPRIMIR O TERMO CONTRATUAL" ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="CONTRATUAL"  style="font-size:11px;"/>
 														</h:panelGrid>
 											</p:commandLink>
 											<p:commandLink
@@ -705,7 +735,7 @@
 							</p:column>  
 							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravelFinalizado)}"
+								<h:commandButton action="#{workTravelMB.fichaWorkTravel(workTravelFinalizado)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png" 
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -718,13 +748,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:900px; border:none;">
 									<p:outputLabel
 										value="#{workTravelFinalizado.vendas.idvendas} - #{workTravelFinalizado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="10">
 										
 											<p:commandLink action="#{workTravelMB.boletos(workTravelFinalizado)}" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}"
 												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
@@ -748,7 +778,7 @@
 											</p:commandLink>
 											
 											<p:commandLink target="_blank"
-												action="#{workTravelMB.gerarRelatorioContrato(workTravelFinalizado)}"
+												action="#{workTravelMB.contrato(workTravelFinalizado)}"
 												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelFinalizado)}">
 												<img src="../../resources/img/imprimiContrato.png" width="36"/>
 														<h:panelGrid columns="1" style="text-align:1px;">
@@ -763,7 +793,17 @@
 												<img src="../../resources/img/imprimiVisto.png" width="36"/>
 														<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="TERMO" style="font-size:11px;"/>
-															<p:outputLabel value="VISTO"/>
+															<p:outputLabel value="VISTO"  style="font-size:11px;"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.termoContratutal(workTravelFinalizado)}"
+												title="IMPRIMIR O TERMO CONTRATUAL" ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="CONTRATUAL"  style="font-size:11px;"/>
 														</h:panelGrid>
 											</p:commandLink>
 											<p:commandLink
@@ -899,112 +939,45 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:400px;">
 									<p:outputLabel
 										value="#{workTravelCancelado.vendas.idvendas} - #{workTravelCancelado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
-										
-											<p:commandLink action="#{workTravelMB.boletos(workTravelCancelado)}" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}"
-												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
-												ajax="false" target="_blank" >
-												<img src="../../resources/img/boletoFicha.png" width="36"/>
-														<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
-															<p:outputLabel value=" "/>
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
+											
+											<p:commandLink action="#{workTravelMB.relatorioTermoQuitacao(workTravelCancelado)}"
+													style="text-decoration: none" title="IMPRIMIR TERMO"
+													 >
+													<img src="../../resources/img/cancel.png" style="width: 36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="IMPRIMIR TERMO" style="font-size:10px;"/>
+															<p:outputLabel value="CANCELAMENTO" style="font-size:10px;"/>
 														</h:panelGrid>
-											</p:commandLink>  
-												
-											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-												update=":idfrmconsultaworkandtravel:dialog_obsTM"
-												oncomplete="PF('obstm').show()"> 
-												<p:ajax listener="#{workTravelMB.buscarObsTM(workTravelCancelado)}"/>  
-												<img src="#{workTravelMB.retornarIconeObsTM(workTravelCancelado)}" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="OBS" style="font-size:11px;"/>
-													<p:outputLabel value="TM"/>
+											</p:commandLink>   
+											
+											<p:commandLink action="#{workTravelMB.documentacao(workTravelCancelado)}"
+												update=":idfrmconsultaworkandtravel:growl" title="DOCUMENTOS"
+												 >
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="DOCS" style="font-size:10px;"/>
+													<p:outputLabel value=" "/>
 												</h:panelGrid>
 											</p:commandLink>
-											
-											<p:commandLink target="_blank"
-												action="#{workTravelMB.gerarRelatorioContrato(workTravelCancelado)}"
-												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
-												<img src="../../resources/img/imprimiContrato.png" width="36"/>
-														<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
-															<p:outputLabel value=" "/>
-														</h:panelGrid>
+											<p:commandLink action="#{workTravelMB.verificarIdCredito(workTravelCancelado)}"
+												update=":idfrmconsultaworkandtravel:growl" title="Verificar ID de Crédito"
+												 >
+												<img src="../../resources/img/numerosFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="VISUALIZAR" style="font-size:10px;"/>
+													<p:outputLabel value="ID CRÉDITO" style="font-size:10px;"/>
+												</h:panelGrid>
 											</p:commandLink>
-											<p:commandLink
-												action="#{workTravelMB.gerarRelatorioTermoVisto(workTravelCancelado)}"
-												title="IMPRIMIR O TERMO VISTO" ajax="false"
-												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
-												<img src="../../resources/img/imprimiVisto.png" width="36"/>
-														<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="TERMO" style="font-size:11px;"/>
-															<p:outputLabel value="VISTO"/>
-														</h:panelGrid>
-											</p:commandLink>
-											<p:commandLink
-												action="#{workTravelMB.gerarRelatorioRecibo(workTravelCancelado)}"
-												title="IMPRIMIR O RECIBO"  ajax="false"
-												target="_blank" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
-												<img src="../../resources/img/imprimiRecibo.png" width="36"/>
-														<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-															<p:outputLabel value=" "/>
-														</h:panelGrid>
-											</p:commandLink>
-											  
-												<p:commandLink action="#{workTravelMB.documentacao(workTravelCancelado)}"
-													title="DOCUMENTOS" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
-													<img src="../../resources/img/arquivosUpload.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="DOCS" style="font-size:11px;"/>
-															<p:outputLabel value=" "/>
-														</h:panelGrid>
-												</p:commandLink>
-												 
-												<p:commandLink action="#{workTravelMB.informacoes(workTravelCancelado)}"
-													 title="INFORMAÇÕES DA VENDA"
-													disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}">
-													<img src="../../resources/img/informacao.png" width="36" />
-													<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="INFO" style="font-size:11px;"/>
-															<p:outputLabel value=" "/>
-														</h:panelGrid>
-												</p:commandLink>
-												
-												<p:commandLink
-														action="#{workTravelMB.visualizarContasReceber(workTravelCancelado)}"
-														title="VISUALIZAR CONTAS A RECEBER" 
-														
-														 >
-														<img src="../../resources/img/invoice.png" width="36" />
-														<h:panelGrid columns="1" style="text-align:center;"> 
-															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
-														</h:panelGrid>
-													</p:commandLink> 
-												
-												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelCancelado.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelCancelado)}"
-													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaCancelado">
-													<p:confirm header="Cancelamento"
-															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
-													<img src="../../resources/img/cancel.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:1px;">
-															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-															<p:outputLabel value=" "/>
-														</h:panelGrid>
-													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
-														update="tabelaConsultaCancelado"/>
-												</p:commandLink>
-												
-									</h:panelGrid>
-								</p:overlayPanel>
-							</p:column>    
+									</h:panelGrid>    
+								</p:overlayPanel>   
+							</p:column> 
 						</p:dataTable>
 					</p:tab>
 					<p:tab title="Todos (#{workTravelMB.numeroFichas})"
@@ -1066,7 +1039,7 @@
 							</p:column>  
 							<p:column headerText="Imprimir" rendered="#{workTravelMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{workTravelMB.gerarRelatorioFicha(workTravel)}"
+								<h:commandButton action="#{workTravelMB.fichaWorkTravel(workTravel)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png" 
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">   
@@ -1079,13 +1052,13 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:900px; border:none;">
 									<p:outputLabel
 										value="#{workTravel.vendas.idvendas} - #{workTravel.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="10">
 										
 											<p:commandLink action="#{workTravelMB.boletos(workTravel)}" disabled="#{workTravelMB.botoesHabilitados(workTravel)}"
 												title="IMPRIMIR OS BOLETOS" image="../../resources/img/boletoFicha.png"
@@ -1109,7 +1082,7 @@
 											</p:commandLink>
 											
 											<p:commandLink target="_blank"
-												action="#{workTravelMB.gerarRelatorioContrato(workTravel)}"
+												action="#{workTravelMB.contrato(workTravel)}"
 												title="IMPRIMIR O CONTRATO"  ajax="false" disabled="#{workTravelMB.botoesHabilitados(workTravel)}">
 												<img src="../../resources/img/imprimiContrato.png" width="36"/>
 														<h:panelGrid columns="1" style="text-align:1px;">
@@ -1125,6 +1098,16 @@
 														<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="TERMO" style="font-size:11px;"/>
 															<p:outputLabel value="VISTO"/>
+														</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink
+												action="#{workTravelMB.termoContratutal(workTravel)}"
+												title="IMPRIMIR O TERMO CONTRATUAL" ajax="false"
+												target="_blank" >
+												<img src="../../resources/img/imprimiVisto.png" width="36"/>
+														<h:panelGrid columns="1" style="text-align:1px;">
+															<p:outputLabel value="TERMO" style="font-size:11px;"/>
+															<p:outputLabel value="CONTRATUAL"  style="font-size:11px;"/>
 														</h:panelGrid>
 											</p:commandLink>
 											<p:commandLink

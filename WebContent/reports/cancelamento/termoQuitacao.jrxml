@@ -2,65 +2,25 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Termo de Ciência do Visto " pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="29"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="idcancelamento" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="banco" class="java.lang.String"/>
 	<parameter name="logo" class="java.awt.Image"/>
 	<parameter name="agencia" class="java.lang.String"/>
 	<parameter name="conta" class="java.lang.String"/>
 	<parameter name="titular" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="cpf" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="valorreembolso" class="java.lang.String"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="texto" class="java.lang.String"/>
+	<parameter name="nome" class="java.lang.String"/>
+	<parameter name="cpfcliente" class="java.lang.String"/>
+	<parameter name="cpf" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[Select distinct cliente.nome, cliente.numeroPassaporte, cliente.cpf, cliente.rg,
-cliente.tipologradouro,cliente.logradouro,cliente.cep, cliente.cidade,cliente.estado,cancelamento.valorreembolso,
-produtos.descricao as descricaoproduto, pais.nome as nomepais,cancelamento.valorreembolso
-from cancelamento
-join Vendas on cancelamento.vendas_idvendas= vendas.idvendas
-join Produtos on vendas.produtos_idprodutos= produtos.idprodutos
-join fornecedorcidade on vendas.fornecedorcidade_idfornecedorcidade = fornecedorcidade.idfornecedorcidade
-join cidade on fornecedorcidade.cidade_idcidade = cidade.idcidade
-join pais on cidade.pais_idpais = pais.idpais
-join Cliente on vendas.cliente_idcliente= cliente.idcliente
-where cancelamento.idcancelamento=$P{idcancelamento};]]>
+		<![CDATA[$P!{sql}]]>
 	</queryString>
-	<field name="nome" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="numeroPassaporte" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cpf" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="rg" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tipologradouro" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="logradouro" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cep" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cidade" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="estado" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="valorreembolso" class="java.lang.Float">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="descricaoproduto" class="java.lang.String"/>
-	<field name="nomepais" class="java.lang.String"/>
 	<title>
 		<band height="108" splitType="Stretch">
 			<image>
@@ -81,17 +41,12 @@ where cancelamento.idcancelamento=$P{idcancelamento};]]>
 				</textElement>
 				<text><![CDATA[RECIBO COM TERMO DE QUITAÇÃO]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="10" y="52" width="532" height="107" uuid="c1a1be96-3f7d-423e-a6ac-c70a80ea5720"/>
+			<textField isBlankWhenNull="false">
+				<reportElement x="10" y="38" width="532" height="134" uuid="c1a1be96-3f7d-423e-a6ac-c70a80ea5720"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Eu, " + $F{nome} + ", brasileiro, portador do CPF/MF n.º  " +
-$F{cpf} + ", residente e domiciliado na "+$F{tipologradouro}+" "+$F{logradouro}+" CEP "+$F{cep}
-+", "+$F{cidade}+", "+$F{estado}+
-", declaro a quem possa interessar que recebi da empresa TRAVELMATE INTERCÂMBIO E TURISMO LTDA, pessoa jurídica de direito privado, inscrita sob o CNPJ/MF n.º 05.138.734/0001-55, a quantia de R$ " +
-$P{valorreembolso} +", referente a reembolso em decorrência do cancelamento do programa de "+
-$F{descricaoproduto} +" no "+$F{nomepais}+"."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{texto}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="178" width="532" height="15" uuid="992d29c8-1762-4361-9838-4f3cd48ab43f"/>
@@ -174,7 +129,7 @@ $F{descricaoproduto} +" no "+$F{nomepais}+"."]]></textFieldExpression>
 			<textField isBlankWhenNull="true">
 				<reportElement x="121" y="463" width="307" height="20" uuid="715e7d50-bf92-4569-91f9-80392433f1a4"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{nome}+", "+$F{rg}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nome} + ", " + $P{cpfcliente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="60" y="241" width="307" height="16" uuid="29f1bce3-96bb-4dc2-87fa-129d1afaaa92"/>

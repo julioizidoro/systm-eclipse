@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Voluntariado</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../../resources/img/fichaCursoLogo.PNG" width="98%" />
+	</div>
+	<br/>
+	
+	<div align="left">
+		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />
+	</div>
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nascimento:</b> <h:outputText
+						value="#{contratoCursoMB.curso.vendas.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>   
+					<b>Local de Nascimento:</b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.cidadeNascimento}, #{fichaVoluntariadoMB.voluntariado.vendas.cliente.paisNascimento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>RG: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.rg}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.cpf}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Passaporte: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.numeroPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Expedição: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.dataExpedicaoPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.validadePassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Profissão: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.profissao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Nível Estudo: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup/>
+			</h:panelGrid>   
+
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>
+					<b>Nível de Conhecimento do idioma: </b> #{fichaVoluntariadoMB.voluntariado.nivelIdiomaEstudar}
+				</h:panelGroup>
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>ESCOLARIDADE </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<h:panelGrid style="border:2px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:97%;" columns="2">
+				<h:panelGroup><b>Instituição onde Estuda:</b> #{fichaVoluntariadoMB.voluntariado.instituicaoEstuda}</h:panelGroup>
+				<h:panelGroup><b>Curso: </b> #{fichaVoluntariadoMB.voluntariado.cursoEstuda}</h:panelGroup>
+				<h:panelGroup>
+					<b>Duração: </b>  #{fichaVoluntariadoMB.voluntariado.duracaoCursoEstuda}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Cursando qual período :</b> #{fichaVoluntariadoMB.voluntariado.periodoCursoEstuda}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Matricula:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataMatriculaCursoEstuda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Estimada Término:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataEstimadaTerminoCursoEstuda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Profissão :</b> #{fichaVoluntariadoMB.voluntariado.profissao}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Cargo :</b> #{fichaVoluntariadoMB.voluntariado.cargo}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Descrição do Cargo :</b> #{fichaVoluntariadoMB.voluntariado.descricaoCargo}
+				</h:panelGroup>
+				<h:panelGroup>   
+					
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Outras Habilidades :</b> #{fichaVoluntariadoMB.voluntariado.outrasHabilidade}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>CURSO | PROGRAMA ESCOLHIDO </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaVoluntariadoMB.voluntariado.curso}</h:panelGroup>
+				<h:panelGroup><b>Parceiro: </b> </h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Local :</b> 
+				</h:panelGroup>
+				<h:panelGroup><b>Aulas Por Semana: #{fichaVoluntariadoMB.voluntariado.aulasporSemana}</b></h:panelGroup>
+				<h:panelGroup><b>N° Semanas: #{fichaVoluntariadoMB.voluntariado.numeroSemanas}</b></h:panelGroup>
+				<h:panelGroup>
+					<b>Data Início:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				
+				<br/>  
+			</h:panelGrid>   
+			
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>Voluntariado | PROGRAMA ESCOLHIDO </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Projeto Voluntariado:</b> #{fichaVoluntariadoMB.voluntariado.projetoVoluntariado}</h:panelGroup>
+				<h:panelGroup><b>Parceiro: </b> </h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Local :</b> 
+				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>
+					<b>Data Início:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataInicioVoluntariado}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataTerminoVoluntariado}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				
+				<br/>  
+			</h:panelGrid> 
+			 
+			<h:panelGrid style="width:100%;" columns="1">
+				
+				
+				<h:panelGroup>   
+					Experiências e habilidades relevantes ao projeto escolhido: #{fichaVoluntariadoMB.voluntariado.experienciaVoluntariado}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Qual motivo que levou a decidir a ser um voluntário?(explique sua motivação): #{fichaVoluntariadoMB.voluntariado.motivoVoluntariado}
+				</h:panelGroup>
+				
+				
+			</h:panelGrid>  
+		</h:panelGrid>
+		<br/>  
+		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<br />
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+		
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Acomodação:</b> #{fichaVoluntariadoMB.voluntariado.tipoAcomodacao}</h:panelGroup>
+				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaVoluntariadoMB.voluntariado.tipoQuarto}</h:panelGroup>
+				<h:panelGroup>
+					
+				</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:71%;" columns="2">
+				<h:panelGroup>   
+					<b>N° Semanas :</b> #{fichaVoluntariadoMB.voluntariado.numeroSemanasAcomodacao}
+				</h:panelGroup>
+				<h:panelGroup><b>Refeições:</b> #{fichaVoluntariadoMB.voluntariado.refeicoes}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Chegada:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataChegadaAcomodacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataPartidaAcomodacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>   
+			</h:panelGrid>
+			 <h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>   
+					Você prefere familía com crianças ? #{fichaVoluntariadoMB.voluntariado.familiaCrianca}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você prefere familía com animais de estimação ? #{fichaVoluntariadoMB.voluntariado.familiaAnimais}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você é fumante ? #{fichaVoluntariadoMB.voluntariado.fumante}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você é vegetariano ? #{fichaVoluntariadoMB.voluntariado.vegetariano}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Quais são seus interesses ou hobbies ? #{fichaVoluntariadoMB.voluntariado.hobbies}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você tem alegria a algum medicamento ou alimento ? Se sim quais ? #{fichaVoluntariadoMB.voluntariado.possuiAlergia} , #{fichaVoluntariadoMB.voluntariado.quaisAlergias}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Solicitações especiais (não há garantias) ? #{fichaVoluntariadoMB.voluntariado.solicitacoesEspeciais}
+				</h:panelGroup>
+				
+			</h:panelGrid> 
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>CHEGADA AO DESTINO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Transfer in:</b> #{fichaVoluntariadoMB.voluntariado.transferin}</h:panelGroup>
+				<h:panelGroup><b>Transfer out: </b> #{fichaVoluntariadoMB.voluntariado.transferout}</h:panelGroup>
+				<h:panelGroup><b>Vôo: </b> #{fichaVoluntariadoMB.voluntariado.voo}</h:panelGroup>
+				<h:panelGroup>   
+					<b>Cia:</b> #{fichaVoluntariadoMB.voluntariado.ciaerea}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Cia:</b> #{fichaVoluntariadoMB.voluntariado.horario}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Dia Chegada:</b> <h:outputText
+						value="#{fichaVoluntariadoMB.voluntariado.dataChegadaTransfer}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				
+				<br/>  
+			</h:panelGrid> 
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>INFORMAÇÕES DE SAÚDE </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<h:panelGrid style="border:2px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup><b>Tem alguma deficiência fisíca?</b> #{fichaVoluntariadoMB.voluntariado.deficienciaFisica}</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Tem algum problema de saúde que prejudique suas funções no emprego pretendido? </b>  #{fichaVoluntariadoMB.voluntariado.possuiProblemaSaude} , #{fichaVoluntariadoMB.voluntariado.descricaoProblemaSaude}
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Necessita de tratamento médico ou algum medicamento controlado?:</b> #{fichaVoluntariadoMB.voluntariado.tratamentoMedico} , #{fichaVoluntariadoMB.voluntariado.descricaoMedico}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Já teve tratamento devido ao uso de drogas ou algum medicamento para distúrbios psicológicos?: </b>  #{fichaVoluntariadoMB.voluntariado.tratamentoDrogas} , #{fichaVoluntariadoMB.voluntariado.descricaoDrogas}
+				</h:panelGroup>
+				<h:panelGroup><b>Você fez alguma cirurgia nos últimos 3 anos?</b> #{fichaVoluntariadoMB.voluntariado.fezCirurgia} , #{fichaVoluntariadoMB.voluntariado.descricaoCirurgia}</h:panelGroup>
+				<h:panelGroup><b>Descreva seu nível de fitness :</b> #{fichaVoluntariadoMB.voluntariado.dietaEspecifica}</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br /><br /><br /><br /><br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGroup style="margin-left: 0.3%;">CARTÃO VTM: #{fichaVoluntariadoMB.voluntariado.cartaoVTM} </h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="3">
+	
+						<h:panelGroup rendered="#{fichaVoluntariadoMB.habilitarCartãoVtm}">
+							<b>N° Cartão:</b> #{fichaVoluntariadoMB.voluntariado.numeroCartaoVTM} 
+						</h:panelGroup>
+						<h:panelGroup rendered="#{fichaVoluntariadoMB.habilitarCartãoVtm}">
+							<b>Moeda:</b> #{fichaVoluntariadoMB.voluntariado.moedaCartaoVTM}
+						</h:panelGroup>
+			</h:panelGrid>  
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">SEGURO VIAGEM</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="3">
+						<h:panelGroup><b>Seguro Viagem:</b>  #{fichaVoluntariadoMB.voluntariado.seguroViagem}
+						</h:panelGroup>
+							<b>Seguradora:</b> #{fichaVoluntariadoMB.voluntariado.seguradora}
+						<h:panelGroup >
+							<b>N° dias:</b> #{fichaVoluntariadoMB.voluntariado.numeroSemanasSeguro}
+						</h:panelGroup>
+						<h:panelGroup >
+							<b>Plano:</b> #{fichaVoluntariadoMB.voluntariado.planoSeguro}
+						</h:panelGroup>
+						<h:panelGroup>
+							<b>Data Chegada:</b> <h:outputText
+								value="#{fichaVoluntariadoMB.voluntariado.dataInicioSeguro}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+							<b>Data Partida:</b> <h:outputText
+								value="#{fichaVoluntariadoMB.voluntariado.dataTerminoSeguro}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+			</h:panelGrid> 
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">PASSAGEM AÉREA QUANDO NÃO INCLUIDA NO PROGRAMA</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="2">
+						<h:panelGroup> <b>Tipo de Emissão:</b> #{fichaVoluntariadoMB.voluntariado.passagemAerea} 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>Observações:</b> #{fichaVoluntariadoMB.voluntariado.observacaoPassagem} 
+						</h:panelGroup>
+			</h:panelGrid> 
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">SOLICITAÇÃO DE VISTA CONSULAR</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="2">
+						<h:panelGroup> <b>Tipo de Solicitação:</b> #{fichaVoluntariadoMB.voluntariado.vistoConsular} 
+						</h:panelGroup>
+						<h:panelGroup>
+							<b>Observações:</b> #{fichaVoluntariadoMB.voluntariado.observacaoVistoConsultar} 
+						</h:panelGroup>
+			</h:panelGrid>  
+		</h:panelGrid>
+		<br /><br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/precoFormaFicha.PNG" width="53%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p:dataTable  id="idTabelaArquivos" var="produtos"
+				styleClass="table-transparent" value="#{fichaVoluntariadoMB.vendas.orcamento.orcamentoprodutosorcamentoList}"
+				style="border:transparent;width:97%;" 
+				 
+				>
+
+				<p:column headerText=""
+					style="background:white; font-size:12px; color:white; border:none; text-align:left;color: black;width:75px;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.descricao}" style="color: black;font-size:12px;"/>
+				</p:column>
+				<p:column headerText="#{fichaVoluntariadoMB.vendas.orcamento.cambio.moedas.sigla}"
+					style="width:30px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaEstrangeira}" style="color: black;font-size:12px;color: black;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="R$"
+					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaNacional}" style="color: black;font-size:12px;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+			</p:dataTable>
+			<h:panelGrid style="width:100%;">
+				<h:panelGrid style="width:97.3%;background-color:#CFCFCF;font-size:12px;" columns="2">
+					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
+					
+					<h:panelGrid style="width:88%;float:right;float: right;" columns="2">
+						<h:panelGroup style="text-align:right;float: right;">
+							#{fichaVoluntariadoMB.vendas.orcamento.cambio.moedas.sigla}: <h:outputText
+								value="#{fichaVoluntariadoMB.vendas.orcamento.totalMoedaEstrangeira}">  
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup style="text-align:right;float: right;">
+							R$: <h:outputText
+								value="#{fichaVoluntariadoMB.vendas.orcamento.totalMoedaNacional}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGrid>
+	
+				<h:panelGrid style="width:100%;" columns="1">
+					<h:panelGroup>Moeda: #{fichaVoluntariadoMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
+						 <h:outputText value="#{fichaVoluntariadoMB.vendas.valorcambio}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Juros: R$ 
+						<h:outputText
+							value="#{fichaVoluntariadoMB.vendas.formapagamento.valorJuros}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Final: R$ 
+						<h:outputText
+								value="#{fichaVoluntariadoMB.vendas.formapagamento.valorTotal}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+					</h:panelGroup>
+	
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<ui:repeat var="parcelamento"
+				value="#{fichaVoluntariadoMB.vendas.formapagamento.parcelamentopagamentoList}"
+				varStatus="statuss">
+				<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+				<hr style="width:97%;float: left;"/>
+				<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+							N° Parcelas: #{parcelamento.numeroParcelas}
+						</h:panelGroup>
+						<h:panelGroup>
+							Valor Parcela: R$ <h:outputText value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+				</h:panelGrid>
+				<br/>
+			</ui:repeat>
+		</h:panelGrid>
+		<br /><br />
+		<div align="left">
+			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border: 1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p style="margin:1%;">Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição. O saldo deverá ser quitado 
+			conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista. Não sendo cumprido o 
+			plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional 
+			organizadora   do   curso/programa/pacote   em   questão.   A   confirmação   final   do   curso/programa/pacote,   
+			acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da 
+			confirmação final do prestador final do serviço (instituição contratada) no exterior.
+			Em caso de cancelamento e reembolso:<br/>
+			• O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);<br/>
+			• Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso
+			  dos demais valores;<br/>
+			• A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituiçã
+			  do exterior;<br/>
+			• A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido
+			  de reembolso.<br/>
+			Esta é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o 
+			CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura 
+			de tal Contrato, e entrega ao mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não 
+			abordadas nesta Ficha de Inscrição.
+			Em  caso  de  dúvidas  solicite  o  CONTRATO  DE  PRESTAÇÃO  DE  SERVIÇOS  e  as  regras  específicas  
+			referentes ao programa de seu interesse.
+			Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
+		</h:panelGrid>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do(a)  #{fichaVoluntariadoMB.vendas.cliente.nome} - CPF: #{fichaVoluntariadoMB.vendas.cliente.cpf}</p>
+		<br/><br/><br /><br /><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do responsável (aquele que responde pelo participante no Brasil)</p>
+		<br/><br/><br /><br /><br />
+		<hr width="80%"  align="left"/>
+		<p>#{fichaVoluntariadoMB.vendas.usuario.nome} - Representante TM</p>
+	</div>
+</h:body>
+</html>

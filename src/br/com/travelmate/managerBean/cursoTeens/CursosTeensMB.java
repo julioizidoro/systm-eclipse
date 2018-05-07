@@ -6,7 +6,8 @@
 package br.com.travelmate.managerBean.cursoTeens;
  
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
@@ -14,12 +15,18 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Contasreceber; 
+import br.com.travelmate.model.Cancelamento;
+import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Fornecedor; 
+import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
@@ -682,21 +689,41 @@ public class CursosTeensMB implements Serializable {
 		return "consArquivos";
 	}
 
-	public String cancelarVenda(Vendas venda){
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
+//	public String cancelarVenda(Vendas venda){
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
+//			Map<String, Object> options = new HashMap<String, Object>();
+//	    	options.put("contentWidth", 400);
+//	    	FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		}else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//		}
+//		return "";
+//	}
+	
+	
+	public String cancelarVenda(Vendas venda) {
+		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
-	    	options.put("contentWidth", 400);
-	    	FacesContext fc = FacesContext.getCurrentInstance();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		}else {
+			session.setAttribute("vendas", venda);
+			session.setAttribute("voltar", "consultaProgramasTeens");
+			return "emissaocancelamento";
+		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
 			venda.setSituacao("CANCELADA");
 			vendasFacade.salvar(venda);
+			carregarListaVendas();
 		}
 		return "";
-	}
+	}    
 	
 	
 	public String visualizarContasReceber(Vendas venda){
@@ -878,4 +905,66 @@ public class CursosTeensMB implements Serializable {
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
 	}
+	
+	public String contrato(Programasteens programasteens){
+		this.programasteens = programasteens;
+		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(programasteens.getVendas(), "Teens");
+		try {
+			String texto = lerArquivoTxt.ler();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + programasteens.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+					programasteens.getVendas().getUsuario().getIdusuario() + programasteens.getVendas().getIdvendas() + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	public String fichaCursosTeens(Programasteens programasteens){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("programasteens", programasteens);
+		return "fichaCursosTeens";
+	}
+	
+	
+	public void verificarIdCredito(Programasteens programasteens) {
+		if (programasteens.getVendas().getCancelamento() != null) {
+			if (programasteens.getVendas().getCancelamento().getCancelamentocredito() != null) {
+				if (programasteens.getVendas().getCancelamento().getCancelamentocredito().getCredito().getTipocredito().equalsIgnoreCase("Crédito")) {
+					Credito credito = programasteens.getVendas().getCancelamento().getCancelamentocredito().getCredito();
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					session.setAttribute("credito", credito);
+					Map<String, Object> options = new HashMap<String, Object>();
+					options.put("contentWidth", 150);
+					RequestContext.getCurrentInstance().openDialog("visualizarIdCredito", options, null);
+				}else {
+					Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+				}
+			}else {
+				Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+			}
+		}else {
+			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+		}
+	}
+	
+	public String relatorioTermoQuitacao(Programasteens programasteens) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		Cancelamento cancelamento = cancelamentoFacade.consultar(programasteens.getVendas().getIdvendas());
+		session.setAttribute("cancelamento", cancelamento);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
+		return "";
+	}
+
 }

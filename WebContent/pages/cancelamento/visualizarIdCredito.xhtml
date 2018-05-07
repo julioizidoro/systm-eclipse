@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"> 
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+    </h:head> 
+ <h:body > 
+        <h:form id="idDialogAnexarArquivo" style="text-align:left;font-size:11px; margin-left: 1%; ">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+			<title  >ID DO CRÉDITO</title>
+			<p:growl id="growl" showDetail="true" autoUpdate="true" closable="true" />
+			<h:panelGrid columns="1" style="width:100%;text-align:center;">  
+				<p:outputLabel value="#{visualizarIdCreditoMB.credito.idcredito}" style="font-size:40px;color:green;"/>   
+			</h:panelGrid>
+        </h:form>
+ </h:body>
+ 
+</html>

@@ -174,7 +174,7 @@
 								</p:column>
 								<p:column 
 									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosProcesso)}" 
+									<h:commandButton action="#{vistosMB.fichasVistos(vistosProcesso)}" 
 										title="Ficha de visto" 
 										image="../../resources/img/imprimiFicha.png"
 										style="width:21%;margin-left:4%" ajax="false"
@@ -220,7 +220,7 @@
 									</p:commandLink>
 								</p:column>
 								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosProcesso.vendas)}"
+									<p:commandLink action="#{vistosMB.cancelarVenda(vistosProcesso)}"
 										disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}"
 										style="text-decoration: none" title="Cancelar Ficha"
 										update="tabelaConsultaProcesso">
@@ -352,7 +352,7 @@
 									</p:commandLink>
 								</p:column>
 								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinanceiro.vendas)}"
+									<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinanceiro)}"
 										disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}"
 										style="text-decoration: none" title="Cancelar Ficha"
 										update="tabelaConsultaFinanceiro">
@@ -484,7 +484,7 @@
 									</p:commandLink>
 								</p:column>
 								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosAndamento.vendas)}"
+									<p:commandLink action="#{vistosMB.cancelarVenda(vistosAndamento)}"
 										disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}"
 										style="text-decoration: none" title="Cancelar Ficha"
 										update="tabelaConsultaAndamento">
@@ -555,7 +555,7 @@
 								</p:column>
 								<p:column headerText="Imprimir" rendered="#{vistosMB.esconderFicha}"
 									style="width:58px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosFinalizada)}"
+									<h:commandButton action="#{vistosMB.fichasVistos(vistosFinalizada)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
 										style="width:65%;margin-left:4%">   
@@ -570,15 +570,15 @@
 								</p:column>
 								<p:column 
 									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosFinalizada)}" 
+									<h:commandButton action="#{vistosMB.fichasVistos(vistosFinalizada)}" 
 										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"
+										image="../../resources/img/imprimiFicha.png"  
 										style="width:21%;margin-left:4%" ajax="false"
 										onclick="this.form.target='_blank'"
 										disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
 									</h:commandButton>
 									<h:commandButton  
-										action="#{vistosMB.gerarRelatorioContrato(vistosFinalizada)}"
+										action="#{vistosMB.contrato(vistosFinalizada)}"
 										title="Contrato" image="../../resources/img/imprimiContrato.png"
 										style="width:21%;margin-left:4%" ajax="false"
 										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
@@ -616,7 +616,7 @@
 									</p:commandLink>
 								</p:column>
 								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinalizada.vendas)}"
+									<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinalizada)}"
 										disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}"
 										style="text-decoration: none" title="Cancelar Ficha"
 										update="tabelaConsultaFinalizada">
@@ -880,7 +880,7 @@
 									</p:commandLink>
 								</p:column>
 								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistos.vendas)}"
+									<p:commandLink action="#{vistosMB.cancelarVenda(vistos)}"
 										disabled="#{vistosMB.botoesHabilitados(vistos)}"
 										style="text-decoration: none" title="Cancelar Ficha"
 										update="tabelaVistos">

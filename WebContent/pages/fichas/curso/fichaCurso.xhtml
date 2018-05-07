@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Curso</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../../resources/img/fichaCursoLogo.PNG" width="98%" />
+	</div>
+	<br/>
+	
+	<div align="left">
+		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />
+	</div>
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaCursoMB.curso.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Nascimento:</b> <h:outputText
+						value="#{fichaCursoMB.curso.vendas.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaCursoMB.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>   
+					<b>Local de Nascimento:</b> #{fichaCursoMB.vendas.cliente.cidadeNascimento}, #{fichaCursoMB.vendas.cliente.paisNascimento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>RG: </b> #{fichaCursoMB.vendas.cliente.rg}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CPF: </b> #{fichaCursoMB.vendas.cliente.cpf}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Passaporte: </b> #{fichaCursoMB.vendas.cliente.numeroPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Expedição: </b> #{fichaCursoMB.vendas.cliente.dataExpedicaoPassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Validade: </b> #{fichaCursoMB.vendas.cliente.validadePassaporte}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Profissão: </b> #{fichaCursoMB.vendas.cliente.profissao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Nível Estudo: </b> #{fichaCursoMB.vendas.cliente.escolaridade}
+				</h:panelGroup>
+				<h:panelGroup/>
+			</h:panelGrid>   
+
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>
+					<b>Nível de Conhecimento do idioma: </b> #{fichaCursoMB.curso.nivelIdiomaEstudar}
+				</h:panelGroup>
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>CURSO | PROGRAMA ESCOLHIDO </b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Nome:</b> #{fichaCursoMB.curso.nomeCurso}</h:panelGroup>
+				<h:panelGroup><b>Parceiro: </b> #{fichaCursoMB.curso.escola}</h:panelGroup>
+				<h:panelGroup>
+					<b>Turno: </b> 
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Local :</b> #{fichaCursoMB.curso.cidade}, #{fichaCursoMB.curso.pais}
+				</h:panelGroup>
+				<h:panelGroup><b>Aulas Por Semana:</b> #{fichaCursoMB.aulasSemana}</h:panelGroup>
+				<h:panelGroup><b>N° Semanas:</b> #{fichaCursoMB.curso.numeroSenamas}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Início:</b> <h:outputText
+						value="#{fichaCursoMB.curso.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término:</b> <h:outputText
+						value="#{fichaCursoMB.curso.dataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				
+				<br/>  
+			</h:panelGrid>   
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+				<h:panelGroup><b>Nome:</b> #{fichaCursoMB.curso.SCurso}</h:panelGroup>
+				<h:panelGroup><b>Parceiro: </b> #{fichaCursoMB.curso.escola}</h:panelGroup>
+				<h:panelGroup>
+					<b>Turno: </b> 
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>Local :</b> #{fichaCursoMB.curso.cidade}, #{fichaCursoMB.curso.pais}
+				</h:panelGroup>
+				<h:panelGroup><b>Aulas Por Semana: #{fichaCursoMB.curso.SCargaHoraria}</b></h:panelGroup>
+				<h:panelGroup><b>N° Semanas: #{fichaCursoMB.curso.SNumeroSemanas}</b></h:panelGroup>
+				<h:panelGroup>
+					<b>Data Início:</b> <h:outputText
+						value="#{fichaCursoMB.curso.SDataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término:</b> <h:outputText
+						value="#{fichaCursoMB.curso.SDataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>
+					<b>Data Chegada:</b> <h:outputText
+						value="#{fichaCursoMB.curso.dataChegada}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida:</b> <h:outputText
+						value="#{fichaCursoMB.curso.dataSaida}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>   
+			</h:panelGrid>   
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarDadosPais}"><b>DADOS DOS PAIS </b></h:panelGroup>
+		<h:panelGroup rendered="#{fichaCursoMB.habilitarDadosPais}">
+			<hr style="color:green;" />
+		</h:panelGroup>
+		<br/>
+		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarDadosPais}"><b>PAI</b></h:panelGroup>
+		<h:panelGrid style="border:1px solid;width:97%;border-color:#9C9C9C;" rendered="#{fichaCursoMB.habilitarDadosPais}">
+			<h:panelGrid style="width:100%;" columns="3" >
+					<h:panelGroup><b>Nome Pai:</b> #{fichaCursoMB.dadospai.nomepai}</h:panelGroup>
+					<h:panelGroup>
+						<b>Data Nascimento:</b> <h:outputText
+							value="#{fichaCursoMB.dadospais.datanascimentopai}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</h:panelGroup>
+					<h:panelGroup><b>Fone: </b> #{fichaCursoMB.dadospais.telefonepai}</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="1" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+					<h:panelGroup>
+						<b>Endereço: </b> #{fichaCursoMB.dadospais.tipologradouropai}, #{fichaCursoMB.dadospais.logadouropai}, #{fichaCursoMB.dadospais.numeropai}, #{fichaCursoMB.dadospais.complementopai}
+					</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+					<h:panelGroup>   
+						<b>Bairro :</b> #{fichaCursoMB.dadospais.bairropai}, #{fichaCursoMB.curso.pais}
+					</h:panelGroup>
+					<h:panelGroup><b>CEP: #{fichaCursoMB.dadospais.ceppai}</b></h:panelGroup>
+					<h:panelGroup><b>Cidade/Estado: #{fichaCursoMB.dadospais.cidadepais}/#{fichaCursoMB.dadospais.estadopai}</b></h:panelGroup>
+					<h:panelGroup><b>E-mail: #{fichaCursoMB.dadospais.emailpai}</b></h:panelGroup>
+			</h:panelGrid>
+			   
+		<br/>
+		</h:panelGrid>  
+		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarDadosPais}"><b>MÃE</b></h:panelGroup>
+		<h:panelGrid style="border:1px solid;width:97%;border-color:#9C9C9C;" rendered="#{fichaCursoMB.habilitarDadosPais}">
+			<h:panelGrid style="width:100%;" columns="3" >
+					<h:panelGroup><b>Nome Mãe:</b> #{fichaCursoMB.dadospais.nomemae}</h:panelGroup>
+					<h:panelGroup>
+						<b>Data Nascimento:</b> <h:outputText
+							value="#{fichaCursoMB.dadospais.datanascimentomae}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</h:panelGroup>
+					<h:panelGroup><b>Fone: </b> #{fichaCursoMB.dadospais.telefonemae}</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="1" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+					<h:panelGroup>
+						<b>Endereço: </b> #{fichaCursoMB.dadospais.tipologradouromae}, #{fichaCursoMB.dadospais.logradouromae}, #{fichaCursoMB.dadospais.numeromae}, #{fichaCursoMB.dadospais.complementomae}
+					</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+					<h:panelGroup>   
+						<b>Bairro :</b> #{fichaCursoMB.dadospais.bairromae},
+					</h:panelGroup>
+					<h:panelGroup><b>CEP: #{fichaCursoMB.dadospais.cepmae}</b></h:panelGroup>
+					<h:panelGroup><b>Cidade/Estado: #{fichaCursoMB.dadospais.cidademae}/#{fichaCursoMB.dadospais.estadomae}</b></h:panelGroup>
+					<h:panelGroup><b>E-mail: #{fichaCursoMB.dadospais.emailmae}</b></h:panelGroup>
+			</h:panelGrid>
+			
+		<br />
+		</h:panelGrid>  
+		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<br />
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+		
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Acomodação:</b> #{fichaCursoMB.curso.tipoAcomodacao}</h:panelGroup>
+				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaCursoMB.curso.tipoQuarto}</h:panelGroup>
+				<h:panelGroup>
+					<b>Banheiro Privado: </b> #{fichaCursoMB.curso.banheiroprivativo} 
+				</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid style="width:71%;" columns="2">
+				<h:panelGroup>   
+					<b>N° Semanas :</b> #{fichaCursoMB.curso.numeroSemanasAcamodacao}
+				</h:panelGroup>
+				<h:panelGroup><b>Refeições:</b> #{fichaCursoMB.curso.refeicoes}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Chegada:</b> <h:outputText
+						value="#{fichaCursoMB.curso.dataChegada}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida:</b> <h:outputText
+						value="#{fichaCursoMB.curso.dataSaida}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>   
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>   
+					<b>Em caso de acomodação em casa de familia responda:</b>
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você prefere familía com crianças ? #{fichaCursoMB.curso.familiacomCrianca}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você prefere familía com animais de estimação ? #{fichaCursoMB.curso.familiacomAnimais}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você é fumante ? #{fichaCursoMB.curso.fumante}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você é vegetariano ? #{fichaCursoMB.curso.vegetariano}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Quais são seus interesses ou hobbies ? #{fichaCursoMB.curso.hobbies}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Você tem alegria a algum medicamento ou alimento ? Se sim quais ? #{fichaCursoMB.curso.possuiAlergia}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					Solicitações especiais (não há garantias) ? #{fichaCursoMB.curso.solicitacoesEspeciais}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
+		<br /><br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGroup style="margin-left: 0.3%;">CARTÃO VTM: #{fichaCursoMB.curso.caratoVTM} </h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="3">
+						
+						<h:panelGroup rendered="#{fichaCursoMB.habilitarCartãoVtm}">
+							<b>N° Cartão:</b> #{fichaCursoMB.curso.numeroCartaoVTM} 
+						</h:panelGroup>
+						<h:panelGroup rendered="#{fichaCursoMB.habilitarCartãoVtm}">
+							<b>Moeda:</b> #{parcelamento.curso.moedaCartaoVTM}
+						</h:panelGroup>
+			</h:panelGrid>  
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">CHEGADA AO DESTINO</h:panelGroup>
+			<hr style="color: green;background:green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="2">
+						<h:panelGroup> <b>Transfer In:</b> #{fichaCursoMB.curso.transferin} 
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							<b>Transfer Out:</b>  #{fichaCursoMB.curso.transferouto} 
+						</h:panelGroup>
+						<p:outputLabel/>
+			</h:panelGrid>  
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">SEGURO VIAGEM </h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Seguro Viagem:</b> #{fichaCursoMB.seguroviagem.possuiSeguro} 
+						</h:panelGroup>
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Seguradora:</b> #{fichaCursoMB.seguroviagem.seguradora} 
+						</h:panelGroup>
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Plano:</b> #{fichaCursoMB.seguroviagem.valoresseguro.seguroplanos.nome} 
+						</h:panelGroup>
+						<h:panelGroup/>
+						<h:panelGroup/>
+						<h:panelGroup/>
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Data Início:</b>
+					<h:outputText value="#{fichaCursoMB.seguroviagem.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Num. Dias:</b> #{fichaCursoMB.seguroviagem.numeroSemanas} 
+						</h:panelGroup>
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Data Término:</b>
+					<h:outputText value="#{fichaCursoMB.seguroviagem.dataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup/>
+				<h:panelGroup/>
+				<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroViagem}">
+					<b>Seguro Cancelamento:</b> #{fichaCursoMB.verificacaoSeguroCancelamento(seguroviagem.segurocancelamento)} 
+						</h:panelGroup>
+			</h:panelGrid>
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">SEGURO OBRIGATÓRIO - FORNECIDO/EXIGIDO PELA ESCOLA: #{fichaCursoMB.curso.possuiSeguroGovernamental} </h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="2">
+	
+						<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroObrigatorio}">
+							<b>Seguradora:</b> #{fichaCursoMB.curso.seguradoraGovernamental} 
+						</h:panelGroup>
+						<h:panelGroup rendered="#{fichaCursoMB.habilitarSeguroObrigatorio}">
+							<b>N° de meses:</b> #{parcelamento.curso.numeroMeses}
+						</h:panelGroup>
+			</h:panelGrid> 
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">PASSAGEM AÉREA QUANDO NÃO INCLUIDA NO PROGRAMA</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="2">
+						<h:panelGroup> <b>Tipo de Emissão:</b> #{fichaCursoMB.curso.passagemAerea} 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>Observações:</b> #{fichaCursoMB.curso.observacaoPassagemAerea} 
+						</h:panelGroup>
+			</h:panelGrid> 
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">SOLICITAÇÃO DE VISTA CONSULAR</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="2">
+						<h:panelGroup> <b>Tipo de Solicitação:</b> #{fichaCursoMB.curso.vistoConsular} 
+						</h:panelGroup>
+						<h:panelGroup>
+							<b>Entrega doc. visto:</b> <h:outputText
+								value="#{fichaCursoMB.curso.dataEntregaDocumentosVistos}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+							Observações: #{fichaCursoMB.curso.observacaoVisto} 
+						</h:panelGroup>
+			</h:panelGrid> 
+			<br/>
+			<h:panelGroup style="margin-left: 0.3%;">CONTATO DE EMERGÊNCIA NO BRASIL</h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+			<h:panelGrid style="width:100%;" columns="1">
+						<h:panelGroup> <b>Nome:</b> #{fichaCursoMB.curso.nomeContatoEmergencia} 
+						</h:panelGroup>
+			</h:panelGrid> 
+			<h:panelGrid style="width:100%;" columns="3">
+						<h:panelGroup> <b>Relação:</b> #{fichaCursoMB.curso.foneContatoEmergencia} 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>E-mail:</b> #{fichaCursoMB.curso.emalContatoEmergencia} 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>Telefone:</b> #{fichaCursoMB.curso.foneContatoEmergencia} 
+						</h:panelGroup>
+			</h:panelGrid> 
+		</h:panelGrid>
+		<br /><br /><br /><br />
+		<div align="left">
+			<img src="../../../resources/img/precoFormaFicha.PNG" width="53%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p:dataTable  id="idTabelaArquivos" var="produtos"
+				styleClass="table-transparent" value="#{fichaCursoMB.vendas.orcamento.orcamentoprodutosorcamentoList}"
+				style="border:transparent;width:97%;" 
+				 
+				>
+
+				<p:column headerText=""
+					style="background:white; font-size:12px; color:white; border:none; text-align:left;color: black;width:75px;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.descricao}" style="color: black;font-size:12px;"/>
+				</p:column>
+				<p:column headerText="#{fichaCursoMB.vendas.orcamento.cambio.moedas.sigla}"
+					style="width:30px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaEstrangeira}" style="color: black;font-size:12px;color: black;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="R$"
+					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
+					styleClass="alinharCenter">
+					<p:outputLabel value="#{produtos.valorMoedaNacional}" style="color: black;font-size:12px;">
+						<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+			</p:dataTable>
+			
+			<h:panelGrid style="width:100%;">
+				<h:panelGrid style="width:97.3%;background-color:#CFCFCF;font-size:12px;" columns="2">
+					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
+					
+					<h:panelGrid style="width:94%;float:right;float: right;" columns="2">
+						<h:panelGroup style="text-align:right;float: right;">
+							#{fichaCursoMB.vendas.orcamento.cambio.moedas.sigla}: <h:outputText
+								value="#{fichaCursoMB.vendas.orcamento.totalMoedaEstrangeira}">  
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup style="text-align:right;float: right;">
+							R$: <h:outputText
+								value="#{fichaCursoMB.vendas.orcamento.totalMoedaNacional}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGrid>
+	
+				<h:panelGrid style="width:100%;" columns="1">
+					<h:panelGroup>Moeda: #{fichaCursoMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
+						 <h:outputText value="#{fichaCursoMB.vendas.valorcambio}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Juros: R$ 
+						<h:outputText
+							value="#{fichaCursoMB.vendas.formapagamento.valorJuros}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText> | Valor Final: R$ 
+						<h:outputText
+								value="#{fichaCursoMB.vendas.formapagamento.valorTotal}">
+								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							</h:outputText>
+					</h:panelGroup>
+	
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<ui:repeat var="parcelamento"
+				value="#{fichaCursoMB.vendas.formapagamento.parcelamentopagamentoList}"
+				varStatus="statuss">
+				<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+				<hr style="width:97%;float: left;"/>
+				<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+							N° Parcelas: #{parcelamento.numeroParcelas}
+						</h:panelGroup>
+						<h:panelGroup>
+							Valor Parcela: R$ <h:outputText value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+				</h:panelGrid>
+				<br/>
+			</ui:repeat>
+		</h:panelGrid>
+		<br /><br />
+		<div align="left">
+			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br/>
+		<h:panelGrid style="border: 1.5px solid;width:97%;border-color:#9C9C9C;">
+			<p style="margin:1%;">Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição. O saldo deverá ser quitado 
+			conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista. Não sendo cumprido o 
+			plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional 
+			organizadora   do   curso/programa/pacote   em   questão.   A   confirmação   final   do   curso/programa/pacote,   
+			acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da 
+			confirmação final do prestador final do serviço (instituição contratada) no exterior.
+			Em caso de cancelamento e reembolso:<br/>
+			• O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);<br/>
+			• Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso
+			  dos demais valores;<br/>
+			• A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituiçã
+			  do exterior;<br/>
+			• A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido
+			  de reembolso.<br/>
+			Esta é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o 
+			CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura 
+			de tal Contrato, e entrega ao mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não 
+			abordadas nesta Ficha de Inscrição.
+			Em  caso  de  dúvidas  solicite  o  CONTRATO  DE  PRESTAÇÃO  DE  SERVIÇOS  e  as  regras  específicas  
+			referentes ao programa de seu interesse.
+			Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
+		</h:panelGrid>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do(a)  #{fichaCursoMB.vendas.cliente.nome} - CPF: #{fichaCursoMB.vendas.cliente.cpf}</p>
+		<br/><br/><br /><br /><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do responsável (aquele que responde pelo participante no Brasil)</p>
+		<br/><br/><br /><br /><br />
+		<hr width="80%"  align="left"/>
+		<p>#{fichaCursoMB.vendas.usuario.nome} - Representante TM</p>
+	</div>
+</h:body>
+</html>

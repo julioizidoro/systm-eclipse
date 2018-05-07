@@ -124,17 +124,7 @@
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="ID Venda" sortBy="#{cursosProcesso.vendas.idvendas}" style="width:85px;">
-								<p:commandLink action="#{cursoMB.dialogSalvarControle(cursosProcesso)}"
-									onclick="PF('cd').show();" rendered="#{cursoMB.linkIdVenda}">
 									<h:outputText value="#{cursosProcesso.vendas.idvendas}" />
-								</p:commandLink>
-								<p:commandLink
-									action="#{cursoMB.visualizarContasReceber(cursosProcesso.vendas)}"
-									title="Visualizar Contas a Receber"
-									rendered="#{cursoMB.linkIdVendaFranquias}">
-									<h:outputText value="#{cursosProcesso.vendas.idvendas}"
-										style="#{cursoMB.cor(cursosProcesso)}" />
-								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosProcesso.vendas.cliente.nome}" style="width:160px;">
 								<h:outputText value="#{cursosProcesso.vendas.cliente.nome}"
@@ -185,7 +175,7 @@
 							</p:column>
 							<p:column headerText="Imprimir" rendered="#{cursoMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{cursoMB.imprimirFicha(cursosProcesso)}"
+								<h:commandButton action="#{cursoMB.fichaCurso(cursosProcesso)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -229,7 +219,7 @@
 											
 											
 											<p:commandLink
-												action="#{cursoMB.gerarRelatorioContratoCurso(cursosProcesso)}"
+												action="#{cursoMB.contrato(cursosProcesso)}"
 												title="IMPRIMIR O CONTRATO" 
 												 ajax="false"  target="_blank"  >
 												<img src="../../resources/img/imprimiContrato.png" width="36" />  
@@ -386,7 +376,7 @@
 							</p:column>
 							<p:column headerText="Imprimir" rendered="#{cursoMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{cursoMB.imprimirFicha(cursosFinanceiro)}"
+								<h:commandButton action="#{cursoMB.fichaCurso(cursosFinanceiro)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -427,7 +417,7 @@
 												</h:panelGrid>
 											</p:commandLink> 
 											<p:commandLink
-												action="#{cursoMB.gerarRelatorioContratoCurso(cursosFinanceiro)}"
+												action="#{cursoMB.contrato(cursosFinanceiro)}"
 												title="IMPRIMIR O CONTRATO" 
 												 ajax="false"  target="_blank"  >
 												<img src="../../resources/img/imprimiContrato.png" width="36" />  
@@ -584,7 +574,7 @@
 							</p:column>
 							<p:column headerText="Imprimir" rendered="#{cursoMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{cursoMB.imprimirFicha(cursosAndamento)}"
+								<h:commandButton action="#{cursoMB.fichaCurso(cursosAndamento)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -627,7 +617,7 @@
 												</h:panelGrid>
 											</p:commandLink> 
 											<p:commandLink
-												action="#{cursoMB.gerarRelatorioContratoCurso(cursosAndamento)}"
+												action="#{cursoMB.contrato(cursosAndamento)}"
 												title="IMPRIMIR O CONTRATO" 
 												 ajax="false"  target="_blank"  >
 												<img src="../../resources/img/imprimiContrato.png" width="36" />  
@@ -779,7 +769,7 @@
 							</p:column>
 							<p:column headerText="Imprimir" rendered="#{cursoMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{cursoMB.imprimirFicha(cursosFinalizado)}"
+								<h:commandButton action="#{cursoMB.fichaCurso(cursosFinalizado)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -825,7 +815,7 @@
 											
 											
 											<p:commandLink
-												action="#{cursoMB.gerarRelatorioContratoCurso(cursosFinalizado)}"
+												action="#{cursoMB.contrato(cursosFinalizado)}"
 												title="IMPRIMIR O CONTRATO" 
 												 ajax="false"  target="_blank"  >
 												<img src="../../resources/img/imprimiContrato.png" width="36" />  
@@ -963,6 +953,51 @@
 								<h:outputText value="#{cursosCancelada.vendas.usuario.nome}"
 									style="#{cursoMB.cor(cursosCancelada)}" />
 							</p:column> 
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:400px;">
+									<p:outputLabel
+										value="#{cursosCancelada.vendas.idvendas} - #{cursosCancelada.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
+											
+											<p:commandLink action="#{cursoMB.relatorioTermoQuitacao(cursosCancelada)}"
+													style="text-decoration: none" title="CANCELAR FICHA"
+													update=":consultacursos:acordionPainel:tabelaVendasCursoCancelado"
+													 >
+													<img src="../../resources/img/cancel.png" style="width: 36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="IMPRIMIR TERMO" style="font-size:10px;"/>
+															<p:outputLabel value="CANCELAMENTO" style="font-size:10px;"/>
+														</h:panelGrid>
+											</p:commandLink>   
+											
+											<p:commandLink action="#{cursoMB.documentacao(cursosCancelada)}"
+												update=":consultacursos:growl" title="DOCUMENTOS"
+												 >
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="DOCS" style="font-size:10px;"/>
+													<p:outputLabel value=" "/>
+												</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink action="#{cursoMB.verificarIdCredito(cursosCancelada)}"
+												update=":consultacursos:growl" title="Verificar ID de Crédito"
+												 >
+												<img src="../../resources/img/numerosFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="VISUALIZAR" style="font-size:10px;"/>
+													<p:outputLabel value="ID CRÉDITO" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+									</h:panelGrid>    
+								</p:overlayPanel>   
+							</p:column>   
 						</p:dataTable>    
 					</p:tab>    
 					<p:tab title="Todos (#{cursoMB.numeroFichas})" class="tab" titleStyle="font-size: 11px" tabindex="-1">
@@ -1036,7 +1071,7 @@
 							</p:column>
 							<p:column headerText="Imprimir" rendered="#{cursoMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{cursoMB.imprimirFicha(cursos)}"
+								<h:commandButton action="#{cursoMB.fichaCurso(cursos)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -1080,7 +1115,7 @@
 											
 											
 											<p:commandLink
-												action="#{cursoMB.gerarRelatorioContratoCurso(cursos)}"
+												action="#{cursoMB.contrato(cursos)}"
 												title="IMPRIMIR O CONTRATO" 
 												 ajax="false"  target="_blank"  >
 												<img src="../../resources/img/imprimiContrato.png" width="36" />  

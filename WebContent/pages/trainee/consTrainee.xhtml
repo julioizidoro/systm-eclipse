@@ -160,7 +160,7 @@
 							</p:column>        
 							<p:column headerText="Imprimir" rendered="#{traineeMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{traineeMB.gerarRelatorioFicha(traineeProcesso)}"
+								<h:commandButton action="#{traineeMB.fichaTrainee(traineeProcesso)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">  
@@ -204,7 +204,7 @@
 											</p:commandLink>
 											
 											<p:commandLink
-												action="#{traineeMB.gerarRelatorioContrato(traineeProcesso)}"
+												action="#{traineeMB.contrato(traineeProcesso)}"
 												title="IMPRIMIR O CONTRATO"
 												 ajax="false"
 												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeProcesso)}">
@@ -268,7 +268,7 @@
 														</h:panelGrid>
 													</p:commandLink> 
 												
-												<p:commandLink action="#{traineeMB.cancelarVenda(traineeProcesso.vendas)}"  disabled="#{traineeMB.botoesHabilitados(traineeProcesso)}"
+												<p:commandLink action="#{traineeMB.cancelarVenda(traineeProcesso)}"  disabled="#{traineeMB.botoesHabilitados(traineeProcesso)}"
 													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaProcesso">
 													<p:confirm header="Cancelamento"
 														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
@@ -341,7 +341,7 @@
 							</p:column>        
 							<p:column headerText="Imprimir" rendered="#{traineeMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{traineeMB.gerarRelatorioFicha(traineeFinanceiro)}"
+								<h:commandButton action="#{traineeMB.fichaTrainee(traineeFinanceiro)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">  
@@ -385,7 +385,7 @@
 											</p:commandLink>
 											
 											<p:commandLink
-												action="#{traineeMB.gerarRelatorioContrato(traineeFinanceiro)}"
+												action="#{traineeMB.contrato(traineeFinanceiro)}"
 												title="IMPRIMIR O CONTRATO"
 												 ajax="false"
 												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeFinanceiro)}">
@@ -449,7 +449,7 @@
 														</h:panelGrid>
 													</p:commandLink> 
 												
-												<p:commandLink action="#{traineeMB.cancelarVenda(traineeFinanceiro.vendas)}"  disabled="#{traineeMB.botoesHabilitados(traineeFinanceiro)}"
+												<p:commandLink action="#{traineeMB.cancelarVenda(traineeFinanceiro)}"  disabled="#{traineeMB.botoesHabilitados(traineeFinanceiro)}"
 													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinanceiro">
 													<p:confirm header="Cancelamento"
 														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
@@ -522,7 +522,7 @@
 							</p:column>        
 							<p:column headerText="Imprimir" rendered="#{traineeMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{traineeMB.gerarRelatorioFicha(traineeAndamento)}"
+								<h:commandButton action="#{traineeMB.fichaTrainee(traineeAndamento)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">  
@@ -566,7 +566,7 @@
 											</p:commandLink>
 											
 											<p:commandLink
-												action="#{traineeMB.gerarRelatorioContrato(traineeAndamento)}"
+												action="#{traineeMB.contrato(traineeAndamento)}"
 												title="IMPRIMIR O CONTRATO"
 												 ajax="false"
 												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeAndamento)}">
@@ -630,7 +630,7 @@
 														</h:panelGrid>
 													</p:commandLink> 
 												
-												<p:commandLink action="#{traineeMB.cancelarVenda(traineeAndamento.vendas)}"  disabled="#{traineeMB.botoesHabilitados(traineeAndamento)}"
+												<p:commandLink action="#{traineeMB.cancelarVenda(traineeAndamento)}"  disabled="#{traineeMB.botoesHabilitados(traineeAndamento)}"
 													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaAndamento">
 													<p:confirm header="Cancelamento"
 														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
@@ -703,7 +703,7 @@
 							</p:column>        
 							<p:column headerText="Imprimir" rendered="#{traineeMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{traineeMB.gerarRelatorioFicha(traineeFinalizado)}"
+								<h:commandButton action="#{traineeMB.fichaTrainee(traineeFinalizado)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">  
@@ -747,7 +747,7 @@
 											</p:commandLink>
 											
 											<p:commandLink
-												action="#{traineeMB.gerarRelatorioContrato(traineeFinalizado)}"
+												action="#{traineeMB.contrato(traineeFinalizado)}"
 												title="IMPRIMIR O CONTRATO"
 												 ajax="false"
 												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeFinalizado)}">
@@ -811,7 +811,7 @@
 														</h:panelGrid>
 													</p:commandLink> 
 												
-												<p:commandLink action="#{traineeMB.cancelarVenda(traineeFinalizado.vendas)}"  disabled="#{traineeMB.botoesHabilitados(traineeFinalizado)}"
+												<p:commandLink action="#{traineeMB.cancelarVenda(traineeFinalizado)}"  disabled="#{traineeMB.botoesHabilitados(traineeFinalizado)}"
 													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaFinalizado">
 													<p:confirm header="Cancelamento"
 														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
@@ -898,114 +898,45 @@
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade" style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:400px;">
 									<p:outputLabel
 										value="#{traineeCancelado.vendas.idvendas} - #{traineeCancelado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9">
-										
-											<p:commandLink action="#{traineeMB.boletos(traineeCancelado)}" disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}"
-												title="IMPRIMIR OS BOLETOS" 
-												ajax="false" target="_blank" >
-												<img src="../../resources/img/boletoFicha.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="BOLETOS" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-												</h:panelGrid>
-											</p:commandLink>  
-												
-											<p:commandLink style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-												update=":idfrmconsultatraineer:dialog_obsTM"
-												oncomplete="PF('obstm').show()"> 
-												<p:ajax listener="#{traineeMB.obsTM(traineeCancelado)}"/>
-												<img src="#{traineeMB.retornarIconeObsTM(traineeCancelado)}" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-													<p:outputLabel value="OBS" style="font-size:11px;"/>
-													<p:outputLabel value="TM"/>
-												</h:panelGrid>
-											</p:commandLink>
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
 											
-											<p:commandLink
-												action="#{traineeMB.gerarRelatorioContrato(traineeCancelado)}"
-												title="IMPRIMIR O CONTRATO"
-												 ajax="false"
-												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}">
-												<img src="../../resources/img/imprimiContrato.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="CONTRATO" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-												</h:panelGrid>
-											</p:commandLink>
-											<p:commandLink
-												action="#{traineeMB.gerarRelatorioTermoVisto(traineeCancelado)}"
-												title="IMPRIMIR O TERMO DE VISTO"
-												 ajax="false"
-												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}">
-												<img src="../../resources/img/imprimiVisto.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="TERMO" style="font-size:11px;"/>
-														<p:outputLabel value="VISTO"/>
-												</h:panelGrid>
-											</p:commandLink>
-											<p:commandLink
-												action="#{traineeMB.gerarRelatorioRecibo(traineeCancelado)}"
-												title="IMPRIMIR O RECIBO"
-												ajax="false"
-												target="_blank" disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}">
-												<img src="../../resources/img/imprimiRecibo.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="RECIBO" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-												</h:panelGrid>
-											</p:commandLink>
-											
-												<p:commandLink action="#{traineeMB.documentacao(traineeCancelado)}"
-													title="DOCUMENTOS" disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}">
-													<img src="../../resources/img/arquivosUpload.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="DOCS" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-												</h:panelGrid>
-												</p:commandLink>
-												    
-												<p:commandLink action="#{traineeMB.informacoes(traineeCancelado)}"
-													title="INFORMAÇÕES DA VENDA"
-													disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}">
-													<img src="../../resources/img/informacao.png" width="36" />
-													<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="INFO" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
-												</h:panelGrid>
-												</p:commandLink>
-												
-												<p:commandLink
-														action="#{traineeMB.visualizarContasReceber(traineeCancelado)}"
-														title="VISUALIZAR CONTAS A RECEBER" 
-														
-														 >
-														<img src="../../resources/img/invoice.png" width="36" />
-														<h:panelGrid columns="1" style="text-align:center;"> 
-															<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-															<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+											<p:commandLink action="#{traineeMB.relatorioTermoQuitacao(traineeCancelado)}"
+													style="text-decoration: none" title="IMPRIMIR TERMO"
+													 >
+													<img src="../../resources/img/cancel.png" style="width: 36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="IMPRIMIR TERMO" style="font-size:10px;"/>
+															<p:outputLabel value="CANCELAMENTO" style="font-size:10px;"/>
 														</h:panelGrid>
-													</p:commandLink> 
-												
-												<p:commandLink action="#{traineeMB.cancelarVenda(traineeCancelado.vendas)}"  disabled="#{traineeMB.botoesHabilitados(traineeCancelado)}"
-													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaCancelado">
-													<p:confirm header="Cancelamento"
-														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-													<img src="../../resources/img/cancel.png" width="36"/>
-													<h:panelGrid columns="1" style="text-align:1px;">
-														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
-														<p:outputLabel value=" "/>
+											</p:commandLink>   
+											
+											<p:commandLink action="#{traineeMB.documentacao(traineeCancelado)}"
+												update=":idfrmconsultatraineer:growl" title="DOCUMENTOS"
+												 >
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="DOCS" style="font-size:10px;"/>
+													<p:outputLabel value=" "/>
 												</h:panelGrid>
-												</p:commandLink>
-												
-									</h:panelGrid>
-								</p:overlayPanel>
-							</p:column>  
+											</p:commandLink>
+											<p:commandLink action="#{traineeMB.verificarIdCredito(traineeCancelado)}"
+												update=":idfrmconsultatraineer:growl" title="Verificar ID de Crédito"
+												 >
+												<img src="../../resources/img/numerosFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="VISUALIZAR" style="font-size:10px;"/>
+													<p:outputLabel value="ID CRÉDITO" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+									</h:panelGrid>    
+								</p:overlayPanel>   
+							</p:column> 
 						</p:dataTable>
 					</p:tab>
 					<p:tab title="Todos (#{traineeMB.numFichas})"
@@ -1065,7 +996,7 @@
 							</p:column>        
 							<p:column headerText="Imprimir" rendered="#{traineeMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton action="#{traineeMB.gerarRelatorioFicha(trainee)}"
+								<h:commandButton action="#{traineeMB.fichaTrainee(trainee)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">  
@@ -1109,7 +1040,7 @@
 											</p:commandLink>
 											
 											<p:commandLink
-												action="#{traineeMB.gerarRelatorioContrato(trainee)}"
+												action="#{traineeMB.contrato(trainee)}"
 												title="IMPRIMIR O CONTRATO"
 												 ajax="false"
 												target="_blank" disabled="#{traineeMB.botoesHabilitados(trainee)}">
@@ -1173,7 +1104,7 @@
 														</h:panelGrid>
 													</p:commandLink> 
 												
-												<p:commandLink action="#{traineeMB.cancelarVenda(trainee.vendas)}"  disabled="#{traineeMB.botoesHabilitados(trainee)}"
+												<p:commandLink action="#{traineeMB.cancelarVenda(trainee)}"  disabled="#{traineeMB.botoesHabilitados(trainee)}"
 													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultatrainee">
 													<p:confirm header="Cancelamento"
 														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />

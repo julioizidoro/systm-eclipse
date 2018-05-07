@@ -171,7 +171,7 @@
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioFicha(processo)}"
+									action="#{higherEducationMB.fichaHE(processo)}"
 									title="Ficha de Inscrição"
 									image="../../resources/img/imprimiFicha.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -179,7 +179,7 @@
 									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(processo)}">
 								</h:commandButton>
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioContrato(processo)}"
+									action="#{higherEducationMB.contrato(processo)}"
 									title="Contrato de Higher Education"
 									image="../../resources/img/imprimiContrato.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -337,7 +337,7 @@
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioFicha(financeiro)}"
+									action="#{higherEducationMB.fichaHE(financeiro)}"
 									title="Ficha de Inscrição"
 									image="../../resources/img/imprimiFicha.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -345,7 +345,7 @@
 									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(financeiro)}">
 								</h:commandButton>
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioContrato(financeiro)}"
+									action="#{higherEducationMB.contrato(financeiro)}"
 									title="Contrato de Higher Education"
 									image="../../resources/img/imprimiContrato.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -504,7 +504,7 @@
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioFicha(andamento)}"
+									action="#{higherEducationMB.fichaHE(andamento)}"
 									title="Ficha de Inscrição"
 									image="../../resources/img/imprimiFicha.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -512,7 +512,7 @@
 									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(andamento)}">
 								</h:commandButton>
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioContrato(andamento)}"
+									action="#{higherEducationMB.contrato(andamento)}"
 									title="Contrato de Higher Education"
 									image="../../resources/img/imprimiContrato.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -670,7 +670,7 @@
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioFicha(finalizado)}"
+									action="#{higherEducationMB.fichaHE(finalizado)}"
 									title="Ficha de Inscrição"
 									image="../../resources/img/imprimiFicha.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -678,7 +678,7 @@
 									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(finalizado)}">
 								</h:commandButton>
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioContrato(finalizado)}"
+									action="#{higherEducationMB.contrato(finalizado)}"
 									title="Contrato de Higher Education"
 									image="../../resources/img/imprimiContrato.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -835,7 +835,7 @@
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioFicha(cancelado)}"
+									action="#{higherEducationMB.fichaHE(cancelado)}"
 									title="Ficha de Inscrição"
 									image="../../resources/img/imprimiFicha.png" ajax="false"
 									onclick="this.form.target='_blank'"
@@ -843,7 +843,7 @@
 									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(cancelado)}">
 								</h:commandButton>
 								<h:commandButton
-									action="#{higherEducationMB.gerarRelatorioContrato(cancelado)}"
+									action="#{higherEducationMB.contrato(cancelado)}"
 									title="Contrato de Higher Education"
 									image="../../resources/img/imprimiContrato.png" ajax="false"
 									onclick="this.form.target='_blank'"

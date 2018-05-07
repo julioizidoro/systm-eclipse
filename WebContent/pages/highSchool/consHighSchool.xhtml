@@ -215,7 +215,7 @@
 								rendered="#{highSchoolMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{highSchoolMB.gerarRelatorioFicha(highSchoolProcesso)}"
+									action="#{highSchoolMB.fichaHighSchool(highSchoolProcesso)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -259,7 +259,7 @@
 											</h:panelGrid>
 										</p:commandLink> 
 										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioContrato(highSchoolProcesso)}"
+											action="#{highSchoolMB.contrato(highSchoolProcesso)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolProcesso)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
@@ -415,7 +415,7 @@
 								rendered="#{highSchoolMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{highSchoolMB.gerarRelatorioFicha(highSchoolFinanceiro)}"
+									action="#{highSchoolMB.fichaHighSchool(highSchoolFinanceiro)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -459,7 +459,7 @@
 											</h:panelGrid>
 										</p:commandLink> 
 										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioContrato(highSchoolFinanceiro)}"
+											action="#{highSchoolMB.contrato(highSchoolFinanceiro)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolFinanceiro)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
@@ -614,7 +614,7 @@
 								rendered="#{highSchoolMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{highSchoolMB.gerarRelatorioFicha(highSchoolAndamento)}"
+									action="#{highSchoolMB.fichaHighSchool(highSchoolAndamento)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -658,7 +658,7 @@
 											</h:panelGrid>
 										</p:commandLink> 
 										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioContrato(highSchoolAndamento)}"
+											action="#{highSchoolMB.contrato(highSchoolAndamento)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolAndamento)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
@@ -813,7 +813,7 @@
 								rendered="#{highSchoolMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{highSchoolMB.gerarRelatorioFicha(highSchoolFinalizado)}"
+									action="#{highSchoolMB.fichaHighSchool(highSchoolFinalizado)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -857,7 +857,7 @@
 											</h:panelGrid>
 										</p:commandLink> 
 										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioContrato(highSchoolFinalizado)}"
+											action="#{highSchoolMB.contrato(highSchoolFinalizado)}"
 											disabled="#{highSchoolMB.botoesHabilitados(highSchoolFinalizado)}"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
@@ -1012,125 +1012,56 @@
 								rendered="#{highSchoolMB.esconderFicha}"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{highSchoolMB.gerarRelatorioFicha(highSchoolCancelada)}"
+									action="#{highSchoolMB.fichaHighSchool(highSchoolCancelada)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
 								</h:commandButton>
 							</p:column> 
-							<p:column headerText="Opções" style="width:75px;text-align:center;">
+							<p:column headerText="Opções" style="width:75px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoVendaVerde.png" />
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
-									hideEffect="fade"
-									style="background:#F0F0F0;width:850px; border:none;">
+									hideEffect="fade" style="background:#F0F0F0;width:400px;">
 									<p:outputLabel
 										value="#{highSchoolCancelada.vendas.idvendas} - #{highSchoolCancelada.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
 									<br />
 									<br />
-									<h:panelGrid
-										style="width:100%;border-color:transparent;border:none;"
-										columns="9"> 
-										<p:commandLink action="#{highSchoolMB.boletos(highSchoolCancelada)}"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
-											title="IMPRIMIR OS BOLETOS" ajax="false" target="_blank">
-											<img src="../../resources/img/boletoFicha.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink
-											actionListener="#{highSchoolMB.buscarHighSchool(highSchoolCancelada)}"
-											style="text-decoration: none" title="OBSERVAÇÕES GERÊNCIAS TM"
-											update="consultahighschool:dialog_obsTM"
-											oncomplete="PF('obstm').show()"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}">
-											<img src="#{highSchoolMB.retornarIconeObsTM(highSchoolCancelada)}" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="OBS" style="font-size:11px;" />
-												<p:outputLabel value="TM" />
-											</h:panelGrid>
-										</p:commandLink> 
-										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioContrato(highSchoolCancelada)}"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
-											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
-											<img src="../../resources/img/imprimiContrato.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="CONTRATO" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioTermoVisto(highSchoolCancelada)}"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
-											title="IMPRIMIR O TERMO DE VISTO" ajax="false" target="_blank">
-											<img src="../../resources/img/imprimiVisto.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="TERMO" style="font-size:11px;" />
-												<p:outputLabel value="VISTO" />
-											</h:panelGrid>
-										</p:commandLink>
-										<p:commandLink
-											action="#{highSchoolMB.gerarRelatorioRecibo(highSchoolCancelada)}"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
-											title="IMPRIMIR O RECIBO" ajax="false" target="_blank">
-											<img src="../../resources/img/imprimiRecibo.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="RECIBO" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink> 
-										<p:commandLink action="#{highSchoolMB.documentacao(highSchoolCancelada)}"
-											title="DOCUMENTOS"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}">
-											<img src="../../resources/img/arquivosUpload.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="DOCS" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>
-		
-										<p:commandLink action="#{highSchoolMB.informacoes(highSchoolCancelada)}"
-											title="INFORMAÇÕES DA VENDA"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}">
-											<img src="../../resources/img/informacao.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="INFO" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>    
-										</p:commandLink> 
-										<p:commandLink
-												action="#{highSchoolMB.visualizarContasReceber(highSchoolCancelada)}"
-												title="VISUALIZAR CONTAS A RECEBER" 
-												
+									<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="9"> 
+											
+											<p:commandLink action="#{highSchoolMB.relatorioTermoQuitacao(highSchoolCancelada)}"
+													style="text-decoration: none" title="IMPRIMIR TERMO"
+													 >
+													<img src="../../resources/img/cancel.png" style="width: 36" />
+														<h:panelGrid columns="1" style="text-align:center;">
+															<p:outputLabel value="IMPRIMIR TERMO" style="font-size:10px;"/>
+															<p:outputLabel value="CANCELAMENTO" style="font-size:10px;"/>
+														</h:panelGrid>
+											</p:commandLink>   
+											
+											<p:commandLink action="#{highSchoolMB.documentacao(highSchoolCancelada)}"
+												update=":consultahighschool:growl" title="DOCUMENTOS"
 												 >
-												<img src="../../resources/img/invoice.png" width="36" />
-												<h:panelGrid columns="1" style="text-align:center;"> 
-													<p:outputLabel value="CONTAS A" style="font-size:10px;"/>
-													<p:outputLabel value="RECEBER" style="font-size:10px;"/>
+												<img src="../../resources/img/imprimirFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="DOCS" style="font-size:10px;"/>
+													<p:outputLabel value=" "/>
 												</h:panelGrid>
-											</p:commandLink> 
-										<p:commandLink
-											action="#{highSchoolMB.cancelarVenda(highSchoolCancelada.vendas)}"
-											disabled="#{highSchoolMB.botoesHabilitados(highSchoolCancelada)}"
-											style="text-decoration: none" title="CANCELAR FICHA"
-											update="tabelaConsultaCancelada">
-											<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-											<img src="../../resources/img/cancel.png" width="36" />
-											<h:panelGrid columns="1" style="text-align:1px;">
-												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
-												<p:outputLabel value=" " />
-											</h:panelGrid>
-										</p:commandLink>       
-									</h:panelGrid>
-								</p:overlayPanel>        
-							</p:column>
+											</p:commandLink>
+											<p:commandLink action="#{highSchoolMB.verificarIdCredito(highSchoolCancelada)}"
+												update=":consultahighschool:growl" title="Verificar ID de Crédito"
+												 >
+												<img src="../../resources/img/numerosFicha.png" width="36" />
+												<h:panelGrid columns="1" style="text-align:center;">
+													<p:outputLabel value="VISUALIZAR" style="font-size:10px;"/>
+													<p:outputLabel value="ID CRÉDITO" style="font-size:10px;"/>
+												</h:panelGrid>
+											</p:commandLink>
+									</h:panelGrid>    
+								</p:overlayPanel>   
+							</p:column> 
 						</p:dataTable>         
 					</p:tab>
 					<p:tab title="Todos (#{highSchoolMB.numeroFichas})" titleStyle="font-size: 11px" >
@@ -1212,7 +1143,7 @@
 							rendered="#{highSchoolMB.esconderFicha}"
 							style="width:58px;text-align:center;" styleClass="alinharCenter">
 							<h:commandButton
-								action="#{highSchoolMB.gerarRelatorioFicha(highSchool)}"
+								action="#{highSchoolMB.fichaHighSchool(highSchool)}"
 								title="Ficha" image="../../resources/img/imprimiFicha.png"
 								ajax="false" onclick="this.form.target='_blank'"
 								style="width:30px;margin-left:4%">
@@ -1257,7 +1188,7 @@
 										</h:panelGrid>
 									</p:commandLink>
 									<p:commandLink
-										action="#{highSchoolMB.gerarRelatorioContrato(highSchool)}"
+										action="#{highSchoolMB.contrato(highSchool)}"
 										disabled="#{highSchoolMB.botoesHabilitados(highSchool)}"
 										title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 										<img src="../../resources/img/imprimiContrato.png" width="36" />

@@ -20,7 +20,7 @@
 							<p:outputLabel value="Id Venda" for="idvenda" />
 							<p:outputLabel value="Cliente" for="cliente" />
 							<p:outputLabel value="Produto" for="produto" />
-							<p:outputLabel value="Período Solicitação" for="dataIni" />
+							<p:outputLabel value="Status" for="status" />
 							<p:outputLabel />
 
 							<p:inputText id="idvenda" style="width:90%" maxlength="6"
@@ -41,55 +41,66 @@
 								<f:attribute name="listaProdutos"
 									value="#{consultaCancelamentoMB.listaProduto}" />
 							</p:selectOneMenu>
-							<p:calendar id="dataIni" size="10"
-								value="#{consultaCancelamentoMB.dataInicio}" locale="pt"
-								pattern="dd/MM/yyyy" mask="true" maxlength="15">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-							<p:calendar id="dataFinal" size="10"
-								value="#{consultaCancelamentoMB.dataTermino}" locale="pt"
-								pattern="dd/MM/yyyy" mask="true" maxlength="15">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-						</h:panelGrid>
-						<br></br>
-						<h:panelGrid columns="4"
-							columnClasses="tamanhoavisos,tamanho1,tamanho7, tamanho1"
-							style="width:95%;margin-left:3%;">
-							<p:outputLabel value="Unidade" for="unidade" class="fontebranca" />
-							<p:outputLabel value="Situação" for="situacao" />
-							<p:outputLabel />
-							<p:outputLabel />
-
-							<p:selectOneMenu id="unidade"
-								value="#{consultaCancelamentoMB.unidadeNegocio}"  
-								style="width:243px;" converter="UnidadeNegocioConverter"
-								filter="true" filterMatchMode="startsWith" disabled="#{consultaCancelamentoMB.habilitarUnidade}">
-								<f:selectItem itemLabel="Todas as Unidades" itemValue="0"
-									noSelectionOption="true" />
-								<f:selectItems id="idnidade"
-									value="#{consultaCancelamentoMB.listaUnidadeNegocio}"
-									var="unidadeNegocio" itemLabel="#{unidadeNegocio.nomerelatorio}"
-									itemValue="#{unidadeNegocio}" />
-								<f:attribute name="listaUnidade"
-									value="#{consultaCancelamentoMB.listaUnidadeNegocio}" />
-							</p:selectOneMenu>
-							<p:selectOneMenu id="situacao"
+							<p:selectOneMenu id="status"
 								value="#{consultaCancelamentoMB.situacao}" style="width:95px;">
 								<f:selectItem itemLabel="TODAS" itemValue="TODAS" />
-								<f:selectItem itemLabel="CANCELADA" itemValue="PROCESSO" />
+								<f:selectItem itemLabel="CANCELADA" itemValue="CANCELADA" />
 								<f:selectItem itemLabel="PROCESSO" itemValue="FINANCEIRO" />
+								<f:selectItem itemLabel="ANDAMENTO" itemValue="ANDAMENTO" />
 								<f:selectItem itemLabel="FINALIZADA" itemValue="FINALIZADA" />
 								<p:ajax event="change" />
 							</p:selectOneMenu>
-							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-								update="idfrmconsCancelamento:idtbCancelamento"
-								action="#{consultaCancelamentoMB.pesquisarListaCancelamento()}" />
-							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="idfrmconsCancelamento:idtbCancelamento, situacao, unidade, dataFinal, dataIni, cliente,idvenda,produto"
-								action="#{consultaCancelamentoMB.limparPesquisa()}" />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho1,tamanho1,tamanho1, tamanho1"
+							style="width:84%;margin-left:3%;">
+							<p:outputLabel value="Período Cancelamento"/>
+							<p:outputLabel value="Período Reembolso"/>
+							<p:outputLabel /> 
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:calendar id="dataIni" size="10"
+									value="#{consultaCancelamentoMB.dataInicio}" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:calendar id="dataFinal" size="10" style="margin-left:2%;"
+									value="#{consultaCancelamentoMB.dataTermino}" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:calendar id="dataReembolsoIni" size="10"
+									value="#{consultaCancelamentoMB.dataInicio}" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+								<p:calendar id="dataReembolsoFinal" size="10" style="margin-left:2%;"
+									value="#{consultaCancelamentoMB.dataTermino}" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup> 
+								<p:outputLabel value="Cancelados" style="font-size:14px;"/> 
+								<p:selectBooleanCheckbox id="cancelados" style="margin-left:2%;">
+									<p:ajax event="change"/>
+								</p:selectBooleanCheckbox> 
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									update="idfrmconsCancelamento:idtbCancelamento"
+									action="#{consultaCancelamentoMB.pesquisarListaCancelamento()}" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="margin-left:2%;"
+									update="idfrmconsCancelamento:idtbCancelamento,cancelados, status, dataFinal, dataIni, dataReembolsoIni, dataReembolsoFinal, cliente,idvenda,produto"
+									action="#{consultaCancelamentoMB.limparPesquisa()}" />
+							</h:panelGroup>
 						</h:panelGrid>
 
 						<br></br>
@@ -101,63 +112,66 @@
 				</legend>
 				<p:dataTable id="idtbCancelamento" var="cancelamento"
 					value="#{consultaCancelamentoMB.listaCancelamento}" class="tabela"
-					style="margin-bottom:20px" scrollable="true" scrollHeight="300">
-
-					<p:column headerText="ID Venda" style="width:80px;">
-						<p:commandLink style="text-align: center"
-							value="#{cancelamento.vendas.idvendas}"
-							action="#{consultaCancelamentoMB.emissaoCancelamento(cancelamento)}">
-						</p:commandLink>
+					style="margin-bottom:20px" scrollable="true" scrollHeight="300"> 
+					<p:column headerText="ID Venda" style="width:50px;">
+						<p:commandLink action="#{consultaCancelamentoMB.emissaoCancelamento(cancelamento)}"
+							 style="text-align: center;text-decoration: underline;"
+							value="#{cancelamento.vendas.idvendas}" >
+						</p:commandLink> 
 					</p:column>
-					<p:column headerText="Cliente">
+					<p:column headerText="Cliente" style="width:140px;">
 						<h:outputText value="#{cancelamento.vendas.cliente.nome}" />
 					</p:column>
-					<p:column headerText="Produto" style="width: 150px;">
+					<p:column headerText="Unidade" style="width:110px;">
+						<h:outputText value="#{cancelamento.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Produto" style="width:110px;">
 						<h:outputText value="#{cancelamento.vendas.produtos.descricao}" />
 					</p:column>
-					<p:column headerText="Data Solicitação"
+					<p:column headerText="Data Cancelamento"
 						style="width: 100px;text-align:center;">
 						<h:outputText value="#{cancelamento.datasolicitacao}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Total Reembolso"
+					<p:column headerText="Valor Reembolso"
 						style="width: 100px;text-align:right;">
-						<h:outputText value="#{cancelamento.totalreembolso}">
+						<h:outputText value="#{cancelamento.valorreembolso}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Saldo de Cancelamento"
-						style="width: 110px;text-align:center;">
-						<h:outputText value="#{cancelamento.saldocancelamento}"
+					<p:column headerText="Valor Crédito"
+						style="width: 100px;text-align:right;">
+						<h:outputText value="#{cancelamento.valorcredito}"
 							style="text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Situação" style="width: 140px;">
+					<p:column headerText="Status" style="width:100px;">
 						<h:outputText value="#{cancelamento.situacao}" />
 					</p:column>
-					<p:column style="text-align:center;width:45px;">
-						<p:commandLink action="#" style="text-decoration:none"
-							title="Finalizar">
+					<p:column style="text-align:center;width:40px;">
+						<p:commandLink action="#{consultaCancelamentoMB.finalizarCancelamento(cancelamento)}"
+							 style="text-decoration:none" title="Finalizar">
 							<img src="../../resources/img/confirmarBola.png" width="40" />
 						</p:commandLink>
 					</p:column>
-					<p:column style="text-align:center;width:45px;">
-						<h:commandButton
-							action="#{consultaCancelamentoMB.relatorioTermoQuitacao(cancelamento)}"
-							title="Termo de Quitação"
-							image="../../resources/img/imprimiRecibo.png"
-							style="margin-left:4%;width:100%;">
-						</h:commandButton>
+					<p:column style="text-align:center;width:40px;"> 
+							<h:panelGroup rendered="#{cancelamento.uploadtermo}">
+								<a title="IMPRIMIR TERMO" name="download" href="http://#{consultaCancelamentoMB.ftpdados.host}:82/ftproot/systm/arquivos/#{cancelamento.nomeArquivo}" target="_blank" style="text-decoration:none; color:white; font-size:18px;" type="button">
+								<img src="#{cancelamento.imagemTermo}" width="30" /></a>
+							</h:panelGroup>  
+							<h:panelGroup rendered="#{cancelamento.semrecibo}">
+								<img src="#{cancelamento.imagemTermo}" width="30" />
+							</h:panelGroup>  
 					</p:column>
-					<p:column headerText="Docs" style="width:45px;text-align:center">
+					<p:column style="width:40px;text-align:center">
 						<p:commandLink
 							action="#{consultaCancelamentoMB.documentacao(cancelamento)}"
-							title="Upload Termo de Quitação">
+							title="Upload de comprovante">
 							<img src="../../resources/img/arquivosUpload.png" width="160%" />
 						</p:commandLink>
 					</p:column>

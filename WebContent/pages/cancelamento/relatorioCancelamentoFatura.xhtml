@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="idRelatorioCancelamentoFatura" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br> 
+				<legend id="iUsu2">
+					<b>Relatório de Cancelamento Fatura</b>
+				</legend>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="3"
+							columnClasses="tamanho7, tamanhoavisos, tamanhoavisos"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="Nome do Cliente" for="nomecliente" />
+							<p:outputLabel value="Unidade" for="unidade" style="margin-left:10%;"/>
+							<p:outputLabel value="Periodo" />
+
+							<p:inputText id="nomecliente" value="#{consultaCancelamentoMB.nomeCliente}"
+								style="width:260px;" />
+							<p:selectOneMenu id="unidade" value="#{consultaCancelamentoMB.unidadeNegocio}"
+								style="width:200px;margin-left: 10%;" converter="UnidadeNegocioConverter"
+								
+								filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{consultaCancelamentoMB.listaUnidadeNegocio}" var="sUnidade"  
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{consultaCancelamentoMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+							<h:panelGroup>
+								<p:calendar id="dataIni" value="#{consultaCancelamentoMB.dataInicio}" size="12"
+								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{consultaCancelamentoMB.dataTermino}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							</h:panelGroup>
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<h:panelGroup>
+								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+									update=":idRelatorioCancelamentoFatura:idtbCancelamento"
+									action="#{consultaCancelamentoMB.pesquisarListaCancelamento()}" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="margin-left:2%;"
+									update="idRelatorioCancelamentoFatura"
+									action="#{consultaCancelamentoMB.limparPesquisa()}" />
+							</h:panelGroup>
+						</h:panelGrid>
+						<br></br>
+						 
+					</p:tab>  
+				</p:accordionPanel> 
+				<br/><br/>
+				<p:dataTable id="idtbCancelamento" var="cancelamento"
+					value="#{consultaCancelamentoMB.listaCancelamento}" class="tabela"
+					style="margin-bottom:20px" scrollable="true" scrollHeight="300"> 
+					<p:column headerText="ID Venda" style="width:50px;">
+						<h:outputText value="#{cancelamento.vendas.idvendas}" /> 
+					</p:column>
+					<p:column headerText="Cliente" style="width:140px;">
+						<h:outputText value="#{cancelamento.vendas.cliente.nome}" />
+					</p:column> 
+					<p:column headerText="Unidade" style="width:110px;">
+						<h:outputText value="#{cancelamento.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Produto" style="width:110px;">
+						<h:outputText value="#{cancelamento.vendas.produtos.descricao}" />
+					</p:column>
+					<p:column headerText="Mês" style="width: 50px;text-align:center;">
+						<h:outputText value="#{cancelamento.vendas.vendascomissao.faturaFranquias.mes}"/> 
+					</p:column>
+					<p:column headerText="Ano" style="width: 50px;text-align:center;">
+						<h:outputText value="#{cancelamento.vendas.vendascomissao.faturaFranquias.ano}"/> 
+					</p:column>
+					<p:column headerText="Valor Estorno" 
+						style="width: 100px;text-align:right;">
+						<h:outputText value="#{cancelamento.estornoloja}" 
+							style="text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>  
+					<p:column headerText="Valor Pendente" 
+						style="width: 100px;text-align:right;">
+						<h:outputText value="#{consultaCancelamentoMB.calcularTotalRecebidoLoja(cancelamento)}"
+							style="text-align:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column> 
+				</p:dataTable>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
