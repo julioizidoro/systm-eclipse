@@ -65,7 +65,7 @@ public class Cancelamento implements Serializable {
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
     private Usuario usuario;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Vendas vendas;
     @JoinColumn(name = "condicaocancelamento_idcondicaocancelamento", referencedColumnName = "idcondicaocancelamento")
     @ManyToOne(optional = false)
