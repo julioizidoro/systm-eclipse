@@ -120,7 +120,7 @@ public class CadVoluntariadoBean {
 				}
 				ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, venda,
 						orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
-						formaPagamento.getParcelamentopagamentoList(), voluntariado.getDataInicio(), vendasComissao,
+						formaPagamento.getParcelamentopagamentoList(), voluntariado.getDataInicioVoluntariado(), vendasComissao,
 						valorJuros);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			}

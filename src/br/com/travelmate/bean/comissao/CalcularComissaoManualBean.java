@@ -203,7 +203,7 @@ public class CalcularComissaoManualBean {
 					ComissaoVoluntariadoBean comissaoVoluntariadoBean = new ComissaoVoluntariadoBean(aplicacaoMB, vendascomissao.getVendas(),
 							vendascomissao.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
 							fornecedorcomissaocurso, formapagamento.getParcelamentopagamentoList(),
-							voluntariado.getDataInicio(), vendascomissao, getValorJuros(venda));
+							voluntariado.getDataInicioVoluntariado(), vendascomissao, getValorJuros(venda));
 					vendascomissao = comissaoVoluntariadoBean.getVendasComissao();
 				}
 			}

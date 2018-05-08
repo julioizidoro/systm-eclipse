@@ -86,8 +86,7 @@ public class ComissaoHEInscricaoBean {
             vendasComissao.setLiquidofranquia(vendasComissao.getComissaofraquia());
         }
         vendasComissao.setValorfornecedor(0.0f);
-        Double g = (valorComissionavel * 0.25);
-        vendasComissao.setComissaogerente(g.floatValue());
+        vendasComissao.setComissaogerente(100.00f);
         vendasComissao.setComissaoemissor(comissaoBean.calcularComissaoEmissor(vendasComissao));
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));

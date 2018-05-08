@@ -1565,7 +1565,7 @@ public class CadVoluntariadoMB implements Serializable {
 			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
 				ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, venda,
 						orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
-						formaPagamento.getParcelamentopagamentoList(), voluntariado.getDataInicio(), vendasComissao,
+						formaPagamento.getParcelamentopagamentoList(), voluntariado.getDataInicioVoluntariado(), vendasComissao,
 						valorJuros);
 				return cc.getVendasComissao().getValorfornecedor();
 			}
