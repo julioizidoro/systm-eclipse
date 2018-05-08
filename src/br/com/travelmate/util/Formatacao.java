@@ -497,7 +497,7 @@ public class Formatacao {
 		} else if (mes == 2) {
 			return "02-01";
 		} else if (mes == 3) {
-			return "02-01";
+			return "03-01";
 		} else if (mes == 4) {
 			return "04-01";
 		} else if (mes == 5) {
@@ -556,7 +556,7 @@ public class Formatacao {
 		} else if (mes == 2) {
 			return "02-28";
 		} else if (mes == 3) {
-			return "02-31";
+			return "03-31";
 		} else if (mes == 4) {
 			return "04-30";
 		} else if (mes == 5) {
