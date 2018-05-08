@@ -953,6 +953,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			}
 			ProgramasBean programasBean = new ProgramasBean();
 			Produtos produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getSeguroPrivado());
+			vendas.setFormapagamento(formaPagamento);
 			vendas.setValor(totalPagar);
 			vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, nsituacao, cliente, vendas.getValor(), produto,
 					valoresseguro.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, seguro.getDataInicio(), seguro.getDataTermino());

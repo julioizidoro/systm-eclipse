@@ -687,33 +687,14 @@ public class TraineeMB implements Serializable {
 		this.trainee = trainee;
 	}
 
-//	public String cancelarVenda(Vendas venda) {
-//		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
-//			Map<String, Object> options = new HashMap<String, Object>();
-//			options.put("contentWidth", 400);
-//			FacesContext fc = FacesContext.getCurrentInstance();
-//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("venda", venda);
-//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-//		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			VendasFacade vendasFacade = new VendasFacade();
-//			venda.setSituacao("CANCELADA");
-//			vendasFacade.salvar(venda);
-//			carregarListaVendasTrainee();
-//		}
-//		return "";
-//	}
-	
 	public String cancelarVenda(Trainee trainee) {
-		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| trainee.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", trainee.getVendas());
-			session.setAttribute("voltar", "consultaTrainee");
-			return "emissaocancelamento";
+			session.setAttribute("venda", trainee.getVendas());
+			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
 			trainee.getVendas().setSituacao("CANCELADA");
@@ -721,7 +702,26 @@ public class TraineeMB implements Serializable {
 			carregarListaVendasTrainee();
 		}
 		return "";
-	}   
+	}
+	
+//	public String cancelarVenda(Trainee trainee) {
+//		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+//				|| trainee.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("vendas", trainee.getVendas());
+//			session.setAttribute("voltar", "consultaTrainee");
+//			return "emissaocancelamento";
+//		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			trainee.getVendas().setSituacao("CANCELADA");
+//			vendasFacade.salvar(trainee.getVendas());
+//			carregarListaVendasTrainee();
+//		}
+//		return "";
+//	}   
 
 	public void salvarControle() throws SQLException {
 		Controletrainee controletrainee = new Controletrainee();

@@ -574,46 +574,18 @@ public class PacoteMB implements Serializable {
 		}
 	}
 
-//	public String cancelarVenda(Vendas venda) {
-//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			Map<String, Object> options = new HashMap<String, Object>();
-//			options.put("contentWidth", 400);
-//			FacesContext fc = FacesContext.getCurrentInstance();
-//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("venda", venda);
-//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-//		} else {
-//			VendasFacade vendasFacade = new VendasFacade();
-//			venda.setSituacao("CANCELADA");
-//			vendasFacade.salvar(venda);
-//			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
-//			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
-//			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-//				sql = sql + "and p.unidadenegocio.idunidadeNegocio="
-//						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-//			}
-//			sql = sql + " and p.vendas.dataVenda>='" + dataConsulta + "' order by p.vendas.dataVenda desc";
-//			listaPacotesAgencia = GerarListas.listarPacotes(sql);
-//		}
-//		return "";
-//	}
-	
-	
 	public String cancelarVenda(Pacotes pacotes) {
-		if (pacotes.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| pacotes.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+		if (!pacotes.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", pacotes.getVendas());
-			session.setAttribute("voltar", "consultapacotesagencia");
-			return "emissaocancelamento";
-		}  else if (pacotes.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			session.setAttribute("venda", pacotes.getVendas());
+			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+		} else {
 			VendasFacade vendasFacade = new VendasFacade();
-			Vendas vendas = pacotes.getVendas();
-			vendas.setSituacao("CANCELADA");
-			vendasFacade.salvar(vendas);
+			pacotes.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(pacotes.getVendas());
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -624,7 +596,35 @@ public class PacoteMB implements Serializable {
 			listaPacotesAgencia = GerarListas.listarPacotes(sql);
 		}
 		return "";
-	}   
+	}
+	
+	
+//	public String cancelarVenda(Pacotes pacotes) {
+//		if (pacotes.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+//				|| pacotes.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("vendas", pacotes.getVendas());
+//			session.setAttribute("voltar", "consultapacotesagencia");
+//			return "emissaocancelamento";
+//		}  else if (pacotes.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			Vendas vendas = pacotes.getVendas();
+//			vendas.setSituacao("CANCELADA");
+//			vendasFacade.salvar(vendas);
+//			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
+//			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
+//			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+//				sql = sql + "and p.unidadenegocio.idunidadeNegocio="
+//						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+//			}
+//			sql = sql + " and p.vendas.dataVenda>='" + dataConsulta + "' order by p.vendas.dataVenda desc";
+//			listaPacotesAgencia = GerarListas.listarPacotes(sql);
+//		}
+//		return "";
+//	}   
 
 	public String corNome(Pacotes pacotes) {
 		if (pacotes.getVendas().getSituacao().equals("CANCELADA")) {
