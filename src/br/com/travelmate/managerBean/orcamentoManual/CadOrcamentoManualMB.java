@@ -624,6 +624,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		if (aplicacaoMB.getParametrosprodutos().isRemessaativa()) {
 			calcularImpostoRemessa();
 		}
+		boolean seguro = true;
 		totalMoedaEstrangeira = 0.0f;
 		totalMoedaReal = 0.0f;
 		valorTotal = 0.0f;
@@ -631,8 +632,9 @@ public class CadOrcamentoManualMB implements Serializable {
 			float valorMoedaReal = 0.0f;
 			float valorMoedaEstrangeira = 0.0f;
 			for (int i = 0; i < listaProdutoOrcamentoBean.size(); i++) {
+				int idProdutoOrcamento = listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento();
+				int seguroViagem = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
 				if (listaProdutoOrcamentoBean.get(i).isSomarvalortotal()) {
-					int idProdutoOrcamento = listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento();
 					int descontoLoja = aplicacaoMB.getParametrosprodutos().getDescontoloja();
 					int descontoMatriz = aplicacaoMB.getParametrosprodutos().getDescontomatriz();
 					int promocaoEscola = aplicacaoMB.getParametrosprodutos().getPromocaoescola();
@@ -649,6 +651,11 @@ public class CadOrcamentoManualMB implements Serializable {
 					} else if (idProdutoOrcamento == promocaoEscolaAcomodacao) {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal() * -1;
 						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * -1;
+					}else if(seguroViagem == idProdutoOrcamento) {
+						if(this.seguroViagem != null && this.seguroViagem.isSomarvalortotal() && this.seguroViagem.getValor() > 0) {
+							seguro = false;
+							listaProdutoOrcamentoBean.get(i).setSomarvalortotal(true);
+						}
 					} else {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal();
 						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira();
@@ -658,13 +665,15 @@ public class CadOrcamentoManualMB implements Serializable {
 					totalMoedaReal = totalMoedaReal + valorMoedaReal;
 				}
 			}
-			if (seguroViagem.isSomarvalortotal() && seguroViagem.getValor() > 0) {
-				valorTotal = valorTotal + seguroViagem.getValor();
-				CambioFacade cambioFacade = new CambioFacade();
-				Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
-				totalMoedaEstrangeira = totalMoedaEstrangeira + (seguroViagem.getValor() / cambioSeguro.getValor());
-				totalMoedaReal = totalMoedaReal + seguroViagem.getValor();
+			if (seguro) {
+				if (seguroViagem.isSomarvalortotal() && seguroViagem.getValor() > 0) {
+					valorTotal = valorTotal + seguroViagem.getValor();
+					CambioFacade cambioFacade = new CambioFacade();
+					Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+							seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
+					totalMoedaEstrangeira = totalMoedaEstrangeira + (seguroViagem.getValor() / cambioSeguro.getValor());
+					totalMoedaReal = totalMoedaReal + seguroViagem.getValor();
+				}
 			}
 			orcamentocurso.setValor(valorTotal);
 			orcamentocurso.setTotalmoedaestrangeira(valorTotal / valorCambio);
@@ -1776,6 +1785,10 @@ public class CadOrcamentoManualMB implements Serializable {
 		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
 		Produtosorcamento produto = orcamentoCursoFacade
 				.consultarProdutoOrcamentoCurso(produtoOrcamentoCursoBean.getIdProdutoOrcamento());
+		int seguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
+		if (seguro == produtoOrcamentoCursoBean.getIdProdutoOrcamento()) {
+			return true;
+		}
 		if (produto.getTipoorcamento() != null && produto.getTipoorcamento().equalsIgnoreCase("R")) {
 			return false;
 		} else
