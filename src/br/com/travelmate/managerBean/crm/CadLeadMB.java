@@ -423,7 +423,8 @@ public class CadLeadMB implements Serializable {
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
 				avisos.setImagem("aviso");
 				avisos.setLiberar(true);
-				avisos.setTexto("Você recebeu uma nova lead.");
+				avisos.setTexto("Você recebeu uma nova lead - " + lead.getCliente().getNome() + ". Incluida por " + usuarioLogadoMB.getUsuario().getNome() 
+						+ ". No dia:" + Formatacao.ConvercaoDataPadrao(new Date()));
 				avisos.setIdunidade(0); 
 				List<Avisousuario> lista = new ArrayList<Avisousuario>();
 				Avisousuario avisousuario = new Avisousuario();  
