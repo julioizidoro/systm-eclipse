@@ -600,7 +600,7 @@ public class CadDemiPairMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, demipair.getDatainicio());
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
@@ -1203,7 +1203,7 @@ public class CadDemiPairMB implements Serializable {
 
 								if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 									ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-											formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+											formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
 								}
 							}
 							String vm = "Venda pela Matriz";

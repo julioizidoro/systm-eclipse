@@ -174,8 +174,8 @@
 					<p:tab title="Cartão de Crédito (#{revisaoFinanceiroMB.nCartaoCredito})" class="tab" titleStyle="font-size: 11px" id="panelCartaoCredito">
 						<p:dataTable id="tabelaCartaoCredito" var="lancamento" 
 							value="#{revisaoFinanceiroMB.listaCartaoCredito}" scrollable="true"  
-							scrollHeight="300"  >        
-							
+							scrollHeight="300"  editable="true" editMode="cell">        
+							<p:ajax event="cellEdit" update="tabelaCartaoCredito, :consultaRevisaoFinanceiro:growl" /> 
 							<p:column headerText="ID"  style="width:50px;" sortBy="#{lancamento.vendas.idvendas}">
 								
 								<p:commandLink
@@ -202,10 +202,23 @@
 							</p:column>
 							<p:column headerText="Próximo Contato" 
 								style="text-align:center;width:75px;" >
-								<h:outputText value="" style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />    
-								</h:outputText>
+								
+								<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{lancamento.dataproximocontato}" style="#{revisaoFinanceiroMB.retonarCorVenda(lancamento.vendas)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />    
+									</h:outputText> 
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="datachegada"
+										value="#{lancamento.dataproximocontato}"
+										size="12" locale="pt" pattern="dd/MM/yyyy">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										<p:ajax event="dateSelect" listener="#{revisaoFinanceiroMB.salvarCartao(lancamento)}" update="tabelaCartaoCredito"/>
+									</p:calendar>
+								</f:facet>
+							</p:cellEditor>  
 							</p:column>
 							<p:column headerText="Unidade"  style="width:110px;"
 								styleClass="alinharCenter" sortBy="#{lancamento.vendas.unidadenegocio.nomerelatorio}">

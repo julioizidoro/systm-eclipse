@@ -41,7 +41,7 @@ public class CadHeBean {
 		he = heFacade.salvar(he);
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, he.getDatainicio());
 		}
 		if (tipo.equalsIgnoreCase("I")){
 			salvarComissaoInscricao(aplicacaoMB);

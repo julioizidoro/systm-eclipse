@@ -86,7 +86,7 @@ public class GerarContasReceberMB implements Serializable{
 		parcela.setValorParcela(conta.getValorparcela());
 		parcela.setValorParcelamento(0.0f);
 		listaParcelamento.add(parcela);
-		ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,listaParcelamento, usuarioLogadoMB, conta.getNumerodocumento(), false);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,listaParcelamento, usuarioLogadoMB, conta.getNumerodocumento(), false, null);
         RequestContext.getCurrentInstance().closeDialog(conta);
         return "";
     }

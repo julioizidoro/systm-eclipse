@@ -56,6 +56,8 @@ public class Parcelamentopagamento implements Serializable {
     private Formapagamento formapagamento;
     @Transient
     private boolean verificarParcelamento;
+    @Column(name = "restrito")
+    private boolean restrito;
 
     public Parcelamentopagamento() {
     	setVerificarParcelamento(false);
@@ -135,6 +137,14 @@ public class Parcelamentopagamento implements Serializable {
 
 	public void setVerificarParcelamento(boolean verificarParcelamento) {
 		this.verificarParcelamento = verificarParcelamento;
+	}
+
+	public boolean isRestrito() {
+		return restrito;
+	}
+
+	public void setRestrito(boolean restrito) {
+		this.restrito = restrito;
 	}
 
 	@Override

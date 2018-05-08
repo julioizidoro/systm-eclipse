@@ -628,7 +628,7 @@ public class CadHighSchoolMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, Formatacao.ConvercaoStringData(highschool.getDataInicio()));
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
@@ -1291,7 +1291,7 @@ public class CadHighSchoolMB implements Serializable {
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
 							ContasReceberBean contasReceber = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, null);
 							String titulo = "Nova Ficha de High School";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";

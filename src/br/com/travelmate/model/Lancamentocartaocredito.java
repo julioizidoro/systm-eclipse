@@ -41,6 +41,9 @@ public class Lancamentocartaocredito implements Serializable{
 	    private Vendas vendas;
 	    @Column(name = "lancado")
 	    private boolean lancado;
+	    @Column(name = "dataproximocontato")
+	    @Temporal(TemporalType.DATE)
+	    private Date dataproximocontato;
 	    
 	    
 	    public Lancamentocartaocredito() {
@@ -104,6 +107,16 @@ public class Lancamentocartaocredito implements Serializable{
 
 		public void setLancado(boolean lancado) {
 			this.lancado = lancado;
+		}
+
+
+		public Date getDataproximocontato() {
+			return dataproximocontato;
+		}
+
+
+		public void setDataproximocontato(Date dataproximocontato) {
+			this.dataproximocontato = dataproximocontato;
 		}
 
 

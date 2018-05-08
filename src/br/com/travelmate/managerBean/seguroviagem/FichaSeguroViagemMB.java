@@ -784,7 +784,7 @@ public class FichaSeguroViagemMB implements Serializable {
 					if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento,
-								formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB, seguro.getDataInicio());
 					}
 				}
 				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
@@ -968,7 +968,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			calcularComissao();
 			if (novaFicha) {
 				ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,
-						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, seguro.getDataInicio());
 			} else {
 				if (nsituacao.equalsIgnoreCase("FINALIZADA")) {
 					calcularComissao();

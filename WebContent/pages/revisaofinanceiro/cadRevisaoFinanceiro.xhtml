@@ -114,6 +114,12 @@
 					<p:ajax event="cellEdit"
 						update=":cadastroRevisaoFinanceiro:idValorRecebido"
 						listener="#{cadRevisaoFinanceiroMB.calcularValorTotal()}" />
+					<p:column style="width:40px;text-align:center;" headerText="">
+						<h:panelGroup rendered="#{contasreceber.restrito}">
+							<img src="../../resources/img/iconealerta.png" 
+								style="width: 17px;" title="VENCIMENTO MAIOR QUE 30 DIAS ANTES DO INICÍO DO PROGRAMA"/>
+ 						</h:panelGroup>
+					</p:column>
 					<p:column style="width:50px;text-align:center;" headerText="Situação">
 						<p:graphicImage value="#{contasreceber.bolinhas.caminho}"
 							style="margin-right: 25%; font-size: 12px;" />
@@ -279,7 +285,7 @@
 				<h:panelGrid columns="6" style="width:63%;margin-left:18%;">
 					<p:commandButton id="bLiberar" value="Liberar"
 						action="#{cadRevisaoFinanceiroMB.liberarVenda()}"
-						icon="ui-icon-plus" style="font-size:12px;width:110px;" />
+						icon="ui-icon-plus" style="font-size:12px;width:110px;" update=":cadastroRevisaoFinanceiro:growl"/>
 					<p:commandButton id="bDocumentos" value="Documentos"
 						action="#{cadRevisaoFinanceiroMB.consultarDocumentos()}"
 						icon="ui-icon-plus" style="font-size:12px;width:110px;" />

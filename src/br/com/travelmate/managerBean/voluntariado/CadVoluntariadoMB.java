@@ -1002,7 +1002,7 @@ public class CadVoluntariadoMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, voluntariado.getDataInicio());
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);

@@ -730,7 +730,7 @@ public class CadAupairMB implements Serializable {
 				if (venda.getIdvendas()!=null){
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
-					parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+					parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, aupair.getDataInicioPretendida01());
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
@@ -1312,7 +1312,7 @@ public class CadAupairMB implements Serializable {
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, aupair.getDataInicioPretendida01());
 							String titulo = "Nova Ficha de Au Pair";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";

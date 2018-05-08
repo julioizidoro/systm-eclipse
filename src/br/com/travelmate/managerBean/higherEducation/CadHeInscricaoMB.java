@@ -904,7 +904,7 @@ public class CadHeInscricaoMB implements Serializable {
 				if (venda.getIdvendas()!=null){
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
-						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, he.getDatainicio());
 					}
 				}
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
@@ -1235,7 +1235,7 @@ public class CadHeInscricaoMB implements Serializable {
 					tmRaceMB.gerarListaBronze();
 
 					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, he.getDatainicio());
 					String titulo = "Nova ficha de inscrição Higher Education";
 					String operacao = "A";
 					String imagemNotificacao = "inserido"; 
@@ -1306,7 +1306,7 @@ public class CadHeInscricaoMB implements Serializable {
 						String imagemNotificacao = "alterado";
 						if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, he.getDatainicio());
 							String vm = "Venda pela Matriz";
 							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
 								vm = "Venda pela Loja";

@@ -89,7 +89,7 @@ public class CadWorkTravelBean {
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB){
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true); 
+					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, work.getDataInicioPretendida01()); 
 		}
 		
 		Float valorPrevisto= 0.0f;

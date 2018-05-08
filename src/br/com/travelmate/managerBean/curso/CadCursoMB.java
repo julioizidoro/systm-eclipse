@@ -1322,7 +1322,6 @@ public class CadCursoMB implements Serializable {
 					horatime = Formatacao.converterStringHora(horaAtual);
 					horaMaxTime = Formatacao.converterStringHora(horaMaxima);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				if (horatime.after(horaMaxTime)) {
@@ -1374,7 +1373,7 @@ public class CadCursoMB implements Serializable {
 			if (venda.getIdvendas()!=null){
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
-					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, curso.getDataInicio());
 				 }
 			}
 			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
@@ -1497,11 +1496,10 @@ public class CadCursoMB implements Serializable {
 								.veririfcarParcelamento(formaPagamento.getParcelamentopagamentoList());
 						venda.setRestricaoparcelamento(verificaParcelamento);
 						if (verificaParcelamento) {
-							nsituacao = "PROCESSO";
 							Mensagem.lancarMensagemWarn("Data Vencimento",
 									"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
-						} else
-							nsituacao = "ANDAMENTO";
+						} 
+						nsituacao = "ANDAMENTO";
 					}
 				} else {
 					if (nsituacao.equalsIgnoreCase("")) {
@@ -1599,7 +1597,7 @@ public class CadCursoMB implements Serializable {
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, curso.getDataInicio());
 							String titulo = "";
 							String operacao = "";
 							String imagemNotificacao = "";

@@ -775,7 +775,7 @@ public class CadHeFinalMB implements Serializable {
 				if (venda.getIdvendas()!=null){
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
-						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, he.getDatainicio());
 					}
 				}
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {

@@ -495,76 +495,99 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     
 	public String liberarVenda() {
 		VendasFacade vendasFacade = new VendasFacade();
-		if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {
-			listaVendaNova.remove(venda);
-		} else if (venda.getSituacaofinanceiro().equalsIgnoreCase("P")) {
-			listaVendaPendente.remove(venda);
-		}
-		venda.setSituacaofinanceiro("L");
-		if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
-			venda.setSituacao("FINALIZADA");
-			venda.setDataprocesso(new Date());
-			AvisosFacade avisosFacade = new AvisosFacade();
-			Avisos avisos = new Avisos();
-			avisos.setData(new Date());
-			avisos.setUsuario(usuarioLogadoMB.getUsuario());
-			avisos.setImagem("aviso");
-			avisos.setLiberar(true);
-			avisos.setTexto("Venda do cliente " + venda.getCliente().getNome() + ", Nº da venda "
-					+ venda.getIdvendas() + " está finalizada.");
-			avisos.setIdunidade(0);
-			avisos = avisosFacade.salvar(avisos);
-			salvarAvisoUsuario(avisos);
-		}
-		if (venda.getFormapagamento().getIdformaPagamento() == null) {
-			venda.setFormapagamento(null);
-		}
-    	
-    	if (venda.getOrcamento().getIdorcamento() == null) {
-			venda.setOrcamento(null);
-		}
-    	
-    	if (venda.getCambio().getIdcambio() == null) {
-			venda.setCambio(null);
-		}
-    	
-    	if (venda.getVendascomissao().getIdvendascomissao() == null) {
-			venda.setVendascomissao(null);
-		}
-    	
-    	if (venda.getFornecedor().getIdfornecedor() == null) {
-			venda.setFornecedor(null);
-		}
-    	
-		venda = vendasFacade.salvar(venda);
-		int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
-		int idProdutoVoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
-		boolean pendenciarSeguro = false;
-		if (venda.getProdutos().getIdprodutos()==idProduto) {
-			pendenciarSeguro = true;
-		}else if (venda.getProdutos().getIdprodutos()==idProdutoVoluntariado) {
-			pendenciarSeguro = true;
-		}
-		if (pendenciarSeguro) {
-			int idVendaSeguro = getIdVendaSeguro(venda.getIdvendas());
-			if (idVendaSeguro>0) {
-				for(int i=0;i<listaVendaNova.size();i++) {
-					if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
-						listaVendaNova.get(i).setSituacaofinanceiro("L");
-						vendasFacade.salvar(listaVendaNova.get(i));
-						gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
-						listaVendaNova.remove(i);
-						i=listaVendaNova.size() + 10;
+		if (validarLiberacao()) {
+			if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {
+				listaVendaNova.remove(venda);
+			} else if (venda.getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				listaVendaPendente.remove(venda);
+			}
+			venda.setSituacaofinanceiro("L");
+			if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
+				venda.setSituacao("FINALIZADA");
+				venda.setDataprocesso(new Date());
+				AvisosFacade avisosFacade = new AvisosFacade();
+				Avisos avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + venda.getCliente().getNome() + ", Nº da venda "
+						+ venda.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
+			if (venda.getFormapagamento().getIdformaPagamento() == null) {
+				venda.setFormapagamento(null);
+			}
+	    	
+	    	if (venda.getOrcamento().getIdorcamento() == null) {
+				venda.setOrcamento(null);
+			}
+	    	
+	    	if (venda.getCambio().getIdcambio() == null) {
+				venda.setCambio(null);
+			}
+	    	
+	    	if (venda.getVendascomissao().getIdvendascomissao() == null) {
+				venda.setVendascomissao(null);
+			}
+	    	
+	    	if (venda.getFornecedor().getIdfornecedor() == null) {
+				venda.setFornecedor(null);
+			}
+	    	
+			venda = vendasFacade.salvar(venda);
+			int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+			int idProdutoVoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
+			boolean pendenciarSeguro = false;
+			if (venda.getProdutos().getIdprodutos()==idProduto) {
+				pendenciarSeguro = true;
+			}else if (venda.getProdutos().getIdprodutos()==idProdutoVoluntariado) {
+				pendenciarSeguro = true;
+			}
+			if (pendenciarSeguro) {
+				int idVendaSeguro = getIdVendaSeguro(venda.getIdvendas());
+				if (idVendaSeguro>0) {
+					for(int i=0;i<listaVendaNova.size();i++) {
+						if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
+							listaVendaNova.get(i).setSituacaofinanceiro("L");
+							vendasFacade.salvar(listaVendaNova.get(i));
+							gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
+							listaVendaNova.remove(i);
+							i=listaVendaNova.size() + 10;
+						}
 					}
 				}
 			}
+			gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("listaVendaNova", listaVendaNova);
+			session.setAttribute("listaVendaPendente", listaVendaPendente);
+			return "consVendasRevisaoFinanceiro";
 		}
-		gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("listaVendaNova", listaVendaNova);
-		session.setAttribute("listaVendaPendente", listaVendaPendente);
-		return "consVendasRevisaoFinanceiro";
+		return "";
+	}
+	
+	
+	public boolean validarLiberacao() {
+		if (venda.getFormapagamento() == null || venda.getFormapagamento().getIdformaPagamento() == null) {
+			Mensagem.lancarMensagemInfo("LIBERAÇÃO NEGADA", "Venda sem forma de pagamento!!");
+			return false;
+		}
+
+		if (venda.getOrcamento() == null || venda.getOrcamento().getIdorcamento() == null) {
+			Mensagem.lancarMensagemInfo("LIBERAÇÃO NEGADA", "Venda sem orçamento");
+			return false;
+		}
+
+
+		if (venda.getFornecedor() == null || venda.getFornecedor().getIdfornecedor() == null) {
+			Mensagem.lancarMensagemInfo("LIBERAÇÃO NEGADA", "Venda sem fornecedor");
+			return false;
+		}
+		return true;
 	}
     
     
@@ -637,32 +660,32 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     }
     
     
-    public void validarDados(){
-    	if (venda.getFormapagamento() == null) {
+	public void validarDados() {
+		if (venda.getFormapagamento() == null) {
 			venda.setFormapagamento(new Formapagamento());
 		}
-    	
-    	if (venda.getOrcamento() == null) {
+
+		if (venda.getOrcamento() == null) {
 			venda.setOrcamento(new Orcamento());
 		}
-    	
-    	if (venda.getCambio() == null) {
+
+		if (venda.getCambio() == null) {
 			venda.setCambio(new Cambio());
 			venda.getCambio().setMoedas(new Moedas());
 		}
-    	
-    	if (venda.getVendascomissao() == null) {
+
+		if (venda.getVendascomissao() == null) {
 			venda.setVendascomissao(new Vendascomissao());
 		}
-    	
-    	if (venda.getFornecedor() == null) {
+
+		if (venda.getFornecedor() == null) {
 			venda.setFornecedor(new Fornecedor());
 		}
-    	
-    	if (venda.getContasreceberList() == null) {
+
+		if (venda.getContasreceberList() == null) {
 			venda.setContasreceberList(new ArrayList<Contasreceber>());
 		}
-    }
+	}
     
 	public void gerarLogVenda(String situacao, String operacao) {
 		Logvenda logVenda = new Logvenda();
@@ -757,6 +780,14 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     
 	public void verificarContasReceber(){
 		listaContasReceber = new ArrayList<>();
+		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+		if (venda.getContasreceberList() == null || venda.getContasreceberList().isEmpty()) {
+			List<Contasreceber> lista = contasReceberFacade.listar("SELECT c FROM Contasreceber c WHERE c.situacao<>'cc' and c.vendas.idvendas=" + venda.getIdvendas());
+			if (lista == null) {
+				lista = new ArrayList<Contasreceber>();
+			}
+			venda.setContasreceberList(lista);
+		}
 		for (int i = 0; i < venda.getContasreceberList().size(); i++) {
 			if (!venda.getContasreceberList().get(i).getSituacao().equalsIgnoreCase("cc")) {
 				venda.getContasreceberList().get(i).setBolinhas(verStatus(venda.getContasreceberList().get(i)));
@@ -767,6 +798,9 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	}
 	
 	public void verificarParcelamento(){
+		if (venda.getFormapagamento().getParcelamentopagamentoList() == null) {
+			venda.getFormapagamento().setParcelamentopagamentoList(new ArrayList<Parcelamentopagamento>());
+		}
 		for (int i = 0; i < venda.getFormapagamento().getParcelamentopagamentoList().size(); i++) {
 			if (venda.getFormapagamento().getParcelamentopagamentoList().get(i).getFormaPagamento().equalsIgnoreCase("Cartão de crédito") || 
 					venda.getFormapagamento().getParcelamentopagamentoList().get(i).getFormaPagamento().equalsIgnoreCase("Cartão débito") ||

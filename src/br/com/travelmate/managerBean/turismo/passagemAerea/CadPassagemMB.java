@@ -626,7 +626,7 @@ public class CadPassagemMB implements Serializable {
 				if (vendas.getIdvendas()!=null){
 					if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
-						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB);
+						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB, passagem.getDataviagem());
 					}
 				}
 				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
@@ -844,7 +844,7 @@ public class CadPassagemMB implements Serializable {
 				calcularComissao();
 				if (novaFicha) { 
 					ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,
-							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, passagem.getDataviagem());
 				} else {
 					if (nsituacao.equalsIgnoreCase("FINALIZADA")) {
 						float valorVendaatual = vendas.getValor();

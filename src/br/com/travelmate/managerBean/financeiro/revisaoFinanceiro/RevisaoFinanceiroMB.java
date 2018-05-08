@@ -12,9 +12,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.LancamentoCartaoCreditoFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.model.Lancamentocartaocredito;
 import br.com.travelmate.model.Produtos;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -285,12 +287,26 @@ public class RevisaoFinanceiroMB implements Serializable{
 
 
 	public String cadastroRevisaoFinanceiro(Vendas venda) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("venda", venda);
-		session.setAttribute("listaVendaNova", listaVendaNova);
-		session.setAttribute("listaVendaPendente", listaVendaPendente);
-		return "cadRevisaoFinanceiro";
+		boolean revisar = true;
+		if (venda.getProdutos().getIdprodutos() == 2) {
+			SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+			Seguroviagem seguroviagem = seguroViagemFacade.consultar(venda.getIdvendas());
+			if (seguroviagem != null) {
+				if (seguroviagem.getIdvendacurso() > 0) {
+					revisar = false;
+				}
+			}
+		}
+		if (revisar) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("venda", venda);
+			session.setAttribute("listaVendaNova", listaVendaNova);
+			session.setAttribute("listaVendaPendente", listaVendaPendente);
+			return "cadRevisaoFinanceiro";
+		}
+		Mensagem.lancarMensagemInfo("", "");
+		return "";
 	}
 	
 	
@@ -364,5 +380,13 @@ public class RevisaoFinanceiroMB implements Serializable{
 		nCartaoCredito = nCartaoCredito - 1;
 		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 	}
+	
+	
+	public void salvarCartao(Lancamentocartaocredito lancamento) {
+		LancamentoCartaoCreditoFacade lancamentoCartaoCreditoFacade = new LancamentoCartaoCreditoFacade();
+		lancamentoCartaoCreditoFacade.salvar(lancamento);
+		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
+	}
+	
 
 }

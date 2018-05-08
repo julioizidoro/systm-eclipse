@@ -751,7 +751,7 @@ public class CadTraineeMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, null);
 					}
 				}
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {

@@ -98,7 +98,7 @@ public class CadVoluntariadoBean {
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB){
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
+					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, voluntariado.getDataInicio());
 		}	
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();

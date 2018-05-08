@@ -1280,7 +1280,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 					}
 					if (novaFicha) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean(vendass,
-								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, pacotes.getDatainicio());
 						GerarPacotesFornecedorBean gerarPacotesFornecedorBean = new GerarPacotesFornecedorBean(listaTrecho);
 					} 
 					FacesContext fc = FacesContext.getCurrentInstance();
@@ -1468,7 +1468,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 				if (vendass.getIdvendas() != null){
 					if (!vendass.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
-						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendass, usuarioLogadoMB);
+						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendass, usuarioLogadoMB, pacotes.getDatainicio());
 					}
 				}
 				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {

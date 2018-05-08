@@ -40,12 +40,14 @@ public class ContasReceberBean {
 	private Planoconta planoConta;
 	private String numeroDocumento;
 	private float valorJaRecebido;
+	private Date dataInicio;
 
 	public ContasReceberBean(Vendas venda, List<Parcelamentopagamento> listaParcelas, UsuarioLogadoMB usuarioLogadoBean,
-			String numeroDocumen, boolean apagarConta) {
+			String numeroDocumen, boolean apagarConta, Date datainicio) {
 		this.venda = venda;
 		this.listaParcelas = listaParcelas;
 		this.usuarioLogadoBean = usuarioLogadoBean;
+		this.dataInicio = datainicio;
 		if (apagarConta) {
 			apagarContasReceber();
 		}
@@ -109,10 +111,11 @@ public class ContasReceberBean {
 	}
 
 	public Parcelamentopagamento gerarParcelasIndividuais(Parcelamentopagamento parcelamento, int numeroParcela, Vendas venda,
-			UsuarioLogadoMB usuarioLogadoBean) {
+			UsuarioLogadoMB usuarioLogadoBean, Date datainicio) {
 		ParcelamentoPagamentoFacade pagamentoFacade = new ParcelamentoPagamentoFacade();
 		this.venda = venda;
 		this.usuarioLogadoBean = usuarioLogadoBean;
+		this.dataInicio = datainicio;
 		if (parcelamento.getTipoParcelmaneto().equalsIgnoreCase("Matriz")) {
 			this.listaContas = new ArrayList<Contasreceber>();
 			parcelamento = pagamentoFacade.salvar(parcelamento);
@@ -172,6 +175,11 @@ public class ContasReceberBean {
 				conta.setNumeroparcelas("0" + (String.valueOf(i + 1)) + "/" + numeroParcelasFormatado);
 			} else {
 				conta.setNumeroparcelas((String.valueOf(i + 1)) + "/" + numeroParcelasFormatado);
+			}
+			if (Formatacao.calcularDataParcelamento(cData, i + 1, dataInicio)) {
+				conta.setRestrito(true);
+			}else {
+				conta.setRestrito(false);
 			}
 			conta.setValorparcela(valorParcela);
 			conta.setDatavencimento(cData);

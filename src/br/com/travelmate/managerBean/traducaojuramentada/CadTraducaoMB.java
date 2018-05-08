@@ -521,7 +521,7 @@ public class CadTraducaoMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, null);
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
@@ -703,7 +703,7 @@ public class CadTraducaoMB implements Serializable {
 			}
 			if (novaFicha) {
 				ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, null);
 			}
 			if (editarFicha) {
 				if (listaParcelamantoPagamentoAntiga != null && formaPagamento.getParcelamentopagamentoList() != null) {

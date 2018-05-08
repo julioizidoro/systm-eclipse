@@ -119,6 +119,8 @@ public class Contasreceber implements Serializable {
     private Date datanovovencimento;
     @Column(name = "idparcelamentopagamento")
     private Integer idparcelamentopagamento;
+    @Column(name = "restrito")
+    private boolean restrito;
     
 
     public Contasreceber() {
@@ -385,6 +387,14 @@ public class Contasreceber implements Serializable {
 
 	public void setIdparcelamentopagamento(Integer idparcelamentopagamento) {
 		this.idparcelamentopagamento = idparcelamentopagamento;
+	}
+
+	public boolean isRestrito() {
+		return restrito;
+	}
+
+	public void setRestrito(boolean restrito) {
+		this.restrito = restrito;
 	}
 
 	@Override

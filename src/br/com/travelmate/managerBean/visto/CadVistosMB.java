@@ -463,7 +463,7 @@ public class CadVistosMB implements Serializable {
 				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO") && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
 					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento,
-							formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB);
+							formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB, vistos.getDataembarque());
 				}
 			}
 			if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
@@ -706,7 +706,7 @@ public class CadVistosMB implements Serializable {
 		formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
 		if (novaFicha && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,
-					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, vistos.getDataembarque());
 		}
 		String vm = "Venda pela Loja";
 		if (vendas.getVendasMatriz().equalsIgnoreCase("S")) {

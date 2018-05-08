@@ -89,7 +89,7 @@ public class CadTraineeBean {
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB) {
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, null);
 		}
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();

@@ -630,7 +630,7 @@ public class CadCursosTeensMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB);
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, programasTeens.getDataInicioCurso());
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
@@ -1265,7 +1265,7 @@ public class CadCursosTeensMB implements Serializable {
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false);
+									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, programasTeens.getDataInicioCurso());
 							String titulo = "Nova Ficha de Cursos Teens";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";
