@@ -99,7 +99,7 @@ public class Vendas implements Serializable {
 	private Orcamento orcamento;
 	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "vendas")
 	private Formapagamento formapagamento;
-	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "vendas")
+	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "vendas")
 	private Vendascomissao vendascomissao;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "vendas")
 	private List<Alteracaofinanceiro> alteracaofinanceiroList;
@@ -138,6 +138,8 @@ public class Vendas implements Serializable {
 	private boolean selecionado;
 	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "vendas")
 	private Leadposvenda leadposvenda; 
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "vendas")
+	private Cancelamento cancelamento;
 
 	public Vendas() {
 		setStatuscobranca("p");
@@ -481,6 +483,14 @@ public class Vendas implements Serializable {
 
 	public void setLeadposvenda(Leadposvenda leadposvenda) {
 		this.leadposvenda = leadposvenda;
+	}
+
+	public Cancelamento getCancelamento() {
+		return cancelamento;
+	}
+
+	public void setCancelamento(Cancelamento cancelamento) {
+		this.cancelamento = cancelamento;
 	}
 
 	@Override
