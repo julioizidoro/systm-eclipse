@@ -24,9 +24,20 @@
 </h:head>
 <h:body>
 	<div align="left">
-		<img src="../../../resources/img/fichaCursoLogo.PNG" width="100%" />
+		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
+		<h:panelGrid columns="1" style="width:100%;font-size:13px;margin-left:55px;margin-top:-160px;color:white;font-size:20px;">
+			<p:outputLabel value="ID: 12222"/>
+		</h:panelGrid>
+		<br/><br/><br/>
+		<h:panelGrid columns="1" style="width:100%;font-size:13px;margin-left:55px;margin-top:-28px;">
+			<p:outputLabel value="Unidade:#{fichaWorkTravelMB.worktravel.vendas.unidadenegocio.nomerelatorio}"/>
+			<p:outputLabel value="Consultor: #{fichaWorkTravelMB.worktravel.vendas.usuario.nome}"/>
+			<p:outputLabel value="#{fichaWorkTravelMB.worktravel.vendas.usuario.email}"/>
+		</h:panelGrid>
 	</div>
 	<br/>
+	<br/><br/><br/><br/><br/>
+	
 	
 	<div align="left">
 		<img src="../../../resources/img/dadosClienteFicha.PNG" width="40%" />

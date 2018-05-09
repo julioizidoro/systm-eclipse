@@ -24,13 +24,13 @@ public class AcessoMB implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		if (usuarioLogadoMB != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("inicial.jsf");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		if (usuarioLogadoMB != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
+//			try {
+//				FacesContext.getCurrentInstance().getExternalContext().redirect("inicial.jsf");
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 
