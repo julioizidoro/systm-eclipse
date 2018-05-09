@@ -146,6 +146,8 @@ public class Trainee implements Serializable {
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
+    @Column(name = "empresaContratar")
+    private String empresaContratar;
     
     @Transient 
     private boolean habilitarImagemGerencial;
@@ -523,6 +525,14 @@ public class Trainee implements Serializable {
 
 	public void setTituloFicha(String tituloFicha) {
 		this.tituloFicha = tituloFicha;
+	}
+
+	public String getEmpresaContratar() {
+		return empresaContratar;
+	}
+
+	public void setEmpresaContratar(String empresaContratar) {
+		this.empresaContratar = empresaContratar;
 	}
 
 	@Override
