@@ -569,6 +569,7 @@ public class FiltrarEscolaMB implements Serializable {
 					if (idadeestudante >= idadeVinculados) {
 						if (filtrarEscolaBean.getListaGrupoObrigatorio().get(i).isMenorobrigatorio()) {
 							filtrarEscolaBean.getListaGrupoObrigatorio().remove(i);
+							i--;
 						} else {
 							listaCoProdutos.add(filtrarEscolaBean.getListaGrupoObrigatorio().get(i).getProduto());
 							if (filtrarEscolaBean.getOcurso().getCliente().getDataNascimento() != null) {
