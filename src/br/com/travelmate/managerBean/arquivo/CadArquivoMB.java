@@ -371,15 +371,15 @@ public class CadArquivoMB implements Serializable {
 					if (validarBilheteAereo()) {
 						validarSeguroViagem();
 					}
-				}
-			} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
-				if ((tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58)
-						|| (tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 59)) {
-					dataRecebimentoInvoice();
-				} else if (aplicacaoMB.getParametrosprodutos().getHighereducation() == idproduto) {
+				}else if (aplicacaoMB.getParametrosprodutos().getHighereducation() == idproduto) {
 					verificarDocumentosHE();
 				}
+			} 
+			if ((tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58)
+					|| (tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 59)) {
+				dataRecebimentoInvoice();
 			}
+			
 			
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

@@ -359,12 +359,16 @@ public class ControleCursoMB implements Serializable {
 		listaVendasCursoCancelada = new ArrayList<>(); 
 		listaVendasCursoFinanceiro = new ArrayList<>(); 
 		for (int i = 0; i < listaControle.size(); i++) {
-			if (listaControle.get(i).getCurso().getTipoimportacaoorcamento().equalsIgnoreCase("T")) {
-				listaControle.get(i).setTipoOrcamento("Tarifário");
-			}else if (listaControle.get(i).getCurso().getTipoimportacaoorcamento().equalsIgnoreCase("M")){
-				listaControle.get(i).setTipoOrcamento("Manual");
+			if (listaControle.get(i).getCurso() != null) {
+				if (listaControle.get(i).getCurso().getTipoimportacaoorcamento().equalsIgnoreCase("T")) {
+					listaControle.get(i).setTipoOrcamento("Tarifário");
+				} else if (listaControle.get(i).getCurso().getTipoimportacaoorcamento().equalsIgnoreCase("M")) {
+					listaControle.get(i).setTipoOrcamento("Manual");
+				} else {
+					listaControle.get(i).setTipoOrcamento("Nenhum");
+				}
 			}else {
-				listaControle.get(i).setTipoOrcamento("Nenhum");
+				System.out.println("1");
 			}
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
@@ -631,21 +635,23 @@ public class ControleCursoMB implements Serializable {
 		}
 	}
 
-	
 	public String imagemSituacao(Curso curso) {
-		if (curso.getVendas().getSituacao().equals("FINALIZADA")) { 
+		if (curso != null) {
+			if (curso.getVendas().getSituacao().equals("FINALIZADA")) {
+				return "../../resources/img/finalizadoFicha.png";
+			} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+					&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+				return "../../resources/img/ficharestricao.png";
+			} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+					&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+				return "../../resources/img/amarelaFicha.png";
+			} else {
+				return "../../resources/img/fichaCancelada.png";
+			}
+		} else {
 			return "../../resources/img/finalizadoFicha.png";
-		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
-				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
-			return "../../resources/img/ficharestricao.png";
-		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
-				&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
-			return "../../resources/img/amarelaFicha.png";
-		} else { 
-			return "../../resources/img/fichaCancelada.png";
-		} 
-	}   
-	
+		}
+	}
 	
 	public String gerarRelatorioFicha(Curso curso) throws IOException {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
@@ -755,26 +761,33 @@ public class ControleCursoMB implements Serializable {
 	
 	
 	public String retornarIconeObsTM(Controlecurso controlecurso){
-		if (controlecurso.getCurso().getVendas().getObstm() != null && controlecurso.getCurso().getVendas().getObstm().length() > 0) {
-			return "../../resources/img/obsVermelha.png";
+		if (controlecurso.getCurso() != null) {
+			if (controlecurso.getCurso().getVendas().getObstm() != null
+					&& controlecurso.getCurso().getVendas().getObstm().length() > 0) {
+				return "../../resources/img/obsVermelha.png";
+			}
 		}
 		return "../../resources/img/obsFicha.png";
 	}
 	
 	
 	public String nomeSituacao(Curso curso) {
-		if (curso.getVendas().getSituacao().equals("FINALIZADA")) { 
+		if (curso != null) {
+			if (curso.getVendas().getSituacao().equals("FINALIZADA")) {
+				return "FICHA FINALIZADA";
+			} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+					&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+				return "FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)";
+			} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
+					&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) {
+				return "ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)";
+			} else {
+				return "FICHA CANCELADA";
+			}
+		} else {
 			return "FICHA FINALIZADA";
-		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
-				&& !curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
-			return "FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)";
-		} else if (curso.getVendas().getSituacao().equals("ANDAMENTO")
-				&& curso.getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")) { 
-			return "ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)";
-		} else { 
-			return "FICHA CANCELADA";
-		} 
-	}  
+		}
+	}
 	
 	
 	public void tipoOrcamento(Curso curso){
