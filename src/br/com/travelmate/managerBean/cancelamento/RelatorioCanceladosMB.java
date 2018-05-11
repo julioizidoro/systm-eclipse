@@ -99,7 +99,7 @@ public class RelatorioCanceladosMB implements Serializable {
 
 	public void pesquisar() {
 		String sql = "Select c from Cancelamento c where c.vendas.cliente.nome like '%" + nomeCliente
-				+ "%' and c.situacao='FINALIZADA' ";
+				+ "%'";
 		if (unidade != null) {
 			sql = sql + " and c.vendas.unidadenegocio.idunidadeNegocio=" + unidade.getIdunidadeNegocio();
 		}
@@ -150,10 +150,9 @@ public class RelatorioCanceladosMB implements Serializable {
 			vendascomissao.setValorfornecedor(0.0f);
 			vendascomissao.setJuros(0.0f);
 		}
-		valorLiquido = (cancelamento.getMultacliente() - valorLiquido - vendascomissao.getComissaotm()
-				- vendascomissao.getTaxatm())
-				+ (vendascomissao.getDescontotm() + vendascomissao.getDescontoloja() + cancelamento.getEstornoloja())
-				- cancelamento.getMultafornecedor();
+		valorLiquido =  (vendascomissao.getDescontotm() + vendascomissao.getDescontoloja() + cancelamento.getEstornoloja())
+				 - (cancelamento.getMultacliente() - valorLiquido - vendascomissao.getComissaotm()
+						- vendascomissao.getTaxatm() - cancelamento.getMultafornecedor());
 		return valorLiquido;
 	}
 

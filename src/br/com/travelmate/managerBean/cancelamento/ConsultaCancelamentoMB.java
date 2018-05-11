@@ -58,6 +58,9 @@ public class ConsultaCancelamentoMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaCancelamento = (List<Cancelamento>) session.getAttribute("listaCancelamento");
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		situacao = "TODAS";
 		listaUnidadeNegocio = GerarListas.listarUnidade();
@@ -229,7 +232,7 @@ public class ConsultaCancelamentoMB implements Serializable {
 			sql = sql + " and c.vendas.idvendas=" + idVenda;
 		}
 		if ((dataInicio != null) && (dataTermino != null)) {
-			sql = sql + " and c.datasolicitacao='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
+			sql = sql + " and c.datasolicitacao>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and c.datasolicitacao<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
 		} else {
 			if (nomeCliente.length() == 0) {
@@ -269,6 +272,7 @@ public class ConsultaCancelamentoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("cancelamento", cancelamento);
 		session.setAttribute("voltar", "conscancelamento");
+		session.setAttribute("listaCancelamento", listaCancelamento);
 		return "emissaocancelamento";
 	}
 

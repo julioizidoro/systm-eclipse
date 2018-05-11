@@ -912,8 +912,8 @@
 								<p:commandLink
 									action="#{cursoMB.visualizarContasReceber(cursosCancelada.vendas)}"
 									title="Visualizar Contas a Receber"
-									rendered="#{cursoMB.linkIdVendaFranquias}">
-										style="#{cursoMB.cor(cursosCancelada)}" />
+									rendered="#{cursoMB.linkIdVendaFranquias}"
+										style="#{cursoMB.cor(cursosCancelada)}" >
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosCancelada.vendas.cliente.nome}" style="width:170px;">

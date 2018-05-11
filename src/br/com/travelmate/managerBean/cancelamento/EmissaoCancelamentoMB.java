@@ -82,6 +82,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 	private float valorOriginalMulta = 0f;
 	private String pinCambio;
 	private boolean habilitarPin = false;
+	private List<Cancelamento> listaCancelamento;
 
 	@PostConstruct
 	public void init() {
@@ -90,9 +91,11 @@ public class EmissaoCancelamentoMB implements Serializable {
 		cancelamento = (Cancelamento) session.getAttribute("cancelamento");
 		vendas = (Vendas) session.getAttribute("vendas");
 		voltar = (String) session.getAttribute("voltar");
+		listaCancelamento = (List<Cancelamento>) session.getAttribute("listaCancelamento");
 		session.removeAttribute("vendas");
 		session.removeAttribute("cancelamento");
 		session.removeAttribute("voltar");
+		session.removeAttribute("listaCancelamento");
 		Date data = Formatacao.ConvercaoStringData("30/04/2016");
 		if (cancelamento == null) {
 			cancelamento = new Cancelamento();
@@ -472,6 +475,11 @@ public class EmissaoCancelamentoMB implements Serializable {
 			productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), true);
 			vendas.setSituacao("CANCELADA");
 			vendasFacade.salvar(vendas);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			if (listaCancelamento != null && listaCancelamento.size() > 0) {
+				session.setAttribute("listaCancelamento", listaCancelamento);
+			}
 			Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
 			return voltar;
 		} else {

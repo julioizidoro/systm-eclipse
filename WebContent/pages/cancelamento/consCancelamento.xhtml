@@ -61,16 +61,18 @@
 							<p:outputLabel />
 							<h:panelGroup>
 								<p:calendar id="dataIni" size="10"
-									value="#{consultaCancelamentoMB.dataInicio}" locale="pt"
+									value="#{consultaCancelamentoMB.dataInicio}" locale="pt" 
 									pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
+										<p:ajax event="blur"/>
 								</p:calendar>
 								<p:calendar id="dataFinal" size="10" style="margin-left:2%;"
 									value="#{consultaCancelamentoMB.dataTermino}" locale="pt"
 									pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
+										<p:ajax event="blur"/>
 								</p:calendar>
 							</h:panelGroup>
 							<h:panelGroup>

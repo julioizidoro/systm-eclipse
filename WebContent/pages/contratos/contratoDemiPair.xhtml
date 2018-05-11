@@ -207,12 +207,12 @@
 		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
 			<p style="margin: 1%;\">
 				<b style="color: green;"> 5. DESISTÊNCIA E/OU CANCELAMENTO DO
-					PROGRAMA </b><br /> <br />5.1 A taxa de inscrição correspondente
-				a 30% do valor do programa (não incluindo passagem aérea) paga à
+					PROGRAMA </b><br /> <br />5.1 A taxa de inscrição correspondente a
+				30% do valor do programa (não incluindo passagem aérea) paga à
 				Travelmate não é reembolsável, salvo em caso de impossibilidade da
 				organização internacional escolhida de receber o estudante por não
 				conseguir confirmar a colocação da candidata em uma família
-				hospedeira <br/> 5.2 No caso do visto consular ser negado a/ao
+				hospedeira <br /> 5.2 No caso do visto consular ser negado a/ao
 				participante por parte da autoridade consular responsável no Brasil,
 				correspondente a 30% do valor do programa (não incluindo passagem
 				aérea) paga à Travelmate não é reembolsável. Para receber reembolso
@@ -220,22 +220,26 @@
 				visto negado, a/o participante deverá fornecer toda a documentação
 				solicitada pela Travelmate e pelo parceiro internacional. Qualquer
 				valor a ser reembolsado será ao final do processo e após recebimento
-				de documentos solicitados a/ao participante. <br/> 5.3 No caso de
+				de documentos solicitados a/ao participante. <br /> 5.3 No caso de
 				cancelamento e/ou desistência por parte da/do participante após
 				envio da inscrição ao exterior mesmo antes da confirmação/aceitação
 				da família, o valor referente à Inscrição, correspondente a 30% do
-				valor do programa não será reembolsado. <br/> 5.4 Após confirmação da
-				família hospedeira e aceitação por parte da/do participante o valor
-				integral do programa "R$" $F{valorVenda} será retido e não
-				reembolsado. Após confirmação da família a Travelmate não garante a
-				possibilidade de alterações no programa no que se refere à mudança
-				de família, data de chegada ou partida, data de início e término do
-				programa, entre outras, estando estas sujeitas à disponibilidade da
-				organização internacional em questão. <br/> 5.5 A devolução de qualquer
-				quantia, por parte da Travelmate, será efetuada em Reais, de acordo
-				com a taxa de câmbio utilizada no dia do pagamento de cada parcela
-				referente. O prazo para reembolso será acordado pelo departamento
-				Financeiro diretamente com o participante" 
+				valor do programa não será reembolsado. <br /> 5.4 Após confirmação
+				da família hospedeira e aceitação por parte da/do participante o
+				valor integral do programa R$
+				<h:outputText value="#{fichaDemiPairMB.vendas.valor}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+				será retido e não reembolsado. Após confirmação da família a
+				Travelmate não garante a possibilidade de alterações no programa no
+				que se refere à mudança de família, data de chegada ou partida, data
+				de início e término do programa, entre outras, estando estas
+				sujeitas à disponibilidade da organização internacional em questão.
+				<br /> 5.5 A devolução de qualquer quantia, por parte da Travelmate,
+				será efetuada em Reais, de acordo com a taxa de câmbio utilizada no
+				dia do pagamento de cada parcela referente. O prazo para reembolso
+				será acordado pelo departamento Financeiro diretamente com o
+				participante"
 
 			</p>
 		</div>
