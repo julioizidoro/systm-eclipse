@@ -40,6 +40,7 @@ public class FichaCursoMB implements Serializable{
 	private boolean habilitarSeguroObrigatorio = true;
 	private Seguroviagem seguroviagem;
 	private int aulasSemana;
+	private float totalPagamento = 0.0f;
 	
 
 	
@@ -48,6 +49,7 @@ public class FichaCursoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		curso = (Curso) session.getAttribute("curso");
+		session.removeAttribute("curso");
 		if (curso != null) {
 			vendas = curso.getVendas();
 			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
@@ -87,6 +89,9 @@ public class FichaCursoMB implements Serializable{
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje); 
 		aulasSemana = curso.getAulassemana().intValue();
+		if (vendas.getFormapagamento() != null) {
+			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+		}
 	}
 
 
@@ -254,6 +259,18 @@ public class FichaCursoMB implements Serializable{
 
 	public void setAulasSemana(int aulasSemana) {
 		this.aulasSemana = aulasSemana;
+	}
+
+
+
+	public float getTotalPagamento() {
+		return totalPagamento;
+	}
+
+
+
+	public void setTotalPagamento(float totalPagamento) {
+		this.totalPagamento = totalPagamento;
 	}
 
 

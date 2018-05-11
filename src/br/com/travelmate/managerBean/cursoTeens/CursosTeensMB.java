@@ -689,41 +689,41 @@ public class CursosTeensMB implements Serializable {
 		return "consArquivos";
 	}
 
-	public String cancelarVenda(Vendas venda){
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
-			Map<String, Object> options = new HashMap<String, Object>();
-	    	options.put("contentWidth", 400);
-	    	FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		}else {
-			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
-		}
-		return "";
-	}
-	
-	
-//	public String cancelarVenda(Vendas venda) {
-//		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
-//				|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//	public String cancelarVenda(Vendas venda){
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
 //			Map<String, Object> options = new HashMap<String, Object>();
-//			options.put("contentWidth", 400);
-//			FacesContext fc = FacesContext.getCurrentInstance();
+//	    	options.put("contentWidth", 400);
+//	    	FacesContext fc = FacesContext.getCurrentInstance();
 //			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("vendas", venda);
-//			session.setAttribute("voltar", "consultaProgramasTeens");
-//			return "emissaocancelamento";
-//		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		}else {
 //			VendasFacade vendasFacade = new VendasFacade();
 //			venda.setSituacao("CANCELADA");
 //			vendasFacade.salvar(venda);
-//			carregarListaVendas();
 //		}
 //		return "";
-//	}    
+//	}
+	
+	
+	public String cancelarVenda(Vendas venda) {
+		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", venda);
+			session.setAttribute("voltar", "consultaProgramasTeens");
+			return "emissaocancelamento";
+		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			venda.setSituacao("CANCELADA");
+			vendasFacade.salvar(venda);
+			carregarListaVendas();
+		}
+		return "";
+	}    
 	
 	
 	public String visualizarContasReceber(Vendas venda){
@@ -930,6 +930,14 @@ public class CursosTeensMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("programasteens", programasteens);
 		return "fichaCursosTeens";
+	}
+	
+	
+	public String contratoCursosTeens(Programasteens programasteens){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("programasteens", programasteens);
+		return "contratoTeens";
 	}
 	
 	

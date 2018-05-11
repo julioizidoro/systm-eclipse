@@ -938,23 +938,23 @@ public class CursoMB implements Serializable {
 		}
 	}
 
-	public String cancelarVenda(Curso curso) {
-		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", curso.getVendas());
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
-			curso.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(curso.getVendas());
-			carregarListaVendasCursos();
-		}
-		return "";
-	}
+//	public String cancelarVenda(Curso curso) {
+//		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+//				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", curso.getVendas());
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			curso.getVendas().setSituacao("CANCELADA");
+//			vendasFacade.salvar(curso.getVendas());
+//			carregarListaVendasCursos();
+//		}
+//		return "";
+//	}
 
 	public String visualizarContasReceber(Vendas venda) {
 		if ((venda.getOrcamento() != null)) {
@@ -1132,24 +1132,24 @@ public class CursoMB implements Serializable {
 	}
 	
 	
-//	public String cancelarVenda(Curso curso) {
-//		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-//				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-//			Map<String, Object> options = new HashMap<String, Object>();
-//			options.put("contentWidth", 400);
-//			FacesContext fc = FacesContext.getCurrentInstance();
-//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("vendas", curso.getVendas());
-//			session.setAttribute("voltar", "consultafichacurso");
-//			return "emissaocancelamento";
-//		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			VendasFacade vendasFacade = new VendasFacade();
-//			curso.getVendas().setSituacao("CANCELADA");
-//			vendasFacade.salvar(curso.getVendas());
-//			carregarListaVendasCursos();
-//		}
-//		return "";
-//	}    
+	public String cancelarVenda(Curso curso) {
+		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", curso.getVendas());
+			session.setAttribute("voltar", "consultafichacurso");
+			return "emissaocancelamento";
+		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			curso.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(curso.getVendas());
+			carregarListaVendasCursos();
+		}
+		return "";
+	}    
 	
 	public String contrato(Curso curso){
 		this.curso = curso;
@@ -1211,6 +1211,15 @@ public class CursoMB implements Serializable {
 		}else {
 			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
 		}
+	}
+	
+	
+	
+	public String contratoCurso(Curso curso){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("curso", curso);
+		return "contratoCurso";
 	}
 	
 	
