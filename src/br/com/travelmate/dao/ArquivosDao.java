@@ -24,21 +24,21 @@ public class ArquivosDao {
 	    
 	public Arquivos consultar(int idArquivos) throws SQLException{
 		EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Arquivos arquivos = manager.find(Arquivos.class, idArquivos);
-        
+        manager.close();
         return arquivos;
     }
 	    
 	public void excluir(int idArquivos) throws SQLException{
 		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		Arquivos arquivos = manager.find(Arquivos.class, idArquivos);
 		manager.remove(arquivos);
 		tx.commit();
-		
+		manager.close();
 	}
 	    
 	public List<Arquivos> listar(String sql)throws SQLException{

@@ -276,7 +276,8 @@ public class OrcamentoManualMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio = "";
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		if (o.getP().getProdutosOrcamento().getDescricao().equalsIgnoreCase("Voluntariado")) {
+		boolean teste = false;
+		if (teste) {
 			if (imprimirCapa) {
 				caminhoRelatorio = "/reports/orcamentovoluntariadopdf/orcamentoPagina01.jasper";
 			} else {
