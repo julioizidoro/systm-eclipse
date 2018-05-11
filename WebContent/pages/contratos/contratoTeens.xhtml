@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Contrato de Teens</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../resources/img/cabecalhoContrato.PNG" width="100%" />
+	</div>
+	<br />
+
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+
+			<p style="margin: 1%;">
+				<b style="color: green;"> PARTES :</b> <br />
+				#{fichaCursosTeensMB.vendas.unidadenegocio.razaoSocial} , adiante apenas
+				TRAVELMATE ou TM ,pessoa jurídica de direito privado com sede social
+				na #{fichaCursosTeensMB.vendas.unidadenegocio.tipoLogradouro}
+				#{fichaCursosTeensMB.vendas.unidadenegocio.logradouro},
+				#{fichaCursosTeensMB.vendas.unidadenegocio.numero},
+				#{fichaCursosTeensMB.vendas.unidadenegocio.complemento} ,
+				#{fichaCursosTeensMB.vendas.unidadenegocio.bairro},
+				#{fichaCursosTeensMB.vendas.unidadenegocio.cidade} ,
+				#{fichaCursosTeensMB.vendas.unidadenegocio.estado}, CEP:
+				#{fichaCursosTeensMB.vendas.unidadenegocio.cep} , inscrita no CNPJ/MF sob
+				nº #{fichaCursosTeensMB.vendas.unidadenegocio.cnpj} , neste ato
+				representada pelo consultor #{fichaCursosTeensMB.vendas.usuario.nome} <br />
+				<br /> #{fichaCursosTeensMB.vendas.cliente.nome} , adiante apenas
+				PARTICIPANTE , #{fichaCursosTeensMB.vendas.cliente.paisNascimento} ,
+				#{fichaCursosTeensMB.vendas.cliente.estadoCivil} ,
+				#{fichaCursosTeensMB.vendas.cliente.profissao} portador do CI/RG de nº
+				#{fichaCursosTeensMB.vendas.cliente.rg} e inscrito no CPF/MF sob o nº
+				#{fichaCursosTeensMB.vendas.cliente.cpf} , residente e domiciliado na
+				#{fichaCursosTeensMB.vendas.cliente.tipologradouro}
+				#{fichaCursosTeensMB.vendas.cliente.logradouro} ,
+				#{fichaCursosTeensMB.vendas.cliente.numero} ,
+				#{fichaCursosTeensMB.vendas.cliente.bairro} ,
+				#{fichaCursosTeensMB.vendas.cliente.complemento} ,
+				#{fichaCursosTeensMB.vendas.cliente.cidade} ,
+				#{fichaCursosTeensMB.vendas.cliente.estado} , CEP:
+				#{fichaCursosTeensMB.vendas.cliente.cep} , têm entre si justos e acertados
+				a celebração de contrato de prestação de serviços de intercâmbio
+				cultural, nos termos e condições estabelecidas neste contrato.
+			</p>
+			<br />
+		</div>
+		<br />
+		<div
+			style="border: 2px solid; width: 100%; border-color: #9C9C9C; font-size: 13px;">
+			
+			<p style="margin: 1%;">
+				<b style="color: green;">1. OBJETO</b> <br /> O presente contrato
+				tem como objeto a intermediação da prestação de serviços
+				educacionais de intercâmbio cultural pela TRAVELMATE
+				(intermediadora) e seu parceiro internacional,a instituição
+				mencionada abaixo,em favor do(a) PARTICIPANTE , visando sua
+				inscrição no seguinte programa:
+			</p>
+			<br />
+			<h:panelGrid style="width:100%;margin:1%;" columns="2">
+				<h:panelGroup>
+					<b>Curso 01:</b> #{fichaCursosTeensMB.programasteens.nomeCurso} </h:panelGroup>
+				<h:panelGroup style="margin-left:20%;">
+					<b>Escola/Instituição:</b>#{fichaCursosTeensMB.programasteens.nomeEscola} </h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup >
+					<b>Local:</b>#{fichaCursosTeensMB.programasteens.cidadeCurso} , #{fichaCursosTeensMB.programasteens.paisCurso}
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<h:panelGrid style="width:100%;margin:1%;" columns="3">
+				<h:panelGroup>
+					<b>Aulas Por Semana:</b> #{fichaCursosTeensMB.programasteens.aulasSemana} </h:panelGroup>
+				<h:panelGroup >
+					<b>N° Semanas:</b>#{fichaCursosTeensMB.programasteens.numeroSemanas} </h:panelGroup>
+				
+				<h:panelGroup >
+					<b>Data Inicio: </b><h:outputText
+						value="#{fichaCursosTeensMB.programasteens.dataInicioCurso}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término: </b><h:outputText
+						value="#{fichaCursosTeensMB.programasteens.dataTerminoCurso}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Acomodação: </b>#{fichaCursosTeensMB.programasteens.tipoAcomodacao} </h:panelGroup>
+				<br />
+				<br />
+				<h:panelGroup >
+					<b>Data Chegada: </b> <h:outputText
+						value="#{fichaCursosTeensMB.programasteens.dataChegadaAcomodacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida: </b> <h:outputText
+						value="#{fichaCursosTeensMB.programasteens.dataPartidaAcomodacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+			</h:panelGrid>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 2. OBSERVAÇÕES DA TRAVELMATE
+					INTERCAMBIO E TURISMO. </b><br /> <br />a) Inscrever o(a)
+				PARTICIPANTE no programa/pacote para o qual se candidatou,
+				programa/pacote este que está descrito no Objeto deste Contrato,
+				desde que recebida a ficha de inscrição completa, o contrato
+				assinado, os documentos solicitados e o valor estipulado como
+				mandatório para inscrição no referido programa/pacote; <br/> b)
+				Providenciar e fornecer ao(à) PARTICIPANTE os documentos
+				comprovantes de sua inscrição junto à organização internacional
+				descrita no Objeto deste Contrato, bem como documentos comprovantes
+				da contratação dos demais serviços constantes no Objeto deste
+				Contrato. <br/> 2.1 OBSERVAÇÕES QUANTO AS OBRIGAÇÕES DA TM Fica o(a)
+				PARTICIPANTE desde já advertido e ciente que o serviço prestado pela
+				TM destina-se meramente a viabilizar sua inscrição no programa de
+				intercâmbio cultural, dando orientações pertinentes ao mesmo
+				conforme disposto nos termos do presente contrato, devendo ainda
+				constar o seguinte: <br/> a) A TM não se responsabilizará por ato(s)
+				do(a) próprio(a) PARTICIPANTE que venha(m) a impedir a realização do
+				presente contrato, incluindo ato(s) que ofenda(m) a legislação
+				nacional e/ou do país de destino, bem como casos fortuitos, de força
+				maior e fato do príncipe, que ocorre quando o cumprimento do
+				contrato se torne impossível face a algum ato de governo tanto do
+				país de destino como brasileiro; <br/> b) A TM não se responsabilizará
+				por qualquer prejuízo causado ao(à) PARTICIPANTE referente ao
+				contrato de transporte aéreo, decorrente da passagem adquirida. <br/>
+				c) A TM não se responsabilizará caso o(a) PARTICIPANTE tenha seu
+				visto consular negado ou seja impedido de ingressar no país de
+				destino pelo setor de imigração, na medida em que, trata-se de uma
+				escolha aleatória e subjetiva dos funcionários estrangeiros da
+				imigração; 
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 3. OBRIGAÇÕES DO(A) PARTICIPANTE </b><br />
+				<br /><br/>a) Preencher a ficha de inscrição e apresentar a documentação
+				complementar solicitada para que sua inscrição seja efetivada e
+				aceita; <br/> b) Contratar seguro saúde (quando não incluso no
+				programa/pacote) e fornecer à TM essas informações. Sendo de
+				interesse do(a)PARTICIPANTE, a TM poderá auxiliar a providenciar
+				este item; <br/> c) Providenciar o transporte de ida e volta (quando
+				não incluso no programa/pacote) e o visto de entrada do país onde
+				será realizado o programa (quando exigido) e fornecer à TM essas
+				informações com 2 semanas de antecedência da data de embarque. Sendo
+				de interesse do(a)PARTICIPANTE, a TM poderá auxiliar no processo de
+				solicitação de visto consular oferecendo o serviço de assessoria
+				para aplicação de visto, o qual pode ser contratado mediante
+				pagamento de taxa específica; <br/> d) Providenciar acomodação para o
+				período de realização do programa (quando não inclusa no
+				programa/pacote) e fornecer seu endereço à TM até 2 semanas antes do
+				embarque. Sendo de interesse do(a) PARTICIPANTE, a TM poderá
+				auxiliar a providenciar este item (quando não inclusa no
+				programa/pacote); <br/> e) Assumir os danos e despesas causadas a
+				terceiros durante o programa, sujeitando-se às normas e leis locais
+				do país em questão. Não é responsabilidade da TM e/ou parceiro
+				internacional contratado pela TM prestar assessoria, consultoria ou
+				aconselhamento legal/jurídico ao(à) PARTICIPANTE e seus
+				pais/familiares; <br/> f) Respeitar as políticas e procedimentos
+				estipulados pela instituição internacional, escola ou entidade
+				responsável a respeito do programa escolhido, bem como cumprir com
+				as regras determinadas neste, sob pena de desligamento do programa,
+				tais como: <br/> - freqüência mínima exigida pela instituição promotora
+				do curso ou programa; Br - observar as regras de comportamento da
+				instituição, curso ou programa; <br/> g) Participar das orientações
+				organizadas pela TM e/ou parceiro internacional em questão. <br/> h) No
+				caso de acomodação em casa de família, respeitar a política,
+				costumes, horários e principalmente os membros da casa família onde
+				irá ficar hospedado(a), não sendo admitido qualquer forma de
+				agressão, xingamentos ou atos que tornem o convívio insustentável,
+				sendo motivo justo para a rescisão antecipada do contrato, com as
+				consequências previstas na Cláusula 9 abaixo; <br/> i) No caso de
+				acomodação em residência de estudante ou alojamento, respeitar a
+				política, regras e horários estipulados; 
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 4. PARCEIRO INTERNACIONAL DA TM </b><br />
+				<br />4.1 Quaisquer problemas que surjam após a chegada do(a)
+				PARTICIPANTE ao país de destino do programa, devem ser solucionados
+				pelo parceiro internacional) da TM , a empresa/escola/instituição
+				citada no Objeto deste contrato e cujos dados de contato são
+				fornecidos ao(à) PARTICIPANTE após confirmação de sua inscrição no
+				programa/pacote contratado. <br/> 4.2 O(A) PARTICIPANTE receberá antes
+				de sair do Brasil todas as informações necessárias para tais
+				procedimentos, como telefones, websites, endereços e pessoas de
+				contato. Não cabe à TM solucionar estes problemas visto que é de
+				responsabilidade do parceiro internacional contratado fazê-lo,
+				portanto, o contato para resolução de problemas enquanto o(a)
+				PARTICIPANTE estiver no país de destino deve ser feito diretamente
+				com o parceiro internacional contratado. 
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 5. SEGURO-SAÚDE </b><br /> <br />5.1
+				O(A) PARTICIPANTE deverá contratar seguro-saúde ou assistência
+				viagem que inclua seguro-saúde para que possa participar do programa
+				escolhido. Optando pela não contratação deste serviço (quando o
+				mesmo não for obrigatório), o participante deverá assinar um TERMO
+				DE ISENÇÃO DE RESPONSABILIDADE, no qual o mesmo se responsabilizará
+				por todos os eventuais gastos que o seguro cobre e/ou assessora.
+				Sendo de interesse do(a) PARTICIPANTE, a TM poderá auxiliar a
+				providenciar este item. O seguro-saúde deverá obedecer aos seguintes
+				critérios: <br/> a) Deve ser válido em todo o território do país de
+				destino; <br/> b) Caso o(a)PARTICIPANTE ingresse no país de destino
+				antes da data estabelecida no programa, ou permaneça após, deverá
+				adquirir e/ou estender o seu seguro-saúde conforme tais datas, às
+				suas expensas, devendo ainda, comunicar a TM; <br/> c) Deverá
+				o(a)PARTICIPANTE obedecer todas as cláusulas referentes ao contrato
+				de seguro, de acordo com o estabelecido pela seguradora, incluindo,
+				mas não limitado a: <br/> I) pagamento de franquia; <br/> II) pagamento de
+				multa por uso indevido da sala de emergência; <br/> III) não cobertura
+				de doenças ou condições pré-existentes; <br/> IV) fazer contato
+				telefônico com a seguradora antes de qualquer atendimento médico; <br/>
+				V) em caso de emergência, na impossibilidade de fazer contato
+				prévio, fazer contato com a seguradora em no máximo 24 horas após a
+				entrada no estabelecimento prestador de serviços de saúde; <br/> VI)
+				seguir os procedimentos estabelecidos pela seguradora para pagamento
+				e/ou reembolso das despesas médicas e hospitalares. <br/> d) Caso o(a)
+				PARTICIPANTE deixe de contar, por qualquer motivo, com a cobertura
+				do seguro saúde durante sua estada no destino, poderá ser excluído
+				do programa, sem direito a qualquer reembolso; <br/> e) A decisão sobre
+				eventual extensão do seguro cabe exclusivamente à seguradora, não
+				podendo ser responsabilizada à TM em caso de sua negativa. Da mesma
+				forma, cabe exclusivamente à seguradora tomar decisões sobre o
+				alcance da cobertura do seguro de saúde, definição de doença ou
+				condição pré-existente, definição sobre uso indevido da sala de
+				emergência, dentre outras decisões inerentes ao contrato de seguro,
+				não podendo ser responsabilizada a TM por tais decisões. 
+
+			</p>
+		</div>
+		<br />
+
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 6. ACOMODAÇÃO </b><br /> <br />6.1
+				Providenciar acomodação para o período de realização do
+				programa/pacote é de responsabilidade do(a) PARTICIPANTE, salvo
+				quando a mesma já esteja inclusa no programa/pacote e/ou contratada
+				junto à Travelmate. O parceiro internacional contratado ou a TM
+				poderão indicar e/ou auxiliar na reserva de uma acomodação
+				(gratuitamente ou mediante pagamento por parte do participante de
+				uma taxa para tal serviço), mas não se responsabilizam por isto nos
+				casos em que esta não tenha sido inclusa no programa/pacote ou
+				contratada junto à Travelmate. Qualquer custo referente a acomodação
+				ou reserva de acomodação fica a encargo doa(a) PARTICIPANTE; <br/> 6.2
+				No caso de acomodação inclusa no programa/pacote e e/ou vinculada ao
+				parceiro internacional responsável pelo curso/programa/pacote ou
+				empresa intermediadora da acomodação, o PARTICIPANTE deve respeitar
+				as regras estabelecidas por estes ou pelos locatários de tais
+				acomodações referentes à acomodação oferecida, sendo estas regras
+				regidas pela legislação do país de destino. Em caso de celebração de
+				contrato adendo ou extra de locação entre PARTICIPANTE e parceiro
+				internacional responsável pelo curso ou programa ou terceiro
+				locador, a TM não tem responsabilidade sobre isso; <br/> 6.3 A
+				acomodação a ser oferecida e indicada pelo parceiro internacional
+				poderá representar a colocação em casa de família, residência
+				estudantil, casa/apartamento compartilhado, alojamento ou albergues
+				oferecidos por terceiros ou empresas especializadas, havendo na
+				maioria dos casos a necessidade de uso de transporte coletivo local
+				para cobrir a distância entre a moradia e o local do curso ou
+				programa. É prática comum nestas acomodações a cobrança de taxa
+				caução antecipada (antes da ocupação da acomodação), sendo que o
+				reembolso deste valor dá-se somente depois desocupação da
+				acomodação, em prazo indeterminado, mediante entrega do imóvel nas
+				mesmas condições em que se encontrava no momento da ocupação. A
+				avaliação do reembolso de tal taxa cabe exclusivamente ao locatário,
+				o qual levará em consideração vários pontos, tais como cumprimento
+				do contrato, manutenção da acomodação, limpeza, entre outros. Não
+				pode ser responsabilizada a TM pelo valor que será reembolsado
+				(integral ou parcial) ou não, bem como pela avaliação do imóvel após
+				desocupação; <br/> 6.4 Se o(a) PARTICIPANTE desejar mudar de acomodação
+				após sua chegada no país de destino ou estiver insatisfeito com sua
+				acomodação, é de sua responsabilidade tratar do assunto com o
+				locador/prestador de serviço local e/ou procurar uma outra opção; <br/>
+				6.5 Em caso de mudança de endereço por sua conta, o(a)PARTICIPANTE
+				deverá informar ao parceiro internacional o seu novo endereço dentro
+				de 3 dias úteis. O não cumprimento desta regra poderá resultar em
+				desligamento do curso ou programa e o(a)PARTICIPANTE deverá deixar o
+				país de destino em até 5 dias úteis, não tendo direito a reembolso
+				de valores pagos de qualquer natureza; <br/> 6.6 O(A)PARTICIPANTE desde
+				já declara estar ciente que em razão de realizar o curso ou programa
+				em país estrangeiro, encontrará situações culturais e estilo de vida
+				totalmente diversos do que está acostumado, o que poderá acarretar
+				diferenças culturais, de tratamento e postura, devendo observar e
+				obedecer ao padrão de vida vigente no país de destino; <br/> 6.7
+				O(A)PARTICIPANTE também deverá observar as regras de conduta e
+				socialização em caso de ser acomodado em casa familiar, assim como a
+				estrutura da acomodação, podendo variar de acordo com a residência a
+				ser apresentada, com a colocação em quarto individual, coletivo com
+				outros estudantes, incluindo alimentação ou não, em casa de família
+				de origem de outro país que não o país de destino, dependendo da
+				oferta que lhe fora apresentada. <br/> 6.8 No caso de alimentação
+				fornecida pela família hospedeira ou acomodação contratada, existe
+				variação de refeições conforme cada família ou acomodação, cultura e
+				costumes locais, podendo tais refeições diferirem muito da
+				alimentação que o(a) PARTICIPANTE tem no Brasil, e a TM não tem
+				responsabilidade por isso. Se houver insatisfação do(a) PARTICIPANTE
+				quanto à alimentação, o(a) mesmo(a) deve tratar diretamente com a
+				família hospedeira ou acomodação na qual está hospedado(a). 
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 7. TRANSFER </b><br /> <br />7.1
+				O(A)PARTICIPANTE que optar pela contratação do serviço de transfer,
+				com chegada ou retorno ao aeroporto, no país de destino, poderá
+				fazê-lo por intermédio da TM (salvo quando tal serviço não esteja
+				includo no pacote/programa), sem que a mesma tenha qualquer
+				ingerência ou participação em tal ato e, ainda, deverá obedecer aos
+				seguintes critérios: <br/> a) O(A) PARTICIPANTE deverá ter em sua posse
+				o número de emergência da empresa contratada, para o caso de
+				ocorrência de atraso no vôo, mudança de escala ou outra situação que
+				afete ou atrase o cronograma previamente combinado e contratado; <br/>
+				b) O(A) PARTICIPANTE deverá observar as regras de conduta/adequação
+				à cultura do país de destino sobre o serviço de transfer,
+				declarando-se ciente que em caso de ocorrência de atraso de vôo ou
+				alguma outra modificação que acarrete na não utilização do serviço,
+				o mesmo será considerado pela empresa contratada como serviço
+				efetivamente prestado, oportunidade em que não há reembolso de
+				valores; <br/> 7.2. A contratação do transfer por parte do(a)
+				PARTICIPANTE deve acontecer com no mínimo 4 semanas de antecedência
+				da data de embarque para o exterior; 
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 8. PASSAGEM AÉREA </b><br /> <br />8.1
+				No que se refere á passagem aérea, fica a critério do(a)
+				PARTICIPANTE a sua aquisição, podendo ser efetuada com a TM ou
+				diretamente com a companhia aérea que melhor se adequar a seu
+				roteiro ou ainda com qualquer empresa de turismo que disponibilize a
+				emissão de passagens. <br/> 8.2 O(A) PARTICIPANTE declara, pela
+				assinatura deste instrumento, ter ciência de que deverá obedecer a
+				todas as normas referentes ao transporte aéreo internacional, bem
+				como ter conhecimento de ser da Companhia Aérea contratada a
+				responsabilidade referente á prestação deste serviço. <br/> Parágrafo
+				1∫: O(a) PARTICIPANTE , após a emissão do bilhete, dever· observar
+				todos os procedimentos referentes á categoria de sua passagem, de
+				acordo com as regras do transporte aéreo e do contrato efetuado com
+				a Companhia Aérea, observando, quando houver, cláusulas especiais
+				referentes ao seu tipo de bilhete, especialmente no tocante ao
+				endosso, reembolso, multas por cancelamento, remarcação, reiteração
+				e limite de peso da bagagem; <br/> Parágrafo 2∫: O(a) PARTICIPANTE
+				dever· seguir os procedimentos indicados oportunamente pela TM(caso
+				a passagem seja adquirida por intermédio da TM) para efetuar a
+				marcação ou qualquer alteração em sua passagem aérea, sujeitando-se
+				á disponibilidade na mesma classe tarifária, bem como ‡s taxas de
+				remarcação, cancelamento e reiteração estabelecidas pelas companhias
+				aéreas. xx
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 9. DESISTÊNCIA E/OU CANCELAMENTO DO
+					PROGRAMA </b><br /> <br />9.1 Caso o(a) PARTICIPANTE opte em desistir
+				e/ou cancelar o programa antes de realizar seu embarque para o país
+				de destino, o montante equivalente a 30% (trinta por cento) do valor
+				do programa/pacote (não incluindo passagem aérea e serviço de
+				assessoria para aplicação de vistos), o qual corresponde á taxa de
+				inscrição, não È reembolsável, salvo em caso da organização
+				internacional escolhida ficar impossibilitada de receber o
+				participante por falta de vagas. <br/> 9.2 Após a inscrição, em
+				qualquer momento do processo, por quaisquer motivos (vistos
+				consulares, alterações e/ou atraso de voos, indisponibilidade do
+				participante, etc), se o(a) PARTICIPANTE tiver que alterar o
+				curso/programa, a instituição internacional cobrará diferença de
+				valores e multa para tal(is) mudança(s),sendo o pagamento de total
+				responsabilidade do(a) PARTICIPANTE. A TM n„o garante a
+				possibilidade de quaisquer alterações do curso/programa solicitadas
+				após emissão da carta de aceitação. <br/> 9.3 Em caso de cancelamento
+				do curso/programa devido á não obtenção do visto de entrada do país
+				escolhido, o participante está sujeito ás regras já mencionadas no
+				item 9.1 <br/> 9.4 Em todos os casos de desistência antes do embarque,
+				por quaisquer motivos e em qualquer momento do processo, a devolução
+				do valor pago pelo programa, excluindo os 30% de multa citados no
+				item 9.1, segue as normas da organizaÁ„o internacional contratada
+				pela TM. <br/> 9.5 Após o embarque do(a) PARTICIPANTE para realização
+				do programa/curso, não há reembolso ou devolução de qualquer valor
+				pago a TM ou parceiro internacional referente ao curso, acomodação,
+				taxas consulares e demais serviços contratados. <br/> 9.6 A devolução
+				de qualquer quantia, por parte da Travelmate, será efetuada em
+				Reais, de acordo com o câmbio utilizado no dia do pagamento. 
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 10. DA RESCISÃO POR JUSTA CAUSA </b><br />
+				<br />10.1 O presente contrato será rescindido por justa causa,
+				mediante simples notificação ao(é) PARTICIPANTE , sem direito a
+				qualquer reembolso ou indenizaçãoo, quando: <br/> a) O(A) PARTICIPANTE
+				desrespeitar as regras estipuladas pela administração da acomodação
+				ou família hospedeira, e parceiro internacional, no tocante a
+				horários, saídas sem consentimentos, desrespeito com terceiros e aos
+				próprios familiares ou colegas de acomodação, bem como tomar
+				atitudes contrárias a um convívio harmonioso junto á família
+				hospedeira, colegas de acomodação e colegas de classe; <br/> b) O(a)
+				PARTICIPANTE receber reclamações comportamentais no ambiente
+				escolar/académico, cuja gravidade será analisada pelo parceiro
+				internacional responsável pelo curso/programa; <br/> c) Cometer
+				qualquer tipo de ato ilícito penal sob as normas do direito do país
+				em questão; <br/> d) O(a) PARTICIPANTE abandonar a acomodação ou
+				família hospedeira original sem autorização do parceiro
+				internacional em questão. Neste caso, o(a) PARTICIPANTE será
+				desligado(a) do programa e terá seu visto cancelado, devendo deixar
+				o país dentro de 10 (dez) dias da data do seu desligamento. <br/> e)
+				Após sua chegada no país de destino, o(a) PARTICIPANTE deixar de
+				cumprir as regras de chegada (orientação de chegada ,parceiro
+				internacional, ou check-in, por exemplo) estabelecidas pelo programa
+				em questão. Neste caso, o(a) PARTICIPANTE serão desligado(a) do
+				programa e terá seu visto cancelado, devendo deixar o país dentro de
+				10 (dez) dias da data do seu desligamento. <br/> f) Em caso de
+				inadimplência superior a 10 dias sem retorno do cliente para
+				regularização. 
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 11. DISPOSIÇÕES FINAIS E OBSERVAÇÕES </b><br />
+				<br />11.1 A despesa de obtenção do visto consular, seguros outros
+				(além do seguro saúde incluído pelo parceiro internacional
+				contratado, quando houver), passagens aéreas (outras não inclusas no
+				valor do programa, quando houver), taxas de aeroportos, custos de
+				embarque e desembarque, excesso de bagagem, alfândega e o transfer
+				entre o aeroporto e a acomodação (ida e volta) não estão incluídos
+				no valor do programa/pacote pago á Travelmate, salvo quando
+				especificado no programa/pacote. <br/> 11.2 O(A) PARTICIPANTE deverá
+				levar quantia de dinheiro suficiente para cobrir suas despesas no
+				país de destino (custo com transporte local, materiais, livros,
+				alimentação que não esteja inclusa no programa/pacote, moradia que
+				não esteja inclusa no programa/pacote, etc..), mesmo quando exista a
+				possibilidade de trabalho legal no país em questão; <br/> 11.3 Custos
+				ou despesas para despesas pessoais diárias s„o de responsabilidade
+				do PARTICIPANTE; <br/> 11.4 Custos de transporte diário durante a
+				realização do programa/pacote, alimentação e uniformes exigidos para
+				realização do programa não estão incluídos no valor do
+				programa/pacote;
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 12. PAGAMENTO </b><br /> <br />12.1 O
+				custo do programa é fixado na moeda local do país em questão e o
+				pagamento do mesmo deve ser feito em reais de acordo com o câmbio da
+				moeda obtido com á TM no dia de pagamento. <br/> 12.2 O pagamento da
+				inscrição deve ser efetivado no momento do preenchimento da ficha de
+				inscrição, documento anexo a este contrato e que discrimina os
+				valores do programa/pacote contratado. <br/> 12.3 O pagamento do
+				pacote/programa deverá ser quitado conforme plano de pagamento
+				abaixo: 
+			</p>
+		</div>
+		<br />
+
+
+
+
+
+
+		<div align="left">
+			<img src="../../resources/img/opcoesPagamento.PNG" width="47%" />
+		</div>
+		<br />
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<div style="width: 100%; background-color: #CFCFCF;">
+
+				<table border="0" style="width: 100%;">
+					<tr>
+						<td><h:panelGroup style="margin-left:2%;">VALOR TOTAL</h:panelGroup>
+						</td>
+						<td style="float: right; width: 40%;"><h:panelGroup>
+									#{fichaCursosTeensMB.vendas.cambio.moedas.sigla}: 
+									 <h:outputText
+										value="#{fichaCursosTeensMB.totalPagamento}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</h:panelGroup>
+						</td>
+						<td style="float: right; width: 40%;">
+								 <h:panelGroup style="margin-left:20%;">
+									R$:  
+									 <h:outputText
+										value="#{fichaCursosTeensMB.vendas.formapagamento.valorOrcamento}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</h:panelGroup></td>
+					</tr>
+				</table>
+			</div>
+			<hr style="margin: 1%;" />
+			<h:panelGrid style="width:100%;margin:1%;" columns="1">
+				<h:panelGroup>Moeda: #{fichaCursosTeensMB.vendas.cambio.moedas.sigla} 
+				  <h:outputText
+								value="#{fichaCursosTeensMB.vendas.cambio.valor}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText> 
+				| Valor Juros: R$ <h:outputText
+								value="#{fichaCursosTeensMB.vendas.formapagamento.valorJuros}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText> 
+				| Valor Final: R$ <h:outputText
+								value="#{fichaCursosTeensMB.vendas.formapagamento.valorTotal}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>  </h:panelGroup>
+
+			</h:panelGrid>
+			<br /> 
+			<div style="margin-left: 1%;">
+				<ui:repeat var="parcelamento"
+					value="#{fichaCursosTeensMB.vendas.formapagamento.parcelamentopagamentoList}"
+					varStatus="statuss">
+					<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+					<hr style="width: 99%; float: left;" />
+					<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+
+						<h:panelGroup>
+								Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+								N° Parcelas: #{parcelamento.numeroParcelas}
+							</h:panelGroup>
+						<h:panelGroup>
+								Valor Parcela: R$ <h:outputText
+								value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+					<br />
+				</ui:repeat>
+			</div>
+
+		</div>
+		<br /> <br />
+		<div align="left">
+			<img src="../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;">Sendo que o(a) PARTICIPANTE e seus
+				representantes legais afirmam estarem cientes dos termos deste
+				contrato, concordando com as regras e condições para prestação do
+				serviço tal como proposto pela TRAVELMATE , celebram o presente
+				contrato em 02 vias de igual teor e forma e na presença de 2
+				(duas) testemunhas.As partes elegem o foro da Comarca de 
+				#{fichaCursosTeensMB.vendas.unidadenegocio.cidade} -
+				#{fichaCursosTeensMB.vendas.unidadenegocio.estado} para dirimir
+				quaisquer problemas provenientes do presente contrato, renunciando
+				expressamente a qualquer outro por mais privilegiado que seja.</p>
+		</div>
+		<br />
+		<div align="left" style="color: green;">
+			<b>
+				#{fichaCursosTeensMB.vendas.unidadenegocio.cidade}/#{fichaCursosTeensMB.vendas.unidadenegocio.estado},
+				#{fichaCursosTeensMB.dataExtanso}</b>
+		</div>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>Assinatura do(a) #{fichaCursosTeensMB.vendas.cliente.nome} -
+			CPF: #{fichaCursosTeensMB.vendas.cliente.cpf}
+			</p>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>Assinatura do responsável (aquele que responde pelo
+			participante no Brasil)</p>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>
+			#{fichaCursosTeensMB.vendas.unidadenegocio.razaoSocial}<br /> CNPJ/MF
+			n° #{fichaCursosTeensMB.vendas.unidadenegocio.cnpj}
+		</p>
+	</div>
+</h:body>
+</html>

@@ -44,6 +44,7 @@ public class FichaWorkTravelMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		worktravel = (Worktravel) session.getAttribute("worktravel");
+		session.removeAttribute("worktravel");
 		if (worktravel != null) {
 			vendas = worktravel.getVendas();
 			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();

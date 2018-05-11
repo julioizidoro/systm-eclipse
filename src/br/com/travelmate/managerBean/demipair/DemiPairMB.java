@@ -920,6 +920,13 @@ public class DemiPairMB implements Serializable {
 		return "fichasDemiPair";
 	}
 	
+	public String contratoDemiPair(Demipair demipair){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("demipair", demipair);
+		return "contratoDemiPair";
+	}
+	
 	
 	public void verificarIdCredito(Demipair demipair) {
 		if (demipair.getVendas().getCancelamento() != null) {
