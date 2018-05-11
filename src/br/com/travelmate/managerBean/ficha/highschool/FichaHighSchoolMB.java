@@ -53,7 +53,7 @@ public class FichaHighSchoolMB implements Serializable{
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
 		int dia = Formatacao.getDiaData(dataHoje); 
-		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje);
+		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		if (vendas.getFormapagamento() != null) {
 			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
 		}
