@@ -45,6 +45,7 @@ public class FichaPacotesMB implements Serializable{
 	private float valorTotalMoeda = 0.0f;
 	private boolean habilitarSegundoCurso = false;
 	private String itensTrecho = "";
+	private float totalPagamento = 0.0f;
 	
 
 	
@@ -62,6 +63,9 @@ public class FichaPacotesMB implements Serializable{
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje); 
 		itensTrecho = gerarDescricaoTrecho(pacotes);
+		if (vendas.getFormapagamento() != null) {
+			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+		}
 	}
 
 
@@ -260,6 +264,18 @@ public class FichaPacotesMB implements Serializable{
 			}
 		}
 		return itensTrecho;
+	}
+
+
+
+	public float getTotalPagamento() {
+		return totalPagamento;
+	}
+
+
+
+	public void setTotalPagamento(float totalPagamento) {
+		this.totalPagamento = totalPagamento;
 	}
 
 }

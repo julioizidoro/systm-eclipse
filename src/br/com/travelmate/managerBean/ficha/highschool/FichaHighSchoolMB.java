@@ -35,6 +35,7 @@ public class FichaHighSchoolMB implements Serializable{
 	private boolean habilitarCartãoVtm = true;
 	private boolean habilitarSeguroViagem = false;
 	private boolean habilitarSeguroObrigatorio = true;
+	private float totalPagamento = 0.0f;
 	
 
 	
@@ -43,6 +44,7 @@ public class FichaHighSchoolMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		highschool = (Highschool) session.getAttribute("highschool");
+		session.removeAttribute("highschool");
 		if (highschool != null) {
 			vendas = highschool.getVendas();
 			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
@@ -51,7 +53,10 @@ public class FichaHighSchoolMB implements Serializable{
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
 		int dia = Formatacao.getDiaData(dataHoje); 
-		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje); 
+		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje);
+		if (vendas.getFormapagamento() != null) {
+			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+		}
 	}
 
 
@@ -200,6 +205,18 @@ public class FichaHighSchoolMB implements Serializable{
 
 	public void setHabilitarSeguroObrigatorio(boolean habilitarSeguroObrigatorio) {
 		this.habilitarSeguroObrigatorio = habilitarSeguroObrigatorio;
+	}
+
+
+
+	public float getTotalPagamento() {
+		return totalPagamento;
+	}
+
+
+
+	public void setTotalPagamento(float totalPagamento) {
+		this.totalPagamento = totalPagamento;
 	}
 
 }

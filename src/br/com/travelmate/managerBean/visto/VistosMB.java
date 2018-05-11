@@ -466,41 +466,41 @@ public class VistosMB implements Serializable {
 		return "vendaMatriz";
 	}
 
-	public String cancelarVenda(Vistos vistos) {
-		if (!vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", vistos.getVendas());
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else {
-			VendasFacade vendasFacade = new VendasFacade();
-			vistos.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(vistos.getVendas());
-			carregarListaVisto();
-		}
-		return "";
-	}
-	
 //	public String cancelarVenda(Vistos vistos) {
-//		if (vistos.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-//				|| vistos.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//		if (!vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 //			Map<String, Object> options = new HashMap<String, Object>();
 //			options.put("contentWidth", 400);
 //			FacesContext fc = FacesContext.getCurrentInstance();
 //			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("vendas", vistos.getVendas());
-//			session.setAttribute("voltar", "consultaVistos");
-//			return "emissaocancelamento";
-//		} else if (vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			session.setAttribute("venda", vistos.getVendas());
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else {
 //			VendasFacade vendasFacade = new VendasFacade();
 //			vistos.getVendas().setSituacao("CANCELADA");
 //			vendasFacade.salvar(vistos.getVendas());
 //			carregarListaVisto();
 //		}
 //		return "";
-//	}   
+//	}
+	
+	public String cancelarVenda(Vistos vistos) {
+		if (vistos.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| vistos.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vistos.getVendas());
+			session.setAttribute("voltar", "consultaVistos");
+			return "emissaocancelamento";
+		} else if (vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			vistos.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(vistos.getVendas());
+			carregarListaVisto();
+		}
+		return "";
+	}   
 
 	public String corNome(Vistos vistos) {
 		if (vistos.getVendas().getSituacao().equals("CANCELADA")) {
@@ -730,20 +730,28 @@ public class VistosMB implements Serializable {
 		return "fichasVistos";
 	}
 	
+	
 	public String contrato(Vistos vistos){
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(vistos.getVendas(), "vistos");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + vistos.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					vistos.getVendas().getUsuario().getIdusuario() + vistos.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vistos", vistos);
+		return "contratoVisto";
 	}
+	
+//	public String contrato(Vistos vistos){
+//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(vistos.getVendas(), "vistos");
+//		try {
+//			String texto = lerArquivoTxt.ler();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + vistos.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+//					vistos.getVendas().getUsuario().getIdusuario() + vistos.getVendas().getIdvendas() + ".html");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return "";
+//	}
 }

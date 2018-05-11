@@ -687,33 +687,14 @@ public class TraineeMB implements Serializable {
 		this.trainee = trainee;
 	}
 
-	public String cancelarVenda(Trainee trainee) {
-		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", trainee.getVendas());
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
-			trainee.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(trainee.getVendas());
-			carregarListaVendasTrainee();
-		}
-		return "";
-	}
-	
 //	public String cancelarVenda(Trainee trainee) {
-//		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-//				|| trainee.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+//		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 //			Map<String, Object> options = new HashMap<String, Object>();
 //			options.put("contentWidth", 400);
 //			FacesContext fc = FacesContext.getCurrentInstance();
 //			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("vendas", trainee.getVendas());
-//			session.setAttribute("voltar", "consultaTrainee");
-//			return "emissaocancelamento";
+//			session.setAttribute("venda", trainee.getVendas());
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 //			VendasFacade vendasFacade = new VendasFacade();
 //			trainee.getVendas().setSituacao("CANCELADA");
@@ -721,7 +702,26 @@ public class TraineeMB implements Serializable {
 //			carregarListaVendasTrainee();
 //		}
 //		return "";
-//	}   
+//	}
+	
+	public String cancelarVenda(Trainee trainee) {
+		if (trainee.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| trainee.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 400);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", trainee.getVendas());
+			session.setAttribute("voltar", "consultaTrainee");
+			return "emissaocancelamento";
+		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			VendasFacade vendasFacade = new VendasFacade();
+			trainee.getVendas().setSituacao("CANCELADA");
+			vendasFacade.salvar(trainee.getVendas());
+			carregarListaVendasTrainee();
+		}
+		return "";
+	}   
 
 	public void salvarControle() throws SQLException {
 		Controletrainee controletrainee = new Controletrainee();
@@ -919,23 +919,23 @@ public class TraineeMB implements Serializable {
 	}
 	
 	
-	public String contrato(Trainee trainee){
-		this.trainee = trainee;
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(trainee.getVendas(), "Trainee");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + trainee.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					trainee.getVendas().getUsuario().getIdusuario() + trainee.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+//	public String contrato(Trainee trainee){
+//		this.trainee = trainee;
+//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(trainee.getVendas(), "Trainee");
+//		try {
+//			String texto = lerArquivoTxt.ler();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + trainee.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+//					trainee.getVendas().getUsuario().getIdusuario() + trainee.getVendas().getIdvendas() + ".html");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return "";
+//	}
 	
 	
 	public void verificarIdCredito(Trainee trainee) {
@@ -980,5 +980,13 @@ public class TraineeMB implements Serializable {
 			return "fichaTraineeAus";
 		}
 		return "fichaTraineeEUA";
+	}
+	
+	
+	public String contrato(Trainee trainee){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("trainee", trainee);
+		return "contratoTrainee";
 	}
 }

@@ -335,22 +335,40 @@ public class PassagemMB implements Serializable {
 		listaUnidade = unidadeNegocioFacade.listar();
 	}
 
-	public String cancelarVenda(Vendas venda) {
-		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//	public String cancelarVenda(Vendas venda) {
+//		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put("contentWidth", 400);
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("venda", venda);
+//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
+//		} else {
+//			VendasFacade vendasFacade = new VendasFacade();
+//			venda.setSituacao("CANCELADA");
+//			vendasFacade.salvar(venda);
+//			carregarListaPassagem();
+//		}
+//		return "";
+//	}
+	
+	public String cancelarVenda(Vendas vendas) {
+		if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("venda", venda);
-			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-		} else {
+			session.setAttribute("vendas", vendas);
+			session.setAttribute("voltar", "passagem");
+			return "emissaocancelamento";
+		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();
-			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
-			carregarListaPassagem();
+			vendas.setSituacao("CANCELADA");
+			vendasFacade.salvar(vendas);
 		}
 		return "";
-	}
+	}  
 
 	public String corNome(Passagemaerea passagemaerea) {
 		if (passagemaerea.getVendas().getSituacao().equals("CANCELADA")) {

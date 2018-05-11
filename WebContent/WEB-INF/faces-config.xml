@@ -2703,6 +2703,53 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contratoHighSchool</from-outcome>
+			<to-view-id>/pages/contratos/contratoHighSchool.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contratoPacotes</from-outcome>
+			<to-view-id>/pages/contratos/contratoPacotes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contratoTrainee</from-outcome>
+			<to-view-id>/pages/contratos/contratoTrainee.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contratoVisto</from-outcome>
+			<to-view-id>/pages/contratos/contratoVisto.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>contratoVoluntariado</from-outcome>
+			<to-view-id>/pages/contratos/contratoVoluntariado.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
 		<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>

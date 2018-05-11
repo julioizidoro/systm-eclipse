@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Contrato de Pacote </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../resources/img/cabecalhoContrato.PNG" width="100%" />
+	</div>
+	<br />
+
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+
+			<p style="margin: 1%;">
+				<b style="color: green;"> PARTES :</b> <br />
+				#{fichaPacotesMB.vendas.unidadenegocio.razaoSocial} , adiante apenas
+				TRAVELMATE ou TM ,pessoa jurídica de direito privado com sede social
+				na #{fichaPacotesMB.vendas.unidadenegocio.tipoLogradouro}
+				#{fichaPacotesMB.vendas.unidadenegocio.logradouro},
+				#{fichaPacotesMB.vendas.unidadenegocio.numero},
+				#{fichaPacotesMB.vendas.unidadenegocio.complemento} ,
+				#{fichaPacotesMB.vendas.unidadenegocio.bairro},
+				#{fichaPacotesMB.vendas.unidadenegocio.cidade} ,
+				#{fichaPacotesMB.vendas.unidadenegocio.estado}, CEP:
+				#{fichaPacotesMB.vendas.unidadenegocio.cep} , inscrita no CNPJ/MF sob
+				nº #{fichaPacotesMB.vendas.unidadenegocio.cnpj} , neste ato
+				representada pelo consultor #{fichaPacotesMB.vendas.usuario.nome} <br />
+				<br /> #{fichaPacotesMB.vendas.cliente.nome} , adiante apenas
+				PARTICIPANTE , #{fichaPacotesMB.vendas.cliente.paisNascimento} ,
+				#{fichaPacotesMB.vendas.cliente.estadoCivil} ,
+				#{fichaPacotesMB.vendas.cliente.profissao} portador do CI/RG de nº
+				#{fichaPacotesMB.vendas.cliente.rg} e inscrito no CPF/MF sob o nº
+				#{fichaPacotesMB.vendas.cliente.cpf} , residente e domiciliado na
+				#{fichaPacotesMB.vendas.cliente.tipologradouro}
+				#{fichaPacotesMB.vendas.cliente.logradouro} ,
+				#{fichaPacotesMB.vendas.cliente.numero} ,
+				#{fichaPacotesMB.vendas.cliente.bairro} ,
+				#{fichaPacotesMB.vendas.cliente.complemento} ,
+				#{fichaPacotesMB.vendas.cliente.cidade} ,
+				#{fichaPacotesMB.vendas.cliente.estado} , CEP:
+				#{fichaPacotesMB.vendas.cliente.cep} , têm entre si justos e acertados
+				a celebração de contrato de prestação de serviços de intercâmbio
+				cultural, nos termos e condições estabelecidas neste contrato.
+			</p>
+			<br />
+		</div>
+		<br />
+		<div
+			style="border: 2px solid; width: 100%; border-color: #9C9C9C; font-size: 13px;">
+
+			<p style="margin: 1%;">
+				<b style="color: green;">1. OBJETO</b> <br /> O presente contrato
+				tem como objeto a prestação de serviços de turismo adquirido pelo(a)
+				CONTRATANTE devidamente discriminados no “Campo 10 – DESCRIÇÕES E
+				VALORES” da Ficha de Inscrição anexa. Parágrafo Único: É importante
+				para o cliente CONTRATANTE, certificar-se atentamente, quanto aos
+				serviços adquiridos, bem como, se está ou não incluso no respectivo
+				preço. Assim, são serviços incluídos, os serviços que estiverem,
+				expressamente mencionados no “Campo 10 – DESCRIÇÕES E VALORES” da
+				Ficha de Inscrição anexa. Quaisquer afirmações, feitas verbalmente,
+				a respeito de que determinados serviços estão inclusos no preço, não
+				podem nem devem ser consideradas ou aceitas pelo CONTRATANTE,
+				tampouco sugestões de passeios opcionais e de outras referências que
+				não se encontrem escritas ou mencionadas no referido “Campo 3” e
+				“Campo 3 – SERVIÇOS OPCIONAIS – PASSEIOS” da Ficha de Inscrição.
+
+			</p>
+
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 2. DO PREÇO </b><br /> <br />Em
+				contrapartida aos serviços contratados, a CONTRATANTE efetuará o
+				pagamento descrito no “Campo 10 – DESCRIÇÃO E VALORES”, obedecendo o
+				que fora preenchido nos campos “VALOR DE PACOTE”, “TAXAS”, CÂMBIO” e
+				principalmente “FORMA DE PAGAMENTO”, todos inseridos no referido
+				“Campo 10” da Ficha de Inscrição em anexo a este contrato. <br />
+				Parágrafo Único: Serão de responsabilidade exclusiva da CONTRATANTE
+				, não fazendo parte dos valores descritos no “Campo 10” da Ficha de
+				Inscrição, as seguintes despesas, bem como outras que poderão
+				ocorrer, e cuja ciência, será previamente levada ao seu
+				conhecimento: <br /> a) taxas com expedição de documentos para obtenção de
+				vistos consulares; <br /> b) taxas de embarques (aeroportos ou portos), c)
+				taxa pró-turismo; <br /> d) ingressos de quaisquer natureza; e) taxas com
+				expedição e carregamento de bagagens, malas; <br /> f) atrativos como
+				filmes de vídeo e TV a cabo; <br /> g) despesas com telefonemas, bebidas,
+				produtos do frigobar, restaurantes e serviços de quarto; <br /> h) despesas
+				que, por qualquer motivo, acarretem diárias, refeições e
+				deslocamento, quando excedentes às incluídas no programa;
+
+
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 3. DAS DESISTÊNCIAS, TRANSFERÊNCIAS E
+					CANCELAMENTOS DE PACOTES </b><br /> <br />Conforme a disposição legal
+				neste sentido, poderá o(a) CONTRATANTE exercer seu direito de
+				arrependimento, por escrito, com devolução dos valores pagos em até
+				10 dias úteis a partir da comunicação do arrependimento, todavia,
+				lhe sendo cobradas multas percentuais para desistências,
+				transferências e cancelamentos, da seguinte forma: <br /> • com 90
+				ou mais dias antes do início da viagem: retenção de 35% (trinta por
+				cento) do valor pago;<br /> •com 89 até 60 dias antes do início da
+				viagem: retenção de 40%; (trinta e cinco por cento) do valor pago;<br />
+				•com 59 até 30 dias antes do início da viagem: retenção de 55%
+				(quarenta por cento) do valor pago;<br /> •com 29 até 16 dias antes
+				do início da viagem: retenção de 70% (quarenta e cinco por cento) do
+				valor pago;<br /> •à menos de 16 dias antes do início da viagem:
+				retenção de 100% (cinquenta por cento) do valor pago;<br />
+
+				Parágrafo Primeiro: Ocorrendo a desistência do(a) CONTRATANTE, em
+				qualquer fase ou etapa da viagem,após iniciada, não haverá devolução
+				de valores, tampouco qualquer bonificação ao desistente; <br />
+				Parágrafo Segundo:Em todos os casos, se o bilhete aéreo já tiver
+				sido emitido, ficará o contratante responsável pela multa aplicada
+				pela companhia aérea, além da multa citada acima; <br /> Parágrafo
+				Terceiro: Havendo motivo justo, aceito pela TM, poderá ocorrer
+				substituição do passageiro, até 6 (seis) dias antes do início da
+				viagem (início da execução dos serviços); <br /> Parágrafo Quarto:
+				Quando a execução dos serviços adquiridos depender de um número
+				mínimo de participantes e, não sendo esse número atingido,
+				reserva-se a TM o direito de cancelar a viagem, comunicando
+				ao(à)CONTRATANTE com antecedência mínima de 72 (setenta e duas)
+				horas. Ocorrendo o cancelamento, ficará a escolha do(a)CONTRATANTE
+				outra viagem nessa mesma ocasião ou programação em outra data. Não
+				optando por nenhuma das possibilidades, será devolvido pela TM,
+				integralmente o valor pago, no prazo de até 5 dias úteis. <br />
+				Parágrafo Quinto: Somente em casos de efetiva ameaça de ocorrência
+				de fenômenos da natureza com possíveis riscos aos participantes,
+				situação de calamidade pública, perturbação da ordem, acidentes ou
+				de greves prejudiciais aos serviços de viagem, poderá a TM cancelar
+				a viagem, antes do seu início, ou em qualquer fase ou etapa, devendo
+				a TM restituir os valores correspondentes aos serviços não
+				utilizados, sem acréscimo de multa, juros ou qualquer outro encargo.
+				<br /> Parágrafo Sexto: A TM não se responsabiliza, não garante e
+				não intercede pela permanência, tampouco pelo não ingresso do(a)
+				CONTRATANTE em país estrangeiro, haja vista que se insere no poder
+				abrangido pela soberania de um Estado, poder este de natureza
+				discricionária, independente que o passageiro se encontre apto com a
+				documentação. Neste caso específico, não lhe será ressarcido nenhum
+				valor pago. <br /> Parágrafo Sétimo: Caso o(a) CONTRATANTE venha a
+				causar perturbação ou cuja presença possa oferecer risco à saúde, à
+				integridade física ou moral, de quem quer que seja, este(a) será
+				desligado(a) da viagem, sem qualquer redução do preço daquilo que
+				vier a não utilizar em razão desse motivo. Os desligamentos poderão
+				ser feitos pelos guias turísticos, bem como por autoridades
+				competentes (comandantes de navio, avião e outros).
+
+
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 4. DA RESPONSABILIDADE CIVIL DA
+					CONTRATADA - “TM” </b><br /> <br /> A TM é prestadora de serviços de
+				agenciamento de viagens, dependendo, para execução final das mesmas
+				da atuação de terceiros, para execução específica de serviços de
+				transportes, hospedagem, atendimento receptivo no local de destino
+				e/ou escalas das viagens contratadas, entre outros serviços
+				diversos. Desta forma, resta por demonstrada a total e completa
+				exclusão de qualquer responsabilidade solidária à ela imputada,
+				junto aos seus clientes, na eventual ocorrência de dano decorrentes
+				destes serviços de terceiros. A escolha e contratação de terceiros
+				prestadores de serviços é realizada dentro do mais rígido critério
+				de avaliação de mercado onde são observadas todas as especificações
+				legais referentes a qualidade dos equipamentos, utilizados ou não,
+				necessários ou não, na execução dos serviços contratados, cabendo
+				qualquer responsabilidade decorrente do mau uso, desgaste e/ou
+				qualquer danificação (resguardada as hipóteses ocasionadas por caso
+				fortuito e/ou força maior), aos terceiros contratados. Assim as
+				questões ou dúvidas que surgirem relativamente a esses serviços
+				devem ser resolvidas entre os clientes e os terceiros prestadores de
+				serviço, exclusivamente.
+
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 5. DOS MEIOS DE TRANSPORTE </b><br /> <br />Independentemente
+				do destino (nacional ou internacional) e de suas condições
+				(regulares ou fretados), a TM somente procederá a contratação de
+				transportadora que encontre-se devidamente autorizada pelo
+				Departamento de Aviação Civil (D.A.C.) e pelo Ministério da Defesa,
+				observadas as prerrogativas constantes no Código Brasileiro de
+				Aeronáutica (Lei nº 7.565/86), bem como as demais normas vigentes e
+				aplicáveis à espécie, fazendo constar os nomes dessas empresas
+				transportadoras nos bilhetes de passagens, números dos vôos, local
+				de partida, escala e destino, os trechos a serem voados, os
+				horários, o nome dos passageiros e outros informes de ordem técnica
+				(classe, poltrona, categoria, etc). <br /> Parágrafo Primeiro –
+				Fica o contratante, desde já, ciente que poderão ocorrer alterações
+				nos vôos previstos, tais como mudanças de horários, de rotas e/ou
+				conexões (tanto na ida quanto na volta) e nos equipamentos, podendo
+				alterar de vôo fretado para regular ou vice-versa, inclusive nos
+				aeroportos de destino, que poderão alterar para aeroportos
+				alternativos. <br /> Parágrafo Segundo– Se, por motivos técnicos ou
+				operacionais, e ainda, em razão de condições climáticas, o vôo não
+				se iniciar, aplicar-se-ão as disposições legais pertinentes. <br />
+				Parágrafo Terceiro – O Contratante fica, desde já, ciente de que a
+				responsabilidade civil e criminal, decorrente do contrato do
+				contrato de transporte, é exclusivamente da empresa transportadora.
+				Ainda, o Contratante, reconhecendo a contratada como mera
+				intermediária, nomeia-a, em caráter irrevogável e irretratável, como
+				condição ligada ao presente contrato, como sua mandatária. <br />
+				Parágrafo Quarto – Os transportes utilizados pelos passageiros para
+				deslocamento ao aeroporto de embarque, quando não adquiridos junto à
+				TM, tampouco com a sua interveniência, excluem qualquer tipo de
+				responsabilidade desta. <br /> Parágrafo Quinto – De acordo com as
+				normas técnicas do Departamento de Aviação Civil, existe tolerância
+				de atraso nos embarque de até, no máximo, 4 (quatro) horas.
+				Ultrapassado este período, é facultado ao passageiro, perante a
+				empresa de transporte contratada, a escolha de remanejamento e
+				recolocação (endosso de bilhete) para outra empresa aérea ou
+				devolução do valor pago, correndo por conta exclusiva da empresa
+				transportadora qualquer despesa proveniente de hospedagem, locomoção
+				e alimentação conforme art. 231, Código Brasileiro de Aeronáutica.
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 6. DAS BAGAGENS </b><br /> <br />– Tanto
+				nos trechos nacionais como internacionais, opera-se no sistema de
+				franquia para transporte de bagagem, podendo variar de acordo com a
+				empresa transportadora contratada. Para que não ocorram problemas
+				com a bagagem, recomenda-se verificar as condições de franquia
+				indicadas no bilhete da passagem. A TM não poderá ser
+				responsabilizada pelo extravio de bagagens, nem pelo excesso de peso
+				porventura ocorrido. <br /> Parágrafo Primeiro – A TM recomenda que
+				documentos, jóias, máquinas fotográficas, filmadoras, objetos
+				frágeis e afins, sejam portados na bagagem de mão, sob vigilância
+				direto do passageiro.
+
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 7. DO EMBARQUE </b><br /> <br />Parágrafo
+				Primeiro – Entende-se como documento pessoal necessário ao embarque
+				o documento de identidade (RG) e passaporte (para voos
+				internacionais), não sendo permitida a apresentação de cópias
+				autenticadas, devendo o(a) CONTRATANTE sempre se atentar para o
+				prazo de validade dos referidos documentos, bem como se os mesmos
+				não se encontram rasgados e/ou rasurados. A não apresentação dos
+				documentos na forma devida implicará no não embarque, posto que
+				vedado pelas empresas transportadoras e/ou pelo serviço de
+				fiscalização competente (Polícia Federal, D.A.C, etc.), isentando a
+				TM de qualquer responsabilidade sobre o caso. <br /> Parágrafo
+				Segundo–Para embarque de menores de 12 anos, desacompanhado dos pais
+				e/ou responsáveis (detentores do pátrio poder, tutor ou curador), é
+				necessário alvará judicial, concedido perante a Vara da Infância e
+				Juventude, tanto para viagens nacionais como internacionais. Na
+				ausência de um dos pais, é necessário o consentimento do outro, por
+				autorização com firma reconhecida. A não observância destas regras,
+				poderá fazer com o passageiro menor não embarque, não podendo ser a
+				TM responsabilidade posteriormente sobre este fato. <br />
+				Parágrafo Terceiro – A TM aconselha o(a) CONTRATANTE, em caso de
+				dúvida, a se informar sobre as documentações necessárias também
+				através dos sites dos órgãos competentes, tais como: infraero
+				(www.infraero.gov.br), Departamento de Aviação Civil – DAC
+				(www.dac.gov.br) ou Polícia Federal (www.dpf.gov.br).
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 8. DA HOSPEDAGEM </b><br /> <br />O nome
+				do hotel, o tipo de acomodação adquirida e demais peculiaridades do
+				pacote adquirido, devem constar no “voucher” entregue pela TM ao(à)
+				CONTRATANTE., juntamente com informações contidas na Ficha de
+				Inscrição “Campo 10 – DESCRIÇÃO E VALORES”. Para categoria do
+				apartamento diferenciada daquela adquirida e/ou localização
+				especial, caberá ao(à) CONTRATANTE verificar sua disponibilidade e,
+				havendo, quaisquer diferenças de preço serão suportadas
+				exclusivamente por ela e tratar diretamente com hotel. <br />
+				Parágrafo Primeiro: As acomodações dos hotéis variam muito, a
+				critério e disponibilidade dos meios de hospedagem, o apartamento
+				duplo poderá ter camas separadas ou de casal e o apartamento triplo
+				ou quádruplo poderá ser constituído de cama dobrável, articulada ou
+				sofá-cama, camas Queen ou King Size. Se necessário, para acomodação
+				das pessoas excedentes, através de camas articuláveis, dobráveis ou
+				sofá-cama, deverá o(a) CONTRATANTE, no ato da aquisição dos
+				serviços, informar à TM, a fim de que esta verifique a
+				disponibilidade perante o hotel contratado. <br /> Parágrafo
+				Segundo: Conforme estabelecido pelo Regulamento Internacional de
+				Hotelaria, a entrada(check in) nos apartamentos inicia-se as 15:00 e
+				saída(check out) deverá ser feita até as 12:00 horas. O não
+				cumprimento das regras internacionais implicará na cobrança de uma
+				nova diária.Os horários de entrada e saída nos apartamentos dos
+				hotéis, não podem variar em razão dos horários de voo (chegada ou
+				partida). Havendo entrada antecipada ou saída posterior, quando
+				disponíveis, deverá o(a) CONTRATANTE assumir os encargos (se
+				houver), diretamente com o hotel. <br /> Parágrafo Terceiro: Nas
+				ocasiões, em que por qualquer motivo, possam comprometer a execução
+				dos serviços contratados, poderá aTM alterar os hotéis, devendo
+				acomodar os passageiros em hotel de categoria similar ou superior ao
+				contratado. <br /> Parágrafo Quarto: A TM orienta os clientes para
+				que, as quantias em dinheiro maiores do que aquelas necessárias ao
+				uso diário, documentos importantes, e demais objetos de alta estima
+				ou valor, sejam guardados nos cofres dos hotéis. Na impossibilidade
+				de uso dos cofres (pelo tamanho ou características dos objetos
+				guardados), deverá o cliente informar, por escrito, o objeto
+				(características, acessórios e valor) ao hotel, para que lhe seja
+				facultada outra possibilidade de guarda, estando a TM exonerada de
+				qualquer responsabilidade. <br /> Parágrafo Quinto: O(A)CONTRATANTE
+				está ciente que hotel poderá solicitar o número de um cartão de
+				crédito a fim de garantir eventuais danos patrimoniais e/ou despesas
+				extra, restando claro que tal prática, comum a rede hoteleira de
+				todo o mundo, não tem qualquer relação com o pagamento das diárias,
+				não podendo em qualquer hipótese alegar falta de pagamento por parte
+				da TM em razão de tal fato. Ademais, é de conhecimento
+				do(a)CONTRATANTE que demais taxas decorrentes de serviços acessórios
+				à hospedagem não estão inclusas no valor já pago por este, como por
+				exemplo, estacionamento de veículo automotor, taxas não
+				governamentais, Resort Fee, entre outras taxas que deverão ser pagas
+				diretamente no hotel.
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 9. DA ALIMENTAÇÃO </b><br /> <br />— A
+				alimentação ocorrerá de acordo com a modalidade contratada. O café
+				da manhã, por exemplo, é comumente incluso nas diárias dos hotéis
+				brasileiros. Na modalidade “meia pensão”, será disponibilizado ao
+				cliente o café da manhã e outra refeição (podendo ser almoço ou
+				jantar). Na modalidade “pensão completa”, é disponibilizado café da
+				manhã, almoço e jantar. As refeições poderão ocorrer dentro do hotel
+				ou em qualquer outro estabelecimento de igual nível. O café da manhã
+				em hotéis internacionais, podem variar de acordo com o meio de
+				hospedagem e os costumes locais. Não existe obrigatoriedade na
+				quantidade e variedade de alimentos oferecidos nesta refeição.
+				Parágrafo Único: Nos casos de dieta alimentar ou na exigência de
+				qualquer item especial na alimentação, se faz necessário consulta
+				prévia sobre a possibilidade de atendimento. Podendo nestes casos
+				haver cobrança extra.
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 10. DOS SERVIÇOS DE TRASLADOS </b><br />
+				<br />São serviços regulares ou privativos de turismo, podendo ser
+				compartido com outros passageiros (no caso do traslado regular), e
+				serão realizados em veículos de tamanho proporcional ao número de
+				pessoas. O(A)CONTRATANTE deverá comparecer para o início dos
+				serviços no local e horário determinado, pois o transportador não
+				poderá retardar o traslado somente para aguardá-lo(a), mesmo que o
+				atraso se dê de forma justificada, como nas hipóteses de retenção
+				por autoridades de imigração e alfândega, localização de bagagem,
+				atraso de voo ou qualquer natureza. Nestes casos, o serviço não será
+				realizado e não haverá qualquer reembolso do mesmo.
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 11. DA RESCISÃO DO CONTRATO POR JUSTA
+					CAUSA </b><br /> <br />O presente contrato será rescindido por justa
+				causa, mediante simples notificação a ser enviada ao(à) CONTRATANTE
+				e sem direito a qualquer reembolso ou indenização, em caso de
+				inadimplemento dos valores descritos no “Campo 3 – DESCRIÇÃO E
+				VALORES”, e nos campos “VALOR DE PACOTE”, “TAXAS”, CÂMBIO” e
+				principalmente “FORMA DE PAGAMENTO”, todos inseridos no referido
+				“Campo 3” da Ficha de Inscrição anexa a este contrato. <br />
+				Parágrafo Único: Todavia, caso a TM, por seu mera liberalidade,
+				resolva, ao invés de rescindir o contrato, continuar com a prestação
+				dos serviços e realizar somente a cobrança dos valores inadimplidos,
+				sob estes, incidirão a cobrança de juros moratórios de 1% ao mês de
+				forma capitalizada, correção monetária, multa moratória no valor de
+				2% (dois por cento) sobre o total do serviço contratado, bem como
+				honorários advocatícios no importe de 20% (vinte por cento) e demais
+				custas judiciais caso a cobrança seja feita em juízo.
+
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 12. DAS DISPOSIÇÕES SUPLEMENTARES </b><br />
+				<br />Os passeios opcionais, não estão inclusos no preço de
+				programa da viagem, não cabendo qualquer responsabilidade da TM
+				quanto a execução dos mesmos, devendo o cliente contratar
+				diretamente com a empresa realizadora dos mesmos. Os clientes que,
+				no decorrer da viagem, necessitarem de assistência médica ou
+				remédios, deverão suportar tais encargos. A TM orienta para que, os
+				titulares de seguro saúde ou assistência médica, portem sempre
+				consigo os documentos necessários para atendimento fora do domicílio
+				habitual. Se o cliente se interessar por seguros que deem coberturas
+				especiais, bem superiores aos mínimos legais, para o tempo de
+				duração da viagem, deverá adquiri-lo nas agências de viagem. <br />
+				Sendo que o(a)CONTRATANTE afirma estar ciente dos termos deste
+				contrato, concordando com as regras e condições para prestação do
+				serviço tal como proposto pela TM, celebram o presente contrato em
+				02 vias de igual teor e forma e na presença de 2 (duas) testemunhas.
+				As partes elegem o foro da Comarca de Florianópolis para dirimir
+				quaisquer problemas provenientes do presente contrato, renunciando
+				expressamente a qualquer outro por mais privilegiado que seja.
+
+
+
+
+
+			</p>
+		</div>
+		<br />
+
+
+
+		<div align="left">
+			<img src="../../resources/img/opcoesPagamento.PNG" width="47%" />
+		</div>
+		<br />
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<div style="width: 100%; background-color: #CFCFCF;">
+
+				<table border="0" style="width: 100%;">
+					<tr>
+						<td><h:panelGroup style="margin-left:2%;">VALOR TOTAL</h:panelGroup>
+						</td>
+						<td style="float: right; width: 40%;"><h:panelGroup>
+									#{fichaPacotesMB.vendas.cambio.moedas.sigla}: 
+									 <h:outputText
+										value="#{fichaPacotesMB.totalPagamento}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</h:panelGroup>
+						</td>
+						<td style="float: right; width: 40%;">
+								 <h:panelGroup style="margin-left:20%;">
+									R$:  
+									 <h:outputText
+										value="#{fichaPacotesMB.vendas.formapagamento.valorOrcamento}">
+										<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+									</h:outputText>
+								</h:panelGroup></td>
+					</tr>
+				</table>
+			</div>
+			<hr style="margin: 1%;" />
+			<h:panelGrid style="width:100%;margin:1%;" columns="1">
+				<h:panelGroup>Moeda: #{fichaPacotesMB.vendas.cambio.moedas.sigla} 
+				  <h:outputText
+								value="#{fichaPacotesMB.vendas.cambio.valor}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText> 
+				| Valor Juros: R$ <h:outputText
+								value="#{fichaPacotesMB.vendas.formapagamento.valorJuros}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText> 
+				| Valor Final: R$ <h:outputText
+								value="#{fichaPacotesMB.vendas.formapagamento.valorTotal}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>  </h:panelGroup>
+
+			</h:panelGrid>
+			<br /> 
+			<div style="margin-left: 1%;">
+				<ui:repeat var="parcelamento"
+					value="#{fichaPacotesMB.vendas.formapagamento.parcelamentopagamentoList}"
+					varStatus="statuss">
+					<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+					<hr style="width: 99%; float: left;" />
+					<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+
+						<h:panelGroup>
+								Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+								N° Parcelas: #{parcelamento.numeroParcelas}
+							</h:panelGroup>
+						<h:panelGroup>
+								Valor Parcela: R$ <h:outputText
+								value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+					<br />
+				</ui:repeat>
+			</div>
+
+		</div>
+		<br /> <br />
+		<div align="left">
+			<img src="../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;">Sendo que o(a) PARTICIPANTE e seus
+				representantes legais afirmam estarem cientes dos termos deste
+				contrato, concordando com as regras e condições para prestação do
+				serviço tal como proposto pela TRAVELMATE , celebram o presente
+				contrato em 02 vias de igual teor e forma e na presença de 2
+				(duas) testemunhas.As partes elegem o foro da Comarca de 
+				#{fichaPacotesMB.vendas.unidadenegocio.cidade} -
+				#{fichaPacotesMB.vendas.unidadenegocio.estado} para dirimir
+				quaisquer problemas provenientes do presente contrato, renunciando
+				expressamente a qualquer outro por mais privilegiado que seja.</p>
+		</div>
+		<br />
+		<div align="left" style="color: green;">
+			<b>
+				#{fichaPacotesMB.vendas.unidadenegocio.cidade}/#{fichaPacotesMB.vendas.unidadenegocio.estado},
+				#{fichaPacotesMB.dataExtanso}</b>
+		</div>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>Assinatura do(a) #{fichaPacotesMB.vendas.cliente.nome} -
+			CPF: #{fichaPacotesMB.vendas.cliente.cpf}
+			</p>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>Assinatura do responsável (aquele que responde pelo
+			participante no Brasil)</p>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>
+			#{fichaPacotesMB.vendas.unidadenegocio.razaoSocial}<br /> CNPJ/MF
+			n° #{fichaPacotesMB.vendas.unidadenegocio.cnpj}
+		</p>
+	</div>
+</h:body>
+</html>
