@@ -134,6 +134,15 @@ public class FichasSeguroViagemMB implements Serializable{
 	public void setHabilitarSegundoCurso(boolean habilitarSegundoCurso) {
 		this.habilitarSegundoCurso = habilitarSegundoCurso;
 	}
+	
+	
+	public String verificacaoSeguroCancelamento(boolean seguroCancelamento) {
+		if (seguroCancelamento) {
+			return "Sim";
+		}else {
+			return "Não";
+		}
+	}
 
 
 }

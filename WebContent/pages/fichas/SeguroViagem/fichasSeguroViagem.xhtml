@@ -115,7 +115,7 @@
 			<h:panelGrid style="width:100%;" columns="3">
 				<h:panelGroup><b>Seguradora:</b> #{fichasSeguroViagemMB.seguroviagem.seguradora}</h:panelGroup>
 				<h:panelGroup><b>Tippo de Plano: </b> #{fichasSeguroViagemMB.seguroviagem.valoresseguro.seguroplanos.nome}</h:panelGroup>
-				<h:panelGroup><b>Seguro Cancelamento: </b> #{fichasSeguroViagemMB.seguroviagem.segurocancelamento}</h:panelGroup>
+				<h:panelGroup><b>Seguro Cancelamento: </b> #{fichasSeguroViagemMB.verificacaoSeguroCancelamento(seguroviagem.segurocancelamento)}</h:panelGroup>
 				<h:panelGroup>   
 					<b>Pais destino :</b> #{fichasSeguroViagemMB.seguroviagem.paisDestino}
 				</h:panelGroup>
