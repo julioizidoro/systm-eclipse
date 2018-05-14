@@ -280,7 +280,7 @@ public class CadUnidadeNegocioMB implements Serializable {
 		int numeroMes = Formatacao.getMesData(dataAtual) + 1;
 		int numeroTotalMes = (12- numeroMes);
 		int ano = Formatacao.getAnoData(dataAtual);
-		float valorMetaTotal = valorMetaMensal * numeroMes;
+		float valorMetaTotal = valorMetaMensal * (numeroTotalMes + 1);
 		metafaturamentoanual.setAno(ano);
 		metafaturamentoanual.setMes(0);
 		metafaturamentoanual.setMetaalcancada(0f);
@@ -290,14 +290,14 @@ public class CadUnidadeNegocioMB implements Serializable {
 		metafaturamentoanual.setUnidadenegocio(unidadenegocio);
 		mateFaturamentoAnualFacade.salvar(metafaturamentoanual);
 		metasfaturamentomensal.setAno(ano);
-		metasfaturamentomensal.setMes(numeroMes + 1);
+		metasfaturamentomensal.setMes(numeroMes);
 		metasfaturamentomensal.setValoralcancado(0f);
 		metasfaturamentomensal.setValormeta(valorMetaMensal);
 		metasfaturamentomensal.setValormetasemana(valorMetaMensal / 4);
 		metasfaturamentomensal.setPercentualalcancado(0f);
 		metasfaturamentomensal.setUnidadenegocio(unidadenegocio);
 		metaFaturamentoMensalFacade.salvar(metasfaturamentomensal);
-		for (int i = 1; i < numeroTotalMes; i++) {
+		for (int i = 1; i <= numeroTotalMes; i++) {
 			metasfaturamentomensal = new Metasfaturamentomensal();
 			metasfaturamentomensal.setAno(ano);
 			metasfaturamentomensal.setMes(numeroMes +  i);

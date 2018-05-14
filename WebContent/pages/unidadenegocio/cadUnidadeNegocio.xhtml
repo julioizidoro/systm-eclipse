@@ -66,7 +66,7 @@
 						<p:outputLabel value="Complemento" />
 
 						<p:selectOneMenu id="tipoLogradouro" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" value="#{cadUnidadeNegocioMB.unidadenegocio.tipoLogradouro}"
-							style="width:120px;">
+							style="width:120px;" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
 							<f:selectItem itemLabel="Selecione" />
 							<f:selectItem itemLabel="Avenida" itemValue="Avenida" />
 							<f:selectItem itemLabel="BR" itemValue="BR" />
@@ -100,7 +100,7 @@
 							value="#{cadUnidadeNegocioMB.unidadenegocio.bairro}" />
 						<p:inputText id="cidade" style="width:80%;" readonly="#{cadUnidadeNegocioMB.somenteLeitura}"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.cidade}" />
-						<p:selectOneMenu id="estado" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" value="#{cadUnidadeNegocioMB.unidadenegocio.estado}">
+						<p:selectOneMenu id="estado" disabled="#{cadUnidadeNegocioMB.somenteLeitura}" value="#{cadUnidadeNegocioMB.unidadenegocio.estado}" filter="true" filterMatchMode="startsWith" panelStyle="width:180px" >
 							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
 								noSelectionOption="true" />
 							<f:selectItem itemLabel="Acre" itemValue="AC" />
@@ -142,7 +142,7 @@
 						<p:outputLabel value="Nº mês pagamento" />
 						<p:outputLabel value="Fundo Marketing"  />
 						
-						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="tipo" value="#{cadUnidadeNegocioMB.unidadenegocio.tipo}" style="width:110px;">
+						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="tipo" value="#{cadUnidadeNegocioMB.unidadenegocio.tipo}" style="width:110px;" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
 							<f:selectItem itemLabel="Premium" itemValue="Premium" />
 							<f:selectItem itemLabel="Express" itemValue="Express" />
 						</p:selectOneMenu>
@@ -150,7 +150,7 @@
 							value="#{cadUnidadeNegocioMB.unidadenegocio.perconsultor}" >
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
-						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="banco"  style="width:130px;"  value="#{cadUnidadeNegocioMB.banco}" converter="BancoConverter">
+						<p:selectOneMenu disabled="#{cadUnidadeNegocioMB.somenteLeitura}" id="banco"  style="width:130px;" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"  value="#{cadUnidadeNegocioMB.banco}" converter="BancoConverter">
                            <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
                            <f:selectItems value="#{cadUnidadeNegocioMB.listaBanco}" var="conta" itemLabel="#{conta.nome}" itemValue="#{conta}"/>
                            <f:attribute name="listaBanco" value="#{cadUnidadeNegocioMB.listaBanco}"/>
@@ -173,7 +173,7 @@
 						<p:outputLabel/>
 						<p:inputText id="sigla" style="width:55%;"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />    
-						<p:selectOneMenu id="categoria"  value="#{cadUnidadeNegocioMB.unidadenegocio.categoria}">
+						<p:selectOneMenu id="categoria"  value="#{cadUnidadeNegocioMB.unidadenegocio.categoria}" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
 							<f:selectItem itemLabel="Selecione" itemValue="sn"
 								noSelectionOption="true" />
 							<f:selectItem itemLabel="Gold" itemValue="Gold" />
