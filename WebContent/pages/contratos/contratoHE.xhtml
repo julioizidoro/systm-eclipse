@@ -25,6 +25,13 @@
 <h:body>
 	<div align="left">
 		<img src="../../resources/img/cabecalhoContrato.PNG" width="100%" />
+		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
+			<p:outputLabel value="Venda: #{fichaHEMB.vendas.idvendas}"/>
+			<p:outputLabel value="Unidade:#{fichaHEMB.vendas.unidadenegocio.nomerelatorio}"/>
+			<p:outputLabel value="Consultor: #{fichaHEMB.vendas.usuario.nome}"/>
+			<p:outputLabel value="#{fichaHEMB.vendas.usuario.email}"/>
+		</h:panelGrid> 
+		
 	</div>
 	<br />
 

@@ -25,15 +25,12 @@
 <h:body>
 	<div align="left">
 		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
-		<h:panelGrid rendered="false" columns="1" style="width:100%;font-size:13px;margin-left:55px;margin-top:-160px;color:white;font-size:20px;">
-			<p:outputLabel value="ID: #{fichaTraineeMB.vendas.idvendas}"/>
-		</h:panelGrid>
-		<br/><br/><br/>
-		<h:panelGrid rendered="false" columns="1" style="width:100%;font-size:13px;margin-left:55px;margin-top:-28px;">
+		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
+			<p:outputLabel value="Venda: #{fichaTraineeMB.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaTraineeMB.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaTraineeMB.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaTraineeMB.vendas.usuario.email}"/>
-		</h:panelGrid>
+		</h:panelGrid> 
 	</div>
 	<br/>
 	
