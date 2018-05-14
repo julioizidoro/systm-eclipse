@@ -49,7 +49,9 @@ public class FichaHEMB implements Serializable{
 		session.removeAttribute("he");
 		if (he != null) {
 			vendas = he.getVendas1();
-			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+			if (vendas.getFormapagamento() != null) {
+				valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+			}
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
