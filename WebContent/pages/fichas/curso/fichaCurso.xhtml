@@ -170,13 +170,13 @@
 		<br/>
 		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarDadosPais}"><b>DADOS DOS PAIS </b></h:panelGroup>
 		<h:panelGroup rendered="#{fichaCursoMB.habilitarDadosPais}">
-			<hr style="color:green;" />
+			<hr style="color:green;width:97%;margin-right:3%;" />
 		</h:panelGroup>
 		<br/>
 		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarDadosPais}"><b>PAI</b></h:panelGroup>
 		<h:panelGrid style="border:1px solid;width:97%;border-color:#9C9C9C;" rendered="#{fichaCursoMB.habilitarDadosPais}">
 			<h:panelGrid style="width:100%;" columns="3" >
-					<h:panelGroup><b>Nome Pai:</b> #{fichaCursoMB.dadospai.nomepai}</h:panelGroup>
+					<h:panelGroup><b>Nome Pai:</b> #{fichaCursoMB.dadospais.nomepai}</h:panelGroup>
 					<h:panelGroup>
 						<b>Data Nascimento:</b> <h:outputText
 							value="#{fichaCursoMB.dadospais.datanascimentopai}">
@@ -186,22 +186,26 @@
 					</h:panelGroup>
 					<h:panelGroup><b>Fone: </b> #{fichaCursoMB.dadospais.telefonepai}</h:panelGroup>
 			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="1" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+			<h:panelGrid style="width:100%;" columns="1" rendered="#{fichaCursoMB.habilitarDadosPais}">
 					<h:panelGroup>
-						<b>Endereço: </b> #{fichaCursoMB.dadospais.tipologradouropai}, #{fichaCursoMB.dadospais.logadouropai}, #{fichaCursoMB.dadospais.numeropai}, #{fichaCursoMB.dadospais.complementopai}
+						<b>Endereço: </b> #{fichaCursoMB.dadospais.tipologradouropai}, #{fichaCursoMB.dadospais.logradouropai}, #{fichaCursoMB.dadospais.numeropai}, #{fichaCursoMB.dadospais.complementopai}
 					</h:panelGroup>
 			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarDadosPais}">
 					<h:panelGroup>   
 						<b>Bairro :</b> #{fichaCursoMB.dadospais.bairropai}, #{fichaCursoMB.curso.pais}
 					</h:panelGroup>
-					<h:panelGroup><b>CEP: #{fichaCursoMB.dadospais.ceppai}</b></h:panelGroup>
-					<h:panelGroup><b>Cidade/Estado: #{fichaCursoMB.dadospais.cidadepais}/#{fichaCursoMB.dadospais.estadopai}</b></h:panelGroup>
-					<h:panelGroup><b>E-mail: #{fichaCursoMB.dadospais.emailpai}</b></h:panelGroup>
+					<h:panelGroup><b>CEP:</b> #{fichaCursoMB.dadospais.ceppai}</h:panelGroup>
+					<h:panelGroup><b>Cidade/Estado:</b> #{fichaCursoMB.dadospais.cidadepai}/#{fichaCursoMB.dadospais.estadopai}</h:panelGroup>
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup><b>E-mail:</b> #{fichaCursoMB.dadospais.emailpai}</h:panelGroup>
 			</h:panelGrid>
 			   
 		<br/>
 		</h:panelGrid>  
+		<br/>
 		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarDadosPais}"><b>MÃE</b></h:panelGroup>
 		<h:panelGrid style="border:1px solid;width:97%;border-color:#9C9C9C;" rendered="#{fichaCursoMB.habilitarDadosPais}">
 			<h:panelGrid style="width:100%;" columns="3" >
@@ -215,22 +219,26 @@
 					</h:panelGroup>
 					<h:panelGroup><b>Fone: </b> #{fichaCursoMB.dadospais.telefonemae}</h:panelGroup>
 			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="1" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+			<h:panelGrid style="width:100%;" columns="1" rendered="#{fichaCursoMB.habilitarDadosPais}">
 					<h:panelGroup>
-						<b>Endereço: </b> #{fichaCursoMB.dadospais.tipologradouromae}, #{fichaCursoMB.dadospais.logradouromae}, #{fichaCursoMB.dadospais.numeromae}, #{fichaCursoMB.dadospais.complementomae}
+						<b>Endereço: </b> #{fichaCursoMB.dadospais.tipologradouromae}, #{fichaCursoMB.dadospais.logradouromae}, #{fichaCursoMB.dadospais.numerromae}, #{fichaCursoMB.dadospais.complementomae}
 					</h:panelGroup>
 			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarDadosPais}">
 					<h:panelGroup>   
-						<b>Bairro :</b> #{fichaCursoMB.dadospais.bairromae},
+						<b>Bairro :</b> #{fichaCursoMB.dadospais.bairromae}
 					</h:panelGroup>
-					<h:panelGroup><b>CEP: #{fichaCursoMB.dadospais.cepmae}</b></h:panelGroup>
-					<h:panelGroup><b>Cidade/Estado: #{fichaCursoMB.dadospais.cidademae}/#{fichaCursoMB.dadospais.estadomae}</b></h:panelGroup>
-					<h:panelGroup><b>E-mail: #{fichaCursoMB.dadospais.emailmae}</b></h:panelGroup>
+					<h:panelGroup><b>CEP:</b> #{fichaCursoMB.dadospais.cepmae}</h:panelGroup>
+					<h:panelGroup><b>Cidade/Estado:</b> #{fichaCursoMB.dadospais.cidademae}/#{fichaCursoMB.dadospais.estadomae}</h:panelGroup>
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup><b>E-mail: </b> #{fichaCursoMB.dadospais.emailmae}</h:panelGroup>
 			</h:panelGrid>
 			
 		<br />
 		</h:panelGrid>  
+		<br />
 		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
 		<hr style="color:green;width:97%;float: left;"/>
 		<br />
