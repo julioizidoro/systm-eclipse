@@ -117,9 +117,9 @@
 		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
 				<h:panelGroup><b>Nome Pai:</b> #{fichaCursosTeensMB.programasteens.vendas.cliente.nomePai}</h:panelGroup>
-				<h:panelGroup/>
+				
 				<h:panelGroup><b>Profissão do Pai: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.profissaoPai}</h:panelGroup>
-				<h:panelGroup/>
+				
 				<h:panelGroup>
 					<b>N CPF Pai: </b> #{fichaCursosTeensMB.programasteens.cpfpai}
 				</h:panelGroup>
@@ -133,8 +133,9 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
+				<h:panelGroup><b>Fone Pai: </b></h:panelGroup>
 				<h:panelGroup><b>Nome Mãe: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.nomeMae}</h:panelGroup>
-				<h:panelGroup/>
+			
 				<h:panelGroup><b>Profissão da Mãe: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.profissaoMae}</h:panelGroup>
 				<h:panelGroup>
 					<b>N CPF MÃE: </b> #{fichaCursosTeensMB.programasteens.cpfmae}
@@ -149,8 +150,6 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup><b>Fone Pai: </b></h:panelGroup>
-				<h:panelGroup/>
 				<h:panelGroup><b>Fone Mãe: </b></h:panelGroup>
 				<br/>  
 			</h:panelGrid>   
@@ -241,6 +240,9 @@
 					Toma algum tipo de medicação controlada ? Se sim quais ? #{fichaCursosTeensMB.programasteens.medicacao} , #{fichaCursosTeensMB.programasteens.medicacaoobs} 
 				</h:panelGroup>
 				
+				<h:panelGroup>   
+					TEm ou teve algum distúrbio psicológico ? Se sim quais, especifique: #{fichaCursosTeensMB.programasteens.problemapsicologico} , #{fichaCursosTeensMB.programasteens.problemapsicologicoobs} 
+				</h:panelGroup>
 				
 			</h:panelGrid>   
 
