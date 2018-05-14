@@ -93,23 +93,24 @@
 				
 				<h:panelGroup >
 					<b>Data Inicio: </b><h:outputText
-						value="#{fichaVoluntariadoMB.voluntariado.dataInicio}">
+						value="#{fichaVoluntariadoMB.voluntariado.dataInicioVoluntariado}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Término: </b><h:outputText
-						value="#{fichaVoluntariadoMB.voluntariado.dataTermino}">
+						value="#{fichaVoluntariadoMB.voluntariado.dataTerminoVoluntariado}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>
 					<b>Acomodação: </b>#{fichaVoluntariadoMB.voluntariado.tipoAcomodacao} </h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
 				<h:panelGroup >
 					<b>Data Chegada: </b> <h:outputText
 						value="#{fichaVoluntariadoMB.voluntariado.dataChegadaAcomodacao}">
@@ -124,6 +125,10 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
+				
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>
 					<b>Extras: </b>#{fichaVoluntariadoMB.voluntariado.adicionais} </h:panelGroup>
 			</h:panelGrid>

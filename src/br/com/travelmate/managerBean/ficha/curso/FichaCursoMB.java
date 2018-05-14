@@ -41,6 +41,7 @@ public class FichaCursoMB implements Serializable{
 	private Seguroviagem seguroviagem;
 	private int aulasSemana;
 	private float totalPagamento = 0.0f;
+	private int aulasSemana2;
 	
 
 	
@@ -55,6 +56,7 @@ public class FichaCursoMB implements Serializable{
 			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
 			if (curso.getHabilitarSegundoCurso().equalsIgnoreCase("S")) {
 				habilitarSegundoCurso = true;
+				aulasSemana2 = curso.getSCargaHoraria().intValue();
 			}else{
 				habilitarSegundoCurso = false;
 			}
@@ -271,6 +273,18 @@ public class FichaCursoMB implements Serializable{
 
 	public void setTotalPagamento(float totalPagamento) {
 		this.totalPagamento = totalPagamento;
+	}
+
+
+
+	public int getAulasSemana2() {
+		return aulasSemana2;
+	}
+
+
+
+	public void setAulasSemana2(int aulasSemana2) {
+		this.aulasSemana2 = aulasSemana2;
 	}
 
 
