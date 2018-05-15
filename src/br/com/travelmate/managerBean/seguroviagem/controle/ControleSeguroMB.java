@@ -564,7 +564,7 @@ public class ControleSeguroMB implements Serializable {
 	}
 	
 	public String titleVenda(Controleseguro controleseguro) {
-		if(controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADO")) {
+		if(controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			return "FINALIZADO";
 		}else if(controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
 			return "CANCELADA";
@@ -578,7 +578,7 @@ public class ControleSeguroMB implements Serializable {
 	}
 	
 	public String imagemVenda(Controleseguro controleseguro) {
-		if(controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADO")) {
+		if(controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			return "../../resources/img/finalizadoFicha.png";
 		}else if(controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
 			return "../../resources/img/fichaCancelada.png";
