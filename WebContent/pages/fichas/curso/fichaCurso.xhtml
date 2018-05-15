@@ -41,12 +41,13 @@
 	<div align="justify"
 		style="font-family: sans-serif; font-size: 13px; width: 100%;">
 		
-		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+		
+		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup><b>Nome:</b> #{fichaCursoMB.curso.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup><b>Nome:</b> #{fichaCursoMB.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{fichaCursoMB.curso.vendas.cliente.dataNascimento}">
+						value="#{fichaCursoMB.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
@@ -74,20 +75,47 @@
 					<b>Validade: </b> #{fichaCursoMB.vendas.cliente.validadePassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
+					<b>Endereço: </b> #{fichaCursoMB.vendas.cliente.tipologradouro} #{fichaCursoMB.vendas.cliente.logradouro} , #{fichaCursoMB.vendas.cliente.numero}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Bairro: </b> #{fichaCursoMB.vendas.cliente.bairro}
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Complemento: </b> #{fichaCursoMB.vendas.cliente.complemento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichaCursoMB.vendas.cliente.cep}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichaCursoMB.vendas.cliente.cidade} , #{fichaCursoMB.vendas.cliente.estado}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichaCursoMB.vendas.cliente.pais}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichaCursoMB.vendas.cliente.foneResidencial}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichaCursoMB.vendas.cliente.foneCelular}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichaCursoMB.vendas.cliente.email}
+				</h:panelGroup>
+				<h:panelGroup>
 					<b>Profissão: </b> #{fichaCursoMB.vendas.cliente.profissao}
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Nível Estudo: </b> #{fichaCursoMB.vendas.cliente.escolaridade}
 				</h:panelGroup>
-				<h:panelGroup/>
-			</h:panelGrid>   
-
-			<h:panelGrid style="width:100%;" columns="1">
 				<h:panelGroup>
-					<b>Nível de Conhecimento do idioma: </b> #{fichaCursoMB.curso.nivelIdiomaEstudar}
+					<b>Idioma que irá Estudar: </b> #{fichaCursoMB.vendas.cliente.nomeMae}
 				</h:panelGroup>
-			</h:panelGrid>
-
+				<h:panelGroup>
+					<b>Nível Conhecimento do idioma: </b> #{fichaCursoMB.vendas.cliente.profissaoMae}
+				</h:panelGroup>
+			</h:panelGrid>   
+  
 		</h:panelGrid>
 		<br/>
 		<h:panelGroup style="color:green;"><b>CURSO | PROGRAMA ESCOLHIDO </b></h:panelGroup>
