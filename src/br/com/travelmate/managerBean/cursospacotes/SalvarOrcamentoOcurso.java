@@ -113,7 +113,7 @@ public class SalvarOrcamentoOcurso {
 		}
 		dataconsulta = retornarDataConsultaOrcamento();
 		salvarProdutosCurso();
-		salvarTaxasCurso();
+	//	salvarTaxasCurso();
 		salvarProdutosObrigatorios();
 		if (cursospacote.getValorcoprodutos_acomodacao() != null) {
 			salvarAcomodacao();
@@ -226,6 +226,7 @@ public class SalvarOrcamentoOcurso {
 		List<Coprodutos> listaCoProdutos = new ArrayList<Coprodutos>();
 		int suplementoMenorDeIdade = 0;
 		if (listaGrupoObrigatorio != null) {
+			
 			for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {   
 				int idadeVinculados = 18;
 				int idadeestudante = 0;
