@@ -289,12 +289,15 @@ public class FichaCursoMB implements Serializable{
 
 
 
-	public String verificacaoSeguroCancelamento(boolean seguroCancelamento) {
-		if (seguroCancelamento) {
-			return "Sim";
-		}else {
-			return "Não";
+	public String verificacaoSeguroCancelamento() {
+		if (seguroviagem != null) {
+			if (seguroviagem.isSegurocancelamento()) {
+				return "Sim";
+			}else {
+				return "Não";
+			}
 		}
+		return "";	
 	}
 
 }
