@@ -253,7 +253,7 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	public void listarFornecedorCidade() {
 		if (pais != null && pais.getIdpais()!=null && voluntariadoprojeto!=null) { 
 			String sql = "Select v from Voluntariadoprojetovalor v where "
-					+"v.idvoluntariadoprojetovalor="+ voluntariadoprojeto.getIdvoluntariadoprojetovalor()
+					+"v.idvoluntariadoprojetovalor="+ voluntariadoprojeto.getIdvoluntariadoprojetovalor() + " and v.voluntariadoprojeto.fornecedorcidade.fornecedor.habilitarorcamento=true "
 					+" group by v.voluntariadoprojeto.fornecedorcidade.fornecedor.idfornecedor order by v.voluntariadoprojeto.descricao";
 			VoluntariadoProjetoValorFacade voluntariadoProjetoValorFacade = new VoluntariadoProjetoValorFacade();
 			listaVoluntariadoProjeto = voluntariadoProjetoValorFacade.listar(sql);

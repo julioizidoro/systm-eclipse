@@ -207,6 +207,7 @@ public class VoluntariadoProjetoMB implements Serializable {
 			VoluntariadoProjetoFacade voluntariadoProjetoFacade = new VoluntariadoProjetoFacade();
 			listaVoluntariadoProjeto = voluntariadoProjetoFacade.listar(sql); 
 			ano = fornecedorcidade.getFornecedor().getAnotarifario();
+			habilitarorcamento = fornecedorcidade.getFornecedor().isHabilitarorcamento();
 			if (listaVoluntariadoProjeto == null) {
 				listaVoluntariadoProjeto = new ArrayList<>();
 			}
@@ -262,6 +263,7 @@ public class VoluntariadoProjetoMB implements Serializable {
 	public String habilitarFornecedorOrcamento() {
 		FornecedorFacade fornecedorFacade = new FornecedorFacade();
 		Fornecedor fornecedor = fornecedorcidade.getFornecedor();
+		fornecedor.setHabilitarorcamento(habilitarorcamento);
 		fornecedor = fornecedorFacade.salvar(fornecedor);
 		gerarAvisoNovaEscolaCadastrada();
 		return "";

@@ -63,7 +63,7 @@
 						<f:attribute name="listaFornecedorCidade"
 							value="#{voluntariadoProjetoMB.listafornecedorcidade}" />
 						<p:ajax event="change"
-							update="tabelavoluntariadoprojeto, bntAddProduto,ano"
+							update="tabelavoluntariadoprojeto, bntAddProduto, ano, habilitarorcamento"
 							listener="#{voluntariadoProjetoMB.listarVoluntariadoProjeto()}" />
 					</p:selectOneMenu> 
 					<p:inputText id="ano" value="#{voluntariadoProjetoMB.ano}"
