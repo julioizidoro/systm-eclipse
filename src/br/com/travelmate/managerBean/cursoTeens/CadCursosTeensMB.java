@@ -666,10 +666,13 @@ public class CadCursosTeensMB implements Serializable {
 					}
 		
 					if (diaSemana == 1) {
-						numeroAdicionar = 1;
+						numeroAdicionar = 2;
 						horarioExcedido = true;
 					}else if(diaSemana == 7) {
-						numeroAdicionar = 2;
+						numeroAdicionar = 3;
+						horarioExcedido = true;
+					}else if(diaSemana == 6) {
+						numeroAdicionar = 4;
 						horarioExcedido = true;
 					}
 					if (horarioExcedido) {
