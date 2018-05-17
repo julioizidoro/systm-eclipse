@@ -65,25 +65,28 @@
 						<p:column headerText="Horário" style="text-align:left;" width="65">
 							<h:outputText value="#{lead.horarecebimento}" />
 						</p:column>
-						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">
+						<p:column headerText="Nome" style="text-align:left;" width="130" sortBy="#{lead.cliente.nome}">
 							<h:outputText value="#{lead.cliente.nome}" />
 						</p:column>
-						<p:column headerText="E-mail" style="text-align:left;" width="150" sortBy="#{lead.cliente.email}">
+						<p:column headerText="E-mail" style="text-align:left;" width="170" sortBy="#{lead.cliente.email}">
 							<h:outputText value="#{lead.cliente.email}" />
 						</p:column>
-						<p:column headerText="Programa" style="text-align:left;" width="95">
+						<p:column headerText="Programa" style="text-align:left;" width="75">
 							<h:outputText value="#{lead.produtos.descricao}" />
-						</p:column>      
-						<p:column headerText="Nota" style="text-align:left;" width="235">
-							<h:outputText value="#{lead.notas}" />
-						</p:column>
+						</p:column>  
 						<p:column headerText="Unidade" style="text-align:left;" width="95" sortBy="#{lead.unidadenegocio.nomerelatorio}">
 							<h:outputText value="#{leadMB.getNomeUnidade(lead)}" />
 						</p:column> 
 						<p:column headerText="Telefone" style="text-align:left;" width="95">
 							<h:outputText value="#{leadMB.verificarTelefone(lead.cliente)}" />
 						</p:column>
-						<p:column headerText="Encaminhar" width="80"    
+						<p:column headerText="Publicidade" style="text-align:left;" width="120" sortBy="#{lead.publicidade.descricao}">
+							<h:outputText value="#{lead.publicidade.descricao}" />
+						</p:column>    
+						<p:column headerText="Nota" style="text-align:left;" width="205">
+							<h:outputText value="#{lead.notas}" />
+						</p:column>
+						<p:column headerText="" width="50"  
 							style="text-align:center;" > 
 							<p:commandLink id="btnEnviar"  action="#{leadMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" update="@form" >
@@ -92,6 +95,7 @@
 							</p:commandLink>   
 						</p:column>  
 					</p:dataTable>
+					<br/><br/>
 				</h:panelGrid>
 			</div>
 		</h:form>   
