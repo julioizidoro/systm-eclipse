@@ -136,7 +136,35 @@
 			<h:panelGrid style="width:100%;" columns="2">
 				
 				<h:panelGroup>
-					 #{fichaPacotesMB.itensTrecho}
+					<h:panelGroup rendered="#{fichaPacotesMB.carro}">
+						<br/>
+						 #{fichaPacotesMB.itensCarro}
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fichaPacotesMB.passagem}">
+						 <br/>
+						 #{fichaPacotesMB.itensPassagem}
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fichaPacotesMB.cruzeiro}">
+						 <br/>
+						 #{fichaPacotesMB.itensCruzeiro}
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fichaPacotesMB.hotel}">
+						 <br/>
+						 #{fichaPacotesMB.itensHotel}
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fichaPacotesMB.transfer}">
+						 <br/>
+						 #{fichaPacotesMB.itensTransfer}
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fichaPacotesMB.treem}">
+						 <br/>
+						 #{fichaPacotesMB.itensTreem}
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fichaPacotesMB.circuito}">
+						 <br/>
+						 #{fichaPacotesMB.itensCircuito}
+					</h:panelGroup>
+					<br/>
 				</h:panelGroup>
 				<br/>  
 			</h:panelGrid> 
