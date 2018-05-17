@@ -83,7 +83,7 @@
 							<p:outputLabel value="Pais" for="pais" />
 							<p:outputLabel value="Data entrega Documentação" />
 
-							<p:calendar id="dataembarque"
+							<p:calendar id="dataembarque" mask="true"
 								value="#{cadVistosMB.vistos.dataembarque}" locale="pt"
 								pattern="dd/MM/yyyy" size="14">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -93,10 +93,10 @@
 								value="#{cadVistosMB.vistos.categoria}" style="width:75%;">
 								<f:selectItem itemLabel="Selecione" itemValue="selecione"
 									noSelectionOption="true" />
-								<f:selectItem itemLabel="Turismo" itemValue="Turismo" />
+								<f:selectItem itemLabel="Dependente" itemValue="Dependente" />
 								<f:selectItem itemLabel="Estudante" itemValue="Estudante" />
 								<f:selectItem itemLabel="Trabalho" itemValue="Trabalho" />
-								<f:selectItem itemLabel="Dependente" itemValue="Dependente" />
+								<f:selectItem itemLabel="Turismo" itemValue="Turismo" />
 							</p:selectOneMenu>
 							<p:selectOneMenu value="#{cadVistosMB.pais}"
 								style="width:170px;font-size:11px;" id="pais"
@@ -108,7 +108,7 @@
 									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
 								<f:attribute name="listaPais" value="#{cadVistosMB.listaPais}" />
 							</p:selectOneMenu>
-							<p:calendar id="datentrdocumentacao"
+							<p:calendar id="datentrdocumentacao" mask="true"
 								value="#{cadVistosMB.vistos.dataEntregaDocumentos}" locale="pt"
 								pattern="dd/MM/yyyy" size="22">
 								<f:convertDateTime pattern="dd/MM/yyyy"
@@ -313,7 +313,7 @@
 								<f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor" />
 								<p:ajax event="change" />
 							</p:selectOneMenu>
-							<p:calendar id="primeirovencimento" size="21"
+							<p:calendar id="primeirovencimento" size="21" mask="true"
 								value="#{cadVistosMB.dataPrimeiroPagamento}"  locale="pt" pattern="dd/MM/yyyy" />
 						</h:panelGrid>   
 						<br></br>

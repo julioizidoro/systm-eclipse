@@ -1624,6 +1624,114 @@ public class ControleVendasMB implements Serializable {
 		}
 		return false;
 	}
+	
+	
+	public String ficha(Vendas vendas){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		if (vendas.getProdutos().getIdprodutos() == 1) {
+			buscarCurso();
+			session.setAttribute("curso", curso);
+			return "fichaCurso";
+		}else if(vendas.getProdutos().getIdprodutos() == 2) {
+			buscarSeguro();
+			session.setAttribute("seguroViagem", seguroViagem);
+			return "fichasSeguroViagem";
+		}else if(vendas.getProdutos().getIdprodutos() == 3) {
+			buscarVistos();
+			session.setAttribute("vistos", vistos);
+			return "fichasVistos";
+		}else if(vendas.getProdutos().getIdprodutos() == 4) {
+			buscarHighSchool();
+			session.setAttribute("highschool", highschool);
+			return "fichaHighSchool";
+		}else if(vendas.getProdutos().getIdprodutos() == 5) {
+			buscarProgramasTeens();
+			session.setAttribute("programateens", programateens);
+			return "fichaCursosTeens";
+		}else if(vendas.getProdutos().getIdprodutos() == 9) {
+			buscarAuPair();
+			session.setAttribute("aupair", aupair);
+			return "fichaAuPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 10) {
+			buscarWorkTravel();
+			session.setAttribute("worktravel", worktravel);
+			return "fichaWorkTravel";
+		}else if(vendas.getProdutos().getIdprodutos() == 13) {
+			buscarTrainee();
+			session.setAttribute("trainee", trainee);
+			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+				return "fichaTraineeAus";
+			}else {
+				return "fichaTraineeEUA";
+			}
+		}else if(vendas.getProdutos().getIdprodutos() == 16) {
+			buscarVoluntariado();
+			session.setAttribute("voluntariado", voluntariado);
+			return "fichaVoluntariado";
+		}else if(vendas.getProdutos().getIdprodutos() == 20) {
+			buscarDemiPair();
+			session.setAttribute("demipair", demipair);
+			return "fichasDemiPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 22) {
+			buscarHe();
+			session.setAttribute("he", he);
+			return "fichaHE";
+		}
+		return "";
+	}
+	
+	
+	public String contrato(Vendas vendas){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		if (vendas.getProdutos().getIdprodutos() == 1) {
+			buscarCurso();
+			session.setAttribute("curso", curso);
+			return "contratoCurso";
+		}else if(vendas.getProdutos().getIdprodutos() == 3) {
+			buscarVistos();
+			session.setAttribute("vistos", vistos);
+			return "contratoVisto";
+		}else if(vendas.getProdutos().getIdprodutos() == 4) {
+			buscarHighSchool();
+			session.setAttribute("highschool", highschool);
+			return "contratoHighSchool";
+		}else if(vendas.getProdutos().getIdprodutos() == 5) {
+			buscarProgramasTeens();
+			session.setAttribute("programateens", programateens);
+			return "contratoTeens";
+		}else if(vendas.getProdutos().getIdprodutos() == 9) {
+			buscarAuPair();
+			session.setAttribute("aupair", aupair);
+			return "contratoAuPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 10) {
+			buscarWorkTravel();
+			session.setAttribute("worktravel", worktravel);
+			return "contratoWorkTravelPremium";
+		}else if(vendas.getProdutos().getIdprodutos() == 13) {
+			buscarTrainee();
+			session.setAttribute("trainee", trainee);
+			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+				return "contratoTrainee";
+			}else {
+				return "contratoTrainee";
+			}
+		}else if(vendas.getProdutos().getIdprodutos() == 16) {
+			buscarVoluntariado();
+			session.setAttribute("voluntariado", voluntariado);
+			return "contratoVoluntariado";
+		}else if(vendas.getProdutos().getIdprodutos() == 20) {
+			buscarDemiPair();
+			session.setAttribute("demipair", demipair);
+			return "contratoDemiPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 22) {
+			buscarHe();
+			session.setAttribute("he", he);
+			return "contratoHE";
+		}
+		return "";
+	}
 	  
 
 }

@@ -250,7 +250,7 @@
 								style="width:100%;border-color:transparent;border:none;"
 								columns="8">
 								
-								<p:commandLink action="#{controleVendasMB.imprimirFicha(vendas)}"
+								<p:commandLink action="#{controleVendasMB.ficha(vendas)}"
 									title="IMPRESSÃO DA FICHA" ajax="false"
 									style="width:30px;margin-left:4%" target="_blank">
 									<img src="../../resources/img/imprimiFicha.png" width="36" />
@@ -284,7 +284,7 @@
 
 
 								<p:commandLink rendered="#{controleVendasMB.validarContrato(vendas)}"
-									action="#{controleVendasMB.gerarRelatorioContrato(vendas)}"
+									action="#{controleVendasMB.contrato(vendas)}"
 									title="IMPRIMIR O CONTRATO" ajax="false" target="_blank"
 									>
 									<img src="../../resources/img/imprimiContrato.png" width="36" />
