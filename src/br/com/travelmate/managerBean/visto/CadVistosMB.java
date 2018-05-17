@@ -853,6 +853,9 @@ public class CadVistosMB implements Serializable {
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
 			float valorJuros = 0.0f;
 			if (vendas.getFormapagamento() != null) {
+				if (vendas.getFormapagamento().getValorJuros() == null) {
+					vendas.getFormapagamento().setValorJuros(0.0f);
+				}
 				valorJuros = vendas.getFormapagamento().getValorJuros();
 			}
 			ComissaoVistoBean cc = new ComissaoVistoBean(vendas, vendasComissao, aplicacaoMB, valorJuros,
