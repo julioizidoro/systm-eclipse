@@ -44,50 +44,73 @@
 		
 		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup><b>Nome:</b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup><b>Nome:</b> #{fichaVoluntariadoMB.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{contratoCursoMB.curso.vendas.cliente.dataNascimento}">
+						value="#{fichaVoluntariadoMB.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup><b>Sexo:</b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaVoluntariadoMB.vendas.cliente.sexo}</h:panelGroup>
 				<h:panelGroup></h:panelGroup>
 				<h:panelGroup></h:panelGroup>
 				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>   
-					<b>Local de Nascimento:</b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.cidadeNascimento}, #{fichaVoluntariadoMB.voluntariado.vendas.cliente.paisNascimento}
+					<b>Local de Nascimento:</b> #{fichaVoluntariadoMB.vendas.cliente.cidadeNascimento}, #{fichaVoluntariadoMB.vendas.cliente.paisNascimento}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>RG: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.rg}
+					<b>RG: </b> #{fichaVoluntariadoMB.vendas.cliente.rg}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>CPF: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.cpf}
+					<b>CPF: </b> #{fichaVoluntariadoMB.vendas.cliente.cpf}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Passaporte: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.numeroPassaporte}
+					<b>Passaporte: </b> #{fichaVoluntariadoMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b> <h:outputText
+						value="#{fichaVoluntariadoMB.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.validadePassaporte}
+					<b>Validade: </b> <h:outputText
+						value="#{fichaVoluntariadoMB.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Profissão: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.profissao}
+					<b>Endereço: </b> #{fichaVoluntariadoMB.vendas.cliente.tipologradouro} #{fichaVoluntariadoMB.vendas.cliente.logradouro} , #{fichaVoluntariadoMB.vendas.cliente.numero}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Nível Estudo: </b> #{fichaVoluntariadoMB.voluntariado.vendas.cliente.escolaridade}
+					<b>Bairro: </b> #{fichaVoluntariadoMB.vendas.cliente.bairro}
 				</h:panelGroup>
 				<h:panelGroup/>
-			</h:panelGrid>   
-
-			<h:panelGrid style="width:100%;" columns="1">
 				<h:panelGroup>
-					<b>Nível de Conhecimento do idioma: </b> #{fichaVoluntariadoMB.voluntariado.nivelIdiomaEstudar}
+					<b>Complemento: </b> #{fichaVoluntariadoMB.vendas.cliente.complemento}
 				</h:panelGroup>
-			</h:panelGrid>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichaVoluntariadoMB.vendas.cliente.cep}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichaVoluntariadoMB.vendas.cliente.cidade} , #{fichaVoluntariadoMB.vendas.cliente.estado}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichaVoluntariadoMB.vendas.cliente.pais}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichaVoluntariadoMB.vendas.cliente.foneResidencial}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichaVoluntariadoMB.vendas.cliente.foneCelular}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichaVoluntariadoMB.vendas.cliente.email}
+				</h:panelGroup>
+			</h:panelGrid>   
 
 		</h:panelGrid>
 		<br/>
@@ -148,8 +171,8 @@
 				<h:panelGroup>   
 					<b>Local :</b> 
 				</h:panelGroup>
-				<h:panelGroup><b>Aulas Por Semana: #{fichaVoluntariadoMB.voluntariado.aulasporSemana}</b></h:panelGroup>
-				<h:panelGroup><b>N° Semanas: #{fichaVoluntariadoMB.voluntariado.numeroSemanas}</b></h:panelGroup>
+				<h:panelGroup><b>Aulas Por Semana:</b> #{fichaVoluntariadoMB.voluntariado.aulasporSemana}</h:panelGroup>
+				<h:panelGroup><b>N° Semanas:</b> #{fichaVoluntariadoMB.voluntariado.numeroSemanas}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Início:</b> <h:outputText
 						value="#{fichaVoluntariadoMB.voluntariado.dataInicio}">

@@ -46,7 +46,7 @@
 				<h:panelGroup><b>Nome:</b> #{fichaHEMB.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{contratoCursoMB.curso.vendas.cliente.dataNascimento}">
+						value="#{fichaHEMB.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
@@ -68,25 +68,54 @@
 					<b>Passaporte: </b> #{fichaHEMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaHEMB.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b> <h:outputText
+						value="#{fichaHEMB.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaHEMB.vendas.cliente.validadePassaporte}
+					<b>Validade: </b> <h:outputText
+						value="#{fichaHEMB.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Profissão: </b> #{fichaHEMB.vendas.cliente.profissao}
+					<b>Endereço: </b> #{fichaHEMB.vendas.cliente.tipologradouro} #{fichaHEMB.vendas.cliente.logradouro} , #{fichaHEMB.vendas.cliente.numero}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Bairro: </b> #{fichaHEMB.vendas.cliente.bairro}
+				</h:panelGroup>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Complemento: </b> #{fichaHEMB.vendas.cliente.complemento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichaHEMB.vendas.cliente.cep}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichaHEMB.vendas.cliente.cidade} , #{fichaHEMB.vendas.cliente.estado}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichaHEMB.vendas.cliente.pais}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichaHEMB.vendas.cliente.foneResidencial}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichaHEMB.vendas.cliente.foneCelular}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichaHEMB.vendas.cliente.email}
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Primeira Lingua: </b> #{fichaHEMB.he.primeiralingua}
 				</h:panelGroup>
-				<h:panelGroup/>
-			</h:panelGrid>   
-
-			<h:panelGrid style="width:100%;" columns="1">
 				<h:panelGroup>
 					<b>Segunda Lingua: </b> #{fichaHEMB.he.segundalingua}
 				</h:panelGroup>
-			</h:panelGrid>
+			</h:panelGrid>   
 
 		</h:panelGrid>
 		<br/>
