@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.fornecedor;
 
 import br.com.travelmate.facade.FornecedorCidadeFacade;
+import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.arquivo.CadArquivoMB;
@@ -133,8 +134,12 @@ public class EditarFornecedorCidadeMB implements Serializable{
             mostrarMensagem(ex, "Erro conectar FTP", "Erro");
         }
         try {
-        	fornecedorcidade.setImagem(fornecedorcidade.getIdfornecedorcidade()+".png");
+        	fornecedorcidade.setImagem(fornecedorcidade.getFornecedor().getIdfornecedor()+".png");
+        	FornecedorFacade fornecedorFacade = new FornecedorFacade();
+        	fornecedorcidade.getFornecedor().setLogo(fornecedorcidade.getImagem());
+        	fornecedorFacade.salvar(fornecedorcidade.getFornecedor());
         	msg = ftp.enviarArquivo(file, fornecedorcidade.getImagem(), "/systm/fornecedorcidade");
+        	msg = ftp.enviarArquivo(file, fornecedorcidade.getImagem(), "/systm/logoescola");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(msg, "")); 
             ftp.desconectar();
