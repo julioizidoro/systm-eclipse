@@ -68,10 +68,18 @@
 					<b>Passaporte: </b> #{fichaHighSchoolMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaHighSchoolMB.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b> <h:outputText
+						value="#{fichaHighSchoolMB.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaHighSchoolMB.vendas.cliente.validadePassaporte}
+					<b>Validade: </b> <h:outputText
+						value="#{fichaHighSchoolMB.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Endereço: </b> #{fichaHighSchoolMB.vendas.cliente.tipologradouro} #{fichaHighSchoolMB.vendas.cliente.logradouro} , #{fichaHighSchoolMB.vendas.cliente.numero}
@@ -188,8 +196,8 @@
 				<h:panelGroup>
 					
 				</h:panelGroup>
-				<h:panelGroup><b>Reprovado? #{fichaHighSchoolMB.highschool.reprovadoEscola}</b></h:panelGroup>
-				<h:panelGroup><b>Quando? #{fichaHighSchoolMB.highschool.quandoReprovado}</b></h:panelGroup>
+				<h:panelGroup><b>Reprovado?</b> #{fichaHighSchoolMB.highschool.reprovadoEscola}</h:panelGroup>
+				<h:panelGroup><b>Quando?</b> #{fichaHighSchoolMB.highschool.quandoReprovado}</h:panelGroup>
 				
 				
 				<br/>  
@@ -206,19 +214,19 @@
 				<h:panelGroup>   
 					<b>Tempo :</b> #{fichaHighSchoolMB.highschool.tempoIdioma01}
 				</h:panelGroup>
-				<h:panelGroup><b>Nivel: #{fichaHighSchoolMB.highschool.nivelIdioma01}</b></h:panelGroup>
+				<h:panelGroup><b>Nivel:</b> #{fichaHighSchoolMB.highschool.nivelIdioma01}</h:panelGroup>
 				<h:panelGroup><b>Idioma:</b> #{fichaHighSchoolMB.highschool.idioma02}</h:panelGroup>
 				<h:panelGroup><b>Escola: </b> #{fichaHighSchoolMB.highschool.escolaIdioma02}</h:panelGroup>
 				<h:panelGroup>   
 					<b>Tempo :</b> #{fichaHighSchoolMB.highschool.tempoIdioma02}
 				</h:panelGroup>
-				<h:panelGroup><b>Nivel: #{fichaHighSchoolMB.highschool.nivelIdioma02}</b></h:panelGroup>
+				<h:panelGroup><b>Nivel:</b> #{fichaHighSchoolMB.highschool.nivelIdioma02}</h:panelGroup>
 				<h:panelGroup><b>Idioma:</b> #{fichaHighSchoolMB.highschool.idioma03}</h:panelGroup>
 				<h:panelGroup><b>Escola: </b> #{fichaHighSchoolMB.highschool.escolaIdioma03}</h:panelGroup>
 				<h:panelGroup>   
 					<b>Tempo :</b> #{fichaHighSchoolMB.highschool.tempoIdioma03}
 				</h:panelGroup>
-				<h:panelGroup><b>Nivel: #{fichaHighSchoolMB.highschool.nivelIdioma03}</b></h:panelGroup>
+				<h:panelGroup><b>Nivel:</b> #{fichaHighSchoolMB.highschool.nivelIdioma03}</h:panelGroup>
 				
 				<br/>  
 			</h:panelGrid>   
@@ -252,8 +260,8 @@
 				<h:panelGroup>
 					
 				</h:panelGroup>
-				<h:panelGroup><b>Duração: #{fichaHighSchoolMB.highschool.duracaoIntercambio}</b></h:panelGroup>
-				<h:panelGroup><b>Início: #{fichaHighSchoolMB.highschool.valoreshighschool.inicio}/#{fichaHighSchoolMB.highschool.valoreshighschool.anoinicio}</b></h:panelGroup>
+				<h:panelGroup><b>Duração:</b> #{fichaHighSchoolMB.highschool.duracaoIntercambio}</h:panelGroup>
+				<h:panelGroup><b>Início:</b> #{fichaHighSchoolMB.highschool.valoreshighschool.inicio}/#{fichaHighSchoolMB.highschool.valoreshighschool.anoinicio}</h:panelGroup>
 				
 				<br/>  
 			</h:panelGrid>   
