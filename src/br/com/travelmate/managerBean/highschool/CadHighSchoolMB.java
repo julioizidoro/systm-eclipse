@@ -579,7 +579,7 @@ public class CadHighSchoolMB implements Serializable {
 		if (cidade != null) {
 			String sql = "select f from Fornecedorcidade f where f.produtos.idprodutos="
 					+ aplicacaoMB.getParametrosprodutos().getHighSchool() + " and f.cidade.idcidade="
-					+ cidade.getIdcidade() + " and f.ativo=1";
+					+ cidade.getIdcidade() + " and f.ativo=1 order by f.fornecedor.nome ";
 			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
 			listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
 			if (listaFornecedorCidade == null) {
