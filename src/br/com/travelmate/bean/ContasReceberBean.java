@@ -164,6 +164,8 @@ public class ContasReceberBean {
 		} else {
 			numeroParcelasFormatado = "0" + String.valueOf(numeroParcelas);
 		}
+		String dataMaximaString = Formatacao.SubtarirDatas(dataInicio, 30, "dd/MM/yyyy");
+		Date dataMaxima = Formatacao.ConvercaoStringData(dataMaximaString);
 		for (int i = 0; i < numeroParcelas; i++) {
 			Contasreceber conta = new Contasreceber();
 			if (numeroDocumento == null) {
@@ -176,7 +178,7 @@ public class ContasReceberBean {
 			} else {
 				conta.setNumeroparcelas((String.valueOf(i + 1)) + "/" + numeroParcelasFormatado);
 			}
-			if (Formatacao.calcularDataParcelamento(cData, i + 1, dataInicio)) {
+			if (cData.after(dataMaxima)) {
 				conta.setRestrito(true);
 			}else {
 				conta.setRestrito(false);
