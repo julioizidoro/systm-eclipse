@@ -517,10 +517,7 @@ public class TraineeMB implements Serializable {
 		if ((dataInicio != null) && (dataTermino != null)) {
 			sql = sql + " and t.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			sql = sql + " and t.vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
-		} else {
-			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 365, "yyyy-MM-dd");
-			sql = sql + " and t.vendas.dataVenda>='" + dataConsulta + "'";
-		}
+		} 
 		if (!situacao.equalsIgnoreCase("TODAS")) {
 			sql = sql + " and t.vendas.situacao='" + situacao + "'";
 		}
