@@ -3503,6 +3503,7 @@ public class CadCursoMB implements Serializable {
 		curso.setTipoQuarto(orcamentoCurso.getTipoQuarto());
 		curso.setRefeicoes(orcamentoCurso.getRefeicoes());
 		curso.setNumeroSemanasAcamodacao(orcamentoCurso.getDuracaoAcomodacao());
+		curso.setsTipoCargaHoraria(orcamentoCurso.getTipoDuracao());
 		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
 		List<Produtoorcamentocurso> listaProdutosOrcamentoCurso = orcamentoCursoFacade
 				.listarProdutoOrcamentoCurso(orcamentoCurso.getIdorcamentoCurso());
