@@ -448,7 +448,10 @@
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
-						</p:column>       
+						</p:column>             
+						<p:column headerText="Publicidade" style="text-align:left;" width="100" sortBy="#{posvenda.lead.publicidade.descricao}">
+							<h:outputText value="#{lead.publicidade.descricao}" />
+						</p:column> 
 						<p:column headerText="" width="130"    
 							style="text-align:left;" id="emitirInformacoes"> 
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
@@ -642,6 +645,9 @@
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>        
+						<p:column headerText="Publicidade" style="text-align:left;" width="100" sortBy="#{posvenda.lead.publicidade.descricao}">
+							<h:outputText value="#{posvenda.lead.publicidade.descricao}" />
+						</p:column>  
 						<p:column headerText="" width="75"    
 							style="text-align:center;">
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
