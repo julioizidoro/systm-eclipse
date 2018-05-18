@@ -26,10 +26,19 @@
 	<div align="left">
 			<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
-			<p:outputLabel value="Venda: #{fichaCursoMB.curso.vendas.idvendas}"/>
-			<p:outputLabel value="Unidade:#{fichaCursoMB.curso.vendas.unidadenegocio.nomerelatorio}"/>
+			<p:outputLabel value="#{fichaCursoMB.curso.vendas.produtos.descricao}: #{fichaCursoMB.curso.vendas.idvendas}"/>
+			<p:outputLabel value="Unidade: #{fichaCursoMB.curso.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaCursoMB.curso.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaCursoMB.curso.vendas.usuario.email}"/>
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: "/>
+				<p:outputLabel
+						value="#{fichaCursoMB.vendas.dataVenda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+			
+			</h:panelGroup>
 		</h:panelGrid>  
 	</div>
 	<br/>
@@ -69,10 +78,18 @@
 					<b>Passaporte: </b> #{fichaCursoMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaCursoMB.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b>  <h:outputText
+						value="#{fichaCursoMB.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaCursoMB.vendas.cliente.validadePassaporte}
+					<b>Validade: </b> <h:outputText
+						value="#{fichaCursoMB.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Endereço: </b> #{fichaCursoMB.vendas.cliente.tipologradouro} #{fichaCursoMB.vendas.cliente.logradouro} , #{fichaCursoMB.vendas.cliente.numero}
@@ -80,7 +97,6 @@
 				<h:panelGroup>
 					<b>Bairro: </b> #{fichaCursoMB.vendas.cliente.bairro}
 				</h:panelGroup>
-				<h:panelGroup/>
 				<h:panelGroup>
 					<b>Complemento: </b> #{fichaCursoMB.vendas.cliente.complemento}
 				</h:panelGroup>
@@ -275,8 +291,6 @@
 				<h:panelGroup>
 					<b>Banheiro Privado: </b> #{fichaCursoMB.curso.banheiroprivativo} 
 				</h:panelGroup>
-			</h:panelGrid>
-			<h:panelGrid style="width:71%;" columns="2">
 				<h:panelGroup>   
 					<b>N° Semanas :</b> #{fichaCursoMB.curso.numeroSemanasAcamodacao}
 				</h:panelGroup>
@@ -302,31 +316,31 @@
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você prefere familía com crianças ? #{fichaCursoMB.curso.familiacomCrianca}
+					<b>Você prefere familía com crianças ?</b> #{fichaCursoMB.curso.familiacomCrianca}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você prefere familía com animais de estimação ? #{fichaCursoMB.curso.familiacomAnimais}
+					<b>Você prefere familía com animais de estimação ?</b> #{fichaCursoMB.curso.familiacomAnimais}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você é fumante ? #{fichaCursoMB.curso.fumante}
+					<b>Você é fumante ?</b> #{fichaCursoMB.curso.fumante}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você é vegetariano ? #{fichaCursoMB.curso.vegetariano}
+					<b>Você é vegetariano ?</b> #{fichaCursoMB.curso.vegetariano}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Quais são seus interesses ou hobbies ? #{fichaCursoMB.curso.hobbies}
+					<b>Quais são seus interesses ou hobbies ?</b> #{fichaCursoMB.curso.hobbies}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você tem alegria a algum medicamento ou alimento ? Se sim quais ? #{fichaCursoMB.curso.possuiAlergia}
+					<b>Você tem alegria a algum medicamento ou alimento ? Se sim quais ?</b> #{fichaCursoMB.curso.possuiAlergia}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Solicitações especiais (não há garantias) ? #{fichaCursoMB.curso.solicitacoesEspeciais}
+					<b>Solicitações especiais (não há garantias) ?</b> #{fichaCursoMB.curso.solicitacoesEspeciais}
 				</h:panelGroup>
 			</h:panelGrid>   
 
