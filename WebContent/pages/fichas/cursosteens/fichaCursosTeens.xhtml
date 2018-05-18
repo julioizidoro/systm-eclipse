@@ -142,13 +142,13 @@
 			
 				<h:panelGroup><b>Profissão da Mãe: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.profissaoMae}</h:panelGroup>
 				<h:panelGroup>
-					<b>N CPF MÃE: </b> #{fichaCursosTeensMB.programasteens.cpfmae}
+					<b>N CPF Mãe: </b> #{fichaCursosTeensMB.programasteens.cpfmae}
 				</h:panelGroup>
 				<h:panelGroup>   
-					<b>N RG MÃE:</b> #{fichaCursosTeensMB.programasteens.rgmae}
+					<b>N RG Mãe:</b> #{fichaCursosTeensMB.programasteens.rgmae}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Nasc. Mãe:</b> <h:outputText
+					<b>Data Nasc. Mãe: </b> <h:outputText
 						value="#{fichaCursosTeensMB.programasteens.datanascimentomae}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
@@ -166,17 +166,11 @@
 			<h:panelGrid style="width:100%;" columns="3">
 				<h:panelGroup><b>Curso:</b> #{fichaCursosTeensMB.programasteens.nomeCurso}</h:panelGroup>
 				<h:panelGroup><b>Escola/Instituição: </b> #{fichaCursosTeensMB.programasteens.nomeEscola}</h:panelGroup>
-		</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="3">
 				
 				<h:panelGroup>   
 					<b>Local :</b> #{fichaCursosTeensMB.programasteens.cidadeCurso}, #{fichaCursosTeensMB.programasteens.paisCurso}
 				</h:panelGroup>
-				<h:panelGroup>
-					
-				</h:panelGroup>
-				<h:panelGroup><b>Aulas Por Semana: #{fichaCursosTeensMB.programasteens.aulasSemana}</b></h:panelGroup>
-				<h:panelGroup><b>N° Semanas: </b> #{fichaCursosTeensMB.programasteens.numeroSemanas}</h:panelGroup>
+				<h:panelGroup><b>Aulas Por Semana:</b> #{fichaCursosTeensMB.programasteens.aulasSemana}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Início:</b> <h:outputText
 						value="#{fichaCursosTeensMB.programasteens.dataInicioCurso}">
@@ -184,15 +178,15 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
+				<h:panelGroup><b>N° Semanas: </b> #{fichaCursosTeensMB.programasteens.numeroSemanas}</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Término:</b> <h:outputText
+					<b>Data Término: </b> <h:outputText
 						value="#{fichaCursosTeensMB.programasteens.dataTerminoCurso}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
 				
-				<br/>  
 			</h:panelGrid>   
 			
 		</h:panelGrid>
