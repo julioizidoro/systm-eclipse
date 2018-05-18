@@ -43,7 +43,7 @@
 							<p:outputLabel value="Unidade" for="idUnidade" />
 							<p:outputLabel value="Vendedor" for="usuario" />
 
-							<p:selectOneMenu id="idUnidade"
+							<p:selectOneMenu id="idUnidade" filter="true" filterMatchMode="startsWith" panelStyle="width:180px"
 								value="#{cadVistosMB.unidadenegocio}" style="width:180px;"
 								converter="UnidadeNegocioConverter"
 								disabled="#{cadVistosMB.habilitarUnidade}">
