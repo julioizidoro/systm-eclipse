@@ -68,10 +68,18 @@
 					<b>Passaporte: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b>  <h:outputText
+						value="#{fichaCursosTeensMB.programasteens.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.validadePassaporte}
+					<b>Validade: </b>  <h:outputText
+						value="#{fichaCursosTeensMB.programasteens.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Endereço: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.tipologradouro} #{fichaCursosTeensMB.programasteens.vendas.cliente.logradouro} , #{fichaCursosTeensMB.programasteens.vendas.cliente.numero}

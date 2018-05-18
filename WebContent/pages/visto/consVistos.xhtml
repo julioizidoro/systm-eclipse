@@ -51,7 +51,7 @@
 
 							<p:selectOneMenu id="unidade" value="#{vistosMB.unidadeNegocio}"
 								style="width:250px" converter="UnidadeNegocioConverter"
-								filter="true" filterMatchMode="startsWith" disabled="#{vistosMB.habilitarUnidade}">
+								filter="true" filterMatchMode="startsWith" panelStyle="width:180px" disabled="#{vistosMB.habilitarUnidade}">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems id="idUnidade" value="#{vistosMB.listaUnidade}"
