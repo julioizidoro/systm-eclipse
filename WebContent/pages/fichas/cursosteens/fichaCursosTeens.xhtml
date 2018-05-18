@@ -26,10 +26,19 @@
 	<div align="left">
 		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
-			<p:outputLabel value="Venda: #{fichaCursosTeensMB.programasteens.vendas.idvendas}"/>
+			<p:outputLabel value="#{fichaCursosTeensMB.programasteens.vendas.produtos.descricao} : #{fichaCursosTeensMB.programasteens.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaCursosTeensMB.programasteens.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaCursosTeensMB.programasteens.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaCursosTeensMB.programasteens.vendas.usuario.email}"/>
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: "/>
+				<p:outputLabel
+						value="#{fichaCursosTeensMB.programasteens.vendas.dataVenda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+			
+			</h:panelGroup>
 		</h:panelGrid> 
 	</div>
 	<br/>
@@ -52,9 +61,6 @@
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup><b>Sexo:</b> #{fichaCursosTeensMB.programasteens.vendas.cliente.sexo}</h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>   
 					<b>Local de Nascimento:</b> #{fichaCursosTeensMB.programasteens.vendas.cliente.cidadeNascimento}, #{fichaCursosTeensMB.programasteens.vendas.cliente.paisNascimento}
 				</h:panelGroup>

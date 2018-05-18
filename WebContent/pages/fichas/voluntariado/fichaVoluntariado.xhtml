@@ -26,10 +26,19 @@
 	<div align="left">
 		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
-			<p:outputLabel value="Venda: #{fichaVoluntariadoMB.voluntariado.vendas.idvendas}"/>
+			<p:outputLabel value="#{fichaVoluntariadoMB.voluntariado.vendas.produtos.descricao} : #{fichaVoluntariadoMB.voluntariado.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaVoluntariadoMB.voluntariado.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaVoluntariadoMB.voluntariado.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaVoluntariadoMB.voluntariado.vendas.usuario.email}"/>
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: "/>
+				<p:outputLabel
+						value="#{fichaVoluntariadoMB.voluntariado.vendas.dataVenda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+			
+			</h:panelGroup>
 		</h:panelGrid> 
 	</div>
 	<br/>

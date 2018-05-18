@@ -26,10 +26,19 @@
 	<div align="left">
 		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
-			<p:outputLabel value="Venda: #{fichaWorkTravelMB.worktravel.vendas.idvendas}"/>
+			<p:outputLabel value="#{fichaWorkTravelMB.worktravel.vendas.produtos.descricao} : #{fichaWorkTravelMB.worktravel.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaWorkTravelMB.worktravel.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaWorkTravelMB.worktravel.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaWorkTravelMB.worktravel.vendas.usuario.email}"/>
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: "/>
+				<p:outputLabel
+						value="#{fichaWorkTravelMB.worktravel.vendas.dataVenda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+			
+			</h:panelGroup>
 		</h:panelGrid> 
 	</div>
 	<br/>
@@ -233,7 +242,6 @@
 			<h:panelGrid style="width:100%;" columns="2">
 				<h:panelGroup><b>Sabe nadar ?</b> #{fichaWorkTravelMB.worktravel.sabernadar}</h:panelGroup>
 				<h:panelGroup><b>Treinamento para Salva-Vidas, possui certificado ? </b> #{fichaWorkTravelMB.worktravel.treinamentosalvavidas}</h:panelGroup>
-				<h:panelGroup/>
 				<h:panelGroup>
 					<b>Sabe esquiar ou fazer snewboard ? </b>  #{fichaWorkTravelMB.worktravel.sabeesquiar}
 				</h:panelGroup>
@@ -243,40 +251,19 @@
 				<h:panelGroup>
 					<b>Disposto a dirigir nos EUA ? </b>  #{fichaWorkTravelMB.worktravel.dirigirEua}
 				</h:panelGroup>
-				<h:panelGroup/>
-				<h:panelGroup>
-					<b>Viagem recentes ao exterior </b>
-				</h:panelGroup>
 			</h:panelGrid>   
 			<h:panelGrid style="width:100%;" columns="3">
 			
-				<h:panelGroup><b>Nome do Páis:</b> </h:panelGroup>
-				<h:panelGroup><b>Motivo da Estadia: </b></h:panelGroup>
-				<h:panelGroup><b>Periodo:</b></h:panelGroup>
-				<h:panelGroup>#{fichaWorkTravelMB.worktravel.nomePais01} </h:panelGroup>
-				<h:panelGroup>#{fichaWorkTravelMB.worktravel.motivoEstadia01}</h:panelGroup>
+				<h:panelGroup><b>Nome do Páis:</b> #{fichaWorkTravelMB.worktravel.nomePais01}</h:panelGroup>
+				<h:panelGroup><b>Motivo da Estadia: </b> #{fichaWorkTravelMB.worktravel.motivoEstadia01}</h:panelGroup>
+				<h:panelGroup><b>Periodo:</b> #{fichaWorkTravelMB.worktravel.periodoEstadia01}</h:panelGroup>
+				<h:panelGroup><b>Nome do Páis:</b> #{fichaWorkTravelMB.worktravel.nomePais02}</h:panelGroup>
+				<h:panelGroup><b>Motivo da Estadia: </b> #{fichaWorkTravelMB.worktravel.motivoEstadia02}</h:panelGroup>
+				<h:panelGroup><b>Periodo:</b> #{fichaWorkTravelMB.worktravel.periodoEstadia02}</h:panelGroup>
+				<h:panelGroup><b>Nome do Páis:</b> #{fichaWorkTravelMB.worktravel.nomePais03}</h:panelGroup>
+				<h:panelGroup><b>Motivo da Estadia: </b> #{fichaWorkTravelMB.worktravel.motivoEstadia03}</h:panelGroup>
+				<h:panelGroup><b>Periodo:</b> #{fichaWorkTravelMB.worktravel.peirodoEstadia03}</h:panelGroup>
 				
-				<h:panelGroup>
-					#{fichaWorkTravelMB.worktravel.periodoEstadia01}
-				</h:panelGroup>
-				<h:panelGroup/>
-				<h:panelGroup/>
-				<h:panelGroup/>
-				<h:panelGroup>#{fichaWorkTravelMB.worktravel.nomePais02} </h:panelGroup>
-				<h:panelGroup>#{fichaWorkTravelMB.worktravel.motivoEstadia02}</h:panelGroup>
-				
-				<h:panelGroup>
-					#{fichaWorkTravelMB.worktravel.periodoEstadia02}
-				</h:panelGroup>
-				<h:panelGroup/>
-				<h:panelGroup/>
-				<h:panelGroup/>
-				<h:panelGroup>#{fichaWorkTravelMB.worktravel.nomePais03} </h:panelGroup>
-				<h:panelGroup>#{fichaWorkTravelMB.worktravel.motivoEstadia03}</h:panelGroup>
-				
-				<h:panelGroup>
-					#{fichaWorkTravelMB.worktravel.peirodoEstadia03}
-				</h:panelGroup>
 			</h:panelGrid>
 		</h:panelGrid>
 		<br/>

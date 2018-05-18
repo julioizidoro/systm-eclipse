@@ -26,10 +26,19 @@
 	<div align="left">
 		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
-			<p:outputLabel value="Venda: #{fichaDemiPairMB.demipair.vendas.idvendas}"/>
+			<p:outputLabel value="#{fichaDemiPairMB.demipair.vendas.produtos.descricao} : #{fichaDemiPairMB.demipair.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaDemiPairMB.demipair.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaDemiPairMB.demipair.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaDemiPairMB.demipair.vendas.usuario.email}"/>
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: "/>
+				<p:outputLabel
+						value="#{fichaDemiPairMB.demipair.vendas.dataVenda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+			
+			</h:panelGroup>
 		</h:panelGrid> 
 	</div>
 	<br/>
@@ -52,9 +61,6 @@
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup><b>Sexo:</b> #{fichaDemiPairMB.demipair.vendas.cliente.sexo}</h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>   
 					<b>Local de Nascimento:</b> #{fichaDemiPairMB.demipair.vendas.cliente.cidadeNascimento}, #{fichaDemiPairMB.demipair.vendas.cliente.paisNascimento}
 				</h:panelGroup>
