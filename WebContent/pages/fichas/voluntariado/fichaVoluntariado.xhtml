@@ -53,9 +53,6 @@
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup><b>Sexo:</b> #{fichaVoluntariadoMB.vendas.cliente.sexo}</h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>   
 					<b>Local de Nascimento:</b> #{fichaVoluntariadoMB.vendas.cliente.cidadeNascimento}, #{fichaVoluntariadoMB.vendas.cliente.paisNascimento}
 				</h:panelGroup>
@@ -88,7 +85,6 @@
 				<h:panelGroup>
 					<b>Bairro: </b> #{fichaVoluntariadoMB.vendas.cliente.bairro}
 				</h:panelGroup>
-				<h:panelGroup/>
 				<h:panelGroup>
 					<b>Complemento: </b> #{fichaVoluntariadoMB.vendas.cliente.complemento}
 				</h:panelGroup>
@@ -164,12 +160,9 @@
 		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
 				<h:panelGroup><b>Nome:</b> #{fichaVoluntariadoMB.voluntariado.curso}</h:panelGroup>
-				<h:panelGroup><b>Parceiro: </b> </h:panelGroup>
-				<h:panelGroup>
-					
-				</h:panelGroup>
+				<h:panelGroup><b>Parceiro: </b> #{fichaVoluntariadoMB.vendas.fornecedorcidade.fornecedor.nome}</h:panelGroup>
 				<h:panelGroup>   
-					<b>Local :</b> 
+					<b>Local :</b> #{fichaVoluntariadoMB.vendas.fornecedorcidade.cidade.nome} , #{fichaVoluntariadoMB.vendas.fornecedorcidade.cidade.pais.nome}
 				</h:panelGroup>
 				<h:panelGroup><b>Aulas Por Semana:</b> #{fichaVoluntariadoMB.voluntariado.aulasporSemana}</h:panelGroup>
 				<h:panelGroup><b>N° Semanas:</b> #{fichaVoluntariadoMB.voluntariado.numeroSemanas}</h:panelGroup>
@@ -199,12 +192,12 @@
 		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
 				<h:panelGroup><b>Projeto Voluntariado:</b> #{fichaVoluntariadoMB.voluntariado.projetoVoluntariado}</h:panelGroup>
-				<h:panelGroup><b>Parceiro: </b> </h:panelGroup>
+				<h:panelGroup><b>Parceiro: </b> #{fichaVoluntariadoMB.vendas.fornecedorcidade.fornecedor.nome}</h:panelGroup>
 				<h:panelGroup>
 					
 				</h:panelGroup>
 				<h:panelGroup>   
-					<b>Local :</b> 
+					<b>Local :</b>  #{fichaVoluntariadoMB.vendas.fornecedorcidade.cidade.nome} , #{fichaVoluntariadoMB.vendas.fornecedorcidade.cidade.pais.nome}
 				</h:panelGroup>
 				<h:panelGroup></h:panelGroup>
 				<h:panelGroup></h:panelGroup>
@@ -224,18 +217,17 @@
 				</h:panelGroup>
 				<h:panelGroup></h:panelGroup>
 				
-				<br/>  
 			</h:panelGrid> 
 			 
 			<h:panelGrid style="width:100%;" columns="1">
 				
 				
 				<h:panelGroup>   
-					Experiências e habilidades relevantes ao projeto escolhido: #{fichaVoluntariadoMB.voluntariado.experienciaVoluntariado}
+					<b>Experiências e habilidades relevantes ao projeto escolhido:</b> #{fichaVoluntariadoMB.voluntariado.experienciaVoluntariado}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Qual motivo que levou a decidir a ser um voluntário?(explique sua motivação): #{fichaVoluntariadoMB.voluntariado.motivoVoluntariado}
+					<b>Qual motivo que levou a decidir a ser um voluntário?(explique sua motivação):</b> #{fichaVoluntariadoMB.voluntariado.motivoVoluntariado}
 				</h:panelGroup>
 				
 				
@@ -250,11 +242,6 @@
 			<h:panelGrid style="width:100%;" columns="3">
 				<h:panelGroup><b>Acomodação:</b> #{fichaVoluntariadoMB.voluntariado.tipoAcomodacao}</h:panelGroup>
 				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaVoluntariadoMB.voluntariado.tipoQuarto}</h:panelGroup>
-				<h:panelGroup>
-					
-				</h:panelGroup>
-			</h:panelGrid>
-			<h:panelGrid style="width:71%;" columns="2">
 				<h:panelGroup>   
 					<b>N° Semanas :</b> #{fichaVoluntariadoMB.voluntariado.numeroSemanasAcomodacao}
 				</h:panelGroup>
@@ -276,31 +263,31 @@
 			</h:panelGrid>
 			 <h:panelGrid style="width:100%;" columns="1">
 				<h:panelGroup>   
-					Você prefere familía com crianças ? #{fichaVoluntariadoMB.voluntariado.familiaCrianca}
+					<b>Você prefere familía com crianças ?</b> #{fichaVoluntariadoMB.voluntariado.familiaCrianca}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você prefere familía com animais de estimação ? #{fichaVoluntariadoMB.voluntariado.familiaAnimais}
+					<b>Você prefere familía com animais de estimação ?</b> #{fichaVoluntariadoMB.voluntariado.familiaAnimais}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você é fumante ? #{fichaVoluntariadoMB.voluntariado.fumante}
+					<b>Você é fumante ?</b> #{fichaVoluntariadoMB.voluntariado.fumante}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você é vegetariano ? #{fichaVoluntariadoMB.voluntariado.vegetariano}
+					<b>Você é vegetariano ?</b> #{fichaVoluntariadoMB.voluntariado.vegetariano}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Quais são seus interesses ou hobbies ? #{fichaVoluntariadoMB.voluntariado.hobbies}
+					<b>Quais são seus interesses ou hobbies ?</b> #{fichaVoluntariadoMB.voluntariado.hobbies}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Você tem alegria a algum medicamento ou alimento ? Se sim quais ? #{fichaVoluntariadoMB.voluntariado.possuiAlergia} , #{fichaVoluntariadoMB.voluntariado.quaisAlergias}
+					<b>Você tem alegria a algum medicamento ou alimento ? Se sim quais ?</b> #{fichaVoluntariadoMB.voluntariado.possuiAlergia} , #{fichaVoluntariadoMB.voluntariado.quaisAlergias}
 				</h:panelGroup>
 				
 				<h:panelGroup>   
-					Solicitações especiais (não há garantias) ? #{fichaVoluntariadoMB.voluntariado.solicitacoesEspeciais}
+					<b>Solicitações especiais (não há garantias) ?</b> #{fichaVoluntariadoMB.voluntariado.solicitacoesEspeciais}
 				</h:panelGroup>
 				
 			</h:panelGrid> 
