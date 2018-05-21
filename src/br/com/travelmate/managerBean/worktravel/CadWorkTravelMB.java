@@ -1388,6 +1388,15 @@ public class CadWorkTravelMB implements Serializable {
 			if (saldoParcelar > 0.01f) {
 				msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 			}
+			if (work.getNomeContatoEmergencia() == null || work.getNomeContatoEmergencia().length() <= 0) {
+				msg = msg + "Nome do contato de emergência não informado\r\n";
+			}
+			if (work.getFoneContatoEmergencia() == null || work.getFoneContatoEmergencia().length() <= 0) {
+				msg = msg + "Nº telefone  do contato de emergência não informado\r\n";
+			}
+			if (work.getRelacaoContatoEmergencia() == null  || work.getRelacaoContatoEmergencia().length() <= 0) {
+				msg = msg + "Relação do contato de emergência não informado\r\n";
+			}
 		} else {
 			msg = msg + "Campo Valores de Work and Travel não está preenchido!\r\n";
 		}

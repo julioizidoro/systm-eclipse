@@ -51,48 +51,64 @@
 	<div align="justify"
 		style="font-family: sans-serif; font-size: 13px; width: 100%;">
 		
-		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+		<h:panelGrid style="border: 2px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup><b>Nome:</b> #{fichaTraineeMB.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup><b>Nome:</b> #{fichaTraineeMB.pacotes.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{fichaTraineeMB.vendas.cliente.dataNascimento}">
+						value="#{fichaTraineeMB.pacotes.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup><b>Sexo:</b> #{fichaTraineeMB.vendas.cliente.sexo}</h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaTraineeMB.pacotes.vendas.cliente.sexo}</h:panelGroup>
 				<h:panelGroup>   
-					<b>Local de Nascimento:</b> #{fichaTraineeMB.vendas.cliente.cidadeNascimento}, #{fichaTraineeMB.vendas.cliente.paisNascimento}
+					<b>Local de Nascimento:</b> #{fichaTraineeMB.pacotes.vendas.cliente.cidadeNascimento}, #{fichaTraineeMB.pacotes.vendas.cliente.paisNascimento}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>RG: </b> #{fichaTraineeMB.vendas.cliente.rg}
+					<b>RG: </b> #{fichaTraineeMB.pacotes.vendas.cliente.rg}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>CPF: </b> #{fichaTraineeMB.vendas.cliente.cpf}
+					<b>CPF: </b> #{fichaTraineeMB.pacotes.vendas.cliente.cpf}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Passaporte: </b> #{fichaTraineeMB.vendas.cliente.numeroPassaporte}
+					<b>Passaporte: </b> #{fichaTraineeMB.pacotes.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaTraineeMB.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b> #{fichaTraineeMB.pacotes.vendas.cliente.dataExpedicaoPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaTraineeMB.vendas.cliente.validadePassaporte}
+					<b>Validade: </b> #{fichaTraineeMB.pacotes.vendas.cliente.validadePassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Profissão: </b> #{fichaTraineeMB.vendas.cliente.profissao}
+					<b>Endereço: </b> #{fichaTraineeMB.pacotes.vendas.cliente.tipologradouro} #{fichaTraineeMB.pacotes.vendas.cliente.logradouro} , #{fichaTraineeMB.pacotes.vendas.cliente.numero}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Nível Estudo: </b> #{fichaTraineeMB.vendas.cliente.escolaridade}
+					<b>Bairro: </b> #{fichaTraineeMB.pacotes.vendas.cliente.bairro}
 				</h:panelGroup>
-				<h:panelGroup/>
+				<h:panelGroup>
+					<b>Complemento: </b> #{fichaTraineeMB.pacotes.vendas.cliente.complemento}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>CEP: </b> #{fichaTraineeMB.pacotes.vendas.cliente.cep}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Cidade/Estado: </b> #{fichaTraineeMB.pacotes.vendas.cliente.cidade} , #{fichaTraineeMB.pacotes.vendas.cliente.estado}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Pais: </b> #{fichaTraineeMB.pacotes.vendas.cliente.pais}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Res.: </b> #{fichaTraineeMB.pacotes.vendas.cliente.foneResidencial}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Fone Celular: </b> #{fichaTraineeMB.pacotes.vendas.cliente.foneCelular}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Email: </b> #{fichaTraineeMB.pacotes.vendas.cliente.email}
+				</h:panelGroup>
 			</h:panelGrid>   
-
-
+  
 		</h:panelGrid>
 		<br/>
 		<h:panelGroup style="color:green;width:97%;"><b>ESCOLARIDADE </b></h:panelGroup>

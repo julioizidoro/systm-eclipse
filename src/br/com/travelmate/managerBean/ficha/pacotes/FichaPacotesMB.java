@@ -370,7 +370,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotecarro != null) {
 					carro = true;
-					itensCarro =  "Carro: " + pacotecarro.getDescritivo() + "    Período: "
+					itensCarro =  " " + pacotecarro.getDescritivo() + "    Período: "
 							+ Formatacao.ConvercaoDataPadrao(pacotecarro.getDataretirada()) + " Até "
 							+ Formatacao.ConvercaoDataPadrao(pacotecarro.getDatadevolucao());
 				}
@@ -383,7 +383,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotepassagem != null) {
 					passagem = true;
-					itensPassagem = "Passagem: " + pacotepassagem.getCiaAerea() + "  Intinerario: "
+					itensPassagem = " " + pacotepassagem.getCiaAerea() + "  Intinerario: "
 							+ pacotepassagem.getIntinerario() + "   Período: "
 							+ Formatacao.ConvercaoDataPadrao(pacotepassagem.getDataEmbarque()) + " Até "
 							+ Formatacao.ConvercaoDataPadrao(pacotepassagem.getDataVolta());
@@ -398,7 +398,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotecruzeiro != null) {
 					cruzeiro = true;
-					itensCruzeiro =  "Cruzeiro: " + pacotecruzeiro.getCategoria() + "  Intinerario: "
+					itensCruzeiro =  " " + pacotecruzeiro.getCategoria() + "  Intinerario: "
 							+ pacotecruzeiro.getIntinerario() + "  " + pacotecruzeiro.getTipocabine() + "    Período: "
 							+ Formatacao.ConvercaoDataPadrao(pacotecruzeiro.getDatasaida()) + " Até "
 							+ Formatacao.ConvercaoDataPadrao(pacotecruzeiro.getDatechegada());
@@ -413,7 +413,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotehotel != null) {
 					hotel = true;
-					itensHotel =  "Hotel: " + pacotehotel.getDescritivo() + " " + "     Categoria: "
+					itensHotel =  " " + pacotehotel.getDescritivo() + " " + "     Categoria: "
 							+ pacotehotel.getCategoria() + "    Regime: " + pacotehotel.getRegime()
 							+ "    Tipo de quarto: " + pacotehotel.getTipoquarto() + "    Período: "
 							+ Formatacao.ConvercaoDataPadrao(pacotehotel.getDatacheckin()) + " Até "
@@ -429,7 +429,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotetransfer != null) {
 					transfer = true;
-					itensTransfer =  "Transfer : " + pacotetransfer.getDe() + " / "
+					itensTransfer =  " " + pacotetransfer.getDe() + " / "
 							+ pacotetransfer.getPara() + "  " + pacotetransfer.getTipo();
 					;
 				}
@@ -442,7 +442,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotetrem != null) {
 					treem = true;
-					itensTreem =  "Trem/Ônibus: " + pacotetrem.getDe() + " / " + pacotetrem.getPara()
+					itensTreem =  " " + pacotetrem.getDe() + " / " + pacotetrem.getPara()
 							+ "    Período: " + pacotetrem.getHorachegada() + " Até " + pacotetrem.getHorasaida()
 							;
 					;
@@ -456,7 +456,7 @@ public class FichaPacotesMB implements Serializable{
 						.consultar(pacotes.getPacotetrechoList().get(i).getIdpacotetrecho());
 				if (pacotecircuito != null) {
 					circuito = true;
-					itensCircuito =  "Circuito: " + pacotecircuito.getDe() + " / " + pacotecircuito.getPara()
+					itensCircuito =  " " + pacotecircuito.getDe() + " / " + pacotecircuito.getPara()
 							+ "    Período: " + Formatacao.ConvercaoDataPadrao(pacotecircuito.getDatainicio()) + " Até "
 							+ Formatacao.ConvercaoDataPadrao(pacotecircuito.getDatatertminio());
 					;

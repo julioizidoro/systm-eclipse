@@ -61,9 +61,6 @@
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup><b>Sexo:</b> #{fichaPacotesMB.pacotes.vendas.cliente.sexo}</h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
-				<h:panelGroup></h:panelGroup>
 				<h:panelGroup>   
 					<b>Local de Nascimento:</b> #{fichaPacotesMB.pacotes.vendas.cliente.cidadeNascimento}, #{fichaPacotesMB.pacotes.vendas.cliente.paisNascimento}
 				</h:panelGroup>
@@ -88,7 +85,6 @@
 				<h:panelGroup>
 					<b>Bairro: </b> #{fichaPacotesMB.pacotes.vendas.cliente.bairro}
 				</h:panelGroup>
-				<h:panelGroup/>
 				<h:panelGroup>
 					<b>Complemento: </b> #{fichaPacotesMB.pacotes.vendas.cliente.complemento}
 				</h:panelGroup>
@@ -147,31 +143,31 @@
 				<h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.carro}">
 						<br/>
-						 #{fichaPacotesMB.itensCarro}
+						<b>Carro: </b> #{fichaPacotesMB.itensCarro}
 					</h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.passagem}">
 						 <br/>
-						 #{fichaPacotesMB.itensPassagem}
+						<b>Passagem: </b> #{fichaPacotesMB.itensPassagem}
 					</h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.cruzeiro}">
 						 <br/>
-						 #{fichaPacotesMB.itensCruzeiro}
+						 <b>Cruzeiro: </b>#{fichaPacotesMB.itensCruzeiro}
 					</h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.hotel}">
 						 <br/>
-						 #{fichaPacotesMB.itensHotel}
+						 <b>Hotel: </b>#{fichaPacotesMB.itensHotel}
 					</h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.transfer}">
 						 <br/>
-						 #{fichaPacotesMB.itensTransfer}
+						 <b>Transfer: </b>#{fichaPacotesMB.itensTransfer}
 					</h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.treem}">
 						 <br/>
-						 #{fichaPacotesMB.itensTreem}
+						 <b>Treem/Ônibus: </b>#{fichaPacotesMB.itensTreem}
 					</h:panelGroup>
 					<h:panelGroup rendered="#{fichaPacotesMB.circuito}">
 						 <br/>
-						 #{fichaPacotesMB.itensCircuito}
+						 <b>Circuito: </b>#{fichaPacotesMB.itensCircuito}
 					</h:panelGroup>
 					<br/>
 				</h:panelGroup>
@@ -213,7 +209,7 @@
 			</p:dataTable>
 		<h:panelGrid style="width:100%;">
 			
-			<h:panelGrid style="width:97.3%;background-color:#CFCFCF;font-size:12px;" columns="2">
+			<h:panelGrid style="width:100%;background-color:#CFCFCF;font-size:12px;" columns="2">
 					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
 					
 					<h:panelGrid style="width:94%;float:right;float: right;" columns="2">

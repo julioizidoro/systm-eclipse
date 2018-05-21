@@ -26,10 +26,19 @@
 	<div align="left">
 		<img src="../../resources/img/cabecalhoContrato.PNG" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
-			<p:outputLabel value="Venda: #{fichaCursosTeensMB.vendas.idvendas}"/>
+			<p:outputLabel value="#{fichaCursosTeensMB.programasteens.vendas.produtos.descricao} : #{fichaCursosTeensMB.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaCursosTeensMB.vendas.unidadenegocio.nomerelatorio}"/>
 			<p:outputLabel value="Consultor: #{fichaCursosTeensMB.vendas.usuario.nome}"/>
 			<p:outputLabel value="#{fichaCursosTeensMB.vendas.usuario.email}"/>
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: "/>
+				<p:outputLabel
+						value="#{fichaCursosTeensMB.programasteens.vendas.dataVenda}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:outputLabel>
+			
+			</h:panelGroup>
 		</h:panelGrid> 
 	</div>
 	<br />
