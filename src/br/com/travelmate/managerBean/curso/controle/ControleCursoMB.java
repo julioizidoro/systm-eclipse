@@ -790,7 +790,12 @@ public class ControleCursoMB implements Serializable {
 	}
 	
 	
-	public void tipoOrcamento(Curso curso){
-		
+	public String fichaCurso(Curso curso){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("curso", curso);
+		return "fichaCurso";
 	}
+	
+	
 }

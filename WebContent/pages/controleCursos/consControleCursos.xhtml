@@ -269,7 +269,7 @@
 										</p:commandLink>
 
 										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursosFinanceiro.curso)}"
+											action="#{controleCursoMB.fichaCurso(cursosFinanceiro.curso)}"
 											update=":consultaControleCursos:growl" ajax="false"
 											target="_blank" title="Imprimir Ficha"
 											class="commandLinkControle">
@@ -488,7 +488,7 @@
 										</p:commandLink>
 
 										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursosAndamento.curso)}"
+											action="#{controleCursoMB.fichaCurso(cursosAndamento.curso)}"
 											update=":consultaControleCursos:growl" ajax="false"
 											target="_blank" title="Imprimir Ficha"
 											class="commandLinkControle">
@@ -707,7 +707,7 @@
 										</p:commandLink>
 
 										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursosFinalizado.curso)}"
+											action="#{controleCursoMB.fichaCurso(cursosFinalizado.curso)}"
 											update=":consultaControleCursos:growl" ajax="false"
 											target="_blank" title="Imprimir Ficha"
 											class="commandLinkControle">
@@ -926,7 +926,7 @@
 										</p:commandLink>
 
 										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursosCancelado.curso)}"
+											action="#{controleCursoMB.fichaCurso(cursosCancelado.curso)}"
 											update=":consultaControleCursos:growl" ajax="false"
 											target="_blank" title="Imprimir Ficha"
 											class="commandLinkControle">
@@ -1141,7 +1141,7 @@
 										</p:commandLink>
 
 										<p:commandLink
-											action="#{controleCursoMB.gerarRelatorioFicha(cursos.curso)}"
+											action="#{controleCursoMB.fichaCurso(cursos.curso)}"
 											update=":consultaControleCursos:growl" ajax="false"
 											target="_blank" title="Imprimir Ficha"
 											class="commandLinkControle">
@@ -1373,7 +1373,7 @@
 						<h:panelGrid columns="2"
 							style="margin-left: 2%;width:26%;float:right;">
 							<p:commandLink
-								action="#{controleCursoMB.gerarRelatorioFicha(controleCursoMB.controlecurso.curso)}"
+								action="#{controleCursoMB.fichaCurso(controleCursoMB.controlecurso.curso)}"
 								update=":consultaControleCursos:growl" ajax="false"
 								target="_blank" title="Imprimir Ficha"
 								class="commandLinkControle">
