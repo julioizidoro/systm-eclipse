@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.crm;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -110,6 +111,11 @@ public class DadosClienteMB implements Serializable{
 	
 	
 	public void salvar(){
+		try {
+			nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		cliente.setNome(nome);
 		cliente.setFoneCelular(telefone);
 		if (validarEmail()) {

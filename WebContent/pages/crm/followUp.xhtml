@@ -365,7 +365,8 @@
 						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">
 							<p:commandLink id="btnNomeCliente" title="Alterações de dados do cliente" value="#{lead.cliente.nome}"
 								action="#{followUpMB.alterarDadosCliente(lead.cliente)}">
-							</p:commandLink>
+								<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogDados}" update="tabelaLeads, :followUp:growl"/>
+							</p:commandLink> 
 						</p:column>
 						<p:column headerText="Unidade" style="text-align:left;" sortBy="#{lead.unidadenegocio.nomerelatorio}"
 							width="95" rendered="#{followUpMB.acessoResponsavelUnidade}">

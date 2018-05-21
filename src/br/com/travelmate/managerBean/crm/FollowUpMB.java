@@ -1425,5 +1425,13 @@ public class FollowUpMB implements Serializable {
 	public String orcamentoVitrine(){
 		return "paginainicial";
 	}
+	
+	
+	public void retornoDialogDados(SelectEvent event) {
+		Cliente cliente = (Cliente) event.getObject();
+		if (cliente != null) {
+			Mensagem.lancarMensagemInfo("Alteração feita com sucesso", "");
+		}
+	}
 
 }
