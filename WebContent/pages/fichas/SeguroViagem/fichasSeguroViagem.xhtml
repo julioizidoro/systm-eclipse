@@ -52,67 +52,67 @@
 		
 		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup><b>Nome:</b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup><b>Nome:</b> #{fichasSeguroViagemMB.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{fichasSeguroViagemMB.seguroviagem.vendas.cliente.dataNascimento}">
+						value="#{fichasSeguroViagemMB.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup><b>Sexo:</b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichasSeguroViagemMB.vendas.cliente.sexo}</h:panelGroup>
 				<h:panelGroup>   
-					<b>Local de Nascimento:</b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.cidadeNascimento}, #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.paisNascimento}
+					<b>Local de Nascimento:</b> #{fichasSeguroViagemMB.vendas.cliente.cidadeNascimento}, #{fichasSeguroViagemMB.vendas.cliente.paisNascimento}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>RG: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.rg}
+					<b>RG: </b> #{fichasSeguroViagemMB.vendas.cliente.rg}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>CPF: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.cpf}
+					<b>CPF: </b> #{fichasSeguroViagemMB.vendas.cliente.cpf}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Passaporte: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.numeroPassaporte}
+					<b>Passaporte: </b> #{fichasSeguroViagemMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Expedição: </b>  <h:outputText
-						value="#{fichasSeguroViagemMB.seguroviagem.vendas.cliente.dataExpedicaoPassaporte}">
+						value="#{fichasSeguroViagemMB.vendas.cliente.dataExpedicaoPassaporte}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b>  <h:outputText
-						value="#{fichasSeguroViagemMB.seguroviagem.vendas.cliente.validadePassaporte}">
+					<b>Validade: </b> <h:outputText
+						value="#{fichasSeguroViagemMB.vendas.cliente.validadePassaporte}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Endereço: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.tipologradouro} #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.logradouro} , #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.numero}
+					<b>Endereço: </b> #{fichasSeguroViagemMB.vendas.cliente.tipologradouro} #{fichasSeguroViagemMB.vendas.cliente.logradouro} , #{fichasSeguroViagemMB.vendas.cliente.numero}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Bairro: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Bairro: </b> #{fichasSeguroViagemMB.vendas.cliente.bairro}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Complemento: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Complemento: </b> #{fichasSeguroViagemMB.vendas.cliente.complemento}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>CEP: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>CEP: </b> #{fichasSeguroViagemMB.vendas.cliente.cep}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Cidade/Estado: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Cidade/Estado: </b> #{fichasSeguroViagemMB.vendas.cliente.cidade} , #{fichasSeguroViagemMB.vendas.cliente.estado}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Pais: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Pais: </b> #{fichasSeguroViagemMB.vendas.cliente.pais}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Fone Res.: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Fone Res.: </b> #{fichasSeguroViagemMB.vendas.cliente.foneResidencial}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Fone Celular: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Fone Celular: </b> #{fichasSeguroViagemMB.vendas.cliente.foneCelular}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Email: </b> #{fichasSeguroViagemMB.seguroviagem.vendas.cliente.escolaridade}
+					<b>Email: </b> #{fichasSeguroViagemMB.vendas.cliente.email}
 				</h:panelGroup>
 			</h:panelGrid>   
   
