@@ -47,6 +47,7 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -95,11 +96,41 @@ public class WorkTravelMB implements Serializable {
 	private List<Worktravel> listaVendasCancelada;
 	private List<Worktravel> listaVendasProcesso;
 	private List<Worktravel> listaVendasFinanceiro;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasFinalizada = (List<Worktravel>) session.getAttribute("listaVendasFinalizada");
+		listaVendasAndamento = (List<Worktravel>) session.getAttribute("listaVendasAndamento");
+		listaVendasProcesso = (List<Worktravel>) session.getAttribute("listaVendasProcesso");
+		listaVendasFinanceiro = (List<Worktravel>) session.getAttribute("listaVendasFinanceiro");
+		listaVendasCancelada = (List<Worktravel>) session.getAttribute("listaVendasCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaVendasAndamento");
+		session.removeAttribute("listaVendasProcesso");
+		session.removeAttribute("listaVendasFinanceiro");
+		session.removeAttribute("listaVendasCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Worktravel")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			carregarListaVendasWork();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				carregarListaVendasWork();
+			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				habilitarUnidade = false;
@@ -542,6 +573,7 @@ public class WorkTravelMB implements Serializable {
 		dataTermino = null;
 		situacao = "TODAS";
 		nome = "";
+		pesquisar = "Nao";
 		carregarListaVendasWork();
 	}
 
@@ -583,6 +615,7 @@ public class WorkTravelMB implements Serializable {
 			listaWork = new ArrayList<Worktravel>();
 		}
 		numeroFichas = "" + String.valueOf(listaWork.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -933,6 +966,14 @@ public class WorkTravelMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("worktravel", worktravel);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Worktravel");
+		session.setAttribute("chamadaTela", "Worktravel");
 		return "fichaWorkTravel";
 	}
 	
@@ -983,6 +1024,14 @@ public class WorkTravelMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("worktravel", worktravel);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Worktravel");
+		session.setAttribute("chamadaTela", "Worktravel");
 		return "contratoWorkTravelPremium";
 	}
 	

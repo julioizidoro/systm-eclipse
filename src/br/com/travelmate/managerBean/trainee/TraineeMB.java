@@ -47,7 +47,8 @@ import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Highschool;
-import br.com.travelmate.model.Parcelamentopagamento; 
+import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -98,11 +99,41 @@ public class TraineeMB implements Serializable {
 	private List<Trainee> listaVendasCancelada;
 	private List<Trainee> listaVendasProcesso;
 	private List<Trainee> listaVendasFinanceiro;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasFinalizada = (List<Trainee>) session.getAttribute("listaVendasFinalizada");
+		listaVendasAndamento = (List<Trainee>) session.getAttribute("listaVendasAndamento");
+		listaVendasProcesso = (List<Trainee>) session.getAttribute("listaVendasProcesso");
+		listaVendasFinanceiro = (List<Trainee>) session.getAttribute("listaVendasFinanceiro");
+		listaVendasCancelada = (List<Trainee>) session.getAttribute("listaVendasCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaVendasAndamento");
+		session.removeAttribute("listaVendasProcesso");
+		session.removeAttribute("listaVendasFinanceiro");
+		session.removeAttribute("listaVendasCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Trainee")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			carregarListaVendasTrainee();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				carregarListaVendasTrainee();
+			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				habilitarUnidade = false;
@@ -492,6 +523,7 @@ public class TraineeMB implements Serializable {
 		situacao = "TODAS";
 		nome = "";
 		idVenda = 0;
+		pesquisar = "Nao";
 		carregarListaVendasTrainee();
 	}
 
@@ -528,6 +560,7 @@ public class TraineeMB implements Serializable {
 			listaTrainee = new ArrayList<Trainee>();
 		}
 		numFichas = "" + String.valueOf(listaTrainee.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -973,6 +1006,14 @@ public class TraineeMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("trainee", trainee);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Trainee");
+		session.setAttribute("chamadaTela", "Trainee");
 		if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
 			return "fichaTraineeAus";
 		}
@@ -984,6 +1025,14 @@ public class TraineeMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("trainee", trainee);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Trainee");
+		session.setAttribute("chamadaTela", "Trainee");
 		return "contratoTrainee";
 	}
 }

@@ -1547,7 +1547,7 @@ public class CadCursoMB implements Serializable {
 				if (venda.isRestricaoparcelamento()) {
 					String titulo = "Autorizar Nova Ficha de Curso";
 					String operacao = "I";
-					String imagemNotificacao = "autorizar";
+					String imagemNotificacao = "inserido";
 					String vm = "Venda pela Matriz";
 					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
 						vm = "Venda pela Loja";
@@ -1783,13 +1783,13 @@ public class CadCursoMB implements Serializable {
 				msg = msg + "Escola inválida\r\n";
 			}
 		}
-		if (curso.getNomeContatoEmergencia() == null) {
+		if (curso.getNomeContatoEmergencia() == null || curso.getNomeContatoEmergencia().length() <= 0) {
 			msg = msg + "Nome do contato de emergência não informado\r\n";
 		}
-		if (curso.getFoneContatoEmergencia() == null) {
+		if (curso.getFoneContatoEmergencia() == null || curso.getFoneContatoEmergencia().length() <= 0) {
 			msg = msg + "Nº telefone  do contato de emergência não informado\r\n";
 		}
-		if (curso.getRelacaoContatoEmergencia() == null) {
+		if (curso.getRelacaoContatoEmergencia() == null  || curso.getRelacaoContatoEmergencia().length() <= 0) {
 			msg = msg + "Relação do contato de emergência não informado\r\n";
 		}
 		if (formaPagamento.getParcelamentopagamentoList() == null) {
@@ -3289,6 +3289,9 @@ public class CadCursoMB implements Serializable {
 							if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getIdcoprodutos() == 5043) {
 								Produtosorcamento produtosorcamento = produtoOrcamentoFacade
 										.consultar("SELECT p FROM Produtosorcamento p WHERE p.descricao='"+ ocurso.getOcrusoprodutosList().get(i).getDescricao() +"'"); 
+								if (produtosorcamento == null || produtosorcamento.getIdprodutosOrcamento() == null) {
+									produtosorcamento = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento();
+								}
 								orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 							}else {
 								orcamentoprodutosorcamento.setProdutosorcamento(ocurso.getOcrusoprodutosList().get(i)

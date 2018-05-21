@@ -27,6 +27,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import com.sun.java.swing.plaf.windows.resources.windows;
+import com.sun.java.swing.plaf.windows.resources.windows_de;
+
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
@@ -111,11 +114,47 @@ public class CursoMB implements Serializable {
 	private List<Curso> listaVendasCursoProcesso;
 	private List<Curso> listaVendasCursoFinanceiro;
 	private boolean segurocancelamento = false;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct()
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasCursoFinalizada = (List<Curso>) session.getAttribute("listaVendasCursoFinalizada");
+		listaVendasCursoAndamento = (List<Curso>) session.getAttribute("listaVendasCursoAndamento");
+		listaVendasCursoProcesso = (List<Curso>) session.getAttribute("listaVendasCursoProcesso");
+		listaVendasCursoFinanceiro = (List<Curso>) session.getAttribute("listaVendasCursoFinanceiro");
+		listaVendasCursoCancelada = (List<Curso>) session.getAttribute("listaVendasCursoCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasCursoFinalizada");
+		session.removeAttribute("listaVendasCursoAndamento");
+		session.removeAttribute("listaVendasCursoProcesso");
+		session.removeAttribute("listaVendasCursoFinanceiro");
+		session.removeAttribute("listaVendasCursoCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Curso")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			carregarListaVendasCursos();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				carregarListaVendasCursos();
+			}else {
+				nFichasFinalizadas = listaVendasCursoFinalizada.size();
+				nFichasAndamento = listaVendasCursoAndamento.size();
+				nFichaCancelada = listaVendasCursoCancelada.size();
+				nFichasProcesso = listaVendasCursoProcesso.size();
+				nFichaFinanceiro = listaVendasCursoFinanceiro.size();
+			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			gerarListaFornecedor();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -410,6 +449,14 @@ public class CursoMB implements Serializable {
 		this.listaVendasCursoFinanceiro = listaVendasCursoFinanceiro;
 	}
 
+	public String getPesquisar() {
+		return pesquisar;
+	}
+
+	public void setPesquisar(String pesquisar) {
+		this.pesquisar = pesquisar;
+	}
+
 	public void carregarListaVendasCursos() {
 		if (usuarioLogadoMB.getUsuario() != null || usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
@@ -557,6 +604,7 @@ public class CursoMB implements Serializable {
 			listaVendasCurso = new ArrayList<Curso>();
 		}
 		numeroFichas = "" + String.valueOf(listaVendasCurso.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -568,6 +616,7 @@ public class CursoMB implements Serializable {
 		nome = "";
 		idVenda = 0;
 		fornecedor = null;
+		pesquisar = "Nao";
 		carregarListaVendasCursos();
 	}
 
@@ -1179,6 +1228,14 @@ public class CursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
+		session.setAttribute("listaVendasCursoAndamento", listaVendasCursoAndamento);
+		session.setAttribute("listaVendasCursoCancelada", listaVendasCursoCancelada);
+		session.setAttribute("listaVendasCursoFinalizada", listaVendasCursoFinalizada);
+		session.setAttribute("listaVendasCursoFinanceiro", listaVendasCursoFinanceiro);
+		session.setAttribute("listaVendasCursoProcesso", listaVendasCursoProcesso);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Curso");
+		session.setAttribute("chamadaTela", "Curso");
 		return "fichaCurso";
 	}
 	
@@ -1224,6 +1281,14 @@ public class CursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
+		session.setAttribute("listaVendasCursoAndamento", listaVendasCursoAndamento);
+		session.setAttribute("listaVendasCursoCancelada", listaVendasCursoCancelada);
+		session.setAttribute("listaVendasCursoFinalizada", listaVendasCursoFinalizada);
+		session.setAttribute("listaVendasCursoFinanceiro", listaVendasCursoFinanceiro);
+		session.setAttribute("listaVendasCursoProcesso", listaVendasCursoProcesso);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Curso");
+		session.setAttribute("chamadaTela", "Curso");
 		return "contratoCurso";
 	}
 	

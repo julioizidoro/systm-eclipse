@@ -125,11 +125,17 @@ public class MenuMB implements Serializable {
 
 	public String passagem() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "passagem";
 	}
 
 	public String pacoteso() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultapperadora";
 	}
 
@@ -157,6 +163,9 @@ public class MenuMB implements Serializable {
 
 	public String curso() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultafichacurso";
 	}
 
@@ -167,6 +176,9 @@ public class MenuMB implements Serializable {
 
 	public String highSchool() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaHighSchool";
 	}
 
@@ -177,6 +189,9 @@ public class MenuMB implements Serializable {
 
 	public String cursosTeens() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "cursosTeens";
 	}
 
@@ -205,36 +220,57 @@ public class MenuMB implements Serializable {
 
 	public String seguroViagem() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaSeguro";
 	}
 
 	public String visto() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaVistos";
 	}
 
 	public String auPair() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaAuPair";
 	}
 
 	public String demiPair() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaDemiPair";
 	}
 
 	public String trainee() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaTrainee";
 	}
 
 	public String voluntariado() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaVoluntariado";
 	}
 
 	public String workAndTravel() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consultaWorkandTravel";
 	}
 
@@ -1121,6 +1157,9 @@ public class MenuMB implements Serializable {
 	}
 
 	public String questionarioHe() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consquestionarioHe";
 	}
 
@@ -1376,6 +1415,9 @@ public class MenuMB implements Serializable {
 	
 	public String traducao() {
 		atualizaTempoLogado();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consTraducao";
 	}
 	

@@ -95,11 +95,41 @@ public class AuPairMB implements Serializable {
 	private List<Aupair> listaVendasCancelada;
 	private List<Aupair> listaVendasProcesso;
 	private List<Aupair> listaVendasFinanceiro;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasFinalizada = (List<Aupair>) session.getAttribute("listaVendasFinalizada");
+		listaVendasAndamento = (List<Aupair>) session.getAttribute("listaVendasAndamento");
+		listaVendasProcesso = (List<Aupair>) session.getAttribute("listaVendasProcesso");
+		listaVendasFinanceiro = (List<Aupair>) session.getAttribute("listaVendasFinanceiro");
+		listaVendasCancelada = (List<Aupair>) session.getAttribute("listaVendasCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaVendasAndamento");
+		session.removeAttribute("listaVendasProcesso");
+		session.removeAttribute("listaVendasFinanceiro");
+		session.removeAttribute("listaVendasCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Aupair")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			carregarListaVendas();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				carregarListaVendas();
+			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				habilitarUnidade = false;
@@ -518,6 +548,7 @@ public class AuPairMB implements Serializable {
 		situacao = "TODAS";
 		nome = "";
 		idVenda = 0;
+		pesquisar = "Nao";
 		carregarListaVendas();
 	}
 
@@ -555,6 +586,7 @@ public class AuPairMB implements Serializable {
 			listaAupair = new ArrayList<Aupair>();
 		}
 		numeroFichas = "" + String.valueOf(listaAupair.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -931,6 +963,14 @@ public class AuPairMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("aupair", aupair);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Aupair");
+		session.setAttribute("chamadaTela", "Aupair");
 		return "fichaAuPair";
 	}
 	
@@ -974,6 +1014,14 @@ public class AuPairMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("aupair", aupair);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Aupair");
+		session.setAttribute("chamadaTela", "Aupair");
 		return "contratoAuPair";
 	}
 

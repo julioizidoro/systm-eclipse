@@ -38,6 +38,7 @@ import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Traducaojuramentada;
@@ -88,12 +89,42 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	private List<Seguroviagem> listaVendasFinanceiro;
 	private String numeroFichas;
 	private String voltar = "";
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasFinalizada = (List<Seguroviagem>) session.getAttribute("listaVendasFinalizada");
+		listaVendasAndamento = (List<Seguroviagem>) session.getAttribute("listaVendasAndamento");
+		listaVendasProcesso = (List<Seguroviagem>) session.getAttribute("listaVendasProcesso");
+		listaVendasFinanceiro = (List<Seguroviagem>) session.getAttribute("listaVendasFinanceiro");
+		listaVendasCancelada = (List<Seguroviagem>) session.getAttribute("listaVendasCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaVendasAndamento");
+		session.removeAttribute("listaVendasProcesso");
+		session.removeAttribute("listaVendasFinanceiro");
+		session.removeAttribute("listaVendasCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("SeguroViagem")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			setNomeCliente("");
-			carregarListaSeguro();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				carregarListaSeguro();
+			}
 			listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				habilitarUnidade = false;
@@ -425,6 +456,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			listaSeguro = new ArrayList<Seguroviagem>();
 		}
 		numeroFichas = "" + String.valueOf(listaSeguro.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -555,6 +587,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		tipoEmissao="Todos";
 		dataSeguroInicial=null;
 		dataSeguroFinal=null;
+		pesquisar = "Nao";
 		carregarListaSeguro();
 
 	}
@@ -841,6 +874,14 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("seguroviagem", seguroviagem);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "SeguroViagem");
+		session.setAttribute("chamadaTela", "SeguroViagem");
 		return "fichasSeguroViagem";
 	}
 	

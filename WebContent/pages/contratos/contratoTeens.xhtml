@@ -106,10 +106,6 @@
 			</h:panelGrid>
 
 			<h:panelGrid style="width:100%;margin:1%;" columns="3">
-				<h:panelGroup>
-					<b>Aulas Por Semana:</b> #{fichaCursosTeensMB.programasteens.aulasSemana} </h:panelGroup>
-				<h:panelGroup >
-					<b>N° Semanas:</b>#{fichaCursosTeensMB.programasteens.numeroSemanas} </h:panelGroup>
 				
 				<h:panelGroup >
 					<b>Data Inicio: </b><h:outputText
@@ -118,6 +114,9 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
+				<h:panelGroup >
+					<b>N° Semanas:</b>#{fichaCursosTeensMB.programasteens.numeroSemanas} </h:panelGroup>
+				
 				<h:panelGroup>
 					<b>Data Término: </b><h:outputText
 						value="#{fichaCursosTeensMB.programasteens.dataTerminoCurso}">
@@ -127,8 +126,7 @@
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Acomodação: </b>#{fichaCursosTeensMB.programasteens.tipoAcomodacao} </h:panelGroup>
-				<br />
-				<br />
+				
 				<h:panelGroup >
 					<b>Data Chegada: </b> <h:outputText
 						value="#{fichaCursosTeensMB.programasteens.dataChegadaAcomodacao}">
@@ -143,6 +141,8 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
+				<h:panelGroup>
+					<b>Aulas Por Semana:</b> #{fichaCursosTeensMB.programasteens.aulasSemana} </h:panelGroup>
 			</h:panelGrid>
 		</div>
 		<br />
@@ -216,7 +216,7 @@
 				responsável a respeito do programa escolhido, bem como cumprir com
 				as regras determinadas neste, sob pena de desligamento do programa,
 				tais como: <br/> - freqüência mínima exigida pela instituição promotora
-				do curso ou programa; Br - observar as regras de comportamento da
+				do curso ou programa; <br/> - observar as regras de comportamento da
 				instituição, curso ou programa; <br/> g) Participar das orientações
 				organizadas pela TM e/ou parceiro internacional em questão. <br/> h) No
 				caso de acomodação em casa de família, respeitar a política,
@@ -238,7 +238,7 @@
 				<b style="color: green;"> 4. PARCEIRO INTERNACIONAL DA TM </b><br />
 				<br />4.1 Quaisquer problemas que surjam após a chegada do(a)
 				PARTICIPANTE ao país de destino do programa, devem ser solucionados
-				pelo parceiro internacional) da TM , a empresa/escola/instituição
+				pelo parceiro internacional da TM , a empresa/escola/instituição
 				citada no Objeto deste contrato e cujos dados de contato são
 				fornecidos ao(à) PARTICIPANTE após confirmação de sua inscrição no
 				programa/pacote contratado. <br/> 4.2 O(A) PARTICIPANTE receberá antes
@@ -283,7 +283,7 @@
 				seguir os procedimentos estabelecidos pela seguradora para pagamento
 				e/ou reembolso das despesas médicas e hospitalares. <br/> d) Caso o(a)
 				PARTICIPANTE deixe de contar, por qualquer motivo, com a cobertura
-				do seguro saúde durante sua estada no destino, poderá ser excluído
+				do seguro-saúde durante sua estada no destino, poderá ser excluído
 				do programa, sem direito a qualquer reembolso; <br/> e) A decisão sobre
 				eventual extensão do seguro cabe exclusivamente à seguradora, não
 				podendo ser responsabilizada à TM em caso de sua negativa. Da mesma
@@ -330,7 +330,7 @@
 				para cobrir a distância entre a moradia e o local do curso ou
 				programa. É prática comum nestas acomodações a cobrança de taxa
 				caução antecipada (antes da ocupação da acomodação), sendo que o
-				reembolso deste valor dá-se somente depois desocupação da
+				reembolso deste valor dá-se somente depois da desocupação da
 				acomodação, em prazo indeterminado, mediante entrega do imóvel nas
 				mesmas condições em que se encontrava no momento da ocupação. A
 				avaliação do reembolso de tal taxa cabe exclusivamente ao locatário,
@@ -413,19 +413,19 @@
 				todas as normas referentes ao transporte aéreo internacional, bem
 				como ter conhecimento de ser da Companhia Aérea contratada a
 				responsabilidade referente á prestação deste serviço. <br/> Parágrafo
-				1∫: O(a) PARTICIPANTE , após a emissão do bilhete, dever· observar
+				1: O(a) PARTICIPANTE , após a emissão do bilhete, dever· observar
 				todos os procedimentos referentes á categoria de sua passagem, de
 				acordo com as regras do transporte aéreo e do contrato efetuado com
 				a Companhia Aérea, observando, quando houver, cláusulas especiais
 				referentes ao seu tipo de bilhete, especialmente no tocante ao
 				endosso, reembolso, multas por cancelamento, remarcação, reiteração
-				e limite de peso da bagagem; <br/> Parágrafo 2∫: O(a) PARTICIPANTE
-				dever· seguir os procedimentos indicados oportunamente pela TM(caso
+				e limite de peso da bagagem; <br/> Parágrafo 2: O(a) PARTICIPANTE
+				deverá seguir os procedimentos indicados oportunamente pela TM(caso
 				a passagem seja adquirida por intermédio da TM) para efetuar a
 				marcação ou qualquer alteração em sua passagem aérea, sujeitando-se
-				á disponibilidade na mesma classe tarifária, bem como ‡s taxas de
+				á disponibilidade na mesma classe tarifária, bem como ás taxas de
 				remarcação, cancelamento e reiteração estabelecidas pelas companhias
-				aéreas. xx
+				aéreas. 
 			</p>
 		</div>
 		<br />
@@ -448,7 +448,7 @@
 				participante, etc), se o(a) PARTICIPANTE tiver que alterar o
 				curso/programa, a instituição internacional cobrará diferença de
 				valores e multa para tal(is) mudança(s),sendo o pagamento de total
-				responsabilidade do(a) PARTICIPANTE. A TM n„o garante a
+				responsabilidade do(a) PARTICIPANTE. A TM não garante a
 				possibilidade de quaisquer alterações do curso/programa solicitadas
 				após emissão da carta de aceitação. <br/> 9.3 Em caso de cancelamento
 				do curso/programa devido á não obtenção do visto de entrada do país
@@ -456,7 +456,7 @@
 				item 9.1 <br/> 9.4 Em todos os casos de desistência antes do embarque,
 				por quaisquer motivos e em qualquer momento do processo, a devolução
 				do valor pago pelo programa, excluindo os 30% de multa citados no
-				item 9.1, segue as normas da organizaÁ„o internacional contratada
+				item 9.1, segue as normas da organização internacional contratada
 				pela TM. <br/> 9.5 Após o embarque do(a) PARTICIPANTE para realização
 				do programa/curso, não há reembolso ou devolução de qualquer valor
 				pago a TM ou parceiro internacional referente ao curso, acomodação,
@@ -474,7 +474,7 @@
 				<b style="color: green;"> 10. DA RESCISÃO POR JUSTA CAUSA </b><br />
 				<br />10.1 O presente contrato será rescindido por justa causa,
 				mediante simples notificação ao(é) PARTICIPANTE , sem direito a
-				qualquer reembolso ou indenizaçãoo, quando: <br/> a) O(A) PARTICIPANTE
+				qualquer reembolso ou indenização, quando: <br/> a) O(A) PARTICIPANTE
 				desrespeitar as regras estipuladas pela administração da acomodação
 				ou família hospedeira, e parceiro internacional, no tocante a
 				horários, saídas sem consentimentos, desrespeito com terceiros e aos
@@ -482,7 +482,7 @@
 				atitudes contrárias a um convívio harmonioso junto á família
 				hospedeira, colegas de acomodação e colegas de classe; <br/> b) O(a)
 				PARTICIPANTE receber reclamações comportamentais no ambiente
-				escolar/académico, cuja gravidade será analisada pelo parceiro
+				escolar/acadêmico, cuja gravidade será analisada pelo parceiro
 				internacional responsável pelo curso/programa; <br/> c) Cometer
 				qualquer tipo de ato ilícito penal sob as normas do direito do país
 				em questão; <br/> d) O(a) PARTICIPANTE abandonar a acomodação ou
@@ -520,7 +520,7 @@
 				alimentação que não esteja inclusa no programa/pacote, moradia que
 				não esteja inclusa no programa/pacote, etc..), mesmo quando exista a
 				possibilidade de trabalho legal no país em questão; <br/> 11.3 Custos
-				ou despesas para despesas pessoais diárias s„o de responsabilidade
+				ou despesas para despesas pessoais diárias são de responsabilidade
 				do PARTICIPANTE; <br/> 11.4 Custos de transporte diário durante a
 				realização do programa/pacote, alimentação e uniformes exigidos para
 				realização do programa não estão incluídos no valor do

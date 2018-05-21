@@ -400,8 +400,8 @@ public class FichaPacotesMB implements Serializable{
 					cruzeiro = true;
 					itensCruzeiro =  " " + pacotecruzeiro.getCategoria() + "  Intinerario: "
 							+ pacotecruzeiro.getIntinerario() + "  " + pacotecruzeiro.getTipocabine() + "    Período: "
-							+ Formatacao.ConvercaoDataPadrao(pacotecruzeiro.getDatasaida()) + " Até "
-							+ Formatacao.ConvercaoDataPadrao(pacotecruzeiro.getDatechegada());
+							+ Formatacao.ConvercaoDataPadrao(pacotecruzeiro.getDatechegada()) + " Até "
+							+ Formatacao.ConvercaoDataPadrao(pacotecruzeiro.getDatasaida());
 					;
 				}
 			}

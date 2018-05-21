@@ -104,11 +104,41 @@ public class HighSchoolMB implements Serializable {
 	private List<Highschool> listaVendasCancelada;
 	private List<Highschool> listaVendasProcesso;
 	private List<Highschool> listaVendasFinanceiro;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct()
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasFinalizada = (List<Highschool>) session.getAttribute("listaVendasFinalizada");
+		listaVendasAndamento = (List<Highschool>) session.getAttribute("listaVendasAndamento");
+		listaVendasProcesso = (List<Highschool>) session.getAttribute("listaVendasProcesso");
+		listaVendasFinanceiro = (List<Highschool>) session.getAttribute("listaVendasFinanceiro");
+		listaVendasCancelada = (List<Highschool>) session.getAttribute("listaVendasCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaVendasAndamento");
+		session.removeAttribute("listaVendasProcesso");
+		session.removeAttribute("listaVendasFinanceiro");
+		session.removeAttribute("listaVendasCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("HighSchool")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			gerarListaHighSchool();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				gerarListaHighSchool();
+			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				habilitarUnidade = false;
@@ -493,6 +523,7 @@ public class HighSchoolMB implements Serializable {
 			listaHighSchool = new ArrayList<Highschool>();
 		}
 		numeroFichas = "" + String.valueOf(listaHighSchool.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -503,6 +534,7 @@ public class HighSchoolMB implements Serializable {
 		situacao = "TODAS";
 		nome = "";
 		idVenda = 0;
+		pesquisar = "Nao";
 		gerarListaHighSchool();
 	}
 
@@ -1021,6 +1053,14 @@ public class HighSchoolMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("highschool", highschool);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "HighSchool");
+		session.setAttribute("chamadaTela", "HighSchool");
 		return "fichaHighSchool";
 	}
 	
@@ -1029,6 +1069,14 @@ public class HighSchoolMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("highschool", highschool);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "HighSchool");
+		session.setAttribute("chamadaTela", "HighSchool");
 		return "contratoHighSchool";
 	}
 }

@@ -8,6 +8,14 @@
 <ui:composition template="/pages/templates/default.xhtml">
 	<ui:define name="corpo">
 		<h:form id="consultacursos" style="font-size:11px;">
+	<script type="text/javascript">
+function poponload()
+{
+    testwindow = window.open("", "mywindow", "location=1,status=1,scrollbars=1,width=100,height=100");
+    testwindow.moveTo(0, 0);
+}
+</script>
+
 			<div id="centro">
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
 				<br></br>
@@ -177,9 +185,9 @@
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton action="#{cursoMB.fichaCurso(cursosProcesso)}"
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
-									ajax="false" onclick="this.form.target='_blank'"
+									 onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
-								</h:commandButton>     
+								</h:commandButton>       
 							</p:column>  
 							<p:column headerText="Opções" style="width:75px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -773,7 +781,14 @@
 									title="Ficha" image="../../resources/img/imprimiFicha.png"
 									ajax="false" onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
-								</h:commandButton>     
+								</h:commandButton>   
+								
+								
+								<h:commandButton action="#"  
+									title="ESSE" image="../../resources/img/imprimiFicha.png"
+									 onclick="javascript: poponload()"
+									style="width:30px;margin-left:4%">
+								</h:commandButton>   
 							</p:column> 
 							
 							

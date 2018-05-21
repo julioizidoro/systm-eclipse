@@ -105,11 +105,41 @@ public class CursosTeensMB implements Serializable {
 	private List<Programasteens> listaVendasCancelada;
 	private List<Programasteens> listaVendasProcesso;
 	private List<Programasteens> listaVendasFinanceiro;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct()
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasFinalizada = (List<Programasteens>) session.getAttribute("listaVendasFinalizada");
+		listaVendasAndamento = (List<Programasteens>) session.getAttribute("listaVendasAndamento");
+		listaVendasProcesso = (List<Programasteens>) session.getAttribute("listaVendasProcesso");
+		listaVendasFinanceiro = (List<Programasteens>) session.getAttribute("listaVendasFinanceiro");
+		listaVendasCancelada = (List<Programasteens>) session.getAttribute("listaVendasCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaVendasAndamento");
+		session.removeAttribute("listaVendasProcesso");
+		session.removeAttribute("listaVendasFinanceiro");
+		session.removeAttribute("listaVendasCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Teens")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			carregarListaVendas();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				carregarListaVendas();
+			}
 			listarFornecedores();
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -475,6 +505,7 @@ public class CursosTeensMB implements Serializable {
 			listaCursosTeens = new ArrayList<Programasteens>();
 		}
 		numeroFichas = "" + String.valueOf(listaCursosTeens.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -486,6 +517,7 @@ public class CursosTeensMB implements Serializable {
 		nome = "";
 		idVenda = 0;
 		fornecedor = null;
+		pesquisar = "Nao";
 		carregarListaVendas();
 	}
 
@@ -929,6 +961,14 @@ public class CursosTeensMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("programasteens", programasteens);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Teens");
+		session.setAttribute("chamadaTela", "Teens");
 		return "fichaCursosTeens";
 	}
 	
@@ -937,6 +977,14 @@ public class CursosTeensMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("programasteens", programasteens);
+		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
+		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
+		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
+		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
+		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Teens");
+		session.setAttribute("chamadaTela", "Teens");
 		return "contratoTeens";
 	}
 	

@@ -88,12 +88,30 @@ public class PacoteMB implements Serializable {
 	private Unidadenegocio unidadenegocio;
 	private int idvenda = 0;
 	private List<Unidadenegocio> listaUnidadeNegocio;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaPacotesAgencia = (List<Pacotes>) session.getAttribute("listaPacotesAgencia");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Trainee")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			dataFinal = (Date) session.getAttribute("dataFinal");
 			dataInicio = (Date) session.getAttribute("dataIni");
 			unidadenegocio = (Unidadenegocio) session.getAttribute("unidade");
@@ -106,7 +124,9 @@ public class PacoteMB implements Serializable {
 			if (cliente == null) {
 				cliente = "";
 			}
-			pesquisar();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				pesquisar();
+			}
 			gerarListaUnidadeNegocio();
 		}
 	}
@@ -270,6 +290,7 @@ public class PacoteMB implements Serializable {
 		}
 		sql = sql + "  order by p.vendas.dataVenda desc";
 		listaPacotesAgencia = GerarListas.listarPacotes(sql);
+		pesquisar = "Sim";
 	}
 
 	public void limparPesquisa() {
@@ -285,6 +306,7 @@ public class PacoteMB implements Serializable {
 		dataInicio = null;
 		unidadenegocio = null;
 		idvenda = 0;
+		pesquisar = "Nao";
 	}
 
 	public void imprimirRecibo(Pacotes pacotes) {
@@ -721,6 +743,10 @@ public class PacoteMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("pacotes", pacotes);
+		session.setAttribute("listaPacotes", listaPacotes);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Trainee");
+		session.setAttribute("chamadaTela", "Trainee");
 		return "fichasPacotes";
 	}
 	
@@ -728,6 +754,10 @@ public class PacoteMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("pacotes", pacotes);
+		session.setAttribute("listaPacotes", listaPacotes);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "Trainee");
+		session.setAttribute("chamadaTela", "Trainee");
 		return "contratoPacotes";
 	}
 }

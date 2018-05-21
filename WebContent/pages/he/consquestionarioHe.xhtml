@@ -170,14 +170,13 @@
 							</p:column>
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton
-									action="#{higherEducationMB.fichaHE(processo)}"
-									title="Ficha de Inscrição"
-									image="../../resources/img/imprimiFicha.png" ajax="false"
-									onclick="this.form.target='_blank'"
-									style="width:27px;margin-left:2%"
-									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(processo)}">
-								</h:commandButton>
+								
+								<p:commandLink action="#{higherEducationMB.fichaHE(processo)}"
+									title="Ficha" ajax="false"
+									 target="_blank" rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(processo)}"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" />
+								</p:commandLink>   
 								<h:commandButton
 									action="#{higherEducationMB.contrato(processo)}"
 									title="Contrato de Higher Education"
@@ -336,14 +335,13 @@
 							</p:column>
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton
-									action="#{higherEducationMB.fichaHE(financeiro)}"
-									title="Ficha de Inscrição"
-									image="../../resources/img/imprimiFicha.png" ajax="false"
-									onclick="this.form.target='_blank'"
-									style="width:27px;margin-left:2%"
-									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(financeiro)}">
-								</h:commandButton>
+								   
+								<p:commandLink action="#{higherEducationMB.fichaHE(financeiro)}"
+									title="Ficha" ajax="false"
+									 target="_blank" rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(financeiro)}"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" />
+								</p:commandLink>   
 								<h:commandButton
 									action="#{higherEducationMB.contrato(financeiro)}"
 									title="Contrato de Higher Education"
@@ -503,14 +501,13 @@
 							</p:column>
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton
-									action="#{higherEducationMB.fichaHE(andamento)}"
-									title="Ficha de Inscrição"
-									image="../../resources/img/imprimiFicha.png" ajax="false"
-									onclick="this.form.target='_blank'"
-									style="width:27px;margin-left:2%"
-									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(andamento)}">
-								</h:commandButton>
+								
+								<p:commandLink action="#{higherEducationMB.fichaHE(andamento)}"
+									title="Ficha" ajax="false"
+									 target="_blank" rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(andamento)}"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" />
+								</p:commandLink>   
 								<h:commandButton
 									action="#{higherEducationMB.contrato(andamento)}"
 									title="Contrato de Higher Education"
@@ -669,14 +666,13 @@
 							</p:column>
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton
-									action="#{higherEducationMB.fichaHE(finalizado)}"
-									title="Ficha de Inscrição"
-									image="../../resources/img/imprimiFicha.png" ajax="false"
-									onclick="this.form.target='_blank'"
-									style="width:27px;margin-left:2%"
-									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(finalizado)}">
-								</h:commandButton>
+								
+								<p:commandLink action="#{higherEducationMB.fichaHE(finalizado)}"
+									title="Ficha" ajax="false"
+									 target="_blank" rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(finalizado)}"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" />
+								</p:commandLink>   
 								<h:commandButton
 									action="#{higherEducationMB.contrato(finalizado)}"
 									title="Contrato de Higher Education"
@@ -834,14 +830,13 @@
 							</p:column>
 							<p:column headerText="Imprimir"
 								style="width:70px;text-align:center;" styleClass="alinharCenter">
-								<h:commandButton
-									action="#{higherEducationMB.fichaHE(cancelado)}"
-									title="Ficha de Inscrição"
-									image="../../resources/img/imprimiFicha.png" ajax="false"
-									onclick="this.form.target='_blank'"
-									style="width:27px;margin-left:2%"
-									rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(cancelado)}">
-								</h:commandButton>
+								
+								<p:commandLink action="#{higherEducationMB.fichaHE(cancelado)}"
+									title="Ficha" ajax="false"
+									 target="_blank" rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(cancelado)}"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" />
+								</p:commandLink> 
 								<h:commandButton
 									action="#{higherEducationMB.contrato(cancelado)}"
 									title="Contrato de Higher Education"
