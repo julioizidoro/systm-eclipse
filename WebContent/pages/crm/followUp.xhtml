@@ -578,6 +578,7 @@
 						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{posvenda.vendas.cliente.nome}">
 							<p:commandLink id="btnNomeCliente" title="Alterações de dados do cliente" value="#{posvenda.vendas.cliente.nome}"
 								action="#{followUpMB.alterarDadosCliente(posvenda.vendas.cliente)}">
+								<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogDados}" update="tabelaPosVenda, :followUp:growl"/>
 							</p:commandLink>
 						</p:column>
 						<p:column headerText="Unidade" sortBy="#{posvenda.vendas.unidadenegocio.nomerelatorio}" style="text-align:left;"

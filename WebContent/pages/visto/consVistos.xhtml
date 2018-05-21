@@ -112,7 +112,7 @@
 								scrollHeight="300" style="margin-bottom:20px">
 								<p:column style="width:45px;">
 									<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistosProcesso)}" title="#{vistosProcesso.tituloFicha}">
-										<img src="#{vistosProcesso.imagem}" width="60px" />    
+										<img src="#{vistosProcesso.imagem}" width="27px" />    
 									</p:commandLink>   
 								</p:column> 
 								<p:column headerText="ID venda" style="width:50px">
@@ -162,79 +162,100 @@
 									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosProcesso)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
-										style="width:65%;margin-left:4%">   
+										style="width:27px;margin-left:4%">   
 									</h:commandButton>       
 								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.boletos(vistosProcesso)}" disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}"
-										title="Boleto" image="../../resources/img/boletoFicha.png"
-										ajax="false" onclick="this.form.target='_blank'"
-										style="width:100%;margin-left:4%" >
-									</h:commandButton>    
-								</p:column>
-								<p:column 
-									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.fichasVistos(vistosProcesso)}" 
-										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'"
-										disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}">
-									</h:commandButton>
-									<h:commandButton  
-										action="#{vistosMB.gerarRelatorioContrato(vistosProcesso)}"
-										title="Contrato" image="../../resources/img/imprimiContrato.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}">
-									</h:commandButton>
-									<h:commandButton   
-										action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosProcesso)}"
-										title="Declaração de insenção"
-										image="../../resources/img/imprimiVisto.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
-									style="width:65px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.finalizarVisto(vistosProcesso)}" 
-										title="Finalizar processo"
-										image="../../resources/img/finalizadoFicha.png"
-										style="width:60%;margin-left:4%"
-										disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}"
-										update=":idfrmconsultavistosProcesso:tabelaConsultaProcesso">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
-									style="width:46px;text-align:center">       
-									<p:commandLink action="#{vistosMB.documentacao(vistosProcesso)}"
-										title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}">
-										<img src="../../resources/img/arquivosUpload.png" width="130%"/>
-									</p:commandLink> 
-								</p:column>
-								<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
-									<p:commandLink action="#{vistosMB.informacoes(vistosProcesso)}"
-										  title="Informações da Venda"
-										disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}">
-										<img src="../../resources/img/informacao.png" width="160%" />
+								<p:column headerText="Opções" style="width:75px;text-align:center;">  
+									<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+										<img src="../../resources/img/informacaoVendaVerde.png" />
 									</p:commandLink>
-								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosProcesso)}"
-										disabled="#{vistosMB.botoesHabilitados(vistosProcesso)}"
-										style="text-decoration: none" title="Cancelar Ficha"
-										update="tabelaConsultaProcesso">
-										<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-										<img src="../../resources/img/cancel.png" width="30" />
-									</p:commandLink>
-								</p:column>
-								<p:column style="width:49px;" styleClass="alinharCenter">  
-									<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
-										update="tabelaConsultaProcesso">    
-										<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
-									</p:commandLink>   
-								</p:column>
+									<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+										hideEffect="fade" style="background:#F0F0F0;width:700px;">
+										<p:outputLabel
+											value="#{vistosProcesso.vendas.idvendas} - #{vistosProcesso.vendas.cliente.nome}"
+											style="text-align:center;font-size:15px;" />
+										<br />
+										<br />
+										<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="7">
+										
+												<p:commandLink action="#{vistosMB.boletos(vistosProcesso)}" 
+													  title="IMPRIMIR OS BOLETOS" ajax="false"  
+													 target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">  
+														<p:outputLabel value="BOLETOS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink
+													action="#{vistosMB.contrato(vistosProcesso)}"
+													title="IMPRIMIR O CONTRATO" 
+													 ajax="false"  target="_blank"  >
+													<img src="../../resources/img/imprimiContrato.png" width="36" />  
+													<h:panelGrid columns="1" style="text-align:center;width:100%;">
+														<p:outputLabel value="CONTRATO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+												<p:commandLink action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosProcesso)}"
+													title="DECLARAÇÃO DE INSENÇÃO" ajax="false"
+													target="_blank"
+													 >
+													<img src="../../resources/img/imprimiRecibo.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DECLARAÇÃO" style="font-size:10px;"/>
+														<p:outputLabel value="INSENÇÃO" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink action="#{vistosMB.documentacao(vistosProcesso)}"
+													 title="DOCUMENTOS"
+													 >
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.informacoes(vistosProcesso)}"
+													 title="INFORMAÇÕES DA VENDA"
+													 >
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+													action="#{vistosMB.finalizarVisto(vistosProcesso)}"
+													title="FINALIZAR PROCESSO" 
+													update="tabelaConsultaProcesso"
+													 >
+													<img src="../../resources/img/finalizadoFicha.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;"> 
+														<p:outputLabel value="FINALIZAR" style="font-size:10px;"/>
+														<p:outputLabel value="" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink> 
+												
+												<p:commandLink action="#{vistosMB.cancelarVenda(vistosProcesso)}"
+														style="text-decoration: none" title="CANCELAR FICHA"
+														update="tabelaConsultaProcesso"
+														 >
+														<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" style="width: 36" />
+														
+															<h:panelGrid columns="1" style="text-align:center;">
+																<p:outputLabel value="CANCELAR" style="font-size:10px;"/>
+																<p:outputLabel value=" " style="font-size:10px;"/>
+															</h:panelGrid>
+												</p:commandLink>   
+										</h:panelGrid>  
+									</p:overlayPanel>   
+								</p:column> 
 							</p:dataTable>
 					</p:tab>
 					<p:tab title="Financeiro (#{vistosMB.nFichasFinanceiro})"
@@ -244,7 +265,7 @@
 								scrollHeight="300" style="margin-bottom:20px">
 								<p:column style="width:45px;">
 									<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistosFinanceiro)}" title="#{vistosFinanceiro.tituloFicha}">
-										<img src="#{vistosFinanceiro.imagem}" width="60px" />    
+										<img src="#{vistosFinanceiro.imagem}" width="27px" />    
 									</p:commandLink>   
 								</p:column> 
 								<p:column headerText="ID venda" style="width:50px">
@@ -294,79 +315,100 @@
 									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosFinanceiro)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
-										style="width:65%;margin-left:4%">   
+										style="width:27px;margin-left:4%">   
 									</h:commandButton>       
 								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.boletos(vistosFinanceiro)}" disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}"
-										title="Boleto" image="../../resources/img/boletoFicha.png"
-										ajax="false" onclick="this.form.target='_blank'"
-										style="width:100%;margin-left:4%" >
-									</h:commandButton>    
-								</p:column>
-								<p:column 
-									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosFinanceiro)}" 
-										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}">
-									</h:commandButton>
-									<h:commandButton  
-										action="#{vistosMB.gerarRelatorioContrato(vistosFinanceiro)}"
-										title="Contrato" image="../../resources/img/imprimiContrato.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}">
-									</h:commandButton>
-									<h:commandButton   
-										action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosFinanceiro)}"
-										title="Declaração de insenção"
-										image="../../resources/img/imprimiVisto.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
-									style="width:65px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.finalizarVisto(vistosFinanceiro)}" 
-										title="Finalizar processo"
-										image="../../resources/img/finalizadoFicha.png"
-										style="width:60%;margin-left:4%"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}"
-										update=":idfrmconsultavistosFinanceiro:tabelaConsultaFinanceiro">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
-									style="width:46px;text-align:center">       
-									<p:commandLink action="#{vistosMB.documentacao(vistosFinanceiro)}"
-										title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}">
-										<img src="../../resources/img/arquivosUpload.png" width="130%"/>
-									</p:commandLink> 
-								</p:column>
-								<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
-									<p:commandLink action="#{vistosMB.informacoes(vistosFinanceiro)}"
-										  title="Informações da Venda"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}">
-										<img src="../../resources/img/informacao.png" width="160%" />
+								<p:column headerText="Opções" style="width:75px;text-align:center;">  
+									<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+										<img src="../../resources/img/informacaoVendaVerde.png" />
 									</p:commandLink>
-								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinanceiro)}"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinanceiro)}"
-										style="text-decoration: none" title="Cancelar Ficha"
-										update="tabelaConsultaFinanceiro">
-										<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-										<img src="../../resources/img/cancel.png" width="30" />
-									</p:commandLink>
-								</p:column>
-								<p:column style="width:49px;" styleClass="alinharCenter">  
-									<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
-										update="tabelaConsultaFinanceiro">    
-										<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
-									</p:commandLink>   
-								</p:column>
+									<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+										hideEffect="fade" style="background:#F0F0F0;width:700px;">
+										<p:outputLabel
+											value="#{vistosFinanceiro.vendas.idvendas} - #{vistosFinanceiro.vendas.cliente.nome}"
+											style="text-align:center;font-size:15px;" />
+										<br />
+										<br />
+										<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="7">
+										
+												<p:commandLink action="#{vistosMB.boletos(vistosFinanceiro)}" 
+													  title="IMPRIMIR OS BOLETOS" ajax="false"  
+													 target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">  
+														<p:outputLabel value="BOLETOS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink
+													action="#{vistosMB.contrato(vistosFinanceiro)}"
+													title="IMPRIMIR O CONTRATO" 
+													 ajax="false"  target="_blank"  >
+													<img src="../../resources/img/imprimiContrato.png" width="36" />  
+													<h:panelGrid columns="1" style="text-align:center;width:100%;">
+														<p:outputLabel value="CONTRATO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+												<p:commandLink action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosFinanceiro)}"
+													title="DECLARAÇÃO DE INSENÇÃO" ajax="false"
+													target="_blank"
+													 >
+													<img src="../../resources/img/imprimiRecibo.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DECLARAÇÃO" style="font-size:10px;"/>
+														<p:outputLabel value="INSENÇÃO" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink action="#{vistosMB.documentacao(vistosFinanceiro)}"
+													 title="DOCUMENTOS"
+													 >
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.informacoes(vistosFinanceiro)}"
+													 title="INFORMAÇÕES DA VENDA"
+													 >
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+													action="#{vistosMB.finalizarVisto(vistosFinanceiro)}"
+													title="FINALIZAR PROCESSO" 
+													update="tabelaConsultaFinanceiro"
+													 >
+													<img src="../../resources/img/finalizadoFicha.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;"> 
+														<p:outputLabel value="FINALIZAR" style="font-size:10px;"/>
+														<p:outputLabel value="" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink> 
+												
+												<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinanceiro)}"
+														style="text-decoration: none" title="CANCELAR FICHA"
+														update="tabelaConsultaFinanceiro"
+														 >
+														<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" style="width: 36" />
+														
+															<h:panelGrid columns="1" style="text-align:center;">
+																<p:outputLabel value="CANCELAR" style="font-size:10px;"/>
+																<p:outputLabel value=" " style="font-size:10px;"/>
+															</h:panelGrid>
+												</p:commandLink>   
+										</h:panelGrid>  
+									</p:overlayPanel>   
+								</p:column> 
 							</p:dataTable>
 					</p:tab>
 					<p:tab title="Andamento (#{vistosMB.nFichasAndamento})"
@@ -376,7 +418,7 @@
 								scrollHeight="300" style="margin-bottom:20px">
 								<p:column style="width:45px;">
 									<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistosAndamento)}" title="#{vistosAndamento.tituloFicha}">
-										<img src="#{vistosAndamento.imagem}" width="60px" />    
+										<img src="#{vistosAndamento.imagem}" width="27px" />    
 									</p:commandLink>   
 								</p:column> 
 								<p:column headerText="ID venda" style="width:50px">
@@ -426,79 +468,100 @@
 									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosAndamento)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
-										style="width:65%;margin-left:4%">   
+										style="width:27px;margin-left:4%">   
 									</h:commandButton>       
 								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.boletos(vistosAndamento)}" disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}"
-										title="Boleto" image="../../resources/img/boletoFicha.png"
-										ajax="false" onclick="this.form.target='_blank'"
-										style="width:100%;margin-left:4%" >
-									</h:commandButton>    
-								</p:column>
-								<p:column 
-									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosAndamento)}" 
-										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'"
-										disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}">
-									</h:commandButton>
-									<h:commandButton  
-										action="#{vistosMB.gerarRelatorioContrato(vistosAndamento)}"
-										title="Contrato" image="../../resources/img/imprimiContrato.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}">
-									</h:commandButton>
-									<h:commandButton   
-										action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosAndamento)}"
-										title="Declaração de insenção"
-										image="../../resources/img/imprimiVisto.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
-									style="width:65px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.finalizarVisto(vistosAndamento)}" 
-										title="Finalizar processo"
-										image="../../resources/img/finalizadoFicha.png"
-										style="width:60%;margin-left:4%"
-										disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}"
-										update=":idfrmconsultavistosAndamento:tabelaConsultaAndamento">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
-									style="width:46px;text-align:center">       
-									<p:commandLink action="#{vistosMB.documentacao(vistosAndamento)}"
-										title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}">
-										<img src="../../resources/img/arquivosUpload.png" width="130%"/>
-									</p:commandLink> 
-								</p:column>
-								<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
-									<p:commandLink action="#{vistosMB.informacoes(vistosAndamento)}"
-										  title="Informações da Venda"
-										disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}">
-										<img src="../../resources/img/informacao.png" width="160%" />
+								<p:column headerText="Opções" style="width:75px;text-align:center;">  
+									<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+										<img src="../../resources/img/informacaoVendaVerde.png" />
 									</p:commandLink>
-								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosAndamento)}"
-										disabled="#{vistosMB.botoesHabilitados(vistosAndamento)}"
-										style="text-decoration: none" title="Cancelar Ficha"
-										update="tabelaConsultaAndamento">
-										<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-										<img src="../../resources/img/cancel.png" width="30" />
-									</p:commandLink>
-								</p:column>
-								<p:column style="width:49px;" styleClass="alinharCenter">  
-									<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
-										update="tabelaConsultaAndamento">    
-										<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
-									</p:commandLink>   
-								</p:column>
+									<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+										hideEffect="fade" style="background:#F0F0F0;width:700px;">
+										<p:outputLabel
+											value="#{vistosAndamento.vendas.idvendas} - #{vistosAndamento.vendas.cliente.nome}"
+											style="text-align:center;font-size:15px;" />
+										<br />
+										<br />
+										<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="7">
+										
+												<p:commandLink action="#{vistosMB.boletos(vistosAndamento)}" 
+													  title="IMPRIMIR OS BOLETOS" ajax="false"  
+													 target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">  
+														<p:outputLabel value="BOLETOS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink
+													action="#{vistosMB.contrato(vistosAndamento)}"
+													title="IMPRIMIR O CONTRATO" 
+													 ajax="false"  target="_blank"  >
+													<img src="../../resources/img/imprimiContrato.png" width="36" />  
+													<h:panelGrid columns="1" style="text-align:center;width:100%;">
+														<p:outputLabel value="CONTRATO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+												<p:commandLink action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosAndamento)}"
+													title="DECLARAÇÃO DE INSENÇÃO" ajax="false"
+													target="_blank"
+													 >
+													<img src="../../resources/img/imprimiRecibo.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DECLARAÇÃO" style="font-size:10px;"/>
+														<p:outputLabel value="INSENÇÃO" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink action="#{vistosMB.documentacao(vistosAndamento)}"
+													 title="DOCUMENTOS"
+													 >
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.informacoes(vistosAndamento)}"
+													 title="INFORMAÇÕES DA VENDA"
+													 >
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+													action="#{vistosMB.finalizarVisto(vistosAndamento)}"
+													title="FINALIZAR PROCESSO" 
+													update="tabelaConsultaAndamento"
+													 >
+													<img src="../../resources/img/finalizadoFicha.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;"> 
+														<p:outputLabel value="FINALIZAR" style="font-size:10px;"/>
+														<p:outputLabel value="" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink> 
+												
+												<p:commandLink action="#{vistosMB.cancelarVenda(vistosAndamento)}"
+														style="text-decoration: none" title="CANCELAR FICHA"
+														update="tabelaConsultaAndamento"
+														 >
+														<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" style="width: 36" />
+														
+															<h:panelGrid columns="1" style="text-align:center;">
+																<p:outputLabel value="CANCELAR" style="font-size:10px;"/>
+																<p:outputLabel value=" " style="font-size:10px;"/>
+															</h:panelGrid>
+												</p:commandLink>   
+										</h:panelGrid>  
+									</p:overlayPanel>   
+								</p:column>     
 							</p:dataTable>
 					</p:tab>
 					<p:tab title="Finalizado (#{vistosMB.nFichasFinalizadas})"
@@ -508,7 +571,7 @@
 								scrollHeight="300" style="margin-bottom:20px">
 								<p:column style="width:45px;">
 									<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistosFinalizada)}" title="#{vistosFinalizada.tituloFicha}">
-										<img src="#{vistosFinalizada.imagem}" width="60px" />    
+										<img src="#{vistosFinalizada.imagem}" width="27px" />    
 									</p:commandLink>   
 								</p:column> 
 								<p:column headerText="ID venda" style="width:50px">
@@ -558,79 +621,100 @@
 									<h:commandButton action="#{vistosMB.fichasVistos(vistosFinalizada)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
-										style="width:65%;margin-left:4%">   
+										style="width:27px;margin-left:4%">   
 									</h:commandButton>       
 								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.boletos(vistosFinalizada)}" disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}"
-										title="Boleto" image="../../resources/img/boletoFicha.png"
-										ajax="false" onclick="this.form.target='_blank'"
-										style="width:100%;margin-left:4%" >
-									</h:commandButton>    
-								</p:column>
-								<p:column 
-									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.fichasVistos(vistosFinalizada)}" 
-										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"  
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
-									</h:commandButton>
-									<h:commandButton  
-										action="#{vistosMB.contrato(vistosFinalizada)}"
-										title="Contrato" image="../../resources/img/imprimiContrato.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
-									</h:commandButton>
-									<h:commandButton   
-										action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosFinalizada)}"
-										title="Declaração de insenção"
-										image="../../resources/img/imprimiVisto.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
-									style="width:65px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.finalizarVisto(vistosFinalizada)}" 
-										title="Finalizar processo"
-										image="../../resources/img/finalizadoFicha.png"
-										style="width:60%;margin-left:4%"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}"
-										update=":idfrmconsultavistosFinalizada:tabelaConsultaFinalizada">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
-									style="width:46px;text-align:center">       
-									<p:commandLink action="#{vistosMB.documentacao(vistosFinalizada)}"
-										title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
-										<img src="../../resources/img/arquivosUpload.png" width="130%"/>
-									</p:commandLink> 
-								</p:column>
-								<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
-									<p:commandLink action="#{vistosMB.informacoes(vistosFinalizada)}"
-										  title="Informações da Venda"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}">
-										<img src="../../resources/img/informacao.png" width="160%" />
+								<p:column headerText="Opções" style="width:75px;text-align:center;">  
+									<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+										<img src="../../resources/img/informacaoVendaVerde.png" />
 									</p:commandLink>
-								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinalizada)}"
-										disabled="#{vistosMB.botoesHabilitados(vistosFinalizada)}"
-										style="text-decoration: none" title="Cancelar Ficha"
-										update="tabelaConsultaFinalizada">
-										<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-										<img src="../../resources/img/cancel.png" width="30" />
-									</p:commandLink>
-								</p:column>
-								<p:column style="width:49px;" styleClass="alinharCenter">  
-									<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
-										update="tabelaConsultaFinalizada">    
-										<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
-									</p:commandLink>   
-								</p:column>
+									<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+										hideEffect="fade" style="background:#F0F0F0;width:700px;">
+										<p:outputLabel
+											value="#{vistosFinalizada.vendas.idvendas} - #{vistosFinalizada.vendas.cliente.nome}"
+											style="text-align:center;font-size:15px;" />
+										<br />
+										<br />
+										<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="7">
+										
+												<p:commandLink action="#{vistosMB.boletos(vistosFinalizada)}" 
+													  title="IMPRIMIR OS BOLETOS" ajax="false"  
+													 target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">  
+														<p:outputLabel value="BOLETOS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink
+													action="#{vistosMB.contrato(vistosFinalizada)}"
+													title="IMPRIMIR O CONTRATO" 
+													 ajax="false"  target="_blank"  >
+													<img src="../../resources/img/imprimiContrato.png" width="36" />  
+													<h:panelGrid columns="1" style="text-align:center;width:100%;">
+														<p:outputLabel value="CONTRATO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosFinalizada)}"
+													title="DECLARAÇÃO DE INSENÇÃO" ajax="false"
+													target="_blank"
+													 >
+													<img src="../../resources/img/imprimiRecibo.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DECLARAÇÃO" style="font-size:10px;"/>
+														<p:outputLabel value="INSENÇÃO" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink action="#{vistosMB.documentacao(vistosFinalizada)}"
+													 title="DOCUMENTOS"
+													 >
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.informacoes(vistosFinalizada)}"
+													 title="INFORMAÇÕES DA VENDA"
+													 >
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+													action="#{vistosMB.finalizarVisto(vistosFinalizada)}"
+													title="FINALIZAR PROCESSO" 
+													update="tabelaConsultaFinalizada"
+													 >
+													<img src="../../resources/img/finalizadoFicha.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;"> 
+														<p:outputLabel value="FINALIZAR" style="font-size:10px;"/>
+														<p:outputLabel value="" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink> 
+												
+												<p:commandLink action="#{vistosMB.cancelarVenda(vistosFinalizada)}"
+														style="text-decoration: none" title="CANCELAR FICHA"
+														update="tabelaConsultaFinalizada"
+														 >
+														<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" style="width: 36" />
+														
+															<h:panelGrid columns="1" style="text-align:center;">
+																<p:outputLabel value="CANCELAR" style="font-size:10px;"/>
+																<p:outputLabel value=" " style="font-size:10px;"/>
+															</h:panelGrid>
+												</p:commandLink>   
+										</h:panelGrid>  
+									</p:overlayPanel>   
+								</p:column>     
 							</p:dataTable>
 					</p:tab>
 					<p:tab title="Cancelado (#{vistosMB.nFichaCancelada})"
@@ -640,7 +724,7 @@
 								scrollHeight="300" style="margin-bottom:20px">
 								<p:column style="width:45px;">
 									<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistosCancelado)}" title="#{vistosCancelado.tituloFicha}">
-										<img src="#{vistosCancelado.imagem}" width="60px" />    
+										<img src="#{vistosCancelado.imagem}" width="27px" />    
 									</p:commandLink>   
 								</p:column> 
 								<p:column headerText="ID venda" style="width:50px">
@@ -690,79 +774,100 @@
 									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosCancelado)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
-										style="width:65%;margin-left:4%">   
+										style="width:27px;margin-left:4%">   
 									</h:commandButton>       
 								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.boletos(vistosCancelado)}" disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}"
-										title="Boleto" image="../../resources/img/boletoFicha.png"
-										ajax="false" onclick="this.form.target='_blank'"
-										style="width:100%;margin-left:4%" >
-									</h:commandButton>    
-								</p:column>
-								<p:column 
-									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistosCancelado)}" 
-										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'"
-										disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}">
-									</h:commandButton>
-									<h:commandButton  
-										action="#{vistosMB.gerarRelatorioContrato(vistosCancelado)}"
-										title="Contrato" image="../../resources/img/imprimiContrato.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}">
-									</h:commandButton>
-									<h:commandButton   
-										action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosCancelado)}"
-										title="Declaração de insenção"
-										image="../../resources/img/imprimiVisto.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
-									style="width:65px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.finalizarVisto(vistosCancelado)}" 
-										title="Finalizar processo"
-										image="../../resources/img/finalizadoFicha.png"
-										style="width:60%;margin-left:4%"
-										disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}"
-										update=":idfrmconsultavistosCancelado:tabelaConsultaCancelado">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
-									style="width:46px;text-align:center">       
-									<p:commandLink action="#{vistosMB.documentacao(vistosCancelado)}"
-										title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}">
-										<img src="../../resources/img/arquivosUpload.png" width="130%"/>
-									</p:commandLink> 
-								</p:column>
-								<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
-									<p:commandLink action="#{vistosMB.informacoes(vistosCancelado)}"
-										  title="Informações da Venda"
-										disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}">
-										<img src="../../resources/img/informacao.png" width="160%" />
+								<p:column headerText="Opções" style="width:75px;text-align:center;">  
+									<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+										<img src="../../resources/img/informacaoVendaVerde.png" />
 									</p:commandLink>
-								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistosCancelado.vendas)}"
-										disabled="#{vistosMB.botoesHabilitados(vistosCancelado)}"
-										style="text-decoration: none" title="Cancelar Ficha"
-										update="tabelaConsultaCancelado">
-										<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-										<img src="../../resources/img/cancel.png" width="30" />
-									</p:commandLink>
-								</p:column>
-								<p:column style="width:49px;" styleClass="alinharCenter">  
-									<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
-										update="tabelaConsultaCancelado">    
-										<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
-									</p:commandLink>   
-								</p:column>
+									<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+										hideEffect="fade" style="background:#F0F0F0;width:700px;">
+										<p:outputLabel
+											value="#{vistosCancelado.vendas.idvendas} - #{vistosCancelado.vendas.cliente.nome}"
+											style="text-align:center;font-size:15px;" />
+										<br />
+										<br />
+										<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="7">
+										
+												<p:commandLink action="#{vistosMB.boletos(vistosCancelado)}" 
+													  title="IMPRIMIR OS BOLETOS" ajax="false"  
+													 target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">  
+														<p:outputLabel value="BOLETOS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink
+													action="#{vistosMB.contrato(vistosCancelado)}"
+													title="IMPRIMIR O CONTRATO" 
+													 ajax="false"  target="_blank"  >
+													<img src="../../resources/img/imprimiContrato.png" width="36" />  
+													<h:panelGrid columns="1" style="text-align:center;width:100%;">
+														<p:outputLabel value="CONTRATO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+												<p:commandLink action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistosCancelado)}"
+													title="DECLARAÇÃO DE INSENÇÃO" ajax="false"
+													target="_blank"
+													 >
+													<img src="../../resources/img/imprimiRecibo.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DECLARAÇÃO" style="font-size:10px;"/>
+														<p:outputLabel value="INSENÇÃO" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink action="#{vistosMB.documentacao(vistosCancelado)}"
+													 title="DOCUMENTOS"
+													 >
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.informacoes(vistosCancelado)}"
+													 title="INFORMAÇÕES DA VENDA"
+													 >
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+													action="#{vistosMB.finalizarVisto(vistosCancelado)}"
+													title="FINALIZAR PROCESSO" 
+													update="tabelaConsultaCancelado"
+													 >
+													<img src="../../resources/img/finalizadoFicha.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;"> 
+														<p:outputLabel value="FINALIZAR" style="font-size:10px;"/>
+														<p:outputLabel value="" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink> 
+												
+												<p:commandLink action="#{vistosMB.cancelarVenda(vistosCancelado)}"
+														style="text-decoration: none" title="CANCELAR FICHA"
+														update="tabelaConsultaCancelado"
+														 >
+														<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" style="width: 36" />
+														
+															<h:panelGrid columns="1" style="text-align:center;">
+																<p:outputLabel value="CANCELAR" style="font-size:10px;"/>
+																<p:outputLabel value=" " style="font-size:10px;"/>
+															</h:panelGrid>
+												</p:commandLink>   
+										</h:panelGrid>  
+									</p:overlayPanel>   
+								</p:column>     
 							</p:dataTable>
 					</p:tab>
 					<p:tab title="Todos (#{vistosMB.numeroFichas})"
@@ -772,7 +877,7 @@
 								scrollHeight="300" style="margin-bottom:20px">
 								<p:column style="width:45px;">
 									<p:commandLink rendered="#{vistosMB.imagemSituacaoUsuario(vistos)}" title="#{vistos.tituloFicha}">
-										<img src="#{vistos.imagem}" width="60px" />    
+										<img src="#{vistos.imagem}" width="27px" />    
 									</p:commandLink>   
 								</p:column> 
 								<p:column headerText="ID venda" style="width:50px">
@@ -822,83 +927,133 @@
 									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistos)}"
 										title="Ficha" image="../../resources/img/imprimiFicha.png"
 										ajax="false" onclick="this.form.target='_blank'"
-										style="width:65%;margin-left:4%">   
+										style="width:27px;margin-left:4%">   
 									</h:commandButton>       
 								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.boletos(vistos)}" disabled="#{vistosMB.botoesHabilitados(vistos)}"
-										title="Boleto" image="../../resources/img/boletoFicha.png"
-										ajax="false" onclick="this.form.target='_blank'"
-										style="width:100%;margin-left:4%" >
-									</h:commandButton>    
-								</p:column>
-								<p:column 
-									style="width:130px;text-align:center;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<h:commandButton action="#{vistosMB.gerarRelatorioVisto(vistos)}" 
-										title="Ficha de visto" 
-										image="../../resources/img/imprimiFicha.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'"
-										disabled="#{vistosMB.botoesHabilitados(vistos)}">
-									</h:commandButton>
-									<h:commandButton  
-										action="#{vistosMB.gerarRelatorioContrato(vistos)}"
-										title="Contrato" image="../../resources/img/imprimiContrato.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistos)}">
-									</h:commandButton>
-									<h:commandButton   
-										action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistos)}"
-										title="Declaração de insenção"
-										image="../../resources/img/imprimiVisto.png"
-										style="width:21%;margin-left:4%" ajax="false"
-										onclick="this.form.target='_blank'" disabled="#{vistosMB.botoesHabilitados(vistos)}">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Finalizar"  rendered="#{vistosMB.expandirOpcoes}"  
-									style="width:65px;text-align:center;" styleClass="alinharCenter">
-									<h:commandButton action="#{vistosMB.finalizarVisto(vistos)}" 
-										title="Finalizar processo"
-										image="../../resources/img/finalizadoFicha.png"
-										style="width:60%;margin-left:4%"
-										disabled="#{vistosMB.botoesHabilitados(vistos)}"
-										update="tabelaVistos">
-									</h:commandButton>
-								</p:column>
-								<p:column headerText="Docs"   rendered="#{vistosMB.expandirOpcoes}"
-									style="width:46px;text-align:center">       
-									<p:commandLink action="#{vistosMB.documentacao(vistos)}"
-										title="Documentos" disabled="#{vistosMB.botoesHabilitados(vistos)}">
-										<img src="../../resources/img/arquivosUpload.png" width="130%"/>
-									</p:commandLink> 
-								</p:column>
-								<p:column headerText="Info" style="width:45px;text-align:center" rendered="#{vistosMB.expandirOpcoes}">     
-									<p:commandLink action="#{vistosMB.informacoes(vistos)}"
-										  title="Informações da Venda"
-										disabled="#{vistosMB.botoesHabilitados(vistos)}">
-										<img src="../../resources/img/informacao.png" width="160%" />
+								<p:column headerText="Opções" style="width:75px;text-align:center;">  
+									<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+										<img src="../../resources/img/informacaoVendaVerde.png" />
 									</p:commandLink>
-								</p:column>
-								<p:column style="width:43px;" styleClass="alinharCenter" rendered="#{vistosMB.expandirOpcoes}">
-									<p:commandLink action="#{vistosMB.cancelarVenda(vistos)}"
-										disabled="#{vistosMB.botoesHabilitados(vistos)}"
-										style="text-decoration: none" title="Cancelar Ficha"
-										update="tabelaVistos">
-										<p:confirm header="Cancelamento"
-												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
-										<img src="../../resources/img/cancel.png" width="30" />
-									</p:commandLink>
-								</p:column>
-								<p:column style="width:49px;" styleClass="alinharCenter">  
-									<p:commandLink action="#{vistosMB.expandirOpcoes()}" title="#{vistosMB.retornarTitleOpcoes()}" 
-										update="tabelaVistos">    
-										<img src="#{vistosMB.retornarImgOpcoes()}" width="80%" />
-									</p:commandLink>   
-								</p:column>
+									<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+										hideEffect="fade" style="background:#F0F0F0;width:700px;">
+										<p:outputLabel
+											value="#{vistos.vendas.idvendas} - #{vistos.vendas.cliente.nome}"
+											style="text-align:center;font-size:15px;" />
+										<br />
+										<br />
+										<h:panelGrid style="width:100%;border-color:transparent;border:none;" columns="7">
+										
+												<p:commandLink action="#{vistosMB.boletos(vistos)}" 
+													  title="IMPRIMIR OS BOLETOS" ajax="false"  
+													 target="_blank"
+													>
+													<img src="../../resources/img/boletoFicha.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">  
+														<p:outputLabel value="BOLETOS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink
+													action="#{vistosMB.contrato(vistos)}"
+													title="IMPRIMIR O CONTRATO" 
+													 ajax="false"  target="_blank"  >
+													<img src="../../resources/img/imprimiContrato.png" width="36" />  
+													<h:panelGrid columns="1" style="text-align:center;width:100%;">
+														<p:outputLabel value="CONTRATO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink> 
+												<p:commandLink action="#{vistosMB.gerarRelatorioDeclaracaoInsencao(vistos)}"
+													title="DECLARAÇÃO DE INSENÇÃO" ajax="false"
+													target="_blank"
+													 >
+													<img src="../../resources/img/imprimiRecibo.png" width="36" /> 
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DECLARAÇÃO" style="font-size:10px;"/>
+														<p:outputLabel value="INSENÇÃO" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink>  
+												
+												<p:commandLink action="#{vistosMB.documentacao(vistos)}"
+													 title="DOCUMENTOS"
+													 >
+													<img src="../../resources/img/arquivosUpload.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="DOCS" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												<p:commandLink action="#{vistosMB.informacoes(vistos)}"
+													 title="INFORMAÇÕES DA VENDA"
+													 >
+													<img src="../../resources/img/informacao.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;">
+														<p:outputLabel value="INFO" style="font-size:10px;"/>
+														<p:outputLabel value=" "/>
+													</h:panelGrid>
+												</p:commandLink>
+												
+												<p:commandLink
+													action="#{vistosMB.finalizarVisto(vistos)}"
+													title="FINALIZAR PROCESSO" 
+													update="tabelaVistos"
+													 >
+													<img src="../../resources/img/finalizadoFicha.png" width="36" />
+													<h:panelGrid columns="1" style="text-align:center;"> 
+														<p:outputLabel value="FINALIZAR" style="font-size:10px;"/>
+														<p:outputLabel value="" style="font-size:10px;"/>
+													</h:panelGrid>
+												</p:commandLink> 
+												
+												<p:commandLink action="#{vistosMB.cancelarVenda(vistos)}"
+														style="text-decoration: none" title="CANCELAR FICHA"
+														update="tabelaVistos"
+														 >
+														<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+														<img src="../../resources/img/cancel.png" style="width: 36" />
+														
+															<h:panelGrid columns="1" style="text-align:center;">
+																<p:outputLabel value="CANCELAR" style="font-size:10px;"/>
+																<p:outputLabel value=" " style="font-size:10px;"/>
+															</h:panelGrid>
+												</p:commandLink>   
+										</h:panelGrid>  
+									</p:overlayPanel>   
+								</p:column>     
 							</p:dataTable>
 					</p:tab>
 				</p:tabView>
+				<style>
+				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+					.ui-datatable tfoot th {
+					padding: 2px 2px;
+					overflow: hidden;
+					border-width: 0px;   
+					border-style: solid;
+				}
+				.ui-confirm-dialog-message {
+				    display: inline-block;
+				    margin-top: 1px;
+				    font-size: 17px !important;
+				}      
+				.ui-accordion .ui-accordion-content {
+				    padding: 1em 2.2em;
+				    border-top: 0;
+				    margin-top: -2px;
+				    position: relative;
+				    top: 1px;
+				    margin-bottom: 2px; 
+				    overflow: inherit !important;  
+				    zoom: 1;   
+				} 
+				.row {
+				    margin-right: -11px;
+				    margin-left: -15px;
+				    overflow: hidden;
+				}
 				
+				</style>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background:#DDDDE1;">
 			    	<div align="center">
 				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  style="font-size:12px;"/>
