@@ -108,8 +108,8 @@ public class ConferenciaCartaoCreditoLancamentoMB implements Serializable {
 		contaspagar.setDescricao(lancamento.getDescricao());
 		contaspagar.setPlanoconta(lancamento.getPlanoconta());
 		contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
-		contaspagar.setValorentrada(lancamento.getValorlancado());
-		contaspagar.setValorsaida(0.0f);
+		contaspagar.setValorentrada(0.0f);
+		contaspagar.setValorsaida(lancamento.getValorlancado());
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 		contaspagar = contasPagarFacade.salvar(contaspagar);
 		lancamento.setLancado(true);

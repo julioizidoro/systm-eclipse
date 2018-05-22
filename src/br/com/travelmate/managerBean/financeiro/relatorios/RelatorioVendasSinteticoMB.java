@@ -45,6 +45,7 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 	private Date dataFinal;
 	private Unidadenegocio unidadenegocio;
 	private boolean habilitarPdf = false;
+	private SinteticoVendasBean sintetico;
 	
 	
 	@PostConstruct
@@ -114,29 +115,53 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 	}
 
 
+	public SinteticoVendasBean getSintetico() {
+		return sintetico;
+	}
+
+
+	public void setSintetico(SinteticoVendasBean sintetico) {
+		this.sintetico = sintetico;
+	}
+
+
 	public void gerarListaUnidade() {
 		listaSintetico = new ArrayList<SinteticoVendasBean>();
 		if (listaUnidade != null) {
+			Float totalcurso = 0.0f;
+			Float totalteens = 0.0f;
+			Float totalpacotes = 0.0f;
+			Float totalpassagem = 0.0f;
+			Float totalseguro = 0.0f;
+			Float totalhe = 0.0f;
+			Float totaltrabalho = 0.0f;
+			Float totalvistos = 0.0f;
+			Float total = 0.0f;
 			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				if (unidadenegocio.getIdunidadeNegocio() != 6) {
 					SinteticoVendasBean sinteticoVendasBean = new SinteticoVendasBean();
 					sinteticoVendasBean.setIdUnidade(unidadenegocio.getIdunidadeNegocio());
 					sinteticoVendasBean.setUnidade(unidadenegocio.getNomerelatorio());
-					sinteticoVendasBean.setCurso(gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
-							aplicacaoMB.getParametrosprodutos().getCursos()));
+					Float curso = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
+							aplicacaoMB.getParametrosprodutos().getCursos());
+					sinteticoVendasBean.setCurso(curso);
 					Float teens = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
 							aplicacaoMB.getParametrosprodutos().getProgramasTeens());
 					teens = teens + gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
 							aplicacaoMB.getParametrosprodutos().getHighSchool());
 					sinteticoVendasBean.setHighschool(teens);
-					sinteticoVendasBean.setPacotes(gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
-							aplicacaoMB.getParametrosprodutos().getPacotes()));
-					sinteticoVendasBean.setPassagem(gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
-							aplicacaoMB.getParametrosprodutos().getPassagem()));
-					sinteticoVendasBean.setSeguro(gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
-							aplicacaoMB.getParametrosprodutos().getSeguroPrivado()));
-					sinteticoVendasBean.setTeens(gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
-							aplicacaoMB.getParametrosprodutos().getHighereducation()));
+					Float pacotes = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
+							aplicacaoMB.getParametrosprodutos().getPacotes());
+					sinteticoVendasBean.setPacotes(pacotes);
+					Float passagem = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
+							aplicacaoMB.getParametrosprodutos().getPassagem());
+					sinteticoVendasBean.setPassagem(passagem);
+					Float seguro = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
+							aplicacaoMB.getParametrosprodutos().getSeguroPrivado());
+					sinteticoVendasBean.setSeguro(seguro);
+					Float he =  gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
+							aplicacaoMB.getParametrosprodutos().getHighereducation());
+					sinteticoVendasBean.setTeens(he);
 					Float trabalho = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
 							aplicacaoMB.getParametrosprodutos().getWork());
 					trabalho = trabalho + gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
@@ -146,8 +171,9 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 					trabalho = trabalho + gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
 							aplicacaoMB.getParametrosprodutos().getVoluntariado());
 					sinteticoVendasBean.setTrabalho(trabalho);
-					sinteticoVendasBean.setVistos(gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
-							aplicacaoMB.getParametrosprodutos().getVisto()));
+					Float vistos = gerarListaProdutos(unidadenegocio.getIdunidadeNegocio(),
+							aplicacaoMB.getParametrosprodutos().getVisto());
+					sinteticoVendasBean.setVistos(vistos);
 					sinteticoVendasBean.setVtm(0.0f);
 					sinteticoVendasBean.setTotal(sinteticoVendasBean.getCurso() + sinteticoVendasBean.getHighschool()
 							+ sinteticoVendasBean.getPacotes() + sinteticoVendasBean.getPassagem()
@@ -195,8 +221,32 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 								+ sinteticoVendasBean.getTrabalho() + sinteticoVendasBean.getVistos()
 								+ sinteticoVendasBean.getVtm());
 						listaSintetico.add(sinteticoVendasBean);
+						totalcurso = totalcurso + sinteticoVendasBean.getCurso();
+						totalhe = totalhe + sinteticoVendasBean.getTeens();
+						totalpacotes = totalpacotes + sinteticoVendasBean.getPacotes();
+						totalpassagem = totalpassagem + sinteticoVendasBean.getPassagem();
+						totalseguro =  totalseguro + sinteticoVendasBean.getSeguro();
+						totalteens = totalteens + sinteticoVendasBean.getHighschool();
+						totaltrabalho = totaltrabalho + sinteticoVendasBean.getTrabalho();
+						totalvistos = totalvistos + sinteticoVendasBean.getVistos();
+						total = total + sinteticoVendasBean.getTotal();
 					}
 				}
+				sintetico = new SinteticoVendasBean();
+				sintetico.setIdUnidade(0);
+				sintetico.setUnidade("Total");
+				sintetico.setCurso(totalcurso);
+				sintetico.setHighschool(totalteens);
+				sintetico.setTeens(totalhe);
+				sintetico.setTrabalho(totaltrabalho);
+				sintetico.setSeguro(totalseguro);
+				sintetico.setVistos(totalvistos);
+				sintetico.setVtm(0.0f);
+				sintetico.setPassagem(totalpassagem);
+				sintetico.setPacotes(totalpacotes);
+				sintetico.setCor("background:#459E00;color:white;");
+				sintetico.setTotal(total);
+				listaSintetico.add(sintetico);
 			}
 		}
 		if (listaSintetico != null && listaSintetico.size() > 0) {
@@ -244,6 +294,11 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 		parameters.put("periodo", periodo);
 		String caminhoRelatorio = "/reports/financeiro/sinteticovendas.jasper";
 		GerarRelatorio gerarRelatorio = new GerarRelatorio();
+		int idSintetico = listaSintetico.size() - 1;
+		SinteticoVendasBean sintetico = listaSintetico.get(idSintetico);
+		if (sintetico.getUnidade().equalsIgnoreCase("Total")) {
+			listaSintetico.remove(sintetico);
+		}
 		JRDataSource jrds = new JRBeanCollectionDataSource(listaSintetico);
 		try {
 			gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, "SinteticoVendas.pdf");

@@ -121,18 +121,19 @@
 					style="width: 540px;" maxlength="100"/>
 			</h:panelGrid>
 			<br/>  
-			<h:panelGrid columns="2" rendered="#{cadCartaoCreditoLancamentoMB.confirmar}"
-				columnClasses="colunaQuarenta,tamanhonotificacao2"
-				style="width:80%;">
+			<h:panelGrid columns="3" rendered="#{cadCartaoCreditoLancamentoMB.confirmar}"
+				
+				style="width:100%;">
 				<p:outputLabel value="Valor" />
 				<p:outputLabel value="Plano de Conta" />
+				<p:outputLabel value="Compensação" />
 
 				<p:inputText id="valorOutrosLancamentos"
-					value="#{cadCartaoCreditoLancamentoMB.lancamento.valorinformado}"
+					value="#{cadCartaoCreditoLancamentoMB.lancamento.valorlancado}"
 					style="width:60%;text-align:right;">      
 					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 				</p:inputText>
-				<p:selectOneMenu id="planocontas" style="width:100%;"
+				<p:selectOneMenu id="planocontas" style="width:215px;"
 					value="#{cadCartaoCreditoLancamentoMB.planoconta}"
 					converter="PlanoContaConverter" filter="true"
 					filterMatchMode="startsWith">
@@ -146,6 +147,11 @@
 						value="#{cadCartaoCreditoLancamentoMB.listaPlanoConta}" />
 					<p:ajax event="change"/>
 				</p:selectOneMenu>
+				<p:calendar id="dataCompensacao" locale="pt" pattern="dd/MM/yyyy"  rendered="#{cadCartaoCreditoLancamentoMB.confirmar}"
+					value="#{cadCartaoCreditoLancamentoMB.dataCompensacao}" size="14" mask="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
 			</h:panelGrid>
 			<br></br>
 			<br />  

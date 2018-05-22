@@ -88,60 +88,60 @@
 					scrollHeight="300"
 					rowIndexVar="rowIx"
 					style="margin-bottom:20px;font-size:11px;width:99%;margin-left:0.5%;margin-top:-1.5%">
-					<p:column headerText="Unidade" style="width:100px;">
+					<p:column headerText="Unidade" style="width:100px;#{venda.cor}">
 						<h:outputText value="#{venda.unidade}" />
 					</p:column>
-					<p:column headerText="Cursos" style="width:95px;font-size:10px;text-align: right">
+					<p:column headerText="Cursos" style="width:95px;font-size:10px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.curso}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Trabalho" style="width:80px;font-size:10px;text-align: right">
+					<p:column headerText="Trabalho" style="width:80px;font-size:10px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.trabalho}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="HS/Teens" style="width:80px;text-align: right">
+					<p:column headerText="HS/Teens" style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.highschool}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="HE"
-						style="width:80px;text-align: right">
+						style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.teens}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Seguro"
-						style="width:80px;text-align: right">
+						style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.seguro}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Vistos" style="width:80px;text-align: right">
+					<p:column headerText="Vistos" style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.vistos}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Passagem" style="width:80px;text-align: right">
+					<p:column headerText="Passagem" style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.passagem}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>   
-					<p:column headerText="Pacotes" style="width:80px;text-align: right">
+					<p:column headerText="Pacotes" style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.pacotes}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="VTM" style="width:80px;text-align: right">
+					<p:column headerText="VTM" style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.vtm}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
@@ -149,7 +149,7 @@
 					</p:column>
 
 					<p:column headerText="Total"
-						style="width:80px;text-align: right">
+						style="width:80px;text-align: right;#{venda.cor}">
 						<h:outputText value="#{venda.total}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />

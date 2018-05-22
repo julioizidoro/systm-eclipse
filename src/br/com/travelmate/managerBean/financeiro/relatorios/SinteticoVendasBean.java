@@ -14,6 +14,7 @@ public class SinteticoVendasBean {
 	private float pacotes;
 	private float vtm;
 	private float total;
+	private String cor = "";
 	
 	
 	
@@ -88,6 +89,12 @@ public class SinteticoVendasBean {
 	}
 	public void setTotal(float total) {
 		this.total = total;
+	}
+	public String getCor() {
+		return cor;
+	}
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 	
 	

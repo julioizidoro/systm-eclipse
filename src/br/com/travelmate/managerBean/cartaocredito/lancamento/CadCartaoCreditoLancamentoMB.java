@@ -56,6 +56,7 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	private int mes;
 	private int ano;
 	private int nParcelas;
+	private Date dataCompensacao;
 
 	@PostConstruct
 	public void init() {
@@ -186,6 +187,14 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		this.habilitarMoeda = habilitarMoeda;
 	}
 
+	public Date getDataCompensacao() {
+		return dataCompensacao;
+	}
+
+	public void setDataCompensacao(Date dataCompensacao) {
+		this.dataCompensacao = dataCompensacao;
+	}
+
 	public void validarDados(String msg) {
 		if (lancamento.getDescricao() == null || lancamento.getDescricao().length() < 2) {
 			msg = msg + "\n" + "Descrição não informado.";
@@ -296,15 +305,16 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				contaspagar.setCompetencia(comp);
 				contaspagar.setDataEmissao(new Date());
 				contaspagar.setDescricao(lancamento.getDescricao());
-				contaspagar.setPlanoconta(lancamento.getPlanoconta());
+				contaspagar.setPlanoconta(planoconta);
 				contaspagar.setUnidadenegocio(lancamento.getUsuario().getUnidadenegocio());
-				contaspagar.setValorentrada(lancamento.getValorlancado());
-				contaspagar.setValorsaida(0.0f);
-				contaspagar.setDatacompensacao(lancamento.getData());
+				contaspagar.setValorentrada(0.0f);
+				contaspagar.setValorsaida(lancamento.getValorlancado());
+				contaspagar.setDatacompensacao(dataCompensacao);
 				contaspagar.setDatavencimento(lancamento.getData());
 				ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 				contaspagar = contasPagarFacade.salvar(contaspagar);
 				lancamento.setLancado(true);
+				lancamento.setPlanoconta(planoconta);
 				CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
 				lancamento = cartaoCreditoLancamentoFacade.salvar(lancamento);
 				CartaoCreditoLancamentoContasFacade cartaoCreditoLancamentoContasFacade = new CartaoCreditoLancamentoContasFacade();
