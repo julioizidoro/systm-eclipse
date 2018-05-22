@@ -101,6 +101,8 @@ public class Passagemaerea implements Serializable {
     private float comissao;
     @Transient
     private float taxaemissao;
+    @Column(name = "idusuario")
+    private int idusuario;
 
     public Passagemaerea() {
     	adttarifa = 0f;
@@ -115,6 +117,7 @@ public class Passagemaerea implements Serializable {
         inftaxas = 0f;
         inftaxaemissao = 0f;
         infcomissao = 0f;
+        idusuario = 0;
     }
 
     public Passagemaerea(Integer idpassagemAerea) {
@@ -327,6 +330,16 @@ public class Passagemaerea implements Serializable {
 
 	public void setTaxaemissao(float taxaemissao) {
 		this.taxaemissao = taxaemissao;
+	}
+
+	
+
+	public int getIdusuario() {
+		return idusuario;
+	}
+
+	public void setIdusuario(int idusuario) {
+		this.idusuario = idusuario;
 	}
 
 	@Override

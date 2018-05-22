@@ -269,16 +269,17 @@
 						</h:panelGrid>
 						<br></br>
 						<br></br>
-						<h:panelGrid columns="4" style="margin-left:20%;width:67%;"
-							columnClasses="tamanho7, tamanho2, tamanho7, tamanhoavisos2">
+						<h:panelGrid columns="3" style="margin-left:19%;width:57%;"
+							columnClasses="tamanho2, tamanho2, tamanho2">
 							<p:outputLabel value="Comissão Loja" for="comissaoLoja" />
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Usuário" for="usuario" />
 							<p:inputText id="comissaoLoja"
 								style="width:80%;text-align: right;"
 								value="#{cadPassagemMB.passagem.comissaoloja}">   
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />       
 							</p:inputText>
-							<p:outputLabel value="Unidade" for="unidade" />
 							<p:selectOneMenu id="unidade" style="width:215px;"   
 								value="#{cadPassagemMB.unidadeNegocio}"
 								converter="UnidadeNegocioConverter" filter="true"
@@ -291,6 +292,19 @@
 									itemValue="#{unidadeNegocio}" />
 								<f:attribute name="listaUnidade"
 									value="#{cadPassagemMB.listaUnidadeNegocio}" />
+								<p:ajax event="change" listener="#{cadPassagemMB.gerarListaUsuario()}" update="usuario"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu style="width:200px;" id="usuario"
+								value="#{cadPassagemMB.usuarioFranquia}"
+								converter="UsuarioConverter" filter="true" 
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" itemValue="0" />
+								<f:selectItems id="idusuario" 
+									value="#{cadPassagemMB.listaUsuario}"
+									var="usuario" itemLabel="#{usuario.nome}"
+									itemValue="#{usuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{cadPassagemMB.listaUsuario}" />
 								<p:ajax event="change" />
 							</p:selectOneMenu>
 						</h:panelGrid>

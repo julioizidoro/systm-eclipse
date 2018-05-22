@@ -746,4 +746,75 @@ public class DashBoardBean {
 		return pontos;
 	}
 	
+	
+	public int[] calcularPontuacaoPassagem(Vendas venda, Usuario usuarioFranquia, Usuario usuarioConsultor, int numeroSemanas, String programa, boolean cancelamento){
+		int ponto = 0;
+		int idregra = 0;
+		int ano = Formatacao.getAnoData(new Date());
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		UsuarioPontosFacade usuarioPontosFacade = new UsuarioPontosFacade();
+		String sql = "SELECT u FROM Usuariopontos u where u.usuario.idusuario=" + usuarioFranquia.getIdusuario()
+				+ " and u.mes=" + mes + " and u.ano=" + ano;
+		Usuariopontos usuariopontosFranquia = usuarioPontosFacade.consultar(sql);
+		if (usuariopontosFranquia == null) {
+			usuariopontosFranquia = new Usuariopontos();
+			usuariopontosFranquia.setAno(ano);
+			usuariopontosFranquia.setMes(mes);
+			usuariopontosFranquia.setUsuario(venda.getUsuario());
+			usuariopontosFranquia.setPontos(0);
+			usuariopontosFranquia.setPontoescola(0);
+			usuariopontosFranquia.setTotalpontos(0);
+		}
+		
+		sql = "SELECT u FROM Usuariopontos u where u.usuario.idusuario=" + usuarioConsultor.getIdusuario()
+				+ " and u.mes=" + mes + " and u.ano=" + ano;
+		Usuariopontos usuariopontosConsultor = usuarioPontosFacade.consultar(sql);
+		if (usuariopontosConsultor == null) {
+			usuariopontosConsultor = new Usuariopontos();
+			usuariopontosConsultor.setAno(ano);
+			usuariopontosConsultor.setMes(mes);
+			usuariopontosConsultor.setUsuario(venda.getUsuario());
+			usuariopontosConsultor.setPontos(0);
+			usuariopontosConsultor.setPontoescola(0);
+			usuariopontosConsultor.setTotalpontos(0);
+		}
+		if (cancelamento){
+			usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() - venda.getPonto());
+			usuariopontosFranquia.setPontos(usuariopontosFranquia.getPontos() - venda.getPonto());
+		} else {
+			RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
+			sql = "SELECT r FROM Regravenda r where r.produtos.idprodutos=" + venda.getProdutos().getIdprodutos()
+					+ " and r.situacao=1 and r.escola=false";
+			List<Regravenda> lista = regraVendaFacade.lista(sql);
+			if (lista != null) { 
+				for (int i = 0; i < lista.size(); i++) {
+					boolean validar = validarRegra(lista.get(i), venda, numeroSemanas, programa);
+					if (validar) {
+						ponto = ponto + lista.get(i).getPonto(); 
+						idregra = lista.get(i).getIdregravenda();
+					}
+				}
+			}
+		}
+		if (ponto<=0){
+			ponto =1;
+		}
+		if(venda.getUsuario().getIdusuario()==16) {
+			usuariopontosConsultor.setTotalpontos(usuariopontosConsultor.getTotalpontos() + ponto - venda.getPonto()); 
+			ponto = ponto/2;
+			usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() + ponto - venda.getPonto());  
+		}else {
+			usuariopontosConsultor.setPontos(usuariopontosConsultor.getPontos() + ponto - venda.getPonto()); 
+			usuariopontosConsultor.setTotalpontos(usuariopontosConsultor.getPontos() + ponto- venda.getPonto()); 
+		}
+		usuariopontosFranquia.setPontos(usuariopontosFranquia.getPontos() + ponto - venda.getPonto()); 
+		usuariopontosFranquia = usuarioPontosFacade.salvar(usuariopontosFranquia);
+		usuariopontosConsultor = usuarioPontosFacade.salvar(usuariopontosConsultor);
+		int[] pontos = new int[3];
+		pontos[0] = ponto;
+		pontos[1] = 0;
+		pontos[2] = idregra;
+		return pontos;
+	}
+	
 }

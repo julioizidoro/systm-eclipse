@@ -35,6 +35,7 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.PassagemPassageiroFacade;
 import br.com.travelmate.facade.ProdutoFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
@@ -56,7 +57,8 @@ import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Passagemaerea;
 import br.com.travelmate.model.Passagempassageiro;
 import br.com.travelmate.model.Produtos;
-import br.com.travelmate.model.Unidadenegocio; 
+import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
@@ -118,6 +120,8 @@ public class CadPassagemMB implements Serializable {
 	private float totalcomissao;
 	private float valorVendasAlterado;
 	private Lead lead;
+	private List<Usuario> listaUsuario;
+	private Usuario usuarioFranquia;
 
 	@PostConstruct
 	public void init() {
@@ -153,6 +157,8 @@ public class CadPassagemMB implements Serializable {
 			unidadeNegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			listaPassageiros = new ArrayList<Passagempassageiro>();
 			valorVendasAlterado = 0.0f;
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			listaUsuario = usuarioFacade.listaUsuarioUnidade(unidadeNegocio.getIdunidadeNegocio());
 		} else {
 			vendas = passagem.getVendas();
 			valorVendasAlterado = vendas.getValor();
@@ -168,6 +174,11 @@ public class CadPassagemMB implements Serializable {
 			this.formaPagamento = formaPagamentoFacade.consultar(vendas.getIdvendas());
 			iniciarListaPassageiros();
 			carregarCamposFormaPagamento();
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			listaUsuario = usuarioFacade.listaUsuarioUnidade(unidadeNegocio.getIdunidadeNegocio());
+			if (passagem.getIdusuario() > 0) {
+				usuarioFranquia = usuarioFacade.consultar(passagem.getIdusuario());
+			}
 		}
 		if (cambio == null) {
 			CambioFacade cambioFacade = new CambioFacade();
@@ -481,6 +492,30 @@ public class CadPassagemMB implements Serializable {
 	}
 
 	
+
+	public Lead getLead() {
+		return lead;
+	}
+
+	public void setLead(Lead lead) {
+		this.lead = lead;
+	}
+
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+	public Usuario getUsuarioFranquia() {
+		return usuarioFranquia;
+	}
+
+	public void setUsuarioFranquia(Usuario usuarioFranquia) {
+		this.usuarioFranquia = usuarioFranquia;
+	}
 
 	public String adicionarPassageiroBean() {
 		if (passagempassageiro.getNome().length() > 0 && passagempassageiro.getCategoria().length() > 0) {
@@ -820,8 +855,8 @@ public class CadPassagemMB implements Serializable {
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 							dashBoardBean.calcularMetaMensal(vendas,valorVendasAlterado,false);
 							dashBoardBean.calcularMetaAnual(vendas,valorVendasAlterado,false);
-							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "",false);
-							productRunnersMB.calcularPontuacao(vendas, pontos[0], false);
+							int[] pontos = dashBoardBean.calcularPontuacaoPassagem(vendas, usuarioFranquia, vendas.getUsuario(), 0, "",false);
+							productRunnersMB.calcularPontuacaoPacote(vendas.getUsuario(), usuarioFranquia, vendas.getProdutos(), false, pontos[0]);
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
 							if (lead!=null){
@@ -978,6 +1013,11 @@ public class CadPassagemMB implements Serializable {
 	}
 
 	public void salvarPassagem() {
+		if (usuarioFranquia !=null) {
+			passagem.setIdusuario(usuarioFranquia.getIdusuario());
+		}else {
+			passagem.setIdusuario(0);
+		}
 		passagem.setVendas(vendas);
 		PassagemFacade passagemFacade = new PassagemFacade();
 		passagem = passagemFacade.salvar(passagem);
@@ -1085,4 +1125,15 @@ public class CadPassagemMB implements Serializable {
 		session.removeAttribute("valorJuros");
 		calcularValorTotalOrcamento();
 	}
+	
+	
+	public void gerarListaUsuario() {
+		if (unidadeNegocio != null) {
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			listaUsuario = usuarioFacade.listaUsuarioUnidade(unidadeNegocio.getIdunidadeNegocio());
+		}
+	}
+	
+	
+	
 }
