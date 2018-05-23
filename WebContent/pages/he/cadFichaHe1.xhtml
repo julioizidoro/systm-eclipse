@@ -177,7 +177,7 @@
 							<h:panelGroup>
 								<p:inputText id="codigo2" style="width:40%;"
 									value="#{cadHeInscricaoMB.he.codigo2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-								<p:inputText id="mesano2" style="width:40%;margin-left:4%;"
+								<p:inputMask mask="99/9999" id="mesano2" style="width:40%;margin-left:4%;"
 									value="#{cadHeInscricaoMB.he.mesano2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 							</h:panelGroup>
 							<p:outputLabel />
@@ -200,8 +200,9 @@
 							<h:panelGroup>
 								<p:inputText id="codigo3" style="width:40%;"
 									value="#{cadHeInscricaoMB.he.codigo3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-								<p:inputText id="mesano3" style="width:40%;margin-left:4%;"
+								<p:inputMask mask="99/9999" id="mesano3" style="width:40%;margin-left:4%;"
 									value="#{cadHeInscricaoMB.he.mesano3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+								
 							</h:panelGroup>
 							<p:outputLabel />
 
