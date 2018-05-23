@@ -1314,7 +1314,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		moeda = cambio.getMoedas();
 	}
 
-	public void salvarOrcamento() {
+	public boolean salvarOrcamento() {
 		String msg = validarCampos();
 		if (msg.length() <= 5) {
 			ClienteFacade clienteFacade = new ClienteFacade();
@@ -1341,8 +1341,10 @@ public class CadOrcamentoManualMB implements Serializable {
 			OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();  
 			orcamentocurso = orcamentoCursoFacade.salvar(orcamentocurso);
 			salvarOrcamentoProdutoOrcamento(orcamentocurso);
+			return true;
 		} else {
 			Mensagem.lancarMensagemInfo("Informação", msg);
+			return false;
 		}
 	}
 	
@@ -1350,6 +1352,17 @@ public class CadOrcamentoManualMB implements Serializable {
 		String msg="";
 		if (this.cliente.getPublicidade()==null){
 			msg = msg + "Selecione como conheceu a Travelmate\r\n";
+		}
+		if (orcamentocurso.getDataInicio() != null && orcamentocurso.getDataTermino() != null) {
+			Date dataInicio = orcamentocurso.getDataInicio();
+			Date dataFinal = orcamentocurso.getDataTermino();
+			Date datahoje = new Date();
+			if (dataInicio.before(datahoje)) {
+				msg = msg + "Data Inicial do curso menor que a data atual\r\n";
+			}
+			if (dataFinal.before(datahoje)) {
+				msg = msg + "Data Término do curso menor que a data atual\r\n";
+			}
 		}
 		return msg;
 	}
@@ -1436,46 +1449,48 @@ public class CadOrcamentoManualMB implements Serializable {
 						if(orcamentocurso.getIdorcamentoCurso()==null){
 							novo=true;
 						}
-						salvarOrcamento();
-						apagarOrcamentoProdutosOrcamento();
-						if (seguroViagem != null && seguroViagem.getValor() != null && seguroViagem.getValor() > 0) {
-							salvarSeguro();
-						}
-						salvarOrcamentoFormaPagamento();
-						Mensagem.lancarMensagemInfo("", "Orçamento salvo com sucesso"); 
-						if(novo){
-							if(cliente.isClienteLead()){
-								LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
-								Leadhistorico leadhistorico = new Leadhistorico();
-								leadhistorico.setCliente(cliente);
-								leadhistorico.setDatahistorico(new Date());
-								leadhistorico.setDataproximocontato(new Date());
-								TipoContatoFacade tipoContatoFacade = new TipoContatoFacade();
-								String sql="Select t From Tipocontato t where t.tipo='Orçamento'";
-								Tipocontato tipocontato = tipoContatoFacade.consultar(sql);
-								leadhistorico.setTipocontato(tipocontato);
-								leadhistorico.setHistorico("ORÇAMENTO MANUAL "+orcamentocurso.getIdorcamentoCurso()+": "+orcamentocurso.getCurso()+" - "
-								    +fornecedorCidade.getCidade().getNome()+", "
-									+fornecedorCidade.getFornecedor().getNome()+".");
-								leadhistorico.setTipoorcamento("m");
-		            			leadhistorico.setIdorcamento(orcamentocurso.getIdorcamentoCurso());
-								leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
-								if(cliente.getLead()!=null){
-									Lead lead = cliente.getLead(); 
-		            				LeadFacade leadFacade = new LeadFacade();
-		            				lead.setDataultimocontato(new Date());
-		            				if (lead.getSituacao() < 3) {
-			            				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
-				            			lead.setSituacao(3);
-									}
-		            				lead = leadFacade.salvar(lead);
-		            			} 
+						boolean emitirOrcamento = salvarOrcamento();
+						if(emitirOrcamento) {
+							apagarOrcamentoProdutosOrcamento();
+							if (seguroViagem != null && seguroViagem.getValor() != null && seguroViagem.getValor() > 0) {
+								salvarSeguro();
 							}
+							salvarOrcamentoFormaPagamento();
+							Mensagem.lancarMensagemInfo("", "Orçamento salvo com sucesso"); 
+							if(novo){
+								if(cliente.isClienteLead()){
+									LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
+									Leadhistorico leadhistorico = new Leadhistorico();
+									leadhistorico.setCliente(cliente);
+									leadhistorico.setDatahistorico(new Date());
+									leadhistorico.setDataproximocontato(new Date());
+									TipoContatoFacade tipoContatoFacade = new TipoContatoFacade();
+									String sql="Select t From Tipocontato t where t.tipo='Orçamento'";
+									Tipocontato tipocontato = tipoContatoFacade.consultar(sql);
+									leadhistorico.setTipocontato(tipocontato);
+									leadhistorico.setHistorico("ORÇAMENTO MANUAL "+orcamentocurso.getIdorcamentoCurso()+": "+orcamentocurso.getCurso()+" - "
+									    +fornecedorCidade.getCidade().getNome()+", "
+										+fornecedorCidade.getFornecedor().getNome()+".");
+									leadhistorico.setTipoorcamento("m");
+			            			leadhistorico.setIdorcamento(orcamentocurso.getIdorcamentoCurso());
+									leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
+									if(cliente.getLead()!=null){
+										Lead lead = cliente.getLead(); 
+			            				LeadFacade leadFacade = new LeadFacade();
+			            				lead.setDataultimocontato(new Date());
+			            				if (lead.getSituacao() < 3) {
+				            				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+					            			lead.setSituacao(3);
+										}
+			            				lead = leadFacade.salvar(lead);
+			            			} 
+								}
+							}
+							FacesContext fc = FacesContext.getCurrentInstance();
+							HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+							session.setAttribute("tipoocamento", orcamentocurso.getTipoorcamento());
+							return "consOrcamentoManual";
 						}
-						FacesContext fc = FacesContext.getCurrentInstance();
-						HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-						session.setAttribute("tipoocamento", orcamentocurso.getTipoorcamento());
-						return "consOrcamentoManual";
 					}
 				} else
 					Mensagem.lancarMensagemFatal("Moeda não selecionada", "");
@@ -1589,6 +1604,9 @@ public class CadOrcamentoManualMB implements Serializable {
 			orcamentocurso.setCurso(modeloOrcamento.getCurso());
 			orcamentocurso.setFornecedor(fornecedorCidade.getFornecedor());
 			pais = fornecedorCidade.getCidade().getPais();
+			if (pais != null) {
+				listarCidades();
+			}
 			cidade = fornecedorCidade.getCidade();
 			listarFornecedorCidade();
 			this.fornecedorCidade = modeloOrcamento.getFornecedorcidade();

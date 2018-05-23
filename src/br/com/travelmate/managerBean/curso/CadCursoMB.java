@@ -3503,6 +3503,7 @@ public class CadCursoMB implements Serializable {
 		curso.setDataInicio(orcamentoCurso.getDataInicio());
 		curso.setDataTermino(orcamentoCurso.getDataTermino());
 		curso.setTipoAcomodacao(orcamentoCurso.getTipoAcomodacao());
+		carregarCamposAcomodacao();
 		curso.setTipoQuarto(orcamentoCurso.getTipoQuarto());
 		curso.setRefeicoes(orcamentoCurso.getRefeicoes());
 		curso.setNumeroSemanasAcamodacao(orcamentoCurso.getDuracaoAcomodacao());
