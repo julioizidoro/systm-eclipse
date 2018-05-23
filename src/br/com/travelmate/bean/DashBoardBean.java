@@ -314,7 +314,7 @@ public class DashBoardBean {
 	}
 
 	public boolean validarRegra(Regravenda regra, Vendas venda, int numeroSemanas, String programa) {
-		boolean validar = true;
+		boolean validar = false;
 		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0)
 				&& (regra.getValorfinal() > 0)) {
 			if ((regra.getValorinicial() <= venda.getValor()) && (regra.getValorfinal() >= venda.getValor())) {
@@ -359,7 +359,7 @@ public class DashBoardBean {
 	}
 	
 	public boolean validarRegraPacote(Regravenda regra, float valorItem, String programa) {
-		boolean validar = true;
+		boolean validar = false;
 		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0)
 				&& (regra.getValorfinal() > 0)) {
 			if ((regra.getValorinicial() <= valorItem) && (regra.getValorfinal() >= valorItem)) {
@@ -820,7 +820,7 @@ public class DashBoardBean {
 	
 	
 	public boolean validarRegraPassagem(Regravenda regra, Vendas venda, int numeroSemanas, String programa) {
-		boolean validar = true;
+		boolean validar = false;
 		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0)
 				&& (regra.getValorfinal() > 0)) {
 			if ((regra.getValorinicial() <= venda.getValor()) && (regra.getValorfinal() >= venda.getValor())) {
