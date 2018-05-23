@@ -465,7 +465,6 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 	public void salvarFormaPagamento(){
 		OrcamentoVoluntariadoFormaPagamentoFacade orcamentoVoluntariadoFormaPagamentoFacade = new OrcamentoVoluntariadoFormaPagamentoFacade();
 		Orcamentovoluntariadoformapagamento formapagamento = orcamento.getOrcamentovoluntariadoformapagamento();
-		formapagamento.setIdorcamentovoluntariadoformapagamento(null);
 		formapagamento.setOrcamentoprojetovoluntariado(orcamentoprojetovoluntariado);
 		formapagamento = orcamentoVoluntariadoFormaPagamentoFacade.salvar(formapagamento);
 	}

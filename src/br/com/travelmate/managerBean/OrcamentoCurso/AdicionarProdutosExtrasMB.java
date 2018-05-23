@@ -163,12 +163,15 @@ public class AdicionarProdutosExtrasMB implements Serializable{
 	}
 	
 	public String retornarMensagem() {
-		if(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
-				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro()!=null &&
-				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
-				.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro().length()>1) {
-			return resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
-					.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro();
-		}return "";
+		if (resultadoOrcamentoBean != null) {
+			if(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+					.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro()!=null &&
+					resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+					.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro().length()>1) {
+				return resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().get(0)
+						.getValorcoprodutos().getCoprodutos().getAdvertenciaseguro();
+			}	
+		}
+			return "";
 	}
 }
