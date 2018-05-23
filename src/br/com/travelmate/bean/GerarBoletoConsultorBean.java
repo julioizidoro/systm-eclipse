@@ -50,7 +50,6 @@ public class GerarBoletoConsultorBean {
         dadosBoletoBean.setNomeCedente(matriz.getRazaoSocial());
         dadosBoletoBean.setNomeSacado(conta.getVendas().getCliente().getNome());
         dadosBoletoBean.setNumeroContas(conta.getVendas().getUnidadenegocio().getBanco().getConta());
-        String numeroParcela = conta.getNumeroparcelas().substring(0,2);
         dadosBoletoBean.setNumeroDocumentos(Formatacao.gerarNumeroDocumentoBoleto(String.valueOf(conta.getIdcontasreceber())));
         dadosBoletoBean.setValor(Formatacao.converterFloatBigDecimal(conta.getValorparcela()));
         dadosBoletoBean.setNossoNumeros(dadosBoletoBean.getNumeroDocumentos());

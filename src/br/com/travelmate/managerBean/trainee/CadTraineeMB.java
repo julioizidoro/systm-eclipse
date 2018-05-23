@@ -175,6 +175,18 @@ public class CadTraineeMB implements Serializable {
 		if (trainee == null) {
 			iniciarNovoTrainee();
 			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+
+			todosnumeros = true;
+			numero20 = true;
+			numero21 = true;
+			numero22 = true;
+			numero23 = true;
+			numero24 = true;
+			numero25 = true;
+			numero26 = true;
+			numero38 = true;
+			numero52 = true;
+			numeroSemanas = "0";
 		} else {
 			iniciarAlteracao();
 		}
@@ -184,17 +196,6 @@ public class CadTraineeMB implements Serializable {
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				trainee.getFoneContatoEmergencia());
-		todosnumeros = true;
-		numero20 = true;
-		numero21 = true;
-		numero22 = true;
-		numero23 = true;
-		numero24 = true;
-		numero25 = true;
-		numero26 = true;
-		numero38 = true;
-		numero52 = true;
-		numeroSemanas = "0";
 	}
 
 	public float getValorParcela() {
@@ -1611,6 +1612,7 @@ public class CadTraineeMB implements Serializable {
 				produtosTrainee = valorestrainee.getProdutostraineeList().get(i);
 			}
 			numeroSemanas = String.valueOf(produtosTrainee.getNumerosemanas());
+			liberarNuemroSemana();
 		}
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		orcamento = orcamentoFacade.consultar(venda.getIdvendas());
@@ -1949,7 +1951,9 @@ public class CadTraineeMB implements Serializable {
 	}
 
 	public void liberarNuemroSemana() {
-		this.numeroSemanas = "0";
+		if (trainee == null  || trainee.getIdtrainee() == null) {
+			this.numeroSemanas = "0";
+		}
 		if (tipoaustralia.equalsIgnoreCase("Todas as Áreas")) {
 			todosnumeros = false;
 			numero20 = false;
