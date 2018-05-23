@@ -61,7 +61,7 @@ public class UsuarioDao {
     public List<Usuario> listaUsuarioUnidade(int idUnidade) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
-        Query q = manager.createQuery("select u from Usuario u where u.unidadenegocio.idunidadeNegocio=" + idUnidade + " order by u.nome");
+        Query q = manager.createQuery("select u from Usuario u where u.unidadenegocio.idunidadeNegocio=" + idUnidade + " and u.situacao='Ativo' order by u.nome");
         List<Usuario> lista = q.getResultList();
         
         return lista;

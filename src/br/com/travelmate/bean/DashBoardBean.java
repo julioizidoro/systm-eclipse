@@ -788,7 +788,7 @@ public class DashBoardBean {
 			List<Regravenda> lista = regraVendaFacade.lista(sql);
 			if (lista != null) { 
 				for (int i = 0; i < lista.size(); i++) {
-					boolean validar = validarRegra(lista.get(i), venda, numeroSemanas, programa);
+					boolean validar = validarRegraPassagem(lista.get(i), venda, numeroSemanas, programa);
 					if (validar) {
 						ponto = ponto + lista.get(i).getPonto(); 
 						idregra = lista.get(i).getIdregravenda();
@@ -815,6 +815,21 @@ public class DashBoardBean {
 		pontos[1] = 0;
 		pontos[2] = idregra;
 		return pontos;
+	}
+	
+	
+	
+	public boolean validarRegraPassagem(Regravenda regra, Vendas venda, int numeroSemanas, String programa) {
+		boolean validar = true;
+		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0)
+				&& (regra.getValorfinal() > 0)) {
+			if ((regra.getValorinicial() <= venda.getValor()) && (regra.getValorfinal() >= venda.getValor())) {
+				validar = true;
+			} else
+				validar =  false;
+		}
+		return validar;
+
 	}
 	
 }
