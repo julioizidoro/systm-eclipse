@@ -1,20 +1,31 @@
 package br.com.travelmate.managerBean.cancelamento;
 
+import java.util.Date;
 import java.util.List;
 
+import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendascomissao;
+import br.com.travelmate.util.Formatacao;
 
 
 public class CalcularMultaCancelamentoBean {
-
+	
+	public Float consultarValorCambio(Date dataVenda, int idMoeda) {
+		Float ValorCambio = 0.0f;
+		CambioFacade cambioFacade = new CambioFacade();
+		String sData = Formatacao.ConvercaoDataSql(dataVenda);
+		Cambio cambio = cambioFacade.consultarCambioMoeda(sData, idMoeda);
+		return ValorCambio;
+	}
 	
 	public float calcularMulta(Cancelamento cancelamento){
 		int idcondicao = cancelamento.getCondicaocancelamento().getIdcondicaocancelamento();
@@ -25,9 +36,17 @@ public class CalcularMultaCancelamentoBean {
 		}else if (idcondicao==3){
 			return (float) (cancelamento.getVendas().getValor() * 0.30);
 		}else if (idcondicao==4){
-			return  1500 * cancelamento.getVendas().getValorcambio();
+			Float valorCambio = consultarValorCambio(cancelamento.getVendas().getDataVenda(), 2);
+			if (valorCambio<=0) {
+				valorCambio = 1f;
+			}
+			return  1500 * valorCambio;
 		}else if (idcondicao==5){
-			float valorMulta = 1500 * cancelamento.getVendas().getValorcambio();
+			Float valorCambio = consultarValorCambio(cancelamento.getVendas().getDataVenda(), 2);
+			if (valorCambio<=0) {
+				valorCambio = 1f;
+			}
+			float valorMulta = 1500 * valorCambio;
 			valorMulta = (float) (valorMulta + (cancelamento.getVendas().getValor() * 0.2));
 			return valorMulta;
 		}else if (idcondicao==6){
@@ -89,11 +108,6 @@ public class CalcularMultaCancelamentoBean {
 		}else if (idcondicao==34){
 			return  (float) (calcularComissaoFranquia(cancelamento.getVendas().getVendascomissao())* 0.75);
 		}else return 0.0f;
-		
-		
-		
-		
-		
 		
 	}
 	

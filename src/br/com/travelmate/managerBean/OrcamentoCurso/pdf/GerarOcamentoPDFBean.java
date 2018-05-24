@@ -461,7 +461,7 @@ public class GerarOcamentoPDFBean {
 
 	public void carregarAcomodacao() {
 		if (listaAcomodacao != null && listaAcomodacao.size() > 0) {
-			composicao = composicao + " + ACOMODAÇÃO - " + listaAcomodacao.get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome();
+			composicao = composicao + " + ACOMODAÇÃO";
 			OrcamentoPDFBean o = carregarDados();
 			for (int i = 0; i < listaAcomodacao.size(); i++) {
 				o = carregarDados();
@@ -481,7 +481,7 @@ public class GerarOcamentoPDFBean {
 				o.setValorrs("R$ " + Formatacao
 						.formatarFloatString(listaAcomodacao.get(i).getValororiginal() * ocurso.getValorcambio()));
 				o.setIdgrupo(2);
-				o.setTituloLista("ACOMODAÇÃO");
+				o.setTituloLista("ACOMODAÇÃO - " + listaAcomodacao.get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome());
 				lista.add(o);
 				totalAcMe = totalAcMe + listaAcomodacao.get(i).getValororiginal();
 				totalAcRs = totalAcRs + (listaAcomodacao.get(i).getValororiginal() * ocurso.getValorcambio());
