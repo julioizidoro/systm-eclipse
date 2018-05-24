@@ -16,9 +16,7 @@ public class VendasComissaoDao {
     
     public Vendascomissao salvar(Vendascomissao vendasComissao) throws SQLException{
     	EntityManager manager = ConectionFactory.getConnection();
-		//EntityTransaction tx = manager.getTransaction();
-		//tx.begin();
-    	manager.getTransaction().begin();
+		manager.getTransaction().begin();
         vendasComissao = manager.merge(vendasComissao);
      	manager.getTransaction().commit();
      	manager.close();

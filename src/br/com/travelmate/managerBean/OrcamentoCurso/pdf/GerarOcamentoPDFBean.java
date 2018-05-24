@@ -466,12 +466,7 @@ public class GerarOcamentoPDFBean {
 			for (int i = 0; i < listaAcomodacao.size(); i++) {
 				o = carregarDados();
 				int numeroSemana = listaAcomodacao.get(i).getNumerosemanas().intValue(); 
-				String nomeacomodacao = "";
-				if(listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
-					nomeacomodacao = listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
-							.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome()+" - ";
-				}
-				o.setDescricaolista(nomeacomodacao+listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
+				o.setDescricaolista(listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
 						.getComplementoacomodacao().getTipoacomodacao()
 						+ ", "
 						+ listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao()
@@ -486,7 +481,7 @@ public class GerarOcamentoPDFBean {
 				o.setValorrs("R$ " + Formatacao
 						.formatarFloatString(listaAcomodacao.get(i).getValororiginal() * ocurso.getValorcambio()));
 				o.setIdgrupo(2);
-				o.setTituloLista("ACOMODAÇÃO");
+				o.setTituloLista("ACOMODAÇÃO - " + listaAcomodacao.get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome());
 				lista.add(o);
 				totalAcMe = totalAcMe + listaAcomodacao.get(i).getValororiginal();
 				totalAcRs = totalAcRs + (listaAcomodacao.get(i).getValororiginal() * ocurso.getValorcambio());
