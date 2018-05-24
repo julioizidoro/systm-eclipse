@@ -58,6 +58,7 @@ public class CadFuncaoMB implements Serializable{
 			funcao = new Funcao(); 
 		}else{ 
 			usuario = funcao.getUsuario(); 
+			departamento = funcao.getUsuario().getDepartamento();
 		}
         if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			departamento = usuarioLogadoMB.getUsuario().getDepartamento();
