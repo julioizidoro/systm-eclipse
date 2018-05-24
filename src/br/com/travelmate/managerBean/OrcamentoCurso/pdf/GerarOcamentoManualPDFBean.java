@@ -172,15 +172,17 @@ public class GerarOcamentoManualPDFBean {
 		List<Produtoorcamentocurso> listaR = orcamentoCursoFacade.listarProdutoOrcamentoCurso(sql);
 		if (listaR != null) {
 			for (int i = 0; i < listaR.size(); i++) {
-				o = carregarDadosIniciais();
-				o.setTituloLista("CUSTOS EXTRAS");
-				o.setDescricaolista(listaR.get(i).getProdutosOrcamento().getDescricao());
-				o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
-						+ Formatacao.formatarFloatString(listaR.get(i).getValorMoedaEstrangeira()));
-				o.setValorrs("R$ " + Formatacao
-						.formatarFloatString(listaR.get(i).getValorMoedaNacional()));
-				o.setIdgrupo(5);
-				this.lista.add(o);
+				if (listaR.get(i).getProdutosOrcamento().getIdprodutosOrcamento() != 5) {
+					o = carregarDadosIniciais();
+					o.setTituloLista("CUSTOS EXTRAS");
+					o.setDescricaolista(listaR.get(i).getProdutosOrcamento().getDescricao());
+					o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
+							+ Formatacao.formatarFloatString(listaR.get(i).getValorMoedaEstrangeira()));
+					o.setValorrs("R$ " + Formatacao
+							.formatarFloatString(listaR.get(i).getValorMoedaNacional()));
+					o.setIdgrupo(5);
+					this.lista.add(o);
+				}
 			}
 		} 
 		if(orcamentoCurso.getPassagemAerea()!=null && orcamentoCurso.getPassagemAerea().length()>0){
@@ -322,17 +324,19 @@ public class GerarOcamentoManualPDFBean {
 		List<Produtoorcamentocurso> listaR = orcamentoCursoFacade.listarProdutoOrcamentoCurso(sql);
 		if (listaR != null) {
 			for (int i = 0; i < listaR.size(); i++) {
-				o = carregarDadosIniciais();
-				o.setTituloLista("ITENS ADICIONAIS");
-				o.setDescricaolista(listaR.get(i).getProdutosOrcamento().getDescricao());
-				o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
-						+ Formatacao.formatarFloatString(listaR.get(i).getValorMoedaEstrangeira()));
-				o.setValorrs("R$ " + Formatacao
-						.formatarFloatString(listaR.get(i).getValorMoedaNacional()));
-				o.setIdgrupo(4);
-				this.lista.add(o);
-				totalAdMe = totalAdMe + listaR.get(i).getValorMoedaEstrangeira();
-				totalAdRs = totalAdRs + listaR.get(i).getValorMoedaNacional();
+				if (listaR.get(i).getProdutosOrcamento().getIdprodutosOrcamento() != 5) {
+					o = carregarDadosIniciais();
+					o.setTituloLista("ITENS ADICIONAIS");
+					o.setDescricaolista(listaR.get(i).getProdutosOrcamento().getDescricao());
+					o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
+							+ Formatacao.formatarFloatString(listaR.get(i).getValorMoedaEstrangeira()));
+					o.setValorrs("R$ " + Formatacao
+							.formatarFloatString(listaR.get(i).getValorMoedaNacional()));
+					o.setIdgrupo(4);
+					this.lista.add(o);
+					totalAdMe = totalAdMe + listaR.get(i).getValorMoedaEstrangeira();
+					totalAdRs = totalAdRs + listaR.get(i).getValorMoedaNacional();
+				}
 			}
 		} 
 		
