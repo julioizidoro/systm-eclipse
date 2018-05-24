@@ -1532,7 +1532,7 @@ public class CadCursoMB implements Serializable {
 					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem,  formaPagamento);
 				}   
 				VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
-				//venda.setVendascomissao(vendasComissaoFacade.consultar(venda.getIdvendas()));
+				venda.setVendascomissao(vendasComissaoFacade.consultar(venda.getIdvendas()));
 				salvarSeguroViagem();
 				curso.setVendas(venda);
 				cadCursoBean.pegarCurso(curso, venda);
@@ -1910,7 +1910,11 @@ public class CadCursoMB implements Serializable {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
 				if (seguroViagem.getVendas().getVendascomissao() == null) {
-					seguroViagem.getVendas().setVendascomissao(new Vendascomissao());
+					if (venda.getVendascomissao() != null) {
+						seguroViagem.getVendas().setVendascomissao(venda.getVendascomissao());
+					}else {
+						seguroViagem.getVendas().setVendascomissao(new Vendascomissao());
+					}
 				}
 
 			}
@@ -1937,6 +1941,34 @@ public class CadCursoMB implements Serializable {
 			seguroViagem.setIdvendacurso(0);
 		}
 		seguroViagem = seguroViagemFacade.salvar(seguroViagem);
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ seguroViagem.getVendas().getProdutos().getIdgerente());
+		String titulo = "";
+		String operacao = "";
+		String imagemNotificacao = "";
+		if (novaFicha) {
+			titulo = "Nova Ficha de Seguro Viagem";
+			operacao = "I";
+			imagemNotificacao = "inserido";
+		} else {
+			titulo = "Ficha de Seguro Viagem Alterada";
+			operacao = "A";
+			imagemNotificacao = "alterado";
+		}
+		String vm = "Venda pela Matriz";
+		if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+					seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
+					seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(), seguroViagem.getVendas().getCambio().getValor(),
+					seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					imagemNotificacao, "I");
+		}
 	}
 
 	public Vendas salvarVendaSeguroViagem() {

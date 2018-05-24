@@ -323,6 +323,22 @@ public class CadArquivoMB implements Serializable {
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 						}
+					}else {
+						if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
+							AvisosFacade avisosFacade = new AvisosFacade();
+							Avisos avisos = new Avisos();
+							avisos.setData(new Date());
+							avisos.setUsuario(usuarioLogadoMB.getUsuario());
+							avisos.setImagem("Upload");
+							avisos.setLiberar(true);
+							avisos.setIdvenda(vendas.getIdvendas());
+							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
+									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
+									" | " + obs);
+							avisos.setIdunidade(0);
+							avisos = avisosFacade.salvar(avisos);
+							salvarAvisoUsuarioVinculado(avisos);
+						}
 					}
 				} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) { 
@@ -340,6 +356,20 @@ public class CadArquivoMB implements Serializable {
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 						}
+				}else {
+					AvisosFacade avisosFacade = new AvisosFacade();
+					Avisos avisos = new Avisos();
+					avisos.setData(new Date());
+					avisos.setUsuario(usuarioLogadoMB.getUsuario());
+					avisos.setImagem("Upload");
+					avisos.setLiberar(true);
+					avisos.setIdvenda(vendas.getIdvendas());
+					avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
+							+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
+							" | " + obs);
+					avisos.setIdunidade(0);
+					avisos = avisosFacade.salvar(avisos);
+					salvarAvisoUsuarioVinculado(avisos);
 				}
 			}
 			if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
@@ -1255,7 +1285,7 @@ public class CadArquivoMB implements Serializable {
 		} else if (seguroviagem.getPossuiSeguro().equalsIgnoreCase("Não")) {
 			possuiSeguro = false;
 		} else possuiSeguro = true;
-		if (possuiSeguro) {
+		if (possuiSeguro && this.datachegadabrasil != null && this.dataembarque != null) {
 			if ((!seguroviagem.getDataInicio().after(this.dataembarque))
 					|| (!seguroviagem.getDataTermino().before(this.datachegadabrasil))) {
 				FacesContext fc = FacesContext.getCurrentInstance();
@@ -1300,5 +1330,19 @@ public class CadArquivoMB implements Serializable {
 			} 
 		}
 		return false;
+	}
+	
+	
+	public List<Avisousuario> salvarAvisoUsuarioVinculado(Avisos aviso) {
+		List<Avisousuario> lista = new ArrayList<Avisousuario>();
+		for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisousuario avisousuario = new Avisousuario();
+			avisousuario.setAvisos(aviso);
+			avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
+			avisousuario.setVisto(false);
+			avisousuario = avisosFacade.salvar(avisousuario);
+		}
+		return lista;
 	}
 }
