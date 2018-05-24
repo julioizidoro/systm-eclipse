@@ -530,7 +530,7 @@
 									<p:commandLink id="btnOrcamentoManualVoluntariado"
 										rendered="#{followUpMB.habilitarCampoVoluntariado(lead)}"
 										title="Emissão orçamento manual de voluntariado"
-										action="#{historicoClienteMB.orcamentoManual('Voluntariado')}"
+										action="#{followUpMB.orcamentoManual(lead)}"
 										style="margin-left:8%;">
 										<h:panelGrid columns="1" style="text-align:center;">
 											<img src="../../resources/img/crm/emitirorcamentomanual.png"
