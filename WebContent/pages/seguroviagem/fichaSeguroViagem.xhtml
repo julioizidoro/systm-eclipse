@@ -80,7 +80,7 @@
 									itemValue="#{cvalorseguro}" />
 								<f:attribute name="listaValorSeguro"
 									value="#{fichaSeguroViagemMB.listaValoresSeguro}" />
-								<p:ajax event="change" update="cobranca, @form" listener="#{fichaSeguroViagemMB.verificarSeguroCancelamento()}"/>
+								<p:ajax event="change" update="cobranca" listener="#{fichaSeguroViagemMB.verificarSeguroCancelamento()}"/>
 							</p:selectOneMenu>   
 							<p:inputText id="cobranca"
 								value="#{fichaSeguroViagemMB.valoresseguro.cobranca}"

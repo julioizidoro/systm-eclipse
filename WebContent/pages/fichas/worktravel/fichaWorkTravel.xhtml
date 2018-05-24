@@ -75,10 +75,18 @@
 					<b>Passaporte: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b>  <h:outputText
+						value="#{fichaWorkTravelMB.worktravel.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.validadePassaporte}
+					<b>Validade: </b>  <h:outputText
+						value="#{fichaWorkTravelMB.worktravel.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Endereço: </b> #{fichaWorkTravelMB.worktravel.vendas.cliente.tipologradouro} #{fichaWorkTravelMB.worktravel.vendas.cliente.logradouro} , #{fichaWorkTravelMB.worktravel.vendas.cliente.numero}

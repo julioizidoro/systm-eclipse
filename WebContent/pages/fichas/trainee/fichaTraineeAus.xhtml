@@ -75,10 +75,18 @@
 					<b>Passaporte: </b> #{fichaTraineeMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaTraineeMB.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b>  <h:outputText
+						value="#{fichaTraineeMB.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaTraineeMB.vendas.cliente.validadePassaporte}
+					<b>Validade: </b>  <h:outputText
+						value="#{fichaTraineeMB.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Endereço: </b> #{fichaTraineeMB.vendas.cliente.tipologradouro} #{fichaTraineeMB.vendas.cliente.logradouro} , #{fichaTraineeMB.vendas.cliente.numero}

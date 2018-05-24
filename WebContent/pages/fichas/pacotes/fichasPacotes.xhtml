@@ -74,10 +74,18 @@
 					<b>Passaporte: </b> #{fichaPacotesMB.pacotes.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Data Expedição: </b> #{fichaPacotesMB.pacotes.vendas.cliente.dataExpedicaoPassaporte}
+					<b>Data Expedição: </b>  <h:outputText
+						value="#{fichaPacotesMB.pacotes.vendas.cliente.dataExpedicaoPassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b> #{fichaPacotesMB.pacotes.vendas.cliente.validadePassaporte}
+					<b>Validade: </b>  <h:outputText
+						value="#{fichaPacotesMB.pacotes.vendas.cliente.validadePassaporte}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Endereço: </b> #{fichaPacotesMB.pacotes.vendas.cliente.tipologradouro} #{fichaPacotesMB.pacotes.vendas.cliente.logradouro} , #{fichaPacotesMB.pacotes.vendas.cliente.numero}

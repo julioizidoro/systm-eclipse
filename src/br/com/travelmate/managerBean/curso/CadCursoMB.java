@@ -2904,6 +2904,7 @@ public class CadCursoMB implements Serializable {
 			listarValoresSeguro();
 			valorAlterarSeguro = seguroViagem.getValorSeguro();
 			segurocancelamento = seguroViagem.isSegurocancelamento();
+			verificarSeguroCancelamento();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");

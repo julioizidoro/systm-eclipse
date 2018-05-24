@@ -671,16 +671,16 @@
 									title="Ficha" ajax="false"
 									 target="_blank" rendered="#{higherEducationMB.desabilitarBtnFichaInscricao(finalizado)}"
 									style="width:27px;margin-left:2%">
-									<img src="../../resources/img/imprimiFicha.png" />
+									<img src="../../resources/img/imprimiFicha.png" style="width:27px;"/>
 								</p:commandLink>   
-								<h:commandButton
+								<p:commandLink
 									action="#{higherEducationMB.contrato(finalizado)}"
-									title="Contrato de Higher Education"
-									image="../../resources/img/imprimiContrato.png" ajax="false"
+									title="Contrato de Higher Education" ajax="false"
 									onclick="this.form.target='_blank'"
-									style="width:27px;margin-left:2%"
+									style="margin-left:2%"
 									rendered="#{higherEducationMB.desabilitarBtnContrato(finalizado)}">
-								</h:commandButton>
+									<img src="../../resources/img/imprimiContrato.png" style="width:27px;"/>
+								</p:commandLink>
 							</p:column> 
 							<p:column headerText="Autorizar"
 								style="width:60px;text-align:center;" styleClass="alinharCenter"

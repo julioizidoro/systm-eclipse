@@ -202,6 +202,7 @@ public class FichaSeguroViagemMB implements Serializable {
 				dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
 			}
 			valorSemDesconto = seguro.getValorSeguro() + seguro.getDescontoloja() + seguro.getDescontomatriz();
+			verificarSeguroCancelamento();
 		}
 		CambioFacade cambioFacade = new CambioFacade();
 		cambio = cambioFacade.consultarSigla(Formatacao.ConvercaoDataSql(dataCambio), "USD");
@@ -1213,10 +1214,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	public void verificarDadosAlterado() {
 		dadosAlterado = "";
 
-		if (fornecedorcidade.getIdfornecedorcidade() != fornecedorCidadeAlterado.getIdfornecedorcidade()) {
-			dadosAlterado = dadosAlterado + "Fornecedor : " + fornecedorcidade.getCidade().getNome() + " | "
-					+ fornecedorCidadeAlterado.getFornecedor().getNome() + "<br></br>";
-		}
+		
 		if (!seguro.getPossuiSeguro().equalsIgnoreCase(seguroAlterado.getPossuiSeguro())) {
 			dadosAlterado = dadosAlterado + "Seguro Viagem : " + seguro.getPossuiSeguro() + " | "
 					+ seguroAlterado.getPossuiSeguro() + "<br></br>";
@@ -1348,7 +1346,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			Vendascomissao vendasComissao = vendasComissaoFacade.getVendaComissao(vendas.getIdvendas(),
 					aplicacaoMB.getParametrosprodutos().getSeguroPrivado());
 			float valorJuros = 0.0f;
-			if (vendas.getFormapagamento() != null) {
+			if (vendas.getFormapagamento() != null && vendas.getFormapagamento().getValorJuros() != null) {
 				valorJuros = vendas.getFormapagamento().getValorJuros();
 			}
 			if (vendasComissao != null) {
