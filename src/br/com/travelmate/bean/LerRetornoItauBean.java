@@ -37,6 +37,7 @@ public class LerRetornoItauBean {
 	private List<RetornoBean> listaRetorno;
 	private Usuario usuario;
 	private String nomeArquivo; 
+	private Retornoarquivo retornoarquivo;
 	
 	public LerRetornoItauBean(BufferedReader retorno, String nomeArquivo, Usuario usuario) { 
 		this.nomeArquivo = nomeArquivo;
@@ -132,10 +133,15 @@ public class LerRetornoItauBean {
     
 	public boolean registarRecebimento(String nossoNumero, String dataPagamento, String valorPago, String juros,
 			String ocorrencia) {
+		if (retornoarquivo==null) {
+			registrarRetornoArquivo();
+		}else if (!nomeArquivo.equalsIgnoreCase(retornoarquivo.getNomeaquivo())) {
+			registrarRetornoArquivo();
+		}
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		RetornoArquivoFacade retornoArquivoFacade = new RetornoArquivoFacade();
+		
 		RetornoContasFacade retornoContasFacade = new RetornoContasFacade();
-		Retornoarquivo retornoarquivo = new Retornoarquivo();
+		
 		Retornocontas retornocontas = new Retornocontas();
 		String sql = "Select c from Contasreceber c where c.nossonumero='" + nossoNumero
 				+ "' and c.valorpago=0 and c.boletocancelado=0 and c.situacao<>'cc'" ;
@@ -161,18 +167,23 @@ public class LerRetornoItauBean {
 			conta = contasReceberFacade.salvar(conta);
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.baixar(conta, usuario);
-			retornoarquivo.setNomeaquivo(nomeArquivo);
-			retornoarquivo.setUsuario(usuario);
-			retornoarquivo.setDataretorno(new Date());
-			retornoArquivoFacade.salvar(retornoarquivo);
+			registrarOutrosLancamentos(conta);
 			retornocontas.setRetornoarquivo(retornoarquivo);
 			retornocontas.setContasreceber(conta);
 			retornocontas.setCodigoocorrencia(ocorrencia);
 			retornoContasFacade.salvar(retornocontas);
-			registrarOutrosLancamentos(conta);
 			return true;
 		}
 		return false;
+	}
+	
+	public void registrarRetornoArquivo() {
+		retornoarquivo = new Retornoarquivo();
+		RetornoArquivoFacade retornoArquivoFacade = new RetornoArquivoFacade();
+		retornoarquivo.setNomeaquivo(nomeArquivo);
+		retornoarquivo.setUsuario(usuario);
+		retornoarquivo.setDataretorno(new Date());
+		retornoArquivoFacade.salvar(retornoarquivo);
 	}
 	
 	public void registrarOutrosLancamentos(Contasreceber conta){

@@ -461,17 +461,12 @@ public class GerarOcamentoPDFBean {
 
 	public void carregarAcomodacao() {
 		if (listaAcomodacao != null && listaAcomodacao.size() > 0) {
-			composicao = composicao + " + ACOMODAÇÃO";
+			composicao = composicao + " + ACOMODAÇÃO - " + listaAcomodacao.get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome();
 			OrcamentoPDFBean o = carregarDados();
 			for (int i = 0; i < listaAcomodacao.size(); i++) {
 				o = carregarDados();
 				int numeroSemana = listaAcomodacao.get(i).getNumerosemanas().intValue(); 
-				String nomeacomodacao = "";
-				if(listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
-					nomeacomodacao = listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
-							.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome()+" - ";
-				}
-				o.setDescricaolista(nomeacomodacao+listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
+				o.setDescricaolista(listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos()
 						.getComplementoacomodacao().getTipoacomodacao()
 						+ ", "
 						+ listaAcomodacao.get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao()
