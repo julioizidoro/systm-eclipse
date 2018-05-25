@@ -1916,7 +1916,35 @@ public class CadCursoMB implements Serializable {
 						seguroViagem.getVendas().setVendascomissao(new Vendascomissao());
 					}
 				}
-
+				seguroViagem = seguroViagemFacade.salvar(seguroViagem);
+				DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+				List<Departamento> departamento = departamentoFacade
+						.listar("select d From Departamento d where d.usuario.idusuario="
+								+ seguroViagem.getVendas().getProdutos().getIdgerente());
+				String titulo = "";
+				String operacao = "";
+				String imagemNotificacao = "";
+				if (novaFicha) {
+					titulo = "Nova Ficha de Seguro Viagem";
+					operacao = "I";
+					imagemNotificacao = "inserido";
+				} else {
+					titulo = "Ficha de Seguro Viagem Alterada";
+					operacao = "A";
+					imagemNotificacao = "alterado";
+				}
+				String vm = "Venda pela Matriz";
+				if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+					vm = "Venda pela Loja";
+				}
+				if (departamento != null && departamento.size() > 0) {
+					Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+							seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+							Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
+							seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(), seguroViagem.getVendas().getCambio().getValor(),
+							seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+							imagemNotificacao, "I");
+				}
 			}
 		} else {
 			if (seguroViagem.getIdvendacurso() > 0) {
@@ -1939,36 +1967,9 @@ public class CadCursoMB implements Serializable {
 			valoresSeguro = valorSeguroFacade.consultar(1);
 			seguroViagem.setValoresseguro(valoresSeguro);
 			seguroViagem.setIdvendacurso(0);
+			seguroViagem = seguroViagemFacade.salvar(seguroViagem);
 		}
-		seguroViagem = seguroViagemFacade.salvar(seguroViagem);
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ seguroViagem.getVendas().getProdutos().getIdgerente());
-		String titulo = "";
-		String operacao = "";
-		String imagemNotificacao = "";
-		if (novaFicha) {
-			titulo = "Nova Ficha de Seguro Viagem";
-			operacao = "I";
-			imagemNotificacao = "inserido";
-		} else {
-			titulo = "Ficha de Seguro Viagem Alterada";
-			operacao = "A";
-			imagemNotificacao = "alterado";
-		}
-		String vm = "Venda pela Matriz";
-		if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
-			vm = "Venda pela Loja";
-		}
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-					seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
-					Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
-					seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(), seguroViagem.getVendas().getCambio().getValor(),
-					seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-					imagemNotificacao, "I");
-		}
+	
 	}
 
 	public Vendas salvarVendaSeguroViagem() {
