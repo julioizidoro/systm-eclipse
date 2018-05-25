@@ -42,6 +42,7 @@ public class FichaCursoMB implements Serializable{
 	private int aulasSemana;
 	private float totalPagamento = 0.0f;
 	private int aulasSemana2;
+	private boolean habilitarObservacao = false;
 	
 
 	
@@ -84,6 +85,9 @@ public class FichaCursoMB implements Serializable{
 				habilitarSeguroViagem = true;
 			}else {
 				habilitarSeguroViagem = false;
+			}
+			if (vendas.getFormapagamento() != null && vendas.getFormapagamento().getObservacoes() != null) {
+				habilitarObservacao = true;
 			}
 		}
 		dataHoje = new Date();
@@ -285,6 +289,18 @@ public class FichaCursoMB implements Serializable{
 
 	public void setAulasSemana2(int aulasSemana2) {
 		this.aulasSemana2 = aulasSemana2;
+	}
+
+
+
+	public boolean isHabilitarObservacao() {
+		return habilitarObservacao;
+	}
+
+
+
+	public void setHabilitarObservacao(boolean habilitarObservacao) {
+		this.habilitarObservacao = habilitarObservacao;
 	}
 
 
