@@ -251,14 +251,14 @@
 			<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
 		</div>
 			<br/>
-			<h:panelGroup style="margin-left: 0.3%;">SOLICITAÇÃO DE VISTA CONSULAR</h:panelGroup>
+			<h:panelGroup style="margin-left: 0.3%;">SOLICITAÇÃO DE VISTO CONSULAR</h:panelGroup>
 			<hr style="color: green;width:97%;float: left;"/>
 			<h:panelGrid style="width:100%;" columns="2">
-						<h:panelGroup> <b>Visto:</b> #{fichaCursosTeensMB.programasteens.solicitarVisto} 
+						<h:panelGroup> <b>Visto: </b> #{fichaCursosTeensMB.programasteens.solicitarVisto} 
 						</h:panelGroup>
 						<h:panelGroup>
-							<b>Entrega doc. visto:</b> <h:outputText
-								value="#{ffichaCursosTeensMB.programasteens.dataEntregaDocumentosVistos}">
+							<b>Entrega doc. visto: </b> <h:outputText
+								value="#{fichaCursosTeensMB.programasteens.dataEntragaDocumentosVistos}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
@@ -266,7 +266,7 @@
 						<h:panelGroup/>
 						<h:panelGroup/>
 						<h:panelGroup>
-							<b>Tipo de Solicitação:</b> #{fichaCursosTeensMB.programasteens.tipoSolicitacao} 
+							<b>Tipo de Solicitação: </b> #{fichaCursosTeensMB.programasteens.tipoSolicitacao} 
 						</h:panelGroup>
 			</h:panelGrid> 
 			<br/>
