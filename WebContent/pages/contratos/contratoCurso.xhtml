@@ -146,6 +146,43 @@
 				<h:panelGroup>
 					<b>Extras: </b>#{fichaCursoMB.curso.adicionais} </h:panelGroup>
 			</h:panelGrid>
+		
+		<br />
+			<h:panelGrid style="width:100%;margin:1%;" columns="2" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+				<h:panelGroup>
+					<b>Curso 02:</b> #{fichaCursoMB.curso.sCurso} </h:panelGroup>
+				<h:panelGroup style="margin-left:20%;">
+					<b>Escola/Instituição:</b>#{fichaCursoMB.curso.escola} </h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup >
+					<b>Local:</b>#{fichaCursoMB.curso.cidade} , #{fichaCursoMB.curso.pais}
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<h:panelGrid style="width:100%;margin:1%;" columns="3" rendered="#{fichaCursoMB.habilitarSegundoCurso}">
+				<h:panelGroup>
+					<b>#{fichaCursoMB.curso.sTipoCargaHoraria}:</b> #{fichaCursoMB.curso.sCargaHoraria} </h:panelGroup>
+				<h:panelGroup >
+					<b>N° Semanas:</b>#{fichaCursoMB.curso.sNumeroSemanas} </h:panelGroup>
+				
+				<h:panelGroup >
+					<b>Data Inicio: </b><h:outputText
+						value="#{fichaCursoMB.curso.sDataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Término: </b><h:outputText
+						value="#{fichaCursoMB.curso.sDataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+			
 		</div>
 		<br />
 
