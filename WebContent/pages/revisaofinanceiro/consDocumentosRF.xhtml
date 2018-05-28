@@ -28,15 +28,23 @@
 		<br></br>
 		<p:dataTable id="tabelaDocumentos" var="documentos"
 			value="#{documentosRFMB.listaArquivos}" class="tabelas-responsivas"
-			style="margin-left:2.5%;width:90%;" scrollable="true" >
+			style="margin-left:2.5%;width:90%;" scrollable="true">
 			<p:column headerText="Tipo" style="text-align:left;">
 				<h:outputText value="#{documentos.tipoarquivo.descricao}" />
 			</p:column>
 			<p:column headerText="Nome" style="text-align:left;">
 				<h:outputText value="#{documentos.nomeArquivo}" />
 			</p:column>
-		</p:dataTable> 
-		
+			<p:column style="width:50px;" styleClass="alinharCenter">
+				<a title="Download" name="download"
+					href="http://#{documentosRFMB.ftpdados.host}:82/ftproot/systm/arquivos/#{documentos.nomesalvos}"
+					target="_blank"
+					style="text-decoration: none; color: white; font-size: 18px;"
+					type="button"> <img src="../../resources/img/iconeDownload.png"
+					width="30" /></a>
+			</p:column>
+		</p:dataTable>
+
 	</h:form>
 </h:body>
 </html>
