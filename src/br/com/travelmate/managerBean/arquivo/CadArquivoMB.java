@@ -323,7 +323,7 @@ public class CadArquivoMB implements Serializable {
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 						}
-					}else {
+					}else if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
 						if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
 							AvisosFacade avisosFacade = new AvisosFacade();
 							Avisos avisos = new Avisos();
@@ -356,7 +356,7 @@ public class CadArquivoMB implements Serializable {
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 						}
-				}else {
+				}else if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
 					AvisosFacade avisosFacade = new AvisosFacade();
 					Avisos avisos = new Avisos();
 					avisos.setData(new Date());
