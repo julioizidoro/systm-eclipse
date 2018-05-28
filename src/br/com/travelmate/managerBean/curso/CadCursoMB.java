@@ -1910,7 +1910,11 @@ public class CadCursoMB implements Serializable {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
 				if (seguroViagem.getVendas().getVendascomissao() == null) {
-					if (venda.getVendascomissao() != null) {
+					VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
+					seguroViagem.getVendas().setVendascomissao(vendasComissaoFacade.consultar(seguroViagem.getVendas().getIdvendas()));
+					if (seguroViagem.getVendas().getVendascomissao() != null) {
+						seguroViagem.getVendas().setVendascomissao(venda.getVendascomissao());
+					}else if(venda.getVendascomissao() != null){
 						seguroViagem.getVendas().setVendascomissao(venda.getVendascomissao());
 					}else {
 						seguroViagem.getVendas().setVendascomissao(new Vendascomissao());
