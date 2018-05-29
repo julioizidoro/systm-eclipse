@@ -121,6 +121,16 @@ public class Unidadenegocio implements Serializable {
     private String tiponotificacao;
     @Column(name = "categoria")
     private String categoria;
+    @Column(name = "servidor")
+    private String servidor;
+    @Column(name = "tmturcadastro")
+    private boolean tmturcadastro;
+    @Column(name = "tmturativo")
+    private boolean tmturativo;
+    @Transient
+    private String iconeTmtur;
+    @Transient
+    private String tituloTmtur;
 
     public Unidadenegocio() {
     }
@@ -394,6 +404,48 @@ public class Unidadenegocio implements Serializable {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getServidor() {
+		return servidor;
+	}
+
+	public void setServidor(String servidor) {
+		this.servidor = servidor;
+	}
+	
+	
+
+	public boolean isTmturcadastro() {
+		return tmturcadastro;
+	}
+
+	public void setTmturcadastro(boolean tmturcadastro) {
+		this.tmturcadastro = tmturcadastro;
+	}
+
+	public boolean isTmturativo() {
+		return tmturativo;
+	}
+
+	public void setTmturativo(boolean tmturativo) {
+		this.tmturativo = tmturativo;
+	}
+
+	public String getIconeTmtur() {
+		return iconeTmtur;
+	}
+
+	public void setIconeTmtur(String iconeTmtur) {
+		this.iconeTmtur = iconeTmtur;
+	}
+
+	public String getTituloTmtur() {
+		return tituloTmtur;
+	}
+
+	public void setTituloTmtur(String tituloTmtur) {
+		this.tituloTmtur = tituloTmtur;
 	}
 
 	@Override

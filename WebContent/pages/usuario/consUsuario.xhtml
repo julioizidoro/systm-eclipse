@@ -107,16 +107,16 @@
 								<img src="../../resources/img/iconeReset.png" width="30"/>
 							</p:commandLink>
 						</p:column>
-						<p:column headerText="Cadastrar" style="width:40px;text-align:center;" rendered="#{usuarioMB.habilitarAPI()}">
-							<p:commandLink action="#{usuarioMB.cadastroUsuarioAPI(usuario)}" title="Editar" 
+						<p:column headerText="" style="width:40px;text-align:center;" rendered="#{usuarioMB.habilitarAPI()}">
+							<p:commandLink action="#{usuarioMB.tmTurSituacaoCadastro(usuario)}" title="Cadastrar Usuário" update=":consUsuario:growl"
 								style="text-decoration: none">
 								<img src="../../resources/img/seguroverde.png" width="25"/>
 							</p:commandLink> 
 						</p:column>
-						<p:column headerText="Ativar" style="width:40px;text-align:center;" rendered="#{usuarioMB.habilitarAPI()}">
-							<p:commandLink action="#{usuarioMB.ativarUsuarioAPI(usuario)}" title="Editar" 
+						<p:column headerText="" style="width:40px;text-align:center;" rendered="#{usuarioMB.habilitarAPI()}">
+							<p:commandLink action="#{usuarioMB.tmTurSituacao(usuario)}" title="#{usuario.tituloTmtur}"  update=":consUsuario:growl, tabelaUsuario"
 								style="text-decoration: none">
-								<img src="../../resources/img/iconeCheck.png" width="25"/>
+								<img src="#{usuario.iconeTmtur}" width="25"/>
 							</p:commandLink> 
 						</p:column>
 					</p:dataTable>

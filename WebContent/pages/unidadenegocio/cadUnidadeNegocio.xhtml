@@ -169,7 +169,7 @@
 						style="width:67%;">
 						<p:outputLabel value="Sigla Unidade" />
 						<p:outputLabel value="Categoria"/>  
-						<p:outputLabel/>
+						<p:outputLabel value="Servidor"/>
 						<p:outputLabel/>
 						<p:inputText id="sigla" style="width:55%;"
 							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />    
@@ -180,7 +180,10 @@
 							<f:selectItem itemLabel="Silver" itemValue="Silver" />
 							<f:selectItem itemLabel="Bronze" itemValue="Bronze" />
 						</p:selectOneMenu> 
-						<p:outputLabel/>
+						<p:inputText readonly="#{cadUnidadeNegocioMB.somenteLeitura}" id="servidor" style="width:50%;text-align: right;" 
+							value="#{cadUnidadeNegocioMB.unidadenegocio.servidor}" maxlength="10" >
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</p:inputText>
 						<p:outputLabel/> 
 						<h:panelGroup> 
 							<p:selectBooleanCheckbox id="parcelamentoLoja" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"

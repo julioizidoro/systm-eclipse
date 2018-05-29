@@ -65,16 +65,16 @@
 								<img src="../../resources/img/iconeFuncao.png" width="25"/>
 							</p:commandLink>
 						</p:column>
-						<p:column headerText="Cadastrar" style="width:40px;text-align:center;" rendered="#{unidadeNegocioMB.habilitarAPI()}">
-							<p:commandLink action="#{unidadeNegocioMB.cadastroUnidadeAPI(unidade)}" title="Editar" 
+						<p:column headerText="" style="width:30px;text-align:center;" rendered="#{unidadeNegocioMB.habilitarAPI()}">
+							<p:commandLink action="#{unidadeNegocioMB.tmTurSituacaoCadastro(unidade)}" title="Cadastrar Unidade Tm Tur" update=":consUnidade:growl"
 								style="text-decoration: none">
 								<img src="../../resources/img/seguroverde.png" width="25"/>
 							</p:commandLink> 
-						</p:column>
-						<p:column headerText="Ativar" style="width:40px;text-align:center;" rendered="#{unidadeNegocioMB.habilitarAPI()}">
-							<p:commandLink action="#{unidadeNegocioMB.ativarUnidadeAPI(unidade)}" title="Editar" 
+						</p:column> 
+						<p:column headerText="" style="width:30px;text-align:center;" rendered="#{unidadeNegocioMB.habilitarAPI()}">
+							<p:commandLink action="#{unidadeNegocioMB.tmTurSituacao(unidade)}" title="#{unidade.tituloTmtur}" update="tabelaUnidade, :consUnidade:growl"
 								style="text-decoration: none">
-								<img src="../../resources/img/iconeCheck.png" width="25"/>
+								<img src="#{unidade.iconeTmtur}" width="25"/>
 							</p:commandLink> 
 						</p:column>
 					</p:dataTable>

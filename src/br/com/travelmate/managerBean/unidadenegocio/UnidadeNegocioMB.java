@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.bean.TelefoneBean;
+import br.com.travelmate.bean.TokenBean;
 import br.com.travelmate.bean.UnidadeBean;
 import br.com.travelmate.bean.UsuarioBean;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -92,6 +94,7 @@ public class UnidadeNegocioMB implements Serializable {
 		if (listaUnidade == null) {
 			listaUnidade = new ArrayList<Unidadenegocio>();
 		}
+		verificarTmturAtivo();
 	}
 
 	public String editarUnidade(Unidadenegocio unidadenegocio) {
@@ -104,6 +107,7 @@ public class UnidadeNegocioMB implements Serializable {
 	public void pesquisar() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidade = unidadeNegocioFacade.listar(nome);
+		verificarTmturAtivo();
 	}
 
 	public void limpar() {
@@ -127,12 +131,15 @@ public class UnidadeNegocioMB implements Serializable {
 
             com.google.gson.Gson gson = new com.google.gson.Gson();
             UnidadeBean unidadeBean = new UnidadeBean();
+            TokenBean token = new TokenBean();
+            TelefoneBean telefone = new TelefoneBean();
+            List<TelefoneBean> telefoneList = new ArrayList<TelefoneBean>();
             unidadeBean.setCodigosystm(unidadenegocio.getIdunidadeNegocio());
             unidadeBean.setBairro(unidadenegocio.getBairro());
             unidadeBean.setCep(unidadenegocio.getCep());
             unidadeBean.setCidade(unidadenegocio.getCidade());
-            unidadeBean.setDocumento("");
-            unidadeBean.setDocumentotipo("");
+            unidadeBean.setDocumento(unidadenegocio.getCnpj());
+            unidadeBean.setDocumentotipo("CNPJ");
             unidadeBean.setEmail(unidadenegocio.getEmail());
             unidadeBean.setEndereco(unidadenegocio.getTipoLogradouro() + " " + unidadenegocio.getLogradouro());
             unidadeBean.setEnderecocpl("");
@@ -141,9 +148,12 @@ public class UnidadeNegocioMB implements Serializable {
             unidadeBean.setIm("");
             unidadeBean.setNome(unidadenegocio.getNomerelatorio());
             unidadeBean.setRazaosocial(unidadenegocio.getRazaoSocial());
-            unidadeBean.setTelefone(unidadenegocio.getFone());
-            String unidade = gson.toJson(unidadeBean);
-
+            telefone.setNumero(unidadenegocio.getFone());
+            telefoneList.add(telefone);
+            unidadeBean.setTelefone(telefoneList);
+            token.setToken("30%GEO&PORT@uX18>");
+            token.setUnidade(unidadeBean);
+            String unidade = gson.toJson(token);
             try {
                 java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/cadastraunidade");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
@@ -164,6 +174,9 @@ public class UnidadeNegocioMB implements Serializable {
                         System.out.println(line);
                     }
                 }
+                UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
+                unidadenegocio.setTmturcadastro(true);
+                unidadenegocio = unidadeNegocioFacade.salvar(unidadenegocio);
             } catch (java.io.IOException e) {
                 Mensagem.lancarMensagemInfo("", "" + e);
             }
@@ -178,8 +191,11 @@ public class UnidadeNegocioMB implements Serializable {
 
             com.google.gson.Gson gson = new com.google.gson.Gson();
             UnidadeBean unidadeBean = new UnidadeBean();
+            TokenBean token = new TokenBean();
             unidadeBean.setCodigosystm(unidadenegocio.getIdunidadeNegocio());
-            String usuario = gson.toJson(unidadeBean);
+            token.setToken("30%GEO&PORT@uX18>");
+            token.setUnidade(unidadeBean);
+            String usuario = gson.toJson(token);
 
             try {
                 java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/ativaunidade");
@@ -201,6 +217,53 @@ public class UnidadeNegocioMB implements Serializable {
                         System.out.println(line);
                     }
                 }
+                UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
+                unidadenegocio.setTmturativo(true);
+                unidadenegocio = unidadeNegocioFacade.salvar(unidadenegocio);
+                verificarTmturAtivo();
+            } catch (java.io.IOException e) {
+                Mensagem.lancarMensagemInfo("", "" + e);
+            }
+        } catch (Exception e) {
+        		Mensagem.lancarMensagemInfo("", "" + e);
+        }
+	} 
+	
+	public void desativarUnidadeAPI(Unidadenegocio unidadenegocio) throws org.eclipse.persistence.exceptions.JAXBException {
+        try {
+
+            com.google.gson.Gson gson = new com.google.gson.Gson();
+            UnidadeBean unidadeBean = new UnidadeBean();
+            TokenBean token = new TokenBean();
+            unidadeBean.setCodigosystm(unidadenegocio.getIdunidadeNegocio());
+            token.setToken("30%GEO&PORT@uX18>");
+            token.setUnidade(unidadeBean);
+            String usuario = gson.toJson(token);
+
+            try {
+                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/inativaunidade");
+                java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
+                connection.setDoOutput(true);
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+                java.io.OutputStreamWriter out = new java.io.OutputStreamWriter(connection.getOutputStream());
+                out.write(usuario);
+                out.close();
+                int http_status = connection.getResponseCode();
+                if (http_status / 100 != 2) {
+                    Mensagem.lancarMensagemInfo("Ocorreu algum erro. Codigo de reposta: {0}", ""+ http_status);
+                }
+                try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(connection.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                }
+                UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
+                unidadenegocio.setTmturativo(false);
+                unidadenegocio = unidadeNegocioFacade.salvar(unidadenegocio);
+                verificarTmturAtivo();
             } catch (java.io.IOException e) {
                 Mensagem.lancarMensagemInfo("", "" + e);
             }
@@ -210,6 +273,15 @@ public class UnidadeNegocioMB implements Serializable {
 	} 
 	
 	
+	public void tmTurSituacao(Unidadenegocio unidadenegocio) {
+		if (unidadenegocio.isTmturativo()) {
+			desativarUnidadeAPI(unidadenegocio);
+		}else {
+			ativarUnidadeAPI(unidadenegocio);
+		}
+	}
+	
+	
 	public boolean habilitarAPI() {
 		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
 			return true;
@@ -217,4 +289,29 @@ public class UnidadeNegocioMB implements Serializable {
 			return false;
 		}
 	}
+	
+	
+	public void verificarTmturAtivo() {
+		for (int i = 0; i < listaUnidade.size(); i++) {
+			if (listaUnidade.get(i).isTmturativo()) {
+				listaUnidade.get(i).setIconeTmtur("../../resources/img/iconeSApp.png");
+				listaUnidade.get(i).setTituloTmtur("Desativar usuário na TM Tur");
+			}else {
+				listaUnidade.get(i).setIconeTmtur("../../resources/img/iconeCheck.png");
+				listaUnidade.get(i).setTituloTmtur("Ativar usuário na TM Tur");
+			}
+		}
+	}
+	
+	
+	public void tmTurSituacaoCadastro(Unidadenegocio unidadenegocio) {
+		if (unidadenegocio.isTmturcadastro()) {
+			Mensagem.lancarMensagemInfo("", "Unidade já cadastrada na Tm Tur");
+		}else {
+			cadastroUnidadeAPI(unidadenegocio);
+			Mensagem.lancarMensagemInfo("", "Cadastrado com sucesso");
+		}
+	}
+	
+	
 }

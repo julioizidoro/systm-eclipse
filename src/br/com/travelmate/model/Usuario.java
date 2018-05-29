@@ -112,6 +112,14 @@ public class Usuario implements Serializable {
     private Cargo cargo;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "usuario")
     private Leadresponsavel responsavel;
+    @Column(name = "tmturcadastro")
+    private boolean tmturcadastro;
+    @Column(name = "tmturativo")
+    private boolean tmturativo;
+    @Transient
+    private String iconeTmtur;
+    @Transient
+    private String tituloTmtur;
 
     public Usuario() {
     	setDashboard("I");
@@ -387,6 +395,38 @@ public class Usuario implements Serializable {
 
 	public void setDataversao(Date dataversao) {
 		this.dataversao = dataversao;
+	}
+
+	public boolean isTmturcadastro() {
+		return tmturcadastro;
+	}
+
+	public void setTmturcadastro(boolean tmturcadastro) {
+		this.tmturcadastro = tmturcadastro;
+	}
+
+	public boolean isTmturativo() {
+		return tmturativo;
+	}
+
+	public void setTmturativo(boolean tmturativo) {
+		this.tmturativo = tmturativo;
+	}
+
+	public String getIconeTmtur() {
+		return iconeTmtur;
+	}
+
+	public void setIconeTmtur(String iconeTmtur) {
+		this.iconeTmtur = iconeTmtur;
+	}
+
+	public String getTituloTmtur() {
+		return tituloTmtur;
+	}
+
+	public void setTituloTmtur(String tituloTmtur) {
+		this.tituloTmtur = tituloTmtur;
 	}
  
     
