@@ -1,5 +1,7 @@
 package br.com.travelmate.bean;
 
+import java.util.List;
+
 public class UnidadeBean {
 	
 	
@@ -18,7 +20,7 @@ public class UnidadeBean {
     private String bairro;
     private String cep;
     private String email;
-    private String telefone;
+    private List<TelefoneBean> telefone;
 	
 	
 	public int getCodigosystm() {
@@ -111,12 +113,13 @@ public class UnidadeBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTelefone() {
+	public List<TelefoneBean> getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(String telefone) {
+	public void setTelefone(List<TelefoneBean> telefone) {
 		this.telefone = telefone;
 	}
+	
 
 	
 	
