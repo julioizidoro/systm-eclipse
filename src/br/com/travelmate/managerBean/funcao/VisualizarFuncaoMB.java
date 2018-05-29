@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.splitbutton.SplitButton;
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.bean.FuncaoBean;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FuncaoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -45,6 +46,9 @@ public class VisualizarFuncaoMB implements Serializable {
 	private Funcao funcao;
 	private List<UsuarioBean> listaUsuarioBean;
 	private UsuarioBean usuarioBean;
+	private List<FuncaoBean> listaFuncaoBean;
+	private FuncaoBean funcaoBean;
+	private List<Funcao> listaFuncao;
 
 	@PostConstruct
 	public void init() {
@@ -133,39 +137,63 @@ public class VisualizarFuncaoMB implements Serializable {
 		this.aplicacaoMB = aplicacaoMB;
 	}
 
+	public List<FuncaoBean> getListaFuncaoBean() {
+		return listaFuncaoBean;
+	}
+
+	public void setListaFuncaoBean(List<FuncaoBean> listaFuncaoBean) {
+		this.listaFuncaoBean = listaFuncaoBean;
+	}
+
+	public FuncaoBean getFuncaoBean() {
+		return funcaoBean;
+	}
+
+	public void setFuncaoBean(FuncaoBean funcaoBean) {
+		this.funcaoBean = funcaoBean;
+	}
+
+	public List<Funcao> getListaFuncao() {
+		return listaFuncao;
+	}
+
+	public void setListaFuncao(List<Funcao> listaFuncao) {
+		this.listaFuncao = listaFuncao;
+	}
+
 	public void gerarListaUsuarios() {
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuarioBean = new ArrayList<>();
+		FuncaoFacade funcaoFacade = new FuncaoFacade();
+		listaFuncaoBean = new ArrayList<>();
 		String sql = "";
 		if (departamento != null) {
-			sql = "Select u From Usuario u Where u.departamento.iddepartamento=" + departamento.getIddepartamento()
-					+ " and u.situacao='Ativo'";
-			listaUsuario = usuarioFacade.listar(sql);
-			if (listaUsuario == null) {
-				listaUsuario = new ArrayList<>();
+			sql = "Select u From Funcao u Where u.usuario.departamento.iddepartamento=" + departamento.getIddepartamento()
+					+ " and u.usuario.situacao='Ativo'";
+			listaFuncao = funcaoFacade.listar(sql);
+			if (listaFuncao == null) {
+				listaFuncao = new ArrayList<>();
 			}
 
-			if (listaUsuario.size() == 0) {
+			if (listaFuncao.size() == 0) {
 				Mensagem.lancarMensagemInfo("Nenhum usuario encontrado neste departamento", "");
 
 			} else {
-				for (int i = 0; i < listaUsuario.size(); i++) {
-					usuarioBean = new UsuarioBean();
-					usuarioBean.setUsuario1(listaUsuario.get(i));
-					if ((i + 1) < listaUsuario.size()) {
-						usuarioBean.setUsuario2(listaUsuario.get(i + 1));
+				for (int i = 0; i < listaFuncao.size(); i++) {
+					funcaoBean = new FuncaoBean();
+					funcaoBean.setFuncao1(listaFuncao.get(i));
+					if ((i + 1) < listaFuncao.size()) {
+						funcaoBean.setFuncao2(listaFuncao.get(i + 1));
 						i++;
-						if ((i + 1) < listaUsuario.size()) {
-							usuarioBean.setUsuario3(listaUsuario.get(i + 1));
+						if ((i + 1) < listaFuncao.size()) {
+							funcaoBean.setFuncao3(listaFuncao.get(i + 1));
 							i++;
 						} else {
-							usuarioBean.setUsuario3(null);
+							funcaoBean.setFuncao3(null);
 						}
 					} else {
-						usuarioBean.setUsuario2(null);
-						usuarioBean.setUsuario3(null);
+						funcaoBean.setFuncao2(null);
+						funcaoBean.setFuncao3(null);
 					}
-					listaUsuarioBean.add(usuarioBean);
+					listaFuncaoBean.add(funcaoBean);
 				}
 			}
 		}
@@ -236,6 +264,15 @@ public class VisualizarFuncaoMB implements Serializable {
 	
 	public String voltarConsDepartamento() {
 		return "consDepartamentoFuncao";
+	}
+	
+	
+	public boolean mostrarCartao(Usuario usuario) {
+		if (usuario != null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }

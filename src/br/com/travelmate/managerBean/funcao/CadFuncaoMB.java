@@ -154,10 +154,11 @@ public class CadFuncaoMB implements Serializable{
 	
 	public void gerarListaUsuario(){
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		String sql = "Select u From Usuario u Where u.situacao='Ativo' order by u.nome";
+		String sql = "Select u From Usuario u Where u.situacao='Ativo' ";
 		if (departamento != null) {
 			sql = sql + " and u.departamento.iddepartamento=" + departamento.getIddepartamento();
 		}
+		sql = sql + " order by u.nome";
 		listaUsuario = usuarioFacade.listar(sql);
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<>();

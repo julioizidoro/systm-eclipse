@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.FuncaoFacade;
 import br.com.travelmate.facade.Pasta1Facade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.Funcao;
 import br.com.travelmate.model.Usuario;
 
 @Named
@@ -71,10 +73,10 @@ public class DepartamentoFuncaoMB implements Serializable{
 	
 	
 	public Integer gerarTotalUsuario(Departamento departamento) {
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		FuncaoFacade funcaoFacade = new FuncaoFacade();
 		Integer numeroTotal = 0;
-		String sql = "Select u from Usuario u where u.departamento.iddepartamento=" + departamento.getIddepartamento() + " and u.situacao='Ativo'";
-		List<Usuario> listaUsuario = usuarioFacade.listar(sql);
+		String sql = "Select u from Funcao u where u.usuario.departamento.iddepartamento=" + departamento.getIddepartamento() + " and u.usuario.situacao='Ativo'";
+		List<Funcao> listaUsuario = funcaoFacade.listar(sql);
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<>();
 			numeroTotal = listaUsuario.size();

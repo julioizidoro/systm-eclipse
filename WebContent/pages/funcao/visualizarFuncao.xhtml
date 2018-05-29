@@ -11,77 +11,133 @@
 			<div id="centro">
 				<br />
 				<legend style="margin-left:1%; width:98%;"> 
-	        	   		<p:commandLink ajax="false" action="#{visualizarFuncaoMB.voltarConsDepartamento()}" value="Departamentos"/> > #{visualizarFuncaoMB.departamento.nome}
+	        	   		Funções > <p:commandLink ajax="false" action="#{visualizarFuncaoMB.voltarConsDepartamento()}" value="Departamentos"/> > #{visualizarFuncaoMB.departamento.nome}
 	        	    </legend> 
 				<h:panelGrid columns="1" style="width:98%;margin-left:2%;">
 					    
 					<h:panelGrid id="panelFuncionarios"
 						style="width:100%;margin-left:2%;">
 						<h:dataTable id="tabelaArquivo" styleClass="table-transparent"
-							value="#{visualizarFuncaoMB.listaUsuarioBean}" var="usuario"
-							style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:90%;">
-							<h:column>
-								<h:panelGrid columns="2" style="width:98%;"
-									columnClasses="espaco75,tamanho24">
-									<h:panelGroup>
-										<img id="imagemUsuario"
-											style="border-radius: 100px; height: 55px; width: 55px;"
-											src="#{visualizarFuncaoMB.getFotoUsuarioLogado(usuario.usuario1)}">
-											<p:commandLink
-												action="#{visualizarFuncaoMB.visualizarFuncao(usuario.usuario1)}"
-												value="#{usuario.usuario1.nome}"
-												style="font-size:15px;margin-left:2%;" /> </img>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.usuario1)}">
-										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.usuario1)}">
-											<img src="../../resources/img/vincularUnidade.png" width="25" />
+							value="#{visualizarFuncaoMB.listaFuncaoBean}" var="usuario"
+							style="color:black;background:transparent !important;border-color:white !important;width:90%;">
+							<h:column >
+								<h:panelGrid columns="2" style="width:98%;border:1px solid;"
+									rendered="#{visualizarFuncaoMB.mostrarCartao(usuario.funcao1.usuario)}">
+									
+									<h:panelGrid rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.funcao1.usuario)}" style="width: 150px;">
+										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.funcao1.usuario)}">
+											<img src="../../resources/img/cartao2.png"  style="width: 200px;"/>
+											
 										</p:commandLink>
-									</h:panelGroup>
+									</h:panelGrid>
+									<h:panelGrid columns="1">
+										<p:commandLink title="Visualizar mais informações" action="#{visualizarFuncaoMB.visualizarFuncao(usuario.funcao1.usuario)}">
+											<p:outputLabel value="#{usuario.funcao1.usuario.nome}" />
+										</p:commandLink>
+										<hr/>
+										<p:commandLink action="#">
+											<i class="fa fa-building"></i>
+											<h:outputText value=" #{usuario.funcao1.usuario.unidadenegocio.nomerelatorio}" style="font-size:12px;"/> 
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-briefcase"></i>
+											<h:outputText value=" #{usuario.funcao1.usuario.cargo.nome}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-phone"></i>
+											<h:outputText value=" #{usuario.funcao1.whatsapp}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-skype"></i>
+											<h:outputText value=" #{usuario.funcao1.skype}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-envelope"></i>
+											<h:outputText value=" #{usuario.funcao1.usuario.email}" style="font-size:12px;"/> 
+										</p:commandLink>
+									</h:panelGrid>
+								</h:panelGrid>  
+								<br/>    
+							</h:column>
+							<h:column >
+								<h:panelGrid columns="2" style="width:98%;border:1px solid;"
+									rendered="#{visualizarFuncaoMB.mostrarCartao(usuario.funcao2.usuario)}">
+									
+									<h:panelGrid rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.funcao2.usuario)}" style="width: 150px;">
+										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.funcao2.usuario)}">
+											<img src="../../resources/img/cartao2.png"  style="width: 200px;"/>
+										</p:commandLink>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="1">
+										<h:panelGrid columns="1">
+										<p:commandLink title="Visualizar mais informações" action="#{visualizarFuncaoMB.visualizarFuncao(usuario.funcao2.usuario)}">
+											<p:outputLabel value="#{usuario.funcao2.usuario.nome}" />
+										</p:commandLink>
+										<hr/>
+										<p:commandLink action="#">
+											<i class="fa fa-building"></i>
+											<h:outputText value=" #{usuario.funcao2.usuario.unidadenegocio.nomerelatorio}" style="font-size:12px;"/> 
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-briefcase"></i>
+											<h:outputText value=" #{usuario.funcao2.usuario.cargo.nome}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-phone"></i>
+											<h:outputText value=" #{usuario.funcao2.whatsapp}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-skype"></i>
+											<h:outputText value=" #{usuario.funcao2.skype}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-envelope"></i>
+											<h:outputText value=" #{usuario.funcao2.usuario.email}" style="font-size:12px;"/> 
+										</p:commandLink>
+									</h:panelGrid>
+									</h:panelGrid>
+									
 								</h:panelGrid>      
-								<br />
-								<br />
+								<br/>
 							</h:column>
-							<h:column>
-								<h:panelGrid columns="2" style="width:98%;"
-									columnClasses="espaco75,tamanho24">
-									<h:panelGroup>
-										<img id="imagemUsuario2"
-											style="border-radius: 100px; height: 55px; width: 55px;"
-											src="#{visualizarFuncaoMB.getFotoUsuarioLogado(usuario.usuario2)}">
-											<p:commandLink
-												action="#{visualizarFuncaoMB.visualizarFuncao(usuario.usuario2)}"
-												value="#{usuario.usuario2.nome}"
-												style="font-size:15px;margin-left:2%;" /> </img>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.usuario2)}">
-										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.usuario2)}">
-											<img src="../../resources/img/vincularUnidade.png" width="25" />
+							<h:column >
+								<h:panelGrid columns="2" style="width:98%;border:1px solid;"
+									rendered="#{visualizarFuncaoMB.mostrarCartao(usuario.funcao3.usuario)}">
+									
+									<h:panelGrid rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.funcao3.usuario)}" style="width: 150px;">
+										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.funcao3.usuario)}">
+											<img src="../../resources/img/cartao2.png"  style="width: 200px;"/>
 										</p:commandLink>
-									</h:panelGroup>
-								</h:panelGrid>
-								<br />
-								<br />
-							</h:column>
-							<h:column>
-								<h:panelGrid columns="2" style="width:98%;"
-									columnClasses="espaco75,tamanho24">
-									<h:panelGroup>
-										<img id="imagemUsuario3"
-											style="border-radius: 100px; height: 55px; width: 55px;"
-											src="#{visualizarFuncaoMB.getFotoUsuarioLogado(usuario.usuario3)}">
-											<p:commandLink
-												action="#{visualizarFuncaoMB.visualizarFuncao(usuario.usuario3)}"
-												value="#{usuario.usuario3.nome}"
-												style="font-size:15px;margin-left:2%;" /> </img>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{visualizarFuncaoMB.mostrarVincular(usuario.usuario3)}">
-										<p:commandLink title="Vincular Unidades" action="#{visualizarFuncaoMB.vincularUnidades(usuario.usuario3)}">
-											<img src="../../resources/img/vincularUnidade.png" width="25" />
+									</h:panelGrid>
+									<h:panelGrid columns="1">
+										<p:commandLink title="Visualizar mais informações" action="#{visualizarFuncaoMB.visualizarFuncao(usuario.funcao3.usuario)}">
+											<p:outputLabel value="#{usuario.funcao3.usuario.nome}" />
+										</p:commandLink>  
+										<hr/>
+										<p:commandLink action="#">
+											<i class="fa fa-building"></i>
+											<h:outputText value=" #{usuario.funcao3.usuario.unidadenegocio.nomerelatorio}" style="font-size:12px;"/> 
 										</p:commandLink>
-									</h:panelGroup>   
-								</h:panelGrid>
-								<br />      
-								<br />
+										<p:commandLink action="#">
+											<i class="fa fa-briefcase"></i>
+											<h:outputText value=" #{usuario.funcao3.usuario.cargo.nome}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-phone"></i>
+											<h:outputText value=" #{usuario.funcao3.whatsapp}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-skype"></i>
+											<h:outputText value=" #{usuario.funcao3.skype}" style="font-size:12px;"/>
+										</p:commandLink>
+										<p:commandLink action="#">
+											<i class="fa fa-envelope"></i>
+											<h:outputText value=" #{usuario.funcao3.usuario.email}" style="font-size:12px;"/> 
+										</p:commandLink>
+									</h:panelGrid>
+								</h:panelGrid>   
+								<br/>  
 							</h:column>
 						</h:dataTable>
 					</h:panelGrid> 
