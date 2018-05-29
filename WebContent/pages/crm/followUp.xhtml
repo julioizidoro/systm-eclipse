@@ -357,12 +357,12 @@
 				<h:panelGrid style="width:98%;margin-left:1%;" columns="1" rendered="#{followUpMB.mostrarLeads}" id="panelTabelaLead">
 					<p:dataTable id="tabelaLeads" var="lead" scrollable="true" scrollHeight="400"
 						value="#{followUpMB.listaLead}" style="font-size:11px;"
-						editable="true" editMode="cell" rowIndexVar="rowIndex">
+						editable="true" editMode="cell" rowIndexVar="rowIndex" reflow="true">
 
 						<p:ajax event="cellEdit" update="tabelaLeads, :followUp:growl" />
    
 						    
-						<p:column headerText="Nome" style="text-align:left;" width="150" sortBy="#{lead.cliente.nome}">
+						<p:column headerText="Nome" style="text-align:left;" width="130" sortBy="#{lead.cliente.nome}">
 							<p:commandLink id="btnNomeCliente" title="Alterações de dados do cliente" value="#{lead.cliente.nome}"
 								action="#{followUpMB.alterarDadosCliente(lead.cliente)}">
 								<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogDados}" update="tabelaLeads, :followUp:growl"/>
@@ -400,7 +400,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="País" style="text-align:left;" width="100" sortBy="#{lead.pais.nome}">
+						<p:column headerText="País" style="text-align:left;" width="95" sortBy="#{lead.pais.nome}">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText id="outputPais"
@@ -428,7 +428,7 @@
 								style="background-color:#{followUpMB.retornarCoresSituacao(lead.situacao)};padding: 6px 8px;" />
 						</p:column>
 
-						<p:column headerText="Tipo" width="95" style="text-align:left;" sortBy="#{lead.tipocontato.tipo}">
+						<p:column headerText="Tipo" width="70" style="text-align:left;" sortBy="#{lead.tipocontato.tipo}">
 							<h:outputText value="#{lead.tipocontato.tipo}" />  
 						</p:column>   
 						<p:column headerText="Data Receb." width="80" style="text-align:center;" sortBy="#{lead.dataenvio}">
@@ -457,7 +457,7 @@
 							style="text-align:left;" id="emitirInformacoes"> 
 							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente"
 								action="#{followUpMB.historicoCliente(rowIndex)}">
-								<img src="../../resources/img/crm/historico.png" width="30" />
+								<img src="../../resources/img/crm/historico.png" width="25" />
 							</p:commandLink>
 							<p:commandLink id="btnEmitirVenda" title="Emissão de vendas" rendered="#{followUpMB.habiltiarVenda(lead)}"
 										action="#{followUpMB.emitirVenda(lead)}" 
@@ -468,7 +468,7 @@
 							</p:commandLink>
 							<p:commandLink id="btnOrcamento" style="border-color:transparent;border:none;"
 								title="ORÇAMENTO" rendered="#{followUpMB.habiltiarCampos(lead)}">
-									<img src="../../resources/img/crm/orcamento.png" width="30" />
+									<img src="../../resources/img/crm/orcamento.png" width="25" />
 							</p:commandLink>
 							<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
 									hideEffect="fade" style="background:#F0F0F0;width:450px;">
@@ -543,7 +543,7 @@
 							</p:overlayPanel>  
 							<p:commandLink id="btnEncaminharLead" action="#{followUpMB.encaminharLead(lead)}"
 								title="Encaminhar Lead" >
-								<img src="../../resources/img/crm/envelope.png" width="30" />
+								<img src="../../resources/img/crm/envelope.png" width="25" />
 								<p:ajax event="dialogReturn"  listener="#{followUpMB.dialogReturnEncaminharLead}" update="tabelaLeads" />
 							</p:commandLink>
 						</p:column>  
