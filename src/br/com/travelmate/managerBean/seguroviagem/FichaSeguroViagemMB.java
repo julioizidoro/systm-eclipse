@@ -203,6 +203,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			}
 			valorSemDesconto = seguro.getValorSeguro() + seguro.getDescontoloja() + seguro.getDescontomatriz();
 			verificarSeguroCancelamento();
+			seguroAlterado = seguro;
 		}
 		CambioFacade cambioFacade = new CambioFacade();
 		cambio = cambioFacade.consultarSigla(Formatacao.ConvercaoDataSql(dataCambio), "USD");
