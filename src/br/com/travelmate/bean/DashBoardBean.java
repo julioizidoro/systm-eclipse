@@ -779,7 +779,7 @@ public class DashBoardBean {
 			usuariopontosFranquia.setPontos(usuariopontosFranquia.getPontos() + ponto - venda.getPonto());  
 		}else {
 			usuariopontosFranquia.setPontos(usuariopontosFranquia.getPontos() + ponto - venda.getPonto()); 
-			usuariopontosFranquia.setTotalpontos(usuariopontosFranquia.getPontos() + ponto- venda.getPonto()); 
+			usuariopontosFranquia.setTotalpontos(usuariopontosFranquia.getPontos()); 
 		}
 		usuariopontosFranquia = usuarioPontosFacade.salvar(usuariopontosFranquia);
 		int[] pontos = new int[3];

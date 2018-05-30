@@ -1569,4 +1569,9 @@ public class MenuMB implements Serializable {
 		return "consClienteLead";
 	}
 	
+	
+	public String relatorioLeadsDetalhado() {
+		return "relatorioLeadsDetalhado";
+	}
+	
 }

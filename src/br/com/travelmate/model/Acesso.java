@@ -205,7 +205,9 @@ public class Acesso implements Serializable {
 	@Column(name = "relatorioleads")
 	private boolean relatorioleads; 
 	@Column(name = "relatoriocliente")
-	private boolean relatoriocliente; 
+	private boolean relatoriocliente;
+	@Column(name = "relatorioleadsdetalhado")
+	private boolean relatorioleadsdetalhado;  
 	
 	public Integer getIdacesso() {
 		return idacesso;
@@ -927,6 +929,14 @@ public class Acesso implements Serializable {
 
 	public void setRelatoriocliente(boolean relatoriocliente) {
 		this.relatoriocliente = relatoriocliente;
+	}
+
+	public boolean isRelatorioleadsdetalhado() {
+		return relatorioleadsdetalhado;
+	}
+
+	public void setRelatorioleadsdetalhado(boolean relatorioleadsdetalhado) {
+		this.relatorioleadsdetalhado = relatorioleadsdetalhado;
 	}
 
 	@Override

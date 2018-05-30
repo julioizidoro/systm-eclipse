@@ -564,16 +564,36 @@
 												<span class="submenu-label">Leads Encaminhados</span>
 											</p:commandLink></li>
 									</h:panelGroup> 
-									<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}">
-											<li><p:commandLink rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}"
-																action="#{menuMB.relatorioLead()}">
-																<span class="submenu-label">Relatório Lead</span>
-															</p:commandLink></li>
-									</h:panelGroup>
-								<li><p:commandLink 
+									<h:panelGroup>
+									<li class="openable open"><p:commandLink>
+											<span class="submenu-label">Relatório<i
+												class="fa fa-chevron-down"></i></span>
+										</p:commandLink>
+										<ul class="submenu">
+												<h:panelGroup
+													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}">
+													<li><p:commandLink
+															rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleads}"
+															action="#{menuMB.relatorioLead()}">
+															<span class="subsubmenu-label">Simples</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+												<h:panelGroup
+													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleadsdetalhado}">
+													<li><p:commandLink
+															
+															action="#{menuMB.relatorioLeadsDetalhado()}">
+															<span class="subsubmenu-label">Detalhado</span>
+														</p:commandLink></li>
+												</h:panelGroup>
+											<li><p:commandLink 
 													action="#{menuMB.consClienteLead()}">
-													<span class="submenu-label">Relatório Cliente</span>
+													<span class="subsubmenu-label">Relatório Cliente</span>
 												</p:commandLink></li>
+										</ul></li>
+								</h:panelGroup>
+									
+								
 								</ul></li>
 						</h:panelGroup>   
 						<li class="openable"><p:commandLink
