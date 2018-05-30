@@ -120,19 +120,18 @@ public class FuncaoMB implements Serializable {
 	}
 
 	public void retornoDialogNovo(SelectEvent event) {
-		Funcao funcao = (Funcao) event.getObject();
-		if (funcao.getIdfuncao() != null) {
+		Departamento departamento = (Departamento) event.getObject();
+		if (departamento.getIddepartamento() != null) {
 			Mensagem.lancarMensagemInfo("Salvo co msucesso", "");
-			if (listaFuncao != null) {
-				listaFuncao.add(funcao);
-			}
+			pesquisar();
 		}
 	}
 
 	public void retornoDialogEdicao(SelectEvent event) {
-		Funcao funcao = (Funcao) event.getObject();
-		if (funcao.getIdfuncao() != null) {
+		Departamento departamento = (Departamento) event.getObject();
+		if (departamento.getIddepartamento() != null) {
 			Mensagem.lancarMensagemInfo("Atualizado com sucesso", "");
+			pesquisar();
 		}
 	}
 
@@ -151,7 +150,7 @@ public class FuncaoMB implements Serializable {
 			listaFuncao = new ArrayList<>();
 		} else {
 			sql = "Select f From Funcao f Where f.usuario.departamento.iddepartamento="
-					+ departamento.getIddepartamento();
+					+ departamento.getIddepartamento() + " and f.usuario.situacao='Ativo' order by f.usuario.nome";
 			listaFuncao = funcaoFacade.listar(sql);
 			if (listaFuncao == null) {
 				listaFuncao = new ArrayList<>();
