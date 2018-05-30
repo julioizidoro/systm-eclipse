@@ -49,7 +49,7 @@
 							<p:ajax event="dialogReturn" listener="#{funcaoMB.retornoDialogNovo}" update="idTabelaFuncao, growl"/>
 				</p:commandButton>
 				<p:commandButton  id="bntVoltar" style="font-size:12px;float:right;margin-right:1%;" icon="ui-icon-arrowthick-1-w"
-							value="Voltar"
+							value="Departamentos"
 							action="#{funcaoMB.voltar()}">
 				</p:commandButton>
 				<br/><br/><br/>
@@ -83,7 +83,7 @@
 							action="#{funcaoMB.editarFuncao(funcao)}" 
 							title="Editar">
 							<img src="../../resources/img/editaricon.png" width="30" />
-							<p:ajax event="dialogReturn" listener="#{funcaoMB.retornoDialogEdicao}" update=":idFormConsFuncao:growl"/>
+							<p:ajax event="dialogReturn" listener="#{funcaoMB.retornoDialogEdicao}" update=":idFormConsFuncao:growl, idTabelaFuncao"/>
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>

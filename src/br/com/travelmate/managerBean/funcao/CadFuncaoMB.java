@@ -167,7 +167,7 @@ public class CadFuncaoMB implements Serializable{
 	
 	
 	public void cancelar(){
-		RequestContext.getCurrentInstance().closeDialog(new Funcao());
+		RequestContext.getCurrentInstance().closeDialog(new Departamento());
 	}
 	
 	
@@ -176,7 +176,7 @@ public class CadFuncaoMB implements Serializable{
 		if (validarDados()) {
 			funcao.setUsuario(usuario);
 			funcao = funcaoFacade.salvar(funcao);
-			RequestContext.getCurrentInstance().closeDialog(funcao);
+			RequestContext.getCurrentInstance().closeDialog(departamento);
 		}
 	}
 	
