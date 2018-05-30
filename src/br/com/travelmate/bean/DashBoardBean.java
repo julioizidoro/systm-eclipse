@@ -746,7 +746,7 @@ public class DashBoardBean {
 			usuariopontosFranquia = new Usuariopontos();
 			usuariopontosFranquia.setAno(ano);
 			usuariopontosFranquia.setMes(mes);
-			usuariopontosFranquia.setUsuario(venda.getUsuario());
+			usuariopontosFranquia.setUsuario(usuarioFranquia);
 			usuariopontosFranquia.setPontos(0);
 			usuariopontosFranquia.setPontoescola(0);
 			usuariopontosFranquia.setTotalpontos(0);
