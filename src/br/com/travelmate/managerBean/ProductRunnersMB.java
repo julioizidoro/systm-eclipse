@@ -257,23 +257,12 @@ public class ProductRunnersMB implements Serializable{
 	}
 	
 	
-	public void calcularPontuacaoPacote(Usuario usuarioConsultor, Usuario usuarioFranquia, Produtos produtos, boolean cancelamento, int pontos){
-		int pontonegativo = 0;
-		Vendas vendasConsultor = new Vendas();
-		vendasConsultor.setProdutos(produtos);
-		vendasConsultor.setUsuario(usuarioConsultor);
-		int idusuarioConsultor = usuarioConsultor.getIdusuario();
-		int idusuarioFranquia = usuarioFranquia.getIdusuario();
-		if (idusuarioConsultor != idusuarioFranquia) {
-			pontonegativo = pontos;
-		}
-		calcularPontuacaoPacote(vendasConsultor, pontos, cancelamento, pontonegativo);
-		if (usuarioConsultor.getIdusuario() != usuarioFranquia.getIdusuario()) {
+	public void calcularPontuacaoPacote(Usuario usuarioFranquia, Produtos produtos, boolean cancelamento, int pontos){
+		
 			Vendas vendasFranquia = new Vendas();
 			vendasFranquia.setUsuario(usuarioFranquia);
 			vendasFranquia.setProdutos(produtos);
 			calcularPontuacaoPacote(vendasFranquia, pontos, cancelamento, 0);
-		}
 	}
 	
 	
@@ -295,11 +284,9 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutomes.setPontos(0);
 				corridaprodutomes.setProdutos(vendas.getProdutos());
 				corridaprodutomes.setUsuario(vendas.getUsuario());
-				corridaprodutomes.setPontosnegativo(0);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}else{
 				corridaprodutomes.setPontos(corridaprodutomes.getPontos() - pontos);
-				corridaprodutomes.setPontosnegativo(corridaprodutomes.getPontosnegativo() - pontos);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}
 			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
@@ -310,11 +297,9 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutoano.setPontos(0);
 				corridaprodutoano.setProdutos(vendas.getProdutos());
 				corridaprodutoano.setUsuario(vendas.getUsuario());
-				corridaprodutoano.setPontosnegativo(0);
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}else{
 				corridaprodutoano.setPontos(corridaprodutoano.getPontos() - pontos);
-				corridaprodutoano.setPontosnegativo(corridaprodutoano.getPontosnegativo() - pontos);
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}
 		}else{
@@ -327,11 +312,9 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutomes.setPontos(pontos);
 				corridaprodutomes.setProdutos(vendas.getProdutos());
 				corridaprodutomes.setUsuario(vendas.getUsuario());
-				corridaprodutomes.setPontosnegativo(pontonegativo);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}else{
 				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos - vendas.getPonto());
-				corridaprodutomes.setPontosnegativo(corridaprodutomes.getPontosnegativo() + pontonegativo - vendas.getPonto());
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}
 			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
@@ -342,11 +325,9 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutoano.setPontos(pontos);
 				corridaprodutoano.setProdutos(vendas.getProdutos());
 				corridaprodutoano.setUsuario(vendas.getUsuario());
-				corridaprodutoano.setPontosnegativo(pontonegativo);
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}else{
 				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos - vendas.getPonto());
-				corridaprodutoano.setPontosnegativo(corridaprodutomes.getPontosnegativo() + pontonegativo - vendas.getPonto());
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}
 		}

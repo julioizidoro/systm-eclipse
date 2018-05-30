@@ -37,13 +37,11 @@ public class Corridaprodutomes implements Serializable {
 	@JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos")
 	@ManyToOne(optional = false)
 	private Produtos produtos;
-	@Column(name = "pontosnegativo")
-	private Integer pontosnegativo;
 	
 	
 	
 	public Corridaprodutomes() {
-		pontosnegativo = 0;
+		
 	}
 
 
@@ -106,18 +104,6 @@ public class Corridaprodutomes implements Serializable {
 		this.produtos = produtos;
 	}
 	
-	
-	
-	
-	public Integer getPontosnegativo() {
-		return pontosnegativo;
-	}
-
-
-	public void setPontosnegativo(Integer pontosnegativo) {
-		this.pontosnegativo = pontosnegativo;
-	}
-
 
 	@Override
     public int hashCode() {

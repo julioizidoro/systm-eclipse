@@ -855,8 +855,8 @@ public class CadPassagemMB implements Serializable {
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 							dashBoardBean.calcularMetaMensal(vendas,valorVendasAlterado,false);
 							dashBoardBean.calcularMetaAnual(vendas,valorVendasAlterado,false);
-							int[] pontos = dashBoardBean.calcularPontuacaoPassagem(vendas, usuarioFranquia, vendas.getUsuario(), 0, "",false);
-							productRunnersMB.calcularPontuacaoPacote(vendas.getUsuario(), usuarioFranquia, vendas.getProdutos(), false, pontos[0]);
+							int[] pontos = dashBoardBean.calcularPontuacaoPassagem(vendas, usuarioFranquia,  0, "",false);
+							productRunnersMB.calcularPontuacaoPacote(usuarioFranquia, vendas.getProdutos(), false, pontos[0]);
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
 							if (lead!=null){

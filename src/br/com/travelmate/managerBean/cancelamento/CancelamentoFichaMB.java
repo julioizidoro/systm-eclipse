@@ -297,8 +297,8 @@ public class CancelamentoFichaMB implements Serializable {
 				}else{
 					PacotesFacade pacotesFacade = new PacotesFacade();
 					Pacotes pacote = pacotesFacade.consultar(venda.getIdvendas());
-					int pontos = dashBoardBean.calcularPontuacaoPacate(venda, true, pacote, pacote.getUsuario(), venda.getUsuario());
-					productRunnersMB.calcularPontuacaoPacote(venda.getUsuario(), pacote.getUsuario(), venda.getProdutos(), true, venda.getPonto());
+					int pontos = dashBoardBean.calcularPontuacaoPacate(venda, true, pacote, pacote.getUsuario());
+					productRunnersMB.calcularPontuacaoPacote(pacote.getUsuario(), venda.getProdutos(), true, venda.getPonto());
 					venda.setPonto(pontos);
 					venda.setPontoescola(pontos);
 					venda = vendasFacade.salvar(venda);

@@ -1331,8 +1331,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 						dashBoardBean.calcularNumeroVendasProdutos(vendass, false);
 						dashBoardBean.calcularMetaMensal(vendass, 0, false);
 						dashBoardBean.calcularMetaAnual(vendass, 0, false);
-						int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario(), usuarioLogadoMB.getUsuario());
-						productRunnersMB.calcularPontuacaoPacote(usuarioLogadoMB.getUsuario(), pacotes.getUsuario(), vendass.getProdutos(), false, pontos);
+						int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario());
+						productRunnersMB.calcularPontuacaoPacote(pacotes.getUsuario(), vendass.getProdutos(), false, pontos);
 						vendass.setPonto(pontos);
 						vendass.setPontoescola(0);
 						vendass = vendasFacade.salvar(vendass);
@@ -1368,8 +1368,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(vendass, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(vendass, valorVendaAlterar, false);
-							int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario(), usuarioLogadoMB.getUsuario());
-							productRunnersMB.calcularPontuacaoPacote(usuarioLogadoMB.getUsuario(), pacotes.getUsuario(), vendass.getProdutos(), false, pontos);
+							int pontos = dashBoardBean.calcularPontuacaoPacate(vendass, false, this.pacotes, pacotes.getUsuario());
+							productRunnersMB.calcularPontuacaoPacote(pacotes.getUsuario(), vendass.getProdutos(), false, pontos);
 							vendass.setPonto(pontos);
 							vendass.setPontoescola(0);
 							vendass = vendasFacade.salvar(vendass);

@@ -35,7 +35,6 @@
 								<f:selectItem itemLabel="Pós Venda" itemValue="6" />
 								<f:selectItem itemLabel="Lead Cancelada" itemValue="7" />
 								<f:selectItem itemLabel="Lead Stand By" itemValue="8" />
-								<p:ajax listener="#{followUpMB.mensagemPesquisa()}" update=":followUp:growl"/>
 							</p:selectOneMenu>
 							<p:selectOneMenu id="produtolead" value="#{followUpMB.programas}"
 								style="width:90%;" converter="ProdutoConverter" filter="true"
@@ -183,7 +182,6 @@
 								<f:selectItem itemLabel="Pós Venda" itemValue="6" />
 								<f:selectItem itemLabel="Lead Cancelada" itemValue="7" />
 								<f:selectItem itemLabel="Lead Stand By" itemValue="8" />
-								<p:ajax listener="#{followUpMB.mensagemPesquisa()}" update=":followUp:growl"/>
 							</p:selectOneMenu>
 							<h:panelGroup>
 								<p:calendar id="dataProxIni"
