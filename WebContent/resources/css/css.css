@@ -1809,13 +1809,26 @@ body {
 .tabelacambio {  
 	    background: #D7D8DC;
 	    height:27px;
-	    width: 99%;
+	    width: 100%;
+}
+
+
+.tabelacambioBrasil {    
+	    background: #ffdf00;
+	    height:27px;
+	    width: 100%;
+	    color:#009c3b;
 }
 	  
 .tabelasiglacambio {  
- 	background: #F0F0F0;height:27px;width: 99%;
+ 	background: #F0F0F0;height:27px;width: 100%;
  	
 }  
+
+.tabelasiglacambioBrasil {  
+ 	background: #009c3b;height:27px;width: 100%;color:#ffdf00;
+ 	
+} 
 	  
 @media (max-width:680px){  
 	.cambioAdaptavel{  
@@ -1823,6 +1836,12 @@ body {
 	    height:27px;
 	    width: 99%;
 	}  
+	
+	.cambioAdaptavelBrasil{  
+	    background: #A9F5A9;
+	    height:27px;
+	    width: 99%;
+	} 
 	
 	.tabelacambio {  
 	    position: relative;
@@ -2197,5 +2216,31 @@ body {
 
 table {
 	border:transparent;
+}
+
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	color:#ffdf00;
+	
+	}
+	
+
+
+element {
+
+    margin-left: 3%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    height: 53px;
+
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+
+    color: #ffdf00;
+
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+	color:#433f38;
 }
 
