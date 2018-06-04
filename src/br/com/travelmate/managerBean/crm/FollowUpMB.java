@@ -969,7 +969,7 @@ public class FollowUpMB implements Serializable {
 			}
 		}
 		if (dataInseridoInicial != null && dataInseridoFinal != null) {
-			sql = sql + " and l.dataenvio>='" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.dataenvio=<'"
+			sql = sql + " and l.datarecebimento>='" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.datarecebimento<='"
 					+ Formatacao.ConvercaoDataSql(dataInseridoFinal) + "'";
 		}
 		sql = sql + " order by l.dataproximocontato";
