@@ -1036,6 +1036,9 @@ public class FichaSeguroViagemMB implements Serializable {
 								imagemNotificacao = "alterado";
 								verificarDadosAlterado();
 							}
+							if (seguro.isSegurocancelamento()) {
+								titulo = titulo + " Com Cancelamento";
+							}
 							String vm = "Venda pela Matriz";
 							if (vendas.getVendasMatriz().equalsIgnoreCase("N")) {
 								vm = "Venda pela Loja";

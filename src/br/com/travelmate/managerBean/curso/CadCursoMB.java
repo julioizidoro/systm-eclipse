@@ -1932,7 +1932,10 @@ public class CadCursoMB implements Serializable {
 					String titulo = "";
 					String operacao = "";
 					String imagemNotificacao = "";
-					titulo = "Nova Ficha de Seguro Viagem";
+					titulo = "Nova Ficha de Seguro ";
+					if (seguroViagem.isSegurocancelamento()) {
+						titulo = titulo + " Com Cancelamento";
+					}
 					operacao = "I";
 					imagemNotificacao = "inserido";
 					String vm = "Venda pela Matriz";
