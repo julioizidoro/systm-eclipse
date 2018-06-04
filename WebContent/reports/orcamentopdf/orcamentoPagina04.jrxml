@@ -12,6 +12,7 @@
 	<parameter name="obs" class="java.awt.Image"/>
 	<parameter name="lista" class="java.util.List" isForPrompting="false"/>
 	<parameter name="icon" class="java.awt.Image"/>
+	<parameter name="visto" class="java.awt.Image"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>

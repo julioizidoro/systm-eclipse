@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orcamentoPagina04" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
+	<property name="ireport.zoom" value="1.0514816984441773"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="pagamento" class="java.awt.Image"/>
+	<parameter name="adicionais" class="java.awt.Image"/>
+	<parameter name="obs" class="java.awt.Image"/>
+	<parameter name="lista" class="java.util.List" isForPrompting="false"/>
+	<parameter name="icon" class="java.awt.Image"/>
+	<parameter name="visto" class="java.awt.Image"/>
+	<parameter name="titulovisto" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cambio" class="java.lang.String">
+		<fieldDescription><![CDATA[cambio]]></fieldDescription>
+	</field>
+	<field name="cargahoraria" class="java.lang.String">
+		<fieldDescription><![CDATA[cargahoraria]]></fieldDescription>
+	</field>
+	<field name="cidadeEscola" class="java.lang.String">
+		<fieldDescription><![CDATA[cidadeEscola]]></fieldDescription>
+	</field>
+	<field name="cidadeUnidade" class="java.lang.String">
+		<fieldDescription><![CDATA[cidadeUnidade]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="composicao" class="java.lang.String">
+		<fieldDescription><![CDATA[composicao]]></fieldDescription>
+	</field>
+	<field name="dataOrcamento" class="java.lang.String">
+		<fieldDescription><![CDATA[dataOrcamento]]></fieldDescription>
+	</field>
+	<field name="descricaoEscolaCidade" class="java.lang.String">
+		<fieldDescription><![CDATA[descricaoEscolaCidade]]></fieldDescription>
+	</field>
+	<field name="descricaoPais" class="java.lang.String">
+		<fieldDescription><![CDATA[descricaoPais]]></fieldDescription>
+	</field>
+	<field name="descricaofinanciamento" class="java.lang.String">
+		<fieldDescription><![CDATA[descricaofinanciamento]]></fieldDescription>
+	</field>
+	<field name="descricaolista" class="java.lang.String">
+		<fieldDescription><![CDATA[descricaolista]]></fieldDescription>
+	</field>
+	<field name="duracao" class="java.lang.String">
+		<fieldDescription><![CDATA[duracao]]></fieldDescription>
+	</field>
+	<field name="emailConsultor" class="java.lang.String">
+		<fieldDescription><![CDATA[emailConsultor]]></fieldDescription>
+	</field>
+	<field name="foneUnidade" class="java.lang.String">
+		<fieldDescription><![CDATA[foneUnidade]]></fieldDescription>
+	</field>
+	<field name="idgrupo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idgrupo]]></fieldDescription>
+	</field>
+	<field name="instituicao" class="java.lang.String">
+		<fieldDescription><![CDATA[instituicao]]></fieldDescription>
+	</field>
+	<field name="latitude" class="java.lang.Double">
+		<fieldDescription><![CDATA[latitude]]></fieldDescription>
+	</field>
+	<field name="localCurso" class="java.lang.String">
+		<fieldDescription><![CDATA[localCurso]]></fieldDescription>
+	</field>
+	<field name="longitude" class="java.lang.Double">
+		<fieldDescription><![CDATA[longitude]]></fieldDescription>
+	</field>
+	<field name="nomeCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeCliente]]></fieldDescription>
+	</field>
+	<field name="nomeConsultor" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeConsultor]]></fieldDescription>
+	</field>
+	<field name="nomeEscola" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeEscola]]></fieldDescription>
+	</field>
+	<field name="numeroorcamento" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroorcamento]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="paisEscola" class="java.lang.String">
+		<fieldDescription><![CDATA[paisEscola]]></fieldDescription>
+	</field>
+	<field name="saldoboleto" class="java.lang.String">
+		<fieldDescription><![CDATA[saldoboleto]]></fieldDescription>
+	</field>
+	<field name="saldocartao" class="java.lang.String">
+		<fieldDescription><![CDATA[saldocartao]]></fieldDescription>
+	</field>
+	<field name="siteescola" class="java.lang.String">
+		<fieldDescription><![CDATA[siteescola]]></fieldDescription>
+	</field>
+	<field name="subDescricaoLista" class="java.lang.String">
+		<fieldDescription><![CDATA[subDescricaoLista]]></fieldDescription>
+	</field>
+	<field name="subPacoteme" class="java.lang.String">
+		<fieldDescription><![CDATA[subPacoteme]]></fieldDescription>
+	</field>
+	<field name="subPacoters" class="java.lang.String">
+		<fieldDescription><![CDATA[subPacoters]]></fieldDescription>
+	</field>
+	<field name="tipCurso" class="java.lang.String">
+		<fieldDescription><![CDATA[tipCurso]]></fieldDescription>
+	</field>
+	<field name="tituloLista" class="java.lang.String">
+		<fieldDescription><![CDATA[tituloLista]]></fieldDescription>
+	</field>
+	<field name="totalCursome" class="java.lang.String">
+		<fieldDescription><![CDATA[totalCursome]]></fieldDescription>
+	</field>
+	<field name="totalDeme" class="java.lang.String">
+		<fieldDescription><![CDATA[totalDeme]]></fieldDescription>
+	</field>
+	<field name="totalDers" class="java.lang.String">
+		<fieldDescription><![CDATA[totalDers]]></fieldDescription>
+	</field>
+	<field name="totalPacoteme" class="java.lang.String">
+		<fieldDescription><![CDATA[totalPacoteme]]></fieldDescription>
+	</field>
+	<field name="totalPacoters" class="java.lang.String">
+		<fieldDescription><![CDATA[totalPacoters]]></fieldDescription>
+	</field>
+	<field name="totalacme" class="java.lang.String">
+		<fieldDescription><![CDATA[totalacme]]></fieldDescription>
+	</field>
+	<field name="totalacrs" class="java.lang.String">
+		<fieldDescription><![CDATA[totalacrs]]></fieldDescription>
+	</field>
+	<field name="totaladicionalme" class="java.lang.String">
+		<fieldDescription><![CDATA[totaladicionalme]]></fieldDescription>
+	</field>
+	<field name="totaladicionalrs" class="java.lang.String">
+		<fieldDescription><![CDATA[totaladicionalrs]]></fieldDescription>
+	</field>
+	<field name="totalcursors" class="java.lang.String">
+		<fieldDescription><![CDATA[totalcursors]]></fieldDescription>
+	</field>
+	<field name="totalmelista" class="java.lang.String">
+		<fieldDescription><![CDATA[totalmelista]]></fieldDescription>
+	</field>
+	<field name="totalrslista" class="java.lang.String">
+		<fieldDescription><![CDATA[totalrslista]]></fieldDescription>
+	</field>
+	<field name="totaltxme" class="java.lang.String">
+		<fieldDescription><![CDATA[totaltxme]]></fieldDescription>
+	</field>
+	<field name="totaltxrs" class="java.lang.String">
+		<fieldDescription><![CDATA[totaltxrs]]></fieldDescription>
+	</field>
+	<field name="turno" class="java.lang.String">
+		<fieldDescription><![CDATA[turno]]></fieldDescription>
+	</field>
+	<field name="valorVista" class="java.lang.String">
+		<fieldDescription><![CDATA[valorVista]]></fieldDescription>
+	</field>
+	<field name="valorentradaboelto" class="java.lang.String">
+		<fieldDescription><![CDATA[valorentradaboelto]]></fieldDescription>
+	</field>
+	<field name="valorentradacartao" class="java.lang.String">
+		<fieldDescription><![CDATA[valorentradacartao]]></fieldDescription>
+	</field>
+	<field name="valorentradafinanciamento" class="java.lang.String">
+		<fieldDescription><![CDATA[valorentradafinanciamento]]></fieldDescription>
+	</field>
+	<field name="valorfinanciamento" class="java.lang.String">
+		<fieldDescription><![CDATA[valorfinanciamento]]></fieldDescription>
+	</field>
+	<field name="valorme" class="java.lang.String">
+		<fieldDescription><![CDATA[valorme]]></fieldDescription>
+	</field>
+	<field name="valorrs" class="java.lang.String">
+		<fieldDescription><![CDATA[valorrs]]></fieldDescription>
+	</field>
+	<field name="valorsaldoboleto" class="java.lang.String">
+		<fieldDescription><![CDATA[valorsaldoboleto]]></fieldDescription>
+	</field>
+	<field name="valorsaldocartao" class="java.lang.String">
+		<fieldDescription><![CDATA[valorsaldocartao]]></fieldDescription>
+	</field>
+	<title>
+		<band height="69" splitType="Stretch">
+			<image>
+				<reportElement x="-1" y="36" width="231" height="28" uuid="d49bb852-c00b-4f31-8faa-7ffb00d44c25"/>
+				<imageExpression><![CDATA[$P{visto}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="773">
+			<image>
+				<reportElement x="461" y="711" width="115" height="39" uuid="62b2ae7e-dd91-47be-af67-cdb5dca0f903"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="11" width="576" height="687" uuid="90ddcf57-e7af-4573-b0e5-c5bfd17a118e"/>
+				<imageExpression><![CDATA[$P{visto}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>
