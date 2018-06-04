@@ -21,6 +21,7 @@ import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
@@ -36,6 +37,7 @@ import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Motivocancelamento;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Publicidade;
@@ -73,11 +75,12 @@ public class CadLeadMB implements Serializable {
 	private Produtos produto;
     private List<Produtos> listaProdutos;
     private boolean desabilitarUnidade=true;
-    private List<Paisproduto> listaPais;
+   // private List<Paisproduto> listaPais;
     private boolean pesquisanome=true;
     private boolean pesquisatelefone=false;
     private String telaRetorno;
     private boolean desabilitarConfirmar = false;
+    private List<Pais> listaPais;
 
 	@PostConstruct()
 	public void init() {
@@ -99,10 +102,14 @@ public class CadLeadMB implements Serializable {
 		}
 		gerarListaPublicidade();
 		listaProdutos = GerarListas.listarProdutos("");
-		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-		int idProduto = 0;
-		idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
-		listaPais = paisProdutoFacade.listar(idProduto);
+		//PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
+		//int idProduto = 0;
+		//idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listar("");
+		if (listaPais == null) {
+			listaPais = new ArrayList<Pais>();
+		}
 	}
 
 	public String getNomeCliente() {
@@ -225,11 +232,13 @@ public class CadLeadMB implements Serializable {
 		this.desabilitarUnidade = desabilitarUnidade;
 	}
 
-	public List<Paisproduto> getListaPais() {
+	
+
+	public List<Pais> getListaPais() {
 		return listaPais;
 	}
 
-	public void setListaPais(List<Paisproduto> listaPais) {
+	public void setListaPais(List<Pais> listaPais) {
 		this.listaPais = listaPais;
 	}
 

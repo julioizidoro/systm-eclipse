@@ -162,14 +162,14 @@
 				<p:ajax event="change" />
 			</p:selectOneMenu>
 			<p:selectOneMenu id="pais" value="#{cadLeadMB.lead.pais}"
-				style="width:90%;" converter="PaisConverter"
+				style="width:90%;" converter="PaisConverterS"
 				filter="true" filterMatchMode="startsWith"
 				panelStyle="width:180px"  >
 				<f:selectItem itemLabel="País" itemValue="0"
 					noSelectionOption="true" />
 				<f:selectItems id="idpais" value="#{cadLeadMB.listaPais}"
-					var="cpais" itemLabel="#{cpais.pais.nome}"
-					itemValue="#{cpais.pais}" />
+					var="cpais" itemLabel="#{cpais.nome}"
+					itemValue="#{cpais}" />
 				<f:attribute name="listaPais" value="#{cadLeadMB.listaPais}" />
 				<p:ajax event="change"/>  
 			</p:selectOneMenu>
