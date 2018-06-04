@@ -776,8 +776,11 @@ public class FollowUpMB implements Serializable {
 			listaUsuario = GerarListas.listarUsuarios(
 					"Select u FROM Usuario u where u.situacao='Ativo'" + " and u.unidadenegocio.idunidadeNegocio="
 							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
-			usuario = null;
+		}else {
+			listaUsuario = GerarListas.listarUsuarios(
+					"Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
 		}
+		usuario = null;
 	}
 	
 	public void pesquisar() {
@@ -966,7 +969,7 @@ public class FollowUpMB implements Serializable {
 			}
 		}
 		if (dataInseridoInicial != null && dataInseridoFinal != null) {
-			sql = sql + " and l.dataenvio>'" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.dataenvio<'"
+			sql = sql + " and l.dataenvio>='" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.dataenvio=<'"
 					+ Formatacao.ConvercaoDataSql(dataInseridoFinal) + "'";
 		}
 		sql = sql + " order by l.dataproximocontato";

@@ -25,7 +25,7 @@
 								<p:ajax event="blur"/>
 							</p:inputText>
 							<p:selectOneMenu id="situacaolead" style="width:50%;" 
-								value="#{followUpMB.situacao}">
+								value="#{followUpMB.situacao}" filter="true" filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Selecione" itemValue="0" />
 								<f:selectItem itemLabel="Novo Lead" itemValue="1" />
 								<f:selectItem itemLabel="Primeiro Contato" itemValue="2" />
@@ -172,7 +172,7 @@
 								<p:ajax event="change" />
 							</p:selectOneMenu>
 							<p:selectOneMenu id="tipovenda" style="width:80%;" 
-								value="#{followUpMB.situacao}">
+								value="#{followUpMB.situacao}" filter="true" filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Selecione" itemValue="0" />
 								<f:selectItem itemLabel="Lead Recebido" itemValue="1" />
 								<f:selectItem itemLabel="Primeiro Contato" itemValue="2" />
@@ -217,7 +217,7 @@
 								</p:calendar>
 							</h:panelGroup>      
 							<p:selectOneMenu id="status" style="width:90%;" 
-								value="#{followUpMB.status}">
+								value="#{followUpMB.status}" filter="true" filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Selecione" itemValue="0" /> 
 								<f:selectItem itemLabel="Novos" itemValue="Novos" />
 								<f:selectItem itemLabel="Atrasados" itemValue="Atrasados" />
