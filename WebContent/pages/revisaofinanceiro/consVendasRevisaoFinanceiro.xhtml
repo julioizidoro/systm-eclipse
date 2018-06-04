@@ -16,12 +16,14 @@
 						title="Pesquisar">
 						
 						<h:panelGrid columns="5" style="width:100%;">
+							<p:outputLabel value="Id Venda"/>
 							<p:outputLabel value="Unidade"/>
 							<p:outputLabel value="Produtos"/>
 							<p:outputLabel value="Periodo Venda"/>
 							<p:outputLabel/>
-							<p:outputLabel/>
 							
+							<p:inputText id="idvenda" style="width:90px;" maxlength="100"
+								value="#{revisaoFinanceiroMB.idVenda}" />
 							<p:selectOneMenu id="unidades"
 								value="#{revisaoFinanceiroMB.unidadenegocio}"
 								style="width:200px;"
@@ -66,7 +68,21 @@
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect" />
 							</p:calendar>
-							<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{revisaoFinanceiroMB.pesquisar()}" icon="ui-icon-search" update=":consultaRevisaoFinanceiro:growl, @form" style="font-size:12px;"/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<h:panelGroup>
+								<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{revisaoFinanceiroMB.pesquisar()}" icon="ui-icon-search" update=":consultaRevisaoFinanceiro:growl, @form"/>
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									update=":consultaRevisaoFinanceiro:growl, @form"
+									action="#{revisaoFinanceiroMB.limparPesquisa()}" />
+							</h:panelGroup>
 						</h:panelGrid>
 
 					</p:tab>  

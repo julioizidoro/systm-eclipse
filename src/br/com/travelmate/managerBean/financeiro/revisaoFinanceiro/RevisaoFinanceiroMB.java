@@ -44,6 +44,7 @@ public class RevisaoFinanceiroMB implements Serializable{
 	private Unidadenegocio unidadenegocio;
 	private int nCartaoCredito = 0;
 	private List<Lancamentocartaocredito> listaCartaoCredito;
+	private int idVenda;
 	
 	
 	@PostConstruct
@@ -286,6 +287,34 @@ public class RevisaoFinanceiroMB implements Serializable{
 
 
 
+	public int getIdVenda() {
+		return idVenda;
+	}
+
+
+
+
+
+
+	public void setIdVenda(int idVenda) {
+		this.idVenda = idVenda;
+	}
+
+
+	public void limparPesquisa() {
+		listaVendaNova = new ArrayList<Vendas>();
+		listaVendaPendente = new ArrayList<Vendas>();
+		listaCartaoCredito = new ArrayList<>();
+		gerarListaVendas();
+		idVenda = 0;
+		unidadenegocio = null;
+		produtos = null;
+		dataFinal = null;
+		dataInicial = null;
+	}
+
+
+
 	public String cadastroRevisaoFinanceiro(Vendas venda) {
 		boolean revisar = true;
 		if (venda.getProdutos().getIdprodutos() == 2) {
@@ -340,6 +369,9 @@ public class RevisaoFinanceiroMB implements Serializable{
 		}
 		if (dataInicial != null && dataFinal != null) {
 			sql = sql + " and v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicial) + "' and v.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
+		}
+		if (idVenda > 0) {
+			sql = sql + " and v.idvendas=" + idVenda;
 		}
 		listaVendaNova = vendasFacade.lista(sql +  " and v.situacaofinanceiro='N'"+
 				" and v.situacaogerencia<>'P' order by v.dataVenda DESC");
