@@ -436,14 +436,14 @@
 								</f:facet>
 								<f:facet name="input">
 									<p:selectOneMenu id="pais" value="#{followUpMB.pais}"
-										style="width:90%;" converter="PaisConverter"
+										style="width:90%;" converter="PaisConverterS"
 										filter="true" filterMatchMode="startsWith"
 										panelStyle="width:180px"  >
 										<f:selectItem itemLabel="País" itemValue="0"
 											noSelectionOption="true" />
 										<f:selectItems id="idpais" value="#{followUpMB.listaPais}"
-											var="cpais" itemLabel="#{cpais.pais.nome}"   
-											itemValue="#{cpais.pais}" />
+											var="cpais" itemLabel="#{cpais.nome}"   
+											itemValue="#{cpais}" />
 										<f:attribute name="listaPais" value="#{followUpMB.listaPais}" />
 										<p:ajax event="change" listener="#{followUpMB.atualizarFollowUp(lead)}" update="outputPais, pais"/>  
 									</p:selectOneMenu>

@@ -83,7 +83,7 @@ public class FollowUpMB implements Serializable {
 	private Usuario consultorEncaminhar;
 	private String funcao;
 	private Pais pais;
-	private List<Paisproduto> listaPais;
+	private List<Pais> listaPais;
 	private Unidadenegocio unidadenegocio;
 	private List<Unidadenegocio> listaUnidade;
 	private String situacao;
@@ -181,14 +181,11 @@ public class FollowUpMB implements Serializable {
 				gerarListaInicial();
 				gerarListaPosVenda();
 			}
-			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-			int idProduto = 0;
-			idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
-			listaPais = paisProdutoFacade.listar(idProduto);
+			PaisFacade paisFacade = new PaisFacade();
+			listaPais = paisFacade.listar("");
 			if (sql != null && sql.length() > 0) {
 				gerarListaLead(sql);
 			}
-			PaisFacade paisFacade = new PaisFacade();
 			listaPaisConsulta = paisFacade.listar("");
 			if (listaPaisConsulta == null) {
 				listaPaisConsulta = new ArrayList<Pais>();
@@ -374,11 +371,13 @@ public class FollowUpMB implements Serializable {
 		this.pais = pais;
 	}
 
-	public List<Paisproduto> getListaPais() {
+	
+
+	public List<Pais> getListaPais() {
 		return listaPais;
 	}
 
-	public void setListaPais(List<Paisproduto> listaPais) {
+	public void setListaPais(List<Pais> listaPais) {
 		this.listaPais = listaPais;
 	}
 
