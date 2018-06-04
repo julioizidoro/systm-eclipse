@@ -1295,6 +1295,9 @@ public class CadOrcamentoManualMB implements Serializable {
 			}
 			listaProdutoOrcamentoBean.add(pob);
 		}
+		if (orcamentocurso.getDataInicio() != null) {
+			gerarListaNuneroParcelas(orcamentocurso.getDataInicio());
+		}
 		if (orcamentoCursoFormaPagamento.getValorEntrada2() != null
 				&& orcamentoCursoFormaPagamento.getValorEntrada2() > 0) {
 			habilitarFormaPagamento2 = "false";
