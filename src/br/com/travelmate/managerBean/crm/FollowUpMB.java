@@ -18,11 +18,14 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.LeadEncaminhadoFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LeadPosVendaFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -105,6 +108,8 @@ public class FollowUpMB implements Serializable {
 	private Lead lead;
 	private boolean campoCurso = false;
 	private boolean campoVoluntariado = false;
+	private Pais paisConsulta;
+	private List<Pais> listaPaisConsulta;
 
 	@PostConstruct()
 	public void init() {
@@ -182,6 +187,11 @@ public class FollowUpMB implements Serializable {
 			listaPais = paisProdutoFacade.listar(idProduto);
 			if (sql != null && sql.length() > 0) {
 				gerarListaLead(sql);
+			}
+			PaisFacade paisFacade = new PaisFacade();
+			listaPaisConsulta = paisFacade.listar("");
+			if (listaPaisConsulta == null) {
+				listaPaisConsulta = new ArrayList<Pais>();
 			}
 		}
 		mostrarPosVenda = false;
@@ -588,6 +598,22 @@ public class FollowUpMB implements Serializable {
 		this.campoVoluntariado = campoVoluntariado;
 	}
 
+	public List<Pais> getListaPaisConsulta() {
+		return listaPaisConsulta;
+	}
+
+	public void setListaPaisConsulta(List<Pais> listaPaisConsulta) {
+		this.listaPaisConsulta = listaPaisConsulta;
+	}
+
+	public Pais getPaisConsulta() {
+		return paisConsulta;
+	}
+
+	public void setPaisConsulta(Pais paisConsulta) {
+		this.paisConsulta = paisConsulta;
+	}
+
 	public String novoLead() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 550);
@@ -834,6 +860,9 @@ public class FollowUpMB implements Serializable {
 		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
 			sql = sql + " and l.tipocontato.idtipocontato=" + tipocontato.getIdtipocontato();
 		}
+		if (paisConsulta != null && paisConsulta.getIdpais() != null) {
+			sql = sql + " and l.pais.idpais=" + paisConsulta.getIdpais();
+		}
 		if (status != null && status.length() > 0 && !status.equalsIgnoreCase("0")) {
 			if (status.equalsIgnoreCase("Novos")) {
 				sql = sql + " and l.tipocontato.tipo='Novo' and l.dataultimocontato is null";
@@ -950,6 +979,9 @@ public class FollowUpMB implements Serializable {
 		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
 			sql = sql + " and l.tipocontato.idtipocontato=" + tipocontato.getIdtipocontato();
 		}
+		if (paisConsulta != null && paisConsulta.getIdpais() != null) {
+			sql = sql + " and l.pais.idpais=" + paisConsulta.getIdpais();
+		}
 		if (status != null && status.length() > 0 && !status.equalsIgnoreCase("0")) {
 			if (status.equalsIgnoreCase("Novos")) {
 				sql = sql + " and l.tipocontato.tipo='Novo' and l.dataultimocontato is null";
@@ -1026,6 +1058,7 @@ public class FollowUpMB implements Serializable {
 		tipocontato = null;
 		dataInseridoInicial = null;
 		dataInseridoInicial = null;
+		paisConsulta = null;
 		gerarListaInicial();
 		gerarListaPosVenda();
 	}
