@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
+import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Usuario;
+import br.com.travelmate.util.GerarListas;
 
 @Named
 @ViewScoped
@@ -27,10 +30,20 @@ public class AcessoUnidadeMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private String nome;
 	private List<Acessounidade> listaAcesso;
+	private List<Unidadenegocio> listaUnidade;
+	private List<Usuario> listaUsuario;
+	private boolean desabilitarCombo = false;
+	private Unidadenegocio unidadenegocio;
+	private Usuario usuario;
 	
 	@PostConstruct
 	public void init() {
-		gerarListaAcesso();
+		listaUnidade = GerarListas.listarUnidade();
+		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
+			desabilitarCombo = true;
+			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
+			usuario = usuarioLogadoMB.getUsuario();
+		}
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -57,14 +70,53 @@ public class AcessoUnidadeMB implements Serializable{
 		this.listaAcesso = listaAcesso;
 	}
 	
+	public List<Unidadenegocio> getListaUnidade() {
+		return listaUnidade;
+	}
+
+	public void setListaUnidade(List<Unidadenegocio> listaUnidade) {
+		this.listaUnidade = listaUnidade;
+	}
+
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+	public boolean isDesabilitarCombo() {
+		return desabilitarCombo;
+	}
+
+	public void setDesabilitarCombo(boolean desabilitarCombo) {
+		this.desabilitarCombo = desabilitarCombo;
+	}
+
+	public Unidadenegocio getUnidadenegocio() {
+		return unidadenegocio;
+	}
+
+	public void setUnidadenegocio(Unidadenegocio unidadenegocio) {
+		this.unidadenegocio = unidadenegocio;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public void gerarListaAcesso() {
 		String sql ="SELECT a FROM Acessounidade a WHERE a.usuario.situacao='Ativo'";
-		if(nome!=null && nome.length()>0) {
-			sql = sql + " AND a.usuario.nome like '%"+nome+"%'";
+		if(unidadenegocio!=null) {
+			sql = sql + " AND a.usuario.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 		}
-		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-			sql = sql + " AND a.usuario.unidadenegocio.idunidadeNegocio="
-							+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		if (usuario != null && usuario.getIdusuario() != null) {
+			sql = sql + " AND a.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		sql = sql + " ORDER BY a.usuario.nome";
 		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
@@ -86,14 +138,31 @@ public class AcessoUnidadeMB implements Serializable{
 	}
 	
 	public void limpar() {
-		nome = "";
+		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
+			usuario = null;
+			unidadenegocio = null;
+			gerarListaConsultor();
+		}
 		gerarListaAcesso();
 	}
 	
 	public String retornarAcesso(boolean acesso) {
 		if(acesso) {
-			return "Possui acesso";
-		}else return "Acesso restrito";
+			return "../../resources/img/confirmar.png";
+		}else return "../../resources/img/cancelado.png";
+	}
+	
+	
+	public void gerarListaConsultor() {
+		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			listaUsuario = GerarListas.listarUsuarios(
+					"Select u FROM Usuario u where u.situacao='Ativo'" + " and u.unidadenegocio.idunidadeNegocio="
+							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+		}else {
+			listaUsuario = GerarListas.listarUsuarios(
+					"Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
+		}
+		usuario = null;
 	}
 
 }

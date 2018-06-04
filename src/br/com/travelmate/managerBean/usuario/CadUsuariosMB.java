@@ -326,14 +326,16 @@ public class CadUsuariosMB implements Serializable {
 		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
 		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 				+usuario.getIdusuario());
-		if(acessounidade==null) {
+		if(acessounidade==null || acessounidade.getIdacessounidade() == null) {
 			acessounidade = new Acessounidade();
 			acessounidade.setComissaoparceiros(true);
-			acessounidade.setConsultaorcamento(true);
-			acessounidade.setCrm(true);
+			acessounidade.setConsultaorcamento(false);
+			acessounidade.setCrm(false);
 			acessounidade.setDashboard(true);
 			acessounidade.setEmissaoconsulta(true); 
 			acessounidade.setUsuario(usuario);
+			acessounidade.setMargemfinanceira(true);
+			acessounidade.setPosvendaunidade(false);
 			acessounidade = acessoUnidadeFacade.salvar(acessounidade);
 		}
 	} 

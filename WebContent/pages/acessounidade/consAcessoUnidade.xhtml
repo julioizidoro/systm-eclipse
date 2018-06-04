@@ -14,18 +14,44 @@
 				<p:accordionPanel class="painel" activeIndex="-1">
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
-						<div style="width: 100%;">
-							<h:panelGrid columns="3" >
-								<p:outputLabel value="Nome" for="nome" />   
-								<p:outputLabel/>
+						<div style="width: 74%;">
+							<h:panelGrid columns="3" style="width:100%;">
+								<p:outputLabel value="Unidade" for="unidade" />   
+								<p:outputLabel value="Consultor" for="consultor"/>
 								<p:outputLabel/>
 								
-								<p:inputText id="nome" size="45" value="#{acessoUnidadeMB.nome}" /> 
-								<p:commandButton id="btnPesquisar" action="#{acessoUnidadeMB.gerarListaAcesso()}" value="Pesquisar"
-									style="margin-left:6%" icon=" ui-icon-search " update="consAcessoUnidade:tabelaAcesso" />
-								<p:commandButton id="btnLimpar" action="#{acessoUnidadeMB.limpar()}" value="Limpar"
-									style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
-									update="consAcessoUnidade:tabelaAcesso, nome" />
+								<p:selectOneMenu id="unidade"
+									value="#{acessoUnidadeMB.unidadenegocio}" style="width:200px;" disabled="#{acessoUnidadeMB.desabilitarCombo}"
+									converter="UnidadeNegocioConverter" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+									<f:selectItem itemLabel="Todos" itemValue="0" />
+									<f:selectItems id="idunidade"  
+										value="#{acessoUnidadeMB.listaUnidade}" var="unidade"
+										itemLabel="#{unidade.nomerelatorio}" itemValue="#{unidade}" />
+									<f:attribute name="listaUnidade"
+										value="#{acessoUnidadeMB.listaUnidade}" />
+									<p:ajax event="change" listener="#{acessoUnidadeMB.gerarListaConsultor()}" update="consultor"/>
+								</p:selectOneMenu> 
+								
+								<p:selectOneMenu id="consultor" value="#{acessoUnidadeMB.usuario}"
+									style="width:200px;" filter="true" filterMatchMode="startsWith"
+									converter="UsuarioConverter"
+									disabled="#{acessoUnidadeMB.desabilitarCombo}">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idconsultor"
+										value="#{acessoUnidadeMB.listaUsuario}" var="sUsuario"
+										itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+									<f:attribute name="listaUsuario"
+										value="#{acessoUnidadeMB.listaUsuario}" />
+									<p:ajax event="change"/>   
+								</p:selectOneMenu> 
+								<h:panelGroup>
+									<p:commandButton id="btnPesquisar" action="#{acessoUnidadeMB.gerarListaAcesso()}" value="Pesquisar"
+										style="margin-left:6%" icon=" ui-icon-search " update="consAcessoUnidade:tabelaAcesso, consultor, unidade" />
+									<p:commandButton id="btnLimpar" action="#{acessoUnidadeMB.limpar()}" value="Limpar"
+										style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
+										update="consAcessoUnidade:tabelaAcesso, consultor, unidade" />
+								</h:panelGroup>
 							</h:panelGrid>
 						</div> 
 					</p:tab> 
@@ -34,35 +60,34 @@
 				<legend id="iUsu2">
 					<b>Acessos da Unidade</b>
 				</legend>
-				<div align="right" style="width: 85%; margin-left: 8%;">
-					<p:commandButton id="btnNovo" value="Novo Acesso"
-						icon="ui-icon-plus" action="#{acessoUnidadeMB.novo()}"
-						style="font-size:12px;" />
-				</div>  
+				 
 				<br></br>
 				<div style="width: 85%; margin-left: 8%;">
 					<p:dataTable id="tabelaAcesso" value="#{acessoUnidadeMB.listaAcesso}"  var="acesso"
 						scrollable="true" scrollHeight="300"
 						style="margin-bottom:20px;font-size:11px;"> 
-						<p:column headerText="Nome" style="width:125px;">     
+						<p:column headerText="Nome" style="width:125px;text-align:left;" sortBy="#{acesso.usuario.nome}">     
 							<h:outputText value="#{acesso.usuario.nome}" />
 						</p:column>   
-						<p:column headerText="CRM" style="width:80px;">  
-							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.crm)}" />
+						<p:column headerText="Unidade" style="width:80px;text-align:left;" sortBy="#{acesso.usuario.unidadenegocio.nomerelatorio}">  
+							<h:outputText value="#{acesso.usuario.unidadenegocio.nomerelatorio}" />
 						</p:column>
-						<p:column headerText="Comissão" style="width:80px;">  
-							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.comissaoparceiros)}" />
+						<p:column headerText="CRM" style="width:50px;text-align: center;">  
+							<img src="#{acessoUnidadeMB.retornarAcesso(acesso.crm)}" style="width:20px;"/>
 						</p:column>
-						<p:column headerText="Dashboard" style="width:80px;">  
-							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.dashboard)}" />
+						<p:column headerText="Comissão" style="width:50px;text-align: center;">  
+							<img src="#{acessoUnidadeMB.retornarAcesso(acesso.comissaoparceiros)}" style="width:20px;"/>
 						</p:column>
-						<p:column headerText="Orçamento" style="width:80px;">  
-							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.consultaorcamento)}" />
+						<p:column headerText="Dashboard" style="width:50px;text-align: center;">  
+							<img src="#{acessoUnidadeMB.retornarAcesso(acesso.dashboard)}" style="width:20px;"/>
+						</p:column>
+						<p:column headerText="Orçamento" style="width:50px;text-align: center;">  
+							<img src="#{acessoUnidadeMB.retornarAcesso(acesso.consultaorcamento)}" style="width:20px;"/>
 						</p:column> 
-						<p:column headerText="Emissões" style="width:80px;">  
-							<h:outputText value="#{acessoUnidadeMB.retornarAcesso(acesso.emissaoconsulta)}" />
+						<p:column headerText="Emissões" style="width:50px;text-align: center;">  
+							<img src="#{acessoUnidadeMB.retornarAcesso(acesso.emissaoconsulta)}" style="width:20px;"/>
 						</p:column>
-						<p:column style="width:40px;text-align:left;">
+						<p:column style="width:40px;text-align:center;">
 							<p:commandLink action="#{acessoUnidadeMB.editar(acesso)}" title="Editar"
 								style="text-decoration: none">
 								<img src="../../resources/img/editaricon.png" />

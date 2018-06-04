@@ -16,18 +16,7 @@
 					<br></br>
 					<h:panelGrid columns="1" columnClasses="tamanhoavisos2">
 						<p:outputLabel value="Usuário" /> 
-						<p:selectOneMenu style="width:140px;" id="usuario"
-							value="#{cadAcessoUnidadeMB.usuario}"
-							converter="UsuarioConverter" filter="true"
-							filterMatchMode="startsWith">
-							<f:selectItem itemLabel="Selecione" itemValue="0" />
-							<f:selectItems id="idusuario"
-								value="#{cadAcessoUnidadeMB.listaUsuario}" var="usuario"
-								itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
-							<f:attribute name="listaUsuario"
-								value="#{cadAcessoUnidadeMB.listaUsuario}" />
-							<p:ajax event="change" />
-						</p:selectOneMenu>
+						<p:inputText id="consultor" size="45" value="#{cadAcessoUnidadeMB.usuario.nome}" readonly="true"/> 
 					</h:panelGrid>
 					<br></br>
 					<h:panelGrid columns="5"
