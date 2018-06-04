@@ -323,22 +323,6 @@ public class CadArquivoMB implements Serializable {
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 						}
-					}else if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
-						if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
-							AvisosFacade avisosFacade = new AvisosFacade();
-							Avisos avisos = new Avisos();
-							avisos.setData(new Date());
-							avisos.setUsuario(usuarioLogadoMB.getUsuario());
-							avisos.setImagem("Upload");
-							avisos.setLiberar(true);
-							avisos.setIdvenda(vendas.getIdvendas());
-							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
-									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
-									" | " + obs);
-							avisos.setIdunidade(0);
-							avisos = avisosFacade.salvar(avisos);
-							salvarAvisoUsuarioVinculado(avisos);
-						}
 					}
 				} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) { 
@@ -356,20 +340,26 @@ public class CadArquivoMB implements Serializable {
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 						}
-				}else if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
-					AvisosFacade avisosFacade = new AvisosFacade();
-					Avisos avisos = new Avisos();
-					avisos.setData(new Date());
-					avisos.setUsuario(usuarioLogadoMB.getUsuario());
-					avisos.setImagem("Upload");
-					avisos.setLiberar(true);
-					avisos.setIdvenda(vendas.getIdvendas());
-					avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
-							+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
-							" | " + obs);
-					avisos.setIdunidade(0);
-					avisos = avisosFacade.salvar(avisos);
-					salvarAvisoUsuarioVinculado(avisos);
+				}
+				
+				if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
+					if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
+						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) { 
+							AvisosFacade avisosFacade = new AvisosFacade();
+							Avisos avisos = new Avisos();
+							avisos.setData(new Date());
+							avisos.setUsuario(usuarioLogadoMB.getUsuario());
+							avisos.setImagem("Upload");
+							avisos.setLiberar(true);
+							avisos.setIdvenda(vendas.getIdvendas());
+							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
+									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
+									" | " + obs);
+							avisos.setIdunidade(0);
+							avisos = avisosFacade.salvar(avisos);
+							salvarAvisoUsuarioVinculado(avisos);
+						}
+					}
 				}
 			}
 			if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
@@ -1167,14 +1157,7 @@ public class CadArquivoMB implements Serializable {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		String sql = "";
 		List<Usuario> listaUsuario = null;
-		for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
-			AvisosFacade avisosFacade = new AvisosFacade();
-			Avisousuario avisousuario = new Avisousuario();
-			avisousuario.setAvisos(aviso);
-			avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
-			avisousuario.setVisto(false);
-			avisousuario = avisosFacade.salvar(avisousuario);
-		}
+		
 		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2
 				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5
 				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4
@@ -1185,12 +1168,14 @@ public class CadArquivoMB implements Serializable {
 			if (listaUsuario != null) {
 				AvisosFacade avisosFacade = new AvisosFacade();
 				for (int i = 0; i < listaUsuario.size(); i++) {
-					Avisousuario avisousuario = new Avisousuario();
-					avisousuario.setAvisos(aviso);
-					avisousuario.setUsuario(listaUsuario.get(i));
-					avisousuario.setVisto(false);
-					avisousuario = avisosFacade.salvar(avisousuario);
-					lista.add(avisousuario);
+					if (listaUsuario.get(i).getIdusuario() != 396) {
+						Avisousuario avisousuario = new Avisousuario();
+						avisousuario.setAvisos(aviso);
+						avisousuario.setUsuario(listaUsuario.get(i));
+						avisousuario.setVisto(false);
+						avisousuario = avisosFacade.salvar(avisousuario);
+						lista.add(avisousuario);
+					}
 				}
 			}
 		} else {
@@ -1206,12 +1191,14 @@ public class CadArquivoMB implements Serializable {
 				if (listaNoficacao != null) {
 					AvisosFacade avisosFacade = new AvisosFacade();
 					for (int i = 0; i < listaNoficacao.size(); i++) {
-						Avisousuario avisousuario = new Avisousuario();
-						avisousuario.setAvisos(aviso);
-						avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
-						avisousuario.setVisto(false);
-						avisousuario = avisosFacade.salvar(avisousuario);
-						lista.add(avisousuario);
+						if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396) {
+							Avisousuario avisousuario = new Avisousuario();
+							avisousuario.setAvisos(aviso);
+							avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
+							avisousuario.setVisto(false);
+							avisousuario = avisosFacade.salvar(avisousuario);
+							lista.add(avisousuario);
+						}
 					}
 				}
 			}
