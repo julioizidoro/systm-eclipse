@@ -76,10 +76,12 @@ public class RelatorioFaturaMB implements Serializable {
 		} 
 		gerarListaFaturaAjusteAtual();
 		gerarListaFaturaAtual();  
-		if(fatura.getSaldodevedor()>0){
-			btnBanco=true;
-		}else if(fatura.getSaldodevedor()<0){
-			btnComprovante=true;    
+		if (fatura != null) {
+			if(fatura.getSaldodevedor()>0){
+				btnBanco=true;
+			}else if(fatura.getSaldodevedor()<0){
+				btnComprovante=true;    
+			}
 		}
 		if(mesatual){
 			gerarListaFaturaAjusteAbertas();

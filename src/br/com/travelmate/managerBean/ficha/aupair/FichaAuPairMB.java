@@ -35,6 +35,7 @@ public class FichaAuPairMB implements Serializable{
 	private boolean habilitarSeguroViagem = false;
 	private boolean habilitarSeguroObrigatorio = true;
 	private float totalPagamento = 0.0f;
+	private boolean habilitarObservacao = false;
 	
 
 	
@@ -50,6 +51,9 @@ public class FichaAuPairMB implements Serializable{
 				habilitarCartãoVtm = true;
 			}else{
 				habilitarCartãoVtm = false;
+			}
+			if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
+				habilitarObservacao = true;
 			}
 		}
 		dataHoje = new Date();
@@ -219,5 +223,17 @@ public class FichaAuPairMB implements Serializable{
 
 	public void setTotalPagamento(float totalPagamento) {
 		this.totalPagamento = totalPagamento;
+	}
+
+
+
+	public boolean isHabilitarObservacao() {
+		return habilitarObservacao;
+	}
+
+
+
+	public void setHabilitarObservacao(boolean habilitarObservacao) {
+		this.habilitarObservacao = habilitarObservacao;
 	}
 }

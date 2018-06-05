@@ -351,7 +351,7 @@ public class ConsRecebimentoMB implements Serializable{
 	
 	public void gerarListaFornecedor(){
 		FornecedorFacade fornecedorFacade = new FornecedorFacade();
-		listaFornecedor = fornecedorFacade.listar("Select f From Fornecedor f Where f.idfornecedor>=1000");
+		listaFornecedor = fornecedorFacade.listar("Select f From Fornecedor f Where f.idfornecedor>=1000 order by f.nome");
 		if (listaFornecedor == null) {
 			listaFornecedor = new ArrayList<>();
 		}
@@ -360,7 +360,7 @@ public class ConsRecebimentoMB implements Serializable{
 	
 	public void gerarListaUsuario(){
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.tipo='Gerencial'");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.tipo='Gerencial' and u.situacao='Ativo' order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<>();
 		}

@@ -54,14 +54,14 @@
 								<f:attribute name="listaProdutos"
 									value="#{revisaoFinanceiroMB.listaProdutos}" />
 							</p:selectOneMenu>
-							<p:calendar id="idDataInicial"
+							<p:calendar id="idDataInicial" mask="true"
 								value="#{revisaoFinanceiroMB.dataInicial}" size="20"
 								 locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect" />
 							</p:calendar>  
-							<p:calendar id="idDataFinal"
+							<p:calendar id="idDataFinal" mask="true"
 								value="#{revisaoFinanceiroMB.dataFinal}" size="20"
 								 locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
