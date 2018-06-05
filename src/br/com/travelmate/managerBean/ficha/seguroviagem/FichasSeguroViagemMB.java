@@ -31,6 +31,7 @@ public class FichasSeguroViagemMB implements Serializable{
 	private int diaSemana;
 	private float valorTotalMoeda = 0.0f;
 	private boolean habilitarSegundoCurso = false;
+	private boolean habilitarObservacao = false;
 	
 
 	
@@ -46,6 +47,9 @@ public class FichasSeguroViagemMB implements Serializable{
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje); 
+		if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
+			habilitarObservacao = true;
+		}
 	}
 
 
@@ -136,6 +140,18 @@ public class FichasSeguroViagemMB implements Serializable{
 	}
 	
 	
+	public boolean isHabilitarObservacao() {
+		return habilitarObservacao;
+	}
+
+
+
+	public void setHabilitarObservacao(boolean habilitarObservacao) {
+		this.habilitarObservacao = habilitarObservacao;
+	}
+
+
+
 	public String verificacaoSeguroCancelamento(boolean seguroCancelamento) {
 		if (seguroCancelamento) {
 			return "Sim";

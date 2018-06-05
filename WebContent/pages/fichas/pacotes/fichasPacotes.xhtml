@@ -296,6 +296,10 @@
 				informações acima preenchidas, as quais servirão de base para a
 				elaboração de competente Contrato de Prestação de Serviços em anexo.</p>
 		</h:panelGrid>
+		<br/>
+		<h:panelGrid style="border: 1.5px solid;width:100%;border-color:#9C9C9C;" rendered="#{fichaPacotesMB.habilitarObservacao}">
+			<p style="margin:1%;">Observação: #{fichaPacotesMB.vendas.formapagamento.observacoes}</p>
+		</h:panelGrid> 
 		<br/><br/><br/><br/>
 		<hr width="80%"  align="left"/>
 		<p>Assinatura do(a)  #{fichaPacotesMB.vendas.cliente.nome} - CPF: #{fichaPacotesMB.vendas.cliente.cpf}</p>

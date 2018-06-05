@@ -426,6 +426,10 @@
 			referentes ao programa de seu interesse.
 			Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
 		</h:panelGrid>
+		<br/>
+		<h:panelGrid style="border: 1.5px solid;width:100%;border-color:#9C9C9C;" rendered="#{fichaHighSchoolMB.habilitarObservacao}">
+			<p style="margin:1%;">Observação: #{fichaHighSchoolMB.vendas.formapagamento.observacoes}</p>
+		</h:panelGrid> 
 		<br/><br/><br/><br/><br />
 		<hr width="80%"  align="left"/>
 		<p>Assinatura do(a)  #{fichaHighSchoolMB.vendas.cliente.nome} - CPF: #{fichaHighSchoolMB.vendas.cliente.cpf}</p>

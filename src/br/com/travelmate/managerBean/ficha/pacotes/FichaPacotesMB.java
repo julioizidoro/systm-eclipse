@@ -60,6 +60,7 @@ public class FichaPacotesMB implements Serializable{
 	private boolean transfer = false;
 	private boolean treem = false;
 	private boolean circuito = false;
+	private boolean habilitarObservacao = false;
 
 	
 	@PostConstruct
@@ -78,6 +79,9 @@ public class FichaPacotesMB implements Serializable{
 		itensTrecho = gerarDescricaoTrecho(pacotes);
 		if (vendas.getFormapagamento() != null) {
 			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+		}
+		if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
+			habilitarObservacao = true;
 		}
 	}
 
@@ -357,6 +361,18 @@ public class FichaPacotesMB implements Serializable{
 
 	public void setCircuito(boolean circuito) {
 		this.circuito = circuito;
+	}
+
+
+
+	public boolean isHabilitarObservacao() {
+		return habilitarObservacao;
+	}
+
+
+
+	public void setHabilitarObservacao(boolean habilitarObservacao) {
+		this.habilitarObservacao = habilitarObservacao;
 	}
 
 

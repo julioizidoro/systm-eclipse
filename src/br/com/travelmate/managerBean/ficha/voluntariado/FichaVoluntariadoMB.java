@@ -36,6 +36,7 @@ public class FichaVoluntariadoMB implements Serializable{
 	private boolean habilitarSeguroViagem = false;
 	private boolean habilitarSeguroObrigatorio = true;
 	private float totalPagamento = 0.0f;
+	private boolean habilitarObservacao = false;
 	
 
 	
@@ -60,6 +61,9 @@ public class FichaVoluntariadoMB implements Serializable{
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		if (vendas.getFormapagamento() != null) {
 			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+		}
+		if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
+			habilitarObservacao = true;
 		}
 	}
 
@@ -219,6 +223,18 @@ public class FichaVoluntariadoMB implements Serializable{
 
 	public void setTotalPagamento(float totalPagamento) {
 		this.totalPagamento = totalPagamento;
+	}
+
+
+
+	public boolean isHabilitarObservacao() {
+		return habilitarObservacao;
+	}
+
+
+
+	public void setHabilitarObservacao(boolean habilitarObservacao) {
+		this.habilitarObservacao = habilitarObservacao;
 	}
 
 }
