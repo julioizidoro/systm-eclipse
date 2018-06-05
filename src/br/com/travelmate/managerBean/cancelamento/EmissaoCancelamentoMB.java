@@ -83,6 +83,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 	private String pinCambio;
 	private boolean habilitarPin = false;
 	private List<Cancelamento> listaCancelamento;
+	private boolean habilitarSalvar = true;
 
 	@PostConstruct
 	public void init() {
@@ -461,31 +462,36 @@ public class EmissaoCancelamentoMB implements Serializable {
 	}
 
 	public String confirmar() {
-		CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
-		boolean situacao = calcularMultaCancelamentoBean.verifcarValorCreditoReembolso(cancelamento);
-		if (situacao) {
-			CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
-			VendasFacade vendasFacade = new VendasFacade();
-			cancelamento.setUploadtermo(false);
-			cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
-			cancelamento = cancelamentoFacade.salvar(cancelamento);
-			if (novoCancelamento) {
-				salvarCredito();
+		if(habilitarSalvar) {
+			CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
+			boolean situacao = calcularMultaCancelamentoBean.verifcarValorCreditoReembolso(cancelamento);
+			if (situacao) {
+				CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+				VendasFacade vendasFacade = new VendasFacade();
+				cancelamento.setUploadtermo(false);
+				cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
+				cancelamento = cancelamentoFacade.salvar(cancelamento);
+				if (novoCancelamento) {
+					salvarCredito();
+				}
+				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), true);
+				vendas.setSituacao("CANCELADA");
+				vendasFacade.salvar(vendas);
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				if (listaCancelamento != null && listaCancelamento.size() > 0) {
+					session.setAttribute("listaCancelamento", listaCancelamento);
+				}
+				Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
+				return voltar;
+			} else {
+				Mensagem.lancarMensagemWarn("Cancelamento", "Valor Crédito + Valor Remebolso maior que Total Reembolso");
+				return "";
 			}
-			productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), true);
-			vendas.setSituacao("CANCELADA");
-			vendasFacade.salvar(vendas);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			if (listaCancelamento != null && listaCancelamento.size() > 0) {
-				session.setAttribute("listaCancelamento", listaCancelamento);
-			}
-			Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
-			return voltar;
-		} else {
-			Mensagem.lancarMensagemWarn("Cancelamento", "Valor Crédito + Valor Remebolso maior que Total Reembolso");
-			return "";
+		}else {
+			Mensagem.lancarMensagemInfo("Informe ou cancele o PIN", "");
 		}
+		return "";
 	}
 
 	public void salvarCredito() {
@@ -660,6 +666,10 @@ public class EmissaoCancelamentoMB implements Serializable {
 			}
 			cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
 		}
+
+		if (cancelamento.getMultacliente() != null) {
+			valorOriginalMulta = cancelamento.getMultacliente();
+		}
 	}
 
 	public void escolherReembolsoCredito() {
@@ -726,6 +736,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 			session.removeAttribute("valorOriginal");
 			cancelamento.setMultacliente(valorOriginal);
 		}
+		habilitarSalvar = true;
 	}
 	
 	
@@ -757,6 +768,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 	public void fecharPin() {
 		cancelamento.setMultacliente(valorOriginalMulta);
 		habilitarPin = false;
+		habilitarSalvar = true;
 	}
 	
 	public void verificarNovaMulta() {
@@ -764,6 +776,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 			float valorMulta = cancelamento.getMultacliente();
 			if (valorMulta != valorOriginalMulta) {
 				habilitarPin = true;
+				habilitarSalvar = false;
 			}
 		}
 	}
