@@ -750,6 +750,7 @@ public class EmissaoCancelamentoMB implements Serializable {
             salvarPinCambio(pincambio);
             valorOriginalMulta = cancelamento.getMultacliente();
             habilitarPin = false;
+            habilitarSalvar = true;
             CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
             cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
             calcularValoresRecebidosPin();
