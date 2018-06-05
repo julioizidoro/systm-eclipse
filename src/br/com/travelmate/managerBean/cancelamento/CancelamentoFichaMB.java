@@ -304,7 +304,6 @@ public class CancelamentoFichaMB implements Serializable {
 					venda = vendasFacade.salvar(venda);
 				}
 				metaRunnersMB.carregarListaRunners();
-				emitirNotificacao();
 	
 				if ((venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) || 
 						(venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado())) {
