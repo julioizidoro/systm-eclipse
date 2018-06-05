@@ -30,6 +30,7 @@ import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CreditoFacade;
+import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
@@ -41,6 +42,7 @@ import br.com.travelmate.model.Cancelamentocredito;
 import br.com.travelmate.model.Condicaocancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Pincambio;
@@ -482,6 +484,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 				if (listaCancelamento != null && listaCancelamento.size() > 0) {
 					session.setAttribute("listaCancelamento", listaCancelamento);
 				}
+				emitirNotificacao();
 				Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
 				return voltar;
 			} else {
@@ -779,6 +782,26 @@ public class EmissaoCancelamentoMB implements Serializable {
 				habilitarPin = true;
 				habilitarSalvar = false;
 			}
+		}
+	}
+	
+	public void emitirNotificacao() {
+		String vm = "Venda pela Matriz";
+		if (cancelamento.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade.listar("select d From Departamento d where d.usuario.idusuario="+cancelamento.getVendas().getProdutos().getIdgerente());
+		if(departamento!=null && departamento.size()>0){
+			Formatacao.gravarNotificacaoVendas(
+					"Solicitação de Cancelamento Ficha No. " + String.valueOf(cancelamento.getVendas().getIdvendas()),
+					usuarioLogadoMB.getUsuario().getUnidadenegocio(),
+					cancelamento.getVendas().getCliente().getNome(),
+					cancelamento.getVendas().getFornecedorcidade().getFornecedor().getNome(), "",
+					cancelamento.getUsuario().getNome(), vm, cancelamento.getVendas().getValor(),
+					cancelamento.getVendas().getCambio().getValor(),
+					cancelamento.getVendas().getCambio().getMoedas().getSigla(), "A",
+					departamento.get(0), "cancelado", "I");
 		}
 	}
 
