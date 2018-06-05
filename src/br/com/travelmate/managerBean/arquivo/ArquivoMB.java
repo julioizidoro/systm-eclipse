@@ -24,6 +24,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.ArquivosKitViagemFacade;
 import br.com.travelmate.facade.AvisosFacade;
@@ -74,6 +75,15 @@ public class ArquivoMB implements Serializable {
 	private boolean desabilitarEdicaoArquivo = true;
 	private List<Tipoarquivo> listaArquivosS;
 	private Tipoarquivo tipoarquivoS;
+	private List<ListaHeBean> listaProcesso;
+	private List<ListaHeBean> listaFinanceiro;
+	private List<ListaHeBean> listaAndamento;
+	private List<ListaHeBean> listaFinalizar;
+	private List<ListaHeBean> listaCancelada;
+	private String pesquisar;
+	private String nomePrograma;
+	private String chamadaTela = "";
+	private List<ListaHeBean> listaHe;
 
 	@PostConstruct
 	public void init() {
@@ -100,6 +110,26 @@ public class ArquivoMB implements Serializable {
 					ArquivosKitViagemFacade arquivosKitViagemFacade = new ArquivosKitViagemFacade();
 					kitViagem = arquivosKitViagemFacade.salvar(kitViagem);
 					vendas.setArquivoskitviagem(kitViagem);
+				}
+				if (vendas.getProdutos().getIdprodutos() == 22) {
+					pesquisar = (String) session.getAttribute("pesquisar");
+					listaProcesso = (List<ListaHeBean>) session.getAttribute("listaProcesso");
+					listaFinanceiro = (List<ListaHeBean>) session.getAttribute("listaFinanceiro");
+					listaAndamento = (List<ListaHeBean>) session.getAttribute("listaAndamento");
+					listaFinalizar = (List<ListaHeBean>) session.getAttribute("listaFinalizar");
+					listaCancelada = (List<ListaHeBean>) session.getAttribute("listaCancelada");
+					nomePrograma = (String) session.getAttribute("nomePrograma");
+					chamadaTela = (String) session.getAttribute("chamadaTela");
+					listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
+					session.removeAttribute("listaAndamento");
+					session.removeAttribute("listaFinalizar");
+					session.removeAttribute("listaProcesso");
+					session.removeAttribute("listaFinanceiro");
+					session.removeAttribute("listaCancelada");
+					session.removeAttribute("pesquisar");
+					session.removeAttribute("nomePrograma");
+					session.removeAttribute("chamadaTela");
+					session.removeAttribute("listaHe");
 				}
 			} else {
 				listarArquivos = new ArrayList<Arquivos>();
@@ -193,6 +223,70 @@ public class ArquivoMB implements Serializable {
 
 	public void setTipoarquivoS(Tipoarquivo tipoarquivoS) {
 		this.tipoarquivoS = tipoarquivoS;
+	}
+
+	public UsuarioLogadoMB getUsuarioLogadoMB() {
+		return usuarioLogadoMB;
+	}
+
+	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
+		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	public List<ListaHeBean> getListaProcesso() {
+		return listaProcesso;
+	}
+
+	public void setListaProcesso(List<ListaHeBean> listaProcesso) {
+		this.listaProcesso = listaProcesso;
+	}
+
+	public List<ListaHeBean> getListaFinanceiro() {
+		return listaFinanceiro;
+	}
+
+	public void setListaFinanceiro(List<ListaHeBean> listaFinanceiro) {
+		this.listaFinanceiro = listaFinanceiro;
+	}
+
+	public List<ListaHeBean> getListaAndamento() {
+		return listaAndamento;
+	}
+
+	public void setListaAndamento(List<ListaHeBean> listaAndamento) {
+		this.listaAndamento = listaAndamento;
+	}
+
+	public List<ListaHeBean> getListaFinalizar() {
+		return listaFinalizar;
+	}
+
+	public void setListaFinalizar(List<ListaHeBean> listaFinalizar) {
+		this.listaFinalizar = listaFinalizar;
+	}
+
+	public List<ListaHeBean> getListaCancelada() {
+		return listaCancelada;
+	}
+
+	public void setListaCancelada(List<ListaHeBean> listaCancelada) {
+		this.listaCancelada = listaCancelada;
+	}
+
+	public String getPesquisar() {
+		return pesquisar;
+	}
+
+	public void setPesquisar(String pesquisar) {
+		this.pesquisar = pesquisar;
+	}
+
+	public String getNomePrograma() {
+		return nomePrograma;
+	}
+
+	public void setNomePrograma(String nomePrograma) {
+		this.nomePrograma = nomePrograma;
 	}
 
 	public void gerarListaArquivos() {
@@ -374,6 +468,19 @@ public class ArquivoMB implements Serializable {
 	}
 
 	public String voltarTela() {
+		if (vendas.getProdutos().getIdprodutos() == 22) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("pesquisar", "Sim");
+			session.setAttribute("nomePrograma", "He");
+			session.setAttribute("listaAndamento", listaAndamento);
+			session.setAttribute("listaCancelada", listaCancelada);
+			session.setAttribute("listaFinalizar", listaFinalizar);
+			session.setAttribute("listaFinanceiro", listaFinanceiro);
+			session.setAttribute("listaProcesso", listaProcesso);
+			session.setAttribute("chamadaTela", chamadaTela);
+			session.setAttribute("listaHe", listaHe);
+		}
 		return voltar;
 	}
 

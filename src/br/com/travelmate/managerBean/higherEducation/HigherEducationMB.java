@@ -100,6 +100,7 @@ public class HigherEducationMB implements Serializable {
 		listaCancelada = (List<ListaHeBean>) session.getAttribute("listaCancelada");
 		nomePrograma = (String) session.getAttribute("nomePrograma");
 		chamadaTela = (String) session.getAttribute("chamadaTela");
+		listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
 		session.removeAttribute("listaAndamento");
 		session.removeAttribute("listaFinalizar");
 		session.removeAttribute("listaProcesso");
@@ -108,6 +109,7 @@ public class HigherEducationMB implements Serializable {
 		session.removeAttribute("pesquisar");
 		session.removeAttribute("nomePrograma");
 		session.removeAttribute("chamadaTela");
+		session.removeAttribute("listaHe");
 		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
 			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("He")) {
 				pesquisar = "Sim";
@@ -125,6 +127,8 @@ public class HigherEducationMB implements Serializable {
 			}
 			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
 				gerarListaHe();
+			}else {
+				gerarQuantidadesFichas();
 			}
 		}
 	}
@@ -859,6 +863,7 @@ public class HigherEducationMB implements Serializable {
 		session.setAttribute("pesquisar", pesquisar);
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("chamadaTela", "He");
+		session.setAttribute("listaHe", listaHe);
 		return "fichaHE";
 	}
 	
@@ -874,6 +879,7 @@ public class HigherEducationMB implements Serializable {
 		session.setAttribute("pesquisar", pesquisar);
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("chamadaTela", "He");
+		session.setAttribute("listaHe", listaHe);
 		return "contratoHE";
 	}
 	
@@ -901,6 +907,15 @@ public class HigherEducationMB implements Serializable {
 		if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
 			session.setAttribute("vendas1", listaHeBean.getHe().getVendas1());
 		}
+		session.setAttribute("pesquisar", "Sim");
+		session.setAttribute("nomePrograma", "He");
+		session.setAttribute("listaAndamento", listaAndamento);
+		session.setAttribute("listaCancelada", listaCancelada);
+		session.setAttribute("listaFinalizar", listaFinalizar);
+		session.setAttribute("listaFinanceiro", listaFinanceiro);
+		session.setAttribute("listaProcesso", listaProcesso);
+		session.setAttribute("chamadaTela", "fichaHE");
+		session.setAttribute("listaHe", listaHe);
 		String voltar = "consquestionarioHe";
 		session.setAttribute("voltar", voltar);
 		return "consArquivos"; 
