@@ -110,6 +110,7 @@ public class FollowUpMB implements Serializable {
 	private boolean campoVoluntariado = false;
 	private Pais paisConsulta;
 	private List<Pais> listaPaisConsulta;
+	private String volta = "";
 
 	@PostConstruct()
 	public void init() {
@@ -1276,6 +1277,7 @@ public class FollowUpMB implements Serializable {
 		}else{
 			session.setAttribute("cliente", lead.getCliente());
 			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+				session.setAttribute("voltar", "followUp");
 				return "cadCliente";
 			}else {
 				return "questionarioHe";

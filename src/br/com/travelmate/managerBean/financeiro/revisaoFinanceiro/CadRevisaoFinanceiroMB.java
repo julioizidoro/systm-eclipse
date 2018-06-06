@@ -577,11 +577,6 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			return false;
 		}
 
-		if (venda.getOrcamento() == null || venda.getOrcamento().getIdorcamento() == null) {
-			Mensagem.lancarMensagemInfo("LIBERAÇÃO NEGADA", "Venda sem orçamento");
-			return false;
-		}
-
 
 		if (venda.getFornecedor() == null || venda.getFornecedor().getIdfornecedor() == null) {
 			Mensagem.lancarMensagemInfo("LIBERAÇÃO NEGADA", "Venda sem fornecedor");

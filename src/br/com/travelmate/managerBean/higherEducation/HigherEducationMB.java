@@ -1125,14 +1125,15 @@ public class HigherEducationMB implements Serializable {
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
+			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null && listaHeBean.getHe()!=null && !listaHeBean.getHe().getVendas1().getSituacao().equalsIgnoreCase("CANCELADA")){
 				session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
 			}else {
 				session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
 			}
 			session.setAttribute("voltar", "consquestionarioHe");
 			return "emissaocancelamento";
-		}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO") 
+				|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
 			VendasFacade vendasFacade = new VendasFacade();
 			listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
 			vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());

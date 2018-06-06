@@ -746,7 +746,7 @@ public class CursosTeensMB implements Serializable {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("vendas", venda);
-			session.setAttribute("voltar", "consultaProgramasTeens");
+			session.setAttribute("voltar", "cursosTeens");
 			return "emissaocancelamento";
 		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			VendasFacade vendasFacade = new VendasFacade();

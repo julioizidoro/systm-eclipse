@@ -467,6 +467,7 @@ public class HistoricoClienteMB implements Serializable {
 		}else{
 			session.setAttribute("cliente", lead.getCliente());
 			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+				session.setAttribute("voltar", "followUp");
 				return "cadCliente";
 			}else {
 				return "questionarioHe";

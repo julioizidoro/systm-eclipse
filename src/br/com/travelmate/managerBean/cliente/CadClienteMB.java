@@ -48,6 +48,7 @@ public class CadClienteMB implements Serializable {
 	private Lead lead;
 	private List<Cliente> listaCliente;
 	private String tipo;
+	private String voltar = "";
 
 	@PostConstruct
 	public void init() {
@@ -58,10 +59,12 @@ public class CadClienteMB implements Serializable {
 			lead = (Lead) session.getAttribute("lead");
 			tipo = (String) session.getAttribute("tipo");
 			listaCliente =  (List<Cliente>) session.getAttribute("listaCliente");
+			voltar = (String) session.getAttribute("voltar");
 			session.removeAttribute("listaCliente");
 			session.removeAttribute("lead");
 			session.removeAttribute("cliente");
 			session.removeAttribute("tipo");
+			session.removeAttribute("voltar");
 			if (cliente == null) {
 				cliente = new Cliente();
 				publicidade = new Publicidade();
@@ -251,6 +254,9 @@ public class CadClienteMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("listaCliente", listaCliente);
+		if (voltar != null && voltar.length() > 0) {
+			return voltar;
+		}
 		return "consCliente";
 	}
 
