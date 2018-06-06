@@ -86,7 +86,7 @@ public class FichaCursoMB implements Serializable{
 			}else {
 				habilitarSeguroViagem = false;
 			}
-			if (vendas.getFormapagamento() != null && vendas.getFormapagamento().getObservacoes() != null) {
+			if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
 				habilitarObservacao = true;
 			}
 		}
