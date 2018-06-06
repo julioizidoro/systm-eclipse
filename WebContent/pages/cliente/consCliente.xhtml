@@ -45,8 +45,8 @@
 					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
 					
 					<p:column headerText="Nome" style="text-align:left;" >
-						<h:commandLink value="#{cliente.nome}"
-							action="#{consultaClienteMB.selecionarCliente(cliente)}" />
+						<h:outputText value="#{cliente.nome}"
+							  />
 					</p:column>
 					<p:column headerText="Data Nascimento"
 						style="width:150px;text-align:left;">
