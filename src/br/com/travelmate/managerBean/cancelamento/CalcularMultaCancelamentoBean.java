@@ -112,6 +112,12 @@ public class CalcularMultaCancelamentoBean {
 	}
 	
 	public Cancelamento calcularTotais(Cancelamento cancelamento){
+		if (cancelamento.getTotalrecebidomatriz() == null) {
+			cancelamento.setTotalrecebidomatriz(0.0f);
+		}
+		if (cancelamento.getTotalrecebidoloja() == null) {
+			cancelamento.setTotalrecebidoloja(0.0f);
+		}
 		float totalRecebimento = cancelamento.getTotalrecebidomatriz() + cancelamento.getTotalrecebidoloja();
 		cancelamento.setTotalrecebido(totalRecebimento);
 		float totalreembolso = cancelamento.getTotalrecebido() - cancelamento.getMultacliente();
