@@ -77,6 +77,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 	private boolean imprimirCapa;
 	private Lead lead;
 	private String funcao;
+	private boolean botaoHistorico = false;
 
 	@PostConstruct
 	public void init() {
@@ -105,6 +106,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		funcao = (String) session.getAttribute("funcao");
 		session.removeAttribute("lead");
 		session.removeAttribute("funcao");
+		botaoHistorico = verificarLead();
 	}
 
 	public List<Ocurso> getListaOcurso() {
@@ -208,6 +210,14 @@ public class ConsultaOrcamentoMB implements Serializable {
 
 	public void setImprimirCapa(boolean imprimirCapa) {
 		this.imprimirCapa = imprimirCapa;
+	}
+
+	public boolean isBotaoHistorico() {
+		return botaoHistorico;
+	}
+
+	public void setBotaoHistorico(boolean botaoHistorico) {
+		this.botaoHistorico = botaoHistorico;
 	}
 
 	public void gerarListaOrcamento() {
@@ -751,6 +761,14 @@ public class ConsultaOrcamentoMB implements Serializable {
 			}
 		}
 		return "";
+	}
+	
+	
+	public boolean verificarLead() {
+		if (lead != null && lead.getIdlead() != null) {
+			return true;
+		}
+		return false;
 	}
 
 	public void copiarLink(Ocurso ocurso) {

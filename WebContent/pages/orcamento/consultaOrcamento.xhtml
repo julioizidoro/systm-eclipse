@@ -90,7 +90,7 @@
 						oncomplete="PF('orcamentocomparativo').show()" 
 						title="Comparar dois ou três orçamentos" >
 				</p:commandButton>	 
-				<p:commandButton id="bntLead" icon="ui-icon-calendar"
+				<p:commandButton id="bntLead" icon="ui-icon-calendar" rendered="#{consultaOrcamentoMB.botaoHistorico}"
 						style="font-size:12px;margin-right:1%" value="Histórico Lead"
 						action="#{consultaOrcamentoMB.retornaHistoricoLead}" title="Retornar para Histórico da Lead" >
 				</p:commandButton>	 
