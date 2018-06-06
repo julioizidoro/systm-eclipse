@@ -50,75 +50,77 @@
 	<div align="justify"
 		style="font-family: sans-serif; font-size: 13px; width: 100%;">
 		
-		<h:panelGrid style="border: 1.2px solid;width:97%;border-color:#9C9C9C;">
+		
+		
+		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup><b>Nome:</b> #{fichaCursosTeensMB.programasteens.vendas.cliente.nome}</h:panelGroup>
+				<h:panelGroup><b>Nome:</b> #{fichaCursosTeensMB.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{fichaCursosTeensMB.programasteens.vendas.cliente.dataNascimento}">
+						value="#{fichaCursosTeensMB.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup><b>Sexo:</b> #{fichaCursosTeensMB.programasteens.vendas.cliente.sexo}</h:panelGroup>
+				<h:panelGroup><b>Sexo:</b> #{fichaCursosTeensMB.vendas.cliente.sexo}</h:panelGroup>
 				<h:panelGroup>   
-					<b>Local de Nascimento:</b> #{fichaCursosTeensMB.programasteens.vendas.cliente.cidadeNascimento}, #{fichaCursosTeensMB.programasteens.vendas.cliente.paisNascimento}
+					<b>Local de Nascimento:</b> #{fichaCursosTeensMB.vendas.cliente.cidadeNascimento}, #{fichaCursosTeensMB.vendas.cliente.paisNascimento}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>RG: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.rg}
+					<b>RG: </b> #{fichaCursosTeensMB.vendas.cliente.rg}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>CPF: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.cpf}
+					<b>CPF: </b> #{fichaCursosTeensMB.vendas.cliente.cpf}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Passaporte: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.numeroPassaporte}
+					<b>Passaporte: </b> #{fichaCursosTeensMB.vendas.cliente.numeroPassaporte}
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Expedição: </b>  <h:outputText
-						value="#{fichaCursosTeensMB.programasteens.vendas.cliente.dataExpedicaoPassaporte}">
+						value="#{fichaCursosTeensMB.vendas.cliente.dataExpedicaoPassaporte}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Validade: </b>  <h:outputText
-						value="#{fichaCursosTeensMB.programasteens.vendas.cliente.validadePassaporte}">
+					<b>Validade: </b> <h:outputText
+						value="#{fichaCursosTeensMB.vendas.cliente.validadePassaporte}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Endereço: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.tipologradouro} #{fichaCursosTeensMB.programasteens.vendas.cliente.logradouro} , #{fichaCursosTeensMB.programasteens.vendas.cliente.numero}
+					<b>Endereço: </b> #{fichaCursosTeensMB.vendas.cliente.tipologradouro} #{fichaCursosTeensMB.vendas.cliente.logradouro} , #{fichaCursosTeensMB.vendas.cliente.numero}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Bairro: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Bairro: </b> #{fichaCursosTeensMB.vendas.cliente.bairro}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Complemento: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Complemento: </b> #{fichaCursosTeensMB.vendas.cliente.complemento}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>CEP: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>CEP: </b> #{fichaCursosTeensMB.vendas.cliente.cep}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Cidade/Estado: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Cidade/Estado: </b> #{fichaCursosTeensMB.vendas.cliente.cidade} , #{fichaCursosTeensMB.vendas.cliente.estado}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Pais: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Pais: </b> #{fichaCursosTeensMB.vendas.cliente.pais}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Fone Res.: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Fone Res.: </b> #{fichaCursosTeensMB.vendas.cliente.foneResidencial}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Fone Celular: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Fone Celular: </b> #{fichaCursosTeensMB.vendas.cliente.foneCelular}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Email: </b> #{fichaCursosTeensMB.programasteens.vendas.cliente.escolaridade}
+					<b>Email: </b> #{fichaCursosTeensMB.vendas.cliente.email}
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Camiseta: </b> #{fichaCursosTeensMB.programasteens.tamanhocamisa}
 				</h:panelGroup>
 			</h:panelGrid>   
-
+  
 		</h:panelGrid>
 		
 		<br/>
