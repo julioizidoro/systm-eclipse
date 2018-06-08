@@ -628,7 +628,7 @@ public class CadHighSchoolMB implements Serializable {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, Formatacao.ConvercaoStringData(highschool.getDataInicio()));
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, highschool.getValoreshighschool().getDatainicio());
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
