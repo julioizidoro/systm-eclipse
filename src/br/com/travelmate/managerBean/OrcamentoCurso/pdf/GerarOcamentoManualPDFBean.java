@@ -282,7 +282,7 @@ public class GerarOcamentoManualPDFBean {
 				o.setValorrs("R$ " + Formatacao
 						.formatarFloatString(lista.get(i).getValorMoedaNacional()));
 				o.setIdgrupo(2);
-				o.setTituloLista("ACOMODAÇÃO");
+				o.setTituloLista("ACOMODAÇÃO - " + orcamentoCurso.getFornecedor().getNome());
 				this.lista.add(o);
 				totalAcMe = totalAcMe + lista.get(i).getValorMoedaEstrangeira();
 				totalAcRs = totalAcRs + lista.get(i).getValorMoedaNacional();

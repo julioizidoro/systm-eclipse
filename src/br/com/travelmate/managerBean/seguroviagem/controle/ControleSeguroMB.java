@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
@@ -23,10 +22,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.ControleSeguroFacade;
 import br.com.travelmate.facade.CursoFacade;
-import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -34,8 +31,6 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;

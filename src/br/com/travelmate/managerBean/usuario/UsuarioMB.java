@@ -215,12 +215,12 @@ public class UsuarioMB implements Serializable {
             UnidadeBean unidade = new UnidadeBean();
             TokenBean token = new TokenBean();
             usuarioBean.setCelular(usuario.getUnidadenegocio().getFone());
-            usuarioBean.setCodigosystm(usuario.getIdusuario());
+            usuarioBean.setCodigosystm(String.valueOf(usuario.getIdusuario()));
             usuarioBean.setDatanascimento(usuario.getDataaniversario());
             usuarioBean.setEmail(usuario.getEmail());
             usuarioBean.setNome(usuario.getNome());
             usuarioBean.setSenha("");
-            unidade.setCodigosystm(usuario.getUnidadenegocio().getIdunidadeNegocio());
+            unidade.setCodigosystm(String.valueOf(usuario.getUnidadenegocio().getIdunidadeNegocio()));
             unidade.setUsuario(usuarioBean);
             token.setToken("30%GEO&PORT@uX18>");
             token.setUnidade(unidade);
@@ -265,8 +265,8 @@ public class UsuarioMB implements Serializable {
             UsuarioBean usuarioBean = new UsuarioBean();
             UnidadeBean unidadeBean = new UnidadeBean();
             TokenBean token = new TokenBean();
-            usuarioBean.setCodigosystm(usuarioSystm.getIdusuario());
-            unidadeBean.setCodigosystm(usuarioSystm.getUnidadenegocio().getIdunidadeNegocio());
+            usuarioBean.setCodigosystm(String.valueOf(usuarioSystm.getIdusuario()));
+            unidadeBean.setCodigosystm(String.valueOf(usuarioSystm.getUnidadenegocio().getIdunidadeNegocio()));
             unidadeBean.setUsuario(usuarioBean);
             token.setToken("30%GEO&PORT@uX18>");
             token.setUnidade(unidadeBean);
@@ -312,8 +312,8 @@ public class UsuarioMB implements Serializable {
             UsuarioBean usuarioBean = new UsuarioBean();
             UnidadeBean unidadeBean = new UnidadeBean();
             TokenBean token = new TokenBean();
-            usuarioBean.setCodigosystm(usuarioSystm.getIdusuario());
-            unidadeBean.setCodigosystm(usuarioSystm.getUnidadenegocio().getIdunidadeNegocio());
+            usuarioBean.setCodigosystm(String.valueOf(usuarioSystm.getIdusuario()));
+            unidadeBean.setCodigosystm(String.valueOf(usuarioSystm.getUnidadenegocio().getIdunidadeNegocio()));
             unidadeBean.setUsuario(usuarioBean);
             token.setToken("30%GEO&PORT@uX18>");
             token.setUnidade(unidadeBean);

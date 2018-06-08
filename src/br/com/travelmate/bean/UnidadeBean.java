@@ -5,7 +5,7 @@ import java.util.List;
 public class UnidadeBean {
 	
 	
-	private int codigosystm;
+	private String codigosystm;
 	private UsuarioBean usuario;
 	private String documento;
     private String documentotipo;
@@ -20,13 +20,15 @@ public class UnidadeBean {
     private String bairro;
     private String cep;
     private String email;
-    private List<TelefoneBean> telefone;
+    private TelefoneBean telefone;
 	
 	
-	public int getCodigosystm() {
+	
+    
+	public String getCodigosystm() {
 		return codigosystm;
 	}
-	public void setCodigosystm(int codigosystm) {
+	public void setCodigosystm(String codigosystm) {
 		this.codigosystm = codigosystm;
 	}
 	public UsuarioBean getUsuario() {
@@ -113,12 +115,13 @@ public class UnidadeBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public List<TelefoneBean> getTelefone() {
+	public TelefoneBean getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(List<TelefoneBean> telefone) {
+	public void setTelefone(TelefoneBean telefone) {
 		this.telefone = telefone;
 	}
+	
 	
 
 	
