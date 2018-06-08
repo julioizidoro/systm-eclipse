@@ -1024,6 +1024,17 @@ public class AuPairMB implements Serializable {
 		session.setAttribute("chamadaTela", "Aupair");
 		return "contratoAuPair";
 	}
+	
+
+	
+//	public String documentacao(Aupair aupair) {
+//		FacesContext fc = FacesContext.getCurrentInstance();
+//		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//		session.setAttribute("vendas", aupair.getVendas());
+//		voltar = "consultaAuPair";
+//		session.setAttribute("voltar", voltar);
+//		return "consArquivo";
+//	}
 
 
 }
