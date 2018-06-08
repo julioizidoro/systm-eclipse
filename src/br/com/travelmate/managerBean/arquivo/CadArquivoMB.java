@@ -24,7 +24,6 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
@@ -32,8 +31,10 @@ import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.LeadPosVendaFacade;
+import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
@@ -46,10 +47,8 @@ import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.aupair.FinalizarMB;
-import br.com.travelmate.managerBean.trainee.FinalizarTraineeMB;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
@@ -57,12 +56,13 @@ import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Controlework;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Leadposvenda;
+import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Regravenda;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Tipoarquivoproduto;
@@ -540,6 +540,10 @@ public class CadArquivoMB implements Serializable {
 				finalizarVoluntariado();
 			}else if(idProduto == 20) {
 				finalizarDemiPair();
+			}else if(idProduto == 4) {
+				finalizarHighSchool();
+			}else if(idProduto == 5) {
+				finalizarTeens();
 			}
 			vendas.setSituacaogerencia("F");
 			if (vendas.getPontoescola() == 0) {
@@ -628,6 +632,20 @@ public class CadArquivoMB implements Serializable {
 		Demipair demipair = demipairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarDemipair(demipair);
+	}
+	
+	public void finalizarHighSchool() {
+		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
+		Highschool highschool = highSchoolFacade.consultarHighschool(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarHighSchool(highschool);
+	}
+	
+	public void finalizarTeens() {
+		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
+		Programasteens programasteens = programasTeensFacede.find(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarTeens(programasteens);
 	}
 
 	public void verificarDocumentosHE() {
