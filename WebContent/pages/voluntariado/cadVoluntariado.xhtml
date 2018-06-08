@@ -1325,7 +1325,7 @@
 				<p class="botaocadpacote">
 					<br></br>
 					<p:commandButton class="imagemm" icon="ui-icon-check"
-						value="Confirmar" onclick="PF('cd').show();" />
+						value="Confirmar" action="#{cadVoluntariadoMB.finalizarficha()}" update="cadVoluntariado:growl" />
 					<p:commandButton class="espacocampos" icon="ui-icon-close"
 						value="Cancelar" action="#{cadVoluntariadoMB.cancelarCadastro()}"></p:commandButton>
 					<p:dialog showEffect="fade" hideEffect="fade" header="Confirmação"

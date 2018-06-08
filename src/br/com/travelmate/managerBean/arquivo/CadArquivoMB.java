@@ -29,6 +29,7 @@ import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.InvoiceFacade;
@@ -57,6 +58,7 @@ import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Invoice;
@@ -68,7 +70,8 @@ import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Usuariopontos;
-import br.com.travelmate.model.Vendas; 
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -533,6 +536,10 @@ public class CadArquivoMB implements Serializable {
 				finalizarTrainee();
 			}else if(idProduto == 10) {
 				finalizarWork();
+			}else if(idProduto == 16) {
+				finalizarVoluntariado();
+			}else if(idProduto == 20) {
+				finalizarDemiPair();
 			}
 			vendas.setSituacaogerencia("F");
 			if (vendas.getPontoescola() == 0) {
@@ -607,6 +614,20 @@ public class CadArquivoMB implements Serializable {
 		Worktravel worktravel = workTravelFacade.consultarWork(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarWork(worktravel);
+	}
+	
+	public void finalizarVoluntariado() {
+		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+		Voluntariado voluntariado = voluntariadoFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarVoluntariado(voluntariado);
+	}
+	
+	public void finalizarDemiPair() {
+		DemipairFacade demipairFacade = new DemipairFacade();
+		Demipair demipair = demipairFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarDemipair(demipair);
 	}
 
 	public void verificarDocumentosHE() {

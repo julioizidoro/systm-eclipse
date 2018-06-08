@@ -15,7 +15,9 @@ import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
+import br.com.travelmate.bean.comissao.ComissaoDemiPairBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
+import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
@@ -28,12 +30,14 @@ import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Departamentoproduto;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 
@@ -109,23 +113,6 @@ public class FinalizarMB implements Serializable {
 		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleAupair(aupair.getVendas(), aupair, valorPrevisto);
-//		dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-//		dashBoardMB.getMetamensal()
-//				.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + aupair.getVendas().getValor());
-//		dashBoardMB.getMetamensal().setPercentualalcancado(
-//				(dashBoardMB.getMetamensal().getValoralcancado() / dashBoardMB.getMetamensal().getValormeta()) * 100);
-//
-//		dashBoardMB.getMetaAnual()
-//				.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + aupair.getVendas().getValor());
-//		dashBoardMB.getMetaAnual().setPercentualalcancado(
-//				(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta()) * 100);
-//
-//		dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + aupair.getVendas().getValor());
-//		dashBoardMB.setPercsemana(
-//				(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-//
-//		float valor = dashBoardMB.getMetamensal().getValoralcancado();
-//		dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean.calcularNumeroVendasProdutos(aupair.getVendas(), false);
 		dashBoardBean.calcularMetaMensal(aupair.getVendas(), 0, false);
@@ -135,13 +122,6 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(aupair.getVendas(), pontos[0], false);
 		aupair.getVendas().setPonto(pontos[0]);
 		aupair.getVendas().setPontoescola(pontos[1]);
-//		mateRunnersMB.carregarListaRunners();
-//		tmRaceMB.gerarListaGold();
-//		tmRaceMB.gerarListaSinze();
-//		tmRaceMB.gerarListaBronze();
-//		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
-//				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, false,
-//				aupair.getDataInicioPretendida01());
 		String titulo = "Nova Ficha de Au Pair";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -193,27 +173,11 @@ public class FinalizarMB implements Serializable {
 						trainee.getValorestrainee(), trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), null,
 						vendasComissao, valorJuros);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				trainee.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
 		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControlTrainee(trainee.getVendas(), trainee, valorPrevisto);
-//		dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-//		dashBoardMB.getMetamensal()
-//				.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + aupair.getVendas().getValor());
-//		dashBoardMB.getMetamensal().setPercentualalcancado(
-//				(dashBoardMB.getMetamensal().getValoralcancado() / dashBoardMB.getMetamensal().getValormeta()) * 100);
-//
-//		dashBoardMB.getMetaAnual()
-//				.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + aupair.getVendas().getValor());
-//		dashBoardMB.getMetaAnual().setPercentualalcancado(
-//				(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta()) * 100);
-//
-//		dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + aupair.getVendas().getValor());
-//		dashBoardMB.setPercsemana(
-//				(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-//
-//		float valor = dashBoardMB.getMetamensal().getValoralcancado();
-//		dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean.calcularNumeroVendasProdutos(trainee.getVendas(), false);
 		dashBoardBean.calcularMetaMensal(trainee.getVendas(), 0, false);
@@ -223,13 +187,6 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(trainee.getVendas(), pontos[0], false);
 		trainee.getVendas().setPonto(pontos[0]);
 		trainee.getVendas().setPontoescola(pontos[1]);
-//		mateRunnersMB.carregarListaRunners();
-//		tmRaceMB.gerarListaGold();
-//		tmRaceMB.gerarListaSinze();
-//		tmRaceMB.gerarListaBronze();
-//		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
-//				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, false,
-//				aupair.getDataInicioPretendida01());
 		String titulo = "Nova Ficha de Trainee";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -273,26 +230,10 @@ public class FinalizarMB implements Serializable {
 					worktravel.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), worktravel.getVendas().getOrcamento().getValorCambio(), worktravel.getValoreswork(),
 					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), vendasComissao, valorJuros);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+			worktravel.getVendas().setVendascomissao(cc.getVendasComissao());
 		} 
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControlWork(worktravel.getVendas(), worktravel, valorPrevisto);
-//		dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-//		dashBoardMB.getMetamensal()
-//				.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + aupair.getVendas().getValor());
-//		dashBoardMB.getMetamensal().setPercentualalcancado(
-//				(dashBoardMB.getMetamensal().getValoralcancado() / dashBoardMB.getMetamensal().getValormeta()) * 100);
-//
-//		dashBoardMB.getMetaAnual()
-//				.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + aupair.getVendas().getValor());
-//		dashBoardMB.getMetaAnual().setPercentualalcancado(
-//				(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta()) * 100);
-//
-//		dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + aupair.getVendas().getValor());
-//		dashBoardMB.setPercsemana(
-//				(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-//
-//		float valor = dashBoardMB.getMetamensal().getValoralcancado();
-//		dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean.calcularNumeroVendasProdutos(worktravel.getVendas(), false);
 		dashBoardBean.calcularMetaMensal(worktravel.getVendas(), 0, false);
@@ -302,13 +243,6 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(worktravel.getVendas(), pontos[0], false);
 		worktravel.getVendas().setPonto(pontos[0]);
 		worktravel.getVendas().setPontoescola(pontos[1]);
-//		mateRunnersMB.carregarListaRunners();
-//		tmRaceMB.gerarListaGold();
-//		tmRaceMB.gerarListaSinze();
-//		tmRaceMB.gerarListaBronze();
-//		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
-//				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, false,
-//				aupair.getDataInicioPretendida01());
 		String titulo = "Nova Ficha de Work and Travel";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -331,6 +265,133 @@ public class FinalizarMB implements Serializable {
 					imagemNotificacao, "I");
 		}
 		return worktravel.getVendas();
+	}
+	
+	
+	public Vendas finalizarVoluntariado(Voluntariado voluntariado) {
+		VendasFacade vendasFacade = new VendasFacade();
+		float valorPrevisto = 0.0f;
+		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
+		Fornecedorcomissaocurso  fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
+				voluntariado.getVendas().getFornecedorcidade().getFornecedor().getIdfornecedor(),
+				voluntariado.getVendas().getFornecedorcidade().getCidade().getPais().getIdpais());
+		if (fornecedorComissao != null) {
+			Vendascomissao vendasComissao = voluntariado.getVendas().getVendascomissao();
+			if (vendasComissao == null) {
+				vendasComissao = new Vendascomissao();
+				vendasComissao.setVendas(voluntariado.getVendas());
+				vendasComissao.setPaga("Não");
+				vendasComissao.setDatainicioprograma(voluntariado.getDataInicioVoluntariado());
+			}
+			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				float valorJuros = 0.0f;
+				if (voluntariado.getVendas().getFormapagamento() != null) {
+					valorJuros = voluntariado.getVendas().getFormapagamento().getValorJuros();
+				}
+				ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, voluntariado.getVendas(),
+						voluntariado.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorComissao,
+						voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), voluntariado.getDataInicioVoluntariado(), vendasComissao,
+						valorJuros);
+				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				voluntariado.getVendas().setVendascomissao(cc.getVendasComissao());
+			}
+		}
+		ControlerBean controlerBean = new ControlerBean();
+		controlerBean.salvarControleVoluntariado(voluntariado.getVendas(), voluntariado, valorPrevisto);
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(voluntariado.getVendas(), false);
+		dashBoardBean.calcularMetaMensal(voluntariado.getVendas(), 0, false);
+		dashBoardBean.calcularMetaAnual(voluntariado.getVendas(), 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(voluntariado.getVendas(), 0, "", false);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(voluntariado.getVendas(), pontos[0], false);
+		voluntariado.getVendas().setPonto(pontos[0]);
+		voluntariado.getVendas().setPontoescola(pontos[1]);
+		String titulo = "Nova Ficha de Voluntariado";
+		String operacao = "A";
+		String imagemNotificacao = "inserido";
+
+		String vm = "Venda pela Matriz";
+		if (voluntariado.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ voluntariado.getVendas().getProdutos().getIdgerente());
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, voluntariado.getVendas().getUnidadenegocio(), voluntariado.getVendas().getCliente().getNome(),
+					voluntariado.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					Formatacao.ConvercaoDataPadrao(voluntariado.getDataInicioVoluntariado()),
+					voluntariado.getVendas().getUsuario().getNome(), vm, voluntariado.getVendas().getValor(), voluntariado.getVendas().getValorcambio(),
+					voluntariado.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					imagemNotificacao, "I");
+		}
+		return voluntariado.getVendas();
+	}
+	
+	
+	public Vendas finalizarDemipair(Demipair demipair) {
+		VendasFacade vendasFacade = new VendasFacade();
+		float valorPrevisto = 0.0f;
+		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
+		Fornecedorcomissaocurso  fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
+				demipair.getVendas().getFornecedorcidade().getFornecedor().getIdfornecedor(),
+				demipair.getVendas().getFornecedorcidade().getCidade().getPais().getIdpais());
+		if (fornecedorComissao != null) {
+			Vendascomissao vendasComissao = demipair.getVendas().getVendascomissao();
+			if (vendasComissao == null) {
+				vendasComissao = new Vendascomissao();
+				vendasComissao.setVendas(demipair.getVendas());
+				vendasComissao.setPaga("Não");
+			}
+			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				float valorJuros = 0.0f;
+				if (demipair.getVendas().getFormapagamento() != null) {
+					valorJuros = demipair.getVendas().getFormapagamento().getValorJuros();
+				}
+				ComissaoDemiPairBean cc = new ComissaoDemiPairBean(aplicacaoMB, demipair.getVendas(),
+						demipair.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorComissao,
+						demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), demipair.getDatainicio(), vendasComissao,
+						valorJuros);
+				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				demipair.getVendas().setVendascomissao(cc.getVendasComissao());
+			}
+		}
+		ControlerBean controlerBean = new ControlerBean();
+		controlerBean.salvarControleDemipair(demipair.getVendas(), demipair, valorPrevisto);
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(demipair.getVendas(), false);
+		dashBoardBean.calcularMetaMensal(demipair.getVendas(), 0, false);
+		dashBoardBean.calcularMetaAnual(demipair.getVendas(), 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(demipair.getVendas(), 0, "", false);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(demipair.getVendas(), pontos[0], false);
+		demipair.getVendas().setPonto(pontos[0]);
+		demipair.getVendas().setPontoescola(pontos[1]);
+		String titulo = "Nova Ficha de Demi pair";
+		String operacao = "A";
+		String imagemNotificacao = "inserido";
+
+		String vm = "Venda pela Matriz";
+		if (demipair.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ demipair.getVendas().getProdutos().getIdgerente());
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, demipair.getVendas().getUnidadenegocio(), demipair.getVendas().getCliente().getNome(),
+					demipair.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					Formatacao.ConvercaoDataPadrao(demipair.getDatainicio()),
+					demipair.getVendas().getUsuario().getNome(), vm, demipair.getVendas().getValor(), demipair.getVendas().getValorcambio(),
+					demipair.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					imagemNotificacao, "I");
+		}
+		return demipair.getVendas();
 	}
 
 }
