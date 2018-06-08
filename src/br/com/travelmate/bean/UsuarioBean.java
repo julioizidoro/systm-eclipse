@@ -4,16 +4,19 @@ import java.util.Date;
 
 public class UsuarioBean {
 
-	private int codigosystm;
+	private String codigosystm;
 	private String nome;
 	private String email;
 	private String senha;
 	private Date datanascimento;
 	private String celular;
-	public int getCodigosystm() {
+	
+	
+	
+	public String getCodigosystm() {
 		return codigosystm;
 	}
-	public void setCodigosystm(int codigosystm) {
+	public void setCodigosystm(String codigosystm) {
 		this.codigosystm = codigosystm;
 	}
 	public String getNome() {
