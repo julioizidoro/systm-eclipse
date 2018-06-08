@@ -1310,11 +1310,9 @@ public class CadTraineeMB implements Serializable {
 					nsituacao = "PROCESSO";
 				}
 			}
-			
 			if (venda.getIdvendas() == null) {
 				nsituacao = "PROCESSO";
 			}
-
 			ProgramasBean programasBean = new ProgramasBean();
 			this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getTrainee());
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
@@ -1346,24 +1344,24 @@ public class CadTraineeMB implements Serializable {
 				cadTraineeBean.verificarDadosAlterado(trainee, traineeAlterado, fornecedorCidade, vendaAlterada,
 						valorVendaAlterar);
 			}
-			if (novaFicha) {
+			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
+				int mes = Formatacao.getMesData(new Date()) + 1;
+				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 				if (enviarFicha) {
-					if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-							|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-						dashBoardMB.getVendaproduto()
-								.setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-						dashBoardMB.getMetamensal()
-								.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + venda.getValor());
+					if (mes == mesVenda) {
+						dashBoardMB.getMetamensal().setValoralcancado(
+								dashBoardMB.getMetamensal().getValoralcancado() - valorVendaAlterar + venda.getValor());
 						dashBoardMB.getMetamensal()
 								.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
 										/ dashBoardMB.getMetamensal().getValormeta()) * 100);
 
-						dashBoardMB.getMetaAnual()
-								.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + venda.getValor());
+						dashBoardMB.getMetaAnual().setMetaalcancada(
+								dashBoardMB.getMetaAnual().getMetaalcancada() - valorVendaAlterar + venda.getValor());
 						dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
 								/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
 
-						dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + venda.getValor());
+						dashBoardMB.setMetaparcialsemana(
+								dashBoardMB.getMetaparcialsemana() - valorVendaAlterar + venda.getValor());
 						dashBoardMB.setPercsemana(
 								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
 										* 100);
@@ -1375,7 +1373,6 @@ public class CadTraineeMB implements Serializable {
 						// @Override
 						// public void run() {
 						DashBoardBean dashBoardBean = new DashBoardBean();
-						dashBoardBean.calcularNumeroVendasProdutos(venda, false);
 						dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 						dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, trainee.getTipotrainee(), false);
@@ -1388,40 +1385,40 @@ public class CadTraineeMB implements Serializable {
 						tmRaceMB.gerarListaGold();
 						tmRaceMB.gerarListaSinze();
 						tmRaceMB.gerarListaBronze();
-						String titulo = "";
-						String operacao = "";
-						String imagemNotificacao = "";
-						if (novaFicha) {
-							titulo = "Nova Ficha de Trainee";
-							operacao = "A";
-							imagemNotificacao = "inserido";
-						} else {
-							titulo = "Ficha de Trainee Alterado";
-							operacao = "I";
-							imagemNotificacao = "alterado";
-						}
-
-						verificarAlteracaoCambio();
-						String vm = "Venda pela Matriz";
-						if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-							vm = "Venda pela Loja";
-						}
-//						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-//						List<Departamento> departamento = departamentoFacade
-//								.listar("select d From Departamento d where d.usuario.idusuario="
-//										+ venda.getProdutos().getIdgerente());
-//						if (departamento != null && departamento.size() > 0) {
-//							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-//									venda.getFornecedorcidade().getFornecedor().getNome(), trainee.getMesano(),
-//									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-//									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-//									imagemNotificacao, "I");
-//						}
-						// }
-						// }.start();
 					}
+					String titulo = "";
+					String operacao = "";
+					String imagemNotificacao = "";
+					if (novaFicha) {
+						titulo = "Nova Ficha de Trainee";
+						operacao = "A";
+						imagemNotificacao = "inserido";
+					} else {
+						titulo = "Ficha de Trainee Alterado";
+						operacao = "I";
+						imagemNotificacao = "alterado";
+					}
+
+					verificarAlteracaoCambio();
+					String vm = "Venda pela Matriz";
+					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
+						vm = "Venda pela Loja";
+					}
+					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+					List<Departamento> departamento = departamentoFacade
+							.listar("select d From Departamento d where d.usuario.idusuario="
+									+ venda.getProdutos().getIdgerente());
+					if (departamento != null && departamento.size() > 0) {
+						Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+								venda.getFornecedorcidade().getFornecedor().getNome(), trainee.getMesano(),
+								venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
+								venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+								imagemNotificacao, "A");
+					}
+					// }
+					// }.start();
 				}
-			} 
+			}
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Trainee Salvo com Sucesso", ""));
 			salvarOK = true;

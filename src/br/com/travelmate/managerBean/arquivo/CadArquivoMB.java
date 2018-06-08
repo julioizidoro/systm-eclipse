@@ -36,6 +36,7 @@ import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
+import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
@@ -47,6 +48,7 @@ import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.aupair.FinalizarMB;
+import br.com.travelmate.managerBean.trainee.FinalizarTraineeMB;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
@@ -62,6 +64,7 @@ import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Regravenda;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Tipoarquivoproduto;
+import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Usuariopontos;
@@ -523,15 +526,14 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 				vendas.setDataprocesso(new Date());
 			}
-			AupairFacade aupairFacade = new AupairFacade();
-			Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
-			FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-			vendas = finalizarMB.finalizar(aupair);
+			int idProduto = vendas.getProdutos().getIdprodutos();
+			if (idProduto == 9) {
+				finalizarAupair();
+			}else if(idProduto == 13) {
+				finalizarTrainee();
+			}
 			vendas.setSituacaogerencia("F");
-			DashBoardBean dashBoardBean = new DashBoardBean();
 			if (vendas.getPontoescola() == 0) {
-				CursoFacade cursoFacade = new CursoFacade();
-				
 				if(vendas.getPonto()>0 && vendas.getIdregravenda()>0){
 					int numerodias = 0;
 					if (vendas.getDataprocesso() != null) {
@@ -587,6 +589,14 @@ public class CadArquivoMB implements Serializable {
 		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizar(aupair);
+	}
+	
+	
+	public void finalizarTrainee() {
+		TraineeFacade traineeFacade = new TraineeFacade();
+		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarTrainee(trainee);
 	}
 
 	public void verificarDocumentosHE() {
