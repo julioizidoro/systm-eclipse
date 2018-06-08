@@ -45,6 +45,7 @@ import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.aupair.CadAuPairBean;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
@@ -68,6 +69,7 @@ import br.com.travelmate.model.Produtostrainee;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Valorestrainee;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
@@ -1273,6 +1275,8 @@ public class CadTraineeMB implements Serializable {
 		}
 		return "";
 	}
+	
+	
 
 	public boolean confirmarFichaTrainee() throws SQLException {
 		boolean salvarOK = false;
@@ -1299,13 +1303,16 @@ public class CadTraineeMB implements Serializable {
 						nsituacao = "PROCESSO";
 						Mensagem.lancarMensagemWarn("Data Vencimento",
 								"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
-					} else
-						nsituacao = "ANDAMENTO";
+					} 
 				}
 			} else {
 				if (nsituacao.equalsIgnoreCase("")) {
 					nsituacao = "PROCESSO";
 				}
+			}
+			
+			if (venda.getIdvendas() == null) {
+				nsituacao = "PROCESSO";
 			}
 
 			ProgramasBean programasBean = new ProgramasBean();
@@ -1399,96 +1406,22 @@ public class CadTraineeMB implements Serializable {
 						if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
 							vm = "Venda pela Loja";
 						}
-						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-						List<Departamento> departamento = departamentoFacade
-								.listar("select d From Departamento d where d.usuario.idusuario="
-										+ venda.getProdutos().getIdgerente());
-						if (departamento != null && departamento.size() > 0) {
-							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-									venda.getFornecedorcidade().getFornecedor().getNome(), trainee.getMesano(),
-									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-									imagemNotificacao, "I");
-						}
+//						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+//						List<Departamento> departamento = departamentoFacade
+//								.listar("select d From Departamento d where d.usuario.idusuario="
+//										+ venda.getProdutos().getIdgerente());
+//						if (departamento != null && departamento.size() > 0) {
+//							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+//									venda.getFornecedorcidade().getFornecedor().getNome(), trainee.getMesano(),
+//									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
+//									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+//									imagemNotificacao, "I");
+//						}
 						// }
 						// }.start();
 					}
 				}
-			} else {
-				int mes = Formatacao.getMesData(new Date()) + 1;
-				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
-				if (enviarFicha) {
-					if (mes == mesVenda) {
-						dashBoardMB.getMetamensal().setValoralcancado(
-								dashBoardMB.getMetamensal().getValoralcancado() - valorVendaAlterar + venda.getValor());
-						dashBoardMB.getMetamensal()
-								.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-										/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-						dashBoardMB.getMetaAnual().setMetaalcancada(
-								dashBoardMB.getMetaAnual().getMetaalcancada() - valorVendaAlterar + venda.getValor());
-						dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-								/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-						dashBoardMB.setMetaparcialsemana(
-								dashBoardMB.getMetaparcialsemana() - valorVendaAlterar + venda.getValor());
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-
-						float valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-
-						// new Thread() {
-						// @Override
-						// public void run() {
-						DashBoardBean dashBoardBean = new DashBoardBean();
-						dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
-						dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-						int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, trainee.getTipotrainee(), false);
-						productRunnersMB.calcularPontuacao(venda, pontos[0], false);
-						venda.setPonto(pontos[0]);
-						venda.setPontoescola(pontos[1]);
-						VendasFacade vendasFacade = new VendasFacade();
-						venda = vendasFacade.salvar(venda);
-						mateRunnersMB.carregarListaRunners();
-						tmRaceMB.gerarListaGold();
-						tmRaceMB.gerarListaSinze();
-						tmRaceMB.gerarListaBronze();
-					}
-					String titulo = "";
-					String operacao = "";
-					String imagemNotificacao = "";
-					if (novaFicha) {
-						titulo = "Nova Ficha de Trainee";
-						operacao = "A";
-						imagemNotificacao = "inserido";
-					} else {
-						titulo = "Ficha de Trainee Alterado";
-						operacao = "I";
-						imagemNotificacao = "alterado";
-					}
-
-					verificarAlteracaoCambio();
-					String vm = "Venda pela Matriz";
-					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-						vm = "Venda pela Loja";
-					}
-					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-					List<Departamento> departamento = departamentoFacade
-							.listar("select d From Departamento d where d.usuario.idusuario="
-									+ venda.getProdutos().getIdgerente());
-					if (departamento != null && departamento.size() > 0) {
-						Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-								venda.getFornecedorcidade().getFornecedor().getNome(), trainee.getMesano(),
-								venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-								venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-								imagemNotificacao, "A");
-					}
-					// }
-					// }.start();
-				}
-			}
+			} 
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Trainee Salvo com Sucesso", ""));
 			salvarOK = true;

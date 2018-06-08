@@ -1213,8 +1213,7 @@ public class CadAupairMB implements Serializable {
 								nsituacao = "PROCESSO";
 								Mensagem.lancarMensagemWarn("Data Vencimento",
 										"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
-							} else
-								nsituacao = "ANDAMENTO";
+							} 
 						}
 					} else {
 						if (nsituacao.equalsIgnoreCase("")) {
@@ -1224,6 +1223,9 @@ public class CadAupairMB implements Serializable {
 				} else {
 					enviarFicha = true;
 					nsituacao = "FINALIZADA";
+				}
+				if (venda.getIdvendas() == null) {
+					nsituacao = "PROCESSO";
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getAupair());
@@ -1264,88 +1266,9 @@ public class CadAupairMB implements Serializable {
 					if (venda.getFormapagamento() != null) {
 						valorJuros = venda.getFormapagamento().getValorJuros();
 					}
-					if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
-						ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, venda,
-								orcamento.getOrcamentoprodutosorcamentoList(), orcamento.getValorCambio(),
-								aupair.getValoresAupair(), formaPagamento.getParcelamentopagamentoList(),
-								aupair.getDataInicioPretendida01(), vendasComissao, valorJuros);
-						valorPrevisto = cc.getVendasComissao().getValorfornecedor();
-					}
+					
 				}
-				if (enviarFicha) {
-					ControlerBean controlerBean = new ControlerBean();
-					controlerBean.salvarControleAupair(venda, aupair, valorPrevisto);
-				}
-				if (novaFicha) {
-					if (enviarFicha) {
-						if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-								|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-							dashBoardMB.getVendaproduto()
-									.setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-							dashBoardMB.getMetamensal().setValoralcancado(
-									dashBoardMB.getMetamensal().getValoralcancado() + venda.getValor());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-							dashBoardMB.getMetaAnual()
-									.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + venda.getValor());
-							dashBoardMB.getMetaAnual()
-									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-							dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + venda.getValor());
-							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-							DashBoardBean dashBoardBean = new DashBoardBean();
-							dashBoardBean.calcularNumeroVendasProdutos(venda, false);
-							dashBoardBean.calcularMetaMensal(venda, 0, false);
-							dashBoardBean.calcularMetaAnual(venda, 0, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
-							venda.setPonto(pontos[0]);
-							venda.setPontoescola(pontos[1]);
-							VendasFacade vendasFacade = new VendasFacade();
-							venda = vendasFacade.salvar(venda);
-							metaRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
-							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, aupair.getDataInicioPretendida01());
-							String titulo = "Nova Ficha de Au Pair";
-							String operacao = "A";
-							String imagemNotificacao = "inserido";
-
-							if (aupair.getIdaupair() != null) {
-								if (vendaAlterada != null) {
-									titulo = "Ficha de Au Pair Alterada";
-									operacao = "I";
-									imagemNotificacao = "alterado";
-									verificarDadosAlterado();
-								}
-							}
-							String vm = "Venda pela Matriz";
-							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-								vm = "Venda pela Loja";
-							}
-							
-							DepartamentoProdutoFacade departamentoProdutoFacade = new DepartamentoProdutoFacade();
-							depPrograma = departamentoProdutoFacade.consultar(venda.getProdutos().getIdprodutos());
-							if (depPrograma != null) {
-								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-										venda.getFornecedorcidade().getFornecedor().getNome(),
-										Formatacao.ConvercaoDataPadrao(aupair.getDataInicioPretendida01()),
-										venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-										venda.getCambio().getMoedas().getSigla(), operacao, depPrograma.getDepartamento(),
-										imagemNotificacao, "I");
-							}
-						}
-					}
-				} else {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 						if (enviarFicha) {

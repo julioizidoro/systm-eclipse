@@ -26,6 +26,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.facade.ArquivosFacade;
+import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -43,8 +44,11 @@ import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.aupair.FinalizarMB;
 import br.com.travelmate.model.Arquivos;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Controlecurso;
@@ -97,6 +101,7 @@ public class CadArquivoMB implements Serializable {
 	private Date dataembarque;
 	private Date datachegadabrasil;
 	private boolean arquivoEnviado = false;
+	private FinalizarMB finalizar;
 
 	@PostConstruct
 	public void init() {
@@ -262,6 +267,14 @@ public class CadArquivoMB implements Serializable {
 		this.arquivoEnviado = arquivoEnviado;
 	}
 
+	public FinalizarMB getFinalizar() {
+		return finalizar;
+	}
+
+	public void setFinalizar(FinalizarMB finalizar) {
+		this.finalizar = finalizar;
+	}
+
 	public void gerarListaTipoArquivo() {
 		TipoArquivoProdutoFacade tipoArquivoFacade = new TipoArquivoProdutoFacade();
 		try {
@@ -362,39 +375,14 @@ public class CadArquivoMB implements Serializable {
 					}
 				}
 			}
-			if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+				verificarDocumentosCursos();
 				if (aplicacaoMB.getParametrosprodutos().getCursos() == idproduto) {
-					verificarDocumentosCursos();
 					if (validarBilheteAereo()) {
 						validarSeguroViagem();
 					}
-				} else if (aplicacaoMB.getParametrosprodutos().getHighereducation() == idproduto) {
-					verificarDocumentosHE();
-				} else if (aplicacaoMB.getParametrosprodutos().getVoluntariado() == idproduto) {
-					verificarDocumentosVoluntariado();
-					if (validarBilheteAereo()) {
-						validarSeguroViagem();
-					}
-				} else if (aplicacaoMB.getParametrosprodutos().getAupair() == idproduto) {
-					verificarDocumentosAupair();
-				} else if (aplicacaoMB.getParametrosprodutos().getDemipair() == idproduto) {
-					verificarDocumentosDemipair();
-				} else if (aplicacaoMB.getParametrosprodutos().getTrainee() == idproduto) {
-					verificarDocumentosProgramaEstagio();
-				} else if (aplicacaoMB.getParametrosprodutos().getWork() == idproduto) {
-					verificarDocumentosWorkTravel();
-				} else if (aplicacaoMB.getParametrosprodutos().getHighSchool() == idproduto) {
-					verificarDocumentosHighSchool();
-				} else if (aplicacaoMB.getParametrosprodutos().getProgramasTeens() == idproduto) {
-					verificarDocumentosCursosTeens();
-				}else if (aplicacaoMB.getParametrosprodutos().getSeguroPrivado() == idproduto) {
-					if (validarBilheteAereo()) {
-						validarSeguroViagem();
-					}
-				}else if (aplicacaoMB.getParametrosprodutos().getHighereducation() == idproduto) {
-					verificarDocumentosHE();
 				}
-			} 
+			}
 			if ((tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58)
 					|| (tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 59)) {
 				dataRecebimentoInvoice();
@@ -535,13 +523,15 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 				vendas.setDataprocesso(new Date());
 			}
+			AupairFacade aupairFacade = new AupairFacade();
+			Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
+			FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+			vendas = finalizarMB.finalizar(aupair);
 			vendas.setSituacaogerencia("F");
 			DashBoardBean dashBoardBean = new DashBoardBean();
 			if (vendas.getPontoescola() == 0) {
 				CursoFacade cursoFacade = new CursoFacade();
-				Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
-				int[] pontos = dashBoardBean.calcularPontuacaoRace(vendas, curso.getNumeroSenamas(), "", false);
-				vendas.setPontoescola(pontos[0]);
+				
 				if(vendas.getPonto()>0 && vendas.getIdregravenda()>0){
 					int numerodias = 0;
 					if (vendas.getDataprocesso() != null) {
@@ -567,10 +557,14 @@ public class CadArquivoMB implements Serializable {
 				}
 			}
 			VendasFacade vendasFacade = new VendasFacade();
+			vendas.setSituacao("ANDAMENTO");
 			vendasFacade.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
-			gerarNotificacaoUsuarioVinculado("Cursos");
+			int idprodutoCurso = aplicacaoMB.getParametrosprodutos().getCursos();
+			if (idprodutoCurso == vendas.getProdutos().getIdprodutos()) {
+				gerarNotificacaoUsuarioVinculado("Cursos");
+			}
 			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
 				avisosFacade = new AvisosFacade();
 				avisos = new Avisos();
@@ -585,6 +579,14 @@ public class CadArquivoMB implements Serializable {
 				salvarAvisoUsuario(avisos);
 			}
 		}
+	}
+	
+	
+	public void finalizarAupair() {
+		AupairFacade aupairFacade = new AupairFacade();
+		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizar(aupair);
 	}
 
 	public void verificarDocumentosHE() {

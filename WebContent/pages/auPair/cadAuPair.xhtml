@@ -711,7 +711,7 @@
 				<p class="botaocadpacote">
 					<br></br>
 					<p:commandButton class="imagemm" icon="ui-icon-check"
-						value="Confirmar" onclick="PF('cd').show();" />
+						value="Confirmar" action="#{cadAupairMB.finalizarficha()}" />
 					<p:commandButton class="espacocampos" icon="ui-icon-close"
 						value="Cancelar" action="#{cadAupairMB.cancelarCadastro()}"></p:commandButton>
 					<p:confirmDialog
@@ -722,7 +722,7 @@
 							action="#{cadAupairMB.finalizarficha()}"
 							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
 							icon="ui-icon-check" style="margin-left:30%" update="cadAupair:growl" />
-						<p:commandButton value="Não"
+						<p:commandButton value="Não"  
 							action="#{cadAupairMB.naoEnviarficha()}"
 							oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
 							icon="ui-icon-close" update="cadAupair:growl" />

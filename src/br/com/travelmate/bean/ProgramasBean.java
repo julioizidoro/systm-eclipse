@@ -39,6 +39,22 @@ import br.com.travelmate.util.Formatacao;
 public class ProgramasBean {
 	
 	
+	public Vendas salvarVendas(Vendas venda) {
+		venda.setDataVenda(new Date());
+		venda.setSituacaogerencia("F");
+		venda.setSituacao("FINALIZADA");
+		VendasFacade vendasFacade = new VendasFacade();
+		venda = vendasFacade.salvar(venda);
+		Logvenda logVenda = new Logvenda();
+		logVenda.setOperacao("FINALIZADA");
+		logVenda.setSituacao(venda.getSituacao());
+		logVenda.setUsuario(venda.getUsuario());
+		logVenda.setVendas(venda);
+		LogVendaFacade logVendaFacade = new LogVendaFacade();
+		logVendaFacade.salvar(logVenda);
+		return venda;
+	}
+	
 	public Vendas salvarVendas(Vendas venda, UsuarioLogadoMB usuarioLogadoMB, String situacao, Cliente cliente, Float valorTotal, Produtos produto, Fornecedorcidade fornecedorCidade, Cambio cambio, Float valorCambio, Lead lead, Date datainicio, Date datatermino) {
 		Logvenda logVenda = new Logvenda();
 		if (venda.getIdvendas() == null) {

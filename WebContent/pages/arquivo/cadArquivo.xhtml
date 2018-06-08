@@ -53,7 +53,7 @@
                      update="growl" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
                 </p:fileUpload>
 			</h:panelGrid> 
-              
+             <p:outputLabel value="#{finalizarMB.nome}"/>
             <br /><br /><br /><br />
              <h:panelGrid columns="2" style="margin-left:30%;">   
 				<p:commandButton id="btnConfirmar"  value="Confirmar" action="#{cadArquivoMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
