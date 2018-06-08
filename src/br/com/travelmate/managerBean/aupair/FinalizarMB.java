@@ -481,6 +481,7 @@ public class FinalizarMB implements Serializable {
 						programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), programasteens.getDataInicioCurso(),
 						vendasComissao, valorJuros);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				programasteens.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
 		}
 		ControlerBean controlerBean = new ControlerBean();
