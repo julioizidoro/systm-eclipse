@@ -471,29 +471,27 @@ public class FinalizarMB implements Serializable {
 	public Vendas finalizarTeens(Programasteens programasteens) {
 		VendasFacade vendasFacade = new VendasFacade();
 		float valorPrevisto = 0.0f;
-		if (programasteens.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| programasteens.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-			float valorVendaatual = programasteens.getVendas().getValor();
-			valorPrevisto = 0.0f;
-			Vendascomissao vendasComissao = programasteens.getVendas().getVendascomissao();
-			if (vendasComissao == null) {
-				vendasComissao = new Vendascomissao();
-				vendasComissao.setVendas(programasteens.getVendas());
-				vendasComissao.setPaga("Não");
-			}
-			float valorJuros = 0.0f;
-			if (programasteens.getVendas().getFormapagamento() != null) {
-				valorJuros = programasteens.getVendas().getFormapagamento().getValorJuros();
-			}
-			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
-				ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, programasteens.getVendas(),
-						programasteens.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), programasteens.getVendas().getOrcamento().getValorCambio(),
-						programasteens.getValoresprogramasteens(),
-						programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), programasteens.getDataInicioCurso(),
-						vendasComissao, valorJuros);
-				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
-				programasteens.getVendas().setVendascomissao(cc.getVendasComissao());
-			}
+		float valorVendaatual = programasteens.getVendas().getValor();
+		valorPrevisto = 0.0f;
+		Vendascomissao vendasComissao = programasteens.getVendas().getVendascomissao();
+		if (vendasComissao == null) {
+			vendasComissao = new Vendascomissao();
+			vendasComissao.setVendas(programasteens.getVendas());
+			vendasComissao.setPaga("Não");
+		}
+		float valorJuros = 0.0f;
+		if (programasteens.getVendas().getFormapagamento() != null) {
+			valorJuros = programasteens.getVendas().getFormapagamento().getValorJuros();
+		}
+		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, programasteens.getVendas(),
+					programasteens.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
+					programasteens.getVendas().getOrcamento().getValorCambio(),
+					programasteens.getValoresprogramasteens(),
+					programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(),
+					programasteens.getDataInicioCurso(), vendasComissao, valorJuros);
+			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+			programasteens.getVendas().setVendascomissao(cc.getVendasComissao());
 		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleProgramaTeens(programasteens.getVendas(), programasteens, valorPrevisto);
