@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.aupair;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,15 +16,20 @@ import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
+import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.bean.comissao.ComissaoCursoPacoteBean;
 import br.com.travelmate.bean.comissao.ComissaoDemiPairBean;
 import br.com.travelmate.bean.comissao.ComissaoHighSchoolBean;
 import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
+import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
+import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
@@ -32,12 +38,17 @@ import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Controleseguro;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Departamentoproduto;
+import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Highschool;
+import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -517,6 +528,139 @@ public class FinalizarMB implements Serializable {
 					imagemNotificacao, "I");
 		}
 		return programasteens.getVendas();
+	}
+	
+	
+	public Vendas finalizarCurso(Curso curso) {
+		VendasFacade vendasFacade = new VendasFacade();
+		float valorPrevisto = 0.0f;
+		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
+		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
+				curso.getVendas().getFornecedorcidade().getFornecedor().getIdfornecedor(),
+				curso.getVendas().getFornecedorcidade().getCidade().getPais().getIdpais());
+		if (fornecedorComissao != null) {
+			Vendascomissao vendasComissao = curso.getVendas().getVendascomissao();
+			if (vendasComissao == null) {
+				vendasComissao = new Vendascomissao();
+				vendasComissao.setVendas(curso.getVendas());
+				vendasComissao.setPaga("Não");
+				vendasComissao.setProdutos(curso.getVendas().getProdutos());
+			}
+			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				float valorJuros = 0.0f;
+				if (curso.getVendas().getFormapagamento() != null) {
+					valorJuros = curso.getVendas().getFormapagamento().getValorJuros();
+				}
+				if (curso.getVendas().getVendaspacote()==null) {
+					ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, curso.getVendas(),
+							curso.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorComissao,
+							curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), curso.getDataInicio(), vendasComissao,
+							valorJuros, true);
+					valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+					curso.getVendas().setVendascomissao(cc.getVendasComissao());
+				}else {
+					ComissaoCursoPacoteBean cc = new ComissaoCursoPacoteBean(aplicacaoMB, curso.getVendas(),
+							curso.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorComissao,
+							curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), curso.getDataInicio(), vendasComissao,
+							valorJuros, true);
+					valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+					curso.getVendas().setVendascomissao(cc.getVendasComissao());
+				}
+				
+			}
+		}
+
+		ControlerBean controlerBean = new ControlerBean();
+		controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto);
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguroViagem = seguroViagemFacade.consultarSeguroCurso(curso.getVendas().getIdvendas());
+		if (seguroViagem.getIdseguroViagem() != null) {
+			FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
+			Formapagamento formapagamento = formaPagamentoFacade.consultar(curso.getVendas().getIdvendas());
+			if (seguroViagem.getVendas().getVendascomissao() == null) {
+				seguroViagem.getVendas().setVendascomissao(new Vendascomissao());
+				if (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")) {
+					ComissaoSeguroBean cc = new ComissaoSeguroBean(aplicacaoMB, seguroViagem.getVendas(),
+							new ArrayList<Parcelamentopagamento>(), seguroViagem.getVendas().getVendascomissao(),
+							seguroViagem.getDescontoloja(), seguroViagem.getDescontomatriz(), 0.0f, false,
+							formapagamento,seguroViagem);
+					seguroViagem.getVendas().setVendascomissao(cc.getVendasComissao());
+					salvarControleSeguro(seguroViagem);
+				}
+			}
+			DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+			List<Departamento> departamento = departamentoFacade
+					.listar("select d From Departamento d where d.usuario.idusuario="
+							+ seguroViagem.getVendas().getProdutos().getIdgerente());
+			String titulo = "";
+			String operacao = "";
+			String imagemNotificacao = "";
+			titulo = "Nova Ficha de Seguro ";
+			if (seguroViagem.isSegurocancelamento()) {
+				titulo = titulo + " Com Cancelamento";
+			}
+			operacao = "I";
+			imagemNotificacao = "inserido";
+			String vm = "Venda pela Matriz";
+			if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+				vm = "Venda pela Loja";
+			}
+			if (departamento != null && departamento.size() > 0) {
+				Formatacao.gravarNotificacaoVendas(titulo, seguroViagem.getVendas().getUnidadenegocio(), seguroViagem.getVendas().getCliente().getNome(),
+						seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+						Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
+						seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(),
+						seguroViagem.getVendas().getCambio().getValor(),
+						seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+						imagemNotificacao, "I");
+			}
+		}
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(curso.getVendas(), false);
+		dashBoardBean.calcularMetaMensal(curso.getVendas(), 0, false);
+		dashBoardBean.calcularMetaAnual(curso.getVendas(), 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(curso.getVendas(), 0, "", false);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(curso.getVendas(), pontos[0], false);
+		curso.getVendas().setPonto(pontos[0]);
+		curso.getVendas().setPontoescola(pontos[1]);
+		String titulo = "Nova Ficha de Curso";
+		String operacao = "A";
+		String imagemNotificacao = "inserido";
+
+		String vm = "Venda pela Matriz";
+		if (curso.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ curso.getVendas().getProdutos().getIdgerente());
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, curso.getVendas().getUnidadenegocio(), curso.getVendas().getCliente().getNome(),
+					curso.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					Formatacao.ConvercaoDataPadrao(curso.getDataInicio()),
+					curso.getVendas().getUsuario().getNome(), vm, curso.getVendas().getValor(), curso.getVendas().getValorcambio(),
+					curso.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					imagemNotificacao, "I");
+		}
+		return curso.getVendas();
+	}
+	
+	
+	public void salvarControleSeguro(Seguroviagem seguroViagem) {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Controleseguro controle = seguroViagem.getControleseguro();
+		if (controle == null) {
+			controle = new Controleseguro();
+			controle.setSeguroviagem(seguroViagem);
+			controle.setEnvioVoucher("Não");
+			controle.setObservacao(" ");
+			controle.setFinalizado("ANDAMENTO");
+			controle.setSituacao("ANDAMENTO");
+			controle = seguroViagemFacade.salvarControle(controle);
+		}
 	}
 
 }

@@ -1502,12 +1502,15 @@ public class CadCursoMB implements Serializable {
 							Mensagem.lancarMensagemWarn("Data Vencimento",
 									"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
 						} 
-						nsituacao = "ANDAMENTO";
+						
 					}
 				} else {
 					if (nsituacao.equalsIgnoreCase("")) {
 						nsituacao = "PROCESSO";
 					}
+				}
+				if (venda.getIdvendas() == null) {
+					nsituacao = "PROCESSO";
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
@@ -1527,12 +1530,7 @@ public class CadCursoMB implements Serializable {
 				curso = cadCursoBean.salvarCurso(curso, vendaAlterada, CheckBoxSegundoCurso);
 				this.orcamento = cadCursoBean.salvarOrcamento(cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio,
 						cambioAlterado);
-				formaPagamento = cadCursoBean.salvarFormaPagamento(cancelamento);
-				if (enviarFicha) {
-					cadCursoBean.salvarNovaFichha(aplicacaoMB, seguroViagem,  formaPagamento);
-				}   
-				VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
-				venda.setVendascomissao(vendasComissaoFacade.consultar(venda.getIdvendas()));
+				formaPagamento = cadCursoBean.salvarFormaPagamento(cancelamento);  
 				salvarSeguroViagem();
 				curso.setVendas(venda);
 				cadCursoBean.pegarCurso(curso, venda);
@@ -1560,80 +1558,7 @@ public class CadCursoMB implements Serializable {
 							venda.getValor(), valorCambio, venda.getCambio().getMoedas().getSigla(), operacao,
 							depFinanceiro, imagemNotificacao, "I");
 				}
-				if (novaFicha) {
-					if (enviarFicha) {
-						if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-								|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-							dashBoardMB.getVendaproduto()
-									.setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-							dashBoardMB.getMetamensal().setValoralcancado(
-									dashBoardMB.getMetamensal().getValoralcancado() + venda.getValor());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-							dashBoardMB.getMetaAnual()
-									.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + venda.getValor());
-							dashBoardMB.getMetaAnual()
-									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-							dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + venda.getValor());
-							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-							DashBoardBean dashBoardBean = new DashBoardBean();
-							dashBoardBean.calcularNumeroVendasProdutos(venda, false);
-							dashBoardBean.calcularMetaMensal(venda, 0, false);
-							dashBoardBean.calcularMetaAnual(venda, 0, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
-							venda.setPonto(pontos[0]);
-							venda.setPontoescola(pontos[1]);
-							venda.setIdregravenda(pontos[2]);
-							VendasFacade vendasFacade = new VendasFacade();
-							venda = vendasFacade.salvar(venda);
-							metaRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
-							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, curso.getDataInicio());
-							String titulo = "";
-							String operacao = "";
-							String imagemNotificacao = "";
-							if (novaFicha) {
-								titulo = "Nova Ficha de Curso";
-								operacao = "I";
-								imagemNotificacao = "inserido";
-							} else {
-								titulo = "Ficha de Curso Alterada";
-								operacao = "A";
-								imagemNotificacao = "alterado";
-								verificarDadosAlterado();
-							}
-							verificarAlteracaoCambio();
-							String vm = "Venda pela Matriz";
-							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-								vm = "Venda pela Loja";
-							}
-							DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-							List<Departamento> departamento = departamentoFacade
-									.listar("select d From Departamento d where d.usuario.idusuario="
-											+ venda.getProdutos().getIdgerente());
-							if (departamento != null && departamento.size() > 0) {
-								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-										venda.getFornecedorcidade().getFornecedor().getNome(),
-										Formatacao.ConvercaoDataPadrao(curso.getDataInicio()),
-										venda.getUsuario().getNome(), vm, venda.getValor(), valorCambio,
-										venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-										imagemNotificacao, "I");
-							}
-						}
-					}
-				} else {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 						if (enviarFicha) {
@@ -1909,49 +1834,10 @@ public class CadCursoMB implements Serializable {
 				if (venda.getFormapagamento() != null) {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
-				if (seguroViagem.getVendas().getVendascomissao() == null) {
-					VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
-					seguroViagem.getVendas().setVendascomissao(vendasComissaoFacade.consultar(seguroViagem.getVendas().getIdvendas()));
-					if (seguroViagem.getVendas().getVendascomissao() != null) {
-						seguroViagem.getVendas().setVendascomissao(venda.getVendascomissao());
-					}else if(venda.getVendascomissao() != null){
-						seguroViagem.getVendas().setVendascomissao(venda.getVendascomissao());
-					}else {
-						seguroViagem.getVendas().setVendascomissao(null);
-					}
-				}
 				seguroViagem = seguroViagemFacade.salvar(seguroViagem);
 				
 			}
-			if(enviarFicha) {
-				if (novaFicha) {
-					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-					List<Departamento> departamento = departamentoFacade
-							.listar("select d From Departamento d where d.usuario.idusuario="
-									+ seguroViagem.getVendas().getProdutos().getIdgerente());
-					String titulo = "";
-					String operacao = "";
-					String imagemNotificacao = "";
-					titulo = "Nova Ficha de Seguro ";
-					if (seguroViagem.isSegurocancelamento()) {
-						titulo = titulo + " Com Cancelamento";
-					}
-					operacao = "I";
-					imagemNotificacao = "inserido";
-					String vm = "Venda pela Matriz";
-					if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
-						vm = "Venda pela Loja";
-					}
-					if (departamento != null && departamento.size() > 0) {
-						Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-								seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
-								Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
-								seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(), seguroViagem.getVendas().getCambio().getValor(),
-								seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-								imagemNotificacao, "I");
-					}
-				}
-			}
+			
 		} else {
 			if (seguroViagem.getIdvendacurso() > 0) {
 				Vendas vendasSeguro = new Vendas();
@@ -2000,11 +1886,7 @@ public class CadCursoMB implements Serializable {
 			vendaSeguro.setValor(seguroViagem.getValorSeguro());
 			vendaSeguro.setDataVenda(venda.getDataVenda());
 			vendaSeguro.setVendasMatriz(venda.getVendasMatriz());
-			if (enviarFicha) {
-				vendaSeguro.setSituacaogerencia("F");
-			}else {
-				vendaSeguro.setSituacaogerencia("P");
-			}
+			vendaSeguro.setSituacaogerencia("P");
 			VendasFacade vendasFacade = new VendasFacade();
 			vendaSeguro = vendasFacade.salvar(vendaSeguro);
 			float novaValorVenda = venda.getValor() - seguroViagem.getValorSeguro();
@@ -2012,44 +1894,7 @@ public class CadCursoMB implements Serializable {
 			venda = vendasFacade.salvar(venda);
 			seguroViagem.setIdvendacurso(venda.getIdvendas());
 			DashBoardBean dashBoardBean = new DashBoardBean();
-			if (novaFicha) {
-				if (enviarFicha) {
-					if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-							|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-						dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() + 1);
-						dashBoardMB.getMetamensal()
-								.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + novaValorVenda);
-						dashBoardMB.getMetamensal()
-								.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-										/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-						dashBoardMB.getMetaAnual()
-								.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + novaValorVenda);
-						dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-								/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-						dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + novaValorVenda);
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-
-						float valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-
-						dashBoardBean = new DashBoardBean();
-						dashBoardBean.calcularNumeroVendasProdutos(vendaSeguro, false);
-						dashBoardBean.calcularMetaMensal(vendaSeguro, 0, false);
-						dashBoardBean.calcularMetaAnual(vendaSeguro, 0, false);
-						int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false);
-						vendaSeguro.setPonto(pontos[0]);
-						vendaSeguro.setPontoescola(pontos[1]);
-						vendasFacade = new VendasFacade();
-						vendaSeguro = vendasFacade.salvar(vendaSeguro);
-						metaRunnersMB.carregarListaRunners();
-						productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], false);
-					}
-				}
-			}else {
+			if (vendaSeguro.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 				int mes = Formatacao.getMesData(new Date()) + 1;
 				int mesVenda = Formatacao.getMesData(vendaSeguro.getDataVenda()) + 1;
 					if (enviarFicha) {

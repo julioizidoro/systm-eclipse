@@ -56,6 +56,7 @@ import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Controlework;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
@@ -544,6 +545,8 @@ public class CadArquivoMB implements Serializable {
 				finalizarHighSchool();
 			}else if(idProduto == 5) {
 				finalizarTeens();
+			}else if(idProduto == 1) {
+				finalizarCurso();
 			}
 			vendas.setSituacaogerencia("F");
 			if (vendas.getPontoescola() == 0) {
@@ -574,6 +577,14 @@ public class CadArquivoMB implements Serializable {
 			VendasFacade vendasFacade = new VendasFacade();
 			vendas.setSituacao("ANDAMENTO");
 			vendasFacade.salvar(vendas);
+			if (idProduto == 1) {
+				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
+					seguroviagem.getVendas().setSituacao("ANDAMENTO");
+					vendasFacade.salvar(seguroviagem.getVendas());
+				}
+			}
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			int idprodutoCurso = aplicacaoMB.getParametrosprodutos().getCursos();
@@ -646,6 +657,13 @@ public class CadArquivoMB implements Serializable {
 		Programasteens programasteens = programasTeensFacede.find(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarTeens(programasteens);
+	}
+	
+	public void finalizarCurso() {
+		CursoFacade cursoFacade = new CursoFacade();
+		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarCurso(curso);
 	}
 
 	public void verificarDocumentosHE() {

@@ -974,18 +974,27 @@ public class CursoMB implements Serializable {
 	}
 
 	public String documentacao(Curso curso) {
-		if (curso.getVendas().getSituacao().equalsIgnoreCase("Processo")) {
-			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
-			return "";
-		} else {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", curso.getVendas());
-			voltar = "consultafichacurso";
-			session.setAttribute("voltar", voltar);
-			return "consArquivos";
-		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendas", curso.getVendas());
+		voltar = "consultafichacurso";
+		session.setAttribute("voltar", voltar);
+		return "consArquivos";
 	}
+	
+//	public String documentacao(Curso curso) {
+//		if (curso.getVendas().getSituacao().equalsIgnoreCase("Processo")) {
+//			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
+//			return "";
+//		} else {
+//			FacesContext fc = FacesContext.getCurrentInstance();
+//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//			session.setAttribute("vendas", curso.getVendas());
+//			voltar = "consultafichacurso";
+//			session.setAttribute("voltar", voltar);
+//			return "consArquivo";
+//		}
+//	}
 
 //	public String cancelarVenda(Curso curso) {
 //		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
