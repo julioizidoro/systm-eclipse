@@ -1167,13 +1167,15 @@ public class CadCursosTeensMB implements Serializable {
 							nsituacao = "PROCESSO";
 							Mensagem.lancarMensagemWarn("Data Vencimento",
 									"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
-						} else
-							nsituacao = "ANDAMENTO";
+						} 
 					}
 				} else {
 					if (nsituacao.equalsIgnoreCase("")) {
 						nsituacao = "PROCESSO";
 					}
+				}
+				if (venda.getIdvendas() == null) {
+					nsituacao = "PROCESSO";
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getProgramasTeens());
@@ -1229,76 +1231,12 @@ public class CadCursosTeensMB implements Serializable {
 				ControlerBean controlerBean = new ControlerBean();
 				controlerBean.salvarControleProgramaTeens(venda, programasTeens, valorPrevisto);
 				if (novaFicha) {
-					if (enviarFicha) {
-						if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-								|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-							dashBoardMB.getVendaproduto()
-									.setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-							dashBoardMB.getMetamensal().setValoralcancado(
-									dashBoardMB.getMetamensal().getValoralcancado() + venda.getValor());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-							dashBoardMB.getMetaAnual()
-									.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + venda.getValor());
-							dashBoardMB.getMetaAnual()
-									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-							dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + venda.getValor());
-							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-							DashBoardBean dashBoardBean = new DashBoardBean();
-							dashBoardBean.calcularNumeroVendasProdutos(venda, false);
-							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
-							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(venda, programasTeens.getNumeroSemanas(), "",
-									false);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
-							venda.setPonto(pontos[0]);
-							venda.setPontoescola(pontos[1]);
-							VendasFacade vendasFacade = new VendasFacade();
-							venda = vendasFacade.salvar(venda);
-							mateRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
-							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, programasTeens.getDataInicioCurso());
-							String titulo = "Nova Ficha de Cursos Teens";
-							String operacao = "A";
-							String imagemNotificacao = "inserido";
-							if (programasTeens.getIdprogramasTeens() != null) {
-								if (vendaAlterada != null) {
-									titulo = "Ficha de Curso Teens Alterada";
-									operacao = "I";
-									imagemNotificacao = "alterado";
-									verificarDadosAlterado();
-								}
-							}
-							String vm = "Venda pela Matriz";
-							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-								vm = "Venda pela Loja";
-							}
-							DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-							List<Departamento> departamento = departamentoFacade
-									.listar("select d From Departamento d where d.usuario.idusuario="
-											+ venda.getProdutos().getIdgerente());
-							if (departamento != null && departamento.size() > 0) {
-								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-										venda.getFornecedorcidade().getFornecedor().getNome(),
-										Formatacao.ConvercaoDataPadrao(programasTeens.getDataInicioCurso()),
-										venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-										venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-										imagemNotificacao, "I");
-							}
-						}
-					}
-				} else {
+					if (Formatacao.validarDataVenda(venda.getDataVenda())) {
+						ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, programasTeens.getDataInicioCurso());
+					}	
+				}
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {

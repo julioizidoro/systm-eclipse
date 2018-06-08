@@ -16,6 +16,8 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.comissao.ComissaoDemiPairBean;
+import br.com.travelmate.bean.comissao.ComissaoHighSchoolBean;
+import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
@@ -34,6 +36,8 @@ import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Departamentoproduto;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
+import br.com.travelmate.model.Highschool;
+import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -392,6 +396,127 @@ public class FinalizarMB implements Serializable {
 					imagemNotificacao, "I");
 		}
 		return demipair.getVendas();
+	}
+	
+	
+	public Vendas finalizarHighSchool(Highschool highschool) {
+		VendasFacade vendasFacade = new VendasFacade();
+		float valorVendaatual = highschool.getVendas().getValor();
+
+		float valorPrevisto = 0.0f;
+		Vendascomissao vendasComissao = highschool.getVendas().getVendascomissao();
+		if (vendasComissao == null) {
+			vendasComissao = new Vendascomissao();
+			vendasComissao.setVendas(highschool.getVendas());
+			vendasComissao.setPaga("Não");
+		}
+		float valorJuros = 0.0f;
+		if (highschool.getVendas().getFormapagamento() != null) {
+			valorJuros = highschool.getVendas().getFormapagamento().getValorJuros();
+		}
+		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, highschool.getVendas(),
+					highschool.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), highschool.getVendas().getCambio(),
+					highschool.getValoreshighschool(), highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(),
+					vendasComissao, highschool.getValoreshighschool().getDatainicio(), valorJuros);
+			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+			highschool.getVendas().setVendascomissao(cc.getVendasComissao());
+		}
+		ControlerBean controlerBean = new ControlerBean();
+		controlerBean.salvarControleHighSchool(highschool.getVendas(), highschool, valorPrevisto);
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(highschool.getVendas(), false);
+		dashBoardBean.calcularMetaMensal(highschool.getVendas(), 0, false);
+		dashBoardBean.calcularMetaAnual(highschool.getVendas(), 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(highschool.getVendas(), 0, "", false);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(highschool.getVendas(), pontos[0], false);
+		highschool.getVendas().setPonto(pontos[0]);
+		highschool.getVendas().setPontoescola(pontos[1]);
+		String titulo = "Nova Ficha de High School";
+		String operacao = "A";
+		String imagemNotificacao = "inserido";
+
+		String vm = "Venda pela Matriz";
+		if (highschool.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ highschool.getVendas().getProdutos().getIdgerente());
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, highschool.getVendas().getUnidadenegocio(), highschool.getVendas().getCliente().getNome(),
+					highschool.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					highschool.getDataInicio(), highschool.getVendas().getUsuario().getNome(), vm, highschool.getVendas().getValor(),
+					highschool.getVendas().getValorcambio(), highschool.getVendas().getCambio().getMoedas().getSigla(), operacao,
+					departamento.get(0), imagemNotificacao, "I");
+		}
+		return highschool.getVendas();
+	}
+	
+	
+	public Vendas finalizarTeens(Programasteens programasteens) {
+		VendasFacade vendasFacade = new VendasFacade();
+		float valorPrevisto = 0.0f;
+		if (programasteens.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+				|| programasteens.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			float valorVendaatual = programasteens.getVendas().getValor();
+			valorPrevisto = 0.0f;
+			Vendascomissao vendasComissao = programasteens.getVendas().getVendascomissao();
+			if (vendasComissao == null) {
+				vendasComissao = new Vendascomissao();
+				vendasComissao.setVendas(programasteens.getVendas());
+				vendasComissao.setPaga("Não");
+			}
+			float valorJuros = 0.0f;
+			if (programasteens.getVendas().getFormapagamento() != null) {
+				valorJuros = programasteens.getVendas().getFormapagamento().getValorJuros();
+			}
+			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, programasteens.getVendas(),
+						programasteens.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), programasteens.getVendas().getOrcamento().getValorCambio(),
+						programasteens.getValoresprogramasteens(),
+						programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), programasteens.getDataInicioCurso(),
+						vendasComissao, valorJuros);
+				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				programasteens.getVendas().setVendascomissao(cc.getVendasComissao());
+			}
+		}
+		ControlerBean controlerBean = new ControlerBean();
+		controlerBean.salvarControleProgramaTeens(programasteens.getVendas(), programasteens, valorPrevisto);
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(programasteens.getVendas(), false);
+		dashBoardBean.calcularMetaMensal(programasteens.getVendas(), 0, false);
+		dashBoardBean.calcularMetaAnual(programasteens.getVendas(), 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(programasteens.getVendas(), 0, "", false);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(programasteens.getVendas(), pontos[0], false);
+		programasteens.getVendas().setPonto(pontos[0]);
+		programasteens.getVendas().setPontoescola(pontos[1]);
+		String titulo = "Nova Ficha de Teens";
+		String operacao = "A";
+		String imagemNotificacao = "inserido";
+
+		String vm = "Venda pela Matriz";
+		if (programasteens.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ programasteens.getVendas().getProdutos().getIdgerente());
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, programasteens.getVendas().getUnidadenegocio(), programasteens.getVendas().getCliente().getNome(),
+					programasteens.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					Formatacao.ConvercaoDataPadrao(programasteens.getDataInicioCurso()),
+					programasteens.getVendas().getUsuario().getNome(), vm, programasteens.getVendas().getValor(), programasteens.getVendas().getValorcambio(),
+					programasteens.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					imagemNotificacao, "I");
+		}
+		return programasteens.getVendas();
 	}
 
 }

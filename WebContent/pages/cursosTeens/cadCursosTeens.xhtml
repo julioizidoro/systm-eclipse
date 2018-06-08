@@ -891,7 +891,7 @@
 				<p class="botaocadpacote">
 					<br></br>
 					<p:commandButton class="imagemm" icon="ui-icon-check"
-						value="Confirmar" onclick="PF('cd').show();" />
+						value="Confirmar" action="#{cadCursosTeensMB.finalizarficha()}" update="growl"/>
 					<p:commandButton class="espacocampos" icon="ui-icon-close"
 						value="Cancelar" action="#{cadCursosTeensMB.cancelarCadastro()}"></p:commandButton>
 					<p:confirmDialog
