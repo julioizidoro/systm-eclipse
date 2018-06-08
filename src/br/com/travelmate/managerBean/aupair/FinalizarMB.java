@@ -16,6 +16,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
+import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
@@ -33,6 +34,7 @@ import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
+import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 
 @Named
@@ -228,7 +230,7 @@ public class FinalizarMB implements Serializable {
 //		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
 //				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, false,
 //				aupair.getDataInicioPretendida01());
-		String titulo = "Nova Ficha de Au Pair";
+		String titulo = "Nova Ficha de Trainee";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -249,6 +251,86 @@ public class FinalizarMB implements Serializable {
 					imagemNotificacao, "I");
 		}
 		return trainee.getVendas();
+	}
+	
+	
+	public Vendas finalizarWork(Worktravel worktravel) {
+		VendasFacade vendasFacade = new VendasFacade();
+		worktravel.setControle("Processo");
+		Float valorPrevisto= 0.0f;
+		Vendascomissao vendasComissao = worktravel.getVendas().getVendascomissao();
+		if (vendasComissao == null) {
+			vendasComissao = new Vendascomissao();
+			vendasComissao.setVendas(worktravel.getVendas());
+			vendasComissao.setPaga("Não");
+		}
+		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			float valorJuros = 0.0f;
+			if (worktravel.getVendas().getFormapagamento() != null) {
+				valorJuros = worktravel.getVendas().getFormapagamento().getValorJuros();
+			}
+			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, worktravel.getVendas(),
+					worktravel.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), worktravel.getVendas().getOrcamento().getValorCambio(), worktravel.getValoreswork(),
+					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), vendasComissao, valorJuros);
+			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+		} 
+		ControlerBean controlerBean = new ControlerBean();
+		controlerBean.salvarControlWork(worktravel.getVendas(), worktravel, valorPrevisto);
+//		dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
+//		dashBoardMB.getMetamensal()
+//				.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + aupair.getVendas().getValor());
+//		dashBoardMB.getMetamensal().setPercentualalcancado(
+//				(dashBoardMB.getMetamensal().getValoralcancado() / dashBoardMB.getMetamensal().getValormeta()) * 100);
+//
+//		dashBoardMB.getMetaAnual()
+//				.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + aupair.getVendas().getValor());
+//		dashBoardMB.getMetaAnual().setPercentualalcancado(
+//				(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta()) * 100);
+//
+//		dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + aupair.getVendas().getValor());
+//		dashBoardMB.setPercsemana(
+//				(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana()) * 100);
+//
+//		float valor = dashBoardMB.getMetamensal().getValoralcancado();
+//		dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(worktravel.getVendas(), false);
+		dashBoardBean.calcularMetaMensal(worktravel.getVendas(), 0, false);
+		dashBoardBean.calcularMetaAnual(worktravel.getVendas(), 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(worktravel.getVendas(), 0, "", false);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(worktravel.getVendas(), pontos[0], false);
+		worktravel.getVendas().setPonto(pontos[0]);
+		worktravel.getVendas().setPontoescola(pontos[1]);
+//		mateRunnersMB.carregarListaRunners();
+//		tmRaceMB.gerarListaGold();
+//		tmRaceMB.gerarListaSinze();
+//		tmRaceMB.gerarListaBronze();
+//		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
+//				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, false,
+//				aupair.getDataInicioPretendida01());
+		String titulo = "Nova Ficha de Work and Travel";
+		String operacao = "A";
+		String imagemNotificacao = "inserido";
+
+		String vm = "Venda pela Matriz";
+		if (worktravel.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+			vm = "Venda pela Loja";
+		}
+
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade
+				.listar("select d From Departamento d where d.usuario.idusuario="
+						+ worktravel.getVendas().getProdutos().getIdgerente());
+		if (departamento != null && departamento.size() > 0) {
+			Formatacao.gravarNotificacaoVendas(titulo, worktravel.getVendas().getUnidadenegocio(), worktravel.getVendas().getCliente().getNome(),
+					worktravel.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+					Formatacao.ConvercaoDataPadrao(worktravel.getDataInicioPretendida01()),
+					worktravel.getVendas().getUsuario().getNome(), vm, worktravel.getVendas().getValor(), worktravel.getVendas().getValorcambio(),
+					worktravel.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					imagemNotificacao, "I");
+		}
+		return worktravel.getVendas();
 	}
 
 }

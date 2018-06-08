@@ -531,6 +531,8 @@ public class CadArquivoMB implements Serializable {
 				finalizarAupair();
 			}else if(idProduto == 13) {
 				finalizarTrainee();
+			}else if(idProduto == 10) {
+				finalizarWork();
 			}
 			vendas.setSituacaogerencia("F");
 			if (vendas.getPontoescola() == 0) {
@@ -597,6 +599,14 @@ public class CadArquivoMB implements Serializable {
 		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarTrainee(trainee);
+	}
+	
+	
+	public void finalizarWork() {
+		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
+		Worktravel worktravel = workTravelFacade.consultarWork(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarWork(worktravel);
 	}
 
 	public void verificarDocumentosHE() {
