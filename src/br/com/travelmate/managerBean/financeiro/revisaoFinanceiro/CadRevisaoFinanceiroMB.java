@@ -25,6 +25,7 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.TerceirosFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
@@ -45,6 +46,7 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Terceiros;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Vendapendencia;
@@ -505,6 +507,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
 				venda.setSituacao("FINALIZADA");
 				venda.setDataprocesso(new Date());
+				
 				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
 				avisos.setData(new Date());
@@ -552,6 +555,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					for(int i=0;i<listaVendaNova.size();i++) {
 						if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
 							listaVendaNova.get(i).setSituacaofinanceiro("L");
+							listaVendaNova.get(i).setSituacao("FINALIZADA");
 							vendasFacade.salvar(listaVendaNova.get(i));
 							gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
 							listaVendaNova.remove(i);

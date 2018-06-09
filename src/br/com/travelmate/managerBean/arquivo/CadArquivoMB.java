@@ -582,6 +582,7 @@ public class CadArquivoMB implements Serializable {
 				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
 				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
 					seguroviagem.getVendas().setSituacao("ANDAMENTO");
+					seguroviagem.getVendas().setSituacaogerencia("F");
 					vendasFacade.salvar(seguroviagem.getVendas());
 				}
 			}
