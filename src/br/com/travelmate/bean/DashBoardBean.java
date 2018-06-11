@@ -315,44 +315,44 @@ public class DashBoardBean {
 
 	public boolean validarRegra(Regravenda regra, Vendas venda, int numeroSemanas, String programa) {
 		boolean validar = false;
-		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0)
-				&& (regra.getValorfinal() > 0)) {
+		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0.0f)
+				&& (regra.getValorfinal() > 0.0f)) {
 			if ((regra.getValorinicial() <= venda.getValor()) && (regra.getValorfinal() >= venda.getValor())) {
-				validar = true;
+				return  validar = true;
 			} else
-				validar =  false;
+				return validar =  false;
 		}
 		if ((regra.getNumerosemanasinicial() != null) && (regra.getNumerosemanafinal() != null)
 				&& (regra.getNumerosemanasinicial() > 0) && (regra.getNumerosemanafinal() > 0)) {
 			if ((regra.getNumerosemanasinicial() <= numeroSemanas) && (regra.getNumerosemanafinal() >= numeroSemanas)) {
-				validar = true;
+				return validar = true;
 			} else
-				validar = false;
+				return validar = false;
 		}
 		if (regra.getPrograma() != null && regra.getPrograma().length() > 0) {
 			if (regra.getPrograma().equalsIgnoreCase(programa)) {
-				validar = true;
+				return validar = true;
 			} else
-				validar = false;
+				return validar = false;
 		}
 		if (regra.getPais() != null && regra.getPais() > 0) {
 			if (regra.getPais() == venda.getFornecedorcidade().getCidade().getPais().getIdpais()) {
-				validar = true;
+				return validar = true;
 			} else
-				validar = false;
+				return validar = false;
 		}
 		if (regra.getFornecedor() != null && regra.getFornecedor() > 0) {
 			int fornecedor = venda.getFornecedor().getIdfornecedor();
 			if (regra.getFornecedor() == fornecedor) {
-				validar = true;
+				return validar = true;
 			} else
-				validar = false;
+				return validar = false;
 		}
 		if (regra.getCidade() != null && regra.getCidade() > 0) {
 			if (regra.getCidade()==venda.getFornecedorcidade().getCidade().getIdcidade()) {
-				validar = true;
+				return validar = true;
 			} else
-				validar = false;
+				return validar = false;
 		}
 		return validar;
 
