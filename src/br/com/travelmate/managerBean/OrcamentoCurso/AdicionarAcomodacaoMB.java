@@ -48,6 +48,16 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private Coprodutos avisoSemAcomodacao;
 	private boolean habilitarAcomodacao = true;
 	private boolean habilitarAviso = false;
+	private int fornecedor1;
+	private int fornecedor2;
+	private int fornecedor3;
+	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente1;
+	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente2;
+	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente3;
+	private String nomeFornecedor1 = "";
+	private String nomeFornecedor2 = "";
+	private String nomeFornecedor3 = "";
+	private String nomeAcomodacaoFornecedor = "";
 
 	@PostConstruct
 	public void init() {
@@ -55,6 +65,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
+		nomeAcomodacaoFornecedor = resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome();
 		gerarListaAcomodacao();
 		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
 			if (resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
@@ -142,6 +153,86 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public void setHabilitarAviso(boolean habilitarAviso) {
 		this.habilitarAviso = habilitarAviso;
+	}
+
+	public int getFornecedor1() {
+		return fornecedor1;
+	}
+
+	public void setFornecedor1(int fornecedor1) {
+		this.fornecedor1 = fornecedor1;
+	}
+
+	public int getFornecedor2() {
+		return fornecedor2;
+	}
+
+	public void setFornecedor2(int fornecedor2) {
+		this.fornecedor2 = fornecedor2;
+	}
+
+	public int getFornecedor3() {
+		return fornecedor3;
+	}
+
+	public void setFornecedor3(int fornecedor3) {
+		this.fornecedor3 = fornecedor3;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaAcomodacoesIndependente1() {
+		return listaAcomodacoesIndependente1;
+	}
+
+	public void setListaAcomodacoesIndependente1(List<ProdutosOrcamentoBean> listaAcomodacoesIndependente1) {
+		this.listaAcomodacoesIndependente1 = listaAcomodacoesIndependente1;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaAcomodacoesIndependente2() {
+		return listaAcomodacoesIndependente2;
+	}
+
+	public void setListaAcomodacoesIndependente2(List<ProdutosOrcamentoBean> listaAcomodacoesIndependente2) {
+		this.listaAcomodacoesIndependente2 = listaAcomodacoesIndependente2;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaAcomodacoesIndependente3() {
+		return listaAcomodacoesIndependente3;
+	}
+
+	public void setListaAcomodacoesIndependente3(List<ProdutosOrcamentoBean> listaAcomodacoesIndependente3) {
+		this.listaAcomodacoesIndependente3 = listaAcomodacoesIndependente3;
+	}
+
+	public String getNomeFornecedor1() {
+		return nomeFornecedor1;
+	}
+
+	public void setNomeFornecedor1(String nomeFornecedor1) {
+		this.nomeFornecedor1 = nomeFornecedor1;
+	}
+
+	public String getNomeFornecedor2() {
+		return nomeFornecedor2;
+	}
+
+	public void setNomeFornecedor2(String nomeFornecedor2) {
+		this.nomeFornecedor2 = nomeFornecedor2;
+	}
+
+	public String getNomeFornecedor3() {
+		return nomeFornecedor3;
+	}
+
+	public void setNomeFornecedor3(String nomeFornecedor3) {
+		this.nomeFornecedor3 = nomeFornecedor3;
+	}
+
+	public String getNomeAcomodacaoFornecedor() {
+		return nomeAcomodacaoFornecedor;
+	}
+
+	public void setNomeAcomodacaoFornecedor(String nomeAcomodacaoFornecedor) {
+		this.nomeAcomodacaoFornecedor = nomeAcomodacaoFornecedor;
 	}
 
 	public void gerarListaAcomodacao() {
@@ -631,6 +722,45 @@ public class AdicionarAcomodacaoMB implements Serializable {
 					}
 				}
 			}
+			verificarAcomodacao();
+		}
+	}
+	
+	
+	public void verificarAcomodacao() {
+		listaAcomodacoesIndependente1 = new ArrayList<>();
+		listaAcomodacoesIndependente2 = new ArrayList<>();
+		listaAcomodacoesIndependente3 = new ArrayList<>();
+		fornecedor1 = 0;
+		fornecedor2 = 0;
+		fornecedor3 = 0;
+		ProdutosOrcamentoBean po;
+		for (int i = 0; i < listaAcomodacoesIndependente.size(); i++) {
+			if (fornecedor1 <=0) {
+				fornecedor1 = listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getIdfornecedor();
+				nomeFornecedor1 = listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome();
+			}else if(fornecedor2 <=0 && (fornecedor1 != fornecedor2)) {
+				fornecedor2 = listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getIdfornecedor();
+				nomeFornecedor2 = listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome();
+			}else if (fornecedor3 <=0 && (fornecedor2 != fornecedor3)) {
+				fornecedor3 = listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getIdfornecedor();
+				nomeFornecedor3 = listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getNome();
+			}
+			if (fornecedor1 > 0) {
+				if (fornecedor1 == listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getIdfornecedor()) {
+					po = new ProdutosOrcamentoBean();
+					po = listaAcomodacoesIndependente.get(i);
+					listaAcomodacoesIndependente1.add(po);
+				}else if(fornecedor2 == listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getIdfornecedor()) {
+					po = new ProdutosOrcamentoBean();
+					po = listaAcomodacoesIndependente.get(i);
+					listaAcomodacoesIndependente2.add(po);
+				}else if(fornecedor3 == listaAcomodacoesIndependente.get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor().getIdfornecedor()) {
+					po = new ProdutosOrcamentoBean();
+					po = listaAcomodacoesIndependente.get(i);
+					listaAcomodacoesIndependente3.add(po);
+				}
+			}
 		}
 	}
 
@@ -652,7 +782,21 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	}
 
 	public boolean mostrarAcomodacaoIndependente() {
-		if (listaAcomodacoesIndependente == null || listaAcomodacoesIndependente.size() == 0) {
+		if (listaAcomodacoesIndependente1 == null || listaAcomodacoesIndependente1.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+	
+	public boolean mostrarAcomodacaoIndependente2() {
+		if (listaAcomodacoesIndependente2 == null || listaAcomodacoesIndependente2.size() == 0) {
+			return false;
+		} else
+			return true;
+	}
+	
+	public boolean mostrarAcomodacaoIndependente3() {
+		if (listaAcomodacoesIndependente3 == null || listaAcomodacoesIndependente3.size() == 0) {
 			return false;
 		} else
 			return true;

@@ -43,6 +43,8 @@ public class Fornecedorcidadeidioma implements Serializable {
     private boolean acomodacaoindependente;
     @Column(name = "maioridade")
     private int maioridade;
+    @Column(name = "acomodacao")
+    private boolean acomodacao;
     
     
     public Fornecedorcidadeidioma() {
@@ -109,6 +111,14 @@ public class Fornecedorcidadeidioma implements Serializable {
 
 	public void setMaioridade(int maioridade) {
 		this.maioridade = maioridade;
+	}
+
+	public boolean isAcomodacao() {
+		return acomodacao;
+	}
+
+	public void setAcomodacao(boolean acomodacao) {
+		this.acomodacao = acomodacao;
 	}
 
 	@Override
