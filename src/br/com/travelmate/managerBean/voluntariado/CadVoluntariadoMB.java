@@ -1228,6 +1228,11 @@ public class CadVoluntariadoMB implements Serializable {
 								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, voluntariado.getDataInicio());
 					}	
 				}
+				if (novaFicha) {
+					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+							venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+							voluntariado.getDataInicioVoluntariado());
+				}
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;

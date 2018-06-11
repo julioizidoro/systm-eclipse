@@ -1558,9 +1558,11 @@ public class CadCursoMB implements Serializable {
 							venda.getValor(), valorCambio, venda.getCambio().getMoedas().getSigla(), operacao,
 							depFinanceiro, imagemNotificacao, "I");
 				}
-				ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-						venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
-						curso.getDataInicio());
+				if (novaFicha) {
+					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+							venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+							curso.getDataInicio());
+				}
 				
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
