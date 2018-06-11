@@ -136,7 +136,11 @@
 						value="#{fornecedorMB.listaFornecedorCidade}" scrollable="true"
 						scrollHeight="300"
 						style="margin-bottom:10px;width:90%;font-size:12px;">
-
+						
+						<p:column headerText="ID" 
+							style="text-align:left;width:25px">
+							<p:outputLabel value="#{fornecedorcidade.idfornecedorcidade}" />
+						</p:column>
 						<p:column headerText="Parceiro"
 							style="text-align:left;width:400px">
 							<p:outputLabel value="#{fornecedorcidade.fornecedor.nome}" />
