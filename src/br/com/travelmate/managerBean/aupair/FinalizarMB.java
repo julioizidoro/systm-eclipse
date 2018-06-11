@@ -603,6 +603,7 @@ public class FinalizarMB implements Serializable {
 			if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
 				vm = "Venda pela Loja";
 			}
+			gerarPontuacaoSeguro(seguroViagem.getVendas());
 			if (departamento != null && departamento.size() > 0) {
 				Formatacao.gravarNotificacaoVendas(titulo, seguroViagem.getVendas().getUnidadenegocio(), seguroViagem.getVendas().getCliente().getNome(),
 						seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
@@ -659,6 +660,23 @@ public class FinalizarMB implements Serializable {
 			controle.setSituacao("ANDAMENTO");
 			controle = seguroViagemFacade.salvarControle(controle);
 		}
+	}
+	
+	
+	public void gerarPontuacaoSeguro(Vendas vendaSeguro) {
+		VendasFacade vendasFacade = new VendasFacade();
+		DashBoardBean dashBoardBean = new DashBoardBean();
+		dashBoardBean = new DashBoardBean();
+		dashBoardBean.calcularNumeroVendasProdutos(vendaSeguro, false);
+		dashBoardBean.calcularMetaMensal(vendaSeguro, 0, false);
+		dashBoardBean.calcularMetaAnual(vendaSeguro, 0, false);
+		int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false);
+		vendaSeguro.setPonto(pontos[0]);
+		vendaSeguro.setPontoescola(pontos[1]);
+		vendasFacade = new VendasFacade();
+		vendaSeguro = vendasFacade.salvar(vendaSeguro);
+		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
+		productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], false);
 	}
 
 }
