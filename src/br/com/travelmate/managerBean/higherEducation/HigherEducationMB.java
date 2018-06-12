@@ -448,16 +448,16 @@ public class HigherEducationMB implements Serializable {
 				boolean ok=true;
 				if (listaficha2 != null && listaficha2.size() > 0) {
 					for (int j = 0; j < listaficha2.size(); j++) {
-						if(listaficha2.get(j).getVendas().getIdvendas()!=listaQuestionario.get(i).getVendas().getIdvendas()){
-							ok=false;
-						}
+					//	if(listaficha2.get(j).getVendas().getIdvendas()!=listaQuestionario.get(i).getVendas().getIdvendas()){
+					//		ok=false;
+				//		}
 					}
 				}
 				if (listaficha1 != null && listaficha1.size() > 0) {
 					for (int j = 0; j < listaficha1.size(); j++) {
-						if(listaficha1.get(j).getVendas().getIdvendas()==listaQuestionario.get(i).getVendas().getIdvendas()){
-							ok=false;
-						}
+					//	if(listaficha1.get(j).getVendas().getIdvendas()==listaQuestionario.get(i).getVendas().getIdvendas()){
+					//		ok=false;
+					//	}
 					}  
 				}
 				if(ok){
@@ -473,7 +473,7 @@ public class HigherEducationMB implements Serializable {
 						heBean.setSituacao("Questionario");
 					heBean.setStatus(listaQuestionario.get(i).getSituacao());
 					heBean.setData(listaQuestionario.get(i).getDataenvio());
-					heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
+				//	heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
 					heBean.setAutorizado(listaQuestionario.get(i).isAutorizado());
 					listaHe.add(heBean);
 				}
@@ -676,17 +676,17 @@ public class HigherEducationMB implements Serializable {
 				if (listaficha2 != null && listaficha2.size() > 0) {
 					for (int j = 0; j < listaficha2.size(); j++) {
 						int id= listaficha2.get(j).getVendas().getIdvendas();
-						if(id==listaQuestionario.get(i).getVendas().getIdvendas()){
-							ok=false;
-						}
+					//	if(id==listaQuestionario.get(i).getVendas().getIdvendas()){
+					//		ok=false;
+					//	}
 					}
 				}
 				if (listaficha1 != null && listaficha1.size() > 0) {
 					for (int j = 0; j < listaficha1.size(); j++) {
 						int id= listaficha1.get(j).getVendas().getIdvendas();
-						if(id==listaQuestionario.get(i).getVendas().getIdvendas()){
-							ok=false;
-						}
+						//if(id==listaQuestionario.get(i).getVendas().getIdvendas()){
+						///	ok=false;
+						//}
 					}   
 				}
 				if(ok){
@@ -702,7 +702,7 @@ public class HigherEducationMB implements Serializable {
 						heBean.setSituacao("Questionario");
 					heBean.setStatus(listaQuestionario.get(i).getSituacao());
 					heBean.setData(listaQuestionario.get(i).getDataenvio());
-					heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
+				//	heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
 					heBean.setAutorizado(listaQuestionario.get(i).isAutorizado());
 					listaHe.add(heBean);
 				}
@@ -903,7 +903,7 @@ public class HigherEducationMB implements Serializable {
 	public String documentacao(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-		session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
+	//	session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
 		if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
 			session.setAttribute("vendas1", listaHeBean.getHe().getVendas1());
 		}
@@ -924,7 +924,7 @@ public class HigherEducationMB implements Serializable {
 	public String informacoes(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
+	//	session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
 		String voltar = "consquestionarioHe";
 		session.setAttribute("voltar", voltar);
 		return "consLogVenda"; 
@@ -962,7 +962,7 @@ public class HigherEducationMB implements Serializable {
 			if (listaHeBean.getHe() != null && listaHeBean.getHe().isFichafinal()) {
 				sql = sql + listaHeBean.getHe().getVendas1().getIdvendas();
 			} else {
-				sql = sql + listaHeBean.getQuestionariohe().getVendas().getIdvendas();
+		//		sql = sql + listaHeBean.getQuestionariohe().getVendas().getIdvendas();
 			}
 			sql = sql + " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
 					+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
@@ -974,8 +974,8 @@ public class HigherEducationMB implements Serializable {
 						gerarBoletoConsultorBean.gerarBoleto(listaContas,
 								String.valueOf(listaHeBean.getHe().getVendas1().getIdvendas()));
 					} else {
-						gerarBoletoConsultorBean.gerarBoleto(listaContas,
-								String.valueOf(listaHeBean.getQuestionariohe().getVendas().getIdvendas()));
+			//			gerarBoletoConsultorBean.gerarBoleto(listaContas,
+				//				String.valueOf(listaHeBean.getQuestionariohe().getVendas().getIdvendas()));
 					}
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
@@ -1029,7 +1029,7 @@ public class HigherEducationMB implements Serializable {
 		if(listaHeBean.getHe()!=null && listaHeBean.getHe().isFichafinal()){
 			session.setAttribute("venda", listaHeBean.getHe().getVendas1());
 		}else{
-			session.setAttribute("venda", listaHeBean.getQuestionariohe().getVendas());
+	//		session.setAttribute("venda", listaHeBean.getQuestionariohe().getVendas());
 		} 
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 750);
@@ -1082,8 +1082,8 @@ public class HigherEducationMB implements Serializable {
 				}else if (listaHe.get(i).getStatus().equalsIgnoreCase("FINALIZADO")) {
 					nFichasFinalizada = nFichasFinalizada + 1;
 					listaFinalizar.add(listaHe.get(i));
-				} else if(listaHe.get(i).getStatus().equalsIgnoreCase("ANDAMENTO") 
-						&& !listaHe.get(i).getQuestionariohe().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+		//		} else if(listaHe.get(i).getStatus().equalsIgnoreCase("ANDAMENTO") 
+			//			&& !listaHe.get(i).getQuestionariohe().getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
 					nFichaFinanceiro = nFichaFinanceiro + 1;
 					listaFinanceiro.add(listaHe.get(i));
 				}else if(listaHe.get(i).getStatus().equalsIgnoreCase("ANDAMENTO")){
@@ -1119,8 +1119,8 @@ public class HigherEducationMB implements Serializable {
 	
 	
 	public String cancelarVenda(ListaHeBean listaHeBean) {
-		if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-				|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+	//	if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
+	//			|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -1128,21 +1128,21 @@ public class HigherEducationMB implements Serializable {
 			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null && listaHeBean.getHe()!=null && !listaHeBean.getHe().getVendas1().getSituacao().equalsIgnoreCase("CANCELADA")){
 				session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
 			}else {
-				session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
+	//			session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
 			}
 			session.setAttribute("voltar", "consquestionarioHe");
 			return "emissaocancelamento";
-		}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO") 
-				|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
-			VendasFacade vendasFacade = new VendasFacade();
-			listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());
-			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
-			listaHeBean.getQuestionariohe().setSituacao("CANCELADA");
-			listaHeBean.setQuestionariohe(questionarioHeFacade.salvar(listaHeBean.getQuestionariohe()));
-			gerarListaHe();
-		}
-		return "";
+	//	}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO") 
+		//		|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
+	//		VendasFacade vendasFacade = new VendasFacade();
+	//		listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
+		//	vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());
+	//		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+		//	listaHeBean.getQuestionariohe().setSituacao("CANCELADA");
+		//	listaHeBean.setQuestionariohe(questionarioHeFacade.salvar(listaHeBean.getQuestionariohe()));
+		//	gerarListaHe();
+	//	}
+	//	return "";
 	}   
 	
 	

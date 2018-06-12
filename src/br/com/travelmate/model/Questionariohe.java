@@ -97,17 +97,13 @@ public class Questionariohe implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
-    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "questionariohe")
-    private He he;
-    @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
-    @ManyToOne(optional = false)
-    private Vendas vendas;
     @Lob
 	@Size(max = 2147483647)
 	@Column(name = "observacao")
 	private String observacao;
 
     public Questionariohe() {
+    	setSituacao("Pendente");
     }
 
     public Questionariohe(Integer idquestionariohe) {
@@ -242,14 +238,7 @@ public class Questionariohe implements Serializable {
         this.cliente = cliente;
     }
 
-    public He getHe() {
-        return he;
-    }
-
-    public void setHe(He he) {
-        this.he = he;
-    }
- 
+    
     public String getNivelcertificadointeresse() {
 		return nivelcertificadointeresse;
 	}
@@ -306,15 +295,7 @@ public class Questionariohe implements Serializable {
 		this.pais2 = pais2;
 	}
 
-	public Vendas getVendas() {
-		return vendas;
-	}
-
-	public void setVendas(Vendas vendas) {
-		this.vendas = vendas;
-	}
-
-	public String getObservacao() {
+		public String getObservacao() {
 		return observacao;
 	}
 

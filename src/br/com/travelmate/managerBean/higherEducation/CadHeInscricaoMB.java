@@ -490,7 +490,7 @@ public class CadHeInscricaoMB implements Serializable {
 		orcamento.setTotalMoedaEstrangeira(0.0f);
 		orcamento.setTotalMoedaNacional(0.0f);
 		orcamento.setOrcamentoprodutosorcamentoList(new ArrayList<Orcamentoprodutosorcamento>());
-		venda = questionarioHe.getVendas();
+		venda = new Vendas();
 		venda.setDataVenda(new Date());
 		venda.setSituacao("PROCESSO");
 		formaPagamento = new Formapagamento();
