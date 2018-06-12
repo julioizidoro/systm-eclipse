@@ -318,35 +318,41 @@ public class DashBoardBean {
 		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0.0f)
 				&& (regra.getValorfinal() > 0.0f)) {
 			if ((regra.getValorinicial() <= venda.getValor()) && (regra.getValorfinal() >= venda.getValor())) {
-				validar = true;
-			} 
+				  validar = true;
+			} else
+				 validar =  false;
 		}
 		if ((regra.getNumerosemanasinicial() != null) && (regra.getNumerosemanafinal() != null)
 				&& (regra.getNumerosemanasinicial() > 0) && (regra.getNumerosemanafinal() > 0)) {
 			if ((regra.getNumerosemanasinicial() <= numeroSemanas) && (regra.getNumerosemanafinal() >= numeroSemanas)) {
 				 validar = true;
-			} 
+			} else
+				 validar = false;
 		}
 		if (regra.getPrograma() != null && regra.getPrograma().length() > 0) {
 			if (regra.getPrograma().equalsIgnoreCase(programa)) {
-				validar = true;
-			} 
+				 validar = true;
+			} else
+				 validar = false;
 		}
 		if (regra.getPais() != null && regra.getPais() > 0) {
 			if (regra.getPais() == venda.getFornecedorcidade().getCidade().getPais().getIdpais()) {
-				return validar = true;
-			} 
+				 validar = true;
+			} else
+				 validar = false;
 		}
 		if (regra.getFornecedor() != null && regra.getFornecedor() > 0) {
 			int fornecedor = venda.getFornecedor().getIdfornecedor();
 			if (regra.getFornecedor() == fornecedor) {
-				return validar = true;
-			} 
+				 validar = true;
+			} else
+				 validar = false;
 		}
 		if (regra.getCidade() != null && regra.getCidade() > 0) {
 			if (regra.getCidade()==venda.getFornecedorcidade().getCidade().getIdcidade()) {
-				return validar = true;
-			} 
+				 validar = true;
+			} else
+				 validar = false;
 		}
 		return validar;
 

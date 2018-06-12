@@ -137,7 +137,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(aupair.getVendas(), pontos[0], false);
 		aupair.getVendas().setPonto(pontos[0]);
 		aupair.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Au Pair";
+		String titulo = "Nova Ficha de Au Pair Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -146,18 +146,15 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoProdutoFacade departamentoProdutoFacade = new DepartamentoProdutoFacade();
-		Departamentoproduto depPrograma = departamentoProdutoFacade
-				.consultar(aupair.getVendas().getProdutos().getIdprodutos());
-		if (depPrograma != null) {
-			Formatacao.gravarNotificacaoVendas(titulo, aupair.getVendas().getUnidadenegocio(),
-					aupair.getVendas().getCliente().getNome(),
-					aupair.getVendas().getFornecedorcidade().getFornecedor().getNome(),
-					Formatacao.ConvercaoDataPadrao(aupair.getDataInicioPretendida01()),
-					aupair.getVendas().getUsuario().getNome(), vm, aupair.getVendas().getValor(),
-					aupair.getVendas().getValorcambio(), aupair.getVendas().getCambio().getMoedas().getSigla(),
-					operacao, depPrograma.getDepartamento(), imagemNotificacao, "I");
-		}
+		
+		Formatacao.gravarNotificacaoVendasFinanceiro(titulo, aupair.getVendas().getUnidadenegocio(),
+				aupair.getVendas().getCliente().getNome(),
+				aupair.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+				Formatacao.ConvercaoDataPadrao(aupair.getDataInicioPretendida01()),
+				aupair.getVendas().getUsuario().getNome(), vm, aupair.getVendas().getValor(),
+				aupair.getVendas().getValorcambio(), aupair.getVendas().getCambio().getMoedas().getSigla(), operacao,
+				imagemNotificacao, "I");
+		
 		return aupair.getVendas();
 	}
 	
@@ -253,7 +250,7 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularNumeroVendasProdutos(worktravel.getVendas(), false);
 		dashBoardBean.calcularMetaMensal(worktravel.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(worktravel.getVendas(), 0, false);
-		int[] pontos = dashBoardBean.calcularPontuacao(worktravel.getVendas(), 0, "", false);
+		int[] pontos = dashBoardBean.calcularPontuacao(worktravel.getVendas(), 0, worktravel.getValoreswork().getPrograma(), false);
 		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
 		productRunnersMB.calcularPontuacao(worktravel.getVendas(), pontos[0], false);
 		worktravel.getVendas().setPonto(pontos[0]);
@@ -439,7 +436,13 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularNumeroVendasProdutos(highschool.getVendas(), false);
 		dashBoardBean.calcularMetaMensal(highschool.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(highschool.getVendas(), 0, false);
-		int[] pontos = dashBoardBean.calcularPontuacao(highschool.getVendas(), 0, "", false);
+		String programa = "";
+		if (highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semestre")) {
+			programa = "Semestre";
+		}else {
+			programa = "Ano";
+		}
+		int[] pontos = dashBoardBean.calcularPontuacao(highschool.getVendas(), 0, programa, false);
 		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
 		productRunnersMB.calcularPontuacao(highschool.getVendas(), pontos[0], false);
 		highschool.getVendas().setPonto(pontos[0]);
