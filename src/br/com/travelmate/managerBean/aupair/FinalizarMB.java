@@ -199,7 +199,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(trainee.getVendas(), pontos[0], false);
 		trainee.getVendas().setPonto(pontos[0]);
 		trainee.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Trainee";
+		String titulo = "Nova Ficha de Trainee Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -208,17 +208,11 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ trainee.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, trainee.getVendas().getUnidadenegocio(), trainee.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, trainee.getVendas().getUnidadenegocio(), trainee.getVendas().getCliente().getNome(),
 					trainee.getVendas().getFornecedorcidade().getFornecedor().getNome(), trainee.getMesano(),
 					trainee.getVendas().getUsuario().getNome(), vm, trainee.getVendas().getValor(), trainee.getVendas().getValorcambio(),
-					trainee.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					trainee.getVendas().getCambio().getMoedas().getSigla(), operacao,
 					imagemNotificacao, "I");
-		}
 		return trainee.getVendas();
 	}
 	
@@ -255,7 +249,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(worktravel.getVendas(), pontos[0], false);
 		worktravel.getVendas().setPonto(pontos[0]);
 		worktravel.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Work and Travel";
+		String titulo = "Nova Ficha de Work and Travel Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -264,18 +258,12 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ worktravel.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, worktravel.getVendas().getUnidadenegocio(), worktravel.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, worktravel.getVendas().getUnidadenegocio(), worktravel.getVendas().getCliente().getNome(),
 					worktravel.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 					Formatacao.ConvercaoDataPadrao(worktravel.getDataInicioPretendida01()),
 					worktravel.getVendas().getUsuario().getNome(), vm, worktravel.getVendas().getValor(), worktravel.getVendas().getValorcambio(),
-					worktravel.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					worktravel.getVendas().getCambio().getMoedas().getSigla(), operacao,
 					imagemNotificacao, "I");
-		}
 		return worktravel.getVendas();
 	}
 	
@@ -319,7 +307,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(voluntariado.getVendas(), pontos[0], false);
 		voluntariado.getVendas().setPonto(pontos[0]);
 		voluntariado.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Voluntariado";
+		String titulo = "Nova Ficha de Voluntariado em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -328,18 +316,12 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ voluntariado.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, voluntariado.getVendas().getUnidadenegocio(), voluntariado.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, voluntariado.getVendas().getUnidadenegocio(), voluntariado.getVendas().getCliente().getNome(),
 					voluntariado.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 					Formatacao.ConvercaoDataPadrao(voluntariado.getDataInicioVoluntariado()),
 					voluntariado.getVendas().getUsuario().getNome(), vm, voluntariado.getVendas().getValor(), voluntariado.getVendas().getValorcambio(),
-					voluntariado.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					voluntariado.getVendas().getCambio().getMoedas().getSigla(), operacao,
 					imagemNotificacao, "I");
-		}
 		return voluntariado.getVendas();
 	}
 	
@@ -382,7 +364,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(demipair.getVendas(), pontos[0], false);
 		demipair.getVendas().setPonto(pontos[0]);
 		demipair.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Demi pair";
+		String titulo = "Nova Ficha de Demi pair Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -391,18 +373,12 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ demipair.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, demipair.getVendas().getUnidadenegocio(), demipair.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, demipair.getVendas().getUnidadenegocio(), demipair.getVendas().getCliente().getNome(),
 					demipair.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 					Formatacao.ConvercaoDataPadrao(demipair.getDatainicio()),
 					demipair.getVendas().getUsuario().getNome(), vm, demipair.getVendas().getValor(), demipair.getVendas().getValorcambio(),
-					demipair.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					demipair.getVendas().getCambio().getMoedas().getSigla(), operacao,
 					imagemNotificacao, "I");
-		}
 		return demipair.getVendas();
 	}
 	
@@ -447,7 +423,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(highschool.getVendas(), pontos[0], false);
 		highschool.getVendas().setPonto(pontos[0]);
 		highschool.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de High School";
+		String titulo = "Nova Ficha de High School Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -456,17 +432,11 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ highschool.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, highschool.getVendas().getUnidadenegocio(), highschool.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, highschool.getVendas().getUnidadenegocio(), highschool.getVendas().getCliente().getNome(),
 					highschool.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 					highschool.getDataInicio(), highschool.getVendas().getUsuario().getNome(), vm, highschool.getVendas().getValor(),
 					highschool.getVendas().getValorcambio(), highschool.getVendas().getCambio().getMoedas().getSigla(), operacao,
-					departamento.get(0), imagemNotificacao, "I");
-		}
+					 imagemNotificacao, "I");
 		return highschool.getVendas();
 	}
 	
@@ -507,7 +477,7 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(programasteens.getVendas(), pontos[0], false);
 		programasteens.getVendas().setPonto(pontos[0]);
 		programasteens.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Teens";
+		String titulo = "Nova Ficha de Teens Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -516,18 +486,12 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ programasteens.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, programasteens.getVendas().getUnidadenegocio(), programasteens.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, programasteens.getVendas().getUnidadenegocio(), programasteens.getVendas().getCliente().getNome(),
 					programasteens.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 					Formatacao.ConvercaoDataPadrao(programasteens.getDataInicioCurso()),
 					programasteens.getVendas().getUsuario().getNome(), vm, programasteens.getVendas().getValor(), programasteens.getVendas().getValorcambio(),
-					programasteens.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					programasteens.getVendas().getCambio().getMoedas().getSigla(), operacao,
 					imagemNotificacao, "I");
-		}
 		return programasteens.getVendas();
 	}
 	
@@ -596,7 +560,7 @@ public class FinalizarMB implements Serializable {
 			String titulo = "";
 			String operacao = "";
 			String imagemNotificacao = "";
-			titulo = "Nova Ficha de Seguro ";
+			titulo = "Nova Ficha de Seguro Em Análise Financeira";
 			if (seguroViagem.isSegurocancelamento()) {
 				titulo = titulo + " Com Cancelamento";
 			}

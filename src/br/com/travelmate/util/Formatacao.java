@@ -1160,6 +1160,67 @@ public class Formatacao {
 			}
 		}
 	}
+	
+	public static void gravarNotificacaoVendasFinanceiro(String titulo, Unidadenegocio unidade, String cliente, String fornecedor,
+			String datainicio, String consultor, String tipovenda, float valorVenda, float valorCambio, String moeda,
+			String tipoOperacao, String imagem, String tipo) {
+		String sql = "select u From Usuariodepartamentounidade u where u.unidadenegocio.idunidadeNegocio="+unidade.getIdunidadeNegocio()
+				+ " and (u.tipo='T' or u.tipo='"+tipo + "') and (u.departamento.iddepartamento=12 or u.departamento.iddepartamento=9 or u.departamento.iddepartamento=1"
+				+ ")";
+		UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+		List<Usuariodepartamentounidade> lista = usuarioDepartamentoUnidadeFacade.listar(sql);
+		NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+		if (lista != null) {
+			for (int i = 0; i < lista.size(); i++) {
+				Notificacao notificacao = new Notificacao();
+				notificacao.setTitulo(titulo);
+				notificacao.setUnidade(unidade.getNomeFantasia());
+				notificacao.setCliente(cliente);
+				notificacao.setFornecedor(fornecedor);
+				notificacao.setDatainicio(datainicio);
+				notificacao.setConsultor(consultor);
+				notificacao.setTipovenda(tipovenda);
+				notificacao.setValorvenda(valorVenda);
+				notificacao.setCambio(valorCambio);
+				notificacao.setMoeda(moeda);
+				notificacao.setLimpar(false);
+				notificacao.setData(new Date());
+				notificacao.setImagem(imagem);
+				notificacao.setUsuario(lista.get(i).getUsuario());
+				notificacaoFacade.salvar(notificacao);
+			}
+		}
+	}
+	
+	public static void gravarNotificacaoVendasFinalizado(String titulo, Unidadenegocio unidade, String cliente, String fornecedor,
+			String datainicio, String consultor, String tipovenda, float valorVenda, float valorCambio, String moeda,
+			String tipoOperacao, String imagem, String tipo, Departamento departamento) {
+		String sql = "select u From Usuariodepartamentounidade u where u.unidadenegocio.idunidadeNegocio="+unidade.getIdunidadeNegocio()
+				+ " and (u.tipo='T' or u.tipo='"+tipo + "') and u.departamento.iddepartamento=" + departamento.getIddepartamento();
+		UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+		List<Usuariodepartamentounidade> lista = usuarioDepartamentoUnidadeFacade.listar(sql);
+		NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+		if (lista != null) {
+			for (int i = 0; i < lista.size(); i++) {
+				Notificacao notificacao = new Notificacao();
+				notificacao.setTitulo(titulo);
+				notificacao.setUnidade(unidade.getNomeFantasia());
+				notificacao.setCliente(cliente);
+				notificacao.setFornecedor(fornecedor);
+				notificacao.setDatainicio(datainicio);
+				notificacao.setConsultor(consultor);
+				notificacao.setTipovenda(tipovenda);
+				notificacao.setValorvenda(valorVenda);
+				notificacao.setCambio(valorCambio);
+				notificacao.setMoeda(moeda);
+				notificacao.setLimpar(false);
+				notificacao.setData(new Date());
+				notificacao.setImagem(imagem);
+				notificacao.setUsuario(lista.get(i).getUsuario());
+				notificacaoFacade.salvar(notificacao);
+			}
+		}
+	}
 
 	public static boolean validarEmail(String email) {
 		if (email.length() > 0) {
