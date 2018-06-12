@@ -140,6 +140,8 @@ public class Vendas implements Serializable {
 	private Leadposvenda leadposvenda; 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "vendas")
 	private Cancelamento cancelamento;
+	@Column(name = "hora")
+	private String hora;
 
 	public Vendas() {
 		setStatuscobranca("p");
@@ -491,6 +493,14 @@ public class Vendas implements Serializable {
 
 	public void setCancelamento(Cancelamento cancelamento) {
 		this.cancelamento = cancelamento;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 
 	@Override
