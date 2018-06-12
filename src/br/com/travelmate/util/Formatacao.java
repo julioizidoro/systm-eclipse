@@ -1187,6 +1187,8 @@ public class Formatacao {
 				notificacao.setData(new Date());
 				notificacao.setImagem(imagem);
 				notificacao.setUsuario(lista.get(i).getUsuario());
+				String hora = Formatacao.foramtarHoraString();
+				notificacao.setHora(hora);
 				notificacaoFacade.salvar(notificacao);
 			}
 		}

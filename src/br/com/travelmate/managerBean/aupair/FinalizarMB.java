@@ -140,7 +140,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		aupair.getVendas().setHora(hora);
 		aupair.getVendas().setDataVenda(new Date());
-		String titulo = "" + aupair.getVendas().getHora() + " - Nova Ficha de Au Pair Em Análise Financeira - " + aupair.getVendas().getIdvendas();
+		String titulo = "Ficha de Au Pair Em Análise Financeira. " + aupair.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -205,7 +205,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		trainee.getVendas().setHora(hora);
 		trainee.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Trainee Em Análise Financeira";
+		String titulo = "Ficha de Trainee Em Análise Financeira. " + trainee.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -258,7 +258,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		worktravel.getVendas().setHora(hora);
 		worktravel.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Work and Travel Em Análise Financeira";
+		String titulo = "Ficha de Work and Travel Em Análise Financeira. " + worktravel.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -319,7 +319,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		voluntariado.getVendas().setHora(hora);
 		voluntariado.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Voluntariado em Análise Financeira";
+		String titulo = "Ficha de Voluntariado em Análise Financeira. " + voluntariado.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -379,7 +379,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		demipair.getVendas().setHora(hora);
 		demipair.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Demi pair Em Análise Financeira";
+		String titulo = "Ficha de Demi pair Em Análise Financeira. " + demipair.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -444,7 +444,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		highschool.getVendas().setHora(hora);
 		highschool.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de High School Em Análise Financeira";
+		String titulo = "Ficha de High School Em Análise Financeira. " + highschool.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -501,7 +501,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		programasteens.getVendas().setHora(hora);
 		programasteens.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Teens Em Análise Financeira";
+		String titulo = "Ficha de Teens Em Análise Financeira. " + programasteens.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -584,7 +584,7 @@ public class FinalizarMB implements Serializable {
 			String titulo = "";
 			String operacao = "";
 			String imagemNotificacao = "";
-			titulo = "Nova Ficha de Seguro Em Análise Financeira";
+			titulo = "Ficha de Seguro Em Análise Financeira. " + seguroViagem.getVendas().getIdvendas();
 			if (seguroViagem.isSegurocancelamento()) {
 				titulo = titulo + " Com Cancelamento";
 			}
@@ -617,7 +617,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		curso.getVendas().setHora(hora);
 		curso.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Curso";
+		String titulo = "Nova Ficha de Curso. " + curso.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 

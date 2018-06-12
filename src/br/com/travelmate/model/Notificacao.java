@@ -69,6 +69,8 @@ public class Notificacao implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
     private Usuario usuario;
+    @Column(name = "hora")
+    private String hora;
 
     public Notificacao() {
     }
@@ -195,6 +197,14 @@ public class Notificacao implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 
 	@Override
