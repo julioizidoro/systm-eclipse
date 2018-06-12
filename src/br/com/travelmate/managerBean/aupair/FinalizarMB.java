@@ -137,7 +137,10 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(aupair.getVendas(), pontos[0], false);
 		aupair.getVendas().setPonto(pontos[0]);
 		aupair.getVendas().setPontoescola(pontos[1]);
-		String titulo = "Nova Ficha de Au Pair Em Análise Financeira";
+		String hora = Formatacao.foramtarHoraString();
+		aupair.getVendas().setHora(hora);
+		aupair.getVendas().setDataVenda(new Date());
+		String titulo = "" + aupair.getVendas().getHora() + " - Nova Ficha de Au Pair Em Análise Financeira - " + aupair.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -199,6 +202,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(trainee.getVendas(), pontos[0], false);
 		trainee.getVendas().setPonto(pontos[0]);
 		trainee.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		trainee.getVendas().setHora(hora);
+		trainee.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de Trainee Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -249,6 +255,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(worktravel.getVendas(), pontos[0], false);
 		worktravel.getVendas().setPonto(pontos[0]);
 		worktravel.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		worktravel.getVendas().setHora(hora);
+		worktravel.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de Work and Travel Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -307,6 +316,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(voluntariado.getVendas(), pontos[0], false);
 		voluntariado.getVendas().setPonto(pontos[0]);
 		voluntariado.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		voluntariado.getVendas().setHora(hora);
+		voluntariado.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de Voluntariado em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -364,6 +376,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(demipair.getVendas(), pontos[0], false);
 		demipair.getVendas().setPonto(pontos[0]);
 		demipair.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		demipair.getVendas().setHora(hora);
+		demipair.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de Demi pair Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -413,7 +428,10 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(highschool.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(highschool.getVendas(), 0, false);
 		String programa = "";
-		if (highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semestre")) {
+		if (highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semestre")
+				|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semestre")
+				|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semetre")
+				|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semetre")) {
 			programa = "Semestre";
 		}else {
 			programa = "Ano";
@@ -423,6 +441,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(highschool.getVendas(), pontos[0], false);
 		highschool.getVendas().setPonto(pontos[0]);
 		highschool.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		highschool.getVendas().setHora(hora);
+		highschool.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de High School Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -477,6 +498,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(programasteens.getVendas(), pontos[0], false);
 		programasteens.getVendas().setPonto(pontos[0]);
 		programasteens.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		programasteens.getVendas().setHora(hora);
+		programasteens.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de Teens Em Análise Financeira";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -590,6 +614,9 @@ public class FinalizarMB implements Serializable {
 		productRunnersMB.calcularPontuacao(curso.getVendas(), pontos[0], false);
 		curso.getVendas().setPonto(pontos[0]);
 		curso.getVendas().setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		curso.getVendas().setHora(hora);
+		curso.getVendas().setDataVenda(new Date());
 		String titulo = "Nova Ficha de Curso";
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
@@ -640,6 +667,9 @@ public class FinalizarMB implements Serializable {
 		int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false);
 		vendaSeguro.setPonto(pontos[0]);
 		vendaSeguro.setPontoescola(pontos[1]);
+		String hora = Formatacao.foramtarHoraString();
+		vendaSeguro.setHora(hora);
+		vendaSeguro.setDataVenda(new Date());
 		vendasFacade = new VendasFacade();
 		vendaSeguro = vendasFacade.salvar(vendaSeguro);
 		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
