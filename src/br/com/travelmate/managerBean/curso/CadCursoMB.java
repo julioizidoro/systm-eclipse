@@ -245,6 +245,9 @@ public class CadCursoMB implements Serializable {
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					desabilitarSeguro = true;
 				}
+				if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+					venda.setDataVenda(new Date());
+				}
 			}
 			if (curso.getSCurso() == null) {
 				curso.setSCurso("");
@@ -2727,7 +2730,6 @@ public class CadCursoMB implements Serializable {
 		} else {
 			vendaAlterada = new Vendas();
 			vendaAlterada.setSituacao(venda.getSituacao());
-			venda.setDataVenda(new Date());
 		}
 		DepartamentoProdutoFacade departamentoProdutoFacade = new DepartamentoProdutoFacade();
 		depPrograma = departamentoProdutoFacade.consultar(venda.getProdutos().getIdprodutos());
@@ -2847,7 +2849,7 @@ public class CadCursoMB implements Serializable {
 			orcamento.setValorCambio(cambio.getValor());
 			moeda = cambio.getMoedas();
 			carregarCambio();
-			valorCambio = orcamento.getValorCambio();
+			//valorCambio = orcamento.getValorCambio();
 			cambio.setValor(valorCambio);
 			calcularValorTotalOrcamento();
 			carregarCamposAcomodacao();
@@ -2858,11 +2860,11 @@ public class CadCursoMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(new Date(), venda.getDataVenda());
+			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
 			if (dias > 3) {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage("Cambio alterado para o dia atual", ""));
-				cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+				cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(new Date()),
 						cambio.getMoedas().getIdmoedas());
 				if (cambio != null) {
 					valorCambio = cambio.getValor();

@@ -1394,7 +1394,7 @@ public class CadCursosTeensMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(new Date(), venda.getDataVenda());
+			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
 			if (dias > 3) {
 				Mensagem.lancarMensagemErro("Cambio alterado para o dia atual", "");
 				cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),

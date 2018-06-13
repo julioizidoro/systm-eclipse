@@ -1885,7 +1885,7 @@ public class CadVoluntariadoMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(new Date(), venda.getDataVenda());
+			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
 			if (dias > 3) {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage("Cambio alterado para o dia atual", ""));
