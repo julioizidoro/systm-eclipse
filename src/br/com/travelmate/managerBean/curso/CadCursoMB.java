@@ -1601,11 +1601,11 @@ public class CadCursoMB implements Serializable {
 							String operacao = "";
 							String imagemNotificacao = "";
 							if (novaFicha) {
-								titulo = "Nova Ficha de Curso";
+								titulo = "Nova Ficha de Curso. " + venda.getIdvendas();
 								operacao = "I";
 								imagemNotificacao = "inserido";
 							} else {
-								titulo = "Ficha de Curso Alterada";
+								titulo = "Ficha de Curso Alterada. " + venda.getIdvendas();
 								operacao = "A";
 								imagemNotificacao = "alterado";
 								verificarDadosAlterado();
