@@ -563,7 +563,7 @@ public class FinalizarMB implements Serializable {
 		controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto);
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 		Seguroviagem seguroViagem = seguroViagemFacade.consultarSeguroCurso(curso.getVendas().getIdvendas());
-		if (seguroViagem.getIdseguroViagem() != null) {
+		if (seguroViagem != null && seguroViagem.getIdseguroViagem() != null) {
 			FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
 			Formapagamento formapagamento = formaPagamentoFacade.consultar(curso.getVendas().getIdvendas());
 			if (seguroViagem.getVendas().getVendascomissao() == null) {
