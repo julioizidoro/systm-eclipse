@@ -595,15 +595,13 @@ public class FinalizarMB implements Serializable {
 				vm = "Venda pela Loja";
 			}
 			gerarPontuacaoSeguro(seguroViagem.getVendas());
-			if (departamento != null && departamento.size() > 0) {
-				Formatacao.gravarNotificacaoVendas(titulo, seguroViagem.getVendas().getUnidadenegocio(), seguroViagem.getVendas().getCliente().getNome(),
+				Formatacao.gravarNotificacaoVendasFinanceiro(titulo, seguroViagem.getVendas().getUnidadenegocio(), seguroViagem.getVendas().getCliente().getNome(),
 						seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 						Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
 						seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(),
 						seguroViagem.getVendas().getCambio().getValor(),
-						seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+						seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao,
 						imagemNotificacao, "I");
-			}
 		}
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean.calcularNumeroVendasProdutos(curso.getVendas(), false);
@@ -617,7 +615,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		curso.getVendas().setHora(hora);
 		curso.getVendas().setDataVenda(new Date());
-		String titulo = "Nova Ficha de Curso. " + curso.getVendas().getIdvendas();
+		String titulo = "Ficha de Curso Em Análise Financeira. " + curso.getVendas().getIdvendas();
 		String operacao = "A";
 		String imagemNotificacao = "inserido";
 
@@ -626,18 +624,12 @@ public class FinalizarMB implements Serializable {
 			vm = "Venda pela Loja";
 		}
 
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ curso.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			Formatacao.gravarNotificacaoVendas(titulo, curso.getVendas().getUnidadenegocio(), curso.getVendas().getCliente().getNome(),
+			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, curso.getVendas().getUnidadenegocio(), curso.getVendas().getCliente().getNome(),
 					curso.getVendas().getFornecedorcidade().getFornecedor().getNome(),
 					Formatacao.ConvercaoDataPadrao(curso.getDataInicio()),
 					curso.getVendas().getUsuario().getNome(), vm, curso.getVendas().getValor(), curso.getVendas().getValorcambio(),
-					curso.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+					curso.getVendas().getCambio().getMoedas().getSigla(), operacao, 
 					imagemNotificacao, "I");
-		}
 		return curso.getVendas();
 	}
 	
