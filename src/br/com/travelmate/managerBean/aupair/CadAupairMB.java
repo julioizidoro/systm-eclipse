@@ -1310,13 +1310,13 @@ public class CadAupairMB implements Serializable {
 								venda = vendasFacade.salvar(venda);
 								metaRunnersMB.carregarListaRunners();
 							}
-							String titulo = "Nova Ficha de Au Pair";
+							String titulo = "Nova Ficha de Au Pair. " + venda.getIdvendas();
 							String operacao = "A";
 							String imagemNotificacao = "inserido";
 
 							if (aupair.getIdaupair() != null) {
 								if (vendaAlterada != null) {
-									titulo = "Ficha de Au Pair Alterada";
+									titulo = "Ficha de Au Pair Alterada. " + venda.getIdvendas();
 									operacao = "I";
 									imagemNotificacao = "alterado";
 									verificarDadosAlterado();

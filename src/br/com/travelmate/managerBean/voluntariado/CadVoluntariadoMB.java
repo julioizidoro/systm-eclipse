@@ -1285,11 +1285,11 @@ public class CadVoluntariadoMB implements Serializable {
 						String operacao = "";
 						String imagemNotificacao = "";
 						if (novaFicha) {
-							titulo = "Nova Ficha de Voluntariado";
+							titulo = "Nova Ficha de Voluntariado. " + venda.getIdvendas();
 							operacao = "A";
 							imagemNotificacao = "inserido";
 						} else {
-							titulo = "Ficha de Voluntariado Alterado";
+							titulo = "Ficha de Voluntariado Alterado. " + venda.getIdvendas();
 							operacao = "I";
 							imagemNotificacao = "alterado";
 						}

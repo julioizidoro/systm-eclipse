@@ -1274,12 +1274,12 @@ public class CadCursosTeensMB implements Serializable {
 							venda = vendasFacade.salvar(venda);
 							mateRunnersMB.carregarListaRunners();
 						}
-						String titulo = "Nova Ficha de Cursos Teens";
+						String titulo = "Nova Ficha de Cursos Teens. " + venda.getIdvendas();
 						String operacao = "A";
 						String imagemNotificacao = "inserido";
 						if (programasTeens.getIdprogramasTeens() != null) {
 							if (vendaAlterada != null) {
-								titulo = "Ficha de Curso Teens Alterada";
+								titulo = "Ficha de Curso Teens Alterada. " + venda.getIdvendas();
 								operacao = "I";
 								imagemNotificacao = "alterado";
 								verificarDadosAlterado();

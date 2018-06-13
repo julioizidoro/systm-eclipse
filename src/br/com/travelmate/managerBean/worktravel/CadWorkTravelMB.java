@@ -1194,11 +1194,11 @@ public class CadWorkTravelMB implements Serializable {
 					String operacao = "";
 					String imagemNotificacao = "";
 					if (novaFicha) {
-						titulo = "Nova Ficha de Work & Travel " + work.getTipo();
+						titulo = "Nova Ficha de Work & Travel " + work.getTipo() + ". " + venda.getIdvendas();
 						operacao = "A";
 						imagemNotificacao = "inserido";
 					} else {
-						titulo = "Ficha de Work & Travel Alterado " + work.getTipo();
+						titulo = "Ficha de Work & Travel Alterado " + work.getTipo() + ". . " + venda.getIdvendas();
 						operacao = "I";
 						imagemNotificacao = "alterado";
 					}

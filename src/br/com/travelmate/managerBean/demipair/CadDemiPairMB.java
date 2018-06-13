@@ -1206,12 +1206,12 @@ public class CadDemiPairMB implements Serializable {
 						String imagemNotificacao = "";
 
 						if (novaFicha) {
-							titulo = "Nova Ficha de Demi Pair";
+							titulo = "Nova Ficha de Demi Pair. " + venda.getIdvendas();
 							operacao = "A";
 							imagemNotificacao = "inserido";
 
 						} else {
-							titulo = "Ficha de Demi Pair Alterado";
+							titulo = "Ficha de Demi Pair Alterado. " + venda.getIdvendas();
 							operacao = "I";
 							imagemNotificacao = "alterado";
 						}

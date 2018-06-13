@@ -1273,12 +1273,12 @@ public class CadHighSchoolMB implements Serializable {
 							tmRaceMB.gerarListaSinze();
 							tmRaceMB.gerarListaBronze();
 						}
-						String titulo = "Nova Ficha de High School";
+						String titulo = "Nova Ficha de High School. " + venda.getIdvendas();
 						String operacao = "A";
 						String imagemNotificacao = "inserido";
 						if (highschool.getIdhighschool() != null) {
 							if (vendaAlterada != null) {
-								titulo = "Ficha de High School Alterada";
+								titulo = "Ficha de High School Alterada. " + venda.getIdvendas();
 								operacao = "I";
 								imagemNotificacao = "alterado";
 								verificarDadosAlterado();

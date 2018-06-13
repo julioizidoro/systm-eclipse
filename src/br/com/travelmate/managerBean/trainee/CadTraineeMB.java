@@ -1389,11 +1389,11 @@ public class CadTraineeMB implements Serializable {
 					String operacao = "";
 					String imagemNotificacao = "";
 					if (novaFicha) {
-						titulo = "Nova Ficha de Trainee";
+						titulo = "Nova Ficha de Trainee. " + venda.getIdvendas();
 						operacao = "A";
 						imagemNotificacao = "inserido";
 					} else {
-						titulo = "Ficha de Trainee Alterado";
+						titulo = "Ficha de Trainee Alterado. " + venda.getIdvendas();
 						operacao = "I";
 						imagemNotificacao = "alterado";
 					}
