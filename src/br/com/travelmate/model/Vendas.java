@@ -142,6 +142,9 @@ public class Vendas implements Serializable {
 	private Cancelamento cancelamento;
 	@Column(name = "hora")
 	private String hora;
+	@Column(name = "datavalidade")
+	@Temporal(TemporalType.DATE)
+	private Date datavalidade;
 
 	public Vendas() {
 		setStatuscobranca("p");
@@ -501,6 +504,14 @@ public class Vendas implements Serializable {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public Date getDatavalidade() {
+		return datavalidade;
+	}
+
+	public void setDatavalidade(Date datavalidade) {
+		this.datavalidade = datavalidade;
 	}
 
 	@Override

@@ -60,6 +60,7 @@ public class ProgramasBean {
 		if (venda.getIdvendas() == null) {
 			logVenda.setOperacao("NOVA");
 			venda.setDataVenda(new Date());
+			venda.setDatavalidade(calcularDataValidade());
 			venda.setUsuariocancelamento(0);
 			venda.setObsCancelar("");
 			venda.setUsuario(usuarioLogadoMB.getUsuario());
@@ -67,6 +68,11 @@ public class ProgramasBean {
 				venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
 			}
 		} else {
+			if (venda.getDatavalidade()!=null) {
+				if (venda.getDatavalidade().before(new Date())) {
+					venda.setDatavalidade(calcularDataValidade());
+				}
+			}
 			if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 				venda.setDataVenda(new Date());
 				logVenda.setOperacao("NOVA");
@@ -277,9 +283,14 @@ public class ProgramasBean {
 		leadFacade.salvar(lead);
 	}
 	
-	
-	
-	
-	
-
+	public Date calcularDataValidade() {
+		Date dataValidade = Formatacao.calcularDataFinalPorDias(new Date(), 4);
+		int diaSemana = Formatacao.diaSemana(dataValidade);
+		if (diaSemana==1) {
+			dataValidade = Formatacao.calcularDataFinalPorDias(dataValidade, 2);
+		}else if (diaSemana==7) {
+			dataValidade = Formatacao.calcularDataFinalPorDias(dataValidade, 3);
+		}
+		return dataValidade;
+	}
 }
