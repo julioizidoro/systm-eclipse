@@ -152,6 +152,7 @@ public class CadVoluntariadoMB implements Serializable {
 	private boolean segurocancelamento=false;
 	private boolean desabilitarCamposCurso = true;
 	private float valorSeguroAntigo = 0.0f;
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -178,6 +179,9 @@ public class CadVoluntariadoMB implements Serializable {
 			iniciarAlteracaoVoluntariado();
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
+			}
+			if (venda.getDatavalidade().before(new Date())) {
+				habilitarAvisoCambio = true;
 			}
 		}
 		parcelamentopagamento.setFormaPagamento("sn");
@@ -633,6 +637,14 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void setValorSeguroAntigo(float valorSeguroAntigo) {
 		this.valorSeguroAntigo = valorSeguroAntigo;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void carregarComboMoedas() {
@@ -2257,6 +2269,11 @@ public class CadVoluntariadoMB implements Serializable {
 		}else{
 			desabilitarCamposCurso = true;
 		}
+	}
+	
+	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
 	}
 	
 }

@@ -132,6 +132,7 @@ public class CadHighSchoolMB implements Serializable {
 	private Cancelamento cancelamento;
 	private Lead lead;
 	private String voltarControleVendas = "";
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -156,6 +157,9 @@ public class CadHighSchoolMB implements Serializable {
 			iniciarAlteracao();
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
+			}
+			if (venda.getDatavalidade().before(new Date())) {
+				habilitarAvisoCambio = true;
 			}
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
@@ -500,6 +504,14 @@ public class CadHighSchoolMB implements Serializable {
 
 	public void setListaParcelamentoPagamentoOriginal(List<Parcelamentopagamento> listaParcelamentoPagamentoOriginal) {
 		this.listaParcelamentoPagamentoOriginal = listaParcelamentoPagamentoOriginal;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void iniciarNovo() {
@@ -1739,5 +1751,10 @@ public class CadHighSchoolMB implements Serializable {
 		if(novaFicha) {
 			return false;
 		}else return true;
+	}
+	
+	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
 	}
 }

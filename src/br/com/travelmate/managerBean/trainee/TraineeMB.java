@@ -775,12 +775,20 @@ public class TraineeMB implements Serializable {
 	}
 
 	public String documentacao(Trainee trainee) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", trainee.getVendas());
-		voltar = "consultaTrainee";
-		session.setAttribute("voltar", voltar);
-		return "consArquivos";
+		if ((trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (trainee.getVendas().getDatavalidade() != null
+						&& trainee.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", trainee.getVendas());
+			voltar = "consultaTrainee";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
 
 	public String visualizarContasReceber(Vendas venda) {

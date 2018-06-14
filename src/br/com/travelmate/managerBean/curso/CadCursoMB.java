@@ -201,6 +201,7 @@ public class CadCursoMB implements Serializable {
 	private boolean segurocancelamento=false;
 	private boolean desabilitarAlergiaAlimento = true;
 	private float valorAlterarSeguro = 0.0f;
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -247,6 +248,9 @@ public class CadCursoMB implements Serializable {
 				}
 				if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					venda.setDataVenda(new Date());
+				}
+				if (venda.getDatavalidade().before(new Date())) {
+					habilitarAvisoCambio = true;
 				}
 			}
 			if (curso.getSCurso() == null) {
@@ -938,6 +942,14 @@ public class CadCursoMB implements Serializable {
 
 	public void setDesabilitarAlergiaAlimento(boolean desabilitarAlergiaAlimento) {
 		this.desabilitarAlergiaAlimento = desabilitarAlergiaAlimento;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void carregarComboMoedas() {
@@ -2862,8 +2874,6 @@ public class CadCursoMB implements Serializable {
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
 			if (dias > 3) {
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage("Cambio alterado para o dia atual", ""));
 				cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(new Date()),
 						cambio.getMoedas().getIdmoedas());
 				if (cambio != null) {
@@ -3662,5 +3672,10 @@ public class CadCursoMB implements Serializable {
 			return data;
 		}  
 	} 
+	
+	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
+	}
 	
 }

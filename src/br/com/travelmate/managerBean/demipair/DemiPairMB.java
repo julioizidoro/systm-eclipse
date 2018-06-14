@@ -729,13 +729,21 @@ public class DemiPairMB implements Serializable {
     	this.demipair=demipair;
     }
     
-    public String documentacao(Demipair demipair) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", demipair.getVendas());
-		voltar = "consultaDemiPair";
-		session.setAttribute("voltar",voltar);
-		return "consArquivos";
+	public String documentacao(Demipair demipair) {
+		if ((demipair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (demipair.getVendas().getDatavalidade() != null
+						&& demipair.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", demipair.getVendas());
+			voltar = "consultaDemiPair";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
     
     public String visualizarContasReceber(Vendas venda){

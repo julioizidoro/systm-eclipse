@@ -633,12 +633,20 @@ public class HighSchoolMB implements Serializable {
 	}
 
 	public String documentacao(Highschool highschool) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", highschool.getVendas());
-		voltar = "consultaHighSchool";
-		session.setAttribute("voltar", voltar);
-		return "consArquivos";
+		if ((highschool.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (highschool.getVendas().getDatavalidade() != null
+						&& highschool.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", highschool.getVendas());
+			voltar = "consultaHighSchool";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
 
 	public String gerarRelatorioRecibo(Highschool highschool) throws SQLException, IOException {

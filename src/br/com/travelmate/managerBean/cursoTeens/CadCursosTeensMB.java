@@ -136,6 +136,7 @@ public class CadCursosTeensMB implements Serializable {
 	private Cancelamento cancelamento;
 	private Lead lead;
 	private String voltarControleVendas = "";
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -160,6 +161,9 @@ public class CadCursosTeensMB implements Serializable {
 			iniciarAlteracao();
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
+			}
+			if (venda.getDatavalidade().before(new Date())) {
+				habilitarAvisoCambio = true;
 			}
 		}
 		parcelamentopagamento.setFormaPagamento("sn");
@@ -528,6 +532,14 @@ public class CadCursosTeensMB implements Serializable {
 
 	public void setListaParcelamentoPagamentoAntiga(List<Parcelamentopagamento> listaParcelamentoPagamentoAntiga) {
 		this.listaParcelamentoPagamentoAntiga = listaParcelamentoPagamentoAntiga;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void iniciarNovo() {
@@ -1854,5 +1866,10 @@ public class CadCursosTeensMB implements Serializable {
 		if(novaFicha) {
 			return false;
 		}else return true;
+	}
+	
+	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
 	}
 }

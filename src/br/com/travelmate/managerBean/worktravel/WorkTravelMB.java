@@ -744,12 +744,20 @@ public class WorkTravelMB implements Serializable {
 	}
 
 	public String documentacao(Worktravel work) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", work.getVendas());
-		voltar = "consultaWorkandTravel";
-		session.setAttribute("voltar", voltar);
-		return "consArquivos";
+		if ((work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (work.getVendas().getDatavalidade() != null
+						&& work.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", work.getVendas());
+			voltar = "consultaWorkandTravel";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
 
 	public String visualizarContasReceber(Vendas venda) {

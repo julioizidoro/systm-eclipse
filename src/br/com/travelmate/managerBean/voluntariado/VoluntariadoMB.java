@@ -797,12 +797,20 @@ public class VoluntariadoMB implements Serializable {
 	}
 
 	public String documentacao(Voluntariado voluntariado) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", voluntariado.getVendas());
-		voltar = "consultaVoluntariado";
-		session.setAttribute("voltar", voltar);
-		return "consArquivos";
+		if ((voluntariado.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
+				&& (voluntariado.getVendas().getDatavalidade() != null
+						&& voluntariado.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", voluntariado.getVendas());
+			voltar = "consultaVoluntariado";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
 
 //	public String cancelarVenda(Vendas venda) {

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -43,6 +44,8 @@ public class CadQuestionarioHeMB implements Serializable {
 	private List<Pais> listaPais;
 	private Lead lead;
 	private String voltarControleVendas = "";
+	private boolean habilitarNivel12 = true;
+	private boolean habilitarNivel3 = false;
 
 	@PostConstruct
 	public void init() {
@@ -62,10 +65,11 @@ public class CadQuestionarioHeMB implements Serializable {
 			if (lead != null) {
 				cliente = lead.getCliente();
 			}
+			questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
 		} else {
 			cliente = questionarioHe.getCliente();
 		}
-		
+
 		if (cliente == null && lead != null) {
 			cliente = lead.getCliente();
 		}
@@ -119,7 +123,23 @@ public class CadQuestionarioHeMB implements Serializable {
 		this.lead = lead;
 	}
 
-		public String pesquisarCliente() {
+	public boolean isHabilitarNivel12() {
+		return habilitarNivel12;
+	}
+
+	public void setHabilitarNivel12(boolean habilitarNivel12) {
+		this.habilitarNivel12 = habilitarNivel12;
+	}
+
+	public boolean isHabilitarNivel3() {
+		return habilitarNivel3;
+	}
+
+	public void setHabilitarNivel3(boolean habilitarNivel3) {
+		this.habilitarNivel3 = habilitarNivel3;
+	}
+
+	public String pesquisarCliente() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 650);
 		RequestContext.getCurrentInstance().openDialog("consultarCliente", options, null);
@@ -140,14 +160,16 @@ public class CadQuestionarioHeMB implements Serializable {
 	}
 
 	public String salvar(String situacao) {
-		if (cliente != null && cliente.getIdcliente() != null) {
+		if (validarDados()) {
+			ClienteFacade clienteFacade = new ClienteFacade();
+			cliente = clienteFacade.salvar(cliente);
 			questionarioHe.setCliente(cliente);
 			if (questionarioHe.getIdquestionariohe() == null) {
-				questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario()); 
+				questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
 				questionarioHe.setDataenvio(new Date());
 				questionarioHe.setAutorizado(false);
 			}
-			questionarioHe.setSituacao(situacao);  
+			questionarioHe.setSituacao(situacao);
 			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
 			questionarioHe = questionarioHeFacade.salvar(questionarioHe);
 			Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
@@ -157,9 +179,98 @@ public class CadQuestionarioHeMB implements Serializable {
 				}
 			}
 			return "consquestionarioHe";
-		} else
-			Mensagem.lancarMensagemErro("Atenção!", "Cliente não informado!");
+		} 
 		return "";
 	}
 	
+	
+	public void verificarNivel() {
+		if (questionarioHe.getPais1().equalsIgnoreCase("Portugal")) {
+			habilitarNivel3  = true;
+			habilitarNivel12 = false;
+		}else {
+			habilitarNivel12 = true;
+			habilitarNivel3 = false;
+		}
 	}
+	
+	
+	public boolean validarDados() {
+		if (cliente == null || cliente.getIdcliente() == null) {
+			Mensagem.lancarMensagemInfo("Cliente não informado", "");
+			return false;
+		}
+		
+		if (questionarioHe.getDiplomas() == null || questionarioHe.getDiplomas().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe o nome do curso", "");
+			return false;
+		}
+		
+		if (questionarioHe.getNivelcetificado() == null || questionarioHe.getNivelcetificado().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe o Nivel mais alto de escolaridade no Brasil", "");
+			return false;
+		}
+		
+		if (questionarioHe.getOntuacaotoefl() == null || questionarioHe.getOntuacaotoefl().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe a Pontuação no teste de proficiência ou teste online", "");
+			return false;
+		}
+		
+		if (questionarioHe.getOcupacao1() == null || questionarioHe.getOcupacao1().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe Descreva suas duas última principais ocupações profissionais", "");
+			return false;
+		}
+		
+		
+		if (questionarioHe.getPrograma() == null || questionarioHe.getPrograma().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe Programa / Área de interesse", "");
+			return false;
+		}
+		
+		if (questionarioHe.getNivelcertificadointeresse() == null || questionarioHe.getNivelcertificadointeresse().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe Nível de Certificação de interesse", "");
+			return false;
+		}
+		
+		
+		if (questionarioHe.getPais1() == null || questionarioHe.getPais1().length() <=0) {
+			Mensagem.lancarMensagemInfo("Informe o Destino em que prefere estudar", "");
+			return false;
+		}
+		
+		
+		if (questionarioHe.getDataprograma() == null) {
+			Mensagem.lancarMensagemInfo("Informe Data aproximada do Programa", "");
+			return false;
+		}
+		
+		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe Preciso trabalhar durante meu curso", "");
+			return false;
+		}
+		
+		
+		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe Tenho interesse em imigrar", "");
+			return false;
+		}
+		
+		
+		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe Tenho interesse em visto de trabalho após o curso", "");
+			return false;
+		}
+		
+		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe a Observações e parecer do consultor", "");
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
+	
+	
+
+}

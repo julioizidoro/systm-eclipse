@@ -152,6 +152,7 @@ public class CadTraineeMB implements Serializable {
 	private boolean numero26;
 	private boolean numero38;
 	private boolean numero52;
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -191,6 +192,9 @@ public class CadTraineeMB implements Serializable {
 			numeroSemanas = "0";
 		} else {
 			iniciarAlteracao();
+			if (venda.getDatavalidade().before(new Date())) {
+				habilitarAvisoCambio = true;
+			}
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
 		parcelamentopagamento.setFormaPagamento("sn");
@@ -670,6 +674,14 @@ public class CadTraineeMB implements Serializable {
 
 	public void setNumero52(boolean numero52) {
 		this.numero52 = numero52;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void iniciarNovoTrainee() {
@@ -1917,5 +1929,10 @@ public class CadTraineeMB implements Serializable {
 			numero38 = true;
 			numero52 = true;
 		}
+	}
+	
+	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
 	}
 }

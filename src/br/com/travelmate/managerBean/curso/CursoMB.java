@@ -974,12 +974,17 @@ public class CursoMB implements Serializable {
 	}
 
 	public String documentacao(Curso curso) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", curso.getVendas());
-		voltar = "consultafichacurso";
-		session.setAttribute("voltar", voltar);
-		return "consArquivos";
+		if ((curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (curso.getVendas().getDatavalidade() != null && curso.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
+			return "";
+		}else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", curso.getVendas());
+			voltar = "consultafichacurso";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
 	
 //	public String documentacao(Curso curso) {

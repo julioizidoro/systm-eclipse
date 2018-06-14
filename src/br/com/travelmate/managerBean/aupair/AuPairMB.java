@@ -714,12 +714,17 @@ public class AuPairMB implements Serializable {
 	}
 
 	public String documentacao(Aupair aupair) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", aupair.getVendas());
-		voltar = "consultaAuPair";
-		session.setAttribute("voltar", voltar);
-		return "consArquivos";
+		if ((aupair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (aupair.getVendas().getDatavalidade() != null && aupair.getVendas().getDatavalidade().before(new Date()))) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
+			return "";
+		}else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", aupair.getVendas());
+			voltar = "consultaAuPair";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
 
 	public String corNome(Aupair aupair) {

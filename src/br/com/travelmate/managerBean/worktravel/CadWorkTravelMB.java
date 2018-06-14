@@ -131,6 +131,7 @@ public class CadWorkTravelMB implements Serializable {
 	private String voltarControleVendas = "";
 	private float valorMoedaReal = 0f;
 	private float valorMoedaEstrangeira = 0f;
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -161,6 +162,9 @@ public class CadWorkTravelMB implements Serializable {
 			}
 			vendaAlterada = work.getVendas();
 			novaFicha = false;
+			if (venda.getDatavalidade().before(new Date())) {
+				habilitarAvisoCambio = true;
+			}
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
 		parcelamentopagamento.setFormaPagamento("sn");
@@ -519,6 +523,14 @@ public class CadWorkTravelMB implements Serializable {
 
 	public void setValorMoedaEstrangeira(float valorMoedaEstrangeira) {
 		this.valorMoedaEstrangeira = valorMoedaEstrangeira;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void iniciarNovo() {
@@ -1674,5 +1686,10 @@ public class CadWorkTravelMB implements Serializable {
 		formaPagamento.setValorJuros((float) session.getAttribute("valorJuros"));
 		session.removeAttribute("valorJuros");
 		calcularValorTotalOrcamento();
+	}
+	
+	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
 	}
 }

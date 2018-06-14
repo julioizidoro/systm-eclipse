@@ -147,6 +147,7 @@ public class CadAupairMB implements Serializable {
 	private String voltarControleVendas = "";
 	private boolean edicaoFicha;
 	private boolean desabilitarParcelamento = false;
+	private boolean habilitarAvisoCambio = false;
 
 	@PostConstruct()
 	public void init() {
@@ -171,6 +172,9 @@ public class CadAupairMB implements Serializable {
 		} else {
 			iniciarAlteracao();
 			controlealteracoes.setVendas(venda);
+			if (venda.getDatavalidade().before(new Date())) {
+				habilitarAvisoCambio = true;
+			}
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
 		parcelamentopagamento.setFormaPagamento("sn");
@@ -590,6 +594,14 @@ public class CadAupairMB implements Serializable {
 
 	public void setDesabilitarParcelamento(boolean desabilitarParcelamento) {
 		this.desabilitarParcelamento = desabilitarParcelamento;
+	}
+
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
 	}
 
 	public void iniciarNovo() {
@@ -1725,7 +1737,6 @@ public class CadAupairMB implements Serializable {
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
 			if (dias > 3) {
-				Mensagem.lancarMensagemErro("Cambio alterado para o dia atual", "");
 				cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 						cambio.getMoedas().getIdmoedas());
 				if (cambio != null) {
@@ -1957,7 +1968,9 @@ public class CadAupairMB implements Serializable {
 	}
 	
 	
-	
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
+	}
 	
 	
 }
