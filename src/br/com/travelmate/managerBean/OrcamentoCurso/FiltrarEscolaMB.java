@@ -1957,21 +1957,22 @@ public class FiltrarEscolaMB implements Serializable {
 		OcursoFeriadoFacade ocursoFeriadoFacade = new OcursoFeriadoFacade();
 		String sql = "SELECT o FROM Ocursoferiado o where o.fornecedorcidade.idfornecedorcidade="
 				+ fpb.getFornecedorcidadeidioma().getFornecedorcidade().getIdfornecedorcidade()
-				+ " and o.datainicial>='" + Formatacao.ConvercaoDataSql(fpb.getOcurso().getDatainicio()) + "'";
+				+ " and o.datainicial>='" + Formatacao.ConvercaoDataSql(fpb.getOcurso().getDatainicio()) + "' and o.datainicial<='" + 
+				Formatacao.ConvercaoDataSql(fpb.getOcurso().getDatatermino()) + "'";
 		List<Ocursoferiado> listaFeriados = ocursoFeriadoFacade.listar(sql);
 		int numeroDias = 0;
 		if (listaFeriados != null) {
 			fpb.setListaOcrusoFeriado(listaFeriados);
 			for (int i = 0; i < listaFeriados.size(); i++) {
 				int diascalculo = 0;
-				if (listaFeriados.get(i).getContacurso() == false) {
+				if (!listaFeriados.get(i).getContacurso()) {
 					if (fpb.getOcurso().getDatainicio().before(listaFeriados.get(i).getDatainicial())) {
 						if (fpb.getOcurso().getDatatermino().before(listaFeriados.get(i).getDatafinal())) {
 							diascalculo = Formatacao.subtrairDatas(fpb.getOcurso().getDatatermino(),
 									listaFeriados.get(i).getDatainicial());
 						} else {
-							diascalculo = Formatacao.subtrairDatas(listaFeriados.get(i).getDatafinal(),
-									listaFeriados.get(i).getDatainicial());
+							diascalculo = Formatacao.subtrairDatas(listaFeriados.get(i).getDatainicial(),
+									listaFeriados.get(i).getDatafinal());
 						}
 
 					}
@@ -1980,8 +1981,8 @@ public class FiltrarEscolaMB implements Serializable {
 						diascalculo = Formatacao.subtrairDatas(fpb.getOcurso().getDatatermino(),
 								listaFeriados.get(i).getDatainicial());
 					} else {
-						diascalculo = Formatacao.subtrairDatas(listaFeriados.get(i).getDatafinal(),
-								listaFeriados.get(i).getDatainicial());
+						diascalculo = Formatacao.subtrairDatas(listaFeriados.get(i).getDatainicial(),
+								listaFeriados.get(i).getDatafinal());
 					}
 				}
 				numeroDias = numeroDias + diascalculo + 1;
