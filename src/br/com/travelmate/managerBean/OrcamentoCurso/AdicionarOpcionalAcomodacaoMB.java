@@ -48,10 +48,10 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaAcOpcional();
-		if(resultadoOrcamentoBean.getListaAcomodacoes()!=null && resultadoOrcamentoBean.getListaAcomodacoes().size()>0 &&
-				resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
-			gerarListaAcOpcionalIndependente();
-		}
+			if(resultadoOrcamentoBean.getListaAcomodacoes()!=null && resultadoOrcamentoBean.getListaAcomodacoes().size()>0 &&
+					resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+				gerarListaAcOpcionalIndependente();
+			}
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -97,15 +97,19 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 	public void gerarListaAcOpcional() {
 		listaAcOpcional = new ArrayList<>();
 		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
-				+ resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
-				+ " and c.tipo='AcOpcional'" + " and c.produtosorcamento.idprodutosOrcamento<>"
-				+ aplicacaoMB.getParametrosprodutos().getSuplementoidade()
-				+ " and c.produtosorcamento.idprodutosOrcamento<>"
-				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
-				+ " and c.produtosorcamento.idprodutosOrcamento<>"
-				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		String sql =  "";
+		List<Coprodutos> listaCoProdutos = null;
+		if (resultadoOrcamentoBean != null) {
+			sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+					+ resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+					+ " and c.tipo='AcOpcional'" + " and c.produtosorcamento.idprodutosOrcamento<>"
+					+ aplicacaoMB.getParametrosprodutos().getSuplementoidade()
+					+ " and c.produtosorcamento.idprodutosOrcamento<>"
+					+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
+					+ " and c.produtosorcamento.idprodutosOrcamento<>"
+					+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
+			listaCoProdutos = coProdutosFacade.listar(sql);
+		}
 		if (listaCoProdutos != null) {
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
 				ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(),

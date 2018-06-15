@@ -58,6 +58,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private String nomeFornecedor2 = "";
 	private String nomeFornecedor3 = "";
 	private String nomeAcomodacaoFornecedor = "";
+	private String advertencia = "";
 
 	@PostConstruct
 	public void init() {
@@ -233,6 +234,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public void setNomeAcomodacaoFornecedor(String nomeAcomodacaoFornecedor) {
 		this.nomeAcomodacaoFornecedor = nomeAcomodacaoFornecedor;
+	}
+
+	public String getAdvertencia() {
+		return advertencia;
+	}
+
+	public void setAdvertencia(String advertencia) {
+		this.advertencia = advertencia;
 	}
 
 	public void gerarListaAcomodacao() {
@@ -824,6 +833,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	}
 	
 	public void selecionarAcomodacaoIndependente(ProdutosOrcamentoBean acomodacao){
+		advertencia = acomodacao.getValorcoprodutos().getCoprodutos().getAdvertencia();
 		this.acomodacaoIndependente = acomodacao;
 	}
 }

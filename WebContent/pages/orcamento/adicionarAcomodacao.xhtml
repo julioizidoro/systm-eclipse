@@ -45,7 +45,7 @@
 					<img src="../../resources/img/crm/atencao.png" width="21"
 						style="margin-top: -1%;" />
 					<p:outputLabel   
-						value="#{adicionarAcomodacaoMB.acomodacaoIndependente.valorcoprodutos.coprodutos.advertencia}"
+						value="#{adicionarAcomodacaoMB.advertencia}"
 						style="font-size:15px;font-weight: bold;color:#FF0000;margin-left:1%;" />
 				</h:panelGrid>
 				<br />      
@@ -287,7 +287,7 @@
 												<f:selectItem itemLabel="48" itemValue="48" />
 												<p:ajax
 													listener="#{adicionarAcomodacaoMB.calcularValorAcomodacao(acomodacaoIndependente)}"
-													update="idtabelaAcomodacaoIndependente" />
+													update="semPromocaoAcomodacaoIndependente, valorOriginalrsIndependente, valorOriginalIndependente, comPromocaoAcomodacaoIndependente" />
 											</p:selectOneMenu>  
 										</h:panelGroup>
 										<h:panelGroup id="semPromocaoAcomodacaoIndependente"
@@ -346,12 +346,12 @@
 							<div align="right" style="width: 98%">
 								
 								<p:commandButton value="Incluir"
-										rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}"
+										rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}" actionListener="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										action="#{adicionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
 										icon="ui-icon-check" />
 									<p:commandButton value="Incluir"
-										rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}"
-										icon="ui-icon-check" update=":adicionarAcomodacao:dialog"
+										rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}" actionListener="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
+										icon="ui-icon-check" update=":adicionarAcomodacao:dialogIndependente"
 										oncomplete="PF('dialogMensagemIndependente').show();">
 										<f:setPropertyActionListener value="#{acomodacaoIndependente}"
 											target="#{adicionarAcomodacaoMB.acomodacaoIndependente}" />
@@ -463,7 +463,7 @@
 												<f:selectItem itemLabel="48" itemValue="48" />
 												<p:ajax
 													listener="#{adicionarAcomodacaoMB.calcularValorAcomodacao(acomodacaoIndependente)}"
-													update="idtabelaAcomodacaoIndependente2" />
+													update="semPromocaoAcomodacaoIndependente2, valorOriginalIndependente2, valorOriginalrsIndependente2, comPromocaoAcomodacaoIndependente2" />
 											</p:selectOneMenu>  
 										</h:panelGroup>
 										<h:panelGroup id="semPromocaoAcomodacaoIndependente2"
@@ -521,16 +521,16 @@
 							</h:panelGrid>
 							<div align="right" style="width: 98%">
 								<p:commandButton value="Incluir"
-									rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}"
-									action="#{adicionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
-									icon="ui-icon-check" />
-								<p:commandButton value="Incluir" action="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
-									rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}"
-									icon="ui-icon-check" update=":adicionarAcomodacao:dialog"
-									oncomplete="PF('dialogMensagemIndependente').show();">
-									<f:setPropertyActionListener value="#{acomodacaoIndependente}"
-										target="#{adicionarAcomodacaoMB.acomodacaoIndependente}" />
-								</p:commandButton>
+										rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}" actionListener="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
+										action="#{adicionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
+										icon="ui-icon-check" />
+									<p:commandButton value="Incluir"
+										rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}" actionListener="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
+										icon="ui-icon-check" update=":adicionarAcomodacao:dialogIndependente"
+										oncomplete="PF('dialogMensagemIndependente').show();">
+										<f:setPropertyActionListener value="#{acomodacaoIndependente}"
+											target="#{adicionarAcomodacaoMB.acomodacaoIndependente}" />
+									</p:commandButton>
 							</div>
 							<br></br>  
 							<div class="line_1"></div>
@@ -638,7 +638,7 @@
 												<f:selectItem itemLabel="48" itemValue="48" />
 												<p:ajax
 													listener="#{adicionarAcomodacaoMB.calcularValorAcomodacao(acomodacaoIndependente)}"
-													update="idtabelaAcomodacaoIndependente3" />
+													update="semPromocaoAcomodacaoIndependente3, valorOriginalIndependente3, valorOriginalrsIndependente3, comPromocaoAcomodacaoIndependente3" />
 											</p:selectOneMenu>  
 										</h:panelGroup>
 										<h:panelGroup id="semPromocaoAcomodacaoIndependente3"
@@ -696,16 +696,16 @@
 							</h:panelGrid>
 							<div align="right" style="width: 98%">
 								<p:commandButton value="Incluir"
-									rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}"
-									action="#{adicionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
-									icon="ui-icon-check" />
-								<p:commandButton value="Incluir" action="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
-									rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}"
-									icon="ui-icon-check" update=":adicionarAcomodacao:dialog"
-									oncomplete="PF('dialogMensagemIndependente').show();">
-									<f:setPropertyActionListener value="#{acomodacaoIndependente}"
-										target="#{adicionarAcomodacaoMB.acomodacaoIndependente}" />
-								</p:commandButton>
+										rendered="#{adicionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}" actionListener="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
+										action="#{adicionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
+										icon="ui-icon-check" />
+									<p:commandButton value="Incluir"
+										rendered="#{adicionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}" actionListener="#{adicionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
+										icon="ui-icon-check" update=":adicionarAcomodacao:dialogIndependente"
+										oncomplete="PF('dialogMensagemIndependente').show();">
+										<f:setPropertyActionListener value="#{acomodacaoIndependente}"
+											target="#{adicionarAcomodacaoMB.acomodacaoIndependente}" />
+									</p:commandButton>
 							</div>
 							<br></br>  
 							<div class="line_1"></div>
