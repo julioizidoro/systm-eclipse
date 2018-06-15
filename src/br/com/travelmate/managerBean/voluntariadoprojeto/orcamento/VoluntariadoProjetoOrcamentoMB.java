@@ -359,9 +359,9 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 		Date data = new Date();
 		Fornecedorpais fornecedorPais = buscarFornecedorPais(fornecedorcidade.getFornecedor().getIdfornecedor(),
 				fornecedorcidade.getCidade().getPais().getIdpais());
-		int idMoeda = fornecedorcidade.getCidade().getPais().getMoedas().getIdmoedas();
+		int idMoeda = fornecedorcidade.getCidade().getPais().getMoedasVolutariado().getIdmoedas();
 		if (fornecedorPais != null) {
-			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
+			idMoeda = fornecedorPais.getPais().getMoedasVolutariado().getIdmoedas();
 		}
 		while (cambio == null) {
 			cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(data), idMoeda);
