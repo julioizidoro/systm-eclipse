@@ -61,22 +61,30 @@
 	                                scrollable="true" scrollHeight="300" style="font-size:11px;margin-bottom:20px" >
 	                         
 	                        
-	                        <p:column headerText="Unidade" style="text-align:left;width:200px;">
-	                            <h:outputText value="#{metas.unidadenegocio.nomeFantasia}" />
+	                        <p:column headerText="Unidade" style="text-align:left;width:100px;" sortBy="#{metas.unidadenegocio.nomerelatorio}">
+	                            <h:outputText value="#{metas.unidadenegocio.nomerelatorio}" />
 	                        </p:column>
-	                        <p:column headerText="Mês" style="width:60px;text-align:center;">
+	                         <p:column headerText="Categoria" style="text-align:left;width:100px;" sortBy="#{metas.unidadenegocio.categoria}">
+	                            <h:outputText value="#{metas.unidadenegocio.categoria}" />
+	                        </p:column>
+	                        <p:column headerText="Mês" style="width:60px;text-align:center;" >
 	                            <h:outputText value="#{metas.mes}" />
 	                        </p:column>
 	                        <p:column headerText="Ano" style="width:60px;text-align:center;">
 	                            <h:outputText value="#{metas.ano}"/>
 	                        </p:column>
-	                        <p:column headerText="Valor Meta" style="width:14%;text-align: right" >
+	                        <p:column headerText="Valor Meta" style="width:14%;text-align: right"  sortBy="#{metas.valormeta}">
 	                            <h:outputText value="#{metas.valormeta}" style="text-decoration-line: underline">
 	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 	                            </h:outputText> 
 	                        </p:column>
-	                        <p:column headerText="Valor Alcançado" style="width:14%;text-align: right" >
+	                        <p:column headerText="Valor Alcançado" style="width:14%;text-align: right" sortBy="#{metas.valoralcancado}">
 	                            <h:outputText value="#{metas.valoralcancado}" style="text-decoration-line: underline">
+	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                            </h:outputText>  
+	                        </p:column>
+	                        <p:column headerText="% Atingido" style="width:14%;text-align: right" sortBy="#{metas.unidadenegocio.percentualalcancado}" >
+	                            <h:outputText value="#{metas.percentualalcancado}" style="text-decoration-line: underline">
 	                               <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 	                            </h:outputText>  
 	                        </p:column>
