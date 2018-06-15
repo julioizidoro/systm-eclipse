@@ -162,7 +162,7 @@ public class CadCursosTeensMB implements Serializable {
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
 			}
-			if (venda.getDatavalidade().before(new Date())) {
+			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
 				habilitarAvisoCambio = true;
 			}
 		}

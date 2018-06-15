@@ -68,6 +68,9 @@ public class CadQuestionarioHeMB implements Serializable {
 			questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
 		} else {
 			cliente = questionarioHe.getCliente();
+			if (questionarioHe.getPais1() != null) {
+				verificarNivel();
+			}
 		}
 
 		if (cliente == null && lead != null) {

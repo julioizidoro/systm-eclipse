@@ -192,7 +192,7 @@ public class CadTraineeMB implements Serializable {
 			numeroSemanas = "0";
 		} else {
 			iniciarAlteracao();
-			if (venda.getDatavalidade().before(new Date())) {
+			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
 				habilitarAvisoCambio = true;
 			}
 		}

@@ -162,7 +162,7 @@ public class CadWorkTravelMB implements Serializable {
 			}
 			vendaAlterada = work.getVendas();
 			novaFicha = false;
-			if (venda.getDatavalidade().before(new Date())) {
+			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
 				habilitarAvisoCambio = true;
 			}
 		}

@@ -172,7 +172,7 @@ public class CadAupairMB implements Serializable {
 		} else {
 			iniciarAlteracao();
 			controlealteracoes.setVendas(venda);
-			if (venda.getDatavalidade().before(new Date())) {
+			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
 				habilitarAvisoCambio = true;
 			}
 		}

@@ -249,7 +249,7 @@ public class CadCursoMB implements Serializable {
 				if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					venda.setDataVenda(new Date());
 				}
-				if (venda.getDatavalidade().before(new Date())) {
+				if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
 					habilitarAvisoCambio = true;
 				}
 			}
