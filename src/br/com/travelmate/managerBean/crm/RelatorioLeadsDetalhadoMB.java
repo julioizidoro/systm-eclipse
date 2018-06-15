@@ -17,10 +17,12 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Publicidade;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 
@@ -50,6 +52,8 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 	private Publicidade publicidade;
 	private String nomeCliente = "";
 	private List<Lead> listaLeads;
+	private List<Produtos> listaProgramas;
+	private Produtos programas;
 	
 	
 	@PostConstruct
@@ -62,6 +66,7 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 			gerarListaConsultor();
 			consultor = usuarioLogadoMB.getUsuario();
 		}
+		listaProgramas = GerarListas.listarProdutos("");
 	}
 
 
@@ -220,6 +225,26 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 	
 
 
+	public List<Produtos> getListaProgramas() {
+		return listaProgramas;
+	}
+
+
+	public void setListaProgramas(List<Produtos> listaProgramas) {
+		this.listaProgramas = listaProgramas;
+	}
+
+
+	public Produtos getProgramas() {
+		return programas;
+	}
+
+
+	public void setProgramas(Produtos programas) {
+		this.programas = programas;
+	}
+
+
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -274,6 +299,10 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 			if (consultor != null && consultor.getIdusuario() != null) {
 				sql = sql + " and l.usuario.idusuario=" + consultor.getIdusuario();
 			}
+			
+			if (programas != null && programas.getIdprodutos() != null) {
+				sql = sql + " and l.produtos.idprodutos=" + programas.getIdprodutos(); 
+			}
 			LeadFacade leadFacade = new LeadFacade();
 			listaLeads = leadFacade.lista(sql);
 			if (listaLeads == null) {
@@ -311,6 +340,7 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 		dataUltContatoInicial = null;
 		situacao = "";
 		listaLeads = new ArrayList<Lead>();
+		programas = null;
 	}
 	
 	
