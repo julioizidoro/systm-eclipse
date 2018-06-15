@@ -95,7 +95,6 @@ public class SalvarOrcamentoOcurso {
 		ocurso.setNomecliente(cliente.getNome());
 		ocurso.setNumerosemanas(cursospacote.getNumerosemanacurso());
 		ocurso.setNumerosemanastotal(ocurso.getNumerosemanas());
-		ocurso.setObservacao(cursospacote.getDescricao());
 		ocurso.setProdutosorcamento(cursospacote.getValorcoprodutos_curso().getCoprodutos().getProdutosorcamento());
 		ocurso.setTotalmoedaestrangeira(0.0f);
 		ocurso.setTotalmoedanacional(0.0f);
