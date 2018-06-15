@@ -47,6 +47,9 @@ public class Pais implements Serializable {
     @JoinColumn(name = "moedas_idmoedas", referencedColumnName = "idmoedas")
     @ManyToOne(optional = false)
     private Moedas moedas;
+    @JoinColumn(name = "moedas_voluntariado", referencedColumnName = "idmoedas")
+    @ManyToOne(optional = false)
+    private Moedas moedasVolutariado;
     @Lob
     @Size(max = 16777215)
     @Column(name = "texto")
@@ -136,6 +139,22 @@ public class Pais implements Serializable {
 
 	public void setModelo(int modelo) {
 		this.modelo = modelo;
+	}
+
+	public Moedas getMoedasVolutariado() {
+		return moedasVolutariado;
+	}
+
+	public void setMoedasVolutariado(Moedas moedasVolutariado) {
+		this.moedasVolutariado = moedasVolutariado;
+	}
+
+	public List<Paisproduto> getPaisprodutoList() {
+		return paisprodutoList;
+	}
+
+	public void setPaisprodutoList(List<Paisproduto> paisprodutoList) {
+		this.paisprodutoList = paisprodutoList;
 	}
 
 	@Override
