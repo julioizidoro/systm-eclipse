@@ -180,9 +180,6 @@ public class CadVoluntariadoMB implements Serializable {
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
 			}
-			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
-				habilitarAvisoCambio = true;
-			}
 		}
 		parcelamentopagamento.setFormaPagamento("sn");
 		gerarListaTipoParcelamento();
@@ -1897,7 +1894,7 @@ public class CadVoluntariadoMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
+			int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
 			if (dias > 3) {
 				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
 				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
@@ -1908,6 +1905,7 @@ public class CadVoluntariadoMB implements Serializable {
 					}
 				}
 				if (cambio != null) {
+					habilitarAvisoCambio = true;
 					orcamento.setValorCambio(cambio.getValor());
 					cambioAlterado = "Não";
 					atualizarValoresProduto();

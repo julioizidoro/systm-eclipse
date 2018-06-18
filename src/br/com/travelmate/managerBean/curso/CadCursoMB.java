@@ -249,9 +249,6 @@ public class CadCursoMB implements Serializable {
 				if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					venda.setDataVenda(new Date());
 				}
-				if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
-					habilitarAvisoCambio = true;
-				}
 			}
 			if (curso.getSCurso() == null) {
 				curso.setSCurso("");
@@ -1557,22 +1554,6 @@ public class CadCursoMB implements Serializable {
 					vendaspacote.setVendas(venda);
 					vendaspacote = vendasPacoteFacade.salvar(vendaspacote);  
 				}
-				if (venda.isRestricaoparcelamento()) {
-					String titulo = "Autorizar Nova Ficha de Curso";
-					String operacao = "I";
-					String imagemNotificacao = "inserido";
-					String vm = "Venda pela Matriz";
-					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-						vm = "Venda pela Loja";
-					}
-					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-					depFinanceiro = departamentoFacade.consultar(3);
-					Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-							venda.getFornecedorcidade().getFornecedor().getNome(),
-							Formatacao.ConvercaoDataPadrao(curso.getDataInicio()), venda.getUsuario().getNome(), vm,
-							venda.getValor(), valorCambio, venda.getCambio().getMoedas().getSigla(), operacao,
-							depFinanceiro, imagemNotificacao, "I");
-				}
 				if (novaFicha) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 							venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
@@ -2872,7 +2853,7 @@ public class CadCursoMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
+			int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
 			if (dias > 3) {
 				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
 				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
@@ -2883,6 +2864,7 @@ public class CadCursoMB implements Serializable {
 					}
 				}
 				if (cambio != null) {
+					habilitarAvisoCambio = true;
 					valorCambio = cambio.getValor();
 					cambioAlterado = "Não";
 					atualizarValoresProduto();

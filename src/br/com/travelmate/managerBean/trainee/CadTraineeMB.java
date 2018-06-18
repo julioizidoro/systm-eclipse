@@ -192,9 +192,6 @@ public class CadTraineeMB implements Serializable {
 			numeroSemanas = "0";
 		} else {
 			iniciarAlteracao();
-			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
-				habilitarAvisoCambio = true;
-			}
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
 		parcelamentopagamento.setFormaPagamento("sn");
@@ -1593,7 +1590,7 @@ public class CadTraineeMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
+			int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
 			if (dias > 3) {
 				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
 				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
@@ -1604,6 +1601,7 @@ public class CadTraineeMB implements Serializable {
 					}
 				}
 				if (cambio != null) {
+					habilitarAvisoCambio = true;
 					orcamento.setValorCambio(cambio.getValor());
 					cambioAlterado = "Não";
 					atualizarValoresProduto();

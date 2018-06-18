@@ -155,9 +155,6 @@ public class CadDemiPairMB implements Serializable {
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {
 				verificarAlteracaoListaParcelamento();
 			}
-			if (venda.getSituacao().equalsIgnoreCase("PROCESSO") && venda.getDatavalidade().before(new Date())) {
-				habilitarAvisoCambio = true;
-			}
 		}
 		parcelamentopagamento.setNumeroParcelas(01);
 		parcelamentopagamento.setFormaPagamento("sn"); 
@@ -1386,6 +1383,7 @@ public class CadDemiPairMB implements Serializable {
 					}
 				}
 				if (cambio != null) {
+					habilitarAvisoCambio = true;
 					orcamento.setValorCambio(cambio.getValor());
 					cambioAlterado = "Não";
 					atualizarValoresProduto();
