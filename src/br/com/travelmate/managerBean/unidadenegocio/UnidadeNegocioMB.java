@@ -172,6 +172,7 @@ public class UnidadeNegocioMB implements Serializable {
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                     }
+                    Mensagem.lancarMensagemInfo("TMTur", line);
                 }
                 UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
                 unidadenegocio.setTmturcadastro(true);
@@ -215,6 +216,7 @@ public class UnidadeNegocioMB implements Serializable {
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                     }
+                    Mensagem.lancarMensagemInfo("TMTur", line);
                 }
                 UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
                 unidadenegocio.setTmturativo(true);
@@ -258,6 +260,7 @@ public class UnidadeNegocioMB implements Serializable {
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                     }
+                    Mensagem.lancarMensagemInfo("TMTur", line);
                 }
                 UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
                 unidadenegocio.setTmturativo(false);

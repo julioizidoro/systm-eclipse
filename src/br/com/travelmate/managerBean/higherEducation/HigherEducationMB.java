@@ -903,10 +903,7 @@ public class HigherEducationMB implements Serializable {
 	public String documentacao(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-	//	session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
-		if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
-			session.setAttribute("vendas1", listaHeBean.getHe().getVendas1());
-		}
+		session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
 		session.setAttribute("pesquisar", "Sim");
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("listaAndamento", listaAndamento);
@@ -924,7 +921,7 @@ public class HigherEducationMB implements Serializable {
 	public String informacoes(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-	//	session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
+		session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
 		String voltar = "consquestionarioHe";
 		session.setAttribute("voltar", voltar);
 		return "consLogVenda"; 
