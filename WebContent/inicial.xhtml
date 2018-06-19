@@ -623,11 +623,28 @@
 												</p:commandLink></li>
 										</ul></li>
 								</h:panelGroup>
-								<h:panelGroup>
-									<li><p:commandLink action="#{menuMB.questionarioHe()}">
-											<span class="submenu-label">Higher Education</span>
-										</p:commandLink></li>
-								</h:panelGroup>
+								<li class="openable open"><p:commandLink>
+										<span class="submenu-label">Higher Education <i
+											class="fa fa-chevron-down"></i></span>
+									</p:commandLink>
+									<ul class="submenu">
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.consquestionarioHe()}">
+													<span class="subsubmenu-label">Questionario</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.questionarioHe()}">
+													<span class="subsubmenu-label">Form. de Assessoria</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										<h:panelGroup>
+											<li><p:commandLink action="#{menuMB.questionarioHe()}">
+													<span class="subsubmenu-label">Ficha Final</span>
+												</p:commandLink></li>
+										</h:panelGroup>
+										
+									</ul></li>
 								<li class="openable open"><p:commandLink>
 										<span class="submenu-label">Programas de Trabalho <i
 											class="fa fa-chevron-down"></i></span>

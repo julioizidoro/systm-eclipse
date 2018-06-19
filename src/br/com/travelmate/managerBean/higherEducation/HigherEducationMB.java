@@ -913,7 +913,7 @@ public class HigherEducationMB implements Serializable {
 		session.setAttribute("listaProcesso", listaProcesso);
 		session.setAttribute("chamadaTela", "fichaHE");
 		session.setAttribute("listaHe", listaHe);
-		String voltar = "consquestionarioHe";
+		String voltar = "consultaquestionarioHe";
 		session.setAttribute("voltar", voltar);
 		return "consArquivos"; 
 	}

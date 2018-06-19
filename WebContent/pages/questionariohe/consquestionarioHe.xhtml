@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consHe" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="2" columnClasses="tamanho7, tamanhoavisos"
+							style="width:90%;margin-left:4%;">
+							<p:outputLabel value="ID Questionario" for="idVenda" />
+							<p:outputLabel value="Nome do Cliente" for="cliente" />
+
+							<p:inputText id="idVenda" value="#{questionarioMB.idvenda}"
+								style="width:87px;" />
+							<p:inputText id="cliente" value="#{questionarioMB.nomeCliente}"
+								style="width:260px;" />
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="6"
+							columnClasses="tamanho7, tamanho1,tamanho8,tamanho8,tamanho7,tamanho1"
+							style="width:95%;margin-left:4%;">
+							<p:outputLabel value="Periodo" for="dataIni" />
+							<p:outputLabel />
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Situação"/>
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:calendar id="dataIni" value="#{questionarioMB.dataInicio}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar id="dataFinal" value="#{questionarioMB.dataTermino}"
+								size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+								maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:selectOneMenu id="unidade"
+								value="#{questionarioMB.unidadenegocio}" style="width:180px;"
+								converter="UnidadeNegocioConverter"
+								disabled="#{questionarioMB.habilitarUnidade}" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{questionarioMB.listaUnidade}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{questionarioMB.listaUnidade}" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacao"
+								value="#{questionarioMB.situacao}" style="width:150px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn" />
+								<f:selectItem itemLabel="Autorizado" itemValue="Autorizado" />
+								<f:selectItem itemLabel="Desistencia" itemValue="Desistencia" />
+								<f:selectItem itemLabel="Em Análise" itemValue="Em Análise" />
+								<f:selectItem itemLabel="Finalizada" itemValue="Finalizada" />
+								<f:selectItem itemLabel="Pendência" itemValue="Pendência" />
+								<f:selectItem itemLabel="Reprovado" itemValue="Reprovado" />
+							</p:selectOneMenu>
+							<p:commandButton value="Pesquisar" icon="ui-icon-search"
+								action="#{questionarioMB.pesquisar()}"
+								update=":consHe:tabelaFinalizado" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update="situacao, unidade, dataFinal, dataIni, cliente, :consHe:tabelaFinalizado"
+								action="#{questionarioMB.limpar()}" />
+						</h:panelGrid>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Questionario de HE</b>
+				</legend>
+				<p:commandButton value="Novo Questionario" icon="ui-icon-plus"
+					update=":consHe:growl" onsuccess="PF('novaficha').show();"
+					style="font-size:12px;margin-left:79.5%" />
+
+				<p:dialog message="CRM" showEffect="fade" hideEffect="fade"
+					header="ATENÇÃO" width="36%" icon="ui-icon-alert"
+					widgetVar="novaficha" style="font-size:14px">
+					<h:panelGroup style="margin-left:2%;">
+						<h:outputText
+							value="Por favor emitir a venda através da ferramenta CRM. Obrigado"
+							style="font-size:16px;" />
+					</h:panelGroup>
+					<br />
+					<br />
+					<p:commandButton
+						action="#{questionarioMB.notificarEfetuarFichaCrm()}"
+						value="Ir para CRM" oncomplete="PF('novaficha').hide();"
+						styleClass="ui-confirmdialog-yes"
+						style="margin-left:40%;font-size:12px" />
+					<br />
+				</p:dialog>
+				<br></br> <br></br>
+				<p:dataTable id="tabelaFinalizado" var="finalizado" editable="true" editMode="cell"
+					value="#{questionarioMB.listaQuestionario}" scrollable="true"
+					scrollHeight="300" style="margin-bottom:10px;margin-left:2%;">
+
+					<p:column headerText="ID" sortBy="#{finalizado.idquestionariohe}"
+						style="width:30px;text-align:left;" styleClass="alinharCenter">
+						<h:outputText value="#{finalizado.idquestionariohe}" />
+					</p:column>
+					<p:column headerText="Cliente" sortBy="#{finalizado.cliente.nome}"
+						style="width:150px; ">
+						<h:outputText value="#{finalizado.cliente.nome}" />
+					</p:column>
+					<p:column headerText="Data Envio" sortBy="#{finalizado.dataenvio}"
+						style="text-align:center;width:67px;">
+						<h:outputText value="#{finalizado.dataenvio}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Unidade"
+						sortBy="#{finalizado.usuario.unidadenegocio.nomerelatorio}"
+						style="width:85px;" styleClass="alinharCenter">
+						<h:outputText
+							value="#{finalizado.usuario.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Consultor"
+						sortBy="#{finalizado.usuario.nome}" style="width:120px;"
+						styleClass="alinharCenter">
+						<h:outputText value="#{finalizado.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Situação" sortBy="#{finalizado.situacao}"
+						style="width:110px;" styleClass="alinharCenter">
+						<p:cellEditor>
+								<f:facet name="output">
+									
+									<h:outputText value="#{finalizado.situacao}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:selectOneMenu id="situacao" 
+										value="#{questionarioMB.situacaoLista}"
+										style="width:150px;">  
+										<f:selectItem itemLabel="Selecione"
+											itemValue="sn" />
+										<f:selectItem itemLabel="Autorizado"
+											itemValue="Autorizado" />
+										<f:selectItem itemLabel="Desistencia"
+											itemValue="Desistencia" />
+										<f:selectItem itemLabel="Em Análise"  
+											itemValue="Em Análise" />
+										<f:selectItem itemLabel="Finalizada"
+											itemValue="Finalizada" />
+										<f:selectItem itemLabel="Pendência"
+											itemValue="Pendência" />
+										<f:selectItem itemLabel="Reprovado"
+											itemValue="Reprovado" />
+										<p:ajax event="change"
+											listener="#{questionarioMB.atualizarLista(finalizado)}"
+											update="@all" />
+									</p:selectOneMenu>
+								</f:facet>
+							</p:cellEditor>
+					</p:column>
+					<p:column style="width:43px;text-align:center;">
+						<p:commandLink action="#{questionarioMB.editar(finalizado)}"
+							title="Editar" style="text-decoration: none">
+							<img src="../../resources/img/editaricon.png" width="27" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText=""
+						style="width:90px;text-align:center;" styleClass="alinharCenter">
+
+						<p:commandLink action="#{questionarioMB.fichaHE(finalizado)}"
+							title="Ficha" ajax="false" target="_blank"
+							style="width:27px;margin-left:2%">
+							<img src="../../resources/img/imprimiFicha.png"
+								style="width: 27px;" />
+						</p:commandLink>
+						<p:commandLink action="#{questionarioMB.contrato(finalizado)}"
+							title="Contrato de Higher Education" ajax="false" target="_blank"
+							style="margin-left:2%">
+							<img src="../../resources/img/imprimiContrato.png"
+								style="width: 27px;" />
+						</p:commandLink>
+						<p:commandLink
+							action="#{questionarioMB.cancelarVenda(finalizado)}"
+							style="text-decoration: none" title="CANCELAR FICHA"
+							update="@form">
+
+							<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?"
+								icon="ui-icon-alert" />
+
+							<img src="../../resources/img/cancel.png" style="width: 27px;" />
+
+							<p:ajax event="dialogReturn"
+								listener="#{questionarioMB.gerarListaHe()}" process="@this"
+								update="@form" />
+
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					style="background:#DDDDE1;">
+					<div align="center">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+							style="font-size:12px;" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+							style="font-size:12px;" />
+					</div>
+				</p:confirmDialog>
+				<style>
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+	.ui-datatable tfoot th {
+	padding: 2px 2px;
+	overflow: hidden;
+	border-width: 0px;
+	border-style: solid;
+}
+
+.ui-confirm-dialog-message {
+	display: inline-block;
+	margin-top: 1px;
+	font-size: 17px !important;
+}
+</style>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

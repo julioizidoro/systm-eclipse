@@ -1160,6 +1160,13 @@ public class MenuMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
+		return "consultaquestionarioHe";
+	}
+	
+	public String consquestionarioHe() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "consquestionarioHe";
 	}
 
