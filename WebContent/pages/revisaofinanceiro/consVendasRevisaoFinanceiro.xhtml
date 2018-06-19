@@ -15,9 +15,10 @@
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
 						
-						<h:panelGrid columns="5" style="width:100%;">
+						<h:panelGrid columns="6" style="width:100%;">
 							<p:outputLabel value="Id Venda"/>
 							<p:outputLabel value="Unidade"/>
+							<p:outputLabel value="Consultor"/>
 							<p:outputLabel value="Produtos"/>
 							<p:outputLabel value="Periodo Venda"/>
 							<p:outputLabel/>
@@ -37,7 +38,21 @@
 									itemValue="#{unidadeNegocio}" />
 								<f:attribute name="listaUnidade"
 									value="#{revisaoFinanceiroMB.listaUnidadeNegocio}" />
+								<p:ajax event="change" listener="#{revisaoFinanceiroMB.gerarListaConsultor}" update="consultor"/>
 							</p:selectOneMenu>
+							
+							<p:selectOneMenu id="consultor" value="#{revisaoFinanceiroMB.usuario}"
+								style="width:200px;" filter="true" filterMatchMode="startsWith"
+								converter="UsuarioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idconsultor"
+									value="#{revisaoFinanceiroMB.listaUsuario}" var="sUsuario"
+									itemLabel="#{sUsuario.nome}" itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{revisaoFinanceiroMB.listaUsuario}" />
+								<p:ajax event="change"/>   
+							</p:selectOneMenu>   
 							
 							<p:selectOneMenu id="produto"  
 								value="#{revisaoFinanceiroMB.produtos}"

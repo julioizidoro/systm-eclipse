@@ -13,11 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.LancamentoCartaoCreditoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.model.Lancamentocartaocredito;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -45,8 +47,28 @@ public class RevisaoFinanceiroMB implements Serializable{
 	private int nCartaoCredito = 0;
 	private List<Lancamentocartaocredito> listaCartaoCredito;
 	private int idVenda;
+	private Usuario usuario;
+	private List<Usuario> listaUsuario;
 	
 	
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+
+
+
+
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+
+
+
+
+
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -109,6 +131,24 @@ public class RevisaoFinanceiroMB implements Serializable{
 
 	public int getnPendentes() {
 		return nPendentes;
+	}
+
+
+
+
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 
@@ -374,12 +414,12 @@ public class RevisaoFinanceiroMB implements Serializable{
 			sql = sql + " and v.idvendas=" + idVenda;
 		}
 		listaVendaNova = vendasFacade.lista(sql +  " and v.situacaofinanceiro='N'"+
-				" and v.situacaogerencia<>'P' order by v.dataVenda DESC");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' order by v.dataVenda DESC");
 		if (listaVendaNova == null) {
 			listaVendaNova = new ArrayList<>();
 		}
 		listaVendaPendente = vendasFacade.lista(sql + " and v.situacaofinanceiro='P'"+
-				" and v.situacaogerencia<>'P' order by v.dataVenda DESC");
+				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' order by v.dataVenda DESC");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();
 		}
@@ -418,6 +458,18 @@ public class RevisaoFinanceiroMB implements Serializable{
 		LancamentoCartaoCreditoFacade lancamentoCartaoCreditoFacade = new LancamentoCartaoCreditoFacade();
 		lancamentoCartaoCreditoFacade.salvar(lancamento);
 		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
+	}
+	
+	public void gerarListaConsultor() {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			listaUsuario = usuarioFacade
+					.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
+							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
+		}
+		if (listaUsuario == null) {
+			listaUsuario = new ArrayList<Usuario>();
+		}
 	}
 	
 
