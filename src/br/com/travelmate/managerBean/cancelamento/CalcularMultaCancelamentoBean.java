@@ -6,18 +6,22 @@ import java.util.List;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.InvoiceFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Invoice;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 
 
 public class CalcularMultaCancelamentoBean {
+	
+	public Float valorSeguro;
 	
 	public Float consultarValorCambio(Date dataVenda, int idMoeda) {
 		Float ValorCambio = 0.0f;
@@ -28,11 +32,16 @@ public class CalcularMultaCancelamentoBean {
 	}
 	
 	public float calcularMulta(Cancelamento cancelamento){
+		valorSeguro = 0.0f;
+		
 		int idcondicao = cancelamento.getCondicaocancelamento().getIdcondicaocancelamento();
 		if (idcondicao==1){
 			return 0.0f;
 		}else if (idcondicao==2){
-			return (float) (cancelamento.getVendas().getValor() * 0.30);
+			if (cancelamento.getVendas().getProdutos().getIdprodutos()==1) {
+				valorSeguro = consultarValorSeguro(cancelamento.getVendas().getIdlead());
+			}
+			return (float) ((cancelamento.getVendas().getValor() + valorSeguro) * 0.30);
 		}else if (idcondicao==3){
 			return (float) (cancelamento.getVendas().getValor() * 0.30);
 		}else if (idcondicao==4){
@@ -270,6 +279,16 @@ public class CalcularMultaCancelamentoBean {
 			cancelamento.setSituacao("Creditado");
 		}
 		return cancelamento;
+	}
+	
+	public Float consultarValorSeguro(int idVendaCurso) {
+		Float valorSeguro = 0.0f;
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVendaCurso);
+		if (seguro!=null) {
+			valorSeguro = seguro.getVendas().getValor();
+		}
+		return valorSeguro;
 	}
 	
 

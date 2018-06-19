@@ -242,6 +242,17 @@ public class CancelamentoFichaMB implements Serializable {
 			cancelamento = cancelamentoFacade.salvar(cancelamento);
 			venda = cancelamento.getVendas();
 			venda.setSituacao("CANCELADA");
+			Vendas vendaSeguro = null;
+			if (venda.getProdutos().getIdprodutos()==1) {
+				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+				Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(venda.getIdvendas());
+				if (seguro!=null) {
+					vendaSeguro = seguro.getVendas();
+					vendaSeguro.setSituacao("CANCELADA");
+					VendasFacade vendasFacade = new VendasFacade();
+					vendasFacade.salvar(vendaSeguro);
+				}
+			}
 			if (listaNomeArquivo!=null) {
 				salvarArquivo();
 			}
@@ -265,6 +276,10 @@ public class CancelamentoFichaMB implements Serializable {
 				} else if (venda.getProdutos().getIdprodutos() == 2 || venda.getProdutos().getIdprodutos() == 3
 						|| venda.getProdutos().getIdprodutos() == 6) {
 					dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() - 1);
+				}else {
+					if (vendaSeguro!=null) {
+						dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() - 1);
+					}
 				}
 				dashBoardMB.getMetamensal()
 						.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() - venda.getValor());
