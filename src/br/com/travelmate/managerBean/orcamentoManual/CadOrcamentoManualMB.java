@@ -1268,6 +1268,7 @@ public class CadOrcamentoManualMB implements Serializable {
 			listarPlanosSeguro();
 			seguroplanos = seguroViagem.getValoresseguro().getSeguroplanos();
 			listarValoresSeguro();  
+			segurocancelamento = seguroViagem.isSegurocancelamento();
 		} else {
 			seguroViagem = new Orcamentomanualseguro();
 			seguroViagem.setValoresseguro(null);
