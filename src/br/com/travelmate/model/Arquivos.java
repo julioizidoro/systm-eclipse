@@ -53,7 +53,20 @@ public class Arquivos implements Serializable {
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
-    @Transient
+    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+	@ManyToOne(optional = false)
+	private Cliente cliente;
+    
+    
+    public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	@Transient
     private boolean selecionado;
 
     public Arquivos() {

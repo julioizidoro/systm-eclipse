@@ -626,6 +626,7 @@ public class CancelamentoFichaMB implements Serializable {
 				arquivos.setNomesalvos(nomeArquivo(listaNomeArquivo.get(i)));
 				arquivos.setSe(false);
 				arquivos.setUsuario(usuarioLogadoMB.getUsuario());
+				arquivos.setCliente(cancelamento.getVendas().getCliente());
 				arquivos.setVendas(cancelamento.getVendas());
 				try {
 					arquivos.setTipoarquivo(tipoarquivo.consultar(14));

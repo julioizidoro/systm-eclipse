@@ -320,6 +320,7 @@ public class CadArquivoMB implements Serializable {
 				arquivos.setTipoarquivo(tipoarquivo.getTipoarquivo());
 				arquivos.setUsuario(usuarioLogadoMB.getUsuario());
 				arquivos.setDataInclusao(new Date());
+				arquivos.setCliente(vendas.getCliente());
 				arquivos.setVendas(vendas);
 				arquivos.setNomesalvos(nomeArquivo + "_" + listaNomeArquivo.get(i));
 				arquivos.setNomeArquivo(listaNomeArquivo.get(i));
