@@ -1169,6 +1169,21 @@ public class MenuMB implements Serializable {
 		session.setAttribute("chamadaTela", "Menu");
 		return "consquestionarioHe";
 	}
+	
+	
+	public String formularioAssessoria() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
+		return "consFormAssessoria";
+	}
+	
+	public String heFichaFinal() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
+		return "consHeFichaFinal";
+	}
 
 	public String promocoesAtivas() {
 		return "consPromocoesAtivas";

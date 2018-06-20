@@ -1494,6 +1494,22 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
+			<from-outcome>consHeFichaFinal</from-outcome>
+			<to-view-id>/pages/he/consHeFichaFinal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFormAssessoria</from-outcome>
+			<to-view-id>/pages/he/consFormAssessoria.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
 			<from-outcome>consultaquestionarioHe</from-outcome>
 			<to-view-id>/pages/he/consquestionarioHe.xhtml</to-view-id>
 			<redirect />
@@ -2775,7 +2791,14 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaQuestionarioHe</from-outcome>
+			<to-view-id>/pages/questionariohe/fichaQuestionarioHe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>

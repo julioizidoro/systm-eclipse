@@ -103,6 +103,16 @@ public class Questionariohe implements Serializable {
 	private String observacao;
     @Column(name = "cidade")
 	private String cidade;
+    @Column(name = "notalinguagem")
+	private float notalinguagem;
+    @Column(name = "notaciencianatureza")
+	private float notaciencianatureza;
+    @Column(name = "notacienciahumanas")
+	private float notacienciahumanas;
+    @Column(name = "notamatematica")
+	private float notamatematica;
+    @Column(name = "notaredacao")
+	private float notaredacao;
     @Column(name = "outranacionalidade")
 	private String outranacionalidade;
 
@@ -321,6 +331,46 @@ public class Questionariohe implements Serializable {
 
 	public void setOutranacionalidade(String outranacionalidade) {
 		this.outranacionalidade = outranacionalidade;
+	}
+
+	public float getNotalinguagem() {
+		return notalinguagem;
+	}
+
+	public void setNotalinguagem(float notalinguagem) {
+		this.notalinguagem = notalinguagem;
+	}
+
+	public float getNotaciencianatureza() {
+		return notaciencianatureza;
+	}
+
+	public void setNotaciencianatureza(float notaciencianatureza) {
+		this.notaciencianatureza = notaciencianatureza;
+	}
+
+	public float getNotacienciahumanas() {
+		return notacienciahumanas;
+	}
+
+	public void setNotacienciahumanas(float notacienciahumanas) {
+		this.notacienciahumanas = notacienciahumanas;
+	}
+
+	public float getNotamatematica() {
+		return notamatematica;
+	}
+
+	public void setNotamatematica(float notamatematica) {
+		this.notamatematica = notamatematica;
+	}
+
+	public float getNotaredacao() {
+		return notaredacao;
+	}
+
+	public void setNotaredacao(float notaredacao) {
+		this.notaredacao = notaredacao;
 	}
 
 	@Override

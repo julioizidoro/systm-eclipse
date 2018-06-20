@@ -114,11 +114,11 @@
 					scrollHeight="300" style="margin-bottom:10px;margin-left:2%;">
 
 					<p:column headerText="ID" sortBy="#{finalizado.idquestionariohe}"
-						style="width:30px;text-align:left;" styleClass="alinharCenter">
+						style="width:25px;text-align:left;" styleClass="alinharCenter">
 						<h:outputText value="#{finalizado.idquestionariohe}" />
 					</p:column>
 					<p:column headerText="Cliente" sortBy="#{finalizado.cliente.nome}"
-						style="width:150px; ">
+						style="width:110px; ">
 						<h:outputText value="#{finalizado.cliente.nome}" />
 					</p:column>
 					<p:column headerText="Data Envio" sortBy="#{finalizado.dataenvio}"
@@ -135,12 +135,20 @@
 							value="#{finalizado.usuario.unidadenegocio.nomerelatorio}" />
 					</p:column>
 					<p:column headerText="Consultor"
-						sortBy="#{finalizado.usuario.nome}" style="width:120px;"
+						sortBy="#{finalizado.usuario.nome}" style="width:100px;"
 						styleClass="alinharCenter">
 						<h:outputText value="#{finalizado.usuario.nome}" />
 					</p:column>
+					<p:column headerText="Pais 1" sortBy="#{finalizado.pais1}"
+						style="width:70px;text-align:left;" styleClass="alinharCenter">
+						<h:outputText value="#{finalizado.pais1}" />
+					</p:column>
+					<p:column headerText="Pais 2" sortBy="#{finalizado.pas2}"
+						style="width:70px;text-align:left;" styleClass="alinharCenter">
+						<h:outputText value="#{finalizado.pais2}" />
+					</p:column>
 					<p:column headerText="Situação" sortBy="#{finalizado.situacao}"
-						style="width:110px;" styleClass="alinharCenter">
+						style="width:90px;" styleClass="alinharCenter">
 						<p:cellEditor>
 								<f:facet name="output">
 									
@@ -149,7 +157,7 @@
 								<f:facet name="input">
 									<p:selectOneMenu id="situacao" 
 										value="#{questionarioMB.situacaoLista}"
-										style="width:150px;">  
+										style="width:120px;">  
 										<f:selectItem itemLabel="Selecione"
 											itemValue="sn" />
 										<f:selectItem itemLabel="Autorizado"
@@ -178,18 +186,12 @@
 						</p:commandLink>
 					</p:column>
 					<p:column headerText=""
-						style="width:90px;text-align:center;" styleClass="alinharCenter">
+						style="width:60px;text-align:center;" styleClass="alinharCenter">
 
-						<p:commandLink action="#{questionarioMB.fichaHE(finalizado)}"
+						<p:commandLink action="#{questionarioMB.fichaQuestionario(finalizado)}"
 							title="Ficha" ajax="false" target="_blank"
 							style="width:27px;margin-left:2%">
 							<img src="../../resources/img/imprimiFicha.png"
-								style="width: 27px;" />
-						</p:commandLink>
-						<p:commandLink action="#{questionarioMB.contrato(finalizado)}"
-							title="Contrato de Higher Education" ajax="false" target="_blank"
-							style="margin-left:2%">
-							<img src="../../resources/img/imprimiContrato.png"
 								style="width: 27px;" />
 						</p:commandLink>
 						<p:commandLink

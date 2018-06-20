@@ -19,6 +19,7 @@ import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Pais;
@@ -50,15 +51,31 @@ public class QuestionarioMB implements Serializable{
 	private String situacao;
 	private boolean habilitarUnidade = false;
 	private String situacaoLista = "";
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 	
 	
 	
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaQuestionario = (List<Questionariohe>) session.getAttribute("listaQuestionario");
+		session.removeAttribute("listaQuestionario");
 		listaUnidade = GerarListas.listarUnidade();
-		gerarListaQuestionario();
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			habilitarUnidade = true;
+		}
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Curso")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
+		if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+			gerarListaQuestionario();
 		}
 	}
 
@@ -355,6 +372,17 @@ public class QuestionarioMB implements Serializable{
 	
 	public String notificarEfetuarFichaCrm(){
 		return "followUp";
+	}
+	
+	public String fichaQuestionario(Questionariohe questionariohe){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("questionariohe", questionariohe);
+		session.setAttribute("listaQuestionario", listaQuestionario);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "QuestionarioHe");
+		session.setAttribute("chamadaTela", "QuestionarioHe");
+		return "fichaQuestionarioHe";
 	}
 
 }

@@ -46,6 +46,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	private String voltarControleVendas = "";
 	private boolean habilitarNivel12 = true;
 	private boolean habilitarNivel3 = false;
+	private boolean habilitarNotas = true;
 
 	@PostConstruct
 	public void init() {
@@ -70,6 +71,9 @@ public class CadQuestionarioHeMB implements Serializable {
 			cliente = questionarioHe.getCliente();
 			if (questionarioHe.getPais1() != null) {
 				verificarNivel();
+			}
+			if (questionarioHe.getResultadotesteonline() != null && questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
+				habilitarNotas = false;
 			}
 		}
 
@@ -140,6 +144,14 @@ public class CadQuestionarioHeMB implements Serializable {
 
 	public void setHabilitarNivel3(boolean habilitarNivel3) {
 		this.habilitarNivel3 = habilitarNivel3;
+	}
+
+	public boolean isHabilitarNotas() {
+		return habilitarNotas;
+	}
+
+	public void setHabilitarNotas(boolean habilitarNotas) {
+		this.habilitarNotas = habilitarNotas;
 	}
 
 	public String pesquisarCliente() {
@@ -272,6 +284,14 @@ public class CadQuestionarioHeMB implements Serializable {
 	}
 	
 	
+	
+	public void verificarEnem() {
+		if (questionarioHe.getResultadotesteonline() != null && questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
+			habilitarNotas = false;
+		} else {
+			habilitarNotas = true;
+		}
+	}
 	
 	
 	

@@ -1,0 +1,913 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consHe" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="3" columnClasses="tamanho7, tamanhoavisos, tamanho7"
+							style="width:75%;margin-left:4%;">
+							<p:outputLabel value="ID venda" for="idVenda" />
+							<p:outputLabel value="Nome do Cliente" for="cliente" />
+							<p:outputLabel value="Periodo" for="dataIni" />
+
+							<p:inputText id="idVenda" value="#{fichaFinalMB.idvenda}"
+								style="width:87px;" />
+							<p:inputText id="cliente"
+								value="#{fichaFinalMB.nomeCliente}" style="width:300px;" />
+							<h:panelGrid columns="2">
+								<p:calendar id="dataIni" value="#{fichaFinalMB.dataInicio}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal" style="margin-left:2%;"
+									value="#{fichaFinalMB.dataTermino}" size="12" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGrid>
+						</h:panelGrid>
+						<br></br>
+						<h:panelGrid columns="4"
+							columnClasses="tamanho7, tamanho1,tamanho8,tamanho8,tamanho7,tamanho1"
+							style="width:74%;margin-left:4%;">
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							
+							<p:selectOneMenu id="unidade"
+								value="#{fichaFinalMB.unidadenegocio}" style="width:250px;"
+								converter="UnidadeNegocioConverter"
+								disabled="#{fichaFinalMB.habilitarUnidade}" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{fichaFinalMB.listaUnidade}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{fichaFinalMB.listaUnidade}" />
+							</p:selectOneMenu>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Pesquisar" icon="ui-icon-search"
+									action="#{fichaFinalMB.pesquisar()}"
+									update="consHe:acordionPainel" />
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+									update="consHe:acordionPainel, unidade, dataFinal, dataIni, cliente,"
+									action="#{fichaFinalMB.limpar()}" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<br></br>
+					</p:tab>     
+				</p:accordionPanel>
+
+				<legend id="iUsu2">
+					<b>Consulta de Higher Education Ficha Final</b>
+				</legend>
+				<p:commandButton value="Novo Questionario" icon="ui-icon-plus"
+					update=":consHe:growl" onsuccess="PF('novaficha').show();"
+					style="font-size:12px;margin-left:79.5%" />
+
+				<p:dialog message="CRM" showEffect="fade" hideEffect="fade"
+					header="ATENÇÃO" width="36%" icon="ui-icon-alert"
+					widgetVar="novaficha" style="font-size:14px">
+					<h:panelGroup style="margin-left:2%;">
+						<h:outputText
+							value="Por favor emitir a venda através da ferramenta CRM. Obrigado"
+							style="font-size:16px;" />
+					</h:panelGroup>
+					<br />
+					<br />
+					<p:commandButton
+						action="#{fichaFinalMB.notificarEfetuarFichaCrm()}"
+						value="Ir para CRM" oncomplete="PF('novaficha').hide();"
+						styleClass="ui-confirmdialog-yes"
+						style="margin-left:40%;font-size:12px" />
+					<br />   
+				</p:dialog>
+				<br></br> <br></br>
+				<p:tabView id="acordionPainel" class="consultaCurso">
+					<p:tab title="Processo (#{fichaFinalMB.nFichasProcesso})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaProcesso" var="processo"     
+							value="#{fichaFinalMB.listaProcesso}" scrollable="true"
+							scrollHeight="300" style="margin-bottom:20px">  
+							<p:column headerText="" style="width:37px;text-align:center;"
+								styleClass="alinharCenter">
+								<img src="#{fichaFinalMB.retornarimagem(processo.status)}"
+									width="25"
+									title="#{fichaFinalMB.retornarTituloFicha(processo.status)}" />
+							</p:column>
+							<p:column headerText="ID" sortBy="#{processo.vendas.idvendas}"
+								style="width:50px;" styleClass="alinharCenter">
+								<h:outputText value="#{processo.vendas.idvendas}"
+									style="#{fichaFinalMB.cor(processo)}" />
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{processo.vendas.cliente.nome}"
+								style="width:150px; ">
+								<h:outputText value="#{processo.vendas.cliente.nome}"
+									style="#{fichaFinalMB.corNome(processo)}" />
+							</p:column>
+							<p:column headerText="Data Envio" sortBy="#{processo.data}"
+								style="text-align:center;width:67px;">     
+								<h:outputText value="#{processo.data}"       
+									style="#{fichaFinalMB.cor(processo)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{processo.vendas.unidadenegocio.nomerelatorio}"
+								style="width:85px;" styleClass="alinharCenter">
+								<h:outputText value="#{processo.vendas.unidadenegocio.nomerelatorio}"
+									style="#{fichaFinalMB.cor(processo)}" />
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{processo.vendas.usuario.nome}"
+								style="width:120px;" styleClass="alinharCenter">
+								<h:outputText value="#{processo.vendas.usuario.nome}"
+									style="#{fichaFinalMB.cor(processo)}" />
+							</p:column>
+							<p:column headerText="Parceiro" sortBy="#{processo.vendas.fornecedor.nome}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{processo.vendas.fornecedor.nome}"
+									style="#{fichaFinalMB.cor(processo)}" />
+							</p:column>
+							<p:column headerText="Situação" sortBy="#{processo.situacao}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{processo.situacao}"
+									style="#{fichaFinalMB.cor(processo)}" />  
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{fichaFinalMB.editar(processo)}"
+									title="Editar" style="text-decoration: none">
+									<img src="../../resources/img/editaricon.png" width="27" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir"
+								style="width:70px;text-align:center;" styleClass="alinharCenter">
+								
+								<p:commandLink action="#{fichaFinalMB.fichaHE(processo)}"
+									title="Ficha" ajax="false"
+									 target="_blank" 
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" width="27y"/>
+								</p:commandLink>   
+								<p:commandLink
+									action="#{fichaFinalMB.contrato(processo)}"
+									title="Contrato de Higher Education" ajax="false"
+									target="_blank"
+									style="width:27px;margin-left:2%"
+									>
+									<img src="../../resources/img/imprimiContrato.png" width="27"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Desistência"
+								style="width:78px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{processo.desistencia}"
+									disabled="#{fichaFinalMB.desabilitarBtnDesistencia(processo)}">
+									<p:ajax event="change"
+										listener="#{fichaFinalMB.desistenciaHE(processo)}"
+										update="@form" />  
+								</p:selectBooleanCheckbox>  
+							</p:column> 
+							<p:column headerText="Opções"
+								style="width:72px;text-align:center;">
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade"
+									style="background:#F0F0F0;width:550px; border:none;">
+									<p:outputLabel
+										value="#{processo.vendas.idvendas} - #{processo.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid
+										style="width:100%;border-color:transparent;border:none;"
+										columns="5">
+
+										<p:commandLink action="#{fichaFinalMB.boletos(processo)}"
+											title="IMPRIMIR OS BOLETOS"
+											image="../../resources/img/boletoFicha.png" ajax="false"
+											target="_blank" update=":consHe:growl">
+											<img src="../../resources/img/boletoFicha.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.documentacao(processo)}"
+											title="DOCUMENTOS">
+											<img src="../../resources/img/arquivosUpload.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.informacoes(processo)}"
+											update=":consHe:growl" title="INFORMAÇÕES DA VENDA">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="INFO" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{fichaFinalMB.visualizarContasReceber(processo)}"
+											title="VISUALIZAR CONTAS A RECEBER">
+											<img src="../../resources/img/invoice.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="CONTAS A" style="font-size:10px;" />
+												<p:outputLabel value="RECEBER" style="font-size:10px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.cancelarVenda(processo)}"
+											style="text-decoration: none" title="CANCELAR FICHA"
+											update="@form">
+											<p:confirm header="Cancelamento"
+												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<img src="../../resources/img/cancel.png" style="width: 36" />
+											<p:ajax event="dialogReturn"
+												listener="#{fichaFinalMB.gerarListaHe()}"
+												process="@this" update="@form" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					 <p:tab title="Financeiro (#{fichaFinalMB.nFichaFinanceiro})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaFinanceiro" var="financeiro" 
+							value="#{fichaFinalMB.listaFinanceiro}" scrollable="true"
+							scrollHeight="300" style="margin-bottom:20px">
+							<p:column headerText="" style="width:37px;text-align:center;"
+								styleClass="alinharCenter">
+								<img src="#{fichaFinalMB.retornarimagem(financeiro.status)}"
+									width="25"
+									title="#{fichaFinalMB.retornarTituloFicha(financeiro.status)}" />
+							</p:column>
+							<p:column headerText="ID" sortBy="#{financeiro.vendas.idvendas}"
+								style="width:50px;" styleClass="alinharCenter">
+								<h:outputText value="#{financeiro.vendas.idvendas}"
+									style="#{fichaFinalMB.cor(financeiro)}" />
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{financeiro.vendas.cliente.nome}"
+								style="width:150px; ">
+								<h:outputText value="#{financeiro.vendas.cliente.nome}"
+									style="#{fichaFinalMB.corNome(financeiro)}" />
+							</p:column>
+							<p:column headerText="Data Envio" sortBy="#{financeiro.vendas.dataVenda}"
+								style="text-align:center;width:67px;">
+								<h:outputText value="#{financeiro.vendas.dataVenda}"
+									style="#{fichaFinalMB.cor(financeiro)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{financeiro.vendas.unidadenegocio.nomerelario}"
+								style="width:85px;" styleClass="alinharCenter">
+								<h:outputText value="#{financeiro.vendas.unidadenegocio.nomerelario}"
+									style="#{fichaFinalMB.cor(financeiro)}" />
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{financeiro.vendas.usuario.nome}"
+								style="width:120px;" styleClass="alinharCenter">
+								<h:outputText value="#{financeiro.vendas.usuario.nome}"
+									style="#{fichaFinalMB.cor(financeiro)}" />
+							</p:column>
+							<p:column headerText="Parceiro" sortBy="#{financeiro.vendas.fornecedor.nome}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{financeiro.vendas.fornecedor.nome}"
+									style="#{fichaFinalMB.cor(financeiro)}" />
+							</p:column>
+							<p:column headerText="Situação" sortBy="#{financeiro.situacao}"
+								style="width:115px;" styleClass="alinharCenter">
+								<h:outputText value="#{financeiro.situacao}"
+									style="#{fichaFinalMB.cor(financeiro)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{fichaFinalMB.editar(financeiro)}"
+									title="Editar" style="text-decoration: none">
+									<img src="../../resources/img/editaricon.png" width="27" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir"
+								style="width:70px;text-align:center;" styleClass="alinharCenter">
+								   
+								<p:commandLink action="#{fichaFinalMB.fichaHE(financeiro)}"
+									title="Ficha" ajax="false"
+									 target="_blank" 
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" width="27"/>
+								</p:commandLink>   
+								<p:commandLink
+									action="#{fichaFinalMB.contrato(financeiro)}"
+									title="Contrato de Higher Education" ajax="false"
+									target="_blank"
+									style="width:27px;margin-left:2%"
+									>
+									<img src="../../resources/img/imprimiContrato.png" width="27"/>
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Desistência"
+								style="width:85px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{financeiro.desistencia}"
+									disabled="#{fichaFinalMB.desabilitarBtnDesistencia(financeiro)}">
+									<p:ajax event="change"
+										listener="#{fichaFinalMB.desistenciaHE(financeiro)}"
+										update="@form" />
+								</p:selectBooleanCheckbox>
+							</p:column>   
+
+							<p:column headerText="Opções"
+								style="width:67px;text-align:center;">
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade"
+									style="background:#F0F0F0;width:550px; border:none;">
+									<p:outputLabel
+										value="#{financeiro.vendas.idvendas} - #{financeiro.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid
+										style="width:100%;border-color:transparent;border:none;"
+										columns="5">
+
+										<p:commandLink action="#{fichaFinalMB.boletos(financeiro)}"
+											title="IMPRIMIR OS BOLETOS"
+											image="../../resources/img/boletoFicha.png" ajax="false"
+											target="_blank" update=":consHe:growl">
+											<img src="../../resources/img/boletoFicha.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>   
+
+										<p:commandLink action="#{fichaFinalMB.documentacao(financeiro)}"
+											title="DOCUMENTOS">
+											<img src="../../resources/img/arquivosUpload.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.informacoes(financeiro)}"
+											update=":consHe:growl" title="INFORMAÇÕES DA VENDA">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="INFO" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{fichaFinalMB.visualizarContasReceber(financeiro)}"
+											title="VISUALIZAR CONTAS A RECEBER">
+											<img src="../../resources/img/invoice.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="CONTAS A" style="font-size:10px;" />
+												<p:outputLabel value="RECEBER" style="font-size:10px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.cancelarVenda(financeiro)}"
+											style="text-decoration: none" title="CANCELAR FICHA"
+											update="@form">
+											<p:confirm header="Cancelamento"
+												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<img src="../../resources/img/cancel.png" style="width: 36" />
+											<p:ajax event="dialogReturn"
+												listener="#{fichaFinalMB.gerarListaHe()}"
+												process="@this" update="@form" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>
+						</p:dataTable>
+					</p:tab>   
+					 <p:tab title="Andamento (#{fichaFinalMB.nFichasAndamento})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaAndamento" var="andamento" 
+							value="#{fichaFinalMB.listaAndamento}" scrollable="true"
+							scrollHeight="300" style="margin-bottom:20px">
+							<p:column headerText="" style="width:37px;text-align:center;"
+								styleClass="alinharCenter">
+								<img src="#{fichaFinalMB.retornarimagem(andamento.status)}"
+									width="25"
+									title="#{fichaFinalMB.retornarTituloFicha(andamento.status)}" />
+							</p:column>
+							<p:column headerText="ID" sortBy="#{andamento.vendas.idvendas}"
+								style="width:50px;" styleClass="alinharCenter">
+								<h:outputText value="#{andamento.vendas.idvendas}"
+									style="#{fichaFinalMB.cor(andamento)}" />
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{andamento.vendas.cliente.nome}"
+								style="width:150px; ">
+								<h:outputText value="#{andamento.vendas.cliente.nome}" 
+									style="#{fichaFinalMB.corNome(andamento)}" />
+							</p:column>
+							<p:column headerText="Data Envio" sortBy="#{andamento.vendas.dataVenda}"
+								style="text-align:center;width:67px;">
+								<h:outputText value="#{andamento.vendas.dataVenda}"
+									style="#{fichaFinalMB.cor(andamento)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{andamento.vendas.unidadenegocio.nomerelatorio}"
+								style="width:85px;" styleClass="alinharCenter">
+								<h:outputText value="#{andamento.vendas.unidadenegocio.nomerelatorio}"
+									style="#{fichaFinalMB.cor(andamento)}" />
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{andamento.vendas.usuario.nome}"
+								style="width:120px;" styleClass="alinharCenter">
+								<h:outputText value="#{andamento.vendas.usuario.nome}"
+									style="#{fichaFinalMB.cor(andamento)}" />
+							</p:column>
+							<p:column headerText="Parceiro" sortBy="#{andamento.vendas.fornecedor.nome}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{andamento.vendas.fornecedor.nome}"
+									style="#{fichaFinalMB.cor(andamento)}" />
+							</p:column>
+							<p:column headerText="Situação" sortBy="#{andamento.situacao}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{andamento.situacao}"
+									style="#{fichaFinalMB.cor(andamento)}" />   
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{fichaFinalMB.editar(andamento)}"
+									title="Editar" style="text-decoration: none">
+									<img src="../../resources/img/editaricon.png" width="27" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir"
+								style="width:70px;text-align:center;" styleClass="alinharCenter">
+								
+								<p:commandLink action="#{fichaFinalMB.fichaHE(andamento)}"
+									title="Ficha" ajax="false"
+									 target="_blank" 
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" width="27"/>
+								</p:commandLink>   
+								<p:commandLink
+									action="#{fichaFinalMB.contrato(andamento)}"
+									title="Contrato de Higher Education" ajax="false"
+									target="_blank"
+									style="width:27px;margin-left:2%"
+									>
+									<img src="../../resources/img/imprimiContrato.png" width="27"/>
+								</p:commandLink>
+							</p:column>
+
+							<p:column headerText="Desistência"
+								style="width:80px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{andamento.desistencia}"
+									disabled="#{fichaFinalMB.desabilitarBtnDesistencia(andamento)}">
+									<p:ajax event="change"
+										listener="#{fichaFinalMB.desistenciaHE(andamento)}"
+										update="@form" />
+								</p:selectBooleanCheckbox>    
+							</p:column> 
+							<p:column headerText="Opções"
+								style="width:75px;text-align:center;">
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade"
+									style="background:#F0F0F0;width:550px; border:none;">
+									<p:outputLabel
+										value="#{andamento.vendas.idvendas} - #{andamento.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid
+										style="width:100%;border-color:transparent;border:none;"
+										columns="5">
+
+										<p:commandLink action="#{fichaFinalMB.boletos(andamento)}"
+											title="IMPRIMIR OS BOLETOS"
+											image="../../resources/img/boletoFicha.png" ajax="false"
+											target="_blank" update=":consHe:growl">
+											<img src="../../resources/img/boletoFicha.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.documentacao(andamento)}"
+											title="DOCUMENTOS">
+											<img src="../../resources/img/arquivosUpload.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.informacoes(andamento)}"
+											update=":consHe:growl" title="INFORMAÇÕES DA VENDA">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="INFO" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{fichaFinalMB.visualizarContasReceber(andamento)}"
+											title="VISUALIZAR CONTAS A RECEBER">
+											<img src="../../resources/img/invoice.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="CONTAS A" style="font-size:10px;" />
+												<p:outputLabel value="RECEBER" style="font-size:10px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.cancelarVenda(andamento)}"
+											style="text-decoration: none" title="CANCELAR FICHA"
+											update="@form">
+											<p:confirm header="Cancelamento"
+												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<img src="../../resources/img/cancel.png" style="width: 36" />
+											<p:ajax event="dialogReturn"
+												listener="#{fichaFinalMB.gerarListaHe()}"
+												process="@this" update="@form" />  
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>
+						</p:dataTable>
+					</p:tab>    
+					 <p:tab title="Finalizado (#{fichaFinalMB.nFichasFinalizada})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaFinalizado" var="finalizado" 
+							value="#{fichaFinalMB.listaFinalizar}" scrollable="true"
+							scrollHeight="300" style="margin-bottom:20px">
+							<p:column headerText="" style="width:37px;text-align:center;"
+								styleClass="alinharCenter">
+								<img src="#{fichaFinalMB.retornarimagem(finalizado.status)}"
+									width="25"
+									title="#{fichaFinalMB.retornarTituloFicha(finalizado.status)}" />
+							</p:column>
+							<p:column headerText="ID" sortBy="#{finalizado.vendas.idvendas}"
+								style="width:50px;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.vendas.idvendas}"
+									style="#{fichaFinalMB.cor(finalizado)}" />
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{finalizado.vendas.cliente.nome}"
+								style="width:150px; ">
+								<h:outputText value="#{finalizado.vendas.cliente.nome}"
+									style="#{fichaFinalMB.corNome(finalizado)}" />
+							</p:column>
+							<p:column headerText="Data Envio" sortBy="#{finalizado.vendas.dataVenda}"
+								style="text-align:center;width:67px;">
+								<h:outputText value="#{finalizado.vendas.dataVenda}"
+									style="#{fichaFinalMB.cor(finalizado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{finalizado.vendas.unidadenegocio.nomerelatorio}"
+								style="width:85px;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.vendas.unidadenegocio.nomerelatorio}"
+									style="#{fichaFinalMB.cor(finalizado)}" />
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{finalizado.vendas.usuario.nome}"
+								style="width:120px;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.vendas.usuario.nome}"
+									style="#{fichaFinalMB.cor(finalizado)}" />
+							</p:column>
+							<p:column headerText="Parceiro" sortBy="#{finalizado.vendas.fornecedor.nome}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.vendas.fornecedor.nome}"
+									style="#{fichaFinalMB.cor(finalizado)}" />
+							</p:column>
+							<p:column headerText="Situação" sortBy="#{finalizado.situacao}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.situacao}"
+									style="#{fichaFinalMB.cor(finalizado)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{fichaFinalMB.editar(finalizado)}"
+									title="Editar" style="text-decoration: none">
+									<img src="../../resources/img/editaricon.png" width="27" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir"
+								style="width:70px;text-align:center;" styleClass="alinharCenter">
+								
+								<p:commandLink action="#{fichaFinalMB.fichaHE(finalizado)}"
+									title="Ficha" ajax="false"
+									 target="_blank" 
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" style="width:27px;"/>
+								</p:commandLink>   
+								<p:commandLink
+									action="#{fichaFinalMB.contrato(finalizado)}"
+									title="Contrato de Higher Education" ajax="false"
+									target="_blank"
+									style="margin-left:2%"
+									>
+									<img src="../../resources/img/imprimiContrato.png" style="width:27px;"/>
+								</p:commandLink>
+								
+							</p:column>   
+							<p:column headerText="Desistência"
+								style="width:80px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{finalizado.desistencia}"
+									disabled="#{fichaFinalMB.desabilitarBtnDesistencia(finalizado)}">
+									<p:ajax event="change"
+										listener="#{fichaFinalMB.desistenciaHE(finalizado)}"
+										update="@form" />
+								</p:selectBooleanCheckbox>    
+							</p:column> 
+							<p:column headerText="Opções"      
+								style="width:75px;text-align:center;">
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade"
+									style="background:#F0F0F0;width:550px; border:none;">
+									<p:outputLabel
+										value="#{finalizado.vendas.idvendas} - #{finalizado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid
+										style="width:100%;border-color:transparent;border:none;"
+										columns="5">
+
+										<p:commandLink action="#{fichaFinalMB.boletos(finalizado)}"
+											title="IMPRIMIR OS BOLETOS"
+											image="../../resources/img/boletoFicha.png" ajax="false"
+											target="_blank" update=":consHe:growl">
+											<img src="../../resources/img/boletoFicha.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.documentacao(finalizado)}"
+											title="DOCUMENTOS">
+											<img src="../../resources/img/arquivosUpload.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink> 
+
+										<p:commandLink action="#{fichaFinalMB.informacoes(finalizado)}"
+											update=":consHe:growl" title="INFORMAÇÕES DA VENDA">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="INFO" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{fichaFinalMB.visualizarContasReceber(finalizado)}"
+											title="VISUALIZAR CONTAS A RECEBER">
+											<img src="../../resources/img/invoice.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="CONTAS A" style="font-size:10px;" />
+												<p:outputLabel value="RECEBER" style="font-size:10px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.cancelarVenda(finalizado)}"
+											style="text-decoration: none" title="CANCELAR FICHA"
+											update="@form">
+											<p:confirm header="Cancelamento"
+												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<img src="../../resources/img/cancel.png" style="width: 36" />
+											<p:ajax event="dialogReturn"
+												listener="#{fichaFinalMB.gerarListaHe()}"
+												process="@this" update="@form" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+									</h:panelGrid>
+								</p:overlayPanel>  
+							</p:column>
+						</p:dataTable>
+					</p:tab>   
+					 <p:tab title="Cancelado (#{fichaFinalMB.nFichaCancelada})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaCancelado" var="cancelado" 
+							value="#{fichaFinalMB.listaCancelada}" scrollable="true"
+							scrollHeight="300" style="margin-bottom:20px">
+							<p:column headerText="" style="width:37px;text-align:center;"
+								styleClass="alinharCenter">
+								<img src="#{fichaFinalMB.retornarimagem(cancelado.status)}"
+									width="25"
+									title="#{fichaFinalMB.retornarTituloFicha(cancelado.status)}" />
+							</p:column>
+							<p:column headerText="ID" sortBy="#{cancelado.vendas.idvendas}"
+								style="width:50px;" styleClass="alinharCenter">
+								<h:outputText value="#{cancelado.vendas.idvendas}"
+									style="#{fichaFinalMB.cor(cancelado)}" />
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{cancelado.vendas.cliente.nome}"
+								style="width:150px; ">
+								<h:outputText value="#{cancelado.vendas.cliente.nome}"
+									style="#{fichaFinalMB.corNome(cancelado)}" />
+							</p:column>
+							<p:column headerText="Data Envio" sortBy="#{cancelado.vendas.dataVenda}"
+								style="text-align:center;width:67px;">
+								<h:outputText value="#{cancelado.vendas.dataVenda}"
+									style="#{fichaFinalMB.cor(cancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" sortBy="#{cancelado.vendas.unidadenegocio.nomerelatorio}"
+								style="width:85px;" styleClass="alinharCenter">
+								<h:outputText value="#{cancelado.vendas.unidadenegocio.nomerelatorio}"
+									style="#{fichaFinalMB.cor(cancelado)}" />
+							</p:column>
+							<p:column headerText="Consultor" sortBy="#{cancelado.vendas.usuario.nome}"
+								style="width:120px;" styleClass="alinharCenter">
+								<h:outputText value="#{cancelado.vendas.usuario.nome}"
+									style="#{fichaFinalMB.cor(cancelado)}" />
+							</p:column>
+							<p:column headerText="Parceiro" sortBy="#{cancelado.vendas.fornecedor.nome}"
+								style="width:110px;" styleClass="alinharCenter">
+								<h:outputText value="#{cancelado.vendas.fornecedor.nome}"
+									style="#{fichaFinalMB.cor(cancelado)}" />
+							</p:column>
+							<p:column headerText="Situação" sortBy="#{cancelado.situacao}"
+								style="width:115px;" styleClass="alinharCenter">
+								<h:outputText value="#{cancelado.situacao}"
+									style="#{fichaFinalMB.cor(cancelado)}" />
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{fichaFinalMB.editar(cancelado)}"
+									title="Editar" style="text-decoration: none">
+									<img src="../../resources/img/editaricon.png" width="27" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Imprimir"
+								style="width:70px;text-align:center;" styleClass="alinharCenter">
+								
+								<p:commandLink action="#{fichaFinalMB.fichaHE(cancelado)}"
+									title="Ficha" ajax="false"
+									 target="_blank" 
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png" width="27"/>
+								</p:commandLink> 
+								<p:commandLink
+									action="#{fichaFinalMB.contrato(cancelado)}"
+									title="Contrato de Higher Education" ajax="false"
+									target="_blank"
+									style="width:27px;margin-left:2%"
+									>
+									<img src="../../resources/img/imprimiContrato.png" width="27"/>
+								</p:commandLink>
+							</p:column>
+
+							<p:column headerText="Desistência"
+								style="width:85px;text-align:center;" styleClass="alinharCenter" >
+								<p:selectBooleanCheckbox value="#{cancelado.desistencia}"
+									disabled="#{fichaFinalMB.desabilitarBtnDesistencia(cancelado)}">
+									<p:ajax event="change"
+										listener="#{fichaFinalMB.desistenciaHE(cancelado)}"
+										update="@form" />  
+								</p:selectBooleanCheckbox>    
+							</p:column> 
+							<p:column headerText="Opções"
+								style="width:75px;text-align:center;">
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoVendaVerde.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade"
+									style="background:#F0F0F0;width:550px; border:none;">
+									<p:outputLabel
+										value="#{cancelado.vendas.idvendas} - #{cancelado.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />   
+									<h:panelGrid
+										style="width:100%;border-color:transparent;border:none;"
+										columns="5">
+
+										<p:commandLink action="#{fichaFinalMB.boletos(cancelado)}"
+											title="IMPRIMIR OS BOLETOS"
+											image="../../resources/img/boletoFicha.png" ajax="false"
+											target="_blank" update=":consHe:growl">
+											<img src="../../resources/img/boletoFicha.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="BOLETOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.documentacao(cancelado)}"
+											title="DOCUMENTOS">
+											<img src="../../resources/img/arquivosUpload.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="DOCS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.informacoes(cancelado)}"
+											update=":consHe:growl" title="INFORMAÇÕES DA VENDA">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="INFO" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{fichaFinalMB.visualizarContasReceber(cancelado)}"
+											title="VISUALIZAR CONTAS A RECEBER">
+											<img src="../../resources/img/invoice.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="CONTAS A" style="font-size:10px;" />
+												<p:outputLabel value="RECEBER" style="font-size:10px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink action="#{fichaFinalMB.cancelarVenda(cancelado)}"
+											style="text-decoration: none" title="CANCELAR FICHA"
+											update="@form">
+											<p:confirm header="Cancelamento"
+												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<img src="../../resources/img/cancel.png" style="width: 36" />
+											<p:ajax event="dialogReturn"
+												listener="#{fichaFinalMB.gerarListaHe()}"
+												process="@this" update="@form" />
+											<h:panelGrid columns="1" style="text-align:1px;">
+												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>   
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>
+						</p:dataTable>
+					</p:tab>    
+				</p:tabView>   
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					style="background:#DDDDE1;">
+					<div align="center">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+							style="font-size:12px;" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+							style="font-size:12px;" />
+					</div>
+				</p:confirmDialog>
+				<style>
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+	.ui-datatable tfoot th {
+	padding: 2px 2px;
+	overflow: hidden;
+	border-width: 0px;
+	border-style: solid;
+}
+
+.ui-confirm-dialog-message {
+	display: inline-block;
+	margin-top: 1px;
+	font-size: 17px !important;
+}
+</style>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

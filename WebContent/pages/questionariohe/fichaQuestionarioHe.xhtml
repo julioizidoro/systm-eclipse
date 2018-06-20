@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Questionario HE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+			<img src="../../resources/img/fichaCursoLogoSS.png" width="100%" />
+		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
+			<p:outputLabel value="Unidade: #{fichaQuestionarioMB.questionariohe.usuario.unidadenegocio.nomerelatorio}"/>
+			<p:outputLabel value="Consultor: #{fichaQuestionarioMB.questionariohe.usuario.nome}"/>
+			<p:outputLabel value="#{fichaQuestionarioMB.questionariohe.usuario.email}"/>
+		</h:panelGrid>  
+	</div>
+	<br/>
+	
+	<br/>
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		
+		
+		
+		<br/>
+		<h:panelGroup style="color:green;"><b>DADOS DO CLIENTE </b></h:panelGroup>
+		<hr style="color:green;width:100%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Cliente:</b> #{fichaQuestionarioMB.questionariohe.cliente.nome}</h:panelGroup>
+				<h:panelGroup><b>Outra nacionalidade? Qual?: </b> #{fichaQuestionarioMB.questionariohe.outranacionalidade}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data nascimento:</b> <h:outputText
+						value="#{fichaQuestionarioMB.questionariohe.cliente.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><b>Escolaridade completo no Brasil:</b> #{fichaQuestionarioMB.questionariohe.nivelcetificado}</h:panelGroup>
+				<h:panelGroup><b>Curso:</b> #{fichaQuestionarioMB.questionariohe.diplomas}</h:panelGroup>
+				<h:panelGroup><b>Pontuação no teste de proficiência ou teste online:</b> #{fichaQuestionarioMB.questionariohe.ontuacaotoefl}</h:panelGroup>
+				<h:panelGroup><b>Duas últimas principais ocupações:</b> #{fichaQuestionarioMB.questionariohe.ocupacao1}</h:panelGroup>
+				<h:panelGroup><b>Ocupação 2:</b> #{fichaQuestionarioMB.questionariohe.ocupacao2}</h:panelGroup>
+				<br/>  
+			</h:panelGrid>   
+			<h:panelGrid columns="1" style="width:100%;" rendered="#{fichaQuestionarioMB.habilitarTesteEnem}">
+				<h:panelGroup><b>Realizou o teste do Enem nos últimos 3 anos? Qual a nota ?:</b> #{fichaQuestionarioMB.questionariohe.resultadotesteonline}</h:panelGroup>
+				<h:panelGrid columns="5" style="width:100%;">
+					<h:panelGroup><b>Linguagem:</b> #{fichaQuestionarioMB.questionariohe.notalinguagem}</h:panelGroup>
+					<h:panelGroup><b>Ciências da Natureza:</b> #{fichaQuestionarioMB.questionariohe.notaciencianatureza}</h:panelGroup>
+					<h:panelGroup><b>Ciências Humanas:</b> #{fichaQuestionarioMB.questionariohe.notacienciahumanas}</h:panelGroup>
+					<h:panelGroup><b>Matemática:</b> #{fichaQuestionarioMB.questionariohe.notamatematica}</h:panelGroup>
+					<h:panelGroup><b>Redação:</b> #{fichaQuestionarioMB.questionariohe.notaredacao}</h:panelGroup>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:panelGrid>
+		<br/>
+		<h:panelGroup style="color:green;"><b>DADOS DO PROGRAMA </b></h:panelGroup>
+		<hr style="color:green;width:100%;float: left;"/> 
+		<h:panelGrid style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="2">
+				<h:panelGroup><b>Área de interesse:</b> #{fichaQuestionarioMB.questionariohe.programa}</h:panelGroup>
+				<h:panelGroup><b>Nivel de Certificação: </b> #{fichaQuestionarioMB.questionariohe.nivelcertificadointeresse}</h:panelGroup>
+				<h:panelGroup><b>Orçamento máximo: </b> #{fichaQuestionarioMB.questionariohe.orcamentomaximo}</h:panelGroup>
+				<h:panelGroup><b>Destino em que prefere estudar: </b> #{fichaQuestionarioMB.questionariohe.pais1} - #{fichaQuestionarioMB.questionariohe.pais2}</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Programa:</b> <h:outputText
+						value="#{fichaQuestionarioMB.questionariohe.dataprograma}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup><h:panelGrid rendered="#{fichaQuestionarioMB.habilitarCidade}"> <b>Cidade:</b> #{fichaQuestionarioMB.questionariohe.cidade} </h:panelGrid></h:panelGroup>
+				<h:panelGroup><b>Tenho interesse em imigrar?:</b> #{fichaQuestionarioMB.questionariohe.interesseemimigrar}</h:panelGroup>
+				<h:panelGroup><b>Trabalhar durante meu curso?:</b> #{fichaQuestionarioMB.questionariohe.precisatrabalahar}</h:panelGroup>
+				<h:panelGroup><b>Visto de trabalho após o curso?:</b> #{fichaQuestionarioMB.questionariohe.vistotrabalho}</h:panelGroup>
+				<br/>  
+			</h:panelGrid>   
+			<h:panelGrid columns="1" style="width:100%;">
+				<h:panelGroup><b>Observações e parecer do consultor: </b></h:panelGroup>
+				<h:panelGroup> #{fichaQuestionarioMB.questionariohe.observacao}</h:panelGroup>
+			</h:panelGrid>
+		</h:panelGrid>
+		
+		<br /><br /><br /><br />
+	</div>
+</h:body>
+</html>

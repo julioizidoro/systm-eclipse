@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import br.com.travelmate.model.Questionariohe; 
@@ -148,6 +149,10 @@ public class He implements Serializable {
     private String instituicao2;
     @Column(name = "instituicao3")
     private String instituicao3;
+    @Transient
+    private String status;
+    @Transient
+    private String situacao;
     
 
     public He() {
@@ -492,6 +497,22 @@ public class He implements Serializable {
 
 	public void setInstituicao3(String instituicao3) {
 		this.instituicao3 = instituicao3;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
 	}
 
 	@Override
