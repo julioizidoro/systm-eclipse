@@ -53,6 +53,7 @@ import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Controlework;
@@ -97,7 +98,6 @@ public class CadArquivoMB implements Serializable {
 	private Tipoarquivoproduto tipoarquivo;
 	private List<Tipoarquivoproduto> listaTipoArquivo;
 	private Vendas vendas;
-	private Vendas vendas1;
 	private String nomeArquivoFTP;
 	private UploadedFile file;
 	private FileUploadEvent ex;
@@ -109,6 +109,7 @@ public class CadArquivoMB implements Serializable {
 	private Date datachegadabrasil;
 	private boolean arquivoEnviado = false;
 	private FinalizarMB finalizar;
+	private Cliente cliente;
 
 	@PostConstruct
 	public void init() {
@@ -116,9 +117,9 @@ public class CadArquivoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		vendas = (Vendas) session.getAttribute("vendas");
 		listaArquivos = (List<Arquivos>) session.getAttribute("listaArquivos");
-		vendas1 = (Vendas) session.getAttribute("vendas1");
-		session.removeAttribute("vendas1");
+		cliente = (Cliente) session.getAttribute("cliente");
 		session.removeAttribute("vendas");
+		session.removeAttribute("cliente");
 		session.removeAttribute("listaArquivos");
 		gerarListaTipoArquivo();
 		if (arquivos == null) {
@@ -210,12 +211,13 @@ public class CadArquivoMB implements Serializable {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
-	public Vendas getVendas1() {
-		return vendas1;
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setVendas1(Vendas vendas1) {
-		this.vendas1 = vendas1;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public List<Arquivos> getListaArquivos() {
@@ -320,7 +322,9 @@ public class CadArquivoMB implements Serializable {
 				arquivos.setTipoarquivo(tipoarquivo.getTipoarquivo());
 				arquivos.setUsuario(usuarioLogadoMB.getUsuario());
 				arquivos.setDataInclusao(new Date());
-				arquivos.setCliente(vendas.getCliente());
+				if (vendas.getProdutos().getIdprodutos()==22) {
+					arquivos.setCliente(cliente);
+				}else arquivos.setCliente(vendas.getCliente());
 				arquivos.setVendas(vendas);
 				arquivos.setNomesalvos(nomeArquivo + "_" + listaNomeArquivo.get(i));
 				arquivos.setNomeArquivo(listaNomeArquivo.get(i));
@@ -687,14 +691,11 @@ public class CadArquivoMB implements Serializable {
 		if (((ficha) && (contrato) && (documentoComFoto)) || ((ficha) && (contrato) && (rg))) {
 			if (vendas.getSituacaofinanceiro().equalsIgnoreCase("L")){
 				vendas.setSituacao("FINALIZADA");
-				vendas1.setSituacao("FINALIZADA");
 				vendas.setDataprocesso(new Date());
-				vendas1.setDataprocesso(new Date());
 			}
 			vendas.setSituacaogerencia("F");
 			VendasFacade vendasFacade = new VendasFacade();
 			vendasFacade.salvar(vendas);
-			vendasFacade.salvar(vendas1);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());

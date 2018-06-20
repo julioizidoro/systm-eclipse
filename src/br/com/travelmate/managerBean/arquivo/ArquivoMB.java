@@ -40,6 +40,7 @@ import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Arquivoskitviagem;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Seguroviagem;
@@ -84,6 +85,7 @@ public class ArquivoMB implements Serializable {
 	private String nomePrograma;
 	private String chamadaTela = "";
 	private List<ListaHeBean> listaHe;
+	private Cliente cliente;
 
 	@PostConstruct
 	public void init() {
@@ -92,6 +94,7 @@ public class ArquivoMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			vendas = (Vendas) session.getAttribute("vendas");
 			voltar = (String) session.getAttribute("voltar");
+			cliente = (Cliente) session.getAttribute("cliete");
 			gerarListaTipoArquivo();
 			desabilitarEdicao();
 			if (vendas != null) {
@@ -293,12 +296,24 @@ public class ArquivoMB implements Serializable {
 		ArquivosFacade arquivosFacade = new ArquivosFacade();
 		try {
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
-				listarArquivos = arquivosFacade
-						.listar("Select a from Arquivos a where a.vendas.idvendas="
-								+ vendas.getIdvendas() + " and a.tipoarquivo.unidade='Sim'");
+				if (vendas.getProdutos().getIdprodutos()==22) {
+					listarArquivos = arquivosFacade
+							.listar("Select a from Arquivos a where a.cliente.idcliente="
+									+ cliente.getIdcliente() + " and a.tipoarquivo.unidade='Sim'");
+				}else {
+					listarArquivos = arquivosFacade
+							.listar("Select a from Arquivos a where a.vendas.idvendas="
+									+ vendas.getIdvendas() + " and a.tipoarquivo.unidade='Sim'");
+				}
 			} else {
-				listarArquivos = arquivosFacade
-						.listar("Select a from Arquivos a where a.vendas.idvendas=" + vendas.getIdvendas());
+				if (vendas.getProdutos().getIdprodutos()==22) {
+					listarArquivos = arquivosFacade
+							.listar("Select a from Arquivos a where a.clienteidcliente=" + cliente.getIdcliente());
+				}else {
+					listarArquivos = arquivosFacade
+							.listar("Select a from Arquivos a where a.vendas.idvendas=" + vendas.getIdvendas());
+				}
+				
 			}
 
 			if (listarArquivos == null) {
