@@ -281,14 +281,6 @@ public class QuestionarioMB implements Serializable{
 	}
 	
 	
-	public boolean desabilitarBtnAutorizar(Questionariohe questionariohe) {
-		if (questionariohe.isAutorizado()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	
 	public String documentacao(Questionariohe questionariohe) { 
 		FacesContext fc = FacesContext.getCurrentInstance();

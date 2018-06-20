@@ -336,13 +336,9 @@ public class HigherEducationMB implements Serializable {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("questionariohe", listaHeBean.getQuestionariohe());
-			if (listaHeBean.getQuestionariohe().isAutorizado()) {
-				return "cadFichaHe1";
-			} else {
-				return "questionarioHe";
-			}
 		} else
 			return "";
+		return "";
 	}
 
 	public void gerarListaHe() {
@@ -467,14 +463,9 @@ public class HigherEducationMB implements Serializable {
 					heBean.setUnidade(listaQuestionario.get(i).getUsuario().getUnidadenegocio().getNomerelatorio());
 					heBean.setNomecliente(listaQuestionario.get(i).getCliente().getNome());
 					heBean.setQuestionariohe(listaQuestionario.get(i));
-					if (listaQuestionario.get(i).isAutorizado()) {
-						heBean.setSituacao("Questionario Autorizado");
-					} else
-						heBean.setSituacao("Questionario");
 					heBean.setStatus(listaQuestionario.get(i).getSituacao());
 					heBean.setData(listaQuestionario.get(i).getDataenvio());
 				//	heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
-					heBean.setAutorizado(listaQuestionario.get(i).isAutorizado());
 					listaHe.add(heBean);
 				}
 			}
@@ -696,14 +687,9 @@ public class HigherEducationMB implements Serializable {
 					heBean.setUnidade(listaQuestionario.get(i).getUsuario().getUnidadenegocio().getNomerelatorio());
 					heBean.setNomecliente(listaQuestionario.get(i).getCliente().getNome());
 					heBean.setQuestionariohe(listaQuestionario.get(i));
-					if (listaQuestionario.get(i).isAutorizado()) {
-						heBean.setSituacao("Questionario Autorizado");
-					} else
-						heBean.setSituacao("Questionario");
 					heBean.setStatus(listaQuestionario.get(i).getSituacao());
 					heBean.setData(listaQuestionario.get(i).getDataenvio());
 				//	heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
-					heBean.setAutorizado(listaQuestionario.get(i).isAutorizado());
 					listaHe.add(heBean);
 				}
 			}
@@ -721,7 +707,6 @@ public class HigherEducationMB implements Serializable {
 			listaHeBean.setHe(heFacade.salvar(listaHeBean.getHe()));
 			Mensagem.lancarMensagemInfo("Ficha de Inscrição autorizada!", "");
 		} else if (listaHeBean.getQuestionariohe() != null) {
-			listaHeBean.getQuestionariohe().setAutorizado(true);
 			listaHeBean.setAutorizado(true);
 			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
 			listaHeBean.setSituacao("Questionario Autorizado");
@@ -761,12 +746,6 @@ public class HigherEducationMB implements Serializable {
 	public boolean desabilitarBtnAutorizar(ListaHeBean listaHeBean) {
 		if (listaHeBean.getHe() != null) {
 			if (listaHeBean.isAutorizado()) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (listaHeBean.getQuestionariohe() != null) {
-			if (listaHeBean.getQuestionariohe().isAutorizado()) {
 				return true;
 			} else {
 				return false;

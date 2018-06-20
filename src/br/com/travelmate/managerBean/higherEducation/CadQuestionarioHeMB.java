@@ -182,7 +182,6 @@ public class CadQuestionarioHeMB implements Serializable {
 			if (questionarioHe.getIdquestionariohe() == null) {
 				questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
 				questionarioHe.setDataenvio(new Date());
-				questionarioHe.setAutorizado(false);
 			}
 			questionarioHe.setSituacao(situacao);
 			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();

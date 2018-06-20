@@ -83,8 +83,6 @@ public class Questionariohe implements Serializable {
     @Size(max = 50)
     @Column(name = "nivelcertificadointeresse2")
     private String nivelcertificadointeresse2;
-    @Column(name = "autorizado")
-    private boolean autorizado;
     @Size(max = 50)
     @Column(name = "pais1")
     private String pais1;
@@ -275,14 +273,6 @@ public class Questionariohe implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public boolean isAutorizado() {
-		return autorizado;
-	}
-
-	public void setAutorizado(boolean autorizado) {
-		this.autorizado = autorizado;
 	}
 
 	public String getSituacao() {
