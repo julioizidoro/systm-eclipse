@@ -121,6 +121,9 @@ public class CadHeInscricaoMB implements Serializable {
 	private boolean camposHe;
 	private Lead lead;
 	private String voltarControleVendas = "";
+	private String camposAcomodacao = "true";
+	private String camposAcomodacaoCasaFamilia = "true";
+	private boolean desabilitarAlergiaAlimento = true;
 
 	@PostConstruct
 	public void init() {
@@ -143,6 +146,7 @@ public class CadHeInscricaoMB implements Serializable {
 			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
 			iniciarNovo();
 		}
+		carregarCamposAcomodacao();
 	}
 
 	public He getHe() {
@@ -425,6 +429,30 @@ public class CadHeInscricaoMB implements Serializable {
 		this.lead = lead;
 	}
 
+	public String getCamposAcomodacao() {
+		return camposAcomodacao;
+	}
+
+	public void setCamposAcomodacao(String camposAcomodacao) {
+		this.camposAcomodacao = camposAcomodacao;
+	}
+
+	public String getCamposAcomodacaoCasaFamilia() {
+		return camposAcomodacaoCasaFamilia;
+	}
+
+	public void setCamposAcomodacaoCasaFamilia(String camposAcomodacaoCasaFamilia) {
+		this.camposAcomodacaoCasaFamilia = camposAcomodacaoCasaFamilia;
+	}
+
+	public boolean isDesabilitarAlergiaAlimento() {
+		return desabilitarAlergiaAlimento;
+	}
+
+	public void setDesabilitarAlergiaAlimento(boolean desabilitarAlergiaAlimento) {
+		this.desabilitarAlergiaAlimento = desabilitarAlergiaAlimento;
+	}
+
 	public void excluirFormaPagamento(String ilinha) {
 		gerarListaParcelamentoOriginal();
 		int linha = Integer.parseInt(ilinha);
@@ -485,6 +513,12 @@ public class CadHeInscricaoMB implements Serializable {
 		cambio = new Cambio();
 		novaFicha =true;
 		he = new He();
+		he.setBanheiroprivativo("Não");
+		he.setVegetariano("");
+		he.setFumante("");
+		he.setFamiliacomAnimais("");
+		he.setFamiliacomCrianca("");
+		he.setAdicionais("");
 		orcamento = new Orcamento();
 		orcamento.setValorCambio(0.0f);
 		orcamento.setTotalMoedaEstrangeira(0.0f);
@@ -1369,6 +1403,52 @@ public class CadHeInscricaoMB implements Serializable {
 		if(pais!=null && pais.getIdpais()!=null){
 			moeda=pais.getMoedas();
 			consultarCambio();
+		}
+	}
+	
+	
+	public void carregarCamposAcomodacao() {
+		if (he.getTipoAcomodacao() == null || he.getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
+			camposAcomodacao = "true";
+			camposAcomodacaoCasaFamilia = "true";
+			he.setTipoQuarto("Sem quarto");
+			he.setRefeicoes("Sem Refeição");
+			he.setDataChegada(null);
+			he.setNumeroSemanasAcomodacao(null);
+			he.setDataSaida(null);
+		} else {
+			camposAcomodacao = "false";
+			camposAcomodacaoCasaFamilia = "true";
+		}
+		if (he.getTipoAcomodacao() != null && he.getTipoAcomodacao().equalsIgnoreCase("Casa de família")) {
+			camposAcomodacaoCasaFamilia = "false";
+			camposAcomodacao = "false";
+		}
+	}
+	
+	public void calcularDataTerminoAcomodacao() {
+		if ((he.getDataChegada() != null) && (he.getNumeroSemanasAcomodacao() != null)) {
+			if (he.getNumeroSemanasAcomodacao() > 0) {
+				int diaSemana = Formatacao.diaSemana(he.getDataChegada()); 
+				if(diaSemana!=1) {
+					Mensagem.lancarMensagemInfo("Atenção!", "O sistema não irá calcular automaticamente"
+							+ " as datas de chegada e partida para acomodações que não iniciam no Domingo.");
+					he.setDataSaida(null);
+					he.setNumeroSemanasAcomodacao(null);
+				} else {
+					Date data = Formatacao.calcularDataFinalAcomodacao(he.getDataChegada(), he.getNumeroSemanasAcomodacao());
+					he.setDataSaida(data);
+				}
+			}
+		}
+	}
+	
+	
+	public void desabilitarAlergiaAlimento(){
+		if (he.getPossuiAlergia().equalsIgnoreCase("Sim")) {
+			desabilitarAlergiaAlimento = false;
+		}else{
+			desabilitarAlergiaAlimento = true;
 		}
 	}
 }

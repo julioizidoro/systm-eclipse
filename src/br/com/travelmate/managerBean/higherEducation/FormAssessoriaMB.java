@@ -528,7 +528,7 @@ public class FormAssessoriaMB implements Serializable{
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("chamadaTela", "He");
 		session.setAttribute("listaHe", listaHe);
-		return "fichaHE";
+		return "fichaFormAssessoria";
 	}
 	
 	public String contrato(He he){

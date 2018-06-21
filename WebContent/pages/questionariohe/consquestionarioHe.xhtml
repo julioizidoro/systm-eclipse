@@ -186,12 +186,18 @@
 						</p:commandLink>
 					</p:column>
 					<p:column headerText=""
-						style="width:60px;text-align:center;" styleClass="alinharCenter">
-
+						style="width:90px;text-align:center;" styleClass="alinharCenter">
+						
 						<p:commandLink action="#{questionarioMB.fichaQuestionario(finalizado)}"
 							title="Ficha" ajax="false" target="_blank"
 							style="width:27px;margin-left:2%">
 							<img src="../../resources/img/imprimiFicha.png"
+								style="width: 27px;" />
+						</p:commandLink>
+						<p:commandLink action="#{questionarioMB.documentacao(finalizado)}"
+							title="DOCUMENTOS"
+							style="width:27px;margin-left:2%">
+							<img src="../../resources/img/arquivosUpload.png"
 								style="width: 27px;" />
 						</p:commandLink>
 						<p:commandLink

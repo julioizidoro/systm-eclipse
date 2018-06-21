@@ -121,15 +121,16 @@
 					<b>Segunda Língua: </b> #{fichaHEMB.he.segundalingua}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Outra Nacionalidade: </b> #{fichaHEMB.questionariohe.outranacionalidade}
+					<b>Outra Nacionalidade: </b> #{fichaHEMB.he.questionariohe.outranacionalidade}
 				</h:panelGroup>
 			</h:panelGrid>   
 
 		</h:panelGrid>
 		
 		<br/>
-			<h:panelGroup style="margin-left: 0.3%;">CONTATO DE EMERGÊNCIA NO BRASIL</h:panelGroup>
-			<hr style="color: green;width:100%;float: left;"/>
+		<h:panelGroup style="color:green;"><b>CONTATO DE EMERGÊNCIA NO BRASIL </b></h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="1">
 						<h:panelGroup> <b>Nome:</b> 
 						</h:panelGroup>
@@ -170,7 +171,7 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup> 
+				<h:panelGroup>
 					<b>Última instituição que estudou: </b>
 						#{fichaHEMB.he.nomeinstituicaoestudou}
 				</h:panelGroup>
@@ -179,14 +180,33 @@
 						#{fichaHEMB.he.maiorgrauformacao}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Curso: </b>
+					<b>he: </b>
 						#{fichaHEMB.he.maiorgrauformacao}
 				</h:panelGroup>
-				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>
+					<b>Duas últimas principais ocupações prof.: </b>
+						#{fichaHEMB.he.maiorgrauformacao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Ocupação 2: </b>
+						#{fichaHEMB.he.maiorgrauformacao}
+				</h:panelGroup>
 
-				<br />
 			</h:panelGrid>
-
+			<h:panelGrid columns="2" style="width:97%;">
+				<h:panelGroup>
+					<b>Nota no Enem:</b> #{fichaHEMB.he.questionariohe.resultadotesteonline}</h:panelGroup>
+				<h:panelGroup>
+					<b>Linguagem:</b> #{fichaHEMB.he.questionariohe.notalinguagem}</h:panelGroup>
+				<h:panelGroup>
+					<b>Ciências da Natureza:</b> #{fichaHEMB.he.questionariohe.notaciencianatureza}</h:panelGroup>
+				<h:panelGroup>
+					<b>Ciências Humanas:</b> #{fichaHEMB.he.questionariohe.notacienciahumanas}</h:panelGroup>
+				<h:panelGroup>
+					<b>Matemática:</b> #{fichaHEMB.he.questionariohe.notamatematica}</h:panelGroup>
+				<h:panelGroup>
+					<b>Redação:</b> #{fichaHEMB.he.questionariohe.notaredacao}</h:panelGroup>
+			</h:panelGrid>
 		</h:panelGrid>
 		<br/>
 		<h:panelGroup style="color:green;"><b> IDIOMA PARA FINS ACADÊMICOS (PATHWAY) </b></h:panelGroup>
@@ -270,7 +290,77 @@
 			</h:panelGrid>
 
 		</h:panelGrid>
+		
+		<br />
+		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<br />
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+		
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Acomodação:</b> #{fichaHEMB.he.tipoAcomodacao}</h:panelGroup>
+				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaHEMB.he.tipoQuarto}</h:panelGroup>
+				<h:panelGroup>
+					<b>Banheiro Privado: </b> #{fichaHEMB.he.banheiroprivativo} 
+				</h:panelGroup>
+				<h:panelGroup><b>Refeições:</b> #{fichaHEMB.he.refeicoes}</h:panelGroup>
+				
+				<h:panelGroup>
+					<b>Data Chegada:</b> <h:outputText
+						value="#{fichaHEMB.he.dataChegada}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>N° Semanas :</b> #{fichaHEMB.he.numeroSemanasAcomodacao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida:</b> <h:outputText
+						value="#{fichaHEMB.he.dataSaida}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>  
+				<h:panelGroup>   
+					<b>Adicionais :</b> #{fichaHEMB.he.adicionais}
+				</h:panelGroup> 
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>   
+					<b>Em caso de acomodação em casa de familia responda:</b>
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você prefere familía com crianças ?</b> #{fichaHEMB.he.familiacomCrianca}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você prefere familía com animais de estimação ?</b> #{fichaHEMB.he.familiacomAnimais}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você é fumante ?</b> #{fichaHEMB.he.fumante}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você é vegetariano ?</b> #{fichaHEMB.he.vegetariano}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Quais são seus interesses ou hobbies ?</b> #{fichaHEMB.he.hobbies}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você tem alergia a algum medicamento ou alimento ? Se sim quais ?</b> #{fichaHEMB.he.possuiAlergia}, #{fichaHEMB.he.quaisAlergias} 
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Solicitações especiais (não há garantias) ?</b> #{fichaHEMB.he.solicitacoesEspeciais}
+				</h:panelGroup>
+			</h:panelGrid>   
 
+		</h:panelGrid>
 		
 		<br /><br /><br /><br />
 		<div align="left">
@@ -388,7 +478,7 @@
 			<p style="margin: 1%;">Autorizo a TravelMATE Intercâmbio e
 				Turismo LTDA a me representar durante o processo de inscrição na
 				instituição estrangeira de ensino superior acima mencionada; Declaro
-				por meio deste fórmulario estar ciente de que o processo seletivo é
+				por meio deste formulário estar ciente de que o processo seletivo é
 				de responsabilidade exclusiva da Instituição e todas as regras e
 				condições estão disponíveis no site da mesma.</p>
 		</h:panelGrid>

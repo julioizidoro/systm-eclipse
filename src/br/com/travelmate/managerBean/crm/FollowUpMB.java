@@ -1276,12 +1276,8 @@ public class FollowUpMB implements Serializable {
 			RequestContext.getCurrentInstance().openDialog("escolherPrograma");
 		}else{
 			session.setAttribute("cliente", lead.getCliente());
-			if(idprodutos != aplicacaoMB.getParametrosprodutos().getHighereducation()) {
-				session.setAttribute("voltar", "followUp");
-				return "cadCliente";
-			}else {
-				return "questionarioHe";
-			}
+			session.setAttribute("voltar", "followUp");
+			return "cadCliente";
 		}
 		return "";
 	}  
@@ -1406,6 +1402,16 @@ public class FollowUpMB implements Serializable {
 			resultado = habilitarCampoCurso(lead);
 		}else if(lead.getProdutos().getIdprodutos() == 16){
 			resultado = habilitarCampoVoluntariado(lead);
+		}else if(lead.getProdutos().getIdprodutos() == 22) {
+			resultado = false;
+		}
+		return resultado;
+	}
+	
+	public boolean habiltiarCamposHe(Lead lead){
+		boolean resultado = false;
+		if (lead.getProdutos().getIdprodutos() == 22) {
+			resultado = true;
 		}
 		return resultado;
 	}
@@ -1413,6 +1419,8 @@ public class FollowUpMB implements Serializable {
 	public boolean habiltiarVenda(Lead lead){
 		boolean resultado = true;
 		if (lead.getProdutos().getIdprodutos() == 21) {
+			resultado = false;
+		}else if(lead.getProdutos().getIdprodutos() == 22) {
 			resultado = false;
 		}
 		return resultado;

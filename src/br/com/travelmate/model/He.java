@@ -153,9 +153,47 @@ public class He implements Serializable {
     private String status;
     @Transient
     private String situacao;
+    @Column(name = "tipoAcomodacao")
+	private String tipoAcomodacao;
+	@Column(name = "numeroSemanasAcomodacao")
+	private Integer numeroSemanasAcomodacao;
+	@Column(name = "tipoQuarto")
+	private String tipoQuarto;
+	@Column(name = "refeicoes")
+	private String refeicoes;
+	@Column(name = "adicionais")
+	private String adicionais;
+	@Column(name = "dataChegada")
+	@Temporal(TemporalType.DATE)
+	private Date dataChegada;
+	@Column(name = "dataSaida")
+	@Temporal(TemporalType.DATE)
+	private Date dataSaida;
+	@Column(name = "familiacomCrianca")
+	private String familiacomCrianca;
+	@Column(name = "familiacomAnimais")
+	private String familiacomAnimais;
+	@Column(name = "fumante")
+	private String fumante;
+	@Column(name = "vegetariano")
+	private String vegetariano;
+	@Column(name = "hobbies")
+	private String hobbies;
+	@Column(name = "possuiAlergia")
+	private String possuiAlergia;
+	@Column(name = "quaisAlergias")
+	private String quaisAlergias;
+	@Column(name = "solicitacoesEspeciais")
+	private String solicitacoesEspeciais;
+	@Column(name = "banheiroprivativo")
+	private String banheiroprivativo;
     
 
     public He() {
+		setFumante("Não");
+		setFamiliacomAnimais("Não");
+		setFamiliacomCrianca("Não");
+		setVegetariano("Não");
     }
 
     public He(Integer idhe) {
@@ -513,6 +551,134 @@ public class He implements Serializable {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public String getTipoAcomodacao() {
+		return tipoAcomodacao;
+	}
+
+	public void setTipoAcomodacao(String tipoAcomodacao) {
+		this.tipoAcomodacao = tipoAcomodacao;
+	}
+
+	public String getTipoQuarto() {
+		return tipoQuarto;
+	}
+
+	public void setTipoQuarto(String tipoQuarto) {
+		this.tipoQuarto = tipoQuarto;
+	}
+
+	public String getRefeicoes() {
+		return refeicoes;
+	}
+
+	public void setRefeicoes(String refeicoes) {
+		this.refeicoes = refeicoes;
+	}
+
+	public String getAdicionais() {
+		return adicionais;
+	}
+
+	public void setAdicionais(String adicionais) {
+		this.adicionais = adicionais;
+	}
+
+	public Date getDataChegada() {
+		return dataChegada;
+	}
+
+	public void setDataChegada(Date dataChegada) {
+		this.dataChegada = dataChegada;
+	}
+
+	public Date getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+
+	public String getFamiliacomCrianca() {
+		return familiacomCrianca;
+	}
+
+	public void setFamiliacomCrianca(String familiacomCrianca) {
+		this.familiacomCrianca = familiacomCrianca;
+	}
+
+	public String getFamiliacomAnimais() {
+		return familiacomAnimais;
+	}
+
+	public void setFamiliacomAnimais(String familiacomAnimais) {
+		this.familiacomAnimais = familiacomAnimais;
+	}
+
+	public String getFumante() {
+		return fumante;
+	}
+
+	public void setFumante(String fumante) {
+		this.fumante = fumante;
+	}
+
+	public String getVegetariano() {
+		return vegetariano;
+	}
+
+	public void setVegetariano(String vegetariano) {
+		this.vegetariano = vegetariano;
+	}
+
+	public String getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(String hobbies) {
+		this.hobbies = hobbies;
+	}
+
+	public String getPossuiAlergia() {
+		return possuiAlergia;
+	}
+
+	public void setPossuiAlergia(String possuiAlergia) {
+		this.possuiAlergia = possuiAlergia;
+	}
+
+	public String getQuaisAlergias() {
+		return quaisAlergias;
+	}
+
+	public void setQuaisAlergias(String quaisAlergias) {
+		this.quaisAlergias = quaisAlergias;
+	}
+
+	public String getSolicitacoesEspeciais() {
+		return solicitacoesEspeciais;
+	}
+
+	public void setSolicitacoesEspeciais(String solicitacoesEspeciais) {
+		this.solicitacoesEspeciais = solicitacoesEspeciais;
+	}
+
+	public Integer getNumeroSemanasAcomodacao() {
+		return numeroSemanasAcomodacao;
+	}
+
+	public void setNumeroSemanasAcomodacao(Integer numeroSemanasAcomodacao) {
+		this.numeroSemanasAcomodacao = numeroSemanasAcomodacao;
+	}
+
+	public String getBanheiroprivativo() {
+		return banheiroprivativo;
+	}
+
+	public void setBanheiroprivativo(String banheiroprivativo) {
+		this.banheiroprivativo = banheiroprivativo;
 	}
 
 	@Override

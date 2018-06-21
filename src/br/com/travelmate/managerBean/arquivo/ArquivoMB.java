@@ -86,6 +86,7 @@ public class ArquivoMB implements Serializable {
 	private String chamadaTela = "";
 	private List<ListaHeBean> listaHe;
 	private Cliente cliente;
+	private String dadosCliente;
 
 	@PostConstruct
 	public void init() {
@@ -94,7 +95,7 @@ public class ArquivoMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			vendas = (Vendas) session.getAttribute("vendas");
 			voltar = (String) session.getAttribute("voltar");
-			cliente = (Cliente) session.getAttribute("cliete");
+			cliente = (Cliente) session.getAttribute("cliente");
 			gerarListaTipoArquivo();
 			desabilitarEdicao();
 			if (vendas != null) {
@@ -292,6 +293,30 @@ public class ArquivoMB implements Serializable {
 		this.nomePrograma = nomePrograma;
 	}
 
+	public List<ListaHeBean> getListaHe() {
+		return listaHe;
+	}
+
+	public void setListaHe(List<ListaHeBean> listaHe) {
+		this.listaHe = listaHe;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public String getDadosCliente() {
+		return dadosCliente;
+	}
+
+	public void setDadosCliente(String dadosCliente) {
+		this.dadosCliente = dadosCliente;
+	}
+
 	public void gerarListaArquivos() {
 		ArquivosFacade arquivosFacade = new ArquivosFacade();
 		try {
@@ -300,18 +325,22 @@ public class ArquivoMB implements Serializable {
 					listarArquivos = arquivosFacade
 							.listar("Select a from Arquivos a where a.cliente.idcliente="
 									+ cliente.getIdcliente() + " and a.tipoarquivo.unidade='Sim'");
+					dadosCliente = cliente.getNome();
 				}else {
 					listarArquivos = arquivosFacade
 							.listar("Select a from Arquivos a where a.vendas.idvendas="
 									+ vendas.getIdvendas() + " and a.tipoarquivo.unidade='Sim'");
+					dadosCliente = vendas.getIdvendas() + " - " + vendas.getCliente().getNome();
 				}
 			} else {
 				if (vendas.getProdutos().getIdprodutos()==22) {
 					listarArquivos = arquivosFacade
-							.listar("Select a from Arquivos a where a.clienteidcliente=" + cliente.getIdcliente());
+							.listar("Select a from Arquivos a where a.cliente.idcliente=" + cliente.getIdcliente());
+					dadosCliente = cliente.getNome();
 				}else {
 					listarArquivos = arquivosFacade
 							.listar("Select a from Arquivos a where a.vendas.idvendas=" + vendas.getIdvendas());
+					dadosCliente = vendas.getIdvendas() + " - " + vendas.getCliente().getNome();
 				}
 				
 			}

@@ -494,6 +494,47 @@
 											width="30" />
 											<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogEmissao}" update="@form"/>
 							</p:commandLink>
+							<p:commandLink id="btnEmissao" style="border-color:transparent;border:none;"
+								title="Emissão de vendas" rendered="#{followUpMB.habiltiarCamposHe(lead)}">
+									<img src="../../resources/img/crm/emitirvendas.png" width="30" />
+							</p:commandLink>
+							<p:overlayPanel id="painelInformacoesHe" for="btnEmissao"
+									hideEffect="fade" style="background:#F0F0F0;width:450px;">
+									<h:panelGrid
+									style="width:100%;border-color:transparent;border:transparent;"
+									columns="4">
+									
+									<p:commandLink id="btnQuestionario" 
+										action="#{followUpMB.emitirVenda(lead)}" 
+										style="margin-left:8%;border:transparent;">
+										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="QUESTIONARIO" style="font-size:11px;" />
+											<p:outputLabel value=" " style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+
+									<p:commandLink id="btnFormAssessoria" 
+										action="#{followUpMB.emitirVenda(lead)}" 
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="FORMULÁRIO" style="font-size:11px;" />
+											<p:outputLabel value="ASSESSORIA" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									<p:commandLink id="btnFichaFinal" 
+										action="#{followUpMB.emitirVenda(lead)}" 
+										style="margin-left:8%;border:transparent;">
+										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="FICHA" style="font-size:11px;" />
+											<p:outputLabel value="FINAL" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									
+								</h:panelGrid> 
+							</p:overlayPanel>  
 							<p:commandLink id="btnOrcamento" style="border-color:transparent;border:none;"
 								title="ORÇAMENTO" rendered="#{followUpMB.habiltiarCampos(lead)}">
 									<img src="../../resources/img/crm/orcamento.png" width="25" />

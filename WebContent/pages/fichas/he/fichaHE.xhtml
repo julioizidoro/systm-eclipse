@@ -103,7 +103,7 @@
 					<b>Cidade/Estado: </b> #{fichaHEMB.vendas.cliente.cidade} , #{fichaHEMB.vendas.cliente.estado}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Pais: </b> #{fichaHEMB.vendas.cliente.pais}
+					<b>País: </b> #{fichaHEMB.vendas.cliente.pais}
 				</h:panelGroup>
 				<h:panelGroup>
 					<b>Fone Res.: </b> #{fichaHEMB.vendas.cliente.foneResidencial}
@@ -115,14 +115,37 @@
 					<b>Email: </b> #{fichaHEMB.vendas.cliente.email}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Primeira Lingua: </b> #{fichaHEMB.he.primeiralingua}
+					<b>Primeira Língua: </b> #{fichaHEMB.he.primeiralingua}
 				</h:panelGroup>
 				<h:panelGroup>
-					<b>Segunda Lingua: </b> #{fichaHEMB.he.segundalingua}
+					<b>Segunda Língua: </b> #{fichaHEMB.he.segundalingua}
 				</h:panelGroup>
 			</h:panelGrid>   
 
 		</h:panelGrid>
+		
+		<br/>
+		<h:panelGroup style="color:green;"><b>CONTATO DE EMERGÊNCIA NO BRASIL </b></h:panelGroup>
+			<hr style="color: green;width:97%;float: left;"/>
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<h:panelGrid style="width:100%;" columns="1">
+						<h:panelGroup> <b>Nome:</b> 
+						</h:panelGroup>
+			</h:panelGrid> 
+			<h:panelGrid style="width:100%;" columns="3">
+						<h:panelGroup> <b>Relação:</b> 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>E-mail:</b> 
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<b>Telefone:</b> 
+						</h:panelGroup>
+			</h:panelGrid> 
+		</h:panelGrid>
+		
 		<br/>
 		<h:panelGroup style="color:green;"><b>INFORMAÇÕES ACADÊMICAS </b></h:panelGroup>
 		<hr style="color:green;width:97%;float: left;"/>
@@ -243,6 +266,76 @@
 
 		</h:panelGrid>
 
+		<br />
+		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
+		<hr style="color:green;width:97%;float: left;"/>
+		<br />
+		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+		
+			<h:panelGrid style="width:100%;" columns="3">
+				<h:panelGroup><b>Acomodação:</b> #{fichaHEMB.he.tipoAcomodacao}</h:panelGroup>
+				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaHEMB.he.tipoQuarto}</h:panelGroup>
+				<h:panelGroup>
+					<b>Banheiro Privado: </b> #{fichaHEMB.he.banheiroprivativo} 
+				</h:panelGroup>
+				<h:panelGroup><b>Refeições:</b> #{fichaHEMB.he.refeicoes}</h:panelGroup>
+				
+				<h:panelGroup>
+					<b>Data Chegada:</b> <h:outputText
+						value="#{fichaHEMB.he.dataChegada}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
+				<h:panelGroup>   
+					<b>N° Semanas :</b> #{fichaHEMB.he.numeroSemanasAcomodacao}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida:</b> <h:outputText
+						value="#{fichaHEMB.he.dataSaida}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>  
+				<h:panelGroup>   
+					<b>Adicionais :</b> #{fichaHEMB.he.adicionais}
+				</h:panelGroup> 
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="1">
+				<h:panelGroup>   
+					<b>Em caso de acomodação em casa de familia responda:</b>
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você prefere familía com crianças ?</b> #{fichaHEMB.he.familiacomCrianca}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você prefere familía com animais de estimação ?</b> #{fichaHEMB.he.familiacomAnimais}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você é fumante ?</b> #{fichaHEMB.he.fumante}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você é vegetariano ?</b> #{fichaHEMB.he.vegetariano}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Quais são seus interesses ou hobbies ?</b> #{fichaHEMB.he.hobbies}
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Você tem alergia a algum medicamento ou alimento ? Se sim quais ?</b> #{fichaHEMB.he.possuiAlergia}, #{fichaHEMB.he.quaisAlergias} 
+				</h:panelGroup>
+				
+				<h:panelGroup>   
+					<b>Solicitações especiais (não há garantias) ?</b> #{fichaHEMB.he.solicitacoesEspeciais}
+				</h:panelGroup>
+			</h:panelGrid>   
+
+		</h:panelGrid>
 		
 		<br /><br /><br /><br />
 		<div align="left">
@@ -360,7 +453,7 @@
 			<p style="margin: 1%;">Autorizo a TravelMATE Intercâmbio e
 				Turismo LTDA a me representar durante o processo de inscrição na
 				instituição estrangeira de ensino superior acima mencionada; Declaro
-				por meio deste fórmulario estar ciente de que o processo seletivo é
+				por meio deste formulário estar ciente de que o processo seletivo é
 				de responsabilidade exclusiva da Instituição e todas as regras e
 				condições estão disponíveis no site da mesma.</p>
 		</h:panelGrid>
@@ -369,80 +462,33 @@
 		<p>Assinatura do Estudante</p>
 		<br/> <br/>
 		
-		<p style="text-align:center;font-size:28px;">Autorização de Débito em Cartão de Crédito</p>
-		
-		
-		
-		<br/>
-		<h:panelGroup style="color:green;"><b> Autorizo e reconheço o débito em minha conta do Cartão de Crédito abaixo: </b></h:panelGroup>
-		<hr style="color:green;width:97%;float: left;"/>
-		<h:panelGrid
-			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
-			<h:panelGrid style="width:100%;" columns="2">
-				<h:panelGroup>
-					<b>Taxa de inscrição:</b> #{fichaHEMB.he.valorinscricao}</h:panelGroup>
-				<h:panelGroup>
-					<b>Câmbio: </b> #{fichaHEMB.vendas.valorcambio}</h:panelGroup>
-			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup>
-					<b>Bandeira:</b> #{fichaHEMB.he.bandeiracartao}</h:panelGroup>
-				<h:panelGroup>
-					<b>Cartão de Crédito n: </b> #{fichaHEMB.he.numerocartao}</h:panelGroup>
-				<h:panelGroup>
-					<b>Validade: </b> #{fichaHEMB.he.datavlidade}</h:panelGroup>
-				
-			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="1">
-				<h:panelGroup>
-					<b>Nome do Titular do Cartão:</b> #{fichaHEMB.he.nometitular}</h:panelGroup>
-			</h:panelGrid>
-			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup>
-					<b>Cliente: </b> #{fichaHEMB.vendas.cliente.nome}</h:panelGroup>
-				<h:panelGroup>
-					<b>CPF:</b> #{fichaHEMB.vendas.cliente.cpf}</h:panelGroup>
-				<h:panelGroup>
-					<b>Fone: </b> #{fichaHEMB.vendas.cliente.foneCelular}</h:panelGroup>
-				
-
-				<br />
-			</h:panelGrid>
-
-		</h:panelGrid>
+	
 		<br/><br/>
 		<h:panelGrid
 			style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 
-			<p style="margin: 1%;">
-				Autorizo a TravelMATE Intercâmbio e Turismo e a respectiva
-				instituição de ensino superior estrangeira destacada nesta ficha de
-				inscrição a debitar o valor indicado acima para fins de início do
-				processo seletivo. 
-			</p>
+			
 			<b style="font-size:24px;margin: 1%;">DECLARAÇÃO</b><br/>
-			<p style="margin: 1%;">
-				Declaro que todas as informações contidas
+			<p style="margin: 1%;">Declaro que todas as informações contidas
 				nesta ficha de inscrição são verdadeiras. Compreendo que toda
 				informação falsa ou incompleta pode comprometer o meu processo
-				seletivo perante as instituições de ensino superior estrangeiras.
-				Reconheço que cada instituição de ensino possui um processo
-				específico com termos e condições próprias. Declaro optar pela
-				TravelMATE lntercâmbio e Turismo para me representar perante este
-				processo e me informar dos procedimentos e valores envolvidos.
-				Declaro estar ciente de gue as taxas de inscrição e de asssessoria
-				não são reembolsáveis independente do resultado do processo
-				seletivo. Resultado cujo processo depende exclusivamente da análise
-				acadêmica da instituição de ensino superior. Declaro estar ciente de
-				que a TravelMATE lntercâmbio e Turismo presta um serviço de
-				orientação e assessoria durante o processo de admissão do ensino
-				superior. Declaro, igualmente, que se em virtude do resultado do
-				processo consular o meu visto não for concedido por qualquer motivo
-				apontado pela instituição consular não há qualquer processo de
-				reembolso dos valores das taxas de inscrição e da assessoria de
-				Higher Education.
-
-			</p>
+				perante as instituições de ensino superior estrangeiras. Reconheço
+				que cada instituição de ensino possui um processo específico com
+				termos e condições próprias. Declaro optar pela TravelMATE
+				lntercâmbio e Turismo para me representar perante este processo e me
+				informar dos procedimentos e valores envolvidos. Declaro estar
+				ciente de que as taxas de inscrição e de asssessoria não são
+				reembolsáveis independente do resultado do processo seletivo.
+				Resultado cujo processo depende exclusivamente da análise acadêmica
+				da instituição de ensino superior. Declaro estar ciente de que a
+				TravelMATE lntercâmbio e Turismo presta um serviço de orientação e
+				assessoria durante o processo de admissão do ensino superior.
+				Declaro, igualmente, que se em virtude do resultado do processo
+				consular o meu visto não for concedido por qualquer motivo apontado
+				pela instituição consular não há qualquer processo de reembolso dos
+				valores das taxas de inscrição e da assessoria de Higher Education.
+				Declaro que tenho conhecimento que o contrato, com o mesmo número de
+				identificação, é complementar a este formulário.</p>
 			<br/>
 				<b style="font-size:28px;margin: 1%;">CHECKLIST</b><br/>
 			
@@ -455,7 +501,7 @@
 			</p>
 			<p style="margin: 1%;">
 				( )Passaporte com validade de no
-				mínimo de 6 meses da data de término do curso;
+				mínimo 6 meses da data de término do curso;
 			</p>
 			<p style="margin: 1%;">
 				( )Assesoria de Higher
@@ -473,6 +519,12 @@
 		<br/><br/><br/><br/><br />
 		<hr width="80%"  align="left"/>
 		<p>Assinatura do(a)  #{fichaHEMB.vendas.cliente.nome} - CPF: #{fichaHEMB.vendas.cliente.cpf}</p>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>Assinatura do responsável (aquele que responde pelo participante no Brasil)</p>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>#{fichaHEMB.vendas.usuario.nome} -Representante TM</p>
 		
 		
 	</div>

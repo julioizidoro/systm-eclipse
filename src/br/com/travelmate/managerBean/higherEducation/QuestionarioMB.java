@@ -18,6 +18,7 @@ import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
+import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He;
@@ -285,10 +286,9 @@ public class QuestionarioMB implements Serializable{
 	public String documentacao(Questionariohe questionariohe) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-	//	session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
-//		if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null){
-//			session.setAttribute("vendas1", listaHeBean.getHe().getVendas1());
-//		}
+		VendasFacade vendasFacade = new VendasFacade();
+		session.setAttribute("vendas", vendasFacade.consultarVendas(3723));
+		session.setAttribute("cliente", questionariohe.getCliente());
 		session.setAttribute("pesquisar", "Sim");
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("chamadaTela", "fichaHE");
