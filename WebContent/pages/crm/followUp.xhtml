@@ -505,29 +505,29 @@
 									columns="4">
 									
 									<p:commandLink id="btnQuestionario" 
-										action="#{followUpMB.emitirVenda(lead)}" 
+										action="#{followUpMB.emitirVendaQuestionario(lead)}" 
 										style="margin-left:8%;border:transparent;">
 										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
-											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<img src="../../resources/img/questionarioPhoto.png" width="48" />
 											<p:outputLabel value="QUESTIONARIO" style="font-size:11px;" />
 											<p:outputLabel value=" " style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
 
 									<p:commandLink id="btnFormAssessoria" 
-										action="#{followUpMB.emitirVenda(lead)}" 
+										action="#{followUpMB.emitirVendaFormulario(lead)}" 
 										style="margin-left:8%;">
 										<h:panelGrid columns="1" style="text-align:center;">
-											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<img src="../../resources/img/crm/emitirorcamentomanual.png" width="48" />
 											<p:outputLabel value="FORMULÁRIO" style="font-size:11px;" />
 											<p:outputLabel value="ASSESSORIA" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
 									<p:commandLink id="btnFichaFinal" 
-										action="#{followUpMB.emitirVenda(lead)}" 
+										action="#{followUpMB.emitirVendaFinal(lead)}" 
 										style="margin-left:8%;border:transparent;">
 										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
-											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<img src="../../resources/img/crm/emitirvendas.png" width="48" />
 											<p:outputLabel value="FICHA" style="font-size:11px;" />
 											<p:outputLabel value="FINAL" style="font-size:11px;" />
 										</h:panelGrid>

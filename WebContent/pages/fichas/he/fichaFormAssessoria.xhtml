@@ -24,7 +24,7 @@
 </h:head>
 <h:body>
 	<div align="left">
-		<img src="../../../resources/img/fichaCursoLogoSS.png" width="100%" />
+		<img src="../../../resources/img/formularioAssessoria.png" width="100%" />
 		<h:panelGrid rendered="true" columns="2" style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
 			<p:outputLabel value="#{fichaHEMB.vendas.produtos.descricao} : #{fichaHEMB.vendas.idvendas}"/>
 			<p:outputLabel value="Unidade:#{fichaHEMB.vendas.unidadenegocio.nomerelatorio}"/>
@@ -120,9 +120,6 @@
 				<h:panelGroup>
 					<b>Segunda Língua: </b> #{fichaHEMB.he.segundalingua}
 				</h:panelGroup>
-				<h:panelGroup>
-					<b>Outra Nacionalidade: </b> #{fichaHEMB.he.questionariohe.outranacionalidade}
-				</h:panelGroup>
 			</h:panelGrid>   
 
 		</h:panelGrid>
@@ -132,19 +129,19 @@
 			<hr style="color: green;width:97%;float: left;"/>
 		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="1">
-						<h:panelGroup> <b>Nome:</b> 
+						<h:panelGroup> <b>Nome:</b> #{fichaHEMB.he.nomeContatoEmergencia}
 						</h:panelGroup>
 			</h:panelGrid> 
 			<h:panelGrid style="width:100%;" columns="3">
-						<h:panelGroup> <b>Relação:</b> 
+						<h:panelGroup> <b>Relação:</b> #{fichaHEMB.he.relacaoContatoEmergencia}
 						</h:panelGroup>
 						
 						<h:panelGroup>
-							<b>E-mail:</b> 
+							<b>E-mail:</b> #{fichaHEMB.he.emailContatoEmergencia}
 						</h:panelGroup>
 						
 						<h:panelGroup>
-							<b>Telefone:</b> 
+							<b>Telefone:</b> #{fichaHEMB.he.foneContatoEmergencia} 
 						</h:panelGroup>
 			</h:panelGrid> 
 		</h:panelGrid>
@@ -192,20 +189,6 @@
 						#{fichaHEMB.he.maiorgrauformacao}
 				</h:panelGroup>
 
-			</h:panelGrid>
-			<h:panelGrid columns="2" style="width:97%;">
-				<h:panelGroup>
-					<b>Nota no Enem:</b> #{fichaHEMB.he.questionariohe.resultadotesteonline}</h:panelGroup>
-				<h:panelGroup>
-					<b>Linguagem:</b> #{fichaHEMB.he.questionariohe.notalinguagem}</h:panelGroup>
-				<h:panelGroup>
-					<b>Ciências da Natureza:</b> #{fichaHEMB.he.questionariohe.notaciencianatureza}</h:panelGroup>
-				<h:panelGroup>
-					<b>Ciências Humanas:</b> #{fichaHEMB.he.questionariohe.notacienciahumanas}</h:panelGroup>
-				<h:panelGroup>
-					<b>Matemática:</b> #{fichaHEMB.he.questionariohe.notamatematica}</h:panelGroup>
-				<h:panelGroup>
-					<b>Redação:</b> #{fichaHEMB.he.questionariohe.notaredacao}</h:panelGroup>
 			</h:panelGrid>
 		</h:panelGrid>
 		<br/>

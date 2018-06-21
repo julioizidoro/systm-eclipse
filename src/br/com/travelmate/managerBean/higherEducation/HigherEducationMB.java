@@ -329,7 +329,7 @@ public class HigherEducationMB implements Serializable {
 			if (listaHeBean.getHe().isAprovado()) {
 				return "cadFichaHe2";
 			} else {
-				session.setAttribute("questionariohe", listaHeBean.getHe().getQuestionariohe());
+				session.setAttribute("questionariohe", listaHeBean.getHe().getVendas().getCliente());
 				return "cadFichaHe1";
 			}
 		} else if (listaHeBean.getQuestionariohe() != null) {
@@ -403,7 +403,6 @@ public class HigherEducationMB implements Serializable {
 				heBean.setUnidade(listaficha1.get(i).getVendas().getUnidadenegocio().getNomerelatorio());
 				heBean.setNomecliente(listaficha1.get(i).getVendas().getCliente().getNome());
 				heBean.setHe(listaficha1.get(i));
-				heBean.setQuestionariohe(listaficha1.get(i).getQuestionariohe());
 				if (listaficha1.get(i).isAprovado()) {
 					heBean.setSituacao("Ficha de Inscrição Aprovada");
 				} else
@@ -429,10 +428,9 @@ public class HigherEducationMB implements Serializable {
 				heBean.setUnidade(listaficha2.get(i).getVendas().getUnidadenegocio().getNomerelatorio());
 				heBean.setNomecliente(listaficha2.get(i).getVendas().getCliente().getNome());
 				heBean.setHe(listaficha2.get(i));
-				heBean.setQuestionariohe(listaficha2.get(i).getQuestionariohe());
 				heBean.setSituacao("Ficha Final");  
-				heBean.setStatus(listaficha2.get(i).getVendas1().getSituacao());
-				heBean.setData(listaficha2.get(i).getVendas1().getDataVenda());
+				heBean.setStatus(listaficha2.get(i).getVendas().getSituacao());
+				heBean.setData(listaficha2.get(i).getVendas().getDataVenda());
 				heBean.setIdVenda(listaficha2.get(i).getVendas().getIdvendas());
 				heBean.setAutorizado(listaficha2.get(i).isAprovado());
 				heBean.setDesistencia(listaficha2.get(i).isDesistencia());
@@ -626,7 +624,6 @@ public class HigherEducationMB implements Serializable {
 				heBean.setUnidade(listaficha1.get(i).getVendas().getUnidadenegocio().getNomerelatorio());
 				heBean.setNomecliente(listaficha1.get(i).getVendas().getCliente().getNome());
 				heBean.setHe(listaficha1.get(i));
-				heBean.setQuestionariohe(listaficha1.get(i).getQuestionariohe());
 				if (listaficha1.get(i).isAprovado()) {
 					heBean.setSituacao("Ficha de Inscrição Aprovada");
 				} else
@@ -651,10 +648,9 @@ public class HigherEducationMB implements Serializable {
 				heBean.setUnidade(listaficha2.get(i).getVendas().getUnidadenegocio().getNomerelatorio());
 				heBean.setNomecliente(listaficha2.get(i).getVendas().getCliente().getNome());
 				heBean.setHe(listaficha2.get(i));
-				heBean.setQuestionariohe(listaficha2.get(i).getQuestionariohe());
 				heBean.setSituacao("Ficha Final");  
-				heBean.setStatus(listaficha2.get(i).getVendas1().getSituacao());
-				heBean.setData(listaficha2.get(i).getVendas1().getDataVenda());
+				heBean.setStatus(listaficha2.get(i).getVendas().getSituacao());
+				heBean.setData(listaficha2.get(i).getVendas().getDataVenda());
 				heBean.setIdVenda(listaficha2.get(i).getVendas().getIdvendas());
 				heBean.setAutorizado(listaficha2.get(i).isAprovado());
 				heBean.setDesistencia(listaficha2.get(i).isDesistencia());
@@ -780,11 +776,7 @@ public class HigherEducationMB implements Serializable {
 		} 
 		Map parameters = new HashMap();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-		if(listaHeBean.getHe().isFichafinal()){
-			parameters.put("idvendas", listaHeBean.getHe().getVendas1().getIdvendas());
-		}else{
-			parameters.put("idvendas", listaHeBean.getHe().getVendas().getIdvendas()); 
-		}
+		parameters.put("idvendas", listaHeBean.getHe().getVendas().getIdvendas()); 
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -810,7 +802,7 @@ public class HigherEducationMB implements Serializable {
 		String caminhoRelatorio = "/reports/higherEducation/contratoHePagina01.jasper";
 		Map parameters = new HashMap();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-		parameters.put("idvendas", listaHeBean.getHe().getVendas1().getIdvendas());
+		parameters.put("idvendas", listaHeBean.getHe().getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -818,7 +810,7 @@ public class HigherEducationMB implements Serializable {
 		try {
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
-						"Contrato de Higher Education-" + listaHeBean.getHe().getVendas1().getIdvendas() + ".pdf", null);
+						"Contrato de Higher Education-" + listaHeBean.getHe().getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -882,7 +874,7 @@ public class HigherEducationMB implements Serializable {
 	public String documentacao(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-		session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
+		session.setAttribute("vendas", listaHeBean.getHe().getVendas());
 		session.setAttribute("pesquisar", "Sim");
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("listaAndamento", listaAndamento);
@@ -900,7 +892,7 @@ public class HigherEducationMB implements Serializable {
 	public String informacoes(ListaHeBean listaHeBean) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
+		session.setAttribute("vendas", listaHeBean.getHe().getVendas());
 		String voltar = "consquestionarioHe";
 		session.setAttribute("voltar", voltar);
 		return "consLogVenda"; 
@@ -936,7 +928,7 @@ public class HigherEducationMB implements Serializable {
 			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 			String sql = "SELECT r FROM Contasreceber r where r.vendas.idvendas=";
 			if (listaHeBean.getHe() != null && listaHeBean.getHe().isFichafinal()) {
-				sql = sql + listaHeBean.getHe().getVendas1().getIdvendas();
+				sql = sql + listaHeBean.getHe().getVendas().getIdvendas();
 			} else {
 		//		sql = sql + listaHeBean.getQuestionariohe().getVendas().getIdvendas();
 			}
@@ -948,7 +940,7 @@ public class HigherEducationMB implements Serializable {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
 					if (listaHeBean.getHe() != null && listaHeBean.getHe().isFichafinal()) {
 						gerarBoletoConsultorBean.gerarBoleto(listaContas,
-								String.valueOf(listaHeBean.getHe().getVendas1().getIdvendas()));
+								String.valueOf(listaHeBean.getHe().getVendas().getIdvendas()));
 					} else {
 			//			gerarBoletoConsultorBean.gerarBoleto(listaContas,
 				//				String.valueOf(listaHeBean.getQuestionariohe().getVendas().getIdvendas()));
@@ -1003,7 +995,7 @@ public class HigherEducationMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		if(listaHeBean.getHe()!=null && listaHeBean.getHe().isFichafinal()){
-			session.setAttribute("venda", listaHeBean.getHe().getVendas1());
+			session.setAttribute("venda", listaHeBean.getHe().getVendas());
 		}else{
 	//		session.setAttribute("venda", listaHeBean.getQuestionariohe().getVendas());
 		} 
@@ -1101,8 +1093,8 @@ public class HigherEducationMB implements Serializable {
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas1()!=null && listaHeBean.getHe()!=null && !listaHeBean.getHe().getVendas1().getSituacao().equalsIgnoreCase("CANCELADA")){
-				session.setAttribute("vendas", listaHeBean.getHe().getVendas1());
+			if(listaHeBean.getHe()!=null && listaHeBean.getHe().getVendas()!=null && listaHeBean.getHe()!=null && !listaHeBean.getHe().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")){
+				session.setAttribute("vendas", listaHeBean.getHe().getVendas());
 			}else {
 	//			session.setAttribute("vendas", listaHeBean.getQuestionariohe().getVendas());
 			}

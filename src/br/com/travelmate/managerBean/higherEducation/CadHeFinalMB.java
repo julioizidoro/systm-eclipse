@@ -30,9 +30,11 @@ import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
+import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
@@ -45,15 +47,19 @@ import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
+import br.com.travelmate.model.Cidade;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Filtroorcamentoproduto;
-import br.com.travelmate.model.Formapagamento; 
+import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
-import br.com.travelmate.model.Orcamentoprodutosorcamento; 
+import br.com.travelmate.model.Orcamentoprodutosorcamento;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
@@ -104,6 +110,16 @@ public class CadHeFinalMB implements Serializable {
 	private boolean novaFicha = false;
 	private Vendas vendaAlterada;
 	private String voltarControleVendas = "";
+	private String camposAcomodacao = "true";
+	private String camposAcomodacaoCasaFamilia = "true";
+	private boolean desabilitarAlergiaAlimento = true;
+	private boolean digitosTelefoneContatoEmergencia;
+	private List<Pais> listaPais;
+	private Fornecedorcidade fornecedorCidade;
+	private Pais pais;
+	private Cidade cidade;
+	private List<Fornecedorcidade> listaFornecedorCidade;
+	private Cliente cliente;
 
 	@PostConstruct
 	public void init() {
@@ -111,16 +127,21 @@ public class CadHeFinalMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		he = (He) session.getAttribute("he");
 		voltarControleVendas = (String) session.getAttribute("voltarControleVendas");
+		cliente = (Cliente) session.getAttribute("cliente");
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("he");  
+		session.removeAttribute("cliente");
 		carregarComboMoedas();
 		gerarListaProdutos();
-		if (he.isFichafinal()) {
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listar(); 
+		if (he != null && he.getIdhe() != null) {
 			iniciarAlteracao();
 		} else {
 			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
 			iniciarNovo();
 		}
+		carregarCamposAcomodacao();
 	}
 
 	public He getHe() {
@@ -323,6 +344,94 @@ public class CadHeFinalMB implements Serializable {
 		this.metaRunnersMB = metaRunnersMB;
 	}
 
+	public String getVoltarControleVendas() {
+		return voltarControleVendas;
+	}
+
+	public void setVoltarControleVendas(String voltarControleVendas) {
+		this.voltarControleVendas = voltarControleVendas;
+	}
+
+	public String getCamposAcomodacao() {
+		return camposAcomodacao;
+	}
+
+	public void setCamposAcomodacao(String camposAcomodacao) {
+		this.camposAcomodacao = camposAcomodacao;
+	}
+
+	public String getCamposAcomodacaoCasaFamilia() {
+		return camposAcomodacaoCasaFamilia;
+	}
+
+	public void setCamposAcomodacaoCasaFamilia(String camposAcomodacaoCasaFamilia) {
+		this.camposAcomodacaoCasaFamilia = camposAcomodacaoCasaFamilia;
+	}
+
+	public boolean isDesabilitarAlergiaAlimento() {
+		return desabilitarAlergiaAlimento;
+	}
+
+	public void setDesabilitarAlergiaAlimento(boolean desabilitarAlergiaAlimento) {
+		this.desabilitarAlergiaAlimento = desabilitarAlergiaAlimento;
+	}
+
+	public boolean isDigitosTelefoneContatoEmergencia() {
+		return digitosTelefoneContatoEmergencia;
+	}
+
+	public void setDigitosTelefoneContatoEmergencia(boolean digitosTelefoneContatoEmergencia) {
+		this.digitosTelefoneContatoEmergencia = digitosTelefoneContatoEmergencia;
+	}
+
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
+
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
+
+	public Fornecedorcidade getFornecedorCidade() {
+		return fornecedorCidade;
+	}
+
+	public void setFornecedorCidade(Fornecedorcidade fornecedorCidade) {
+		this.fornecedorCidade = fornecedorCidade;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public List<Fornecedorcidade> getListaFornecedorCidade() {
+		return listaFornecedorCidade;
+	}
+
+	public void setListaFornecedorCidade(List<Fornecedorcidade> listaFornecedorCidade) {
+		this.listaFornecedorCidade = listaFornecedorCidade;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	public void excluirFormaPagamento(String ilinha) {
 		gerarListaParcelamentoOriginal();
 		int linha = Integer.parseInt(ilinha);
@@ -379,12 +488,27 @@ public class CadHeFinalMB implements Serializable {
 	}
 
 	public void iniciarNovo() { 
+		if (he == null) {
+			he = new He();
+			he.setBanheiroprivativo("Não");
+			he.setVegetariano("");
+			he.setFumante("");
+			he.setFamiliacomAnimais("");
+			he.setFamiliacomCrianca("");
+			he.setAdicionais("");
+			he.setTipoFicha("Final");
+		}
 		venda= new Vendas();
-		venda.setFornecedorcidade(he.getVendas().getFornecedorcidade());
-		venda.setCliente(he.getVendas().getCliente());
-		venda.setUnidadenegocio(he.getVendas().getUnidadenegocio());
-		venda.setUsuario(he.getVendas().getUsuario());
-		venda.setFornecedor(he.getVendas().getFornecedor()); 
+		if (he != null && he.getIdhe() != null) {
+			venda.setUnidadenegocio(he.getVendas().getUnidadenegocio());
+			venda.setUsuario(he.getVendas().getUsuario());
+			venda.setFornecedor(he.getVendas().getFornecedor()); 
+			venda.setCliente(he.getVendas().getCliente());
+		}else {
+			venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
+			venda.setUsuario(usuarioLogadoMB.getUsuario());
+			venda.setCliente(cliente);
+		}
 		venda.setDataVenda(new Date());
 		venda.setSituacao("PROCESSO"); 
 		cambio = new Cambio();
@@ -406,7 +530,12 @@ public class CadHeFinalMB implements Serializable {
 	}
 
 	public void iniciarAlteracao() { 
-		venda = he.getVendas1();
+		cliente = he.getVendas().getCliente();
+		venda = he.getVendas();
+		pais = he.getVendas().getFornecedorcidade().getCidade().getPais();
+		cidade = he.getVendas().getFornecedorcidade().getCidade();
+		listarFornecedorCidade();
+		fornecedorCidade = he.getVendas().getFornecedorcidade();
 		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA") || venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			vendaAlterada = venda;
 			valorVendaAlterada = venda.getValor();
@@ -418,6 +547,7 @@ public class CadHeFinalMB implements Serializable {
 		if (formaPagamento != null) {
 			carregarCamposFormaPagamento();
 		}
+		he.setTipoFicha("Final");
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		orcamento = orcamentoFacade.consultar(venda.getIdvendas());
 		if (orcamento != null) {
@@ -710,18 +840,13 @@ public class CadHeFinalMB implements Serializable {
 			int tx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
 					.getIdprodutosOrcamento() != null) {
-				if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
-						.getIdprodutosOrcamento() == tx) {
-					Mensagem.lancarMensagemErro("Assessoria TM não pode ser Excluída.", "");
-				} else {
-					if (vendaAlterada != null) {
-						OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-						orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento.getOrcamentoprodutosorcamentoList()
-								.get(ilinha).getIdorcamentoProdutosOrcamento());
-					}
-					orcamento.getOrcamentoprodutosorcamentoList().remove(ilinha);
-					calcularValorTotalOrcamento();
+				if (vendaAlterada != null) {
+					OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
+					orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento.getOrcamentoprodutosorcamentoList()
+							.get(ilinha).getIdorcamentoProdutosOrcamento());
 				}
+				orcamento.getOrcamentoprodutosorcamentoList().remove(ilinha);
+				calcularValorTotalOrcamento();
 			}
 		}
 	}
@@ -944,7 +1069,7 @@ public class CadHeFinalMB implements Serializable {
 					return voltarControleVendas;
 				}
 			}
-			return "consquestionarioHe";
+			return "consHeFichaFinal";
 		}
 		return "";
 	}
@@ -980,14 +1105,18 @@ public class CadHeFinalMB implements Serializable {
 					produto, venda.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, he.getDatainicio(), he.getDatatermino());
 			LogVendaFacade logVendaFacade = new LogVendaFacade();
 			Logvenda logvenda = logVendaFacade.consultar(venda.getIdvendas());
-			logvenda.setVendas(he.getVendas());
+			if (he != null && he.getIdhe() != null) {
+				logvenda.setVendas(he.getVendas());
+			}else {
+				logvenda.setVendas(venda);
+			}
 			if(valorVendaAlterada>0){  
 				logvenda.setOperacao("ALTERAÇÃO FICHA FINAL");
 			}else{
 				logvenda.setOperacao("NOVA FICHA FINAL");
 			}
 			logvenda = logVendaFacade.salvar(logvenda);
-			he.setVendas1(venda);
+			he.setVendas(venda);
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			he.setFichafinal(true);
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "F");
@@ -1139,9 +1268,80 @@ public class CadHeFinalMB implements Serializable {
 	} 
 	
 	public void selecionarCambio(){
-		if(venda.getFornecedorcidade().getCidade().getPais()!=null){
-			moeda=venda.getFornecedorcidade().getCidade().getPais().getMoedas();
+		if(pais!=null && pais.getIdpais() != null){
+			moeda=pais.getMoedas();
 			consultarCambio();
+		}
+	}
+	
+	
+	public void carregarCamposAcomodacao() {
+		if (he.getTipoAcomodacao() == null || he.getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
+			camposAcomodacao = "true";
+			camposAcomodacaoCasaFamilia = "true";
+			he.setTipoQuarto("Sem quarto");
+			he.setRefeicoes("Sem Refeição");
+			he.setDataChegada(null);
+			he.setNumeroSemanasAcomodacao(null);
+			he.setDataSaida(null);
+		} else {
+			camposAcomodacao = "false";
+			camposAcomodacaoCasaFamilia = "true";
+		}
+		if (he.getTipoAcomodacao() != null && he.getTipoAcomodacao().equalsIgnoreCase("Casa de família")) {
+			camposAcomodacaoCasaFamilia = "false";
+			camposAcomodacao = "false";
+		}
+	}
+	
+	public void calcularDataTerminoAcomodacao() {
+		if ((he.getDataChegada() != null) && (he.getNumeroSemanasAcomodacao() != null)) {
+			if (he.getNumeroSemanasAcomodacao() > 0) {
+				int diaSemana = Formatacao.diaSemana(he.getDataChegada()); 
+				if(diaSemana!=1) {
+					Mensagem.lancarMensagemInfo("Atenção!", "O sistema não irá calcular automaticamente"
+							+ " as datas de chegada e partida para acomodações que não iniciam no Domingo.");
+					he.setDataSaida(null);
+					he.setNumeroSemanasAcomodacao(null);
+				} else {
+					Date data = Formatacao.calcularDataFinalAcomodacao(he.getDataChegada(), he.getNumeroSemanasAcomodacao());
+					he.setDataSaida(data);
+				}
+			}
+		}
+	}
+	
+	
+	public void desabilitarAlergiaAlimento(){
+		if (he.getPossuiAlergia().equalsIgnoreCase("Sim")) {
+			desabilitarAlergiaAlimento = false;
+		}else{
+			desabilitarAlergiaAlimento = true;
+		}
+	}
+	
+	public String validarMascaraFoneContatoEmergencia() {
+		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneContatoEmergencia);
+	}
+	
+	public void listarFornecedorCidade() {
+		if (cidade != null) {
+			String sql = "select f from Fornecedorcidade f where f.produtos.idprodutos="
+					+ aplicacaoMB.getParametrosprodutos().getHighereducation() + " and f.cidade.idcidade="
+					+ cidade.getIdcidade() + " and f.ativo=1";
+			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+			listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
+			if (listaFornecedorCidade == null) {
+				listaFornecedorCidade = new ArrayList<Fornecedorcidade>();
+			}
+		}
+	}
+	
+	
+	public void selecionarFornecedor() {
+		if (venda != null && fornecedorCidade != null) {
+			venda.setFornecedor(fornecedorCidade.getFornecedor());
+			venda.setFornecedorcidade(fornecedorCidade);
 		}
 	}
 }

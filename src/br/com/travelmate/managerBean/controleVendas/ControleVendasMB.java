@@ -779,11 +779,7 @@ public class ControleVendasMB implements Serializable {
 				caminhoRelatorio = "/reports/higherEducation/FichaInscricaoHe1.jasper";
 			}
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-			if (he.isFichafinal()) {
-				parameters.put("idvendas", he.getVendas1().getIdvendas());
-			} else {
-				parameters.put("idvendas", he.getVendas().getIdvendas());
-			}
+			parameters.put("idvendas", he.getVendas().getIdvendas());
 		} else if (vendas.getProdutos().getIdprodutos() == 2) {
 			if (seguroViagem.getIdvendacurso() > 0) {
 				caminhoRelatorio = ("/reports/seguro/FichaSeguroCursoPagina01.jasper");
@@ -1253,7 +1249,7 @@ public class ControleVendasMB implements Serializable {
 		} else if (vendas.getProdutos().getIdprodutos() == 22) {
 			caminhoRelatorio = "/reports/higherEducation/contratoHePagina01.jasper";
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-			parameters.put("idvendas", he.getVendas1().getIdvendas());
+			parameters.put("idvendas", he.getVendas().getIdvendas());
 		}else if(vendas.getProdutos().getIdprodutos() == 3){
 			caminhoRelatorio = ("/reports/visto/contratovisto.jasper");
 			parameters.put("idvendas", vistos.getVendas().getIdvendas());
@@ -1388,7 +1384,7 @@ public class ControleVendasMB implements Serializable {
 					if (he.isAprovado()) {
 						return "cadFichaHe2";
 					} else {
-						session.setAttribute("questionariohe", he.getQuestionariohe());
+						session.setAttribute("cliente", he.getVendas().getCliente());
 						return "cadFichaHe1";
 					}
 				} 

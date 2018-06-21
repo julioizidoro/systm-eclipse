@@ -121,23 +121,23 @@ public class CadHeInscricaoMB implements Serializable {
 	private boolean camposHe;
 	private Lead lead;
 	private String voltarControleVendas = "";
-	private String camposAcomodacao = "true";
-	private String camposAcomodacaoCasaFamilia = "true";
-	private boolean desabilitarAlergiaAlimento = true;
+	private boolean camposAcomodacao = true;
+	private boolean camposAcomodacaoCasaFamilia = true;
+	private boolean desabilitarAlergiaAlimentoCampo = true;
+	private boolean digitosTelefoneContatoEmergencia;
 
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		questionarioHe = (Questionariohe) session.getAttribute("questionariohe");
+		cliente = (Cliente) session.getAttribute("cliente");
 		he = (He) session.getAttribute("he");
 		voltarControleVendas = (String) session.getAttribute("voltarControleVendas");
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("he");
-		session.removeAttribute("questionariohe");
+		session.removeAttribute("cliente");
 		PaisFacade paisFacade = new PaisFacade();
 		listaPais = paisFacade.listar();    
-		cliente = questionarioHe.getCliente();
 		carregarComboMoedas();
 		gerarListaProdutos();
 		if (he != null) {
@@ -429,28 +429,38 @@ public class CadHeInscricaoMB implements Serializable {
 		this.lead = lead;
 	}
 
-	public String getCamposAcomodacao() {
+	
+
+	public boolean isCamposAcomodacao() {
 		return camposAcomodacao;
 	}
 
-	public void setCamposAcomodacao(String camposAcomodacao) {
+	public void setCamposAcomodacao(boolean camposAcomodacao) {
 		this.camposAcomodacao = camposAcomodacao;
 	}
 
-	public String getCamposAcomodacaoCasaFamilia() {
+	public boolean isCamposAcomodacaoCasaFamilia() {
 		return camposAcomodacaoCasaFamilia;
 	}
 
-	public void setCamposAcomodacaoCasaFamilia(String camposAcomodacaoCasaFamilia) {
+	public void setCamposAcomodacaoCasaFamilia(boolean camposAcomodacaoCasaFamilia) {
 		this.camposAcomodacaoCasaFamilia = camposAcomodacaoCasaFamilia;
 	}
 
-	public boolean isDesabilitarAlergiaAlimento() {
-		return desabilitarAlergiaAlimento;
+	public boolean isDesabilitarAlergiaAlimentoCampo() {
+		return desabilitarAlergiaAlimentoCampo;
 	}
 
-	public void setDesabilitarAlergiaAlimento(boolean desabilitarAlergiaAlimento) {
-		this.desabilitarAlergiaAlimento = desabilitarAlergiaAlimento;
+	public void setDesabilitarAlergiaAlimentoCampo(boolean desabilitarAlergiaAlimentoCampo) {
+		this.desabilitarAlergiaAlimentoCampo = desabilitarAlergiaAlimentoCampo;
+	}
+
+	public boolean isDigitosTelefoneContatoEmergencia() {
+		return digitosTelefoneContatoEmergencia;
+	}
+
+	public void setDigitosTelefoneContatoEmergencia(boolean digitosTelefoneContatoEmergencia) {
+		this.digitosTelefoneContatoEmergencia = digitosTelefoneContatoEmergencia;
 	}
 
 	public void excluirFormaPagamento(String ilinha) {
@@ -519,6 +529,7 @@ public class CadHeInscricaoMB implements Serializable {
 		he.setFamiliacomAnimais("");
 		he.setFamiliacomCrianca("");
 		he.setAdicionais("");
+		he.setTipoFicha("Formulario");
 		orcamento = new Orcamento();
 		orcamento.setValorCambio(0.0f);
 		orcamento.setTotalMoedaEstrangeira(0.0f);
@@ -556,6 +567,7 @@ public class CadHeInscricaoMB implements Serializable {
 			vendaAlterada = venda;
 			valorVendaAlterada = venda.getValor();
 		}
+		he.setTipoFicha("Formulario");
 		this.cliente = venda.getCliente();
 		fornecedorCidade = venda.getFornecedorcidade();
 		cidade = fornecedorCidade.getCidade();
@@ -870,21 +882,16 @@ public class CadHeInscricaoMB implements Serializable {
 	public void excluirProdutoOrcamento(String linha) {
 		int ilinha = Integer.parseInt(linha);
 		if (ilinha >= 0) {
-			int tx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
 					.getIdprodutosOrcamento() != null) {
-				if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
-						.getIdprodutosOrcamento() == tx) {
-					Mensagem.lancarMensagemErro("Assessoria TM não pode ser Excluída.", "");
-				} else {
-					if (vendaAlterada != null) {
-						OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-						orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento.getOrcamentoprodutosorcamentoList()
-								.get(ilinha).getIdorcamentoProdutosOrcamento());
-					}
-					orcamento.getOrcamentoprodutosorcamentoList().remove(ilinha);
-					calcularValorTotalOrcamento();
+
+				if (vendaAlterada != null) {
+					OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
+					orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento.getOrcamentoprodutosorcamentoList()
+							.get(ilinha).getIdorcamentoProdutosOrcamento());
 				}
+				orcamento.getOrcamentoprodutosorcamentoList().remove(ilinha);
+				calcularValorTotalOrcamento();
 			}
 		}
 	}
@@ -1107,7 +1114,7 @@ public class CadHeInscricaoMB implements Serializable {
 					return voltarControleVendas;
 				}
 			}
-			return "consquestionarioHe";
+			return "consFormAssessoria";
 		}
 		return "";
 	}
@@ -1135,18 +1142,6 @@ public class CadHeInscricaoMB implements Serializable {
 			if (formaPagamento.getParcelamentopagamentoList().size() == 0) {
 				msg = msg + "Forma de Pagamento com erro\r\n";
 			}
-		}
-		if (he.getBandeiracartao() == null || he.getBandeiracartao().length() == 0) {
-			msg = msg + "Informe bandeira do cartão.\r\n";
-		}
-		if (he.getNumerocartao() == null || he.getNumerocartao().length() == 0) {
-			msg = msg + "Informe Nº do cartão.\r\n";
-		}
-		if (he.getNometitular() == null || he.getNometitular().length() == 0) {
-			msg = msg + "Informe Nome do titular do cartão.\r\n";
-		}
-		if (he.getDatavlidade() == null || he.getDatavlidade().length() == 0) {
-			msg = msg + "Informe Data de Validade do cartão.\r\n";
 		}
 		if (he.getPrimeiralingua() == null || he.getPrimeiralingua().length() == 0) {
 			msg = msg + "Informe sua primeira lingua.\r\n";
@@ -1219,11 +1214,10 @@ public class CadHeInscricaoMB implements Serializable {
 					vendas.setIdlead(0);
 				}
 				vendas = vendasFacade.salvar(vendas);
-				he.setVendas1(vendas);
+				he.setVendas(vendas);
 			}
 			he.setVendas(venda);
 			he.setPaisprograma(pais.getNome());
-			he.setQuestionariohe(questionarioHe);
 			he.setAssessoriatm(aplicacaoMB.getParametrosprodutos().getAssessoriatmhe());
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			orcamento = cadHeBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(), orcamento.getTotalMoedaEstrangeira(),
@@ -1409,20 +1403,20 @@ public class CadHeInscricaoMB implements Serializable {
 	
 	public void carregarCamposAcomodacao() {
 		if (he.getTipoAcomodacao() == null || he.getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
-			camposAcomodacao = "true";
-			camposAcomodacaoCasaFamilia = "true";
+			camposAcomodacao = true;
+			camposAcomodacaoCasaFamilia = true;
 			he.setTipoQuarto("Sem quarto");
 			he.setRefeicoes("Sem Refeição");
 			he.setDataChegada(null);
 			he.setNumeroSemanasAcomodacao(null);
 			he.setDataSaida(null);
 		} else {
-			camposAcomodacao = "false";
-			camposAcomodacaoCasaFamilia = "true";
+			camposAcomodacao = false;
+			camposAcomodacaoCasaFamilia = true;
 		}
 		if (he.getTipoAcomodacao() != null && he.getTipoAcomodacao().equalsIgnoreCase("Casa de família")) {
-			camposAcomodacaoCasaFamilia = "false";
-			camposAcomodacao = "false";
+			camposAcomodacaoCasaFamilia = false;
+			camposAcomodacao = false;
 		}
 	}
 	
@@ -1446,9 +1440,13 @@ public class CadHeInscricaoMB implements Serializable {
 	
 	public void desabilitarAlergiaAlimento(){
 		if (he.getPossuiAlergia().equalsIgnoreCase("Sim")) {
-			desabilitarAlergiaAlimento = false;
+			desabilitarAlergiaAlimentoCampo = false;
 		}else{
-			desabilitarAlergiaAlimento = true;
+			desabilitarAlergiaAlimentoCampo = true;
 		}
+	}
+	
+	public String validarMascaraFoneContatoEmergencia() {
+		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneContatoEmergencia);
 	}
 }

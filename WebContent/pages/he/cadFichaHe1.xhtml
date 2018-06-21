@@ -9,8 +9,19 @@
 	<ui:define name="corpo">
 		<h:form id="cadHe" style="font-size:12px;">  
 			<div id="centro">
+			<script type="text/javascript">
+				function sundayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 0), '' ]
+				}  
+				   
+				function saturdayEnabled(date) {
+					var day = date.getDay();
+					return [ (day == 6), '' ]   
+				} 
+			</script>
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-				<p:outputLabel value="Ficha de Higher Education"
+				<p:outputLabel value="Formálrio de Assessoria"
 					style="font-size: 22px;color: #1F8871; margin-left:30%" />
 				<br /> <br />   
 				<p:accordionPanel>
@@ -285,13 +296,13 @@
 							<p:outputLabel />
 						</h:panelGrid>
 					</p:tab>
-					<p:tab title="Acomodação" titleStyle="font-size: 11px">
+					<p:tab title="Acomodação">
 						<br></br> 
 						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
-							<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao"/>
-							<p:outputLabel value="Quarto" for="quarto" />
-							<p:outputLabel value="Refeição" for="refeicao" />
-							<p:outputLabel value="Banheiro Privado" for="banheiroPrivado"/>
+							<p:outputLabel value="Tipo Acomodação" />
+							<p:outputLabel value="Quarto" />
+							<p:outputLabel value="Refeição" />
+							<p:outputLabel value="Banheiro Privado" />
 							
 							<p:selectOneMenu id="tipoacomodacao"
 								value="#{cadHeInscricaoMB.he.tipoAcomodacao}"
@@ -312,7 +323,7 @@
 	
 							<p:selectOneMenu id="quarto"
 								value="#{cadHeInscricaoMB.he.tipoQuarto}"
-								style="width:82%;" required="false"
+								style="width:82%;" 
 								disabled="#{cadHeInscricaoMB.camposAcomodacao}">
 								<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
 								<f:selectItem itemLabel="Quarto individual"
@@ -324,7 +335,7 @@
 							</p:selectOneMenu>
 	
 							<p:selectOneMenu id="refeicao"
-								value="#{cadHeInscricaoMB.he.refeicoes}" required="false"
+								value="#{cadHeInscricaoMB.he.refeicoes}" 
 								style="width:82%;"
 								disabled="#{cadHeInscricaoMB.camposAcomodacao}">
 								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
@@ -336,7 +347,7 @@
 							</p:selectOneMenu>
 	
 							<p:selectOneMenu id="banheiroPrivado"
-								value="#{cadHeInscricaoMB.he.banheiroprivativo}" required="false"
+								value="#{cadHeInscricaoMB.he.banheiroprivativo}" 
 								style="width:100%;"
 								disabled="#{cadHeInscricaoMB.camposAcomodacao}">
 								<f:selectItem itemLabel="Não" itemValue="Não" />
@@ -446,7 +457,7 @@
 						</p:selectOneMenu>
 						<br></br>
 						<br></br>
-						<p:inputText id="alergia" style="width:76.2%;margin-left: 11.5%;" disabled="#{cadHeInscricaoMB.desabilitarAlergiaAlimento}"
+						<p:inputText id="alergia" style="width:76.2%;margin-left: 11.5%;" disabled="#{cadHeInscricaoMB.desabilitarAlergiaAlimentoCampo}"
 							maxlength="100" value="#{cadHeInscricaoMB.he.quaisAlergias}" />
 						<br></br>
 						<br></br>
@@ -465,6 +476,44 @@
 						<br></br>
 						<p:inputText id="hobbies" style="width:76.2%;margin-left: 11.5%"
 							maxlength="100" value="#{cadHeInscricaoMB.he.hobbies}" />
+						<br></br>
+						<br></br>
+						
+						<legend id="iUsu3">
+							<b>Contato de Emergência no Brasil</b>
+						</legend>
+						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+							value="#{cadHeInscricaoMB.digitosTelefoneContatoEmergencia}"
+							style="margin-left:68.5%;">
+							<p:ajax update="telefone" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
+						<p:outputLabel value="Telefone" for="telefone"
+							style="margin-left:54.7%" />
+						<br></br>
+						<p:inputText id="nome"
+							value="#{cadHeInscricaoMB.he.nomeContatoEmergencia}"
+							style="width:52%;margin-left:11.5%" maxlength="45" />
+						<p:inputMask id="telefone"
+							value="#{cadHeInscricaoMB.he.foneContatoEmergencia}"
+							mask="#{cadHeInscricaoMB.validarMascaraFoneContatoEmergencia()}"
+							style="width:19%;margin-left: 5%" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="E-mail" for="email"
+							style="margin-left: 11.5%" />
+						<p:outputLabel value="Relação" for="relacao"
+							style="margin-left:54.4%" />
+						<br></br>
+						<p:inputText id="email"
+							value="#{cadHeInscricaoMB.he.emailContatoEmergencia}"
+							style="width:52%;margin-left:11.5%" maxlength="45" />
+						<p:inputText id="relacao"
+							value="#{cadHeInscricaoMB.he.relacaoContatoEmergencia}"
+							style="width:19%;margin-left: 5%" />
 						<br></br>
 						<br></br>
 					</p:tab>
@@ -844,39 +893,7 @@
 							</p:column>
 						</p:dataTable>
 					</p:tab>
-					<p:tab title="Dados do Cartão de Crédito">
-						<h:panelGrid columns="4"
-							columnClasses="tamanhoavisos2,tamanho1,cadCliente2,cadCliente2"
-							style="width:75%;margin-left:8%;">
-							<p:selectOneRadio id="bandeiracartao"
-								value="#{cadHeInscricaoMB.he.bandeiracartao}" style="width:70%;">
-								<f:selectItem itemLabel="MasterCard" itemValue="MasterCard" />
-								<f:selectItem itemLabel="Visa" itemValue="Visa" />
-							</p:selectOneRadio>
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />   
-
-							<p:outputLabel value="Nome do Titular" />
-							<p:outputLabel value="Nº do Cartão" />
-							<p:outputLabel value="Data de Validade" />
-							<p:outputLabel value="Código de segurança" />
-
-							<p:inputText id="nometitular" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.nometitular}" />
-							<p:inputText id="numerocartao" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.numerocartao}" />
-							<p:inputMask mask="99/9999" id="datavlidade" style="width:70%;"
-								value="#{cadHeInscricaoMB.he.datavlidade}" />
-							<p:inputMask mask="999" id="codigoseguranca" style="width:74%;"
-								value="#{cadHeInscricaoMB.he.codigoseguranca}" />
-						</h:panelGrid>   
-					</p:tab>
+					
 					<p:tab title="Obs">
 						<br></br>
 						<h:panelGrid columns="1" cellpadding="3" style="margin-left:19%">
@@ -900,7 +917,7 @@
 				</p:accordionPanel>
 				<br></br>
 				<div align="center" style="width: 85%;">
-					<p:commandButton onclick="PF('cd').show();" icon="ui-icon-check"
+					<p:commandButton onclick="PF('cd').show();" icon="ui-icon-check" 
 						value="Confirmar" style="font-size:13px;" update="growl" />
 					<p:commandButton action="#{cadHeInscricaoMB.cancelar()}"
 						style="margin-left:2%;font-size:13px;" icon="ui-icon-close"

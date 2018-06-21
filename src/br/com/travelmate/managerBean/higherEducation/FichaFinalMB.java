@@ -328,7 +328,7 @@ public class FichaFinalMB implements Serializable{
 			if (he.isAprovado()) {
 				return "cadFichaHe2";
 			} else {
-				session.setAttribute("questionariohe", he.getQuestionariohe());
+				session.setAttribute("cliente", he.getVendas().getCliente());
 				return "cadFichaHe1";
 			}
 		}  else
@@ -478,7 +478,7 @@ public class FichaFinalMB implements Serializable{
 		caminhoRelatorio = "/reports/higherEducation/FichaFinalHe1.jasper";
 		Map parameters = new HashMap();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-		parameters.put("idvendas", he.getVendas1().getIdvendas());
+		parameters.put("idvendas", he.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -486,7 +486,7 @@ public class FichaFinalMB implements Serializable{
 		try {
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
-						"Ficha de Inscrição-" + he.getVendas1().getCliente().getNome() + ".pdf", null);
+						"Ficha de Inscrição-" + he.getVendas().getCliente().getNome() + ".pdf", null);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -504,7 +504,7 @@ public class FichaFinalMB implements Serializable{
 		String caminhoRelatorio = "/reports/higherEducation/contratoHePagina01.jasper";
 		Map parameters = new HashMap();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-		parameters.put("idvendas", he.getVendas1().getIdvendas());
+		parameters.put("idvendas", he.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -512,7 +512,7 @@ public class FichaFinalMB implements Serializable{
 		try {
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
-						"Contrato de Higher Education-" + he.getVendas1().getIdvendas() + ".pdf", null);
+						"Contrato de Higher Education-" + he.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -576,7 +576,8 @@ public class FichaFinalMB implements Serializable{
 	public String documentacao(He he) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-		session.setAttribute("vendas", he.getVendas1());
+		session.setAttribute("vendas", he.getVendas());
+		session.setAttribute("cliente", he.getVendas().getCliente());
 		session.setAttribute("pesquisar", "Sim");
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("listaAndamento", listaAndamento);
@@ -594,7 +595,7 @@ public class FichaFinalMB implements Serializable{
 	public String informacoes(He he) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("vendas", he.getVendas1());
+		session.setAttribute("vendas", he.getVendas());
 		String voltar = "consHeFichaFinal";
 		session.setAttribute("voltar", voltar);
 		return "consLogVenda"; 
@@ -629,7 +630,7 @@ public class FichaFinalMB implements Serializable{
 		if (validarCliente.getMsg().length() < 5) {
 			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 			String sql = "SELECT r FROM Contasreceber r where r.vendas.idvendas=";
-			sql = sql + he.getVendas1().getIdvendas();
+			sql = sql + he.getVendas().getIdvendas();
 			sql = sql + " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"
 					+ " AND r.datapagamento is null ORDER BY r.idcontasreceber";
 			List<Contasreceber> listaContas = contasReceberFacade.listar(sql);
@@ -637,7 +638,7 @@ public class FichaFinalMB implements Serializable{
 				if (listaContas.size() > 0) {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
 						gerarBoletoConsultorBean.gerarBoleto(listaContas,
-								String.valueOf(he.getVendas1().getIdvendas()));
+								String.valueOf(he.getVendas().getIdvendas()));
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -687,7 +688,7 @@ public class FichaFinalMB implements Serializable{
 	public String visualizarContasReceber(He he) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("venda", he.getVendas1());
+		session.setAttribute("venda", he.getVendas());
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 750);
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
@@ -768,7 +769,7 @@ public class FichaFinalMB implements Serializable{
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", he.getVendas1());
+			session.setAttribute("vendas", he.getVendas());
 			session.setAttribute("voltar", "consHeFichaFinal");
 			return "emissaocancelamento";
 	//	}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO") 

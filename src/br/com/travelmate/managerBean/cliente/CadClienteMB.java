@@ -227,7 +227,17 @@ public class CadClienteMB implements Serializable {
 										} else if (lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getSeguroPrivado()) {
 											return "fichaSeguroViagem";
 										}else if(lead.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighereducation()){
-											return "questionarioHe";
+											String faseHe = (String) session.getAttribute("faseHe");
+											if (faseHe  != null && faseHe.equalsIgnoreCase("questionario")) {
+												session.setAttribute("cliente", cliente);
+												return "questionarioHe";
+											}else if(faseHe != null && faseHe.equalsIgnoreCase("formulario")) {
+												session.setAttribute("cliente", cliente);
+												return "cadFichaHe1";
+											}else {
+												session.setAttribute("cliente", cliente);
+												return "cadFichaHe2";
+											}
 										}
 									}    
 									FacesContext fc = FacesContext.getCurrentInstance();

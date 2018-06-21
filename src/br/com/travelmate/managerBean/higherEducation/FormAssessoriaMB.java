@@ -334,7 +334,7 @@ public class FormAssessoriaMB implements Serializable{
 			if (he.isAprovado()) {
 				return "cadFichaHe2";
 			} else {
-				session.setAttribute("questionariohe", he.getQuestionariohe());
+				session.setAttribute("cliente", he.getVendas().getCliente());
 				return "cadFichaHe1";
 			}
 		}  else
@@ -359,9 +359,7 @@ public class FormAssessoriaMB implements Serializable{
 					sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
-		} else {
-			sqlFicha1 = sqlFicha1 + " and h.aprovado=true";
-		}
+		} 
 		sqlFicha1 = sqlFicha1 + " order by h.vendas.dataVenda desc";
 		HeFacade heFacade = new HeFacade();
 		listaHe = heFacade.listar(sqlFicha1);

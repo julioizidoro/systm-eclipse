@@ -118,16 +118,10 @@ public class He implements Serializable {
     @Column(name = "valorinscricao")
     private Float valorinscricao;
     @Column(name = "assessoriatm")
-    private Float assessoriatm;
-    @JoinColumn(name = "questionariohe_idquestionariohe", referencedColumnName = "idquestionariohe")
-    @OneToOne(optional = false)
-    private Questionariohe questionariohe;   
+    private Float assessoriatm;   
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
-    @JoinColumn(name = "vendas_idvendas1", referencedColumnName = "idvendas")
-    @ManyToOne(optional = false)
-    private Vendas vendas1;
     @Column(name = "aprovado")
     private boolean aprovado;
     @Column(name = "fichafinal")
@@ -187,6 +181,16 @@ public class He implements Serializable {
 	private String solicitacoesEspeciais;
 	@Column(name = "banheiroprivativo")
 	private String banheiroprivativo;
+	@Column(name = "nomeContatoEmergencia")
+	private String nomeContatoEmergencia;
+	@Column(name = "emailContatoEmergencia")
+	private String emailContatoEmergencia;
+	@Column(name = "foneContatoEmergencia")
+	private String foneContatoEmergencia;
+	@Column(name = "relacaoContatoEmergencia")
+	private String relacaoContatoEmergencia;
+	@Column(name = "tipoFicha")
+	private String tipoFicha;
     
 
     public He() {
@@ -431,14 +435,6 @@ public class He implements Serializable {
     public void setAssessoriatm(Float assessoriatm) {
         this.assessoriatm = assessoriatm;
     }
-
-    public Questionariohe getQuestionariohe() {
-        return questionariohe;
-    }
-
-    public void setQuestionariohe(Questionariohe questionariohe) {
-        this.questionariohe = questionariohe;
-    }
  
     public Vendas getVendas() {
         return vendas;
@@ -471,15 +467,6 @@ public class He implements Serializable {
 	public void setFichafinal(boolean fichafinal) {
 		this.fichafinal = fichafinal;
 	} 
- 
-
-	public Vendas getVendas1() {
-		return vendas1;
-	}
-
-	public void setVendas1(Vendas vendas1) {
-		this.vendas1 = vendas1;
-	}
 
 	public String getInstituicaoensinomedio() {
 		return instituicaoensinomedio;
@@ -679,6 +666,46 @@ public class He implements Serializable {
 
 	public void setBanheiroprivativo(String banheiroprivativo) {
 		this.banheiroprivativo = banheiroprivativo;
+	}
+
+	public String getNomeContatoEmergencia() {
+		return nomeContatoEmergencia;
+	}
+
+	public void setNomeContatoEmergencia(String nomeContatoEmergencia) {
+		this.nomeContatoEmergencia = nomeContatoEmergencia;
+	}
+
+	public String getEmailContatoEmergencia() {
+		return emailContatoEmergencia;
+	}
+
+	public void setEmailContatoEmergencia(String emailContatoEmergencia) {
+		this.emailContatoEmergencia = emailContatoEmergencia;
+	}
+
+	public String getFoneContatoEmergencia() {
+		return foneContatoEmergencia;
+	}
+
+	public void setFoneContatoEmergencia(String foneContatoEmergencia) {
+		this.foneContatoEmergencia = foneContatoEmergencia;
+	}
+
+	public String getRelacaoContatoEmergencia() {
+		return relacaoContatoEmergencia;
+	}
+
+	public void setRelacaoContatoEmergencia(String relacaoContatoEmergencia) {
+		this.relacaoContatoEmergencia = relacaoContatoEmergencia;
+	}
+
+	public String getTipoFicha() {
+		return tipoFicha;
+	}
+
+	public void setTipoFicha(String tipoFicha) {
+		this.tipoFicha = tipoFicha;
 	}
 
 	@Override

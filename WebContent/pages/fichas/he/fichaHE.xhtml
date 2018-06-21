@@ -124,24 +124,25 @@
 
 		</h:panelGrid>
 		
+		
 		<br/>
 		<h:panelGroup style="color:green;"><b>CONTATO DE EMERGÊNCIA NO BRASIL </b></h:panelGroup>
 			<hr style="color: green;width:97%;float: left;"/>
 		<h:panelGrid style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
 			<h:panelGrid style="width:100%;" columns="1">
-						<h:panelGroup> <b>Nome:</b> 
+						<h:panelGroup> <b>Nome:</b> #{fichaHEMB.he.nomeContatoEmergencia}
 						</h:panelGroup>
 			</h:panelGrid> 
 			<h:panelGrid style="width:100%;" columns="3">
-						<h:panelGroup> <b>Relação:</b> 
+						<h:panelGroup> <b>Relação:</b> #{fichaHEMB.he.relacaoContatoEmergencia}
 						</h:panelGroup>
 						
 						<h:panelGroup>
-							<b>E-mail:</b> 
+							<b>E-mail:</b> #{fichaHEMB.he.emailContatoEmergencia}
 						</h:panelGroup>
 						
 						<h:panelGroup>
-							<b>Telefone:</b> 
+							<b>Telefone:</b> #{fichaHEMB.he.foneContatoEmergencia} 
 						</h:panelGroup>
 			</h:panelGrid> 
 		</h:panelGrid>

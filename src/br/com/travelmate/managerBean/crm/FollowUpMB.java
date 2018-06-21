@@ -1282,6 +1282,36 @@ public class FollowUpMB implements Serializable {
 		return "";
 	}  
 	
+	public String emitirVendaQuestionario(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("voltar", "followUp");
+		session.setAttribute("faseHe", "questionario");
+		return "cadCliente";
+	}
+	
+	public String emitirVendaFormulario(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("voltar", "followUp");
+		session.setAttribute("faseHe", "formulario");
+		return "cadCliente";
+	}
+	
+	public String emitirVendaFinal(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("voltar", "followUp");
+		session.setAttribute("faseHe", "Final");
+		return "cadCliente";
+	} 
+	
 	public String retornoDialogEmissao(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

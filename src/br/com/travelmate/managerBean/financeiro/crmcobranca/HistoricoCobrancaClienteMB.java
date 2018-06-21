@@ -621,11 +621,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 				caminhoRelatorio = "/reports/higherEducation/FichaInscricaoHe1.jasper";
 			}
 			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-			if (he.isFichafinal()) {
-				parameters.put("idvendas", he.getVendas1().getIdvendas());
-			} else {
-				parameters.put("idvendas", he.getVendas().getIdvendas());
-			}
+			parameters.put("idvendas", he.getVendas().getIdvendas());
 		} else if (venda.getProdutos().getIdprodutos() == 2) {
 			if (seguroViagem.getIdvendacurso() > 0) {
 				caminhoRelatorio = ("/reports/seguro/FichaSeguroCursoPagina01.jasper");
