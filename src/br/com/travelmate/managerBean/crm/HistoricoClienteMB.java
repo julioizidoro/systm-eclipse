@@ -972,17 +972,13 @@ public class HistoricoClienteMB implements Serializable {
 		}
 	}
 	
-	public String documentacao(Vendas vendas) { 
-		if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
-			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
-			return "";
-		} else {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("vendas", vendas); 
-			session.setAttribute("voltar", voltar);
-			return "consArquivos";
-		}
+	public String documentacao() {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendas", lead.getLeadposvenda().getVendas());
+		session.setAttribute("voltar", "followUp");
+		return "consArquivos";
 	}
 	
 	public String gerarRelatorioRecibo(Vendas vendas) throws SQLException, IOException {
