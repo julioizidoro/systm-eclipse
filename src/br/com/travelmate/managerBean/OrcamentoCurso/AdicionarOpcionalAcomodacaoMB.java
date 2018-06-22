@@ -40,6 +40,7 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaAcOpcional;
 	private List<ProdutosOrcamentoBean> listaAcOpcionalIndependente;
+	private String nomeAcomodacaoFornecedor;
 
 	@PostConstruct
 	public void init() {
@@ -92,6 +93,14 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 
 	public void setListaAcOpcionalIndependente(List<ProdutosOrcamentoBean> listaAcOpcionalIndependente) {
 		this.listaAcOpcionalIndependente = listaAcOpcionalIndependente;
+	}
+
+	public String getNomeAcomodacaoFornecedor() {
+		return nomeAcomodacaoFornecedor;
+	}
+
+	public void setNomeAcomodacaoFornecedor(String nomeAcomodacaoFornecedor) {
+		this.nomeAcomodacaoFornecedor = nomeAcomodacaoFornecedor;
 	}
 
 	public void gerarListaAcOpcional() {

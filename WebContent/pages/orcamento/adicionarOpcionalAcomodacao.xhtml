@@ -24,9 +24,9 @@
 
 		<p:tabView id="acordionPainel" class="pesquisaVendaPendencia">
 			<p:tab
-				title="Acomodação #{adicionarAcomodacaoMB.nomeAcomodacaoFornecedor}"
+				title="Acomodação #{adicionarOpcionalAcomodacaoMB.nomeAcomodacaoFornecedor}"
 				class="tab" titleStyle="font-size: 11px" id="panelAcomodacaoEscola"
-				rendered="#{adicionarAcomodacaoMB.mostrarAcomodacaoEscola()}">
+				rendered="#{adicionarOpcionalAcomodacaoMB.mostrarAcomodacaoEscola()}">
 				<h:panelGroup
 					rendered="#{adicionarOpcionalAcomodacaoMB.mostrarAcomodacaoEscola()}">
 					<div align="center">
@@ -121,7 +121,7 @@
 												<f:selectItem itemLabel="48" itemValue="48" />
 												<p:ajax
 													listener="#{adicionarOpcionalAcomodacaoMB.calcularValorAcOpcional(acOpcional)}"
-													update=":adicionarAcOpcional:idtabelaAcOpcional" />
+													update="valorAcOpcional, valorAcOriginal, valorAcOriginalrs" />
 											</p:selectOneMenu>
 										</h:panelGroup>
 										<h:panelGroup>
@@ -160,9 +160,9 @@
 					</p:dataScroller>
 				</h:panelGroup>
 			</p:tab>
-			<p:tab title="Acomodação #{adicionarAcomodacaoMB.nomeFornecedor1}"
+			<p:tab title="Acomodação #{adicionarOpcionalAcomodacaoMB.nomeFornecedor1}"
 				class="tab" titleStyle="font-size: 11px" id="panelIndependente"
-				rendered="#{adicionarAcomodacaoMB.mostrarAcomodacaoIndependente()}">
+				rendered="#{adicionarOpcionalAcomodacaoMB.mostrarAcomodacaoIndependente()}">
 				<h:panelGroup
 					rendered="#{adicionarOpcionalAcomodacaoMB.mostrarAcomodacaoIndependente()}">
 					<div align="center">
@@ -196,7 +196,7 @@
 										style="width:100%;">
 										<h:panelGroup>
 											<h:outputText value="Nº Semanas " style="margin-left:4%;" />
-											<h:outputText style="margin-left:10%;"
+											<h:outputText style="margin-left:10%;" id="idSigla1"
 												value="#{adicionarOpcionalAcomodacaoMB.resultadoOrcamentoBean.cambio.moedas.sigla} " />
 											<p:outputLabel id="valorAcOpcionalIndependente"
 												value="#{acOpcionalIndependente.valorcoprodutos.valororiginal}"
@@ -258,7 +258,7 @@
 												<f:selectItem itemLabel="48" itemValue="48" />
 												<p:ajax
 													listener="#{adicionarOpcionalAcomodacaoMB.calcularValorAcOpcional(acOpcionalIndependente)}"
-													update=":adicionarAcOpcional:idtabelaAcOpcionalIndependente" />
+													update="valorAcOpcionalIndependente, idSigla1, valorAcOriginalIndependente, valorAcOriginalrsIndependente" />
 											</p:selectOneMenu>
 										</h:panelGroup>
 										<h:panelGroup>
