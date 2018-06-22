@@ -405,6 +405,7 @@ public class CadArquivoMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("msgBilhete", "");
 			session.setAttribute("listaArquivos", listaArquivos);
+			session.setAttribute("vendas", vendas);
 			RequestContext.getCurrentInstance().closeDialog(arquivos);
 		} else {
 			TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
