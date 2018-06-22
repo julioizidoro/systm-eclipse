@@ -202,8 +202,9 @@ public class CalcularComissaoBean {
     }
     
     public float calcularTotalComissao(Vendascomissao vendasComissao){
-        float somar = vendasComissao.getComissaotm() + vendasComissao.getTaxatm();
-        float subtrair  = (vendasComissao.getLiquidofranquia() + vendasComissao.getComissaogerente() + vendasComissao.getComissaoemissor() + vendasComissao.getDesagio() + vendasComissao.getDescontotm() + vendasComissao.getDescontoloja() + vendasComissao.getComissaoterceiros() + vendasComissao.getJurospago());
+        float somar = vendasComissao.getComissaotm() + vendasComissao.getTaxatm() + vendasComissao.getJuros();
+        float subtrair  = (vendasComissao.getLiquidofranquia() + vendasComissao.getDesagio() + vendasComissao.getCustofinanceirofranquia() + vendasComissao.getDescontotm() +
+        		vendasComissao.getDescontoloja() +  vendasComissao.getComissaoterceiros() + vendasComissao.getComissaogerente() + vendasComissao.getComissaoemissor());
         return somar - subtrair;
     }
     

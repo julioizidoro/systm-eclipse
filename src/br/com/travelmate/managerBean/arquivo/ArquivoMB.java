@@ -90,6 +90,7 @@ public class ArquivoMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		//gerarClientes();
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -114,26 +115,6 @@ public class ArquivoMB implements Serializable {
 					ArquivosKitViagemFacade arquivosKitViagemFacade = new ArquivosKitViagemFacade();
 					kitViagem = arquivosKitViagemFacade.salvar(kitViagem);
 					vendas.setArquivoskitviagem(kitViagem);
-				}
-				if (vendas.getProdutos().getIdprodutos() == 22) {
-					pesquisar = (String) session.getAttribute("pesquisar");
-					listaProcesso = (List<ListaHeBean>) session.getAttribute("listaProcesso");
-					listaFinanceiro = (List<ListaHeBean>) session.getAttribute("listaFinanceiro");
-					listaAndamento = (List<ListaHeBean>) session.getAttribute("listaAndamento");
-					listaFinalizar = (List<ListaHeBean>) session.getAttribute("listaFinalizar");
-					listaCancelada = (List<ListaHeBean>) session.getAttribute("listaCancelada");
-					nomePrograma = (String) session.getAttribute("nomePrograma");
-					chamadaTela = (String) session.getAttribute("chamadaTela");
-					listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
-					session.removeAttribute("listaAndamento");
-					session.removeAttribute("listaFinalizar");
-					session.removeAttribute("listaProcesso");
-					session.removeAttribute("listaFinanceiro");
-					session.removeAttribute("listaCancelada");
-					session.removeAttribute("pesquisar");
-					session.removeAttribute("nomePrograma");
-					session.removeAttribute("chamadaTela");
-					session.removeAttribute("listaHe");
 				}
 			} else {
 				listarArquivos = new ArrayList<Arquivos>();
@@ -646,6 +627,24 @@ public class ArquivoMB implements Serializable {
 	public void desabilitarEdicao(){
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			desabilitarEdicaoArquivo = false;
+		}
+	}
+	
+	public void gerarClientes() {
+		ArquivosFacade arquivosFacade = new ArquivosFacade();
+		try {
+			List<Arquivos> lista =listarArquivos = arquivosFacade.listar("Select a from Arquivos a");
+			if (lista!=null) {
+				for (int i=0;i<lista.size();i++) {
+					if (lista.get(i).getVendas()!=null) {
+						lista.get(i).setCliente(lista.get(i).getVendas().getCliente());
+						arquivosFacade.salvar(lista.get(i));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
