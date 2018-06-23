@@ -25,6 +25,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.UploadedFile;
 
+import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.facade.CancelamentoCreditoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
@@ -476,6 +477,10 @@ public class EmissaoCancelamentoMB implements Serializable {
 				if (novoCancelamento) {
 					salvarCredito();
 				}
+				DashBoardBean dashBoardBean = new DashBoardBean();
+				dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+				dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+				dashBoardBean.calcularPontuacao(vendas, 0, "", true);
 				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), true);
 				vendas.setSituacao("CANCELADA");
 				vendasFacade.salvar(vendas);

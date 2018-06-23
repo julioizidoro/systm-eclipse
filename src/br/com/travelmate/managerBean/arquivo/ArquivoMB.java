@@ -433,7 +433,9 @@ public class ArquivoMB implements Serializable {
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 				listarArquivos = (List<Arquivos>) session.getAttribute("listaArquivos");
+				vendas = (Vendas) session.getAttribute("vendas");
 				session.removeAttribute("listaArquivos");
+				session.removeAttribute("vendas");
 				String msg = (String) session.getAttribute("msgBilhete");
 				session.removeAttribute("msgBilehte");
 				if (msg.length()>0) {
