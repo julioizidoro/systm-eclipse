@@ -57,6 +57,7 @@ import br.com.travelmate.model.He;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
+import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
@@ -549,16 +550,16 @@ public class CadHeInscricaoMB implements Serializable {
 		parcelamentopagamento.setFormaPagamento("sn");
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		consultaCambio = true;
-		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
-		Produtosorcamento produtosorcamento = produtoOrcamentoFacade
-				.consultar(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
-		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-		orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
-		orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
-		orcamentoprodutosorcamento.setValorMoedaNacional(0.0f);
-		orcamentoprodutosorcamento.setValorMoedaEstrangeira(aplicacaoMB.getParametrosprodutos().getAssessoriatmhe());
-		orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+//		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+//		Produtosorcamento produtosorcamento = produtoOrcamentoFacade
+//				.consultar(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
+//		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+//		orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+//		orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
+//		orcamentoprodutosorcamento.setValorMoedaNacional(0.0f);
+//		orcamentoprodutosorcamento.setValorMoedaEstrangeira(aplicacaoMB.getParametrosprodutos().getAssessoriatmhe());
+//		orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+//		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 	}
 
 	public void iniciarAlteracao() {
@@ -845,9 +846,7 @@ public class CadHeInscricaoMB implements Serializable {
 
 	public void adicionarProdutos() {
 		if (orcamento.getValorCambio() > 0) {
-			int idProdTx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			if (produtosorcamento != null) {
-				if (produtosorcamento.getIdprodutosOrcamento() != idProdTx) {
 					orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 					orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 					if (orcamentoprodutosorcamento.getValorMoedaEstrangeira() == null) {
@@ -871,8 +870,7 @@ public class CadHeInscricaoMB implements Serializable {
 					calcularValorTotalOrcamento();
 					produtosorcamento = null;
 					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-				} else
-					Mensagem.lancarMensagemErro("Assessoria TM já inclusa.", "");
+				
 			} else
 				Mensagem.lancarMensagemErro("Produto não selecionado", "");
 		} else
@@ -1098,7 +1096,7 @@ public class CadHeInscricaoMB implements Serializable {
 					return voltarControleVendas;
 				}
 			}
-			return "consquestionarioHe";
+			return "consFormAssessoria";
 		}
 		return "";
 	}
@@ -1448,5 +1446,29 @@ public class CadHeInscricaoMB implements Serializable {
 	
 	public String validarMascaraFoneContatoEmergencia() {
 		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneContatoEmergencia);
+	}
+	
+	
+	public String questionario() {
+		if (cliente != null) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 700);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("cliente", cliente);
+			RequestContext.getCurrentInstance().openDialog("importarQuestionario", options, null);
+		}
+		return "";
+	}
+	
+	public void retornoDialogQuestionario(SelectEvent event) {
+		Questionariohe questionariohe = (Questionariohe) event.getObject();
+		he.setQuestionario(questionariohe.getIdquestionariohe());
+		he.setMaiorgrauformacao(questionariohe.getNivelcetificado());
+		he.setNotacienciahumanas(questionariohe.getNotacienciahumanas());
+		he.setNotaciencianatureza(questionariohe.getNotaciencianatureza());
+		he.setNotalinguagem(questionariohe.getNotalinguagem());
+		he.setNotamatematica(questionariohe.getNotamatematica());
+		he.setNotaredacao(questionariohe.getNotaredacao());
 	}
 }

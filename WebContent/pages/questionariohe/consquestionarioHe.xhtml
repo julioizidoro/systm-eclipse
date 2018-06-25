@@ -66,8 +66,9 @@
 							<p:selectOneMenu id="situacao"
 								value="#{questionarioMB.situacao}" style="width:150px;">
 								<f:selectItem itemLabel="Selecione" itemValue="sn" />
+								<f:selectItem itemLabel="Assessoria" itemValue="Assessoria" />
 								<f:selectItem itemLabel="Autorizado" itemValue="Autorizado" />
-								<f:selectItem itemLabel="Desistencia" itemValue="Desistencia" />
+								<f:selectItem itemLabel="Desistência" itemValue="Desistência" />
 								<f:selectItem itemLabel="Em Análise" itemValue="Em Análise" />
 								<f:selectItem itemLabel="Finalizada" itemValue="Finalizada" />
 								<f:selectItem itemLabel="Pendência" itemValue="Pendência" />
@@ -75,9 +76,9 @@
 							</p:selectOneMenu>
 							<p:commandButton value="Pesquisar" icon="ui-icon-search"
 								action="#{questionarioMB.pesquisar()}"
-								update=":consHe:tabelaFinalizado" />
+								update="consHe:acordionPainel" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="situacao, unidade, dataFinal, dataIni, cliente, :consHe:tabelaFinalizado"
+								update="situacao, unidade, dataFinal, dataIni, cliente, consHe:acordionPainel"
 								action="#{questionarioMB.limpar()}" />
 						</h:panelGrid>
 						<br></br>
@@ -109,115 +110,117 @@
 					<br />
 				</p:dialog>
 				<br></br> <br></br>
-				<p:dataTable id="tabelaFinalizado" var="finalizado" editable="true" editMode="cell"
-					value="#{questionarioMB.listaQuestionario}" scrollable="true"
-					scrollHeight="300" style="margin-bottom:10px;margin-left:2%;">
-
-					<p:column headerText="ID" sortBy="#{finalizado.idquestionariohe}"
-						style="width:25px;text-align:left;" styleClass="alinharCenter">
-						<h:outputText value="#{finalizado.idquestionariohe}" />
-					</p:column>
-					<p:column headerText="Cliente" sortBy="#{finalizado.cliente.nome}"
-						style="width:110px; ">
-						<h:outputText value="#{finalizado.cliente.nome}" />
-					</p:column>
-					<p:column headerText="Data Envio" sortBy="#{finalizado.dataenvio}"
-						style="text-align:center;width:67px;">
-						<h:outputText value="#{finalizado.dataenvio}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Unidade"
-						sortBy="#{finalizado.usuario.unidadenegocio.nomerelatorio}"
-						style="width:85px;" styleClass="alinharCenter">
-						<h:outputText
-							value="#{finalizado.usuario.unidadenegocio.nomerelatorio}" />
-					</p:column>
-					<p:column headerText="Consultor"
-						sortBy="#{finalizado.usuario.nome}" style="width:100px;"
-						styleClass="alinharCenter">
-						<h:outputText value="#{finalizado.usuario.nome}" />
-					</p:column>
-					<p:column headerText="Pais 1" sortBy="#{finalizado.pais1}"
-						style="width:70px;text-align:left;" styleClass="alinharCenter">
-						<h:outputText value="#{finalizado.pais1}" />
-					</p:column>
-					<p:column headerText="Pais 2" sortBy="#{finalizado.pas2}"
-						style="width:70px;text-align:left;" styleClass="alinharCenter">
-						<h:outputText value="#{finalizado.pais2}" />
-					</p:column>
-					<p:column headerText="Situação" sortBy="#{finalizado.situacao}"
-						style="width:90px;" styleClass="alinharCenter">
-						<p:cellEditor>
-								<f:facet name="output">
-									
-									<h:outputText value="#{finalizado.situacao}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:selectOneMenu id="situacao" 
-										value="#{questionarioMB.situacaoLista}"
-										style="width:120px;">  
-										<f:selectItem itemLabel="Selecione"
-											itemValue="sn" />
-										<f:selectItem itemLabel="Autorizado"
-											itemValue="Autorizado" />
-										<f:selectItem itemLabel="Desistencia"
-											itemValue="Desistencia" />
-										<f:selectItem itemLabel="Em Análise"  
-											itemValue="Em Análise" />
-										<f:selectItem itemLabel="Finalizada"
-											itemValue="Finalizada" />
-										<f:selectItem itemLabel="Pendência"
-											itemValue="Pendência" />
-										<f:selectItem itemLabel="Reprovado"
-											itemValue="Reprovado" />
-										<p:ajax event="change"
-											listener="#{questionarioMB.atualizarLista(finalizado)}"
-											update="@all" />
-									</p:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
-					</p:column>
-					<p:column style="width:43px;text-align:center;">
-						<p:commandLink action="#{questionarioMB.editar(finalizado)}"
-							title="Editar" style="text-decoration: none">
-							<img src="../../resources/img/editaricon.png" width="27" />
-						</p:commandLink>
-					</p:column>
-					<p:column headerText=""
-						style="width:90px;text-align:center;" styleClass="alinharCenter">
-						
-						<p:commandLink action="#{questionarioMB.fichaQuestionario(finalizado)}"
-							title="Ficha" ajax="false" target="_blank"
-							style="width:27px;margin-left:2%">
-							<img src="../../resources/img/imprimiFicha.png"
-								style="width: 27px;" />
-						</p:commandLink>
-						<p:commandLink action="#{questionarioMB.documentacao(finalizado)}"
-							title="DOCUMENTOS"
-							style="width:27px;margin-left:2%">
-							<img src="../../resources/img/arquivosUpload.png"
-								style="width: 27px;" />
-						</p:commandLink>
-						<p:commandLink
-							action="#{questionarioMB.cancelarVenda(finalizado)}"
-							style="text-decoration: none" title="CANCELAR FICHA"
-							update="@form">
-
-							<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?"
-								icon="ui-icon-alert" />
-
-							<img src="../../resources/img/cancel.png" style="width: 27px;" />
-
-							<p:ajax event="dialogReturn"
-								listener="#{questionarioMB.gerarListaHe()}" process="@this"
-								update="@form" />
-
-						</p:commandLink>
-					</p:column>
-
-				</p:dataTable>
+				<p:tabView id="acordionPainel" class="consultaCurso">
+					<p:tab id="panelNFicha" title="Questionarios (#{questionarioMB.nFichas})"
+						titleStyle="font-size:11px;">
+						<p:dataTable id="tabelaFinalizado" var="finalizado" editable="true" editMode="cell"
+							value="#{questionarioMB.listaQuestionario}" scrollable="true"
+							scrollHeight="300" style="margin-bottom:10px;margin-left:2%;">
+		
+							<p:column headerText="ID" sortBy="#{finalizado.idquestionariohe}"
+								style="width:25px;text-align:left;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.idquestionariohe}" />
+							</p:column>
+							<p:column headerText="Cliente" sortBy="#{finalizado.cliente.nome}"
+								style="width:110px; ">
+								<h:outputText value="#{finalizado.cliente.nome}" />
+							</p:column>
+							<p:column headerText="Data Envio" sortBy="#{finalizado.dataenvio}"
+								style="text-align:center;width:67px;">
+								<h:outputText value="#{finalizado.dataenvio}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade"
+								sortBy="#{finalizado.usuario.unidadenegocio.nomerelatorio}"
+								style="width:85px;" styleClass="alinharCenter">
+								<h:outputText
+									value="#{finalizado.usuario.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor"
+								sortBy="#{finalizado.usuario.nome}" style="width:100px;"
+								styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Pais 1" sortBy="#{finalizado.pais1}"
+								style="width:70px;text-align:left;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.pais1}" />
+							</p:column>
+							<p:column headerText="Pais 2" sortBy="#{finalizado.pas2}"
+								style="width:70px;text-align:left;" styleClass="alinharCenter">
+								<h:outputText value="#{finalizado.pais2}" />
+							</p:column>
+							<p:column headerText="Situação" sortBy="#{finalizado.situacao}"
+								style="width:90px;" styleClass="alinharCenter">
+								<p:cellEditor>
+										<f:facet name="output">
+											
+											<h:outputText value="#{finalizado.situacao}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu id="situacao" 
+												value="#{questionarioMB.situacaoLista}"
+												style="width:120px;">  
+												<f:selectItem itemLabel="Selecione"
+													itemValue="sn" />
+												<f:selectItem itemLabel="Autorizado"
+													itemValue="Autorizado" />
+												<f:selectItem itemLabel="Desistencia"
+													itemValue="Desistencia" />
+												<f:selectItem itemLabel="Em Análise"  
+													itemValue="Em Análise" />
+												<f:selectItem itemLabel="Finalizada"
+													itemValue="Finalizada" />
+												<f:selectItem itemLabel="Pendência"
+													itemValue="Pendência" />
+												<f:selectItem itemLabel="Reprovado"
+													itemValue="Reprovado" />
+												<p:ajax event="change"
+													listener="#{questionarioMB.atualizarLista(finalizado)}"
+													update="@all" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+							</p:column>
+							<p:column style="width:43px;text-align:center;">
+								<p:commandLink action="#{questionarioMB.editar(finalizado)}"
+									title="Editar" style="text-decoration: none">
+									<img src="../../resources/img/editaricon.png" width="27" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText=""
+								style="width:90px;text-align:center;" styleClass="alinharCenter">
+								
+								<p:commandLink action="#{questionarioMB.fichaQuestionario(finalizado)}"
+									title="Ficha" ajax="false" target="_blank"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/imprimiFicha.png"
+										style="width: 27px;" />
+								</p:commandLink>
+								<p:commandLink action="#{questionarioMB.documentacao(finalizado)}"
+									title="DOCUMENTOS"
+									style="width:27px;margin-left:2%">
+									<img src="../../resources/img/arquivosUpload.png"
+										style="width: 27px;" />
+								</p:commandLink>
+								<p:commandLink
+									action="#{questionarioMB.cancelar(finalizado)}"
+									style="text-decoration: none" title="CANCELAR FICHA"
+									update="@form">
+		
+									<p:confirm header="Cancelamento" message="Deseja Cancelar Ficha?"
+										icon="ui-icon-alert" />
+		
+									<img src="../../resources/img/cancel.png" style="width: 27px;" />
+		
+		
+								</p:commandLink>
+							</p:column>
+		
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 					style="background:#DDDDE1;">
 					<div align="center">

@@ -10,9 +10,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.DadosPaisFacade;
+import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Dadospais;
 import br.com.travelmate.model.He;
+import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
@@ -39,6 +41,8 @@ public class FichaHEMB implements Serializable{
 	private boolean habilitarSeguroObrigatorio = true;
 	private float totalPagamento = 0.0f;
 	private boolean habilitarObservacao = false;
+	private boolean habilitarInformacoes = false;
+	private Questionariohe questionariohe;
 	
 
 	
@@ -63,6 +67,13 @@ public class FichaHEMB implements Serializable{
 		}
 		if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
 			habilitarObservacao = true;
+		}
+		if (he.getQuestionario() > 0) {
+			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+			questionariohe = questionarioHeFacade.consultar(he.getQuestionario());
+			if (questionariohe != null && questionariohe.getIdquestionariohe() != null) {
+				habilitarInformacoes = true;
+			}
 		}
 	}
 
@@ -234,6 +245,42 @@ public class FichaHEMB implements Serializable{
 
 	public void setHabilitarObservacao(boolean habilitarObservacao) {
 		this.habilitarObservacao = habilitarObservacao;
+	}
+
+
+
+	public int getDiaSemana() {
+		return diaSemana;
+	}
+
+
+
+	public void setDiaSemana(int diaSemana) {
+		this.diaSemana = diaSemana;
+	}
+
+
+
+	public boolean isHabilitarInformacoes() {
+		return habilitarInformacoes;
+	}
+
+
+
+	public void setHabilitarInformacoes(boolean habilitarInformacoes) {
+		this.habilitarInformacoes = habilitarInformacoes;
+	}
+
+
+
+	public Questionariohe getQuestionariohe() {
+		return questionariohe;
+	}
+
+
+
+	public void setQuestionariohe(Questionariohe questionariohe) {
+		this.questionariohe = questionariohe;
 	}
 
 }

@@ -1344,4 +1344,12 @@ public class CadHeFinalMB implements Serializable {
 			venda.setFornecedorcidade(fornecedorCidade);
 		}
 	}
+	
+	
+	public boolean habilitarCamposExame(){
+		if(he.getPossuiexame()!=null && he.getPossuiexame().equalsIgnoreCase("Sim")){
+			return false;
+		}
+		return true;
+	}
 }

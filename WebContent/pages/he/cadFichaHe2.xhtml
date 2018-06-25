@@ -87,8 +87,118 @@
 							
 							
 						</h:panelGrid>
+						<legend id="iUsu3" style="margin-left:8%;">
+								<b style="color: #458871;">Informações Academicas</b>
+							</legend>
+						<h:panelGrid columns="3"
+							columnClasses="colunaQuarenta, colunadezenove, colunaQuarenta"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Instituição e conclusão do Ensino Médio" />
+							<p:outputLabel value="Ano de Conclusão" />
+							<p:outputLabel value="Local de Conclusão" />    
+							
+							<p:inputText id="Instituicaoensinomedio" style="width:85%;" maxlength="100"
+								value="#{cadHeFinalMB.he.instituicaoensinomedio}" />
+							<p:inputText id="anoconclusao" style="width:75%;" maxlength="4"
+								value="#{cadHeFinalMB.he.anoconclusao}" />
+							<p:inputText id="localconclusao" style="width:85%;" maxlength="100"
+								value="#{cadHeFinalMB.he.localconclusaoensinomedo}" />
+						</h:panelGrid>	<br/>
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Você possui algum exame de proficiência?" />
+							<p:outputLabel value="Pretende cursar um programa de Pathway?" />
+
+							<p:selectOneMenu id="proeficiencia"
+								value="#{cadHeFinalMB.he.possuiexame}" style="width:280px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change" update="nomeexame, notaexame, dataexame" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="programaPathway"
+								value="#{cadHeFinalMB.he.cursarparhaway}"
+								style="width:280px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							</p:selectOneMenu>
+
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Nome do exame" />
+							<h:panelGroup>
+								<p:outputLabel value="Nota do exame" />
+								<p:outputLabel value="Data do exame" style="margin-left:5%;" />
+							</h:panelGroup>
+
+							<p:inputText id="nomeexame" style="width:85%;"
+								value="#{cadHeFinalMB.he.nomeexame}"
+								disabled="#{cadHeFinalMB.habilitarCamposExame()}" />
+							<h:panelGroup>
+								<p:inputText id="notaexame" style="width:20%;"
+									value="#{cadHeFinalMB.he.notaexame}"
+									disabled="#{cadHeFinalMB.habilitarCamposExame()}" />
+								<p:inputMask id="dataexame" style="width:20%;margin-left:4%;"
+									value="#{cadHeFinalMB.he.dataexame}" mask="99/99/9999"
+									disabled="#{cadHeFinalMB.habilitarCamposExame()}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:inputMask>
+							</h:panelGroup>
+
+							<p:outputLabel />
+							<p:outputLabel />
+
+							<p:outputLabel value="Nome da última instituição em que estudou" />
+							<p:outputLabel value="Maior grau de formação adquirido" />
+
+							<p:inputText id="ultimainstituicao" style="width:85%;"
+								value="#{cadHeFinalMB.he.nomeinstituicaoestudou}" />
+							<p:inputText id="maiorformacao" style="width:63%;"
+								value="#{cadHeFinalMB.he.maiorgrauformacao}" />
+
+							<p:outputLabel />
+							<p:outputLabel />
+
+						</h:panelGrid>
 						<br/>
 						
+						<legend id="iUsu3" style="margin-left:8%;">
+							<b style="color: #458871;">Contato de Emergência no Brasil</b>
+						</legend>
+						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
+							value="#{cadHeFinalMB.digitosTelefoneContatoEmergencia}"
+							style="margin-left:68.5%;">
+							<p:ajax update="telefone" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="9 Digitos"
+							style="margin-left:1%;font-size:11px;" />
+						<br></br>
+						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
+						<p:outputLabel value="Telefone" for="telefone"
+							style="margin-left:54.7%" />
+						<br></br>
+						<p:inputText id="nome"
+							value="#{cadHeFinalMB.he.nomeContatoEmergencia}"
+							style="width:52%;margin-left:11.5%" maxlength="45" />
+						<p:inputMask id="telefone"
+							value="#{cadHeFinalMB.he.foneContatoEmergencia}"
+							mask="#{cadHeFinalMB.validarMascaraFoneContatoEmergencia()}"
+							style="width:19%;margin-left: 5%" />
+						<br></br>
+						<br></br>
+						<p:outputLabel value="E-mail" for="email"
+							style="margin-left: 11.5%" />
+						<p:outputLabel value="Relação" for="relacao"
+							style="margin-left:54.4%" />
+						<br></br>
+						<p:inputText id="email"
+							value="#{cadHeFinalMB.he.emailContatoEmergencia}"
+							style="width:52%;margin-left:11.5%" maxlength="45" />
+						<p:inputText id="relacao"
+							value="#{cadHeFinalMB.he.relacaoContatoEmergencia}"
+							style="width:19%;margin-left: 5%" />
 						<br />
 					</p:tab>
 				<p:tab title="Acomodação" titleStyle="font-size: 11px">
@@ -275,41 +385,7 @@
 						<br></br>
 						
 
-						<legend id="iUsu3">
-							<b>Contato de Emergência no Brasil</b>
-						</legend>
-						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
-							value="#{cadHeFinalMB.digitosTelefoneContatoEmergencia}"
-							style="margin-left:68.5%;">
-							<p:ajax update="telefone" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
-						<br></br>
-						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
-						<p:outputLabel value="Telefone" for="telefone"
-							style="margin-left:54.7%" />
-						<br></br>
-						<p:inputText id="nome"
-							value="#{cadHeFinalMB.he.nomeContatoEmergencia}"
-							style="width:52%;margin-left:11.5%" maxlength="45" />
-						<p:inputMask id="telefone"
-							value="#{cadHeFinalMB.he.foneContatoEmergencia}"
-							mask="#{cadHeFinalMB.validarMascaraFoneContatoEmergencia()}"
-							style="width:19%;margin-left: 5%" />
-						<br></br>
-						<br></br>
-						<p:outputLabel value="E-mail" for="email"
-							style="margin-left: 11.5%" />
-						<p:outputLabel value="Relação" for="relacao"
-							style="margin-left:54.4%" />
-						<br></br>
-						<p:inputText id="email"
-							value="#{cadHeFinalMB.he.emailContatoEmergencia}"
-							style="width:52%;margin-left:11.5%" maxlength="45" />
-						<p:inputText id="relacao"
-							value="#{cadHeFinalMB.he.relacaoContatoEmergencia}"
-							style="width:19%;margin-left: 5%" />
+						
 						<br></br>
 						<br></br>
 					</p:tab>

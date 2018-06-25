@@ -97,6 +97,10 @@ public class ArquivoMB implements Serializable {
 			vendas = (Vendas) session.getAttribute("vendas");
 			voltar = (String) session.getAttribute("voltar");
 			cliente = (Cliente) session.getAttribute("cliente");
+			if (vendas.getProdutos().getIdprodutos() == 22) {
+				listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
+				session.removeAttribute("listaHe");
+			}
 			gerarListaTipoArquivo();
 			desabilitarEdicao();
 			if (vendas != null) {

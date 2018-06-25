@@ -140,13 +140,13 @@
 				<h:panelGrid columns="2" id="panelInformacoesNivel"
 					columnClasses="tamanhoavisos2, tamanhoavisos2"
 					style="width:80%;margin-left:8%;">
-					<p:outputLabel value="Orçamento máximo" for="orcamento" />
+					<p:outputLabel value="Orçamento (Valor na moeda do destino, incluindo acomodação e programa por 1 ano)" for="orcamento" />
 					<p:outputLabel value="Destino em que prefere estudar" for="pais" />
 
 					<p:selectOneMenu id="orcamento"
 						value="#{cadQuestionarioHeMB.questionarioHe.orcamentomaximo}"
 						style="width:280px;">
-						<f:selectItem itemLabel="Até $15,000" itemValue="Até $15,000" />
+						<f:selectItem itemLabel="De $15,000 Até $25,000" itemValue="De $15,000 Até $25,000" />
 						<f:selectItem itemLabel="Até $25,0000" itemValue="Até $25,0000" />
 						<f:selectItem itemLabel="Até $35,0000" itemValue="Até $35,0000" />
 						<f:selectItem itemLabel="Até $45,000" itemValue="Até $45,000" />
@@ -256,6 +256,7 @@
 					<p:selectOneMenu id="trabalhar"
 						value="#{cadQuestionarioHeMB.questionarioHe.precisatrabalahar}"
 						style="width:280px;">
+						<f:selectItem itemLabel="Seleciona" itemValue="sn" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 					</p:selectOneMenu>
@@ -270,12 +271,14 @@
 					<p:selectOneMenu id="imigrar"
 						value="#{cadQuestionarioHeMB.questionarioHe.interesseemimigrar}"
 						style="width:280px;">
+						<f:selectItem itemLabel="Seleciona" itemValue="sn" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 					</p:selectOneMenu>
 					<p:selectOneMenu id="vistoTrabalho"
 						value="#{cadQuestionarioHeMB.questionarioHe.vistotrabalho}"
 						style="width:280px;">
+						<f:selectItem itemLabel="Seleciona" itemValue="sn" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 					</p:selectOneMenu>
@@ -289,26 +292,12 @@
 				</h:panelGrid>
 				<br></br>
 				<div align="center" style="width: 85%;">
-					<p:commandButton onclick="PF('cd').show();" icon="ui-icon-check"
-						value="Confirmar" style="font-size:13px;" />
+					<p:commandButton action="#{cadQuestionarioHeMB.salvar('Em Análise')}" icon="ui-icon-check"
+						value="Confirmar" style="font-size:13px;" update=":questionario:growl"/>
 					<p:commandButton action="#{cadQuestionarioHeMB.cancelar()}"
 						style="margin-left:2%;font-size:13px;" icon="ui-icon-close"
 						value="Cancelar" />
 				</div>
-				<p:confirmDialog
-					message="FINALIZAR QUESTIONARIO? Será enviada para Gerência."
-					showEffect="fade" hideEffect="fade" header="Confirmação"
-					icon="ui-icon-alert" widgetVar="cd">
-					<p:commandButton value="Sim"
-						action="#{cadQuestionarioHeMB.salvar('FINALIZADO')}"
-						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
-						icon="ui-icon-check" style="margin-left:30%"
-						update="questionario:growl" />
-					<p:commandButton value="Não"
-						action="#{cadQuestionarioHeMB.salvar('PROCESSO')}"
-						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
-						icon="ui-icon-close" update="questionario:growl" />
-				</p:confirmDialog>
 				<br></br> <br></br>
 			</div>
 		</h:form>

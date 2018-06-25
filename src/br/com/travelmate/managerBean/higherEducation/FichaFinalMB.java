@@ -710,6 +710,9 @@ public class FichaFinalMB implements Serializable{
 		listaProcesso = new ArrayList<He>(); 
 		listaFinanceiro = new ArrayList<He>();
 		listaCancelada = new ArrayList<He>();
+		if (listaHe == null) {
+			listaHe = new ArrayList<He>();
+		}
 		for (int i = 0; i < listaHe.size(); i++) {
 			listaHe.get(i).setSituacao("Ficha Final");
 			if (listaHe.get(i).getVendas().getSituacao().equalsIgnoreCase("PROCESSO")

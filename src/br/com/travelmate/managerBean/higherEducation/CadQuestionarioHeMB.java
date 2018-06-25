@@ -270,13 +270,23 @@ public class CadQuestionarioHeMB implements Serializable {
 		}
 		
 		
-		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe Tenho interesse em visto de trabalho após o curso", "");
+		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe a Observações e parecer do consultor", "");
 			return false;
 		}
 		
-		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe a Observações e parecer do consultor", "");
+		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe 'Preciso trabalhar durante meu curso?'", "");
+			return false;
+		}
+		
+		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe 'Tenho interesse m Imigrar?'", "");
+			return false;
+		}
+		
+		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
+			Mensagem.lancarMensagemInfo("Informe 'Tenho interesse em visto de trabalho após o curso?'", "");
 			return false;
 		}
 		return true;

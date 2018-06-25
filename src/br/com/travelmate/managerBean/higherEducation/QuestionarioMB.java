@@ -56,6 +56,7 @@ public class QuestionarioMB implements Serializable{
 	private String nomePrograma;
 	private String chamadaTela = "";
 	private String sql;
+	private int nFichas = 0;
 	
 	
 	
@@ -84,6 +85,7 @@ public class QuestionarioMB implements Serializable{
 			if (listaQuestionario == null) {
 				listaQuestionario = new ArrayList<Questionariohe>();
 			}
+			nFichas = listaQuestionario.size();
 		}else {
 			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
 				gerarListaQuestionario();
@@ -226,6 +228,66 @@ public class QuestionarioMB implements Serializable{
 
 
 
+	public String getPesquisar() {
+		return pesquisar;
+	}
+
+
+
+	public void setPesquisar(String pesquisar) {
+		this.pesquisar = pesquisar;
+	}
+
+
+
+	public String getNomePrograma() {
+		return nomePrograma;
+	}
+
+
+
+	public void setNomePrograma(String nomePrograma) {
+		this.nomePrograma = nomePrograma;
+	}
+
+
+
+	public String getChamadaTela() {
+		return chamadaTela;
+	}
+
+
+
+	public void setChamadaTela(String chamadaTela) {
+		this.chamadaTela = chamadaTela;
+	}
+
+
+
+	public String getSql() {
+		return sql;
+	}
+
+
+
+	public void setSql(String sql) {
+		this.sql = sql;
+	}
+
+
+
+	public int getnFichas() {
+		return nFichas;
+	}
+
+
+
+	public void setnFichas(int nFichas) {
+		this.nFichas = nFichas;
+	}
+
+
+
 	public void gerarListaQuestionario() {
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date());
@@ -245,6 +307,7 @@ public class QuestionarioMB implements Serializable{
 		if (listaQuestionario == null) {
 			listaQuestionario = new ArrayList<Questionariohe>();
 		}
+		nFichas = listaQuestionario.size();
 	}
 	
 	
@@ -352,6 +415,7 @@ public class QuestionarioMB implements Serializable{
 		if (listaQuestionario == null) {
 			listaQuestionario = new ArrayList<Questionariohe>();
 		}
+		nFichas = listaQuestionario.size();
 	}
 	
 	
@@ -387,6 +451,13 @@ public class QuestionarioMB implements Serializable{
 		session.setAttribute("nomePrograma", "QuestionarioHe");
 		session.setAttribute("chamadaTela", "QuestionarioHe");
 		return "fichaQuestionarioHe";
+	}
+	
+	public void cancelar(Questionariohe questionariohe) {
+		questionariohe.setSituacao("Cancelado");
+		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+		questionarioHeFacade.salvar(questionariohe);
+		Mensagem.lancarMensagemInfo("Cancelado com sucesso", "");
 	}
 
 }

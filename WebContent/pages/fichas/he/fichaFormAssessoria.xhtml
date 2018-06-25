@@ -176,19 +176,29 @@
 					<b>Maior grau de formação adquirido: </b>
 						#{fichaHEMB.he.maiorgrauformacao}
 				</h:panelGroup>
-				<h:panelGroup>
-					<b>he: </b>
-						#{fichaHEMB.he.maiorgrauformacao}
+				<h:panelGroup rendered="#{fichaHEMB.habilitarInformacoes}">
+					<b>Curso: </b>
+						#{fichaHEMB.questionariohe.diplomas}
 				</h:panelGroup>
-				<h:panelGroup>
+				<h:panelGroup rendered="#{fichaHEMB.habilitarInformacoes}">
 					<b>Duas últimas principais ocupações prof.: </b>
-						#{fichaHEMB.he.maiorgrauformacao}
+						#{fichaHEMB.questionariohe.ocupacao1}
 				</h:panelGroup>
-				<h:panelGroup>
+				<h:panelGroup rendered="#{fichaHEMB.habilitarInformacoes}">
 					<b>Ocupação 2: </b>
-						#{fichaHEMB.he.maiorgrauformacao}
+						#{fichaHEMB.questionariohe.ocupacao2}
 				</h:panelGroup>
 
+			</h:panelGrid>
+			<h:panelGrid columns="1" style="width:100%;">
+				<h:panelGroup><b>Nota do Enem:</b> </h:panelGroup>
+				<h:panelGrid columns="5" style="width:100%;">
+					<h:panelGroup><b>Linguagem:</b> #{fichaHEMB.he.notalinguagem}</h:panelGroup>
+					<h:panelGroup><b>Ciências da Natureza:</b> #{fichaHEMB.he.notaciencianatureza}</h:panelGroup>
+					<h:panelGroup><b>Ciências Humanas:</b> #{fichaHEMB.he.notacienciahumanas}</h:panelGroup>
+					<h:panelGroup><b>Matemática:</b> #{fichaHEMB.he.notamatematica}</h:panelGroup>
+					<h:panelGroup><b>Redação:</b> #{fichaHEMB.he.notaredacao}</h:panelGroup>
+				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>
 		<br/>
@@ -485,7 +495,7 @@
 				específico com termos e condições próprias. Declaro optar pela
 				TravelMATE lntercâmbio e Turismo para me representar perante este
 				processo e me informar dos procedimentos e valores envolvidos.
-				Declaro estar ciente de gue as taxas de inscrição e de asssessoria
+				Declaro estar ciente de que as taxas de inscrição e de asssessoria
 				não são reembolsáveis independente do resultado do processo
 				seletivo. Resultado cujo processo depende exclusivamente da análise
 				acadêmica da instituição de ensino superior. Declaro estar ciente de
@@ -527,6 +537,9 @@
 		<br/><br/><br/><br/><br />
 		<hr width="80%"  align="left"/>
 		<p>Assinatura do responsável (aquele que responde pelo participante no Brasil)</p>
+		<br/><br/><br/><br/><br />
+		<hr width="80%"  align="left"/>
+		<p>#{fichaHEMB.he.vendas.usuario.nome}  - Representante TM</p>
 		
 		
 	</div>
