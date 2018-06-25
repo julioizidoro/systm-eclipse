@@ -55,6 +55,7 @@ public class QuestionarioMB implements Serializable{
 	private String pesquisar = "Nao";
 	private String nomePrograma;
 	private String chamadaTela = "";
+	private String sql;
 	
 	
 	
@@ -75,8 +76,18 @@ public class QuestionarioMB implements Serializable{
 				pesquisar = "Não";
 			}
 		}
-		if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
-			gerarListaQuestionario();
+		sql = (String) session.getAttribute("sql");
+		session.removeAttribute("sql");
+		if (sql!=null) {
+			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+			listaQuestionario = questionarioHeFacade.listar(sql);
+			if (listaQuestionario == null) {
+				listaQuestionario = new ArrayList<Questionariohe>();
+			}
+		}else {
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				gerarListaQuestionario();
+			}
 		}
 	}
 
@@ -294,6 +305,7 @@ public class QuestionarioMB implements Serializable{
 		session.setAttribute("chamadaTela", "fichaHE");
 		String voltar = "consquestionarioHe";
 		session.setAttribute("voltar", voltar);
+		session.setAttribute("sql", sql);
 		return "consArquivos"; 
 	}
 	
@@ -314,7 +326,7 @@ public class QuestionarioMB implements Serializable{
 
 	public void pesquisar() {
 		listaQuestionario = null;
-		String sql = "SELECT q From Questionariohe q WHERE q.cliente.nome like '%" + nomeCliente + "%' ";
+		sql = "SELECT q From Questionariohe q WHERE q.cliente.nome like '%" + nomeCliente + "%' ";
 		if (!situacao.equalsIgnoreCase("sn")) {
 			sql = sql + " and q.situacao='" + situacao + "' ";
 		}
