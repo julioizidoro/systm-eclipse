@@ -284,7 +284,7 @@ public class ProgramasBean {
 	}
 	
 	public Date calcularDataValidade() {
-		Date dataValidade = Formatacao.calcularDataFinalPorDias(new Date(), 4);
+		Date dataValidade = Formatacao.calcularDataFinalPorDias(new Date(), 3);
 		int diaSemana = Formatacao.diaSemana(dataValidade);
 		if (diaSemana==1) {
 			dataValidade = Formatacao.calcularDataFinalPorDias(dataValidade, 2);
