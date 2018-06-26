@@ -113,6 +113,9 @@ public class OrcamentoCursoMB implements Serializable {
 	private String numero="3";
 	private List<ProdutosOrcamentoBean> listaOpcionais;
 	private boolean desabilitarbtnOpcional = false;
+	private float valorOriginalMulta = 0f;
+	private String pinCambio;
+	private boolean habilitarPin = false;
 
 	@PostConstruct
 	public void init() { 
@@ -451,6 +454,30 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void setDesabilitarbtnOpcional(boolean desabilitarbtnOpcional) {
 		this.desabilitarbtnOpcional = desabilitarbtnOpcional;
+	}
+
+	public float getValorOriginalMulta() {
+		return valorOriginalMulta;
+	}
+
+	public void setValorOriginalMulta(float valorOriginalMulta) {
+		this.valorOriginalMulta = valorOriginalMulta;
+	}
+
+	public String getPinCambio() {
+		return pinCambio;
+	}
+
+	public void setPinCambio(String pinCambio) {
+		this.pinCambio = pinCambio;
+	}
+
+	public boolean isHabilitarPin() {
+		return habilitarPin;
+	}
+
+	public void setHabilitarPin(boolean habilitarPin) {
+		this.habilitarPin = habilitarPin;
 	}
 
 	public String habilitarSeguro() {
@@ -2861,13 +2888,17 @@ public class OrcamentoCursoMB implements Serializable {
 		calcularTotais();
 	}
 	
-	public String adicionarAcomodacao() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 750);
-		RequestContext.getCurrentInstance().openDialog("adicionarAcomodacao", options, null);
+	public String adicionarAcomodacao() { 
+		if (resultadoOrcamentoBean.getFornecedorcidadeidioma().isAcomodacao() || resultadoOrcamentoBean.getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("resultadoOrcamentoBean", resultadoOrcamentoBean);
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 750);
+			RequestContext.getCurrentInstance().openDialog("adicionarAcomodacao", options, null);
+		}else {
+			Mensagem.lancarMensagemInfo("Sem Acomodação", "");
+		}
 		return "";
 	}
 

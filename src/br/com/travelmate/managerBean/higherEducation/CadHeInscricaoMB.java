@@ -674,8 +674,6 @@ public class CadHeInscricaoMB implements Serializable {
 			orcamento.setTotalMoedaEstrangeira(0.0f);
 			orcamento.setTotalMoedaNacional(0.0f);
 			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
-				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
-						.getIdprodutosOrcamento() != aplicacaoMB.getParametrosprodutos().getIdtaxainscricaohe()) {
 					float valorMoedaReal = 0.0f;
 					float valorMoedaEstrangeira = 0.0f;
 					int idProdutoOrcamento = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
@@ -705,7 +703,6 @@ public class CadHeInscricaoMB implements Serializable {
 					orcamento.setTotalMoedaNacional(orcamento.getTotalMoedaNacional() + valorMoedaReal);
 					venda.setValor(valorTotal);
 					formaPagamento.setValorOrcamento(valorTotal);
-				}
 			}
 			if (formaPagamento.getPossuiJuros().equalsIgnoreCase("Não")) {
 				formaPagamento.setValorJuros(0.0f);
@@ -867,7 +864,7 @@ public class CadHeInscricaoMB implements Serializable {
 						}
 					}
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-					calcularValorTotalOrcamento();
+					calcularValorTotalOrcamento(); 
 					produtosorcamento = null;
 					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				

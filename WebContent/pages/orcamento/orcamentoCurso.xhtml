@@ -481,7 +481,7 @@
 					<br></br>
 					<p:outputLabel value="Data inicial:" for="datainicio"
 						style="font-weight:bold;font-size: 12px;margin-left:1%" />
-					<p:calendar id="datainicio" size="15"
+					<p:calendar id="datainicio" size="15" mask="true"
 						value="#{orcamentoCursoMB.seguroviagem.dataInicio}"
 						style="margin-left:1%" locale="pt" pattern="dd/MM/yyyy"
 						disabled="#{orcamentoCursoMB.habilitarSeguro()}">
@@ -511,7 +511,7 @@
 					</p:inputText>
 					<p:outputLabel value="Data Final:" for="datatermino"
 						style="font-weight:bold;font-size:12px;margin-left:3%" />
-					<p:inputMask id="datatermino"  
+					<p:inputMask id="datatermino"
 						value="#{orcamentoCursoMB.seguroviagem.dataTermino}" size="15"
 						style="margin-left:1%" mask="99/99/9999"
 						disabled="#{orcamentoCursoMB.habilitarSeguro()}">  
@@ -553,16 +553,16 @@
 					<p:commandButton id="bntAdiconarAcomodacao"
 						style="font-size:12px;margin-left:89.5%;margin-top: -5%;"
 						value="Adicionar" disabled="#{orcamentoCursoMB.desabilitarNovaAcomodacao()}"
-						action="#{orcamentoCursoMB.adicionarAcomodacao()}"   
+						action="#{orcamentoCursoMB.adicionarAcomodacao()}"  update=":orcamentoCurso:growl" 
 						icon="ui-icon-check" onstart="PF('dialogcarregar').show()"
 							onsuccess="PF('dialogcarregar').hide()">
 						<p:ajax event="dialogReturn"
 							listener="#{orcamentoCursoMB.retornoDialogoAcomodacao}" process="@this"
 							update=":orcamentoCurso:idtabelaAcomodacao, :orcamentoCurso:tabelatotal,
 								orcamentoCurso:tabelaprodutoObrigatorio, orcamentoCurso:bntAdiconarAcomodacao, 
-								:orcamentoCurso:idtabelaCurso, :orcamentoCurso:tabelaprodutocurso" />
+								:orcamentoCurso:idtabelaCurso, :orcamentoCurso:tabelaprodutocurso, :orcamentoCurso:growl" />
 					</p:commandButton>   
-					<br></br>
+					<br></br> 
 					<br></br>     
 					<p:dataScroller id="idtabelaAcomodacao"
 						value="#{orcamentoCursoMB.resultadoOrcamentoBean.listaAcomodacoes}"
