@@ -191,6 +191,18 @@ public class He implements Serializable {
 	private String relacaoContatoEmergencia;
 	@Column(name = "tipoFicha")
 	private String tipoFicha;
+	@Column(name = "questionario")
+	private int questionario;
+    @Column(name = "notalinguagem")
+	private float notalinguagem;
+    @Column(name = "notaciencianatureza")
+	private float notaciencianatureza;
+    @Column(name = "notacienciahumanas")
+	private float notacienciahumanas;
+    @Column(name = "notamatematica")
+	private float notamatematica;
+    @Column(name = "notaredacao")
+	private float notaredacao;
     
 
     public He() {
@@ -198,6 +210,7 @@ public class He implements Serializable {
 		setFamiliacomAnimais("Não");
 		setFamiliacomCrianca("Não");
 		setVegetariano("Não");
+		questionario = 0;
     }
 
     public He(Integer idhe) {
@@ -706,6 +719,54 @@ public class He implements Serializable {
 
 	public void setTipoFicha(String tipoFicha) {
 		this.tipoFicha = tipoFicha;
+	}
+
+	public int getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(int questionario) {
+		this.questionario = questionario;
+	}
+
+	public float getNotalinguagem() {
+		return notalinguagem;
+	}
+
+	public void setNotalinguagem(float notalinguagem) {
+		this.notalinguagem = notalinguagem;
+	}
+
+	public float getNotaciencianatureza() {
+		return notaciencianatureza;
+	}
+
+	public void setNotaciencianatureza(float notaciencianatureza) {
+		this.notaciencianatureza = notaciencianatureza;
+	}
+
+	public float getNotacienciahumanas() {
+		return notacienciahumanas;
+	}
+
+	public void setNotacienciahumanas(float notacienciahumanas) {
+		this.notacienciahumanas = notacienciahumanas;
+	}
+
+	public float getNotamatematica() {
+		return notamatematica;
+	}
+
+	public void setNotamatematica(float notamatematica) {
+		this.notamatematica = notamatematica;
+	}
+
+	public float getNotaredacao() {
+		return notaredacao;
+	}
+
+	public void setNotaredacao(float notaredacao) {
+		this.notaredacao = notaredacao;
 	}
 
 	@Override
