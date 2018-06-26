@@ -673,7 +673,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	public boolean mostrarBtnConfirmar(ProdutosOrcamentoBean produtosOrcamentoBean) {
 		if (produtosOrcamentoBean != null
 				&& produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia() != null
-				&& produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length() > 1) {
+				&& produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length() > 4) {
 			return false;
 		}
 		return true;
@@ -682,7 +682,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	public boolean mostrarBtnMensagem(ProdutosOrcamentoBean produtosOrcamentoBean) {
 		if (produtosOrcamentoBean != null
 				&& produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia() != null
-				&& produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length() > 1) {
+				&& produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getAdvertencia().length() > 4) {
 			return true;
 		}
 		return false;
