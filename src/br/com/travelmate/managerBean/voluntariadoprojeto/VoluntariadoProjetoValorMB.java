@@ -43,6 +43,7 @@ public class VoluntariadoProjetoValorMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		voluntariadoprojeto = (Voluntariadoprojeto) session.getAttribute("voluntariadoprojeto");
+		session.removeAttribute("voluntariadoprojeto");
 		if (voluntariadoprojeto != null) {
 			gerarListaValores();
 		} else {

@@ -128,14 +128,14 @@
 					<p:selectOneMenu id="projetovoluntariado"
 						value="#{voluntariadoProjetoOrcamentoMB.voluntariadoprojeto}"
 						style="width:250px;" converter="VoluntariadoProjetoConverter"
-						filter="true" filterMatchMode="startsWith" beforeShowDay="mondayEnabled">
+						filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Projetos" itemValue="0"
 							noSelectionOption="true" />
 						<f:selectItems id="idprojeto"
 							value="#{voluntariadoProjetoOrcamentoMB.listaVoluntariadoProjeto}"
-							var="voluntariadoprojeto"
-							itemLabel="#{voluntariadoprojeto.voluntariadoprojeto.descricao}"
-							itemValue="#{voluntariadoprojeto}" />
+							var="voluntariadoprojetoSelecione"
+							itemLabel="#{voluntariadoprojetoSelecione.voluntariadoprojeto.descricao}"
+							itemValue="#{voluntariadoprojetoSelecione}" />
 						<f:attribute name="listaVoluntariadoValor"
 							value="#{voluntariadoProjetoOrcamentoMB.listaVoluntariadoProjeto}" />
 						<p:ajax event="change"

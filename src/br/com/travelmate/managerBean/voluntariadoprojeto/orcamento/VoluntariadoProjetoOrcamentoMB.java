@@ -64,6 +64,7 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	private Cliente cliente;
 	private boolean digitosFoneResidencial;
 	private boolean digitosFoneCelular; 
+	private List<Voluntariadoprojetovalor> listaVoluntariadoProjetoCidade;
 
 	@PostConstruct
 	public void init() {
@@ -221,11 +222,19 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 		this.listaCidade = listaCidade;
 	}
 
+	public List<Voluntariadoprojetovalor> getListaVoluntariadoProjetoCidade() {
+		return listaVoluntariadoProjetoCidade;
+	}
+
+	public void setListaVoluntariadoProjetoCidade(List<Voluntariadoprojetovalor> listaVoluntariadoProjetoCidade) {
+		this.listaVoluntariadoProjetoCidade = listaVoluntariadoProjetoCidade;
+	}
+
 	public void listarVoluntariadoProjeto() {
 		if (pais != null && pais.getIdpais()!= null) {
-			String sql = "Select v from Voluntariadoprojetovalor v where "
-					+"v.voluntariadoprojeto.fornecedorcidade.cidade.pais.idpais="+ pais.getIdpais()
-					+" group by v.voluntariadoprojeto.idvoluntariadoprojeto order by v.voluntariadoprojeto.descricao";
+			String sql = "Select Distinct v from Voluntariadoprojetovalor v where " + " v.voluntariadoprojeto.fornecedorcidade.fornecedor.habilitarorcamento=true " 
+					+" and v.voluntariadoprojeto.fornecedorcidade.cidade.pais.idpais="+ pais.getIdpais() + " and v.datafinal>='" + Formatacao.ConvercaoDataSql(new Date()) + "'"
+					+" group by v.voluntariadoprojeto.idvoluntariadoprojeto, v.voluntariadoprojeto.fornecedorcidade order by v.voluntariadoprojeto.descricao";
 			VoluntariadoProjetoValorFacade voluntariadoProjetoValorFacade = new VoluntariadoProjetoValorFacade();
 			listaVoluntariadoProjeto = voluntariadoProjetoValorFacade.listar(sql);
 			if (listaVoluntariadoProjeto == null) {
@@ -237,14 +246,14 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	public void listarCidade() {
 		if (pais != null && pais.getIdpais()!=null && voluntariadoprojeto!=null) { 
 			String sql = "Select v from Voluntariadoprojetovalor v where "
-					+"v.idvoluntariadoprojetovalor="+ voluntariadoprojeto.getIdvoluntariadoprojetovalor()
+					+"v.idvoluntariadoprojetovalor="+ voluntariadoprojeto.getIdvoluntariadoprojetovalor() + " and v.datafinal>='" + Formatacao.ConvercaoDataSql(new Date()) + "' " 
 					+" group by v.voluntariadoprojeto.fornecedorcidade.cidade.idcidade order by v.voluntariadoprojeto.descricao";
 			VoluntariadoProjetoValorFacade voluntariadoProjetoValorFacade = new VoluntariadoProjetoValorFacade();
-			listaVoluntariadoProjeto = voluntariadoProjetoValorFacade.listar(sql);
+			listaVoluntariadoProjetoCidade = voluntariadoProjetoValorFacade.listar(sql);
 			listaCidade = new ArrayList<Cidade>();
-			if (listaVoluntariadoProjeto != null) {  
-				for (int i = 0; i < listaVoluntariadoProjeto.size(); i++) {
-					listaCidade.add(listaVoluntariadoProjeto.get(i).getVoluntariadoprojeto().getFornecedorcidade().getCidade());
+			if (listaVoluntariadoProjetoCidade != null) {  
+				for (int i = 0; i < listaVoluntariadoProjetoCidade.size(); i++) {
+					listaCidade.add(listaVoluntariadoProjetoCidade.get(i).getVoluntariadoprojeto().getFornecedorcidade().getCidade());
 				}
 			} 
 		}
@@ -296,46 +305,47 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	public String gerarOrcamento() {
 		OrcamentoVoluntariadoBean orcamento = new OrcamentoVoluntariadoBean();
 		orcamento.setCliente(cliente);
-		orcamento.setVoluntariadoprojetovalor(voluntariadoprojetovalor);
-		orcamento.setValor(voluntariadoprojetovalor.getValor());
+		orcamento.setVoluntariadoprojetovalor(voluntariadoprojeto);
+		orcamento.setValor(voluntariadoprojeto.getValor());
+		fornecedorcidade = voluntariadoprojeto.getVoluntariadoprojeto().getFornecedorcidade();
 		Cambio cambio = consultarCambio();
-		orcamento.setValorRS(voluntariadoprojetovalor.getValor() * cambio.getValor());
+		orcamento.setValorRS(voluntariadoprojeto.getValor() * cambio.getValor());
 		orcamento.setNumeroSemanasAdicionais(nsemanaadicional);
-		orcamento.setValorSemanaAdc(voluntariadoprojetovalor.getValorsemanaadicional() * nsemanaadicional);
+		orcamento.setValorSemanaAdc(voluntariadoprojeto.getValorsemanaadicional() * nsemanaadicional);
 		orcamento.setValorSemanaAdcRS(orcamento.getValorSemanaAdc() * cambio.getValor());
 		orcamento.setDatainicial(datainicial);
 		orcamento.setDatatermino(calcularDataTermino());
 		orcamento.setCambio(cambio);
 		orcamento.setValorcambio(cambio.getValor());
 		if (nsemanaadicional > 0) {
-			orcamento.setTotalnumerosemanas(voluntariadoprojetovalor.getNumerosemanainicial() + " Semana(s) + "
+			orcamento.setTotalnumerosemanas(voluntariadoprojeto.getNumerosemanainicial() + " Semana(s) + "
 					+ nsemanaadicional + " Semanas Adicionais");
 			orcamento.setPossuiSemanaAdicional(true);
 		} else {
-			orcamento.setTotalnumerosemanas(voluntariadoprojetovalor.getNumerosemanainicial() + " Semana(s)");
+			orcamento.setTotalnumerosemanas(voluntariadoprojeto.getNumerosemanainicial() + " Semana(s)");
 		}
 		// curso
-		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList() != null
-				&& voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().size() > 0) {
+		if (voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList() != null
+				&& voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().size() > 0) {
 			orcamento.setPossuiCurso(true);
 			orcamento.setVoluntariadoprojetocurso(
-					voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().get(0));
+					voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().get(0));
 		} else {
 			orcamento.setPossuiCurso(false);
 		}
 		// acomodação
-		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList() != null
-				&& voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList()
+		if (voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList() != null
+				&& voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList()
 						.size() > 0) {
 			orcamento.setPossuiAcomodacao(true);
 			orcamento.setVoluntariadoprojetoacomodacao(
-					voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList().get(0));
+					voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList().get(0));
 		} else {
 			orcamento.setPossuiAcomodacao(false);
 		}
 		// transfer
-		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getTransfer() != null
-				&& voluntariadoprojetovalor.getVoluntariadoprojeto().getTransfer().length() > 0) {
+		if (voluntariadoprojeto.getVoluntariadoprojeto().getTransfer() != null
+				&& voluntariadoprojeto.getVoluntariadoprojeto().getTransfer().length() > 0) {
 			orcamento.setPossuiTransfer(true);
 		}
 		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();

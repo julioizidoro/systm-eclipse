@@ -37,10 +37,10 @@ public class CadVoluntariadoProjetoValorMB implements Serializable{
         Voluntariadoprojeto voluntariadoprojeto = (Voluntariadoprojeto) session.getAttribute("voluntariadoprojeto");
         session.removeAttribute("voluntariadoprojetovalor"); 
         if (voluntariadoprojetovalor==null){
-        	voluntariadoprojetovalor = new Voluntariadoprojetovalor();
-        	voluntariadoprojetovalor.setDatainicial(Formatacao.ConvercaoStringData("01/01/2017"));
-        	voluntariadoprojetovalor.setDatafinal(Formatacao.ConvercaoStringData("31/12/2017"));  
-        	voluntariadoprojetovalor.setVoluntariadoprojeto(voluntariadoprojeto);
+	        	voluntariadoprojetovalor = new Voluntariadoprojetovalor();
+	        	voluntariadoprojetovalor.setDatainicial(Formatacao.ConvercaoStringData("01/01/2018"));
+	        	voluntariadoprojetovalor.setDatafinal(Formatacao.ConvercaoStringData("31/12/2018"));  
+	        	voluntariadoprojetovalor.setVoluntariadoprojeto(voluntariadoprojeto);
         }
         
     }
@@ -54,8 +54,12 @@ public class CadVoluntariadoProjetoValorMB implements Serializable{
 	}
 
 	public String salvar(){ 
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         VoluntariadoProjetoValorFacade voluntariadoProjetoValorFacade = new VoluntariadoProjetoValorFacade();   
         voluntariadoprojetovalor = voluntariadoProjetoValorFacade.salvar(voluntariadoprojetovalor);
+        session.removeAttribute("voluntariadoprojeto");
         RequestContext.getCurrentInstance().closeDialog(voluntariadoprojetovalor);
         return "";
     }

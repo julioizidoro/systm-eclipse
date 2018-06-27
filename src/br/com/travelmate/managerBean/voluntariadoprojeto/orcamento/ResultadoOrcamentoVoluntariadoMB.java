@@ -372,7 +372,11 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 						orcamento.getListaDesconto().get(i).getValormoedaestrangeira()*orcamento.getValorcambio()); 
 			}
 		}
-		orcamento.setValortaxatm(orcamento.getValortaxatmRS()/orcamento.getValorcambio());
+		if (orcamento.getValorcambio() >= 1) {
+			orcamento.setValortaxatm(orcamento.getValortaxatmRS()/orcamento.getValorcambio());
+		}else {
+			orcamento.setValortaxatm(0.0f);
+		}
 		somarValorTotal();
 	}
 	
