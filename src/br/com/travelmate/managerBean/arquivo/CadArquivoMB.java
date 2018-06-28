@@ -24,6 +24,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
@@ -620,6 +621,9 @@ public class CadArquivoMB implements Serializable {
 		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizar(aupair);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
+				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				aupair.getDataInicioPretendida01());
 	}
 	
 	
@@ -628,6 +632,8 @@ public class CadArquivoMB implements Serializable {
 		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarTrainee(trainee);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(trainee.getVendas(),
+				trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, null);
 	}
 	
 	
@@ -636,6 +642,11 @@ public class CadArquivoMB implements Serializable {
 		Worktravel worktravel = workTravelFacade.consultarWork(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarWork(worktravel);
+		if (Formatacao.validarDataVenda(worktravel.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(worktravel.getVendas(),
+					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					worktravel.getDataInicioPretendida01());
+		}
 	}
 	
 	public void finalizarVoluntariado() {
@@ -643,6 +654,11 @@ public class CadArquivoMB implements Serializable {
 		Voluntariado voluntariado = voluntariadoFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarVoluntariado(voluntariado);
+		if (Formatacao.validarDataVenda(voluntariado.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(voluntariado.getVendas(),
+					voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					voluntariado.getDataInicio());
+		}
 	}
 	
 	public void finalizarDemiPair() {
@@ -650,6 +666,11 @@ public class CadArquivoMB implements Serializable {
 		Demipair demipair = demipairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarDemipair(demipair);
+
+		if (Formatacao.validarDataVenda(demipair.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(demipair.getVendas(),
+					demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
+		}
 	}
 	
 	public void finalizarHighSchool() {
@@ -657,6 +678,11 @@ public class CadArquivoMB implements Serializable {
 		Highschool highschool = highSchoolFacade.consultarHighschool(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarHighSchool(highschool);
+		if (Formatacao.validarDataVenda(highschool.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(highschool.getVendas(),
+					highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					highschool.getValoreshighschool().getDatainicio());
+		}
 	}
 	
 	public void finalizarTeens() {
@@ -664,6 +690,9 @@ public class CadArquivoMB implements Serializable {
 		Programasteens programasteens = programasTeensFacede.find(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarTeens(programasteens);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(programasteens.getVendas(),
+				programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				programasteens.getDataInicioCurso());
 	}
 	
 	public void finalizarCurso() {
@@ -671,6 +700,9 @@ public class CadArquivoMB implements Serializable {
 		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarCurso(curso);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(curso.getVendas(),
+				curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				curso.getDataInicio());
 	}
 
 	public void verificarDocumentosHE() {
