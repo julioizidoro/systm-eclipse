@@ -70,7 +70,7 @@
 						<f:selectItem itemLabel="Pós-Graduação" itemValue="Pós-Graduação" />
 						<f:selectItem itemLabel="Mestrado/MBA" itemValue="Mestrado/MBA" />
 					</p:selectOneMenu>
-					<p:inputText id="diploma" style="width:85%;"
+					<p:inputText id="diploma" style="width:85%;" maxlength="200"
 						placeholder="Diplomas e Certificações adquiridos no Brasil"
 						value="#{cadQuestionarioHeMB.questionarioHe.diplomas}" />
 
@@ -85,7 +85,7 @@
 						for="testeOnline" />
 					<p:inputText id="pontuacao" style="width:85%;"
 						value="#{cadQuestionarioHeMB.questionarioHe.ontuacaotoefl}"
-						maxlength="50" />
+						maxlength="100" />
 					<p:selectOneMenu id="testeOnline"
 						value="#{cadQuestionarioHeMB.questionarioHe.resultadotesteonline}"
 						style="width:280px;">
@@ -109,19 +109,34 @@
 						<p:outputLabel value="Redação" id="notaRedacaoTexto" rendered="#{cadQuestionarioHeMB.habilitarNotas}"/>
 						<p:inputText id="notaLinguagem" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
 							value="#{cadQuestionarioHeMB.questionarioHe.notalinguagem}"
-							maxlength="100" />
+							maxlength="100" >
+							<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</p:inputText>
 						<p:inputText id="notaCienciaNatureza" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
 							value="#{cadQuestionarioHeMB.questionarioHe.notaciencianatureza}"
-							maxlength="100" />
+							maxlength="100" >
+							<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</p:inputText>
 						<p:inputText id="notaCienciaHumanas" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
 							value="#{cadQuestionarioHeMB.questionarioHe.notacienciahumanas}"
-							maxlength="100" />
+							maxlength="100" >
+							<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</p:inputText>
 						<p:inputText id="notaMatematica" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
 							value="#{cadQuestionarioHeMB.questionarioHe.notamatematica}"
-							maxlength="100" />
+							maxlength="100" >
+							<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</p:inputText>
 						<p:inputText id="notaRedacao" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
 							value="#{cadQuestionarioHeMB.questionarioHe.notaredacao}"
-							maxlength="100" />
+							maxlength="100" >
+							<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</p:inputText>
 				</h:panelGrid>
 				<br />
 				<h:panelGrid columns="1" style="width:80%;margin-left:8%;">
