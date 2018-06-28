@@ -1277,11 +1277,6 @@ public class CadAupairMB implements Serializable {
 					}
 					
 				}
-				if (novaFicha) {
-					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-							venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
-							aupair.getDataInicioPretendida01());
-				}
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;

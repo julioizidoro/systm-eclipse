@@ -1156,10 +1156,6 @@ public class CadDemiPairMB implements Serializable {
 				Date data = Formatacao.calcularPrevisaoPagamentoFornecedor(new Date(),
 						venda.getProdutos().getIdprodutos(), aplicacaoMB.getParametrosprodutos().getWork());
 				this.cliente = cadDemiPairBean.salvarCliente(cliente, Formatacao.ConvercaoDataPadrao(data), null, null);
-				if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
-				}
 				if (!novaFicha) {
 					cadDemiPairBean.verificarDadosAlterado(demipair, demiPairAlterado, fornecedorCidade, vendaAlterada,
 							valorVendaAlterar);

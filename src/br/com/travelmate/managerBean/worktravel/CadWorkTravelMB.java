@@ -1229,12 +1229,6 @@ public class CadWorkTravelMB implements Serializable {
 					}
 				}
 
-				if (novaFicha) {
-					if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-						ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, work.getDataInicioPretendida01());
-					}	
-				}
 				 if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;

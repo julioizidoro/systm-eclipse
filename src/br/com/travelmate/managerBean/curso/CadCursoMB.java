@@ -1554,11 +1554,6 @@ public class CadCursoMB implements Serializable {
 					vendaspacote.setVendas(venda);
 					vendaspacote = vendasPacoteFacade.salvar(vendaspacote);  
 				}
-				if (novaFicha) {
-					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-							venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
-							curso.getDataInicio());
-				}
 				
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
@@ -3431,6 +3426,40 @@ public class CadCursoMB implements Serializable {
 			}
 			calcularValorTotalOrcamento();
 		}
+//		if (orcamentoCurso.getOrcamentomanualseguro() != null && orcamentoCurso.getOrcamentomanualseguro().getIdorcamentomanualseguro() != null) {
+//			calcularValorSeguroPrivadoListaProdutos();
+//			if (ocurso.getOcursoseguroList().size() > 0) {
+//				ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+//				Produtosorcamento produtoorcamento = produtoOrcamentoFacade
+//						.consultar(aplicacaoMB.getParametrosprodutos().getSeguroOrcamento());
+//				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+//				orcamentoprodutosorcamento.setDescricao(produtoorcamento.getDescricao());
+//				orcamentoprodutosorcamento.setProdutosorcamento(produtoorcamento);
+//				orcamentoprodutosorcamento.setValorMoedaEstrangeira(orcamentoCurso.getOrcamentomanualseguro().getValor() /cambio.getValor());
+//				orcamentoprodutosorcamento.setValorMoedaNacional(
+//						orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
+//				orcamentoprodutosorcamento.setTipo("S"); 
+//				seguroViagem = new Seguroviagem();
+//				fornecedorSeguro = ocurso.getOcursoseguroList().get(0).getValoresseguro().getFornecedorcidade();
+//				listarPlanosSeguro();
+//				seguroViagem.setDataInicio(ocurso.getOcursoseguroList().get(0).getDatainicial());
+//				seguroViagem.setDataTermino(ocurso.getOcursoseguroList().get(0).getDatafinal());
+//				seguroViagem.setNumeroSemanas(ocurso.getOcursoseguroList().get(0).getNumerodias());
+//				seguroViagem.setPlano(ocurso.getOcursoseguroList().get(0).getValoresseguro().getPlano());
+//				seguroplanos = ocurso.getOcursoseguroList().get(0).getValoresseguro().getSeguroplanos();
+//				listarValoresSeguro();
+//				seguroViagem.setPossuiSeguro("Sim");
+//				seguroViagem.setValorMoedaEstrangeira(ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getOcursoseguroList().get(0).getValorseguroorcamento());
+//				seguroViagem.setValorSeguro(orcamentoprodutosorcamento.getValorMoedaNacional());
+//				seguroViagem.setValoresseguro(ocurso.getOcursoseguroList().get(0).getValoresseguro());
+//				seguroViagem.setSegurocancelamento(ocurso.getOcursoseguroList().get(0).isSegurocancelamento());
+//				orcamentoprodutosorcamento.setImportado(true);
+//				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+//				carregarCobrancaSeguro();
+//				//adicionarSeguroCancelamento();
+//				camposSeguroViagem = "false";
+//			}
+//		}
 	}
 
 	public String importarOrcamentoManual() {

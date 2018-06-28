@@ -126,6 +126,10 @@ public class FinalizarMB implements Serializable {
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			aupair.getVendas().setVendascomissao(cc.getVendasComissao());
 		}
+
+		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
+				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				aupair.getDataInicioPretendida01());
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleAupair(aupair.getVendas(), aupair, valorPrevisto);
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -191,6 +195,9 @@ public class FinalizarMB implements Serializable {
 				trainee.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
 		}
+
+		ContasReceberBean contasReceberBean = new ContasReceberBean(trainee.getVendas(),
+				trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, null);
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControlTrainee(trainee.getVendas(), trainee, valorPrevisto);
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -244,6 +251,11 @@ public class FinalizarMB implements Serializable {
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			worktravel.getVendas().setVendascomissao(cc.getVendasComissao());
 		} 
+		if (Formatacao.validarDataVenda(worktravel.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(worktravel.getVendas(),
+					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					worktravel.getDataInicioPretendida01());
+		}	
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControlWork(worktravel.getVendas(), worktravel, valorPrevisto);
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -305,6 +317,11 @@ public class FinalizarMB implements Serializable {
 				voluntariado.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
 		}
+		if (Formatacao.validarDataVenda(voluntariado.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(voluntariado.getVendas(),
+					voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					voluntariado.getDataInicio());
+		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleVoluntariado(voluntariado.getVendas(), voluntariado, valorPrevisto);
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -365,6 +382,11 @@ public class FinalizarMB implements Serializable {
 				demipair.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
 		}
+
+		if (Formatacao.validarDataVenda(demipair.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(demipair.getVendas(),
+					demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
+		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleDemipair(demipair.getVendas(), demipair, valorPrevisto);
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -420,6 +442,11 @@ public class FinalizarMB implements Serializable {
 					vendasComissao, highschool.getValoreshighschool().getDatainicio(), valorJuros);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			highschool.getVendas().setVendascomissao(cc.getVendasComissao());
+		}
+		if (Formatacao.validarDataVenda(highschool.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(highschool.getVendas(),
+					highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					highschool.getValoreshighschool().getDatainicio());
 		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleHighSchool(highschool.getVendas(), highschool, valorPrevisto);
@@ -487,6 +514,9 @@ public class FinalizarMB implements Serializable {
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			programasteens.getVendas().setVendascomissao(cc.getVendasComissao());
 		}
+		ContasReceberBean contasReceberBean = new ContasReceberBean(programasteens.getVendas(),
+				programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				programasteens.getDataInicioCurso());
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleProgramaTeens(programasteens.getVendas(), programasteens, valorPrevisto);
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -559,6 +589,9 @@ public class FinalizarMB implements Serializable {
 			}
 		}
 
+		ContasReceberBean contasReceberBean = new ContasReceberBean(curso.getVendas(),
+				curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				curso.getDataInicio());
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto);
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();

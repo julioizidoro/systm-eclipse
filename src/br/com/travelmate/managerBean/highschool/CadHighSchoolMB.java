@@ -1227,12 +1227,6 @@ public class CadHighSchoolMB implements Serializable {
 						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), venda, cambioAlterado);
 				formaPagamento = cadHighSchoolBean.salvarFormaPagamento(cancelamento);
 				cliente = cadHighSchoolBean.salvarCliente(cliente);
-				if (novaFicha) {
-					if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-						ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, highschool.getValoreshighschool().getDatainicio());
-					}	
-				}
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;

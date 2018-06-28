@@ -1239,12 +1239,6 @@ public class CadCursosTeensMB implements Serializable {
 				}
 				ControlerBean controlerBean = new ControlerBean();
 				controlerBean.salvarControleProgramaTeens(venda, programasTeens, valorPrevisto);
-				if (novaFicha) {
-					if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-						ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, programasTeens.getDataInicioCurso());
-					}	
-				}
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
