@@ -11,8 +11,8 @@
 			<div id="centro">
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
 				<br></br> <br></br>
-				<h:panelGrid columns="5" style="width:80%;margin-left:2%;"
-					columnClasses="tamanho10,tamanho10,tamanho10,tamanho6,tamanho10">
+				<h:panelGrid columns="6" style="width:80%;margin-left:2%;"
+					>
 					<p:outputLabel value="Pais" for="pais"
 						style="color:#1F8871;" />
 					<p:outputLabel value="Cidade" for="cidade"    
@@ -21,6 +21,7 @@
 						style="color:#1F8871;" /> 
 					<p:outputLabel value="Ano" for="ano"
 						style="color:#1F8871;" />
+					<p:outputLabel/>
 					<p:outputLabel/>
 
 					<p:selectOneMenu id="pais" value="#{voluntariadoProjetoMB.pais}"
@@ -63,7 +64,7 @@
 						<f:attribute name="listaFornecedorCidade"
 							value="#{voluntariadoProjetoMB.listafornecedorcidade}" />
 						<p:ajax event="change"
-							update="tabelavoluntariadoprojeto, bntAddProduto, ano, habilitarorcamento"
+							update="tabelavoluntariadoprojeto, bntAddProduto, ano, habilitarorcamento, btnEditar"
 							listener="#{voluntariadoProjetoMB.listarVoluntariadoProjeto()}" />
 					</p:selectOneMenu> 
 					<p:inputText id="ano" value="#{voluntariadoProjetoMB.ano}"
@@ -74,6 +75,13 @@
 						title="Salvar ano" update="growl, ano">
 						<img src="../../resources/img/confirmarLogin.png" />
 					</p:commandLink>
+					<p:commandButton id="btnEditar" icon="ui-icon-pencil" 
+						style="font-size:12px;width:93%;" value="Editar Valores" disabled="#{voluntariadoProjetoMB.habilitarEditarValores}"
+						action="#{voluntariadoProjetoMB.editarValores()}" update=":voluntariadoProjeto:growl">   
+						<p:ajax event="dialogReturn"   
+							listener="#{voluntariadoProjetoMB.retornoDialogValores()}" process="@this"
+							update=":voluntariadoProjeto:tabelavoluntariadoprojeto" />    
+					</p:commandButton> 
 				</h:panelGrid>
 				<br></br>
 				<div align="center">
@@ -96,7 +104,7 @@
 							listener="#{voluntariadoProjetoMB.retornoDialogoNovo}" process="@this"
 							update=":voluntariadoProjeto:tabelavoluntariadoprojeto" />    
 					</p:commandButton> 
-					<p:commandButton id="bntAddProdutoOrcamento" value="Produtos"  rendered=""     
+					<p:commandButton id="bntAddProdutoOrcamento" value="Produtos"  rendered="false"     
 						action="#{voluntariadoProjetoMB.produtosOrcamento()}"
 						style="font-size:12px;margin-left: 2.5%;width:12%;float:right;" icon="ui-icon-plus" >
 					</p:commandButton>  

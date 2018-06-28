@@ -60,6 +60,7 @@ public class VoluntariadoProjetoMB implements Serializable {
 	private boolean selecionado;
 	private int ano; 
 	private boolean habilitarorcamento;
+	private boolean habilitarEditarValores = true;
 
 	@PostConstruct
 	public void init() { 
@@ -200,6 +201,14 @@ public class VoluntariadoProjetoMB implements Serializable {
 		this.listafornecedorcidade = listafornecedorcidade;
 	}
 
+	public boolean isHabilitarEditarValores() {
+		return habilitarEditarValores;
+	}
+
+	public void setHabilitarEditarValores(boolean habilitarEditarValores) {
+		this.habilitarEditarValores = habilitarEditarValores;
+	}
+
 	public void listarVoluntariadoProjeto() {
 		if (fornecedorcidade != null) { 
 			String sql = "Select v from Voluntariadoprojeto v where v.fornecedorcidade.idfornecedorcidade="
@@ -210,6 +219,9 @@ public class VoluntariadoProjetoMB implements Serializable {
 			habilitarorcamento = fornecedorcidade.getFornecedor().isHabilitarorcamento();
 			if (listaVoluntariadoProjeto == null) {
 				listaVoluntariadoProjeto = new ArrayList<>();
+			}
+			if (listaVoluntariadoProjeto.size() > 0) {
+				habilitarEditarValores = false;
 			}
 		}
 	} 
@@ -343,4 +355,30 @@ public class VoluntariadoProjetoMB implements Serializable {
 		options.put("contentWidth", 500);
 		RequestContext.getCurrentInstance().openDialog("voluntariadoProjetoAcomodacao");  
 	} 
+	
+	
+	public String editarValores() {
+		if (listaVoluntariadoProjeto != null && listaVoluntariadoProjeto.size() > 0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("listaVoluntariadoProjeto", listaVoluntariadoProjeto);
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 200);
+			options.put("modal", true);
+			RequestContext.getCurrentInstance().openDialog("editarValoresVoluntariado", options, null);
+			return "";
+		} else {
+			Mensagem.lancarMensagemErro("Atenção! ", "Campos obrigatórios não preenchidos."); 
+			return "";
+		}
+	}
+	
+	
+	public void retornoDialogValores() {
+		listarVoluntariadoProjeto();
+	}
+	
+	
+	
+	
 }

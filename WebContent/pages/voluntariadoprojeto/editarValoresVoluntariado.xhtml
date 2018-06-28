@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+		<title>Editar Valores</title>
+		<br></br>
+		<p:outputLabel value="Informações Antigas" style="color:#2E8B57;font-size:12px;" /><br />
+		<h:panelGrid columns="1" style="width:80%;">
+			<p:outputLabel value="Período" for="datainicio" />
+			<h:panelGroup>
+				<p:inputMask id="datainicio"
+					value="#{editarValoresVoluntariadoMB.dataInicialAntiga}" size="10"
+					mask="99/99/9999" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="datafinal" size="10"
+					value="#{editarValoresVoluntariadoMB.dataFinalAntiga}"
+					mask="99/99/9999" maxlength="15" style="margin-left:3%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+			</h:panelGroup>
+		</h:panelGrid>
+		<br></br>
+		<p:outputLabel value="Informações Novas" style="color:#2E8B57;font-size:12px;" /><br/>
+		<h:panelGrid columns="1" style="width:80%;">
+			<p:outputLabel value="Período" for="datainicionovo" />
+			<h:panelGroup>
+				<p:inputMask id="datainicionovo"
+					value="#{editarValoresVoluntariadoMB.dataInicialNova}" size="10"
+					mask="99/99/9999" maxlength="15">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputMask id="datafinalnovo" size="10"
+					value="#{editarValoresVoluntariadoMB.dataFinalNova}" mask="99/99/9999"
+					maxlength="15" style="margin-left:3%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputMask>  
+			</h:panelGroup> 
+		</h:panelGrid>
+		<br></br><br/>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar"
+				action="#{editarValoresVoluntariadoMB.salvar()}" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{editarValoresVoluntariadoMB.cancelar()}"
+				style="margin-left:3%;" />
+		</div>
+		<p:ajaxStatus onstart="PF('carregandoDialog').show()"
+			onsuccess="PF('carregandoDialog').hide()" />
+
+		<p:dialog widgetVar="carregandoDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:commandLink>
+				<img src="../../resources/img/ajax-loader.gif" />
+			</p:commandLink>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>
