@@ -125,12 +125,12 @@
 								<h:outputText value="#{processo.vendas.idvendas}"
 									style="#{formAssessoriaMB.cor(processo)}" />
 							</p:column>
-							<p:column headerText="Cliente" sortBy="#{processo.nomecliente}"
+							<p:column headerText="Cliente" sortBy="#{processo.vendas.cliente.nome}"
 								style="width:150px; ">
-								<h:outputText value="#{processo.nomecliente}"
+								<h:outputText value="#{processo.vendas.cliente.nome}"
 									style="#{formAssessoriaMB.corNome(processo)}" />
 							</p:column>
-							<p:column headerText="Data Envio" sortBy="#{processo.data}"
+							<p:column headerText="Data Envio" sortBy="#{processo.vendas.dataVenda}"
 								style="text-align:center;width:67px;">     
 								<h:outputText value="#{processo.data}"       
 									style="#{formAssessoriaMB.cor(processo)}">
@@ -138,19 +138,19 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Unidade" sortBy="#{processo.unidade}"
+							<p:column headerText="Unidade" sortBy="#{processo.vendas.unidadenegocio.nomerelatorio}"
 								style="width:85px;" styleClass="alinharCenter">
-								<h:outputText value="#{processo.unidade}"
+								<h:outputText value="#{processo.vendas.unidadenegocio.nomerelatorio}"
 									style="#{formAssessoriaMB.cor(processo)}" />
 							</p:column>
-							<p:column headerText="Consultor" sortBy="#{processo.consultor}"
+							<p:column headerText="Consultor" sortBy="#{processo.vendas.usuario.consultor}"
 								style="width:120px;" styleClass="alinharCenter">
-								<h:outputText value="#{processo.consultor}"
+								<h:outputText value="#{processo.vendas.usuario.consultor}"
 									style="#{formAssessoriaMB.cor(processo)}" />
 							</p:column>
-							<p:column headerText="Parceiro" sortBy="#{processo.fornecedor}"
+							<p:column headerText="Parceiro" sortBy="#{processo.vendas.fornecedor.nome}"
 								style="width:110px;" styleClass="alinharCenter">
-								<h:outputText value="#{processo.fornecedor}"
+								<h:outputText value="#{processo.vendas.fornecedor.nome}"
 									style="#{formAssessoriaMB.cor(processo)}" />
 							</p:column>
 							<p:column headerText="Situação" sortBy="#{processo.situacao}"
