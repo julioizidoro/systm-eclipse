@@ -36,6 +36,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;
@@ -82,6 +83,7 @@ public class FormAssessoriaMB implements Serializable{
 	private String nomePrograma;
 	private String chamadaTela = "";
 	private String situacaoLista = "";
+	private String obsTM = "";
 
 	@PostConstruct()
 	public void init() {
@@ -326,6 +328,14 @@ public class FormAssessoriaMB implements Serializable{
 		this.situacaoLista = situacaoLista;
 	}
 
+	public String getObsTM() {
+		return obsTM;
+	}
+
+	public void setObsTM(String obsTM) {
+		this.obsTM = obsTM;
+	}
+
 	public String editar(He he) {
 		if (he != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -566,6 +576,7 @@ public class FormAssessoriaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("vendas", he.getVendas());
+		session.setAttribute("cliente", he.getVendas().getCliente());
 		session.setAttribute("pesquisar", "Sim");
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("listaAndamento", listaAndamento);
@@ -762,6 +773,19 @@ public class FormAssessoriaMB implements Serializable{
 				heFacade.salvar(he);
 			}
 		}
+	}
+	
+	public String obsTM(He he) {
+		obsTM = he.getVendas().getObstm();
+		return obsTM;
+	}
+	
+	
+	public String retornarIconeObsTM(He he){
+		if (he.getVendas().getObstm() != null && he.getVendas().getObstm().length() > 0) {
+			return "../../resources/img/obsVermelha.png";
+		}
+		return "../../resources/img/obsFicha.png";
 	}
 
 }
