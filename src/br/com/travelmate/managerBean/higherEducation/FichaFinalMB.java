@@ -325,12 +325,7 @@ public class FichaFinalMB implements Serializable{
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("he", he);
-			if (he.isAprovado()) {
-				return "cadFichaHe2";
-			} else {
-				session.setAttribute("cliente", he.getVendas().getCliente());
-				return "cadFichaHe1";
-			}
+			return "cadFichaHe2";
 		}  else
 			return "";
 	}
