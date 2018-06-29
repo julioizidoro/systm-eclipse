@@ -132,7 +132,7 @@
 							</p:column>
 							<p:column headerText="Data Envio" sortBy="#{processo.vendas.dataVenda}"
 								style="text-align:center;width:67px;">     
-								<h:outputText value="#{processo.data}"       
+								<h:outputText value="#{processo.vendas.dataVenda}"       
 									style="#{formAssessoriaMB.cor(processo)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />

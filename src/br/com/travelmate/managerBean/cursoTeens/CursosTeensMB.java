@@ -713,7 +713,9 @@ public class CursosTeensMB implements Serializable {
     }
 
 	public String documentacao(Programasteens programasteens) {
-		if ((programasteens.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (programasteens.getVendas().getDatavalidade() != null && programasteens.getVendas().getDatavalidade().before(new Date()))) {
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(programasteens.getVendas().getDatavalidade());
+		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
+		if ((programasteens.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (dataValidade != null && dataValidade.before(new Date()))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
 			return "";
 		}else {

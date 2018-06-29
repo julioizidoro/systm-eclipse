@@ -797,9 +797,11 @@ public class VoluntariadoMB implements Serializable {
 	}
 
 	public String documentacao(Voluntariado voluntariado) {
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(voluntariado.getVendas().getDatavalidade());
+		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
 		if ((voluntariado.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (voluntariado.getVendas().getDatavalidade() != null
-						&& voluntariado.getVendas().getDatavalidade().before(new Date()))) {
+				&& (dataValidade != null
+						&& dataValidade.before(new Date()))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
 					"está ficha ultrapassou os 3 dias de validade");
 			return "";

@@ -633,9 +633,11 @@ public class HighSchoolMB implements Serializable {
 	}
 
 	public String documentacao(Highschool highschool) {
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(highschool.getVendas().getDatavalidade());
+		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
 		if ((highschool.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (highschool.getVendas().getDatavalidade() != null
-						&& highschool.getVendas().getDatavalidade().before(new Date()))) {
+				&& (dataValidade != null
+						&& dataValidade.before(new Date()))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
 					"está ficha ultrapassou os 3 dias de validade");
 			return "";

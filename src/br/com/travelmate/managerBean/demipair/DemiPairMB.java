@@ -730,9 +730,11 @@ public class DemiPairMB implements Serializable {
     }
     
 	public String documentacao(Demipair demipair) {
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(demipair.getVendas().getDatavalidade());
+		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
 		if ((demipair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (demipair.getVendas().getDatavalidade() != null
-						&& demipair.getVendas().getDatavalidade().before(new Date()))) {
+				&& (dataValidade != null
+						&& dataValidade.before(new Date()))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
 					"está ficha ultrapassou os 3 dias de validade");
 			return "";

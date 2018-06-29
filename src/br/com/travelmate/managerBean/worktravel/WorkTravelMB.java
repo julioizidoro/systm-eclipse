@@ -744,9 +744,11 @@ public class WorkTravelMB implements Serializable {
 	}
 
 	public String documentacao(Worktravel work) {
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(work.getVendas().getDatavalidade());
+		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
 		if ((work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (work.getVendas().getDatavalidade() != null
-						&& work.getVendas().getDatavalidade().before(new Date()))) {
+				&& (dataValidade != null
+						&& dataValidade.before(new Date()))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
 					"está ficha ultrapassou os 3 dias de validade");
 			return "";

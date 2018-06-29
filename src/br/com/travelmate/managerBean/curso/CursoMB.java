@@ -973,8 +973,10 @@ public class CursoMB implements Serializable {
 		}
 	}
 
-	public String documentacao(Curso curso) {
-		if ((curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (curso.getVendas().getDatavalidade() != null && curso.getVendas().getDatavalidade().before(new Date()))) {
+	public String documentacao(Curso curso) { 
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(curso.getVendas().getDatavalidade());
+		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
+		if ((curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (dataValidade != null && dataValidade.before(new Date()))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
 			return "";
 		}else {
