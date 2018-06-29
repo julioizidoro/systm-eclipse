@@ -45,7 +45,7 @@ public class HeDao {
     public He consultarVenda(int idVenda) throws SQLException {
     	EntityManager manager;
        manager = ConectionFactory.getConnection();
-        Query q = manager.createQuery("select h from He h where h.vendas1.idvendas=" + idVenda);
+        Query q = manager.createQuery("select h from He h where h.vendas.idvendas=" + idVenda);
         He he = null;
         if (q.getResultList().size() > 0) {
         	he =  (He) q.getResultList().get(0);
