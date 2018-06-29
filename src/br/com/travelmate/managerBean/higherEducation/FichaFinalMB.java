@@ -82,6 +82,7 @@ public class FichaFinalMB implements Serializable{
 	private String pesquisar = "Nao";
 	private String nomePrograma;
 	private String chamadaTela = "";
+	private String obsTM = "";
 
 	@PostConstruct()
 	public void init() {
@@ -782,5 +783,19 @@ public class FichaFinalMB implements Serializable{
 	//	}
 	//	return "";
 	}  
+	
+	public String obsTM(He he) {
+		obsTM = he.getVendas().getObstm();
+		return obsTM;
+	}
+	
+	
+	public String retornarIconeObsTM(He he){
+		if (he.getVendas().getObstm() != null && he.getVendas().getObstm().length() > 0) {
+			return "../../resources/img/obsVermelha.png";
+		}
+		return "../../resources/img/obsFicha.png";
+	}
+	
 
 }

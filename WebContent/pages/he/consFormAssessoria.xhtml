@@ -777,7 +777,7 @@
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade"
-									style="background:#F0F0F0;width:550px; border:none;">
+									style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{finalizado.vendas.idvendas} - #{finalizado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -785,7 +785,7 @@
 									<br />
 									<h:panelGrid
 										style="width:100%;border-color:transparent;border:none;"
-										columns="5">
+										columns="6">
 
 										<p:commandLink action="#{formAssessoriaMB.boletos(finalizado)}"
 											title="IMPRIMIR OS BOLETOS"
@@ -834,6 +834,18 @@
 												process="@this" update="@form" />
 											<h:panelGrid columns="1" style="text-align:1px;">
 												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+										
+										<p:commandLink style="text-decoration: none"
+											title="OBSERVAÇÕES GERÊNCIAS TM"
+											update="consHe:dialog_obsTM"
+											oncomplete="PF('obstm').show()">
+											<img src="#{formAssessoriaMB.retornarIconeObsTM(finalizado)}" width="36" />
+											<p:ajax listener="#{formAssessoriaMB.obsTM(finalizado)}" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="OBS" style="font-size:10px;" />
+												<p:outputLabel value="TM" />
 											</h:panelGrid>
 										</p:commandLink>
 
@@ -949,7 +961,7 @@
 								</p:commandLink>
 								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
 									hideEffect="fade"
-									style="background:#F0F0F0;width:550px; border:none;">
+									style="background:#F0F0F0;width:600px; border:none;">
 									<p:outputLabel
 										value="#{cancelado.vendas.idvendas} - #{cancelado.vendas.cliente.nome}"
 										style="text-align:center;font-size:15px;" />
@@ -957,7 +969,7 @@
 									<br />   
 									<h:panelGrid
 										style="width:100%;border-color:transparent;border:none;"
-										columns="5">
+										columns="6">
 
 										<p:commandLink action="#{formAssessoriaMB.boletos(cancelado)}"
 											title="IMPRIMIR OS BOLETOS"
@@ -1008,6 +1020,18 @@
 												<p:outputLabel value="CANCELAR" style="font-size:11px;" />
 											</h:panelGrid>
 										</p:commandLink>   
+										
+										<p:commandLink style="text-decoration: none"
+											title="OBSERVAÇÕES GERÊNCIAS TM"
+											update="consHe:dialog_obsTM"
+											oncomplete="PF('obstm').show()">
+											<img src="#{formAssessoriaMB.retornarIconeObsTM(cancelado)}" width="36" />
+											<p:ajax listener="#{formAssessoriaMB.obsTM(cancelado)}" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="OBS" style="font-size:10px;" />
+												<p:outputLabel value="TM" />
+											</h:panelGrid>
+										</p:commandLink>
 									</h:panelGrid>
 								</p:overlayPanel>
 							</p:column>
