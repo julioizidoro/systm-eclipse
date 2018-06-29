@@ -120,9 +120,9 @@
 									width="25"
 									title="#{formAssessoriaMB.retornarTituloFicha(processo.status)}" />
 							</p:column>
-							<p:column headerText="ID" sortBy="#{processo.idVenda}"
+							<p:column headerText="ID" sortBy="#{processo.vendas.idvendas}"
 								style="width:50px;" styleClass="alinharCenter">
-								<h:outputText value="#{processo.idVenda}"
+								<h:outputText value="#{processo.vendas.idvendas}"
 									style="#{formAssessoriaMB.cor(processo)}" />
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{processo.nomecliente}"
