@@ -393,7 +393,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 		List<Contasreceber> listaConta = contasReceberFacade.listar(sql);
 		if (listaConta != null) {
 			for (int i = 0; i < listaConta.size(); i++) {
-				valorRecebidoMatriz = valorRecebidoMatriz + listaConta.get(i).getValorpago();
+				valorRecebidoMatriz = valorRecebidoMatriz + listaConta.get(i).getValorparcela();
 			}
 		}
 		cancelamento.setTotalrecebidomatriz(valorRecebidoMatriz);
