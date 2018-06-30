@@ -321,6 +321,14 @@ public class FichaFinalMB implements Serializable{
 		this.listaCancelada = listaCancelada;
 	}
 
+	public String getObsTM() {
+		return obsTM;
+	}
+
+	public void setObsTM(String obsTM) {
+		this.obsTM = obsTM;
+	}
+
 	public String editar(He he) {
 		if (he != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();

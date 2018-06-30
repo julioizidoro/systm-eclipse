@@ -849,8 +849,8 @@ public class FiltrarEscolaMB implements Serializable {
 			if ((i + 1) < filtrarEscolaBean.getListaFornecedorCidadeIdioma().size()) {
 				sql = sql + " or ";
 			}
-		}
-		sql = sql + " Group by f.produtosorcamento.idprodutosOrcamento " + " order by f.produtosorcamento.descricao";
+		}  
+		sql = sql + " order by f.produtosorcamento.descricao";
 		FornecedorCidadeIdiomaProdutoFacade fornecedorCidadeIdiomaProdutoFacade = new FornecedorCidadeIdiomaProdutoFacade();
 		List<Fornecedorcidadeidiomaproduto> lista = fornecedorCidadeIdiomaProdutoFacade.listar(sql);
 		if (lista == null) {
