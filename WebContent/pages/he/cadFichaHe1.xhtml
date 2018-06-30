@@ -160,13 +160,19 @@
 							<p:outputLabel value="1º Opção" style="font-size:13px;" />
 							<p:outputLabel />
 							<p:outputLabel />
+							
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Parceiro"/>
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
 								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
 							</h:panelGroup>
-							<p:outputLabel />
-
+							
+							<p:inputText id="parceiro1" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.instituicao1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 							<p:inputText id="curso1" style="width:85%;"
 								value="#{cadHeInscricaoMB.he.curso1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 							<h:panelGroup>
@@ -178,18 +184,21 @@
 							<p:outputLabel />
 							<p:outputLabel />
 							<p:outputLabel />
-							<p:outputLabel />
 
 							<p:outputLabel value="2º Opção" style="font-size:13px;" />
 							<p:outputLabel />
 							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Parceiro"/>
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
 								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
 							</h:panelGroup>
-							<p:outputLabel />
-
+							<p:inputText id="parceiro2" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.instituicao2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 							<p:inputText id="curso2" style="width:85%;"
 								value="#{cadHeInscricaoMB.he.curso2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 							<h:panelGroup>
@@ -201,17 +210,21 @@
 							<p:outputLabel />
 							<p:outputLabel />
 							<p:outputLabel />
-							<p:outputLabel />
 
 							<p:outputLabel value="3º Opção" style="font-size:13px;" />
 							<p:outputLabel />
 							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="Parceiro"/>
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
 								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
 							</h:panelGroup>
-							<p:outputLabel />
+							<p:inputText id="parceiro3" style="width:85%;"
+								value="#{cadHeInscricaoMB.he.instituicao3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 
 							<p:inputText id="curso3" style="width:85%;"
 								value="#{cadHeInscricaoMB.he.curso3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>

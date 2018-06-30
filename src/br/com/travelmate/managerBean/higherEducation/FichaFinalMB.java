@@ -557,7 +557,7 @@ public class FichaFinalMB implements Serializable{
 		session.setAttribute("nomePrograma", "He");
 		session.setAttribute("chamadaTela", "He");
 		session.setAttribute("listaHe", listaHe);
-		return "contratoHE";
+		return "contratoHeFinal";
 	}
 	
 //	public String contrato(ListaHeBean listaHeBean){

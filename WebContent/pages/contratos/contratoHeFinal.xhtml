@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Contrato de Higher Education</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SysTM 3.0</title>
+	<link rel="SHORTCUT ICON"
+		href="http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png" />
+	<!-- Bootstrap core CSS -->
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Endless -->
+	<link href="resources/css/endless.min.css" rel="stylesheet" />
+	<link href="resources/css/endless-skin.css" rel="stylesheet" />
+	<link href="resources/css/css.css" rel="stylesheet" />
+	<!-- charbar -->
+	<script src='resources/js/charBar.js'></script>
+</h:head>
+<h:body>
+	<div align="left">
+		<img src="../../resources/img/cabecalhoContrato.PNG" width="100%" />
+		<h:panelGrid rendered="true" columns="2"
+			style="width:100%;font-size:13px;font-size:13px;font-family: sans-serif;">
+			<p:outputLabel
+				value="#{fichaHEMB.vendas.produtos.descricao} : #{fichaHEMB.vendas.idvendas}" />
+			<p:outputLabel
+				value="Unidade:#{fichaHEMB.vendas.unidadenegocio.nomerelatorio}" />
+			<p:outputLabel value="Consultor: #{fichaHEMB.vendas.usuario.nome}" />
+			<p:outputLabel value="#{fichaHEMB.vendas.usuario.email}" />
+			<h:panelGroup>
+				<p:outputLabel value="Data da Venda: " />
+				<p:outputLabel value="#{fichaHEMB.vendas.dataVenda}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:outputLabel>
+
+			</h:panelGroup>
+		</h:panelGrid>
+
+	</div>
+	<br />
+
+	<div align="justify"
+		style="font-family: sans-serif; font-size: 13px; width: 100%;">
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+
+			<p style="margin: 1%;">
+				<b style="color: green;"> PARTES :</b> <br />
+				#{fichaHEMB.vendas.unidadenegocio.razaoSocial} , adiante apenas
+				TRAVELMATE ou TM ,pessoa jurídica de direito privado com sede social
+				na #{fichaHEMB.vendas.unidadenegocio.tipoLogradouro}
+				#{fichaHEMB.vendas.unidadenegocio.logradouro},
+				#{fichaHEMB.vendas.unidadenegocio.numero},
+				#{fichaHEMB.vendas.unidadenegocio.complemento} ,
+				#{fichaHEMB.vendas.unidadenegocio.bairro},
+				#{fichaHEMB.vendas.unidadenegocio.cidade} ,
+				#{fichaHEMB.vendas.unidadenegocio.estado}, CEP:
+				#{fichaHEMB.vendas.unidadenegocio.cep} , inscrita no CNPJ/MF sob nº
+				#{fichaHEMB.vendas.unidadenegocio.cnpj} , neste ato representada
+				pelo consultor #{fichaHEMB.vendas.usuario.nome} <br /> <br />
+				#{fichaHEMB.vendas.cliente.nome} , adiante apenas INTERCAMBISTA ,
+				#{fichaHEMB.vendas.cliente.paisNascimento} ,
+				#{fichaHEMB.vendas.cliente.estadoCivil} ,
+				#{fichaHEMB.vendas.cliente.profissao} portador do CI/RG de nº
+				#{fichaHEMB.vendas.cliente.rg} e inscrito no CPF/MF sob o nº
+				#{fichaHEMB.vendas.cliente.cpf} , residente e domiciliado na
+				#{fichaHEMB.vendas.cliente.tipologradouro}
+				#{fichaHEMB.vendas.cliente.logradouro} ,
+				#{fichaHEMB.vendas.cliente.numero} ,
+				#{fichaHEMB.vendas.cliente.bairro} ,
+				#{fichaHEMB.vendas.cliente.complemento} ,
+				#{fichaHEMB.vendas.cliente.cidade} ,
+				#{fichaHEMB.vendas.cliente.estado} , CEP:
+				#{fichaHEMB.vendas.cliente.cep} , têm entre si justos e acertados a
+				celebração de contrato de prestação de serviços de intercâmbio
+				cultural, nos termos e condições estabelecidas neste contrato.
+			</p>
+			<br />
+		</div>
+		<br />
+		<div
+			style="border: 2px solid; width: 100%; border-color: #9C9C9C; font-size: 13px;">
+
+			<p style="margin: 1%;">
+				<b style="color: green;">1. OBJETO</b> <br /> 1.1. O presente
+				contrato tem como objeto a prestação de serviços educacionais de
+				intercâmbio cultural pela TRAVELMATE em favor do INTERCAMBISTA,
+				visando para ingresso em instituição de ensino superior, incluindo
+				todas as atividades descritas neste instrumento. <br /> 1.2. Os
+				serviços prestados incluirão todas as etapas de confirmação de
+				matrículae instruções para reserva de moradia, seguro saúde e formas
+				de pagamento a universidade escolhida.
+
+			</p>
+
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 2. OBRIGAÇÕES DA TRAVELMATE
+					INTERCÂMBIO E TURISMO </b><br /> <br />2.1. São obrigações da
+				TRAVELMATE, no âmbito deste contrato: <br /> a) Assessorar o
+				INTERCAMBISTA nos processo de matrícula e acertos financeiros com a
+				instituição de ensino superior. <br /> b) A TRAVELMATE não é
+				responsável pela obtenção do visto de entrada do INTERCAMBISTA no
+				país escolhido, admitindo apenas a responsabilidade por providenciar
+				os documentos necessários para a solicitação do mesmo junto à
+				entidade internacional na qual o estudante está inscrito. O serviço
+				de assessoria especializada em vistos para auxílio no processo pode
+				ser contratado separadamente através do departamento de Vistos da
+				TRAVELMATE. <br /> c) Prestar serviços de assessoria como agente de
+				viagens para compra das passagens aéreas e atendimento exclusivo e
+				personalizado do INTERCAMBISTA na organização de sua viagem de ida e
+				volta, conforme os termos deste contrato . <br/>d) Os serviços de
+				assessoria da TRAVELMATE continuarão a disposição do INTERCAMBISTA
+				até o prazo de 60 (sessenta) dias após o início do curso superior na
+				instituição, visando questões ligadas a sua adaptação acadêmica,
+				esportiva, acertos financeiros e administrativos com a instituição.
+				Após este período os departamentos responsáveis da instituição irão
+				processar diretamente todas as solicitações.
+
+
+			</p>
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 3. OBRIGAÇÕES DO(A) PARTICIPANTE </b><br />
+				<br /> São
+				obrigações do INTERCAMBISTA, no âmbito deste contrato: <br /> a)
+				Obedecer rigorosamente às regras estabelecidas pela TRAVELMATE,
+				assim como da instituição de ensino superior a ser freqüentada. <br />
+				b)Encaminhar ao estabelecimento de ensino superior toda documentação
+				exigida de acordo com as solicitções da TRAVELMATE e dentro dos prazos
+				 apresentados pelo Departamento de Higher Education;
+				 <br /> Observação: Todas as despesas resultantes do
+				processo e execução destas atividades serão de responsabilidade do
+				estudante. <br /> Encaminhar ao estabelecimento de ensino superior
+				em negociação toda documentação exigida de acordo com as
+				solicitações da TRAVELMATE e dentro dos prazos apresentados pelo
+				Departamento de Higher Education; <br /> c) Acatar todas as
+				decisões de arbítrio das autoridades responsáveis pelo programa no
+				exterior, quer seja na conduta pessoal do INTERCAMBISTA jovem e no
+				seu desempenho acadêmico e conseqüente decisão de permanência ou não
+				no programa. <br /> d) Assumir os danos e despesas causadas a
+				terceiros, durante todas as fases do programa. <br /> e) Ser
+				aprovado nos exames de idioma estrangeiro obrigatórios e exigidos de
+				acordo com os pré-requisitos do programa acadêmico de interesse (se
+				aplicável). <br /> f) Se o INTERCAMBISTA não obter as médias
+				mínimas necessárias nos exames de proficiência da língua inglesa até
+				as datas limite impostas pelas universidades americanas, o início do
+				programa poderá ser prorrogado para o semestre letivo subseqüente
+				até que o estudante atinja os escores necessários. Neste sentido
+				este contrato terá a duração máxima de 18 meses. Se neste período o
+				estudante não estiver de acordo com os pré-requisitos do programa, a
+				busca pela proposta de colocação universitária será cancelada pela
+				TRAVELMATE, sem reembolso dos valores das taxas de serviço. <br />
+				g) Entender que a decisão de aceitação e progressão no programa
+				aplicado é exclusiva da instituição de ensino superior no exterior,
+				não cabendo a Travelmate responsabilidade por tal decisão.
+
+			</p>
+		</div>
+		<br />
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 4. VISTO CONSULAR </b><br /> <br /> 4.1
+				A TM não é responsável pela obtenção do visto de entrada no país
+				para participação no programa, mesmo quando esta intermedeie e
+				oriente no processo de solicitação do mesmo. A emissão do visto
+				adequado depende em última instância, única e exclusivamente, do
+				Consulado do país de destino que analisará o processo de solicitação
+				do(a) INTERCAMBISTA e julgará se este deve ou não ter o visto
+				concedido. <br /> 4.2 No caso do visto consular ser negado ao(à)
+				INTERCAMBISTA por parte da autoridade consular responsável no
+				Brasil, a devolução das quantias já pagas se dará conforme
+				estabelecido no item 6.1. <br /> 4.3 A TM não tem responsabilidade
+				por orientar o participante em processos de mudança, alteração ou
+				solicitação de extensão do visto do participante quando este já
+				esteja no país de destino; <br /> 4.4 As despesas de obtenção do
+				visto (taxas de agendamento, taxas consulares, taxa SEVIS, taxa de
+				emissão de visto, taxa de serviço de assessoria TM para visto e
+				despesas de viagem até o Consulado do país de destino) não estão
+				incluídas no valor do programa pago à TM e o pagamento das mesmas é
+				de responsabilidade do(a) PARTICIPANTE. Em caso de visto negado, não
+				há reembolso de tais despesas;
+
+			</p>
+		</div>
+		<br />
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 5. PAGAMENTO </b><br /> <br /> 5.1.
+				Pelos serviços que serão prestados em favor do INTERCAMBISTA, será
+				devido à TRAVELMATE a quantia estabelecida na Ficha Final
+				 número: anexo a este contrato. Salvo acordado pelas
+				partes de forma diversas, o montante estabelecido no formulário de
+				assessoria número: deverá ser integralmente adimplido de acordo com
+				as datas estipuladas neste contrato. <br /> 5.2. Todos os
+				pagamentos deverão ser efetuados em moeda corrente nacional,
+				independente de estarem fixados em moeda estrangeira. Neste caso, a
+				quantia em moeda estrangeira será convertida em Reais na data do
+				pagamento, pela cotação média praticada pelo mercado oficial de
+				câmbio, utilizando-se a cotação do dólar turismo. <br /> 5.3. Os
+				pagamentos deverão ocorrer nas datas estabelecidas na ficha final, sendo
+				estabelecido como local de pagamento o da sede da TRAVELMATE. Em
+				sendo do interesse das partes, a TRAVELMATE poderá emitir boleto de
+				cobrança bancária para os representantes legais do INTERCAMBISTA,
+				pelo que se encontra desde já autorizada. <br /> 5.4. As despesas
+				de outra natureza, tais como, por exemplo, mas não limitadas a, inscrição nos exames de
+				proficiência, tradução juramentada de documentos escolares, envio do
+				portfólio de apresentação, taxas de matrícula no college, taxas para
+				obtenção do visto consular, passagem aérea, taxas de aeroportos,
+				custos de embarque e desembarque, excesso de bagagem, correrão por
+				conta exclusiva do INTERCAMBISTA, não estando incluídas no valor
+				pago a TRAVELMATE.
+
+			</p>
+		</div>
+		<br />
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 6. RESCISÃO DO CONTRATO ANTES DO
+					EMBARQUE: DESISTÊNCIA OU CANCELAMENTO </b><br /> <br />6.1. Por
+				decisão do INTERCAMBISTA, o presente contrato poderá ser rescindido
+				antes da data de seu embarque para o exterior, sendo que neste caso
+				este será ressarcido pela TRAVELMATE da seguinte forma: <br /> (a)
+				 em caso de desistência do programa de
+				intercâmbio após a aprovação do intercambista no processo seletivo
+				da instituição de ensino superior e confirmação da matricula, será
+				retido a quantia de 30% do valor pago peloprimeiro semestredo curso da 
+				instituiçãode ensino superior em questão. <br /> 6.2. A TRAVELMATE se reserva o direito de
+				rescindir o presente contrato ocorrendo o inadimplemento pelo
+				INTERCAMBISTA das parcelas estabelecidas na ficha final
+				, efetuando a devolução das quantias já pagas na forma
+				estabelecida no item 6.1 deste instrumento.
+
+			</p>
+		</div>
+		<br />
+
+
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;\">
+				<b style="color: green;"> 7. DISPOSIÇÕES GERAIS </b><br /> <br />7.1.
+				Este contrato terá sua vigência iniciada na data de sua assinatura
+				pelas partes e seus representantes legais, extinguindo-se
+				ordinariamente por ocasião do retorno do INTERCAMBISTA ao seu país
+				de origem, desligamento do college canadense ou extraordinariamente
+				nos casos das cláusulas 6 e 7 supra. <br /> 7.2. O INTERCAMBISTA
+				autoriza o uso de sua imagem e depoimento no material de divulgação
+				da Travelmate para ser utilizado no site da empresa, redes sociais
+				bem como em materiais impressos. Somente a empresa Travelmate tem o
+				direito do uso das referidas imagens para exibição nos moldes
+				propostos, não possuindo o direito de ceder ou vendê-las a
+				terceiros.
+
+			</p>
+		</div>
+		<br />
+
+
+
+		<div align="left">
+			<img src="../../resources/img/opcoesPagamento.PNG" width="47%" />
+		</div>
+		<br />
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<div style="width: 100%; background-color: #CFCFCF;">
+
+				<table border="0" style="width: 100%;">
+					<tr>
+						<td><h:panelGroup style="margin-left:2%;">VALOR TOTAL</h:panelGroup>
+						</td>
+						<td style="float: right; width: 40%;"><h:panelGroup>
+									#{fichaHEMB.vendas.cambio.moedas.sigla}: 
+									 <h:outputText value="#{fichaHEMB.totalPagamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</h:panelGroup></td>
+						<td style="float: right; width: 40%;"><h:panelGroup
+								style="margin-left:20%;">
+									R$:  
+									 <h:outputText
+									value="#{fichaHEMB.vendas.formapagamento.valorOrcamento}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</h:panelGroup></td>
+					</tr>
+				</table>
+			</div>
+			<hr style="margin: 1%;" />
+			<h:panelGrid style="width:100%;margin:1%;" columns="1">
+				<h:panelGroup>Moeda: #{fichaHEMB.vendas.cambio.moedas.sigla} 
+				  <h:outputText value="#{fichaHEMB.vendas.cambio.valor}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText> 
+				| Valor Juros: R$ <h:outputText
+						value="#{fichaHEMB.vendas.formapagamento.valorJuros}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText> 
+				| Valor Final: R$ <h:outputText
+						value="#{fichaHEMB.vendas.formapagamento.valorTotal}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</h:panelGroup>
+
+			</h:panelGrid>
+			<br />
+			<div style="margin-left: 1%;">
+				<ui:repeat var="parcelamento"
+					value="#{fichaHEMB.vendas.formapagamento.parcelamentopagamentoList}"
+					varStatus="statuss">
+					<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
+					<hr style="width: 99%; float: left;" />
+					<h:panelGrid style="width:100%;" columns="4">
+						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+								value="#{parcelamento.valorParcelamento}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+
+						<h:panelGroup>
+								Data Vencimento: <h:outputText
+								value="#{parcelamento.diaVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup>
+								N° Parcelas: #{parcelamento.numeroParcelas}
+							</h:panelGroup>
+						<h:panelGroup>
+								Valor Parcela: R$ <h:outputText
+								value="#{parcelamento.valorParcela}">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</h:outputText>
+						</h:panelGroup>
+					</h:panelGrid>
+					<br />
+				</ui:repeat>
+			</div>
+
+		</div>
+		<br /> <br />
+		<div align="left">
+			<img src="../../resources/img/assinaturaContrato.PNG" width="40%" />
+		</div>
+		<br />
+
+
+		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
+			<p style="margin: 1%;">Sendo que o(a) PARTICIPANTE e seus
+				representantes legais afirmam estarem cientes dos termos deste
+				contrato, concordando com as regras e condições para prestação do
+				serviço tal como proposto pela TRAVELMATE , celebram o presente
+				contrato em 02 vias de igual teor e forma e na presença de 2 (duas)
+				testemunhas.As partes elegem o foro da Comarca de
+				#{fichaHEMB.vendas.unidadenegocio.cidade} -
+				#{fichaHEMB.vendas.unidadenegocio.estado} para dirimir quaisquer
+				problemas provenientes do presente contrato, renunciando
+				expressamente a qualquer outro por mais privilegiado que seja.</p>
+		</div>
+		<br />
+		<div align="left" style="color: green;">
+			<b>
+				#{fichaHEMB.vendas.unidadenegocio.cidade}/#{fichaHEMB.vendas.unidadenegocio.estado},
+				#{fichaHEMB.dataExtanso} </b>
+		</div>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>Assinatura do(a) #{fichaHEMB.vendas.cliente.nome} - CPF:
+			#{fichaHEMB.vendas.cliente.cpf}</p>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>Assinatura do responsável (aquele que responde pelo
+			participante no Brasil)</p>
+		<br /> <br /> <br /> <br />
+		<hr width="80%" align="left" />
+		<p>
+			#{fichaHEMB.vendas.unidadenegocio.razaoSocial}<br /> CNPJ/MF n°
+			#{fichaHEMB.vendas.unidadenegocio.cnpj}
+		</p>
+	</div>
+</h:body>
+</html>
