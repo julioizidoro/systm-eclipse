@@ -434,6 +434,7 @@ public class QuestionarioMB implements Serializable{
 				QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
 				questionarioHeFacade.salvar(questionariohe);
 			}
+			situacaoLista = "";
 		}
 	}
 	
