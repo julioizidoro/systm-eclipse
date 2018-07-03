@@ -1205,11 +1205,6 @@ public class CursoMB implements Serializable {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("vendas", curso.getVendas());
-			SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
-			Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(curso.getVendas().getIdvendas());
-			if (seguro != null) {
-				curso.getVendas().setValor(curso.getVendas().getValor() + seguro.getValorSeguro());
-			}
 			session.setAttribute("voltar", "consultafichacurso");
 			return "emissaocancelamento";
 		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {

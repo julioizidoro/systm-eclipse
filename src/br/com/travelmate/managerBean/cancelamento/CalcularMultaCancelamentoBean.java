@@ -39,7 +39,7 @@ public class CalcularMultaCancelamentoBean {
 			return 0.0f;
 		}else if (idcondicao==2){
 			if (cancelamento.getVendas().getProdutos().getIdprodutos()==1) {
-				valorSeguro = consultarValorSeguro(cancelamento.getVendas().getIdlead());
+				valorSeguro = consultarValorSeguro(cancelamento.getVendas().getIdvendas());
 			}
 			return (float) ((cancelamento.getVendas().getValor() + valorSeguro) * 0.30);
 		}else if (idcondicao==3){

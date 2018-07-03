@@ -33,7 +33,7 @@
 						value="#{emissaoCancelamentoMB.cancelamento.vendas.produtos.descricao}"
 						style="width:85%;" readonly="true" />
 					<p:inputText id="totalvenda"
-						value="#{emissaoCancelamentoMB.cancelamento.vendas.valor}"
+						value="#{emissaoCancelamentoMB.calcularTotalVenda()}"
 						style="width:85%;text-align:right;" readonly="true">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</p:inputText>

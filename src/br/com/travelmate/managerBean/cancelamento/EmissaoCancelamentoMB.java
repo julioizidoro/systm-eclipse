@@ -33,6 +33,7 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CreditoFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.ProductRunnersMB;
@@ -47,6 +48,7 @@ import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Pincambio;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -808,6 +810,21 @@ public class EmissaoCancelamentoMB implements Serializable {
 					cancelamento.getVendas().getCambio().getMoedas().getSigla(), "A",
 					departamento.get(0), "cancelado", "I");
 		}
+	}
+	
+	public Float calcularTotalVenda() {
+		float valor = cancelamento.getVendas().getValor();
+		if (cancelamento.getVendas().getProdutos().getIdprodutos()==1) {
+			Float valorSeguro = 0.0f;
+			SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+			Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(cancelamento.getVendas().getIdvendas());
+			if (seguro!=null) {
+				valorSeguro = seguro.getVendas().getValor();
+			}
+			valor = valor + valorSeguro;
+			
+		}
+		return valor;
 	}
 
 }
