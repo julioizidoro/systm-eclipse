@@ -352,11 +352,7 @@ public class FormAssessoriaMB implements Serializable{
 	}
 
 	public void gerarListaHe() {
-		int ano = Formatacao.getAnoData(new Date());
-		int mes = Formatacao.getMesData(new Date()); 
-		Calendar c = new GregorianCalendar(ano, mes, 1); 
-		Date data = c.getTime();
-		String dataConsulta = Formatacao.ConvercaoDataSql(data);
+		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 90, "yyyy-MM-dd");
 		
 
 		// ficha inscricao

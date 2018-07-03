@@ -481,7 +481,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 				dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
 				dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
 				dashBoardBean.calcularPontuacao(vendas, 0, "", true);
-				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), true);
+				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true);
 				vendas.setSituacao("CANCELADA");
 				vendasFacade.salvar(vendas);
 				FacesContext fc = FacesContext.getCurrentInstance();
@@ -604,7 +604,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 		for (int i = 0; i < vendas.getContasreceberList().size(); i++) {
 			if (vendas.getContasreceberList().get(i).getValorpago() > 0.0f
 					&& !vendas.getContasreceberList().get(i).getSituacao().equalsIgnoreCase("cc")) {
-				valorTotalMatriz = valorTotalMatriz + vendas.getContasreceberList().get(i).getValorpago();
+				valorTotalMatriz = valorTotalMatriz + vendas.getContasreceberList().get(i).getValorparcela();
 			}
 		}
 		Formapagamento forma = vendas.getFormapagamento();

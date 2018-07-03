@@ -1307,7 +1307,8 @@ public class CadAupairMB implements Serializable {
 								dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 								dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 								int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false);
-								productRunnersMB.calcularPontuacao(venda, pontos[0], false);
+								int pontoremover = vendaAlterada.getPonto();
+								productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false);
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
 								VendasFacade vendasFacade = new VendasFacade();

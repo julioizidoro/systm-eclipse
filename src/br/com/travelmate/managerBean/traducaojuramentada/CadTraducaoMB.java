@@ -782,7 +782,7 @@ public class CadTraducaoMB implements Serializable {
 				venda.setPontoescola(pontos[1]);
 				VendasFacade vendaFacade = new VendasFacade();
 				venda = vendaFacade.salvar(venda);
-				productRunnersMB.calcularPontuacao(venda, pontos[0], false);
+				productRunnersMB.calcularPontuacao(venda, pontos[0], 0, false);
 				mateRunnersMB.carregarListaRunners(); 
 				tmRaceMB.gerarListaGold();
 				tmRaceMB.gerarListaSinze();
@@ -817,7 +817,7 @@ public class CadTraducaoMB implements Serializable {
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendaFacade = new VendasFacade();
 					venda = vendaFacade.salvar(venda);
-					productRunnersMB.calcularPontuacao(venda, pontos[0], false);
+					productRunnersMB.calcularPontuacao(venda, pontos[0], 0, false);
 					mateRunnersMB.carregarListaRunners();
 					tmRaceMB.gerarListaGold();
 					tmRaceMB.gerarListaSinze();

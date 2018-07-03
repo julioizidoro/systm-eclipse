@@ -537,7 +537,12 @@ public class ArquivoMB implements Serializable {
 			}
 		}
 		session.setAttribute("listaArquivo", listaArquivoSelecionado);
-		session.setAttribute("cliente", vendas.getCliente());
+		if (vendas.getProdutos().getIdprodutos()==22) {
+			session.setAttribute("cliente", cliente);
+		}else {
+			session.setAttribute("cliente", vendas.getCliente());
+		}
+		
 		RequestContext.getCurrentInstance().openDialog("enviarEmail", options, null);
 	}
 	

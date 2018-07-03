@@ -1581,7 +1581,8 @@ public class CadCursoMB implements Serializable {
 								dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 								dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 								int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false);
-								productRunnersMB.calcularPontuacao(venda, pontos[0], false);
+								int pontosremover = vendaAlterada.getPonto();
+								productRunnersMB.calcularPontuacao(venda, pontos[0], pontosremover, false);
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
 								VendasFacade vendasFacade = new VendasFacade();
@@ -1919,8 +1920,8 @@ public class CadCursoMB implements Serializable {
 							vendaSeguro.setPonto(pontos[0]);
 							vendaSeguro.setPontoescola(pontos[1]);
 							vendaSeguro = vendasFacade.salvar(vendaSeguro);
-							metaRunnersMB.carregarListaRunners();
-							productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], false);
+							//metaRunnersMB.carregarListaRunners();
+							//productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], 0, false);
 						}
 						
 					}

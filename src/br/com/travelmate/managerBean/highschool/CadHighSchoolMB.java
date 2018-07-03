@@ -1266,7 +1266,8 @@ public class CadHighSchoolMB implements Serializable {
 								programa = "Ano";
 							}
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, programa, false);
-							productRunnersMB.calcularPontuacao(venda, pontos[0], false);
+							int pontoremover = vendaAlterada.getPonto();
+							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false);
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();

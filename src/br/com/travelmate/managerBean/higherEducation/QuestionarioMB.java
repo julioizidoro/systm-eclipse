@@ -289,11 +289,8 @@ public class QuestionarioMB implements Serializable{
 
 
 	public void gerarListaQuestionario() {
-		int ano = Formatacao.getAnoData(new Date());
-		int mes = Formatacao.getMesData(new Date());
-		Calendar c = new GregorianCalendar(ano, mes, 1);
-		Date data = c.getTime();
-		String dataConsulta = Formatacao.ConvercaoDataSql(data);
+		
+		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 90, "yyyy-MM-dd");
 		listaQuestionario = null;
 		String sqlQuestionario = "Select q From Questionariohe q where q.dataenvio>='" + dataConsulta + "'";
 				

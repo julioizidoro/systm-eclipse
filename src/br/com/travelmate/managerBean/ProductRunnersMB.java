@@ -190,7 +190,7 @@ public class ProductRunnersMB implements Serializable{
 	}
 	
 	
-	public void calcularPontuacao(Vendas vendas, int pontos, boolean cancelamento){
+	public void calcularPontuacao(Vendas vendas, int pontos, int pontoremover, boolean cancelamento){
 		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		Corridaprodutomes corridaprodutomes;
@@ -237,7 +237,7 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutomes.setUsuario(vendas.getUsuario());
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}else{
-				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos);
+				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos - pontoremover);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}
 			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
@@ -250,7 +250,7 @@ public class ProductRunnersMB implements Serializable{
 				corridaprodutoano.setUsuario(vendas.getUsuario());
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}else{
-				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos);
+				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos - pontoremover);
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}
 		}

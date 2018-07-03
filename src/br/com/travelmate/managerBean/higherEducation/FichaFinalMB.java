@@ -340,11 +340,8 @@ public class FichaFinalMB implements Serializable{
 	}
 
 	public void gerarListaHe() {
-		int ano = Formatacao.getAnoData(new Date());
-		int mes = Formatacao.getMesData(new Date()); 
-		Calendar c = new GregorianCalendar(ano, mes, 1); 
-		Date data = c.getTime();
-		String dataConsulta = Formatacao.ConvercaoDataSql(data);
+		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 90, "yyyy-MM-dd");
+		
 		
 		// ficha inscricao
 		String sqlFicha2 = "Select h From He h where h.vendas.dataVenda>='" + dataConsulta + "' and h.fichafinal=TRUE";
@@ -799,8 +796,10 @@ public class FichaFinalMB implements Serializable{
 	
 	
 	public String retornarIconeObsTM(He he){
-		if (he.getVendas().getObstm() != null && he.getVendas().getObstm().length() > 0) {
-			return "../../resources/img/obsVermelha.png";
+		if (he!=null) {
+			if (he.getVendas().getObstm() != null && he.getVendas().getObstm().length() > 0) {
+				return "../../resources/img/obsVermelha.png";
+			}
 		}
 		return "../../resources/img/obsFicha.png";
 	}
