@@ -11,32 +11,14 @@
 			<div id="centro">
 				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
 				<br></br>
-				<p:accordionPanel class="painel" activeIndex="-1">
-					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
-						title="Pesquisar">
-						<div style="width: 100%;">
-							<h:panelGrid columns="3" >
-								<p:outputLabel value="Nome" for="nome" />  
-								<p:outputLabel/>
-								<p:outputLabel/>
-								
-								<p:inputText id="nome" size="45" value="#{cartaoCreditoMB.nome}" /> 
-								<p:commandButton id="btnPesquisar" action="#{cartaoCreditoMB.pesquisar()}" value="Pesquisar"
-									style="margin-left:6%" icon=" ui-icon-search " update="consCartaoCredito:tabelaCartaoCredito" />
-								<p:commandButton id="btnLimpar" action="#{cartaoCreditoMB.limpar()}" value="Limpar"
-									style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
-									update="consCartaoCredito:tabelaCartaoCredito, nome" />
-							</h:panelGrid>
-						</div> 
-					</p:tab> 
-				</p:accordionPanel>
+			
  
 				<legend id="iUsu2">
 					<b>Consulta de Cartão de Crédito</b>
 				</legend>
 				<div align="right" style="width: 85%; margin-left: 8%;">
 					<p:commandButton id="btnNovo" value="Novo Cartão"
-						icon="ui-icon-plus" action="#{cartaoCreditoMB.novo()}"  
+						icon="ui-icon-plus" action="#{cartaoCreditoMB.novo()}" disabled="#{cartaoCredito.botaoNovo}"  
 						style="font-size:12px;" />
 				</div>  
 				<br></br>
@@ -50,10 +32,14 @@
 						<p:column headerText="Nome" style="width:150px;">
 							<h:outputText value="#{cataocredito.nome}" />
 						</p:column>
+						
 						<p:column headerText="Validade" style="width:80px;">
 							<h:outputText value="#{cataocredito.validade}" >
 								
 							</h:outputText>      
+						</p:column>
+						<p:column headerText="CV" style="width:30px;">
+							<h:outputText value="#{cataocredito.cv}" />
 						</p:column>
 						<p:column headerText="Bandeira" style="width:150px;">
 							<h:outputText value="#{cataocredito.bandeira}" />
@@ -66,7 +52,7 @@
 						</p:column> 
 						<p:column style="width:40px;text-align:left;">
 							<p:commandLink action="#{cartaoCreditoMB.editar(cataocredito)}" title="Editar"
-								style="text-decoration: none">
+								style="text-decoration: none" disabled="#{cartaoCredito.botaoEditar}">
 								<img src="../../resources/img/editaricon.png" />
 							</p:commandLink>
 						</p:column> 

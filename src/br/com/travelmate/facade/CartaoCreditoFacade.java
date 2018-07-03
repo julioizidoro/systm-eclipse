@@ -21,15 +21,6 @@ public class CartaoCreditoFacade {
     
     CartaoCreditoDao cartaoCreditoDao;
     
-    public List<Cartaocredito> listar() {
-    	cartaoCreditoDao = new CartaoCreditoDao();
-        try {
-            return cartaoCreditoDao.listar();
-        } catch (SQLException ex) {
-            Logger.getLogger(CartaoCreditoFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
     
     
     public List<Cartaocredito> listar(String sql) {

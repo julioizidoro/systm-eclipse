@@ -51,6 +51,11 @@ public class Cartaocredito implements Serializable {
 	private int datavencimento;
     @Column(name = "datafechamento")
    	private int datafechamento;
+    @Column(name = "situacao")
+   	private boolean situacao;
+    @JoinColumn(name = "unidadeNegocio_idunidadeNegocio", referencedColumnName = "idunidadeNegocio")
+	@ManyToOne(optional = false)
+	private Unidadenegocio unidadenegocio;
 
     public Cartaocredito() {
     }
@@ -129,6 +134,22 @@ public class Cartaocredito implements Serializable {
 
 	public void setDatafechamento(int datafechamento) {
 		this.datafechamento = datafechamento;
+	}
+
+	public boolean isSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(boolean situacao) {
+		this.situacao = situacao;
+	}
+
+	public Unidadenegocio getUnidadenegocio() {
+		return unidadenegocio;
+	}
+
+	public void setUnidadenegocio(Unidadenegocio unidadenegocio) {
+		this.unidadenegocio = unidadenegocio;
 	}
 
 	@Override

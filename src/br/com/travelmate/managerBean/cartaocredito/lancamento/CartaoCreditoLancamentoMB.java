@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +21,7 @@ import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cartaocredito;
 import br.com.travelmate.model.Cartaocreditolancamento;
 import br.com.travelmate.model.Contaspagar; 
@@ -35,7 +37,10 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private String descricao=""; 
 	private List<Cartaocredito> listaCartaoCredito; 
 	private Cartaocredito cartaocredito; 
@@ -199,8 +204,13 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 
 
 	public void gerarlistaCartaoCredito(){
+		String sql = "select c from Cartaocredito c where c.situacao=1";
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)) {
+			sql = sql + " and c.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}
+		sql = sql + " order by c.nome";
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
-        listaCartaoCredito = cartaoCreditoFacade.listar();
+        listaCartaoCredito = cartaoCreditoFacade.listar(sql);
         if (listaCartaoCredito==null){
         	listaCartaoCredito = new ArrayList<Cartaocredito>();
         }
@@ -282,7 +292,11 @@ public class CartaoCreditoLancamentoMB implements Serializable{
 		List<Cartaocreditolancamento> listaFatura = new ArrayList<>();
 		CartaoCreditoLancamentoFacade cartaoCreditoLancamentoFacade = new CartaoCreditoLancamentoFacade();
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 60, "yyyy-MM-dd");
-		String sql="select c from Cartaocreditolancamento c where c.data>='"+dataConsulta+"' and c.lancado=0 order by c.data desc";
+		String sql="select c from Cartaocreditolancamento c where c.data>='"+dataConsulta+"' and c.lancado=0 ";
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)) {
+			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		sql = sql + " order by c.data desc";
 		listaLancamento = cartaoCreditoLancamentoFacade.listar(sql);
 		if (listaLancamento == null) {
 			listaLancamento = new ArrayList<Cartaocreditolancamento>();

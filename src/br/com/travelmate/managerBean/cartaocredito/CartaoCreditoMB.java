@@ -7,10 +7,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.CartaoCreditoFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cartaocredito; 
 
 @Named
@@ -21,11 +23,23 @@ public class CartaoCreditoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private String nome=""; 
 	private List<Cartaocredito> listaCartaoCredito; 
+	private String  botaoNovo;
+	private String botaoEditar;
 	
 	@PostConstruct
 	public void init() { 
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==1) || (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()==3)) {
+			botaoNovo = "false";
+			botaoEditar = "false";
+		}else {
+			botaoNovo = "true";
+			botaoEditar = "true";
+		}
 		gerarlistaCartaoCredito(); 
 	}
 	
@@ -50,10 +64,37 @@ public class CartaoCreditoMB implements Serializable{
 	public String novo(){
         return "cadCartaoCredito";
     }
+	
+	
  
+	public String getBotaoNovo() {
+		return botaoNovo;
+	}
+
+
+	public void setBotaoNovo(String botaoNovo) {
+		this.botaoNovo = botaoNovo;
+	}
+
+
+	public String getBotaoEditar() {
+		return botaoEditar;
+	}
+
+
+	public void setBotaoEditar(String botaoEditar) {
+		this.botaoEditar = botaoEditar;
+	}
+
+
 	public void gerarlistaCartaoCredito(){
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
-        listaCartaoCredito = cartaoCreditoFacade.listar();
+		String sql = "select c from Cartaocredito c where c.situacao=1";
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)) {
+			sql = sql + " and c.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}
+		sql = sql + " order by c.nome";
+        listaCartaoCredito = cartaoCreditoFacade.listar(sql);
         if (listaCartaoCredito==null){
         	listaCartaoCredito = new ArrayList<Cartaocredito>();
         }

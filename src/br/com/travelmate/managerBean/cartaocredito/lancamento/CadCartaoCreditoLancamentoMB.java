@@ -274,8 +274,13 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	}
 
 	public void gerarlistaCartaoCredito() {
+		String sql = "select c from Cartaocredito c where c.situacao=1";
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)) {
+			sql = sql + " and c.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}
+		sql = sql + " order by c.nome";
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
-		listaCartaoCredito = cartaoCreditoFacade.listar();
+		listaCartaoCredito = cartaoCreditoFacade.listar(sql);
 		if (listaCartaoCredito == null) {
 			listaCartaoCredito = new ArrayList<Cartaocredito>();
 		}

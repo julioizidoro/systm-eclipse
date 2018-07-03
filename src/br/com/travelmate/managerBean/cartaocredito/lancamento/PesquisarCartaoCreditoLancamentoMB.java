@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.CartaoCreditoFacade;
 import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cartaocredito;
 import br.com.travelmate.model.Cartaocreditolancamento;
 
@@ -27,6 +29,8 @@ public class PesquisarCartaoCreditoLancamentoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Cartaocredito> listaCartaoCredito;
 	private Cartaocredito cartaocredito;
 	private String mes;
@@ -91,8 +95,13 @@ public class PesquisarCartaoCreditoLancamentoMB implements Serializable{
 
 
 	public void gerarlistaCartaoCredito() {
+		String sql = "select c from Cartaocredito c where c.situacao=1";
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)) {
+			sql = sql + " and c.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}
+		sql = sql + " order by c.nome";
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
-		listaCartaoCredito = cartaoCreditoFacade.listar();
+		listaCartaoCredito = cartaoCreditoFacade.listar(sql);
 		if (listaCartaoCredito == null) {
 			listaCartaoCredito = new ArrayList<Cartaocredito>();
 		}

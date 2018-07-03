@@ -56,6 +56,12 @@
 	<field name="dataenviopassagem" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nomePai" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeMae" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="familia" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -84,7 +90,7 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="39" splitType="Stretch">
+		<band height="55" splitType="Stretch">
 			<staticText>
 				<reportElement style="Column header" x="143" y="3" width="61" height="15" forecolor="#333333" uuid="20675a62-e27f-43d2-952c-43166abf1d2d"/>
 				<textElement>
@@ -183,12 +189,26 @@
 				</textElement>
 				<text><![CDATA[Envio Passagem]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="7" y="39" width="124" height="15" forecolor="#333333" uuid="90608e2b-0fe0-4928-9bb3-412d2d169f39"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nome do Pai]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="319" y="39" width="124" height="15" forecolor="#333333" uuid="fc8b9451-38c3-4d91-be8a-c8daa4f00de7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nome da Mãe]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="51" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="3" width="802" height="45" uuid="ee86d585-c7cb-4176-b6d0-71932d13f089"/>
+				<reportElement x="0" y="3" width="802" height="71" uuid="ee86d585-c7cb-4176-b6d0-71932d13f089"/>
 				<graphicElement>
 					<pen lineColor="#999999"/>
 				</graphicElement>
@@ -290,6 +310,20 @@
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dataenviopassagem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="7" y="49" width="294" height="15" uuid="4b9fdb71-7865-42e6-8b9e-29c513329af3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomePai}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" x="319" y="49" width="294" height="15" uuid="3f33a71d-7258-40d6-a0cf-20be1c5ec5a1"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeMae}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

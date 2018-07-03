@@ -158,7 +158,7 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
         String sql = "SELECT distinct cliente.nome, cliente.dataNascimento, vendas.dataVenda, cliente.foneCelular,"
                 + " cliente.email, cliente.fonePai, cliente.foneMae, unidadenegocio.nomerelatorio, highschool.duracaoIntercambio,"
                 + " highschool.escolaIntercambio as nomeEscola, controlehighschool.dataEnvioApp, controlehighschool.datadocumentacaovisto,"
-                + " controlehighschool.datacomprovantepagamento, controlehighschool.dataenviopassagem, controlehighschool.familia"
+                + " controlehighschool.datacomprovantepagamento, controlehighschool.dataenviopassagem, controlehighschool.familia, cleitne.nomePai, cliente.nomeMae"
             	+ " FROM Controlehighschool JOIN vendas on controlehighschool.vendas_idvendas = vendas.idvendas"
                 + " JOIN cliente on vendas.cliente_idcliente = cliente.idcliente"
                 + " JOIN highschool on controlehighschool.highschool_idhighschool = highschool.idhighschool"
@@ -213,7 +213,7 @@ public class RelatorioGeralHighSchoolMB implements Serializable{
     	FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
     	String sql = "SELECT f FROM Fornecedorcidade f WHERE f.fornecedor.idfornecedor>1000"
     			+ " AND f.produtos.idprodutos="+aplicacaoMB.getParametrosprodutos().getHighSchool()
-    			+ " GROUP BY f.fornecedor.idfornecedor ORDER BY f.fornecedor.nome";
+    			+ " ORDER BY f.fornecedor.nome";
     	listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
     }
 }

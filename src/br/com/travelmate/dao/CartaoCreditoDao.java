@@ -14,12 +14,6 @@ import javax.persistence.Query;
  */
 public class CartaoCreditoDao {
     
-    public List<Cartaocredito> listar() throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
-        Query q = manager.createQuery("select c from Cartaocredito c order by c.nome");
-        List<Cartaocredito> lista = q.getResultList();
-        return lista;
-    }
     
     
     public List<Cartaocredito> listar(String sql) throws SQLException{

@@ -833,13 +833,16 @@
 														action="#{menuMB.consLancamentoCartao()}">
 														<span class="subsubmenu-label">Lançamentos</span>
 													</p:commandLink></li>
-												<li><p:commandLink
+												<h:panelGroup rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatoriocartaocredito}">
+													<li><p:commandLink
 														action="#{menuMB.pesquisarLancamentosCredito()}">
 														<span class="subsubmenu-label">Relatório</span>
 														<p:ajax event="dialogReturn"
 															listener="#{menuMB.retornoDialogPesquisaLancamentos}"
 															update="@form" />
 													</p:commandLink></li>
+												</h:panelGroup>
+												
 											</ul></li>
 									</h:panelGroup>
 									<h:panelGroup
