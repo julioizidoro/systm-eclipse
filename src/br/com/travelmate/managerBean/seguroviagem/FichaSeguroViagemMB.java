@@ -1012,9 +1012,9 @@ public class FichaSeguroViagemMB implements Serializable {
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 							dashBoardBean.calcularMetaMensal(vendas, 0, false);
 							dashBoardBean.calcularMetaAnual(vendas, 0, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false);
+							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false, vendas.getUsuario());
 							int pontoremover = vendaAlterada.getPonto();
-							productRunnersMB.calcularPontuacao(vendas, pontos[0], pontoremover, false);
+							productRunnersMB.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
@@ -1086,9 +1086,9 @@ public class FichaSeguroViagemMB implements Serializable {
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularMetaMensal(vendas, valorVendaAlterar, false);
 						dashBoardBean.calcularMetaAnual(vendas, valorVendaAlterar, false);
-						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false);
+						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false, vendas.getUsuario());
 						int pontoremover = vendaAlterada.getPonto();
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], pontoremover, false);
+						productRunnersMB.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();

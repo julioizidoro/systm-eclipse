@@ -190,7 +190,7 @@ public class ProductRunnersMB implements Serializable{
 	}
 	
 	
-	public void calcularPontuacao(Vendas vendas, int pontos, int pontoremover, boolean cancelamento){
+	public void calcularPontuacao(Vendas vendas, int pontos, int pontoremover, boolean cancelamento, Usuario usuario){
 		CorridaProdutoMesFacade corridaProdutoMesFacade = new CorridaProdutoMesFacade();
 		CorridaProdutoAnoFacade corridaProdutoAnoFacade = new CorridaProdutoAnoFacade();
 		Corridaprodutomes corridaprodutomes;
@@ -199,27 +199,27 @@ public class ProductRunnersMB implements Serializable{
 		int ano = Formatacao.getAnoData(new Date());
 		if (cancelamento) {
 			corridaprodutomes = corridaProdutoMesFacade.consultar("SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + 
-					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + usuario.getIdusuario());
 			if (corridaprodutomes == null) {
 				corridaprodutomes = new Corridaprodutomes();
 				corridaprodutomes.setAno(ano);
 				corridaprodutomes.setMes(mes);
 				corridaprodutomes.setPontos(0);
 				corridaprodutomes.setProdutos(vendas.getProdutos());
-				corridaprodutomes.setUsuario(vendas.getUsuario());
+				corridaprodutomes.setUsuario(usuario);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}else{
 				corridaprodutomes.setPontos(corridaprodutomes.getPontos() - pontos);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}
 			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
-					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + usuario.getIdusuario());
 			if (corridaprodutoano == null) {
 				corridaprodutoano = new Corridaprodutoano();
 				corridaprodutoano.setAno(ano);
 				corridaprodutoano.setPontos(0);
 				corridaprodutoano.setProdutos(vendas.getProdutos());
-				corridaprodutoano.setUsuario(vendas.getUsuario());
+				corridaprodutoano.setUsuario(usuario);
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}else{
 				corridaprodutoano.setPontos(corridaprodutoano.getPontos() - pontos);
@@ -227,27 +227,27 @@ public class ProductRunnersMB implements Serializable{
 			}
 		}else{
 			corridaprodutomes = corridaProdutoMesFacade.consultar("SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + 
-					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + usuario.getIdusuario());
 			if (corridaprodutomes == null) {
 				corridaprodutomes = new Corridaprodutomes();
 				corridaprodutomes.setAno(ano);
 				corridaprodutomes.setMes(mes);
 				corridaprodutomes.setPontos(pontos);
 				corridaprodutomes.setProdutos(vendas.getProdutos());
-				corridaprodutomes.setUsuario(vendas.getUsuario());
+				corridaprodutomes.setUsuario(usuario);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}else{
 				corridaprodutomes.setPontos(corridaprodutomes.getPontos() + pontos - pontoremover);
 				corridaprodutomes = corridaProdutoMesFacade.salvar(corridaprodutomes);
 			}
 			corridaprodutoano = corridaProdutoAnoFacade.consultar("SELECT c FROM Corridaprodutoano c WHERE  c.ano=" + ano + 
-					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + vendas.getUsuario().getIdusuario());
+					" and c.produtos.idprodutos=" + vendas.getProdutos().getIdprodutos() + " and c.usuario.idusuario=" + usuario.getIdusuario());
 			if (corridaprodutoano == null) {
 				corridaprodutoano = new Corridaprodutoano();
 				corridaprodutoano.setAno(ano);
 				corridaprodutoano.setPontos(pontos);
 				corridaprodutoano.setProdutos(vendas.getProdutos());
-				corridaprodutoano.setUsuario(vendas.getUsuario());
+				corridaprodutoano.setUsuario(usuario);
 				corridaprodutoano = corridaProdutoAnoFacade.salvar(corridaprodutoano);
 			}else{
 				corridaprodutoano.setPontos(corridaprodutoano.getPontos() + pontos - pontoremover);

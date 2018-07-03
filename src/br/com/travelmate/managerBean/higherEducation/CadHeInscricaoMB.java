@@ -1246,12 +1246,12 @@ public class CadHeInscricaoMB implements Serializable {
 					dashBoardBean.calcularMetaAnual(venda, 0, false);
 					int[] pontos;
 					if(he.getNumerosemanas()!=null && he.getNumerosemanas()>0){
-						pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Inscrição", false);
+						pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Inscrição", false, venda.getUsuario());
 					}else{
-						pontos = dashBoardBean.calcularPontuacao(venda, 0, "Inscrição", false);
+						pontos = dashBoardBean.calcularPontuacao(venda, 0, "Inscrição", false, venda.getUsuario());
 					}
 					int pontoremover = vendaAlterada.getPonto();
-					productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false);
+					productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false,venda.getUsuario() );
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
@@ -1317,16 +1317,16 @@ public class CadHeInscricaoMB implements Serializable {
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterada, false);
 							int[] pontos;
 							if(he.getNumerosemanas()!=null && he.getNumerosemanas()>0){
-								pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Inscrição", false);
+								pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Inscrição", false, venda.getUsuario());
 							}else{
-								pontos = dashBoardBean.calcularPontuacao(venda, 0, "Inscrição", false);
+								pontos = dashBoardBean.calcularPontuacao(venda, 0, "Inscrição", false, venda.getUsuario());
 							}
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
 							int pontoremover = vendaAlterada.getPonto();
-							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 							metaRunnersMB.carregarListaRunners();
 						}
 						String titulo = "Ficha de Higher Education Alterada";

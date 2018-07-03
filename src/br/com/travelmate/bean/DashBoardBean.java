@@ -200,21 +200,21 @@ public class DashBoardBean {
 		}
 	}
 
-	public int[] calcularPontuacao(Vendas venda, int numeroSemanas, String programa, boolean cancelamento) {
+	public int[] calcularPontuacao(Vendas venda, int numeroSemanas, String programa, boolean cancelamento, Usuario usuario) {
 		int ponto = 0;
 		int pontoEscola = 0;
 		int idregra = 0;
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		UsuarioPontosFacade usuarioPontosFacade = new UsuarioPontosFacade();
-		String sql = "SELECT u FROM Usuariopontos u where u.usuario.idusuario=" + venda.getUsuario().getIdusuario()
+		String sql = "SELECT u FROM Usuariopontos u where u.usuario.idusuario=" + usuario.getIdusuario()
 				+ " and u.mes=" + mes + " and u.ano=" + ano;
 		Usuariopontos usuariopontos = usuarioPontosFacade.consultar(sql);
 		if (usuariopontos == null) {
 			usuariopontos = new Usuariopontos();
 			usuariopontos.setAno(ano);
 			usuariopontos.setMes(mes);
-			usuariopontos.setUsuario(venda.getUsuario());
+			usuariopontos.setUsuario(usuario);
 			usuariopontos.setPontos(0);
 			usuariopontos.setTotalpontos(0);
 		}
@@ -238,7 +238,7 @@ public class DashBoardBean {
 			if (usuariopontos.getPontoescola() == null) {
 				usuariopontos.setPontoescola(0);
 			}
-			if(venda.getUsuario().getIdusuario()==16) {
+			if(usuario.getIdusuario()==16) {
 				usuariopontos.setTotalpontos(usuariopontos.getTotalpontos() + ponto - venda.getPonto()); 
 				ponto = ponto/2;
 				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto());  
@@ -358,7 +358,7 @@ public class DashBoardBean {
 
 	}
 	
-	public boolean validarRegraPacote(Regravenda regra, float valorItem, String programa) {
+	/*public boolean validarRegraPacote(Regravenda regra, float valorItem, String programa) {
 		boolean validar = false;
 		if ((regra.getValorinicial() != null) && (regra.getValorfinal() != null) && (regra.getValorinicial() > 0)
 				&& (regra.getValorfinal() > 0)) {
@@ -376,7 +376,7 @@ public class DashBoardBean {
 		}
 		return validar;
 
-	}
+	}*/
 
 	public int[] calcularPontuacaoRace(Vendas venda, int numeroSemanas, String programa, boolean cancelamento) {
 		int pontoEscola = 0;
@@ -421,7 +421,7 @@ public class DashBoardBean {
 		return pontos;
 	}
 	
-	public int calcularPontuacaoPacate(Vendas venda, boolean cancelamento, Pacotes pacote, Usuario usuarioFranquia){
+	/*public int calcularPontuacaoPacate(Vendas venda, boolean cancelamento, Pacotes pacote, Usuario usuarioFranquia){
 		int pontos = 0;
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date()) + 1;
@@ -479,9 +479,9 @@ public class DashBoardBean {
 		} 
 		usuariopontosFranquia = usuarioPontosFacade.salvar(usuariopontosFranquia);
 		return pontos;
-	}
+	}*/
 	
-	public int pontuacaoPacoteCarro(List<Pacotetrecho> listaTrecho, Vendas venda){
+	/*public int pontuacaoPacoteCarro(List<Pacotetrecho> listaTrecho, Vendas venda){
 		int pontos =0;
 		float valorCarro=0.0f;
 		for (int i=0;i<listaTrecho.size();i++){
@@ -505,8 +505,8 @@ public class DashBoardBean {
 		}
 		return pontos;
 	}
-	
-	public int pontuacaoPacoteCircuito(List<Pacotetrecho> listaTrecho, Vendas venda){
+	*/
+	/*public int pontuacaoPacoteCircuito(List<Pacotetrecho> listaTrecho, Vendas venda){
 		int pontos =0;
 		float valorCarro=0.0f;
 		for (int i=0;i<listaTrecho.size();i++){
@@ -802,6 +802,6 @@ public class DashBoardBean {
 		}
 		return validar;
 
-	}
+	}*/
 	
 }

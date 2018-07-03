@@ -1580,9 +1580,9 @@ public class CadCursoMB implements Serializable {
 								DashBoardBean dashBoardBean = new DashBoardBean();
 								dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 								dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-								int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false);
+								int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false, venda.getUsuario());
 								int pontosremover = vendaAlterada.getPonto();
-								productRunnersMB.calcularPontuacao(venda, pontos[0], pontosremover, false);
+								productRunnersMB.calcularPontuacao(venda, pontos[0], pontosremover, false, venda.getUsuario());
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
 								VendasFacade vendasFacade = new VendasFacade();
@@ -1916,7 +1916,7 @@ public class CadCursoMB implements Serializable {
 							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
 							dashBoardBean.calcularMetaMensal(vendaSeguro, valorAlterarSeguro, false);
 							dashBoardBean.calcularMetaAnual(vendaSeguro, valorAlterarSeguro, false);
-							int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false);
+							int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false, vendaSeguro.getUsuario());
 							vendaSeguro.setPonto(pontos[0]);
 							vendaSeguro.setPontoescola(pontos[1]);
 							vendaSeguro = vendasFacade.salvar(vendaSeguro);

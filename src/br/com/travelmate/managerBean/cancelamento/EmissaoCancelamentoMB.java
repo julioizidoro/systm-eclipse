@@ -480,8 +480,8 @@ public class EmissaoCancelamentoMB implements Serializable {
 				DashBoardBean dashBoardBean = new DashBoardBean();
 				dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
 				dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
-				dashBoardBean.calcularPontuacao(vendas, 0, "", true);
-				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true);
+				dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
+				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
 				vendas.setSituacao("CANCELADA");
 				vendasFacade.salvar(vendas);
 				FacesContext fc = FacesContext.getCurrentInstance();

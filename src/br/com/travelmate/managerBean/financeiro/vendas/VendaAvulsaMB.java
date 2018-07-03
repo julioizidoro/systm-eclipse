@@ -294,7 +294,7 @@ public class VendaAvulsaMB implements Serializable{
 				dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 				dashBoardBean.calcularMetaMensal(vendas,0, false);
 				dashBoardBean.calcularMetaAnual(vendas,0, false);
-				dashBoardBean.calcularPontuacao(vendas, 0, "", false);
+				dashBoardBean.calcularPontuacao(vendas, 0, "", false, vendas.getUsuario());
 				metaRunnersMB.carregarListaRunners(); 
 //			}
 //		}.start();

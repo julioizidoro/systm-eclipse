@@ -445,7 +445,7 @@ public class CadVoluntariadoBean {
 			nNumeroSemana = voluntariado.getNumeroSemanas();
 		}
 		int[] pontos = dashBoardBean.calcularPontuacao(venda, nNumeroSemana, "",
-				false);
+				false, venda.getUsuario());
 		venda.setPonto(pontos[0]);
 		venda.setPontoescola(pontos[1]);
 		VendasFacade vendasFacade = new VendasFacade();

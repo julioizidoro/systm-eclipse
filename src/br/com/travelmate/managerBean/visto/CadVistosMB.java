@@ -764,7 +764,7 @@ public class CadVistosMB implements Serializable {
 					dashBoardBean.calcularMetaMensal(vendas, valorAlteradoVendas, false);
 					dashBoardBean.calcularMetaAnual(vendas, valorAlteradoVendas, false);
 					int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
-					productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false);
+					productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
 					vendas.setPonto(pontos[0]);
 					vendas.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
@@ -776,7 +776,7 @@ public class CadVistosMB implements Serializable {
 				} else if (vendas.getVendasMatriz().equalsIgnoreCase("M")) {
 					DashBoardBean dashBoardBean = new DashBoardBean();
 					int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
-					productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false);
+					productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
 					vendas.setPonto(pontos[0]);
 					vendas.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
@@ -816,12 +816,12 @@ public class CadVistosMB implements Serializable {
 					dashBoardBean.calcularMetaMensal(vendas, valorAlteradoVendas, false);
 					dashBoardBean.calcularMetaAnual(vendas, valorAlteradoVendas, false);
 					int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
-					productRunnersMB.calcularPontuacao(vendas, pontos[0],0, false);
+					productRunnersMB.calcularPontuacao(vendas, pontos[0],0, false, vendas.getUsuario());
 					vendas.setPonto(pontos[0]);
 					vendas.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					vendas = vendasFacade.salvar(vendas);
-					productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false);
+					productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
 					mateRunnersMB.carregarListaRunners();
 					tmRaceMB.gerarListaGold();
 					tmRaceMB.gerarListaSinze();

@@ -1269,9 +1269,9 @@ public class CadCursosTeensMB implements Serializable {
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, programasTeens.getNumeroSemanas(), "",
-									false);
+									false, venda.getUsuario());
 							int pontoremover = vendaAlterada.getPonto();
-							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false,venda.getUsuario());
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();

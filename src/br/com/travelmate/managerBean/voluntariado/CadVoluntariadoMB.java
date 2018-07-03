@@ -1268,9 +1268,9 @@ public class CadVoluntariadoMB implements Serializable {
 								numeroSemana = voluntariado.getNumeroSemanas();
 							}
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, numeroSemana, "",
-									false);
+									false, venda.getUsuario());
 							int pontoremover = vendaAlterada.getPonto();
-							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false);
+							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();

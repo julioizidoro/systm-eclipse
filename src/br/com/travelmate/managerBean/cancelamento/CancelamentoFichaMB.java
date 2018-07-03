@@ -304,18 +304,18 @@ public class CancelamentoFichaMB implements Serializable {
 				dashBoardBean.calcularMetaMensal(venda, 0, true);
 				dashBoardBean.calcularMetaAnual(venda, 0, true);
 				if (venda.getProdutos().getIdprodutos() != 7) {
-					int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", true);
-					productRunnersMB.calcularPontuacao(venda, venda.getPonto(), 0, true);
+					int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", true, venda.getUsuario());
+					productRunnersMB.calcularPontuacao(venda, venda.getPonto(), 0, true, venda.getUsuario() );
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
 					venda = vendasFacade.salvar(venda);
 				}else{
 					PacotesFacade pacotesFacade = new PacotesFacade();
 					Pacotes pacote = pacotesFacade.consultar(venda.getIdvendas());
-					int pontos = dashBoardBean.calcularPontuacaoPacate(venda, true, pacote, pacote.getUsuario());
-					productRunnersMB.calcularPontuacaoPacote(pacote.getUsuario(), venda.getProdutos(), true, venda.getPonto());
-					venda.setPonto(pontos);
-					venda.setPontoescola(pontos);
+					int[] pontos = dashBoardBean.calcularPontuacao(venda1, 0, "", true, pacote.getUsuario());
+					productRunnersMB.calcularPontuacao(venda1, pontos[0], 0, true, pacote.getUsuario());
+					venda.setPonto(pontos[0]);
+					venda.setPontoescola(pontos[0]);
 					venda = vendasFacade.salvar(venda);
 				}
 				metaRunnersMB.carregarListaRunners();
@@ -373,11 +373,11 @@ public class CancelamentoFichaMB implements Serializable {
 						dashBoardBean.calcularNumeroVendasProdutos(vendas, true);
 						dashBoardBean.calcularMetaMensal(vendas, 0, true);
 						dashBoardBean.calcularMetaAnual(vendas, 0, true);
-						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", true);
+						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", true, venda.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						vendas = vendasFacade.salvar(vendas);
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, true);
+						productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, true, venda.getUsuario());
 						metaRunnersMB.carregarListaRunners();
 						emitirNotificacao();
 					}
@@ -433,11 +433,11 @@ public class CancelamentoFichaMB implements Serializable {
 			dashBoardBean.calcularNumeroVendasProdutos(venda1, true);
 			dashBoardBean.calcularMetaMensal(venda1, 0, true);
 			dashBoardBean.calcularMetaAnual(venda1, 0, true);
-			int[] pontos = dashBoardBean.calcularPontuacao(venda1, 0, "", true);
+			int[] pontos = dashBoardBean.calcularPontuacao(venda1, 0, "", true, venda.getUsuario());
 			venda1.setPonto(pontos[0]);
 			venda1.setPontoescola(pontos[1]);
 			venda1 = vendasFacade.salvar(venda1);
-			productRunnersMB.calcularPontuacao(venda1, pontos[0], 0, true);
+			productRunnersMB.calcularPontuacao(venda1, pontos[0], 0, true, venda.getUsuario());
 			metaRunnersMB.carregarListaRunners(); 
 		}
 	}
