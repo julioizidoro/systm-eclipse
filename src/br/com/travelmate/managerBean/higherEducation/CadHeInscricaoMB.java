@@ -1086,7 +1086,9 @@ public class CadHeInscricaoMB implements Serializable {
 
 	public String naoEnviarficha() throws SQLException {
 		enviarFicha = false;
-		venda.setSituacao("PROCESSO");
+		if (venda.getIdvendas()==null) {
+			venda.setSituacao("PROCESSO");
+		}
 		if (confirmarFicha()) {
 			if (voltarControleVendas != null) {
 				if (voltarControleVendas.length() > 1) {
