@@ -26,6 +26,8 @@ import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
+import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -1212,6 +1214,12 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 				vendas = vendasFacade.salvar(vendas);
 				he.setVendas(vendas);
+				
+					ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
+							he.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
+							he.getVendas().getFormapagamento().getParcelamentopagamentoList(),  he.getVendas().getVendascomissao(),
+							 0.0f);
+					he.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
 			he.setVendas(venda);
 			he.setPaisprograma(pais.getNome());

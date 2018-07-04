@@ -8,7 +8,7 @@ public class UsuarioBean {
 	private String nome;
 	private String email;
 	private String senha;
-	private Date datanascimento;
+	private String datanascimento;
 	private String celular;
 	
 	
@@ -37,10 +37,11 @@ public class UsuarioBean {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Date getDatanascimento() {
+	
+	public String getDatanascimento() {
 		return datanascimento;
 	}
-	public void setDatanascimento(Date datanascimento) {
+	public void setDatanascimento(String datanascimento) {
 		this.datanascimento = datanascimento;
 	}
 	public String getCelular() {

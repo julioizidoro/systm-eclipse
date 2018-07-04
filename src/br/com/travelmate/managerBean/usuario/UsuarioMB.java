@@ -28,6 +28,7 @@ import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Criptografia;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -216,7 +217,8 @@ public class UsuarioMB implements Serializable {
             TokenBean token = new TokenBean();
             usuarioBean.setCelular(usuario.getUnidadenegocio().getFone());
             usuarioBean.setCodigosystm(String.valueOf(usuario.getIdusuario()));
-            usuarioBean.setDatanascimento(usuario.getDataaniversario());
+            String sdata = Formatacao.ConvercaoDataSql(usuario.getDataaniversario());
+            usuarioBean.setDatanascimento(sdata);
             usuarioBean.setEmail(usuario.getEmail());
             usuarioBean.setNome(usuario.getNome());
             usuarioBean.setSenha("");
@@ -227,7 +229,7 @@ public class UsuarioMB implements Serializable {
             String cadastroUsuario = gson.toJson(token);
 
             try {
-                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/cadastrausuario");
+                java.net.URL url = new java.net.URL("https://www.tmtur.com.br/systm/cadastrausuario");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -273,7 +275,7 @@ public class UsuarioMB implements Serializable {
             String usuario = gson.toJson(token);
 
             try {
-                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/ativausuario");
+                java.net.URL url = new java.net.URL("https://www.tmtur.com.br/systm/ativausuario");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -320,7 +322,7 @@ public class UsuarioMB implements Serializable {
             String usuario = gson.toJson(token);
 
             try {
-                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/inativausuario");
+                java.net.URL url = new java.net.URL("https://www.tmtur.com.br/systm/inativausuario");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/json");

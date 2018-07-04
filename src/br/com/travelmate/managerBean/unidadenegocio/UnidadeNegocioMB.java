@@ -154,7 +154,7 @@ public class UnidadeNegocioMB implements Serializable {
             token.setUnidade(unidadeBean);
             String unidade = gson.toJson(token);
             try {
-                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/cadastraunidade");
+                java.net.URL url = new java.net.URL("https://www.tmtur.com.br/systm/cadastraunidade");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -198,7 +198,7 @@ public class UnidadeNegocioMB implements Serializable {
             String usuario = gson.toJson(token);
 
             try {
-                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/ativaunidade");
+                java.net.URL url = new java.net.URL("https://www.tmtur.com.br/systm/ativaunidade");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -242,7 +242,7 @@ public class UnidadeNegocioMB implements Serializable {
             String usuario = gson.toJson(token);
 
             try {
-                java.net.URL url = new java.net.URL("http://www.tmtur.com.br/systm/inativaunidade");
+                java.net.URL url = new java.net.URL("https://www.tmtur.com.br/systm/inativaunidade");
                 java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/json");

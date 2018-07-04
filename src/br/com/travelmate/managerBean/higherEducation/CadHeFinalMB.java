@@ -26,6 +26,7 @@ import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
+import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -1126,6 +1127,11 @@ public class CadHeFinalMB implements Serializable {
 					cambio.getValor(), venda, "");
 			formaPagamento = cadHeBean.salvarFormaPagamento(cancelamento); 
 			if (novaFicha) {
+				ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
+						he.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
+						he.getVendas().getFormapagamento().getParcelamentopagamentoList(),  he.getVendas().getVendascomissao(),
+						 0.0f);
+				he.getVendas().setVendascomissao(cc.getVendasComissao());
 				if (enviarFicha) {
 					dashBoardMB.getMetamensal().setValoralcancado(
 							dashBoardMB.getMetamensal().getValoralcancado() + orcamento.getTotalMoedaNacional());
