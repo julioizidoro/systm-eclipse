@@ -1153,7 +1153,10 @@ public class CadHeFinalMB implements Serializable {
 					}else{
 						pontos = dashBoardBean.calcularPontuacao(venda, 0, "Final", false,venda.getUsuario() );
 					}
-					int pontoremover = vendaAlterada.getPonto();
+					int pontoremover = 0;
+					if (vendaAlterada!=null) {
+						pontoremover = vendaAlterada.getPonto();
+					}
 					productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
