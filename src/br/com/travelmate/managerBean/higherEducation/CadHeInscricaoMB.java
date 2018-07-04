@@ -1325,7 +1325,10 @@ public class CadHeInscricaoMB implements Serializable {
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							int pontoremover = vendaAlterada.getPonto();
+							int pontoremover = 0;
+							if (vendaAlterada!=null) {
+								pontoremover = vendaAlterada.getPonto();
+							}
 							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 							metaRunnersMB.carregarListaRunners();
 						}

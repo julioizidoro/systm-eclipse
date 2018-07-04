@@ -2566,12 +2566,17 @@
 						<p:outputLabel value="•#{vendas.usuario.nome}"
 							style="font-size:12px;font-weight:400;">
 						</p:outputLabel>
-						<p:outputLabel value="•#{vendas.unidadenegocio.nomeFantasia}"
+						<p:outputLabel value="•#{vendas.unidadenegocio.nomerelatorio}"
 							style="font-size:12px;font-weight:400;">
 						</p:outputLabel>
 						<p:outputLabel value="•R$ "
 							style="font-size:12px;font-weight:400;" />
 						<p:outputLabel value="#{vendas.valor}"
+							style="text-aling:right;font-size:12px;font-weight:400;float:right;">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</p:outputLabel>
+						<p:outputLabel value="#{vendas.ponto}"
 							style="text-aling:right;font-size:12px;font-weight:400;float:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />

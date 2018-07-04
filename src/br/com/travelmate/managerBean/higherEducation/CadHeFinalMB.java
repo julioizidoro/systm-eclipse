@@ -1229,7 +1229,7 @@ public class CadHeFinalMB implements Serializable {
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
 							int pontoremover = 0;
-							if (vendaAlterada!=null) {
+							if (vendaAlterada!=null) { //pontos
 								pontoremover = vendaAlterada.getPonto();
 							}
 							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
