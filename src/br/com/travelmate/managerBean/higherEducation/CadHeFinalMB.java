@@ -66,6 +66,7 @@ import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento; 
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
@@ -1049,6 +1050,7 @@ public class CadHeFinalMB implements Serializable {
 		enviarFicha = false;
 		if (venda.getIdvendas()==null) {
 			venda.setSituacao("PROCESSO");
+			novaFicha = true;
 		}
 		if (confirmarFicha()) {
 			if (voltarControleVendas != null) {
@@ -1063,6 +1065,9 @@ public class CadHeFinalMB implements Serializable {
 
 	public String enviarficha() throws SQLException {
 		enviarFicha = true;
+		if (venda.getIdvendas()==null) {
+			novaFicha =true;
+		}
 		if (!venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			venda.setSituacao("ANDAMENTO");
 		}
@@ -1116,8 +1121,8 @@ public class CadHeFinalMB implements Serializable {
 			formaPagamento = cadHeBean.salvarFormaPagamento(cancelamento); 
 			if (novaFicha) {
 				ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
-						he.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
-						he.getVendas().getFormapagamento().getParcelamentopagamentoList(),  he.getVendas().getVendascomissao(),
+						orcamento.getOrcamentoprodutosorcamentoList(),
+						formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
 						 0.0f);
 				he.getVendas().setVendascomissao(cc.getVendasComissao());
 				if (enviarFicha) {
