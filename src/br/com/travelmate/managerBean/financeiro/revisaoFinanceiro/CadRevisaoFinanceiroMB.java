@@ -513,17 +513,34 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     
 	public String liberarVenda() {
 		VendasFacade vendasFacade = new VendasFacade();
+		
 		if (validarLiberacao()) {
-			if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {
+			Vendas vendaSeguro = null;
+			if (venda.getProdutos().getIdprodutos()==1) {
+				vendaSeguro = getVendaSeguro(venda.getIdvendas());
+			}
+			
+			if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {			
+				if (vendaSeguro!=null) {
+					listaVendaNova.remove(vendaSeguro);
+				}
 				listaVendaNova.remove(venda);
 			} else if (venda.getSituacaofinanceiro().equalsIgnoreCase("P")) {
+				if (vendaSeguro!=null) {
+					listaVendaPendente.remove(vendaSeguro);
+				}
 				listaVendaPendente.remove(venda);
 			}
 			venda.setSituacaofinanceiro("L");
 			if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
 				venda.setSituacao("FINALIZADA");
 				venda.setDataprocesso(new Date());
-				
+				if (vendaSeguro!=null) {
+					vendaSeguro.setSituacaofinanceiro("L");
+					vendaSeguro.setSituacao("FINALIZADA");
+					vendaSeguro.setDataprocesso(new Date());
+					vendasFacade.salvar(vendaSeguro);
+				}
 				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
 				avisos.setData(new Date());
@@ -930,6 +947,15 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			dataExtenso = Formatacao.ConvercaoDataPadrao(dataInciio);
 		}
 		return dataExtenso;
+	}
+	
+	public Vendas getVendaSeguro(int idVenda) {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVenda);
+		if (seguro!=null) {
+			return seguro.getVendas();
+		}
+		return null;
 	}
     
 }
