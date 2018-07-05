@@ -69,6 +69,7 @@ import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
@@ -1182,36 +1183,8 @@ public class CadHeInscricaoMB implements Serializable {
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, venda.getSituacao(), cliente, venda.getValor(),
 					produto, fornecedorCidade, cambio, orcamento.getValorCambio(), lead,  he.getDatainicio(), he.getDatatermino());
 			
-			if(novaFicha){
-				VendasFacade vendasFacade = new VendasFacade();
-				Vendas vendas = new Vendas();
-				ProdutoFacade produtoFacade = new ProdutoFacade();
-				Produtos produtos =produtoFacade.consultar(aplicacaoMB.getParametrosprodutos().getHighereducation());
-				vendas.setProdutos(produtos);
-				vendas.setCliente(cliente);
-				vendas.setSituacao("CANCELADA");
-				vendas.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
-				vendas.setUsuario(usuarioLogadoMB.getUsuario());
-				FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
-				Fornecedorcidade fornecedorcidade = fornecedorCidadeFacade.getFornecedorCidade(1);
-				vendas.setFornecedorcidade(fornecedorcidade);
-				vendas.setFornecedor(fornecedorcidade.getFornecedor());
-				vendas.setCambio(aplicacaoMB.getListaCambio().get(0));
-				if(lead!=null){
-					vendas.setIdlead(lead.getIdlead());
-				}else{
-					vendas.setIdlead(0);
-				}
-				vendas = vendasFacade.salvar(vendas);
-				he.setVendas(vendas);
-				
-					ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
-							he.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
-							he.getVendas().getFormapagamento().getParcelamentopagamentoList(),  he.getVendas().getVendascomissao(),
-							 0.0f);
-					he.getVendas().setVendascomissao(cc.getVendasComissao());
-			}
-			he.setVendas(venda);
+			
+			
 			he.setPaisprograma(pais.getNome());
 			he.setAssessoriatm(aplicacaoMB.getParametrosprodutos().getAssessoriatmhe());
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
@@ -1219,7 +1192,14 @@ public class CadHeInscricaoMB implements Serializable {
 					cambio.getValor(), venda, "");
 			formaPagamento = cadHeBean.salvarFormaPagamento(cancelamento);
 			cliente = cadHeBean.salvarCliente(cliente);
+			venda.setOrcamento(orcamento);
+			venda.setFormapagamento(formaPagamento);  
+			he.setVendas(venda);
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "I"); 
+			ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
+					orcamento.getOrcamentoprodutosorcamentoList(),
+					formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
+					 0.0f);
 			if (novaFicha) {
 				if (enviarFicha) {
 					dashBoardMB.getMetamensal().setValoralcancado(

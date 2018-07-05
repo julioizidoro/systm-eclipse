@@ -222,6 +222,9 @@ public class DashBoardBean {
 			RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
 			sql = "SELECT r FROM Regravenda r where r.produtos.idprodutos=" + venda.getProdutos().getIdprodutos()
 					+ " and r.situacao=1 and r.escola=false";
+			if ((programa!=null) && (programa.length()>0)){
+				sql = sql + " and r.programa='" + programa +"'";
+			}
 			List<Regravenda> lista = regraVendaFacade.lista(sql);
 			if (lista != null) { 
 				for (int i = 0; i < lista.size(); i++) {
@@ -282,7 +285,10 @@ public class DashBoardBean {
 		if (cancelamento == false) {
 			RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
 			sql = "SELECT r FROM Regravenda r where r.produtos.idprodutos=" + venda.getProdutos().getIdprodutos()
-					+ " and r.situacao=1 and r.escola=false";
+					+ " and r.situacao=1 and r.escola=false ";
+			if ((programa!=null) && (programa.length()>0)){
+				sql = sql + " and r.programa='" + programa +"'";
+			}
 			List<Regravenda> lista = regraVendaFacade.lista(sql);
 			if (lista != null) { 
 				for (int i = 0; i < lista.size(); i++) {
@@ -329,12 +335,12 @@ public class DashBoardBean {
 			} else
 				 validar = false;
 		}
-		if (regra.getPrograma() != null && regra.getPrograma().length() > 0) {
+		/*if (regra.getPrograma() != null && regra.getPrograma().length() > 0) {
 			if (regra.getPrograma().equalsIgnoreCase(programa)) {
 				 validar = true;
 			} else
 				 validar = false;
-		}
+		}*/
 		if (regra.getPais() != null && regra.getPais() > 0) {
 			if (regra.getPais() == venda.getFornecedorcidade().getCidade().getPais().getIdpais()) {
 				 validar = true;
