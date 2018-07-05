@@ -73,8 +73,8 @@ public class RevisaoFinanceiroMB implements Serializable{
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.getAttribute("listaVendaNova");
-		session.getAttribute("listaVendaPendente");
+		listaVendaNova = (List<Vendas>) session.getAttribute("listaVendaNova");
+		listaVendaPendente = (List<Vendas>) session.getAttribute("listaVendaPendente");
 		session.removeAttribute("listaVendaNova");
 		session.removeAttribute("listaVendaPendente");
 		if (listaVendaNova != null && listaVendaPendente != null) {
