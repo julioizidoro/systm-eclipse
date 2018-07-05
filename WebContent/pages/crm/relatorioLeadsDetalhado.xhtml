@@ -160,29 +160,35 @@
 							scrollHeight="300">
 			 
 			        
-			        <p:column headerText="Nome" sortBy="#{leads.cliente.nome}" style="width:100px;text-align:left;" >
+			        <p:column headerText="Nome" sortBy="#{leads.cliente.nome}" style="width:90px;text-align:left;" >
 			            <h:outputText value="#{leads.cliente.nome}" />
 			        </p:column>
+			        <p:column headerText="E-mail" sortBy="#{leads.cliente.email}" style="width:120px;text-align:left;" >
+			            <h:outputText value="#{leads.cliente.email}" />
+			        </p:column>
+			        <p:column headerText="Fone"  style="width:70px;text-align:left;" >
+			            <h:outputText value="#{leads.cliente.foneCelular}" />
+			        </p:column>
 			        
-			        <p:column headerText="Programa" sortBy="#{leads.produtos.descricao}" style="width:80px;text-align:left;" >
+			        <p:column headerText="Programa" sortBy="#{leads.produtos.descricao}" style="width:60px;text-align:left;" >
 			            <h:outputText value="#{leads.produtos.descricao}" />
 			        </p:column>
-			        <p:column headerText="País" sortBy="#{leads.pais.nome}" style="text-align:left;" width="80">  
+			        <p:column headerText="País" sortBy="#{leads.pais.nome}" style="text-align:left;" width="70">  
 							<h:outputText id="outputPais"
 									value="#{leads.pais.nome}" /> 
 					</p:column>
-					<p:column headerText="Situação" width="60" sortBy="#{leads.situacao}"  
+					<p:column headerText="Situação" width="50" sortBy="#{leads.situacao}"  
 							style="text-align:center;">
 							<h:outputText value="#{leads.situacao}" class="badge bg-warning"
 								style="background-color:#{relatorioLeadsDetalhadoMB.retornarCoresSituacao(leads.situacao)};padding: 6px 8px;" />
 						</p:column>  
-			       <p:column headerText="Recebimento"  sortBy="#{leads.datarecebimento}" style="width:70px;text-align:center;">
+			       <p:column headerText="Recebimento"  sortBy="#{leads.datarecebimento}" style="width:60px;text-align:center;">
 			            <h:outputText value="#{leads.datarecebimento}" >
 			            	<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />   
 						</h:outputText>
 			        </p:column>
-			        <p:column headerText="Último contato"  sortBy="#{leads.dataultimocontato}" style="width:50px;text-align:center;">
+			        <p:column headerText="Último contato"  sortBy="#{leads.dataultimocontato}" style="width:60px;text-align:center;">
 			            <h:outputText value="#{leads.dataultimocontato}" >
 			            	<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />   
@@ -193,10 +199,10 @@
 			            <h:outputText value="#{leads.publicidade.descricao}" />
 			        </p:column>
 			        
-			        <p:column headerText="Consultor" sortBy="#{leads.usuario.nome}" style="width:100px;text-align:left;" >
+			        <p:column headerText="Consultor" sortBy="#{leads.usuario.nome}" style="width:80px;text-align:left;" >
 			            <h:outputText value="#{leads.usuario.nome}" />
 			        </p:column>
-			        <p:column headerText="Unidade" sortBy="#{leads.unidadenegocio.nomerelatorio}" style="width:100px;text-align:left;" >
+			        <p:column headerText="Unidade" sortBy="#{leads.unidadenegocio.nomerelatorio}" style="width:80px;text-align:left;" >
 			            <h:outputText value="#{leads.unidadenegocio.nomerelatorio}" />
 			        </p:column>
 			 
