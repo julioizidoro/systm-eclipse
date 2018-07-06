@@ -490,25 +490,25 @@ public class CancelamentoFichaMB implements Serializable {
 	
 	public void cancelarContasReceber(){
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		List<Contasreceber> lista = contasReceberFacade.listar("SELECT c FROM Contasreceber c where c.vendas.idvendas=" + venda.getIdvendas());
+		List<Contasreceber> lista = contasReceberFacade.listar("SELECT c FROM Contasreceber c where c.vendas.idvendas=" + venda.getIdvendas() +
+				" and c.datapagamento is NULL and c.valorpago=0");
 		if (lista == null) {
 			lista = new ArrayList<>();
 		}
 		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).getValorpago() == 0 && lista.get(i).getDatapagamento()==null) {
-				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean(
-						"Conta cancelada pelo SysTM", lista.get(i), usuarioLogadoMB.getUsuario());
-				lista.get(i).setSituacao("cc");
-				lista.get(i).setDatacancelamento(new Date());
-				lista.get(i).setMotivocancelamento("Alteração SysTM");
-				contasReceberFacade.salvar(lista.get(i));
-				if (lista.get(i).getCrmcobrancaconta() != null) {
-					if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
-						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
-						crmCobrancaBean.baixar(lista.get(i), usuarioLogadoMB.getUsuario());
-					}
+			EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Conta cancelada pelo SysTM",
+					lista.get(i), usuarioLogadoMB.getUsuario());
+			lista.get(i).setSituacao("cc");
+			lista.get(i).setDatacancelamento(new Date());
+			lista.get(i).setMotivocancelamento("Alteração SysTM");
+			contasReceberFacade.salvar(lista.get(i));
+			if (lista.get(i).getCrmcobrancaconta() != null) {
+				if (lista.get(i).getCrmcobrancaconta().getPaga() == false) {
+					CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+					crmCobrancaBean.baixar(lista.get(i), usuarioLogadoMB.getUsuario());
 				}
 			}
+
 		}
 	}
 	
@@ -597,8 +597,8 @@ public class CancelamentoFichaMB implements Serializable {
 		contaspagar.setUnidadenegocio(cancelamento.getVendas().getUnidadenegocio());
 		contaspagar.setValorentrada(0.0f);
 		contaspagar.setValorsaida(cancelamento.getValorreembolso());
-		contaspagar.setDatacompensacao(cancelamento.getDatasolicitacao());
-		contaspagar.setDatavencimento(cancelamento.getDatasolicitacao());
+		contaspagar.setDatacompensacao(cancelamento.getDatareembolso());
+		contaspagar.setDatavencimento(cancelamento.getDatareembolso());
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 		contaspagar = contasPagarFacade.salvar(contaspagar);
 		Mensagem.lancarMensagemInfo("Contas a Pagar lançado com sucesso!", "");

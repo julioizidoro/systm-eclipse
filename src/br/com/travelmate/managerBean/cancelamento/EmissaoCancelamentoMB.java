@@ -465,40 +465,55 @@ public class EmissaoCancelamentoMB implements Serializable {
 		} else
 			multaFornecedorReais = 0.0f;
 	}
+	
+	
+	public boolean validarValoresCreditoReembolso() {
+		if (cancelamento.getTotalreembolso()<=0) {
+			Mensagem.lancarMensagemInfo("ATENÇÃO", "Valor do reembolso não pode ser menor ou igual a zero");
+			return false;
+		}
+		return true;
+	}
 
 	public String confirmar() {
-		if(habilitarSalvar) {
-			CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
-			boolean situacao = calcularMultaCancelamentoBean.verifcarValorCreditoReembolso(cancelamento);
-			if (situacao) {
-				CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
-				VendasFacade vendasFacade = new VendasFacade();
-				cancelamento.setUploadtermo(false);
-				cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
-				cancelamento = cancelamentoFacade.salvar(cancelamento);
-				if (novoCancelamento) {
-					salvarCredito();
+		if (habilitarSalvar) {
+			if (validarValoresCreditoReembolso()) {
+
+				CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
+				boolean situacao = calcularMultaCancelamentoBean.verifcarValorCreditoReembolso(cancelamento);
+				if (situacao) {
+					CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+					VendasFacade vendasFacade = new VendasFacade();
+					cancelamento.setUploadtermo(false);
+					cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
+					cancelamento = cancelamentoFacade.salvar(cancelamento);
+					if (novoCancelamento) {
+						salvarCredito();
+					}
+					DashBoardBean dashBoardBean = new DashBoardBean();
+					dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+					dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+					if (cancelamento.getMultacliente()<=0) {
+						dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
+						productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+					}
+					vendas.setSituacao("CANCELADA");
+					vendasFacade.salvar(vendas);
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					if (listaCancelamento != null && listaCancelamento.size() > 0) {
+						session.setAttribute("listaCancelamento", listaCancelamento);
+					}
+					emitirNotificacao();
+					Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
+					return voltar;
+				} else {
+					Mensagem.lancarMensagemWarn("Cancelamento",
+							"Valor Crédito + Valor Remebolso maior que Total Reembolso");
+					return "";
 				}
-				DashBoardBean dashBoardBean = new DashBoardBean();
-				dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
-				dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
-				dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
-				productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
-				vendas.setSituacao("CANCELADA");
-				vendasFacade.salvar(vendas);
-				FacesContext fc = FacesContext.getCurrentInstance();
-				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-				if (listaCancelamento != null && listaCancelamento.size() > 0) {
-					session.setAttribute("listaCancelamento", listaCancelamento);
-				}
-				emitirNotificacao();
-				Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
-				return voltar;
-			} else {
-				Mensagem.lancarMensagemWarn("Cancelamento", "Valor Crédito + Valor Remebolso maior que Total Reembolso");
-				return "";
 			}
-		}else {
+		} else {
 			Mensagem.lancarMensagemInfo("Informe ou cancele o PIN", "");
 		}
 		return "";
