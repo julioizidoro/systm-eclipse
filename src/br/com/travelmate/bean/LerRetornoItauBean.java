@@ -217,9 +217,9 @@ public class LerRetornoItauBean {
         String dataPagamento = sData.substring(0, 2) + "/" +  sData.substring(2, 4) + "/20" + sData.substring(4, 6);
         Date data= Formatacao.ConvercaoStringData(dataPagamento);
         int diaSemana = Formatacao.diaSemana(data);
-        if (diaSemana==5){
+        if (diaSemana==7){
         	data = Formatacao.SomarDiasDatas(data,2);
-        }else if (diaSemana==6){
+        }else if (diaSemana==1){
         	data = Formatacao.SomarDiasDatas(data,1);
         }
         return data;

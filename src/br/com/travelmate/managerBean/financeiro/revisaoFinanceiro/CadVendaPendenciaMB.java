@@ -268,5 +268,14 @@ public class CadVendaPendenciaMB implements Serializable{
 		LogVendaFacade logVendaFacade = new LogVendaFacade();
 		logVendaFacade.salvar(logVenda);
 	}
+	
+	public Vendas getVendaSeguro(int idVenda) {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(idVenda);
+		if (seguro!=null) {
+			return seguro.getVendas();
+		}
+		return null;
+	}
 
 }

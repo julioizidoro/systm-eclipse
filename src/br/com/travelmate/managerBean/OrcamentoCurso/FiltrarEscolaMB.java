@@ -850,7 +850,7 @@ public class FiltrarEscolaMB implements Serializable {
 				sql = sql + " or ";
 			}
 		}  
-		sql = sql + " order by f.produtosorcamento.descricao";
+		sql = sql + "  order by f.produtosorcamento.descricao ";
 		FornecedorCidadeIdiomaProdutoFacade fornecedorCidadeIdiomaProdutoFacade = new FornecedorCidadeIdiomaProdutoFacade();
 		List<Fornecedorcidadeidiomaproduto> lista = fornecedorCidadeIdiomaProdutoFacade.listar(sql);
 		if (lista == null) {
@@ -858,9 +858,21 @@ public class FiltrarEscolaMB implements Serializable {
 		} else {
 			filtrarEscolaBean.setListaProdutosOrcamento(new ArrayList<Produtosorcamento>());
 			for (int i = 0; i < lista.size(); i++) {
-				filtrarEscolaBean.getListaProdutosOrcamento().add(lista.get(i).getProdutosorcamento());
+				if (verificarListaProdutosOrcamento(lista.get(i).getProdutosorcamento())) {
+					filtrarEscolaBean.getListaProdutosOrcamento().add(lista.get(i).getProdutosorcamento());
+				}
 			}
 		}
+	}
+	
+	public boolean verificarListaProdutosOrcamento(Produtosorcamento produtoOcamento) {
+		int idProdutoOrcamento = produtoOcamento.getIdprodutosOrcamento();
+		for (int i=0;i<filtrarEscolaBean.getListaProdutosOrcamento().size();i++) {
+			if (filtrarEscolaBean.getListaProdutosOrcamento().get(i).getIdprodutosOrcamento()==idProdutoOrcamento) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public String pesquisarCliente() {
