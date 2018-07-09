@@ -162,8 +162,7 @@ import javax.persistence.TemporalType;
      private int regracursofinalizar;
      @Column(name = "segurocancelamentoid")
      private int segurocancelamentoid;
-     @Column(name = "segurocancelamentovalor")
-     private float segurocancelamentovalor; 
+    
      @Column(name = "traducaojuramentada")
      private int traducaojuramentada; 
      @Column(name = "pacoteespecialimg")
@@ -728,14 +727,7 @@ import javax.persistence.TemporalType;
 		this.segurocancelamentoid = segurocancelamentoid;
 	}
 
-	public float getSegurocancelamentovalor() {
-		return segurocancelamentovalor;
-	}
-
-	public void setSegurocancelamentovalor(float segurocancelamentovalor) {
-		this.segurocancelamentovalor = segurocancelamentovalor;
-	} 
-
+	
 	public int getTraducaojuramentada() {
 		return traducaojuramentada;
 	}

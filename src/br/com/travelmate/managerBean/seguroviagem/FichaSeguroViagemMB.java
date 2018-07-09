@@ -1436,7 +1436,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	public void seguroCancelamento() {
 		if(seguro.isSegurocancelamento() && valoresseguro.isSegurocancelamento()) {
-			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+			float valorsegurocancelamento = valoresseguro.getValorsegurocancelamento()
 					* cambio.getValor();
 			seguro.setValorSeguro(seguro.getValorSeguro()+valorsegurocancelamento);
 		} 
@@ -1444,12 +1444,12 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	public void selecionarSeguroCancelamento() {
 		if(seguro.isSegurocancelamento() && valoresseguro.isSegurocancelamento()) {
-			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+			float valorsegurocancelamento = valoresseguro.getValorsegurocancelamento()
 					* cambio.getValor();
 			seguro.setValorSeguro(seguro.getValorSeguro()+valorsegurocancelamento); 
 			receberValorTotal();
 		} else if(valoresseguro.isSegurocancelamento()) {
-			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+			float valorsegurocancelamento = valoresseguro.getValorsegurocancelamento()
 					* cambio.getValor();
 			seguro.setValorSeguro(seguro.getValorSeguro()-valorsegurocancelamento); 
 			receberValorTotal();

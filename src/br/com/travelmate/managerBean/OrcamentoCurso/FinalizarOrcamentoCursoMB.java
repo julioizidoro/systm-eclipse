@@ -573,7 +573,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(ocurso.getCambio().getData()),
 							resultadoOrcamentoBean.getSeguroviagem().getValoresseguro().getMoedas().getIdmoedas()); 
 					produto.setValororiginal(   
-							aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor());
+							resultadoOrcamentoBean.getSeguroviagem().getValoresseguro().getValorsegurocancelamento());
 					produto.setValorpromocional(0.0f);
 					produto.setNome("Seguro Cancelamento");
 					produto.setDescricao("Seguro Cancelamento"); 
