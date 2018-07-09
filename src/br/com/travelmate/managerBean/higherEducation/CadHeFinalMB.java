@@ -1150,9 +1150,9 @@ public class CadHeFinalMB implements Serializable {
 					dashBoardBean.calcularMetaAnual(venda, 0, false);
 					int[] pontos;
 					if(he.getNumerosemanas()!=null && he.getNumerosemanas()>0){
-						pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "", false, venda.getUsuario());
+						pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Final", false, venda.getUsuario());
 					}else{
-						pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false,venda.getUsuario() );
+						pontos = dashBoardBean.calcularPontuacao(venda, 0, "Final", false,venda.getUsuario() );
 					}
 					int pontoremover = 0;
 					if (vendaAlterada!=null) {

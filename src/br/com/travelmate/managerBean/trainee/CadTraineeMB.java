@@ -1378,7 +1378,7 @@ public class CadTraineeMB implements Serializable {
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 						dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
-						int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, trainee.getTipotrainee(), false, venda.getUsuario());
+						int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false, venda.getUsuario());
 						int pontoremover = vendaAlterada.getPonto();
 						productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 						venda.setPonto(pontos[0]);
