@@ -1892,9 +1892,9 @@ public class CadOrcamentoManualMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			pob.setValorMoedaEstrangeira(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor());
+			pob.setValorMoedaEstrangeira(seguroViagem.getValoresseguro().getValorsegurocancelamento());
 			pob.setValorMoedaReal(
-					aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor()); 
+					seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor()); 
 			pob.setApagar(false);
 			pob.setNovo(true);
 			pob.setSomarvalortotal(seguroViagem.isSomarvalortotal());

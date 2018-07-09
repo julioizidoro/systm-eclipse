@@ -537,7 +537,7 @@ public class OrcamentoCursoMB implements Serializable {
 				valorTotalAdicionaisRS = valorTotalAdicionaisRS + seguroviagem.getValorSeguro();
 				if(seguroviagem.isSegurocancelamento()) {
 					valorTotalAdicionaisRS = valorTotalAdicionaisRS + 
-							(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor());
+							(seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor());
 				}
 				valorTotalAdicionais = valorTotalAdicionais
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
@@ -545,7 +545,7 @@ public class OrcamentoCursoMB implements Serializable {
 				valorTotalRS = valorTotalRS + seguroviagem.getValorSeguro();
 				if(seguroviagem.isSegurocancelamento()) {
 					valorTotalRS = valorTotalRS + 
-							(aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor());
+							(seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor());
 				}
 				valorTotal = valorTotal
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
@@ -3185,7 +3185,7 @@ public class OrcamentoCursoMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getOcurso().getCambio().getData()),
 					seguroviagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			float valorsegurocancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()
+			float valorsegurocancelamento = seguroviagem.getValoresseguro().getValorsegurocancelamento()
 					* cambioSeguro.getValor();
 			seguroviagem.setValorSeguro(seguroviagem.getValorSeguro());
 		} 

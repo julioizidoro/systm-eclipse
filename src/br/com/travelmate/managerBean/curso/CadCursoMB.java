@@ -3624,7 +3624,7 @@ public class CadCursoMB implements Serializable {
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
 			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
 			orcamentoprodutosorcamento.setValorMoedaNacional(
-					aplicacaoMB.getParametrosprodutos().getSegurocancelamentovalor()*cambioSeguro.getValor()); 
+					seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor()); 
 			orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			calcularValorTotalOrcamento();
 			calcularParcelamentoPagamento();

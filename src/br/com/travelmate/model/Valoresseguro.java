@@ -48,6 +48,11 @@ public class Valoresseguro implements Serializable {
     @Size(max = 20)
     @Column(name = "cobranca")
     private String cobranca;
+    @Column(name = "valorsegurocancelamento")
+    private Float valorsegurocancelamento;
+    
+    
+    
    
     @JoinColumn(name = "fornecedorcidade_idfornecedorcidade", referencedColumnName = "idfornecedorcidade")
     @ManyToOne(optional = false)
@@ -196,6 +201,14 @@ public class Valoresseguro implements Serializable {
 
 	public void setSegurocancelamento(boolean segurocancelamento) {
 		this.segurocancelamento = segurocancelamento;
+	}
+
+	public Float getValorsegurocancelamento() {
+		return valorsegurocancelamento;
+	}
+
+	public void setValorsegurocancelamento(Float valorsegurocancelamento) {
+		this.valorsegurocancelamento = valorsegurocancelamento;
 	}
 
 	@Override

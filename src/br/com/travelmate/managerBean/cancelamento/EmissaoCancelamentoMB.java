@@ -97,7 +97,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 		cancelamento = (Cancelamento) session.getAttribute("cancelamento");
 		vendas = (Vendas) session.getAttribute("vendas");
 		voltar = (String) session.getAttribute("voltar");
-		listaCancelamento = (List<Cancelamento>) session.getAttribute("listaCancelamento");
+		listaCancelamento = extracted(session);
 		session.removeAttribute("vendas");
 		session.removeAttribute("cancelamento");
 		session.removeAttribute("voltar");
@@ -138,6 +138,10 @@ public class EmissaoCancelamentoMB implements Serializable {
 			escolherReembolsoCredito();
 		}
 		valorOriginalMulta = cancelamento.getMultacliente();
+	}
+
+	private List<Cancelamento> extracted(HttpSession session) {
+		return (List<Cancelamento>) session.getAttribute("listaCancelamento");
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
