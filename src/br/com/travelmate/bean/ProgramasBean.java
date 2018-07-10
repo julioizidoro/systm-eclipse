@@ -287,19 +287,19 @@ public class ProgramasBean {
 		int dias =0;
 		int diaSemana = Formatacao.diaSemana(new Date());
 		if (diaSemana==1) {
-			dias = 3;
-		}else if (diaSemana==2) {
-			dias=3;
-		}else if (diaSemana==3) {
-			dias= 3;
-		}else if (diaSemana==4) {
-			dias = 5;
-		}else if (diaSemana==5) {
-			dias =5;
-		}else if (diaSemana==6) {
-			dias =5;
-		}else if (diaSemana==7) {
 			dias = 4;
+		}else if (diaSemana==2) {
+			dias=4;
+		}else if (diaSemana==3) {
+			dias= 4;
+		}else if (diaSemana==4) {
+			dias =6;
+		}else if (diaSemana==5) {
+			dias =6;
+		}else if (diaSemana==6) {
+			dias =6;
+		}else if (diaSemana==7) {
+			dias = 5;
 		}
 		Date dataValidade = Formatacao.calcularDataFinalPorDias(new Date(), dias);
 	    diaSemana = Formatacao.diaSemana(dataValidade);
