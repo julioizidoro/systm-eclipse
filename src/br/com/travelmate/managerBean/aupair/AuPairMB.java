@@ -714,9 +714,10 @@ public class AuPairMB implements Serializable {
 	}
 
 	public String documentacao(Aupair aupair) {
-		String dataStringValidade = Formatacao.ConvercaoDataPadrao(aupair.getVendas().getDatavalidade());
-		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
-		if ((aupair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (dataValidade != null && !dataValidade.after(new Date()))) {
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
+		Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
+		Date dataValidade = aupair.getVendas().getDatavalidade();
+		if ((aupair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) && (dataValidade != null && !dataValidade.after(dataAtual))) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
 			return "";
 		}else {
