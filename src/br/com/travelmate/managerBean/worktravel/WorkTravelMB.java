@@ -752,14 +752,20 @@ public class WorkTravelMB implements Serializable {
 	}
 
 	public String documentacao(Worktravel work) {
-		String dataStringValidade = Formatacao.ConvercaoDataPadrao(work.getVendas().getDatavalidade());
-		Date dataValidade = Formatacao.ConvercaoStringData(dataStringValidade);
-		if ((work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (dataValidade != null
-						&& dataValidade.before(new Date()))) {
-			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
-					"está ficha ultrapassou os 3 dias de validade");
-			return "";
+		String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
+		Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
+		Date dataValidade = work.getVendas().getDatavalidade();
+		boolean validar= true;
+		if (dataValidade != null) {
+			if (!dataValidade.after(dataAtual)) {
+				validar = true;
+			}else {
+				validar = false;
+			}
+		}
+		if (!validar) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
+			return "";	
 		} else {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
