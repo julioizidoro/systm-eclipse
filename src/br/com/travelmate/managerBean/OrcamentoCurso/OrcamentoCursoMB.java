@@ -536,16 +536,20 @@ public class OrcamentoCursoMB implements Serializable {
 			if (seguroviagem.getValorSeguro() != null && !seguroviagem.isSomarvalortotal()) {;;
 				valorTotalAdicionaisRS = valorTotalAdicionaisRS + seguroviagem.getValorSeguro();
 				if(seguroviagem.isSegurocancelamento()) {
-					valorTotalAdicionaisRS = valorTotalAdicionaisRS + 
-							(seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor());
+					float rsSeguro = seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor();
+					valorTotalAdicionaisRS = valorTotalAdicionaisRS + rsSeguro;
+					valorTotalAdicionais = valorTotalAdicionais
+							+ (rsSeguro / resultadoOrcamentoBean.getOcurso().getValorcambio());
 				}
 				valorTotalAdicionais = valorTotalAdicionais
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
 			} else if (seguroviagem.getValorSeguro() != null && seguroviagem.isSomarvalortotal()) {
 				valorTotalRS = valorTotalRS + seguroviagem.getValorSeguro();
 				if(seguroviagem.isSegurocancelamento()) {
-					valorTotalRS = valorTotalRS + 
-							(seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor());
+					float rsSeguro = seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor();
+					valorTotalRS = valorTotalRS + rsSeguro;
+					valorTotal = valorTotal
+							+ (rsSeguro / resultadoOrcamentoBean.getOcurso().getValorcambio());
 				}
 				valorTotal = valorTotal
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
