@@ -401,14 +401,26 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 			}
 			Date data = Formatacao.calcularDataFinal(datainicial, numerosemanas);
 			int diaSemana = Formatacao.diaSemana(data);
-			try {
-				if (diaSemana == 1) {
-					data = Formatacao.SomarDiasDatas(data, -2);
-				} else if (diaSemana == 7) {
-					data = Formatacao.SomarDiasDatas(data, -1);
+			int diaTermino  = Integer.parseInt(voluntariadoprojeto.getVoluntariadoprojeto().getDiasemanafinal());
+			if (diaTermino>0) {
+				int dias=0;
+				for (int i=0;i<100;i++) {
+					if (diaSemana!=diaTermino) {
+						dias++;
+						diaSemana++;
+						if (diaSemana==7) {
+							diaSemana=1;
+						}
+					}else {
+						i =1000;
+					}
 				}
-			} catch (Exception ex) {
-
+				try {
+					data = Formatacao.SomarDiasDatas(data, dias);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
 			}
 			return data;
 		}
