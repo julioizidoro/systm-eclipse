@@ -973,22 +973,25 @@ public class CursoMB implements Serializable {
 		}
 	}
 
-	public String documentacao(Curso curso) { 
-		String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
-		Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
-		Date dataValidade = curso.getVendas().getDatavalidade();
-		boolean validar= true;
-		if (dataValidade != null) {
-			if (!dataValidade.after(dataAtual)) {
-				validar = true;
-			}else {
-				validar = false;
+	public String documentacao(Curso curso) {
+		boolean validar = true;
+		if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
+			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
+			Date dataValidade = curso.getVendas().getDatavalidade();
+			if (dataValidade != null) {
+				if (!dataAtual.after(dataValidade)) {
+					validar = true;
+				} else {
+					validar = false;
+				}
 			}
 		}
 		if (!validar) {
-			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
-			return "";	
-		}else {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("vendas", curso.getVendas());

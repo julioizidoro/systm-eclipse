@@ -775,16 +775,18 @@ public class TraineeMB implements Serializable {
 	}
 
 	public String documentacao(Trainee trainee) {
+		boolean validar = true;
+		if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 		String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 		Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 		Date dataValidade = trainee.getVendas().getDatavalidade();
-		boolean validar= true;
 		if (dataValidade != null) {
-			if (!dataValidade.after(dataAtual)) {
+			if (!dataAtual.after(dataValidade)) {
 				validar = true;
 			}else {
 				validar = false;
 			}
+		}
 		}
 		if (!validar) {
 			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha", "está ficha ultrapassou os 3 dias de validade");
