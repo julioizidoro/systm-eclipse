@@ -367,7 +367,6 @@ public class CadArquivoMB implements Serializable {
 							salvarAvisoUsuario(avisos);
 						}
 				}
-				
 				if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
 					if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) { 
@@ -404,11 +403,12 @@ public class CadArquivoMB implements Serializable {
 			
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("cliente", cliente);
 			session.setAttribute("msgBilhete", "");
 			session.setAttribute("listaArquivos", listaArquivos);
 			session.setAttribute("vendas", vendas);
 			RequestContext.getCurrentInstance().closeDialog(arquivos);
-		} else {
+		}else {
 			TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
 			tipoarquivo = new Tipoarquivoproduto();
 			try {
@@ -429,6 +429,9 @@ public class CadArquivoMB implements Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("cliente", cliente);
 		RequestContext.getCurrentInstance().closeDialog(new ArquivoMB());
 		return "";
 	}
