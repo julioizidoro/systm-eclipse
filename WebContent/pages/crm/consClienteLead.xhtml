@@ -89,10 +89,14 @@
 			         <p:column headerText="Telefone" sortBy="#{leads.cliente.foneCelular}" style="width:100px;text-align:left;" >
 			            <h:outputText value="#{leads.cliente.foneCelular}" />
 			        </p:column>
-			         <p:column headerText="Programa" sortBy="#{leads.produtos.descricao}" style="width:100px;text-align:left;" >
+			         <p:column headerText="Programa" sortBy="#{leads.produtos.descricao}" style="width:100px;text-align:left;"  >
 			            <h:outputText value="#{leads.produtos.descricao}" />
 			        </p:column>
-			 
+			 		 <p:column headerText="Situação" width="50" sortBy="#{leads.situacao}"  
+							style="text-align:center;">
+							<h:outputText value="#{leads.situacao}" class="badge bg-warning"
+								style="background-color:#{relatorioClienteLeadMB.retornarCoresSituacao(leads.situacao)};padding: 6px 8px;" />
+					</p:column>  
 			    </p:dataTable>
 			<br></br> <br></br> <br></br> <br></br> 
 			</div>    
