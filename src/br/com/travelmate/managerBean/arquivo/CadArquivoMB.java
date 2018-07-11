@@ -435,13 +435,23 @@ public class CadArquivoMB implements Serializable {
 
 	// Salvar Nome para o ftp
 	public String nomeArquivo() {
-		nomeArquivoFTP = vendas.getIdvendas() + "_" + vendas.getCliente().getIdcliente() ;
+		if (vendas.getProdutos().getIdprodutos()==22) {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" +cliente.getIdcliente() ;
+		}else {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" + vendas.getCliente().getIdcliente() ;
+		}
+		
 		return nomeArquivoFTP;
 	}
 
 	// Salvar nome do arquivo para tabela arquivos
 	public String nomeArquivoSalvo() {
-		nomeArquivoFTP = vendas.getIdvendas() + "_" + vendas.getCliente().getIdcliente();
+		if (vendas.getProdutos().getIdprodutos()==22) {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" + cliente.getIdcliente();
+		}else {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" + vendas.getCliente().getIdcliente();
+		}
+		
 		return nomeArquivoFTP;
 	}
 
