@@ -151,6 +151,8 @@ public class VendaPendenciaHistoricoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("venda", venda);
+		session.setAttribute("listaVendaPendente", listaVendaPendente);
+		session.setAttribute("listaVendaNova", listaVendaNova);
 		return "cadRevisaoFinanceiro";
 	}
 	

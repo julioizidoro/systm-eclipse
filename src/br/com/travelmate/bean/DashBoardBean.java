@@ -126,6 +126,7 @@ public class DashBoardBean {
 			meta.setPercentualalcancado(0.0f);
 			meta.setUnidadenegocio(venda.getUnidadenegocio());
 			meta.setMetaalcancada(0.0f);
+			meta.setValormeta(0.0f);
 		}
 		if (cancelamento == false) {
 			if (valorantigo > 0) {

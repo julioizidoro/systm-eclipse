@@ -415,6 +415,7 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 						i =1000;
 					}
 				}
+				dias++;
 				try {
 					data = Formatacao.SomarDiasDatas(data, dias);
 				} catch (Exception e) {
