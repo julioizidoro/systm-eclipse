@@ -90,7 +90,8 @@ public class CartaoCreditoMB implements Serializable{
 	public void gerarlistaCartaoCredito(){
 		CartaoCreditoFacade cartaoCreditoFacade = new CartaoCreditoFacade();
 		String sql = "select c from Cartaocredito c where c.situacao=1";
-		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)) {
+		if ((usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=1) && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=3)
+				 && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento()!=9)) {
 			sql = sql + " and c.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
 		sql = sql + " order by c.nome";
