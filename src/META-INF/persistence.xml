@@ -290,7 +290,7 @@
     <validation-mode>NONE</validation-mode>
     <properties>
     	<property name="eclipselink.jdbc.batch-writing" value="None"/>
-    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://162.144.44.7:8081/systm"/>  
+    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8081/systm"/>  
     	<property name="javax.persistence.jdbc.user" value="root"/>
     	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
     	<property name="eclipselink.jdbc.bind-parameters" value="true"/>

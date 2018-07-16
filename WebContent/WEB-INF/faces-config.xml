@@ -2499,6 +2499,14 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
+			<from-outcome>relatorioVendasGerentes</from-outcome>
+			<to-view-id>/pages/vendas/relatorioVendasGerentes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>     
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
 			<from-outcome>contrato</from-outcome>
 			<to-view-id>//http://systm.com.br:82/ftproot/systm/arquivos/Contrato.html</to-view-id>
 			<redirect />
