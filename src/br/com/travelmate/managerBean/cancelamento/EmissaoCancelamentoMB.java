@@ -503,7 +503,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 					}
 					vendas.setSituacao("CANCELADA");
 					vendasFacade.salvar(vendas);
-					if (vendas.getProdutos().getIdprodutos() == 1) {
+					if (vendas.getProdutos().getIdprodutos() == 1 || vendas.getProdutos().getIdprodutos() == 16) {
 						SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 						Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
 						Vendas vendasSeguro = seguro.getVendas();
