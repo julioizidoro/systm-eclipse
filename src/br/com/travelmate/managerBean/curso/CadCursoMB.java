@@ -1832,9 +1832,9 @@ public class CadCursoMB implements Serializable {
 				if (venda.getFormapagamento() != null) {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
-				seguroViagem = seguroViagemFacade.salvar(seguroViagem);
-				
 			}
+			seguroViagem = seguroViagemFacade.salvar(seguroViagem);
+			
 			
 		} else {
 			if (seguroViagem.getIdvendacurso() > 0) {
@@ -2954,7 +2954,7 @@ public class CadCursoMB implements Serializable {
 					valorReal = seguroViagem.getValorSeguro();
 					valorEstrangeira = seguroViagem.getValorSeguro() / cambioSeguro.getValor();
 					orcamentoprodutosorcamento.setValorMoedaNacional(valorReal);
-					orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+					orcamentoprodutosorcamento.setValorMoedaEstrangeira(valorEstrangeira);
 				} else {
 					orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
 					valorReal = 0;
