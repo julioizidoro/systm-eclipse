@@ -16,11 +16,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -37,6 +39,10 @@ public class Paisproduto implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "idpaisproduto")
 	private Integer idpaisproduto;
+	@Lob
+    @Size(max = 16777215)
+    @Column(name = "descricao")
+    private String descricao;
 	@JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos", updatable=true)
 	@ManyToOne(optional = false)
 	private Produtos produtos;
@@ -59,6 +65,14 @@ public class Paisproduto implements Serializable {
 
 	public void setIdpaisproduto(Integer idpaisproduto) {
 		this.idpaisproduto = idpaisproduto;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Produtos getProdutos() {
