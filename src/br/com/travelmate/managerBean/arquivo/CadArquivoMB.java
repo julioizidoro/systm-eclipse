@@ -597,7 +597,7 @@ public class CadArquivoMB implements Serializable {
 			VendasFacade vendasFacade = new VendasFacade();
 			vendas.setSituacao("ANDAMENTO");
 			vendasFacade.salvar(vendas);
-			if (idProduto == 1) {
+			if (idProduto == 1 || idProduto == 16) {
 				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
 				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {

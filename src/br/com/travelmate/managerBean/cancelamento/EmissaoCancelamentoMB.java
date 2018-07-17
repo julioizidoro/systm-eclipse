@@ -503,6 +503,13 @@ public class EmissaoCancelamentoMB implements Serializable {
 					}
 					vendas.setSituacao("CANCELADA");
 					vendasFacade.salvar(vendas);
+					if (vendas.getProdutos().getIdprodutos() == 1) {
+						SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+						Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+						Vendas vendasSeguro = seguro.getVendas();
+						vendasSeguro.setSituacao("CANCELADA");
+						vendasFacade.salvar(vendasSeguro);
+					}
 					FacesContext fc = FacesContext.getCurrentInstance();
 					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 					if (listaCancelamento != null && listaCancelamento.size() > 0) {
