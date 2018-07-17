@@ -309,6 +309,48 @@ public class FinalizarMB implements Serializable {
 		}
 		ControlerBean controlerBean = new ControlerBean();
 		controlerBean.salvarControleVoluntariado(voluntariado.getVendas(), voluntariado, valorPrevisto);
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguroViagem = seguroViagemFacade.consultarSeguroCurso(voluntariado.getVendas().getIdvendas());
+		if (seguroViagem != null && seguroViagem.getIdseguroViagem() != null) {
+			FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
+			Formapagamento formapagamento = formaPagamentoFacade.consultar(voluntariado.getVendas().getIdvendas());
+			if (seguroViagem.getVendas().getVendascomissao() == null) {
+				seguroViagem.getVendas().setVendascomissao(new Vendascomissao());
+				if (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")) {
+					ComissaoSeguroBean cc = new ComissaoSeguroBean(aplicacaoMB, seguroViagem.getVendas(),
+							new ArrayList<Parcelamentopagamento>(), seguroViagem.getVendas().getVendascomissao(),
+							seguroViagem.getDescontoloja(), seguroViagem.getDescontomatriz(), 0.0f, false,
+							formapagamento,seguroViagem);
+					seguroViagem.getVendas().setVendascomissao(cc.getVendasComissao());
+					salvarControleSeguro(seguroViagem);
+				}
+			}
+			DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+			List<Departamento> departamento = departamentoFacade
+					.listar("select d From Departamento d where d.usuario.idusuario="
+							+ seguroViagem.getVendas().getProdutos().getIdgerente());
+			String titulo = "";
+			String operacao = "";
+			String imagemNotificacao = "";
+			titulo = "Ficha de Seguro Em Análise Financeira. " + seguroViagem.getVendas().getIdvendas();
+			if (seguroViagem.isSegurocancelamento()) {
+				titulo = titulo + " Com Cancelamento";
+			}
+			operacao = "I";
+			imagemNotificacao = "inserido";
+			String vm = "Venda pela Matriz";
+			if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
+				vm = "Venda pela Loja";
+			}
+			gerarPontuacaoSeguro(seguroViagem.getVendas());
+				Formatacao.gravarNotificacaoVendasFinanceiro(titulo, seguroViagem.getVendas().getUnidadenegocio(), seguroViagem.getVendas().getCliente().getNome(),
+						seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
+						Formatacao.ConvercaoDataPadrao(seguroViagem.getDataInicio()),
+						seguroViagem.getVendas().getUsuario().getNome(), vm, seguroViagem.getVendas().getValor(),
+						seguroViagem.getVendas().getCambio().getValor(),
+						seguroViagem.getVendas().getCambio().getMoedas().getSigla(), operacao,
+						imagemNotificacao, "I");
+		}
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean.calcularNumeroVendasProdutos(voluntariado.getVendas(), false);
 		dashBoardBean.calcularMetaMensal(voluntariado.getVendas(), 0, false);
