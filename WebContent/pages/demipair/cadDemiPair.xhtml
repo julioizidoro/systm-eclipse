@@ -119,10 +119,10 @@
 						<br></br>
 						<p:inputText id="cnh"
 							style="width:27%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
-							maxlength="100" value="#{cadDemiPairMB.demipair.possuicnh}" />
+							maxlength="3" value="#{cadDemiPairMB.demipair.possuicnh}" />
 						<p:inputText id="tempocnh"
 							style="width:20%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14.5%"
-							maxlength="100" value="#{cadDemiPairMB.demipair.tempocnh}" />
+							maxlength="25" value="#{cadDemiPairMB.demipair.tempocnh}" />
 						<br></br>
 						<br></br>
 
@@ -183,18 +183,16 @@
 
 					<p:tab title="Nível Idioma/Passagem/Contato"
 						titleStyle="font-size: 11px">
-						<br></br>
-						<p:outputLabel value="Idioma" for="idioma" style="margin-left:14%" />
-						<p:outputLabel value="Nível" for="nivel3"
-							style="margin-left:30.5%" />
-						<br></br>
-						<h:panelGrid columns="2" style="margin-left:12%">
+						<h:panelGrid columns="2" style="margin-left:14%;width:50%;">
+							<p:outputLabel value="Idioma" for="idioma" />
+							<p:outputLabel value="Nível" for="nivel3"
+								 />
 							<p:inputText id="idioma"
-								style="width:200%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+								style="width:253px;-moz-border-radius: 5px;border-radius: 5px;"
 								maxlength="100" value="#{cadDemiPairMB.demipair.idioma01}" />
 							<p:selectOneMenu id="nivel3"
 								value="#{cadDemiPairMB.demipair.nivelIdioma01}"
-								style="width:280px;margin-left:45%">
+								style="width:150px;">
 								<f:selectItem itemLabel="Selecione" itemValue=" "
 									noSelectionOption="true" />
 								<f:selectItem itemLabel="Intermediário baixo"
@@ -206,19 +204,17 @@
 							</p:selectOneMenu>
 						</h:panelGrid>
 						<br></br>
-						<br></br>
-						<p:outputLabel value="Idioma" for="idioma2"
-							style="margin-left:14%" />
-						<p:outputLabel value="Nível" for="nivel2"
-							style="margin-left:30.5%" />
-						<br></br>
-						<h:panelGrid columns="2" style="margin-left:12%">
+						<h:panelGrid columns="2" style="margin-left:14%;width:50%;">
+							<p:outputLabel value="Idioma" for="idioma2"
+								 />
+							<p:outputLabel value="Nível" for="nivel2"
+								 />
 							<p:inputText id="idioma2"
-								style="width:200%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+								style="width:253px;-moz-border-radius: 5px;border-radius: 5px;"
 								maxlength="100" value="#{cadDemiPairMB.demipair.idioma02}" />
 							<p:selectOneMenu id="nivel2"
 								value="#{cadDemiPairMB.demipair.nivelIdioma02}"
-								style="width:280px;margin-left:45%">
+								style="width:150px;">
 								<f:selectItem itemLabel="Selecione" itemValue=" "
 									noSelectionOption="true" />
 								<f:selectItem itemLabel="Intermediário baixo"
@@ -230,19 +226,17 @@
 							</p:selectOneMenu>
 						</h:panelGrid>
 						<br></br>
-						<br></br>
-						<p:outputLabel value="Idioma" for="idioma1"
-							style="margin-left:14%" />
-						<p:outputLabel value="Nível" for="nivel1"
-							style="margin-left:30.5%" />
-						<br></br>
-						<h:panelGrid columns="2" style="margin-left:12%">
+						<h:panelGrid columns="2" style="margin-left:14%;width:50%;">
+							<p:outputLabel value="Idioma" for="idioma1"
+								 />
+							<p:outputLabel value="Nível" for="nivel1"
+								 />
 							<p:inputText id="idioma1"
-								style="width:200%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
+								style="width:253px;-moz-border-radius: 5px;border-radius: 5px;"
 								maxlength="100" value="#{cadDemiPairMB.demipair.idioma03}" />
 							<p:selectOneMenu id="nivel1"
 								value="#{cadDemiPairMB.demipair.nivelIdioma03}"
-								style="width:280px;margin-left:45%">
+								style="width:150px;">
 								<f:selectItem itemLabel="Selecione" itemValue=" "
 									noSelectionOption="true" />
 								<f:selectItem itemLabel="Intermediário baixo"
@@ -294,7 +288,7 @@
 							cellpadding="5">
 							<p:selectOneRadio id="passagemInclusa"
 								value="#{cadDemiPairMB.demipair.tipoPassagem}"
-								style="width:180%;margin-left: 38%">
+								style="width:180%;margin-left: 52%">
 								<f:selectItem itemLabel="Cliente Providenciará"
 									itemValue="Cliente Providenciará" class="espacologin" />
 								<f:selectItem itemLabel="Através da TravelMate"
