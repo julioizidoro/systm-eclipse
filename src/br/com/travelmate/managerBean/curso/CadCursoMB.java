@@ -3407,6 +3407,36 @@ public class CadCursoMB implements Serializable {
 		if (orcamento.getOrcamentoprodutosorcamentoList() == null) {
 			orcamento.setOrcamentoprodutosorcamentoList(new ArrayList<Orcamentoprodutosorcamento>());
 		}
+		if (orcamentoCurso.getOrcamentomanualseguro() != null) {
+			calcularValorSeguroPrivadoListaProdutos();
+				ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+				Produtosorcamento produtoorcamento = produtoOrcamentoFacade
+						.consultar(aplicacaoMB.getParametrosprodutos().getSeguroOrcamento());
+				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+				orcamentoprodutosorcamento.setDescricao(produtoorcamento.getDescricao());
+				orcamentoprodutosorcamento.setProdutosorcamento(produtoorcamento);
+				orcamentoprodutosorcamento.setValorMoedaEstrangeira(orcamentoCurso.getOrcamentomanualseguro().getValor() / orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getValorgross());
+				orcamentoprodutosorcamento.setValorMoedaNacional(
+						orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
+				orcamentoprodutosorcamento.setTipo("S"); 
+				seguroViagem = new Seguroviagem();
+				fornecedorSeguro = orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getFornecedorcidade();
+				listarPlanosSeguro();
+				seguroViagem.setDataInicio(orcamentoCurso.getOrcamentomanualseguro().getDatainicio());
+				seguroViagem.setDataTermino(orcamentoCurso.getOrcamentomanualseguro().getDatatermino());
+				seguroViagem.setNumeroSemanas(orcamentoCurso.getOrcamentomanualseguro().getNumerodias());
+				seguroViagem.setPlano(orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getPlano());
+				seguroplanos = orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getSeguroplanos();
+				listarValoresSeguro();
+				seguroViagem.setPossuiSeguro("Sim");
+				seguroViagem.setValorMoedaEstrangeira(orcamentoCurso.getOrcamentomanualseguro().getValor() / orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getValorgross());
+				seguroViagem.setValorSeguro(orcamentoprodutosorcamento.getValorMoedaNacional());
+				seguroViagem.setValoresseguro(orcamentoCurso.getOrcamentomanualseguro().getValoresseguro());
+				seguroViagem.setSegurocancelamento(orcamentoCurso.getOrcamentomanualseguro().isSegurocancelamento());
+				carregarCobrancaSeguro();
+				//adicionarSeguroCancelamento();
+				camposSeguroViagem = "false";
+		}
 		int idTaxaTm = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 		if (listaProdutosOrcamentoCurso != null) {
 			for (int i = 0; i < listaProdutosOrcamentoCurso.size(); i++) {
