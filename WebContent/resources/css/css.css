@@ -2219,10 +2219,6 @@ table {
 }
 
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-	color:#ffdf00;
-	
-	}
 	
 
 
@@ -2234,11 +2230,7 @@ element {
     height: 53px;
 
 }
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
 
-    color: #ffdf00;
-
-}
 
 .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
 	color:#433f38;
