@@ -817,7 +817,8 @@ public class CadVistosMB implements Serializable {
 						dashBoardBean.calcularMetaMensal(vendas, valorAlteradoVendas, false);
 						dashBoardBean.calcularMetaAnual(vendas, valorAlteradoVendas, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
-						productRunnersMB.calcularPontuacao(vendas, pontos[0],0, false, vendas.getUsuario());
+						int pontosremover = vendas.getPonto();
+						productRunnersMB.calcularPontuacao(vendas, pontos[0], pontosremover, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
