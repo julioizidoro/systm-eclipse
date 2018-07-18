@@ -439,23 +439,24 @@
 						<legend id="iUsu3" style="font-size: 11px;">
 							<b>Pagamentos</b>
 						</legend>
-						<p:outputLabel value="Forma de Pagamento" for="formPag"
-							style="margin-left: 16.8%" />
-						<p:outputLabel value="Valor Orçamento" for="valorOrca"
-							style="margin-left: 15.8%" />
-						<p:outputLabel value="Acrescentar Juros" for="acrejuros"
-							style="margin-left:17.5%" />
 						<br></br>
-						<h:panelGrid columns="3">
+						<h:panelGrid columns="3" style="width:78%;margin-left:12%;">
+							
+							<p:outputLabel value="Forma de Pagamento" for="formPag"
+								 />
+							<p:outputLabel value="Valor Orçamento" for="valorOrca"
+								 />
+							<p:outputLabel value="Acrescentar Juros" for="acrejuros"
+								 />
 							<p:selectOneMenu id="formPag"
 								value="#{cadPacoteAgenciaMB.formaPagamento.condicao}"
-								style="width:150px;margin-left:55%">
+								style="width:150px;">
 								<f:selectItem itemLabel="À Vista" itemValue="À Vista" />
 								<f:selectItem itemLabel="Parcelado" itemValue="Parcelado" />
 							</p:selectOneMenu>
 
 							<p:inputText id="valorOrca"
-								style="width:60%;margin-left:50%;text-align:right"
+								style="width:60%;text-align:right"
 								value="#{cadPacoteAgenciaMB.formaPagamento.valorOrcamento}"
 								readonly="true">
 								<f:convertNumber pattern="##,###,###,###.##"
@@ -464,72 +465,73 @@
 
 							<p:selectOneMenu id="acrejuros"
 								value="#{cadPacoteAgenciaMB.formaPagamento.possuiJuros}"
-								style="width:150px;font-size: 10px;text-align: right;margin-left:50%">
+								style="width:150px;font-size: 10px;text-align: right;">
 								<f:selectItem itemLabel="Não" itemValue="nao" />
 								<f:selectItem itemLabel="Sim" itemValue="sim" />
 								<p:ajax event="change"
 									listener="#{cadPacoteAgenciaMB.calcularValorTotalOrcamento()}"
 									update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
 							</p:selectOneMenu>
-						</h:panelGrid>
-						<br></br>
-						<br></br>
-						<p:outputLabel value="Valor Juros" for="valorJuros"
-							style="margin-left: 17%;" />
-						<p:outputLabel value="Total a Pagar" for="totalpag"
-							style="margin-left: 20%;" />
-						<p:outputLabel value="Saldo a Receber" for="saldoreceber"
-							style="margin-left:19.5%" />
-						<br></br>
-
-						<h:panelGroup>
-							<p:inputText id="valorJuros"
-								style="width:14%;text-align: right;margin-left:16.6%"
-								class="espacocobranca29"
-								value="#{cadPacoteAgenciaMB.valorJuros}">
+							
+							
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel value="Valor Juros" for="valorJuros"
+								 />
+							<p:outputLabel value="Total a Pagar" for="totalpag"
+								 />
+							<p:outputLabel value="Saldo a Receber" for="saldoreceber"
+								 />
+						
+							<h:panelGroup>
+								<p:inputText id="valorJuros"
+									style="width:100px;text-align: right;"
+									class="espacocobranca29"
+									value="#{cadPacoteAgenciaMB.valorJuros}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur"
+										listener="#{cadPacoteAgenciaMB.calcularValorTotalOrcamento()}"
+										update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
+								</p:inputText>
+								<p:commandLink action="#{cadPacoteAgenciaMB.calcularJuros()}"
+									style="text-decoration:none;">
+									<img src="../../resources/img/cambio_1.png" />
+									<p:ajax event="dialogReturn"
+										listener="#{cadPacoteAgenciaMB.retornoValorJuros()}"
+										update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
+								</p:commandLink>
+							</h:panelGroup>
+	
+							<p:inputText id="totalpag"
+								style="width:100px;text-align: right;"
+								value="#{cadPacoteAgenciaMB.totalPagar}" readonly="true">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
-								<p:ajax event="blur"
-									listener="#{cadPacoteAgenciaMB.calcularValorTotalOrcamento()}"
-									update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
 							</p:inputText>
-							<p:commandLink action="#{cadPacoteAgenciaMB.calcularJuros()}"
-								style="text-decoration:none;">
-								<img src="../../resources/img/cambio_1.png" />
-								<p:ajax event="dialogReturn"
-									listener="#{cadPacoteAgenciaMB.retornoValorJuros()}"
-									update="totalpag, saldoreceber, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
-							</p:commandLink>
-						</h:panelGroup>
-
-						<p:inputText id="totalpag"
-							style="width:13.5%;text-align: right;margin-left:11%"
-							value="#{cadPacoteAgenciaMB.totalPagar}" readonly="true">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</p:inputText>
-
-						<p:inputText value="#{cadPacoteAgenciaMB.totalPagar}"
-							id="saldoreceber"
-							style="width:14%;font-size: 10px;text-align: right;margin-left:11.7%"
-							readonly="true">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</p:inputText>
-						<br></br>
-						<br></br>
-						<br></br>
-						<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar"
-							style="margin-left: 17%;" />
-						<p:outputLabel value="Forma de Pagamento" for="formPag2"
-							style="margin-left:18.3%" />
-						<p:outputLabel value="Tipo de Parcelamento" for="tipoparcelamento"
-							style="margin-left: 16%;" />
-						<br></br>
-						<h:panelGrid columns="3">
+	
+							<p:inputText value="#{cadPacoteAgenciaMB.totalPagar}"
+								id="saldoreceber"
+								style="width:100px;font-size: 10px;text-align: right;"
+								readonly="true">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+							
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel value="Saldo a Parcelar" for="saldoparcelar"
+								 />
+							<p:outputLabel value="Forma de Pagamento" for="formPag2"
+								 />
+							<p:outputLabel value="Tipo de Parcelamento" for="tipoparcelamento"
+								 />
+							
 							<p:inputText value="#{cadPacoteAgenciaMB.valorSaltoParcelar}"
 								id="saldoparcelar"
-								style="width:49%;font-size: 10px; margin-left:59.3%;text-align: right"
+								style="width:100px;font-size: 10px;text-align: right"
 								readonly="true">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -537,7 +539,7 @@
 
 							<p:selectOneMenu id="formPag2"
 								value="#{cadPacoteAgenciaMB.formaPagamentoString}"
-								style="width:145px;font-size: 10px;margin-left:51%">
+								style="width:175px;font-size: 10px;">
 								<f:selectItem itemLabel="Selecione" itemValue=""
 									noSelectionOption="true" />
 								<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
@@ -557,89 +559,89 @@
 
 							<p:selectOneMenu id="tipoparcelamento"
 								value="#{cadPacoteAgenciaMB.tipoParcelamento}"
-								style="width:149px;font-size: 10px;margin-left: 48%">
+								style="width:149px;font-size: 10px;">
 								<f:selectItem itemLabel="Matriz" itemValue="Matriz" />
 								<f:selectItem itemLabel="Loja" itemValue="loja" />
 								<f:selectItem itemLabel="Parceiro" itemValue="Fornecedor" />
 							</p:selectOneMenu>
 						</h:panelGrid>
+							<br></br>
+						
+						<h:panelGrid columns="4" style="width:72%;margin-left:12%;">
+							<p:outputLabel value="Data 1º. Vencimento"
+								 />
+							<p:outputLabel value="Valor a Parcelar" for="valoraparcelar"
+								 />
+							<p:outputLabel value="No. Parcelas" for="nparcela"
+								 />
+							<p:outputLabel value="Valor da Parcela" for="valorparcela"
+								 />
+	
+								<p:calendar id="primeirovencimento"
+									value="#{cadPacoteAgenciaMB.dataPrimeiroPagamento}" size="18"
+									 locale="pt" pattern="dd/MM/yyyy" mask="true">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:calendar>
+	
+								<p:inputText value="#{cadPacoteAgenciaMB.valorParcelar}"
+									id="valoraparcelar"
+									style="font-size: 11px;width:100px;text-align:right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+									<p:ajax event="blur" listener="#{cadPacoteAgenciaMB.calcularValorParcelas()}"
+										update="valorparcela" />
+								</p:inputText>
+	  
+								<p:selectOneMenu id="nparcela"
+									value="#{cadPacoteAgenciaMB.numeroParcelas}"
+									style="width:130px;font-size: 10px;"> 
+									<f:selectItem itemLabel="01" itemValue="01" />
+									<f:selectItem itemLabel="02" itemValue="02" />
+									<f:selectItem itemLabel="03" itemValue="03" />
+									<f:selectItem itemLabel="04" itemValue="04" />
+									<f:selectItem itemLabel="05" itemValue="05" />
+									<f:selectItem itemLabel="06" itemValue="06" />
+									<f:selectItem itemLabel="07" itemValue="07" />
+									<f:selectItem itemLabel="08" itemValue="08" />
+									<f:selectItem itemLabel="09" itemValue="09" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<f:selectItem itemLabel="11" itemValue="11" />
+									<f:selectItem itemLabel="12" itemValue="12" />
+									<f:selectItem itemLabel="13" itemValue="13" />
+									<f:selectItem itemLabel="14" itemValue="14" />
+									<f:selectItem itemLabel="15" itemValue="15" />
+									<f:selectItem itemLabel="16" itemValue="16" />
+									<f:selectItem itemLabel="17" itemValue="17" />
+									<f:selectItem itemLabel="18" itemValue="18" />
+									<f:selectItem itemLabel="19" itemValue="19" />
+									<f:selectItem itemLabel="20" itemValue="20" />
+									<f:selectItem itemLabel="21" itemValue="21" />
+									<f:selectItem itemLabel="22" itemValue="22" />
+									<f:selectItem itemLabel="23" itemValue="23" />
+									<f:selectItem itemLabel="24" itemValue="24" />
+									<p:ajax event="change"
+										listener="#{cadPacoteAgenciaMB.calcularValorParcelas()}"
+										update="valorparcela" />
+								</p:selectOneMenu>
+	
+								<p:inputText value="#{cadPacoteAgenciaMB.valorParcela}"
+									id="valorparcela"
+									style="font-size: 11px;width:100px; text-align: right;">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</p:inputText>
+							</h:panelGrid>
 						<br></br>
 						<br></br>
-						<p:outputLabel value="Data 1o. Vencimento"
-							style="margin-left:17%;" />
-						<p:outputLabel value="Valor a Parcelar" for="valoraparcelar"
-							style="text-align: right;margin-left: 8.5%;" />
-						<p:outputLabel value="No. Parcelas" for="nparcela"
-							style="margin-left: 12%;" />
-						<p:outputLabel value="Valor da Parcela" for="valorparcela"
-							style="margin-left: 9.5%" />
-
-						<h:panelGrid columns="4">
-							<p:calendar id="primeirovencimento"
-								value="#{cadPacoteAgenciaMB.dataPrimeiroPagamento}" size="18"
-								style="margin-left:158%;" locale="pt" pattern="dd/MM/yyyy" mask="true">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-
-							<p:inputText value="#{cadPacoteAgenciaMB.valorParcelar}"
-								id="valoraparcelar"
-								style="font-size: 11px;width:33%;text-align:right;margin-left:67%">
-								<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-								<p:ajax event="blur" listener="#{cadPacoteAgenciaMB.calcularValorParcelas()}"
-									update="valorparcela" />
-							</p:inputText>
-  
-							<p:selectOneMenu id="nparcela"
-								value="#{cadPacoteAgenciaMB.numeroParcelas}"
-								style="width:130px;font-size: 10px;margin-left: 37%"> 
-								<f:selectItem itemLabel="01" itemValue="01" />
-								<f:selectItem itemLabel="02" itemValue="02" />
-								<f:selectItem itemLabel="03" itemValue="03" />
-								<f:selectItem itemLabel="04" itemValue="04" />
-								<f:selectItem itemLabel="05" itemValue="05" />
-								<f:selectItem itemLabel="06" itemValue="06" />
-								<f:selectItem itemLabel="07" itemValue="07" />
-								<f:selectItem itemLabel="08" itemValue="08" />
-								<f:selectItem itemLabel="09" itemValue="09" />
-								<f:selectItem itemLabel="10" itemValue="10" />
-								<f:selectItem itemLabel="11" itemValue="11" />
-								<f:selectItem itemLabel="12" itemValue="12" />
-								<f:selectItem itemLabel="13" itemValue="13" />
-								<f:selectItem itemLabel="14" itemValue="14" />
-								<f:selectItem itemLabel="15" itemValue="15" />
-								<f:selectItem itemLabel="16" itemValue="16" />
-								<f:selectItem itemLabel="17" itemValue="17" />
-								<f:selectItem itemLabel="18" itemValue="18" />
-								<f:selectItem itemLabel="19" itemValue="19" />
-								<f:selectItem itemLabel="20" itemValue="20" />
-								<f:selectItem itemLabel="21" itemValue="21" />
-								<f:selectItem itemLabel="22" itemValue="22" />
-								<f:selectItem itemLabel="23" itemValue="23" />
-								<f:selectItem itemLabel="24" itemValue="24" />
-								<p:ajax event="change"
-									listener="#{cadPacoteAgenciaMB.calcularValorParcelas()}"
-									update="valorparcela" />
-							</p:selectOneMenu>
-
-							<p:inputText value="#{cadPacoteAgenciaMB.valorParcela}"
-								id="valorparcela"
-								style="font-size: 11px;width:82%; text-align: right;margin-left:22%">
-								<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-							</p:inputText>
-						</h:panelGrid>
-
-						<br></br>
-						<br></br>
 						<br></br>
 
-						<h:panelGrid columns="2">
+						<h:panelGrid columns="2" style="width:77%;">
+							<p:outputLabel/>
 							<p:commandButton id="adicionarpagamento" value="Adicionar"
 								action="#{cadPacoteAgenciaMB.adicionarFormaPagamento()}"
 								update="formapagamentotabela, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, :cadastropacote:growl"
-								icon="ui-icon-plusthick" style="margin-left:91.05%" />
+								icon="ui-icon-plusthick" style="float:right;" />
 						</h:panelGrid>  
 						<br></br>
 						<legend id="iUsu3" style="font-size: 11px;">
