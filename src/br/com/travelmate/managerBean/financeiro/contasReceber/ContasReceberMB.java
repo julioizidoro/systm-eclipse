@@ -50,6 +50,8 @@ import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Crmcobranca;
+import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Historicocobranca;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -619,31 +621,14 @@ public class ContasReceberMB implements Serializable {
 		EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Alteração data de Vencimento", conta, usuarioLogadoMB.getUsuario());
 		listaContas.remove(linha);
 		listaContas.add(linha, conta);
-		String sql = "Select c from Cobranca c where c.vendas.idvendas=" + conta.getVendas().getIdvendas();
-		CobrancaFacade cobrancaFacade = new CobrancaFacade();
-		Cobranca cobranca = cobrancaFacade.consultar(sql);
-		if (cobranca == null) {
-			cobranca = new Cobranca();
-			cobranca.setVendas(conta.getVendas());
-			cobranca = cobrancaFacade.salvar(cobranca);
-		}
-		 if (conta.getIdcontasreceber() != null) {
-		        if (conta.getCrmcobrancaconta() != null) {
-		        	if (dataAnterior.before(conta.getDatavencimento())) {
-		    			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
-		    			crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
-					}
+		if (conta.getIdcontasreceber() != null) {
+			if (conta.getCrmcobrancaconta() != null) {
+				if (dataAnterior.before(conta.getDatavencimento())) {
+					CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+					crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
 				}
 			}
-		Historicocobranca historicocobranca = new Historicocobranca();
-		historicocobranca.setAssunto("Data de vencimento alterada de " + Formatacao.ConvercaoDataPadrao(dataAnterior)
-				+ " por " + usuarioLogadoMB.getUsuario().getNome());
-		historicocobranca.setCobranca(cobranca);
-		historicocobranca.setContato("Sistema");
-		historicocobranca.setData(new Date());
-		historicocobranca.setUsuario(usuarioLogadoMB.getUsuario());
-		HistoricoCobrancaFacade historicocobrancaFacade = new HistoricoCobrancaFacade();
-		historicocobrancaFacade.salvar(historicocobranca);
+		}
 		FacesMessage msg = new FacesMessage("Sucesso! ", "Data de Vencimento Alterada.");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		for (int i = 0; i < listaContas.size(); i++) {

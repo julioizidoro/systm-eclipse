@@ -39,6 +39,8 @@ import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
+import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
+import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cancelamentocredito;
 import br.com.travelmate.model.Condicaocancelamento;
@@ -501,14 +503,17 @@ public class EmissaoCancelamentoMB implements Serializable {
 						dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
 						productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
 					}
+					cancelarContasReceber();
 					vendas.setSituacao("CANCELADA");
 					vendasFacade.salvar(vendas);
 					if (vendas.getProdutos().getIdprodutos() == 1 || vendas.getProdutos().getIdprodutos() == 16) {
 						SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 						Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
-						Vendas vendasSeguro = seguro.getVendas();
-						vendasSeguro.setSituacao("CANCELADA");
-						vendasFacade.salvar(vendasSeguro);
+						if (seguro!=null) {
+							Vendas vendasSeguro = seguro.getVendas();
+							vendasSeguro.setSituacao("CANCELADA");
+							vendasFacade.salvar(vendasSeguro);
+						}
 					}
 					FacesContext fc = FacesContext.getCurrentInstance();
 					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -528,6 +533,29 @@ public class EmissaoCancelamentoMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Informe ou cancele o PIN", "");
 		}
 		return "";
+	}
+	
+	public void cancelarContasReceber(){
+		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+		String sql = "SELECT  c FROM Contasreceber c where c.datapagamento is NULL and c.valorpago=0 and c.situacao<>'cc' and c.vendas.idvendas=" + cancelamento.getVendas().getIdvendas();
+		List<Contasreceber> listaContas =  contasReceberFacade.listar(sql);
+		if (listaContas!=null) {
+			for (int i=0;i<listaContas.size();i++) {
+				Contasreceber conta = listaContas.get(i);
+				conta.setSituacao("cc");
+				conta.setBoletocancelado(true);
+				conta.setMotivocancelamento("Efetuado pelo módulo de cancelamento");
+				conta.setDatacancelamento(new Date());
+				conta = contasReceberFacade.salvar(conta);
+				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Alteração data de Vencimento", conta, usuarioLogadoMB.getUsuario());
+				if (conta.getIdcontasreceber() != null) {
+					if (conta.getCrmcobrancaconta() != null) {
+						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+						crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+					}
+				}
+			}
+		}
 	}
 
 	public void salvarCredito() {

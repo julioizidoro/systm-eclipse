@@ -175,6 +175,9 @@ public class NotificacaoMB implements Serializable{
 	        VendasFacade vendasFacade = new  VendasFacade();
 	        Vendas vendas = vendasFacade.consultarVendas(avisousuario.getAvisos().getIdvenda());
 	        if (vendas!=null){
+	        	if (vendas.getProdutos().getIdprodutos()==22) {
+	        		session.setAttribute("cliente", vendas.getCliente());
+	        	}
 	        	session.setAttribute("vendas", vendas);
 				String voltar = "abrir";
 				session.setAttribute("voltar", voltar);
