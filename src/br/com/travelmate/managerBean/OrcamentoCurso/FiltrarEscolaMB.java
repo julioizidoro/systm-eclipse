@@ -1187,7 +1187,9 @@ public class FiltrarEscolaMB implements Serializable {
 			for (int j = 0; j < listaPromocaocursocidade.size(); j++) {
 				Valorcoprodutos valorcoprodutos = null; 
 				for (int i = 0; i < listaObrigatorios.size(); i++) {
-					if (listaObrigatorios.get(i).getValorcoprodutos().getCoprodutos().getComplementocurso() != null) {
+					if (listaObrigatorios.get(i).getValorcoprodutos().getCoprodutos().getComplementocurso() != null && 
+							(listaObrigatorios.get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento().getTipoorcamento().equalsIgnoreCase("C") || 
+							listaObrigatorios.get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento().getTipoorcamento().equalsIgnoreCase("A"))) {
 						valorcoprodutos = listaObrigatorios.get(i).getValorcoprodutos();
 						posicao = i;
 						i = 1000;
