@@ -3071,6 +3071,9 @@ public class OrcamentoCursoMB implements Serializable {
 						if(valordesconto>0){
 							desconto = desconto + valordesconto;
 						}
+						if (valorcoprodutos.getCoprodutos().isPacote()) {
+							desconto = 0f;
+						}
 					} 
 				}
 			}
