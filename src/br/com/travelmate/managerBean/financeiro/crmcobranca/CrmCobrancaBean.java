@@ -88,9 +88,10 @@ public class CrmCobrancaBean {
 		ParametrosFinanceiroFacade parametrosFinanceiroFacade = new ParametrosFinanceiroFacade();
 		Parametrosfinanceiro parametrosfinanceiro = parametrosFinanceiroFacade.consultar();
 		String dataVencimento = Formatacao.SubtarirDatas(new Date(), 5, "yyyy-MM-dd");
-		String sql = "SELECT c FROM Contasreceber c where c.datavencimento>'" +
-		Formatacao.ConvercaoDataSql(parametrosfinanceiro.getDatacobranca()) + "' and c.datavencimento<='" + dataVencimento +
-				"'  and c.situacao<>'cc' and c.datapagamento is NULL and c.valorpago=0";
+		//String sql = "SELECT c FROM Contasreceber c where c.datavencimento>'" +
+		//Formatacao.ConvercaoDataSql(parametrosfinanceiro.getDatacobranca()) + "' and c.datavencimento<='" + dataVencimento +
+		//		"'  and c.situacao<>'cc' and c.datapagamento is NULL and c.valorpago=0";
+		String sql = "SELECT c FROM Contasreceber c where c.datavencimento<='" + dataVencimento + "' and c.valorpago=0 and c.situacao<>'cc'";
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 		List<Contasreceber> lista = contasReceberFacade.listar(sql);
 		if (lista!=null){
@@ -98,9 +99,10 @@ public class CrmCobrancaBean {
 				if (lista.get(i).getCrmcobrancaconta()==null){
 					criar(lista.get(i));
 				}else{
-					if (!lista.get(i).getCrmcobrancaconta().getCrmcobranca().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+					if (lista.get(i).getCrmcobrancaconta().getCrmcobranca()==null) {
 						criar(lista.get(i));
 					}
+					
 				}
 			}
 		}

@@ -189,6 +189,8 @@
 					<p:commandButton id="bntenviarboleto" style="font-size:12px;"
 						rendered="#{contasReceberMB.btnEnviarBoleto}"
 						value="Gerar Remessa" action="#{contasReceberMB.dialogBoletos()}" />
+					<p:commandButton id="bntcobranca" style="font-size:12px;"
+						value="Cobrança" action="#{contasReceberMB.enviarCobranca()}" update=":telacontareceber:growl, :telacontareceber:tabelacontasRecebe"/>
 					<p:commandButton id="bntReenviarBoleto" style="font-size:12px;"
 						rendered="#{contasReceberMB.btnReenviarRemessa}"
 						value="Reenviar Remessa" action="#{contasReceberMB.dialogReenviarBoletos()}" />
@@ -245,8 +247,9 @@
 					</p:column>
 
 					<p:column headerText="Nº Documento" style="width:75px;">
-						<p:outputLabel value="#{contasrecebe.numerodocumento}" />
+						<p:outputLabel value="#{contasrecebe.numerodocumento}" style="#{contasReceberMB.retornarContaCobranca(contasrecebe)}"/>
 					</p:column>
+					
 					<p:column headerText="ID Vendas" style="width:80px;"  
 						sortBy="#{contasrecebe.vendas.idvendas}">
 						<p:commandLink

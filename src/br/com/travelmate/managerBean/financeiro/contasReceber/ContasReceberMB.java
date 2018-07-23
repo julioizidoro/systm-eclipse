@@ -1218,4 +1218,27 @@ public class ContasReceberMB implements Serializable {
 		return "historicoCobrancaCliente";
 	}
 	
+	public String retornarContaCobranca(Contasreceber conta) {
+		if (conta.getCrmcobrancaconta()!=null) {
+			if (!conta.getCrmcobrancaconta().getPaga()){
+				return "color:red;";
+			}
+		}
+		return "";
+	}
+	
+	public void enviarCobranca() {
+		int contador=0;
+		CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+		for (int i=0;i<listaContas.size();i++) {
+			if (listaContas.get(i).isSelecionado()) {
+				if (listaContas.get(i).getCrmcobrancaconta()==null) {
+					crmCobrancaBean.criar(listaContas.get(i));
+					contador++;
+				}
+			}
+		}
+		Mensagem.lancarMensagemInfo("Cobrança", "Foram incluidas " + contador + " contas na cobrança");
+	}
+	
 }

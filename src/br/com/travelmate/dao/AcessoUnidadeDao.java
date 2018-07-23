@@ -23,7 +23,6 @@ public class AcessoUnidadeDao {
 		tx.begin();
 		acessounidade = manager.merge(acessounidade);
         tx.commit();
-        manager.close();
         return acessounidade; 
     } 
     
@@ -44,7 +43,6 @@ public class AcessoUnidadeDao {
 		Acessounidade acessounidade = manager.find(Acessounidade.class, idacessounidade);
         manager.remove(acessounidade);  
         tx.commit();
-        manager.close();
     }
      
     public List<Acessounidade> lista(String sql) throws SQLException {
