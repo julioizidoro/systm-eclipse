@@ -79,7 +79,7 @@ public class UsuarioLogadoMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		//gerarCidadeProduto();
+		removerAtributosSessao();
 		usuario = new Usuario();
 	}
 
@@ -573,6 +573,14 @@ public class UsuarioLogadoMB implements Serializable {
 				}
 			}
 		}
+	}
+	
+	public void removerAtributosSessao() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		session.removeAttribute("acessounidade");
+		session.removeAttribute("valoresacomodacao");
+		session.removeAttribute("vendas");
+		session.removeAttribute("listaArquivos");
 	}
 	 
 }
