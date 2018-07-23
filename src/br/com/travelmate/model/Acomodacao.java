@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -45,7 +46,7 @@ public class Acomodacao implements Serializable {
     private Date datainicial;
     @Column(name = "numerosemana")
     private Integer numerosemana;
-    @Column(name = "datadinal")
+    @Column(name = "datatermino")
     @Temporal(TemporalType.DATE)
     private Date datatermino;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -77,6 +78,8 @@ public class Acomodacao implements Serializable {
     private Produtos produtos;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "acomodacao")
 	private Acomodacaocurso acomodacaocurso;
+    @Transient
+    private float valorCambio;
    
 
     public Acomodacao() {
@@ -332,6 +335,18 @@ public class Acomodacao implements Serializable {
 
 	public void setAcomodacaocurso(Acomodacaocurso acomodacaocurso) {
 		this.acomodacaocurso = acomodacaocurso;
+	}
+
+
+
+	public float getValorCambio() {
+		return valorCambio;
+	}
+
+
+
+	public void setValorCambio(float valorCambio) {
+		this.valorCambio = valorCambio;
 	}
 
 
