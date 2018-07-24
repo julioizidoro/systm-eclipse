@@ -2824,6 +2824,41 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadOrcamentoHe</from-outcome>
+			<to-view-id>/pages/orcamentoHE/cadOrcamentoHe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>orcamentoHe</from-outcome>
+			<to-view-id>/pages/orcamentoHE/orcamentoHe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadAcomodacao</from-outcome>
+			<to-view-id>/pages/acomodacao/cadAcomodacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>selecionarAcomodacao</from-outcome>
+			<to-view-id>/pages/acomodacao/selecionarAcomodacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	
 	<application>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
