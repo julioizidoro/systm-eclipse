@@ -42,16 +42,16 @@
 						<h:panelGroup>
 							<h:panelGrid columns="4" style="margin-left:2.5%;width:92%"
 								>
-								<h:outputLabel value="Cliente" for="idoccliente" />
-								<h:outputLabel value="Email" for="idocemail" />
+								<h:outputLabel value="Cliente" for="idoccliente" style="font-size:12px;" />
+								<h:outputLabel value="Email" for="idocemail" style="font-size:12px;" />
 								<h:outputLabel value="Data de Nascimento"/>
 								<h:outputLabel value="Como conheceu a TravelMate?" />
-								<h:inputText id="idoccliente" style="width:93%;" readonly="true"
+								<p:inputText id="idoccliente" style="width:93%;font-size:12px;" readonly="true"
 									value="#{cadOrcamentoHeMB.lead.cliente.nome}" />
-								<h:inputText id="idocemail" style="width:70%;" maxlength="100"
+								<p:inputText id="idocemail" style="width:70%;font-size:12px;" maxlength="100"
 									value="#{cadOrcamentoHeMB.lead.cliente.email}" />
 								<p:inputMask value="#{cadOrcamentoHeMB.lead.cliente.dataNascimento}" mask="99/99/9999"
-									id="ocdatanasci">
+									id="ocdatanasci" style="font-size:12px;">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</p:inputMask>
@@ -59,7 +59,7 @@
 								<p:selectOneMenu id="ocidconheceutravel"
 									value="#{cadOrcamentoHeMB.lead.cliente.publicidade}"
 									converter="PublicidadeConverter" filter="true"
-									style="width:40%;" filterMatchMode="startsWith"
+									style="width:60%;" filterMatchMode="startsWith"
 									panelStyle="width:180px">
 									<f:selectItem itemLabel="Selecione" itemValue="0"
 										noSelectionOption="true" />
@@ -77,16 +77,16 @@
 								<h:outputLabel value="Fone Residencial"
 									for="ocidfoneresidencial" />
 								<h:outputLabel value="Fone Celular" for="ocidfonecelular" />
-								<p:selectOneMenu id="ocsexo" value="#{cadOrcamentoHeMB.lead.cliente.sexo}" style="width:130px;">
+								<p:selectOneMenu id="ocsexo" value="#{cadOrcamentoHeMB.lead.cliente.sexo}" style="width:130px;font-size:12px">
 									<f:selectItem itemLabel="Selecione" itemValue="selecione"
 										noSelectionOption="true" />
 									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
 									<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
 								</p:selectOneMenu>
-								<p:inputMask id="ocidfoneresidencial" style="width:100px;"
+								<p:inputMask id="ocidfoneresidencial" style="width:100px;font-size:12px"
 									value="#{cadOrcamentoHeMB.lead.cliente.foneResidencial}" mask="(99)9999-9999" />
 
-								<p:inputMask id="ocidfonecelular" style="width:100px;"
+								<p:inputMask id="ocidfonecelular" style="width:100px;font-size:12px"
 									mask="(99)99999-9999" value="#{cadOrcamentoHeMB.lead.cliente.foneCelular}" />
 								<p:outputLabel/>
 							</h:panelGrid>
@@ -105,14 +105,14 @@
 										
 									</p:selectBooleanCheckbox>
 									<p:outputLabel value="Histórico e Diploma de Conclusão do Ensino Médio (Original e Tradução Juramentada)"
-										style="margin-left:2%;font-size:11px;" />
+										style="margin-left:2%;font-size:12px;" />
 								</p:panelGrid>
 								<p:panelGrid>
 									<p:selectBooleanCheckbox id="checkPassaporte" value="#{cadOrcamentoHeMB.heorcamento.passaporte}">
 										
 									</p:selectBooleanCheckbox>
 									<p:outputLabel value="Passaporte"
-										style="margin-left:5%;font-size:11px;" />
+										style="margin-left:5%;font-size:12px;" />
 								</p:panelGrid>
 								<p:outputLabel/>
 								<p:outputLabel/>
@@ -121,14 +121,14 @@
 										
 									</p:selectBooleanCheckbox>
 									<p:outputLabel value="Histórico e Diploma de Conclusão do Ensino Superior (Original e Tradução Juramentada)"
-										style="margin-left:2%;font-size:11px;" />
+										style="margin-left:2%;font-size:12px;" />
 								</p:panelGrid>
 								<p:panelGrid>
 									<p:selectBooleanCheckbox id="checkScore" value="#{cadOrcamentoHeMB.heorcamento.score}">
 										
 									</p:selectBooleanCheckbox>
 									<p:outputLabel value="Score Report do teste de proficiência"
-										style="margin-left:5%;font-size:11px;" />
+										style="margin-left:5%;font-size:12px;" />
 								</p:panelGrid>
 							</h:panelGrid>
 						<br/>
@@ -140,8 +140,8 @@
 
 						<h:panelGrid columns="2" style="width:33%;margin-left: 2.5%;">
 
-							<p:outputLabel value="Moeda" style="font-size:11px;"/>
-							<p:outputLabel value="Valor Assessoria" style="font-size:11px;"/>
+							<p:outputLabel value="Moeda" style="font-size:12px;"/>
+							<p:outputLabel value="Valor Assessoria" style="font-size:12px;"/>
 							<p:selectOneMenu id="moeda" value="#{cadOrcamentoHeMB.moeda}"
 								style="width:150px;" converter="MoedasConverter">
 								<f:selectItem itemLabel="Moedas" itemValue="0" />
@@ -152,7 +152,7 @@
 							</p:selectOneMenu> 
 							<p:inputText id="valorassessoria"
 								value="#{cadOrcamentoHeMB.heorcamento.valorassessoria}"
-								style="width:100px;text-align: right;">
+								style="width:100px;text-align: right;font-size:12px;" >
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:inputText>
@@ -160,7 +160,7 @@
 						<br/>
 						<p:commandButton id="btnAdicionarPrograma" value="Adicionar"
 							action="#{cadOrcamentoHeMB.adicionarPrograma()}" title="Adicionar Programa"
-							style="height:30px;margin-left:90%"
+							style="height:30px;margin-left:90%;font-size:12px;"
 							icon="ui-icon-plus">
 							<p:ajax event="dialogReturn" listener="#{cadOrcamentoHeMB.retornoDialogPrograma}" update="tabelaProdutosHe"/>
 						</p:commandButton>
@@ -168,7 +168,7 @@
 						<p:dataTable id="tabelaProdutosHe" var="programa"
 							value="#{cadOrcamentoHeMB.listaHeOrcamentoPais}"
 							class="tabelas-responsivas" reflow="true" scrollable="true"
-							scrollHeight="300" style="margin-left:2.5%;width:95%;" rowIndexVar="rowIx">
+							scrollHeight="300" style="margin-left:2.5%;width:95%;font-size:12px" rowIndexVar="rowIx">
 							<p:column headerText="Local" style="width:100px;">
 								<h:outputText value="#{programa.cidade.nome} - #{programa.cidade.pais.nome}" />
 							</p:column>
