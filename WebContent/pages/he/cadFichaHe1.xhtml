@@ -41,6 +41,11 @@
 							</p:commandButton>
 						</h:panelGrid>
 						<br />
+						
+						<br />
+						<legend id="iUsu3">
+								<b style="color: #458871;">Programas de Higher Education</b>
+							</legend>
 						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
@@ -64,7 +69,7 @@
 								filterMatchMode="startsWith" panelStyle="width:180px">  
 								<f:selectItem itemLabel="Cidade" itemValue="0"
 									noSelectionOption="true" />
-								<f:selectItems id="idcidade2"
+								<f:selectItems id="idcidade"
 									value="#{cadHeInscricaoMB.pais.cidadeList}" var="cidade"
 									itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
 								<f:attribute name="listaCidade"
@@ -91,14 +96,32 @@
 							<p:outputLabel />
 							<p:outputLabel />   
 							
-							<p:outputLabel value="Primeira Língua" for="lingua1" />
-							<p:outputLabel value="Segunda Língua" for="lingua2" />
-							<p:outputLabel />     
+							
+						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Curso" />
+							<h:panelGroup>
+								<p:outputLabel value="Código" />
+								<p:outputLabel value="Mês/Ano" style="margin-left: 35%;" />
+							</h:panelGroup>
 
-							<p:inputText id="lingua1" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.primeiralingua}" />
-							<p:inputText id="lingua2" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.segundalingua}" /> 
+							<p:inputText id="curso1" style="width:85%;"
+								value="#{cadHeInscricaoMB.heparceiros1.hecurso}"
+								 />
+							<h:panelGroup>
+								<p:inputText id="codigo1" style="width:40%;"
+									value="#{cadHeInscricaoMB.heparceiros1.hecodigo}"
+									 />
+								<p:inputMask mask="99/9999" id="mesano1"
+									style="width:40%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.heparceiros1.mesano}"
+									 />
+							</h:panelGroup>
+							
+							<p:outputLabel />
 						</h:panelGrid>
 						<br /><br />
 						<h:panelGrid columns="2"
@@ -108,7 +131,7 @@
 								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway}">
 									<p:ajax event="change" update="datainicio, nsemanas, datatermino" />
 								</p:selectBooleanCheckbox>
-								<p:outputLabel value="Inglês para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
+								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
 							</h:panelGroup>
 						</h:panelGrid>  
 						<br/>
@@ -121,7 +144,7 @@
 							<p:outputLabel value="Data Término" for="datatermino" />
 
 							<p:calendar id="datainicio" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}"
-								value="#{cadHeInscricaoMB.he.datainicio}" size="14" locale="pt"
+								value="#{cadHeInscricaoMB.heparceiros1.datainicio}" size="14" locale="pt"
 								pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
@@ -129,121 +152,306 @@
 								<p:ajax event="dateSelect" />
 							</p:calendar>
 							<p:inputText id="nsemanas" style="width:60%;" maxlength="100"
-								value="#{cadHeInscricaoMB.he.numerosemanas}" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}">
+								value="#{cadHeInscricaoMB.heparceiros1.numerosemanas}" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}">
 								<p:ajax event="blur"
-									listener="#{cadHeInscricaoMB.calcularDataTermino()}"
+									listener="#{cadHeInscricaoMB.calcularDataTermino1()}"
 									update="datatermino" />
 							</p:inputText>
 							<p:calendar id="datatermino" disabled="#{cadHeInscricaoMB.habilitarCamposPathway()}"
-								value="#{cadHeInscricaoMB.he.datatermino}" size="14" locale="pt"
+								value="#{cadHeInscricaoMB.heparceiros1.datatermino}" size="14" locale="pt"
 								pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar>
 						</h:panelGrid>
-						<br />
+						<br/>
+						<hr style="margin-left:8%;width:76%;"/>
 						<br />
 						<h:panelGrid columns="2"
 							columnClasses="tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
 							<h:panelGroup>
-								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe}">
-									<p:ajax event="change" update="curso1, codigo1, mesano1, curso2, codigo2, mesano2, curso3, codigo3, mesano3" />
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe2}">
+									<p:ajax event="change" update="curso2, codigo2, mesano2, pais2, cidade2, fornecedor2" listener="#{cadHeInscricaoMB.gerarHeParceiro2()}"/>
 								</p:selectBooleanCheckbox>
-								<p:outputLabel value="Programas de Higher Education" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
+								<p:outputLabel value="2º Opção" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
 							</h:panelGroup>    
 						</h:panelGrid>
-						<br />   
+						<br />
 						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
-							style="width:80%;margin-left:8%;"> 
-							<p:outputLabel value="1º Opção" style="font-size:13px;" />
-							<p:outputLabel />
-							<p:outputLabel />
-							
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel value="Parceiro"/>
-							<p:outputLabel value="Curso" />
-							<h:panelGroup>
-								<p:outputLabel value="Código" />
-								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
-							</h:panelGroup>
-							
-							<p:inputText id="parceiro1" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.instituicao1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-							<p:inputText id="curso1" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.curso1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-							<h:panelGroup>
-								<p:inputText id="codigo1" style="width:40%;"
-									value="#{cadHeInscricaoMB.he.codigo1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-								<p:inputMask mask="99/9999" id="mesano1" style="width:40%;margin-left:4%;"
-									value="#{cadHeInscricaoMB.he.mesano1}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-							</h:panelGroup>
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Pais" for="pais" />
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:outputLabel value="Parceiro" for="fornecedor" />
 
-							<p:outputLabel value="2º Opção" style="font-size:13px;" />
+							<p:selectOneMenu id="pais2" value="#{cadHeInscricaoMB.pais2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}"
+								style="width:85%;" filter="true" filterMatchMode="startsWith"
+								converter="PaisFornecedorConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais2" value="#{cadHeInscricaoMB.listaPais2}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+								<f:attribute name="listaPaisFornecedor"
+									value="#{cadHeInscricaoMB.listaPais2}" />
+								<p:ajax event="change" update="cidade2"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade2" value="#{cadHeInscricaoMB.cidade2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}"
+								style="width:85%;" converter="CidadeConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">  
+								<f:selectItem itemLabel="Cidade" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade2"
+									value="#{cadHeInscricaoMB.pais2.cidadeList}" var="cidade"
+									itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+								<f:attribute name="listaCidade"
+									value="#{cadHeInscricaoMB.pais2.cidadeList}" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.listarFornecedorCidade2()}"
+									update="fornecedor2" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="fornecedor2" disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}"
+								value="#{cadHeInscricaoMB.fornecedorCidade2}" style="width:85%;"
+								filter="true" filterMatchMode="startsWith"
+								converter="FornecedorCidadeConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor2"
+									value="#{cadHeInscricaoMB.listaFornecedorCidade2}"
+									var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadHeInscricaoMB.listaFornecedorCidade2}" />
+							</p:selectOneMenu>
+							
 							<p:outputLabel />
 							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel value="Parceiro"/>
+							<p:outputLabel />   
+							
+							
+						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
 								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
 							</h:panelGroup>
-							<p:inputText id="parceiro2" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.instituicao2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+
 							<p:inputText id="curso2" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.curso2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+								value="#{cadHeInscricaoMB.heparceiros2.hecurso}"
+								disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
 							<h:panelGroup>
 								<p:inputText id="codigo2" style="width:40%;"
-									value="#{cadHeInscricaoMB.he.codigo2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-								<p:inputMask mask="99/9999" id="mesano2" style="width:40%;margin-left:4%;"
-									value="#{cadHeInscricaoMB.he.mesano2}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+									value="#{cadHeInscricaoMB.heparceiros2.hecodigo}"
+									disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
+								<p:inputMask mask="99/9999" id="mesano2"
+									style="width:40%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.heparceiros2.mesano}"
+									disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
 							</h:panelGroup>
+							
 							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
+						</h:panelGrid>
+						<br /><br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:64%;margin-left:8%;"> 
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway2}">
+									<p:ajax event="change" update="datainicio2, nsemanas2, datatermino2" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
+							</h:panelGroup>
+						</h:panelGrid>  
+						<br/>
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"  
+							style="width:37.5%;margin-left:8%;">
 
-							<p:outputLabel value="3º Opção" style="font-size:13px;" />
+							<p:outputLabel value="Data Início" for="datainicio2" />
+							<p:outputLabel value="Nº Semanas" for="nsemanas2" />
+							<p:outputLabel value="Data Término" for="datatermino2" />
+
+							<p:calendar id="datainicio2" disabled="#{cadHeInscricaoMB.habilitarCamposPathway2()}"
+								value="#{cadHeInscricaoMB.heparceiros2.datainicio}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+							<p:inputText id="nsemanas2" style="width:60%;" maxlength="100"
+								value="#{cadHeInscricaoMB.heparceiros2.numerosemanas}" disabled="#{cadHeInscricaoMB.habilitarCamposPathway2()}">
+								<p:ajax event="blur"
+									listener="#{cadHeInscricaoMB.calcularDataTermino()}"
+									update="datatermino2" />
+							</p:inputText>
+							<p:calendar id="datatermino2" disabled="#{cadHeInscricaoMB.habilitarCamposPathway2()}"
+								value="#{cadHeInscricaoMB.heparceiros2.datatermino}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						
+						<br/>
+						<hr style="margin-left:8%;width:76%;"/>
+						<br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe3}">
+									<p:ajax event="change" update="curso3, codigo3, mesano3, pais3, cidade3, fornecedor3" listener="#{cadHeInscricaoMB.gerarHeParceiro3()}"/>
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="3º Opção" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
+							</h:panelGroup>    
+						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Pais" for="pais" />
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:outputLabel value="Parceiro" for="fornecedor" />
+
+							<p:selectOneMenu id="pais3" value="#{cadHeInscricaoMB.pais3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
+								style="width:85%;" filter="true" filterMatchMode="startsWith"
+								converter="PaisFornecedorConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais3" value="#{cadHeInscricaoMB.listaPais3}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+								<f:attribute name="listaPaisFornecedor"
+									value="#{cadHeInscricaoMB.listaPais3}" />
+								<p:ajax event="change" update="cidade3" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade3" value="#{cadHeInscricaoMB.cidade3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
+								style="width:85%;" converter="CidadeConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">  
+								<f:selectItem itemLabel="Cidade" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade3"
+									value="#{cadHeInscricaoMB.pais3.cidadeList}" var="cidade"
+									itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+								<f:attribute name="listaCidade"
+									value="#{cadHeInscricaoMB.pais3.cidadeList}" />
+								<p:ajax event="change"
+									listener="#{cadHeInscricaoMB.listarFornecedorCidade3()}"
+									update="fornecedor3" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="fornecedor3" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
+								value="#{cadHeInscricaoMB.fornecedorCidade3}" style="width:85%;"
+								filter="true" filterMatchMode="startsWith"
+								converter="FornecedorCidadeConverter" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor3"
+									value="#{cadHeInscricaoMB.listaFornecedorCidade3}"
+									var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{cadHeInscricaoMB.listaFornecedorCidade3}" />
+							</p:selectOneMenu>
+							
 							<p:outputLabel />
 							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel />
-							<p:outputLabel value="Parceiro"/>
+							<p:outputLabel />   
+							
+							
+						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
 								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
 							</h:panelGroup>
-							<p:inputText id="parceiro3" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.instituicao3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
 
-							<p:inputText id="curso3" style="width:85%;"
-								value="#{cadHeInscricaoMB.he.curso3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
+							<p:inputText id="curso3" style="width:85%;" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
+								value="#{cadHeInscricaoMB.heparceiros3.hecurso}"
+								 />
 							<h:panelGroup>
 								<p:inputText id="codigo3" style="width:40%;"
-									value="#{cadHeInscricaoMB.he.codigo3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-								<p:inputMask mask="99/9999" id="mesano3" style="width:40%;margin-left:4%;"
-									value="#{cadHeInscricaoMB.he.mesano3}" disabled="#{cadHeInscricaoMB.habilitarCamposHe()}"/>
-								
+									value="#{cadHeInscricaoMB.heparceiros3.hecodigo}"
+									disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}" />
+								<p:inputMask mask="99/9999" id="mesano3"
+									style="width:40%;margin-left:4%;"
+									value="#{cadHeInscricaoMB.heparceiros3.mesano}"
+									disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}" />
 							</h:panelGroup>
+							
+							<p:outputLabel />
+						</h:panelGrid>
+						<br /><br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:64%;margin-left:8%;"> 
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway3}">
+									<p:ajax event="change" update="datainicio3, nsemanas3, datatermino3" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
+							</h:panelGroup>
+						</h:panelGrid>  
+						<br/>
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"  
+							style="width:37.5%;margin-left:8%;">
+
+							<p:outputLabel value="Data Início" for="datainicio3" />
+							<p:outputLabel value="Nº Semanas" for="nsemanas3" />
+							<p:outputLabel value="Data Término" for="datatermino3" />
+
+							<p:calendar id="datainicio3" disabled="#{cadHeInscricaoMB.habilitarCamposPathway3()}"
+								value="#{cadHeInscricaoMB.heparceiros3.datainicio}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+							<p:inputText id="nsemanas3" style="width:60%;" maxlength="100"
+								value="#{cadHeInscricaoMB.heparceiros3.numerosemanas}" disabled="#{cadHeInscricaoMB.habilitarCamposPathway3()}">
+								<p:ajax event="blur"
+									listener="#{cadHeInscricaoMB.calcularDataTermino3()}"
+									update="datatermino3" />
+							</p:inputText>
+							<p:calendar id="datatermino3" disabled="#{cadHeInscricaoMB.habilitarCamposPathway3()}"
+								value="#{cadHeInscricaoMB.heparceiros3.datatermino}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						<br/>
+						<hr style="margin-left:8%;width:76%;"/>
+						<br />
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Primeira Língua" for="lingua1" />
+							<p:outputLabel value="Segunda Língua" for="lingua2" />
 							<p:outputLabel />
 
-							<p:outputLabel />  
+							<p:inputText id="lingua1" style="width:85%;" 
+								value="#{cadHeInscricaoMB.he.primeiralingua}" />
+							<p:inputText id="lingua2" style="width:85%;" 
+								value="#{cadHeInscricaoMB.he.segundalingua}" />
 							<p:outputLabel />
 							<p:outputLabel />
+							<p:outputLabel />
+
+						
+						</h:panelGrid>
 							<legend id="iUsu3">
 								<b style="color: #458871;">Informações Academicas</b>
 							</legend>
-						</h:panelGrid>
 						<h:panelGrid columns="3"
 							columnClasses="colunaQuarenta, colunadezenove, colunaQuarenta"
 							style="width:80%;margin-left:8%;">
@@ -317,7 +525,7 @@
 
 						</h:panelGrid>
 						<br/>
-						<legend id="iUsu3" style="margin-left:8%;">
+						<legend id="iUsu3" style="margin-left:8%;width:80%;">
 								<b style="color: #458871;">Notas do Enem</b>
 							</legend>
 						<h:panelGrid columns="5" style="width:76%;margin-left:8%">
@@ -358,7 +566,7 @@
 								maxlength="100" />
 						</h:panelGrid>
 						<br/>
-						<legend id="iUsu3" style="margin-left:8%;">
+						<legend id="iUsu3" style="margin-left:8%;width:80%;">
 								<b style="color: #458871;">Contato de Emergência no Brasil</b>
 							</legend>
 							<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"

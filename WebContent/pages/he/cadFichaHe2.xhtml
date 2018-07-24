@@ -87,7 +87,7 @@
 							
 							
 						</h:panelGrid>
-						<legend id="iUsu3" style="margin-left:8%;">
+						<legend id="iUsu3" style="margin-left:8%;width:80%;">
 								<b style="color: #458871;">Informações Academicas</b>
 							</legend>
 						<h:panelGrid columns="3"
@@ -164,24 +164,24 @@
 						</h:panelGrid>
 						<br/>
 						
-						<legend id="iUsu3" style="margin-left:8%;">
+						<legend id="iUsu3" style="margin-left:8%;width:80%;">
 							<b style="color: #458871;">Contato de Emergência no Brasil</b>
 						</legend>
 						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
 							value="#{cadHeFinalMB.digitosTelefoneContatoEmergencia}"
-							style="margin-left:68.5%;">
+							style="margin-left:54%;">
 							<p:ajax update="telefone" />
 						</p:selectBooleanCheckbox>
 						<h:outputText value="9 Digitos"
 							style="margin-left:1%;font-size:11px;" />
 						<br></br>
-						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
+						<p:outputLabel value="Nome" for="nome" style="margin-left: 8%" />
 						<p:outputLabel value="Telefone" for="telefone"
-							style="margin-left:54.7%" />
+							style="margin-left:43%" />
 						<br></br>
 						<p:inputText id="nome"
 							value="#{cadHeFinalMB.he.nomeContatoEmergencia}"
-							style="width:52%;margin-left:11.5%" maxlength="45" />
+							style="width:41%;margin-left:8%" maxlength="45" />
 						<p:inputMask id="telefone"
 							value="#{cadHeFinalMB.he.foneContatoEmergencia}"
 							mask="#{cadHeFinalMB.validarMascaraFoneContatoEmergencia()}"
@@ -189,13 +189,13 @@
 						<br></br>
 						<br></br>
 						<p:outputLabel value="E-mail" for="email"
-							style="margin-left: 11.5%" />
+							style="margin-left: 8%" />
 						<p:outputLabel value="Relação" for="relacao"
-							style="margin-left:54.4%" />
+							style="margin-left:43%" />
 						<br></br>
 						<p:inputText id="email"
 							value="#{cadHeFinalMB.he.emailContatoEmergencia}"
-							style="width:52%;margin-left:11.5%" maxlength="45" />
+							style="width:41%;margin-left:8%" maxlength="45" />
 						<p:inputText id="relacao"
 							value="#{cadHeFinalMB.he.relacaoContatoEmergencia}"
 							style="width:19%;margin-left: 5%" />

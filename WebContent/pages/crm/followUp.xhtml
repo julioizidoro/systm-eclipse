@@ -539,6 +539,13 @@
 								title="ORÇAMENTO" rendered="#{followUpMB.habiltiarCampos(lead)}">
 									<img src="../../resources/img/crm/orcamento.png" width="25" />
 							</p:commandLink>
+							<p:commandLink id="btnOrcamentoHE"
+								rendered="#{followUpMB.habilitarBotaoHe(lead)}"
+								title="Emissão de orçamento de HE" 
+								action="#{followUpMB.orcamentoHE(lead)}"
+								>
+								<img src="../../resources/img/crm/orcamento.png" width="25" />
+							</p:commandLink>
 							<p:overlayPanel id="painelInformacoes" for="btnOrcamento"
 									hideEffect="fade" style="background:#F0F0F0;width:450px;">
 									<h:panelGrid

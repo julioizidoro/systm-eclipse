@@ -1596,4 +1596,9 @@ public class MenuMB implements Serializable {
 		return "relatorioLeadsDetalhado";
 	}
 	
+	
+	public String orcamentoHE() {
+		return "orcamentoHe";
+	}
+	
 }

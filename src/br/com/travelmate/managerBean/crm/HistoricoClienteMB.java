@@ -1073,6 +1073,13 @@ public class HistoricoClienteMB implements Serializable {
 		return resultado;
 	}
 	
+	public boolean habilitarHE(){
+		if (lead.getProdutos().getIdprodutos() == 22) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean habilitarCampoCurso(){
 		if (lead.getProdutos().getIdprodutos() == 1 || lead.getProdutos().getIdprodutos() == 20) {
 			return true;
@@ -1108,4 +1115,12 @@ public class HistoricoClienteMB implements Serializable {
 		}
 		return resultado;
 	}
+	
+	public String orcamentoHE() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+		session.setAttribute("lead", lead);
+		return "cadOrcamentoHe";
+	}
+
 }

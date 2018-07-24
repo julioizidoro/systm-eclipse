@@ -1,0 +1,245 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="telaCadOrcamento" style="font-size: 10px;"
+			acceptcharset="ISO-8859-1">
+			<div style="margin-top: 20px; background: #ffffff;">
+				<p:ajaxStatus onstart="PF('statusDialog').hide()"
+					onsuccess="PF('statusDialog').hide()" />
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink>
+						<img src="../../resources/img/ajax-loader.gif" />
+					</p:commandLink>
+				</p:dialog>
+			</div>
+
+			<div id="centro">
+				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<p:commandButton id="bntLead" icon="ui-icon-arrowreturnthick-1-w"
+					style="font-size:12px;margin-left:11%" value="Voltar para Lead"
+					action="#{cadOrcamentoHeMB.retornaHistoricoLead()}"
+					title="Retornar para Histórico da Lead">
+				</p:commandButton>
+				<h:outputLabel value="Orçamento de Higher Education"
+					style="font-size: 22px;color: #1F8871;margin-left:20%" />
+					<br/>
+				<p:accordionPanel id="acordGeral" class="painelhighSchool"
+					style="background:#1F8871;">
+					<p:tab title="Higher Education" class="tab" titleStyle="font-size: 11px">
+						<legend id="iUsu3" style="margin-left: 2.5%; width: 95%">
+							<b>Dados do Cliente</b>
+
+						</legend>
+						<h:panelGroup>
+							<h:panelGrid columns="4" style="margin-left:2.5%;width:92%"
+								>
+								<h:outputLabel value="Cliente" for="idoccliente" />
+								<h:outputLabel value="Email" for="idocemail" />
+								<h:outputLabel value="Data de Nascimento"/>
+								<h:outputLabel value="Como conheceu a TravelMate?" />
+								<h:inputText id="idoccliente" style="width:93%;" readonly="true"
+									value="#{cadOrcamentoHeMB.lead.cliente.nome}" />
+								<h:inputText id="idocemail" style="width:70%;" maxlength="100"
+									value="#{cadOrcamentoHeMB.lead.cliente.email}" />
+								<p:inputMask value="#{cadOrcamentoHeMB.lead.cliente.dataNascimento}" mask="99/99/9999"
+									id="ocdatanasci">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</p:inputMask>
+								
+								<p:selectOneMenu id="ocidconheceutravel"
+									value="#{cadOrcamentoHeMB.lead.cliente.publicidade}"
+									converter="PublicidadeConverter" filter="true"
+									style="width:40%;" filterMatchMode="startsWith"
+									panelStyle="width:180px">
+									<f:selectItem itemLabel="Selecione" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="ocidPublicidade"
+										value="#{cadOrcamentoHeMB.listaPublicidades}"
+										var="publicidade" itemLabel="#{publicidade.descricao}"
+										itemValue="#{publicidade}" />
+									<f:attribute name="listaPublicidade"
+										value="#{cadOrcamentoHeMB.listaPublicidades}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+							<br/>
+							<h:panelGrid columns="3" style="margin-left:2.5%;width:39.8%;">
+								<h:outputLabel value="Sexo" for="ocsexo" />
+								<h:outputLabel value="Fone Residencial"
+									for="ocidfoneresidencial" />
+								<h:outputLabel value="Fone Celular" for="ocidfonecelular" />
+								<p:selectOneMenu id="ocsexo" value="#{cadOrcamentoHeMB.lead.cliente.sexo}" style="width:130px;">
+									<f:selectItem itemLabel="Selecione" itemValue="selecione"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+									<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+								</p:selectOneMenu>
+								<p:inputMask id="ocidfoneresidencial" style="width:100px;"
+									value="#{cadOrcamentoHeMB.lead.cliente.foneResidencial}" mask="(99)9999-9999" />
+
+								<p:inputMask id="ocidfonecelular" style="width:100px;"
+									mask="(99)99999-9999" value="#{cadOrcamentoHeMB.lead.cliente.foneCelular}" />
+								<p:outputLabel/>
+							</h:panelGrid>
+							
+						</h:panelGroup>
+
+						<legend id="iUsu3" style="margin-left: 2.5%; width: 95%">
+							<b>Documentos (documentação necessária para a matrícula na instituição)</b>
+
+						</legend>
+						
+						<h:panelGrid columns="2" style="margin-left:2.5%;width:72.8%;"
+								>
+								<p:panelGrid>
+									<p:selectBooleanCheckbox id="checkHistoricoMedio" value="#{cadOrcamentoHeMB.heorcamento.historicomedio}">
+										
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Histórico e Diploma de Conclusão do Ensino Médio (Original e Tradução Juramentada)"
+										style="margin-left:2%;font-size:11px;" />
+								</p:panelGrid>
+								<p:panelGrid>
+									<p:selectBooleanCheckbox id="checkPassaporte" value="#{cadOrcamentoHeMB.heorcamento.passaporte}">
+										
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Passaporte"
+										style="margin-left:5%;font-size:11px;" />
+								</p:panelGrid>
+								<p:outputLabel/>
+								<p:outputLabel/>
+								<p:panelGrid>
+									<p:selectBooleanCheckbox id="checkHistoricoSuperior" value="#{cadOrcamentoHeMB.heorcamento.historicosuperior}">
+										
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Histórico e Diploma de Conclusão do Ensino Superior (Original e Tradução Juramentada)"
+										style="margin-left:2%;font-size:11px;" />
+								</p:panelGrid>
+								<p:panelGrid>
+									<p:selectBooleanCheckbox id="checkScore" value="#{cadOrcamentoHeMB.heorcamento.score}">
+										
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Score Report do teste de proficiência"
+										style="margin-left:5%;font-size:11px;" />
+								</p:panelGrid>
+							</h:panelGrid>
+						<br/>
+
+						<legend id="iUsu3" style="margin-left: 2.5%; width: 95%">
+							<b>Valores</b>
+
+						</legend>
+
+						<h:panelGrid columns="2" style="width:33%;margin-left: 2.5%;">
+
+							<p:outputLabel value="Moeda" style="font-size:11px;"/>
+							<p:outputLabel value="Valor Assessoria" style="font-size:11px;"/>
+							<p:selectOneMenu id="moeda" value="#{cadOrcamentoHeMB.moeda}"
+								style="width:150px;" converter="MoedasConverter">
+								<f:selectItem itemLabel="Moedas" itemValue="0" />
+								<f:selectItems value="#{cadOrcamentoHeMB.listaMoedas}" var="moedas"
+									itemLabel="#{moedas.sigla}" itemValue="#{moedas}" />
+								<f:attribute name="listaMoedas"
+									value="#{cadOrcamentoHeMB.listaMoedas}" />
+							</p:selectOneMenu> 
+							<p:inputText id="valorassessoria"
+								value="#{cadOrcamentoHeMB.heorcamento.valorassessoria}"
+								style="width:100px;text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+						</h:panelGrid>
+						<br/>
+						<p:commandButton id="btnAdicionarPrograma" value="Adicionar"
+							action="#{cadOrcamentoHeMB.adicionarPrograma()}" title="Adicionar Programa"
+							style="height:30px;margin-left:90%"
+							icon="ui-icon-plus">
+							<p:ajax event="dialogReturn" listener="#{cadOrcamentoHeMB.retornoDialogPrograma}" update="tabelaProdutosHe"/>
+						</p:commandButton>
+						<br/><br/>
+						<p:dataTable id="tabelaProdutosHe" var="programa"
+							value="#{cadOrcamentoHeMB.listaHeOrcamentoPais}"
+							class="tabelas-responsivas" reflow="true" scrollable="true"
+							scrollHeight="300" style="margin-left:2.5%;width:95%;" rowIndexVar="rowIx">
+							<p:column headerText="Local" style="width:100px;">
+								<h:outputText value="#{programa.cidade.nome} - #{programa.cidade.pais.nome}" />
+							</p:column>
+							<p:column headerText="Programa" style="width:100px;">
+								<h:outputText value="#{programa.curso}" />
+							</p:column>
+							<p:column headerText="Data Inicio" style="width:70px;">
+								<h:outputText value="#{programa.datainicio}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Duração" style="width:90px;">
+								<h:outputText
+									value="#{programa.duracao}" />
+							</p:column>
+							<p:column headerText="Valor" style="text-align:right;width:78px;">
+								<h:outputText value="#{programa.cambio.moedas.sigla} ">
+								</h:outputText>
+								<h:outputText value="#{programa.valormoedaestrageira}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Valor R$" style="text-align:right;width:78px;">
+								<h:outputText value="#{programa.valorreais}">
+									<f:convertNumber pattern="##,###,###,###.##"
+										minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:30px;" styleClass="alinharCenter">
+								<p:commandLink action="#{cadOrcamentoHeMB.excluirPrograma(rowIx)}"
+									style="text-decoration: none" title="Excluir" update="tabelaProdutosHe">
+									<img src="../../resources/img/excluir.png" width="25" />
+								</p:commandLink>
+							</p:column>
+							
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Observações">
+						<br></br>
+						<div>  
+							<p:inputTextarea class="comment-text-area"
+								value="#{cadOrcamentoHeMB.heorcamento.observacao}"
+								id="obs" />
+						</div>
+					</p:tab>
+
+				</p:accordionPanel>
+				<p class="botaocadpacote">
+					<br></br>
+					<p:commandButton class="imagemm" icon="ui-icon-check"
+						value="Confirmar" onstart="PF('dialogcarregar').show()"
+						onsuccess="PF('dialogcarregar').hide()"
+						action="#{cadOrcamentoHeMB.salvar()}"
+						update="telaCadOrcamento:growl" />
+					<p:commandButton class="espacocampos" icon="ui-icon-close"
+						value="Cancelar" onstart="PF('dialogcarregar').show()"
+						onsuccess="PF('dialogcarregar').hide()"
+						action="#{cadOrcamentoHeMB.cancelar()}" />
+					<br></br> <br></br>
+				</p>
+				<p:dialog widgetVar="dialogcarregar" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:commandLink>
+						<img src="../../resources/img/ajax-loader.gif" />
+					</p:commandLink>
+				</p:dialog>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

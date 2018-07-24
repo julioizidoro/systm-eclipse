@@ -193,6 +193,16 @@
 											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
+									<p:commandLink id="btnOrcamentoHe"
+										rendered="#{historicoClienteMB.habilitarHE()}"
+										title="Opções de Orçamento de curso"
+										action="#{historicoClienteMB.orcamentoHE()}"
+										style="margin-left:8%;">
+										<h:panelGrid columns="1" style="text-align:center;">
+											<img src="../../resources/img/crm/orcamento.png" width="48" />
+											<p:outputLabel value="ORÇAMENTO" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
 									<p:overlayPanel id="painelInformacoes" for="btnOrcamento"  
 										hideEffect="fade" style="background:#F0F0F0;width:500px;">
 										

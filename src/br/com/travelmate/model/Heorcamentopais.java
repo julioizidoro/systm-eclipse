@@ -1,6 +1,7 @@
 package br.com.travelmate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -26,11 +30,11 @@ public class Heorcamentopais implements Serializable {
     @Size(max = 100)
     @Column(name = "curso")
     private String curso;
-    @Size(max = 7)
     @Column(name = "datainicio")
-    private String datainicio;
+    @Temporal(TemporalType.DATE)
+    private Date datainicio; 
     @Column(name = "duracao")
-    private Integer duracao;
+    private String duracao;
     @Column(name = "valormoedaestrageira")
     private Float valormoedaestrageira;
     @Column(name = "valorreais")
@@ -41,6 +45,13 @@ public class Heorcamentopais implements Serializable {
     @JoinColumn(name = "cidade_idcidade", referencedColumnName = "idcidade")
     @ManyToOne(optional = false)
     private Cidade cidade;
+    @JoinColumn(name = "cambio_idcambio", referencedColumnName = "idcambio")
+    @ManyToOne(optional = false)
+    private Cambio cambio;
+    @Transient
+    private boolean listar;
+    @Transient
+    private String descricaoPais;
     
 	public Heorcamentopais() {
 		
@@ -62,19 +73,19 @@ public class Heorcamentopais implements Serializable {
 		this.curso = curso;
 	}
 
-	public String getDatainicio() {
+	public Date getDatainicio() {
 		return datainicio;
 	}
 
-	public void setDatainicio(String datainicio) {
+	public void setDatainicio(Date datainicio) {
 		this.datainicio = datainicio;
 	}
 
-	public Integer getDuracao() {
+	public String getDuracao() {
 		return duracao;
 	}
 
-	public void setDuracao(Integer duracao) {
+	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
 
@@ -108,6 +119,30 @@ public class Heorcamentopais implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public Cambio getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(Cambio cambio) {
+		this.cambio = cambio;
+	}
+
+	public boolean isListar() {
+		return listar;
+	}
+
+	public void setListar(boolean listar) {
+		this.listar = listar;
+	}
+
+	public String getDescricaoPais() {
+		return descricaoPais;
+	}
+
+	public void setDescricaoPais(String descricaoPais) {
+		this.descricaoPais = descricaoPais;
 	}
 
 	@Override

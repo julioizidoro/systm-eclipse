@@ -169,7 +169,8 @@ public class Heparceiros implements Serializable {
 	public void setHe(He he) {
 		this.he = he;
 	}
-    
+
+
 	@Override
     public int hashCode() {
         int hash = 0;

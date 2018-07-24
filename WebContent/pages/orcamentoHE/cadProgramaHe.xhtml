@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+	<script>
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Começo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o Dia'
+            };
+        </script>
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
+		<p:growl id="growl" showDetail="true" sticky="false"
+			life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+		<title>Cadastro de Programa</title>
+		<h:panelGrid columns="2" style="width:92%;">
+			<p:outputLabel value="Pais" />
+			<p:outputLabel value="Cidade" />
+
+			<p:selectOneMenu id="pais" value="#{cadProgramaHeMB.pais}"
+				converter="PaisConverter" style="width:200px;" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="País" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idpais" value="#{cadProgramaHeMB.listaPais}"
+					var="cpais" itemLabel="#{cpais.pais.nome}"
+					itemValue="#{cpais.pais}" />
+				<f:attribute name="listaPais"
+					value="#{cadProgramaHeMB.listaPais}" />
+				<p:ajax event="change"
+					update="valorCambio, panelCambio, panel3, sigla, siglaValor"
+					listener="#{cadProgramaHeMB.selecionarCambio()}" />
+				<p:ajax event="change" update="cidade"
+					listener="#{cadProgramaHeMB.listarCidades()}" />
+			</p:selectOneMenu>
+
+			<p:selectOneMenu id="cidade" value="#{cadProgramaHeMB.cidade}"
+				converter="CidadeProdutoConverter" style="width:230px;"
+				filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+				<f:selectItem itemLabel="Cidade" itemValue="0"
+					noSelectionOption="true" />
+				<f:selectItems id="idcidade2"
+					value="#{cadProgramaHeMB.listaCidade}" var="cursocidade"
+					itemLabel="#{cursocidade.cidade.nome}"
+					itemValue="#{cursocidade.cidade}" />
+				<f:attribute name="listaCidadeProduto"
+					value="#{cadProgramaHeMB.listaCidade}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br/>
+		<h:panelGrid columns="1" style="width:100%;">
+			<p:outputLabel value="Programa"/>
+			<p:inputText value="#{cadProgramaHeMB.heorcamentopais.curso}" style="width:89%;"/>
+		</h:panelGrid>
+		<br/>
+		<h:panelGrid id="panel3" columns="3" style="width:100%">
+			<p:outputLabel value="Data Inicio"/>
+			<p:outputLabel value="Duração"/>
+			<p:outputLabel id="sigla" value="Cambio: #{cadProgramaHeMB.sigla}"/> 
+
+			<p:inputMask value="#{cadProgramaHeMB.heorcamentopais.datainicio}"
+				mask="99/99/9999" id="ocdatanasci">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</p:inputMask>
+			<p:inputText value="#{cadProgramaHeMB.heorcamentopais.duracao}"/>
+			<h:panelGrid id="panelCambio" columns="3" style="width:83%;">
+				<p:inputText id="valorCambio" value="#{cadProgramaHeMB.valorCambio}" style="text-align:right;">
+					<p:ajax event="blur"/>
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</p:inputText>
+				<p:commandLink
+					action="#{cadProgramaHeMB.calcularValores()}" update="valortotal, valortotalreais, :cadastroproduto:growl"
+					title="Confirmar Alteração do Valor do Câmbio">
+					<img id="editarcambio" src="../../resources/img/iconeCheck.png" width="20" />
+				</p:commandLink>
+			</h:panelGrid>
+		</h:panelGrid>
+		<br/>
+		<h:panelGrid columns="2" style="width:64%;">
+		
+			<p:outputLabel id="siglaValor" value="Valor #{cadProgramaHeMB.sigla}"/>
+			<p:outputLabel value="Valor R$"/>
+			<p:inputText id="valortotal"
+				value="#{cadProgramaHeMB.heorcamentopais.valormoedaestrageira}"
+				style="width:82%;text-align: right;" >
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				<p:ajax event="change" update="valortotalreais" listener="#{cadProgramaHeMB.calcularValores()}"/>
+			</p:inputText>
+
+			<p:inputText id="valortotalreais"
+				value="#{cadProgramaHeMB.heorcamentopais.valorreais}"
+				style="width:79%;text-align: right;" >
+				<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				<p:ajax event="change" update="valortotal" listener="#{cadProgramaHeMB.calcularValoresReais()}"/>
+			</p:inputText>
+		</h:panelGrid>
+		<br/><br/>
+		<div align="center">
+			<p:commandButton icon="ui-icon-check" value="Confirmar"
+				action="#{cadProgramaHeMB.salvar()}" update="growl" />
+			<p:commandButton icon="ui-icon-close" value="Cancelar"
+				action="#{cadProgramaHeMB.cancelar()}"
+				style="margin-left:1%;" />
+		</div>
+	</h:form>
+</h:body>
+</html>

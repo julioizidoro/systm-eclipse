@@ -33,6 +33,7 @@ import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
+import br.com.travelmate.facade.HeParceirosFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
@@ -56,6 +57,7 @@ import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.He;
+import br.com.travelmate.model.Heparceiros;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
@@ -122,13 +124,30 @@ public class CadHeInscricaoMB implements Serializable {
 	private boolean novaFicha = false;
 	private Vendas vendaAlterada;
 	private boolean camposPathway;
+	private boolean camposPathway2;
+	private boolean camposPathway3;
 	private boolean camposHe;
+	private boolean camposHe2;
+	private boolean camposHe3;
 	private Lead lead;
 	private String voltarControleVendas = "";
 	private boolean camposAcomodacao = true;
 	private boolean camposAcomodacaoCasaFamilia = true;
 	private boolean desabilitarAlergiaAlimentoCampo = true;
 	private boolean digitosTelefoneContatoEmergencia;
+	private Heparceiros heparceiros1;
+	private Heparceiros heparceiros2;
+	private Heparceiros heparceiros3;
+	private Fornecedorcidade fornecedorCidade2;
+	private Pais pais2;
+	private Cidade cidade2;
+	private Fornecedorcidade fornecedorCidade3;
+	private Pais pais3;
+	private Cidade cidade3;
+	private List<Pais> listaPais2;
+	private List<Fornecedorcidade> listaFornecedorCidade2;
+	private List<Pais> listaPais3;
+	private List<Fornecedorcidade> listaFornecedorCidade3;
 
 	@PostConstruct
 	public void init() {
@@ -467,6 +486,142 @@ public class CadHeInscricaoMB implements Serializable {
 		this.digitosTelefoneContatoEmergencia = digitosTelefoneContatoEmergencia;
 	}
 
+	public boolean isCamposPathway2() {
+		return camposPathway2;
+	}
+
+	public void setCamposPathway2(boolean camposPathway2) {
+		this.camposPathway2 = camposPathway2;
+	}
+
+	public boolean isCamposPathway3() {
+		return camposPathway3;
+	}
+
+	public void setCamposPathway3(boolean camposPathway3) {
+		this.camposPathway3 = camposPathway3;
+	}
+
+	public Heparceiros getHeparceiros1() {
+		return heparceiros1;
+	}
+
+	public void setHeparceiros1(Heparceiros heparceiros1) {
+		this.heparceiros1 = heparceiros1;
+	}
+
+	public Heparceiros getHeparceiros2() {
+		return heparceiros2;
+	}
+
+	public void setHeparceiros2(Heparceiros heparceiros2) {
+		this.heparceiros2 = heparceiros2;
+	}
+
+	public Heparceiros getHeparceiros3() {
+		return heparceiros3;
+	}
+
+	public void setHeparceiros3(Heparceiros heparceiros3) {
+		this.heparceiros3 = heparceiros3;
+	}
+
+	public boolean isCamposHe2() {
+		return camposHe2;
+	}
+
+	public void setCamposHe2(boolean camposHe2) {
+		this.camposHe2 = camposHe2;
+	}
+
+	public boolean isCamposHe3() {
+		return camposHe3;
+	}
+
+	public void setCamposHe3(boolean camposHe3) {
+		this.camposHe3 = camposHe3;
+	}
+
+	public Fornecedorcidade getFornecedorCidade2() {
+		return fornecedorCidade2;
+	}
+
+	public void setFornecedorCidade2(Fornecedorcidade fornecedorCidade2) {
+		this.fornecedorCidade2 = fornecedorCidade2;
+	}
+
+	public Pais getPais2() {
+		return pais2;
+	}
+
+	public void setPais2(Pais pais2) {
+		this.pais2 = pais2;
+	}
+
+	public Cidade getCidade2() {
+		return cidade2;
+	}
+
+	public void setCidade2(Cidade cidade2) {
+		this.cidade2 = cidade2;
+	}
+
+	public Fornecedorcidade getFornecedorCidade3() {
+		return fornecedorCidade3;
+	}
+
+	public void setFornecedorCidade3(Fornecedorcidade fornecedorCidade3) {
+		this.fornecedorCidade3 = fornecedorCidade3;
+	}
+
+	public Pais getPais3() {
+		return pais3;
+	}
+
+	public void setPais3(Pais pais3) {
+		this.pais3 = pais3;
+	}
+
+	public Cidade getCidade3() {
+		return cidade3;
+	}
+
+	public void setCidade3(Cidade cidade3) {
+		this.cidade3 = cidade3;
+	}
+
+	public List<Pais> getListaPais2() {
+		return listaPais2;
+	}
+
+	public void setListaPais2(List<Pais> listaPais2) {
+		this.listaPais2 = listaPais2;
+	}
+
+	public List<Fornecedorcidade> getListaFornecedorCidade2() {
+		return listaFornecedorCidade2;
+	}
+
+	public void setListaFornecedorCidade2(List<Fornecedorcidade> listaFornecedorCidade2) {
+		this.listaFornecedorCidade2 = listaFornecedorCidade2;
+	}
+
+	public List<Pais> getListaPais3() {
+		return listaPais3;
+	}
+
+	public void setListaPais3(List<Pais> listaPais3) {
+		this.listaPais3 = listaPais3;
+	}
+
+	public List<Fornecedorcidade> getListaFornecedorCidade3() {
+		return listaFornecedorCidade3;
+	}
+
+	public void setListaFornecedorCidade3(List<Fornecedorcidade> listaFornecedorCidade3) {
+		this.listaFornecedorCidade3 = listaFornecedorCidade3;
+	}
+
 	public void excluirFormaPagamento(String ilinha) {
 		gerarListaParcelamentoOriginal();
 		int linha = Integer.parseInt(ilinha);
@@ -553,6 +708,7 @@ public class CadHeInscricaoMB implements Serializable {
 		parcelamentopagamento.setFormaPagamento("sn");
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		consultaCambio = true;
+		heparceiros1 = new Heparceiros();
 //		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 //		Produtosorcamento produtosorcamento = produtoOrcamentoFacade
 //				.consultar(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
@@ -585,6 +741,7 @@ public class CadHeInscricaoMB implements Serializable {
 		if (formaPagamento != null) {
 			carregarCamposFormaPagamento();
 		}
+		buscarHeParceiros();
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		orcamento = orcamentoFacade.consultar(venda.getIdvendas());
 		if (orcamento != null) {
@@ -632,6 +789,33 @@ public class CadHeInscricaoMB implements Serializable {
 			}
 		}
 	}
+	
+	public void listarFornecedorCidade2() {
+		if (cidade2 != null) {
+			String sql = "select f from Fornecedorcidade f where f.produtos.idprodutos="
+					+ aplicacaoMB.getParametrosprodutos().getHighereducation() + " and f.cidade.idcidade="
+					+ cidade2.getIdcidade() + " and f.ativo=1";
+			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+			listaFornecedorCidade2 = fornecedorCidadeFacade.listar(sql);
+			if (listaFornecedorCidade2 == null) {
+				listaFornecedorCidade2 = new ArrayList<Fornecedorcidade>();
+			}
+		}
+	}
+	
+	public void listarFornecedorCidade3() {
+		if (cidade2 != null) {
+			String sql = "select f from Fornecedorcidade f where f.produtos.idprodutos="
+					+ aplicacaoMB.getParametrosprodutos().getHighereducation() + " and f.cidade.idcidade="
+					+ cidade3.getIdcidade() + " and f.ativo=1";
+			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
+			listaFornecedorCidade3 = fornecedorCidadeFacade.listar(sql);
+			if (listaFornecedorCidade3 == null) {
+				listaFornecedorCidade3 = new ArrayList<Fornecedorcidade>();
+			}
+		}
+	}
+
 
 	public void carregarCamposFormaPagamento() {
 		if (formaPagamento.getParcelamentopagamentoList() != null) {
@@ -1196,6 +1380,7 @@ public class CadHeInscricaoMB implements Serializable {
 			venda.setFormapagamento(formaPagamento);  
 			he.setVendas(venda);
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "I"); 
+			salvarHeParceiros();
 			ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
 					orcamento.getOrcamentoprodutosorcamentoList(),
 					formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
@@ -1368,8 +1553,36 @@ public class CadHeInscricaoMB implements Serializable {
 		return true;
 	}
 	
+	public boolean habilitarCamposHe2(){
+		if(camposHe2){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean habilitarCamposHe3(){
+		if(camposHe3){
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean habilitarCamposPathway(){
 		if(camposPathway){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean habilitarCamposPathway2(){
+		if(camposPathway2){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean habilitarCamposPathway3(){
+		if(camposPathway3){
 			return false;
 		}
 		return true;
@@ -1456,4 +1669,190 @@ public class CadHeInscricaoMB implements Serializable {
 		he.setNotamatematica(questionariohe.getNotamatematica());
 		he.setNotaredacao(questionariohe.getNotaredacao());
 	}
+	
+	
+	public void gerarHeParceiro2() {
+		if (camposHe2) {
+			heparceiros2 = new Heparceiros();
+			PaisFacade paisFacade = new PaisFacade();
+			listaPais2 = paisFacade.listar();    
+		}
+	}
+	
+	public void gerarHeParceiro3() {
+		if (camposHe3) {
+			heparceiros3 = new Heparceiros();
+			PaisFacade paisFacade = new PaisFacade();
+			listaPais3 = paisFacade.listar();    
+		}
+	}
+	
+	
+	public void buscarHeParceiros() {
+		HeParceirosFacade heParceirosFacade = new HeParceirosFacade();
+		List<Heparceiros> listaHeParceiros = heParceirosFacade.listar("Select h From Heparceiros h WHERE h.he.idhe=" + he.getIdhe());
+		if (listaHeParceiros == null) {
+			listaHeParceiros = new ArrayList<Heparceiros>();
+		}
+		if (listaHeParceiros.size() > 0) {
+			if (listaHeParceiros.size() == 1) {
+				heparceiros1 = listaHeParceiros.get(0);
+			}else if(listaHeParceiros.size() == 2) {
+				heparceiros1 = listaHeParceiros.get(0);
+				camposHe = true;
+				camposPathway = true;
+				heparceiros2 = listaHeParceiros.get(1);
+				camposHe2 = true;
+				camposPathway2 = true;
+				PaisFacade paisFacade = new PaisFacade();
+				listaPais2 = paisFacade.listar();    
+				pais2 = heparceiros2.getFornecedorcidade().getCidade().getPais();
+				cidade2 = heparceiros2.getFornecedorcidade().getCidade();
+				listarFornecedorCidade2();
+				fornecedorCidade2 = heparceiros2.getFornecedorcidade();
+			}else {
+				heparceiros1 = listaHeParceiros.get(0);
+				camposHe = true;
+				camposPathway = heparceiros1.isPathway();
+				heparceiros2 = listaHeParceiros.get(1);
+				camposHe2 = true;
+				camposPathway2 = heparceiros2.isPathway();
+				PaisFacade paisFacade = new PaisFacade();
+				listaPais2 = paisFacade.listar();    
+				pais2 = heparceiros2.getFornecedorcidade().getCidade().getPais();
+				cidade2 = heparceiros2.getFornecedorcidade().getCidade();
+				listarFornecedorCidade2();
+				fornecedorCidade2 = heparceiros2.getFornecedorcidade();
+				heparceiros3 = listaHeParceiros.get(2);
+				camposHe3 = true;
+				camposPathway3 = heparceiros3.isPathway();
+				listaPais3 = paisFacade.listar();    
+				pais3 = heparceiros3.getFornecedorcidade().getCidade().getPais();
+				cidade3 = heparceiros3.getFornecedorcidade().getCidade();
+				listarFornecedorCidade3();
+				fornecedorCidade3 = heparceiros3.getFornecedorcidade();
+			}
+		}
+	}
+	
+	
+	public void salvarHeParceiros() {
+		HeParceirosFacade heParceirosFacade = new HeParceirosFacade();
+		heparceiros1.setHe(he);
+		heparceiros1.setFornecedorcidade(fornecedorCidade);
+		heparceiros1.setPathway(camposPathway);
+		heparceiros1 = heParceirosFacade.salvar(heparceiros1);
+		if (camposHe2) {
+			if (validarDadosParceiros2()) {
+				heparceiros2.setHe(he);
+				heparceiros2.setPathway(camposPathway2);
+				heparceiros2.setFornecedorcidade(fornecedorCidade2);
+				heparceiros2 = heParceirosFacade.salvar(heparceiros2);
+			}
+		}
+		
+		if (camposHe3) {
+			if (validarDadosParceiros3()) {
+				heparceiros3.setHe(he);
+				heparceiros3.setPathway(camposPathway3);
+				heparceiros3.setFornecedorcidade(fornecedorCidade3);
+				heparceiros3 = heParceirosFacade.salvar(heparceiros3);
+			}
+		}
+	}
+	
+	
+	public boolean validarDadosParceiros2() {
+		if (fornecedorCidade == null) {
+			Mensagem.lancarMensagemInfo("Escola/Instituição opção 2 não informada\r\n", "");
+			return false;
+		}
+		if (pais == null) {
+			Mensagem.lancarMensagemInfo("País opção 2 não informado\r\n", "");
+			return false;
+		}
+		if (cidade == null) {
+			Mensagem.lancarMensagemInfo("Cidade opção 2 não informada\r\n", "");
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean validarDadosParceiros3() {
+		if (fornecedorCidade == null) {
+			Mensagem.lancarMensagemInfo("Escola/Instituição opção 3 não informada\r\n", "");
+			return false;
+		}
+		if (pais == null) {
+			Mensagem.lancarMensagemInfo("País opção 3 não informado\r\n", "");
+			return false;
+		}
+		if (cidade == null) {
+			Mensagem.lancarMensagemInfo("Cidade opção 3 não informada\r\n", "");
+			return false;
+		}
+		return true;
+	}
+	
+	public void calcularDataTermino1() {
+		if ((heparceiros1.getDatainicio() != null) && (heparceiros1.getNumerosemanas() != null)) {
+			if (heparceiros1.getNumerosemanas() > 0) {
+				Date data = Formatacao.calcularDataFinal(heparceiros1.getDatainicio(), heparceiros1.getNumerosemanas());
+				int diaSemana = Formatacao.diaSemana(data);
+				try {
+					if (diaSemana == 1) {
+						data = Formatacao.SomarDiasDatas(data, -2);
+					} else if (diaSemana == 7) {
+						data = Formatacao.SomarDiasDatas(data, -1);
+					}
+				} catch (Exception ex) {
+					Logger.getLogger(br.com.travelmate.managerBean.OrcamentoCurso.FiltrarEscolaMB.class.getName())
+							.log(Level.SEVERE, null, ex);
+				}
+				heparceiros1.setDatatermino(data);
+			}
+		}
+	}
+		
+		public void calcularDataTermino2() {
+			if ((heparceiros2.getDatainicio() != null) && (heparceiros2.getNumerosemanas() != null)) {
+				if (heparceiros2.getNumerosemanas() > 0) {
+					Date data = Formatacao.calcularDataFinal(heparceiros2.getDatainicio(), heparceiros2.getNumerosemanas());
+					int diaSemana = Formatacao.diaSemana(data);
+					try {
+						if (diaSemana == 1) {
+							data = Formatacao.SomarDiasDatas(data, -2);
+						} else if (diaSemana == 7) {
+							data = Formatacao.SomarDiasDatas(data, -1);
+						}
+					} catch (Exception ex) {
+						Logger.getLogger(br.com.travelmate.managerBean.OrcamentoCurso.FiltrarEscolaMB.class.getName())
+								.log(Level.SEVERE, null, ex);
+					}
+					heparceiros2.setDatatermino(data);
+				}
+			}
+		}
+	
+	public void calcularDataTermino3() {
+		if ((heparceiros3.getDatainicio() != null) && (heparceiros3.getNumerosemanas() != null)) {
+			if (heparceiros3.getNumerosemanas() > 0) {
+				Date data = Formatacao.calcularDataFinal(heparceiros3.getDatainicio(), heparceiros3.getNumerosemanas());
+				int diaSemana = Formatacao.diaSemana(data);
+				try {
+					if (diaSemana == 1) {
+						data = Formatacao.SomarDiasDatas(data, -2);
+					} else if (diaSemana == 7) {
+						data = Formatacao.SomarDiasDatas(data, -1);
+					}
+				} catch (Exception ex) {
+					Logger.getLogger(br.com.travelmate.managerBean.OrcamentoCurso.FiltrarEscolaMB.class.getName())
+							.log(Level.SEVERE, null, ex);
+				}
+				heparceiros3.setDatatermino(data);
+			}
+		}
+	}
+	
+	
 }

@@ -51,6 +51,8 @@ public class Heorcamento implements Serializable {
     private boolean historicosuperior;
     @Column(name = "score")
     private boolean score;
+    @Column(name = "sigla")
+    private String sigla;
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
     @ManyToOne(optional = false)
     private Cliente cliente;
@@ -58,6 +60,7 @@ public class Heorcamento implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "heorcamento")
+    @OrderBy("cidade")
     private List<Heorcamentopais> heorcamentopaisList;
     
 	public Heorcamento() {
@@ -158,6 +161,14 @@ public class Heorcamento implements Serializable {
 
 	public void setHeorcamentopaisList(List<Heorcamentopais> heorcamentopaisList) {
 		this.heorcamentopaisList = heorcamentopaisList;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	@Override

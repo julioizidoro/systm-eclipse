@@ -1380,6 +1380,8 @@ public class FollowUpMB implements Serializable {
 				return "fichaSeguroViagem";
 			}else if(produto.getIdprodutos() == aplicacaoMB.getParametrosprodutos().getHighereducation()){
 				return "questionarioHe";
+			}else if(produto.getIdprodutos() == 24) {
+				return "cadAcomodacao";
 			}
 		}
 		return "";
@@ -1507,6 +1509,20 @@ public class FollowUpMB implements Serializable {
 		if (cliente != null) {
 			Mensagem.lancarMensagemInfo("Alteração feita com sucesso", "");
 		}
+	}
+	
+	public boolean habilitarBotaoHe(Lead lead) {
+		if (lead.getProdutos().getIdprodutos() == 22) {
+			return true;
+		}
+		return false;
+	}
+	
+	public String orcamentoHE(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+		session.setAttribute("lead", lead);
+		return "cadOrcamentoHe";
 	}
 
 }

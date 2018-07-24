@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="idtelaconsultaorcamentomanual" style="font-size:11px;">
+                <div id="centro">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+                    <br></br> 
+                     <p:accordionPanel class="painel" activeIndex="-1" >
+                        <p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar" >
+                             <h:panelGrid columns="4" columnClasses="tamanho8,tamanho6,tamanho8,tamanho8" style="margin-left: 2.5%">
+	                                <p:outputLabel value="Cliente" for="cliente"/> 
+	                                <p:outputLabel value="Periodo" for="dataIni" /> 
+	                                <p:outputLabel/>
+	                                <p:outputLabel value="Unidade" for="unidade"/> 
+	                                
+	                                <p:inputText id="cliente" value="#{orcamentoHeMB.nomeCliente}" style="width:90%;" />
+	                                 <p:calendar id="dataIni" value="#{orcamentoHeMB.dataInicio}" size="12" locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" >
+	                                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	                                     <p:ajax event="blur"/>
+	                                 </p:calendar>
+	                                 <p:calendar id="dataFinal" value="#{orcamentoHeMB.dataTermino}" size="12" locale="pt"  pattern="dd/MM/yyyy"  mask="true" maxlength="15">
+	                                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+	                                     <p:ajax event="blur"/>     
+	                                 </p:calendar>
+	                                 <p:selectOneMenu  id="unidade"  value="#{orcamentoHeMB.unidadenegocio}"  style="width:320px;margin-left:-2%;" 
+	                                 	converter="UnidadeNegocioConverter" disabled="#{orcamentoHeMB.habilitarUnidade}"
+	                                 	filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
+	                                     <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		                                 <f:selectItems id="idunidade" value="#{cursoMB.listaUnidadeNegocio}" var="sUnidade" itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}"/>
+		                                 <f:attribute name="listaUnidade" value="#{cursoMB.listaUnidadeNegocio}"/>
+	                                 </p:selectOneMenu>
+	                                   
+								</h:panelGrid>
+								<br></br>
+								<div align="right" style="width:94%">
+	                                <p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":idtelaconsultaorcamentomanual:tabelaOrcamentoManual"  action="#{orcamentoHeMB.pesquisar()}"/>
+	                                <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="margin-left:1%" update="idtelaconsultaorcamentomanual:tabelaOrcamentoManual, unidade, dataFinal, dataIni, cliente"  action="#{orcamentoHeMB.limparPesquisa()}"/>
+                        		</div>
+                        </p:tab>
+                    </p:accordionPanel>
+
+                    <br></br>
+                    <div align="center" style="width: 95%;margin-left: 2.5%;">
+                   		 <legend id="iUsu7" ><b>Consulta Orçamento Higher Education</b></legend> 
+                   	</div>
+                   	
+                    
+                   	
+                    <p:dataTable id="tabelaOrcamentoManual" var="orcamento"  value="#{orcamentoHeMB.listaOrcamento}" class="tabelas-responsivas" reflow="true"
+                                 scrollable="true" scrollHeight="300" style="margin-left:2.5%;width:95%;"  >
+						<p:column headerText="ID" style="width:15px;" sortBy="#{orcamento.idheorcamento}">    
+                            <h:outputText value="#{orcamento.idheorcamento}" />
+                        </p:column> 
+						<p:column headerText="Data" style="width:30px;" sortBy="#{orcamento.dataemissao}">    
+                            <h:outputText value="#{orcamento.dataemissao}" >
+                            	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+                            </h:outputText>
+                        </p:column> 
+                        <p:column headerText="Hora" style="width:30px;" sortBy="#{orcamento.horaemissao}">    
+                            <h:outputText value="#{orcamento.horaemissao}" />
+                        </p:column> 
+						<p:column headerText="Cliente" style="width:100px;" sortBy="#{orcamento.cliente.nome}">
+                            <h:outputText value="#{orcamento.cliente.nome}" />
+                        </p:column>  
+                        <p:column headerText="Unidade" style="width:90px;" sortBy="#{orcamento.usuario.unidadenegocio.nomerelatorio}">
+                            <h:outputText value="#{orcamento.usuario.unidadenegocio.nomerelatorio}"/>
+                        </p:column>  
+                        <p:column headerText="Consultor" style="width:100px;" sortBy="#{orcamento.usuario.nome}">
+                            <h:outputText value="#{orcamento.usuario.nome}"/>
+                        </p:column>   
+                        <p:column style="width:25px;" styleClass="alinharCenter">
+							<p:commandLink action="#{orcamentoHeMB.editar(orcamento)}"
+								style="text-decoration: none" title="Editar">    
+								<img src="../../resources/img/editaricon.png" width="25"/> 
+							</p:commandLink>
+						</p:column>
+                        <p:column style="width:25px;" styleClass="alinharCenter" >
+                        	 <h:commandButton   action="#{orcamentoHeMB.imprimirOrcamento(orcamento)}" title="Salvar em PDF"  image="../../resources/img/pdf.png"  ajax="false" onclick="this.form.target='_blank'" style="width:25px;" >
+						     </h:commandButton>  
+                        </p:column>    
+                    </p:dataTable>
+                    <br></br>
+                </div>  
+            </h:form>     
+        </ui:define>  
+    </ui:composition>
+</html>

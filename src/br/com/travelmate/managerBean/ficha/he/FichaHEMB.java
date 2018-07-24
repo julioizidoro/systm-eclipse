@@ -2,6 +2,7 @@ package br.com.travelmate.managerBean.ficha.he;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -10,10 +11,12 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.DadosPaisFacade;
+import br.com.travelmate.facade.HeParceirosFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Dadospais;
 import br.com.travelmate.model.He;
+import br.com.travelmate.model.Heparceiros;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -43,6 +46,7 @@ public class FichaHEMB implements Serializable{
 	private boolean habilitarObservacao = false;
 	private boolean habilitarInformacoes = false;
 	private Questionariohe questionariohe;
+	private List<Heparceiros> listaHeParceiros; 
 	
 
 	
@@ -75,6 +79,8 @@ public class FichaHEMB implements Serializable{
 				habilitarInformacoes = true;
 			}
 		}
+		HeParceirosFacade heParceirosFacade = new HeParceirosFacade();
+		listaHeParceiros = heParceirosFacade.listar("Select h From Heparceiros h WHERE h.he.idhe=" + he.getIdhe());
 	}
 
 
@@ -281,6 +287,18 @@ public class FichaHEMB implements Serializable{
 
 	public void setQuestionariohe(Questionariohe questionariohe) {
 		this.questionariohe = questionariohe;
+	}
+
+
+
+	public List<Heparceiros> getListaHeParceiros() {
+		return listaHeParceiros;
+	}
+
+
+
+	public void setListaHeParceiros(List<Heparceiros> listaHeParceiros) {
+		this.listaHeParceiros = listaHeParceiros;
 	}
 
 }
