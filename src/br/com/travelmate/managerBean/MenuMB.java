@@ -1605,4 +1605,11 @@ public class MenuMB implements Serializable {
 		return "consAcomodacao";
 	}
 	
+	public boolean verificarAcomodacao() {
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+			return true;
+		}
+		return false;
+	}
+	
 }
