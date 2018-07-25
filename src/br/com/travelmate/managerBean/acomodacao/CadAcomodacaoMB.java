@@ -1904,7 +1904,7 @@ public class CadAcomodacaoMB implements Serializable {
 						i = 1005;
 					}
 				}
-				if (listaPromocaotaxacidade.get(j) != null && valorcoprodutos != null) {
+				if ((listaPromocaotaxacidade.get(j) != null && valorcoprodutos != null) && (curso != null && curso.size() > 0)) {
 					boolean tempromocao = verificarPromocaoTaxasValida(curso,
 							listaPromocaotaxacidade.get(j).getPromocaotaxacurso(), valorcoprodutos);
 					if (tempromocao) {
