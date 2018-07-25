@@ -30,6 +30,7 @@ import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.RegraVistoBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
+import br.com.travelmate.dao.OcursoPacoteDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.DadosPaisFacade;
@@ -41,7 +42,6 @@ import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FornecedorPaisFacade;
-import br.com.travelmate.facade.OcursoPacoteFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -202,6 +202,9 @@ public class CadCursoMB implements Serializable {
 	private boolean desabilitarAlergiaAlimento = true;
 	private float valorAlterarSeguro = 0.0f;
 	private boolean habilitarAvisoCambio = false;
+	
+	@Inject
+	private OcursoPacoteDao oCurosPacoteDao;
 
 	@PostConstruct()
 	public void init() {
@@ -3264,8 +3267,7 @@ public class CadCursoMB implements Serializable {
 			}
 		}
 		calcularValorTotalOrcamento();
-		OcursoPacoteFacade ocursoPacoteFacade = new OcursoPacoteFacade();
-		Ocursopacote ocursopacote = ocursoPacoteFacade.consultar("select o From Ocursopacote o where o.ocurso.idocurso="+ocurso.getIdocurso());
+		Ocursopacote ocursopacote = oCurosPacoteDao.consultar("select o From Ocursopacote o where o.ocurso.idocurso="+ocurso.getIdocurso());
 		if(ocursopacote!=null){
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			Produtosorcamento produtoorcamento = produtoOrcamentoFacade.consultar(aplicacaoMB.getParametrosprodutos().getDescontomatriz());
