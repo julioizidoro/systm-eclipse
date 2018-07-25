@@ -48,7 +48,6 @@ import net.sf.jasperreports.engine.JRException;
 public class MenuMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private VerificarLogin verificarLogin;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;  
 	private boolean logado;
@@ -61,13 +60,7 @@ public class MenuMB implements Serializable {
 		}
 	}
 
-	public VerificarLogin getVerificarLogin() {
-		return verificarLogin;
-	}
-
-	public void setVerificarLogin(VerificarLogin verificarLogin) {
-		this.verificarLogin = verificarLogin;
-	}
+	
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
 		return usuarioLogadoMB;
@@ -86,27 +79,27 @@ public class MenuMB implements Serializable {
 	}
 
 	public String comissaoVendas() {
-		atualizaTempoLogado();
+		
 		return "comissaovenda";
 	}
 
 	public String contasPagar() {
-		atualizaTempoLogado();
+		
 		return "consultacontaspagar";
 	}
 
 	public String planoConta() {
-		atualizaTempoLogado();
+		
 		return "consplanoconta";
 	}
 
 	public String vendas() {
-		atualizaTempoLogado();
+		
 		return "vendas";
 	}
 
 	public String cancelamento() {
-		atualizaTempoLogado();
+		
 		return "conscancelamento";
 	}
 
@@ -119,12 +112,12 @@ public class MenuMB implements Serializable {
 	public String contasReceber() {
 		// DadosBoletoBean dadosBoletoBean = new DadosBoletoBean();
 		// dadosBoletoBean.emitir();
-		atualizaTempoLogado();
+		
 		return "consultacontasreceber";
 	}
 
 	public String passagem() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -132,7 +125,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String pacoteso() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -141,28 +134,28 @@ public class MenuMB implements Serializable {
 
 	public String pacotesa() {
 		if(usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isPacote()) {
-			atualizaTempoLogado();
+			
 			return "consultapacotesagencia";
 		}return "";
 	}
 
 	public String cliente() {
-		atualizaTempoLogado();
+		
 		return "consultacliente";
 	}
 
 	public String fornecedor() {
-		atualizaTempoLogado();
+		
 		return "consultafornecedor";
 	}
 
 	public String produtos() {
-		atualizaTempoLogado();
+		
 		return "consultaprodutos";
 	}
 
 	public String curso() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -170,12 +163,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String faturafranquia() {
-		atualizaTempoLogado();
+		
 		return "faturafranquia";
 	}
 
 	public String highSchool() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -183,12 +176,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String ladies() {
-		atualizaTempoLogado();
+		
 		return "consultaLadies";
 	}
 
 	public String cursosTeens() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -196,17 +189,17 @@ public class MenuMB implements Serializable {
 	}
 
 	public String produtoCurso() {
-		atualizaTempoLogado();
+		
 		return "orcamentocurso";
 	}
 
 	public String orcamentoCurso() {
-		atualizaTempoLogado();
+		
 		return "consultaorcamentocurso";
 	}
 
 	public String orcamentoManual(String tipo) {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoocamento", tipo);
@@ -214,12 +207,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String modeloOrcamentoManual() {
-		atualizaTempoLogado();
+		
 		return "modeloOrcamentoManual";
 	}
 
 	public String seguroViagem() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -227,7 +220,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String visto() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -235,7 +228,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String auPair() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -243,7 +236,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String demiPair() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -251,7 +244,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String trainee() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -259,7 +252,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String voluntariado() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -267,7 +260,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String workAndTravel() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -275,7 +268,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String conciliacaoBancaria() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 490);
 		RequestContext.getCurrentInstance().openDialog("conciliacaobancaria", options, null);
@@ -283,7 +276,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String pagamentos() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("pagamentos", options, null);
@@ -292,7 +285,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioVendas() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("filtrarvendas", options, null);
@@ -307,7 +300,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String comissaoconsultor() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("comissaoconsultor", options, null);
@@ -315,7 +308,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String comissaogerente() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("comissaogerente", options, null);
@@ -323,7 +316,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatoriosContasReceber() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("filtrarcontasreceber", options, null);
@@ -331,7 +324,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String comissaoterceiros() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 490);
 		RequestContext.getCurrentInstance().openDialog("comissaoterceiros", options, null);
@@ -339,7 +332,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String produtoremessa() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 490);
 		RequestContext.getCurrentInstance().openDialog("produtoremessa", options, null);
@@ -347,12 +340,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String calculoFormaPagamento() {
-		atualizaTempoLogado();
+		
 		return "calculoFormaPagamento";
 	}
 
 	public String midia(String tipoMidais) {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", tipoMidais);
@@ -360,7 +353,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String consGuias(String tipoMidais) {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", tipoMidais);
@@ -368,7 +361,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String consVideos(String tipoMidais) {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", tipoMidais);
@@ -376,107 +369,103 @@ public class MenuMB implements Serializable {
 	}
 
 	public String flyers() {
-		atualizaTempoLogado();
+		
 		return "flyers";
 	}
 
 	public String invoicesCurso() {
-		atualizaTempoLogado();
+		
 		return "consultainvoice";
 	}
 
 	public String dadosVenda() {
-		atualizaTempoLogado();
+		
 		return "dadosVenda";
 	}
 
-	public void atualizaTempoLogado() {
-		if (usuarioLogadoMB != null) {
-			usuarioLogadoMB.atualizaTempoLogado();
-		}
-	}
+	
 
 	public String promocao() {
 		return "conspromocao";
 	}
 
 	public String terceiros() {
-		atualizaTempoLogado();
+		
 		return "terceiros";
 	}
 
 	public String consVincularTerceiros() {
-		atualizaTempoLogado();
+		
 		return "consVincularTerceiros";
 	}
 
 	public String controleCurso() {
-		atualizaTempoLogado();
+		
 		return "controleCurso";
 	}
 
 	public String controleCursosTeens() {
-		atualizaTempoLogado();
+		
 		return "controleCursosTeens";
 	}
 
 	public String controleHighSchool() {
-		atualizaTempoLogado();
+		
 		return "controleHighSchool";
 	}
 
 	public String controleAuPair() {
-		atualizaTempoLogado();
+		
 		return "controleAupair";
 	}
 
 	public String controleTrainee() {
-		atualizaTempoLogado();
+		
 		return "controleTrainee";
 	}
 
 	public String controleVoluntariado() {
-		atualizaTempoLogado();
+		
 		return "controleVoluntariado";
 	}
 
 	public String controleWorkAndTravel() {
-		atualizaTempoLogado();
+		
 		return "controleWorkAndTravel";
 	}
 
 	public String controleSeguroViagem() {
-		atualizaTempoLogado();
+		
 		return "controleSeguroViagem";
 	}
 
 	public String controleVisto() {
-		atualizaTempoLogado();
+		
 		return "controleVisto";
 	}
 
 	public String controlePassagem() {
-		atualizaTempoLogado();
+		
 		return "controlePassagem";
 	}
 
 	public String analiticoVendas() {
-		atualizaTempoLogado();
+		
 		return "analiticoVendas";
 	}
 
 	public String escolas() {
-		atualizaTempoLogado();
+		
 		return "consEscolasCadastradas";
 	}
 
 	public String valoresTrainee() {
-		atualizaTempoLogado();
+		
 		return "valoresTrainee";
 	}
 
 	public String valoresSeguro() {
-		atualizaTempoLogado();
+		
 		return "valoresSeguro";
 	}
 
@@ -493,7 +482,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatoriosAutorizacaoDebito() {
-		atualizaTempoLogado();
+		
 		return "autorizacaodebito";
 	}
 
@@ -505,27 +494,27 @@ public class MenuMB implements Serializable {
 	}
 
 	public String valoresWorkAndTravel() {
-		atualizaTempoLogado();
+		
 		return "valoresWork";
 	}
 
 	public String valoresAupair() {
-		atualizaTempoLogado();
+		
 		return "valoresAupair";
 	}
 
 	public String controleDemiPair() {
-		atualizaTempoLogado();
+		
 		return "controleDemipair";
 	}
 
 	public String avisos() {
-		atualizaTempoLogado();
+		
 		return "avisos";
 	}
 
 	public String midias() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", "");
@@ -533,12 +522,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String controleTeens() {
-		atualizaTempoLogado();
+		
 		return "controleTeens";
 	}
 
 	public String valoresTeens() {
-		atualizaTempoLogado();
+		
 		return "valoresTeens";
 	}
 
@@ -551,7 +540,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String reciboAvulso() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("reciboAvulso", options, null);
@@ -559,7 +548,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatoriosCobranca() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 400);
 		RequestContext.getCurrentInstance().openDialog("relatoriosCobranca", options, null);
@@ -567,7 +556,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String mapaVendas() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("mapaVendas", options, null);
@@ -575,7 +564,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String gerarPIN() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 450);
 		RequestContext.getCurrentInstance().openDialog("gerarPIN", options, null);
@@ -587,7 +576,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioCancelamento() {
-		atualizaTempoLogado(); 
+		 
 		return "relatorioCancelamento";
 	}
 
@@ -1269,7 +1258,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioConferenciaCartao() {
-		atualizaTempoLogado();
+		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 370);
 		RequestContext.getCurrentInstance().openDialog("relatorioConferenciaCartaoCredito", options, null);
@@ -1281,7 +1270,7 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioRemessaRetorno(String tipo) {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -1351,12 +1340,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String parceiroTurismo() {
-		atualizaTempoLogado();
+		
 		return "consFornecedorTurismo";
 	}
 
 	public String pacotesFornecedor() {
-		atualizaTempoLogado();
+		
 		return "consPacotesFornecedor";
 	}
 
@@ -1392,12 +1381,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String leadsEncaminhados() {
-		atualizaTempoLogado();
+		
 		return "consLeadEncaminhado";
 	}
 
 	public String revisaoFinanceiro() {
-		atualizaTempoLogado();
+		
 		return "consVendasRevisaoFinanceiro";
 	}
 
@@ -1406,12 +1395,12 @@ public class MenuMB implements Serializable {
 	}
 
 	public String consultarMotivoPendencia() {
-		atualizaTempoLogado();
+		
 		return "consVendaMotivoPendencia";
 	}
 
 	public String followUpCobranca() {
-		atualizaTempoLogado();
+		
 		return "followupCobranca";
 	}
  
@@ -1436,7 +1425,7 @@ public class MenuMB implements Serializable {
 	}
 	
 	public String traducao() {
-		atualizaTempoLogado();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("chamadaTela", "Menu");
@@ -1444,12 +1433,12 @@ public class MenuMB implements Serializable {
 	}
 	
 	public String consWorkSponsor() {
-		atualizaTempoLogado();
+		
 		return "consWorkSponsor";
 	}
 	
 	public String consWorkEmpregador() {
-		atualizaTempoLogado();
+		
 		return "consWorkEmpregador";
 	}
 	
@@ -1468,12 +1457,12 @@ public class MenuMB implements Serializable {
 	}
 	
 	public String consUtil() {
-		atualizaTempoLogado();
+		
 		return "consUtil";
 	}
 	
 	public String relatorioCancelamentoFatura() {
-		atualizaTempoLogado();
+		
 		return "relatorioCancelamentoFatura";
 	}
 	
@@ -1493,23 +1482,23 @@ public class MenuMB implements Serializable {
 	}
 	
 	public String consAgenda() {
-		atualizaTempoLogado();
+		
 		return "consAgenda";
 	}
 	
 	
 	public String vendasCurso() {
-		atualizaTempoLogado();
+		
 		return "consVendaCursos";
 	}
 	
 	public String vendasCliente() {
-		atualizaTempoLogado();
+		
 		return "consVendasClientes";
 	}
 	
 	public String relatorioLead() {
-		atualizaTempoLogado();
+		
 		return "relatorioLeads";
 	}
 	
