@@ -70,16 +70,16 @@ public class Acomodacao implements Serializable {
     private String quaisAlergias;
     @Column(name = "solicitacoesEspeciais")
     private String solicitacoesEspeciais;
+    @Column(name = "complemento")
+    private String complemento;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @ManyToOne(optional = false)
     private Vendas vendas;
     @JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos")
     @ManyToOne(optional = false)
     private Produtos produtos;
-    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "acomodacao")
-	private Acomodacaocurso acomodacaocurso;
     @Transient
-    private float valorCambio;
+    private Cambio cambio;
    
 
     public Acomodacao() {
@@ -327,26 +327,26 @@ public class Acomodacao implements Serializable {
 
 
 
-	public Acomodacaocurso getAcomodacaocurso() {
-		return acomodacaocurso;
+	public Cambio getCambio() {
+		return cambio;
 	}
 
 
 
-	public void setAcomodacaocurso(Acomodacaocurso acomodacaocurso) {
-		this.acomodacaocurso = acomodacaocurso;
+	public void setCambio(Cambio cambio) {
+		this.cambio = cambio;
 	}
 
 
 
-	public float getValorCambio() {
-		return valorCambio;
+	public String getComplemento() {
+		return complemento;
 	}
 
 
 
-	public void setValorCambio(float valorCambio) {
-		this.valorCambio = valorCambio;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 

@@ -37,7 +37,6 @@ public class ProdutosOrcamentoBean {
 	private String descricaobrinde;
 	private Fornecedorcidadeidioma fornecedorcidadeidiomaAcomodacao;
 	private List<Integer> listaSemanas;
-
 	public int getLinhaObrigatorioAcomodacao() {
 		return linhaObrigatorioAcomodacao;
 	}

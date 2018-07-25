@@ -62,6 +62,9 @@ public class Formapagamento implements Serializable {
     
 
     public Formapagamento() {
+    	valorJuros = 0.0f;
+    	valorJuros = 0.0f;
+    	valordesconto = 0.0f;
     }
 
     public Formapagamento(Integer idformaPagamento) {

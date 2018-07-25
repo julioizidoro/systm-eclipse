@@ -1601,4 +1601,8 @@ public class MenuMB implements Serializable {
 		return "orcamentoHe";
 	}
 	
+	public String consAcomodacao() {
+		return "consAcomodacao";
+	}
+	
 }

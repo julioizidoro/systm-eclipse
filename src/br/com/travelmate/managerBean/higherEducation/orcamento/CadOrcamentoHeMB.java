@@ -61,6 +61,7 @@ public class CadOrcamentoHeMB implements Serializable{
 		lead = (Lead) session.getAttribute("lead");
 		heorcamento = (Heorcamento) session.getAttribute("heorcamento");
 		session.removeAttribute("lead");
+		session.removeAttribute("heorcamento");
 		gerarListaPublicidade();
 		carregarComboMoedas();
 		if (heorcamento == null) {

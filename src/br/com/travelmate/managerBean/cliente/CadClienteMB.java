@@ -238,6 +238,8 @@ public class CadClienteMB implements Serializable {
 												session.setAttribute("cliente", cliente);
 												return "cadFichaHe2";
 											}
+										}else if(lead.getProdutos().getIdprodutos() == 24) {
+											return "cadAcomodacao";
 										}
 									}    
 									FacesContext fc = FacesContext.getCurrentInstance();
