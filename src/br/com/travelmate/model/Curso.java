@@ -913,6 +913,14 @@ public class Curso implements Serializable {
 		this.idorcamento = idorcamento;
 	}
 
+	public Acomodacaocurso getAcomodacaocurso() {
+		return acomodacaocurso;
+	}
+
+	public void setAcomodacaocurso(Acomodacaocurso acomodacaocurso) {
+		this.acomodacaocurso = acomodacaocurso;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

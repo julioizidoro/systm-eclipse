@@ -153,7 +153,7 @@
 								value="#{cadCursoMB.pais.cidadeList}" />
 							<p:ajax event="change"
 								listener="#{cadCursoMB.listarFornecedorCidade()}"
-								update="fornecedor" />
+								update="fornecedor, acordionPainel, panelAcomodacoes" />
 						</p:selectOneMenu>
 
 						<p:selectOneMenu id="fornecedor"
@@ -635,96 +635,276 @@
 						<br></br>
 					</p:tab>
 
-					<p:tab title="Acomodação" titleStyle="font-size: 11px">
+					<p:tab title="Acomodação" titleStyle="font-size: 11px" id="panelAcomodacoes">
 						<br></br> 
-						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
-							<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao"/>
-							<p:outputLabel value="Quarto" for="quarto" />
-							<p:outputLabel value="Refeição" for="refeicao" />
-							<p:outputLabel value="Banheiro Privado" for="banheiroPrivado"/>
-							
-							<p:selectOneMenu id="tipoacomodacao"
-								value="#{cadCursoMB.curso.tipoAcomodacao}"
-								style="width:91%;">
-								<f:selectItem itemLabel="Selecione" itemValue="Sem acomodação" />
-								<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
-								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
-								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
-								<f:selectItem itemLabel="Flat" itemValue="Flat"/>
-								<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
-								<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
-								<f:selectItem itemLabel="Residência" itemValue="Residência" />
-								<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
-								<p:ajax event="change"
-									listener="#{cadCursoMB.carregarCamposAcomodacao()}"
-									update="quarto, refeicao, datachegada, numsemanas, datapartida, adicionais, comcrianca, comanimais, fumante, vegetariano, banheiroPrivado" />
-							</p:selectOneMenu>
-	
-							<p:selectOneMenu id="quarto"
-								value="#{cadCursoMB.curso.tipoQuarto}"
-								style="width:82%;" required="false"
-								disabled="#{cadCursoMB.camposAcomodacao}">
-								<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
-								<f:selectItem itemLabel="Quarto individual"
-									itemValue="Quarto individual" />
-								<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
-								<f:selectItem itemLabel="Quarto triplo" itemValue="Quarto triplo" />
-								<f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado" />
-								<f:selectItem itemLabel="Dois Quartos" itemValue="Dois quartos" />
-							</p:selectOneMenu>
-	
-							<p:selectOneMenu id="refeicao"
-								value="#{cadCursoMB.curso.refeicoes}" required="false"
-								style="width:82%;"
-								disabled="#{cadCursoMB.camposAcomodacao}">
-								<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
-								<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
-								<f:selectItem itemLabel="Meia Pensão"
-									itemValue="Meia Pensão" />
-								<f:selectItem itemLabel="Pensão"
-									itemValue="Pensão Completa" />
-							</p:selectOneMenu>
-	
-							<p:selectOneMenu id="banheiroPrivado"
-								value="#{cadCursoMB.curso.banheiroprivativo}" required="false"
-								style="width:100%;"
-								disabled="#{cadCursoMB.camposAcomodacao}">
-								<f:selectItem itemLabel="Não" itemValue="Não" />
-								<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							</p:selectOneMenu> 
-						</h:panelGrid>
-						<br></br>
-						<h:panelGrid columns="3" style="margin-left: 11.6%;width:50%;" columnClasses="tamanho6, tamanho6, tamanho8"> 
-							<p:outputLabel value="Data Chegada" for="datachegada"/>
-							<p:outputLabel value="No. Semanas" for="numsemanas"/>
-							<p:outputLabel value="Data Partida" for="datapartida"/> 
-							
-							<p:calendar id="datachegada"
-								value="#{cadCursoMB.curso.dataChegada}" locale="pt" pattern="dd/MM/yyyy" mask="true"
-								maxlength="20" disabled="#{cadCursoMB.camposAcomodacao}" beforeShowDay="sundayEnabled">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-								<p:ajax event="change"
-									listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
-									update="datapartida, :telaFichaCurso:growl, numsemanas" />
-								<p:ajax event="dateSelect" listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
-									update="datapartida, :telaFichaCurso:growl, numsemanas" />     
-							</p:calendar>    
-							<p:inputText id="numsemanas" style="width:80%;"
-								maxlength="100" value="#{cadCursoMB.curso.numeroSemanasAcamodacao}"
-								class="espacocobranca29"
-								disabled="#{cadCursoMB.camposAcomodacao}">
-								<p:ajax event="blur"
-									listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
-									update="datapartida, :telaFichaCurso:growl" />
-							</p:inputText>
-							<p:calendar id="datapartida" value="#{cadCursoMB.curso.dataSaida}"
-								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="10"
-								disabled="#{cadCursoMB.camposAcomodacao}" 
-								beforeShowDay="saturdayEnabled">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />    
-							</p:calendar>   
-						</h:panelGrid>
+						<p:tabView id="acordionPainel" class="consultaCurso" >    
+							<p:tab title="Acomodação da Escola" class="tab" titleStyle="font-size: 11px" >
+								     <h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
+										<p:outputLabel value="Tipo Acomodação" for="tipoacomodacao"/>
+										<p:outputLabel value="Quarto" for="quarto" />
+										<p:outputLabel value="Refeição" for="refeicao" />
+										<p:outputLabel value="Banheiro Privado" for="banheiroPrivado"/>
+										
+										<p:selectOneMenu id="tipoacomodacao"
+											value="#{cadCursoMB.curso.tipoAcomodacao}"
+											style="width:91%;">
+											<f:selectItem itemLabel="Selecione" itemValue="Sem acomodação" />
+											<f:selectItem itemLabel="Casa de família" itemValue="Casa de família" />
+											<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+											<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+											<f:selectItem itemLabel="Flat" itemValue="Flat"/>
+											<f:selectItem itemLabel="Hotel" itemValue="Hotel"/>
+											<f:selectItem itemLabel="Hostel" itemValue="Hostel"/>
+											<f:selectItem itemLabel="Residência" itemValue="Residência" />
+											<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
+											<p:ajax event="change"
+												listener="#{cadCursoMB.carregarCamposAcomodacao()}"
+												update="quarto, refeicao, datachegada, numsemanas, datapartida, banheiroPrivado" />
+										</p:selectOneMenu>
+				
+										<p:selectOneMenu id="quarto"
+											value="#{cadCursoMB.curso.tipoQuarto}"
+											style="width:82%;" required="false"
+											disabled="#{cadCursoMB.camposAcomodacao}">
+											<f:selectItem itemLabel="Sem quarto" itemValue="Sem quarto" />
+											<f:selectItem itemLabel="Quarto individual"
+												itemValue="Quarto individual" />
+											<f:selectItem itemLabel="Quarto duplo" itemValue="Quarto duplo" />
+											<f:selectItem itemLabel="Quarto triplo" itemValue="Quarto triplo" />
+											<f:selectItem itemLabel="Compartilhado" itemValue="Compartilhado" />
+											<f:selectItem itemLabel="Dois Quartos" itemValue="Dois quartos" />
+										</p:selectOneMenu>
+				
+										<p:selectOneMenu id="refeicao"
+											value="#{cadCursoMB.curso.refeicoes}" required="false"
+											style="width:82%;"
+											disabled="#{cadCursoMB.camposAcomodacao}">
+											<f:selectItem itemLabel="Sem Refeição" itemValue="Sem Refeição" />
+											<f:selectItem itemLabel="Café da Manhã" itemValue="Café da Manhã" />
+											<f:selectItem itemLabel="Meia Pensão"
+												itemValue="Meia Pensão" />
+											<f:selectItem itemLabel="Pensão"
+												itemValue="Pensão Completa" />
+										</p:selectOneMenu>
+				
+										<p:selectOneMenu id="banheiroPrivado"
+											value="#{cadCursoMB.curso.banheiroprivativo}" required="false"
+											style="width:100%;"
+											disabled="#{cadCursoMB.camposAcomodacao}">
+											<f:selectItem itemLabel="Não" itemValue="Não" />
+											<f:selectItem itemLabel="Sim" itemValue="Sim" />
+										</p:selectOneMenu> 
+									</h:panelGrid>
+									<br></br>
+									<h:panelGrid columns="3" style="margin-left: 11.6%;width:50%;" columnClasses="tamanho6, tamanho6, tamanho8"> 
+										<p:outputLabel value="Data Chegada" for="datachegada"/>
+										<p:outputLabel value="No. Semanas" for="numsemanas"/>
+										<p:outputLabel value="Data Partida" for="datapartida"/> 
+										
+										<p:calendar id="datachegada"
+											value="#{cadCursoMB.curso.dataChegada}" locale="pt" pattern="dd/MM/yyyy" mask="true"
+											maxlength="20" disabled="#{cadCursoMB.camposAcomodacao}" beforeShowDay="sundayEnabled">
+											<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+											<p:ajax event="change"
+												listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
+												update="datapartida, :telaFichaCurso:growl, numsemanas" />
+											<p:ajax event="dateSelect" listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
+												update="datapartida, :telaFichaCurso:growl, numsemanas" />     
+										</p:calendar>    
+										<p:inputText id="numsemanas" style="width:80%;"
+											maxlength="100" value="#{cadCursoMB.curso.numeroSemanasAcamodacao}"
+											class="espacocobranca29"
+											disabled="#{cadCursoMB.camposAcomodacao}">
+											<p:ajax event="blur"
+												listener="#{cadCursoMB.calcularDataTerminoAcomodacao()}"
+												update="datapartida, :telaFichaCurso:growl" />
+										</p:inputText>
+										<p:calendar id="datapartida" value="#{cadCursoMB.curso.dataSaida}"
+											locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="10"
+											disabled="#{cadCursoMB.camposAcomodacao}" 
+											beforeShowDay="saturdayEnabled">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />    
+										</p:calendar>   
+									</h:panelGrid>
+							</p:tab>
+							<p:tab title="Acomodação Independente" class="tab" titleStyle="font-size: 11px" id="panelIndependente" disabled="#{cadCursoMB.desabilitarIndependente}">
+								     <h:panelGrid columns="1" style="margin-left:1%;width:90%"
+											columnClasses="tamanho2">
+											<p:outputLabel value="Data Inicio"/>
+											
+											<h:panelGrid columns="2" style="width:15%;">
+												<p:calendar id="datainicio" beforeShowDay="sundayEnabled"
+													value="#{cadCursoMB.acomodacao.datainicial}" size="11"
+													locale="pt" pattern="dd/MM/yyyy" mask="true" >
+													<f:convertDateTime pattern="dd/MM/yyyy"
+														timeZone="America/Sao_Paulo" />
+													<p:ajax event="change" />
+												</p:calendar>
+												<p:commandLink id="botaoPesquisar"
+													actionListener="#{cadCursoMB.selecionarAcomodacao()}"
+													style="text-decoration: none" disabled="#{cadCursoMB.btnPesquisar}">
+													<img src="../../resources/img/pesquisar.png" />
+													<p:ajax event="dialogReturn" process="@this"
+														listener="#{cadCursoMB.retornoDialogoAcomodacao}"
+														update="tabelaAcomodacao, :telaFichaCurso:growl, botaoPesquisar, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:valortotal, :telaFichaCurso:acordionPainel:valoreal, :telaFichaCurso:acordionPainel:valor, :telaFichaCurso:acordionPainel:totalpag, :telaFichaCurso:acordionPainel:saldoreceber, :telaFichaCurso:acordionPainel:valorOrca, :telaFichaCurso:acordionPainel:valoraparcelar, :telaFichaCurso:acordionPainel:saldoparcelar" />
+												</p:commandLink>
+											</h:panelGrid>
+										
+											  
+											
+										</h:panelGrid>
+										<br/>
+										<legend id="iUsu3">
+											<b>Acomodação</b>
+										</legend>
+										<p:dataScroller id="tabelaAcomodacao"
+											value="#{cadCursoMB.listaAcomodacao}"
+											var="acomodacao" chunkSize="30" style="margin-left:5%;width:90%;background:#f5f3e5;">
+											<p:outputPanel style="text-align: left;width:100%">
+												
+												<br/>
+												<h:panelGrid columns="2"
+													columnClasses="tamanhonotificacao2, tamanhoavisos"
+													style="width:100%;margin-left:1%;">
+													<h:panelGrid columns="1" style="width:100%">
+														<h:panelGrid columns="4" style="width:70%;"> 
+															<p:outputLabel value="Acomodação"/>
+															<p:outputLabel value="Quarto"/>
+															<p:outputLabel value="Refeição"/>
+															<p:outputLabel value="Banheiro"/>
+															<p:inputText readonly="true"
+																value="#{acomodacao.tipoacomodacao}"
+																style="font-weight:bold;font-size: 13px;width: 148px;margin-left: 1%" />
+															<p:inputText readonly="true"
+																value="#{acomodacao.tipoquarto}"
+																style="font-weight:bold;font-size: 13px;width: 155px;margin-left: 1%" />
+															<p:inputText readonly="true"
+																value="#{acomodacao.tiporefeicao}"
+																style="font-weight:bold;font-size: 13px;width: 140px;margin-left: 1%" /> 
+															<p:inputText readonly="true"
+																value="#{acomodacao.tipobanheiro}"
+																style="font-weight:bold;font-size: 13px;width: 110px;margin-left: 1%" />
+														</h:panelGrid>
+														<p:outputLabel/>
+														<h:panelGrid columns="1" style="width:100%">
+															<p:outputLabel value="Informações complementares"/>
+															<p:inputText readonly="true"
+																value="#{acomodacao.complemento}"
+																style="font-weight:bold;font-size: 13px;width: 66.5%;" />
+														</h:panelGrid>
+														<h:panelGroup>
+															<h:panelGrid columns="1"
+																columnClasses="tamanhoavisos,tamanhoavisos"
+																style="width:100%;">
+																
+																<h:panelGroup id="semPromocaoAcomodacao"
+																	style="margin-top:-20px;"    
+																	rendered="true">
+																	<div align="left">
+																		<br></br>   
+																		<h:panelGrid columns="6" style="width:69%;">
+																			<p:outputLabel
+																				value="Data Inicio" />
+																			<p:outputLabel
+																				value="Nº Semanas" />
+																			<p:outputLabel
+																				value="Data Termino" />
+																			<p:outputLabel
+																				value="#{cadCursoMB.acomodacao.cambio.moedas.sigla}" />
+																			<p:outputLabel value="R$" style="margin-left:4%" />
+																			<p:outputLabel/>
+																			<p:calendar id="datainicio" readonly="true"
+																				value="#{cadCursoMB.acomodacao.datainicial}" size="11"
+																				locale="pt" pattern="dd/MM/yyyy" mask="true">
+																				<f:convertDateTime pattern="dd/MM/yyyy"
+																					timeZone="America/Sao_Paulo" />
+																				<p:ajax event="change"/>
+																				<p:ajax event="dateSelect" />
+																			</p:calendar>
+																			<p:inputText id="cobranca" value="#{cadCursoMB.acomodacao.numerosemana}" style="width:75px;text-align:right;"
+																					maxlength="45" readonly="true" />
+																			<p:calendar id="datatermino"
+																					value="#{cadCursoMB.acomodacao.datatermino}" size="11"
+																					locale="pt" pattern="dd/MM/yyyy" mask="true" readonly="true">
+																					<f:convertDateTime pattern="dd/MM/yyyy"
+																						timeZone="America/Sao_Paulo" />
+																					<p:ajax event="change" />
+																					<p:ajax event="dateSelect" />
+																				</p:calendar>
+																			
+																			<p:inputText id="valorOriginal" readonly="true"
+																				value="#{acomodacao.valormoedaestrangeira}"
+																				style="font-size:12px;text-align: right;width:100px;">
+																				<f:convertNumber pattern="##,###,###,###.##"
+																					minFractionDigits="2" />
+																			</p:inputText>
+																			<p:inputText id="valorOriginalrs" readonly="true"
+																				value="#{acomodacao.valormoedanacional}"
+																				style="font-size:12px;text-align: right;width:100px;">
+																				<f:convertNumber pattern="##,###,###,###.##"
+																					minFractionDigits="2" />
+																			</p:inputText>
+																			<p:commandButton id="btnExcluir" value="excluir" 
+																				action="#{cadCursoMB.excluirAcomodacao(acomodacao)}"  update="tabelaAcomodacao, :telaFichaCurso:growl"
+																			 	style="margin-right:2%;"/>  
+																		</h:panelGrid>
+																	</div>
+																	
+																</h:panelGroup>
+																<h:panelGroup id="comPromocaoAcomodacao"
+																	style="margin-top:-20px;"
+																	rendered="false">
+																	<div align="right">
+																		<h:panelGrid columns="3" style="width:100%;">
+																			<p:outputLabel
+																				value="#{cadCursoMB.acomodacao.cambio.moedas.sigla}"
+																				style="text-decoration:line-through;font-size:11px;color:#363636;" />
+																			
+																			<h:outputText
+																				value="#{cadCursoMB.acomodacao.cambio.moedas.sigla}"
+																				style="font-size:13px;" />
+																			<h:outputText value="R$"
+																				style="margin-left:4%;font-size:13px;" />
+																			<h:outputText id="valorOriginalAcomodacao"
+																				value="#{acomodacao.valorOrigianl}"
+																				style="margin-left:0.5%;text-decoration:line-through;font-size:11px;color:#363636;">
+																				<f:convertNumber pattern="##,###,###,###.##"
+																					minFractionDigits="2" />
+																			</h:outputText>
+																			<p:outputLabel id="valorPromocionalAcomodacao"
+																				value="#{acomodacao.valorPromocional}"
+																				style="text-align: right;margin-left:0.5%;font-size:13px;">
+																				<f:convertNumber pattern="##,###,###,###.##"
+																					minFractionDigits="2" />
+																			</p:outputLabel>
+																			<p:outputLabel id="valorPromocionalrsAcomodacao"
+																				value="#{acomodacao.valorPromocionalRS}"
+																				style="font-size:13px;text-align: right;margin-left:0.5%">
+																				<f:convertNumber pattern="##,###,###,###.##"
+																					minFractionDigits="2" />
+																			</p:outputLabel>
+																		</h:panelGrid>
+																	</div>
+																	<div align="right">
+																		<p:commandButton id="btnExcluir2" value="excluir" 
+																			action="#{cadCursoMB.excluirAcomodacao(acomodacao)}"   update="tabelaAcomodacao, :telaFichaCurso:growl"
+																			 style="margin-right:2%;"/>  
+																		<br></br> 
+																	</div>
+																</h:panelGroup>
+															</h:panelGrid>
+														</h:panelGroup>
+													</h:panelGrid> 
+													
+												</h:panelGrid> 
+												<br></br> 
+												<div class="line_1"></div> 
+											</p:outputPanel> 
+										</p:dataScroller>
+							</p:tab>
+						</p:tabView>
+						
 						<br></br>
 
 						<p:outputLabel value="Adicionais" for="adicionais"
@@ -733,7 +913,7 @@
 						<p:inputText id="adicionais"
 							style="width:76.2%;margin-left: 11.5%" maxlength="100"
 							value="#{cadCursoMB.curso.adicionais}" class="espacocobranca29"
-							disabled="#{cadCursoMB.camposAcomodacao}" />
+							 />
 						<br></br>
 						<br></br>
 						<br></br>
@@ -1358,7 +1538,7 @@
 										listener="#{cadCursoMB.calcularValorTotalOrcamento()}"
 										update="totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar" />
 								</p:inputText>
-								<p:commandLink action="#{cadAupairMB.calcularJuros()}" style="text-decoration:none;">
+								<p:commandLink action="#{cadCursoMB.calcularJuros()}" style="text-decoration:none;">
 									<img src="../../resources/img/cambio_1.png"/> 
 									<p:ajax event="dialogReturn" listener="#{cadAupairMB.retornoValorJuros()}" update="valorJuros,totalpag, saldoreceber, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"/> 
 								</p:commandLink>

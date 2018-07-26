@@ -141,7 +141,8 @@ public class AcomodacaoMB implements Serializable{
 	public void carregarListaVendasAcomodacao() {
 		if (usuarioLogadoMB.getUsuario() != null || usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
-			String sql = "Select a from Acomodacao a where a.vendas.produtos.idprodutos=24";
+			String sql = "Select a from Acomodacao a where a.vendas.dataVenda>='" + dataConsulta  + 
+					"'";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = sql + " and  c.vendas.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
@@ -151,8 +152,7 @@ public class AcomodacaoMB implements Serializable{
 					}
 				}
 			}
-			sql = sql + " and a.vendas.dataVenda>='" + dataConsulta
-					+ "' order by a.vendas.dataVenda desc, a.vendas.cliente.nome";
+			sql = sql + " order by a.vendas.dataVenda desc, a.vendas.cliente.nome";
 			AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
 			listaAcomodacao = acomodacaoFacade.lista(sql);
 			if (listaAcomodacao == null) {
