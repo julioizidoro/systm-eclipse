@@ -16,11 +16,6 @@ public class TipoContatoConverter implements Converter{
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Tipocontato> listaTipocontato = (List<Tipocontato>) component.getAttributes().get("listaTipocontato");
-        try {
-        	value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
         if (listaTipocontato != null) {
             for (Tipocontato tipocontato : listaTipocontato) {
                 if (tipocontato.getTipo().equalsIgnoreCase(value)) {
