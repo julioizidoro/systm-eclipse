@@ -714,12 +714,17 @@ public class CadAcomodacaoMB implements Serializable {
 						boolean calcular = true;
 						if (listaGrupoObrigatorio.get(i).isMenorobrigatorio()) {
 							int idadeCliente = Formatacao.calcularIdade(lead.getCliente().getDataNascimento());
-							if (idadeCliente < produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao()
-									.getIdfornecedorcidadeidioma()) {
-								calcular = true;
-							} else {
+							if (produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma() != null) {
+								if (idadeCliente < produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+										.getIdfornecedorcidadeidioma()) {
+									calcular = true;
+								} else {
+									calcular = false;
+								}
+							}else {
 								calcular = false;
 							}
+								
 						}
 						if (calcular) {
 							ProdutosOrcamentoBean po = consultarValores("DI",
@@ -1487,12 +1492,12 @@ public class CadAcomodacaoMB implements Serializable {
 
 	public void gerarPromocaoAcomodacao(ProdutosOrcamentoBean produtosOrcamentoBean) {
 		String sql = "";
-		if (produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao() != null) {
+		if (produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma() != null) {
 			sql = "select p From Promocaoacomodacaocidade p where p.promocaoacomodacao.datavalidadeinicial<='"
 					+ Formatacao.ConvercaoDataSql(new Date()) + "' and p.promocaoacomodacao.datavalidadefinal>='"
 					+ Formatacao.ConvercaoDataSql(new Date())
 					+ "'  and p.fornecedorcidadeidioma.fornecedorcidade.cidade.idcidade="
-					+ produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao().getFornecedorcidade().getCidade()
+					+ produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().getFornecedorcidade().getCidade()
 							.getIdcidade()
 
 					+ " group by p.promocaoacomodacao.idpromoacaoacomodacao";
@@ -1892,7 +1897,7 @@ public class CadAcomodacaoMB implements Serializable {
 				multiplicador = (int) (produtosOrcamentoBean.getNumeroSemanas() * 7);
 			}
 			float valorSuplemento = calcularValorFracionadoSuplemento(produtosOrcamentoBean, multiplicador,
-					produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao(), po);
+					produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma(), po);
 			if (valorSuplemento == 0) {
 				po = null;
 			} else {
@@ -2312,7 +2317,7 @@ public class CadAcomodacaoMB implements Serializable {
 			Fornecedorcidadeidioma fornecedorcidadeidioma, ProdutosOrcamentoBean po) {
 		float valorSuplemento = 0.0f;
 		Date dataInical = retornarDataConsultaOrcamento(acomodacao.getDatainicial(),
-				produtosOrcamentoBean.getFornecedorcidadeidiomaAcomodacao().getFornecedorcidade().getFornecedor());
+				produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidade().getFornecedor());
 		int nSemana = (int) produtosOrcamentoBean.getNumeroSemanas();
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
 		int numeroDias = 0;  
