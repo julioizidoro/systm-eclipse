@@ -57,11 +57,11 @@
 						<div align="right" style="width: 94%;">
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
 								
-								action="#" />
+								action="#{acomodacaoMB.pesquisar()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 								style="margin-left:2%;"
 								update=" unidade, dataFinal, dataIni, idvendas, cliente"
-								action="#" />
+								action="#{acomodacaoMB.limparPesquisa()}" />
 						</div>
 					</p:tab>
 				</p:accordionPanel>
@@ -74,12 +74,12 @@
 				<p:dataTable id="tabelaAcomodacao" var="acomodacao" reflow="true"
 					value="#{acomodacaoMB.listaAcomodacao}" class="tabela"
 					scrollable="true" scrollHeight="300" style="margin-bottom:20px">
-					<p:column headerText="ID" style="width:55px;text-align:left;"
+					<p:column headerText="ID" style="width:55px;text-align:left;" sortBy="#{acomodacao.vendas.idvendas}"
 						styleClass="alinharCenter">
 						<h:outputText value="#{acomodacao.vendas.idvendas}"
 							 />
 					</p:column>
-					<p:column headerText="Data Venda"
+					<p:column headerText="Data Venda" sortBy="#{acomodacao.vendas.dataVenda}"
 						style="width:75px;text-align:left;">
 						<h:outputText value="#{acomodacao.vendas.dataVenda}"
 							>
@@ -88,37 +88,37 @@
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Cliente" style="width:135px;text-align:left;"
-						styleClass="alinharCenter">
+						styleClass="alinharCenter" sortBy="#{acomodacao.vendas.cliente.nome}">
 						<h:outputText value="#{acomodacao.vendas.cliente.nome}"
 							 />
 					</p:column>
-					<p:column headerText="Acomodação"
+					<p:column headerText="Acomodação" sortBy="#{acomodacao.tipoacomodacao}"
 						style="width:100px;text-align:left;" styleClass="alinharCenter">
 						<h:outputText value="#{acomodacao.tipoacomodacao}"
 							 />
 					</p:column>
-					<p:column headerText="Refeição" style="width:100px;text-align:left;"
+					<p:column headerText="Refeição" style="width:100px;text-align:left;" sortBy="#{acomodacao.tiporefeicao}"
 						styleClass="alinharCenter">
 						<h:outputText
 							value="#{acomodacao.tiporefeicao}"
 							 />
 					</p:column>
-					<p:column headerText="Quarto" style="width:110px;text-align:left;">
+					<p:column headerText="Quarto" style="width:110px;text-align:left;" sortBy="#{acomodacao.tipoquarto}">
 						<h:outputText value="#{acomodacao.tipoquarto}"
 							>
 						</h:outputText>
 					</p:column> 
-					<p:column headerText="Banheiro" style="width:110px;text-align:left;">
+					<p:column headerText="Banheiro" style="width:110px;text-align:left;" sortBy="#{acomodacao.tipobanheiro}">
 						<h:outputText value="#{acomodacao.tipobanheiro}"
 							>
 						</h:outputText>
 					</p:column> 
-					<p:column headerText="Unidade"
+					<p:column headerText="Unidade" sortBy="#{acomodacao.vendas.unidadenegocio.nomerelatorio}"
 						style="width:135px;text-align:left;" styleClass="alinharCenter">
 						<h:outputText value="#{acomodacao.vendas.unidadenegocio.nomerelatorio}"
 							 />
 					</p:column>
-					<p:column headerText="Consultor"
+					<p:column headerText="Consultor" sortBy="#{acomodacao.vendas.usuario.nome}"
 						style="width:135px;text-align:left;" styleClass="alinharCenter">
 						<h:outputText value="#{acomodacao.vendas.usuario.nome}"
 							 />

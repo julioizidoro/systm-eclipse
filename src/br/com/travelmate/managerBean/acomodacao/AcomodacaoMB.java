@@ -19,6 +19,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
 
 @Named
 @ViewScoped
@@ -173,6 +174,64 @@ public class AcomodacaoMB implements Serializable{
 		LeadFacade leadFacade = new LeadFacade();
 		session.setAttribute("lead", leadFacade.consultar("SELECT l FROM Lead l WHERE l.cliente.idcliente=" + acomodacao.getVendas().getCliente().getIdcliente()));
 		return "cadAcomodacao";
+	}
+	
+	
+	public void pesquisar() {
+		boolean pesquisaSemParametro = true;
+		String sql = null;
+		sql = "Select a from Acomodacao a where "
+				+ " a.vendas.cliente.nome like '%" + cliente + "%'";
+		if (idvenda > 0) {
+			sql = sql + " and a.vendas.idvendas=" + idvenda;
+			pesquisaSemParametro = false;
+		}
+		if ((dataInicio != null) && (dataFinal != null)) {
+			sql = sql + " and a.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
+			sql = sql + " and a.vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
+			pesquisaSemParametro = false;
+		}
+		if ((unidadenegocio != null) && (unidadenegocio.getIdunidadeNegocio() != null)) {
+			sql = sql + " and a.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+			if ((dataInicio == null) && (dataFinal == null)) {
+				Date dataconsulta = new Date();
+				try {
+					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				sql = sql + " and a.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
+			}
+			pesquisaSemParametro = false;
+		}
+		if (pesquisaSemParametro){
+			if ((dataInicio == null) && (dataFinal == null)) {
+				Date dataconsulta = new Date();
+				try {
+					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				sql = sql + " and a.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
+			}
+		}
+		sql = sql + "  order by a.vendas.dataVenda desc";
+		AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
+		listaAcomodacao = acomodacaoFacade.lista(sql);
+		if (listaAcomodacao == null) {
+			listaAcomodacao = new ArrayList<Acomodacao>();
+		}
+	}
+
+	public void limparPesquisa() {
+		carregarListaVendasAcomodacao();
+		cliente = "";
+		dataFinal = null;
+		dataInicio = null;
+		unidadenegocio = null;
+		idvenda = 0;
 	}
 	
 
