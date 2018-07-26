@@ -573,11 +573,12 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 							+ venda.getProdutos().getIdgerente());
 			if (departamento != null && departamento.size() > 0) {
 				String dataInicio = verificarDataInicio(venda);
+				venda.setVendascomissao(null);  
 				Formatacao.gravarNotificacaoVendasFinalizado(titulo, venda.getUnidadenegocio(), venda.getCliente().getNome(), venda.getFornecedorcidade().getFornecedor().getNome()
 						, dataInicio, venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(), venda.getCambio().getMoedas().getSigla(), operacao
 						, imagemNotificacao, operacao, departamento.get(0));
 				
-			}
+			}  
 			if (venda.getFormapagamento().getIdformaPagamento() == null) {
 				venda.setFormapagamento(null);
 			}
@@ -590,7 +591,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 				venda.setCambio(null);
 			}
 	    	
-	    	if (venda.getVendascomissao().getIdvendascomissao() == null) {
+	    	if (venda.getVendascomissao() == null || venda.getVendascomissao().getIdvendascomissao() == null) {
 				venda.setVendascomissao(null);
 			}
 	    	

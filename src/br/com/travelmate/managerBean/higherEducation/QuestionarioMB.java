@@ -64,7 +64,13 @@ public class QuestionarioMB implements Serializable{
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
 		listaQuestionario = (List<Questionariohe>) session.getAttribute("listaQuestionario");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaQuestionario");
 		listaUnidade = GerarListas.listarUnidade();
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
@@ -381,6 +387,7 @@ public class QuestionarioMB implements Serializable{
 		nomeCliente = "";
 		idvenda = 0;
 		situacao = "sn";
+		pesquisar = "Nao";
 		gerarListaQuestionario();
 	}
 
@@ -412,6 +419,7 @@ public class QuestionarioMB implements Serializable{
 		if (listaQuestionario == null) {
 			listaQuestionario = new ArrayList<Questionariohe>();
 		}
+		pesquisar = "Sim";
 		nFichas = listaQuestionario.size();
 	}
 	
