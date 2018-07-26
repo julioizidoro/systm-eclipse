@@ -40,7 +40,7 @@ import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class DashBoardMB implements Serializable {
    
 	/**
