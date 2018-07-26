@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.OCursoFacade;
+import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.util.Formatacao;
@@ -31,6 +31,8 @@ public class ImportarOrcamentoMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private String nome;
 	private List<Ocurso> listaOCurso;
+	@Inject
+	private OCursoDao oCursoDao;
 	
 	@PostConstruct()
 	public void init() {
@@ -60,10 +62,9 @@ public class ImportarOrcamentoMB implements Serializable{
         if (nome==null){
             nome = "";
         }
-        OCursoFacade oCursoFacade = new OCursoFacade();
         String sql = "Select o from Ocurso o where o.cliente.nome like '%" + nome + "%' and o.usuario.unidadenegocio.idunidadeNegocio=" + 
         usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by o.dataorcamento desc, o.idocurso desc";
-        listaOCurso = oCursoFacade.listar(sql);
+        listaOCurso = oCursoDao.listar(sql);
         if (listaOCurso==null){
         	listaOCurso = new ArrayList<Ocurso>();
         }

@@ -1,10 +1,14 @@
 package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Ocursopacote;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -13,21 +17,20 @@ import javax.persistence.Query;
  *
  * @author Kamila
  */
-public class OcursoPacoteDao {
+public class OcursoPacoteDao implements Serializable{
 
-	public Ocursopacote salvar(Ocursopacote ocursopacote) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
+	
+	@Transactional
+	public Ocursopacote salvar(Ocursopacote ocursopacote)  {
 		ocursopacote = manager.merge(ocursopacote);
-		tx.commit();
 		return ocursopacote;
 	}
 
-	public Ocursopacote consultar(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+	
+	public Ocursopacote consultar(String sql)  {
 		Query q = manager.createQuery(sql);
 		Ocursopacote ocursopacote = null;
 		if (q.getResultList().size() > 0) {
@@ -36,19 +39,14 @@ public class OcursoPacoteDao {
 		return ocursopacote;
 	}  
 
-	public void excluir(int idOcursopacote) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public void excluir(int idOcursopacote)  {
 		Ocursopacote ocursopacote = manager.find(Ocursopacote.class, idOcursopacote);
 		manager.remove(ocursopacote);
-		tx.commit();
 	}
+	
 
-	public List<Ocursopacote> listar(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getInstance();
+	public List<Ocursopacote> listar(String sql) {
 		Query q = manager.createQuery(sql);
 		List<Ocursopacote> ocursopacote = null;
 		if (q.getResultList().size() > 0) {

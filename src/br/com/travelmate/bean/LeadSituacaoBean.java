@@ -1,14 +1,23 @@
 package br.com.travelmate.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import br.com.travelmate.facade.LeadSituacaoFacade;
+import javax.inject.Inject;
+
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadsituacao;
 import br.com.travelmate.util.Formatacao;
 
-public class LeadSituacaoBean {
-	
+public class LeadSituacaoBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
 	private Leadsituacao leadsituacao;
 	private Lead lead;
 	
@@ -23,11 +32,10 @@ public class LeadSituacaoBean {
 	
 	
 	private void salvarLeadSituacao(){
-		LeadSituacaoFacade leadSituacaoFacade = new LeadSituacaoFacade();
 		leadsituacao.setData(new Date());
 		leadsituacao.setLead(lead);
 		leadsituacao.setHora(Formatacao.foramtarHoraString());
-		leadSituacaoFacade.salvar(leadsituacao);
+		leadSituacaoDao.salvar(leadsituacao);
 	}
 
 }

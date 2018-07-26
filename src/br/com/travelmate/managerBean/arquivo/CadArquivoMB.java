@@ -25,6 +25,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.ContasReceberBean;
+import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
@@ -34,7 +35,7 @@ import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
-import br.com.travelmate.facade.LeadPosVendaFacade;
+
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -89,6 +90,8 @@ public class CadArquivoMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -1426,12 +1429,11 @@ public class CadArquivoMB implements Serializable {
 						voluntariadoFacade.salvar(controle);
 					}
 				}
-				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-				Leadposvenda leadposvenda = leadPosVendaFacade.consultar("SELECT l FROM Leadposvenda l WHERE l.vendas.idvendas="+vendas.getIdvendas());
+				Leadposvenda leadposvenda = leadPosVendaDao.consultar("SELECT l FROM Leadposvenda l WHERE l.vendas.idvendas="+vendas.getIdvendas());
 				if(leadposvenda!=null) {
 					leadposvenda.setDataembarque(dataembarque);
 					leadposvenda.setDatachegada(datachegadabrasil);
-					leadposvenda = leadPosVendaFacade.salvar(leadposvenda);
+					leadposvenda = leadPosVendaDao.salvar(leadposvenda);
 				}
 			}
 		}

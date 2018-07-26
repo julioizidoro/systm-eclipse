@@ -15,17 +15,15 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadPosVendaFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
-
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -38,16 +36,16 @@ import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Publicidade;
 import br.com.travelmate.model.Tipocontato;
-
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
+
+
 
 @Named
 @ViewScoped
@@ -57,6 +55,12 @@ public class CadLeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadResponsavelDao leadResponsavelDao;
+	@Inject 
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -93,18 +97,16 @@ public class CadLeadMB implements Serializable {
 		lead = new Lead();
 		gerarListaUnidadeNegocio();
 		boolean responsavelUnidade = retornarResponsavelUnidade();
-		if(usuarioLogadoMB.getUsuario().isPertencematriz() || responsavelUnidade){
+		if(usuarioLogadoMB.getUsuario().isPertencematriz()){
 			desabilitarUnidade=false;
 		}else{
+			desabilitarUnidade = true;
 			unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			gerarListaConsultor();
 			consultor = usuarioLogadoMB.getUsuario();
 		}
 		gerarListaPublicidade();
 		listaProdutos = GerarListas.listarProdutos("");
-		//PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-		//int idProduto = 0;
-		//idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 		PaisFacade paisFacade = new PaisFacade();
 		listaPais = paisFacade.listar("");
 		if (listaPais == null) {
@@ -325,12 +327,10 @@ public class CadLeadMB implements Serializable {
 		unidadenegocio = cliente.getUnidadenegocio(); 
 		gerarListaConsultor();
 		publicidade = cliente.getPublicidade(); 
-		LeadFacade leadFacade = new LeadFacade();
 		String sql = "select l from Lead l where l.cliente.idcliente="+cliente.getIdcliente();
-		Lead lead = leadFacade.consultar(sql);
+		Lead lead = leadDao.consultar(sql);
 		if(lead!=null && lead.getUsuario().getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
-			LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-			Leadposvenda leadposvenda = leadPosVendaFacade.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
+			Leadposvenda leadposvenda = leadPosVendaDao.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
 			if (leadposvenda == null) {
 				this.lead.setJaecliente(true);
 				if (lead.getSituacao() != 6) {
@@ -399,7 +399,6 @@ public class CadLeadMB implements Serializable {
 			cliente.setPublicidade(publicidade);
 			cliente.setUnidadenegocio(unidadenegocio);
 			cliente = clienteFacade.salvar(cliente);
-			LeadFacade leadFacade = new LeadFacade(); 
 			lead.setCliente(cliente); 
 			TipoContatoFacade tipoContatoFacade = new TipoContatoFacade();
 			Tipocontato tipocontato = tipoContatoFacade.consultar(1);
@@ -416,7 +415,7 @@ public class CadLeadMB implements Serializable {
 			MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();
 			Motivocancelamento motivo = motivoCancelamentoFacade.consultar("select m from Motivocancelamento m where m.idmotivocancelamento=1");
 			lead.setMotivocancelamento1(motivo);
-			lead = leadFacade.salvar(lead);
+			lead = leadDao.salvar(lead);
 			Mensagem.lancarMensagemInfo("", "Lead salvo com sucesso!");
 			
 			if (lead.getUsuario().getIdusuario() == usuarioLogadoMB.getUsuario().getIdusuario()) {
@@ -523,8 +522,7 @@ public class CadLeadMB implements Serializable {
 	
 	public boolean retornarResponsavelUnidade() {
 		int idusuario = usuarioLogadoMB.getUsuario().getIdusuario();
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		List<Leadresponsavel> lista = leadResponsavelFacade
+		List<Leadresponsavel> lista = leadResponsavelDao
 				.lista(usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {

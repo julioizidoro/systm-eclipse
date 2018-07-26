@@ -26,12 +26,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.facade.ContasReceberFacade; 
 import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
-import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade; 
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -57,6 +57,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+
 @Named
 @ViewScoped
 public class HistoricoClienteMB implements Serializable {
@@ -65,6 +66,10 @@ public class HistoricoClienteMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadHistoricoDao leadHistoricoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -88,6 +93,9 @@ public class HistoricoClienteMB implements Serializable {
 	private boolean habilitarDescricao = true;
 	private Produtos produto;
 	private List<Produtos> listaProduto;
+	
+	@Inject
+	private OCursoDao oCursoDao;
 
 	@PostConstruct
 	public void init() {
@@ -308,8 +316,7 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public String followUp() {
-		LeadFacade leadFacade = new LeadFacade();
-		lead = leadFacade.salvar(lead);
+		lead = leadDao.salvar(lead);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("funcao", funcao); 
@@ -321,8 +328,7 @@ public class HistoricoClienteMB implements Serializable {
 	}
 	
 	public void salvarNotas() {
-		LeadFacade leadFacade = new LeadFacade();
-		lead = leadFacade.salvar(lead); 
+		lead = leadDao.salvar(lead); 
 		Mensagem.lancarMensagemInfo("Salvo com sucesso.", "");
 	}
  
@@ -356,17 +362,15 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public void mudarSituacao(int situacao) {
-		LeadFacade leadFacade = new LeadFacade();
 		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), situacao);
 		lead.setSituacao(situacao);
-		lead = leadFacade.salvar(lead);
+		lead = leadDao.salvar(lead);
 	}
 
 	public void gerarListaHistorico() {
-		LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
 		String sql = "select l from Leadhistorico l where l.cliente.idcliente=" + lead.getCliente().getIdcliente()
 				+ " order by l.idleadhistorico DESC";
-		listaHistorico = leadHistoricoFacade.lista(sql);
+		listaHistorico = leadHistoricoDao.lista(sql);
 	}
 
 	public String visualizarVendas() {
@@ -413,10 +417,9 @@ public class HistoricoClienteMB implements Serializable {
 	public String cancelarLead() {
 			if(lead.getMotivocancelamento1()!=null
 				&& lead.getMotivocancelamento1().getIdmotivocancelamento()!=1){
-				LeadFacade leadFacade = new LeadFacade();
 				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 7);
 				lead.setSituacao(7);
-				lead = leadFacade.salvar(lead);
+				lead = leadDao.salvar(lead);
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 				session.setAttribute("funcao", funcao); 
@@ -502,9 +505,8 @@ public class HistoricoClienteMB implements Serializable {
 	}  
 	
 	public void excluir(Leadhistorico leadhistorico){
-		LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
 		lead.getCliente().getLeadhistoricoList().remove(leadhistorico);
-		leadHistoricoFacade.excluir(leadhistorico.getIdleadhistorico());
+		leadHistoricoDao.excluir(leadhistorico.getIdleadhistorico());
 		gerarListaHistorico();
 		Mensagem.lancarMensagemInfo("Histórico excluido com sucesso.", "");
 	}
@@ -548,8 +550,7 @@ public class HistoricoClienteMB implements Serializable {
 	
 	public void gerarOrcamentoPDF(Leadhistorico leadhistorico){
 		if (leadhistorico.getTipoorcamento().equalsIgnoreCase("t")){
-			OCursoFacade oCursoFacade = new OCursoFacade();
-			Ocurso ocurso = oCursoFacade.consultar(leadhistorico.getIdorcamento());
+			Ocurso ocurso = oCursoDao.consultar(leadhistorico.getIdorcamento());
 			if (ocurso!=null){
 				try {
 					gerarOrcamentoPDFTarifario(ocurso, "PDF");
@@ -905,8 +906,7 @@ public class HistoricoClienteMB implements Serializable {
 				vendasFacade.salvar(vendas);
 				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
 				lead.setSituacao(6);
-				LeadFacade leadFacade = new LeadFacade();
-				lead = leadFacade.salvar(lead);
+				lead = leadDao.salvar(lead);
 			}else{
 				Mensagem.lancarMensagemErro("Atenção!", "ID da venda inválido.");
 			}

@@ -1,10 +1,14 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
+import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoFormaPagamentoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.CursosPacotesFormaPagamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
@@ -78,6 +82,10 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	private Date datanascimento;
 	private boolean dataInicioExcedida;
 	private String dataBrasil;
+	
+	@Inject
+	private OCursoDao oCursoDao;
+	
 
 	@PostConstruct
 	public void init() {
@@ -250,8 +258,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		if(validarDados()){
 			SalvarOrcamentoOcurso salvarOrcamentoOcurso = new SalvarOrcamentoOcurso(cliente, datainicio, cursospacote, aplicacaoMB,usuarioLogadoMB,formapagamento);
 			Ocurso ocurso = salvarOrcamentoOcurso.salvarOcurso();  
-			OCursoFacade oCursoFacade = new OCursoFacade();
-			ocurso = oCursoFacade.consultar(ocurso.getIdocurso());
+			ocurso = oCursoDao.consultar(ocurso.getIdocurso());
 			GerarOcamentoPDFBean o = new GerarOcamentoPDFBean(ocurso, aplicacaoMB);
 			OrcamentoPDFFactory.setLista(o.getLista());
 	

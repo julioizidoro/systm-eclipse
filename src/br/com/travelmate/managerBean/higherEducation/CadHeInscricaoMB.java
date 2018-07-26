@@ -25,8 +25,8 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -34,19 +34,13 @@ import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.HeParceirosFacade;
-import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
-import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -59,9 +53,7 @@ import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Heparceiros;
 import br.com.travelmate.model.Lead;
-import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
-import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
@@ -87,14 +79,6 @@ public class CadHeInscricaoMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB metaRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
 	private He he;
 	private Vendas venda;
 	private Formapagamento formaPagamento;
@@ -169,6 +153,7 @@ public class CadHeInscricaoMB implements Serializable {
 			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
 			iniciarNovo();
 		}
+		
 		carregarCamposAcomodacao();
 	}
 
@@ -228,13 +213,6 @@ public class CadHeInscricaoMB implements Serializable {
 		this.aplicacaoMB = aplicacaoMB;
 	}
 
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
 
 	public Vendas getVenda() {
 		return venda;
@@ -436,13 +414,6 @@ public class CadHeInscricaoMB implements Serializable {
 		this.camposHe = camposHe;
 	}
 
-	public MateRunnersMB getMetaRunnersMB() {
-		return metaRunnersMB;
-	}
-
-	public void setMetaRunnersMB(MateRunnersMB metaRunnersMB) {
-		this.metaRunnersMB = metaRunnersMB;
-	}
 
 	public Lead getLead() {
 		return lead;
@@ -1387,25 +1358,6 @@ public class CadHeInscricaoMB implements Serializable {
 					 0.0f);
 			if (novaFicha) {
 				if (enviarFicha) {
-					dashBoardMB.getMetamensal().setValoralcancado(
-							dashBoardMB.getMetamensal().getValoralcancado() + orcamento.getTotalMoedaNacional());
-					dashBoardMB.getMetamensal().setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-							/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-					dashBoardMB.getMetaAnual().setMetaalcancada(
-							dashBoardMB.getMetaAnual().getMetaalcancada() + orcamento.getTotalMoedaNacional());
-					dashBoardMB.getMetaAnual().setPercentualalcancado(
-							(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta())
-									* 100);
-
-					dashBoardMB.setMetaparcialsemana(
-							dashBoardMB.getMetaparcialsemana() + orcamento.getTotalMoedaNacional());
-					dashBoardMB.setPercsemana(
-							(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-									* 100);
-
-					float valor = dashBoardMB.getMetamensal().getValoralcancado();
-					dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-
 					DashBoardBean dashBoardBean = new DashBoardBean();
 					dashBoardBean.calcularMetaMensal(venda, 0, false);
 					dashBoardBean.calcularMetaAnual(venda, 0, false);
@@ -1419,16 +1371,12 @@ public class CadHeInscricaoMB implements Serializable {
 					if (vendaAlterada!=null) {
 						pontoremover = vendaAlterada.getPonto();
 					};
-					productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false,venda.getUsuario() );
+					ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+					productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false,venda.getUsuario() );
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					venda = vendasFacade.salvar(venda);
-					metaRunnersMB.carregarListaRunners();
-					tmRaceMB.gerarListaGold();
-					tmRaceMB.gerarListaSinze();
-					tmRaceMB.gerarListaBronze();
-
 					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, he.getDatainicio());
 					String titulo = "Nova ficha de inscrição Higher Education";
@@ -1461,25 +1409,7 @@ public class CadHeInscricaoMB implements Serializable {
 				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {
 						if (mes == mesVenda) {
-							dashBoardMB.getMetamensal().setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-									- valorVendaAlterada + orcamento.getTotalMoedaNacional());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-	
-							dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-									- valorVendaAlterada + orcamento.getTotalMoedaNacional());
-							dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-									/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-	
-							dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() - valorVendaAlterada
-									+ orcamento.getTotalMoedaNacional());
-							dashBoardMB.setPercsemana(
-									(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-											* 100);
-	
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+							
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterada, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterada, false);
@@ -1497,8 +1427,9 @@ public class CadHeInscricaoMB implements Serializable {
 							if (vendaAlterada!=null) {
 								pontoremover = vendaAlterada.getPonto();
 							}
-							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
-							metaRunnersMB.carregarListaRunners();
+							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
+							
 						}
 						String titulo = "Ficha de Higher Education Alterada";
 						String operacao = "I";
@@ -1694,6 +1625,7 @@ public class CadHeInscricaoMB implements Serializable {
 		if (listaHeParceiros == null) {
 			listaHeParceiros = new ArrayList<Heparceiros>();
 		}
+		heparceiros1 = new Heparceiros();
 		if (listaHeParceiros.size() > 0) {
 			if (listaHeParceiros.size() == 1) {
 				heparceiros1 = listaHeParceiros.get(0);

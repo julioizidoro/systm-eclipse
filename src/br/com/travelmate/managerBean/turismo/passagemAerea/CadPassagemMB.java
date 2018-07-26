@@ -23,6 +23,7 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoPassagemBean;
 import br.com.travelmate.facade.CambioFacade;
@@ -38,10 +39,6 @@ import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cidade;
@@ -77,14 +74,6 @@ public class CadPassagemMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB mateRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
 	private Cliente cliente;
 	private Fornecedorcidade fornecedorCidade;
 	private Fornecedorcidade fornecedorCidadeAlterado;
@@ -435,14 +424,6 @@ public class CadPassagemMB implements Serializable {
 		this.aplicacaoMB = aplicacaoMB;
 	}
 
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
 	public float getTotalTarifa() {
 		return totalTarifa;
 	}
@@ -482,16 +463,6 @@ public class CadPassagemMB implements Serializable {
 	public void setValorVendasAlterado(float valorVendasAlterado) {
 		this.valorVendasAlterado = valorVendasAlterado;
 	}
-
-	public MateRunnersMB getMateRunnersMB() {
-		return mateRunnersMB;
-	}
-
-	public void setMateRunnersMB(MateRunnersMB mateRunnersMB) {
-		this.mateRunnersMB = mateRunnersMB;
-	}
-
-	
 
 	public Lead getLead() {
 		return lead;
@@ -830,33 +801,14 @@ public class CadPassagemMB implements Serializable {
 				}
 				salvarVendas(nsituacao);
 				if (novaFicha) {
-					dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() + 1);
-					dashBoardMB.getMetamensal()
-							.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + vendas.getValor());
-					dashBoardMB.getMetamensal().setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-							/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-					dashBoardMB.getMetaAnual()
-							.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + vendas.getValor());
-					dashBoardMB.getMetaAnual().setPercentualalcancado(
-							(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta())
-									* 100);
-
-					dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + vendas.getValor());
-					dashBoardMB.setPercsemana(
-							(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-									* 100);
-
-					dashBoardMB.setValorFaturamento(dashBoardMB.getValorFaturamento() + vendas.getValor());
-//					new Thread() {
-//						@Override
-//						public void run() {
+					
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 							dashBoardBean.calcularMetaMensal(vendas,valorVendasAlterado,false);
 							dashBoardBean.calcularMetaAnual(vendas,valorVendasAlterado,false);
 							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "",false, vendas.getUsuario());
-							productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
+							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+							productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
 							if (lead!=null){
@@ -864,12 +816,7 @@ public class CadPassagemMB implements Serializable {
 							}else vendas.setIdlead(0);
 							VendasFacade vendasFacade = new VendasFacade();
 							vendas=vendasFacade.salvar(vendas);
-							mateRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
-//						}
-//					}.start();
+							
 				}  
 				salvarPassagem();
 				salvarPassageiros();

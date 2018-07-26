@@ -14,6 +14,7 @@ import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
@@ -68,14 +69,7 @@ public class FinalizarMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
-	@Inject
-	private MateRunnersMB mateRunnersMB;
+	
 	private String nome = "";
 	
 	
@@ -134,8 +128,9 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(aupair.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(aupair.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(aupair.getVendas(), 0, "", false, aupair.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(aupair.getVendas(), pontos[0], 0, false, aupair.getVendas().getUsuario());
+		
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(aupair.getVendas(), pontos[0], 0, false, aupair.getVendas().getUsuario());
 		aupair.getVendas().setPonto(pontos[0]);
 		aupair.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -200,8 +195,8 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(trainee.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(trainee.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(trainee.getVendas(), 0, "", false, trainee.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(trainee.getVendas(), pontos[0], 0, false, trainee.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(trainee.getVendas(), pontos[0], 0, false, trainee.getVendas().getUsuario());
 		trainee.getVendas().setPonto(pontos[0]);
 		trainee.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -253,8 +248,8 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(worktravel.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(worktravel.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(worktravel.getVendas(), 0, worktravel.getValoreswork().getPrograma(), false, worktravel.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(worktravel.getVendas(), pontos[0], 0, false, worktravel.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(worktravel.getVendas(), pontos[0], 0, false, worktravel.getVendas().getUsuario());
 		worktravel.getVendas().setPonto(pontos[0]);
 		worktravel.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -356,8 +351,8 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(voluntariado.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(voluntariado.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(voluntariado.getVendas(), 0, "", false, voluntariado.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(voluntariado.getVendas(), pontos[0], 0, false, voluntariado.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(voluntariado.getVendas(), pontos[0], 0, false, voluntariado.getVendas().getUsuario());
 		voluntariado.getVendas().setPonto(pontos[0]);
 		voluntariado.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -416,8 +411,8 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(demipair.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(demipair.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(demipair.getVendas(), 0, "", false, demipair.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(demipair.getVendas(), pontos[0], 0, false, demipair.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(demipair.getVendas(), pontos[0], 0, false, demipair.getVendas().getUsuario());
 		demipair.getVendas().setPonto(pontos[0]);
 		demipair.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -481,8 +476,8 @@ public class FinalizarMB implements Serializable {
 			programa = "Ano";
 		}
 		int[] pontos = dashBoardBean.calcularPontuacao(highschool.getVendas(), 0, programa, false, highschool.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(highschool.getVendas(), pontos[0], 0, false, highschool.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(highschool.getVendas(), pontos[0], 0, false, highschool.getVendas().getUsuario());
 		highschool.getVendas().setPonto(pontos[0]);
 		highschool.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -538,8 +533,8 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(programasteens.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(programasteens.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(programasteens.getVendas(), 0, "", false, programasteens.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(programasteens.getVendas(), pontos[0], 0, false, programasteens.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(programasteens.getVendas(), pontos[0], 0, false, programasteens.getVendas().getUsuario());
 		programasteens.getVendas().setPonto(pontos[0]);
 		programasteens.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -652,8 +647,8 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(curso.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(curso.getVendas(), 0, false);
 		int[] pontos = dashBoardBean.calcularPontuacao(curso.getVendas(), 0, "", false, curso.getVendas().getUsuario());
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(curso.getVendas(), pontos[0], 0, false, curso.getVendas().getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(curso.getVendas(), pontos[0], 0, false, curso.getVendas().getUsuario());
 		curso.getVendas().setPonto(pontos[0]);
 		curso.getVendas().setPontoescola(pontos[1]);
 		String hora = Formatacao.foramtarHoraString();
@@ -708,8 +703,8 @@ public class FinalizarMB implements Serializable {
 		vendaSeguro.setDataVenda(new Date());
 		vendasFacade = new VendasFacade();
 		vendaSeguro = vendasFacade.salvar(vendaSeguro);
-		ProductRunnersMB productRunnersMB = new ProductRunnersMB();
-		productRunnersMB.calcularPontuacao(vendaSeguro, pontos[0], 0, false, vendaSeguro.getUsuario());
+		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+		productRunnersCalculosBean.calcularPontuacao(vendaSeguro, pontos[0], 0, false, vendaSeguro.getUsuario());
 	}
 
 }

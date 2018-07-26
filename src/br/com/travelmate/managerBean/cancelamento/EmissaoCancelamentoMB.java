@@ -26,6 +26,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.facade.CancelamentoCreditoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
@@ -66,8 +67,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
+	
 	private Cancelamento cancelamento;
 	private List<Condicaocancelamento> listaCondicao;
 	private boolean habilitarTotalRecebido;
@@ -501,7 +501,8 @@ public class EmissaoCancelamentoMB implements Serializable {
 					dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
 					if (cancelamento.getMultacliente()<=0) {
 						dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
-						productRunnersMB.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
 					}
 					cancelarContasReceber();
 					vendas.setSituacao("CANCELADA");

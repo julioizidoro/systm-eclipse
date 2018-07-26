@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.facade.CursosPacotesFacade;
-import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -62,6 +62,9 @@ public class PacotesMB implements Serializable{
 	private Date dataInicio;
 	private Ocurso pacote;
 	private boolean habilitarVoltaBtn = true;
+	
+	@Inject 
+	private OCursoDao oCursoDao;
 
 	@PostConstruct
 	public void init() {
@@ -219,8 +222,7 @@ public class PacotesMB implements Serializable{
 	public void consultarListarCursosPacotes(Pais pais){ 
 		String sql = "SELECT c FROM Ocurso c WHERE c.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.idpais="+ pais.getIdpais() +
 				" and c.modelo=true ORDER BY  c.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.idpais";
-		OCursoFacade oCursoFacade = new OCursoFacade();
-		listaOCursos = oCursoFacade.listar(sql);  
+		listaOCursos = oCursoDao.listar(sql);  
 		if(listaOCursos==null) {
 			listaOCursos = new ArrayList<Ocurso>();
 			habilitarPacotes = false;

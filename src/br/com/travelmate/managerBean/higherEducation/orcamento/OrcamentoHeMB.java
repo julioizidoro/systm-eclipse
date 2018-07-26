@@ -12,8 +12,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.facade.HeorcamentoFacade;
-import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 
 import br.com.travelmate.model.Heorcamento;
@@ -30,6 +31,9 @@ public class OrcamentoHeMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Heorcamento> listaOrcamento;
@@ -187,8 +191,7 @@ public class OrcamentoHeMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("heorcamento", heorcamento);
-		LeadFacade leadFacade = new LeadFacade();
-		Lead lead = leadFacade.consultar("SELECT l FROM Lead l WHERE l.cliente.idcliente=" + heorcamento.getCliente().getIdcliente());
+		Lead lead = leadDao.consultar("SELECT l FROM Lead l WHERE l.cliente.idcliente=" + heorcamento.getCliente().getIdcliente());
 		session.setAttribute("lead", lead);
 		return "cadOrcamentoHe";
 	}

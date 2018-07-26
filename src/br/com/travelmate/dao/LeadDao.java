@@ -1,67 +1,61 @@
 package br.com.travelmate.dao;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Lead; 
 
-public class LeadDao {
+public class LeadDao implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
 
 	
 	
 	
-	public List<Lead> lista(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+	public List<Lead> lista(String sql)  {
 		Query q = manager.createQuery(sql);
 		List<Lead> lista = null;
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
-		manager.close();
 		return lista;
 	}
 
-	public Lead consultar(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+	public Lead consultar(String sql)  {
 		Query q = manager.createQuery(sql);
 		Lead lead = null;
 		if (q.getResultList().size() > 0) {
 			lead = (Lead) q.getResultList().get(0);
 		}
-		manager.close();
 		return lead;
 	}
 
-	public Lead salvar(Lead lead) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public Lead salvar(Lead lead)  {
 		lead = manager.merge(lead);
-		tx.commit();
-		manager.close();
 		return lead;
 	}
 
-	public void excluir(int idlead) throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		Lead lead = manager.find(Lead.class, idlead);
+	@Transactional
+	public void excluir(int idlead) {
+    	Lead lead = manager.find(Lead.class, idlead);
         manager.remove(lead);
-        tx.commit();
-        manager.close();
     }
 	
 	
-	public Integer consultarNumLead(String sql) throws SQLException {
+	public Integer consultarNumLead(String sql)  {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);

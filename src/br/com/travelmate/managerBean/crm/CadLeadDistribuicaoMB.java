@@ -15,11 +15,11 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadPosVendaFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -51,16 +51,20 @@ import br.com.travelmate.util.Mensagem;
 @Named
 @ViewScoped
 public class CadLeadDistribuicaoMB implements Serializable{
-	
+		
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadResponsavelDao leadResponsavelDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private String nomeCliente;
 	private List<Cliente> listaCliente;
-	private List<Usuario> listaConsultor;
-	private Usuario consultor;
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private Unidadenegocio unidadenegocio;
 	private Cliente cliente;
@@ -85,17 +89,14 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		lead = new Lead();
 		gerarListaUnidadeNegocio();
 		boolean responsavelUnidade = retornarResponsavelUnidade();
-		if(usuarioLogadoMB.getUsuario().isPertencematriz() || responsavelUnidade){
+		if(usuarioLogadoMB.getUsuario().isPertencematriz()){
 			desabilitarUnidade=false;
 		}else{
 			unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
-			gerarListaConsultor();
-			consultor = usuarioLogadoMB.getUsuario();
+			desabilitarUnidade = true;
 		}
 		gerarListaPublicidade();
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-		int idProduto = 0;
-		idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 		PublicidadeFacade publicidadeFacade = new PublicidadeFacade();
 		try {
 			publicidade = publicidadeFacade.consultar(9);
@@ -128,21 +129,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
-	public List<Usuario> getListaConsultor() {
-		return listaConsultor;
-	}
-
-	public void setListaConsultor(List<Usuario> listaConsultor) {
-		this.listaConsultor = listaConsultor;
-	}
-
-	public Usuario getConsultor() {
-		return consultor;
-	}
-
-	public void setConsultor(Usuario consultor) {
-		this.consultor = consultor;
-	}
 
 	public List<Unidadenegocio> getListaUnidadeNegocio() {
 		return listaUnidadeNegocio;
@@ -278,70 +264,46 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		}
 	}
 
-	public void gerarListaConsultor() {
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaConsultor = usuarioFacade
-				.listar("select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
-						+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
-		if (listaConsultor == null) {
-			listaConsultor = new ArrayList<Usuario>();
-		}
-	}
 	
 	public void selecionarCliente(Cliente cliente){
 		this.cliente = cliente;
 		unidadenegocio = cliente.getUnidadenegocio(); 
-		gerarListaConsultor();
 		publicidade = cliente.getPublicidade(); 
-		LeadFacade leadFacade = new LeadFacade();
 		String sql = "select l from Lead l where l.cliente.idcliente="+cliente.getIdcliente();
-		Lead lead = leadFacade.consultar(sql);
+		Lead lead = leadDao.consultar(sql);
 		if(lead!=null && lead.getUsuario().getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
-			LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-			Leadposvenda leadposvenda = leadPosVendaFacade.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
+			Leadposvenda leadposvenda = leadPosVendaDao.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
 			if (leadposvenda == null) {
 				this.lead.setJaecliente(true);
 				if (lead.getSituacao() != 6) {
-					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
-					consultor = lead.getUsuario();
+					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome() + " - " + lead.getUnidadenegocio().getNomerelatorio(); 
 					desabilitarConfirmar = true;
 				}else if(lead.getSituacao() == 6  && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==lead.getUnidadenegocio().getIdunidadeNegocio()){
 					this.lead.setJaecliente(false); 
 					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-					gerarListaConsultor();
-					consultor = usuarioLogadoMB.getUsuario();
 					desabilitarConfirmar = false;
 				}else{
 					this.lead.setJaecliente(false); 
 					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-					gerarListaConsultor();
-					consultor = usuarioLogadoMB.getUsuario();
 					desabilitarConfirmar = false;
 				}
 			}else{
 				this.lead.setJaecliente(false); 
 				if (lead.getSituacao() != 6 && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()!=lead.getUnidadenegocio().getIdunidadeNegocio()) {
 					this.lead.setJaecliente(true);
-					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome(); 
-					consultor = lead.getUsuario();
+					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome() + " - " + lead.getUnidadenegocio().getNomerelatorio(); 
 					desabilitarConfirmar = true;
 				}else{
 					this.lead.setJaecliente(false); 
 					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-					gerarListaConsultor();
-					consultor = usuarioLogadoMB.getUsuario();
 					desabilitarConfirmar = false;
 				}
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-				gerarListaConsultor();
-				consultor = usuarioLogadoMB.getUsuario();
 				desabilitarConfirmar = false;
 			}  
 		}else{
 			this.lead.setJaecliente(false); 
 			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-			gerarListaConsultor();
-			consultor = usuarioLogadoMB.getUsuario();
 			desabilitarConfirmar = false;
 		}
 	}
@@ -360,8 +322,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	
 	public String salvar(){
 		if(validarDados()){
-			LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-			List<Leadresponsavel> listaResponsavel = leadResponsavelFacade.lista("SELECT l FROM Leadresponsavel l where l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio() +
+			List<Leadresponsavel> listaResponsavel = leadResponsavelDao.lista("SELECT l FROM Leadresponsavel l where l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio() +
 					" and l.usuario.situacao='Ativo'");
 			ClienteFacade clienteFacade = new ClienteFacade();
 			if(cliente.getIdcliente()==null){   
@@ -370,7 +331,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			cliente.setPublicidade(publicidade);    
 			cliente.setUnidadenegocio(unidadenegocio);
 			cliente = clienteFacade.salvar(cliente);
-			LeadFacade leadFacade = new LeadFacade(); 
 			lead.setCliente(cliente); 
 			TipoContatoFacade tipoContatoFacade = new TipoContatoFacade();
 			Tipocontato tipocontato = tipoContatoFacade.consultar(1);
@@ -391,7 +351,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();
 			Motivocancelamento motivo = motivoCancelamentoFacade.consultar("select m from Motivocancelamento m where m.idmotivocancelamento=1");
 			lead.setMotivocancelamento1(motivo);
-			lead = leadFacade.salvar(lead);
+			lead = leadDao.salvar(lead);
 			Mensagem.lancarMensagemInfo("", "Lead salvo com sucesso!");
 			
 
@@ -483,8 +443,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	
 	public boolean retornarResponsavelUnidade() {
 		int idusuario = usuarioLogadoMB.getUsuario().getIdusuario();
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		List<Leadresponsavel> lista = leadResponsavelFacade
+		List<Leadresponsavel> lista = leadResponsavelDao
 				.lista(usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {

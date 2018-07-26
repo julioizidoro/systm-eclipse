@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.OcursoFeriadoDao;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.OcursoFeriadoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidade;
@@ -39,6 +39,9 @@ public class CadIntervalosMB implements Serializable {
 	private List<Fornecedorcidade> listaFornecedor;
 	private boolean aparecercidade;
 	private boolean aparecerlistacidade;
+	
+	@Inject
+	private OcursoFeriadoDao oCursoFeriadoDao;
 
 	@PostConstruct
 	public void init() {
@@ -170,10 +173,9 @@ public class CadIntervalosMB implements Serializable {
 	}
 
 	public String salvar() {
-		OcursoFeriadoFacade ocursoFeriadoFacade = new OcursoFeriadoFacade();
 		if (intervalos.getIdocursoferiado() != null) {
 			intervalos.setFornecedorcidade(fornecedor);
-			intervalos = ocursoFeriadoFacade.salvar(intervalos);
+			intervalos = oCursoFeriadoDao.salvar(intervalos);
 			RequestContext.getCurrentInstance().closeDialog(null);
 		} else {
 			if (listaCidadeSelecionada != null) {
@@ -185,7 +187,7 @@ public class CadIntervalosMB implements Serializable {
 							fornecedor.getFornecedor().getIdfornecedor(), listaCidadeSelecionada.get(i).getIdcidade());
 					if(fornecedorcidade!=null){
 						ocursoferiado.setFornecedorcidade(fornecedorcidade); 
-						ocursoferiado = ocursoFeriadoFacade.salvar(ocursoferiado);
+						ocursoferiado = oCursoFeriadoDao.salvar(ocursoferiado);
 					}
 				} 
 				RequestContext.getCurrentInstance().closeDialog(null);

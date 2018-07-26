@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,8 +18,9 @@ import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.MetasFaturamentoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -38,13 +40,16 @@ import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class DashBoardMB implements Serializable {
    
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -467,8 +472,7 @@ public class DashBoardMB implements Serializable {
 			}
 		}
 		sql = sql + " order by l.dataproximocontato";
-		LeadFacade leadFacade = new LeadFacade();
-		List<Lead> listaLead = leadFacade.lista(sql);
+		List<Lead> listaLead = leadDao.lista(sql);
 		if (listaLead == null) {
 			listaLead = new ArrayList<Lead>();
 		}
@@ -627,8 +631,7 @@ public class DashBoardMB implements Serializable {
 				sql = "select l from Lead l where l.dataenvio is null and l.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			listaLead = leadFacade.lista(sql);
+			listaLead = leadDao.lista(sql);
 			if (listaLead != null && listaLead.size() > 0) {
 				numeroLeads = listaLead.size();
 				return true;

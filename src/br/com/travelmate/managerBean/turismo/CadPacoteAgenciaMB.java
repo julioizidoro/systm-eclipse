@@ -5,10 +5,32 @@
  */
 package br.com.travelmate.managerBean.turismo;
 
+import java.io.Serializable;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.FinalizarPacoteOperadora;
 import br.com.travelmate.bean.GerarPacotesFornecedorBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoPacotesBean;
 import br.com.travelmate.facade.CambioFacade;
@@ -28,10 +50,6 @@ import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cliente;
@@ -65,25 +83,6 @@ import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
-import java.io.Serializable;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpSession;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
-
 /**
  *
  * @author Wolverine
@@ -105,14 +104,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB mateRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
+	
 	private boolean btniniciar = false;
 	private boolean btnfinalizar = true;
 	private Cliente cliente;
@@ -589,22 +581,6 @@ public class CadPacoteAgenciaMB implements Serializable {
 
 	public void setListaUsuario(List<Usuario> listaUsuario) {
 		this.listaUsuario = listaUsuario;
-	}
-
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
-	public MateRunnersMB getMateRunnersMB() {
-		return mateRunnersMB;
-	}
-
-	public void setMateRunnersMB(MateRunnersMB mateRunnersMB) {
-		this.mateRunnersMB = mateRunnersMB;
 	}
 
 	public float getValorVendaAlterar() {
@@ -1308,71 +1284,28 @@ public class CadPacoteAgenciaMB implements Serializable {
 						}
 					}
 					if (novaFicha) {
-						dashBoardMB.getVendaproduto().setTurismo(dashBoardMB.getVendaproduto().getTurismo() + 1);
-						dashBoardMB.getMetamensal().setValoralcancado(
-								dashBoardMB.getMetamensal().getValoralcancado() + vendass.getValor());
-						dashBoardMB.getMetamensal()
-								.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-										/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-						dashBoardMB.getMetaAnual()
-								.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + vendass.getValor());
-						dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-								/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-						dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + vendass.getValor());
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-
-						float valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+						
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularNumeroVendasProdutos(vendass, false);
 						dashBoardBean.calcularMetaMensal(vendass, 0, false);
 						dashBoardBean.calcularMetaAnual(vendass, 0, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(vendass, 0, "", false,pacotes.getUsuario());
-						productRunnersMB.calcularPontuacao(vendass, pontos[0], 0, false, pacotes.getUsuario());
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendass, pontos[0], 0, false, pacotes.getUsuario());
 						vendass.setPonto(pontos[0]);
 						vendass.setPontoescola(0);
 						vendass = vendasFacade.salvar(vendass);
-						mateRunnersMB.carregarListaRunners();
-						tmRaceMB.gerarListaGold();
-						tmRaceMB.gerarListaSinze();
-						tmRaceMB.gerarListaBronze();
+						
 					} else if (valorVendaAlterar != vendass.getValor()) {
 						int mes = Formatacao.getMesData(new Date()) + 1;
 						int mesVenda = Formatacao.getMesData(vendass.getDataVenda()) + 1;
 						if (mes == mesVenda) {
-							dashBoardMB.getMetamensal()
-									.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-											- valorVendaAlterar + vendass.getValor());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-							dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-									- valorVendaAlterar + vendass.getValor());
-							dashBoardMB.getMetaAnual()
-									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-							dashBoardMB.setMetaparcialsemana(
-									dashBoardMB.getMetaparcialsemana() - valorVendaAlterar + vendass.getValor());
-							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-
+							
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(vendass, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(vendass, valorVendaAlterar, false);
 							vendass = vendasFacade.salvar(vendass);
-							mateRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
+							
 						}
 					}
 					return "consultapacote";

@@ -1,6 +1,5 @@
 package br.com.travelmate.managerBean.cursospacotes;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,18 +8,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
+
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.OCursoProdutosBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoFormaPagamentoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoPacoteDao;
 import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade;
-import br.com.travelmate.facade.OCursoDescontoFacade;
-import br.com.travelmate.facade.OCursoFacade;
-import br.com.travelmate.facade.OCursoFormaPagamentoFacade;
-import br.com.travelmate.facade.OCursoProdutoFacade;
-import br.com.travelmate.facade.OcursoPacoteFacade;
+
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
@@ -62,6 +64,21 @@ public class SalvarOrcamentoOcurso {
 	private OCursoProdutosBean oCursoProdutosBean;
 	private List<OCursoProdutosBean> listaOcursoProdutosBean;
 	
+	@Inject
+	private LeadHistoricoDao leadHistoricoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private OCursoDao oCursoDao;
+	@Inject 
+	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
+	@Inject 
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OcursoPacoteDao oCursoPacoteDao;
+	
 	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
 			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento) {
 		this.cliente=cliente;
@@ -74,7 +91,6 @@ public class SalvarOrcamentoOcurso {
 
 	public Ocurso salvarOcurso() {
 		valortotal = 0.0f;
-		OCursoFacade oCursoFacade = new OCursoFacade();
 		ocurso = new Ocurso();
 		ocurso.setCambio(consultarCambio());
 		ocurso.setValorcambio(ocurso.getCambio().getValor());
@@ -105,11 +121,7 @@ public class SalvarOrcamentoOcurso {
 		}else{
 			ocurso.setValoravista(ocurso.getTotalmoedaestrangeira());
 		}
-		try {
-			ocurso = oCursoFacade.salvar(ocurso);
-		} catch (SQLException e) {
-			e.printStackTrace();   
-		}
+		ocurso = oCursoDao.salvar(ocurso);
 		dataconsulta = retornarDataConsultaOrcamento();
 		salvarProdutosCurso();
 	//	salvarTaxasCurso();
@@ -143,18 +155,12 @@ public class SalvarOrcamentoOcurso {
 		salvarFormaPagamento();
 		ocurso.setTotalmoedaestrangeira(valorAvista);
 		ocurso.setTotalmoedanacional(valorAvista * ocurso.getValorcambio());
-		try {     
-			ocurso = oCursoFacade.salvar(ocurso);
+			ocurso = oCursoDao.salvar(ocurso);
 			Ocursopacote ocursopacote = new Ocursopacote();
-			OcursoPacoteFacade ocursoPacoteFacade = new OcursoPacoteFacade();
 			ocursopacote.setOcurso(ocurso);
 			ocursopacote.setCursospacote(cursospacote);
-			ocursopacote = ocursoPacoteFacade.salvar(ocursopacote); 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		LeadFacade leadFacade = new LeadFacade();
-		Lead lead = leadFacade.consultar("SELECT l From Lead l where l.cliente.idcliente=" + cliente.getIdcliente());
+			ocursopacote = oCursoPacoteDao.salvar(ocursopacote); 
+		Lead lead = leadDao.consultar("SELECT l From Lead l where l.cliente.idcliente=" + cliente.getIdcliente());
 		if (lead != null) {
 			if (lead.getSituacao() < 3) {
 				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
@@ -166,7 +172,6 @@ public class SalvarOrcamentoOcurso {
 	}
 	
 	public void salvarHistoricoLead(Ocrusoprodutos ocrusoprodutos) {
-		LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
 		Leadhistorico leadhistorico = new Leadhistorico();
 		leadhistorico.setCliente(ocurso.getCliente());
 		leadhistorico.setDatahistorico(new Date());
@@ -184,7 +189,7 @@ public class SalvarOrcamentoOcurso {
 				+ ".");
 		leadhistorico.setTipoorcamento("t");
 		leadhistorico.setIdorcamento(ocurso.getIdocurso());
-		leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
+		leadhistorico = leadHistoricoDao.salvar(leadhistorico);
 	}
 
 	public void salvarProdutosCurso() {
@@ -790,17 +795,12 @@ public class SalvarOrcamentoOcurso {
 		produto.setTipo(tipo);
 		produto.setNomegrupo(nomegrupo);
 		produto.setOcurso(ocurso);
-		OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
-		try {
-			produto = oCursoProdutoFacade.salvar(produto);
+			produto = oCursoProdutoDao.salvar(produto);
 			if(tiposoma.equalsIgnoreCase("adicao")){
 				valortotal = valortotal + valororiginal;
 			}else{
 				valortotal = valortotal - valororiginal;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		if (ocrusoprodutos == null) {
 			ocrusoprodutos = produto;
 		}
@@ -814,9 +814,7 @@ public class SalvarOrcamentoOcurso {
 	}
 	
 	public void salvarFormaPagamento(){
-		OCursoFormaPagamentoFacade oCursoFormaPagamentoFacade = new OCursoFormaPagamentoFacade();
 		Ocursoformapagamento ocursoformapagamento;
-		try {
 			if(formapagamento!=null){  
 				ocursoformapagamento = new Ocursoformapagamento();
 				if(formapagamento.getValorparcelaboleto()!=null && formapagamento.getValorparcelaboleto()>0){ 
@@ -824,13 +822,13 @@ public class SalvarOrcamentoOcurso {
 					ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelasboleto());
 					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelaboleto());
 					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento);
+					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
 				}else{
 					ocursoformapagamento.setValorEntrada(0.0f);
 					ocursoformapagamento.setNumeroparcela(0);
 					ocursoformapagamento.setValorparcela(0.0f);
 					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento);
+					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
 				}
 				ocursoformapagamento = new Ocursoformapagamento();
 				if(formapagamento.getValorparcelacartao()!=null && formapagamento.getValorparcelacartao()>0){ 
@@ -838,13 +836,13 @@ public class SalvarOrcamentoOcurso {
 					ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelascartao());
 					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelacartao());
 					ocursoformapagamento.setOcurso(ocurso); 
-					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento); 
+					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento); 
 				} else{
 					ocursoformapagamento.setValorEntrada(0.0f);
 					ocursoformapagamento.setNumeroparcela(0);
 					ocursoformapagamento.setValorparcela(0.0f);
 					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento);
+					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
 				}
 				ocursoformapagamento = new Ocursoformapagamento();
 				if(formapagamento.getValorparcelafinanciamento()!=null && formapagamento.getValorparcelafinanciamento()>0){ 
@@ -852,13 +850,13 @@ public class SalvarOrcamentoOcurso {
 					ocursoformapagamento.setNumeroparcela(formapagamento.getNparcelasfinanciamento().intValue());
 					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelafinanciamento());
 					ocursoformapagamento.setOcurso(ocurso); 
-					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento); 
+					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento); 
 				} else{
 					ocursoformapagamento.setValorEntrada(0.0f);
 					ocursoformapagamento.setNumeroparcela(0);
 					ocursoformapagamento.setValorparcela(0.0f);
 					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento);
+					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
 				}
 			}else{
 				ocursoformapagamento = new Ocursoformapagamento();
@@ -866,15 +864,12 @@ public class SalvarOrcamentoOcurso {
 				ocursoformapagamento.setNumeroparcela(0);
 				ocursoformapagamento.setValorparcela(0.0f);
 				ocursoformapagamento.setOcurso(ocurso);
-				ocursoformapagamento = oCursoFormaPagamentoFacade.salvar(ocursoformapagamento);
+				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
 			}  
-		} catch (SQLException e) { 
-			e.printStackTrace();
-		}
+	
 	}
 	
 	public void salvarOcursoDesconto(){
-		OCursoDescontoFacade oCursoDescontoFacade = new OCursoDescontoFacade();
 		Ocursodesconto ocursodesconto = new Ocursodesconto();
 		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 		Produtosorcamento produtosorcamento = new Produtosorcamento();
@@ -883,7 +878,7 @@ public class SalvarOrcamentoOcurso {
 		ocursodesconto.setProdutosorcamento(produtosorcamento);
 		ocursodesconto.setValormoedaestrangeira(0.0f);
 		ocursodesconto.setValormoedanacional(0.0f);
-		oCursoDescontoFacade.salvar(ocursodesconto);
+		oCursoDescontoDao.salvar(ocursodesconto);
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
     	Valorcoprodutos valorcoprodutos = valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getCoseguroprivado());
     	ocursodesconto = new Ocursodesconto();
@@ -922,7 +917,7 @@ public class SalvarOrcamentoOcurso {
 			ocursodesconto.setValormoedaestrangeira(0.0f);
 			ocursodesconto.setValormoedanacional(0.0f);
 		}
-		oCursoDescontoFacade.salvar(ocursodesconto); 
+		oCursoDescontoDao.salvar(ocursodesconto); 
 		
 		
 		ocursodesconto = new Ocursodesconto();
@@ -941,7 +936,7 @@ public class SalvarOrcamentoOcurso {
 			ocursodesconto.setValormoedaestrangeira(0.0f);
 			ocursodesconto.setValormoedanacional(0.0f);
 		}
-		oCursoDescontoFacade.salvar(ocursodesconto);
+		oCursoDescontoDao.salvar(ocursodesconto);
 		
 	}
 }

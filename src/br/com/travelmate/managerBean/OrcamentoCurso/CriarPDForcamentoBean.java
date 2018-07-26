@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
   
 import com.lowagie.text.DocumentException;
 
-import br.com.travelmate.facade.OCursoDescontoFacade;
+import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Ocursodesconto;
@@ -35,6 +36,9 @@ public class CriarPDForcamentoBean {
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private String texto;
 	private float totalObrigatorio;
+	
+	@Inject
+	OCursoDescontoDao oCursoDescontoDao;
 	
 	public CriarPDForcamentoBean(List<Ocrusoprodutos> listaProdutos, Ocurso ocurso, ResultadoOrcamentoBean resultadoOrcamentoBean, String texto) throws IOException {
 		super();
@@ -270,9 +274,8 @@ public class CriarPDForcamentoBean {
           }
          Float valorDesconto=0.0f;
          String sql= "SELECT o FROM Ocursodesconto o where o.ocurso.idocurso="+ocurso.getIdocurso();
-         OCursoDescontoFacade cursoDescontoFacade = new OCursoDescontoFacade();
          List<Ocursodesconto> listaDesconto = new ArrayList<Ocursodesconto>();
-         listaDesconto = cursoDescontoFacade.listar(sql);
+         listaDesconto = oCursoDescontoDao.listar(sql);
         
          for (int d = 0; d < listaDesconto.size(); d++) {
         	 if(valorDesconto>0){

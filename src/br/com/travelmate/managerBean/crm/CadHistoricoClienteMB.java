@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade; 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
@@ -33,6 +33,10 @@ public class CadHistoricoClienteMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadDao leadDao;
+	@Inject 
+	private LeadHistoricoDao leadHistoricoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private Leadhistorico leadHistorico;
@@ -113,11 +117,9 @@ public class CadHistoricoClienteMB implements Serializable {
 		if (validarDados()) {
 			// salvarHistorico
 			leadHistorico.setCliente(lead.getCliente());
-			LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
-			leadHistorico = leadHistoricoFacade.salvar(leadHistorico);
+			leadHistorico = leadHistoricoDao.salvar(leadHistorico);
 
 			// atualizarLead
-			LeadFacade leadFacade = new LeadFacade();
 			lead.setDataproximocontato(leadHistorico.getDataproximocontato());
 			lead.setHoraproximocontato(leadHistorico.getHoraporximocontato());
 			lead.setDataultimocontato(leadHistorico.getDatahistorico());
@@ -125,7 +127,7 @@ public class CadHistoricoClienteMB implements Serializable {
 				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2);
 				lead.setSituacao(2);
 			}
-			lead = leadFacade.salvar(lead);
+			lead = leadDao.salvar(lead);
 			Mensagem.lancarMensagemInfo("Histórico salvo com sucesso", "");
 			RequestContext.getCurrentInstance().closeDialog(null);
 		}

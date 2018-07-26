@@ -24,6 +24,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.facade.CambioFacade;
@@ -81,6 +82,7 @@ import br.com.travelmate.util.Mensagem;
 @ViewScoped
 public class CadVoluntariadoMB implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
@@ -88,15 +90,8 @@ public class CadVoluntariadoMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB mateRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
-	private static final long serialVersionUID = 1L;
+	
+	
 	private Voluntariado voluntariadoAlterado;
 	private Voluntariado voluntariado;
 	private Vendas venda;
@@ -580,21 +575,7 @@ public class CadVoluntariadoMB implements Serializable {
 		this.listaTipoParcelamento = listaTipoParcelamento;
 	}
 
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
-	public MateRunnersMB getMateRunnersMB() {
-		return mateRunnersMB;
-	}
-
-	public void setMateRunnersMB(MateRunnersMB mateRunnersMB) {
-		this.mateRunnersMB = mateRunnersMB;
-	}
+	
 
 	public List<Parcelamentopagamento> getListaParcelamentoPagamentoOriginal() {
 		return listaParcelamentoPagamentoOriginal;
@@ -1220,7 +1201,6 @@ public class CadVoluntariadoMB implements Serializable {
 				}
 				voluntariado = cadVoluntariadoBean.salvarVoluntariado(voluntariado, vendaAlterada);
 				cadVoluntariadoBean.salvarSeguroViagem(seguroViagem, aplicacaoMB);
-				salvarMetaSeguro();
 				orcamento = cadVoluntariadoBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(),
 						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), cambioAlterado);
 				formaPagamento = cadVoluntariadoBean.salvarFormaPagamento(cancelamento);
@@ -1236,30 +1216,7 @@ public class CadVoluntariadoMB implements Serializable {
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {
 						if (mes == mesVenda) {
-							dashBoardMB.getMetamensal()
-									.setValoralcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											- valorVendaAlterar) + venda.getValor());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-							dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-									- valorVendaAlterar + venda.getValor());
-							dashBoardMB.getMetaAnual()
-									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-							dashBoardMB.setMetaparcialsemana(
-									dashBoardMB.getMetaparcialsemana() - valorVendaAlterar + venda.getValor());
-							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-
-							// new Thread() {
-							// @Override
-							// public void run() {
+							
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
@@ -1270,15 +1227,13 @@ public class CadVoluntariadoMB implements Serializable {
 							int[] pontos = dashBoardBean.calcularPontuacao(venda, numeroSemana, "",
 									false, venda.getUsuario());
 							int pontoremover = vendaAlterada.getPonto();
-							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
+							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							venda = vendasFacade.salvar(venda);
-							mateRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
+							
 						}
 						String titulo = "";
 						String operacao = "";
@@ -1323,61 +1278,7 @@ public class CadVoluntariadoMB implements Serializable {
 		return salvarOK;
 	}
 	
-	public void salvarMetaSeguro(){
-		if (novaFicha) {
-			if (enviarFicha) {
-				if (vendaAlterada == null || vendaAlterada.getIdvendas() == null
-						|| vendaAlterada.getSituacao().equalsIgnoreCase("PROCESSO")) {
-					dashBoardMB.getVendaproduto()
-							.setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() + 1);
-					dashBoardMB.getMetamensal().setValoralcancado(
-							dashBoardMB.getMetamensal().getValoralcancado() + seguroViagem.getValorSeguro());
-					dashBoardMB.getMetamensal()
-							.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-									/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-					dashBoardMB.getMetaAnual()
-							.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + seguroViagem.getValorSeguro());
-					dashBoardMB.getMetaAnual()
-							.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-									/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-					dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + seguroViagem.getValorSeguro());
-					dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-							/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-					float valor = dashBoardMB.getMetamensal().getValoralcancado();
-					dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-				}
-			}
-		} else {
-			int mes = Formatacao.getMesData(new Date()) + 1;
-			int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
-			if (enviarFicha) {
-				if (mes == mesVenda) {
-					dashBoardMB.getMetamensal()
-							.setValoralcancado((dashBoardMB.getMetamensal().getValoralcancado()
-									- valorSeguroAntigo) + seguroViagem.getValorSeguro());
-					dashBoardMB.getMetamensal()
-							.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-									/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-					dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-							- valorSeguroAntigo + seguroViagem.getValorSeguro());
-					dashBoardMB.getMetaAnual()
-							.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-									/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-					dashBoardMB.setMetaparcialsemana(
-							dashBoardMB.getMetaparcialsemana() - valorSeguroAntigo + seguroViagem.getValorSeguro());
-					dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-							/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-					float valor = dashBoardMB.getMetamensal().getValoralcancado();
-					dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-				}
-			}
-		}
-	}
+	
 
 	public String validarDados() {
 

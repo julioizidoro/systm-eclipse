@@ -6,16 +6,18 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoFormaPagamentoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade;
-import br.com.travelmate.facade.OCursoDescontoFacade;
-import br.com.travelmate.facade.OCursoFacade;
-import br.com.travelmate.facade.OCursoFormaPagamentoFacade;
-import br.com.travelmate.facade.OCursoProdutoFacade;
-import br.com.travelmate.facade.OcursoSeguroViagemFacade;
+
+
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
@@ -76,6 +78,10 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
+	private LeadHistoricoDao leadHistoricoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
@@ -93,6 +99,17 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	private List<NumeroParcelasBean> listaNumeroParcelas;
 	private NumeroParcelasBean numeroParcelaSelecionado;
 	private UploadedFile file;
+	
+	@Inject
+	private OCursoDao OCursoDao;
+	@Inject 
+	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
+	@Inject 
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OcursoSeguroViagemDao oCursoSeguroViagemDao;
 
 	@PostConstruct
 	public void init() throws SQLException {
@@ -266,6 +283,15 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					formaPagamento02.setValorparcela(valorSaldo.floatValue());
 				}
 			}
+		}else {
+			formaPagamento02 = new Ocursoformapagamento();
+			formaPagamento02.setNumeroparcela(1);
+			formaPagamento02.setPercentualEntrada(0.00);
+			formaPagamento02.setPercentualSaldo(0.00);
+			formaPagamento02.setValorEntrada(0.0f);
+			formaPagamento02.setValorparcela(0.0f);
+			formaPagamento02.setValorSaldo(0.0f);
+			formaPagamento02.setSelecionado(false);
 		}
 
 		// Opção 03
@@ -302,6 +328,15 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					}
 				}
 			}
+		}else {
+			formaPagamento03 = new Ocursoformapagamento();
+			formaPagamento03.setNumeroparcela(2);
+			formaPagamento03.setPercentualEntrada(0.0);
+			formaPagamento03.setPercentualSaldo(0.0);
+			formaPagamento03.setValorEntrada(0.0f);
+			formaPagamento03.setValorparcela(0.0f);
+			formaPagamento03.setValorSaldo(0.0f);
+			formaPagamento03.setSelecionado(false);
 		}
 
 		// opção 04
@@ -341,6 +376,15 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					formaPagamento04.setValorparcela(valor.floatValue());
 				}
 			}
+		}else {
+			formaPagamento04 = new Ocursoformapagamento();
+			formaPagamento04.setNumeroparcela(2);
+			formaPagamento04.setPercentualEntrada(0.0);
+			formaPagamento04.setPercentualSaldo(0.0);
+			formaPagamento04.setValorEntrada(0.0f);
+			formaPagamento04.setValorparcela(0.0f);
+			formaPagamento04.setValorSaldo(0.0f);
+			formaPagamento04.setSelecionado(false);
 		}
 	}
 
@@ -458,9 +502,6 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	}
 
 	public String finalziar(boolean modelo) {
-		OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
-		OCursoFacade orCursoFacade = new OCursoFacade();
-		try {
 			ocurso.setDataorcamento(new Date());
 			for (int i = 0; i < ocurso.getOcursodescontoList().size(); i++) {
 				listaOcursoDesconto = ocurso.getOcursodescontoList();
@@ -476,7 +517,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			ocurso.setOcursoformapagamentoList(null);
 			ocurso.setOcursoseguroList(null);
 			ocurso.setModelo(modelo);
-			ocurso = orCursoFacade.salvar(ocurso);
+			ocurso =OCursoDao.salvar(ocurso);
 			if (ocurso.isModelo()) {
 				PaisFacade paisFacade = new PaisFacade();
 				Pais pais = ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais();
@@ -507,13 +548,12 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 						produto.setNomegrupo("CustosExtras");
 					}
 					produto.setOcurso(ocurso);
-					oCursoProdutoFacade.salvar(produto);
+					oCursoProdutoDao.salvar(produto);
 				}
 			}
 			for (int i = 0; i < listaOcursoDesconto.size(); i++) {
 				listaOcursoDesconto.get(i).setOcurso(ocurso);
-				OCursoDescontoFacade oCursoDescontoFacade = new OCursoDescontoFacade();
-				oCursoDescontoFacade.salvar(listaOcursoDesconto.get(i));
+				oCursoDescontoDao.salvar(listaOcursoDesconto.get(i));
 				ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 				Valorcoprodutos valorcoprodutos = valorCoProdutosFacade
 						.consultar(aplicacaoMB.getParametrosprodutos().getCopromocaoescola());
@@ -531,7 +571,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				produto.setNomegrupo("Desconto");
 				produto.setOcurso(ocurso);
 				if (produto.getValororiginal() > 0) {
-					oCursoProdutoFacade.salvar(produto);
+					oCursoProdutoDao.salvar(produto);
 				}
 			}
 			if (resultadoOrcamentoBean.isSeguroSelecionado()) {
@@ -546,8 +586,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				ocursoseguro.setSomarvalortotal(resultadoOrcamentoBean.getSeguroviagem().isSomarvalortotal());
 				ocursoseguro.setValorseguroorcamento(resultadoOrcamentoBean.getCambio().getValor());
 				ocursoseguro.setSegurocancelamento(resultadoOrcamentoBean.getSeguroviagem().isSegurocancelamento());
-				OcursoSeguroViagemFacade ocursoSeguroViagemFacade = new OcursoSeguroViagemFacade();
-				ocursoseguro = ocursoSeguroViagemFacade.salvar(ocursoseguro);
+				ocursoseguro = oCursoSeguroViagemDao.salvar(ocursoseguro);
 				ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 				Valorcoprodutos valorcoprodutos = valorCoProdutosFacade
 						.consultar(aplicacaoMB.getParametrosprodutos().getCoseguroprivado());
@@ -564,7 +603,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				produto.setTipo(7);
 				produto.setNomegrupo("Seguro Viagem Privado");
 				produto.setOcurso(ocurso); 
-				oCursoProdutoFacade.salvar(produto);
+				oCursoProdutoDao.salvar(produto);
 				if(resultadoOrcamentoBean.getSeguroviagem().isSegurocancelamento()) {
 					produto = new Ocrusoprodutos();
 					produto.setNumerosemanas(0.0);
@@ -586,7 +625,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					} 
 					produto.setOcurso(ocurso);
 					produto.setSomavalortotal(resultadoOrcamentoBean.getSeguroviagem().isSomarvalortotal());
-					oCursoProdutoFacade.salvar(produto);
+					oCursoProdutoDao.salvar(produto);
 				}
 			}
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -597,13 +636,8 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Orçamento salvo.");
 			FacesContext.getCurrentInstance().addMessage(null, mensagem);
 
-		} catch (SQLException ex) {
-			Logger.getLogger(FinalizarOrcamentoCursoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro Salvar Orçamento", "ERRO");
-		}
-
+	
 		for (int i = 0; i < listaProdutos.size(); i++) {
-			try {
 				listaProdutos.get(i).setOcurso(ocurso);
 				if(listaProdutos.get(i).getDescricao()==null) {
 					listaProdutos.get(i).setDescricao("");
@@ -617,24 +651,19 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 						salvarHistoricoLead(listaProdutos.get(i));
 						Lead lead = resultadoOrcamentoBean.getLead();
 						if (lead != null) {
-							LeadFacade leadFacade = new LeadFacade();
+							
 							lead.setDataultimocontato(new Date());
 							if (lead.getSituacao() < 3) {
 								LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
 		            			lead.setSituacao(3);
 							}
-							lead = leadFacade.salvar(lead);
+							lead = leadDao.salvar(lead);
 						}
 					}
 				}
-				oCursoProdutoFacade.salvar(listaProdutos.get(i));
-			} catch (SQLException ex) {
-				Logger.getLogger(FinalizarOrcamentoCursoMB.class.getName()).log(Level.SEVERE, null, ex);
-				mostrarMensagem(ex, "Erro Salvar Produto", "ERRO");
-			}
+				oCursoProdutoDao.salvar(listaProdutos.get(i));
+			
 		}
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.removeAttribute("cliente");
 		return "consultaorcamentocurso";
 	}
@@ -653,27 +682,29 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	}
 
 	public void verificarFormaPgamento02() {
-		try {
-			calcularParcelamento();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		if (formaPagamento02.isSelecionado()) {
 			habilitaFormaPagamento02 = false;
 		} else
 			habilitaFormaPagamento02 = true;
-	}
-
-	public void verificarFormaPgamento03() {
 		try {
 			calcularParcelamento();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	public void verificarFormaPgamento03() {
 		if (formaPagamento03.isSelecionado()) {
 			habilitaFormaPagamento03 = false;
 		} else
 			habilitaFormaPagamento03 = true;
+		try {
+			calcularParcelamento();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void verificarFormaPgamento04() {
@@ -689,18 +720,12 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	}
 
 	public void salvarFormaPagamento() {
-		OCursoFormaPagamentoFacade oCursoFormaPagamentoFacade = new OCursoFormaPagamentoFacade();
-		try {
 			formaPagamento02.setOcurso(ocurso);
-			formaPagamento02 = oCursoFormaPagamentoFacade.salvar(formaPagamento02);
+			formaPagamento02 = oCursoFormaPagamentoDao.salvar(formaPagamento02);
 			formaPagamento03.setOcurso(ocurso);
-			formaPagamento03 = oCursoFormaPagamentoFacade.salvar(formaPagamento03);
+			formaPagamento03 = oCursoFormaPagamentoDao.salvar(formaPagamento03);
 			formaPagamento04.setOcurso(ocurso);
-			formaPagamento04 = oCursoFormaPagamentoFacade.salvar(formaPagamento04);
-		} catch (SQLException ex) {
-			Logger.getLogger(FinalizarOrcamentoCursoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro Salvar Forma de Pagamento", "ERRO");
-		}
+			formaPagamento04 = oCursoFormaPagamentoDao.salvar(formaPagamento04);
 	}
 
 	public String retornoDialog() {
@@ -740,7 +765,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	}
 
 	public void salvarHistoricoLead(Ocrusoprodutos ocrusoprodutos) {
-		LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
+		
 		Leadhistorico leadhistorico = new Leadhistorico();
 		leadhistorico.setCliente(ocurso.getCliente());
 		leadhistorico.setDatahistorico(new Date());
@@ -758,7 +783,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				+ ".");
 		leadhistorico.setTipoorcamento("t");
 		leadhistorico.setIdorcamento(ocurso.getIdocurso());
-		leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
+		leadhistorico = leadHistoricoDao.salvar(leadhistorico);
 		resultadoOrcamentoBean.setClientelead(false);
 	}
 	

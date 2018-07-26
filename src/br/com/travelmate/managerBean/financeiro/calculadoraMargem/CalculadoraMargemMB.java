@@ -25,7 +25,10 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Filtroorcamentoproduto;
+import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
+import br.com.travelmate.model.Orcamento;
+import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
@@ -36,6 +39,7 @@ import br.com.travelmate.model.Valoreshighschool;
 import br.com.travelmate.model.Valoresprogramasteens;
 import br.com.travelmate.model.Valorestrainee;
 import br.com.travelmate.model.Valoreswork;
+import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
@@ -678,5 +682,58 @@ public class CalculadoraMargemMB implements Serializable {
 			margem = false;
 		} else margem = true;
 	} 
+	
+	public void iniciarCalculoMargemCompleta() {
+		Vendas venda = gerarVenda();
+		venda.setFormapagamento(gerarFormaPagamento());
+		venda.setOrcamento(gerarOrcamento(venda));
+		
+	}
+	
+	public Orcamento gerarOrcamento(Vendas venda) {
+		Orcamento orcamento = new Orcamento();
+		orcamento.setCambio(venda.getCambio());
+		orcamento.setValorCambio(venda.getCambio().getValor());
+		List<Orcamentoprodutosorcamento> listaProdutos = new  ArrayList<Orcamentoprodutosorcamento>();
+		orcamento.setOrcamentoprodutosorcamentoList(listaProdutos);
+ 		return orcamento;
+	}
+	
+	
+	
+	public Formapagamento gerarFormaPagamento() {
+		Formapagamento forma = new Formapagamento();
+		List<Parcelamentopagamento> listaParcelamento = new ArrayList<Parcelamentopagamento>();
+		Parcelamentopagamento parcelamento = new Parcelamentopagamento();
+		parcelamento.setFormaPagamento("Cartão de crédito");
+		parcelamento.setNumeroParcelas(numeroParcelas);
+		parcelamento.setTipoParcelmaneto("Matriz");
+		parcelamento.setValorParcelamento(saldoParcelar);
+		parcelamento.setDiaVencimento(dataVenda);
+		parcelamento.setValorParcela(saldoParcelar / numeroParcelas);
+		listaParcelamento.add(parcelamento);
+		forma.setCondicao("A PRAZO");
+		forma.setParcelamentopagamentoList(listaParcelamento);
+		forma.setPossuiJuros("Não");
+		forma.setValordesconto(0.0f);
+		forma.setValorJuros(0.0f);
+		forma.setValorOrcamento(this.valorTotal);
+		forma.setValorTotal(this.valorTotal);
+		return forma;
+		
+	}
+	
+	public Vendas gerarVenda() {
+		Vendas venda = new Vendas();
+		venda.setDataVenda(dataVenda);
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pais.getModelo());
+		venda.setCambio(cambio);
+		venda.setFornecedorcidade(fornecedorCidade);
+		venda.setProdutos(produto);
+		venda.setValorcambio(cambio.getValor());
+		venda.setUsuario(usuarioLogadoMB.getUsuario());
+		venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
+		return venda;
+	}
 	
 }

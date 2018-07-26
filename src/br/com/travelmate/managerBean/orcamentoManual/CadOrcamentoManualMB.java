@@ -24,14 +24,14 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.bean.ProdutoOrcamentoCursoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade; 
 import br.com.travelmate.facade.OrcamentoManualSeguroFacade;
@@ -82,6 +82,10 @@ public class CadOrcamentoManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadHistoricoDao leadHistoricoDao;
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1463,7 +1467,6 @@ public class CadOrcamentoManualMB implements Serializable {
 							Mensagem.lancarMensagemInfo("", "Orçamento salvo com sucesso"); 
 							if(novo){
 								if(cliente.isClienteLead()){
-									LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
 									Leadhistorico leadhistorico = new Leadhistorico();
 									leadhistorico.setCliente(cliente);
 									leadhistorico.setDatahistorico(new Date());
@@ -1477,16 +1480,15 @@ public class CadOrcamentoManualMB implements Serializable {
 										+fornecedorCidade.getFornecedor().getNome()+".");
 									leadhistorico.setTipoorcamento("m");
 			            			leadhistorico.setIdorcamento(orcamentocurso.getIdorcamentoCurso());
-									leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
+									leadhistorico = leadHistoricoDao.salvar(leadhistorico);
 									if(cliente.getLead()!=null){
 										Lead lead = cliente.getLead(); 
-			            				LeadFacade leadFacade = new LeadFacade();
 			            				lead.setDataultimocontato(new Date());
 			            				if (lead.getSituacao() < 3) {
 				            				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
 					            			lead.setSituacao(3);
 										}
-			            				lead = leadFacade.salvar(lead);
+			            				lead = leadDao.salvar(lead);
 			            			} 
 								}
 							}

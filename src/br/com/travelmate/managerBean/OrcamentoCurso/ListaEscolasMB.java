@@ -67,8 +67,6 @@ public class ListaEscolasMB implements Serializable {
 		for (int i=0;i<FiltrarEscolaBean.getListaFornecedorProdutosBean().size();i++) {
 			if (FiltrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().size()==0) {
 				FiltrarEscolaBean.getListaFornecedorProdutosBean().remove(i);
-			}else {
-				System.out.println(i);
 			}
 		}
 	}

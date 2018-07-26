@@ -1,63 +1,57 @@
 package br.com.travelmate.dao;
 
-import br.com.travelmate.connection.ConectionFactory; 
-import br.com.travelmate.model.Leadencaminhado;
-
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import br.com.travelmate.connection.Transactional;
+import br.com.travelmate.model.Leadencaminhado;
 
 /**
  *
  * @author Kamila
  */
-public class LeadEncaminhadoDao {
+public class LeadEncaminhadoDao implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
 
 	
 	
-	
-	public Leadencaminhado salvar(Leadencaminhado leadencaminhado) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public Leadencaminhado salvar(Leadencaminhado leadencaminhado) {
 		leadencaminhado = manager.merge(leadencaminhado);
-		tx.commit();
-		manager.close();
 		return leadencaminhado;
 	}
 
-	public Leadencaminhado consultar(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+	public Leadencaminhado consultar(String sql)  {
 		Query q = manager.createQuery(sql);
 		Leadencaminhado leadencaminhado = null;
 		if (q.getResultList().size() > 0) {
 			leadencaminhado = (Leadencaminhado) q.getResultList().get(0);
 		}
-		manager.close();
 		return leadencaminhado;
 	}  
 
-	public void excluir(int idleadencaminhado) throws SQLException {
-		EntityManager manager= ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public void excluir(int idleadencaminhado)  {
 		Leadencaminhado leadencaminhado = manager.find(Leadencaminhado.class, idleadencaminhado);
 		manager.remove(leadencaminhado);
-		tx.commit();
-		manager.close();
 	}
 
-	public List<Leadencaminhado> listar(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+	public List<Leadencaminhado> listar(String sql) {
 		Query q = manager.createQuery(sql);
 		List<Leadencaminhado> lista = null;
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
-		manager.close();
 		return lista;
 	}
 

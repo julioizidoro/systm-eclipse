@@ -24,6 +24,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVistoBean;
 import br.com.travelmate.facade.CambioFacade;
@@ -74,14 +75,7 @@ public class CadVistosMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB mateRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
+	
 	private Cliente cliente;
 	private Vistos vistos;
 	private Vendas vendas;
@@ -376,22 +370,7 @@ public class CadVistosMB implements Serializable {
 		this.aplicacaoMB = aplicacaoMB;
 	}
 
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
-	public MateRunnersMB getMateRunnersMB() {
-		return mateRunnersMB;
-	}
-
-	public void setMateRunnersMB(MateRunnersMB mateRunnersMB) {
-		this.mateRunnersMB = mateRunnersMB;
-	}
-
+	
 	public Float getValorAlteradoVendas() {
 		return valorAlteradoVendas;
 	}
@@ -741,51 +720,29 @@ public class CadVistosMB implements Serializable {
 			if (novaFicha) {
 				if (valorAlteradoVendas == 0) {
 					if (vendas.getVendasMatriz().equalsIgnoreCase("S")) {
-						dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() + 1);
-						dashBoardMB.getMetamensal()
-								.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() + vendas.getValor());
-						dashBoardMB.getMetamensal().setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-								/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-	
-						dashBoardMB.getMetaAnual()
-								.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() + vendas.getValor());
-						dashBoardMB.getMetaAnual().setPercentualalcancado(
-								(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta())
-										* 100);
-	
-						dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + vendas.getValor());
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-	
-						float valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+						
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 						dashBoardBean.calcularMetaMensal(vendas, valorAlteradoVendas, false);
 						dashBoardBean.calcularMetaAnual(vendas, valorAlteradoVendas, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						vendas = vendasFacade.salvar(vendas);
-						mateRunnersMB.carregarListaRunners();
-						tmRaceMB.gerarListaGold();
-						tmRaceMB.gerarListaSinze();
-						tmRaceMB.gerarListaBronze();
+						
 					} else if (vendas.getVendasMatriz().equalsIgnoreCase("M")) {
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						vendas = vendasFacade.salvar(vendas);
-						mateRunnersMB.carregarListaRunners();
-						tmRaceMB.gerarListaGold();
-						tmRaceMB.gerarListaSinze();
-						tmRaceMB.gerarListaBronze();
+						
 					}
 				}
 			} else if (valorAlteradoVendas != vendas.getValor()) {
@@ -793,41 +750,20 @@ public class CadVistosMB implements Serializable {
 				int mesVenda = Formatacao.getMesData(vendas.getDataVenda()) + 1;
 				if (mes == mesVenda) {
 					if (vendas.getVendasMatriz().equalsIgnoreCase("S")) {
-						dashBoardMB.getMetamensal().setValoralcancado(
-								dashBoardMB.getMetamensal().getValoralcancado() - valorAlteradoVendas + vendas.getValor());
-						dashBoardMB.getMetamensal().setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-								/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-	
-						dashBoardMB.getMetaAnual().setMetaalcancada(
-								dashBoardMB.getMetaAnual().getMetaalcancada() - valorAlteradoVendas + vendas.getValor());
-						dashBoardMB.getMetaAnual().setPercentualalcancado(
-								(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta())
-										* 100);
-	
-						dashBoardMB.setMetaparcialsemana(
-								dashBoardMB.getMetaparcialsemana() - valorAlteradoVendas + vendas.getValor());
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-	
-						float valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+						
 	
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularMetaMensal(vendas, valorAlteradoVendas, false);
 						dashBoardBean.calcularMetaAnual(vendas, valorAlteradoVendas, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
 						int pontosremover = vendas.getPonto();
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], pontosremover, false, vendas.getUsuario());
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontosremover, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						vendas = vendasFacade.salvar(vendas);
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
-						mateRunnersMB.carregarListaRunners();
-						tmRaceMB.gerarListaGold();
-						tmRaceMB.gerarListaSinze();
-						tmRaceMB.gerarListaBronze();
+						
 					}
 				}
 			}

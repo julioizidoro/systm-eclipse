@@ -5,46 +5,45 @@
  */
 package br.com.travelmate.dao;
 
-import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Ocurso;
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import br.com.travelmate.connection.Transactional;
+import br.com.travelmate.model.Ocurso;
 
 /**
  *
  * @author Wolverine
  */
-public class OCursoDao {
+public class OCursoDao implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
     
-    public Ocurso salvar(Ocurso  ocurso) throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-        ocurso = manager.merge(ocurso);
-        tx.commit();
-        manager.close();
+	@Transactional
+    public Ocurso salvar(Ocurso  ocurso) {
+        ocurso= manager.merge(ocurso);
         return ocurso;
     }
     
-    public List<Ocurso> listar(String sql)throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+    public List<Ocurso> listar(String sql){
         List lista = null;
         Query q = manager.createQuery(sql);
         lista = q.getResultList();
-        manager.close();
         return lista;
     }
     
-    public Ocurso consultar(int idOcurso) throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getConnection();
+    @Transactional
+    public Ocurso consultar(int idOcurso) {
         Ocurso ocurso = manager.find(Ocurso.class, idOcurso);
-        manager.close();
         return ocurso;
     }
 }

@@ -1,7 +1,7 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.facade.OCursoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -78,6 +78,9 @@ public class ConsultaOrcamentoMB implements Serializable {
 	private Lead lead;
 	private String funcao;
 	private boolean botaoHistorico = false;
+	
+	@Inject
+	private OCursoDao oCursoDao;
 
 	@PostConstruct
 	public void init() {
@@ -241,8 +244,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 				}
 				sql = sql + " and o.dataorcamento>='" + data + "' order by o.dataorcamento desc, o.idocurso desc";
 			}
-			OCursoFacade ocursofacade = new OCursoFacade();
-			listaOcurso = ocursofacade.listar(sql);
+			listaOcurso = oCursoDao.listar(sql);
 			if (listaOcurso == null) {
 				listaOcurso = new ArrayList<Ocurso>();
 			} else {
@@ -291,8 +293,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 			}
 		}
 		sql = sql + usouAnd + " o.cliente.nome like '%" + nomeCliente + "%' order by o.dataorcamento desc";
-		OCursoFacade ocursofacade = new OCursoFacade();
-		listaOcurso = ocursofacade.listar(sql);
+		listaOcurso = oCursoDao.listar(sql);
 		if (listaOcurso == null) {
 			listaOcurso = new ArrayList<Ocurso>();
 		} else {
@@ -731,7 +732,6 @@ public class ConsultaOrcamentoMB implements Serializable {
 	}
 
 	public void retornoEnviarEmail(SelectEvent event) {
-		OCursoFacade oCursoFacade = new OCursoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		List<Ocurso> listaOcurso = (List<Ocurso>) session.getAttribute("listaOcurso");
@@ -739,11 +739,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		if (listaOcurso != null && listaOcurso.size() > 0) {
 			for (int i = 0; i < listaOcurso.size(); i++) {
 				listaOcurso.get(i).setEnviadoemail(true);
-				try {
-					oCursoFacade.salvar(listaOcurso.get(i));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				oCursoDao.salvar(listaOcurso.get(i));
 			}
 		}
 		gerarListaOrcamento();

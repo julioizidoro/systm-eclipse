@@ -24,6 +24,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.facade.CambioFacade;
@@ -39,10 +40,6 @@ import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -76,14 +73,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB mateRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
+	
 	private Seguroviagem seguro;
 	private Seguroviagem seguroAlterado;
 	private Cliente cliente;
@@ -551,21 +541,7 @@ public class FichaSeguroViagemMB implements Serializable {
 		this.cancelamento = cancelamento;
 	}
 
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
-	public MateRunnersMB getMateRunnersMB() {
-		return mateRunnersMB;
-	}
-
-	public void setMateRunnersMB(MateRunnersMB mateRunnersMB) {
-		this.mateRunnersMB = mateRunnersMB;
-	}
+	
 
 	public List<Seguroplanos> getListaSeguroPlanos() {
 		return listaSeguroPlanos;
@@ -988,25 +964,7 @@ public class FichaSeguroViagemMB implements Serializable {
 				if (enviarFicha) {
 					if (vendaAlterada == null || vendaAlterada.getIdvendas() == null) {
 						if (vendas.getVendasMatriz().equalsIgnoreCase("S")) {
-							dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() + 1);
-							dashBoardMB.getMetamensal().setValoralcancado(
-									dashBoardMB.getMetamensal().getValoralcancado() + vendas.getValor());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-							dashBoardMB.getMetaAnual().setMetaalcancada(
-									dashBoardMB.getMetaAnual().getMetaalcancada() + vendas.getValor());
-							dashBoardMB.getMetaAnual()
-									.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-											/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-							dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() + vendas.getValor());
-							dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-									/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+							
 
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
@@ -1017,15 +975,12 @@ public class FichaSeguroViagemMB implements Serializable {
 							if (vendaAlterada!=null) {
 								pontoremover = vendaAlterada.getPonto();
 							};
-							productRunnersMB.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
+							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+							productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
 							VendasFacade vendasFacade = new VendasFacade();
 							vendas = vendasFacade.salvar(vendas);
-							mateRunnersMB.carregarListaRunners();
-							tmRaceMB.gerarListaGold();
-							tmRaceMB.gerarListaSinze();
-							tmRaceMB.gerarListaBronze();
 							String titulo = "Nova Ficha de Seguro";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";
@@ -1066,40 +1021,20 @@ public class FichaSeguroViagemMB implements Serializable {
 				int mesVenda = Formatacao.getMesData(vendas.getDataVenda()) + 1;
 				if (mes == mesVenda) {
 					if (enviarFicha) {
-						dashBoardMB.getMetamensal().setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-								- valorVendaAlterar + vendas.getValor());
-						dashBoardMB.getMetamensal()
-								.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-										/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-
-						dashBoardMB.getMetaAnual().setMetaalcancada(
-								dashBoardMB.getMetaAnual().getMetaalcancada() - valorVendaAlterar + vendas.getValor());
-						dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-								/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-						dashBoardMB.setMetaparcialsemana(
-								dashBoardMB.getMetaparcialsemana() - valorVendaAlterar + vendas.getValor());
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-
-						float valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+						
 
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularMetaMensal(vendas, valorVendaAlterar, false);
 						dashBoardBean.calcularMetaAnual(vendas, valorVendaAlterar, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false, vendas.getUsuario());
 						int pontoremover = vendaAlterada.getPonto();
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						VendasFacade vendasFacade = new VendasFacade();
 						vendas = vendasFacade.salvar(vendas);
-						mateRunnersMB.carregarListaRunners();
-						tmRaceMB.gerarListaGold();
-						tmRaceMB.gerarListaSinze();
-						tmRaceMB.gerarListaBronze();
+						
 						String titulo = "Nova Ficha de High School";
 						String operacao = "A";
 						String imagemNotificacao = "inserido";

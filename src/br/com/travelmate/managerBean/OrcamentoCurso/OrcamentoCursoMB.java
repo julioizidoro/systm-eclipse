@@ -20,15 +20,16 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
- 
+
+import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoFormaPagamentoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
-import br.com.travelmate.facade.OCursoDescontoFacade;
-import br.com.travelmate.facade.OCursoFormaPagamentoFacade;
-import br.com.travelmate.facade.OCursoProdutoFacade;
-import br.com.travelmate.facade.OcursoSeguroViagemFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
@@ -116,6 +117,17 @@ public class OrcamentoCursoMB implements Serializable {
 	private float valorOriginalMulta = 0f;
 	private String pinCambio;
 	private boolean habilitarPin = false;
+	
+	@Inject
+	private OCursoDao OCursoDao;
+	@Inject 
+	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
+	@Inject 
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OcursoSeguroViagemDao oCursoSeguroViagemDao;
 
 	@PostConstruct
 	public void init() { 
@@ -1148,12 +1160,11 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void gerarListaProdutosSelecionados() {
 		if(resultadoOrcamentoBean.getOcurso()!=null && resultadoOrcamentoBean.getOcurso().getIdocurso()!=null) {
-			OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
-			List<Ocrusoprodutos> listaProdutosExcluir = oCursoProdutoFacade.listar(
+			List<Ocrusoprodutos> listaProdutosExcluir = oCursoProdutoDao.listar(
 					resultadoOrcamentoBean.getOcurso().getIdocurso());
 			if(listaProdutosExcluir!=null) {
 				for (int i = 0; i < listaProdutosExcluir.size(); i++) {
-					oCursoProdutoFacade.excluir(listaProdutosExcluir.get(i).getIdocrusoprodutos());
+					oCursoProdutoDao.excluir(listaProdutosExcluir.get(i).getIdocrusoprodutos());
 				}
 			}
 		}
@@ -2784,33 +2795,29 @@ public class OrcamentoCursoMB implements Serializable {
 		if(resultadoOrcamentoBean.getOcurso()!=null 
 				&& resultadoOrcamentoBean.getOcurso().getIdocurso()!=null){
 			//ocurso produtos
-			OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
-			List<Ocrusoprodutos> listaprodutos = oCursoProdutoFacade.listar(resultadoOrcamentoBean.getOcurso().getIdocurso());
+			List<Ocrusoprodutos> listaprodutos = oCursoProdutoDao.listar(resultadoOrcamentoBean.getOcurso().getIdocurso());
 			if(listaprodutos!=null){
 				for (int i = 0; i < listaprodutos.size(); i++) {
-					oCursoProdutoFacade.excluir(listaprodutos.get(i).getIdocrusoprodutos());
+					oCursoProdutoDao.excluir(listaprodutos.get(i).getIdocrusoprodutos());
 				}
 			}
 			//seguro viagem
-			OcursoSeguroViagemFacade ocursoSeguroViagemFacade = new OcursoSeguroViagemFacade();
-			Ocursoseguro seguro = ocursoSeguroViagemFacade.consultar(resultadoOrcamentoBean.getOcurso().getIdocurso());
+			Ocursoseguro seguro = oCursoSeguroViagemDao.consultar(resultadoOrcamentoBean.getOcurso().getIdocurso());
 			if(seguro!=null){ 
-				ocursoSeguroViagemFacade.excluir(seguro.getIdocursoseguro()); 
+				oCursoSeguroViagemDao.excluir(seguro.getIdocursoseguro()); 
 			}
 			//remover desconto
-			OCursoDescontoFacade cursoDescontoFacade = new OCursoDescontoFacade();
-			List<Ocursodesconto> listaDesconto = cursoDescontoFacade.listar(resultadoOrcamentoBean.getOcurso().getIdocurso());
+			List<Ocursodesconto> listaDesconto = oCursoDescontoDao.listar(resultadoOrcamentoBean.getOcurso().getIdocurso());
 			if(listaDesconto!=null){
 				for (int i = 0; i < listaDesconto.size(); i++) {
-					cursoDescontoFacade.excluir(listaDesconto.get(i).getIdocursodesconto());
+					oCursoDescontoDao.excluir(listaDesconto.get(i).getIdocursodesconto());
 				}   
 			}
 			//remover forma pagamento
-			OCursoFormaPagamentoFacade ocursoFormaPagamentoFacade = new OCursoFormaPagamentoFacade();
-			List<Ocursoformapagamento> listaFormaPagamento = ocursoFormaPagamentoFacade.listar(resultadoOrcamentoBean.getOcurso().getIdocurso());
+			List<Ocursoformapagamento> listaFormaPagamento = oCursoFormaPagamentoDao.listar(resultadoOrcamentoBean.getOcurso().getIdocurso());
 			if(listaFormaPagamento!=null){
 				for (int i = 0; i < listaFormaPagamento.size(); i++) {
-					ocursoFormaPagamentoFacade.excluir(listaFormaPagamento.get(i).getIdocursoformapagamento());
+					oCursoFormaPagamentoDao.excluir(listaFormaPagamento.get(i).getIdocursoformapagamento());
 				}   
 			}
 		}

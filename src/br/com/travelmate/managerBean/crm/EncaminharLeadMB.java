@@ -14,11 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadEncaminhadoDao;
+import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
-import br.com.travelmate.facade.LeadEncaminhadoFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -41,6 +41,12 @@ public class EncaminharLeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadResponsavelDao leadResponsavelDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadEncaminhadoDao leadEncaminhadoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;  
 	private Lead lead;
@@ -260,9 +266,7 @@ public class EncaminharLeadMB implements Serializable {
 		leadencaminhado.setHora(Formatacao.foramtarHoraString());
 		leadencaminhado.setUsuariode(usuarioLogadoMB.getUsuario());
 		leadencaminhado.setUsuariopara(usuario);
-		LeadEncaminhadoFacade leadEncaminhadoFacade = new LeadEncaminhadoFacade();
-		leadEncaminhadoFacade.salvar(leadencaminhado); 
-		LeadFacade leadFacade = new LeadFacade();
+		leadEncaminhadoDao.salvar(leadencaminhado); 
 		if (lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
 			trocaUnidade = true;
 		}
@@ -277,7 +281,7 @@ public class EncaminharLeadMB implements Serializable {
 		lead.setSituacao(situacao);
 		lead.setTipocontato(tipocontato);
 		lead.setUsuario(usuario); 
-		leadFacade.salvar(lead);
+		leadDao.salvar(lead);
 		lead.getCliente().setUnidadenegocio(unidadenegocio);
 		ClienteFacade clienteFacade = new ClienteFacade();
 		lead.setCliente(clienteFacade.salvar(lead.getCliente()));
@@ -340,8 +344,7 @@ public class EncaminharLeadMB implements Serializable {
 	}
 	
 	public List<Leadresponsavel> retornarResponsavelUnidade() { 
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		List<Leadresponsavel> lista = leadResponsavelFacade
+		List<Leadresponsavel> lista = leadResponsavelDao
 				.lista(unidadenegocio.getIdunidadeNegocio()); 
 		if (lista == null) {
 			lista = new ArrayList<Leadresponsavel>();
@@ -351,8 +354,7 @@ public class EncaminharLeadMB implements Serializable {
 	
 	
 	public List<Leadresponsavel> retornarResponsavelUsuario() { 
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		List<Leadresponsavel> lista = leadResponsavelFacade
+		List<Leadresponsavel> lista = leadResponsavelDao
 				.lista("SELECT l FROM Leadresponsavel l WHERE l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() + " and l.unidadenegocio.idunidadeNegocio=" + 
 						usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()); 
 		if (lista == null) {

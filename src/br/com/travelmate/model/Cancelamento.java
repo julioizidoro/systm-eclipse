@@ -92,7 +92,7 @@ public class Cancelamento implements Serializable {
     private String imagemTermo;
     @Transient
     private boolean semrecibo;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "cancelamento")
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "cancelamento")
 	private Cancelamentocredito cancelamentocredito;
     
 

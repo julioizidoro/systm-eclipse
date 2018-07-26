@@ -22,10 +22,9 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
-import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
@@ -36,7 +35,6 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -44,10 +42,6 @@ import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.ValorAupairFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
@@ -88,16 +82,7 @@ public class CadAupairMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private MateRunnersMB metaRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
 	private Aupair aupair;
 	private Valoresaupair valoresAupair;
 	private List<Valoresaupair> listaValores;
@@ -551,22 +536,6 @@ public class CadAupairMB implements Serializable {
 
 	public void setCancelamento(Cancelamento cancelamento) {
 		this.cancelamento = cancelamento;
-	}
-
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
-	public MateRunnersMB getMetaRunnersMB() {
-		return metaRunnersMB;
-	}
-
-	public void setMetaRunnersMB(MateRunnersMB metaRunnersMB) {
-		this.metaRunnersMB = metaRunnersMB;
 	}
 
 	public List<Parcelamentopagamento> getListaParcelamentoPagamentoOriginal() {
@@ -1282,38 +1251,19 @@ public class CadAupairMB implements Serializable {
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 						if (enviarFicha) {
 							if (mes == mesVenda) {
-								dashBoardMB.getMetamensal()
-										.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-												- valorVendaAlterar + venda.getValor());
-								dashBoardMB.getMetamensal()
-										.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-												/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-	
-								dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-										- valorVendaAlterar + venda.getValor());
-								dashBoardMB.getMetaAnual()
-										.setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-												/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-	
-								dashBoardMB.setMetaparcialsemana(
-										dashBoardMB.getMetaparcialsemana() - valorVendaAlterar + venda.getValor());
-								dashBoardMB.setPercsemana((dashBoardMB.getMetaparcialsemana()
-										/ dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-	
-								float valor = dashBoardMB.getMetamensal().getValoralcancado();
-								dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-	
+								
 								DashBoardBean dashBoardBean = new DashBoardBean();
 								dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 								dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 								int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false, venda.getUsuario());
 								int pontoremover = vendaAlterada.getPonto();
-								productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
+								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+								productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
 								VendasFacade vendasFacade = new VendasFacade();
 								venda = vendasFacade.salvar(venda);
-								metaRunnersMB.carregarListaRunners();
+			
 							}
 							String titulo = "Nova Ficha de Au Pair. " + venda.getIdvendas();
 							String operacao = "A";

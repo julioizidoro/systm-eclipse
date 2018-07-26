@@ -6,10 +6,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CoProdutosFacade;
-import br.com.travelmate.facade.OCursoDescontoFacade;
-import br.com.travelmate.facade.OCursoProdutoFacade;
-import br.com.travelmate.facade.OcursoSeguroViagemFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -42,6 +44,13 @@ public class EditarOrcamentoOcursoBean {
 	private List<Ocrusoprodutos> listaTransfer;
 	private List<Ocrusoprodutos> listaAcOpcional;
 	private int idOcruso;
+	
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OcursoSeguroViagemDao ocursoSeguroViagemDao;
 
 	public EditarOrcamentoOcursoBean(Ocurso ocurso, Cliente cliente, Date datainicio, AplicacaoMB aplicacaoMB,
 			UsuarioLogadoMB usuarioLogadoMB, int idOcurso) {
@@ -153,8 +162,7 @@ public class EditarOrcamentoOcursoBean {
 	}
 
 	public List<ProdutosOrcamentoBean> addProdutosCurso() {
-		OCursoProdutoFacade oCursoProdutoFacade = new OCursoProdutoFacade();
-		listaProdutos = oCursoProdutoFacade.listar(idOcruso);
+		listaProdutos = oCursoProdutoDao.listar(idOcruso);
 		List<ProdutosOrcamentoBean> listaCursoPrincipal = new ArrayList<>();
 		for (int i = 0; i < listaProdutos.size(); i++) {
 			if (listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getComplementocurso() != null
@@ -346,8 +354,7 @@ public class EditarOrcamentoOcursoBean {
 	}
 
 	public List<Ocursodesconto> addOcursoDesconto() {
-		OCursoDescontoFacade cursoDescontoFacade = new OCursoDescontoFacade();
-		List<Ocursodesconto> lista = cursoDescontoFacade.listar(idOcruso);
+		List<Ocursodesconto> lista = oCursoDescontoDao.listar(idOcruso);
 		ocurso.setOcursodescontoList(new ArrayList<Ocursodesconto>());
 		for (int i = 0; i < lista.size(); i++) {
 			Ocursodesconto ocursodesconto;
@@ -425,8 +432,7 @@ public class EditarOrcamentoOcursoBean {
 	}
 
 	public Seguroviagem buscarSeguroViagem() {
-		OcursoSeguroViagemFacade ocursoSeguroViagemFacade = new OcursoSeguroViagemFacade();
-		Ocursoseguro ocursoseguro = ocursoSeguroViagemFacade.consultar(idOcruso);
+		Ocursoseguro ocursoseguro = ocursoSeguroViagemDao.consultar(idOcruso);
 		Seguroviagem seguroviagem = null;
 		if (ocursoseguro != null && ocursoseguro.getIdocursoseguro() != null) {
 			seguroviagem = new Seguroviagem();

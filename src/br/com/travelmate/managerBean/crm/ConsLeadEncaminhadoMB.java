@@ -9,9 +9,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession; 
+import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.LeadEncaminhadoFacade; 
+import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Leadencaminhado; 
@@ -28,6 +28,8 @@ public class ConsLeadEncaminhadoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadEncaminhadoDao LeadEncaminhadoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -180,8 +182,7 @@ public class ConsLeadEncaminhadoMB implements Serializable {
 	}  
 
 	public void gerarListaLead(String sql) {
-		LeadEncaminhadoFacade leadFacade = new LeadEncaminhadoFacade();
-		listaLead = leadFacade.listar(sql);
+		listaLead = LeadEncaminhadoDao.listar(sql);
 	}
 
 	public String retornarCoresSituacao(int numeroSituacao) {

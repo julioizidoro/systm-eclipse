@@ -1,63 +1,59 @@
 package br.com.travelmate.dao;
 
-import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Leadposvenda;
-
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import br.com.travelmate.connection.Transactional;
+import br.com.travelmate.model.Leadposvenda;
 
 /**
  *
  * @author Kamila
  */
-public class LeadPosVendaDao {
+public class LeadPosVendaDao implements Serializable {
 
 	
 	
 	
-	public Leadposvenda salvar(Leadposvenda leadposvenda) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private EntityManager manager;
+
+	@Transactional
+	public Leadposvenda salvar(Leadposvenda leadposvenda)  {
 		leadposvenda = manager.merge(leadposvenda);
-		tx.commit();
-		manager.close();
 		return leadposvenda;
 	}
 
-	public Leadposvenda consultar(String sql) throws SQLException {
-		EntityManager manager = ConectionFactory.getConnection();
+	public Leadposvenda consultar(String sql) {
 		Query q = manager.createQuery(sql);
 		Leadposvenda leadposvenda = null;
 		if (q.getResultList().size() > 0) {
 			leadposvenda = (Leadposvenda) q.getResultList().get(0);
 		}
-		manager.close();
 		return leadposvenda;
 	}  
 
-	public void excluir(int idleadposvenda) throws SQLException {
-		EntityManager manager= ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public void excluir(int idleadposvenda)  {
 		Leadposvenda leadposvenda = manager.find(Leadposvenda.class, idleadposvenda);
 		manager.remove(leadposvenda);
-		tx.commit();
-		manager.close();
 	}
 
-	public List<Leadposvenda> listar(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+	public List<Leadposvenda> listar(String sql)  {
 		Query q = manager.createQuery(sql);
 		List<Leadposvenda> lista = null;
 		if (q.getResultList().size() > 0) {
 			lista = q.getResultList();
 		}
-		manager.close();
 		return lista;
 	}
 

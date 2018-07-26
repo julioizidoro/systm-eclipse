@@ -16,9 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.LeadControleFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -27,7 +24,11 @@ import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadcontrole;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.util.Mensagem; 
+import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.dao.LeadControleDao;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadResponsavelDao;
+
 
 @Named
 @ViewScoped
@@ -37,6 +38,11 @@ public class LeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadControleDao leadControleDao;
+	@Inject LeadDao leadDao;
+	@Inject
+	private LeadResponsavelDao leadResponsavelDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	@Inject
@@ -148,8 +154,7 @@ public class LeadMB implements Serializable {
 				sql = "select l from Lead l where l.dataenvio is null and l.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			listaLead = leadFacade.lista(sql);
+			listaLead = leadDao.lista(sql);
 			if (usuarioLogadoMB.getUsuario().isPertencematriz()) {
 				acessomaster = true;
 				acessounidade = false;
@@ -161,8 +166,7 @@ public class LeadMB implements Serializable {
 
 	public boolean retornarResponsavelUnidade() {
 		int idusuario = usuarioLogadoMB.getUsuario().getIdusuario();
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		List<Leadresponsavel> lista = leadResponsavelFacade
+		List<Leadresponsavel> lista = leadResponsavelDao
 				.lista(usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {
@@ -185,16 +189,14 @@ public class LeadMB implements Serializable {
 	}
 
 	public void excluir(Lead lead) {
-		LeadFacade leadFacade = new LeadFacade();
-		leadFacade.excluir(lead.getIdlead());
+		leadDao.excluir(lead.getIdlead());
 		gerarListaLead();
 	}
 
 	public void excluirSelecionados() {
 		for (int i = 0; i < listaLead.size(); i++) {
 			if (listaLead.get(i).isSelecionado()) {
-				LeadFacade leadFacade = new LeadFacade();
-				leadFacade.excluir(listaLead.get(i).getIdlead());
+				leadDao.excluir(listaLead.get(i).getIdlead());
 			}
 		}
 		gerarListaLead();
@@ -233,9 +235,8 @@ public class LeadMB implements Serializable {
 	}
 	
 	public void buscarUltimoLeadControle(){
-		LeadControleFacade leadControleFacade = new LeadControleFacade();
 		String sql = "SELECT l FROM Leadcontrole l WHERE l.idleadcontrole= (SELECT MAX(le.idleadcontrole) From Leadcontrole le)";
-		leadcontrole = leadControleFacade.consultar(sql);
+		leadcontrole = leadControleDao.consultar(sql);
 		if (leadcontrole == null) {
 			leadcontrole = new Leadcontrole();
 		}   

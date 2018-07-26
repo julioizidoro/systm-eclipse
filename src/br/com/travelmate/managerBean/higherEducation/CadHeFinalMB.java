@@ -25,15 +25,15 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
+import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
@@ -41,10 +41,6 @@ import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -56,7 +52,6 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Lead;
-import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
@@ -64,7 +59,7 @@ import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
-import br.com.travelmate.model.Produtosorcamento; 
+import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
@@ -79,17 +74,12 @@ public class CadHeFinalMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
+	private LeadDao leadDao;
+	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB metaRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
-	@Inject
-	private TmRaceMB tmRaceMB;
+	
 	private Vendas venda;
 	private He he;
 	private Formapagamento formaPagamento;
@@ -168,14 +158,6 @@ public class CadHeFinalMB implements Serializable {
 
 	public void setAplicacaoMB(AplicacaoMB aplicacaoMB) {
 		this.aplicacaoMB = aplicacaoMB;
-	}
-
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
 	}
 
 	public Vendas getVenda() {
@@ -338,13 +320,6 @@ public class CadHeFinalMB implements Serializable {
 		this.valorVendaAlterada = valorVendaAlterada;
 	}
  
-	public MateRunnersMB getMetaRunnersMB() {
-		return metaRunnersMB;
-	}
-
-	public void setMetaRunnersMB(MateRunnersMB metaRunnersMB) {
-		this.metaRunnersMB = metaRunnersMB;
-	}
 
 	public String getVoltarControleVendas() {
 		return voltarControleVendas;
@@ -1107,8 +1082,7 @@ public class CadHeFinalMB implements Serializable {
 		if (msg.length() < 5) { 
 			ProgramasBean programasBean = new ProgramasBean();
 			Produtos produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getHighereducation()); 
-			LeadFacade leadFacade = new LeadFacade();
-			Lead lead = leadFacade.consultar("select l from Lead l where l.idlead="+venda.getIdlead());
+			Lead lead = leadDao.consultar("select l from Lead l where l.idlead="+venda.getIdlead());
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, venda.getSituacao(), venda.getCliente(), venda.getValor(),
 					produto, venda.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, he.getDatainicio(), he.getDatatermino());
 			
@@ -1126,24 +1100,7 @@ public class CadHeFinalMB implements Serializable {
 						 0.0f);
 				he.getVendas().setVendascomissao(cc.getVendasComissao());
 				if (enviarFicha) {
-					dashBoardMB.getMetamensal().setValoralcancado(
-							dashBoardMB.getMetamensal().getValoralcancado() + orcamento.getTotalMoedaNacional());
-					dashBoardMB.getMetamensal().setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-							/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-					dashBoardMB.getMetaAnual().setMetaalcancada(
-							dashBoardMB.getMetaAnual().getMetaalcancada() + orcamento.getTotalMoedaNacional());
-					dashBoardMB.getMetaAnual().setPercentualalcancado(
-							(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta())
-									* 100);
-
-					dashBoardMB.setMetaparcialsemana(
-							dashBoardMB.getMetaparcialsemana() + orcamento.getTotalMoedaNacional());
-					dashBoardMB.setPercsemana(
-							(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-									* 100);
-
-					float valor = dashBoardMB.getMetamensal().getValoralcancado();
-					dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+					
 
 					DashBoardBean dashBoardBean = new DashBoardBean();
 					dashBoardBean.calcularMetaMensal(venda, 0, false);
@@ -1158,15 +1115,13 @@ public class CadHeFinalMB implements Serializable {
 					if (vendaAlterada!=null) {
 						pontoremover = vendaAlterada.getPonto();
 					}
-					productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
+					ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+					productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
 					VendasFacade vendasFacade = new VendasFacade();
 					venda = vendasFacade.salvar(venda);
-					metaRunnersMB.carregarListaRunners();
-					tmRaceMB.gerarListaGold();
-					tmRaceMB.gerarListaSinze();
-					tmRaceMB.gerarListaBronze();
+					
 
 					
 					String titulo = "Nova ficha Final de Higher Education";
@@ -1199,25 +1154,7 @@ public class CadHeFinalMB implements Serializable {
 				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {
 						if (mes == mesVenda) {
-							dashBoardMB.getMetamensal().setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado()
-									- valorVendaAlterada + orcamento.getTotalMoedaNacional());
-							dashBoardMB.getMetamensal()
-									.setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-											/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-	
-							dashBoardMB.getMetaAnual().setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada()
-									- valorVendaAlterada + orcamento.getTotalMoedaNacional());
-							dashBoardMB.getMetaAnual().setPercentualalcancado((dashBoardMB.getMetaAnual().getMetaalcancada()
-									/ dashBoardMB.getMetaAnual().getValormeta()) * 100);
-	
-							dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() - valorVendaAlterada
-									+ orcamento.getTotalMoedaNacional());
-							dashBoardMB.setPercsemana(
-									(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-											* 100);
-	
-							float valor = dashBoardMB.getMetamensal().getValoralcancado();
-							dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+							
 							
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterada, false);
@@ -1236,8 +1173,9 @@ public class CadHeFinalMB implements Serializable {
 							if (vendaAlterada!=null) { //pontos
 								pontoremover = vendaAlterada.getPonto();
 							}
-							productRunnersMB.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
-							metaRunnersMB.carregarListaRunners();
+							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
+							
 						}
 						String titulo = "Ficha Final de Higher Education Alterada";
 						String operacao = "I";

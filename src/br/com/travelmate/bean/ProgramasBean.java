@@ -1,21 +1,23 @@
 package br.com.travelmate.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
- 
+
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.facade.AlteracaofinanceiroFacade;
 import br.com.travelmate.facade.AlteracaofinanceiroparcelasFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CancelamentoVendaFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-import br.com.travelmate.facade.VendasFacade; 
+import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Alteracaofinanceiro;
 import br.com.travelmate.model.Alteracaofinanceiroparcelas;
@@ -36,9 +38,22 @@ import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
 @Named
-public class ProgramasBean {
+public class ProgramasBean implements Serializable{
 	
 	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
+
 	public Vendas salvarVendas(Vendas venda) {
 		venda.setDataVenda(new Date());
 		venda.setSituacaogerencia("F");
@@ -104,7 +119,6 @@ public class ProgramasBean {
 			finalizarLead(lead);
 			if(lead.getLeadposvenda()==null) {
 				Leadposvenda leadposvenda = new Leadposvenda();
-				LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
 				leadposvenda.setLead(lead);
 				leadposvenda.setVendas(venda);
 				Date data = null;
@@ -125,7 +139,7 @@ public class ProgramasBean {
 				}
 				leadposvenda.setDatachegada(datachegada);
 				leadposvenda.setDataembarque(data);
-				leadPosVendaFacade.salvar(leadposvenda);
+				leadPosVendaDao.salvar(leadposvenda);
 			}
 		}else {
 			venda = VendasFacade.salvar(venda);
@@ -277,10 +291,9 @@ public class ProgramasBean {
 	}
 	
 	public void finalizarLead(Lead lead){
-		LeadFacade leadFacade = new LeadFacade();
 		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
 		lead.setSituacao(6);
-		leadFacade.salvar(lead);
+		leadDao.salvar(lead);
 	}
 	
 	public Date calcularDataValidade() {

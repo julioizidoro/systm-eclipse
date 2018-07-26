@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -25,6 +25,8 @@ public class RelatorioClienteLeadMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Usuario> listaUsuario;
@@ -184,7 +186,6 @@ public class RelatorioClienteLeadMB implements Serializable{
 	
 	
 	public void gerarPesquisaLeads() {
-		LeadFacade leadFacade = new LeadFacade();
 		String sql = "SELECT l FROM Lead l WHERE l.cliente.nome like '%%'";
 		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 			sql = sql + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
@@ -192,7 +193,7 @@ public class RelatorioClienteLeadMB implements Serializable{
 		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and l.usuario.idusuario=" + usuario.getIdusuario();
 		}
-		listaLeads = leadFacade.lista(sql);
+		listaLeads = leadDao.lista(sql);
 	}
 	
 	

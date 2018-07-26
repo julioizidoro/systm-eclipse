@@ -1,6 +1,7 @@
 
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.dao.OcursoFeriadoDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
@@ -12,7 +13,6 @@ import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.FornecedorPaisFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.IdiomaFacade;
-import br.com.travelmate.facade.OcursoFeriadoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.PromocaoBrindeCursoCidadeFacade;
@@ -96,6 +96,9 @@ public class FiltrarEscolaMB implements Serializable {
 	private Lead lead;
 	private String funcao;
 	private boolean habilitarUpload = true;
+	
+	@Inject
+	private OcursoFeriadoDao ocursoFeriadoDao;
  
 	@PostConstruct
 	public void init() {
@@ -1968,12 +1971,12 @@ public class FiltrarEscolaMB implements Serializable {
 	}
 
 	public void calcularFeridado(FornecedorProdutosBean fpb) {
-		OcursoFeriadoFacade ocursoFeriadoFacade = new OcursoFeriadoFacade();
+		
 		String sql = "SELECT o FROM Ocursoferiado o where o.fornecedorcidade.idfornecedorcidade="
 				+ fpb.getFornecedorcidadeidioma().getFornecedorcidade().getIdfornecedorcidade()
 				+ " and o.datainicial>='" + Formatacao.ConvercaoDataSql(fpb.getOcurso().getDatainicio()) + "' and o.datainicial<='" + 
 				Formatacao.ConvercaoDataSql(fpb.getOcurso().getDatatermino()) + "'";
-		List<Ocursoferiado> listaFeriados = ocursoFeriadoFacade.listar(sql);
+		List<Ocursoferiado> listaFeriados = ocursoFeriadoDao.listar(sql);
 		int numeroDias = 0;
 		if (listaFeriados != null) {
 			fpb.setListaOcrusoFeriado(listaFeriados);

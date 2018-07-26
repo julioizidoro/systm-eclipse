@@ -1,61 +1,50 @@
 package br.com.travelmate.dao;
 
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import br.com.travelmate.connection.ConectionFactory; 
+import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Leadhistorico; 
 
-public class LeadHistoricoDao {
+public class LeadHistoricoDao implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
 	
 	
-	
-	public List<Leadhistorico> lista(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+	public List<Leadhistorico> lista(String sql)  {
 		Query q = manager.createQuery(sql);
 		List<Leadhistorico> lista = q.getResultList();
-		manager.close();
 		return lista;
 	}
 
-	public Leadhistorico consultar(String sql) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
+	public Leadhistorico consultar(String sql)  {
 		Query q = manager.createQuery(sql);
 		Leadhistorico leadhistorico = null;
 		if (q.getResultList().size() > 0) {
 			leadhistorico = (Leadhistorico) q.getResultList().get(0);
 		}
-		manager.close();
 		return leadhistorico;
 	}
 
-	public Leadhistorico salvar(Leadhistorico leadhistorico) throws SQLException {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public Leadhistorico salvar(Leadhistorico leadhistorico) {
 		leadhistorico = manager.merge(leadhistorico);
-		tx.commit();
-		manager.close();
 		return leadhistorico;
 	}
 	
-	public void excluir(int idLeadhistorico) throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		Leadhistorico leadhistorico = manager.find(Leadhistorico.class, idLeadhistorico);
+	@Transactional
+	public void excluir(int idLeadhistorico) {
+ 		Leadhistorico leadhistorico = manager.find(Leadhistorico.class, idLeadhistorico);
         manager.remove(leadhistorico);
-        tx.commit();
-		manager.close();
     }
 
 }

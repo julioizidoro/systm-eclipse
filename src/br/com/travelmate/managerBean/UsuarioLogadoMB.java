@@ -58,8 +58,7 @@ public class UsuarioLogadoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private VerificarLogin verificarLogin;
+
 	@Inject
 	private AplicacaoMB aplicacaoMB; 
 	private Usuario usuario;
@@ -141,13 +140,7 @@ public class UsuarioLogadoMB implements Serializable {
 		this.financeiro = financeiro;
 	}
 
-	public VerificarLogin getVerificarLogin() {
-		return verificarLogin;
-	}
-
-	public void setVerificarLogin(VerificarLogin verificarLogin) {
-		this.verificarLogin = verificarLogin;
-	}
+	
 
 	public List<String> getImagens() {
 		return imagens;
@@ -352,9 +345,6 @@ public class UsuarioLogadoMB implements Serializable {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();
 		ConectionFactory.getInstanceClose();
-		if(usuario!=null && usuario.getIdusuario()!=null) {
-			verificarLogin.deslogarUsuarioSessao(usuario.getIdusuario());
-		}
 		return "index";
 	}
 
@@ -486,11 +476,7 @@ public class UsuarioLogadoMB implements Serializable {
 		return "";
 	}
 
-	public void atualizaTempoLogado() {
-		if (usuario != null && usuario.getIdusuario() != null) {
-			verificarLogin.atualizarTempo(usuario.getIdusuario());
-		}
-	}
+	
 
 	public void retornoDialogAlteracaoSenha(SelectEvent event) {
 		Usuario usuario = (Usuario) event.getObject();

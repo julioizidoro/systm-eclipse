@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,11 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.DocumentException;
 
-
-import br.com.travelmate.facade.OcursoSeguroViagemFacade;
+import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoFormaPagamentoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Ocursodesconto;
@@ -33,6 +37,10 @@ public class SalvarPDForcamentoFinalizado {
 	private String corpo;
 	private float totalObrigatorio;
 	private List<Ocursodesconto> listaDescontos;
+	
+	
+	@Inject
+	private OcursoSeguroViagemDao oCursoSeguroViagemDao;
 	
 	public SalvarPDForcamentoFinalizado(List<Ocrusoprodutos> listaProdutos, Ocurso ocurso, List<Ocursodesconto> listaDescontos) throws IOException, BadElementException {
 		super();
@@ -213,8 +221,7 @@ public class SalvarPDForcamentoFinalizado {
          
          //produtos extras
          Ocursoseguro ocursoseguro = new Ocursoseguro();
-         OcursoSeguroViagemFacade ocursoSeguroViagemFacade = new OcursoSeguroViagemFacade();
-         ocursoseguro = ocursoSeguroViagemFacade.consultar(ocurso.getIdocurso());
+         ocursoseguro = oCursoSeguroViagemDao.consultar(ocurso.getIdocurso());
          if (ocursoseguro!=null){
               corpo = corpo + "<strong style= \"margin-left:5.3%;font-size: 15px;margin-top: -3%;color: #257C67;\">Seguro Viagem</strong><br />\n"
                       + "                               <table style=\"width:100%;\" class=\"CSSTableGenerator\">\n"

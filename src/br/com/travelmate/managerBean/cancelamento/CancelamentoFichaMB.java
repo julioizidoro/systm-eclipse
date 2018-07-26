@@ -23,6 +23,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
@@ -35,12 +36,9 @@ import br.com.travelmate.facade.PacotesFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoFacade;
-import br.com.travelmate.facade.UsuarioPontosFacade; 
+import br.com.travelmate.facade.UsuarioPontosFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
@@ -54,7 +52,7 @@ import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Seguroviagem;
-import br.com.travelmate.model.Usuariopontos; 
+import br.com.travelmate.model.Usuariopontos;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -74,12 +72,7 @@ public class CancelamentoFichaMB implements Serializable {
 	private AplicacaoMB aplicacaoMB;
 	private Cancelamento cancelamento;
 	private boolean emissao;
-	@Inject
-	private DashBoardMB dashBoardMB;
-	@Inject
-	private MateRunnersMB metaRunnersMB;
-	@Inject
-	private ProductRunnersMB productRunnersMB;
+	
 	private Vendas venda;
 	private Vendas venda1;
 	private List<String> listaNomeArquivo;
@@ -150,22 +143,7 @@ public class CancelamentoFichaMB implements Serializable {
 		this.emissao = emissao;
 	}
 
-	public DashBoardMB getDashBoardMB() {
-		return dashBoardMB;
-	}
-
-	public void setDashBoardMB(DashBoardMB dashBoardMB) {
-		this.dashBoardMB = dashBoardMB;
-	}
-
-	public MateRunnersMB getMetaRunnersMB() {
-		return metaRunnersMB;
-	}
-
-	public void setMetaRunnersMB(MateRunnersMB metaRunnersMB) {
-		this.metaRunnersMB = metaRunnersMB;
-	}
-
+	
 	public Vendas getVenda() {
 		return venda;
 	}
@@ -265,39 +243,7 @@ public class CancelamentoFichaMB implements Serializable {
 			int mesVenda = Formatacao.getMesData(venda.getDataVenda())  + 1;
 			int mesAtual = Formatacao.getMesData(new Date()) +1; 
 			if (mesVenda == mesAtual) {
-				if (venda.getProdutos().getIdprodutos() == 1 || venda.getProdutos().getIdprodutos() == 4
-						|| venda.getProdutos().getIdprodutos() == 5 || venda.getProdutos().getIdprodutos() == 9
-						|| venda.getProdutos().getIdprodutos() == 10 || venda.getProdutos().getIdprodutos() == 11
-						|| venda.getProdutos().getIdprodutos() == 13 || venda.getProdutos().getIdprodutos() == 16
-						|| venda.getProdutos().getIdprodutos() == 20) {
-					dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() - 1);
-				} else if (venda.getProdutos().getIdprodutos() == 7) {
-					dashBoardMB.getVendaproduto().setTurismo(dashBoardMB.getVendaproduto().getTurismo() - 1);
-				} else if (venda.getProdutos().getIdprodutos() == 2 || venda.getProdutos().getIdprodutos() == 3
-						|| venda.getProdutos().getIdprodutos() == 6) {
-					dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() - 1);
-				}else {
-					if (vendaSeguro!=null) {
-						dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() - 1);
-					}
-				}
-				dashBoardMB.getMetamensal()
-						.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() - venda.getValor());
-				dashBoardMB.getMetamensal().setPercentualalcancado(
-						(dashBoardMB.getMetamensal().getValoralcancado() / dashBoardMB.getMetamensal().getValormeta())
-								* 100);
-	
-				dashBoardMB.getMetaAnual()
-						.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() - venda.getValor());
-				dashBoardMB.getMetaAnual().setPercentualalcancado(
-						(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta()) * 100);
-	
-				dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() - venda.getValor());
-				dashBoardMB.setPercsemana(
-						(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-	
-				float valor = dashBoardMB.getMetamensal().getValoralcancado();
-				dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+				
 	
 				DashBoardBean dashBoardBean = new DashBoardBean();
 				dashBoardBean.calcularNumeroVendasProdutos(venda, true);
@@ -305,7 +251,8 @@ public class CancelamentoFichaMB implements Serializable {
 				dashBoardBean.calcularMetaAnual(venda, 0, true);
 				if (venda.getProdutos().getIdprodutos() != 7) {
 					int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", true, venda.getUsuario());
-					productRunnersMB.calcularPontuacao(venda, venda.getPonto(), 0, true, venda.getUsuario() );
+					ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+					productRunnersCalculosBean.calcularPontuacao(venda, venda.getPonto(), 0, true, venda.getUsuario() );
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
 					venda = vendasFacade.salvar(venda);
@@ -313,12 +260,13 @@ public class CancelamentoFichaMB implements Serializable {
 					PacotesFacade pacotesFacade = new PacotesFacade();
 					Pacotes pacote = pacotesFacade.consultar(venda.getIdvendas());
 					int[] pontos = dashBoardBean.calcularPontuacao(venda1, 0, "", true, pacote.getUsuario());
-					productRunnersMB.calcularPontuacao(venda1, pontos[0], 0, true, pacote.getUsuario());
+					ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+					productRunnersCalculosBean.calcularPontuacao(venda1, pontos[0], 0, true, pacote.getUsuario());
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[0]);
 					venda = vendasFacade.salvar(venda);
 				}
-				metaRunnersMB.carregarListaRunners();
+				
 	
 				if ((venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getCursos()) || 
 						(venda.getProdutos().getIdprodutos() == aplicacaoMB.getParametrosprodutos().getVoluntariado())) {
@@ -348,26 +296,7 @@ public class CancelamentoFichaMB implements Serializable {
 						vendas.setSituacao("CANCELADA");
 						vendasFacade.salvar(vendas);
 	
-						dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() - 1);
-	
-						dashBoardMB.getMetamensal()
-								.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() - vendas.getValor());
-						dashBoardMB.getMetamensal().setPercentualalcancado((dashBoardMB.getMetamensal().getValoralcancado()
-								/ dashBoardMB.getMetamensal().getValormeta()) * 100);
-	
-						dashBoardMB.getMetaAnual()
-								.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() - vendas.getValor());
-						dashBoardMB.getMetaAnual().setPercentualalcancado(
-								(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta())
-										* 100);
-	
-						dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() - vendas.getValor());
-						dashBoardMB.setPercsemana(
-								(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana())
-										* 100);
-	
-						valor = dashBoardMB.getMetamensal().getValoralcancado();
-						dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
+						
 	
 						dashBoardBean = new DashBoardBean();
 						dashBoardBean.calcularNumeroVendasProdutos(vendas, true);
@@ -377,8 +306,8 @@ public class CancelamentoFichaMB implements Serializable {
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						vendas = vendasFacade.salvar(vendas);
-						productRunnersMB.calcularPontuacao(vendas, pontos[0], 0, true, venda.getUsuario());
-						metaRunnersMB.carregarListaRunners();
+						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, true, venda.getUsuario());
 						emitirNotificacao();
 					}
 				}
@@ -399,36 +328,7 @@ public class CancelamentoFichaMB implements Serializable {
 		int mesVenda = Formatacao.getMesData(venda1.getDataVenda())  + 1;
 		int mesAtual = Formatacao.getMesData(new Date()) +1; 
 		if (mesVenda == mesAtual) {
-			if (venda1.getProdutos().getIdprodutos() == 1 || venda1.getProdutos().getIdprodutos() == 4
-					|| venda1.getProdutos().getIdprodutos() == 5 || venda1.getProdutos().getIdprodutos() == 9
-					|| venda.getProdutos().getIdprodutos() == 10 || venda1.getProdutos().getIdprodutos() == 11
-					|| venda.getProdutos().getIdprodutos() == 13 || venda.getProdutos().getIdprodutos() == 16
-					|| venda.getProdutos().getIdprodutos() == 20) {
-				dashBoardMB.getVendaproduto().setIntercambio(dashBoardMB.getVendaproduto().getIntercambio() - 1);
-			} else if (venda1.getProdutos().getIdprodutos() == 7) {
-				dashBoardMB.getVendaproduto().setTurismo(dashBoardMB.getVendaproduto().getTurismo() - 1);
-			} else if (venda1.getProdutos().getIdprodutos() == 2 || venda1.getProdutos().getIdprodutos() == 3
-					|| venda1.getProdutos().getIdprodutos() == 6) {
-				dashBoardMB.getVendaproduto().setProduto(dashBoardMB.getVendaproduto().getProduto() - 1);
-			}
-			dashBoardMB.getMetamensal()
-					.setValoralcancado(dashBoardMB.getMetamensal().getValoralcancado() - venda1.getValor());
-			dashBoardMB.getMetamensal().setPercentualalcancado(
-					(dashBoardMB.getMetamensal().getValoralcancado() / dashBoardMB.getMetamensal().getValormeta())
-							* 100);
-
-			dashBoardMB.getMetaAnual()
-					.setMetaalcancada(dashBoardMB.getMetaAnual().getMetaalcancada() - venda1.getValor());
-			dashBoardMB.getMetaAnual().setPercentualalcancado(
-					(dashBoardMB.getMetaAnual().getMetaalcancada() / dashBoardMB.getMetaAnual().getValormeta()) * 100);
-
-			dashBoardMB.setMetaparcialsemana(dashBoardMB.getMetaparcialsemana() - venda1.getValor());
-			dashBoardMB.setPercsemana(
-					(dashBoardMB.getMetaparcialsemana() / dashBoardMB.getMetamensal().getValormetasemana()) * 100);
-
-			float valor = dashBoardMB.getMetamensal().getValoralcancado();
-			dashBoardMB.setValorFaturamento(Formatacao.formatarFloatString(valor));
-
+			
 			DashBoardBean dashBoardBean = new DashBoardBean();
 			dashBoardBean.calcularNumeroVendasProdutos(venda1, true);
 			dashBoardBean.calcularMetaMensal(venda1, 0, true);
@@ -437,8 +337,9 @@ public class CancelamentoFichaMB implements Serializable {
 			venda1.setPonto(pontos[0]);
 			venda1.setPontoescola(pontos[1]);
 			venda1 = vendasFacade.salvar(venda1);
-			productRunnersMB.calcularPontuacao(venda1, pontos[0], 0, true, venda.getUsuario());
-			metaRunnersMB.carregarListaRunners(); 
+			ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+			productRunnersCalculosBean.calcularPontuacao(venda1, pontos[0], 0, true, venda.getUsuario());
+		
 		}
 	}
 	

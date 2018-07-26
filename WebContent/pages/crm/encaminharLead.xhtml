@@ -113,28 +113,34 @@
 
 					<p:overlayPanel id="painelSituacao" for="btnSituacao"
 						hideEffect="fade" style="background:#fff;width:110px;"> 
-						<p:commandLink id="btnSituacao1" title="Lead Recebido"  
+						<p:commandLink id="btnSituacao1" title="Novo Lead"  
 							action="#{encaminharLeadMB.mudarSituacao(1)}"
 							update="btnSituacao,painelSituacao">
 							<h:outputText value="1" class="badge bg-warning"
 								style="background-color:#1E90FF;padding:4px 6px;font-size:13px;" />
 						</p:commandLink>
-						<p:commandLink id="btnSituacao2" title="Prospect"
+						<p:commandLink id="btnSituacao2" title="Primeiro Contato"
 							action="#{encaminharLeadMB.mudarSituacao(2)}"
 							update="btnSituacao,painelSituacao">
 							<h:outputText value="2" class="badge bg-warning"
-								style="background-color:#9ACD32;padding:4px 6px;font-size:13px;margin-left:2%;" />
+								style="background-color:#2E5495;padding:4px 6px;font-size:13px;margin-left:2%;" />
 						</p:commandLink>
-						<p:commandLink id="btnSituacao3" title="Oportunidade Real"
+						<p:commandLink id="btnSituacao3" title="Prospect"
 							action="#{encaminharLeadMB.mudarSituacao(3)}"
 							update="btnSituacao,painelSituacao">
 							<h:outputText value="3" class="badge bg-warning"
-								style="background-color:#FF8C00;padding:4px 6px;font-size:13px;margin-left:2%;" />
+								style="background-color:#9ACD32;padding:4px 6px;font-size:13px;margin-left:2%;" />
 						</p:commandLink>
-						<p:commandLink id="btnSituacao4" title="Negociação Final"
+						<p:commandLink id="btnSituacao4" title="Oportunidade Real"
 							action="#{encaminharLeadMB.mudarSituacao(4)}"
 							update="btnSituacao,painelSituacao">
 							<h:outputText value="4" class="badge bg-warning"
+								style="background-color:#FF8C00;padding:4px 6px;font-size:13px;margin-left:2%;" />
+						</p:commandLink>
+						<p:commandLink id="btnSituacao5" title="Negociação Final"
+							action="#{encaminharLeadMB.mudarSituacao(5)}"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="5" class="badge bg-warning"
 								style="background-color:#B22222;padding:4px 6px;font-size:13px;margin-left:2%;" />
 						</p:commandLink>
 						<br></br>

@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.crm.relatorios;
 
-import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
@@ -27,6 +28,9 @@ public class SituacaoLeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private LeadDao leadDao;
 	private Unidadenegocio unidadenegocio;
 	private List<Unidadenegocio> listaUnidade;
 	private Usuario consultor;
@@ -96,8 +100,7 @@ public class SituacaoLeadMB implements Serializable {
 			if (consultor!=null && consultor.getIdusuario()!=null) {
 				sql = sql + " and l.usuario.idusuario=" + consultor.getIdusuario();
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			List<Lead> listaLead = leadFacade.lista(sql);
+			List<Lead> listaLead = leadDao.lista(sql);
 			if(listaLead!=null){
 				return listaLead.size();
 			}
@@ -113,8 +116,7 @@ public class SituacaoLeadMB implements Serializable {
 			if (consultor!=null && consultor.getIdusuario()!=null) {
 				sql = sql + " and l.usuario.idusuario=" + consultor.getIdusuario();
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			List<Lead> listaLead = leadFacade.lista(sql);
+			List<Lead> listaLead = leadDao.lista(sql);
 			if(listaLead!=null){
 				return listaLead.size();
 			}
@@ -130,8 +132,7 @@ public class SituacaoLeadMB implements Serializable {
 			if (consultor!=null && consultor.getIdusuario()!=null) {
 				sql = sql + " and l.usuario.idusuario=" + consultor.getIdusuario();
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			List<Lead> listaLead = leadFacade.lista(sql);
+			List<Lead> listaLead = leadDao.lista(sql);
 			if(listaLead!=null){
 				return listaLead.size();
 			}
@@ -147,8 +148,7 @@ public class SituacaoLeadMB implements Serializable {
 			if (consultor!=null && consultor.getIdusuario()!=null) {
 				sql = sql + " and l.usuario.idusuario=" + consultor.getIdusuario();
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			List<Lead> listaLead = leadFacade.lista(sql);
+			List<Lead> listaLead = leadDao.lista(sql);
 			if(listaLead!=null){
 				return listaLead.size();
 			}

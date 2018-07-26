@@ -1,9 +1,12 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.bean.NumeroParcelasBean;
+import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoFormaPagamentoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
-import br.com.travelmate.facade.OCursoFacade;
-import br.com.travelmate.facade.OCursoFormaPagamentoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -58,7 +61,12 @@ public class EditarDadosOrcamentoMB implements Serializable {
 	private boolean painelcliente=true;
 	private boolean painelOcCliente=false;
 	private Occliente occliente;
-
+	
+	@Inject
+	private OCursoDao oCursoDao;
+	@Inject 
+	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
+	
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -221,26 +229,20 @@ public class EditarDadosOrcamentoMB implements Serializable {
 	}
 
 	public String salvar() throws SQLException {
-		OCursoFacade orCursoFacade = new OCursoFacade();
 		ocurso.setOcursoformapagamentoList(new ArrayList<Ocursoformapagamento>());
-		OCursoFormaPagamentoFacade oCursoFormaPagamentoFacade = new OCursoFormaPagamentoFacade();
-		try {
 			if (formaPagamento2.getValorparcela() != null && formaPagamento2.getValorEntrada() > 0) {
-				formaPagamento2 = oCursoFormaPagamentoFacade.salvar(formaPagamento2);
+				formaPagamento2 = oCursoFormaPagamentoDao.salvar(formaPagamento2);
 				ocurso.getOcursoformapagamentoList().add(formaPagamento2);
 			}
 			if (formaPagamento3.getValorEntrada() != null && formaPagamento3.getValorEntrada() > 0) {
-				formaPagamento3 = oCursoFormaPagamentoFacade.salvar(formaPagamento3);
+				formaPagamento3 = oCursoFormaPagamentoDao.salvar(formaPagamento3);
 				ocurso.getOcursoformapagamentoList().add(formaPagamento3);
 			}
 			if (formaPagamento4.getValorEntrada() != null && formaPagamento4.getValorEntrada() > 0) {
-				formaPagamento4 = oCursoFormaPagamentoFacade.salvar(formaPagamento4);
+				formaPagamento4 = oCursoFormaPagamentoDao.salvar(formaPagamento4);
 				ocurso.getOcursoformapagamentoList().add(formaPagamento4);
 			}
-		} catch (SQLException ex) {
-			Mensagem.lancarMensagemErro("Erro Salvar Forma de Pagamento", "ERRO");
-		}
-		ocurso = orCursoFacade.salvar(ocurso);
+		ocurso = oCursoDao.salvar(ocurso);
 		if(painelOcCliente){
 			salvarOcCliente();
 		}
@@ -271,13 +273,14 @@ public class EditarDadosOrcamentoMB implements Serializable {
 	public void alterarValorCambio() {
 		ocurso.setTotalmoedanacional(ocurso.getTotalmoedaestrangeira() * ocurso.getValorcambio());
 		ocurso.setDataorcamento(new Date());
-		OCursoFacade ocCursoFacade = new OCursoFacade();
+		ocurso = oCursoDao.salvar(ocurso);
 		try {
-			ocurso = ocCursoFacade.salvar(ocurso);
 			recalcularFormaPagamento();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	public void recalcularFormaPagamento() throws SQLException {

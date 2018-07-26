@@ -12,14 +12,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.facade.AcomodacaoFacade;
-import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
 
 @Named
 @ViewScoped
@@ -29,6 +28,8 @@ public class AcomodacaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Acomodacao acomodacao;
@@ -171,8 +172,7 @@ public class AcomodacaoMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("acomodacao", acomodacao);
 		session.setAttribute("cliente", acomodacao.getVendas().getCliente());
-		LeadFacade leadFacade = new LeadFacade();
-		session.setAttribute("lead", leadFacade.consultar("SELECT l FROM Lead l WHERE l.cliente.idcliente=" + acomodacao.getVendas().getCliente().getIdcliente()));
+		session.setAttribute("lead", leadDao.consultar("SELECT l FROM Lead l WHERE l.cliente.idcliente=" + acomodacao.getVendas().getCliente().getIdcliente()));
 		return "cadAcomodacao";
 	}
 	

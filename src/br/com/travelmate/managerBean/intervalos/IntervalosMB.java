@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.OcursoFeriadoDao;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.OcursoFeriadoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade; 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidade; 
@@ -42,6 +42,9 @@ public class IntervalosMB implements Serializable {
 	private Fornecedorcidade fornecedor;
 	private List<Fornecedorcidade> listaFornecedor; 
 	private String nome;
+	
+	@Inject
+	private OcursoFeriadoDao oCursoFeriadoDao;
 
 	@PostConstruct
 	public void init() {
@@ -138,15 +141,13 @@ public class IntervalosMB implements Serializable {
 	
 	public void gerarListaIntervalos(){
 		Date data = new Date();
-		OcursoFeriadoFacade ccursoFeriadoFacade = new OcursoFeriadoFacade();
 		String sql="select o from Ocursoferiado o where o.datainicial>='"+Formatacao.ConvercaoDataSql(data)+"' and"
 				+ " o.datafinal>='"+Formatacao.ConvercaoDataSql(data)+"' order by o.nome";
-		listaIntervalos = ccursoFeriadoFacade.listar(sql);
+		listaIntervalos = oCursoFeriadoDao.listar(sql);
 	}
 	
 	
 	public void pesquisar(){
-		OcursoFeriadoFacade ccursoFeriadoFacade = new OcursoFeriadoFacade();
 		String sql="select  o from Ocursoferiado o where o.nome like '%"+nome+"%'";
 		if(pais!=null && pais.getIdpais()!=null){
 			sql = sql+" and o.fornecedorcidade.cidade.pais.idpais="+pais.getIdpais();
@@ -160,7 +161,7 @@ public class IntervalosMB implements Serializable {
 			sql = sql+" and o.fornecedorcidade.fornecedor.idfornecedor="+fornecedor.getFornecedor().getIdfornecedor();
 		}
 		sql=sql+ " order by o.nome";
-		listaIntervalos = ccursoFeriadoFacade.listar(sql);
+		listaIntervalos = oCursoFeriadoDao.listar(sql);
 	}
 	
 	
@@ -173,8 +174,7 @@ public class IntervalosMB implements Serializable {
 	}
 	 
 	public void excluir(Ocursoferiado ocursoferiado) { 
-		OcursoFeriadoFacade ccursoFeriadoFacade = new OcursoFeriadoFacade();
-		ccursoFeriadoFacade.excluir(ocursoferiado.getIdocursoferiado());
+		oCursoFeriadoDao.excluir(ocursoferiado.getIdocursoferiado());
 		Mensagem.lancarMensagemInfo("", "Excluído com sucesso.");
 		gerarListaIntervalos();;
 	}

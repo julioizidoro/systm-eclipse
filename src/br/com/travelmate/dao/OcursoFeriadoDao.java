@@ -1,46 +1,37 @@
 package br.com.travelmate.dao;
 
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Ocursoferiado; 
 
-public class OcursoFeriadoDao {
+public class OcursoFeriadoDao implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
 	
-	public Ocursoferiado salvar(Ocursoferiado  ocursoferiado) throws SQLException{
-		EntityManager manager;
-        manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-        ocursoferiado = manager.merge(ocursoferiado);
-        tx.commit();
-        
+	@Transactional
+	public Ocursoferiado salvar(Ocursoferiado  ocursoferiado) {
+	    ocursoferiado = manager.merge(ocursoferiado);
         return ocursoferiado;
     }
     
-    public List<Ocursoferiado> listar(String sql)throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+    public List<Ocursoferiado> listar(String sql){
         Query q = manager.createQuery(sql);
-        List<Ocursoferiado> lista = q.getResultList();
-        
+        List<Ocursoferiado> lista = q.getResultList();    
         return lista;
     }
 
-    public void excluir(int id) throws SQLException{
-    	EntityManager manager;
-        manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+    @Transactional
+    public void excluir(int id){
         Ocursoferiado ocursoferiado = manager.find(Ocursoferiado.class, id);
         manager.remove(ocursoferiado);
-        tx.commit();
         
     }
 }

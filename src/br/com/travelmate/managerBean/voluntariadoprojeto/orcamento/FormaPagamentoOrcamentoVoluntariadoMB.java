@@ -3,9 +3,10 @@ package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadHistoricoFacade;
+
 import br.com.travelmate.facade.OrcamentoProjetoVoluntariadoFacade;
 import br.com.travelmate.facade.OrcamentoVoluntariadoDescontoFacade;
 import br.com.travelmate.facade.OrcamentoVoluntariadoFormaPagamentoFacade;
@@ -51,6 +52,10 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadHistoricoDao leadHistoricoDao;
+	@Inject
+	private LeadDao leadDao;
 	@Inject
     private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -400,21 +405,19 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 			salvarHistoricoLead(); 
 			Lead lead = orcamento.getCliente().getLead();
 			if(lead!=null){
-				LeadFacade leadFacade = new LeadFacade();
 				lead.setDataultimocontato(new Date());
 				if (lead.getSituacao() < 3) {
 					LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
         			lead.setSituacao(3);
 				}
-				lead = leadFacade.salvar(lead);
+				lead = leadDao.salvar(lead);
 			}
 		}
 		Mensagem.lancarMensagemInfo("Orçamento salvo com sucesso!", "");
 		return "consVoluntariadoProjetoOrcamento";
 	}
 	
-	public void salvarHistoricoLead(){
-    	LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
+	public void salvarHistoricoLead() {
 		Leadhistorico leadhistorico = new Leadhistorico();
 		leadhistorico.setCliente(orcamento.getCliente());
 		leadhistorico.setDatahistorico(new Date());
@@ -429,7 +432,7 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 			+orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade().getFornecedor().getNome()+".");
 		leadhistorico.setTipoorcamento("t");
 		leadhistorico.setIdorcamento(orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado());
-		leadhistorico = leadHistoricoFacade.salvar(leadhistorico);
+		leadhistorico = leadHistoricoDao.salvar(leadhistorico);
     }
 	
 	public void salvarOrcamento(){

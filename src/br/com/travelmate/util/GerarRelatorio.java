@@ -14,10 +14,17 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.connection.ConectionFactory;
@@ -82,7 +89,13 @@ public class GerarRelatorio {
         ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
         InputStream reportStream = facesContext.getExternalContext()  
                 .getResourceAsStream(caminhoRelatorio);  
-        Connection conn = ConectionFactory.getConexao();
+        Connection conn=null;
+		try {
+			conn = getConexao();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
 
         if (subDir!=null){
@@ -107,6 +120,22 @@ public class GerarRelatorio {
         servletOutputStream.close();  
   
         facesContext.responseComplete();  
-        conn.close();
+        
+    }
+    
+    public static Connection getConexao() throws NamingException {
+        InitialContext context = null;
+        try {
+            context = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DataSource ds = (DataSource) context.lookup("java:/systmDB");
+        try {
+            return ds.getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

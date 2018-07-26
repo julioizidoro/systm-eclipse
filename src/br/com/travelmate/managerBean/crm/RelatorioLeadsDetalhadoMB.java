@@ -11,7 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.travelmate.facade.LeadFacade;
+import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -35,6 +35,8 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Date dataUltContatoInicial;
@@ -303,8 +305,7 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 			if (programas != null && programas.getIdprodutos() != null) {
 				sql = sql + " and l.produtos.idprodutos=" + programas.getIdprodutos(); 
 			}
-			LeadFacade leadFacade = new LeadFacade();
-			listaLeads = leadFacade.lista(sql);
+			listaLeads = leadDao.lista(sql);
 			if (listaLeads == null) {
 				listaLeads = new ArrayList<Lead>();
 			}

@@ -9,9 +9,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.facade.CursoFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
@@ -32,7 +32,11 @@ public class UtilMB implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
+	@Inject
+	private LeadDao leadDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Tipocontato tipoContato;
@@ -79,9 +83,7 @@ public class UtilMB implements Serializable{
 	
 	
 	public void consultarLead(Controlecurso controle) {
-		
-		LeadFacade leadFacade = new LeadFacade();
-		Lead lead = leadFacade.consultar("Select l From Lead l where cliente.idcliente=" + controle.getVendas().getCliente().getIdcliente());
+		Lead lead = leadDao.consultar("Select l From Lead l where cliente.idcliente=" + controle.getVendas().getCliente().getIdcliente());
 		if (lead==null) {
 			lead = new Lead();
 			lead.setCliente(controle.getVendas().getCliente());
@@ -100,7 +102,7 @@ public class UtilMB implements Serializable{
 			lead.setSituacao(6);
 			lead.setTipocontato(tipoContato);
 			lead.setUnidadenegocio(controle.getVendas().getUnidadenegocio());
-			lead = leadFacade.salvar(lead);
+			lead = leadDao.salvar(lead);
 		}
 		Leadposvenda leadposvenda = new Leadposvenda();
 		try {
@@ -112,8 +114,7 @@ public class UtilMB implements Serializable{
 		leadposvenda.setDataembarque(controle.getDataEmbarque());
 		leadposvenda.setLead(lead);
 		leadposvenda.setVendas(controle.getVendas());
-		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-		leadposvenda = leadPosVendaFacade.salvar(leadposvenda);
+		leadposvenda = leadPosVendaDao.salvar(leadposvenda);
 	}
 	 
 }

@@ -2,9 +2,7 @@ package br.com.travelmate.managerBean.higherEducation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,17 +12,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.bean.ListaHeBean;
-import br.com.travelmate.facade.HeFacade;
-import br.com.travelmate.facade.LeadFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.He;
-import br.com.travelmate.model.Lead;
-import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
@@ -42,6 +32,7 @@ public class QuestionarioMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	
 	private List<Questionariohe> listaQuestionario;
 	private List<Unidadenegocio> listaUnidade;
 	private Unidadenegocio unidadenegocio;

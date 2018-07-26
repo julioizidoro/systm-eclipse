@@ -8,14 +8,15 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped; 
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
- 
+
+import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AcessoUnidadeFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.GrupoAcessoFacade;
-import br.com.travelmate.facade.LeadResponsavelFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Acessounidade;
@@ -38,6 +39,8 @@ public class CadUsuariosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L; 
+	@Inject
+	private LeadResponsavelDao leadResponsavelDao;
 	private Usuario usuario;
 	private String situacao;
 	private List<Unidadenegocio> listaUnidade;
@@ -279,8 +282,7 @@ public class CadUsuariosMB implements Serializable {
 	
 	public boolean retornarResponsavelUnidade() {
 		int idusuario = usuario.getIdusuario();
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		List<Leadresponsavel> lista = leadResponsavelFacade
+		List<Leadresponsavel> lista = leadResponsavelDao
 				.lista(usuario.getUnidadenegocio().getIdunidadeNegocio());
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {
@@ -307,19 +309,17 @@ public class CadUsuariosMB implements Serializable {
 	}
 	
 	public void salvarLeadResponsavel() {
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
 		Leadresponsavel leadresponsavel = new Leadresponsavel();
 		leadresponsavel.setUnidadenegocio(usuario.getUnidadenegocio());
 		leadresponsavel.setUsuario(usuario);
-		leadResponsavelFacade.salvar(leadresponsavel);
+		leadResponsavelDao.salvar(leadresponsavel);
 	}
 	
 	public void excluirLeadResponsavel() {
-		LeadResponsavelFacade leadResponsavelFacade = new LeadResponsavelFacade();
-		Leadresponsavel leadresponsavel = leadResponsavelFacade.consultar
+		Leadresponsavel leadresponsavel = leadResponsavelDao.consultar
 				("SELECT l FROM Leadresponsavel l WHERE l.unidadenegocio.idunidadeNegocio="+usuario.getUnidadenegocio().getIdunidadeNegocio()
 						+ " AND l.usuario.idusuario="+usuario.getIdusuario());
-		leadResponsavelFacade.excluir(leadresponsavel.getIdleadresponsavel());
+		leadResponsavelDao.excluir(leadresponsavel.getIdleadresponsavel());
 	}
 	
 	public void salvarAcessoUnidade() {

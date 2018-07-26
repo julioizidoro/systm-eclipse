@@ -18,15 +18,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadEncaminhadoDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
-import br.com.travelmate.facade.LeadEncaminhadoFacade;
-import br.com.travelmate.facade.LeadFacade;
-import br.com.travelmate.facade.LeadPosVendaFacade;
 import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -38,7 +35,6 @@ import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
 import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Unidadenegocio;
@@ -46,6 +42,7 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
+
 
 @Named
 @ViewScoped
@@ -55,6 +52,12 @@ public class FollowUpMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadEncaminhadoDao leadEncaminhadoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject 
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -114,13 +117,30 @@ public class FollowUpMB implements Serializable {
 
 	@PostConstruct()
 	public void init() {
-		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			funcao = (String) session.getAttribute("funcao");
-			PesquisaBean pesquisa = (PesquisaBean) session.getAttribute("pesquisa");
-			session.removeAttribute("pesquisa");
 			session.removeAttribute("funcao");
+			if (funcao == null || funcao.length() == 0) {
+				funcao = "hoje";
+			}
+			this.listaLead = (List<Lead>) session.getAttribute("listalead");;
+			this.listaLeadTotal = (List<Lead>) session.getAttribute("listaleadtotal");
+			this.listaPosVenda = (List<Leadposvenda>) session.getAttribute("listaposvenda");
+			this.listaProdutos = (List<Produtos>) session.getAttribute("listaproduto");
+			this.listaPais = (List<Pais>) session.getAttribute("listapais");
+			this.listaTipoContato = (List<Tipocontato>) session.getAttribute("listatipocontato");
+			this.listaUsuario = (List<Usuario>) session.getAttribute("listausuario");
+			this.listaProgramas = listaProdutos;
+			this.listaPaisConsulta = listaPais;
+			session.removeAttribute("listalead");
+			session.removeAttribute("listaleadtotal");
+			session.removeAttribute("listaposvenda");
+			session.removeAttribute("listaproduto");
+			session.removeAttribute("listapais");
+			session.removeAttribute("listatipocontato");
+			session.removeAttribute("listausuario");
+			
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
 				acessoResponsavelUnidade = false;
@@ -130,11 +150,7 @@ public class FollowUpMB implements Serializable {
 			} else if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrmunidade()) {
 				acessoResponsavelUnidade = true;
 			}
-			listaProdutos = GerarListas.listarProdutos("");
-			listaProgramas = GerarListas.listarProdutos("");
-			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
-					+ " and u.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome");
+			
 			if (acessoResponsavelGerencial || acessoResponsavelUnidade) {
 				habilitarComboUsuario = false;
 				if (acessoResponsavelGerencial) {
@@ -142,7 +158,7 @@ public class FollowUpMB implements Serializable {
 					habilitarComboUnidade = false;
 					listaUnidade = GerarListas.listarUnidade();
 				}
-				listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
+				
 			} else {
 				if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
 					if (usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
@@ -150,50 +166,48 @@ public class FollowUpMB implements Serializable {
 					}
 				}
 			}
-			if (funcao == null || funcao.length() == 0) {
-				funcao = "hoje";
-			}
-			if (pesquisa != null) {
-				dataProxFinal = pesquisa.getDataProxFinal();
-				dataProxInicio = pesquisa.getDataProxInicio();
-				dataUltFinal = pesquisa.getDataUltFinal();
-				dataUltInicio = pesquisa.getDataUltInicio();
-				nomeCliente = pesquisa.getNomeCliente();
-				programas = pesquisa.getProgramas();
-				situacao = pesquisa.getSituacao();
-				tipocontato = pesquisa.getTipocontato();
-				unidadenegocio = pesquisa.getUnidadenegocio();
-				gerarListaConsultor();
-				usuario = pesquisa.getUsuario();
-				status = pesquisa.getStatus();
-				dataInseridoInicial = pesquisa.getDataInseridoInicial();
-				dataInseridoFinal = pesquisa.getDataInseridoFinal();
-				gerarListaInicial();
-				pesquisarPosVenda();
-				mudarCoresBotões(funcao);
-			} else if (!acessoResponsavelGerencial) {
-				gerarListaInicial();
-				gerarListaPosVenda();
-				mudarCoresBotões(funcao);
-			} else {
-				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-				gerarListaConsultor();
-				usuario = usuarioLogadoMB.getUsuario();
-				gerarListaInicial();
-				gerarListaPosVenda();
-			}
-			PaisFacade paisFacade = new PaisFacade();
-			listaPais = paisFacade.listar("");
-			if (sql != null && sql.length() > 0) {
-				gerarListaLead(sql);
-			}
-			listaPaisConsulta = paisFacade.listar("");
-			if (listaPaisConsulta == null) {
-				listaPaisConsulta = new ArrayList<Pais>();
-			}
+			iniciarListas();
+			
+		
+			
+		if (listaLead==null) {
+			pesquisarInicial();
 		}
+		
 		mostrarPosVenda = false;
 		mostrarLeads = true;
+		gerarListaPosVenda();
+	}
+	
+	public void iniciarListas() {
+		
+		
+		if (listaProdutos==null) {
+			listaProdutos = GerarListas.listarProdutos("");
+			listaProgramas =listaProdutos;
+		}
+		if (listaUsuario==null) {
+			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
+					+ " and u.unidadenegocio.idunidadeNegocio="
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome");
+			
+		}
+		if (listaTipoContato==null) {
+			listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
+		}
+		if (listaPais==null) {
+			PaisFacade paisFacade = new PaisFacade();
+			listaPais = paisFacade.listar("");
+			listaPaisConsulta = listaPais;
+		}
+		if (listaLead==null) {
+			pesquisarInicial();
+		}
+		
+		if (listaPosVenda==null) {
+			gerarListaPosVenda();
+		}
+		
 	}
 
 	public String getImagemNovos() {
@@ -723,11 +737,11 @@ public class FollowUpMB implements Serializable {
 	}
 
 	public void gerarListaLead(String sql) {
-		LeadFacade leadFacade = new LeadFacade();
-		listaLeadTotal = leadFacade.lista(sql);
+		listaLeadTotal = leadDao.lista(sql);
 		if(listaLeadTotal==null) {
 			listaLeadTotal = new ArrayList<Lead>();
 		}
+		gerarBotoesLead();
 	}
 
 	public String retornarCoresSituacao(int numeroSituacao) {
@@ -809,6 +823,14 @@ public class FollowUpMB implements Serializable {
 		usuario = null;
 	}
 	
+	public void pesquisarInicial() {
+		sql = "select l from Lead l where l.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		sql = sql + " and l.situacao<=5 ";
+		sql = sql + " order by l.dataproximocontato";
+		gerarListaLead(sql);
+	}
+	
 	public void pesquisar() {
 		imagemNovos = "novos";
 		imagemHoje = "hoje";
@@ -821,7 +843,9 @@ public class FollowUpMB implements Serializable {
 		prox7 = 0;
 		todos = 0;
 		Date data = new Date();
-		sql = "select l from Lead l where l.dataenvio<='" + Formatacao.ConvercaoDataSql(data) + "'";
+		//sql = "select l from Lead l where l.dataenvio<='" + Formatacao.ConvercaoDataSql(data) + "'";
+		sql = "select l from Lead l where l.cliente.nome like '%" + nomeCliente + "%' "; 
+		boolean outroParametro = false;
 		if (acessoResponsavelGerencial) {
 			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sql = sql + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
@@ -848,11 +872,13 @@ public class FollowUpMB implements Serializable {
 		if (dataProxInicio != null && dataProxFinal != null) {
 			sql = sql + " and l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
 					+ "l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
+			outroParametro = true;
 		}
 
 		if (dataUltInicio != null && dataUltFinal != null) {
 			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
 					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
+			outroParametro = true;
 		}   
 		if (programas != null && programas.getIdprodutos() != null) {
 			sql = sql + " and l.produtos.idprodutos=" + programas.getIdprodutos();
@@ -884,14 +910,70 @@ public class FollowUpMB implements Serializable {
 		if (dataInseridoInicial != null && dataInseridoFinal != null) {
 			sql = sql + " and l.dataenvio>'" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.dataenvio<'"
 					+ Formatacao.ConvercaoDataSql(dataInseridoFinal) + "'";
+			outroParametro = true;
 		}
+		
 		sql = sql + " order by l.dataproximocontato";
-		gerarListaLead(sql);
+		if (outroParametro) {
+			gerarListaLead(sql);
+			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				if (!listaLeadTotal.get(i).getSituacao().equals("0")) {
+					todos = todos + 1;
+				}
+				if (listaLeadTotal.get(i).getDataultimocontato() == null && listaLeadTotal.get(i).getSituacao() == 1) {
+					novos = novos + 1;
+				} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
+						&& (listaLeadTotal.get(i).getDataproximocontato() != null)
+						&& (listaLeadTotal.get(i).getSituacao() != null)
+						&& (Formatacao.ConvercaoDataSql(listaLeadTotal.get(i).getDataproximocontato())
+								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
+						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+					hoje = hoje + 1;
+				} else if (listaLeadTotal.get(i).getDataultimocontato() != null
+						&& listaLeadTotal.get(i).getDataproximocontato() != null
+						&& (listaLeadTotal.get(i).getSituacao() != null)
+						&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())
+						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+					atrasados = atrasados + 1;
+				} else if (listaLeadTotal.get(i).getDataultimocontato() != null
+						&& listaLeadTotal.get(i).getDataproximocontato() != null
+						&& (listaLeadTotal.get(i).getSituacao() != null)
+						&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
+						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+					Date data7 = null;
+					try {
+						data7 = Formatacao.SomarDiasDatas(new Date(), 7);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					if (listaLeadTotal.get(i).getDataproximocontato().before(data7)) {
+						prox7 = prox7 + 1;
+					}
+				}
+			}
+			listaLead = listaLeadTotal;
+			pesquisarPosVenda();
+		}else {
+			Mensagem.lancarMensagemInfo("PESQUISA", "Selecionar um campo de data");
+		}
+	}
+	
+	public void gerarBotoesLead() {
+		imagemNovos = "novos";
+		imagemHoje = "hoje";
+		imagemAtrasados = "atrasados";
+		imagemProx = "prox";
+		imagemTodos = "todosClick";
+		novos = 0;
+		atrasados = 0;
+		hoje = 0;
+		prox7 = 0;
+		todos = 0;
 		for (int i = 0; i < listaLeadTotal.size(); i++) {
 			if (!listaLeadTotal.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
 			}
-			if (listaLeadTotal.get(i).getDataultimocontato() == null &&  listaLeadTotal.get(i).getSituacao() == 1) {
+			if (listaLeadTotal.get(i).getDataultimocontato() == null && listaLeadTotal.get(i).getSituacao() == 1) {
 				novos = novos + 1;
 			} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
 					&& (listaLeadTotal.get(i).getDataproximocontato() != null)
@@ -899,7 +981,7 @@ public class FollowUpMB implements Serializable {
 					&& (Formatacao.ConvercaoDataSql(listaLeadTotal.get(i).getDataproximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
 					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
-				hoje = hoje + 1;   
+				hoje = hoje + 1;
 			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato() != null
 					&& (listaLeadTotal.get(i).getSituacao() != null)
@@ -923,7 +1005,6 @@ public class FollowUpMB implements Serializable {
 			}
 		}
 		listaLead = listaLeadTotal;
-		pesquisarPosVenda();
 	}
 
 	public void gerarListaInicial() {
@@ -996,8 +1077,8 @@ public class FollowUpMB implements Serializable {
 				} catch (Exception e) {
 					data7 = null;
 				}
-				sql = sql + " and l.dataproximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-						+ "' and l.dataproximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
+				sql = sql + " and l.dataproximocontat>='" + Formatacao.ConvercaoDataSql(new Date())
+						+ "' and l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(data7) + "'";
 			}
 		}
 		if (dataInseridoInicial != null && dataInseridoFinal != null) {
@@ -1057,7 +1138,7 @@ public class FollowUpMB implements Serializable {
 		situacao = "0";
 		tipocontato = null;
 		dataInseridoInicial = null;
-		dataInseridoInicial = null;
+		dataInseridoFinal = null;
 		paisConsulta = null;
 		gerarListaInicial();
 		gerarListaPosVenda();
@@ -1070,25 +1151,22 @@ public class FollowUpMB implements Serializable {
 		if (pais != null && pais.getIdpais() != null) {
 			lead.setPais(pais);
 		}
-		LeadFacade leadFacade = new LeadFacade();
-		leadFacade.salvar(lead);
+		leadDao.salvar(lead);
 		produto = new Produtos();
 		pais = new Pais();
 	}
 
 	public void encaminharFollowUp(Lead lead) {
 		if (consultorEncaminhar != null) {
-			LeadFacade leadFacade = new LeadFacade();
 			lead.setUsuario(consultorEncaminhar);
-			leadFacade.salvar(lead);
+			leadDao.salvar(lead);
 			Leadencaminhado leadencaminhado = new Leadencaminhado();
 			leadencaminhado.setLead(lead);
 			leadencaminhado.setData(new Date());
 			leadencaminhado.setHora(Formatacao.foramtarHoraString());
 			leadencaminhado.setUsuariode(usuarioLogadoMB.getUsuario());
 			leadencaminhado.setUsuariopara(consultorEncaminhar);
-			LeadEncaminhadoFacade leadEncaminhadoFacade = new LeadEncaminhadoFacade();
-			leadEncaminhadoFacade.salvar(leadencaminhado);
+			leadEncaminhadoDao.salvar(leadencaminhado);
 			this.consultorEncaminhar = new Usuario();
 			Mensagem.lancarMensagemInfo("Follow Up encaminhado para " + lead.getUsuario().getNome() + "!", "");
 			mudarCoresBotões(funcao);
@@ -1130,9 +1208,18 @@ public class FollowUpMB implements Serializable {
 	public String historico() {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("historicoCliente.jsf");
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+			session.setAttribute("listalead", this.listaLead);;
+			session.setAttribute("listaleadtotal", this.listaLeadTotal);
+			session.setAttribute("listaposvenda", listaPosVenda);
+			session.setAttribute("listaproduto", listaProdutos);
+			session.setAttribute("listapais", listaPais);
+			session.setAttribute("listatipocontato", listaTipoContato);
+			session.setAttribute("listausuario", listaUsuario);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return "historicoCliente";
 	}
 
@@ -1170,18 +1257,13 @@ public class FollowUpMB implements Serializable {
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
-		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA'";
-		if(!acessoResponsavelGerencial) {
-			sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			if(!acessoResponsavelUnidade && !usuarioLogadoMB.getUsuario().getAcessounidade().isPosvendaunidade()) {
-				sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
-			}
-		}
+		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA' ";
+		sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		sql = sql + " AND (l.datachegada>='"+Formatacao.ConvercaoDataSql(data)+"'"
 				+ " OR l.datachegada is null) ";
 		sql = sql + " order by l.datachegada";
-		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-		listaPosVenda = leadPosVendaFacade.listar(sql);
+		listaPosVenda = leadPosVendaDao.listar(sql);
 		if(listaPosVenda==null) {
 			listaPosVenda = new ArrayList<Leadposvenda>();
 		}
@@ -1226,8 +1308,7 @@ public class FollowUpMB implements Serializable {
 			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
 		}
 		sql = sql + " order by l.datachegada";
-		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-		listaPosVenda = leadPosVendaFacade.listar(sql);
+		listaPosVenda = leadPosVendaDao.listar(sql);
 		if(listaPosVenda==null) {
 			listaPosVenda = new ArrayList<Leadposvenda>();
 		}
@@ -1235,8 +1316,7 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	public void salvarDataControle(Leadposvenda leadposvenda) { 
-		LeadPosVendaFacade leadPosVendaFacade = new LeadPosVendaFacade();
-		leadposvenda = leadPosVendaFacade.salvar(leadposvenda);
+		leadposvenda = leadPosVendaDao.salvar(leadposvenda);
 		int idproduto = leadposvenda.getVendas().getProdutos().getIdprodutos();
 		if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
 			CursoFacade cursoFacade = new CursoFacade();
@@ -1389,11 +1469,7 @@ public class FollowUpMB implements Serializable {
 	
 	
 	public void filtrarPesquisa(){
-		if (nomeCliente != null && nomeCliente.length() > 0) {
-			pesquisar();
-		}else{
-			gerarListaInicial();
-		}
+		pesquisar();
 	}
 	
 	
