@@ -51,7 +51,7 @@
 				<br />      
 				<div align="center">
 					<p:commandButton value="Confirmar" style="font-size:11px;"
-						styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":adicionarAcomodacao:growl"
 						action="#{selecionarAcomodacaoMB.adicionar(selecionarAcomodacaoMB.acomodacaoIndependente)}" />
 					<p:commandButton value="Fechar" style="font-size:11px;margin-left:1%;" onclick="dialogMensagem.hide()"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -173,6 +173,7 @@
 													<f:convertNumber pattern="##,###,###,###.##"
 														minFractionDigits="2" />
 												</p:outputLabel>
+												<br/>
 												<h:outputText value="R$" style="margin-left:4%" />
 												<p:outputLabel id="valorOriginalrsIndependente" value="#{acomodacaoIndependente.valorOriginalRS}"
 													style="font-size:12px;text-align: right;margin-left:0.5%">
@@ -183,7 +184,7 @@
 										<h:panelGroup id="comPromocaoAcomodacaoIndependente"
 											style="margin-top:-20px;"   
 											rendered="#{selecionarAcomodacaoMB.renderedValorPromocionalAparecendo(acomodacaoIndependente)}">
-											<div align="right">
+											<div align="left">  
 												<h:outputText
 													value="#{selecionarAcomodacaoMB.acomodacaoInd.cambio.moedas.sigla}"
 													style="text-decoration:line-through;font-size:11px;color:#363636;" />
@@ -220,7 +221,7 @@
 								<p:commandButton value="Incluir"
 										rendered="#{selecionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}" actionListener="#{selecionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										action="#{selecionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
-										icon="ui-icon-check" />
+										icon="ui-icon-check" update=":adicionarAcomodacao:growl"/>
 									<p:commandButton value="Incluir"
 										rendered="#{selecionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}" actionListener="#{selecionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										icon="ui-icon-check" update=":adicionarAcomodacao:dialogIndependente"
@@ -395,7 +396,7 @@
 								<p:commandButton value="Incluir"
 										rendered="#{selecionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}" actionListener="#{selecionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										action="#{selecionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
-										icon="ui-icon-check" />
+										icon="ui-icon-check" update=":adicionarAcomodacao:growl"/>
 									<p:commandButton value="Incluir"
 										rendered="#{selecionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}" actionListener="#{selecionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										icon="ui-icon-check" update=":adicionarAcomodacao:dialogIndependente"
@@ -570,7 +571,7 @@
 								<p:commandButton value="Incluir"
 										rendered="#{selecionarAcomodacaoMB.mostrarBtnConfirmar(acomodacaoIndependente)}" actionListener="#{selecionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										action="#{selecionarAcomodacaoMB.adicionarIndependente(acomodacaoIndependente)}"
-										icon="ui-icon-check" />
+										icon="ui-icon-check" update=":adicionarAcomodacao:growl"/>
 									<p:commandButton value="Incluir"
 										rendered="#{selecionarAcomodacaoMB.mostrarBtnMensagem(acomodacaoIndependente)}" actionListener="#{selecionarAcomodacaoMB.selecionarAcomodacaoIndependente(acomodacaoIndependente)}"
 										icon="ui-icon-check" update=":adicionarAcomodacao:dialogIndependente"

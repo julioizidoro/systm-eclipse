@@ -1242,7 +1242,6 @@ public class CadHeFinalMB implements Serializable {
 						String titulo = "Ficha Final de Higher Education Alterada";
 						String operacao = "I";
 						String imagemNotificacao = "alterado";
-						if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 							String vm = "Venda pela Matriz";
 							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
 								vm = "Venda pela Loja";
@@ -1265,7 +1264,6 @@ public class CadHeFinalMB implements Serializable {
 											departamento.get(0), imagemNotificacao, "A");
 								}
 							}
-						}
 					}
 			}
 			Mensagem.lancarMensagemInfo("Ficha Final de Higher Education salva com sucesso!", "");

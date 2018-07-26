@@ -29,6 +29,7 @@ import br.com.travelmate.model.Promocaoacomodacao;
 import br.com.travelmate.model.Promocaoacomodacaocidade;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -324,15 +325,23 @@ public class SelecionarAcomodacaoMB implements Serializable{
 	}
 
 	public String adicionar(ProdutosOrcamentoBean po) {
-		po.setSelecionado(true);
-		RequestContext.getCurrentInstance().closeDialog(po);
+		if (po.getNumeroSemanas() > 0) {
+			po.setSelecionado(true);
+			RequestContext.getCurrentInstance().closeDialog(po);
+		}else {
+			Mensagem.lancarMensagemInfo("Informe o número de semanas", "");
+		}
 		return "";
 	}
 	
 	public String adicionarIndependente(ProdutosOrcamentoBean po) {
-		po.setSelecionado(true);
-		po.setFornecedorcidadeidiomaAcomodacao(po.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma());
-		RequestContext.getCurrentInstance().closeDialog(po);
+		if (po.getNumeroSemanas() > 0) {
+			po.setSelecionado(true);
+			po.setFornecedorcidadeidiomaAcomodacao(po.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma());
+			RequestContext.getCurrentInstance().closeDialog(po);
+		}else {
+			Mensagem.lancarMensagemInfo("Informe o número de semanas", "");
+		}
 		return "";
 	}
 

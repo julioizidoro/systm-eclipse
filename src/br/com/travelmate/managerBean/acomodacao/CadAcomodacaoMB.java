@@ -170,6 +170,8 @@ public class CadAcomodacaoMB implements Serializable {
 			cambio = vendas.getCambio();
 			valorCambio = cambio.getValor();
 			programas = vendas.getProdutos();
+			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
+			listaPais = paisProdutoFacade.listar(programas.getIdprodutos());
 			btnCidade = false;
 			btnDataInicio = false;
 			btnPais = false;
@@ -587,6 +589,15 @@ public class CadAcomodacaoMB implements Serializable {
 			vendas.setCambio(cambio);
 			acomodacao.setCambio(cambio);
 			btnCidade = false;
+			if (pais.getCidadeList() != null) {
+				List<Cidade> listaCidade = new ArrayList<Cidade>();
+				for (int i = 0; i < pais.getCidadeList().size(); i++) {
+					if (pais.getCidadeList().get(i).isAcomodacaoindepentende()) {
+						listaCidade.add(pais.getCidadeList().get(i));
+					}
+				}
+				pais.setCidadeList(listaCidade);
+			}
 		} else {
 			btnCidade = true;
 		}
@@ -603,9 +614,7 @@ public class CadAcomodacaoMB implements Serializable {
 	public void retornoDialogoAcomodacao(SelectEvent event) {
 		ProdutosOrcamentoBean po = (ProdutosOrcamentoBean) event.getObject();
 		if (po != null) {
-			if (listaAcomodacao == null) {
-				listaAcomodacao = new ArrayList<>();
-			}
+			listaAcomodacao = new ArrayList<>();
 			vendas.setFornecedor(po.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor());
 			vendas.setFornecedorcidade(po.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().getFornecedorcidade());
 			acomodacao = popularAcomodacao(po);
@@ -616,7 +625,7 @@ public class CadAcomodacaoMB implements Serializable {
 			orcamentoprodutosorcamento.setDescricao("Acomodação");
 			orcamentoprodutosorcamento.setImportado(false);
 			orcamentoprodutosorcamento.setOrcamento(orcamento);
-			orcamentoprodutosorcamento.setPodeExcluir(false); 
+			orcamentoprodutosorcamento.setPodeExcluir(true); 
 			orcamentoprodutosorcamento.setProdutosorcamento(po.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 			orcamentoprodutosorcamento.setValorMoedaEstrangeira(po.getValorOrigianl());
 			orcamentoprodutosorcamento.setValorMoedaNacional(po.getValorOriginalRS());
@@ -819,6 +828,22 @@ public class CadAcomodacaoMB implements Serializable {
 	public void excluirAcomodacao(Acomodacao acomodacao) {
 		listaAcomodacao.remove(acomodacao);
 		btnPesquisar = false;
+		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
+			List<Orcamentoprodutosorcamento> listaProdutoApaga = new ArrayList<Orcamentoprodutosorcamento>();
+			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).isPodeExcluir()) {
+					listaProdutoApaga.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
+				}
+			}
+			for (int i = 0; i < listaProdutoApaga.size(); i++) {
+				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
+				orcamento.getOrcamentoprodutosorcamentoList().remove(listaProdutoApaga.get(i));
+				if (listaProdutoApaga.get(i).getIdorcamentoProdutosOrcamento() != null) {
+					orcamentoFacade.excluirOrcamentoProdutoOrcamento(listaProdutoApaga.get(i).getIdorcamentoProdutosOrcamento());
+				}  
+			}
+		}
+		calcularValorTotalOrcamento();
 		Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
 	}
 
@@ -850,7 +875,7 @@ public class CadAcomodacaoMB implements Serializable {
 	}
 
 	public void verificarDataInicio() {
-		if (acomodacao.getDatainicial() != null) {
+		if (acomodacao.getDatainicial() != null && (listaAcomodacao == null || listaAcomodacao.size() <= 0)) {
 			btnPesquisar = false;
 		} else {
 			btnPesquisar = true;
@@ -2664,18 +2689,32 @@ public class CadAcomodacaoMB implements Serializable {
 	//	return "";
 	//}
 	
-	
+	public boolean validarDados() {
+		if (listaAcomodacao == null || listaAcomodacao.size()<=0) {
+			Mensagem.lancarMensagemInfo("Informe a Acomodação", "");
+			return false;
+		}
+		
+		if (formaPagamento != null && (formaPagamento.getParcelamentopagamentoList() == null || formaPagamento.getParcelamentopagamentoList().size() <=0)) {
+			Mensagem.lancarMensagemInfo("Informe a forma de pagamento", "");
+			return false;
+		}
+		return true;
+	}
 	
 	public String salvar() {
-		salvarVenda();
-		acomodacao.setVendas(vendas);
-		AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
-		acomodacao = acomodacaoFacade.salvar(acomodacao);
-		ProgramasBean programasBean = new ProgramasBean();
-		formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
-		orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio, vendas, null);
-		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-		return "consAcomodacao";
+		if (validarDados()) {
+			salvarVenda();
+			acomodacao.setVendas(vendas);
+			AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
+			acomodacao = acomodacaoFacade.salvar(acomodacao);
+			ProgramasBean programasBean = new ProgramasBean();
+			formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
+			orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio, vendas, null);
+			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
+			return "consAcomodacao";
+		}
+		return "";
 	}
 	
 	
@@ -2706,6 +2745,10 @@ public class CadAcomodacaoMB implements Serializable {
 		VendasFacade vendasFacade = new VendasFacade();
 		vendas = vendasFacade.salvar(vendas);
 		return vendas;
+	}
+	
+	public String cancelar() {
+		return "consAcomodacao";
 	}
 
 }

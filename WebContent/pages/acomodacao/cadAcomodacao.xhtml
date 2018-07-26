@@ -25,9 +25,9 @@
 
 				<p:outputLabel value="Emissão de Acomodação"
 					style="font-size: 22px;color: #1F8871; margin-left:40%" />
-				<p:accordionPanel class="painelhighSchool" style="width: 100%">
+				<p:accordionPanel class="painelhighSchool" style="width: 100%" id="acordionPanel">
 
-					<p:tab title="Cadastro" titleStyle="font-size: 11px">
+					<p:tab title="Cadastro" titleStyle="font-size: 11px" id="panelCadastro">
 						<h:panelGrid columns="3" style="margin-left:1%;width:69%"
 							columnClasses="tamanho1,tamanho7,tamanho2">
 							<p:outputLabel value="Cliente" for="idcliente" />
@@ -51,7 +51,7 @@
 							<p:outputLabel value="Produto vinculado"/>
 							<p:outputLabel value="Pais"/>
 							<p:outputLabel value="Cidade"/>
-							<p:outputLabel value="Data Inicio"/>
+							<p:outputLabel value="Data Início"/>
 							
 							<p:selectOneMenu id="produtolead" value="#{cadAcomodacaoMB.programas}"
 								style="width:150px;" converter="ProdutoConverter" filter="true"
@@ -165,33 +165,31 @@
 														<br></br>   
 														<h:panelGrid columns="6" style="width:69%;">
 															<p:outputLabel
-																value="Data Inicio" />
+																value="Data Início" />
 															<p:outputLabel
 																value="Nº Semanas" />
 															<p:outputLabel
-																value="Data Termino" />
+																value="Data Término" />
 															<p:outputLabel
 																value="#{cadAcomodacaoMB.acomodacao.cambio.moedas.sigla}" />
 															<p:outputLabel value="R$" style="margin-left:4%" />
 															<p:outputLabel/>
-															<p:calendar id="datainicio" readonly="true"
+															<p:inputMask id="datainicio" readonly="true" 
 																value="#{cadAcomodacaoMB.acomodacao.datainicial}" size="11"
-																locale="pt" pattern="dd/MM/yyyy" mask="true">
+																locale="pt" pattern="dd/MM/yyyy" mask="99/99/9999">
 																<f:convertDateTime pattern="dd/MM/yyyy"
 																	timeZone="America/Sao_Paulo" />
 																<p:ajax event="change"/>
-																<p:ajax event="dateSelect" />
-															</p:calendar>
+															</p:inputMask>
 															<p:inputText id="cobranca" value="#{cadAcomodacaoMB.acomodacao.numerosemana}" style="width:75px;text-align:right;"
 																	maxlength="45" readonly="true" />
-															<p:calendar id="datatermino"
+															<p:inputMask id="datatermino"
 																	value="#{cadAcomodacaoMB.acomodacao.datatermino}" size="11"
-																	locale="pt" pattern="dd/MM/yyyy" mask="true" readonly="true">
+																	locale="pt" pattern="dd/MM/yyyy" mask="99/99/9999" readonly="true">
 																	<f:convertDateTime pattern="dd/MM/yyyy"
 																		timeZone="America/Sao_Paulo" />
 																	<p:ajax event="change" />
-																	<p:ajax event="dateSelect" />
-																</p:calendar>
+																</p:inputMask>
 															
 															<p:inputText id="valorOriginal" readonly="true"
 																value="#{acomodacao.valormoedaestrangeira}"
@@ -206,7 +204,8 @@
 																	minFractionDigits="2" />
 															</p:inputText>
 															<p:commandButton id="btnExcluir" value="excluir" 
-																action="#{cadAcomodacaoMB.excluirAcomodacao(acomodacao)}"  update="tabelaAcomodacao, :telaAcomodacao:growl"
+																action="#{cadAcomodacaoMB.excluirAcomodacao(acomodacao)}"
+																update="tabelaAcomodacao, :telaAcomodacao:growl, :telaAcomodacao:acordionPanel:tabelaprodutoscurso, :telaAcomodacao:acordionPanel:botaoPesquisar, :telaAcomodacao:acordionPanel:valortotal, :telaAcomodacao:acordionPanel:valoreal, :telaAcomodacao:acordionPanel:valor, :telaAcomodacao:acordionPanel:totalpag, :telaAcomodacao:acordionPanel:saldoreceber, :telaAcomodacao:acordionPanel:valorOrca, :telaAcomodacao:acordionPanel:valoraparcelar, :telaAcomodacao:acordionPanel:saldoparcelar"
 															 	style="margin-right:2%;"/>  
 														</h:panelGrid>
 													</div>
@@ -268,10 +267,10 @@
 						</legend>
 						<br></br>
 						<h:panelGrid columns="4" style="margin-left: 1%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
-								<p:outputLabel value="Família com criança" for="comcrianca"/>
-								<p:outputLabel value="Animais de estimação" for="comanimais" />
-								<p:outputLabel value="Você é fumante" for="fumante"/>
-								<p:outputLabel value="Você é vegetariano" for="vegetariano" />
+								<p:outputLabel value="Família com criança?" for="comcrianca"/>
+								<p:outputLabel value="Animais de estimação?" for="comanimais" />
+								<p:outputLabel value="Você é fumante?" for="fumante"/>
+								<p:outputLabel value="Você é vegetariano?" for="vegetariano" />
 								
 								<p:selectOneMenu id="comcrianca"
 									value="#{cadAcomodacaoMB.acomodacao.familiacomCrianca}"  
@@ -326,7 +325,7 @@
 							<br></br>
 							<br></br>
 	
-							<p:outputLabel value="Solicitações Especiais:"
+							<p:outputLabel value="Solicitações especiais:"
 								for="solicitacaoespecial" style="margin-left: 1%" />
 							<br></br>
 							<p:inputText id="solicitacaoespecial"
@@ -464,7 +463,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column style="width:90px;">   
-								<p:commandButton id="btnexcluirproduto" value="Excluir" disabled="#{produtocurso.podeExcluir}"
+								<p:commandButton id="btnexcluirproduto" value="Excluir" disabled="#{produtoscurso.podeExcluir}"
 									action="#{cadAcomodacaoMB.excluirProdutoOrcamento(rowIx)}"
 									update="@all" icon=" ui-icon-close" />
 							</p:column>
@@ -756,7 +755,7 @@
 					<p:commandButton class="imagemm" icon="ui-icon-check"
 						value="Confirmar" action="#{cadAcomodacaoMB.salvar()}" update="growl"/>
 					<p:commandButton class="espacocampos" icon="ui-icon-close"
-						value="Cancelar" action="#"></p:commandButton>
+						value="Cancelar" action="#{cadAcomodacaoMB.cancelar()}"></p:commandButton>
 
 					<br></br> <br></br> <br></br>
 				</p>
