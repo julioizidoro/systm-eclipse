@@ -43,11 +43,31 @@ public class OrcamentoHeMB implements Serializable{
 	private Date dataTermino;
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private Unidadenegocio unidadenegocio;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 	
 	
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		listaOrcamento = (List<Heorcamento>) session.getAttribute("listaOrcamento");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		session.removeAttribute("listaOrcamento");
 		listaUnidadeNegocio = GerarListas.listarUnidade();
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("OrcamentoHe")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				habilitarUnidade = false;
@@ -55,7 +75,9 @@ public class OrcamentoHeMB implements Serializable{
 				habilitarUnidade = true;
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			}
-			gerarListaOrcamento();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				gerarListaOrcamento();
+			}
 		}
 	}
 
@@ -175,6 +197,7 @@ public class OrcamentoHeMB implements Serializable{
 		if (listaOrcamento == null) {
 			listaOrcamento = new ArrayList<Heorcamento>();
 		} 
+		pesquisar = "Sim";
 	}
 
 	public void limparPesquisa() {
@@ -184,6 +207,7 @@ public class OrcamentoHeMB implements Serializable{
 		dataTermino = null;
 		unidadenegocio = null;
 		gerarListaOrcamento();
+		pesquisar = "Nao";
 	}
 	
 	
@@ -202,6 +226,10 @@ public class OrcamentoHeMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("heorcamento", heorcamento);
+		session.setAttribute("listaOrcamento", listaOrcamento);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "OrcamentoHe");
+		session.setAttribute("chamadaTela", "OrcamentoHe");
 		return "orcamentoHePdf";
 	}
 	

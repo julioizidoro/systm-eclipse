@@ -89,10 +89,11 @@
 			<p:outputLabel value="Duração"/>
 			<p:outputLabel id="sigla" value="Cambio: #{cadProgramaHeMB.sigla}"/> 
 
-			<p:inputMask value="#{cadProgramaHeMB.heorcamentopais.datainicio}"
-				mask="99/99/9999" id="ocdatanasci">
+			<p:calendar value="#{cadProgramaHeMB.heorcamentopais.datainicio}"
+				mask="true" locale="pt" id="ocdatanasci" pattern="dd/MM/yyyy">
 				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-			</p:inputMask>
+				<p:ajax event="dateSelect" />
+			</p:calendar>
 			<p:inputText value="#{cadProgramaHeMB.heorcamentopais.duracao}"/>
 			<h:panelGrid id="panelCambio" columns="3" style="width:83%;">
 				<p:inputText id="valorCambio" value="#{cadProgramaHeMB.valorCambio}" style="text-align:right;">

@@ -185,7 +185,7 @@ public class CadOrcamentoHeMB implements Serializable{
 		listaHeOrcamentoPais.remove(linha);
 		if (heorcamento.getIdheorcamento() != null) {
 			HeorcamentopaisFacade heorcamentopaisFacade = new HeorcamentopaisFacade();
-			heorcamentopaisFacade.remover(heorcamentopais);
+			heorcamentopaisFacade.remover(heorcamentopais.getIdheorcamentopais());
 		}
 	}
 	

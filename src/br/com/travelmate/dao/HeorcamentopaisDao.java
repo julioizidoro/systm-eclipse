@@ -31,9 +31,9 @@ public class HeorcamentopaisDao {
         return lista;
     }
 	
-	public void remover(Heorcamentopais heorcamentopais) throws SQLException {
+	public void remover(int idheorcamentopais) throws SQLException {
     	EntityManager manager = ConectionFactory.getConnection();
-    	heorcamentopais = manager.find(Heorcamentopais.class, heorcamentopais);
+    	Heorcamentopais heorcamentopais = manager.find(Heorcamentopais.class, idheorcamentopais);
         manager.remove(heorcamentopais);
         manager.close();
     } 

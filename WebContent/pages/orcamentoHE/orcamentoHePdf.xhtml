@@ -63,44 +63,40 @@
 	<br />
 	<ui:repeat var="heorcamentopais" value="#{orcamentoHePdfMB.listaHeorcamentopais}">
 		<div style="font-size: 14px;">
-			<h:panelGrid columns="2" style="width:70%;">
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="Local" />
+			<h:panelGrid columns="1" style="width:70%;">
+				<h:panelGrid style="width:100%;border-bottom: 1.5px solid;">
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="Local  " /> <p:outputLabel value="#{heorcamentopais.cidade.nome}, #{heorcamentopais.cidade.pais.nome}" style="float: right;"/>
+					</h:panelGrid>
 				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="#{heorcamentopais.cidade.nome}, #{heorcamentopais.cidade.pais.nome}" />
+				<h:panelGrid style="width:100%;border-bottom: 1.5px solid;">
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="Programa" /> <p:outputLabel value="#{heorcamentopais.curso}" style="float: right;"/>
+					</h:panelGrid>
 				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="Programa" />
+				<h:panelGrid style="width:100%;border-bottom: 1.5px solid;">
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="Data Início" /> <p:outputLabel value="#{heorcamentopais.datainicio}" style="float: right;">
+	                            									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+	                            								</p:outputLabel>
+					</h:panelGrid>     
 				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="#{heorcamentopais.curso}" />
+				<h:panelGrid style="width:100%;border-bottom: 1.5px solid;">
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="Duração do Programa" /> <p:outputLabel value="#{heorcamentopais.duracao}" style="float: right;"/>
+					</h:panelGrid>
 				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="Data Início" />
-				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					 <p:outputLabel value="#{heorcamentopais.datainicio}" >
-                            	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-                            </p:outputLabel>
-				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="Duração do Programa" />
-				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="#{heorcamentopais.duracao}" />
-				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<p:outputLabel value="Valor Tuition Aproximado" />
-				</h:panelGrid>
-				<h:panelGrid columns="1" style="width:100%;border-bottom: 1px solid;">
-					<h:panelGroup>
-						<p:outputLabel value="#{heorcamentopais.cambio.moedas.sigla}" />
-						<p:outputLabel value="#{heorcamentopais.valormoedaestrageira}" style="margin-left:1%;">
-							<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-						</p:outputLabel>
-					</h:panelGroup>
+				<h:panelGrid style="width:100%;border-bottom: 1.5px solid;">
+					<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="Valor Tuition Aproximado" /> 
+						<h:panelGroup>
+							<p:outputLabel value="#{heorcamentopais.valormoedaestrageira}"  style="float: right;margin-left:1%;">
+								<f:convertNumber pattern="##,###,###,###.##"
+											minFractionDigits="2" />
+							</p:outputLabel>
+							<p:outputLabel value="#{heorcamentopais.cambio.moedas.sigla}" style="float: right;"/>
+						</h:panelGroup>
+					</h:panelGrid>
 				</h:panelGrid>
 			</h:panelGrid>
 			<br/>
@@ -136,7 +132,7 @@
 		
 		<p:outputLabel style="font-size:16px;text-align:justify;" value="Para efetivarmos a sua inscrição, além dos dados obrigatórios para
 		preenchermos o Application, formulários e contrato, precisaremos dos
-		documentos abaixo:"/> <br /> <br />
+		documentos abaixo:"/> <br />
 		
 		<h:panelGroup rendered="#{orcamentoHePdfMB.heorcamento.historicomedio}">
 			<p:outputLabel style="font-size:16px;" 

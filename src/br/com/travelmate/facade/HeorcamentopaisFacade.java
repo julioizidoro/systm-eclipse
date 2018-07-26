@@ -30,10 +30,10 @@ public class HeorcamentopaisFacade {
 		}
 	}
 	
-	public void remover(Heorcamentopais heorcamentopais) {
+	public void remover(int idheorcamentopais) {
 		heorcamentopaisDao = new HeorcamentopaisDao();
 		try {
-			heorcamentopaisDao.remover(heorcamentopais);
+			heorcamentopaisDao.remover(idheorcamentopais);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
