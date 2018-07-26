@@ -683,12 +683,15 @@ public class UsuarioLogadoMB implements Serializable {
 		session.removeAttribute("listaHe");
 		session.removeAttribute("listaInvoice");
 		session.removeAttribute("listaLead");
+		session.removeAttribute("listaleadtotal");
 		session.removeAttribute("listaOcurso");
 		session.removeAttribute("listaOpcionais");
 		session.removeAttribute("listaOrcamento");
 		session.removeAttribute("listaOrcamentoCurso");
 		session.removeAttribute("listaOrcamentoVoluntariado");
 		session.removeAttribute("listaPacotes");
+		session.removeAttribute("listapais");
+		session.removeAttribute("listaposvenda");
 		session.removeAttribute("listaProcesso");
 		session.removeAttribute("listaProductRunnersBean");
 		session.removeAttribute("listaProdutos");
@@ -698,6 +701,8 @@ public class UsuarioLogadoMB implements Serializable {
 		session.removeAttribute("listaSolicitacoes");
 		session.removeAttribute("listaTabelaCidade");
 		session.removeAttribute("listaTabelaPais");
+		session.removeAttribute("listatipocontato");
+		session.removeAttribute("listausuario");
 		session.removeAttribute("listaVendaNova");
 		session.removeAttribute("listaVendaPendente");
 		session.removeAttribute("listaVendas");
@@ -788,9 +793,7 @@ public class UsuarioLogadoMB implements Serializable {
 		session.removeAttribute("treinamentorespostas");
 		session.removeAttribute("turismo");
 		session.removeAttribute("unidade");
-		session.removeAttribute("unidadeneogcio");
 		session.removeAttribute("urlDocs");
-		session.removeAttribute("usuario");
 		session.removeAttribute("valor");
 		session.removeAttribute("valorCambio");
 		session.removeAttribute("valorcampo");
