@@ -1897,9 +1897,10 @@ public class CadOrcamentoManualMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			pob.setValorMoedaEstrangeira(seguroViagem.getValoresseguro().getValorsegurocancelamento());
+			float valorSeguro = seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor();
+			pob.setValorMoedaEstrangeira(valorSeguro/cambio.getValor());
 			pob.setValorMoedaReal(
-					seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor()); 
+					valorSeguro); 
 			pob.setApagar(false);
 			pob.setNovo(true);
 			pob.setSomarvalortotal(seguroViagem.isSomarvalortotal());
@@ -1970,11 +1971,8 @@ public class CadOrcamentoManualMB implements Serializable {
 				pob.setIdProdutoOrcamentoCurso(0);
 				pob.setDescricaoProdutoOrcamento(produto.getDescricao());
 				pob.setIdProdutoOrcamento(produto.getIdprodutosOrcamento());
-				CambioFacade cambioFacade = new CambioFacade();
-				Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
 				valorReal = seguroViagem.getValor();
-				valorEstrangeira = seguroViagem.getValor() / cambioSeguro.getValor();
+				valorEstrangeira = seguroViagem.getValor() / cambio.getValor();
 				pob.setValorMoedaEstrangeira(valorEstrangeira);
 				pob.setValorMoedaReal(valorReal); 
 				pob.setApagar(false);

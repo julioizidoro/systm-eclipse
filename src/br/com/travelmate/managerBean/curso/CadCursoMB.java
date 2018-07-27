@@ -2993,11 +2993,19 @@ public class CadCursoMB implements Serializable {
 
 	public void calcularValorSeguroPrivadoListaProdutos() {
 		int codSeguroPrivado = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
+		List<Orcamentoprodutosorcamento> listaSeguro = new ArrayList<Orcamentoprodutosorcamento>();
 		for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
 			int codigoLista = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
 					.getIdprodutosOrcamento();
 			if (codSeguroPrivado == codigoLista) {
-				orcamento.getOrcamentoprodutosorcamentoList().remove(i);
+				listaSeguro.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
+			}
+		}
+		for (int i = 0; i < listaSeguro.size(); i++) {
+			orcamento.getOrcamentoprodutosorcamentoList().remove(listaSeguro.get(i));
+			if (listaSeguro.get(i).getIdorcamentoProdutosOrcamento() != null) {
+				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
+				orcamentoFacade.excluirOrcamentoProdutoOrcamento(listaSeguro.get(i).getIdorcamentoProdutosOrcamento());
 			}
 		}
 		float valorEstrangeira = 0.0f;
@@ -3011,11 +3019,9 @@ public class CadCursoMB implements Serializable {
 				orcamentoprodutosorcamento.setProdutosorcamento(produto);
 				orcamentoprodutosorcamento.setDescricao(produto.getDescricao());
 				if (seguroViagem.getValorSeguro() > 0) {
-					CambioFacade cambioFacade = new CambioFacade();
-					Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-							seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
+					
 					valorReal = seguroViagem.getValorSeguro();
-					valorEstrangeira = seguroViagem.getValorSeguro() / cambioSeguro.getValor();
+					valorEstrangeira = seguroViagem.getValorSeguro() / cambio.getValor();
 					orcamentoprodutosorcamento.setValorMoedaNacional(valorReal);
 					orcamentoprodutosorcamento.setValorMoedaEstrangeira(valorEstrangeira);
 				} else {
@@ -3714,9 +3720,10 @@ public class CadCursoMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
 			orcamentoprodutosorcamento.setValorMoedaNacional(
 					seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor()); 
+			
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional() / cambio.getValor());
 			orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			calcularValorTotalOrcamento();
 			calcularParcelamentoPagamento();
