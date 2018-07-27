@@ -297,6 +297,8 @@ public class CadCursoMB implements Serializable {
 					listaAcomodacao.add(acomodacao);
 					btnPesquisar = true;
 					lancadoAcomodacaoInd = true;
+				}else {
+					acomodacao = new Acomodacao();
 				}
 			}
 			if (curso.getSCurso() == null) {
@@ -1682,7 +1684,7 @@ public class CadCursoMB implements Serializable {
 							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
 								vm = "Venda pela Loja";
 							}
-							if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
+							if (venda.getSituacao().equalsIgnoreCase("FINALIZADA") || venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
 										venda.getFornecedorcidade().getFornecedor().getNome(),
 										Formatacao.ConvercaoDataPadrao(curso.getDataInicio()), venda.getUsuario().getNome(),
