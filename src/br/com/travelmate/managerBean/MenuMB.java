@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.travelmate.managerBean;
 
 import java.awt.image.BufferedImage;
@@ -1598,7 +1593,7 @@ public class MenuMB implements Serializable {
 	}
 	
 	public boolean verificarAcomodacao() {
-		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() <= 2) {
 			return true;
 		}
 		return false;

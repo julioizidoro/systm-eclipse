@@ -791,24 +791,36 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	}
 
 	public boolean mostrarAcomodacaoIndependente() {
-		if (listaAcomodacoesIndependente1 == null || listaAcomodacoesIndependente1.size() == 0) {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() <= 2) {
+			if (listaAcomodacoesIndependente1 == null || listaAcomodacoesIndependente1.size() == 0) {
+				return false;
+			} else
+				return true;
+		}else {
 			return false;
-		} else
-			return true;
+		}
 	}
 	
 	public boolean mostrarAcomodacaoIndependente2() {
-		if (listaAcomodacoesIndependente2 == null || listaAcomodacoesIndependente2.size() == 0) {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() <= 2) {
+			if (listaAcomodacoesIndependente2 == null || listaAcomodacoesIndependente2.size() == 0) {
+				return false;
+			} else
+				return true;
+		}else {
 			return false;
-		} else
-			return true;
+		}
 	}
 	
 	public boolean mostrarAcomodacaoIndependente3() {
-		if (listaAcomodacoesIndependente3 == null || listaAcomodacoesIndependente3.size() == 0) {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() <= 2) {
+			if (listaAcomodacoesIndependente3 == null || listaAcomodacoesIndependente3.size() == 0) {
+				return false;
+			} else
+				return true;
+		}else {
 			return false;
-		} else
-			return true;
+		}
 	}
 
 	public String tabelaAcomodacaoEscola() {

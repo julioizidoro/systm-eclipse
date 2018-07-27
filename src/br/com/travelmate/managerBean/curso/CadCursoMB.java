@@ -5282,5 +5282,11 @@ public class CadCursoMB implements Serializable {
 		return vendas;
 	}
 
-	
+	public boolean retornarAcomodacaoInd() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() <= 2) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

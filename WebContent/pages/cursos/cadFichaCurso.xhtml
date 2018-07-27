@@ -244,7 +244,7 @@
 									itemValue="Aulas por semana" />
 							</p:selectOneRadio>
 							
-							<p:selectOneMenu id="turno" value="#{cadCursoMB.curso.turno1}" style="width:100px;margin-left:50%;">
+							<p:selectOneMenu id="turno" value="#{cadCursoMB.curso.turno1}" style="width:100px;margin-left:96%;">
 								<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
 								<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
 								<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
@@ -659,7 +659,7 @@
 											<f:selectItem itemLabel="Studio" itemValue="Studio" /> 
 											<p:ajax event="change"
 												listener="#{cadCursoMB.carregarCamposAcomodacao()}"
-												update="quarto, refeicao, datachegada, numsemanas, datapartida, banheiroPrivado" />
+												update="quarto, refeicao, datachegada, numsemanas, datapartida, banheiroPrivado, :telaFichaCurso:acordionPainel:comanimais, :telaFichaCurso:acordionPainel:comcrianca, :telaFichaCurso:acordionPainel:fumante, :telaFichaCurso:acordionPainel:vegetariano" />
 										</p:selectOneMenu>
 				
 										<p:selectOneMenu id="quarto"
@@ -728,7 +728,7 @@
 										</p:calendar>   
 									</h:panelGrid>
 							</p:tab>
-							<p:tab title="Acomodação Independente" class="tab" titleStyle="font-size: 11px" id="panelIndependente" disabled="#{cadCursoMB.desabilitarIndependente}">
+							<p:tab title="Acomodação Independente" class="tab" titleStyle="font-size: 11px" id="panelIndependente" rendered="#{cadCursoMB.retornarAcomodacaoInd()}" disabled="#{cadCursoMB.desabilitarIndependente}">
 								     <h:panelGrid columns="1" style="margin-left:1%;width:90%"
 											columnClasses="tamanho2">
 											<p:outputLabel value="Data Inicio"/>
