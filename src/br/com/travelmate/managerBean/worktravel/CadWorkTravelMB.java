@@ -1405,12 +1405,20 @@ public class CadWorkTravelMB implements Serializable {
 
 	public void calcularValorProdutos() {
 		carregarValores();
-		int codValores = aplicacaoMB.getParametrosprodutos().getWork();
+		int codValores = 15;
+		List<Orcamentoprodutosorcamento> listaWork = new ArrayList<Orcamentoprodutosorcamento>();
 		for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
 			int codigoLista = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
 					.getIdprodutosOrcamento();
 			if (codValores == codigoLista) {
-				orcamento.getOrcamentoprodutosorcamentoList().remove(i);
+				listaWork.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
+			}
+		}
+		for (int i = 0; i < listaWork.size(); i++) {
+			orcamento.getOrcamentoprodutosorcamentoList().remove(listaWork.get(i));
+			if (listaWork.get(i).getIdorcamentoProdutosOrcamento() != null && listaWork.get(i).getIdorcamentoProdutosOrcamento() != null) {
+				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
+				orcamentoFacade.excluirOrcamentoProdutoOrcamento(listaWork.get(i).getIdorcamentoProdutosOrcamento());
 			}
 		}
 		if (valoreswork != null) {
