@@ -846,6 +846,9 @@ public class FollowUpMB implements Serializable {
 		//sql = "select l from Lead l where l.dataenvio<='" + Formatacao.ConvercaoDataSql(data) + "'";
 		sql = "select l from Lead l where l.cliente.nome like '%" + nomeCliente + "%' "; 
 		boolean outroParametro = false;
+		if (nomeCliente.length()>0) {
+			outroParametro=true;
+		}
 		if (acessoResponsavelGerencial) {
 			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sql = sql + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
