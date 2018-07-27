@@ -28,12 +28,13 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.TraineeFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -67,6 +68,8 @@ public class TraineeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -726,9 +729,9 @@ public class TraineeMB implements Serializable {
 //			session.setAttribute("venda", trainee.getVendas());
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			trainee.getVendas().setSituacao("CANCELADA");
-//			vendasFacade.salvar(trainee.getVendas());
+//			vendasDao.salvar(trainee.getVendas());
 //			carregarListaVendasTrainee();
 //		}
 //		return "";
@@ -745,9 +748,9 @@ public class TraineeMB implements Serializable {
 			session.setAttribute("voltar", "consultaTrainee");
 			return "emissaocancelamento";
 		} else if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			trainee.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(trainee.getVendas());
+			vendasDao.salvar(trainee.getVendas());
 			carregarListaVendasTrainee();
 		}
 		return "";
@@ -822,8 +825,8 @@ public class TraineeMB implements Serializable {
 			if (usuarioLogadoMB.isFinanceiro()) {
 				Vendas venda = trainee.getVendas();
 				venda.setRestricaoparcelamento(false);
-				VendasFacade vendasFacade = new VendasFacade();
-				venda = vendasFacade.salvar(venda);
+				
+				venda = vendasDao.salvar(venda);
 				trainee.setVendas(venda);
 				Formapagamento forma = trainee.getVendas().getFormapagamento();
 				if (forma != null) {

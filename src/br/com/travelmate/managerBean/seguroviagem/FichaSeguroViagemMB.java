@@ -27,6 +27,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -38,7 +39,7 @@ import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -69,6 +70,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -979,8 +982,8 @@ public class FichaSeguroViagemMB implements Serializable {
 							productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
-							VendasFacade vendasFacade = new VendasFacade();
-							vendas = vendasFacade.salvar(vendas);
+							
+							vendas = vendasDao.salvar(vendas);
 							String titulo = "Nova Ficha de Seguro";
 							String operacao = "A";
 							String imagemNotificacao = "inserido";
@@ -1032,8 +1035,8 @@ public class FichaSeguroViagemMB implements Serializable {
 						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontoremover, false, vendas.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
-						VendasFacade vendasFacade = new VendasFacade();
-						vendas = vendasFacade.salvar(vendas);
+						
+						vendas = vendasDao.salvar(vendas);
 						
 						String titulo = "Nova Ficha de High School";
 						String operacao = "A";

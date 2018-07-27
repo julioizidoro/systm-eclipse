@@ -5,10 +5,11 @@
  */
 package br.com.travelmate.managerBean.financeiro.contasReceber;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
@@ -44,6 +45,8 @@ public class CadContasReceberMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
     private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject AplicacaoMB aplicacaoMB;
@@ -178,8 +181,8 @@ public class CadContasReceberMB implements Serializable{
 
     public String buscarPoIdVenda() {
         if (idVendas.length() > 0) {
-            VendasFacade vendasFacade = new VendasFacade();
-            this.vendas = vendasFacade.consultarVendas(Integer.parseInt(idVendas));
+            
+            this.vendas = vendasDao.consultarVendas(Integer.parseInt(idVendas));
             if (vendas == null) {
                 FacesMessage msg = new FacesMessage("Erro! ", "Venda não localizada.");
             } else {

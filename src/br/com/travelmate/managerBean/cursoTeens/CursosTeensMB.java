@@ -7,13 +7,14 @@ package br.com.travelmate.managerBean.cursoTeens;
  
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -70,6 +71,8 @@ public class CursosTeensMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private List<Programasteens> listaCursosTeens;
 	private Programasteens programasteens;
 	@Inject
@@ -749,9 +752,9 @@ public class CursosTeensMB implements Serializable {
 //			session.setAttribute("venda", venda);
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		}else {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			venda.setSituacao("CANCELADA");
-//			vendasFacade.salvar(venda);
+//			vendasDao.salvar(venda);
 //		}
 //		return "";
 //	}
@@ -768,9 +771,9 @@ public class CursosTeensMB implements Serializable {
 			session.setAttribute("voltar", "cursosTeens");
 			return "emissaocancelamento";
 		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
+			vendasDao.salvar(venda);
 			carregarListaVendas();
 		}
 		return "";
@@ -798,8 +801,8 @@ public class CursosTeensMB implements Serializable {
     		if (usuarioLogadoMB.isFinanceiro()){
     			Vendas venda = programasteens.getVendas();
     			venda.setRestricaoparcelamento(false);
-    			VendasFacade vendasFacade = new VendasFacade();
-    			venda = vendasFacade.salvar(venda);
+    			
+    			venda = vendasDao.salvar(venda);
     			programasteens.setVendas(venda);
     			Formapagamento forma = programasteens.getVendas().getFormapagamento();
         		if (forma!=null){

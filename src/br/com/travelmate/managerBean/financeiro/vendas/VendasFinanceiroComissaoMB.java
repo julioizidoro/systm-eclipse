@@ -6,27 +6,13 @@
 package br.com.travelmate.managerBean.financeiro.vendas;
 
  
-import br.com.travelmate.bean.FaturaFranquiaBean;
-import br.com.travelmate.bean.comissao.CalcularComissaoBean;
-import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
-import br.com.travelmate.facade.FaturaFranquiasFacade;
-import br.com.travelmate.facade.TerceirosFacade;
-import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasComissaoFacade;
-import br.com.travelmate.facade.VendasFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.model.Faturafranquias;
-import br.com.travelmate.model.Terceiros;
-import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vendascomissao;
-
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -34,8 +20,23 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+
+import br.com.travelmate.bean.comissao.CalcularComissaoBean;
+import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
+import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.FaturaFranquiasFacade;
+import br.com.travelmate.facade.TerceirosFacade;
+import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.facade.VendasComissaoFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Faturafranquias;
+import br.com.travelmate.model.Terceiros;
+import br.com.travelmate.model.Usuario;
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 
 /**
  *
@@ -49,6 +50,8 @@ public class VendasFinanceiroComissaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Vendas venda;
@@ -406,7 +409,7 @@ public class VendasFinanceiroComissaoMB implements Serializable{
 	}
     
     public void recalcular() {
-    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB);
+    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao);
     	try {
     		if (vendascomissao.getIdvendascomissao()!=null){
     			if (vendascomissao.getFaturaFranquias()==null){

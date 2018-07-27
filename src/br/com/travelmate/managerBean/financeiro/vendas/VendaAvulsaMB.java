@@ -13,12 +13,13 @@ import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
@@ -42,6 +43,8 @@ public class VendaAvulsaMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L; 
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -249,8 +252,8 @@ public class VendaAvulsaMB implements Serializable{
 		vendas.setUsuariocancelamento(0);
 		vendas.setVendasMatriz("S");
 		vendas.setUnidadenegocio(unidadeNegocio);
-		VendasFacade vendasFacade = new VendasFacade();
-		vendas = vendasFacade.salvar(vendas);
+		
+		vendas = vendasDao.salvar(vendas);
 		
 		if (vendas.getProdutos().getIdprodutos() == 1 || vendas.getProdutos().getIdprodutos() == 4
 				|| vendas.getProdutos().getIdprodutos() == 5 || vendas.getProdutos().getIdprodutos() == 9

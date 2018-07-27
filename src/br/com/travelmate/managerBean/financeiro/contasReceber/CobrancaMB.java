@@ -6,11 +6,12 @@
 package br.com.travelmate.managerBean.financeiro.contasReceber;
 
 import br.com.travelmate.bean.BolinhasBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CobrancaFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HistoricoCobrancaFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cliente;
@@ -45,6 +46,8 @@ public class CobrancaMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject 
     private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -186,8 +189,7 @@ public class CobrancaMB implements Serializable{
 	}
 
 	public void salvarFoneCobranca(){
-    	 VendasFacade vendasFacade =  new VendasFacade();
-    	 venda = vendasFacade.salvar(venda);
+    	 venda = vendasDao.salvar(venda);
          CobrancaFacade cobrancaFacade = new CobrancaFacade();
          cobranca.setVendas(venda);
          cobranca = cobrancaFacade.salvar(cobranca);

@@ -8,6 +8,7 @@ package br.com.travelmate.managerBean.turismo;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.PacoteCircuitoFacade;
@@ -19,7 +20,7 @@ import br.com.travelmate.facade.PacotesHotelFacade;
 import br.com.travelmate.facade.PacotesPassagemFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
@@ -77,6 +78,8 @@ import org.primefaces.context.RequestContext;
 public class PacoteMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private List<Pacotes> listaPacotes;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
@@ -605,9 +608,9 @@ public class PacoteMB implements Serializable {
 //			session.setAttribute("venda", pacotes.getVendas());
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			pacotes.getVendas().setSituacao("CANCELADA");
-//			vendasFacade.salvar(pacotes.getVendas());
+//			vendasDao.salvar(pacotes.getVendas());
 //			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 //			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
 //			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -632,10 +635,10 @@ public class PacoteMB implements Serializable {
 			session.setAttribute("voltar", "consultapacotesagencia");
 			return "emissaocancelamento";
 		}  else if (pacotes.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			Vendas vendas = pacotes.getVendas();
 			vendas.setSituacao("CANCELADA");
-			vendasFacade.salvar(vendas);
+			vendasDao.salvar(vendas);
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 			String sql = "Select p from Pacotes p where p.operacao='agencia' and p.controle='Concluido' ";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {

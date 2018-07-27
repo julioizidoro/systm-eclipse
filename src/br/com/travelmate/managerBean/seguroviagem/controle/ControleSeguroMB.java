@@ -22,12 +22,13 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ControleSeguroFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Curso;
@@ -47,6 +48,8 @@ public class ControleSeguroMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Controleseguro controleSeguro;
@@ -420,8 +423,8 @@ public class ControleSeguroMB implements Serializable {
 				vendas.setObsCancelar(motivoCancelamento);
 				vendas.setDatacancelamento(new Date());
 				vendas.setUsuariocancelamento(usuarioLogadoMB.getUsuario().getIdusuario());
-				VendasFacade vendasFacade = new VendasFacade();
-				vendas = vendasFacade.salvar(vendas);
+				
+				vendas = vendasDao.salvar(vendas);
 				Seguroviagem seguroviagem = new Seguroviagem();
 				seguroviagem = listaControleSeguro.get(i).getSeguroviagem();
 				seguroviagem.setControle("CANCELADA");
@@ -441,9 +444,9 @@ public class ControleSeguroMB implements Serializable {
 			session.setAttribute("venda", controleseguro.getSeguroviagem().getVendas());
 			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 		} else if (controleseguro.getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			controleseguro.getSeguroviagem().getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(controleseguro.getSeguroviagem().getVendas());
+			vendasDao.salvar(controleseguro.getSeguroviagem().getVendas());
 			listarControle();
 		}
 		return "";
@@ -595,8 +598,8 @@ public class ControleSeguroMB implements Serializable {
 		if(controleseguro.getSeguroviagem().getControle().equalsIgnoreCase("Avulso")) {
 			session.setAttribute("vendas", controleseguro.getSeguroviagem().getVendas());
 		}else {
-			VendasFacade vendasFacade = new VendasFacade();
-			Vendas vendas = vendasFacade.consultarVendas(controleseguro.getSeguroviagem().getIdvendacurso());
+			
+			Vendas vendas = vendasDao.consultarVendas(controleseguro.getSeguroviagem().getIdvendacurso());
 			session.setAttribute("vendas", vendas);
 		} 
 		RequestContext.getCurrentInstance().openDialog("cadArquivo", options, null); 

@@ -19,7 +19,7 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
@@ -37,6 +37,8 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private List<SinteticoVendasBean> listaSintetico;
@@ -263,8 +265,8 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 		        " From Vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S'"
 		        + " and dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicial) + "' and  dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) 
 		        		+ "'  and unidadeNegocio_idunidadeNegocio=" + idUnidade + " and produtos_idprodutos=" + idProduto;
-		VendasFacade vendasFacade = new VendasFacade();
-		soma = vendasFacade.saldoAcumulado(sql);
+		
+		soma = vendasDao.saldoAcumulado(sql);
 		return soma.floatValue();
 	}
 	

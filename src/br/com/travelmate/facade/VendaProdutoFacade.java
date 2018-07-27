@@ -39,7 +39,7 @@ public class VendaProdutoFacade {
         try {
             return vendaProdutoDao.listar(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(VendasFacade.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
             return null;
         }
     }

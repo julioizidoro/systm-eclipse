@@ -8,19 +8,21 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.MotivoRecInternacionalFacade;
 import br.com.travelmate.facade.RecinternacionalFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Moedas;
@@ -38,6 +40,8 @@ public class CadRecebimentosMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private Vendas vendas;
 	private int nVenda;
 	private Usuario usuario;
@@ -316,8 +320,8 @@ public class CadRecebimentosMB implements Serializable{
 	
 	
 	public void buscarVenda(){
-		VendasFacade vendasFacade = new VendasFacade();
-		vendas = vendasFacade.consultarVendas(nVenda);
+		
+		vendas = vendasDao.consultarVendas(nVenda);
 		if (vendas != null) {
 			nomeCliente = vendas.getCliente().getNome();
 			nomeProduto = vendas.getProdutos().getDescricao();

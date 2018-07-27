@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.crm.relatorios;
 
-import br.com.travelmate.facade.VendasFacade;
+
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
@@ -39,6 +40,8 @@ public class CidadesVendidasMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Date dataInicio;
@@ -133,7 +136,7 @@ public class CidadesVendidasMB implements Serializable {
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		String sqlVendasTotal = "SELECT distinct count(vendas.idvendas) as contador from vendas"
 				+ " where (vendas.situacao='FINALIZADA' or vendas.situacao='ANDAMENTO')";
 		if (produtos != null && produtos.getIdprodutos() != null) {
@@ -144,7 +147,7 @@ public class CidadesVendidasMB implements Serializable {
 		}
 		sqlVendasTotal = sqlVendasTotal + " AND vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'"
 				+ " AND vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
-		Long vendastotal = vendasFacade.numVendas(sqlVendasTotal);  
+		Long vendastotal = vendasDao.numVendas(sqlVendasTotal);  
 
 		String sql = "SELECT distinct cidade.nome, (count(vendas.idvendas) / " + vendastotal + ") as percentual"
 				+ " FROM vendas"

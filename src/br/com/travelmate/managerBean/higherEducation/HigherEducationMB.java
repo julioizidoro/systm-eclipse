@@ -29,11 +29,12 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.ListaHeBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -59,6 +60,7 @@ public class HigherEducationMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject

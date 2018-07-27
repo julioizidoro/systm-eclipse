@@ -27,6 +27,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -42,7 +43,7 @@ import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
@@ -86,6 +87,8 @@ public class CadVoluntariadoMB implements Serializable {
 	/**
 	 * 
 	 */
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1200,7 +1203,7 @@ public class CadVoluntariadoMB implements Serializable {
 					voluntariado.setNumeroSemanasSeguro(seguroViagem.getNumeroSemanas());
 				}
 				voluntariado = cadVoluntariadoBean.salvarVoluntariado(voluntariado, vendaAlterada);
-				cadVoluntariadoBean.salvarSeguroViagem(seguroViagem, aplicacaoMB);
+				cadVoluntariadoBean.salvarSeguroViagem(seguroViagem, aplicacaoMB, vendasDao);
 				orcamento = cadVoluntariadoBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(),
 						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), cambioAlterado);
 				formaPagamento = cadVoluntariadoBean.salvarFormaPagamento(cancelamento);
@@ -1231,8 +1234,8 @@ public class CadVoluntariadoMB implements Serializable {
 							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
-							VendasFacade vendasFacade = new VendasFacade();
-							venda = vendasFacade.salvar(venda);
+							
+							venda = vendasDao.salvar(venda);
 							
 						}
 						String titulo = "";

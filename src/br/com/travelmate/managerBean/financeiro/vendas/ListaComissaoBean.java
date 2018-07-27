@@ -10,8 +10,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Faturafranquias;
 import br.com.travelmate.model.Unidadenegocio;
@@ -26,6 +27,8 @@ public class ListaComissaoBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject 
     private UsuarioLogadoMB usuarioLogadoMB;
     private Unidadenegocio unidadenegocio;
@@ -110,12 +113,12 @@ public class ListaComissaoBean implements Serializable {
     }
 	
 	public void gerarListaVendas(){
-        VendasFacade vendasFacade = new VendasFacade();
+        
         if (sql==null){
             String sData = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
             sql = "Select v From Vendas v where (v.situacao='FINALIZADA' or v.situacao='ANDAMENTO')  and v.vendasMatriz='S' and v.dataVenda>='" + sData + "'  order by v.dataVenda DESC";
         }
-        listaVendas = vendasFacade.lista(sql);
+        listaVendas = vendasDao.lista(sql);
         if (listaVendas==null){
             listaVendas = new ArrayList<Vendas>();
         }

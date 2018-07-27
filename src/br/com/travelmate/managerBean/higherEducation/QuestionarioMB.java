@@ -12,8 +12,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.QuestionarioHeFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;
@@ -32,7 +33,8 @@ public class QuestionarioMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
-	
+	@Inject
+	private VendasDao vendasDao;
 	private List<Questionariohe> listaQuestionario;
 	private List<Unidadenegocio> listaUnidade;
 	private Unidadenegocio unidadenegocio;
@@ -354,8 +356,8 @@ public class QuestionarioMB implements Serializable{
 	public String documentacao(Questionariohe questionariohe) { 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
-		VendasFacade vendasFacade = new VendasFacade();
-		session.setAttribute("vendas", vendasFacade.consultarVendas(3723));
+		
+		session.setAttribute("vendas", vendasDao.consultarVendas(3723));
 		session.setAttribute("cliente", questionariohe.getCliente());
 		session.setAttribute("pesquisar", "Sim");
 		session.setAttribute("nomePrograma", "He");

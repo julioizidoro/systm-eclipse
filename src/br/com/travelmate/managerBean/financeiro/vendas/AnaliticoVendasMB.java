@@ -7,12 +7,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -27,6 +28,8 @@ public class AnaliticoVendasMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject 
+	private VendasDao vendasDao;
 	private Unidadenegocio unidadenegocio;
     private Produtos produto;
 	private List<Unidadenegocio> listaUnidadeNegocio;
@@ -164,8 +167,8 @@ public class AnaliticoVendasMB implements Serializable{
         dataFinal=null; 
         usuario=null;
         dataInical=null;
-        VendasFacade vendasFacade = new VendasFacade();
-        listaVendas = vendasFacade.lista(sql);
+        
+        listaVendas = vendasDao.lista(sql);
         return "";
     }
     
@@ -186,8 +189,8 @@ public class AnaliticoVendasMB implements Serializable{
         }
         sql = sql + " and v.vendasMatriz='S' ";
         sql = sql + " order by v.dataVenda DESC";
-        VendasFacade vendasFacade = new VendasFacade();
-        listaVendas = vendasFacade.lista(sql);
+        
+        listaVendas = vendasDao.lista(sql);
         if (listaVendas!=null){
         	for (int i = 0; i < listaVendas.size(); i++) {
         		if (listaVendas.get(i).getFormapagamento()!=null){

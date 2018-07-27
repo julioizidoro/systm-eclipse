@@ -29,11 +29,12 @@ import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade; 
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade; 
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
@@ -66,6 +67,8 @@ public class HistoricoClienteMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private LeadDao leadDao;
 	@Inject
@@ -374,10 +377,10 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public String visualizarVendas() {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		String sql = "Select v From Vendas v where (v.situacao='FINALIZADA' or v.situacao='ANDAMENTO') "
 				+ " and v.cliente.idcliente=" + lead.getCliente().getIdcliente() + " order by v.idvendas";
-		List<Vendas> listaVendas = vendasFacade.lista(sql);
+		List<Vendas> listaVendas = vendasDao.lista(sql);
 		if (listaVendas != null && listaVendas.size() > 0) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -389,10 +392,10 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public String visualizarContasReceber() {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		String sql = "Select v From Vendas v where (v.situacao='FINALIZADA' or v.situacao='ANDAMENTO') "
 				+ " and v.cliente.idcliente=" + lead.getCliente().getIdcliente() + " order by v.idvendas";
-		List<Vendas> listaVendas = vendasFacade.lista(sql);
+		List<Vendas> listaVendas = vendasDao.lista(sql);
 		if (listaVendas != null && listaVendas.size() > 0) {
 			String sqlContas = "Select c from Contasreceber c where (c.vendas.idvendas="
 					+ listaVendas.get(0).getIdvendas();
@@ -899,11 +902,11 @@ public class HistoricoClienteMB implements Serializable {
 	
 	public void salvarVendaLead(){
 		if(idvenda>0){ 
-			VendasFacade vendasFacade = new VendasFacade();
-			Vendas vendas = vendasFacade.consultarVendas(idvenda);
+			
+			Vendas vendas = vendasDao.consultarVendas(idvenda);
 			if(vendas!=null){
 				vendas.setIdlead(lead.getIdlead());
-				vendasFacade.salvar(vendas);
+				vendasDao.salvar(vendas);
 				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
 				lead.setSituacao(6);
 				lead = leadDao.salvar(lead);

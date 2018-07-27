@@ -26,12 +26,12 @@ import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
@@ -65,6 +65,9 @@ public class FinalizarMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -97,7 +100,7 @@ public class FinalizarMB implements Serializable {
 
 
 	public Vendas finalizar(Aupair aupair) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		aupair.setControle("Processo");
 		float valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = aupair.getVendas().getVendascomissao();
@@ -110,7 +113,7 @@ public class FinalizarMB implements Serializable {
 		if (aupair.getVendas().getFormapagamento() != null) {
 			valorJuros = aupair.getVendas().getFormapagamento().getValorJuros();
 		}
-		aupair.setVendas(vendasFacade.salvar(aupair.getVendas()));
+		aupair.setVendas(vendasDao.salvar(aupair.getVendas()));
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
 			ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, aupair.getVendas(),
 					aupair.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
@@ -160,7 +163,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarTrainee(Trainee trainee) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		trainee.setControle("Processo");
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
@@ -221,7 +224,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarWork(Worktravel worktravel) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		worktravel.setControle("Processo");
 		Float valorPrevisto= 0.0f;
 		Vendascomissao vendasComissao = worktravel.getVendas().getVendascomissao();
@@ -275,7 +278,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarVoluntariado(Voluntariado voluntariado) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso  fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -378,7 +381,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarDemipair(Demipair demipair) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso  fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -438,7 +441,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarHighSchool(Highschool highschool) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		float valorVendaatual = highschool.getVendas().getValor();
 
 		float valorPrevisto = 0.0f;
@@ -502,7 +505,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarTeens(Programasteens programasteens) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		float valorPrevisto = 0.0f;
 		float valorVendaatual = programasteens.getVendas().getValor();
 		valorPrevisto = 0.0f;
@@ -560,7 +563,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public Vendas finalizarCurso(Curso curso) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -689,7 +692,7 @@ public class FinalizarMB implements Serializable {
 	
 	
 	public void gerarPontuacaoSeguro(Vendas vendaSeguro) {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean = new DashBoardBean();
 		dashBoardBean.calcularNumeroVendasProdutos(vendaSeguro, false);
@@ -701,8 +704,7 @@ public class FinalizarMB implements Serializable {
 		String hora = Formatacao.foramtarHoraString();
 		vendaSeguro.setHora(hora);
 		vendaSeguro.setDataVenda(new Date());
-		vendasFacade = new VendasFacade();
-		vendaSeguro = vendasFacade.salvar(vendaSeguro);
+		vendaSeguro = vendasDao.salvar(vendaSeguro);
 		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 		productRunnersCalculosBean.calcularPontuacao(vendaSeguro, pontos[0], 0, false, vendaSeguro.getUsuario());
 	}

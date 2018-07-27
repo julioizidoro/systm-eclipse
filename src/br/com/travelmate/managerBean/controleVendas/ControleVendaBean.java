@@ -1,17 +1,8 @@
 package br.com.travelmate.managerBean.controleVendas;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-import javax.inject.Inject;
-
-import br.com.travelmate.facade.CursoFacade;
-import br.com.travelmate.facade.VendasFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.util.Formatacao;
 
 public class ControleVendaBean {
 

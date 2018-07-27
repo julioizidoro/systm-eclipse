@@ -7,13 +7,14 @@ package br.com.travelmate.managerBean.turismo.passagemAerea;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.PassagemPassageiroFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
@@ -63,6 +64,8 @@ import org.primefaces.context.RequestContext;
 public class PassagemMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -344,9 +347,9 @@ public class PassagemMB implements Serializable {
 //			session.setAttribute("venda", venda);
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			venda.setSituacao("CANCELADA");
-//			vendasFacade.salvar(venda);
+//			vendasDao.salvar(venda);
 //			carregarListaPassagem();
 //		}
 //		return "";
@@ -363,9 +366,9 @@ public class PassagemMB implements Serializable {
 			session.setAttribute("voltar", "passagem");
 			return "emissaocancelamento";
 		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			vendas.setSituacao("CANCELADA");
-			vendasFacade.salvar(vendas);
+			vendasDao.salvar(vendas);
 		}
 		return "";
 	}  

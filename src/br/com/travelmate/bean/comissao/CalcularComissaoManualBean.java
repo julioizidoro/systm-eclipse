@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.travelmate.bean.FinalizarPacoteOperadora;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -19,7 +20,7 @@ import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TraineeFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
@@ -49,9 +50,11 @@ public class CalcularComissaoManualBean {
 	private Vendascomissao vendascomissao;
 	private Vendas venda;
 	private AplicacaoMB aplicacaoMB;
+	private VendasDao vendasDao;
 
-	public CalcularComissaoManualBean(AplicacaoMB aplicacaoMB) {
+	public CalcularComissaoManualBean(AplicacaoMB aplicacaoMB, VendasDao vendasDao) {
 		this.aplicacaoMB = aplicacaoMB;
+		this.vendasDao = vendasDao;
 	}
 
 	public Vendascomissao getVendascomissao() {
@@ -70,11 +73,10 @@ public class CalcularComissaoManualBean {
 		this.venda = venda;
 	}
 
-	public void geraListaVendas(String dataInicial, String dataFinal) {
-		VendasFacade vendasFacade = new VendasFacade(); 
+	public void geraListaVendas(String dataInicial, String dataFinal, VendasDao vendasDao) { 
 		for (int p = 8; p < 21; p++) {
 			String sql = "Select v from Vendas v where v.dataVenda>='2016-07-01' and v.produtos.idprodutos=" + p;
-			List<Vendas> lista = vendasFacade.lista(sql);
+			List<Vendas> lista = vendasDao.lista(sql);
 			if (lista != null) {
 				for (int i = 0; i < lista.size(); i++) {
 					venda = lista.get(i);
@@ -370,7 +372,6 @@ public class CalcularComissaoManualBean {
 				"SELECT c FROM Curso c where c.vendas.dataVenda>='2016-04-01' and c.vendas.dataVenda<='2016-04-30'");
 		ProdutoFacade produtoFacade = new ProdutoFacade();
 		Produtos produto = produtoFacade.consultar(aplicacaoMB.getParametrosprodutos().getSeguroPrivado());
-		VendasFacade vendasFacade = new VendasFacade();
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 		if (lista.size() > 0) {
 			for (int i = 0; i < lista.size(); i++) {
@@ -390,10 +391,10 @@ public class CalcularComissaoManualBean {
 					venda.setUsuario(lista.get(i).getVendas().getUsuario());
 					venda.setValor(seguro.getValorSeguro());
 					venda.setVendasMatriz(lista.get(i).getVendas().getVendasMatriz());
-					venda = vendasFacade.salvar(venda);
+					venda = vendasDao.salvar(venda);
 					float novaValorVenda = lista.get(i).getVendas().getValor() - seguro.getValorSeguro();
 					lista.get(i).getVendas().setValor(novaValorVenda);
-					vendasFacade.salvar(lista.get(i).getVendas());
+					vendasDao.salvar(lista.get(i).getVendas());
 					seguro.setVendas(venda);
 					seguro.setIdvendacurso(lista.get(i).getVendas().getIdvendas());
 					seguroViagemFacade.salvar(seguro);

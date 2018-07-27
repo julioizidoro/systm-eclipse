@@ -24,23 +24,22 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
-import br.com.travelmate.facade.ContasReceberFacade; 
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.TraducaoJuramentadaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
-import br.com.travelmate.model.Contasreceber; 
+import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Traducaojuramentada;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
@@ -54,6 +53,8 @@ public class TraducaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Traducaojuramentada> listaTraducao; 
@@ -410,9 +411,9 @@ public class TraducaoMB implements Serializable {
 			session.setAttribute("venda", venda);
 			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 		} else {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda); 
+			vendasDao.salvar(venda); 
 			gerarListaTraducao();
 		}
 		return "";

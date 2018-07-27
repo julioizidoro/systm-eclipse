@@ -33,6 +33,7 @@ import com.sun.java.swing.plaf.windows.resources.windows_de;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -42,7 +43,7 @@ import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -77,6 +78,8 @@ public class CursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -950,8 +953,8 @@ public class CursoMB implements Serializable {
 			if (usuarioLogadoMB.isFinanceiro()) {
 				Vendas venda = curso.getVendas();
 				venda.setRestricaoparcelamento(false);
-				VendasFacade vendasFacade = new VendasFacade();
-				venda = vendasFacade.salvar(venda);
+				
+				venda = vendasDao.salvar(venda);
 				curso.setVendas(venda);
 				Formapagamento forma = curso.getVendas().getFormapagamento();
 				if (forma != null) {
@@ -1025,9 +1028,9 @@ public class CursoMB implements Serializable {
 //			session.setAttribute("venda", curso.getVendas());
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			curso.getVendas().setSituacao("CANCELADA");
-//			vendasFacade.salvar(curso.getVendas());
+//			vendasDao.salvar(curso.getVendas());
 //			carregarListaVendasCursos();
 //		}
 //		return "";
@@ -1220,9 +1223,9 @@ public class CursoMB implements Serializable {
 			session.setAttribute("voltar", "consultafichacurso");
 			return "emissaocancelamento";
 		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			curso.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(curso.getVendas());
+			vendasDao.salvar(curso.getVendas());
 			carregarListaVendasCursos();
 		}
 		return "";

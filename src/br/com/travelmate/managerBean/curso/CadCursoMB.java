@@ -34,6 +34,7 @@ import br.com.travelmate.bean.RegraVistoBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.dao.OcursoPacoteDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.AcomodacaoFacade;
 import br.com.travelmate.facade.CambioFacade;
@@ -65,7 +66,7 @@ import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.facade.VendasPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
@@ -135,6 +136,8 @@ import br.com.travelmate.util.Mensagem;
 public class CadCursoMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private OcursoPacoteDao oCursoPacoteDao;
 	@Inject
@@ -1649,8 +1652,8 @@ public class CadCursoMB implements Serializable {
 								productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontosremover, false, venda.getUsuario());
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
-								VendasFacade vendasFacade = new VendasFacade();
-								venda = vendasFacade.salvar(venda);
+								
+								venda = vendasDao.salvar(venda);
 							}
 							String titulo = "";
 							String operacao = "";
@@ -1902,11 +1905,11 @@ public class CadCursoMB implements Serializable {
 		} else {
 			if (seguroViagem.getIdvendacurso() > 0) {
 				Vendas vendasSeguro = new Vendas();
-				VendasFacade vendasFacade = new VendasFacade();
+				
 				vendasSeguro = seguroViagem.getVendas();
 				vendasSeguro.setSituacao("CANCELADA");
 				vendasSeguro.setVendascomissao(venda.getVendascomissao());
-				vendasFacade.salvar(vendasSeguro);
+				vendasDao.salvar(vendasSeguro);
 			} else {
 				seguroViagem.setVendas(venda);
 			}
@@ -1948,11 +1951,11 @@ public class CadCursoMB implements Serializable {
 			vendaSeguro.setDataVenda(venda.getDataVenda());
 			vendaSeguro.setVendasMatriz(venda.getVendasMatriz());
 			vendaSeguro.setSituacaogerencia("P");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendaSeguro = vendasFacade.salvar(vendaSeguro);
+			
+			vendaSeguro = vendasDao.salvar(vendaSeguro);
 			float novaValorVenda = venda.getValor() - seguroViagem.getValorSeguro();
 			venda.setValor(novaValorVenda);
-			venda = vendasFacade.salvar(venda);
+			venda = vendasDao.salvar(venda);
 			seguroViagem.setIdvendacurso(venda.getIdvendas());
 			DashBoardBean dashBoardBean = new DashBoardBean();
 			if (vendaSeguro.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
@@ -1965,7 +1968,7 @@ public class CadCursoMB implements Serializable {
 							int[] pontos = dashBoardBean.calcularPontuacao(vendaSeguro, 0, "", false, vendaSeguro.getUsuario());
 							vendaSeguro.setPonto(pontos[0]);
 							vendaSeguro.setPontoescola(pontos[1]);
-							vendaSeguro = vendasFacade.salvar(vendaSeguro);
+							vendaSeguro = vendasDao.salvar(vendaSeguro);
 						}
 						
 					}
@@ -5265,8 +5268,8 @@ public class CadCursoMB implements Serializable {
 		vendas.setIdregravenda(0);
 		vendas.setSituacaogerencia("A");
 		vendas.setSituacaofinanceiro("N");
-		VendasFacade vendasFacade = new VendasFacade();
-		vendas = vendasFacade.salvar(vendas);
+		
+		vendas = vendasDao.salvar(vendas);
 		return vendas;
 	}
 

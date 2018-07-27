@@ -26,6 +26,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
@@ -44,7 +45,6 @@ import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -92,6 +92,8 @@ public class CadArquivoMB implements Serializable {
 
 	@Inject
 	private LeadPosVendaDao leadPosVendaDao;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -597,16 +599,16 @@ public class CadArquivoMB implements Serializable {
 					metaRunnersMB.carregarListaRunners();
 				}
 			}
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			vendas.setSituacao("ANDAMENTO");
-			vendasFacade.salvar(vendas);
+			vendasDao.salvar(vendas);
 			if (idProduto == 1 || idProduto == 16) {
 				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
 				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
 					seguroviagem.getVendas().setSituacao("ANDAMENTO");
 					seguroviagem.getVendas().setSituacaogerencia("F");
-					vendasFacade.salvar(seguroviagem.getVendas());
+					vendasDao.salvar(seguroviagem.getVendas());
 				}
 			}
 			AvisosFacade avisosFacade = new AvisosFacade();
@@ -743,8 +745,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setDataprocesso(new Date());
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -801,8 +803,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -878,8 +880,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -961,8 +963,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -1043,8 +1045,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -1132,12 +1134,12 @@ public class CadArquivoMB implements Serializable {
 				controlework.setDocumentacao(true);
 				controlework = workTravelFacade.salvar(controlework);
 			}
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			if (vendas.getSituacaofinanceiro().equalsIgnoreCase("L")){
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			vendasFacade.salvar(vendas);
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -1192,8 +1194,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
@@ -1238,8 +1240,8 @@ public class CadArquivoMB implements Serializable {
 				vendas.setSituacao("FINALIZADA");
 			}
 			vendas.setSituacaogerencia("F");
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(vendas);
+			
+			vendasDao.salvar(vendas);
 			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());

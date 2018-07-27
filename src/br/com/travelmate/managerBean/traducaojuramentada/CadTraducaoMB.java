@@ -22,6 +22,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoTraducaoBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
@@ -33,7 +34,7 @@ import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.TraducaoJuramentadaFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
@@ -66,6 +67,8 @@ import br.com.travelmate.util.Mensagem;
 public class CadTraducaoMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -735,8 +738,8 @@ public class CadTraducaoMB implements Serializable {
 				int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false, venda.getUsuario());
 				venda.setPonto(pontos[0]);
 				venda.setPontoescola(pontos[1]);
-				VendasFacade vendaFacade = new VendasFacade();
-				venda = vendaFacade.salvar(venda);
+				
+				venda = vendasDao.salvar(venda);
 				ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 				productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], 0, false, venda.getUsuario());
 				
@@ -752,8 +755,7 @@ public class CadTraducaoMB implements Serializable {
 					int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, "", false, venda.getUsuario());
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
-					VendasFacade vendaFacade = new VendasFacade();
-					venda = vendaFacade.salvar(venda);
+					venda = vendasDao.salvar(venda);
 					ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 					productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], 0, false, venda.getUsuario());
 					

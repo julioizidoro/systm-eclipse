@@ -26,7 +26,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -41,7 +42,7 @@ import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
@@ -83,6 +84,8 @@ public class ControleVendasMB implements Serializable {
 	 * 
 	 */   
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -474,8 +477,8 @@ public class ControleVendasMB implements Serializable {
 				}
 			}
 			sql = sql + " and v.dataVenda>='" + dataConsulta + "' order by v.dataVenda desc, v.cliente.nome";
-			VendasFacade vendasFacade = new VendasFacade();
-			listaVendas = vendasFacade.lista(sql);
+			
+			listaVendas = vendasDao.lista(sql);
 			if (listaVendas == null) {
 				listaVendas = new ArrayList<Vendas>();  
 			}
@@ -562,8 +565,8 @@ public class ControleVendasMB implements Serializable {
 			sql = sql + " and v.fornecedorcidade.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor();
 		}
 		sql = sql + " order by v.dataVenda desc, v.cliente.nome";
-		VendasFacade vendasFacade = new VendasFacade();
-		listaVendas = vendasFacade.lista(sql);
+		
+		listaVendas = vendasDao.lista(sql);
 		if (listaVendas == null) {
 			listaVendas = new ArrayList<Vendas>();
 		}
@@ -1112,8 +1115,8 @@ public class ControleVendasMB implements Serializable {
 				if(seguroviagem.getControle().equalsIgnoreCase("Avulso")) {
 					session.setAttribute("vendas", vendas);
 				}else {
-					VendasFacade vendasFacade = new VendasFacade();
-					Vendas vendasCurso = vendasFacade.consultarVendas(seguroviagem.getIdvendacurso());
+					
+					Vendas vendasCurso = vendasDao.consultarVendas(seguroviagem.getIdvendacurso());
 					session.setAttribute("vendas", vendasCurso);
 				} 
 				voltar = "consControleVendas";

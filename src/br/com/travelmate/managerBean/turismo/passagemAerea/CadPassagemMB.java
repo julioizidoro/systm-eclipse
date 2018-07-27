@@ -26,6 +26,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoPassagemBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -37,7 +38,7 @@ import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.PassagemPassageiroFacade;
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -70,6 +71,8 @@ public class CadPassagemMB implements Serializable {
 	* 
 	*/
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -814,8 +817,8 @@ public class CadPassagemMB implements Serializable {
 							if (lead!=null){
 								vendas.setIdlead(lead.getIdlead());
 							}else vendas.setIdlead(0);
-							VendasFacade vendasFacade = new VendasFacade();
-							vendas=vendasFacade.salvar(vendas);
+							
+							vendas=vendasDao.salvar(vendas);
 							
 				}  
 				salvarPassagem();
@@ -923,7 +926,7 @@ public class CadPassagemMB implements Serializable {
 			}
 		}
 		vendas.setSituacao(situacao);
-		VendasFacade VendasFacade = new VendasFacade();
+		
 		vendas.setCliente(cliente);
 		vendas.setVendasMatriz("S");
 		ProdutoFacade produtoFacade = new ProdutoFacade();
@@ -940,7 +943,7 @@ public class CadPassagemMB implements Serializable {
 				vendas.setSituacaogerencia("F");
 			}
 		}
-		vendas = VendasFacade.salvar(vendas);
+		vendas = vendasDao.salvar(vendas);
 	}
 
 	public void salvarFormaPagamento() {

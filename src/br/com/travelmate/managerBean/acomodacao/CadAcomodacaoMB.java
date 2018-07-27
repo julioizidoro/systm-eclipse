@@ -28,6 +28,7 @@ import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoFacade;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -43,7 +44,6 @@ import br.com.travelmate.facade.PromocaoBrindeCursoCidadeFacade;
 import br.com.travelmate.facade.PromocaoCursoFornecedorCidadeFacade;
 import br.com.travelmate.facade.PromocaoTaxaCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutoFornecedorBean;
@@ -93,6 +93,8 @@ public class CadAcomodacaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -2747,8 +2749,8 @@ public class CadAcomodacaoMB implements Serializable {
 		vendas.setIdregravenda(0);
 		vendas.setSituacaogerencia("A");
 		vendas.setSituacaofinanceiro("N");
-		VendasFacade vendasFacade = new VendasFacade();
-		vendas = vendasFacade.salvar(vendas);
+		
+		vendas = vendasDao.salvar(vendas);
 		return vendas;
 	}
 	

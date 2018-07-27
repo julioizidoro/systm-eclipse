@@ -26,10 +26,11 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;  
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -57,6 +58,8 @@ public class VistosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Vistos> listaVistos;
@@ -508,9 +511,9 @@ public class VistosMB implements Serializable {
 //			session.setAttribute("venda", vistos.getVendas());
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			vistos.getVendas().setSituacao("CANCELADA");
-//			vendasFacade.salvar(vistos.getVendas());
+//			vendasDao.salvar(vistos.getVendas());
 //			carregarListaVisto();
 //		}
 //		return "";
@@ -527,9 +530,9 @@ public class VistosMB implements Serializable {
 			session.setAttribute("voltar", "consultaVistos");
 			return "emissaocancelamento";
 		} else if (vistos.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			vistos.getVendas().setSituacao("CANCELADA");
-			vendasFacade.salvar(vistos.getVendas());
+			vendasDao.salvar(vistos.getVendas());
 			carregarListaVisto();
 		}
 		return "";

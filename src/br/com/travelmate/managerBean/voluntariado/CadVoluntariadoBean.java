@@ -10,12 +10,13 @@ import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
-import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean; 
+import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.facade.VoluntariadoFacade; 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -360,7 +361,7 @@ public class CadVoluntariadoBean {
 	}
 	
 	
-	public void salvarSeguroViagem(Seguroviagem seguroViagem, AplicacaoMB aplicacaoMB) {
+	public void salvarSeguroViagem(Seguroviagem seguroViagem, AplicacaoMB aplicacaoMB, VendasDao vendasDao) {
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 		if (seguroViagem.getIdseguroViagem() == null) {
 			seguroViagem.setControle("Voluntariado");
@@ -368,14 +369,14 @@ public class CadVoluntariadoBean {
 		if (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")) {
 			seguroViagem.setFornecedor(seguroViagem.getValoresseguro().getFornecedorcidade().getFornecedor());
 			seguroViagem.setPlano(seguroViagem.getValoresseguro().getPlano());
-			seguroViagem.setVendas(salvarVendaSeguroViagem(seguroViagem, aplicacaoMB));
+			seguroViagem.setVendas(salvarVendaSeguroViagem(seguroViagem, aplicacaoMB, vendasDao));
 		} else {
 			if (seguroViagem.getIdvendacurso() > 0) {
 				Vendas vendasSeguro = new Vendas();
-				VendasFacade vendasFacade = new VendasFacade();
+				
 				vendasSeguro = seguroViagem.getVendas();
 				vendasSeguro.setSituacao("CANCELADA");
-				vendasFacade.salvar(vendasSeguro);
+				vendasDao.salvar(vendasSeguro);
 			} else {
 				seguroViagem.setVendas(venda);
 			}
@@ -403,7 +404,7 @@ public class CadVoluntariadoBean {
 		}
 	}
 
-	public Vendas salvarVendaSeguroViagem(Seguroviagem seguroViagem, AplicacaoMB aplicacaoMB) {
+	public Vendas salvarVendaSeguroViagem(Seguroviagem seguroViagem, AplicacaoMB aplicacaoMB, VendasDao vendasDao) {
 		Vendas vendaSeguro = null;
 		if ((seguroViagem != null) && (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim"))) {
 			if ((seguroViagem.getVendas() == null) || (seguroViagem.getIdvendacurso() == 0)) {
@@ -429,11 +430,10 @@ public class CadVoluntariadoBean {
 			vendaSeguro.setSituacao(venda.getSituacao());
 			vendaSeguro.setValor(seguroViagem.getValorSeguro());
 			vendaSeguro.setVendasMatriz(venda.getVendasMatriz());
-			VendasFacade vendasFacade = new VendasFacade();
-			vendaSeguro = vendasFacade.salvar(vendaSeguro);
+			vendaSeguro = vendasDao.salvar(vendaSeguro);
 			float novaValorVenda = venda.getValor() - seguroViagem.getValorSeguro();
 			venda.setValor(novaValorVenda);
-			venda = vendasFacade.salvar(venda);
+			
 			seguroViagem.setIdvendacurso(venda.getIdvendas());
 		}
 		DashBoardBean dashBoardBean = new DashBoardBean();
@@ -448,8 +448,8 @@ public class CadVoluntariadoBean {
 				false, venda.getUsuario());
 		venda.setPonto(pontos[0]);
 		venda.setPontoescola(pontos[1]);
-		VendasFacade vendasFacade = new VendasFacade();
-		venda = vendasFacade.salvar(venda);
+		
+		venda = vendasDao.salvar(venda);
 		return vendaSeguro;
 	}
 

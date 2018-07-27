@@ -1,20 +1,27 @@
-package br.com.travelmate.bean;
+	package br.com.travelmate.bean;
 
 
 
 import java.util.Date;
 
+import javax.inject.Inject;
 
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.util.Formatacao;
 
-public class MetasFaturamentoBean {
-	
+
+public class MetasFaturamentoBean  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	
 	public Metafaturamentoanual getMetaAnual(UsuarioLogadoMB usuarioLogadoMB){
@@ -69,7 +76,7 @@ public class MetasFaturamentoBean {
 		
 	}
 	
-	public Double getFaturamentoMensal(UsuarioLogadoMB usuarioLogadoMB){
+	public Double getFaturamentoMensal(UsuarioLogadoMB usuarioLogadoMB, VendasDao vendasDao){
 		int mes = Formatacao.getMesData(new Date());
 		int ano = Formatacao.getAnoData(new Date());
 		int dia = Formatacao.getDiaData(new Date());
@@ -81,11 +88,11 @@ public class MetasFaturamentoBean {
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("unidade")){
 			sqlacumulado = sqlacumulado + " and unidadeNegocio_idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
-		VendasFacade vendasFacade = new VendasFacade();
-		return vendasFacade.saldoAcumulado(sqlacumulado);
+		
+		return vendasDao.saldoAcumulado(sqlacumulado);
 	}
 	
-	public Float getFaturamentoSemana(UsuarioLogadoMB usuarioLogadoMB){
+	public Float getFaturamentoSemana(UsuarioLogadoMB usuarioLogadoMB, VendasDao vendasDao ){
 		Date data = Formatacao.getPrimeiroDiaSemana(new Date());
 		String dataInicial = Formatacao.ConvercaoDataSql(data); 
 		String sqlacumulado = "Select distinct sum(valor) as valor " +
@@ -93,8 +100,7 @@ public class MetasFaturamentoBean {
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("unidade")){
 			sqlacumulado = sqlacumulado + " and unidadeNegocio_idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
-		VendasFacade vendasFacade = new VendasFacade();
-		return vendasFacade.saldoAcumulado(sqlacumulado).floatValue();
+		return vendasDao.saldoAcumulado(sqlacumulado).floatValue();
 	}
 
 }

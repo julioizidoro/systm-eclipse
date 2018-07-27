@@ -3,6 +3,7 @@ package br.com.travelmate.managerBean.highschool;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -10,7 +11,7 @@ import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -68,6 +69,8 @@ public class HighSchoolMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private List<Highschool> listaHighSchool;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
@@ -799,9 +802,9 @@ public class HighSchoolMB implements Serializable {
 //			session.setAttribute("venda", venda);
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			venda.setSituacao("CANCELADA");
-//			vendasFacade.salvar(venda);
+//			vendasDao.salvar(venda);
 //			gerarListaHighSchool();
 //		}
 //		return "";
@@ -828,8 +831,8 @@ public class HighSchoolMB implements Serializable {
 			if (usuarioLogadoMB.isFinanceiro()) {
 				Vendas venda = highSchool.getVendas();
 				venda.setRestricaoparcelamento(false);
-				VendasFacade vendasFacade = new VendasFacade();
-				venda = vendasFacade.salvar(venda);
+				
+				venda = vendasDao.salvar(venda);
 				highSchool.setVendas(venda);
 				Formapagamento forma = highSchool.getVendas().getFormapagamento();
 				if (forma != null) {
@@ -1006,31 +1009,15 @@ public class HighSchoolMB implements Serializable {
 			session.setAttribute("voltar", "consultaHighSchool");
 			return "emissaocancelamento";
 		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			vendas.setSituacao("CANCELADA");
-			vendasFacade.salvar(vendas);
+			vendasDao.salvar(vendas);
 			gerarListaHighSchool();
 		}
 		return "";
 	}   
 	
-//	public String contrato(Highschool highschool){
-//		this.highSchool = highschool;
-//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(highschool.getVendas(), "HighSchool");
-//		try {
-//			String texto = lerArquivoTxt.ler();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + highschool.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-//					highschool.getVendas().getUsuario().getIdusuario() + highschool.getVendas().getIdvendas() + ".html");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
+
 	
 	
 	public void verificarIdCredito(Highschool highschool) {

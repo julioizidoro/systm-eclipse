@@ -25,11 +25,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CursoFacade; 
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.model.Controlecurso;
@@ -51,6 +52,8 @@ public class ControleCursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Controlecurso controlecurso;
@@ -460,8 +463,8 @@ public class ControleCursoMB implements Serializable {
 				vendas.setObsCancelar(motivoCancelamento);
 				vendas.setDatacancelamento(new Date());
 				vendas.setUsuariocancelamento(usuarioLogadoMB.getUsuario().getIdusuario());
-				VendasFacade vendasFacade = new VendasFacade();
-				vendas = vendasFacade.salvar(vendas);
+				
+				vendas = vendasDao.salvar(vendas);
 			}
 		}
 		listarControle(sql);

@@ -2,11 +2,12 @@ package br.com.travelmate.managerBean.financeiro.vendas;
 
  
 import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FaturaFranquiasFacade;
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.TerceirosFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Faturafranquias;
 import br.com.travelmate.model.Parcelamentopagamento;
@@ -43,6 +44,8 @@ public class VendasFinanceiroMB  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
     private AplicacaoMB aplicacaoMB;
     private List<Vendas> listaVendas;
@@ -222,9 +225,9 @@ public class VendasFinanceiroMB  implements Serializable{
     }
     
     public void gerarListaVendas(){
-        VendasFacade vendasFacade = new VendasFacade();
+        
         if (sql!=null){
-             listaVendas = vendasFacade.lista(sql);
+             listaVendas = vendasDao.lista(sql);
         }
         if (listaVendas==null){
             listaVendas = new ArrayList<Vendas>();
@@ -368,7 +371,7 @@ public class VendasFinanceiroMB  implements Serializable{
     }
     
     public void recalcular() {
-    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB);
+    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao);
     	for (int i = 0; i < listaVendas.size(); i++) {
 			if(listaVendas.get(i).isSelecionado()){
 				try {
@@ -410,8 +413,8 @@ public class VendasFinanceiroMB  implements Serializable{
 					e.printStackTrace();
 				}
 				listaVendas.get(i).setVendascomissao(ccb.getVendascomissao()); 
-				VendasFacade vendasFacade = new VendasFacade();
-		    	vendasFacade.salvar(listaVendas.get(i));
+				
+		    	vendasDao.salvar(listaVendas.get(i));
 			}
 		} 
     }

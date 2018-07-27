@@ -8,13 +8,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.LancamentoCartaoCreditoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.model.Lancamentocartaocredito;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Seguroviagem;
@@ -34,6 +36,8 @@ public class RevisaoFinanceiroMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private List<Vendas> listaVendaNova;
 	private List<Vendas> listaVendaPendente;
 	private int nPendentes = 0;
@@ -380,13 +384,13 @@ public class RevisaoFinanceiroMB implements Serializable{
 	
 	
 	public void gerarListaVendas(){
-		VendasFacade vendasFacade = new VendasFacade();
-		listaVendaNova = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='N'"+
+		
+		listaVendaNova = vendasDao.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='N'"+
 				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' and v.vendasMatriz='S' ORDER BY v.dataVenda DESC");
 		if (listaVendaNova == null) {
 			listaVendaNova = new ArrayList<>();
 		}
-		listaVendaPendente = vendasFacade.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='P'"+
+		listaVendaPendente = vendasDao.lista("SELECT v FROM Vendas v WHERE v.situacaofinanceiro='P'"+
 				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' and v.vendasMatriz='S' ORDER BY v.vendapendencia.dataproximocontato ");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();
@@ -397,7 +401,7 @@ public class RevisaoFinanceiroMB implements Serializable{
 	  
 	
 	public void pesquisar(){
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		String sql = "SELECT v FROM Vendas v WHERE v.cliente.nome like '%%' ";
 		
 		if (unidadenegocio != null) {
@@ -413,12 +417,12 @@ public class RevisaoFinanceiroMB implements Serializable{
 		if (idVenda > 0) {
 			sql = sql + " and v.idvendas=" + idVenda;
 		}
-		listaVendaNova = vendasFacade.lista(sql +  " and v.situacaofinanceiro='N'"+
+		listaVendaNova = vendasDao.lista(sql +  " and v.situacaofinanceiro='N'"+
 				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' order by v.dataVenda DESC");
 		if (listaVendaNova == null) {
 			listaVendaNova = new ArrayList<>();
 		}
-		listaVendaPendente = vendasFacade.lista(sql + " and v.situacaofinanceiro='P'"+
+		listaVendaPendente = vendasDao.lista(sql + " and v.situacaofinanceiro='P'"+
 				" and v.situacaogerencia<>'P' and v.situacao<>'CANCELADA' order by v.dataVenda DESC");
 		if (listaVendaPendente == null) {
 			listaVendaPendente = new ArrayList<>();

@@ -20,6 +20,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.MetasFaturamentoBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -50,6 +51,8 @@ public class DashBoardMB implements Serializable {
 	
 	@Inject
 	private LeadDao leadDao;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -396,9 +399,9 @@ public class DashBoardMB implements Serializable {
 			MetasFaturamentoBean metasFaturamentoBean = new MetasFaturamentoBean();
 			metaAnual = metasFaturamentoBean.getMetaAnual(usuarioLogadoMB);
 			metamensal = metasFaturamentoBean.getMetaMensal(usuarioLogadoMB);
-			metaparcialsemana = metasFaturamentoBean.getFaturamentoSemana(usuarioLogadoMB);
+			metaparcialsemana = metasFaturamentoBean.getFaturamentoSemana(usuarioLogadoMB, vendasDao);
 			percsemana = (metaparcialsemana / metamensal.getValormetasemana()) * 100;
-			float valor = metasFaturamentoBean.getFaturamentoMensal(usuarioLogadoMB).floatValue();
+			float valor = metasFaturamentoBean.getFaturamentoMensal(usuarioLogadoMB, vendasDao).floatValue();
 			valorFaturamento = Formatacao.formatarFloatString(valor);
 
 			VendaProdutoFacade vendaProdutoFacade = new VendaProdutoFacade();

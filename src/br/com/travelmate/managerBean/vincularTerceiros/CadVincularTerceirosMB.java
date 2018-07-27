@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.TerceirosFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -34,6 +35,8 @@ public class CadVincularTerceirosMB implements Serializable{
 	
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private VendasDao vendasDao;
 	private List<Terceiros> listaTerceiros;
 	private Terceiros terceiros;
 	private Vendas vendas;
@@ -135,7 +138,7 @@ public class CadVincularTerceirosMB implements Serializable{
 		vendasComissao = vendas.getVendascomissao();
 		vendasComissao.setComissaoterceiros(comissaoterceiros);
 		vendasComissao = vendasComissaoFacade.salvar(vendasComissao);
-		CalcularComissaoManualBean cc = new CalcularComissaoManualBean(aplicacaoMB);
+		CalcularComissaoManualBean cc = new CalcularComissaoManualBean(aplicacaoMB, vendasDao);
 		try {
 			cc.recalcular(vendasComissao);
 		} catch (SQLException e) {

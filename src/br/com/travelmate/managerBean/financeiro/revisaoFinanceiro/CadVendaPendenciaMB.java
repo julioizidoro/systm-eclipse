@@ -15,12 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.VendaMotivoPendenciaFacade;
 import br.com.travelmate.facade.VendaPendenciaFacade;
 import br.com.travelmate.facade.VendaPendenciaHistoricoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Logvenda;
@@ -40,6 +41,8 @@ public class CadVendaPendenciaMB implements Serializable{
 	 */
 	
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -173,7 +176,7 @@ public class CadVendaPendenciaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		VendaPendenciaFacade vendaPendenciaFacade = new VendaPendenciaFacade();
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		VendaPendenciaHistoricoFacade vendaPendenciaHistoricoFacade = new VendaPendenciaHistoricoFacade();
 		if (validarDados()) {
 			try {
@@ -191,7 +194,7 @@ public class CadVendaPendenciaMB implements Serializable{
 			}
 			venda.setSituacaofinanceiro("P");
 			venda.setVendapendencia(vendapendencia);
-			venda = vendasFacade.salvar(venda);
+			venda = vendasDao.salvar(venda);
 			Vendapendenciahistorico vendapendenciahistorico = new Vendapendenciahistorico();
 			vendapendenciahistorico.setDatahistorico(new Date());
 			vendapendenciahistorico.setAssunto("Nova venda com pendência com  o relato: "+  vendapendencia.getRelato());
@@ -212,7 +215,7 @@ public class CadVendaPendenciaMB implements Serializable{
 					for(int i=0;i<listaVendaNova.size();i++) {
 						if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
 							listaVendaNova.get(i).setSituacaofinanceiro("P");
-							vendasFacade.salvar(listaVendaNova.get(i));
+							vendasDao.salvar(listaVendaNova.get(i));
 							gerarLogVenda("Pendencia", "Venda com Pendencia Financeira");
 							listaVendaNova.remove(i);
 							if (listaVendaPendente!=null) {

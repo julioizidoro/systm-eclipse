@@ -12,7 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.travelmate.facade.VendasFacade;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -25,6 +25,8 @@ public class ListaVendasMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Vendas> listaVendas;
@@ -113,12 +115,12 @@ public class ListaVendasMB implements Serializable{
 				sqlacumulado = sqlacumulado + " and usuario_idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 			}else 
 			sql = sql + " order by v.dataVenda desc, v.idvendas";
-			VendasFacade vendasFacade = new VendasFacade();
-			listaVendas = vendasFacade.lista(sql);
+			
+			listaVendas = vendasDao.lista(sql);
 			if (listaVendas==null){
 				listaVendas = new ArrayList<>();
 			}	
-	    	Double valor= vendasFacade.saldoAcumulado(sqlacumulado);
+	    	Double valor= vendasDao.saldoAcumulado(sqlacumulado);
 			vendasAcumuladas = Formatacao.formatarDoubleString(valor);
 		}
 	}

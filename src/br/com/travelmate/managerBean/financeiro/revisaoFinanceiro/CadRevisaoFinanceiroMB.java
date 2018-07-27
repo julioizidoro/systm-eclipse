@@ -19,6 +19,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.BolinhasBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.BancoFacade;
@@ -34,7 +35,7 @@ import br.com.travelmate.facade.TerceirosFacade;
 import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -80,6 +81,8 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -512,7 +515,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     }
     
 	public String liberarVenda() {
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		
 		if (validarLiberacao()) {
 			Vendas vendaSeguro = null;
@@ -539,7 +542,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					vendaSeguro.setSituacaofinanceiro("L");
 					vendaSeguro.setSituacao("FINALIZADA");
 					vendaSeguro.setDataprocesso(new Date());
-					vendasFacade.salvar(vendaSeguro);
+					vendasDao.salvar(vendaSeguro);
 				}
 				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
@@ -599,7 +602,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 				venda.setFornecedor(null);
 			}
 	    	
-			venda = vendasFacade.salvar(venda);
+			venda = vendasDao.salvar(venda);
 			int idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 			int idProdutoVoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
 			boolean pendenciarSeguro = false;
@@ -615,7 +618,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 						if (listaVendaNova.get(i).getIdvendas()==idVendaSeguro) {
 							listaVendaNova.get(i).setSituacaofinanceiro("L");
 							listaVendaNova.get(i).setSituacao("FINALIZADA");
-							vendasFacade.salvar(listaVendaNova.get(i));
+							vendasDao.salvar(listaVendaNova.get(i));
 							gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
 							listaVendaNova.remove(i);
 							i=listaVendaNova.size() + 10;

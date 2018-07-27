@@ -27,6 +27,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoCreditoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CondicaoCancelamentoFacade;
@@ -36,7 +37,7 @@ import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
@@ -65,6 +66,8 @@ public class EmissaoCancelamentoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	
@@ -489,7 +492,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 				boolean situacao = calcularMultaCancelamentoBean.verifcarValorCreditoReembolso(cancelamento);
 				if (situacao) {
 					CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
-					VendasFacade vendasFacade = new VendasFacade();
+					
 					cancelamento.setUploadtermo(false);
 					cancelamento.setUsuario(usuarioLogadoMB.getUsuario());
 					cancelamento = cancelamentoFacade.salvar(cancelamento);
@@ -506,14 +509,14 @@ public class EmissaoCancelamentoMB implements Serializable {
 					}
 					cancelarContasReceber();
 					vendas.setSituacao("CANCELADA");
-					vendasFacade.salvar(vendas);
+					vendasDao.salvar(vendas);
 					if (vendas.getProdutos().getIdprodutos() == 1 || vendas.getProdutos().getIdprodutos() == 16) {
 						SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 						Seguroviagem seguro = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
 						if (seguro!=null) {
 							Vendas vendasSeguro = seguro.getVendas();
 							vendasSeguro.setSituacao("CANCELADA");
-							vendasFacade.salvar(vendasSeguro);
+							vendasDao.salvar(vendasSeguro);
 						}
 					}
 					FacesContext fc = FacesContext.getCurrentInstance();

@@ -24,14 +24,15 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean; 
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber;
@@ -58,6 +59,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Seguroviagem> listaSeguro;
@@ -629,9 +632,9 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			session.setAttribute("voltar", "consultaSeguro");
 			return "emissaocancelamento";
 		} else {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			venda.setSituacao("CANCELADA");
-			vendasFacade.salvar(venda);
+			vendasDao.salvar(venda);
 			carregarListaSeguro();
 		}
 		return "";
@@ -841,8 +844,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			if(seguroviagem.getControle().equalsIgnoreCase("Avulso")) {
 				session.setAttribute("vendas", seguroviagem.getVendas());
 			}else {
-				VendasFacade vendasFacade = new VendasFacade();
-				Vendas vendas = vendasFacade.consultarVendas(seguroviagem.getIdvendacurso());
+				
+				Vendas vendas = vendasDao.consultarVendas(seguroviagem.getIdvendacurso());
 				session.setAttribute("vendas", vendas);
 			} 
 			voltar = "consultaSeguro";
@@ -850,25 +853,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			return "consArquivos";
 		}
 	}
-	
-	
-//	public String cancelarVenda(Vendas vendas) {
-//		if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")
-//				|| vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-//			Map<String, Object> options = new HashMap<String, Object>();
-//			options.put("contentWidth", 400);
-//			FacesContext fc = FacesContext.getCurrentInstance();
-//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("vendas", vendas);
-//			session.setAttribute("voltar", "consultaSeguro");
-//			return "emissaocancelamento";
-//		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			VendasFacade vendasFacade = new VendasFacade();
-//			vendas.setSituacao("CANCELADA");
-//			vendasFacade.salvar(vendas);
-//		}
-//		return "";
-//	}   
+
 	
 	public String fichaSeguroViagem(Seguroviagem seguroviagem){
 		FacesContext fc = FacesContext.getCurrentInstance();

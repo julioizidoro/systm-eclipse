@@ -26,6 +26,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -40,7 +41,7 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.ValorAupairFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
@@ -80,6 +81,8 @@ public class CadAupairMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private AplicacaoMB aplicacaoMB;
@@ -1261,8 +1264,8 @@ public class CadAupairMB implements Serializable {
 								productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 								venda.setPonto(pontos[0]);
 								venda.setPontoescola(pontos[1]);
-								VendasFacade vendasFacade = new VendasFacade();
-								venda = vendasFacade.salvar(venda);
+								
+								venda = vendasDao.salvar(venda);
 			
 							}
 							String titulo = "Nova Ficha de Au Pair. " + venda.getIdvendas();

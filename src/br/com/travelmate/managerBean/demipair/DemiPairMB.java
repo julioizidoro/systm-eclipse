@@ -29,12 +29,13 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -65,6 +66,8 @@ public class DemiPairMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -700,9 +703,9 @@ public class DemiPairMB implements Serializable {
 //			session.setAttribute("venda", venda);
 //			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
 //		}else {
-//			VendasFacade vendasFacade = new VendasFacade();
+//			
 //			venda.setSituacao("CANCELADA");
-//			vendasFacade.salvar(venda);
+//			vendasDao.salvar(venda);
 //			carregarListaVendas();
 //		}
 //		return "";
@@ -779,8 +782,8 @@ public class DemiPairMB implements Serializable {
     		if (usuarioLogadoMB.isFinanceiro()){
     			Vendas venda = demipair.getVendas();
     			venda.setRestricaoparcelamento(false);
-    			VendasFacade vendasFacade = new VendasFacade();
-    			venda = vendasFacade.salvar(venda);
+    			
+    			venda = vendasDao.salvar(venda);
     			demipair.setVendas(venda);
     			Formapagamento forma = demipair.getVendas().getFormapagamento();
         		if (forma!=null){
@@ -938,9 +941,9 @@ public class DemiPairMB implements Serializable {
 			session.setAttribute("voltar", "consultaDemiPair");
 			return "emissaocancelamento";
 		} else if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			VendasFacade vendasFacade = new VendasFacade();
+			
 			vendas.setSituacao("CANCELADA");
-			vendasFacade.salvar(vendas);
+			vendasDao.salvar(vendas);
 			carregarListaVendas();
 		}
 		return "";

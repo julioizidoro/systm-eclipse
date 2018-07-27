@@ -10,12 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.travelmate.bean.DesagioBean;
-import br.com.travelmate.bean.FaturaFranquiaBean; 
+import br.com.travelmate.bean.FaturaFranquiaBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.TerceirosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Coeficientejuros;
 import br.com.travelmate.model.Formapagamento;
@@ -257,10 +258,10 @@ public class CalcularComissaoBean {
     	return valor;
     }
     
-    public void pegarListaVendas(int idInical){
-    	VendasFacade vendasFacade = new VendasFacade();
+    public void pegarListaVendas(int idInical, VendasDao vendasDao){
+    	
     	String sql = "SELECT v From Vendas v WHERE v.dataVenda>='2016-07-01'  order by v.idvendas";
-    	List<Vendas> listaVendas = vendasFacade.lista(sql);
+    	List<Vendas> listaVendas = vendasDao.lista(sql);
     	if (listaVendas!=null){
     		for(int i=0;i<listaVendas.size();i++){
     			apagarVendasComissao(listaVendas.get(i));

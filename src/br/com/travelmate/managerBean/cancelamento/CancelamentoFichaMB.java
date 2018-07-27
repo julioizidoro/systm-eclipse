@@ -24,6 +24,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
@@ -37,7 +38,7 @@ import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TipoArquivoFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
@@ -66,6 +67,8 @@ public class CancelamentoFichaMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -227,8 +230,8 @@ public class CancelamentoFichaMB implements Serializable {
 				if (seguro!=null) {
 					vendaSeguro = seguro.getVendas();
 					vendaSeguro.setSituacao("CANCELADA");
-					VendasFacade vendasFacade = new VendasFacade();
-					vendasFacade.salvar(vendaSeguro);
+					
+					vendasDao.salvar(vendaSeguro);
 				}
 			}
 			if (listaNomeArquivo!=null) {
@@ -237,8 +240,8 @@ public class CancelamentoFichaMB implements Serializable {
 			if (cancelamento.getFormapagamento().equalsIgnoreCase("Reembolso")) {
 				lancarContasPagar();
 			}
-			VendasFacade vendasFacade = new VendasFacade();
-			vendasFacade.salvar(venda);
+			
+			vendasDao.salvar(venda);
 			cancelarContasReceber();
 			int mesVenda = Formatacao.getMesData(venda.getDataVenda())  + 1;
 			int mesAtual = Formatacao.getMesData(new Date()) +1; 
@@ -255,7 +258,7 @@ public class CancelamentoFichaMB implements Serializable {
 					productRunnersCalculosBean.calcularPontuacao(venda, venda.getPonto(), 0, true, venda.getUsuario() );
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[1]);
-					venda = vendasFacade.salvar(venda);
+					venda = vendasDao.salvar(venda);
 				}else{
 					PacotesFacade pacotesFacade = new PacotesFacade();
 					Pacotes pacote = pacotesFacade.consultar(venda.getIdvendas());
@@ -264,7 +267,7 @@ public class CancelamentoFichaMB implements Serializable {
 					productRunnersCalculosBean.calcularPontuacao(venda1, pontos[0], 0, true, pacote.getUsuario());
 					venda.setPonto(pontos[0]);
 					venda.setPontoescola(pontos[0]);
-					venda = vendasFacade.salvar(venda);
+					venda = vendasDao.salvar(venda);
 				}
 				
 	
@@ -294,7 +297,7 @@ public class CancelamentoFichaMB implements Serializable {
 						cancelamento = cancelamentoFacade.salvar(cancelamento);
 						vendas = cancelamento.getVendas();
 						vendas.setSituacao("CANCELADA");
-						vendasFacade.salvar(vendas);
+						vendasDao.salvar(vendas);
 	
 						
 	
@@ -305,7 +308,7 @@ public class CancelamentoFichaMB implements Serializable {
 						int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", true, venda.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
-						vendas = vendasFacade.salvar(vendas);
+						vendas = vendasDao.salvar(vendas);
 						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, true, venda.getUsuario());
 						emitirNotificacao();
@@ -321,10 +324,10 @@ public class CancelamentoFichaMB implements Serializable {
 	}
 	
 	public void cancelarVenda1(){
-		VendasFacade vendasFacade = new VendasFacade();
+		
 		venda1 = cancelamento.getVendas();
 		venda1.setSituacao("CANCELADA");
-		vendasFacade.salvar(venda1);
+		vendasDao.salvar(venda1);
 		int mesVenda = Formatacao.getMesData(venda1.getDataVenda())  + 1;
 		int mesAtual = Formatacao.getMesData(new Date()) +1; 
 		if (mesVenda == mesAtual) {
@@ -336,7 +339,7 @@ public class CancelamentoFichaMB implements Serializable {
 			int[] pontos = dashBoardBean.calcularPontuacao(venda1, 0, "", true, venda.getUsuario());
 			venda1.setPonto(pontos[0]);
 			venda1.setPontoescola(pontos[1]);
-			venda1 = vendasFacade.salvar(venda1);
+			venda1 = vendasDao.salvar(venda1);
 			ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 			productRunnersCalculosBean.calcularPontuacao(venda1, pontos[0], 0, true, venda.getUsuario());
 		

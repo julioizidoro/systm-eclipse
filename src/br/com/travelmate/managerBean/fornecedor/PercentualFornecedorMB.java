@@ -1,7 +1,8 @@
 package br.com.travelmate.managerBean.fornecedor;
  
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Produtos;
@@ -34,6 +35,8 @@ public class PercentualFornecedorMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject 
 	private AplicacaoMB aplicacaoMB;
     private Date dataInicio;
@@ -148,7 +151,7 @@ public class PercentualFornecedorMB implements Serializable{
     public void gerarGrafico(){
     	if(fornecedor!=null && fornecedor.getIdfornecedor()!=null){
 	    	//numero vendas
-	    	VendasFacade vendasFacade = new VendasFacade();
+	    	
 			String sqlVendasTotal = "SELECT distinct count(vendas.idvendas)"
 					+ " FROM vendas"
 					+ " where (vendas.situacao='FINALIZADA' or vendas.situacao='ANDAMENTO')";
@@ -157,7 +160,7 @@ public class PercentualFornecedorMB implements Serializable{
 			}
 			sqlVendasTotal = sqlVendasTotal + " AND vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'"
 					+ " AND vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
-			Long vendastotal = vendasFacade.numVendas(sqlVendasTotal);  
+			Long vendastotal = vendasDao.numVendas(sqlVendasTotal);  
 			 
 			//percentual fornecedor
 			String sqlPercentual = "SELECT distinct (count(vendas.idvendas) / "+vendastotal+") * 100"
@@ -170,7 +173,7 @@ public class PercentualFornecedorMB implements Serializable{
 			}
 			sqlPercentual = sqlPercentual + " AND vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'"
 					+ " AND vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
-			BigDecimal percentual = vendasFacade.percentualVendas(sqlPercentual);  
+			BigDecimal percentual = vendasDao.percentualVendas(sqlPercentual);  
 			
 			int restante = 100 - percentual.intValue();
 	    	

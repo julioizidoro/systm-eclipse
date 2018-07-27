@@ -33,6 +33,7 @@ import br.com.travelmate.bean.GerarPacotesFornecedorBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoPacotesBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -48,7 +49,7 @@ import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -95,6 +96,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private Pacotes pacotes;
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private List<Pacotetrecho> listaTrecho;
@@ -668,8 +671,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 				vendass.setIdlead(lead.getIdlead());
 			} else
 				vendass.setIdlead(0);
-			VendasFacade vendasFacade = new VendasFacade();
-			vendass = vendasFacade.salvar(vendass);
+			
+			vendass = vendasDao.salvar(vendass);
 			pacotes.setVendas(vendass);
 			pacotes.setCliente(cliente);
 			formaPagamento.setVendas(vendass);
@@ -1242,11 +1245,11 @@ public class CadPacoteAgenciaMB implements Serializable {
 					vendass.setValor(valorJuros + formaPagamento.getValorOrcamento());
 					vendass.setCliente(pacotes.getCliente());
 					vendass.setUsuario(usuarioLogadoMB.getUsuario());
-					VendasFacade vendasFacade = new VendasFacade();
+					
 					if (vendass.getSituacaogerencia().equalsIgnoreCase("P")){
 						vendass.setSituacaogerencia("F");
 					}
-					vendass = vendasFacade.salvar(vendass);
+					vendass = vendasDao.salvar(vendass);
 					salvarSeguro();
 					salvarFormaPagamento();
 					try {
@@ -1294,7 +1297,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 						productRunnersCalculosBean.calcularPontuacao(vendass, pontos[0], 0, false, pacotes.getUsuario());
 						vendass.setPonto(pontos[0]);
 						vendass.setPontoescola(0);
-						vendass = vendasFacade.salvar(vendass);
+						vendass = vendasDao.salvar(vendass);
 						
 					} else if (valorVendaAlterar != vendass.getValor()) {
 						int mes = Formatacao.getMesData(new Date()) + 1;
@@ -1304,7 +1307,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(vendass, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(vendass, valorVendaAlterar, false);
-							vendass = vendasFacade.salvar(vendass);
+							vendass = vendasDao.salvar(vendass);
 							
 						}
 					}

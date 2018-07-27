@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AlteracaofinanceiroFacade;
 import br.com.travelmate.facade.AlteracaofinanceiroparcelasFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
@@ -17,7 +18,6 @@ import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Alteracaofinanceiro;
 import br.com.travelmate.model.Alteracaofinanceiroparcelas;
@@ -53,13 +53,15 @@ public class ProgramasBean implements Serializable{
 	private LeadDao leadDao;
 	@Inject
 	private LeadPosVendaDao leadPosVendaDao;
+	@Inject
+	private VendasDao vendasDao;
 
 	public Vendas salvarVendas(Vendas venda) {
 		venda.setDataVenda(new Date());
 		venda.setSituacaogerencia("F");
 		venda.setSituacao("FINALIZADA");
-		VendasFacade vendasFacade = new VendasFacade();
-		venda = vendasFacade.salvar(venda);
+		
+		venda = vendasDao.salvar(venda);
 		Logvenda logVenda = new Logvenda();
 		logVenda.setOperacao("FINALIZADA");
 		logVenda.setSituacao(venda.getSituacao());
@@ -102,7 +104,7 @@ public class ProgramasBean implements Serializable{
 				venda.setSituacaogerencia("A");
 			}
 		}
-		VendasFacade VendasFacade = new VendasFacade();
+		
 		venda.setCliente(cliente);
 		if(venda.getVendasMatriz()==null || venda.getVendasMatriz().length()==0){
 			venda.setVendasMatriz("S");
@@ -115,7 +117,7 @@ public class ProgramasBean implements Serializable{
 		venda.setIdlead(0);
 		if ((lead!=null) && (lead.getIdlead()!=null)){
 			venda.setIdlead(lead.getIdlead());
-			venda = VendasFacade.salvar(venda);
+			venda = vendasDao.salvar(venda);
 			finalizarLead(lead);
 			if(lead.getLeadposvenda()==null) {
 				Leadposvenda leadposvenda = new Leadposvenda();
@@ -142,7 +144,7 @@ public class ProgramasBean implements Serializable{
 				leadPosVendaDao.salvar(leadposvenda);
 			}
 		}else {
-			venda = VendasFacade.salvar(venda);
+			venda = vendasDao.salvar(venda);
 		}
 		if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")){
 			logVenda.setSituacao(venda.getSituacao());

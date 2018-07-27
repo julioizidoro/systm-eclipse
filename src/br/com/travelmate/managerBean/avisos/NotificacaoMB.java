@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AvisosFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Vendas;
@@ -34,6 +35,8 @@ public class NotificacaoMB implements Serializable{
 	private String tipo2;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private VendasDao vendasDao;
 	
 	@PostConstruct
 	public void init(){
@@ -172,8 +175,7 @@ public class NotificacaoMB implements Serializable{
 		if (avisousuario.getAvisos().getIdvenda()>0){
 			FacesContext fc = FacesContext.getCurrentInstance();
 	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-	        VendasFacade vendasFacade = new  VendasFacade();
-	        Vendas vendas = vendasFacade.consultarVendas(avisousuario.getAvisos().getIdvenda());
+	        Vendas vendas = vendasDao.consultarVendas(avisousuario.getAvisos().getIdvenda());
 	        if (vendas!=null){
 	        	if (vendas.getProdutos().getIdprodutos()==22) {
 	        		session.setAttribute("cliente", vendas.getCliente());

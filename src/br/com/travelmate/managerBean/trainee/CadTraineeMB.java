@@ -26,6 +26,7 @@ import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -39,7 +40,7 @@ import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.ProdutosTraineeFacade;
 import br.com.travelmate.facade.ValoresTraineeFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -76,6 +77,8 @@ public class CadTraineeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1336,8 +1339,8 @@ public class CadTraineeMB implements Serializable {
 						productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 						venda.setPonto(pontos[0]);
 						venda.setPontoescola(pontos[1]);
-						VendasFacade vendasFacade = new VendasFacade();
-						venda = vendasFacade.salvar(venda);
+						
+						venda = vendasDao.salvar(venda);
 						
 					}
 					String titulo = "";

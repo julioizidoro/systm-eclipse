@@ -27,6 +27,7 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -37,7 +38,7 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.ValoresWorkFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.DashBoardMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
@@ -81,7 +82,8 @@ public class CadWorkTravelMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	
+	@Inject
+	private VendasDao vendasDao;
 	private Worktravel work;
 	private Valoreswork valoreswork;
 	private Vendas venda;
@@ -1224,40 +1226,10 @@ public class CadWorkTravelMB implements Serializable {
 							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
-							VendasFacade vendasFacade = new VendasFacade();
-							venda = vendasFacade.salvar(venda);
 							
-						}
-//						String titulo = "";
-//						String operacao = "";
-//						String imagemNotificacao = "";
-//						if (novaFicha) {
-//							titulo = "Nova Ficha de Work and Travel";
-//							operacao = "A";
-//							imagemNotificacao = "inserido";
-//						} else {
-//							titulo = "Ficha de Work and Travel Alterado";
-//							operacao = "I";
-//							imagemNotificacao = "alterado";
-//						}
-//						String vm = "Venda pela Matriz";
-//						if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-//							vm = "Venda pela Loja";
-//						}
-//						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-//						List<Departamento> departamento = departamentoFacade
-//								.listar("select d From Departamento d where d.usuario.idusuario="
-//										+ venda.getProdutos().getIdgerente());
-//						if (departamento != null && departamento.size() > 0) {
-//							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-//									venda.getFornecedorcidade().getFornecedor().getNome(),
-//									Formatacao.ConvercaoDataPadrao(work.getDataInicioPretendida01()),
-//									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-//									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-//									imagemNotificacao, "A");
-//						}
-						// }
-						// }.start();
+							venda = vendasDao.salvar(venda);
+							
+						}				
 					}
 				}
 				FacesContext context = FacesContext.getCurrentInstance();

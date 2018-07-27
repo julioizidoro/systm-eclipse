@@ -17,8 +17,9 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.VendasComissaoFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -34,6 +35,8 @@ public class VincularTerceirosMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Date dataInicial;
@@ -134,7 +137,7 @@ public class VincularTerceirosMB implements Serializable{
 
 
 	public void gerarListaVendas(){
-        VendasFacade vendasFacade = new VendasFacade();
+        
         if ((sql==null) || (sql.length()<=0)){
             String sData = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
             sql = "Select v From Vendas v where (v.situacao='FINALIZADA' OR v.situacao='ANDAMENTO') and v.vendasMatriz='S' and  v.dataVenda>='" + sData + "' ";
@@ -143,7 +146,7 @@ public class VincularTerceirosMB implements Serializable{
             }
             sql=sql	+ " order by v.dataVenda DESC, v.idvendas DESC";
         }
-        listaVendas = vendasFacade.lista(sql);
+        listaVendas = vendasDao.lista(sql);
         if (listaVendas==null){
             listaVendas = new ArrayList<Vendas>();
         }
@@ -165,8 +168,8 @@ public class VincularTerceirosMB implements Serializable{
         	sql = sql + " and v.idvendas=" + idvenda;   
         }
         sql = sql + " order by v.dataVenda DESC, v.idvendas DESC";
-        VendasFacade vendasFacade = new VendasFacade();
-        listaVendas = vendasFacade.lista(sql);
+        
+        listaVendas = vendasDao.lista(sql);
         if (listaVendas==null){
             listaVendas = new ArrayList<Vendas>();
         }

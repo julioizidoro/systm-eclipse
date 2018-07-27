@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.vendas.relatoriometas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,24 +9,25 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.facade.VendasFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named
-public class RelatorioVendasGerentesMB {
+public class RelatorioVendasGerentesMB implements Serializable{
 	
 	
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Date dataVendaIncial;
@@ -181,8 +183,8 @@ public class RelatorioVendasGerentesMB {
 			if (programas != null && programas.getIdprodutos() != null) {
 				sql = sql + " and v.produtos.idprodutos=" + programas.getIdprodutos(); 
 			}
-			VendasFacade vendasFacade = new VendasFacade();
-			listaVendas = vendasFacade.lista(sql);
+			
+			listaVendas = vendasDao.lista(sql);
 			if (listaVendas == null) {
 				listaVendas = new ArrayList<Vendas>();
 			}

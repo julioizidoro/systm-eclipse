@@ -8,12 +8,15 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named; 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
-import br.com.travelmate.facade.VendasFacade;
+
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Parametrosprodutos;
 import br.com.travelmate.model.Pontuacaovendas;
@@ -31,6 +34,8 @@ public class AplicacaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private String mascara8;
 	private String mascara9;
 	private Parametrosprodutos parametrosprodutos;  
@@ -307,8 +312,8 @@ public class AplicacaoMB implements Serializable {
 		usuariopontos.setPontos(ponto);
 		UsuarioPontosFacade usuarioPontosFacade = new UsuarioPontosFacade();
 		usuarioPontosFacade.salvar(usuariopontos);
-		VendasFacade vendasFacade = new VendasFacade();
-		vendasFacade.salvar(venda);
+		
+		vendasDao.salvar(venda);
 	}
 
 	public int valirdarRegra(Regravenda regra, Vendas venda, int numeroSemanas, String programa,
