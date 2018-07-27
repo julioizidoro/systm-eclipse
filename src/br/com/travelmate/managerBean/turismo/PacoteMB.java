@@ -103,12 +103,12 @@ public class PacoteMB implements Serializable {
 		listaPacotesAgencia = (List<Pacotes>) session.getAttribute("listaPacotesAgencia");
 		nomePrograma = (String) session.getAttribute("nomePrograma");
 		chamadaTela = (String) session.getAttribute("chamadaTela");
-		session.removeAttribute("listaVendasFinalizada");
+		session.removeAttribute("listaPacotesAgencia");
 		session.removeAttribute("pesquisar");
 		session.removeAttribute("nomePrograma");
 		session.removeAttribute("chamadaTela");
 		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
-			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Trainee")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Pacote")) {
 				pesquisar = "Sim";
 			}else {
 				pesquisar = "Não";
@@ -128,7 +128,7 @@ public class PacoteMB implements Serializable {
 				cliente = "";
 			}
 			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
-				pesquisar();
+				gerarListaInicial();
 			}
 			gerarListaUnidadeNegocio();
 		}
@@ -249,6 +249,21 @@ public class PacoteMB implements Serializable {
 	public String cancelar() {
 		RequestContext.getCurrentInstance().closeDialog(null);
 		return "";
+	}
+	
+	public void gerarListaInicial() {
+		String sql = null;
+		sql = "Select p from Pacotes p where  p.operacao='agencia' and p.controle='Concluido'";
+		Date dataconsulta = new Date();
+		try {
+			dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
+		sql = sql + "  order by p.vendas.dataVenda desc";
+		listaPacotesAgencia = GerarListas.listarPacotes(sql);
 	}
 
 	public void pesquisar() {
@@ -746,10 +761,10 @@ public class PacoteMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("pacotes", pacotes);
-		session.setAttribute("listaPacotes", listaPacotes);
+		session.setAttribute("listaPacotesAgencia", listaPacotesAgencia);
 		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Trainee");
-		session.setAttribute("chamadaTela", "Trainee");
+		session.setAttribute("nomePrograma", "Pacote");
+		session.setAttribute("chamadaTela", "Pacote");
 		return "fichasPacotes";
 	}
 	
@@ -757,10 +772,10 @@ public class PacoteMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("pacotes", pacotes);
-		session.setAttribute("listaPacotes", listaPacotes);
+		session.setAttribute("listaPacotesAgencia", listaPacotesAgencia);
 		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Trainee");
-		session.setAttribute("chamadaTela", "Trainee");
+		session.setAttribute("nomePrograma", "Pacote");
+		session.setAttribute("chamadaTela", "Pacote");
 		return "contratoPacotes";
 	}
 }

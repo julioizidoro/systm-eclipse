@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.travelmate.managerBean.turismo;
 
 import java.io.Serializable;
@@ -1218,104 +1213,108 @@ public class CadPacoteAgenciaMB implements Serializable {
 			FacesMessage mensagemAtencao = new FacesMessage("Atenção! ", "Pacote não Inicado/Finalizado");
 			FacesContext.getCurrentInstance().addMessage(null, mensagemAtencao);
 		} else {
-			if (formaPagamento.getValorOrcamento() > 0) {
-				if (saldoParcelar < 0.01f) {
-					PacotesFacade pacotesFacade = new PacotesFacade();
-					pacotes.setOperacao("agencia");
-					pacotes.setControle("Concluido");
-					pacotes.setCliente(cliente);
-					pacotes.setUsuario(usuario);
-					pacotes = pacotesFacade.salvar(pacotes);
-					pacotetrecho.setPacotes(pacotes);
-					String titulo = "";
-					String operacao = "";
-					String imagemNotificacao = "";
-					if (novaFicha) {
-						titulo = "Novo Pacote";
-						operacao = "A";
-						imagemNotificacao = "inserido";
-					} else {
-						titulo = "Pacote Alterado";
-						operacao = "I";
-						imagemNotificacao = "alterado";
-					}
-					vendass.setSituacao("FINALIZADA");
-					vendass.setUnidadenegocio(pacotes.getUnidadenegocio());
-					vendass.setVendasMatriz("S");
-					vendass.setValor(valorJuros + formaPagamento.getValorOrcamento());
-					vendass.setCliente(pacotes.getCliente());
-					vendass.setUsuario(usuarioLogadoMB.getUsuario());
-					
-					if (vendass.getSituacaogerencia().equalsIgnoreCase("P")){
-						vendass.setSituacaogerencia("F");
-					}
-					vendass = vendasDao.salvar(vendass);
-					salvarSeguro();
-					salvarFormaPagamento();
-					try {
-						float valorPrevisto = calcularComissao();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					if (novaFicha) {
-						ContasReceberBean contasReceberBean = new ContasReceberBean(vendass,
-								formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, pacotes.getDatainicio());
-						GerarPacotesFornecedorBean gerarPacotesFornecedorBean = new GerarPacotesFornecedorBean(listaTrecho);
-					} 
-					FacesContext fc = FacesContext.getCurrentInstance();
-					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-					session.removeAttribute("pacote");
-					String vm = "Venda pela Matriz";
-					if (vendass.getVendasMatriz().equalsIgnoreCase("N")) {
-						vm = "Venda pela Loja";
-					}
-					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-					List<Departamento> departamento = departamentoFacade.listar("select d From Departamento d where d.usuario.idusuario="+vendass.getProdutos().getIdgerente());
-					if(departamento!=null && departamento.size()>0){
-						if (novaFicha) {
-							Formatacao.gravarNotificacaoVendas(titulo, vendass.getUnidadenegocio(),
-									cliente.getNome(), vendass.getFornecedorcidade().getFornecedor().getNome(),
-									Formatacao.ConvercaoDataPadrao(pacotes.getDatainicio()), vendass.getUsuario().getNome(), vm,
-									vendass.getValor(), 0.00f, "R$", operacao, departamento.get(0),
-									imagemNotificacao, "I");
-						}else{
-							Formatacao.gravarNotificacaoVendas(titulo, vendass.getUnidadenegocio(),
-									cliente.getNome(), vendass.getFornecedorcidade().getFornecedor().getNome(),
-									Formatacao.ConvercaoDataPadrao(pacotes.getDatainicio()), vendass.getUsuario().getNome(), vm,
-									vendass.getValor(), 0.00f, "R$", operacao, departamento.get(0),
-									imagemNotificacao, "A");
-						}
-					}
-					if (novaFicha) {
-						
-						DashBoardBean dashBoardBean = new DashBoardBean();
-						dashBoardBean.calcularNumeroVendasProdutos(vendass, false);
-						dashBoardBean.calcularMetaMensal(vendass, 0, false);
-						dashBoardBean.calcularMetaAnual(vendass, 0, false);
-						int[] pontos = dashBoardBean.calcularPontuacao(vendass, 0, "", false,pacotes.getUsuario());
-						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-						productRunnersCalculosBean.calcularPontuacao(vendass, pontos[0], 0, false, pacotes.getUsuario());
-						vendass.setPonto(pontos[0]);
-						vendass.setPontoescola(0);
-						vendass = vendasDao.salvar(vendass);
-						
-					} else if (valorVendaAlterar != vendass.getValor()) {
-						int mes = Formatacao.getMesData(new Date()) + 1;
-						int mesVenda = Formatacao.getMesData(vendass.getDataVenda()) + 1;
-						if (mes == mesVenda) {
-							
-							DashBoardBean dashBoardBean = new DashBoardBean();
-							dashBoardBean.calcularMetaMensal(vendass, valorVendaAlterar, false);
-							dashBoardBean.calcularMetaAnual(vendass, valorVendaAlterar, false);
-							vendass = vendasDao.salvar(vendass);
-							
-						}
-					}
-					return "consultapacote";
+				if (formaPagamento.getValorOrcamento() > 0) {
+					if (formaPagamento.getParcelamentopagamentoList() != null && formaPagamento.getParcelamentopagamentoList().size() > 0) {
+						if (listaTrecho != null && listaTrecho.size() > 0) {
+							if (saldoParcelar < 0.01f) {
+								PacotesFacade pacotesFacade = new PacotesFacade();
+								pacotes.setOperacao("agencia");
+								pacotes.setControle("Concluido");
+								pacotes.setCliente(cliente);
+								pacotes.setUsuario(usuario);
+								pacotes = pacotesFacade.salvar(pacotes);
+								pacotetrecho.setPacotes(pacotes);
+								String titulo = "";
+								String operacao = "";
+								String imagemNotificacao = "";
+								if (novaFicha) {
+									titulo = "Novo Pacote";
+									operacao = "A";
+									imagemNotificacao = "inserido";
+								} else {
+									titulo = "Pacote Alterado";
+									operacao = "I";
+									imagemNotificacao = "alterado";
+								}
+								vendass.setSituacao("FINALIZADA");
+								vendass.setUnidadenegocio(pacotes.getUnidadenegocio());
+								vendass.setVendasMatriz("S");
+								vendass.setValor(valorJuros + formaPagamento.getValorOrcamento());
+								vendass.setCliente(pacotes.getCliente());
+								vendass.setUsuario(usuarioLogadoMB.getUsuario());
+								
+								if (vendass.getSituacaogerencia().equalsIgnoreCase("P")){
+									vendass.setSituacaogerencia("F");
+								}
+								vendass = vendasDao.salvar(vendass);
+								salvarSeguro();
+								salvarFormaPagamento();
+								try {
+									float valorPrevisto = calcularComissao();
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+								if (novaFicha) {
+									ContasReceberBean contasReceberBean = new ContasReceberBean(vendass,
+											formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, pacotes.getDatainicio());
+									GerarPacotesFornecedorBean gerarPacotesFornecedorBean = new GerarPacotesFornecedorBean(listaTrecho);
+								} 
+								FacesContext fc = FacesContext.getCurrentInstance();
+								HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+								session.removeAttribute("pacote");
+								String vm = "Venda pela Matriz";
+								if (vendass.getVendasMatriz().equalsIgnoreCase("N")) {
+									vm = "Venda pela Loja";
+								}
+								DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+								List<Departamento> departamento = departamentoFacade.listar("select d From Departamento d where d.usuario.idusuario="+vendass.getProdutos().getIdgerente());
+								if(departamento!=null && departamento.size()>0){
+									if (novaFicha) {
+										Formatacao.gravarNotificacaoVendas(titulo, vendass.getUnidadenegocio(),
+												cliente.getNome(), vendass.getFornecedorcidade().getFornecedor().getNome(),
+												Formatacao.ConvercaoDataPadrao(pacotes.getDatainicio()), vendass.getUsuario().getNome(), vm,
+												vendass.getValor(), 0.00f, "R$", operacao, departamento.get(0),
+												imagemNotificacao, "I");
+									}else{
+										Formatacao.gravarNotificacaoVendas(titulo, vendass.getUnidadenegocio(),
+												cliente.getNome(), vendass.getFornecedorcidade().getFornecedor().getNome(),
+												Formatacao.ConvercaoDataPadrao(pacotes.getDatainicio()), vendass.getUsuario().getNome(), vm,
+												vendass.getValor(), 0.00f, "R$", operacao, departamento.get(0),
+												imagemNotificacao, "A");
+									}
+								}
+								if (novaFicha) {
+									
+									DashBoardBean dashBoardBean = new DashBoardBean();
+									dashBoardBean.calcularNumeroVendasProdutos(vendass, false);
+									dashBoardBean.calcularMetaMensal(vendass, 0, false);
+									dashBoardBean.calcularMetaAnual(vendass, 0, false);
+									int[] pontos = dashBoardBean.calcularPontuacao(vendass, 0, "", false,pacotes.getUsuario());
+									ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+									productRunnersCalculosBean.calcularPontuacao(vendass, pontos[0], 0, false, pacotes.getUsuario());
+									vendass.setPonto(pontos[0]);
+									vendass.setPontoescola(0);
+									vendass = vendasDao.salvar(vendass);
+									
+								} else if (valorVendaAlterar != vendass.getValor()) {
+									int mes = Formatacao.getMesData(new Date()) + 1;
+									int mesVenda = Formatacao.getMesData(vendass.getDataVenda()) + 1;
+									if (mes == mesVenda) {
+										
+										DashBoardBean dashBoardBean = new DashBoardBean();
+										dashBoardBean.calcularMetaMensal(vendass, valorVendaAlterar, false);
+										dashBoardBean.calcularMetaAnual(vendass, valorVendaAlterar, false);
+										vendass = vendasDao.salvar(vendass);
+										
+									}
+								}
+								return "consultapacote";
+							} else
+								Mensagem.lancarMensagemErro("Saldo a parcelar em aberto!", "");
+						}else Mensagem.lancarMensagemInfo("Adicione um Trecho", "");
+					}else Mensagem.lancarMensagemInfo("Informe as Formas de Pagamento", "");
 				} else
-					Mensagem.lancarMensagemErro("Saldo a parcelar em aberto!", "");
-			} else
-				Mensagem.lancarMensagemErro("Valor deve ser maior que zero!", "");
+					Mensagem.lancarMensagemErro("Valor deve ser maior que zero!", "");
 		}
 		return "";
 	}

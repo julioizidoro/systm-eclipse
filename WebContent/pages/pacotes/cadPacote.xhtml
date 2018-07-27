@@ -211,16 +211,15 @@
 
 					</p:tab>
 					<p:tab title="Seguro Viagem" titleStyle="font-size: 11px">
-						<p:outputLabel value="Seguradora" for="seguradora"
-							style="margin-left:8%" />
-						<p:outputLabel value="Plano" for="plano" style="margin-left:18%" />
-						<p:outputLabel value="Tarifario" for="tarifario"
-							style="margin-left:21.3%" />
-						<p:outputLabel value="Cobrança" for="cobranca"
-							style="margin-left:21.3%" />
-						<br></br>
-						<h:panelGrid columns="4">
-							<p:selectOneMenu style="width:155px;margin-left:36%"
+						<h:panelGrid columns="4" style="margin-left:8%;width:74%;">
+							<p:outputLabel value="Seguradora" for="seguradora"
+								 />
+							<p:outputLabel value="Plano" for="plano"  />
+							<p:outputLabel value="Tarifario" for="tarifario"
+								 />
+							<p:outputLabel value="Cobrança" for="cobranca"
+								 />
+							<p:selectOneMenu style="width:155px;"
 								id="seguradora" value="#{cadPacoteAgenciaMB.fornecedorSeguro}"
 								converter="FornecedorCidadeConverter">
 								<f:selectItem itemLabel="Seguradora" itemValue="0"
@@ -233,7 +232,7 @@
 									value="#{cadPacoteAgenciaMB.listaFornecedorSeguro}" />
 								<p:ajax event="change" update="plano" listener="#{cadPacoteAgenciaMB.listarPlanosSeguro()}"/>
 							</p:selectOneMenu> 
-							<p:selectOneMenu id="plano" style="width:163px;margin-left:36.3%"
+							<p:selectOneMenu id="plano" style="width:163px;"
 								converter="SeguroPlanosConverter"    
 								value="#{cadPacoteAgenciaMB.seguroplanos}">
 								<f:selectItem itemLabel="Plano" itemValue="0"
@@ -245,7 +244,7 @@
 								<p:ajax event="change" update="tarifario" listener="#{cadPacoteAgenciaMB.listarValoresSeguro()}"/>
 							</p:selectOneMenu>
 							<p:selectOneMenu id="tarifario"
-								style="width:230px;margin-left:29%"
+								style="width:230px;"
 								value="#{cadPacoteAgenciaMB.valoresSeguro}"
 								converter="ValorSeguroConverter">
 								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
@@ -260,7 +259,7 @@
 							</p:selectOneMenu>
 							<p:inputText id="cobranca"
 								value="#{cadPacoteAgenciaMB.valoresSeguro.cobranca}"
-								style="width:75%;margin-left:21%" maxlength="45" readonly="true" />
+								style="width:75%;" maxlength="45" readonly="true" />
 						</h:panelGrid>
 
 						<br></br>
@@ -270,7 +269,7 @@
 						<p:outputLabel value="Data inicial" for="datainicio"
 							style="margin-left: 8.2%" />
 						<p:outputLabel id="titulosemanasseguro" value="No. dias"
-							for="diasSeguro" style="margin-left:6.2%" />
+							for="diasSeguro" style="margin-left:5.5%" />
 						<p:outputLabel value="Data Final" for="datatermino"
 							style="margin-left:6%" />
 						<p:outputLabel value="Valor NET do seguro" for="valorseguro"
