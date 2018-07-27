@@ -5,21 +5,6 @@
  */
 package br.com.travelmate.bean;
 
-import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaAtualizar;
-import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaCancelar;
-import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaEnviar;
-import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
-import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
-import br.com.travelmate.model.Banco;
-import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Ftpdados;
-import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Ftp;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +16,20 @@ import java.util.logging.Logger;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+
+import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaAtualizar;
+import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaCancelar;
+import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaEnviar;
+import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
+import br.com.travelmate.model.Banco;
+import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Ftp;
 
 
 /**

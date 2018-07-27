@@ -5,12 +5,8 @@
  */
 package br.com.travelmate.bean;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import br.com.travelmate.dao.CoeficienteJurosDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Coeficientejuros;

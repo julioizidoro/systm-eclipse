@@ -27,6 +27,9 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ClienteFacade;
@@ -70,6 +73,12 @@ public class FichaSeguroViagemMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -939,7 +948,8 @@ public class FichaSeguroViagemMB implements Serializable {
 			Produtos produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getSeguroPrivado());
 			vendas.setValor(totalPagar);
 			vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, nsituacao, cliente, vendas.getValor(), produto,
-					valoresseguro.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, seguro.getDataInicio(), seguro.getDataTermino());
+					valoresseguro.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, seguro.getDataInicio(), seguro.getDataTermino(), 
+					vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 			salvarSeguro();
 			orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalPagar, 0.0f, valorCambio, vendas,
 					cambioAlterado);

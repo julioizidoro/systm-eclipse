@@ -33,6 +33,9 @@ import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.RegraVistoBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OcursoPacoteDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
@@ -137,6 +140,8 @@ public class CadCursoMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
 	private VendasDao vendasDao;
 	@Inject
 	private OcursoPacoteDao oCursoPacoteDao;
@@ -144,6 +149,10 @@ public class CadCursoMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	private Vendas venda;
 	private Vendas vendaAlterada;
 	private Formapagamento formaPagamento;
@@ -1603,7 +1612,7 @@ public class CadCursoMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
 
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente, totalPagar, produto,
-						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino());
+						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				CadCursoBean cadCursoBean = new CadCursoBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 				if (enviarFicha && !novaFicha) {
 					cadCursoBean.SalvarAlteracaoFinanceiro(listaParcelamentoPagamentoAntiga, listaParcelamentoPagamentoOriginal, venda.getUsuario());

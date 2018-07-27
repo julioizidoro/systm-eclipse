@@ -8,6 +8,7 @@ import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
@@ -77,6 +78,8 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
 	private LeadHistoricoDao leadHistoricoDao;
 	@Inject
@@ -654,7 +657,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 							
 							lead.setDataultimocontato(new Date());
 							if (lead.getSituacao() < 3) {
-								LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+								LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
 		            			lead.setSituacao(3);
 							}
 							lead = leadDao.salvar(lead);

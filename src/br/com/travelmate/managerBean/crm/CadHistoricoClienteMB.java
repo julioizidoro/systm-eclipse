@@ -16,6 +16,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
@@ -33,6 +34,8 @@ public class CadHistoricoClienteMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
 	private LeadDao leadDao;
 	@Inject 
@@ -124,7 +127,7 @@ public class CadHistoricoClienteMB implements Serializable {
 			lead.setHoraproximocontato(leadHistorico.getHoraporximocontato());
 			lead.setDataultimocontato(leadHistorico.getDatahistorico());
 			if (lead.getSituacao() < 2) {
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2);
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2, leadSituacaoDao);
 				lead.setSituacao(2);
 			}
 			lead = leadDao.salvar(lead);

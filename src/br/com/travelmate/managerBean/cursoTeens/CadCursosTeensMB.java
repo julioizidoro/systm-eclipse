@@ -30,6 +30,9 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -79,6 +82,12 @@ public class CadCursosTeensMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -1167,7 +1176,7 @@ public class CadCursosTeensMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getProgramasTeens());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead, programasTeens.getDataInicioCurso(), programasTeens.getDataTerminoCurso());
+						lead, programasTeens.getDataInicioCurso(), programasTeens.getDataTerminoCurso(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				if (venda.getIdvendas() != null) {
 					if (venda.getCambio() != cambio) {
 						cambioAlterado = "Sim";

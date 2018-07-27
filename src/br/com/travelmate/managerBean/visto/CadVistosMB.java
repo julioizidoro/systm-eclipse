@@ -27,6 +27,9 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVistoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -72,6 +75,12 @@ public class CadVistosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -682,7 +691,7 @@ public class CadVistosMB implements Serializable {
 			vendas.setUsuario(usuarioLogadoMB.getUsuario());
 			vendas.setValorcambio(0.0f);
 			vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, "FINALIZADA", cliente,
-					formaPagamento.getValorTotal(), produto, fornecedorcidade, cambio, cambio.getValor(), lead, null, null);
+					formaPagamento.getValorTotal(), produto, fornecedorcidade, cambio, cambio.getValor(), lead, null, null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 			vistos.setVendas(vendas);
 			vistos.setControle("Processo");
 			vistos.setPaisDestino(pais.getNome());

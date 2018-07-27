@@ -26,6 +26,9 @@ import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -77,6 +80,12 @@ public class CadTraineeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -1303,7 +1312,7 @@ public class CadTraineeMB implements Serializable {
 			this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getTrainee());
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 					formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-					lead, null, null);
+					lead, null, null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 			CadTraineeBean cadTraineeBean = new CadTraineeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			if (enviarFicha) {
 				cadTraineeBean.SalvarAlteracaoFinanceiro(listaParcelamentoPagamentoAntiga,

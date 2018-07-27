@@ -14,6 +14,7 @@ import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.OCursoProdutosBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
@@ -78,6 +79,8 @@ public class SalvarOrcamentoOcurso {
 	private OCursoDescontoDao oCursoDescontoDao;
 	@Inject
 	private OcursoPacoteDao oCursoPacoteDao;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
 	
 	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
 			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento) {
@@ -163,7 +166,7 @@ public class SalvarOrcamentoOcurso {
 		Lead lead = leadDao.consultar("SELECT l From Lead l where l.cliente.idcliente=" + cliente.getIdcliente());
 		if (lead != null) {
 			if (lead.getSituacao() < 3) {
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
 				lead.setSituacao(3);
 			}
 			salvarHistoricoLead(ocrusoprodutos);

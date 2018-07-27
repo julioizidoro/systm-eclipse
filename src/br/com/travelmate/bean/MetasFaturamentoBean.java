@@ -4,9 +4,6 @@
 
 import java.util.Date;
 
-import javax.inject.Inject;
-
-import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
@@ -18,12 +15,6 @@ import br.com.travelmate.util.Formatacao;
 
 public class MetasFaturamentoBean  {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	
 	public Metafaturamentoanual getMetaAnual(UsuarioLogadoMB usuarioLogadoMB){
 		int ano = Formatacao.getAnoData(new Date());
 		int mes = Formatacao.getMesData(new Date()) + 1;

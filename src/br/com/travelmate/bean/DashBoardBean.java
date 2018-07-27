@@ -3,18 +3,16 @@ package br.com.travelmate.bean;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Named; 
+import javax.inject.Named;
 
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
-import br.com.travelmate.facade.MetaFaturamentoMensalFacade; 
+import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
 import br.com.travelmate.model.Metafaturamentoanual;
-import br.com.travelmate.model.Metasfaturamentomensal; 
-import br.com.travelmate.model.Pacotes; 
-import br.com.travelmate.model.Pacotetrecho; 
+import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.model.Regravenda;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;

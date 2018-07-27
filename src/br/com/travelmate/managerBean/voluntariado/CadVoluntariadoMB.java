@@ -27,6 +27,9 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -87,6 +90,12 @@ public class CadVoluntariadoMB implements Serializable {
 	/**
 	 * 
 	 */
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -1183,7 +1192,7 @@ public class CadVoluntariadoMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getVoluntariado());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead, voluntariado.getDataInicio(), voluntariado.getDataTermino());
+						lead, voluntariado.getDataInicio(), voluntariado.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				CadVoluntariadoBean cadVoluntariadoBean = new CadVoluntariadoBean(venda, formaPagamento, orcamento,
 						usuarioLogadoMB, valorSeguroAntigo);
 				if (!novaFicha) {

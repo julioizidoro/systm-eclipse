@@ -1,7 +1,5 @@
 package br.com.travelmate.bean;
 
-import java.util.List;
-
 public class UnidadeBean {
 	
 	

@@ -27,6 +27,9 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -78,6 +81,12 @@ public class CadWorkTravelMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1160,7 +1169,8 @@ public class CadWorkTravelMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getWork());
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead, work.getDataInicioPretendida01(), work.getDataTerminoPretendida01());
+						lead, work.getDataInicioPretendida01(), work.getDataTerminoPretendida01(),
+						vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				CadWorkTravelBean cadWorkTravelBean = new CadWorkTravelBean(venda, formaPagamento, orcamento,
 						usuarioLogadoMB, work);
 				if (enviarFicha) {

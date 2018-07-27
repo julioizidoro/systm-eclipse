@@ -1,14 +1,11 @@
 package br.com.travelmate.bean;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AlteracaofinanceiroFacade;
 import br.com.travelmate.facade.AlteracaofinanceiroparcelasFacade;
@@ -37,26 +34,10 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
-@Named
-public class ProgramasBean implements Serializable{
-	
-	
-	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	
-	@Inject
-	private LeadDao leadDao;
-	@Inject
-	private LeadPosVendaDao leadPosVendaDao;
-	@Inject
-	private VendasDao vendasDao;
 
-	public Vendas salvarVendas(Vendas venda) {
+public class ProgramasBean {
+	
+	public Vendas salvarVendas(Vendas venda, VendasDao vendasDao) {
 		venda.setDataVenda(new Date());
 		venda.setSituacaogerencia("F");
 		venda.setSituacao("FINALIZADA");
@@ -72,7 +53,7 @@ public class ProgramasBean implements Serializable{
 		return venda;
 	}
 	
-	public Vendas salvarVendas(Vendas venda, UsuarioLogadoMB usuarioLogadoMB, String situacao, Cliente cliente, Float valorTotal, Produtos produto, Fornecedorcidade fornecedorCidade, Cambio cambio, Float valorCambio, Lead lead, Date datainicio, Date datatermino) {
+	public Vendas salvarVendas(Vendas venda, UsuarioLogadoMB usuarioLogadoMB, String situacao, Cliente cliente, Float valorTotal, Produtos produto, Fornecedorcidade fornecedorCidade, Cambio cambio, Float valorCambio, Lead lead, Date datainicio, Date datatermino, VendasDao vendasDao, LeadPosVendaDao leadPosVendaDao, LeadDao leadDao, LeadSituacaoDao leadSituacaoDao) {
 		Logvenda logVenda = new Logvenda();
 		if (venda.getIdvendas() == null) {
 			logVenda.setOperacao("NOVA");
@@ -118,7 +99,7 @@ public class ProgramasBean implements Serializable{
 		if ((lead!=null) && (lead.getIdlead()!=null)){
 			venda.setIdlead(lead.getIdlead());
 			venda = vendasDao.salvar(venda);
-			finalizarLead(lead);
+			finalizarLead(lead, leadDao, leadSituacaoDao);
 			if(lead.getLeadposvenda()==null) {
 				Leadposvenda leadposvenda = new Leadposvenda();
 				leadposvenda.setLead(lead);
@@ -292,8 +273,8 @@ public class ProgramasBean implements Serializable{
 		}
 	}
 	
-	public void finalizarLead(Lead lead){
-		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6);
+	public void finalizarLead(Lead lead, LeadDao leadDao, LeadSituacaoDao leadSituacaoDao){
+		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
 		lead.setSituacao(6);
 		leadDao.salvar(lead);
 	}

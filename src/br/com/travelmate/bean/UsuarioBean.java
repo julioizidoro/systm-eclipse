@@ -1,7 +1,5 @@
 package br.com.travelmate.bean;
 
-import java.util.Date;
-
 public class UsuarioBean {
 
 	private String codigosystm;

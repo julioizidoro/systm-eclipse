@@ -26,6 +26,7 @@ import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.bean.ProdutoOrcamentoCursoBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
@@ -82,6 +83,8 @@ public class CadOrcamentoManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
 	private LeadHistoricoDao leadHistoricoDao;
 	@Inject
@@ -1485,7 +1488,7 @@ public class CadOrcamentoManualMB implements Serializable {
 										Lead lead = cliente.getLead(); 
 			            				lead.setDataultimocontato(new Date());
 			            				if (lead.getSituacao() < 3) {
-				            				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3);
+				            				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
 					            			lead.setSituacao(3);
 										}
 			            				lead = leadDao.salvar(lead);
