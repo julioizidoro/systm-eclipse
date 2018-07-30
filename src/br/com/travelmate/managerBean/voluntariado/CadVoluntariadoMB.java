@@ -980,7 +980,6 @@ public class CadVoluntariadoMB implements Serializable {
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			}
-			formaPagamento.getParcelamentopagamentoList().remove(linha);
 			calcularParcelamentoPagamento();
 			parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
 			parcelamentopagamento.setValorParcela(0.0f);
@@ -2115,6 +2114,17 @@ public class CadVoluntariadoMB implements Serializable {
 			moeda = pais.getMoedas();
 			consultarCambio();
 		}
+		int idTaxaTm = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
+		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
+			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+				int idProdutoOrcamento =orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento().getIdprodutosOrcamento();
+				if (idProdutoOrcamento == idTaxaTm) {
+					float valorNacional = orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional();
+					orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaEstrangeira(valorNacional/cambio.getValor());
+					i = 10000;
+				}
+			}
+		}
 	}
 	
 	public void adicionarSeguroCancelamento() {
@@ -2128,9 +2138,9 @@ public class CadVoluntariadoMB implements Serializable {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
 			orcamentoprodutosorcamento.setValorMoedaNacional(
 					seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor()); 
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional()/cambio.getValor());
 			orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			calcularValorTotalOrcamento();
 			calcularParcelamentoPagamento();
