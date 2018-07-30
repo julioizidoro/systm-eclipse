@@ -442,7 +442,7 @@ public class FiltrarEscolaMB implements Serializable {
 		sql = "Select c from Coprodutos c where c.situacao=TRUE and c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 				+ fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() + " and c.produtosorcamento.idprodutosOrcamento="
 				+ filtrarEscolaBean.getOcurso().getProdutosorcamento().getIdprodutosOrcamento()
-				+ " and c.tipo<>'Acomodacao' and c.tipo<>'Transfer' and c.tipo<>'AcOpcional'";
+				+ " and c.tipo<>'Acomodacao' and c.tipo<>'Transfer' and c.tipo<>'AcOpcional' and c.apenaspacote=FALSE";
 		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
 		if (listaCoProdutos != null) {
 			listaCoProdutos = verificarCursoPossuiValor(listaCoProdutos, fpb);
