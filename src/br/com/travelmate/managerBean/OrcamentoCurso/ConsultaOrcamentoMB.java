@@ -1,6 +1,9 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -78,6 +81,12 @@ public class ConsultaOrcamentoMB implements Serializable {
 	private Lead lead;
 	private String funcao;
 	private boolean botaoHistorico = false;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OcursoSeguroViagemDao ocursoSeguroViagemDao;
 	
 	@Inject
 	private OCursoDao oCursoDao;
@@ -349,7 +358,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					"Data de validade do orçamento expirada, inície um novo orçamento.");
 		} else {
 			EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, cliente,
-					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, ocurso.getIdocurso());
+					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, ocurso.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao);
 			ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 			resultadoOrcamentoBean.setOcurso(ocurso);
 			resultadoOrcamentoBean.setCambio(editarOrcamentoOcurso.getOcurso().getCambio());
