@@ -233,5 +233,9 @@ public class OrcamentoHeMB implements Serializable{
 		return "orcamentoHePdf";
 	}
 	
+	public String notificarEfetuarOrcamentoCrm(){
+		return "followUp";
+	}
+	
 
 }
