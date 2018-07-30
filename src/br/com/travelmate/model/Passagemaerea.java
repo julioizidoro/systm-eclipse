@@ -118,6 +118,7 @@ public class Passagemaerea implements Serializable {
         inftaxaemissao = 0f;
         infcomissao = 0f;
         idusuario = 0;
+        comissaoloja=0.0f;
     }
 
     public Passagemaerea(Integer idpassagemAerea) {

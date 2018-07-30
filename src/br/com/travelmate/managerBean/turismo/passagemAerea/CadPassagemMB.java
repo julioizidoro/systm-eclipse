@@ -809,9 +809,9 @@ public class CadPassagemMB implements Serializable {
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
 							dashBoardBean.calcularMetaMensal(vendas,valorVendasAlterado,false);
 							dashBoardBean.calcularMetaAnual(vendas,valorVendasAlterado,false);
-							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "",false, vendas.getUsuario());
+							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "",false, usuarioFranquia);
 							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-							productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
+							productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false,usuarioFranquia);
 							vendas.setPonto(pontos[0]);
 							vendas.setPontoescola(pontos[1]);
 							if (lead!=null){
@@ -899,6 +899,9 @@ public class CadPassagemMB implements Serializable {
 		}
 		if (valorParcelar > 0) {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
+		}
+		if (passagem.getComissaoloja()==null) {
+			msg= msg + "Comissão loja sem valor\r\n";
 		}
 		return msg;
 	}

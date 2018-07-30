@@ -469,7 +469,7 @@ public class CadHeFinalMB implements Serializable {
 				return voltarControleVendas;
 			}
 		}
-		return "consquestionarioHe";
+		return "consHeFichaFinal";
 	}
 
 	public void iniciarNovo() { 

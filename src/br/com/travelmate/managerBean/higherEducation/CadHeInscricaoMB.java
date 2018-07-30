@@ -657,7 +657,7 @@ public class CadHeInscricaoMB implements Serializable {
 				return voltarControleVendas;
 			}
 		}
-		return "consquestionarioHe";
+		return "consFormAssessoria";
 	}
 
 	public void iniciarNovo() {
@@ -1390,8 +1390,6 @@ public class CadHeInscricaoMB implements Serializable {
 					venda.setPontoescola(pontos[1]);
 					
 					venda = vendasDao.salvar(venda);
-					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
-							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, he.getDatainicio());
 					String titulo = "Nova ficha de inscrição Higher Education";
 					String operacao = "A";
 					String imagemNotificacao = "inserido"; 

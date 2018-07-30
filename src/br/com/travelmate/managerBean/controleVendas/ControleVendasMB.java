@@ -466,7 +466,7 @@ public class ControleVendasMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario() != null || usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
 			String sql = "Select v from Vendas v where (v.produtos.idprodutos<>6 and v.produtos.idprodutos<>7 and v.produtos.idprodutos<> 8"
-					+ " and v.produtos.idprodutos<>15 and v.produtos.idprodutos<>17 and v.produtos.idprodutos<>18 and v.produtos.idprodutos<>21) ";
+					+ " and v.produtos.idprodutos<>15 and v.produtos.idprodutos<>17 and v.produtos.idprodutos<>18 and v.produtos.idprodutos<>21 and v.produtos.idprodutos<>22) ";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sql = sql + " and  v.unidadenegocio.idunidadeNegocio="
 						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
@@ -526,7 +526,7 @@ public class ControleVendasMB implements Serializable {
 	public void pesquisarListaVendas() {
 		String sql = null;
 		sql = "Select v from Vendas v where v.cliente.nome like '%" + nome + "%' and (v.produtos.idprodutos<>6 and v.produtos.idprodutos<>7 and v.produtos.idprodutos<> 8"
-					+ " and v.produtos.idprodutos<>15 and v.produtos.idprodutos<>17 and v.produtos.idprodutos<>18 and v.produtos.idprodutos<>21) ";
+					+ " and v.produtos.idprodutos<>15 and v.produtos.idprodutos<>17 and v.produtos.idprodutos<>18 and v.produtos.idprodutos<>21 and v.produtos.idprodutos<>22) ";
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			if (unidadenegocio != null) {
 				sql = sql + " and v.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();

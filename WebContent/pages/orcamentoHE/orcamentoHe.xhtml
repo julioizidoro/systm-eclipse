@@ -49,10 +49,32 @@
                     <div align="center" style="width: 95%;margin-left: 2.5%;">
                    		 <legend id="iUsu7" ><b>Consulta Orçamento Higher Education</b></legend> 
                    	</div>
-                   	
-                    
-                   	
-                    <p:dataTable id="tabelaOrcamentoManual" var="orcamento"  value="#{orcamentoHeMB.listaOrcamento}" class="tabelas-responsivas" reflow="true"
+
+
+				<p:commandButton value="Novo Orçamento" icon="ui-icon-plus"
+					update=":idtelaconsultaorcamentomanual:growl" onsuccess="PF('novaficha').show();"
+					style="font-size:12px;margin-left:85.5%" />
+
+				<p:dialog message="CRM" showEffect="fade" hideEffect="fade"
+					header="ATENÇÃO" width="36%" icon="ui-icon-alert"
+					widgetVar="novaficha" style="font-size:14px">
+					<h:panelGroup style="margin-left:2%;">
+						<h:outputText
+							value="Por favor emitir a venda através da ferramenta CRM. Obrigado"
+							style="font-size:16px;" />
+					</h:panelGroup>
+					<br />
+					<br />
+					<p:commandButton
+						action="#{orcamentoHeMB.notificarEfetuarOrcamentoCrm()}"
+						value="Ir para CRM" oncomplete="PF('novaficha').hide();"
+						styleClass="ui-confirmdialog-yes"
+						style="margin-left:40%;font-size:12px" />
+					<br />
+				</p:dialog>
+				<br/><br/> 
+
+				<p:dataTable id="tabelaOrcamentoManual" var="orcamento"  value="#{orcamentoHeMB.listaOrcamento}" class="tabelas-responsivas" reflow="true"
                                  scrollable="true" scrollHeight="300" style="margin-left:2.5%;width:95%;"  >
 						<p:column headerText="ID" style="width:15px;" sortBy="#{orcamento.idheorcamento}">    
                             <h:outputText value="#{orcamento.idheorcamento}" />
