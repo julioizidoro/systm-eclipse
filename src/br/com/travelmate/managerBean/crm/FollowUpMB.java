@@ -131,6 +131,7 @@ public class FollowUpMB implements Serializable {
 			this.listaPais = (List<Pais>) session.getAttribute("listapais");
 			this.listaTipoContato = (List<Tipocontato>) session.getAttribute("listatipocontato");
 			this.listaUsuario = (List<Usuario>) session.getAttribute("listausuario");
+			this.listaUnidade = (List<Unidadenegocio>) session.getAttribute("listaunidade");
 			this.listaProgramas = listaProdutos;
 			this.listaPaisConsulta = listaPais;
 			session.removeAttribute("listalead");
@@ -140,6 +141,7 @@ public class FollowUpMB implements Serializable {
 			session.removeAttribute("listapais");
 			session.removeAttribute("listatipocontato");
 			session.removeAttribute("listausuario");
+			session.removeAttribute("unidade");
 			
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
@@ -156,9 +158,10 @@ public class FollowUpMB implements Serializable {
 				if (acessoResponsavelGerencial) {
 					acessoResponsavelUnidade = false;
 					habilitarComboUnidade = false;
-					listaUnidade = GerarListas.listarUnidade();
+					if (listaUnidade==null) {
+						listaUnidade = GerarListas.listarUnidade();
+					}
 				}
-				
 			} else {
 				if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
 					if (usuarioLogadoMB.getUsuario().getAcessounidade().isCrm()) {
@@ -181,7 +184,8 @@ public class FollowUpMB implements Serializable {
 	
 	public void iniciarListas() {
 		
-		
+		usuario = usuarioLogadoMB.getUsuario();
+		unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 		if (listaProdutos==null) {
 			listaProdutos = GerarListas.listarProdutos("");
 			listaProgramas =listaProdutos;
@@ -190,6 +194,9 @@ public class FollowUpMB implements Serializable {
 			listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() + " order by u.nome");
+			
+		}
+		if (listaUnidade==null) {
 			
 		}
 		if (listaTipoContato==null) {
