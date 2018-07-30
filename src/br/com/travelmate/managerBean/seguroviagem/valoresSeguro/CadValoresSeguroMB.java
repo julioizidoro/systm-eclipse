@@ -53,6 +53,7 @@ public class CadValoresSeguroMB implements Serializable {
 	private List<Filtroorcamentoproduto> listaProdutos;
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
+	private boolean valorCancelamento = true;
 
 	@PostConstruct
 	public void init() {
@@ -78,6 +79,9 @@ public class CadValoresSeguroMB implements Serializable {
 			seguroplanos = valoresseguro.getSeguroplanos();
 			moedas = valoresseguro.getMoedas();
 			produtos = valoresseguro.getProdutosorcamento();  
+			if (valoresseguro.isSegurocancelamento()) {
+				valorCancelamento = false;
+			}
 		}
 	} 
 
@@ -189,6 +193,14 @@ public class CadValoresSeguroMB implements Serializable {
 	}
 
 
+	public boolean isValorCancelamento() {
+		return valorCancelamento;
+	}
+
+	public void setValorCancelamento(boolean valorCancelamento) {
+		this.valorCancelamento = valorCancelamento;
+	}
+
 	public void listarFornecedorCidade() {
 		int idProduto = aplicacaoMB.getParametrosprodutos().getSeguroPrivado();
 		if ((idProduto > 0) && (cidade != null)) {
@@ -242,4 +254,16 @@ public class CadValoresSeguroMB implements Serializable {
 			listaSeguroPlanos = new ArrayList<Seguroplanos>();
 		}
 	}
+	
+	
+	public void verificarValorCancelamento() {
+		if (valoresseguro.isSegurocancelamento()) {
+			valorCancelamento = false;
+		}else {
+			valorCancelamento = true;
+		}
+	}
+	
+	
+	
 }

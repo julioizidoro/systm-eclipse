@@ -95,23 +95,24 @@
                </p:inputText>
 			   <br></br><br></br>
                
-         	   <p:outputLabel value="Moeda Comissão" for="moedaComissao" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:3%;"   />
-         	   <p:outputLabel value="Comissão Premium" for="comissaoPremium" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:9.6%;"   />
-         	   <p:outputLabel value="Comissão Express" for="comissaoExpress" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:5%;"   />
-               <p:outputLabel value="Cobrança" for="cobranca" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:8%;"   />
+         	  
               
                <br></br> 
-               <h:panelGrid columns="4">
+               <h:panelGrid columns="4" style="width:97%;margin-left:3%;">
+                	<p:outputLabel value="Moeda Comissão" for="moedaComissao" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
+	         	   <p:outputLabel value="Comissão Premium" for="comissaoPremium" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
+	         	   <p:outputLabel value="Comissão Express" for="comissaoExpress" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
+	               <p:outputLabel value="Cobrança" for="cobranca" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
                		<p:selectOneMenu id="moedaComissao" value="#{cadValoresSeguroMB.moedas1}"
-						 converter="MoedasConverter"	style="width:100px;margin-left:12.5%">
+						 converter="MoedasConverter"	style="width:100px;">
 						<f:selectItem itemLabel="Moedas" itemValue="0" />
 	                    <f:selectItems value="#{cadValoresSeguroMB.listaMoedas}" var="moedas" itemLabel="#{moedas.sigla}" itemValue="#{moedas}"/>
 	                    <f:attribute name="listaMoedas" value="#{cadValoresSeguroMB.listaMoedas}"/>
 	               </p:selectOneMenu>
-	               <p:inputText id="comissaoPremium" value="#{cadValoresSeguroMB.valoresseguro.comissaopremium}" style="width:55%;margin-left:26%;text-align:right" >
+	               <p:inputText id="comissaoPremium" value="#{cadValoresSeguroMB.valoresseguro.comissaopremium}" style="width:55%;text-align:right" >
 	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 	               </p:inputText>	
-	               <p:inputText id="comissaoExpress" value="#{cadValoresSeguroMB.valoresseguro.comissaoexpress}" style="width:77%;margin-left:3%;text-align:right" >
+	               <p:inputText id="comissaoExpress" value="#{cadValoresSeguroMB.valoresseguro.comissaoexpress}" style="width:77%;text-align:right" >
 	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 	               </p:inputText>	
 	               <p:selectOneMenu id="cobranca" style="width:154px;margin-left:5%"
@@ -123,12 +124,19 @@
 					</p:selectOneMenu> 
                </h:panelGrid>
          	   <br></br>
-         	   <h:panelGroup style="margin-left:3%;">
-					<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadValoresSeguroMB.valoresseguro.segurocancelamento}">
-						<p:ajax event="change"  />  
-					</p:selectBooleanCheckbox>  
-					<p:outputLabel value="Seguro Cancelamento" for="checkBoxSeguro" style="margin-left:1%;"/>
-			   </h:panelGroup> 
+         	   <h:panelGrid style="margin-left:3%;width:49%" columns="2">
+         	   		<p:outputLabel/>
+         	   		<p:outputLabel value="Valor Cancelamento"/>
+         	   		<h:panelGroup>
+						<p:selectBooleanCheckbox id="checkBoxSeguro" value="#{cadValoresSeguroMB.valoresseguro.segurocancelamento}">
+							<p:ajax event="change"  update="idvalorCancelamento" listener="#{cadValoresSeguroMB.verificarValorCancelamento()}"/>  
+						</p:selectBooleanCheckbox>  
+						<p:outputLabel value="Seguro Cancelamento" for="checkBoxSeguro" style="margin-left:1%;"/>
+					</h:panelGroup>
+					 <p:inputText id="idvalorCancelamento" disabled="#{cadValoresSeguroMB.valorCancelamento}" value="#{cadValoresSeguroMB.valoresseguro.valorsegurocancelamento}" style="width:96px;text-align:right" >
+	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	               	 </p:inputText>
+			   </h:panelGrid> 
          	   <br></br>
 	           <div align="center">
 	           	    <p:commandButton icon="ui-icon-check" value="Confirmar" action="#{cadValoresSeguroMB.salvar()}" style="font-size:11px;"/>
