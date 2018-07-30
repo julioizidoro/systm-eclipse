@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoDataFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -52,6 +55,12 @@ public class InserirDataInicioMB implements Serializable{
 	private boolean calendario=true;
 	private boolean comboDatas=false;
 	private DatasBean datasBean;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OcursoSeguroViagemDao ocursoSeguroViagemDao;
 	
 	
 	@PostConstruct
@@ -191,7 +200,7 @@ public class InserirDataInicioMB implements Serializable{
 		ocurso.setValorvisto(pacote.getValorvisto());
 		
 		EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, lead.getCliente(),
-				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso());
+				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao);
 		ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 
 		resultadoOrcamentoBean.setOcurso(ocurso);

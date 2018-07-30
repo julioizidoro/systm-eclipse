@@ -44,22 +44,21 @@ public class EditarOrcamentoOcursoBean {
 	private List<Ocrusoprodutos> listaTransfer;
 	private List<Ocrusoprodutos> listaAcOpcional;
 	private int idOcruso;
-	
-	@Inject
 	private OCursoDescontoDao oCursoDescontoDao;
-	@Inject
 	private OCursoProdutoDao oCursoProdutoDao;
-	@Inject
 	private OcursoSeguroViagemDao ocursoSeguroViagemDao;
 
 	public EditarOrcamentoOcursoBean(Ocurso ocurso, Cliente cliente, Date datainicio, AplicacaoMB aplicacaoMB,
-			UsuarioLogadoMB usuarioLogadoMB, int idOcurso) {
+			UsuarioLogadoMB usuarioLogadoMB, int idOcurso, OCursoDescontoDao orCursoDescontoDao, OCursoProdutoDao oCursoProdutoDao, OcursoSeguroViagemDao ocursoSeguroViagemDao) {
 		this.cliente = cliente;
 		this.datainicio = datainicio;
 		this.aplicacaoMB = aplicacaoMB;
 		this.usuarioLogadoMB = usuarioLogadoMB;
 		this.ocurso = ocurso;
 		this.idOcruso = idOcurso;
+		this.oCursoDescontoDao = orCursoDescontoDao;
+		this.oCursoProdutoDao = oCursoProdutoDao;
+		this.ocursoSeguroViagemDao = ocursoSeguroViagemDao;
 		dataconsulta = retornarDataConsultaOrcamento(); 
 	}
 

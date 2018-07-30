@@ -20,6 +20,9 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OCursoDescontoDao;
+import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
@@ -62,6 +65,12 @@ public class PacotesMB implements Serializable{
 	private Date dataInicio;
 	private Ocurso pacote;
 	private boolean habilitarVoltaBtn = true;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private OcursoSeguroViagemDao ocursoSeguroViagemDao;
 	
 	@Inject 
 	private OCursoDao oCursoDao;
@@ -434,7 +443,7 @@ public class PacotesMB implements Serializable{
 		ocurso.setValorvisto(pacote.getValorvisto());
 		
 		EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, lead.getCliente(),
-				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso());
+				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao);
 		ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 
 		resultadoOrcamentoBean.setOcurso(ocurso);
