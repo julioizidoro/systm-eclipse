@@ -1099,6 +1099,9 @@ public class ControleVendasMB implements Serializable {
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 				session.setAttribute("vendas", vendas);
+				if (vendas.getProdutos().getIdprodutos()==22) {
+					session.setAttribute("cliente", vendas.getCliente());
+				}
 				voltar = "consControleVendas";
 				session.setAttribute("voltar", voltar);
 				return "consArquivos";
