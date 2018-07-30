@@ -3330,7 +3330,7 @@ public class CadCursoMB implements Serializable {
 				orcamentoprodutosorcamento.setImportado(true);
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				carregarCobrancaSeguro();
-				//adicionarSeguroCancelamento();
+				adicionarSeguroCancelamento();
 				camposSeguroViagem = "false";
 			}
 		}
