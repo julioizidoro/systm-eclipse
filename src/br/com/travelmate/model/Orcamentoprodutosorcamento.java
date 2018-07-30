@@ -53,11 +53,14 @@ public class Orcamentoprodutosorcamento implements Serializable {
     private int linha;
     @Column(name = "importado")
     private boolean importado;
+    @Transient
+    private boolean podeExcluirAcomodacao;
 
     public Orcamentoprodutosorcamento() {
     		podeExcluir=true;
     		linha = 0;
     		importado = false;
+    		podeExcluirAcomodacao = false;
     }
 
     public Orcamentoprodutosorcamento(Integer idorcamentoProdutosOrcamento) {
@@ -142,6 +145,14 @@ public class Orcamentoprodutosorcamento implements Serializable {
 
 	public void setImportado(boolean importado) {
 		this.importado = importado;
+	}
+
+	public boolean isPodeExcluirAcomodacao() {
+		return podeExcluirAcomodacao;
+	}
+
+	public void setPodeExcluirAcomodacao(boolean podeExcluirAcomodacao) {
+		this.podeExcluirAcomodacao = podeExcluirAcomodacao;
 	}
 
 	@Override

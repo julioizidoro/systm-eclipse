@@ -742,12 +742,12 @@
 													<p:ajax event="change" />
 												</p:calendar>
 												<p:commandLink id="botaoPesquisar"
-													actionListener="#{cadCursoMB.selecionarAcomodacao()}"
-													style="text-decoration: none" disabled="#{cadCursoMB.btnPesquisar}">
+													actionListener="#{cadCursoMB.selecionarAcomodacao()}" update=":telaFichaCurso:growl"
+													style="text-decoration: none">
 													<img src="../../resources/img/pesquisar.png" />
 													<p:ajax event="dialogReturn" process="@this"
 														listener="#{cadCursoMB.retornoDialogoAcomodacao}"
-														update="tabelaAcomodacao, :telaFichaCurso:growl, botaoPesquisar, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:valortotal, :telaFichaCurso:acordionPainel:valoreal, :telaFichaCurso:acordionPainel:valor, :telaFichaCurso:acordionPainel:totalpag, :telaFichaCurso:acordionPainel:saldoreceber, :telaFichaCurso:acordionPainel:valorOrca, :telaFichaCurso:acordionPainel:valoraparcelar, :telaFichaCurso:acordionPainel:saldoparcelar" />
+														update=":telaFichaCurso:acordionPainel:comanimais, :telaFichaCurso:acordionPainel:comcrianca, :telaFichaCurso:acordionPainel:fumante, :telaFichaCurso:acordionPainel:vegetariano, tabelaAcomodacao, :telaFichaCurso:growl, botaoPesquisar, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:valortotal, :telaFichaCurso:acordionPainel:valoreal, :telaFichaCurso:acordionPainel:valor, :telaFichaCurso:acordionPainel:totalpag, :telaFichaCurso:acordionPainel:saldoreceber, :telaFichaCurso:acordionPainel:valorOrca, :telaFichaCurso:acordionPainel:valoraparcelar, :telaFichaCurso:acordionPainel:saldoparcelar" />
 												</p:commandLink>
 											</h:panelGrid>
 										
@@ -845,8 +845,9 @@
 																				<f:convertNumber pattern="##,###,###,###.##"
 																					minFractionDigits="2" />
 																			</p:inputText>
-																			<p:commandButton id="btnExcluir" value="excluir" 
-																				action="#{cadCursoMB.excluirAcomodacao(acomodacao)}"  update="tabelaAcomodacao, :telaFichaCurso:growl"
+																			<p:commandButton id="btnExcluir" value="excluir"  
+																				action="#{cadCursoMB.excluirAcomodacao(acomodacao)}"
+																				update="tabelaAcomodacao, :telaFichaCurso:growl, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:valortotal, :telaFichaCurso:acordionPainel:valoreal, :telaFichaCurso:acordionPainel:valor, :telaFichaCurso:acordionPainel:totalpag, :telaFichaCurso:acordionPainel:saldoreceber, :telaFichaCurso:acordionPainel:valorOrca, :telaFichaCurso:acordionPainel:valoraparcelar, :telaFichaCurso:acordionPainel:saldoparcelar"
 																			 	style="margin-right:2%;"/>  
 																		</h:panelGrid>
 																	</div>
@@ -1473,7 +1474,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column style="width:90px;">
-								<p:commandButton id="btnexcluirproduto" value="Excluir"
+								<p:commandButton id="btnexcluirproduto" value="Excluir" disabled="#{produtoscurso.podeExcluirAcomodacao}"
 									action="#{cadCursoMB.excluirProdutoOrcamento(rowIx)}"
 									update="@all" icon=" ui-icon-close" />
 							</p:column>

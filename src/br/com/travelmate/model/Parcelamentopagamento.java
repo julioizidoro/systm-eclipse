@@ -61,6 +61,7 @@ public class Parcelamentopagamento implements Serializable {
 
     public Parcelamentopagamento() {
     	setVerificarParcelamento(false);
+    	setNumeroParcelas(01);
     }
 
     public Parcelamentopagamento(Integer idparcemlamentoPagamento) {

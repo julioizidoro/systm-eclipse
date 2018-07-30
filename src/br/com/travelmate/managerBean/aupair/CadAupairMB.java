@@ -94,6 +94,7 @@ public class CadAupairMB implements Serializable {
 	private VendasDao vendasDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Aupair aupair;
 	private Valoresaupair valoresAupair;
