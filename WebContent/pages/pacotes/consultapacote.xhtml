@@ -42,7 +42,8 @@
 								<p:ajax event="blur" />
 							</p:calendar>
 							<p:selectOneMenu id="unidade" value="#{pacoteMB.unidadenegocio}"
-								style="width:90%" converter="UnidadeNegocioConverter">
+								style="width:90%" converter="UnidadeNegocioConverter" filter="true"
+								filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems value="#{pacoteMB.listaUnidadeNegocio}"
