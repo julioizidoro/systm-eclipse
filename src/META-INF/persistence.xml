@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="systmPU" transaction-type="RESOURCE_LOCAL">
+  	
+  	<non-jta-data-source>java:comp/env/jdbc/systmDB</non-jta-data-source>
+  
     <class>br.com.travelmate.model.Acesso</class>
     <class>br.com.travelmate.model.Banco</class>
     <class>br.com.travelmate.model.Cambio</class>
@@ -165,10 +168,7 @@
     <class>br.com.travelmate.model.Promocaotaxacidade</class>
     <class>br.com.travelmate.model.Promocaotaxacurso</class>
     <class>br.com.travelmate.model.Fornecedorcidadeguia</class>
-    <class>br.com.travelmate.model.Extrasacamodacao</class>
     <class>br.com.travelmate.model.Acomodacao</class>
-    <class>br.com.travelmate.model.Tipoacomodacao</class>
-    <class>br.com.travelmate.model.Valoresacomodacao</class>
     <class>br.com.travelmate.model.Logvenda</class>
     <class>br.com.travelmate.model.Pastavideo</class>
     <class>br.com.travelmate.model.Video</class>
@@ -284,19 +284,20 @@
     <class>br.com.travelmate.model.Corridaprodutoano</class>
     <class>br.com.travelmate.model.Corridaprodutomes</class>
     <class>br.com.travelmate.model.Lancamentocartaocredito</class>
+    <class>br.com.travelmate.model.Heparceiros</class>
+    <class>br.com.travelmate.model.Heorcamentopais</class>
+    <class>br.com.travelmate.model.Heorcamento</class>
+    <class>br.com.travelmate.model.Acomodacaocurso</class>
+    
     
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
-    <properties>
-    	<property name="eclipselink.jdbc.batch-writing" value="None"/>
-    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8081/systm"/>  
-    	<property name="javax.persistence.jdbc.user" value="root"/>
-    	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-    	<property name="eclipselink.jdbc.bind-parameters" value="true"/>
-    	<property name="eclipselink.exclude-eclipselink-orm" value="true"/>
-    	<property name="eclipselink.allow-zero-id" value="true"/>
-    	<property name="javax.persistence.jdbc.password" value="simples"/>
-    	</properties> 
+   <properties>
+  		
+      	<property name="javax.persistence.schema-generation.create-source" value="metadata" />
+  		<property name="hibernate.show_sql" value="true" />
+		<property name="hibernate.format_sql" value="true" />
+  </properties>
   </persistence-unit>
 </persistence>
