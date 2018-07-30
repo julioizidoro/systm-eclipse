@@ -47,7 +47,7 @@ public class OCursoFormaPagamentoDao implements Serializable{
     }
     
     public Ocursoformapagamento consultar(int idOcurso) {
-    	Query q = manager.createQuery("select p from Ocursoformapagamento p where p.ocurso.idocurso=" + idOcurso);
+    	Query q = manager.createQuery("select p from ocursoformapagamento p where p.ocurso.idocurso=" + idOcurso);
         Ocursoformapagamento forma = null;
         if (q.getResultList().size() > 0) {
             forma = (Ocursoformapagamento) q.getResultList().get(0);

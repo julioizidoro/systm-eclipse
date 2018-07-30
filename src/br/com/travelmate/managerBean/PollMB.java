@@ -94,10 +94,10 @@ public class PollMB implements Serializable {
 		 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc";
 		listaAvisos = avisosFacade.listarAvisoUsuario(sql);
 		numeroUpload = listaAvisos.size();
-		if (tipo.equalsIgnoreCase("p")) {
+	/*	if (tipo.equalsIgnoreCase("p")) {
 			dashBoardMB.gerarDadosDashBoard();
 		}
-		gerarListaNotificacao();
+	*/	gerarListaNotificacao();
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         String redirecionar = (String) session.getAttribute("redirecionar");

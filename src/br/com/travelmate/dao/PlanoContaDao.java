@@ -46,7 +46,7 @@ public class PlanoContaDao {
     	EntityManager manager;
     	int numero =0;
     	manager = ConectionFactory.getConnection();
-        Query q = manager.createNativeQuery("select MAX(idplanoconta) from Planoconta");
+        Query q = manager.createNativeQuery("select MAX(idplanoconta) from planoconta");
         if(q.getResultList().size()>0){
         	numero = (int) q.getResultList().get(0);
         	numero = numero+1;

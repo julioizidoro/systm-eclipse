@@ -262,7 +262,7 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 	public Float gerarListaProdutos(int idUnidade, int idProduto){
 		Double soma = 0.0;
 		String sql = "Select distinct sum(valor) as valor " +
-		        " From Vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S'"
+		        " From vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S'"
 		        + " and dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicial) + "' and  dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) 
 		        		+ "'  and unidadeNegocio_idunidadeNegocio=" + idUnidade + " and produtos_idprodutos=" + idProduto;
 		

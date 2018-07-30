@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +18,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.MetasFaturamentoBean;
 import br.com.travelmate.dao.LeadDao;
-import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
@@ -84,7 +82,7 @@ public class DashBoardMB implements Serializable {
 
 	@PostConstruct
 	public void init() { 
-		gerarDadosDashBoard(); 
+		//gerarDadosDashBoard(); 
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
@@ -452,6 +450,7 @@ public class DashBoardMB implements Serializable {
 			usuarioLogadoMB.getUsuario().setDashboard("I"); 
 		} else {
 			usuarioLogadoMB.getUsuario().setDashboard("C"); 
+			gerarDadosDashBoard();
 		}
 	}
 
@@ -480,19 +479,19 @@ public class DashBoardMB implements Serializable {
 			listaLead = new ArrayList<Lead>();
 		}
 		for (int i = 0; i < listaLead.size(); i++) {
-			if (listaLead.get(i).getDataultimocontato() == null && listaLead.get(i).getSituacao() > 0
+			if (listaLead.get(i).getDataultimocontato() == null && listaLead.get(i).getSituacao() == 1
 					&& listaLead.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
 				novos = novos + 1;
 			} else if ((listaLead.get(i).getDataultimocontato() != null)
 					&& (listaLead.get(i).getDataproximocontato()) != null
 					&& (Formatacao.ConvercaoDataSql(listaLead.get(i).getDataproximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
-					&& (listaLead.get(i).getSituacao() > 0)) {
+					&& (listaLead.get(i).getSituacao() <=5)) {
 				hoje = hoje + 1;
 			} else if (listaLead.get(i).getDataultimocontato() != null
 					&& listaLead.get(i).getDataproximocontato() != null
 					&& listaLead.get(i).getDataproximocontato().before(new Date())
-					&& listaLead.get(i).getSituacao() > 0) {
+					&& listaLead.get(i).getSituacao() <= 5) {
 				atrasadas = atrasadas + 1;
 			}
 		}

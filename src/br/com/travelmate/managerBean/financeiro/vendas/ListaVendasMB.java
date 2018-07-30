@@ -106,7 +106,7 @@ public class ListaVendasMB implements Serializable{
 			String dataInicial = Formatacao.ConvercaoDataSql(dataConsulta);
 			String sql = "Select v from Vendas v where (v.situacao='FINALIZADA' OR v.situacao='ANDAMENTO') and v.vendasMatriz='S' and v.dataVenda>='" + dataInicial + "' ";
 			String sqlacumulado = "Select distinct sum(valor) as valor " +
-			        "From Vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S' and dataVenda>='" + data + "'";
+			        "From vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S' and dataVenda>='" + data + "'";
 			if ((usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) && (usuarioLogadoMB.getUsuario().getGrupoacesso().getIdgrupoAcesso()==1)){
 				sql = sql + " and v.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 				sqlacumulado = sqlacumulado + " and unidadeNegocio_idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();

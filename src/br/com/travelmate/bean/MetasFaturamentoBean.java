@@ -75,7 +75,7 @@ public class MetasFaturamentoBean  {
 		mes = mes +1;
 		String dataInicial = String.valueOf(ano) + "-" + String.valueOf(mes) + "-" + String.valueOf(primeiro);
 		String sqlacumulado = "Select distinct sum(valor) as valor " +
-		        "From Vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S' and dataVenda>='" + dataInicial + "'";
+		        "From vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S' and dataVenda>='" + dataInicial + "'";
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("unidade")){
 			sqlacumulado = sqlacumulado + " and unidadeNegocio_idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
@@ -87,7 +87,7 @@ public class MetasFaturamentoBean  {
 		Date data = Formatacao.getPrimeiroDiaSemana(new Date());
 		String dataInicial = Formatacao.ConvercaoDataSql(data); 
 		String sqlacumulado = "Select distinct sum(valor) as valor " +
-		        "From Vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S' and dataVenda>='" + dataInicial + "'";
+		        "From vendas where (situacao='FINALIZADA' OR situacao='ANDAMENTO') and vendasMatriz='S' and dataVenda>='" + dataInicial + "'";
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("unidade")){
 			sqlacumulado = sqlacumulado + " and unidadeNegocio_idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		}
