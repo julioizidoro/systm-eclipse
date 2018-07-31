@@ -61,6 +61,5 @@ public class OCursoProdutoDao implements Serializable{
         	Ocrusoprodutos ocrusoprodutos = (Ocrusoprodutos) q.getResultList().get(0);   
             manager.remove(ocrusoprodutos);
         }    
-        manager.close();
     }
 }

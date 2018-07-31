@@ -554,6 +554,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					oCursoProdutoDao.salvar(produto);
 				}
 			}
+			if (listaOcursoDesconto == null) {
+				listaOcursoDesconto = new ArrayList<>();
+			}
 			for (int i = 0; i < listaOcursoDesconto.size(); i++) {
 				listaOcursoDesconto.get(i).setOcurso(ocurso);
 				oCursoDescontoDao.salvar(listaOcursoDesconto.get(i));
@@ -639,7 +642,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Orçamento salvo.");
 			FacesContext.getCurrentInstance().addMessage(null, mensagem);
 
-	
+			if (listaProdutos == null) {
+				listaProdutos = new ArrayList<>();
+			}
 		for (int i = 0; i < listaProdutos.size(); i++) {
 				listaProdutos.get(i).setOcurso(ocurso);
 				if(listaProdutos.get(i).getDescricao()==null) {
@@ -827,23 +832,25 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		formaPagamento04.setObservacao2(" ");
 		if (ocurso != null && ocurso.getIdocurso() != null) {
 			for (int i = 0; i < ocurso.getOcursoformapagamentoList().size(); i++) {
-				if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
-						.equalsIgnoreCase("Opção 02 - Parcelamento antes da viagem")) {
-					formaPagamento02 = ocurso.getOcursoformapagamentoList().get(i);
-					if (formaPagamento02.isSelecionado()) {
-						habilitaFormaPagamento02 = false;
-					}
-				} else if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
-						.equalsIgnoreCase("Opção 03 - Parcelamento em cartão de crédito em até 12X* via TravelMate")) {
-					formaPagamento03 = ocurso.getOcursoformapagamentoList().get(i);
-					if (formaPagamento03.isSelecionado()) {
-						habilitaFormaPagamento03 = false;
-					}
-				} else if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
-						.equalsIgnoreCase("Opção 4 - Parcelamento em cheque via financeira")) {
-					formaPagamento04 = ocurso.getOcursoformapagamentoList().get(i);
-					if (formaPagamento04.isSelecionado()) {
-						habilitaFormaPagamento04 = false;
+				if (ocurso.getOcursoformapagamentoList().get(i).getTitulo() != null) {
+					if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
+							.equalsIgnoreCase("Opção 02 - Parcelamento antes da viagem")) {
+						formaPagamento02 = ocurso.getOcursoformapagamentoList().get(i);
+						if (formaPagamento02.isSelecionado()) {
+							habilitaFormaPagamento02 = false;
+						}
+					} else if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
+							.equalsIgnoreCase("Opção 03 - Parcelamento em cartão de crédito em até 12X* via TravelMate")) {
+						formaPagamento03 = ocurso.getOcursoformapagamentoList().get(i);
+						if (formaPagamento03.isSelecionado()) {
+							habilitaFormaPagamento03 = false;
+						}
+					} else if (ocurso.getOcursoformapagamentoList().get(i).getTitulo()
+							.equalsIgnoreCase("Opção 4 - Parcelamento em cheque via financeira")) {
+						formaPagamento04 = ocurso.getOcursoformapagamentoList().get(i);
+						if (formaPagamento04.isSelecionado()) {
+							habilitaFormaPagamento04 = false;
+						}
 					}
 				}
 			}
