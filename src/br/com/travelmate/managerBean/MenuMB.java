@@ -1599,4 +1599,8 @@ public class MenuMB implements Serializable {
 		return false;
 	}
 	
+	public String relatorioVendasGerentes() {
+		return "relatorioVendasGerentes";
+	}
+	
 }

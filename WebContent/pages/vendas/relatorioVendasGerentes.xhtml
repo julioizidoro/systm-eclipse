@@ -7,7 +7,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/default.xhtml">
 	<ui:define name="corpo">
-		<h:form id="consultacursos" style="font-size:11px;">
+		<h:form id="consultaVendasFranquia" style="font-size:11px;">
 			<div id="centro">
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
 				<br></br>
@@ -15,15 +15,15 @@
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
 						<h:panelGrid columns="4"
-							columnClasses="tamanho7, tamanhoavisos, tamanhoavisos, tamanhoavisos"
+							
 							style="width:98%;margin-left:4%;">
 							<p:outputLabel value="Unidade" for="unidade" />
 							<p:outputLabel value="Consultor" style="margin-left:2%;"/>
 							<p:outputLabel value="Programa" />
-							<p:outputLabel value="Data Recebimento" />
+							<p:outputLabel value="Data Venda" />
 
 							<p:selectOneMenu id="unidade" value="#{relatorioVendasGerentesMB.unidadenegocio}"
-								style="width:250px;" converter="UnidadeNegocioConverter" disabled="#{relatorioVendasGerentesMB.desabilitarUnidade}"
+								style="width:200px;" converter="UnidadeNegocioConverter" disabled="#{relatorioVendasGerentesMB.desabilitarUnidade}"
 								
 								filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
@@ -48,7 +48,7 @@
 								<p:ajax event="change"/>   
 							</p:selectOneMenu>   
 							<p:selectOneMenu id="produtolead" value="#{relatorioVendasGerentesMB.programas}"
-								style="width:90%;" converter="ProdutoConverter" filter="true"
+								style="width:200px;" converter="ProdutoConverter" filter="true"
 								filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Todos" itemValue="0" />
 								<f:selectItems id="idproduto"
@@ -63,34 +63,25 @@
 									maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
-									<p:ajax event="blur" />
+									<p:ajax event="dateSelect" />
 								</p:calendar>
-								<p:calendar id="dataFinal" value="#{relatorioVendasGerentesMB.dataVendaIncial}"
+								<p:calendar id="dataFinal" value="#{relatorioVendasGerentesMB.dataVendaFinal}"
 									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
 									maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
-									<p:ajax event="blur" />
+									<p:ajax event="dateSelect" />
 								</p:calendar>
 							</h:panelGrid>
-							<p:outputLabel value="" />
-							<p:outputLabel value="" />
-							<p:outputLabel value="" />
-							<p:outputLabel value="" />
-							
-
-							
-							
-							
 							
 						</h:panelGrid>
 						<br></br><br></br>
 						<h:panelGroup style="float: right;">
-							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultacursos:tbl, :consultacursos:growl"
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search " update=":consultaVendasFranquia:tbl, :consultaVendasFranquia:growl"
 								
 								action="#{relatorioVendasGerentesMB.gerarPesquisa()}" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update=" unidade, :consultacursos:tbl, dataFinalRec, dataIniRec, situacaolead, origem, dataIni, dataFinal, consultor, produtolead"
+								update=" unidade, :consultaVendasFranquia:tbl, dataIni, dataFinal, consultor, produtolead"
 								action="#{relatorioVendasGerentesMB.limpar()}" />
 						</h:panelGroup>
 						<br></br> 
@@ -114,24 +105,24 @@
 			            </h:commandLink>
 			        </h:panelGrid>
 			        
-				<p:dataTable id="tbl" var="lvenda" value="#{relatorioVendasGerentesMB.listaVendas}"
+				<p:dataTable id="tbl" var="venda" value="#{relatorioVendasGerentesMB.listaVendas}"
 			                 style="width: 99%;margin-left:1%;" scrollable="true"
 							scrollHeight="300">
 			 
-			         <p:column headerText="Id" sortBy="#{venda.idvendas}" style="width:90px;text-align:left;" >
+			         <p:column headerText="ID" sortBy="#{venda.idvendas}" style="width:30px;text-align:left;" >
 			            <h:outputText value="#{venda.idvendas}" />
 			        </p:column>
 			        <p:column headerText="Nome" sortBy="#{venda.cliente.nome}" style="width:90px;text-align:left;" >
 			            <h:outputText value="#{venda.cliente.nome}" />
 			        </p:column>
-			        <p:column headerText="Data"  sortBy="#{venda.dataVenda}" style="width:60px;text-align:center;">
+			        <p:column headerText="Data"  sortBy="#{venda.dataVenda}" style="width:50px;text-align:center;">
 			            <h:outputText value="#{venda.dataVenda}" >
 			            	<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />   
 						</h:outputText>
 			        </p:column>
 			        
-			        <p:column headerText="Programa" sortBy="#{venda.produtos.descricao}" style="width:60px;text-align:left;" >
+			        <p:column headerText="Programa" sortBy="#{venda.produtos.descricao}" style="width:80px;text-align:left;" >
 			            <h:outputText value="#{venda.produtos.descricao}" />
 			        </p:column>
 			          <p:column headerText="Unidade" sortBy="#{venda.unidadenegocio.nomerelatorio}" style="width:80px;text-align:left;" >
@@ -140,10 +131,10 @@
 			        <p:column headerText="Consultor" sortBy="#{venda.usuario.nome}" style="width:80px;text-align:left;" >
 			            <h:outputText value="#{venda.usuario.nome}" />
 			        </p:column>
-			         <p:column headerText="Parceiro" sortBy="#{venda.forncedorcidade.fornecedor.nome}" style="width:80px;text-align:left;" >
-			            <h:outputText value="#{venda.forncedorcidade.fornecedor.nome}" />
+			         <p:column headerText="Parceiro" sortBy="#{venda.fornecedorcidade.fornecedor.nome}" style="width:80px;text-align:left;" >
+			            <h:outputText value="#{venda.fornecedorcidade.fornecedor.nome}" />
 			        </p:column>
-			        <p:column headerText="Valor Venda" style="width:55px;text-align: right" sortBy="#{venda.valor}">
+			        <p:column headerText="Valor Venda" style="width:75px;text-align: right" sortBy="#{venda.valor}">
 						<h:outputText value="#{venda.valor}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
@@ -155,8 +146,8 @@
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Valor Liquido" style="width:55px;text-align: right" sortBy="#{venda.vendacomissao.liquidovendas}">
-						<h:outputText value="#{venda.vendacomissao.liquidovendas}">
+					<p:column headerText="Valor Liq." style="width:65px;text-align: right" sortBy="#{venda.vendacomissao.liquidovendas}">
+						<h:outputText value="#{venda.vendascomissao.liquidovendas}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
@@ -164,46 +155,7 @@
 			      
 			 
 			    </p:dataTable>
-			    <br/><br/>
-			    <h:outputText value="1" class="badge bg-warning"
-					style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;" />
-				<h:outputText value="Novo Lead"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-
-				<h:outputText value="2" class="badge bg-warning"
-					style="background-color:#2E5495;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Primeiro Contato"
-					style="margin-left:0.5%;font-size:12px;color:#2E5495;" />
-
-				<h:outputText value="3" class="badge bg-warning"
-					style="background-color:#9ACD32;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Prospect"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-  
-				<h:outputText value="4" class="badge bg-warning"
-					style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Oportunidade Real"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-					
-				<h:outputText value="5" class="badge bg-warning"
-					style="background-color:#B22222;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Negociação Final"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-					
-				<h:outputText value="6" class="badge bg-warning"
-					style="background-color:#228B22;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Pós Venda"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-					
-				<h:outputText value="7" class="badge bg-warning"
-					style="background-color:#8B8989;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Lead Cancelada"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-					
-				<h:outputText value="8" class="badge bg-warning"
-					style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;" />
-				<h:outputText value="Stand By"
-					style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+			    
 			<br></br> <br></br> <br></br> <br></br> 
 			</div>    
 		</h:form>   

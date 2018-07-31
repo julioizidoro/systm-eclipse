@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -21,7 +22,9 @@ import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
+
 @Named
+@ViewScoped
 public class RelatorioVendasGerentesMB implements Serializable{
 	
 	
@@ -142,6 +145,14 @@ public class RelatorioVendasGerentesMB implements Serializable{
 		this.programas = programas;
 	}
 	
+	public List<Vendas> getListaVendas() {
+		return listaVendas;
+	}
+
+	public void setListaVendas(List<Vendas> listaVendas) {
+		this.listaVendas = listaVendas;
+	}
+
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 		listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
@@ -167,14 +178,14 @@ public class RelatorioVendasGerentesMB implements Serializable{
 	}
 	
 	public void gerarPesquisa() {
-		String sql = "SELECT l FROM Vednas v WHERE v ";
+		String sql = "SELECT v FROM Vendas v WHERE ";
 		if ((dataVendaIncial != null && dataVendaFinal != null)) {
-				sql = sql + " v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataVendaIncial) + "' and c.dataVenda<='"
+				sql = sql + " v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataVendaIncial) + "' and v.dataVenda<='"
 						+ Formatacao.ConvercaoDataSql(dataVendaFinal) + "'";
 			if(unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
 				sql = sql + " and v.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 			}
-			
+			 
 			
 			if (consultor != null && consultor.getIdusuario() != null) {
 				sql = sql + " and v.usuario.idusuario=" + consultor.getIdusuario();
@@ -193,6 +204,18 @@ public class RelatorioVendasGerentesMB implements Serializable{
 			Mensagem.lancarMensagemInfo("", "Informe a data da Venda");
 		}
 		
+	}
+	
+	public void limpar() {
+		dataVendaFinal = null;
+		dataVendaIncial = null;
+		unidadenegocio = null;
+		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
+			listaConsultor = new ArrayList<Usuario>();
+			unidadenegocio = null;
+		}
+		programas = null;
+		listaVendas = new ArrayList<Vendas>();
 	}
 	
 	public Float calcularDescontos(Vendas venda) {
