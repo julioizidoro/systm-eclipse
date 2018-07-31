@@ -1,9 +1,13 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.LeadHistoricoDao;
+import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
+import br.com.travelmate.dao.OcursoPacoteDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
@@ -85,7 +89,20 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	
 	@Inject
 	private OCursoDao oCursoDao;
-	
+	@Inject
+	private OCursoProdutoDao oCursoProdutoDao;
+	@Inject
+	private LeadHistoricoDao leadHistoricoDao;
+	@Inject
+	private LeadDao leadDao;
+	@Inject 
+	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
+	@Inject
+	private OCursoDescontoDao oCursoDescontoDao;
+	@Inject
+	private OcursoPacoteDao oCursoPacoteDao;
+	@Inject
+	private LeadSituacaoDao leadSituacaoDao;
 
 	@PostConstruct
 	public void init() {
@@ -256,7 +273,8 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 
 	public String salvar() throws IOException {
 		if(validarDados()){
-			SalvarOrcamentoOcurso salvarOrcamentoOcurso = new SalvarOrcamentoOcurso(cliente, datainicio, cursospacote, aplicacaoMB,usuarioLogadoMB,formapagamento);
+			SalvarOrcamentoOcurso salvarOrcamentoOcurso = new SalvarOrcamentoOcurso(cliente, datainicio, cursospacote, aplicacaoMB,usuarioLogadoMB,formapagamento, oCursoDao
+					, oCursoProdutoDao, leadHistoricoDao, leadDao, oCursoFormaPagamentoDao, oCursoDescontoDao, oCursoPacoteDao, leadSituacaoDao);
 			Ocurso ocurso = salvarOrcamentoOcurso.salvarOcurso();  
 			ocurso = oCursoDao.consultar(ocurso.getIdocurso());
 			GerarOcamentoPDFBean o = new GerarOcamentoPDFBean(ocurso, aplicacaoMB);

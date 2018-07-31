@@ -106,6 +106,8 @@ public class FinalizarMB implements Serializable {
 		}
 		aupair.setVendas(vendasDao.salvar(aupair.getVendas()));
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			aupair.getVendas().getOrcamento();
+			aupair.getVendas().getFormapagamento();
 			ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, aupair.getVendas(),
 					aupair.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
 					aupair.getVendas().getOrcamento().getValorCambio(), aupair.getValoresAupair(),
@@ -169,6 +171,8 @@ public class FinalizarMB implements Serializable {
 				vendasComissao.setPaga("Não");
 			}
 			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				trainee.getVendas().getOrcamento();
+				trainee.getVendas().getFormapagamento();
 				float valorJuros = 0.0f;
 				if (trainee.getVendas().getFormapagamento() != null) {
 					valorJuros = trainee.getVendas().getFormapagamento().getValorJuros();
@@ -225,6 +229,8 @@ public class FinalizarMB implements Serializable {
 			vendasComissao.setPaga("Não");
 		}
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			worktravel.getVendas().getOrcamento();
+			worktravel.getVendas().getFormapagamento();
 			float valorJuros = 0.0f;
 			if (worktravel.getVendas().getFormapagamento() != null) {
 				valorJuros = worktravel.getVendas().getFormapagamento().getValorJuros();
@@ -284,6 +290,8 @@ public class FinalizarMB implements Serializable {
 				vendasComissao.setDatainicioprograma(voluntariado.getDataInicioVoluntariado());
 			}
 			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				voluntariado.getVendas().getOrcamento();
+				voluntariado.getVendas().getFormapagamento();
 				float valorJuros = 0.0f;
 				if (voluntariado.getVendas().getFormapagamento() != null) {
 					valorJuros = voluntariado.getVendas().getFormapagamento().getValorJuros();
@@ -386,6 +394,8 @@ public class FinalizarMB implements Serializable {
 				vendasComissao.setPaga("Não");
 			}
 			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				demipair.getVendas().getOrcamento();
+				demipair.getVendas().getFormapagamento();
 				float valorJuros = 0.0f;
 				if (demipair.getVendas().getFormapagamento() != null) {
 					valorJuros = demipair.getVendas().getFormapagamento().getValorJuros();
@@ -447,6 +457,8 @@ public class FinalizarMB implements Serializable {
 			valorJuros = highschool.getVendas().getFormapagamento().getValorJuros();
 		}
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			highschool.getVendas().getOrcamento();
+			highschool.getVendas().getFormapagamento();
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, highschool.getVendas(),
 					highschool.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), highschool.getVendas().getCambio(),
 					highschool.getValoreshighschool(), highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(),
@@ -511,6 +523,8 @@ public class FinalizarMB implements Serializable {
 			valorJuros = programasteens.getVendas().getFormapagamento().getValorJuros();
 		}
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+			programasteens.getVendas().getOrcamento();
+			programasteens.getVendas().getFormapagamento();
 			ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, programasteens.getVendas(),
 					programasteens.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
 					programasteens.getVendas().getOrcamento().getValorCambio(),
@@ -569,6 +583,8 @@ public class FinalizarMB implements Serializable {
 				vendasComissao.setProdutos(curso.getVendas().getProdutos());
 			}
 			if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
+				curso.getVendas().getOrcamento();
+				curso.getVendas().getFormapagamento();
 				float valorJuros = 0.0f;
 				if (curso.getVendas().getFormapagamento() != null) {
 					valorJuros = curso.getVendas().getFormapagamento().getValorJuros();

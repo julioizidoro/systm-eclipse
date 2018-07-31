@@ -83,13 +83,23 @@ public class SalvarOrcamentoOcurso {
 	private LeadSituacaoDao leadSituacaoDao;
 	
 	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
-			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento) {
+			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento, OCursoDao oCursoDao, OCursoProdutoDao oCursoProdutoDao,
+			LeadHistoricoDao leadHistoricoDao, LeadDao leadDao, OCursoFormaPagamentoDao oCursoFormaPagamentoDao, OCursoDescontoDao oCursoDescontoDao, OcursoPacoteDao ocursoPacoteDao,
+			LeadSituacaoDao leadSituacaoDao) {
 		this.cliente=cliente;
 		this.datainicio=datainicio;
 		this.cursospacote=cursospacote;
 		this.aplicacaoMB=aplicacaoMB;
 		this.usuarioLogadoMB=usuarioLogadoMB; 
 		this.formapagamento=formapagamento;
+		this.oCursoDao = oCursoDao;
+		this.oCursoProdutoDao = oCursoProdutoDao;
+		this.leadHistoricoDao = leadHistoricoDao;
+		this.leadDao = leadDao;
+		this.oCursoFormaPagamentoDao = oCursoFormaPagamentoDao;
+		this.oCursoDescontoDao = oCursoDescontoDao;
+		this.oCursoPacoteDao = ocursoPacoteDao;
+		this.leadSituacaoDao = leadSituacaoDao;
 	}
 
 	public Ocurso salvarOcurso() {

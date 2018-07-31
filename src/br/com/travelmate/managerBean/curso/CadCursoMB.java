@@ -68,14 +68,9 @@ import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
-import br.com.travelmate.facade.VendasComissaoFacade;
 
 import br.com.travelmate.facade.VendasPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutoFornecedorBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutosOrcamentoBean;
@@ -240,7 +235,7 @@ public class CadCursoMB implements Serializable {
 	private Acomodacao acomodacao;
 	private List<Acomodacao> listaAcomodacao;
 	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente;
-	private boolean btnPesquisar;
+	private boolean btnPesquisar = true;
 	private boolean desabilitarIndependente;
 	private boolean lancadoAcomodacaoInd = false;
 
@@ -1713,107 +1708,107 @@ public class CadCursoMB implements Serializable {
 	public String validarDados() {
 		String msg = "";
 		if (cliente.getTipovisto() == null || cliente.getTipovisto().equalsIgnoreCase("sn")) {
-			msg = msg + "Tipo de visto não informado\r\n";
+			msg = msg + "Tipo de visto não informado;\r\n";
 		}
 		if (fornecedorSeguro != null) {
 			seguroViagem.setSeguradora(fornecedorSeguro.getFornecedor().getNome());
 		}
 		if (fornecedorCidade == null) {
-			msg = msg + "Campo escola não selecionado     ";
+			msg = msg + "Campo escola não selecionado;     ";
 		}
 		if (cambio == null) {
-			msg = msg + "Selecione câmbio da ficha     ";
+			msg = msg + "Selecione câmbio da ficha;     ";
 		}
 		if (cliente == null) {
-			msg = msg + "Campo cliente não selecionado\r\n";
+			msg = msg + "Campo cliente não selecionado;\r\n";
 		}
 		if (curso.getNomeCurso() == null) {
-			msg = msg + "Curso não informado\r\n";
+			msg = msg + "Curso não informado;\r\n";
 		}
 		if (fornecedorCidade == null) {
-			msg = msg + "Escola/Instituição não informada\r\n";
+			msg = msg + "Escola/Instituição não informada;\r\n";
 		}
 		if (pais == null) {
-			msg = msg + "País não informado\r\n";
+			msg = msg + "País não informado;\r\n";
 		}
 		if (curso.getAulassemana() == null) {
-			msg = msg + "Aulas por semana não informada\r\n";
+			msg = msg + "Aulas por semana não informada;\r\n";
 		}
 		if (curso.getNumeroSenamas() == null) {
-			msg = msg + "Numero de semanas não informado\r\n";
+			msg = msg + "Numero de semanas não informado;\r\n";
 		}
 		if (curso.getDataInicio() == null) {
-			msg = msg + "Data início inválida\r\n";
+			msg = msg + "Data início inválida;\r\n";
 		}
 		if (curso.getDataTermino() == null) {
-			msg = msg + "Data términio inválida\r\n";
+			msg = msg + "Data términio inválida;\r\n";
 		}
 		if (!curso.getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
 			if (curso.getDataChegada() == null) {
-				msg = msg + "Data chegada na acomodação inválida\r\n";
+				msg = msg + "Data chegada na acomodação inválida;\r\n";
 			}
 			if (curso.getDataSaida() == null) {
-				msg = msg + "Data partida acomodação inválida\r\n";
+				msg = msg + "Data partida acomodação inválida;\r\n";
 			}
 			if (curso.getNumeroSemanasAcamodacao() == null) {
-				msg = msg + "Numero de semanas de acomodação não informado\r\n";
+				msg = msg + "Numero de semanas de acomodação não informado;\r\n";
 			}
 		}
 		if (curso.getCaratoVTM().equalsIgnoreCase("Sim")) {
 			if (curso.getNumeroCartaoVTM() == null) {
-				msg = msg + "Nº Cartão VTM não informado\r\n";
+				msg = msg + "Nº Cartão VTM não informado;\r\n";
 			}
 		}
 		if (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")) {
 			if (seguroViagem.getSeguradora() == null) {
-				msg = msg + "Seguradora não informada\r\n";
+				msg = msg + "Seguradora não informada;\r\n";
 			}
 			if (seguroViagem.getValorSeguro() == 0) {
-				msg = msg + "Valor do seguro não informado\r\n";
+				msg = msg + "Valor do seguro não informado;\r\n";
 			}
 			if (seguroViagem.getValoresseguro() == null) {
-				msg = msg + "Plano do seguro não informado\r\n";
+				msg = msg + "Plano do seguro não informado;\r\n";
 			}
 			if (seguroViagem.getDataInicio() == null) {
-				msg = msg + "Data início seguro inválida\r\n";
+				msg = msg + "Data início seguro inválida;\r\n";
 			}
 			if (seguroViagem.getDataTermino() == null) {
-				msg = msg + "Data término seguro inválida\r\n";
+				msg = msg + "Data término seguro inválida;\r\n";
 			}
 			if (this.fornecedorCidade == null) {
-				msg = msg + "Escola inválida\r\n";
+				msg = msg + "Escola inválida;\r\n";
 			}
 		}
 		if (curso.getNomeContatoEmergencia() == null || curso.getNomeContatoEmergencia().length() <= 0) {
-			msg = msg + "Nome do contato de emergência não informado\r\n";
+			msg = msg + "Nome do contato de emergência não informado;\r\n";
 		}
 		if (curso.getFoneContatoEmergencia() == null || curso.getFoneContatoEmergencia().length() <= 0) {
-			msg = msg + "Nº telefone  do contato de emergência não informado\r\n";
+			msg = msg + "Nº telefone  do contato de emergência não informado;\r\n";
 		}
 		if (curso.getRelacaoContatoEmergencia() == null  || curso.getRelacaoContatoEmergencia().length() <= 0) {
-			msg = msg + "Relação do contato de emergência não informado\r\n";
+			msg = msg + "Relação do contato de emergência não informado;\r\n";
 		}
 		if (formaPagamento.getParcelamentopagamentoList() == null) {
-			msg = msg + "Forma de Pagamento com erro\r\n";
+			msg = msg + "Forma de Pagamento com erro;\r\n";
 		} else {
 			if (formaPagamento.getParcelamentopagamentoList().size() == 0) {
-				msg = msg + "Forma de Pagamento com erro\r\n";
+				msg = msg + "Forma de Pagamento com erro;\r\n";
 			}
 		}
 
 		double saldoParcelar = this.valorParcelar;
 		if (saldoParcelar > 0) {
-			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
+			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto;\r\n";
 		}
 		if (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")) {
 			if (seguroViagem.getNumeroSemanas() == 0) {
-				msg = msg + "Nº de semanas no seguro é obrigatório\r\n";
+				msg = msg + "Nº de semanas no seguro é obrigatório;\r\n";
 			}
 		}
 		if (cliente.getTipovisto() == null) {
-			msg = msg + "Tipo de visto é obrigatório\r\n";
+			msg = msg + "Tipo de visto é obrigatório;\r\n";
 		} else if (cliente.getTipovisto().length() <= 0) {
-			msg = msg + "Tipo de visto é obrigatório\r\n";
+			msg = msg + "Tipo de visto é obrigatório;\r\n";
 		}
 		return msg;
 	}
@@ -1822,71 +1817,71 @@ public class CadCursoMB implements Serializable {
 		String msg = "";
 		if (visualizarDadosPais) {
 			if (dadosPais.getBairromae() == null || dadosPais.getBairromae().length() == 0) {
-				msg = msg + "Bairro mãe não informado     ";
+				msg = msg + "Bairro mãe não informado;     ";
 			}
 			if (dadosPais.getCepmae() == null || dadosPais.getCepmae().length() == 0) {
-				msg = msg + "CEP mãe não informado\r\n";
+				msg = msg + "CEP mãe não informado;\r\n";
 			}
 			if (dadosPais.getCidademae() == null || dadosPais.getCidademae().length() == 0) {
-				msg = msg + "Cidade mãe não informada\r\n";
+				msg = msg + "Cidade mãe não informada;\r\n";
 			}
 			if (dadosPais.getDatanascimentomae() == null) {
-				msg = msg + "Data nascimento mãe não informada\r\n";
+				msg = msg + "Data nascimento mãe não informada;\r\n";
 			}
 			if (dadosPais.getEmailmae() == null || dadosPais.getEmailmae().length() == 0) {
-				msg = msg + "Email mãe não informado\r\n";
+				msg = msg + "Email mãe não informado;\r\n";
 			}
 			if (dadosPais.getEstadomae() == null || dadosPais.getEstadomae().length() == 0) {
-				msg = msg + "Estado mãe não informado\r\n";
+				msg = msg + "Estado mãe não informado;\r\n";
 			}
 			if (dadosPais.getLogradouromae() == null || dadosPais.getLogradouromae().length() == 0) {
-				msg = msg + "Logradouro mãe não informado\r\n";
+				msg = msg + "Logradouro mãe não informado;\r\n";
 			}
 			if (dadosPais.getNomemae() == null || dadosPais.getNomemae().length() == 0) {
-				msg = msg + "Nome mãe não informado\r\n";
+				msg = msg + "Nome mãe não informado;\r\n";
 			}
 			if (dadosPais.getNumerromae() == null || dadosPais.getNumerromae().length() == 0) {
-				msg = msg + "Número mãe não informado\r\n";
+				msg = msg + "Número mãe não informado;\r\n";
 			}
 			if (dadosPais.getTelefonemae() == null || dadosPais.getTelefonemae().length() == 0) {
-				msg = msg + "Telefone mãe não informado\r\n";
+				msg = msg + "Telefone mãe não informado;\r\n";
 			}
 			if (dadosPais.getTipologradouromae() == null || dadosPais.getTipologradouromae().length() == 0) {
-				msg = msg + "Tipo logradouro mãe não informado\r\n";
+				msg = msg + "Tipo logradouro mãe não informado;\r\n";
 			}
 			if (!dadosPais.getNomepai().equalsIgnoreCase("Desconhecido")) {
 				if (dadosPais.getBairropai() == null || dadosPais.getBairropai().length() == 0) {
-					msg = msg + "Bairro mãe não informado\r\n";
+					msg = msg + "Bairro mãe não informado;\r\n";
 				}
 				if (dadosPais.getCeppai() == null || dadosPais.getCeppai().length() == 0) {
-					msg = msg + "CEP pai não informado\r\n";
+					msg = msg + "CEP pai não informado;\r\n";
 				}
 				if (dadosPais.getCidadepai() == null || dadosPais.getCidadepai().length() == 0) {
-					msg = msg + "Cidade pai não informada\r\n";
+					msg = msg + "Cidade pai não informada;\r\n";
 				}
 				if (dadosPais.getDatanascimentopai() == null) {
-					msg = msg + "Data nascimento pai não informada\r\n";
+					msg = msg + "Data nascimento pai não informada;\r\n";
 				}
 				if (dadosPais.getEmailpai() == null || dadosPais.getEmailpai().length() == 0) {
-					msg = msg + "Email pai não informado\r\n";
+					msg = msg + "Email pai não informado;\r\n";
 				}
 				if (dadosPais.getEstadopai() == null || dadosPais.getEstadopai().length() == 0) {
-					msg = msg + "Estado pai não informado\r\n";
+					msg = msg + "Estado pai não informado;\r\n";
 				}
 				if (dadosPais.getLogradouropai() == null || dadosPais.getLogradouropai().length() == 0) {
-					msg = msg + "Logradouro pai não informado\r\n";
+					msg = msg + "Logradouro pai não informado;\r\n";
 				}
 				if (dadosPais.getNomepai() == null || dadosPais.getNomepai().length() == 0) {
-					msg = msg + "Nome pai não informado\r\n";
+					msg = msg + "Nome pai não informado;\r\n";
 				}
 				if (dadosPais.getNumeropai() == null || dadosPais.getNumeropai().length() == 0) {
-					msg = msg + "Número pai não informado\r\n";
+					msg = msg + "Número pai não informado;\r\n";
 				}
 				if (dadosPais.getTelefonepai() == null || dadosPais.getTelefonepai().length() == 0) {
-					msg = msg + "Telefone pai não informado\r\n";
+					msg = msg + "Telefone pai não informado;\r\n";
 				}
 				if (dadosPais.getTipologradouropai() == null || dadosPais.getTipologradouropai().length() == 0) {
-					msg = msg + "Tipo logradouro pai não informado\r\n";
+					msg = msg + "Tipo logradouro pai não informado;\r\n";
 				}
 			}
 		}
@@ -1905,12 +1900,7 @@ public class CadCursoMB implements Serializable {
 			seguroViagem.setPaisDestino(pais.getNome());
 			seguroViagem.setNomeContatoEmergencia(curso.getNomeContatoEmergencia());
 			seguroViagem.setFoneContatoEmergencia(curso.getFoneContatoEmergencia());
-			if (seguroViagem.getIdseguroViagem() == null) {
-				float valorJuros = 0.0f;
-				if (venda.getFormapagamento() != null) {
-					valorJuros = venda.getFormapagamento().getValorJuros();
-				}
-			}
+			
 			seguroViagem = seguroViagemFacade.salvar(seguroViagem);
 			
 			
@@ -2912,7 +2902,6 @@ public class CadCursoMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
 			if (dias > 3) {
@@ -3868,8 +3857,6 @@ public class CadCursoMB implements Serializable {
 				if (diaSemana != 1) {
 					Mensagem.lancarMensagemInfo("Atenção!", "O sistema não irá calcular automaticamente"
 							+ " as datas de chegada e partida para acomodações que não iniciam no Domingo.");
-					acomodacao.setDatainicial(null);
-					acomodacao.setNumerosemana(null);
 				} else {
 					Date data = Formatacao.calcularDataFinalAcomodacao(acomodacao.getDatainicial(), nSemanas);
 					acomodacao.setDatatermino(data);
@@ -4862,7 +4849,6 @@ public class CadCursoMB implements Serializable {
 		int nSemana = (int) produtosOrcamentoBean.getNumeroSemanas();
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
 		int numeroDias = 0;  
-		boolean calcular = true;
 	//	if (po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
 	//			(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
 	//		calcular = false;
@@ -5341,6 +5327,14 @@ public class CadCursoMB implements Serializable {
 					i = 10000;
 				}
 			}
+		}
+	}
+	
+	public void verificarDataInicio() {
+		if (acomodacao.getDatainicial() != null && (listaAcomodacao == null || listaAcomodacao.size() <= 0)) {
+			btnPesquisar = false;
+		} else {
+			btnPesquisar = true;
 		}
 	}
 }

@@ -740,8 +740,9 @@
 													<f:convertDateTime pattern="dd/MM/yyyy"
 														timeZone="America/Sao_Paulo" />
 													<p:ajax event="change" />
+													<p:ajax event="dateSelect" listener="#{cadCursoMB.verificarDataInicio()}" update="botaoPesquisar"/>
 												</p:calendar>
-												<p:commandLink id="botaoPesquisar"
+												<p:commandLink id="botaoPesquisar" disabled="#{cadCursoMB.btnPesquisar}"
 													actionListener="#{cadCursoMB.selecionarAcomodacao()}" update=":telaFichaCurso:growl"
 													style="text-decoration: none">
 													<img src="../../resources/img/pesquisar.png" />
@@ -924,10 +925,10 @@
 							<b>Preferências</b>
 						</legend>
 						<h:panelGrid columns="4" style="margin-left: 11.6%;width:70%;" columnClasses="tamanho14, tamanho14, tamanho14, tamanho14"> 
-							<p:outputLabel value="Família com criança" for="comcrianca"/>
-							<p:outputLabel value="Animais de estimação" for="comanimais" />
-							<p:outputLabel value="Você é fumante" for="fumante"/>
-							<p:outputLabel value="Você é vegetariano" for="vegetariano" />
+							<p:outputLabel value="Família com criança?" for="comcrianca"/>
+							<p:outputLabel value="Animais de estimação?" for="comanimais" />
+							<p:outputLabel value="Você é fumante?" for="fumante"/>
+							<p:outputLabel value="Você é vegetariano?" for="vegetariano" />
 							
 							<p:selectOneMenu id="comcrianca"
 								value="#{cadCursoMB.curso.familiacomCrianca}"
@@ -982,7 +983,7 @@
 						<br></br>
 						<br></br>
 
-						<p:outputLabel value="Solicitações Especiais:"
+						<p:outputLabel value="Solicitações especiais:"
 							for="solicitacaoespecial" style="margin-left: 11.6%" />
 						<br></br>
 						<p:inputText id="solicitacaoespecial"
