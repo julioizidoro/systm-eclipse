@@ -10,12 +10,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.travelmate.bean.ConsultaBean;
-import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
-import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoPacoteBean;
@@ -28,22 +25,16 @@ import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.DepartamentoFacade;
-import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
-import br.com.travelmate.model.Departamentoproduto;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Highschool;
@@ -99,8 +90,8 @@ public class FinalizarMB implements Serializable {
 
 
 
-	public Vendas finalizar(Aupair aupair) {
-		
+	public Vendas finalizar(Aupair aupair, VendasDao vendasDao) {
+		this.vendasDao = vendasDao;
 		aupair.setControle("Processo");
 		float valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = aupair.getVendas().getVendascomissao();
@@ -276,9 +267,9 @@ public class FinalizarMB implements Serializable {
 		return worktravel.getVendas();
 	}
 	
-	
-	public Vendas finalizarVoluntariado(Voluntariado voluntariado) {
-		
+	 
+	public Vendas finalizarVoluntariado(Voluntariado voluntariado, VendasDao vendasDao) {
+		this.vendasDao = vendasDao;
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso  fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -562,8 +553,8 @@ public class FinalizarMB implements Serializable {
 	}
 	
 	
-	public Vendas finalizarCurso(Curso curso) {
-		
+	public Vendas finalizarCurso(Curso curso, VendasDao vendasDao) {
+		this.vendasDao = vendasDao;
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(

@@ -638,7 +638,7 @@ public class CadArquivoMB implements Serializable {
 		AupairFacade aupairFacade = new AupairFacade();
 		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizar(aupair);
+		vendas = finalizarMB.finalizar(aupair, vendasDao);
 		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
 				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				aupair.getDataInicioPretendida01());
@@ -671,7 +671,7 @@ public class CadArquivoMB implements Serializable {
 		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
 		Voluntariado voluntariado = voluntariadoFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizarVoluntariado(voluntariado);
+		vendas = finalizarMB.finalizarVoluntariado(voluntariado, vendasDao); 
 		if (Formatacao.validarDataVenda(voluntariado.getVendas().getDataVenda())) {
 			ContasReceberBean contasReceberBean = new ContasReceberBean(voluntariado.getVendas(),
 					voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
@@ -717,7 +717,7 @@ public class CadArquivoMB implements Serializable {
 		CursoFacade cursoFacade = new CursoFacade();
 		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizarCurso(curso);
+		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
 		ContasReceberBean contasReceberBean = new ContasReceberBean(curso.getVendas(),
 				curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				curso.getDataInicio());

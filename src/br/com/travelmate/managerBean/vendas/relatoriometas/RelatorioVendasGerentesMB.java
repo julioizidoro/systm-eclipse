@@ -178,32 +178,28 @@ public class RelatorioVendasGerentesMB implements Serializable{
 	}
 	
 	public void gerarPesquisa() {
-		String sql = "SELECT v FROM Vendas v WHERE ";
-		if ((dataVendaIncial != null && dataVendaFinal != null)) {
-				sql = sql + " v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataVendaIncial) + "' and v.dataVenda<='"
-						+ Formatacao.ConvercaoDataSql(dataVendaFinal) + "'";
-			if(unidadenegocio!=null && unidadenegocio.getIdunidadeNegocio()!=null){
-				sql = sql + " and v.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-			}
-			 
-			
-			if (consultor != null && consultor.getIdusuario() != null) {
-				sql = sql + " and v.usuario.idusuario=" + consultor.getIdusuario();
-			}
-			
-			if (programas != null && programas.getIdprodutos() != null) {
-				sql = sql + " and v.produtos.idprodutos=" + programas.getIdprodutos(); 
-			}
-			
-			listaVendas = vendasDao.lista(sql);
-			if (listaVendas == null) {
-				listaVendas = new ArrayList<Vendas>();
-			}
-			
-		}else {
-			Mensagem.lancarMensagemInfo("", "Informe a data da Venda");
-		}
+		String sql = "SELECT v FROM Vendas v WHERE v.situacao<>'PROCESSO' ";
 		
+		if (dataVendaIncial != null && dataVendaFinal != null) {
+			sql = sql + " and v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataVendaIncial) + "' and v.dataVenda<='"
+					+ Formatacao.ConvercaoDataSql(dataVendaFinal) + "'";
+		}
+		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			sql = sql + " and v.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+		}
+
+		if (consultor != null && consultor.getIdusuario() != null) {
+			sql = sql + " and v.usuario.idusuario=" + consultor.getIdusuario();
+		}
+
+		if (programas != null && programas.getIdprodutos() != null) {
+			sql = sql + " and v.produtos.idprodutos=" + programas.getIdprodutos();
+		}
+
+		listaVendas = vendasDao.lista(sql);
+		if (listaVendas == null) {
+			listaVendas = new ArrayList<Vendas>();
+		}
 	}
 	
 	public void limpar() {
