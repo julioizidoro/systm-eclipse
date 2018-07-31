@@ -24,10 +24,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoFacade;
 import br.com.travelmate.facade.CambioFacade;
@@ -80,7 +78,6 @@ import br.com.travelmate.model.Promocaotaxacidade;
 import br.com.travelmate.model.Promocaotaxacurso;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
@@ -2323,7 +2320,6 @@ public class CadAcomodacaoMB implements Serializable {
 		int nSemana = (int) produtosOrcamentoBean.getNumeroSemanas();
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
 		int numeroDias = 0;  
-		boolean calcular = true;
 	//	if (po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
 	//			(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
 	//		calcular = false;
