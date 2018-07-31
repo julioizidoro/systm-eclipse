@@ -3,6 +3,7 @@ package br.com.travelmate.managerBean;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +75,7 @@ public class DashBoardMB implements Serializable {
 	private boolean responsavel = false;
 	private boolean fecharDistribuicao = false;
 	private int numeroLeads = 0;
+	private Date horaCalculo;
 	
 
 	public DashBoardMB() {
@@ -83,13 +85,26 @@ public class DashBoardMB implements Serializable {
 	@PostConstruct
 	public void init() { 
 		//gerarDadosDashBoard(); 
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		try {
-			ftpdados = ftpDadosFacade.getFTPDados();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (ftpdados==null) {
+			FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+			try {
+				ftpdados = ftpDadosFacade.getFTPDados();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		
 		fecharDistribuicao = verificarDistribuicaoLead();
+	}
+	
+	
+
+	public Date getHoraCalculo() {
+		return horaCalculo;
+	}
+
+	public void setHoraCalculo(Date horaCalculo) {
+		this.horaCalculo = horaCalculo;
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -464,8 +479,7 @@ public class DashBoardMB implements Serializable {
 		atrasadas = 0;
 		hoje = 0;
 		Date data = new Date();
-		String sql = "select l from Lead l where l.situacao<5 and l.dataenvio<='" + Formatacao.ConvercaoDataSql(data)
-				+ "'";
+		String sql = "select l from Lead l where l.situacao<=5 ";
 		if (!acessoResponsavelGerencial) {
 			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
@@ -478,20 +492,18 @@ public class DashBoardMB implements Serializable {
 		if (listaLead == null) {
 			listaLead = new ArrayList<Lead>();
 		}
+		String dataHoje = Formatacao.ConvercaoDataSql(new Date());
 		for (int i = 0; i < listaLead.size(); i++) {
-			if (listaLead.get(i).getDataultimocontato() == null && listaLead.get(i).getSituacao() == 1
-					&& listaLead.get(i).getTipocontato().getTipo().equalsIgnoreCase("Novo")) {
+			if (listaLead.get(i).getSituacao() == 1) {
 				novos = novos + 1;
-			} else if ((listaLead.get(i).getDataultimocontato() != null)
-					&& (listaLead.get(i).getDataproximocontato()) != null
+			} else if ((listaLead.get(i).getDataproximocontato()) != null
 					&& (Formatacao.ConvercaoDataSql(listaLead.get(i).getDataproximocontato())
-							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
+							.equalsIgnoreCase(dataHoje))
 					&& (listaLead.get(i).getSituacao() <=5)) {
 				hoje = hoje + 1;
-			} else if (listaLead.get(i).getDataultimocontato() != null
-					&& listaLead.get(i).getDataproximocontato() != null
+			} else if ( listaLead.get(i).getDataproximocontato() != null
 					&& listaLead.get(i).getDataproximocontato().before(new Date())
-					&& listaLead.get(i).getSituacao() <= 5) {
+					&& (listaLead.get(i).getSituacao() <=5)) {
 				atrasadas = atrasadas + 1;
 			}
 		}
