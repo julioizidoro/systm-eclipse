@@ -9,12 +9,15 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.bean.comissao.CalcularComissaoBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
+import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Lead;
@@ -22,7 +25,10 @@ import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Tipocontato;
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Mensagem;
  
 
 @Named
@@ -33,6 +39,8 @@ public class UtilMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	@Inject
 	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
@@ -115,6 +123,21 @@ public class UtilMB implements Serializable{
 		leadposvenda.setLead(lead);
 		leadposvenda.setVendas(controle.getVendas());
 		leadposvenda = leadPosVendaDao.salvar(leadposvenda);
+	}
+	
+	public void recalcularBO() {
+		
+		List<Vendas> listaVendas = vendasDao.lista("Select v FROM Vendas v");
+		CalcularComissaoBean cc = new CalcularComissaoBean();
+		VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();
+		for (int i=0;i<listaVendas.size();i++) {
+			if (listaVendas.get(i).getVendascomissao()!=null) {
+				Vendascomissao vendasComissao = listaVendas.get(i).getVendascomissao();
+				vendasComissao.setLiquidovendas(cc.calcularTotalComissao(vendasComissao));
+				vendasComissaoFacade.salvar(vendasComissao);
+			}
+		}
+		Mensagem.lancarMensagemInfo("Recalcular","Terminou");
 	}
 	 
 }
