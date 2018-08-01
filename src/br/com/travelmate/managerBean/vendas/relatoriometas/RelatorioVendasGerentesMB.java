@@ -14,10 +14,12 @@ import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
@@ -178,7 +180,7 @@ public class RelatorioVendasGerentesMB implements Serializable{
 	}
 	
 	public void gerarPesquisa() {
-		String sql = "SELECT v FROM Vendas v WHERE v.situacao<>'PROCESSO' ";
+		String sql = "SELECT v FROM Vendas v WHERE v.situacao<>'PROCESSO' AND v.situacao<>'CANCELADA' ";
 		
 		if (dataVendaIncial != null && dataVendaFinal != null) {
 			sql = sql + " and v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataVendaIncial) + "' and v.dataVenda<='"
@@ -199,6 +201,8 @@ public class RelatorioVendasGerentesMB implements Serializable{
 		listaVendas = vendasDao.lista(sql);
 		if (listaVendas == null) {
 			listaVendas = new ArrayList<Vendas>();
+		}else {
+			gerarValoresTotais();
 		}
 	}
 	
@@ -223,5 +227,30 @@ public class RelatorioVendasGerentesMB implements Serializable{
 		}
 		return valorDesconto;
 	}
+	
+	
+	
+	public void gerarValoresTotais() {
+		Vendas vendas = new Vendas();
+		vendas.setValor(0.0f);
+		Vendascomissao vendascomissao = new Vendascomissao();
+		Cliente cliente = new Cliente();
+		cliente.setNome("Totais");
+		for (int i = 0; i < listaVendas.size(); i++) {
+			if (listaVendas.get(i).getVendascomissao() != null) {
+				vendascomissao.setDescontoloja(vendascomissao.getDescontoloja() + listaVendas.get(i).getVendascomissao().getDescontoloja());
+				vendascomissao.setDescontotm(vendascomissao.getDescontotm() + listaVendas.get(i).getVendascomissao().getDescontotm());
+				if (listaVendas.get(i).getValor() != null) {
+					vendas.setValor(vendas.getValor() + listaVendas.get(i).getValor());
+				}
+				vendascomissao.setLiquidovendas(vendascomissao.getLiquidovendas() + listaVendas.get(i).getVendascomissao().getLiquidovendas());
+			}
+		}
+		vendas.setVendascomissao(vendascomissao);
+		vendas.setCliente(cliente);
+		listaVendas.add(vendas);
+	}
+	
+	
 
 }
