@@ -6,9 +6,11 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.model.Dadospais;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Worktravel;
@@ -22,6 +24,8 @@ public class FichaWorkTravelMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasDao vendasDao;
 	private String contrato;
 	private Worktravel worktravel;
 	private Vendas vendas;
@@ -47,7 +51,7 @@ public class FichaWorkTravelMB implements Serializable{
 		worktravel = (Worktravel) session.getAttribute("worktravel");
 		session.removeAttribute("worktravel");
 		if (worktravel != null) {
-			vendas = worktravel.getVendas();
+			vendas = vendasDao.consultarVendas(worktravel.getVendas().getIdvendas());
 			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
 			if (worktravel.getCartaoVTM() != null && worktravel.getCartaoVTM().equalsIgnoreCase("Sim")) {
 				habilitarCartãoVtm = true;
