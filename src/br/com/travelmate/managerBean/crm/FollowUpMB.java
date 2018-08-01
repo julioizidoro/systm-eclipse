@@ -170,13 +170,6 @@ public class FollowUpMB implements Serializable {
 				}
 			}
 			iniciarListas();
-			
-		
-			
-		if (listaLead==null) {
-			pesquisarInicial();
-		}
-		
 		mostrarPosVenda = false;
 		mostrarLeads = true;
 		gerarListaPosVenda();
@@ -778,21 +771,13 @@ public class FollowUpMB implements Serializable {
 		session.setAttribute("listaLead", listaLead);
 		session.setAttribute("posicao", posicao);
 		session.setAttribute("funcao", funcao);
-		PesquisaBean pesquisa = new PesquisaBean();
-		pesquisa.setDataProxFinal(dataProxFinal);
-		pesquisa.setDataProxInicio(dataProxInicio);
-		pesquisa.setDataUltFinal(dataUltFinal);
-		pesquisa.setDataUltInicio(dataUltInicio);
-		pesquisa.setNomeCliente(nomeCliente);
-		pesquisa.setProgramas(programas);
-		pesquisa.setSituacao(situacao);
-		pesquisa.setTipocontato(tipocontato);
-		pesquisa.setUnidadenegocio(unidadenegocio);
-		pesquisa.setStatus(status);
-		pesquisa.setUsuario(usuario);
-		pesquisa.setDataInseridoInicial(dataInseridoInicial);
-		pesquisa.setDataInseridoFinal(dataInseridoFinal);
-		session.setAttribute("pesquisa", pesquisa);
+		session.setAttribute("listalead", this.listaLead);;
+		session.setAttribute("listaleadtotal", this.listaLeadTotal);
+		session.setAttribute("listaposvenda", listaPosVenda);
+		session.setAttribute("listaproduto", listaProdutos);
+		session.setAttribute("listapais", listaPais);
+		session.setAttribute("listatipocontato", listaTipoContato);
+		session.setAttribute("listausuario", listaUsuario);
 		return "historicoCliente";
 	}
 	
@@ -800,21 +785,13 @@ public class FollowUpMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("lead", lead); 
-		PesquisaBean pesquisa = new PesquisaBean();
-		pesquisa.setDataProxFinal(dataProxFinal);
-		pesquisa.setDataProxInicio(dataProxInicio);
-		pesquisa.setDataUltFinal(dataUltFinal);
-		pesquisa.setDataUltInicio(dataUltInicio);
-		pesquisa.setNomeCliente(nomeCliente);
-		pesquisa.setProgramas(programas);
-		pesquisa.setSituacao(situacao);
-		pesquisa.setTipocontato(tipocontato);
-		pesquisa.setUnidadenegocio(unidadenegocio);
-		pesquisa.setStatus(status);
-		pesquisa.setUsuario(usuario);
-		pesquisa.setDataInseridoInicial(dataInseridoInicial);
-		pesquisa.setDataInseridoFinal(dataInseridoFinal);
-		session.setAttribute("pesquisa", pesquisa);
+		session.setAttribute("listalead", this.listaLead);;
+		session.setAttribute("listaleadtotal", this.listaLeadTotal);
+		session.setAttribute("listaposvenda", listaPosVenda);
+		session.setAttribute("listaproduto", listaProdutos);
+		session.setAttribute("listapais", listaPais);
+		session.setAttribute("listatipocontato", listaTipoContato);
+		session.setAttribute("listausuario", listaUsuario);
 		return "historicoCliente";
 	}
 
@@ -979,30 +956,23 @@ public class FollowUpMB implements Serializable {
 		hoje = 0;
 		prox7 = 0;
 		todos = 0;
+		todos = listaLeadTotal.size();
+		String dataHoje = Formatacao.ConvercaoDataSql(new Date());
 		for (int i = 0; i < listaLeadTotal.size(); i++) {
-			if (!listaLeadTotal.get(i).getSituacao().equals("0")) {
-				todos = todos + 1;
-			}
-			if (listaLeadTotal.get(i).getDataultimocontato() == null && listaLeadTotal.get(i).getSituacao() == 1) {
+			if (listaLeadTotal.get(i).getSituacao() == 1) {
 				novos = novos + 1;
-			} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
-					&& (listaLeadTotal.get(i).getDataproximocontato() != null)
-					&& (listaLeadTotal.get(i).getSituacao() != null)
+			} else if ((listaLeadTotal.get(i).getDataproximocontato() != null)
 					&& (Formatacao.ConvercaoDataSql(listaLeadTotal.get(i).getDataproximocontato())
-							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
-					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+							.equalsIgnoreCase(dataHoje))
+					&& (listaLeadTotal.get(i).getSituacao() <= 5)) {
 				hoje = hoje + 1;
-			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
-					&& listaLeadTotal.get(i).getDataproximocontato() != null
-					&& (listaLeadTotal.get(i).getSituacao() != null)
+			} else if ( listaLeadTotal.get(i).getDataproximocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())
-					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+					&& (listaLeadTotal.get(i).getSituacao() <=5)) {
 				atrasados = atrasados + 1;
-			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
-					&& listaLeadTotal.get(i).getDataproximocontato() != null
-					&& (listaLeadTotal.get(i).getSituacao() != null)
+			} else if (listaLeadTotal.get(i).getDataproximocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
-					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+					&& (listaLeadTotal.get(i).getSituacao() <=5)) {
 				Date data7 = null;
 				try {
 					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
@@ -1017,125 +987,7 @@ public class FollowUpMB implements Serializable {
 		listaLead = listaLeadTotal;
 	}
 
-	public void gerarListaInicial() {
-		imagemNovos = "novos";
-		imagemHoje = "hoje";
-		imagemAtrasados = "atrasados";
-		imagemProx = "prox";
-		imagemTodos = "todosClick";
-		novos = 0;
-		atrasados = 0;
-		hoje = 0;
-		prox7 = 0;
-		todos = 0;
-		Date data = new Date();
-		sql = "select l from Lead l where l.dataenvio<='" + Formatacao.ConvercaoDataSql(data) + "'";
-		if (acessoResponsavelGerencial) {
-			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
-				sql = sql + " and l.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-			}
-		} else {
-			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-		}
-		if (acessoResponsavelUnidade || acessoResponsavelGerencial) {
-			if (usuario != null && usuario.getIdusuario() != null) {
-				sql = sql + " and l.usuario.idusuario=" + usuario.getIdusuario();
-			}
-		} else {
-			sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
-		}
-		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
-			funcao = "todos";
-			sql = sql + " and l.situacao='" + situacao + "'";
-		}else{
-			sql = sql + " and l.situacao<'6'";
-		}
-		if (nomeCliente != null && nomeCliente.length() > 0) {
-			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente
-					+ "%')";
-		}
-		if (dataProxInicio != null && dataProxFinal != null) {
-			sql = sql + " and l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
-					+ "l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
-		}
-
-		if (dataUltInicio != null && dataUltFinal != null) {
-			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
-		}   
-		if (programas != null && programas.getIdprodutos() != null) {
-			sql = sql + " and l.produtos.idprodutos=" + programas.getIdprodutos();
-		}
-		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
-			sql = sql + " and l.tipocontato.idtipocontato=" + tipocontato.getIdtipocontato();
-		}
-		if (paisConsulta != null && paisConsulta.getIdpais() != null) {
-			sql = sql + " and l.pais.idpais=" + paisConsulta.getIdpais();
-		}
-		if (status != null && status.length() > 0 && !status.equalsIgnoreCase("0")) {
-			if (status.equalsIgnoreCase("Novos")) {
-				sql = sql + " and l.tipocontato.tipo='Novo' and l.dataultimocontato is null";
-			} else if (status.equalsIgnoreCase("Atrasados")) {
-				sql = sql + " and l.dataproximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			} else if (status.equalsIgnoreCase("Hoje")) {
-				sql = sql + " and l.dataproximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-			} else if (status.equalsIgnoreCase("Prox. 7 Dias")) {
-				Date data7;
-				try {
-					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
-				} catch (Exception e) {
-					data7 = null;
-				}
-				sql = sql + " and l.dataproximocontat>='" + Formatacao.ConvercaoDataSql(new Date())
-						+ "' and l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(data7) + "'";
-			}
-		}
-		if (dataInseridoInicial != null && dataInseridoFinal != null) {
-			sql = sql + " and l.datarecebimento>='" + Formatacao.ConvercaoDataSql(dataInseridoInicial) + "' and l.datarecebimento<='"
-					+ Formatacao.ConvercaoDataSql(dataInseridoFinal) + "'";
-		}
-		sql = sql + " order by l.dataproximocontato";
-		gerarListaLead(sql);
-		for (int i = 0; i < listaLeadTotal.size(); i++) {
-			if (listaLeadTotal.get(i).getSituacao() != null && listaLeadTotal.get(i).getSituacao() > 0) {
-				todos = todos + 1;
-			}
-			if (listaLeadTotal.get(i).getDataultimocontato() == null &&  listaLeadTotal.get(i).getSituacao() == 1) {
-				novos = novos + 1;
-			} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
-					&& (listaLeadTotal.get(i).getDataproximocontato() != null)
-					&& (listaLeadTotal.get(i).getSituacao() != null)
-					&& (Formatacao.ConvercaoDataSql(listaLeadTotal.get(i).getDataproximocontato())
-							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
-					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
-				hoje = hoje + 1;   
-			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
-					&& listaLeadTotal.get(i).getDataproximocontato() != null
-					&& (listaLeadTotal.get(i).getSituacao() != null)
-					&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())
-					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
-				atrasados = atrasados + 1;
-			} else if (listaLeadTotal.get(i).getDataultimocontato() != null
-					&& listaLeadTotal.get(i).getDataproximocontato() != null
-					&& (listaLeadTotal.get(i).getSituacao() != null)
-					&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
-					&& (listaLeadTotal.get(i).getSituacao() > 0)) {
-				Date data7 = null;
-				try {
-					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				if (listaLeadTotal.get(i).getDataproximocontato().before(data7)) {
-					prox7 = prox7 + 1;
-				}
-			}
-		}
-		listaLead = listaLeadTotal;
-		pesquisarPosVenda();
-	}
-
+	
 	public void limparPesquisa() {
 		nomeCliente = null;
 		dataProxFinal = null;
@@ -1150,7 +1002,7 @@ public class FollowUpMB implements Serializable {
 		dataInseridoInicial = null;
 		dataInseridoFinal = null;
 		paisConsulta = null;
-		gerarListaInicial();
+		pesquisarInicial();
 		gerarListaPosVenda();
 	}
 
