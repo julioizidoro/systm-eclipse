@@ -17,11 +17,15 @@
 				</legend>
 				<h:panelGrid columns="1" style="margin-left:5%;">
 					<p:commandButton id="recalculoDashboard" 
-						icon="ui-icon-refresh" value="Recalcular Dashboard" action="#{utilMB.recalcularDashboard()}" />
+						icon="ui-icon-refresh" value="Recalcular Dashboard" action="#{utilMB.recalcularDashboard()}" update="growl"/>
 				</h:panelGrid>  
 				<h:panelGrid columns="1" style="margin-left:5%;">
 					<p:commandButton id="rlancarposvenda" 
-						icon="ui-icon-refresh" value="Lançar Pós Venda" action="#{utilMB.recalcularDashboard()}" />
+						icon="ui-icon-refresh" value="Lançar Pós Venda" action="#{utilMB.recalcularDashboard()}" update="growl"/>
+				</h:panelGrid>  
+				<h:panelGrid columns="1" style="margin-left:5%;">
+					<p:commandButton id="calcularbo" 
+						icon="ui-icon-refresh" value="Recalcular BO" action="#{utilMB.recalcularBO()}" update="growl"/>
 				</h:panelGrid>  
 				<br></br>   
 				<br></br>  

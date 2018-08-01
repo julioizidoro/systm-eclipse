@@ -89,14 +89,8 @@ public class GerarRelatorio {
         ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
         InputStream reportStream = facesContext.getExternalContext()  
                 .getResourceAsStream(caminhoRelatorio);  
-        Connection conn=null;
-		try {
-			conn = getConexao();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+        Connection conn = ConectionFactory.getConexao();
+	    
 
         if (subDir!=null){
             subDir = servletContext.getRealPath(subDir);
@@ -123,19 +117,5 @@ public class GerarRelatorio {
         
     }
     
-    public static Connection getConexao() throws NamingException {
-        InitialContext context = null;
-        try {
-            context = new InitialContext();
-        } catch (NamingException ex) {
-            Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        DataSource ds = (DataSource) context.lookup("java:/systmDB");
-        try {
-            return ds.getConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+   
 }

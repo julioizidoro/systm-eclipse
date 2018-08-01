@@ -80,7 +80,7 @@ public class ConectionFactory {
         entityManager = null;
     }
     
-	/*public static Connection getConexao() {
+	public static Connection getConexao() {
 		Connection conexao = null;
 		try {
 			conexao = DriverManager.getConnection("jdbc:mysql://localhost:8081/systm", "root", "780920**");
@@ -90,5 +90,5 @@ public class ConectionFactory {
 		}
 
 		return conexao;
-	}*/
+	}
 }
