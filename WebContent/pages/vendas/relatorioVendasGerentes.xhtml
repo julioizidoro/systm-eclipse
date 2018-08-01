@@ -140,8 +140,14 @@
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Descontos" style="width:55px;text-align: right" >
-						<h:outputText value="#{relatorioVendasGerentesMB.calcularDescontos(venda)}">
+					<p:column headerText="Desconto TM" sortBy="#{venda.vendascomissao.descontotm}" style="width:55px;text-align: right" >
+						<h:outputText value="#{venda.vendascomissao.descontotm}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Desconto Loja" sortBy="#{venda.vendascomissao.descontoloja}" style="width:55px;text-align: right" >
+						<h:outputText value="#{venda.vendascomissao.descontoloja}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>
@@ -155,8 +161,8 @@
 			      
 			 
 			    </p:dataTable>
-			    
-			<br></br> <br></br> <br></br> <br></br> 
+
+				<br></br> <br></br> <br></br> <br></br> 
 			</div>    
 		</h:form>   
 	</ui:define>
