@@ -23,7 +23,7 @@ public class WorkTravelDao {
     
     public Worktravel salvar(Worktravel work) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         work = manager.merge(work);
@@ -34,7 +34,7 @@ public class WorkTravelDao {
     
     public Worktravel consultarWork(int idVenda) throws SQLException {
     	EntityManager manager;
-       manager = ConectionFactory.getInstance();
+       manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select w from Worktravel w where w.vendas.idvendas=" + idVenda);
         Worktravel work = null;
         if (q.getResultList().size() > 0) {
@@ -45,7 +45,7 @@ public class WorkTravelDao {
     
     public List<Worktravel> lista(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Worktravel> lista = q.getResultList();
         return lista;
@@ -54,7 +54,7 @@ public class WorkTravelDao {
     
     public Controlework salvar(Controlework controle) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
         controle = manager.merge(controle);
@@ -64,7 +64,7 @@ public class WorkTravelDao {
     
     public List<Controlework> listaControle(String sql) throws SQLException{
     	EntityManager manager;
-        manager = ConectionFactory.getInstance();
+        manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Controlework> lista = q.getResultList();
         return lista;
@@ -73,7 +73,7 @@ public class WorkTravelDao {
     
     public Controlework consultarControle(int idVenda) throws SQLException {
     	EntityManager manager;
-    	manager = ConectionFactory.getInstance();
+    	manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Controlework c where c.vendas.idvendas=" + idVenda);
         Controlework work= null;
         if (q.getResultList().size() > 0) {
