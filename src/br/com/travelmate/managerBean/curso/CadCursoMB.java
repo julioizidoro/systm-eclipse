@@ -3304,6 +3304,10 @@ public class CadCursoMB implements Serializable {
 					}
 					orcamentoprodutosorcamento.setTipo("A");
 					orcamentoprodutosorcamento.setImportado(true);
+					if (ocurso.getOcrusoprodutosList().get(i).getTipoproduto() != null
+							&& ocurso.getOcrusoprodutosList().get(i).getTipoproduto().equalsIgnoreCase("A")) {
+						orcamentoprodutosorcamento.setObrigatorio(true);
+					}
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					float valororiginal=0.0f;
 					if (ocurso.getOcrusoprodutosList().get(i).getValororiginal()!=null){
@@ -3330,7 +3334,10 @@ public class CadCursoMB implements Serializable {
 								orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
 						orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 						orcamentoprodutosorcamento.setImportado(true);
-						orcamentoprodutosorcamento.setObrigatorio(true);
+						if (ocurso.getOcrusoprodutosList().get(i).getTipoproduto() != null
+								&& ocurso.getOcrusoprodutosList().get(i).getTipoproduto().equalsIgnoreCase("A")) {
+							orcamentoprodutosorcamento.setObrigatorio(true);
+						}
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					}
 				//}

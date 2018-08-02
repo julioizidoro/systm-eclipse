@@ -610,6 +610,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 				produto.setTipo(7);
 				produto.setNomegrupo("Seguro Viagem Privado");
 				produto.setOcurso(ocurso); 
+				produto.setTipoproduto("S");
 				oCursoProdutoDao.salvar(produto);
 				if(resultadoOrcamentoBean.getSeguroviagem().isSegurocancelamento()) {
 					produto = new Ocrusoprodutos();
@@ -625,6 +626,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					produto.setNome("Seguro Cancelamento");
 					produto.setDescricao("Seguro Cancelamento"); 
 					produto.setTipo(7);
+					produto.setTipoproduto("S");
 					if(resultadoOrcamentoBean.getSeguroviagem().isSomarvalortotal()) {
 						produto.setNomegrupo("Adicionais");
 					}else {

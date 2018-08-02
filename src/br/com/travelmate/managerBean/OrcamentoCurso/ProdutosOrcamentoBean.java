@@ -39,6 +39,7 @@ public class ProdutosOrcamentoBean {
 	private Fornecedorcidadeidioma fornecedorcidadeidiomaAcomodacao;
 	private List<Integer> listaSemanas;
 	private Ocrusoprodutos ocrusoprodutos;
+	private String tipoproduto;
 	public int getLinhaObrigatorioAcomodacao() {
 		return linhaObrigatorioAcomodacao;
 	}
@@ -219,6 +220,14 @@ public class ProdutosOrcamentoBean {
 
 	public void setOcrusoprodutos(Ocrusoprodutos ocrusoprodutos) {
 		this.ocrusoprodutos = ocrusoprodutos;
+	}
+
+	public String getTipoproduto() {
+		return tipoproduto;
+	}
+
+	public void setTipoproduto(String tipoproduto) {
+		this.tipoproduto = tipoproduto;
 	}
 
 }

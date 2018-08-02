@@ -16,6 +16,7 @@ import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
+import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ValorAupairFacade;
 import br.com.travelmate.facade.ValoresHighSchoolFacade;
 import br.com.travelmate.facade.ValoresProgramasTeensFacade;
@@ -41,6 +42,7 @@ import br.com.travelmate.model.Valoresprogramasteens;
 import br.com.travelmate.model.Valorestrainee;
 import br.com.travelmate.model.Valoreswork;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
@@ -691,7 +693,8 @@ public class CalculadoraMargemMB implements Serializable {
 		int idProduto = produto.getIdprodutos();
 		margemFinal= 0.0f;
 		if (idProduto==aplicacaoMB.getParametrosprodutos().getCursos()) {
-			ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda, listaProdutosGeral, fornecedorcomissaocurso, listaParcelamento, dataInicioPrograma, vendascomissao, valorJuros, salvarCalculo)
+			ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), null,
+					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		}
 		
@@ -701,9 +704,41 @@ public class CalculadoraMargemMB implements Serializable {
 		Orcamento orcamento = new Orcamento();
 		orcamento.setCambio(venda.getCambio());
 		orcamento.setValorCambio(venda.getCambio().getValor());
-		List<Orcamentoprodutosorcamento> listaProdutos = new  ArrayList<Orcamentoprodutosorcamento>();
-		orcamento.setOrcamentoprodutosorcamentoList(listaProdutos);
+		orcamento.setOrcamentoprodutosorcamentoList(popularOProdutoOcamento(orcamento));
  		return orcamento;
+	}
+	
+	
+	public List<Orcamentoprodutosorcamento> popularOProdutoOcamento(Orcamento orcamento) {
+		List<Orcamentoprodutosorcamento> listaProdutos = new  ArrayList<Orcamentoprodutosorcamento>();
+		Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+		orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+		orcamentoprodutosorcamento.setValorMoedaNacional(assessoriaTM);
+		orcamentoprodutosorcamento.setImportado(false);
+		orcamentoprodutosorcamento.setOrcamento(orcamento);
+		orcamentoprodutosorcamento.setObrigatorio(false);
+		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(9));
+		listaProdutos.add(orcamentoprodutosorcamento);
+		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+		orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+		orcamentoprodutosorcamento.setValorMoedaNacional(descontoMatriz);
+		orcamentoprodutosorcamento.setImportado(false);
+		orcamentoprodutosorcamento.setOrcamento(orcamento);
+		orcamentoprodutosorcamento.setObrigatorio(false);
+		produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(33));
+		listaProdutos.add(orcamentoprodutosorcamento);
+		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+		orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+		orcamentoprodutosorcamento.setValorMoedaNacional(descontoloja);
+		orcamentoprodutosorcamento.setImportado(false);
+		orcamentoprodutosorcamento.setOrcamento(orcamento);
+		orcamentoprodutosorcamento.setObrigatorio(false);
+		produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(33));
+		listaProdutos.add(orcamentoprodutosorcamento);
+		return listaProdutos;
 	}
 	
 	

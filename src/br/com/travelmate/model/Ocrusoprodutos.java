@@ -62,6 +62,9 @@ public class Ocrusoprodutos implements Serializable {
 	private Valorcoprodutos valorcoprodutos;
 	@Column(name = "somavalortotal")
 	private boolean somavalortotal;
+	// Serve para verificar o produto orcamento desta taxa. Siglas: O = Opcional, C = Curso; T = Transfer; A = Acomodação; S = Seguro;
+	@Column(name = "tipoproduto")
+	private String tipoproduto;
 
 	// tipo Produtos
 	// 1-Obrigatorios
@@ -180,6 +183,14 @@ public class Ocrusoprodutos implements Serializable {
 
 	public void setSomavalortotal(boolean somavalortotal) {
 		this.somavalortotal = somavalortotal;
+	}
+
+	public String getTipoproduto() {
+		return tipoproduto;
+	}
+
+	public void setTipoproduto(String tipoproduto) {
+		this.tipoproduto = tipoproduto;
 	}
 
 	@Override

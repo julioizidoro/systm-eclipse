@@ -931,6 +931,7 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void mudarNumeroSemanaAcomodacao(ProdutosOrcamentoBean produtosOrcamentoBean) {
 		if (produtosOrcamentoBean.isSelecionado()) {
+			produtosOrcamentoBean.setTipoproduto("A");
 			calcularValorAcomodacao(produtosOrcamentoBean);
 			if (produtosOrcamentoBean.getLinhaSuplementoAcomodacao() >= 0) {
 				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios()
@@ -1013,6 +1014,7 @@ public class OrcamentoCursoMB implements Serializable {
 									resultadoOrcamentoBean.getOcurso(), dataconsulta,
 									"Obrigatorio");
 							if (po != null) {
+								po.setTipoproduto("A");
 								resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
 								produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
 										resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
@@ -1021,6 +1023,7 @@ public class OrcamentoCursoMB implements Serializable {
 										resultadoOrcamentoBean.getOcurso(), new Date(),
 										"Obrigatorio");
 								if (po != null) {
+									po.setTipoproduto("A");
 									resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
 									produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
 											resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size()
@@ -1029,6 +1032,7 @@ public class OrcamentoCursoMB implements Serializable {
 									po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
 											resultadoOrcamentoBean.getOcurso(), dataconsulta, "Obrigatorio");
 									if (po != null) {
+										po.setTipoproduto("A");
 										resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
 										produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
 												resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size()
@@ -1047,6 +1051,7 @@ public class OrcamentoCursoMB implements Serializable {
 						produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getIdcoprodutos(),
 						resultadoOrcamentoBean.getOcurso(), dataconsulta);
 				if (po != null) {
+					po.setTipoproduto("A");
 					po.getValorcoprodutos().getCoprodutos()
 							.setDescricao("Suplemento de " + po.getValorcoprodutos().getTiposuplemento());
 					resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
@@ -1194,6 +1199,7 @@ public class OrcamentoCursoMB implements Serializable {
 			if (listaCurso.get(i).getOcrusoprodutos() != null && listaCurso.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
 				produto = listaCurso.get(i).getOcrusoprodutos();
 			}
+			produto.setTipoproduto(listaCurso.get(i).getTipoproduto());
 			produto.setNumerosemanas(resultadoOrcamentoBean.getOcurso().getNumerosemanas().doubleValue());
 			produto.setValorcoprodutos(listaCurso.get(i).getValorcoprodutos());
 			produto.setValororiginal(listaCurso.get(i).getValorOrigianl());
@@ -1251,6 +1257,7 @@ public class OrcamentoCursoMB implements Serializable {
 			produto.setDescricao(listaObrigaroerios.get(i).getValorcoprodutos().getCoprodutos().getDescricao());
 			produto.setTipo(1);
 			produto.setNomegrupo("Curso");
+			produto.setTipoproduto(listaObrigaroerios.get(i).getTipoproduto());
 			produto.setSomavalortotal(listaObrigaroerios.get(i).isSomarvalortotal());
 			if (listaObrigaroerios.get(i).isPromocao()) {
 				produto.setPossuipromocao(true);
@@ -1266,6 +1273,7 @@ public class OrcamentoCursoMB implements Serializable {
 				if (listaOpcionais.get(i).getOcrusoprodutos() != null && listaOpcionais.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
 					produto = listaOpcionais.get(i).getOcrusoprodutos();
 				}
+				produto.setTipoproduto(listaOpcionais.get(i).getTipoproduto());
 				produto.setNumerosemanas(listaOpcionais.get(i).getNumeroSemanas());
 				produto.setValorcoprodutos(listaOpcionais.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaOpcionais.get(i).getValorOrigianl());
@@ -1293,6 +1301,7 @@ public class OrcamentoCursoMB implements Serializable {
 				if (listaAcomodacoes.get(i).getOcrusoprodutos() != null && listaAcomodacoes.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
 					produto = listaAcomodacoes.get(i).getOcrusoprodutos();
 				}
+				produto.setTipoproduto(listaAcomodacoes.get(i).getTipoproduto());
 				produto.setNumerosemanas(listaAcomodacoes.get(i).getNumeroSemanas());
 				produto.setValorcoprodutos(listaAcomodacoes.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaAcomodacoes.get(i).getValorOrigianl());
@@ -1341,6 +1350,7 @@ public class OrcamentoCursoMB implements Serializable {
 				if (listaAcOpcional.get(i).getOcrusoprodutos() != null && listaAcOpcional.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
 					produto = listaAcOpcional.get(i).getOcrusoprodutos();
 				}
+				produto.setTipoproduto(listaAcOpcional.get(i).getTipoproduto());
 				produto.setNumerosemanas(listaAcOpcional.get(i).getNumeroSemanasAcOpcional());
 				produto.setValorcoprodutos(listaAcOpcional.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaAcOpcional.get(i).getValorOriginalAcOpcional());
@@ -1375,6 +1385,7 @@ public class OrcamentoCursoMB implements Serializable {
 				if (listaTransfer.get(i).getOcrusoprodutos() != null && listaTransfer.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
 					produto = listaTransfer.get(i).getOcrusoprodutos();
 				}
+				produto.setTipoproduto(listaTransfer.get(i).getTipoproduto());
 				produto.setNumerosemanas(listaTransfer.get(i).getNumeroSemanas());
 				produto.setValorcoprodutos(listaTransfer.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaTransfer.get(i).getValorOrigianl());
@@ -2975,7 +2986,19 @@ public class OrcamentoCursoMB implements Serializable {
 	public void excluirAcomodacao(ProdutosOrcamentoBean po) {  
 		po.setSelecionado(false);
 		mudarNumeroSemanaAcomodacao(po); 
+		excluirTaxasAcomodacao();
 		resultadoOrcamentoBean.getListaAcomodacoes().remove(po); 
+	}
+	
+	public void excluirTaxasAcomodacao() {
+		 List<ProdutosOrcamentoBean> listaProdutosFica = new ArrayList<ProdutosOrcamentoBean>();
+		for (int i = 0; i < resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size(); i++) {
+			ProdutosOrcamentoBean produto = resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i);
+			if (produto.getTipoproduto() == null || !produto.getTipoproduto().equalsIgnoreCase("A")) {
+				listaProdutosFica.add(produto);
+			}
+		}
+		resultadoOrcamentoBean.getProdutoFornecedorBean().setListaObrigaroerios(listaProdutosFica);
 	}
 	
 	public boolean desabilitarNovaAcomodacao(){
