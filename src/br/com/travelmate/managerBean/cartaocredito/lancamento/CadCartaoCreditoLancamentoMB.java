@@ -195,7 +195,8 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		this.dataCompensacao = dataCompensacao;
 	}
 
-	public void validarDados(String msg) {
+	public String validarDados() {
+		String msg="";
 		if (lancamento.getDescricao() == null || lancamento.getDescricao().length() < 2) {
 			msg = msg + "\n" + "Descrição não informado.";
 		} 
@@ -214,11 +215,17 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		if (lancamento.getNumeroparcelas() == null || lancamento.getNumeroparcelas().equals("")) {
 			msg = msg + "\n" + "Informe número de parcelas.";
 		}
+		if (lancamento.getValorinformado() == null || lancamento.getValorinformado()==0) {
+			msg = msg + "\n" + "Informe o Valor";
+		}
+		if (lancamento.getEstabelecimento() == null || lancamento.getEstabelecimento().length() ==0) {
+			msg = msg + "\n" + "Informe o Estabelecimento";
+		}
+		return msg;
 	}
 
 	public String salvar() {
-		String msg = "";
-		validarDados(msg);
+		String msg = validarDados();
 		if (msg.length() < 2) {
 			if (confirmar) {
 				lancarContasPagar();
