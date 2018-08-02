@@ -12,6 +12,7 @@ import javax.inject.Named;
  
 import br.com.travelmate.bean.DesagioBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
+import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -687,6 +688,12 @@ public class CalculadoraMargemMB implements Serializable {
 		Vendas venda = gerarVenda();
 		venda.setFormapagamento(gerarFormaPagamento());
 		venda.setOrcamento(gerarOrcamento(venda));
+		int idProduto = produto.getIdprodutos();
+		margemFinal= 0.0f;
+		if (idProduto==aplicacaoMB.getParametrosprodutos().getCursos()) {
+			ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda, listaProdutosGeral, fornecedorcomissaocurso, listaParcelamento, dataInicioPrograma, vendascomissao, valorJuros, salvarCalculo)
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		}
 		
 	}
 	
