@@ -3220,6 +3220,7 @@ public class CadCursoMB implements Serializable {
 							listaAcomodacao = new ArrayList<Acomodacao>();
 							listaAcomodacao.add(acomodacao);
 							btnPesquisar = true;
+							lancadoAcomodacaoInd = true;
 						}else {
 							curso.setTipoAcomodacao(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
 									.getCoprodutos().getComplementoacomodacao().getTipoacomodacao());
