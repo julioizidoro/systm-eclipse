@@ -53,14 +53,14 @@ public class Orcamentoprodutosorcamento implements Serializable {
     private int linha;
     @Column(name = "importado")
     private boolean importado;
-    @Transient
-    private boolean podeExcluirAcomodacao;
+    @Column(name = "obrigatorio")
+    private boolean obrigatorio;
 
     public Orcamentoprodutosorcamento() {
     		podeExcluir=true;
     		linha = 0;
     		importado = false;
-    		podeExcluirAcomodacao = false;
+    		obrigatorio = false;
     }
 
     public Orcamentoprodutosorcamento(Integer idorcamentoProdutosOrcamento) {
@@ -147,12 +147,12 @@ public class Orcamentoprodutosorcamento implements Serializable {
 		this.importado = importado;
 	}
 
-	public boolean isPodeExcluirAcomodacao() {
-		return podeExcluirAcomodacao;
+	public boolean isObrigatorio() {
+		return obrigatorio;
 	}
 
-	public void setPodeExcluirAcomodacao(boolean podeExcluirAcomodacao) {
-		this.podeExcluirAcomodacao = podeExcluirAcomodacao;
+	public void setObrigatorio(boolean obrigatorio) {
+		this.obrigatorio = obrigatorio;
 	}
 
 	@Override

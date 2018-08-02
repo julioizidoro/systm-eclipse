@@ -80,6 +80,7 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Cliente;
+import br.com.travelmate.model.Complementoacomodacao;
 import br.com.travelmate.model.Controlealteracoes;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Cursospacote;
@@ -2700,6 +2701,15 @@ public class CadCursoMB implements Serializable {
 			}
 		}
 	}
+	
+	public void calcularDataTerminoAcomodacaoIndependente() {
+		if ((acomodacao.getDatainicial() != null) && (acomodacao.getNumerosemana() != null)) {
+			if (acomodacao.getNumerosemana() > 0) {
+				Date data = Formatacao.calcularDataFinalAcomodacao(acomodacao.getDatainicial(), acomodacao.getNumerosemana());
+				acomodacao.setDatatermino(data);
+			}
+		}
+	}
 
 	public void carregarCamposCartaoVTM() {
 		if (curso.getCaratoVTM().equalsIgnoreCase("Sim")) {
@@ -3187,25 +3197,50 @@ public class CadCursoMB implements Serializable {
 						orcamentoprodutosorcamento.setDescricao("Suplemento de Acomodação");
 					}  else if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
 							.getComplementoacomodacao() != null) {
-						curso.setTipoAcomodacao(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
-								.getCoprodutos().getComplementoacomodacao().getTipoacomodacao());
-						carregarCamposAcomodacao();
-						curso.setTipoQuarto(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
-								.getComplementoacomodacao().getTipoquarto());
-						curso.setRefeicoes(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
-								.getComplementoacomodacao().getTiporefeicao());
-						String tipoBanheiro = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
-								.getCoprodutos().getComplementoacomodacao().getTipobanheiro();
-						if (tipoBanheiro.equalsIgnoreCase("Privado")) {
-							curso.setBanheiroprivativo("Sim"); 
-						} else{
-							curso.setBanheiroprivativo("Não");
+						
+						
+						if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+								.getComplementoacomodacao().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+							Complementoacomodacao complementoacomodacao = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+									.getComplementoacomodacao();
+							acomodacao.setTipoacomodacao(
+									complementoacomodacao.getTipoacomodacao());
+							acomodacao
+									.setNumerosemana(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
+							acomodacao.setTipoquarto(complementoacomodacao.getTipoquarto());
+							acomodacao
+									.setTipobanheiro(complementoacomodacao.getTipobanheiro());
+							acomodacao
+									.setTiporefeicao(complementoacomodacao.getTiporefeicao());
+							acomodacao.setComplemento(complementoacomodacao.getComplemento());
+							acomodacao.setValormoedaestrangeira(0.0f);
+							acomodacao.setValormoedanacional(0.0f);
+							acomodacao.setDatainicial(curso.getDataInicio());
+							calcularDataTerminoAcomodacaoIndependente();
+							listaAcomodacao = new ArrayList<Acomodacao>();
+							listaAcomodacao.add(acomodacao);
+							btnPesquisar = true;
+						}else {
+							curso.setTipoAcomodacao(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
+									.getCoprodutos().getComplementoacomodacao().getTipoacomodacao());
+							carregarCamposAcomodacao();
+								curso.setTipoQuarto(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+										.getComplementoacomodacao().getTipoquarto());
+								curso.setRefeicoes(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+										.getComplementoacomodacao().getTiporefeicao());
+								String tipoBanheiro = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos()
+										.getCoprodutos().getComplementoacomodacao().getTipobanheiro();
+								if (tipoBanheiro.equalsIgnoreCase("Privado")) {
+									curso.setBanheiroprivativo("Sim"); 
+								} else{
+									curso.setBanheiroprivativo("Não");
+								}
+								curso.setDataChegada(verificarDataInicioAcomodacaoOrcamento(ocurso.getDatainicio(), ocurso.getNumerosemanas()));
+								if(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas()>0){
+									curso.setNumeroSemanasAcamodacao(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
+								} 
+								calcularDataTerminoAcomodacao();
 						}
-						curso.setDataChegada(verificarDataInicioAcomodacaoOrcamento(ocurso.getDatainicio(), ocurso.getNumerosemanas()));
-						if(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas()>0){
-							curso.setNumeroSemanasAcamodacao(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
-						} 
-						calcularDataTerminoAcomodacao();
 						orcamentoprodutosorcamento.setDescricao("Acomodação");
 					} else if(ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("Adicionais")
 								|| ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")) {
@@ -3256,6 +3291,16 @@ public class CadCursoMB implements Serializable {
 							.setValorMoedaEstrangeira(ocurso.getOcrusoprodutosList().get(i).getValororiginal());
 					orcamentoprodutosorcamento.setValorMoedaNacional(
 							orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
+					if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+							.getComplementoacomodacao() != null) {
+						if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos()
+								.getComplementoacomodacao().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+							if (orcamentoprodutosorcamento.getDescricao().equalsIgnoreCase("Acomodação")) {
+								acomodacao.setValormoedaestrangeira(orcamentoprodutosorcamento.getValorMoedaEstrangeira());
+								acomodacao.setValormoedanacional(orcamentoprodutosorcamento.getValorMoedaNacional());
+							}
+						}
+					}
 					orcamentoprodutosorcamento.setTipo("A");
 					orcamentoprodutosorcamento.setImportado(true);
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
@@ -3284,6 +3329,7 @@ public class CadCursoMB implements Serializable {
 								orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
 						orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 						orcamentoprodutosorcamento.setImportado(true);
+						orcamentoprodutosorcamento.setObrigatorio(true);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					}
 				//}
@@ -3818,7 +3864,7 @@ public class CadCursoMB implements Serializable {
 			orcamentoprodutosorcamento.setDescricao("Acomodação");
 			orcamentoprodutosorcamento.setImportado(false);
 			orcamentoprodutosorcamento.setOrcamento(orcamento);
-			orcamentoprodutosorcamento.setPodeExcluirAcomodacao(true);
+			orcamentoprodutosorcamento.setObrigatorio(true);
 			orcamentoprodutosorcamento.setProdutosorcamento(po.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 			orcamentoprodutosorcamento.setValorMoedaEstrangeira(po.getValorOrigianl());
 			orcamentoprodutosorcamento.setValorMoedaNacional(po.getValorOriginalRS());
@@ -3854,14 +3900,9 @@ public class CadCursoMB implements Serializable {
 		if ((acomodacao.getDatainicial() != null) && (nSemanas != null)) {
 			if (po.getNumeroSemanas() > 0) {
 				int diaSemana = Formatacao.diaSemana(acomodacao.getDatainicial());
-				if (diaSemana != 1) {
-					Mensagem.lancarMensagemInfo("Atenção!", "O sistema não irá calcular automaticamente"
-							+ " as datas de chegada e partida para acomodações que não iniciam no Domingo.");
-				} else {
-					Date data = Formatacao.calcularDataFinalAcomodacao(acomodacao.getDatainicial(), nSemanas);
-					acomodacao.setDatatermino(data);
-					acomodacao.setNumerosemana(nSemanas);
-				}
+				Date data = Formatacao.calcularDataFinalAcomodacao(acomodacao.getDatainicial(), nSemanas);
+				acomodacao.setDatatermino(data);
+				acomodacao.setNumerosemana(nSemanas);
 			}
 		}
 	}
@@ -3980,12 +4021,13 @@ public class CadCursoMB implements Serializable {
 							.setLinhaSuplementoAcomodacao(produtoFornecedorBean.getListaObrigaroerios().size() - 1);
 				}
 				gerarPromocaoCurso(produtoFornecedorBean.getListaCursoPrincipal());
-				gerarPromocaoTaxas(produtoFornecedorBean.getListaObrigaroerios(),
-						produtoFornecedorBean.getListaCursoPrincipal());
 //				gerarPromocaoBrindes(produtoFornecedorBean.getListaObrigaroerios(),
 //						produtoFornecedorBean.getListaCursoPrincipal().get(0));
-				if (produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
+				if (!produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
 						.isAcomodacaoindependente()) {
+					gerarPromocaoTaxas(produtoFornecedorBean.getListaObrigaroerios(),
+							produtoFornecedorBean.getListaCursoPrincipal());
+				}else { 
 					gerarPromocaoTaxasAcomodacaoIndependente(produtoFornecedorBean.getListaObrigaroerios(),
 							produtoFornecedorBean.getListaCursoPrincipal(),
 							produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma());
@@ -4013,11 +4055,23 @@ public class CadCursoMB implements Serializable {
 
 		for (int i = 0; i < produtoFornecedorBean.getListaObrigaroerios().size(); i++) {
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-				orcamentoprodutosorcamento.setDescricao(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
-					.getProdutosorcamento().getDescricao());
+				if (produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
+						.getComplementoacomodacao() != null && 
+						!produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getProdutosuplemento()
+							.equalsIgnoreCase("valor")) {
+					orcamentoprodutosorcamento.setDescricao("Suplemento de Acomodação");
+				}else if(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
+							.getComplementocurso() != null && 
+							!produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getProdutosuplemento()
+								.equalsIgnoreCase("valor")) {
+					orcamentoprodutosorcamento.setDescricao("Suplemento de Curso");
+				}else {
+					orcamentoprodutosorcamento.setDescricao(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
+							.getProdutosorcamento().getDescricao());
+				}
 				orcamentoprodutosorcamento.setImportado(false);
 				orcamentoprodutosorcamento.setOrcamento(orcamento);
-				orcamentoprodutosorcamento.setPodeExcluirAcomodacao(true); 
+				orcamentoprodutosorcamento.setObrigatorio(true); 
 				orcamentoprodutosorcamento.setProdutosorcamento(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorOrigianl());
 				orcamentoprodutosorcamento.setValorMoedaNacional(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorOriginalRS());
@@ -4049,7 +4103,7 @@ public class CadCursoMB implements Serializable {
 			List<Orcamentoprodutosorcamento> listaProdutoFica = new ArrayList<Orcamentoprodutosorcamento>();
 			List<Orcamentoprodutosorcamento> listaProdutoApaga = new ArrayList<Orcamentoprodutosorcamento>();
 			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
-				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).isPodeExcluirAcomodacao()) {
+				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).isObrigatorio()) {
 					listaProdutoApaga.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
 				}else {
 					listaProdutoFica.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));

@@ -281,7 +281,7 @@
 		<br />
 		<h:panelGrid style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
 		
-			<h:panelGrid style="width:100%;" columns="3">
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarAcomodacao}">
 				<h:panelGroup><b>Acomodação:</b> #{fichaCursoMB.curso.tipoAcomodacao}</h:panelGroup>
 				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaCursoMB.curso.tipoQuarto}</h:panelGroup>
 				<h:panelGroup>
@@ -306,9 +306,32 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>  
+			</h:panelGrid>
+			<h:panelGrid style="width:100%;" columns="3" rendered="#{fichaCursoMB.habilitarAcomodacaoCurso}">
+				<h:panelGroup><b>Acomodação:</b> #{fichaCursoMB.curso.acomodacaocurso.acomodacao.tipoacomodacao}</h:panelGroup>
+				<h:panelGroup><b>Tipo de Quarto: </b> #{fichaCursoMB.curso.acomodacaocurso.acomodacao.tipoquarto}</h:panelGroup>
+				<h:panelGroup>
+					<b>Banheiro Privado: </b> #{fichaCursoMB.curso.acomodacaocurso.acomodacao.tipobanheiro} 
+				</h:panelGroup>
+				<h:panelGroup><b>Refeições:</b> #{fichaCursoMB.curso.acomodacaocurso.acomodacao.tiporefeicao}</h:panelGroup>
+				
+				<h:panelGroup>
+					<b>Data Chegada:</b> <h:outputText
+						value="#{fichaCursoMB.curso.acomodacaocurso.acomodacao.datainicial}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>
 				<h:panelGroup>   
-					<b>Adicionais :</b> #{fichaCursoMB.curso.adicionais}
-				</h:panelGroup> 
+					<b>N° Semanas :</b> #{fichaCursoMB.curso.acomodacaocurso.acomodacao.numerosemana}
+				</h:panelGroup>
+				<h:panelGroup>
+					<b>Data Partida:</b> <h:outputText
+						value="#{fichaCursoMB.curso.acomodacaocurso.acomodacao.datatermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</h:panelGroup>  
 			</h:panelGrid>
 			<h:panelGrid style="width:100%;" columns="1">
 				<h:panelGroup>   

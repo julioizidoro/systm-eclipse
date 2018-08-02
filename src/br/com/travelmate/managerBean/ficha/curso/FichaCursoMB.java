@@ -43,6 +43,8 @@ public class FichaCursoMB implements Serializable{
 	private float totalPagamento = 0.0f;
 	private int aulasSemana2;
 	private boolean habilitarObservacao = false;
+	private boolean habilitarAcomodacao = true;
+	private boolean habilitarAcomodacaoCurso = false;
 	
 
 	
@@ -88,6 +90,10 @@ public class FichaCursoMB implements Serializable{
 			}
 			if (vendas.getFormapagamento() != null && (vendas.getFormapagamento().getObservacoes() != null && vendas.getFormapagamento().getObservacoes().length() > 0)) {
 				habilitarObservacao = true;
+			}
+			if (curso.getAcomodacaocurso() != null) {
+				habilitarAcomodacao = false;
+				habilitarAcomodacaoCurso = true;
 			}
 		}
 		dataHoje = new Date();
@@ -301,6 +307,30 @@ public class FichaCursoMB implements Serializable{
 
 	public void setHabilitarObservacao(boolean habilitarObservacao) {
 		this.habilitarObservacao = habilitarObservacao;
+	}
+
+
+
+	public boolean isHabilitarAcomodacao() {
+		return habilitarAcomodacao;
+	}
+
+
+
+	public void setHabilitarAcomodacao(boolean habilitarAcomodacao) {
+		this.habilitarAcomodacao = habilitarAcomodacao;
+	}
+
+
+
+	public boolean isHabilitarAcomodacaoCurso() {
+		return habilitarAcomodacaoCurso;
+	}
+
+
+
+	public void setHabilitarAcomodacaoCurso(boolean habilitarAcomodacaoCurso) {
+		this.habilitarAcomodacaoCurso = habilitarAcomodacaoCurso;
 	}
 
 
