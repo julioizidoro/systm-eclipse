@@ -531,6 +531,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			if (resultadoOrcamentoBean.getListaOutrosProdutos() != null) {
 				for (int i = 0; i < resultadoOrcamentoBean.getListaOutrosProdutos().size(); i++) {
 					Ocrusoprodutos produto = new Ocrusoprodutos();
+					
 					produto.setNumerosemanas(0.0);
 					produto.setValorcoprodutos(
 							resultadoOrcamentoBean.getListaOutrosProdutos().get(i).getValorcoprodutos());

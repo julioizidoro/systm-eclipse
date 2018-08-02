@@ -1191,6 +1191,9 @@ public class OrcamentoCursoMB implements Serializable {
 				.getListaCursoPrincipal();
 		for (int i = 0; i < listaCurso.size(); i++) {
 			Ocrusoprodutos produto = new Ocrusoprodutos();
+			if (listaCurso.get(i).getOcrusoprodutos() != null && listaCurso.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+				produto = listaCurso.get(i).getOcrusoprodutos();
+			}
 			produto.setNumerosemanas(resultadoOrcamentoBean.getOcurso().getNumerosemanas().doubleValue());
 			produto.setValorcoprodutos(listaCurso.get(i).getValorcoprodutos());
 			produto.setValororiginal(listaCurso.get(i).getValorOrigianl());
@@ -1237,6 +1240,9 @@ public class OrcamentoCursoMB implements Serializable {
 
 		for (int i = 0; i < listaObrigaroerios.size(); i++) {
 			Ocrusoprodutos produto = new Ocrusoprodutos();
+			if (listaObrigaroerios.get(i).getOcrusoprodutos() != null && listaObrigaroerios.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+				produto = listaObrigaroerios.get(i).getOcrusoprodutos();
+			}
 			produto.setNumerosemanas(listaObrigaroerios.get(i).getNumeroSemanas());
 			produto.setValorcoprodutos(listaObrigaroerios.get(i).getValorcoprodutos());
 			produto.setValororiginal(listaObrigaroerios.get(i).getValorOrigianl());
@@ -1257,6 +1263,9 @@ public class OrcamentoCursoMB implements Serializable {
 		for (int i = 0; i < listaOpcionais.size(); i++) {
 			if (listaOpcionais.get(i).isSelecionadoOpcional()) {
 				Ocrusoprodutos produto = new Ocrusoprodutos();
+				if (listaOpcionais.get(i).getOcrusoprodutos() != null && listaOpcionais.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+					produto = listaOpcionais.get(i).getOcrusoprodutos();
+				}
 				produto.setNumerosemanas(listaOpcionais.get(i).getNumeroSemanas());
 				produto.setValorcoprodutos(listaOpcionais.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaOpcionais.get(i).getValorOrigianl());
@@ -1281,6 +1290,9 @@ public class OrcamentoCursoMB implements Serializable {
 		for (int i = 0; i < listaAcomodacoes.size(); i++) {
 			if (listaAcomodacoes.get(i).isSelecionado()) {
 				Ocrusoprodutos produto = new Ocrusoprodutos();
+				if (listaAcomodacoes.get(i).getOcrusoprodutos() != null && listaAcomodacoes.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+					produto = listaAcomodacoes.get(i).getOcrusoprodutos();
+				}
 				produto.setNumerosemanas(listaAcomodacoes.get(i).getNumeroSemanas());
 				produto.setValorcoprodutos(listaAcomodacoes.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaAcomodacoes.get(i).getValorOrigianl());
@@ -1326,6 +1338,9 @@ public class OrcamentoCursoMB implements Serializable {
 		for (int i = 0; i < listaAcOpcional.size(); i++) {
 			if (listaAcOpcional.get(i).isSelecionado()) {
 				Ocrusoprodutos produto = new Ocrusoprodutos();
+				if (listaAcOpcional.get(i).getOcrusoprodutos() != null && listaAcOpcional.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+					produto = listaAcOpcional.get(i).getOcrusoprodutos();
+				}
 				produto.setNumerosemanas(listaAcOpcional.get(i).getNumeroSemanasAcOpcional());
 				produto.setValorcoprodutos(listaAcOpcional.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaAcOpcional.get(i).getValorOriginalAcOpcional());
@@ -1357,6 +1372,9 @@ public class OrcamentoCursoMB implements Serializable {
 		for (int i = 0; i < listaTransfer.size(); i++) {
 			if (listaTransfer.get(i).isSelecionado()) {
 				Ocrusoprodutos produto = new Ocrusoprodutos();
+				if (listaTransfer.get(i).getOcrusoprodutos() != null && listaTransfer.get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+					produto = listaTransfer.get(i).getOcrusoprodutos();
+				}
 				produto.setNumerosemanas(listaTransfer.get(i).getNumeroSemanas());
 				produto.setValorcoprodutos(listaTransfer.get(i).getValorcoprodutos());
 				produto.setValororiginal(listaTransfer.get(i).getValorOrigianl());

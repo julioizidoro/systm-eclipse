@@ -410,6 +410,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 				po.setValorOrigianl(editarOrcamentoOcurso.getValorAcomodacao().getValororiginal());
 				po.setValorOriginalRS(
 						editarOrcamentoOcurso.getValorAcomodacao().getValororiginal() * ocurso.getValorcambio());
+				po.setOcrusoprodutos(editarOrcamentoOcurso.getValorAcomodacao());
 				resultadoOrcamentoBean.getListaAcomodacoes().add(po);
 			}
 			if (editarOrcamentoOcurso.getListaAcOpcional() != null) {
@@ -424,6 +425,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
 					po.setValorOriginalAcOpcional(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValororiginal());
 					po.setValorRSacOpcional(po.getValorOriginalAcOpcional() * ocurso.getValorcambio());
+					po.setOcrusoprodutos(editarOrcamentoOcurso.getListaAcOpcional().get(i));
 					resultadoOrcamentoBean.getListaAcOpcional().add(po);
 				}
 			}
@@ -437,6 +439,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					po.setValorOrigianl(
 							editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos().getValororiginal());
 					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
+					po.setOcrusoprodutos(editarOrcamentoOcurso.getListaTransfer().get(i));
 					resultadoOrcamentoBean.getListaTransfer().add(po);
 				}
 			}

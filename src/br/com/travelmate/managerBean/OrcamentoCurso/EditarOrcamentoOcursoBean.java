@@ -214,6 +214,7 @@ public class EditarOrcamentoOcursoBean {
 				produto.setValorcoprodutos(listaProdutos.get(i).getValorcoprodutos());
 				produto.setValorOriginalRS(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
 				produto.setValorOrigianl(produto.getValorOriginalRS() / ocurso.getValorcambio());
+				produto.setOcrusoprodutos(listaProdutos.get(i));
 				listaProdutosObrigatorios.add(produto);
 			} else if ((listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getComplementocurso() == null
 					|| listaProdutos.get(i).getValorcoprodutos().getProdutosuplemento().equalsIgnoreCase("Curso"))
@@ -229,6 +230,7 @@ public class EditarOrcamentoOcursoBean {
 							listaProdutos.get(i).getValorpromocional() * ocurso.getValorcambio());
 					produtosOrcamentoBean.setPromocao(true);
 				}
+				produtosOrcamentoBean.setOcrusoprodutos(listaProdutos.get(i));
 				listaProdutosObrigatorios.add(produtosOrcamentoBean);
 			}
 		}

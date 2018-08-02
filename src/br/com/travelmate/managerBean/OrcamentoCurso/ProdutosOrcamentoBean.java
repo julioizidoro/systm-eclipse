@@ -8,6 +8,7 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 import java.util.List;
 
 import br.com.travelmate.model.Fornecedorcidadeidioma;
+import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Valorcoprodutos;
 
 /**
@@ -37,6 +38,7 @@ public class ProdutosOrcamentoBean {
 	private String descricaobrinde;
 	private Fornecedorcidadeidioma fornecedorcidadeidiomaAcomodacao;
 	private List<Integer> listaSemanas;
+	private Ocrusoprodutos ocrusoprodutos;
 	public int getLinhaObrigatorioAcomodacao() {
 		return linhaObrigatorioAcomodacao;
 	}
@@ -209,6 +211,14 @@ public class ProdutosOrcamentoBean {
 
 	public void setListaSemanas(List<Integer> listaSemanas) {
 		this.listaSemanas = listaSemanas;
+	}
+
+	public Ocrusoprodutos getOcrusoprodutos() {
+		return ocrusoprodutos;
+	}
+
+	public void setOcrusoprodutos(Ocrusoprodutos ocrusoprodutos) {
+		this.ocrusoprodutos = ocrusoprodutos;
 	}
 
 }
