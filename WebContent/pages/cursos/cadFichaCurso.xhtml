@@ -733,7 +733,7 @@
 											columnClasses="tamanho2">
 											<p:outputLabel value="Data Inicio"/>
 											
-											<h:panelGrid columns="2" style="width:15%;">
+											<h:panelGrid columns="2" style="width:15%;" id="panelPesquisa">
 												<p:calendar id="datainicio" beforeShowDay="sundayEnabled"
 													value="#{cadCursoMB.acomodacao.datainicial}" size="11"
 													locale="pt" pattern="dd/MM/yyyy" mask="true" >
@@ -846,7 +846,7 @@
 																			</p:inputText>
 																			<p:commandButton id="btnExcluir" value="excluir"  
 																				action="#{cadCursoMB.excluirAcomodacao(acomodacao)}"
-																				update="tabelaAcomodacao, :telaFichaCurso:growl, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:valortotal, :telaFichaCurso:acordionPainel:valoreal, :telaFichaCurso:acordionPainel:valor, :telaFichaCurso:acordionPainel:totalpag, :telaFichaCurso:acordionPainel:saldoreceber, :telaFichaCurso:acordionPainel:valorOrca, :telaFichaCurso:acordionPainel:valoraparcelar, :telaFichaCurso:acordionPainel:saldoparcelar"
+																				update="tabelaAcomodacao, :telaFichaCurso:growl,:telaFichaCurso:acordionPainel:acordionPainel:panelPesquisa, :telaFichaCurso:acordionPainel:tabelaprodutoscurso, :telaFichaCurso:acordionPainel:valortotal, :telaFichaCurso:acordionPainel:valoreal, :telaFichaCurso:acordionPainel:valor, :telaFichaCurso:acordionPainel:totalpag, :telaFichaCurso:acordionPainel:saldoreceber, :telaFichaCurso:acordionPainel:valorOrca, :telaFichaCurso:acordionPainel:valoraparcelar, :telaFichaCurso:acordionPainel:saldoparcelar"
 																			 	style="margin-right:2%;"/>  
 																		</h:panelGrid>
 																	</div>

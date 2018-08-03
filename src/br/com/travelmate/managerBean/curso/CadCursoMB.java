@@ -269,6 +269,7 @@ public class CadCursoMB implements Serializable {
 					verificarMenorIdade();
 				}
 				acomodacao = new Acomodacao();
+				cliente = lead.getCliente();
 			} else {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1
 						|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
@@ -4107,6 +4108,15 @@ public class CadCursoMB implements Serializable {
 		listaAcomodacao.remove(acomodacao);
 		btnPesquisar = false;
 		lancadoAcomodacaoInd = false;
+		if ((acomodacao != null && acomodacao.getIdacomodacao() != null) && (curso.getAcomodacaocurso() != null
+				&& curso.getAcomodacaocurso().getIdacomodacaocurso() != null)) {
+			AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
+			AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
+			acomodacaoCursoFacade.excluir(curso.getAcomodacaocurso().getIdacomodacaocurso());
+			curso.setAcomodacaocurso(null);
+			acomodacaoFacade.excluir(acomodacao.getIdacomodacao());
+			this.acomodacao = new Acomodacao();
+		}
 		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
 			List<Orcamentoprodutosorcamento> listaProdutoFica = new ArrayList<Orcamentoprodutosorcamento>();
 			List<Orcamentoprodutosorcamento> listaProdutoApaga = new ArrayList<Orcamentoprodutosorcamento>();
@@ -5342,7 +5352,7 @@ public class CadCursoMB implements Serializable {
 		Vendas vendas = new Vendas();
 		vendas.setDataVenda(new Date());
 		vendas.setCambio(cambio);
-		vendas.setCliente(lead.getCliente());
+		vendas.setCliente(cliente);
 		vendas.setValor(valorTotal);
 		vendas.setSituacao("PROCESSO");
 		vendas.setProdutos(venda.getProdutos());
@@ -5358,7 +5368,7 @@ public class CadCursoMB implements Serializable {
 		vendas.setPontoescola(0);
 		vendas.setFornecedor(venda.getFornecedor());
 		vendas.setFornecedorcidade(venda.getFornecedorcidade());
-		if (vendas.getIdvendas() == null) {
+		if (vendas.getIdvendas() == null && lead != null) {
 			vendas.setIdlead(lead.getIdlead());
 		}  
 		vendas.setPontoextra(0);

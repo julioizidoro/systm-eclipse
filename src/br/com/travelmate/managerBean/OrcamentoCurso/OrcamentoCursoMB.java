@@ -2994,8 +2994,14 @@ public class OrcamentoCursoMB implements Serializable {
 		 List<ProdutosOrcamentoBean> listaProdutosFica = new ArrayList<ProdutosOrcamentoBean>();
 		for (int i = 0; i < resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size(); i++) {
 			ProdutosOrcamentoBean produto = resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i);
-			if (produto.getTipoproduto() == null || !produto.getTipoproduto().equalsIgnoreCase("A")) {
-				listaProdutosFica.add(produto);
+			if (produto.getOcrusoprodutos() != null) {
+				if (produto.getOcrusoprodutos().getTipoproduto() == null || !produto.getOcrusoprodutos().getTipoproduto().equalsIgnoreCase("A")) {
+					listaProdutosFica.add(produto);
+				}
+			}else {
+				if (produto.getTipoproduto() == null || !produto.getTipoproduto().equalsIgnoreCase("A")) {
+					listaProdutosFica.add(produto);
+				}
 			}
 		}
 		resultadoOrcamentoBean.getProdutoFornecedorBean().setListaObrigaroerios(listaProdutosFica);

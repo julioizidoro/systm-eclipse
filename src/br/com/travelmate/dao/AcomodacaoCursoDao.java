@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Acomodacaocurso;
 
 public class AcomodacaoCursoDao {
@@ -19,5 +20,17 @@ public class AcomodacaoCursoDao {
         manager.close();
         return acomodacaoCurso; 
     } 
+	
+	public void excluir(int idAcomodacao) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		Acomodacaocurso acomodacaocurso = manager.find(Acomodacaocurso.class, idAcomodacao);
+        manager.remove(acomodacaocurso);
+        tx.commit();
+        manager.close();
+    }
+
 
 }

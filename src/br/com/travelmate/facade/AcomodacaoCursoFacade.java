@@ -19,5 +19,15 @@ public class AcomodacaoCursoFacade {
 			return null;
 		}
 	}
+	
+	public void excluir(int idacomdoacao) {
+		acomodacaoCursoDao = new AcomodacaoCursoDao();
+		try {
+			 acomodacaoCursoDao.excluir(idacomdoacao);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
