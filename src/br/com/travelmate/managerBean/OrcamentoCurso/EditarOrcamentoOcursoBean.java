@@ -189,7 +189,7 @@ public class EditarOrcamentoOcursoBean {
 				ProdutosOrcamentoBean produtosOrcamentoBean = adicionarProduto(ocurso.getNumerosemanas(),
 						listaProdutos.get(i).getValorcoprodutos(), valor,
 						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getNome(),
-						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso");
+						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", listaProdutos.get(i));
 				produtosOrcamentoBean.setValorPromocional(listaProdutos.get(i).getValorpromocional());
 				if (produtosOrcamentoBean.getValorPromocional() != null
 						&& produtosOrcamentoBean.getValorPromocional() > 0) {
@@ -222,7 +222,7 @@ public class EditarOrcamentoOcursoBean {
 				ProdutosOrcamentoBean produtosOrcamentoBean = adicionarProduto(ocurso.getNumerosemanas(),
 						listaProdutos.get(i).getValorcoprodutos(), listaProdutos.get(i).getValororiginal(),
 						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getNome(),
-						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso");
+						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", listaProdutos.get(i));
 				produtosOrcamentoBean.setValorPromocional(listaProdutos.get(i).getValorpromocional());
 				if (produtosOrcamentoBean.getValorPromocional() != null
 						&& produtosOrcamentoBean.getValorPromocional() > 0) {
@@ -295,8 +295,9 @@ public class EditarOrcamentoOcursoBean {
 	} 
 
 	public ProdutosOrcamentoBean adicionarProduto(double numerosemana, Valorcoprodutos valorcoprodutos,
-			float valororiginal, String nome, String descricao, int tipo, String nomegrupo) {
+			float valororiginal, String nome, String descricao, int tipo, String nomegrupo, Ocrusoprodutos ocrusoprodutos) {
 		ProdutosOrcamentoBean produto = new ProdutosOrcamentoBean();
+		produto.setOcrusoprodutos(ocrusoprodutos);
 		produto.setNumeroSemanas(numerosemana);
 		produto.setValorcoprodutos(valorcoprodutos);
 		produto.setValorOrigianl(valororiginal);
