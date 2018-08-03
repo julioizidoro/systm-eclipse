@@ -55,6 +55,8 @@ public class OCursoProdutoDao implements Serializable{
         return lista;
     }
     
+    
+    @Transactional
     public void excluir(int idOcursoprodutos)  {
     	Query q = manager.createQuery("Select c from Ocrusoprodutos c where c.idocrusoprodutos=" + idOcursoprodutos);
         if (q.getResultList().size()>0){
