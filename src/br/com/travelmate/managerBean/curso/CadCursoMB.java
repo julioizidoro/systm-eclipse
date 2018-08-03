@@ -3307,7 +3307,9 @@ public class CadCursoMB implements Serializable {
 					orcamentoprodutosorcamento.setImportado(true);
 					if (ocurso.getOcrusoprodutosList().get(i).getTipoproduto() != null
 							&& ocurso.getOcrusoprodutosList().get(i).getTipoproduto().equalsIgnoreCase("A")) {
-						orcamentoprodutosorcamento.setObrigatorio(true);
+						if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+							orcamentoprodutosorcamento.setObrigatorio(true);
+						}
 					}
 					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					float valororiginal=0.0f;
@@ -3337,7 +3339,9 @@ public class CadCursoMB implements Serializable {
 						orcamentoprodutosorcamento.setImportado(true);
 						if (ocurso.getOcrusoprodutosList().get(i).getTipoproduto() != null
 								&& ocurso.getOcrusoprodutosList().get(i).getTipoproduto().equalsIgnoreCase("A")) {
-							orcamentoprodutosorcamento.setObrigatorio(true);
+							if (ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+								orcamentoprodutosorcamento.setObrigatorio(true);
+							}
 						}
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					}
@@ -3873,7 +3877,10 @@ public class CadCursoMB implements Serializable {
 			orcamentoprodutosorcamento.setDescricao("Acomodação");
 			orcamentoprodutosorcamento.setImportado(false);
 			orcamentoprodutosorcamento.setOrcamento(orcamento);
-			orcamentoprodutosorcamento.setObrigatorio(true);
+			if (po.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+				orcamentoprodutosorcamento.setObrigatorio(true);
+				
+			}
 			orcamentoprodutosorcamento.setProdutosorcamento(po.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 			orcamentoprodutosorcamento.setValorMoedaEstrangeira(po.getValorOrigianl());
 			orcamentoprodutosorcamento.setValorMoedaNacional(po.getValorOriginalRS());
@@ -4080,7 +4087,10 @@ public class CadCursoMB implements Serializable {
 				}
 				orcamentoprodutosorcamento.setImportado(false);
 				orcamentoprodutosorcamento.setOrcamento(orcamento);
-				orcamentoprodutosorcamento.setObrigatorio(true); 
+				if (produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+
+					orcamentoprodutosorcamento.setObrigatorio(true); 
+				}
 				orcamentoprodutosorcamento.setProdutosorcamento(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorOrigianl());
 				orcamentoprodutosorcamento.setValorMoedaNacional(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorOriginalRS());
