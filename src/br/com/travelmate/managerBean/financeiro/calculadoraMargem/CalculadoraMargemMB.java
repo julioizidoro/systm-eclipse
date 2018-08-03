@@ -777,7 +777,7 @@ public class CalculadoraMargemMB implements Serializable {
 		orcamentoprodutosorcamento.setOrcamento(orcamento);
 		orcamentoprodutosorcamento.setObrigatorio(false);
 		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
-		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(9));
+		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(8));
 		listaProdutos.add(orcamentoprodutosorcamento);
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
@@ -795,7 +795,7 @@ public class CalculadoraMargemMB implements Serializable {
 		orcamentoprodutosorcamento.setOrcamento(orcamento);
 		orcamentoprodutosorcamento.setObrigatorio(false);
 		produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
-		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(33));
+		orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(9));
 		listaProdutos.add(orcamentoprodutosorcamento);
 		return listaProdutos;
 	}
