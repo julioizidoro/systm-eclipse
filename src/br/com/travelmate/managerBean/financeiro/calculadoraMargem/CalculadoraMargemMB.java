@@ -12,9 +12,21 @@ import javax.inject.Named;
  
 import br.com.travelmate.bean.DesagioBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
+import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
+import br.com.travelmate.bean.comissao.ComissaoDemiPairBean;
+import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
+import br.com.travelmate.bean.comissao.ComissaoHighSchoolBean;
+import br.com.travelmate.bean.comissao.ComissaoPacotesBean;
+import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
+import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
+import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
+import br.com.travelmate.bean.comissao.ComissaoVistoBean;
+import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
+import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
+import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ValorAupairFacade;
@@ -29,6 +41,7 @@ import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
+import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
@@ -43,6 +56,7 @@ import br.com.travelmate.model.Valorestrainee;
 import br.com.travelmate.model.Valoreswork;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
+import br.com.travelmate.model.Vistos;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
@@ -693,10 +707,55 @@ public class CalculadoraMargemMB implements Serializable {
 		int idProduto = produto.getIdprodutos();
 		margemFinal= 0.0f;
 		if (idProduto==aplicacaoMB.getParametrosprodutos().getCursos()) {
-			ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), null,
+			FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
+			Fornecedorcomissaocurso fornecedorcomissaocurso = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
+					fornecedorCidade.getCidade().getPais().getIdpais());
+			ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorcomissaocurso,
 					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
-		}
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getAupair()) {
+			ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f, valoresAupair,
+					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+			ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
+					venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
+					venda.getCambio(), valoresHighSchool, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), dataInicio, juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		}  else if (idProduto==aplicacaoMB.getParametrosprodutos().getDemipair()) {
+			FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
+			Fornecedorcomissaocurso fornecedorcomissaocurso = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
+					fornecedorCidade.getCidade().getPais().getIdpais());
+			ComissaoDemiPairBean cc = new ComissaoDemiPairBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
+					fornecedorcomissaocurso, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getTrainee()) {
+			ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
+					valorestrainee, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getTrainee()) {
+			ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
+					valorestrainee, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+			FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
+			Fornecedorcomissaocurso fornecedorcomissaocurso = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
+					fornecedorCidade.getCidade().getPais().getIdpais());
+			ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
+					fornecedorcomissaocurso, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getWork()) {
+			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
+					valoresWork, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
+			ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
+					0.0f, valoresProgramasTeens, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+			margemFinal = cc.getVendasComissao().getLiquidofranquia();
+		} 
 		
 	}
 	
@@ -768,13 +827,14 @@ public class CalculadoraMargemMB implements Serializable {
 	public Vendas gerarVenda() {
 		Vendas venda = new Vendas();
 		venda.setDataVenda(dataVenda);
-		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pais.getModelo());
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pais.getMoedas().getIdmoedas());
 		venda.setCambio(cambio);
 		venda.setFornecedorcidade(fornecedorCidade);
 		venda.setProdutos(produto);
 		venda.setValorcambio(cambio.getValor());
 		venda.setUsuario(usuarioLogadoMB.getUsuario());
 		venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
+		venda.setValor(valorComissionavel);
 		return venda;
 	}
 	

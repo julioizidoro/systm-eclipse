@@ -106,7 +106,7 @@ public class CadWorkTravelBean {
 			}
 			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, venda,
 					orcamento.getOrcamentoprodutosorcamentoList(), orcamento.getValorCambio(), work.getValoreswork(),
-					formaPagamento.getParcelamentopagamentoList(), vendasComissao, valorJuros);
+					formaPagamento.getParcelamentopagamentoList(), vendasComissao, valorJuros, true);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 		} 
 		ControlerBean controlerBean = new ControlerBean();

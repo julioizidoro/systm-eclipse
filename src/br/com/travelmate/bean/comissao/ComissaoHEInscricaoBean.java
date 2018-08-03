@@ -32,13 +32,16 @@ public class ComissaoHEInscricaoBean {
     private Float valorComissaoFranquia;
     private Double percentualComissao;
     private float valorJuros;
+    private boolean salvarCalculos;
        
-    public ComissaoHEInscricaoBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, List<Parcelamentopagamento> listaParcelamento, Vendascomissao vendascomissao, float valorJuros){
+    public ComissaoHEInscricaoBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, List<Parcelamentopagamento> listaParcelamento,
+    		Vendascomissao vendascomissao, float valorJuros, boolean salvarCalculos){
     	this.vendasComissao = vendascomissao;
         this.venda = venda;
         this.aplicacaoMB = aplicacaoMB;
         this.listaProdutosGeral = listaProdutosGeral;
         this.listaParcelamento = listaParcelamento;
+        this.salvarCalculos = salvarCalculos;
         boolean gerar=true;
         if (vendascomissao.getFaturaFranquias()!=null){
         	if (vendasComissao.getFaturaFranquias().isFatura()){
@@ -90,13 +93,15 @@ public class ComissaoHEInscricaoBean {
         vendasComissao.setComissaoemissor(comissaoBean.calcularComissaoEmissor(vendasComissao));
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
-        FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
+        if (salvarCalculos) {
+        	FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
     		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
     		boolean cursoPacote = false;
     		if (vendasComissao.getVendas().getVendaspacote()!=null) {
     			cursoPacote = true;
     		}
     		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento,percentualComissao.floatValue(), aplicacaoMB, false,formapagamento, cursoPacote);
+		}
     }
     
     public void calcularValorComissional() {

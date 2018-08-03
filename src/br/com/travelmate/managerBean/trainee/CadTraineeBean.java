@@ -111,7 +111,7 @@ public class CadTraineeBean {
 				ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda,
 						orcamento.getOrcamentoprodutosorcamentoList(), orcamento.getValorCambio(),
 						trainee.getValorestrainee(), formaPagamento.getParcelamentopagamentoList(), null,
-						vendasComissao, valorJuros);
+						vendasComissao, valorJuros, true);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			}
 		}

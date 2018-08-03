@@ -1368,7 +1368,7 @@ public class CadHeInscricaoMB implements Serializable {
 			ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
 					orcamento.getOrcamentoprodutosorcamentoList(),
 					formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
-					 0.0f);
+					 0.0f, true);
 			if (novaFicha) {
 				if (enviarFicha) {
 					DashBoardBean dashBoardBean = new DashBoardBean();

@@ -105,7 +105,7 @@ public class CadDemiPairBean {
 				ComissaoDemiPairBean cc = new ComissaoDemiPairBean(aplicacaoMB, venda,
 						orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
 						formaPagamento.getParcelamentopagamentoList(), demipair.getDatainicio(), vendasComissao,
-						valorJuros);
+						valorJuros, true);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			}
 		}

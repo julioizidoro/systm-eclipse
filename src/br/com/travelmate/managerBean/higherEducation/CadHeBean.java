@@ -73,7 +73,7 @@ public class CadHeBean {
 				if (venda.getFormapagamento() != null) {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
-				ComissaoHEInscricaoBean cc = new  ComissaoHEInscricaoBean(aplicacaoMB, venda, orcamento.getOrcamentoprodutosorcamentoList(), formaPagamento.getParcelamentopagamentoList(), vendasComissao, valorJuros);
+				ComissaoHEInscricaoBean cc = new  ComissaoHEInscricaoBean(aplicacaoMB, venda, orcamento.getOrcamentoprodutosorcamentoList(), formaPagamento.getParcelamentopagamentoList(), vendasComissao, valorJuros, true);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			}
 		}

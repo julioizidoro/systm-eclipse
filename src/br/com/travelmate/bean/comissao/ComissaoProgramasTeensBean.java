@@ -38,9 +38,10 @@ public class ComissaoProgramasTeensBean {
     private float valorNet;
     private float cambioVenda;
     private float valorJuros;
+    private boolean salvarCalculos;
     
     
-    public ComissaoProgramasTeensBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, float valorCambio, Valoresprogramasteens valoresprogramasteens, List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJuros) {
+    public ComissaoProgramasTeensBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, float valorCambio, Valoresprogramasteens valoresprogramasteens, List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJuros, boolean salvarCalculos) {
         this.vendasComissao = vendascomissao;
         this.aplicacaoMB = aplicacaoMB;
         this.venda = venda;
@@ -50,6 +51,7 @@ public class ComissaoProgramasTeensBean {
         this.listaParcelamento = listaParcelamento;
         this.valorJuros = valorJuros;
         this.dataInicioPrograma = dataInicioPrograma;
+        this.salvarCalculos = salvarCalculos;
         boolean gerar=true;
         if (vendascomissao.getFaturaFranquias()!=null){
         	if (vendasComissao.getFaturaFranquias().isFatura()){
@@ -114,13 +116,15 @@ public class ComissaoProgramasTeensBean {
         vendasComissao.setPrevisaopagamento(Formatacao.calcularPrevisaoPagamentoFornecedor(dataInicioPrograma, vendasComissao.getProdutos().getIdprodutos(), aplicacaoMB.getParametrosprodutos().getProgramasTeens()));
         vendasComissao.setDatainicioprograma(dataInicioPrograma);
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
-        FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
+        if (salvarCalculos) {
+        	FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
     		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
     		boolean cursoPacote = false;
     		if (vendasComissao.getVendas().getVendaspacote()!=null) {
     			cursoPacote = true;
     		}
     		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, 0.0f, aplicacaoMB, false, formapagamento, cursoPacote);
+		}	
     }
     
 	public Float calcularComissaoFranquiaBruto() {

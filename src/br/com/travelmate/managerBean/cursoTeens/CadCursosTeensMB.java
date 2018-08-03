@@ -1219,7 +1219,7 @@ public class CadCursosTeensMB implements Serializable {
 								orcamento.getOrcamentoprodutosorcamentoList(), orcamento.getValorCambio(),
 								programasTeens.getValoresprogramasteens(),
 								formaPagamento.getParcelamentopagamentoList(), programasTeens.getDataInicioCurso(),
-								vendasComissao, valorJuros);
+								vendasComissao, valorJuros, true);
 						valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 					}
 				}

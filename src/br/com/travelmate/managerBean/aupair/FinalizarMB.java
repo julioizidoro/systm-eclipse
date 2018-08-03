@@ -112,7 +112,7 @@ public class FinalizarMB implements Serializable {
 					aupair.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
 					aupair.getVendas().getOrcamento().getValorCambio(), aupair.getValoresAupair(),
 					aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(),
-					aupair.getDataInicioPretendida01(), vendasComissao, valorJuros);
+					aupair.getDataInicioPretendida01(), vendasComissao, valorJuros, true);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			aupair.getVendas().setVendascomissao(cc.getVendasComissao());
 		}
@@ -180,7 +180,7 @@ public class FinalizarMB implements Serializable {
 				ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, trainee.getVendas(),
 						trainee.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), trainee.getVendas().getOrcamento().getValorCambio(),
 						trainee.getValorestrainee(), trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), null,
-						vendasComissao, valorJuros);
+						vendasComissao, valorJuros, true);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 				trainee.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
@@ -237,7 +237,7 @@ public class FinalizarMB implements Serializable {
 			}
 			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, worktravel.getVendas(),
 					worktravel.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), worktravel.getVendas().getOrcamento().getValorCambio(), worktravel.getValoreswork(),
-					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), vendasComissao, valorJuros);
+					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), vendasComissao, valorJuros, true);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			worktravel.getVendas().setVendascomissao(cc.getVendasComissao());
 		} 	
@@ -299,7 +299,7 @@ public class FinalizarMB implements Serializable {
 				ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, voluntariado.getVendas(),
 						voluntariado.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorComissao,
 						voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), voluntariado.getDataInicioVoluntariado(), vendasComissao,
-						valorJuros);
+						valorJuros, true);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 				voluntariado.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
@@ -403,7 +403,7 @@ public class FinalizarMB implements Serializable {
 				ComissaoDemiPairBean cc = new ComissaoDemiPairBean(aplicacaoMB, demipair.getVendas(),
 						demipair.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorComissao,
 						demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), demipair.getDatainicio(), vendasComissao,
-						valorJuros);
+						valorJuros, true);
 				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 				demipair.getVendas().setVendascomissao(cc.getVendasComissao());
 			}
@@ -462,7 +462,7 @@ public class FinalizarMB implements Serializable {
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, highschool.getVendas(),
 					highschool.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), highschool.getVendas().getCambio(),
 					highschool.getValoreshighschool(), highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(),
-					vendasComissao, highschool.getValoreshighschool().getDatainicio(), valorJuros);
+					vendasComissao, highschool.getValoreshighschool().getDatainicio(), valorJuros, true);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			highschool.getVendas().setVendascomissao(cc.getVendasComissao());
 		}
@@ -530,7 +530,7 @@ public class FinalizarMB implements Serializable {
 					programasteens.getVendas().getOrcamento().getValorCambio(),
 					programasteens.getValoresprogramasteens(),
 					programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(),
-					programasteens.getDataInicioCurso(), vendasComissao, valorJuros);
+					programasteens.getDataInicioCurso(), vendasComissao, valorJuros, true);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			programasteens.getVendas().setVendascomissao(cc.getVendasComissao());
 		}

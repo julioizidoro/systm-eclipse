@@ -355,7 +355,7 @@
 													<f:attribute name="listaValoresAupair"
 														value="#{calculadoraMargemMB.listaValoresAupair}" />
 													<p:ajax event="change" update="valorAupair"
-														listener="#{calculadoraMargemMB.buscarvalorComissionavel()}" />
+														listener="#{calculadoraMargemMB.buscarValorPrograma()}" />
 												</p:selectOneMenu>
 												<p:inputText id="valorAupair"
 													value="#{calculadoraMargemMB.valorComissionavel}"
@@ -383,7 +383,7 @@
 													<f:attribute name="listaValoresTrainee"
 														value="#{calculadoraMargemMB.listaValoresTrainee}" />
 													<p:ajax event="change" update="valortrainee"
-														listener="#{calculadoraMargemMB.buscarvalorComissionavel()}" />
+														listener="#{calculadoraMargemMB.buscarValorPrograma()}" />
 												</p:selectOneMenu>
 												<p:inputText id="valortrainee"
 													value="#{calculadoraMargemMB.valorComissionavel}"
@@ -409,7 +409,7 @@
 													<f:attribute name="listaValoresWork"
 														value="#{calculadoraMargemMB.listaValoresWork}" />
 													<p:ajax event="change" update="valorwork"
-														listener="#{calculadoraMargemMB.buscarvalorComissionavel()}" />
+														listener="#{calculadoraMargemMB.buscarValorPrograma()}" />
 												</p:selectOneMenu>
 												<p:inputText id="valorwork"
 													value="#{calculadoraMargemMB.valorComissionavel}"
@@ -437,7 +437,7 @@
 													<f:attribute name="listaValoresHighSchool"
 														value="#{calculadoraMargemMB.listaValoresHighSchool}" />
 													<p:ajax event="change" update="valorhighschool"
-														listener="#{calculadoraMargemMB.buscarvalorComissionavel()}" />
+														listener="#{calculadoraMargemMB.buscarValorPrograma()}" />
 												</p:selectOneMenu>
 												<p:inputText id="valorhighschool"
 													value="#{calculadoraMargemMB.valorComissionavel}"
@@ -464,7 +464,7 @@
 													<f:attribute name="listaValoresProgramasTeens"
 														value="#{calculadoraMargemMB.listaValoresProgramasTeens}" />
 													<p:ajax event="change" update="valorcursosTeens"
-														listener="#{calculadoraMargemMB.buscarvalorComissionavel()}" />
+														listener="#{calculadoraMargemMB.buscarValorPrograma()}" />
 												</p:selectOneMenu>
 												<p:inputText id="valorcursosTeens"
 													value="#{calculadoraMargemMB.valorComissionavel}"
@@ -510,7 +510,7 @@
 									</p:inputText>
 									<p:commandButton value="Calcular" icon="ui-icon-refresh"
 											style="background:#2E8B57;border-color:#2E8B57;width:98px;"
-											action="#"
+											action="#{calculadoraMargemMB.iniciarCalculoMargemCompleta()}"
 											update="margemFinal" />     
 								</h:panelGrid>
 								<br></br>

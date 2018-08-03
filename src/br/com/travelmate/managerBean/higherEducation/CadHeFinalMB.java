@@ -1106,7 +1106,7 @@ public class CadHeFinalMB implements Serializable {
 				ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
 						orcamento.getOrcamentoprodutosorcamentoList(),
 						formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
-						 0.0f);
+						 0.0f, true);
 				he.getVendas().setVendascomissao(cc.getVendasComissao());
 				if (enviarFicha) {
 					

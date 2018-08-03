@@ -35,9 +35,11 @@ public class ComissaoAuPairBean {
     private float valorGross;
     private float cambioVenda;
     private float valorJuros;
+    private boolean salvarCalculos;
     
     
-    public ComissaoAuPairBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, float valorCambio, Valoresaupair valoraupair, List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJutos) {
+    public ComissaoAuPairBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, float valorCambio, Valoresaupair valoraupair,
+    		List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJutos, boolean salvarCalculos) {
         this.vendasComissao = vendascomissao;
         this.aplicacaoMB = aplicacaoMB;
         this.venda = venda;
@@ -47,6 +49,7 @@ public class ComissaoAuPairBean {
         this.listaParcelamento = listaParcelamento;
         this.dataInicioPrograma = dataInicioPrograma;
         this.valorJuros = valorJutos;
+        this.salvarCalculos = salvarCalculos;
         boolean gerar=true;
         if (vendascomissao.getFaturaFranquias()!=null){
         	if (vendasComissao.getFaturaFranquias().isFatura()){
@@ -106,13 +109,15 @@ public class ComissaoAuPairBean {
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setPrevisaopagamento(Formatacao.calcularPrevisaoPagamentoFornecedor(dataInicioPrograma, vendasComissao.getProdutos().getIdprodutos(), aplicacaoMB.getParametrosprodutos().getCursos()));
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
-        FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
-        Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
-        boolean cursoPacote = false;
-		if (vendasComissao.getVendas().getVendaspacote()!=null) {
-			cursoPacote = true;
+        if (salvarCalculos) {
+	        FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
+	        Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
+	        boolean cursoPacote = false;
+			if (vendasComissao.getVendas().getVendaspacote()!=null) {
+				cursoPacote = true;
+			}
+	        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percentualComissaoFranquia(), aplicacaoMB, false, formapagamento, cursoPacote);
 		}
-        vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percentualComissaoFranquia(), aplicacaoMB, false, formapagamento, cursoPacote);
     }
     
     public void conversaoValoresAupair(){

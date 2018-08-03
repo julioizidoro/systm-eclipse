@@ -1413,7 +1413,7 @@ public class CadVoluntariadoMB implements Serializable {
 				ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, venda,
 						orcamento.getOrcamentoprodutosorcamentoList(), fornecedorComissao,
 						formaPagamento.getParcelamentopagamentoList(), voluntariado.getDataInicioVoluntariado(), vendasComissao,
-						valorJuros);
+						valorJuros, true);
 				return cc.getVendasComissao().getValorfornecedor();
 			}
 		}

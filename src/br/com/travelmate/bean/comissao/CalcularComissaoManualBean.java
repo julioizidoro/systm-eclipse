@@ -205,7 +205,7 @@ public class CalcularComissaoManualBean {
 					ComissaoVoluntariadoBean comissaoVoluntariadoBean = new ComissaoVoluntariadoBean(aplicacaoMB, vendascomissao.getVendas(),
 							vendascomissao.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
 							fornecedorcomissaocurso, formapagamento.getParcelamentopagamentoList(),
-							voluntariado.getDataInicioVoluntariado(), vendascomissao, getValorJuros(venda));
+							voluntariado.getDataInicioVoluntariado(), vendascomissao, getValorJuros(venda), true);
 					vendascomissao = comissaoVoluntariadoBean.getVendasComissao();
 				}
 			}
@@ -221,7 +221,7 @@ public class CalcularComissaoManualBean {
 		ComissaoAuPairBean comissaoAuPair = new ComissaoAuPairBean(aplicacaoMB, venda,
 				venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getOrcamento().getValorCambio(),
 				aupair.getValoresAupair(), formapagamento.getParcelamentopagamentoList(),
-				aupair.getDataInicioPretendida01(), vendascomissao, getValorJuros(venda));
+				aupair.getDataInicioPretendida01(), vendascomissao, getValorJuros(venda), true);
 		vendascomissao = comissaoAuPair.getVendasComissao();
 	}
 
@@ -234,7 +234,7 @@ public class CalcularComissaoManualBean {
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, venda,
 					venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getOrcamento().getCambio(),
 					highschool.getValoreshighschool(), formapagamento.getParcelamentopagamentoList(), vendascomissao,
-					highschool.getValoreshighschool().getDatainicio(), getValorJuros(venda));
+					highschool.getValoreshighschool().getDatainicio(), getValorJuros(venda), true);
 			vendascomissao = cc.getVendasComissao();
 		}
 	}
@@ -249,7 +249,7 @@ public class CalcularComissaoManualBean {
 					venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
 					venda.getOrcamento().getCambio().getValor(), programasteens.getValoresprogramasteens(),
 					formapagamento.getParcelamentopagamentoList(), programasteens.getDataInicioCurso(), vendascomissao,
-					getValorJuros(venda));
+					getValorJuros(venda), true);
 			vendascomissao = cc.getVendasComissao();
 		}
 	}
@@ -337,7 +337,7 @@ public class CalcularComissaoManualBean {
 		ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda,
 				venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getOrcamento().getCambio().getValor(),
 				trainee.getValorestrainee(), formapagamento.getParcelamentopagamentoList(), null, vendascomissao,
-				getValorJuros(venda));
+				getValorJuros(venda), true);
 		vendascomissao = cc.getVendasComissao();
 	}
 
@@ -360,7 +360,7 @@ public class CalcularComissaoManualBean {
 			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, venda,
 					venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
 					venda.getOrcamento().getCambio().getValor(), work.getValoreswork(),
-					formapagamento.getParcelamentopagamentoList(), vendascomissao, getValorJuros(venda));
+					formapagamento.getParcelamentopagamentoList(), vendascomissao, getValorJuros(venda), true);
 			vendascomissao = cc.getVendasComissao();
 		}
 

@@ -129,7 +129,7 @@ public class ComissaoCursoBean {
         }
         vendasComissao.setValorcomissionavel(this.valorComissionavel);
         vendasComissao.setComissaotm(this.valorComissaoMatriz);
-        if (venda.getUnidadenegocio().getIdunidadeNegocio()<=2){
+        if (venda.getUnidadenegocio().getIdunidadeNegocio()<=2 && venda.getUsuario().getIdusuario() != 134){
         	vendasComissao.setComissaofranquiabruta(0.0f);
             vendasComissao.setComissaofraquia(0.0f);
             vendasComissao.setLiquidofranquia(0.0f);

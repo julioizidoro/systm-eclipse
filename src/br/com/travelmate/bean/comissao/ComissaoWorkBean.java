@@ -35,8 +35,10 @@ public class ComissaoWorkBean {
     private float valorNet;
     private float cambioVenda;
     private float valorJuros;
+    private boolean salvarCalculos;
     
-    public ComissaoWorkBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, float valorCambio, Valoreswork valoresWork, List<Parcelamentopagamento> listaParcelamento, Vendascomissao vendascomissao, float valorJuros) {
+    public ComissaoWorkBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, float valorCambio, Valoreswork valoresWork,
+    		List<Parcelamentopagamento> listaParcelamento, Vendascomissao vendascomissao, float valorJuros, boolean salvarCalculos) {
     	this.aplicacaoMB = aplicacaoMB;
         this.vendasComissao = vendascomissao;
         this.venda = venda;
@@ -45,6 +47,7 @@ public class ComissaoWorkBean {
         this.cambioVenda = valorCambio;
         this.listaParcelamento = listaParcelamento;
         this.valorJuros = valorJuros;
+        this.salvarCalculos = salvarCalculos;
         boolean gerar=true;
         if (vendascomissao.getFaturaFranquias()!=null){
         	if (vendasComissao.getFaturaFranquias().isFatura()){
@@ -108,13 +111,15 @@ public class ComissaoWorkBean {
         vendasComissao.setUsuario(comissaoBean.getGerente(vendasComissao));
         vendasComissao.setPrevisaopagamento(aplicacaoMB.getParametrosprodutos().getDatainiciowork());
         vendasComissao.setLiquidovendas(comissaoBean.calcularTotalComissao(vendasComissao));
-        FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
+        if (salvarCalculos) {
+        	FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
     		Formapagamento formapagamento = formaPagamentoFacade.consultar(vendasComissao.getVendas().getIdvendas());
     		boolean cursoPacote = false;
     		if (vendasComissao.getVendas().getVendaspacote()!=null) {
     			cursoPacote = true;
     		}
     		vendasComissao = comissaoBean.salvarComissao(vendasComissao, listaParcelamento, percentualComissaoFranquia(), aplicacaoMB, false,formapagamento, cursoPacote);
+		}
     }
     
     public Float percentualComissaoFranquia() {
