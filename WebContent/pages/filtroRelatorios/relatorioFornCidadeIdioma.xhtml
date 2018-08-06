@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consRelatorioFornIdioma" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
+				<br></br>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<div style="width: 87%;">
+							<h:panelGrid columns="4" style="width:100%;">
+								<p:outputLabel value="Pais" for="pais" />   
+								<p:outputLabel value="Cidade" for="cidade"/>
+								<p:outputLabel value="Idioma"/>
+								<p:outputLabel/>
+								
+								<p:selectOneMenu id="pais" value="#{relatorioFornCidadeIdiomaMB.pais}"
+									style="width:210px;" converter="PaisConverterS"
+									filter="true" filterMatchMode="startsWith"
+									panelStyle="width:180px">
+									<f:selectItem itemLabel="País" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idpais" value="#{relatorioFornCidadeIdiomaMB.listaPais}"
+										var="paisselecionado" itemLabel="#{paisselecionado.nome}"
+										itemValue="#{paisselecionado}" />
+									<f:attribute name="listaPais"
+										value="#{relatorioFornCidadeIdiomaMB.listaPais}" />
+									<p:ajax event="change" 
+										update="cidade" />
+								</p:selectOneMenu>
+								
+								<p:selectOneMenu id="cidade" value="#{relatorioFornCidadeIdiomaMB.cidade}"
+										style="width:180px;" 
+										converter="CidadeConverter" filter="true"
+										filterMatchMode="startsWith">
+										<f:selectItem itemLabel="Cidade" itemValue="0"
+											noSelectionOption="true" />
+										<f:selectItems id="idcidade2"
+											value="#{relatorioFornCidadeIdiomaMB.pais.cidadeList}" var="ccidade"
+											itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
+										<f:attribute name="listaCidade"
+											value="#{relatorioFornCidadeIdiomaMB.pais.cidadeList}" />
+								 </p:selectOneMenu>
+								 <p:selectOneMenu id="idioma" value="#{relatorioFornCidadeIdiomaMB.idioma}"
+									style="width:115px;" 
+									converter="IdiomaConverter" filter="true"
+									filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Idioma" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItems id="idioma2" value="#{relatorioFornCidadeIdiomaMB.listaIdiomas}"
+										var="idioma" itemLabel="#{idioma.descricao}"
+										itemValue="#{idioma}" />
+									<f:attribute name="listaIdiomas"
+										value="#{relatorioFornCidadeIdiomaMB.listaIdiomas}" />
+								</p:selectOneMenu>
+								<h:panelGroup>
+									<p:commandButton id="btnPesquisar" action="#{relatorioFornCidadeIdiomaMB.pesquisar()}" value="Pesquisar"
+										style="margin-left:6%" icon=" ui-icon-search " update="consRelatorioFornIdioma:tabelaFornIdioma, consRelatorioFornIdioma:growl" />
+									<p:commandButton id="btnLimpar" action="#{relatorioFornCidadeIdiomaMB.limparPesquisar()}" value="Limpar"
+										style="margin-left:3%" icon="ui-icon-arrowrefresh-1-w"
+										update="consRelatorioFornIdioma:tabelaFornIdioma, pais, cidade, idioma" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</div> 
+					</p:tab> 
+				</p:accordionPanel>
+ 
+				<legend id="iUsu2">
+					<b>Relatório de Parceiro</b>
+				</legend>
+				 
+				<br></br>
+				   <h:panelGrid columns="2" style="margin-left:2%">
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_xls.png" width="36" />
+			                <p:dataExporter type="xls" target="tabelaFornIdioma" fileName="tarifario" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <img src="../../resources/img/icone_pdf.png" width="32" />
+			                <p:dataExporter type="pdf" target="tabelaFornIdioma" fileName="tarifario"/>
+			            </h:commandLink>
+			        </h:panelGrid>
+				<div style="width: 95%; margin-left: 2%;">
+					<p:dataTable id="tabelaFornIdioma" value="#{relatorioFornCidadeIdiomaMB.listaFornecedorCidadeIdioma}"  var="fornecedoridioma"
+						scrollable="true" scrollHeight="300"
+						style="margin-bottom:20px;font-size:11px;"> 
+						<p:column headerText="Parceiro" style="width:100px;text-align:left;" sortBy="#{fornecedoridioma.fornecedorcidade.fornecedor.nome}">     
+							<h:outputText value="#{fornecedoridioma.fornecedorcidade.fornecedor.nome}" />
+						</p:column>   
+						<p:column headerText="Pais" style="width:80px;text-align:left;" sortBy="#{fornecedoridioma.fornecedorcidade.cidade.pais.nome}">  
+							<h:outputText value="#{fornecedoridioma.fornecedorcidade.cidade.pais.nome}" />
+						</p:column>
+						<p:column headerText="Cidade" style="width:100px;text-align: left;" sortBy="#{fornecedoridioma.fornecedorcidade.cidade.nome}">  
+							<h:outputText value="#{fornecedoridioma.fornecedorcidade.cidade.nome}" />
+						</p:column>
+						<p:column headerText="Idioma" style="width:80px;text-align: left;" sortBy="#{fornecedoridioma.idioma.descricao}">  
+							<h:outputText value="#{fornecedoridioma.idioma.descricao}" />
+						</p:column>
+						<p:column sortBy="#{fornecedoridioma.tipoOrcamento}" headerText="Tipo Documento" style="width:80px;text-align: center;">  
+							<h:outputText value="#{fornecedoridioma.tipoOrcamento}" />
+						</p:column>
+						<p:column sortBy="#{fornecedoridioma.possuiAcomodacao}" headerText="Acomodação" style="width:70px;text-align: center;">  
+							<img src="#{fornecedoridioma.possuiAcomodacao}" style="width:20px;"/>
+						</p:column> 
+						<p:column sortBy="#{fornecedoridioma.anoTarifario}" headerText="Ano" style="width:50px;text-align: center;">  
+							<h:outputText value="#{fornecedoridioma.anoTarifario}" />
+						</p:column>
+						
+					</p:dataTable>
+				</div>
+				<br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -714,23 +714,28 @@ public class MenuMB implements Serializable {
 		return "";
 	}
 
-	public String relatorioEscolasTarifario() throws IOException, SQLException {
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-				.getContext();
-		String caminhoRelatorio = ("/reports/fornecedor/reporttarifario.jasper");
-		Map parameters = new HashMap();
-		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
-		BufferedImage logo = ImageIO.read(f);
-		parameters.put("logo", logo);
-		GerarRelatorio gerarRelatorio = new GerarRelatorio();
-		try {
-			gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "Fornecedores-Cadastrados.pdf", null);
-		} catch (JRException ex1) {
-			Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex1);
-		} catch (IOException ex) {
-			Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return "";
+//	public String relatorioEscolasTarifario() throws IOException, SQLException {
+//		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+//				.getContext();
+//		String caminhoRelatorio = ("/reports/fornecedor/reporttarifario.jasper");
+//		Map parameters = new HashMap();
+//		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
+//		BufferedImage logo = ImageIO.read(f);
+//		parameters.put("logo", logo);
+//		GerarRelatorio gerarRelatorio = new GerarRelatorio();
+//		try {
+//			gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "Fornecedores-Cadastrados.pdf", null);
+//		} catch (JRException ex1) {
+//			Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex1);
+//		} catch (IOException ex) {
+//			Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//		return "";
+//	}
+	
+	
+	public String relatorioEscolasTarifario() {
+		return "relatorioFornCidadeIdioma";
 	}
 
 	public void relatorioMateRunners() {

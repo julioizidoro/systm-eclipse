@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -45,6 +46,13 @@ public class Fornecedorcidadeidioma implements Serializable {
     private int maioridade;
     @Column(name = "acomodacao")
     private boolean acomodacao;
+    // Transient utilizados para relatório de fornecedor cidade idioma
+    @Transient
+    private String possuiAcomodacao;
+    @Transient
+    private String anoTarifario;
+    @Transient
+    private String tipoOrcamento;
     
     
     public Fornecedorcidadeidioma() {
@@ -119,6 +127,30 @@ public class Fornecedorcidadeidioma implements Serializable {
 
 	public void setAcomodacao(boolean acomodacao) {
 		this.acomodacao = acomodacao;
+	}
+
+	public String getPossuiAcomodacao() {
+		return possuiAcomodacao;
+	}
+
+	public void setPossuiAcomodacao(String possuiAcomodacao) {
+		this.possuiAcomodacao = possuiAcomodacao;
+	}
+
+	public String getAnoTarifario() {
+		return anoTarifario;
+	}
+
+	public void setAnoTarifario(String anoTarifario) {
+		this.anoTarifario = anoTarifario;
+	}
+
+	public String getTipoOrcamento() {
+		return tipoOrcamento;
+	}
+
+	public void setTipoOrcamento(String tipoOrcamento) {
+		this.tipoOrcamento = tipoOrcamento;
 	}
 
 	@Override
