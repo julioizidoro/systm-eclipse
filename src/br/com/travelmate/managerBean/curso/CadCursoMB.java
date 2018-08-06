@@ -3283,7 +3283,8 @@ public class CadCursoMB implements Serializable {
 							}
 						}
 					}
-					if(orcamentoprodutosorcamento.getDescricao()!=null && orcamentoprodutosorcamento.getDescricao().length()<=0
+					if(orcamentoprodutosorcamento.getDescricao()!=null && (orcamentoprodutosorcamento.getDescricao().length()<=0
+							|| orcamentoprodutosorcamento.getProdutosorcamento().getIdprodutosOrcamento()==33)
 							&& !orcamentoprodutosorcamento.getDescricao().equalsIgnoreCase("Suplemento de Curso")
 							&&  !orcamentoprodutosorcamento.getDescricao().equalsIgnoreCase("Suplemento de Acomodação")){
 						orcamentoprodutosorcamento
