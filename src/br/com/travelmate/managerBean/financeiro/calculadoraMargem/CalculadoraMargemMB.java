@@ -707,53 +707,115 @@ public class CalculadoraMargemMB implements Serializable {
 		int idProduto = produto.getIdprodutos();
 		margemFinal= 0.0f;
 		if (idProduto==aplicacaoMB.getParametrosprodutos().getCursos()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamento);
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 			Fornecedorcomissaocurso fornecedorcomissaocurso = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
 					fornecedorCidade.getCidade().getPais().getIdpais());
 			ComissaoCursoBean cc = new ComissaoCursoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), fornecedorcomissaocurso,
-					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getAupair()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(16));
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f, valoresAupair,
-					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
-		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getHighereducation()) {
-			ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), juros, false);
-			margemFinal = cc.getVendasComissao().getLiquidofranquia();
-		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+		}  else if (idProduto==aplicacaoMB.getParametrosprodutos().getHighSchool()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(12));
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					venda.getCambio(), valoresHighSchool, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), dataInicio, juros, false);
+					venda.getCambio(), valoresHighSchool, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), dataInicio, 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		}  else if (idProduto==aplicacaoMB.getParametrosprodutos().getDemipair()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(465));
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 			Fornecedorcomissaocurso fornecedorcomissaocurso = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
 					fornecedorCidade.getCidade().getPais().getIdpais());
 			ComissaoDemiPairBean cc = new ComissaoDemiPairBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					fornecedorcomissaocurso, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+					fornecedorcomissaocurso, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getTrainee()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(31));
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
-					valorestrainee, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
-			margemFinal = cc.getVendasComissao().getLiquidofranquia();
-		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getTrainee()) {
-			ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
-					valorestrainee, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+					valorestrainee, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(29));
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 			Fornecedorcomissaocurso fornecedorcomissaocurso = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
 					fornecedorCidade.getCidade().getPais().getIdpais());
 			ComissaoVoluntariadoBean cc = new ComissaoVoluntariadoBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					fornecedorcomissaocurso, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+					fornecedorcomissaocurso, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getWork()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(15));
+			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
-					valoresWork, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), juros, false);
+					valoresWork, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
+			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+			orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
+			orcamentoprodutosorcamento.setValorMoedaNacional(valorComissionavel);
+			orcamentoprodutosorcamento.setImportado(false);
+			orcamentoprodutosorcamento.setOrcamento(venda.getOrcamento());
+			orcamentoprodutosorcamento.setObrigatorio(false);
+			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(2));
 			ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					0.0f, valoresProgramasTeens, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), juros, false);
+					0.0f, valoresProgramasTeens, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} 
 		
