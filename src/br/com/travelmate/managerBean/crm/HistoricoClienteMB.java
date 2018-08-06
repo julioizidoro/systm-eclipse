@@ -1118,6 +1118,8 @@ public class HistoricoClienteMB implements Serializable {
 		boolean resultado = true;
 		if (lead.getProdutos().getIdprodutos() == 21) {
 			resultado = false;
+		}else if(lead.getProdutos().getIdprodutos() == 22) {
+			resultado = false;
 		}
 		return resultado;
 	}
@@ -1128,5 +1130,43 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("lead", lead);
 		return "cadOrcamentoHe";
 	}
+	
+	public boolean habiltiarCamposHe(){
+		boolean resultado = false;
+		if (lead.getProdutos().getIdprodutos() == 22) {
+			resultado = true;
+		}
+		return resultado;
+	}
+	
+	public String emitirVendaQuestionario() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("voltar", "followUp");
+		session.setAttribute("faseHe", "questionario");
+		return "cadCliente";
+	}
+	
+	public String emitirVendaFormulario() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("voltar", "followUp");
+		session.setAttribute("faseHe", "formulario");
+		return "cadCliente";
+	}
+	
+	public String emitirVendaFinal() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("voltar", "followUp");
+		session.setAttribute("faseHe", "Final");
+		return "cadCliente";
+	} 
 
 }

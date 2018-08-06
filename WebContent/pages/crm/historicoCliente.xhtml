@@ -317,8 +317,54 @@
 											<p:outputLabel value="EMISSÃO" style="font-size:11px;" />
 											<p:outputLabel value="DE VENDA" style="font-size:11px;" />
 										</h:panelGrid>
-										<p:ajax event="dialogReturn" listener="#{followUpMB.retornoDialogEmissao}" update="@form"/>
+										<p:ajax event="dialogReturn" listener="#{historicoClienteMB.retornoDialogEmissao}" update="@form"/>
 									</p:commandLink>
+									<p:commandLink id="btnEmissao"
+										title="Emissão de vendas" rendered="#{historicoClienteMB.habiltiarCamposHe()}" style="margin-left:8%;">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/crm/emitirvendas.png"
+													width="48" />
+												<p:outputLabel value="EMISSÃO" style="font-size:11px;" />
+												<p:outputLabel value="DE VENDA" style="font-size:11px;" />
+											</h:panelGrid>
+									</p:commandLink>
+									<p:overlayPanel id="painelInformacoesHe" for="btnEmissao"
+											hideEffect="fade" style="background:#F0F0F0;width:450px;">
+											<h:panelGrid
+											style="width:100%;border-color:transparent;border:transparent;"
+											columns="4">
+											
+											<p:commandLink id="btnQuestionario" 
+												action="#{historicoClienteMB.emitirVendaQuestionario()}" 
+												style="margin-left:8%;border:transparent;">
+												<h:panelGrid columns="1" style="text-align:center;border:transparent;">
+													<img src="../../resources/img/questionarioPhoto.png" width="48" />
+													<p:outputLabel value="QUESTIONÁRIO" style="font-size:11px;" />
+													<p:outputLabel value=" " style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
+		
+											<p:commandLink id="btnFormAssessoria" 
+												action="#{historicoClienteMB.emitirVendaFormulario()}" 
+												style="margin-left:8%;">
+												<h:panelGrid columns="1" style="text-align:center;">
+													<img src="../../resources/img/crm/emitirorcamentomanual.png" width="48" />
+													<p:outputLabel value="FORMULÁRIO" style="font-size:11px;" />
+													<p:outputLabel value="ASSESSORIA" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
+											<p:commandLink id="btnFichaFinal" 
+												action="#{historicoClienteMB.emitirVendaFinal()}" 
+												style="margin-left:8%;border:transparent;">
+												<h:panelGrid columns="1" style="text-align:center;border:transparent;">
+													<img src="../../resources/img/crm/emitirvendas.png" width="48" />
+													<p:outputLabel value="FICHA" style="font-size:11px;" />
+													<p:outputLabel value="FINAL" style="font-size:11px;" />
+												</h:panelGrid>
+											</p:commandLink>
+											
+										</h:panelGrid> 
+									</p:overlayPanel>  
 									<p:dialog message="Trainee" showEffect="fade" hideEffect="fade"
 										width="40%" icon="ui-icon-alert" widgetVar="novaficha"
 										style="font-size:14px">
