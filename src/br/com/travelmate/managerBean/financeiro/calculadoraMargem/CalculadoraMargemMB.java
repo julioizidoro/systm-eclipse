@@ -704,6 +704,7 @@ public class CalculadoraMargemMB implements Serializable {
 		Vendas venda = gerarVenda();
 		venda.setFormapagamento(gerarFormaPagamento());
 		venda.setOrcamento(gerarOrcamento(venda));
+		
 		int idProduto = produto.getIdprodutos();
 		margemFinal= 0.0f;
 		if (idProduto==aplicacaoMB.getParametrosprodutos().getCursos()) {
@@ -731,7 +732,8 @@ public class CalculadoraMargemMB implements Serializable {
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(16));
 			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-			ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f, valoresAupair,
+			
+			ComissaoAuPairBean cc = new ComissaoAuPairBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getCambio().getValor(), valoresAupair,
 					venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		}  else if (idProduto==aplicacaoMB.getParametrosprodutos().getHighSchool()) {
@@ -773,7 +775,7 @@ public class CalculadoraMargemMB implements Serializable {
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(31));
 			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-			ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
+			ComissaoTraineeBean cc = new ComissaoTraineeBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getCambio().getValor(),
 					valorestrainee, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
@@ -802,7 +804,7 @@ public class CalculadoraMargemMB implements Serializable {
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(15));
 			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), 0.0f,
+			ComissaoWorkBean cc = new ComissaoWorkBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getCambio().getValor(),
 					valoresWork, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} else if (idProduto==aplicacaoMB.getParametrosprodutos().getProgramasTeens()) {
@@ -815,7 +817,7 @@ public class CalculadoraMargemMB implements Serializable {
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(2));
 			ComissaoProgramasTeensBean cc = new ComissaoProgramasTeensBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					0.0f, valoresProgramasTeens, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
+					venda.getCambio().getValor(), valoresProgramasTeens, venda.getFormapagamento().getParcelamentopagamentoList(), dataInicio, new Vendascomissao(), 0.0f, false);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		} 
 		
