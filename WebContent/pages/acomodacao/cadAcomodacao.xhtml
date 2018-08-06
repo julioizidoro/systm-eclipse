@@ -463,7 +463,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column style="width:90px;">   
-								<p:commandButton id="btnexcluirproduto" value="Excluir" disabled="#{produtoscurso.podeExcluir}"
+								<p:commandButton id="btnexcluirproduto" value="Excluir" disabled="#{produtoscurso.obrigatorio}"
 									action="#{cadAcomodacaoMB.excluirProdutoOrcamento(rowIx)}"
 									update="@all" icon=" ui-icon-close" />
 							</p:column>

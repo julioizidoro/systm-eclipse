@@ -624,7 +624,7 @@ public class CadAcomodacaoMB implements Serializable {
 			orcamentoprodutosorcamento.setDescricao("Acomodação");
 			orcamentoprodutosorcamento.setImportado(false);
 			orcamentoprodutosorcamento.setOrcamento(orcamento);
-			orcamentoprodutosorcamento.setPodeExcluir(true); 
+			orcamentoprodutosorcamento.setObrigatorio(true); 
 			orcamentoprodutosorcamento.setProdutosorcamento(po.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 			orcamentoprodutosorcamento.setValorMoedaEstrangeira(po.getValorOrigianl());
 			orcamentoprodutosorcamento.setValorMoedaNacional(po.getValorOriginalRS());
@@ -805,7 +805,7 @@ public class CadAcomodacaoMB implements Serializable {
 					.getProdutosorcamento().getDescricao());
 				orcamentoprodutosorcamento.setImportado(false);
 				orcamentoprodutosorcamento.setOrcamento(orcamento);
-				orcamentoprodutosorcamento.setPodeExcluir(true); 
+				orcamentoprodutosorcamento.setObrigatorio(true); 
 				orcamentoprodutosorcamento.setProdutosorcamento(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos().getProdutosorcamento());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorOrigianl());
 				orcamentoprodutosorcamento.setValorMoedaNacional(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorOriginalRS());
