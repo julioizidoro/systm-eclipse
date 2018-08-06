@@ -16,15 +16,23 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
+import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
+import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Avisos;
+import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Notificacao;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Questionariohe;
+import br.com.travelmate.model.Usuariodepartamentounidade;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -47,6 +55,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	private boolean habilitarNivel12 = true;
 	private boolean habilitarNivel3 = false;
 	private boolean habilitarNotas = true;
+	private boolean novaficha;
 
 	@PostConstruct
 	public void init() {
@@ -67,6 +76,7 @@ public class CadQuestionarioHeMB implements Serializable {
 				cliente = lead.getCliente();
 			}
 			questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
+			novaficha = true;
 		} else {
 			cliente = questionarioHe.getCliente();
 			if (questionarioHe.getPais1() != null) {
@@ -75,6 +85,7 @@ public class CadQuestionarioHeMB implements Serializable {
 			if (questionarioHe.getResultadotesteonline() != null && questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
 				habilitarNotas = false;
 			}
+			novaficha = false;
 		}
 
 		if (cliente == null && lead != null) {
@@ -174,7 +185,7 @@ public class CadQuestionarioHeMB implements Serializable {
 		return "consquestionarioHe";
 	}
 
-	public String salvar(String situacao) {
+	public String salvar() {
 		if (validarDados()) {
 			ClienteFacade clienteFacade = new ClienteFacade();
 			cliente = clienteFacade.salvar(cliente);
@@ -182,8 +193,8 @@ public class CadQuestionarioHeMB implements Serializable {
 			if (questionarioHe.getIdquestionariohe() == null) {
 				questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
 				questionarioHe.setDataenvio(new Date());
+				questionarioHe.setSituacao("Processo");
 			}
-			questionarioHe.setSituacao(situacao);
 			QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
 			questionarioHe = questionarioHeFacade.salvar(questionarioHe);
 			Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
@@ -191,6 +202,10 @@ public class CadQuestionarioHeMB implements Serializable {
 				if (voltarControleVendas.length() > 1) {
 					return voltarControleVendas;
 				}
+			}
+			if (!novaficha && (UsuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 7 || 
+					UsuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) && !questionarioHe.getSituacao().equalsIgnoreCase("Processo")) {
+				notificarDepartamento();
 			}
 			return "consquestionarioHe";
 		} 
@@ -214,81 +229,6 @@ public class CadQuestionarioHeMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Cliente não informado", "");
 			return false;
 		}
-		
-		if (questionarioHe.getDiplomas() == null || questionarioHe.getDiplomas().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe o nome do curso", "");
-			return false;
-		}
-		
-		if (questionarioHe.getNivelcetificado() == null || questionarioHe.getNivelcetificado().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe o Nivel mais alto de escolaridade no Brasil", "");
-			return false;
-		}
-		
-		if (questionarioHe.getOntuacaotoefl() == null || questionarioHe.getOntuacaotoefl().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe a Pontuação no teste de proficiência ou teste online", "");
-			return false;
-		}
-		
-		if (questionarioHe.getOcupacao1() == null || questionarioHe.getOcupacao1().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe Descreva suas duas última principais ocupações profissionais", "");
-			return false;
-		}
-		
-		
-		if (questionarioHe.getPrograma() == null || questionarioHe.getPrograma().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe Programa / Área de interesse", "");
-			return false;
-		}
-		
-		if (questionarioHe.getNivelcertificadointeresse() == null || questionarioHe.getNivelcertificadointeresse().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe Nível de Certificação de interesse", "");
-			return false;
-		}
-		
-		
-		if (questionarioHe.getPais1() == null || questionarioHe.getPais1().length() <=0) {
-			Mensagem.lancarMensagemInfo("Informe o Destino em que prefere estudar", "");
-			return false;
-		}
-		
-		
-		if (questionarioHe.getDataprograma() == null) {
-			Mensagem.lancarMensagemInfo("Informe Data aproximada do Programa", "");
-			return false;
-		}
-		
-		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe Preciso trabalhar durante meu curso", "");
-			return false;
-		}
-		
-		
-		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe Tenho interesse em imigrar", "");
-			return false;
-		}
-		
-		
-		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe a Observações e parecer do consultor", "");
-			return false;
-		}
-		
-		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe 'Preciso trabalhar durante meu curso?'", "");
-			return false;
-		}
-		
-		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe 'Tenho interesse m Imigrar?'", "");
-			return false;
-		}
-		
-		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
-			Mensagem.lancarMensagemInfo("Informe 'Tenho interesse em visto de trabalho após o curso?'", "");
-			return false;
-		}
 		return true;
 	}
 	
@@ -302,6 +242,34 @@ public class CadQuestionarioHeMB implements Serializable {
 		}
 	}
 	
+	
+	
+	public void notificarDepartamento() {
+		UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+		List<Usuariodepartamentounidade> listaResponsaveis = usuarioDepartamentoUnidadeFacade.listar("SELECT u FROM Usuariodepartamentounidade u WHERE "
+				+ " u.departamento.iddepartamento=7 and u.unidadenegocio.idunidadeNegocio=" + UsuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
+		for (int i = 0; i < listaResponsaveis.size(); i++) {
+			Notificacao notificacao = new Notificacao();
+			NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+			notificacao.setTitulo("Questionario Alterado - " + questionarioHe.getIdquestionariohe());
+			notificacao.setUnidade(questionarioHe.getUsuario().getUnidadenegocio().getNomeFantasia());
+			notificacao.setCliente(questionarioHe.getCliente().getNome());
+			notificacao.setFornecedor("");
+			notificacao.setDatainicio(null);
+			notificacao.setConsultor(questionarioHe.getUsuario().getNome());
+			notificacao.setTipovenda("");
+			notificacao.setValorvenda(0.0f);
+			notificacao.setCambio(0.0f);
+			notificacao.setMoeda("");
+			notificacao.setLimpar(false);
+			notificacao.setData(new Date());
+			notificacao.setImagem("alterado");
+			notificacao.setUsuario(listaResponsaveis.get(i).getUsuario());
+			String hora = Formatacao.foramtarHoraString();
+			notificacao.setHora(hora);
+			notificacaoFacade.salvar(notificacao);
+		}
+	}
 	
 	
 

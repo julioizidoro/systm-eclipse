@@ -63,22 +63,28 @@
 								<f:attribute name="listaUnidade"
 									value="#{questionarioMB.listaUnidade}" />
 							</p:selectOneMenu>
-							<p:selectOneMenu id="situacao"
+							<p:selectOneMenu id="situacao" rendered="#{questionarioMB.acessoGerencial}"
 								value="#{questionarioMB.situacao}" style="width:150px;">
 								<f:selectItem itemLabel="Selecione" itemValue="sn" />
-								<f:selectItem itemLabel="Assessoria" itemValue="Assessoria" />
 								<f:selectItem itemLabel="Autorizado" itemValue="Autorizado" />
 								<f:selectItem itemLabel="Desistência" itemValue="Desistência" />
 								<f:selectItem itemLabel="Em Análise" itemValue="Em Análise" />
 								<f:selectItem itemLabel="Finalizada" itemValue="Finalizada" />
 								<f:selectItem itemLabel="Pendência" itemValue="Pendência" />
+								<f:selectItem itemLabel="Processo" itemValue="Processo" />
 								<f:selectItem itemLabel="Reprovado" itemValue="Reprovado" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="situacaoUnidade" rendered="#{questionarioMB.acessoUnidade}"
+								value="#{questionarioMB.situacao}" style="width:150px;">
+								<f:selectItem itemLabel="Selecione" itemValue="sn" />
+								<f:selectItem itemLabel="Em Análise" itemValue="Em Análise" />
+								<f:selectItem itemLabel="Processo" itemValue="Processo" />
 							</p:selectOneMenu>
 							<p:commandButton value="Pesquisar" icon="ui-icon-search"
 								action="#{questionarioMB.pesquisar()}"
 								update="consHe:acordionPainel" />
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-								update="situacao, unidade, dataFinal, dataIni, cliente, consHe:acordionPainel"
+								update="situacao, unidade, dataFinal, dataIni, cliente, consHe:acordionPainel, situacaoUnidade"
 								action="#{questionarioMB.limpar()}" />
 						</h:panelGrid>
 						<br></br>
@@ -155,11 +161,10 @@
 								style="width:90px;" styleClass="alinharCenter">
 								<p:cellEditor>
 										<f:facet name="output">
-											
 											<h:outputText value="#{finalizado.situacao}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:selectOneMenu id="situacao" 
+											<p:selectOneMenu id="situacao"  rendered="#{questionarioMB.verificarAcessoGerencial(finalizado)}"
 												value="#{questionarioMB.situacaoLista}"
 												style="width:120px;">  
 												<f:selectItem itemLabel="Selecione"
@@ -174,11 +179,25 @@
 													itemValue="Finalizada" />
 												<f:selectItem itemLabel="Pendência"
 													itemValue="Pendência" />
+												<f:selectItem itemLabel="Processo"
+													itemValue="Processo" />
 												<f:selectItem itemLabel="Reprovado"
 													itemValue="Reprovado" />
 												<p:ajax event="change"
 													listener="#{questionarioMB.atualizarLista(finalizado)}"
-													update="@all" />
+													update="@all, :consHe:growl" />
+											</p:selectOneMenu>
+											
+											<p:selectOneMenu id="situacaoUnidade" rendered="#{questionarioMB.verificarAcessoUnidade(finalizado)}"
+												value="#{questionarioMB.situacaoLista}"
+												style="width:120px;">  
+												<f:selectItem itemLabel="Selecione"
+													itemValue="sn" />
+												<f:selectItem itemLabel="Em Análise"  
+													itemValue="Em Análise" />
+												<p:ajax event="change"
+													listener="#{questionarioMB.atualizarLista(finalizado)}"
+													update="@all, :consHe:growl" />
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>

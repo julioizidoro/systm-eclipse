@@ -13,11 +13,19 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
-
+import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Avisos;
+import br.com.travelmate.model.Avisousuario;
+import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.Notificacao;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
@@ -50,6 +58,8 @@ public class QuestionarioMB implements Serializable{
 	private String chamadaTela = "";
 	private String sql;
 	private int nFichas = 0;
+	private boolean acessoGerencial = true;
+	private boolean acessoUnidade = false;
 	
 	
 	
@@ -68,6 +78,8 @@ public class QuestionarioMB implements Serializable{
 		listaUnidade = GerarListas.listarUnidade();
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			habilitarUnidade = true;
+			acessoUnidade = true;
+			acessoGerencial = false;
 		}
 		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
 			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Curso")) {
@@ -287,6 +299,30 @@ public class QuestionarioMB implements Serializable{
 
 
 
+	public boolean isAcessoGerencial() {
+		return acessoGerencial;
+	}
+
+
+
+	public void setAcessoGerencial(boolean acessoGerencial) {
+		this.acessoGerencial = acessoGerencial;
+	}
+
+
+
+	public boolean isAcessoUnidade() {
+		return acessoUnidade;
+	}
+
+
+
+	public void setAcessoUnidade(boolean acessoUnidade) {
+		this.acessoUnidade = acessoUnidade;
+	}
+
+
+
 	public void gerarListaQuestionario() {
 		
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 90, "yyyy-MM-dd");
@@ -296,6 +332,8 @@ public class QuestionarioMB implements Serializable{
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
 			sqlQuestionario = sqlQuestionario + " and q.usuario.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+		}else {
+			sqlQuestionario = sqlQuestionario + " and q.situacao<>'PROCESSO' ";
 		}
 		sqlQuestionario = sqlQuestionario + " order by q.dataenvio desc";
 		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
@@ -394,6 +432,7 @@ public class QuestionarioMB implements Serializable{
 			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sql = sql + " and q.usuario.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 			}
+			
 		} else {
 			sql = sql + " and q.usuario.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
@@ -428,12 +467,122 @@ public class QuestionarioMB implements Serializable{
 	public void atualizarLista(Questionariohe questionariohe) {
 		if (questionariohe != null) {
 			if ((situacaoLista != null) && (!questionariohe.getSituacao().equalsIgnoreCase(situacaoLista))) {
-				questionariohe.setSituacao(situacaoLista);
-				QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
-				questionarioHeFacade.salvar(questionariohe);
+				if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
+					String msg = validarDados(questionariohe);
+					if (msg == null || msg.length() == 0) {
+						questionariohe.setSituacao(situacaoLista);
+						QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+						questionarioHeFacade.salvar(questionariohe);
+						if (situacaoLista.equalsIgnoreCase("Em Análise") && (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 7 || 
+								usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1)) {
+							notificarDepartamento(questionariohe);
+						}
+					}else {
+						 Mensagem.lancarMensagemInfo("Preencha informações obrigatórias", msg);
+					}
+				}else {
+					questionariohe.setSituacao(situacaoLista);
+					QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+					questionarioHeFacade.salvar(questionariohe);
+					if (situacaoLista.equalsIgnoreCase("Processo")) {
+						listaQuestionario.remove(questionariohe);
+					}
+				}
 			}
 			situacaoLista = "";
 		}
+	}
+	
+	public void notificarDepartamento(Questionariohe questionariohe) {
+		UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+		List<Usuariodepartamentounidade> listaResponsaveis = usuarioDepartamentoUnidadeFacade.listar("SELECT u FROM Usuariodepartamentounidade u WHERE "
+				+ " u.departamento.iddepartamento=7 and u.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
+		for (int i = 0; i < listaResponsaveis.size(); i++) {
+			Notificacao notificacao = new Notificacao();
+			NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+			notificacao.setTitulo("Novo Questionario para análise - " + questionariohe.getIdquestionariohe());
+			notificacao.setUnidade(usuarioLogadoMB.getUsuario().getUnidadenegocio().getNomeFantasia());
+			notificacao.setCliente(questionariohe.getCliente().getNome());
+			notificacao.setFornecedor("");
+			notificacao.setDatainicio(null);
+			notificacao.setConsultor(usuarioLogadoMB.getUsuario().getNome());
+			notificacao.setTipovenda("");
+			notificacao.setValorvenda(0.0f);
+			notificacao.setCambio(0.0f);
+			notificacao.setMoeda("");
+			notificacao.setLimpar(false);
+			notificacao.setData(new Date());
+			notificacao.setImagem("inserido");
+			notificacao.setUsuario(listaResponsaveis.get(i).getUsuario());
+			String hora = Formatacao.foramtarHoraString();
+			notificacao.setHora(hora);
+			notificacaoFacade.salvar(notificacao);
+		}
+	}
+	
+	public String validarDados(Questionariohe questionarioHe) {
+		String msg = "";
+		if (questionarioHe.getDiplomas() == null || questionarioHe.getDiplomas().length() <= 0) {
+			msg = msg + "Informe o nome do curso; \n \n";
+		}
+		
+		if (questionarioHe.getNivelcetificado() == null || questionarioHe.getNivelcetificado().length() <= 0) {
+			msg = msg + "Informe o Nivel mais alto de escolaridade no Brasil; \n \n";
+		}
+		
+		if (questionarioHe.getOntuacaotoefl() == null || questionarioHe.getOntuacaotoefl().length() <= 0) {
+			msg = msg + "Informe a Pontuação no teste de proficiência ou teste online; \n \n";
+		}
+		
+		if (questionarioHe.getOcupacao1() == null || questionarioHe.getOcupacao1().length() <= 0) {
+			msg = msg + "Informe Descreva suas duas última principais ocupações profissionais; \n \n";
+		}
+		
+		
+		if (questionarioHe.getPrograma() == null || questionarioHe.getPrograma().length() <= 0) {
+			msg = msg + "Informe Programa / Área de interesse; \n \n";
+		}
+		
+		if (questionarioHe.getNivelcertificadointeresse() == null || questionarioHe.getNivelcertificadointeresse().length() <= 0) {
+			msg = msg + "Informe Nível de Certificação de interesse; \n \n";
+		}
+		
+		
+		if (questionarioHe.getPais1() == null || questionarioHe.getPais1().length() <=0) {
+			msg = msg + "Informe o Destino em que prefere estudar; \n \n";
+		}
+		
+		
+		if (questionarioHe.getDataprograma() == null) {
+			msg = msg + "Informe Data aproximada do Programa; \n \n";
+		}
+		
+		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
+			msg = msg + "Informe Preciso trabalhar durante meu curso; \n \n";
+		}
+		
+		
+		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
+			msg = msg + "Informe Tenho interesse em imigrar; \n \n";
+		}
+		
+		
+		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
+			msg = msg + "Informe a Observações e parecer do consultor; \n \n";
+		}
+		
+		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
+			msg = msg + "Informe 'Preciso trabalhar durante meu curso?'; \n \n";
+		}
+		
+		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
+			msg = msg + "Informe 'Tenho interesse m Imigrar?'; \n \n";
+		}
+		
+		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
+			msg = msg + "Informe 'Tenho interesse em visto de trabalho após o curso?'; \n \n";
+		}
+		return msg;
 	}
 	
 	
@@ -458,5 +607,32 @@ public class QuestionarioMB implements Serializable{
 		questionarioHeFacade.salvar(questionariohe);
 		Mensagem.lancarMensagemInfo("Cancelado com sucesso", "");
 	}
+	
+	
+	public boolean verificarAcessoUnidade(Questionariohe questionariohe) {
+		boolean resultado = false;
+		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
+			resultado = true;
+			if (questionariohe.getSituacao().equalsIgnoreCase("PROCESSO")) {
+				resultado = true;
+			}else {
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+	
+	
+	
+	public boolean verificarAcessoGerencial(Questionariohe questionariohe) {
+		boolean resultado = true;
+		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Unidade")) {
+			resultado = false;
+		}
+		return resultado;
+	}
+	
+	
+	
 
 }

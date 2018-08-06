@@ -337,6 +337,9 @@ public class CadArquivoMB implements Serializable {
 				arquivos.setObservacao(obs);
 				arquivos = arquivosFacade.salvar(arquivos);
 				listaArquivos.add(arquivos);
+				if (cliente == null) {
+					cliente = vendas.getCliente();
+				}
 				if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 					if (aplicacaoMB.getParametrosprodutos().getCursos() != idproduto) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) { 
@@ -348,7 +351,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setIdvenda(vendas.getIdvendas());
 							avisos.setLiberar(true);
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
-									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
+									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() +
 									" | " + obs);
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
@@ -365,7 +368,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setLiberar(true);
 							avisos.setIdvenda(vendas.getIdvendas());
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
-									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
+									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() +
 									" | " + obs);
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
@@ -383,7 +386,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setLiberar(true);
 							avisos.setIdvenda(vendas.getIdvendas());
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
-									+ vendas.getCliente().getNome() + " - " + vendas.getProdutos().getDescricao() +
+									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() +
 									" | " + obs);
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
