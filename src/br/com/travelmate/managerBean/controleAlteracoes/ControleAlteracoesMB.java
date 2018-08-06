@@ -175,7 +175,7 @@ public class ControleAlteracoesMB implements Serializable {
 
 	public void listarUnidade() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-		listaUnidade = unidadeNegocioFacade.listar();
+		listaUnidade = unidadeNegocioFacade.listar(true);
 	}
 
 	public void listarUsuario() {

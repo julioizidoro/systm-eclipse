@@ -351,7 +351,7 @@ public class TraducaoMB implements Serializable {
 
 	public void listarUnidade() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-		listaUnidade = unidadeNegocioFacade.listar();
+		listaUnidade = unidadeNegocioFacade.listar(true);
 	}
 
 	public void listarUsuario() {

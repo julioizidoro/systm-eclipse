@@ -167,7 +167,7 @@ public class CadUsuariosMB implements Serializable {
 
 	public void gerarlistaUnidade() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-		listaUnidade = unidadeNegocioFacade.listar();
+		listaUnidade = unidadeNegocioFacade.listar(true);
 		if (listaUnidade == null) {
 			listaUnidade = new ArrayList<Unidadenegocio>();
 		}

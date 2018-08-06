@@ -208,7 +208,7 @@ public class AvisosMB implements Serializable {
 			listaUnidade.add(usuarioLogadoMB.getUsuario().getUnidadenegocio());
 		}else {
 			UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-			listaUnidade = unidadeNegocioFacade.listar();
+			listaUnidade = unidadeNegocioFacade.listar(true);
 			if (listaUnidade==null){
 				listaUnidade = new ArrayList<Unidadenegocio>();
 			}

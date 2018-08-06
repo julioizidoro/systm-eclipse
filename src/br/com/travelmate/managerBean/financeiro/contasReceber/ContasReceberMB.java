@@ -669,7 +669,7 @@ public class ContasReceberMB implements Serializable {
 
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-		listaUnidade = unidadeNegocioFacade.listar();
+		listaUnidade = unidadeNegocioFacade.listar(true);
 		if (listaUnidade == null) {
 			listaUnidade = new ArrayList<Unidadenegocio>();
 		}

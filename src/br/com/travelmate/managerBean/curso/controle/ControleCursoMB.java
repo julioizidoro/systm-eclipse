@@ -501,7 +501,7 @@ public class ControleCursoMB implements Serializable {
 
 	public void gerarListaUnidadeNegocio() {
 		UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
-		listaUnidadeNegocio = unidadeNegocioFacade.listar();
+		listaUnidadeNegocio = unidadeNegocioFacade.listar(true);
 		if (listaUnidadeNegocio == null) {
 			listaUnidadeNegocio = new ArrayList<Unidadenegocio>();
 		}
