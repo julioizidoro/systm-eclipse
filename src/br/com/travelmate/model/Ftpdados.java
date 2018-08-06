@@ -41,6 +41,8 @@ public class Ftpdados implements Serializable {
     private String pasta;
     @Column(name = "hostupload")
     private String hostupload;
+    @Column(name = "hostlink")
+    private String hostlink;
 
     public Ftpdados() {
     }
@@ -97,6 +99,14 @@ public class Ftpdados implements Serializable {
 
 	public void setHostupload(String hostupload) {
 		this.hostupload = hostupload;
+	}
+
+	public String getHostlink() {
+		return hostlink;
+	}
+
+	public void setHostlink(String hostlink) {
+		this.hostlink = hostlink;
 	}
 
 	@Override
