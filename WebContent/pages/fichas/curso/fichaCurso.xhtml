@@ -276,7 +276,8 @@
 			
 		</h:panelGrid>  
 		<br />
-		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
+		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarAcomodacao}"><b>ACOMODAÇÃO DA ESCOLA</b></h:panelGroup>
+		<h:panelGroup style="color:green;" rendered="#{fichaCursoMB.habilitarAcomodacaoCurso}"><b>ACOMODAÇÃO INDEPENDENTE</b></h:panelGroup>
 		<hr style="color:green;width:100%;float: left;"/>
 		<br />
 		<h:panelGrid style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
@@ -382,7 +383,7 @@
 							<b>N° Cartão:</b> #{fichaCursoMB.curso.numeroCartaoVTM} 
 						</h:panelGroup>
 						<h:panelGroup rendered="#{fichaCursoMB.habilitarCartãoVtm}">
-							<b>Moeda:</b> #{parcelamento.curso.moedaCartaoVTM}
+							<b>Moeda:</b> #{fichaCursoMB.curso.moedaCartaoVTM}
 						</h:panelGroup>
 			</h:panelGrid>  
 			<br/>
