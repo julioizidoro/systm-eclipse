@@ -3426,7 +3426,7 @@ public class OrcamentoCursoMB implements Serializable {
 					po.setListaSemanas(new ArrayList<Integer>());
 					po.setListaSemanas(retornarNSemanas(listaCoProdutos.get(i)));
 					listaAcomodacoesIndependente.add(po);
-				}/* else {
+				} else {
 					po = consultarValores("DM", listaCoProdutos.get(i).getCoprodutos().getIdcoprodutos(), new Date());
 					if (po != null) {
 						po.setListaSemanas(new ArrayList<Integer>());
@@ -3441,7 +3441,7 @@ public class OrcamentoCursoMB implements Serializable {
 							listaAcomodacoesIndependente.add(po);
 						}
 					}
-				}*/
+				}
 			}
 			verificarAcomodacao();
 		}
