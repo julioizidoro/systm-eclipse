@@ -599,6 +599,9 @@ public class CadAcomodacaoMB implements Serializable {
 			}
 		} else {
 			btnCidade = true;
+			cidade = null;
+			btnDataInicio = true;
+			btnPesquisar = true;
 		}
 	}
 
@@ -834,18 +837,21 @@ public class CadAcomodacaoMB implements Serializable {
 		btnPesquisar = false;
 		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
 			List<Orcamentoprodutosorcamento> listaProdutoApaga = new ArrayList<Orcamentoprodutosorcamento>();
+			List<Orcamentoprodutosorcamento> listaProdutoFica = new ArrayList<Orcamentoprodutosorcamento>();
 			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
-				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).isPodeExcluir()) {
+				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).isObrigatorio()) {
 					listaProdutoApaga.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
+				}else {
+					listaProdutoFica.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
 				}
 			}
 			for (int i = 0; i < listaProdutoApaga.size(); i++) {
 				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-				orcamento.getOrcamentoprodutosorcamentoList().remove(listaProdutoApaga.get(i));
 				if (listaProdutoApaga.get(i).getIdorcamentoProdutosOrcamento() != null) {
 					orcamentoFacade.excluirOrcamentoProdutoOrcamento(listaProdutoApaga.get(i).getIdorcamentoProdutosOrcamento());
 				}  
 			}
+			orcamento.setOrcamentoprodutosorcamentoList(listaProdutoFica);
 		}
 		calcularValorTotalOrcamento();
 		Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
@@ -867,6 +873,12 @@ public class CadAcomodacaoMB implements Serializable {
 			listaPais = paisProdutoFacade.listar(programas.getIdprodutos());
 		} else {
 			btnPais = true;
+			listaPais = new ArrayList<Paisproduto>();
+			pais = null;
+			cidade = null;
+			btnCidade = true;
+			btnDataInicio = true;
+			btnPesquisar = true;
 		}
 	}
 
@@ -875,6 +887,9 @@ public class CadAcomodacaoMB implements Serializable {
 			btnDataInicio = false;
 		} else {
 			btnDataInicio = true;
+			cidade = null;
+			btnCidade = true;
+			btnPesquisar = true;
 		}
 	}
 
@@ -2692,21 +2707,43 @@ public class CadAcomodacaoMB implements Serializable {
 	//	return "";
 	//}
 	
-	public boolean validarDados() {
+	public String validarDados() {
+		String msg = "";
 		if (listaAcomodacao == null || listaAcomodacao.size()<=0) {
 			Mensagem.lancarMensagemInfo("Informe a Acomodação", "");
-			return false;
+			msg = "Sim";
 		}
 		
 		if (formaPagamento != null && (formaPagamento.getParcelamentopagamentoList() == null || formaPagamento.getParcelamentopagamentoList().size() <=0)) {
 			Mensagem.lancarMensagemInfo("Informe a forma de pagamento", "");
-			return false;
+			msg = "Sim";
 		}
-		return true;
+		
+		if (valorParcelar > 0.0f) {
+			Mensagem.lancarMensagemInfo("Saldo em aberto", "");
+			msg = "Sim";
+		}
+		
+		if (programas == null || programas.getIdprodutos() == null) {
+			Mensagem.lancarMensagemInfo("Informe o produto vinculado a está venda;", "");
+			msg = "Sim";
+		}
+		
+		if (cidade == null || cidade.getIdcidade() == null) {
+			Mensagem.lancarMensagemInfo("Informe a cidade;", "");
+			msg = "Sim";
+		}
+		
+		if (pais == null || pais.getIdpais() == null) {
+			Mensagem.lancarMensagemInfo("Informe o pais;", "");
+			msg = "Sim";
+		}
+		return msg;
 	}
 	
 	public String salvar() {
-		if (validarDados()) {
+		String msg = validarDados();
+		if (msg == null || msg.length() == 0) {
 			salvarVenda();
 			acomodacao.setVendas(vendas);
 			AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();

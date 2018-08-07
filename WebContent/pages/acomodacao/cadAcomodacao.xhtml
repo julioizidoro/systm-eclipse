@@ -62,7 +62,7 @@
 									itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
 								<f:attribute name="listaProdutos"
 									value="#{cadAcomodacaoMB.listaProgramas}" />
-								<p:ajax event="change" listener="#{cadAcomodacaoMB.verificarProduto()}" update="pais"/>
+								<p:ajax event="change" listener="#{cadAcomodacaoMB.verificarProduto()}" update="pais, cidade, datainicio, botaoPesquisar"/>
 							</p:selectOneMenu>	
 							<p:selectOneMenu id="pais" value="#{cadAcomodacaoMB.pais}"
 								style="width:200px;" converter="PaisConverter"
@@ -74,7 +74,7 @@
 									var="cpais" itemLabel="#{cpais.pais.nome}"
 									itemValue="#{cpais.pais}" />
 								<f:attribute name="listaPais" value="#{cadAcomodacaoMB.listaPais}" />
-								<p:ajax event="change" update="cidade, idvalorcambio, moeda"
+								<p:ajax event="change" update="cidade, idvalorcambio, moeda, datainicio, botaoPesquisar"
 									listener="#{cadAcomodacaoMB.selecionarCambio()}" />
 							</p:selectOneMenu>
 							
@@ -89,7 +89,7 @@
 								itemLabel="#{cidadeSelecionado.nome}" itemValue="#{cidadeSelecionado}" />
 							<f:attribute name="listaCidade"
 								value="#{cadAcomodacaoMB.pais.cidadeList}" />
-								<p:ajax event="change" listener="#{cadAcomodacaoMB.verificarCidade()}" update="datainicio"/>
+								<p:ajax event="change" listener="#{cadAcomodacaoMB.verificarCidade()}" update="datainicio, botaoPesquisar"/>
 						</p:selectOneMenu>
 							<h:panelGrid columns="2" style="width:79%;">
 								<p:calendar id="datainicio" disabled="#{cadAcomodacaoMB.btnDataInicio}" beforeShowDay="sundayEnabled"
