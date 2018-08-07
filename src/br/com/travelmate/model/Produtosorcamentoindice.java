@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -33,6 +35,10 @@ public class Produtosorcamentoindice implements Serializable {
     private String descricao;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "produtosorcamentoindice")
     private List<Produtosorcamentogrupo> produtosorcamentogrupoList;
+    @JoinColumn(name = "departamentoproduto_iddepartamentoproduto", referencedColumnName = "iddepartamentoproduto")
+    @OneToOne(optional = false)
+    private Departamentoproduto departamentoproduto;
+    
 
     public Produtosorcamentoindice() {
     	

@@ -253,13 +253,15 @@ public class VendasCursoMB implements Serializable{
 
 
 	public void gerarListaCurso(){
-		String sql = "SELECT c FROM Curso c WHERE c.vendas.cliente.nome like '%%'";
+		String sql = "SELECT c FROM Curso c WHERE c.vendas.situacao='FINALIZADA'";
 		if (pais != null) {
 			sql = sql + " AND c.pais like '%" + pais.getNome() + "%' ";
 		}
 		
 		if (cidade != null) {
-			sql = sql + " AND c.cidade like '%" + cidade.getNome() + "%'";
+			if (cidade.getIdcidade()!=null) {
+				sql = sql + " AND c.cidade like '%" + cidade.getNome() + "%'";
+			}
 		}
 		
 		if (nSemanaIni > 0) {
@@ -293,7 +295,7 @@ public class VendasCursoMB implements Serializable{
 		if (listaCurso == null) {
 			listaCurso = new ArrayList<Curso>();
 		}
-		
+		int numeroSemanas=0;
 		for (int i = 0; i < listaCurso.size(); i++) {
 			listaCurso.get(i).setIdade(Formatacao.calcularIdade(listaCurso.get(i).getVendas().getCliente().getDataNascimento()));
 		}
