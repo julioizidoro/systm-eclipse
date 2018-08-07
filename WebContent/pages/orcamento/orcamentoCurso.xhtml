@@ -393,9 +393,9 @@
 				</div>
 				<p:fieldset id="tabelaAdicionarSeguro" legend="Seguro Viagem"
 					toggleable="true" style="font-size: 10px;">
-					<h:panelGrid columns="12" style="margin-left:1.3%;">
+					<h:panelGrid columns="12" style="margin-left:1%;width:100%;">
 						<p:outputLabel value="Seguradora:" for="seguradora"
-							style="font-weight:bold;font-size: 12px;margin-left: 1%" />
+							style="font-weight:bold;font-size: 12px;" />
 						<p:selectOneMenu style="width:120px;margin-left:1%"
 							id="seguradora" value="#{orcamentoCursoMB.fornecedorcidade}"
 							converter="FornecedorCidadeConverter"
@@ -412,7 +412,7 @@
 							<p:ajax event="change" update="plano" listener="#{orcamentoCursoMB.listarPlanosSeguro()}"/>
 						</p:selectOneMenu>
 						<p:outputLabel value="Plano:" for="plano"
-							style="font-weight:bold;font-size: 12px;margin-left:35%" />
+							style="font-weight:bold;font-size: 12px;margin-left:4%" />
 						<p:selectOneMenu id="plano" style="width:120px;margin-left:1%;" converter="SeguroPlanosConverter"
 							disabled="#{orcamentoCursoMB.habilitarSeguro()}"
 							value="#{orcamentoCursoMB.seguroplanos}">   
@@ -426,7 +426,7 @@
 								listener="#{orcamentoCursoMB.listarValoresSeguro()}" />
 						</p:selectOneMenu>
 						<p:outputLabel value="Tarifario:" for="tarifario"
-							style="font-weight:bold;font-size: 12px;margin-left:35%" />
+							style="font-weight:bold;font-size: 12px;margin-left:4%" />
 						<p:selectOneMenu id="tarifario" style="width:150px;margin-left:1%"
 							disabled="#{orcamentoCursoMB.habilitarSeguro()}"
 							value="#{orcamentoCursoMB.valorSeguro}"
@@ -453,13 +453,13 @@
 								update="tabelaAdicionarSeguro" />
 						</p:selectOneMenu>
 						<p:outputLabel value="Cobrança:" for="cobranca"
-							style="font-weight:bold;font-size: 12px;margin-left:35%" />
+							style="font-weight:bold;font-size: 12px;margin-left:4%" />
 						<p:inputText id="cobranca"
 							value="#{orcamentoCursoMB.valorSeguro.cobranca}"
 							style="width:70px;margin-left:1%;font-size:13px;" maxlength="45"
 							readonly="true" disabled="#{orcamentoCursoMB.habilitarSeguro()}" />
 						<p:outputLabel value="Valor:" for="valorunitario"
-							style="font-weight:bold;font-size: 12px;margin-left:35%" />
+							style="font-weight:bold;font-size: 12px;margin-left:4%" />
 						<p:inputText id="valorunitario"
 							value="#{orcamentoCursoMB.seguroviagem.valoresseguro.valorgross}"
 							style="width:90px;margin-left:1%;font-size:13px;text-align:right;" maxlength="45"
@@ -467,7 +467,7 @@
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
 						<p:outputLabel value="Valor em R$:" for="valorunitarioRS"
-							style="font-weight:bold;font-size: 12px;margin-left:27%">
+							style="font-weight:bold;font-size: 12px;margin-left:4%">
 							  
 						</p:outputLabel>
 						<p:inputText id="valorunitarioRS"
