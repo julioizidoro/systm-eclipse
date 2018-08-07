@@ -82,7 +82,7 @@ public class QuestionarioMB implements Serializable{
 			acessoGerencial = false;
 		}
 		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
-			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Curso")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("QuestionarioHe")) {
 				pesquisar = "Sim";
 			}else {
 				pesquisar = "Não";
@@ -398,8 +398,9 @@ public class QuestionarioMB implements Serializable{
 		session.setAttribute("vendas", vendasDao.consultarVendas(3723));
 		session.setAttribute("cliente", questionariohe.getCliente());
 		session.setAttribute("pesquisar", "Sim");
-		session.setAttribute("nomePrograma", "He");
-		session.setAttribute("chamadaTela", "fichaHE");
+		session.setAttribute("nomePrograma", "QuestionarioHe");
+		session.setAttribute("chamadaTela", "QuestionarioHe");
+		session.setAttribute("listaQuestionario", listaQuestionario);
 		String voltar = "consquestionarioHe";
 		session.setAttribute("voltar", voltar);
 		session.setAttribute("sql", sql);

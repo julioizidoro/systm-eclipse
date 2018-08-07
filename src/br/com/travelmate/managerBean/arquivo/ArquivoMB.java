@@ -43,6 +43,7 @@ import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Tipoarquivo;
 import br.com.travelmate.model.Tipoarquivoproduto;
@@ -87,6 +88,7 @@ public class ArquivoMB implements Serializable {
 	private List<ListaHeBean> listaHe;
 	private Cliente cliente;
 	private String dadosCliente;
+	private List<Questionariohe> listaQuestionario;
 
 	@PostConstruct
 	public void init() {
@@ -99,7 +101,9 @@ public class ArquivoMB implements Serializable {
 			cliente = (Cliente) session.getAttribute("cliente");
 			if (vendas.getProdutos().getIdprodutos() == 22) {
 				listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
+				listaQuestionario = (List<Questionariohe>) session.getAttribute("listaQuestionario");
 				session.removeAttribute("listaHe");
+				session.removeAttribute("listaQuestionario");
 			}
 			gerarListaTipoArquivo();
 			desabilitarEdicao();
@@ -502,15 +506,22 @@ public class ArquivoMB implements Serializable {
 		if (vendas.getProdutos().getIdprodutos() == 22) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("pesquisar", "Sim");
-			session.setAttribute("nomePrograma", "He");
-			session.setAttribute("listaAndamento", listaAndamento);
-			session.setAttribute("listaCancelada", listaCancelada);
-			session.setAttribute("listaFinalizar", listaFinalizar);
-			session.setAttribute("listaFinanceiro", listaFinanceiro);
-			session.setAttribute("listaProcesso", listaProcesso);
+			String nomePrograma = (String) session.getAttribute("nomePrograma");
+			session.removeAttribute("nomePrograma");
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("QuestionarioHe")) {
+				session.setAttribute("listaQuestionario", listaQuestionario);
+				session.setAttribute("nomePrograma", "QuestionarioHe");
+			}else {
+				session.setAttribute("nomePrograma", "He");
+				session.setAttribute("listaAndamento", listaAndamento);
+				session.setAttribute("listaCancelada", listaCancelada);
+				session.setAttribute("listaFinalizar", listaFinalizar);
+				session.setAttribute("listaFinanceiro", listaFinanceiro);
+				session.setAttribute("listaProcesso", listaProcesso);
+				session.setAttribute("listaHe", listaHe);
+			}
 			session.setAttribute("chamadaTela", chamadaTela);
-			session.setAttribute("listaHe", listaHe);
+			session.setAttribute("pesquisar", "Sim");
 		}
 		return voltar;
 	}
