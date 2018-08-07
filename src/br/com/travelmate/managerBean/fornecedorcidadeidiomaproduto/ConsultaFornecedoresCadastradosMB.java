@@ -87,7 +87,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 				.listar("SELECT d FROM Departamento d WHERE d.venda=TRUE ORDER BY d.nome");
 		corDepartamento();
 		departamento = new Departamento();
-		gerarListaProdutosOrcamentoIndice();
+		
 		gerarListaFornecedor();
 		gerarEstrelaBean();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -363,7 +363,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	public void gerarListaProdutosOrcamentoIndice() {
 		ProdutoOrcamentoIndiceFacade produtoOrcamentoIndiceFacade = new ProdutoOrcamentoIndiceFacade();
 		listaProdutosOrcamentoIndice = produtoOrcamentoIndiceFacade
-				.listar("select p from Produtosorcamentoindice p order by p.descricao");
+				.listar("select p from Produtosorcamentoindice p where p.departamentoproduto.departamento.iddepartamento=" + departamento.getIddepartamento() + " order by p.descricao");
 		if (listaProdutosOrcamentoIndice == null) {
 			listaProdutosOrcamentoIndice = new ArrayList<Produtosorcamentoindice>();
 		}
@@ -553,6 +553,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	}
 
 	public void gerarListaPaisProduto() {
+		gerarListaProdutosOrcamentoIndice();
 		paisproduto = null;
 		if (produtosorcamentoindice != null || listaprodutosorcamento != null
 				|| fornecedorcidadeidiomaproduto != null) {

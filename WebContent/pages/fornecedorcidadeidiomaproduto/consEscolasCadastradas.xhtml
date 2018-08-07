@@ -47,7 +47,7 @@
 							value="#{consultaFornecedoresCadastradosMB.listaDepartamento}" />
 						<p:ajax event="change"
 							listener="#{consultaFornecedoresCadastradosMB.gerarListaPaisProduto()}"
-							update=":consultaFornecedorCadastrado:painelDados, 
+							update=":consultaFornecedorCadastrado:painelDados, :consultaFornecedorCadastrado:produtos
 								:consultaFornecedorCadastrado:btnPesquisa, :consultaFornecedorCadastrado:lblPesquisa,
 								:consultaFornecedorCadastrado:painelFiltro, :consultaFornecedorCadastrado:painelFiltro2" />
 					</p:selectOneMenu>

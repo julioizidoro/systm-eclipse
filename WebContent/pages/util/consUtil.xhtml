@@ -28,6 +28,10 @@
 						icon="ui-icon-refresh" value="Recalcular BO" action="#{utilMB.recalcularBO()}" update="growl"/>
 				</h:panelGrid>  
 				<br></br>   
+				<h:panelGrid columns="1" style="margin-left:5%;">
+					<p:commandButton id="HE" 
+						icon="ui-icon-refresh" value="Exportar HE" action="#{utilMB.exportarHE()}" update="growl"/>
+				</h:panelGrid>  
 				<br></br>  
 			</div>
 		</h:form>
