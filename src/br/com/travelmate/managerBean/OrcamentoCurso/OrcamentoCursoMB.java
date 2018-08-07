@@ -2992,12 +2992,18 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void excluirAcomodacao(ProdutosOrcamentoBean po) {  
 		po.setSelecionado(false);
-		mudarNumeroSemanaAcomodacao(po); 
+		//mudarNumeroSemanaAcomodacao(po); 
 		excluirTaxasAcomodacao();
-		for (int i = 0; i < resultadoOrcamentoBean.getListaAcomodacoes().size(); i++) {
-			oCursoProdutoDao.excluir(resultadoOrcamentoBean.getListaAcomodacoes().get(i).getOcrusoprodutos().getIdocrusoprodutos());
+		if (resultadoOrcamentoBean.getListaAcomodacoes() != null) {
+			for (int i = 0; i < resultadoOrcamentoBean.getListaAcomodacoes().size(); i++) {
+				if (resultadoOrcamentoBean.getListaAcomodacoes().get(i).getOcrusoprodutos() != null && 
+						resultadoOrcamentoBean.getListaAcomodacoes().get(i).getOcrusoprodutos().getIdocrusoprodutos() != null) {
+					oCursoProdutoDao.excluir(resultadoOrcamentoBean.getListaAcomodacoes().get(i).getOcrusoprodutos().getIdocrusoprodutos());
+				}
+			}
 		}
 		resultadoOrcamentoBean.getListaAcomodacoes().remove(po); 
+		calcularTotais();
 	}
 	
 	public void excluirTaxasAcomodacao() {
