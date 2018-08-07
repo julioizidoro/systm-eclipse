@@ -56,6 +56,8 @@ public class Arquivos implements Serializable {
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
 	@ManyToOne(optional = false)
 	private Cliente cliente;
+    @Column(name = "situacao")
+    private boolean sitaucao;
     
     
     public Cliente getCliente() {
@@ -70,9 +72,20 @@ public class Arquivos implements Serializable {
     private boolean selecionado;
 
     public Arquivos() {
+    	setSitaucao(false);
     }
+    
+    
 
-    public Arquivos(Integer idarquivos) {
+    public boolean isSitaucao() {
+		return sitaucao;
+	}
+
+	public void setSitaucao(boolean sitaucao) {
+		this.sitaucao = sitaucao;
+	}
+
+	public Arquivos(Integer idarquivos) {
         this.idarquivos = idarquivos;
     }
 
