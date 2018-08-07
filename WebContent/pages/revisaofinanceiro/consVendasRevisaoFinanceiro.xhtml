@@ -15,13 +15,11 @@
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
 						
-						<h:panelGrid columns="6" style="width:100%;">
+						<h:panelGrid columns="4" style="width:100%;">
 							<p:outputLabel value="Id Venda"/>
 							<p:outputLabel value="Unidade"/>
 							<p:outputLabel value="Consultor"/>
 							<p:outputLabel value="Produtos"/>
-							<p:outputLabel value="Periodo Venda"/>
-							<p:outputLabel/>
 							
 							<p:inputText id="idvenda" style="width:90px;" maxlength="100"
 								value="#{revisaoFinanceiroMB.idVenda}" />
@@ -69,34 +67,37 @@
 								<f:attribute name="listaProdutos"
 									value="#{revisaoFinanceiroMB.listaProdutos}" />
 							</p:selectOneMenu>
-							<p:calendar id="idDataInicial" mask="true"
-								value="#{revisaoFinanceiroMB.dataInicial}" size="20"
-								 locale="pt" pattern="dd/MM/yyyy">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-								<p:ajax event="change" />
-								<p:ajax event="dateSelect" />
-							</p:calendar>  
-							<p:calendar id="idDataFinal" mask="true"
-								value="#{revisaoFinanceiroMB.dataFinal}" size="20"
-								 locale="pt" pattern="dd/MM/yyyy">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-								<p:ajax event="change" />
-								<p:ajax event="dateSelect" />
-							</p:calendar>
+						</h:panelGrid>
+						<br/>
+						<h:panelGrid columns="4" style="width:93%;">
+							<p:outputLabel value="Periodo Venda"/>
 							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
-							<p:outputLabel/>
+							<p:outputLabel />
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:calendar id="idDataInicial" mask="true"
+									value="#{revisaoFinanceiroMB.dataInicial}" size="20"
+									 locale="pt" pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+									<p:ajax event="dateSelect" />
+								</p:calendar>  
+								<p:calendar id="idDataFinal" mask="true"
+									value="#{revisaoFinanceiroMB.dataFinal}" size="20"
+									 locale="pt" pattern="dd/MM/yyyy">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									<p:ajax event="change" />
+									<p:ajax event="dateSelect" />
+								</p:calendar>
+							</h:panelGroup>
 							<p:outputLabel/>
 							<p:outputLabel/>
 							<h:panelGroup>
-								<p:commandButton id="btnPesquisar"  value="Pesquisar" action="#{revisaoFinanceiroMB.pesquisar()}" icon="ui-icon-search" update=":consultaRevisaoFinanceiro:growl, @form"/>
-								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="float:right;"
 									update=":consultaRevisaoFinanceiro:growl, @form"
 									action="#{revisaoFinanceiroMB.limparPesquisa()}" />
+								<p:commandButton id="btnPesquisar"  value="Pesquisar" style="float:right;" action="#{revisaoFinanceiroMB.pesquisar()}" icon="ui-icon-search" update=":consultaRevisaoFinanceiro:growl, @form"/>
+								
 							</h:panelGroup>
 						</h:panelGrid>
 
