@@ -1201,7 +1201,7 @@ public class CadCursosTeensMB implements Serializable {
 				this.cliente = cadCursosTeensBean.salvarCliente(cliente);
 				float valorPrevisto = 0.0f;
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
-						|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+						) {
 					float valorVendaatual = venda.getValor();
 					valorPrevisto = 0.0f;
 					Vendascomissao vendasComissao = venda.getVendascomissao();
@@ -1225,7 +1225,7 @@ public class CadCursosTeensMB implements Serializable {
 				}
 				ControlerBean controlerBean = new ControlerBean();
 				controlerBean.salvarControleProgramaTeens(venda, programasTeens, valorPrevisto);
-				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA") || venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {

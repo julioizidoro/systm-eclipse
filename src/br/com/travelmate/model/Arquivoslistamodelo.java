@@ -38,7 +38,7 @@ public class Arquivoslistamodelo implements Serializable{
     private String classe;
     @JoinColumn(name = "tipoarquivoproduto_idtipoarquivoproduto", referencedColumnName = "idtipoarquivoproduto")
     @ManyToOne(optional = false)
-    private Tipoarquivo tipoarquivo;
+    private Tipoarquivoproduto tipoarquivoproduto;
     @JoinColumn(name = "fornecedorcidadeidioma_idfornecedorcidadeidioma", referencedColumnName = "idfornecedorcidadeidioma")
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
     private Fornecedorcidadeidioma fornecedorcidadeidioma;
@@ -79,13 +79,13 @@ public class Arquivoslistamodelo implements Serializable{
 	}
 
 
-	public Tipoarquivo getTipoarquivo() {
-		return tipoarquivo;
+	public Tipoarquivoproduto getTipoarquivoproduto() {
+		return tipoarquivoproduto;
 	}
 
 
-	public void setTipoarquivo(Tipoarquivo tipoarquivo) {
-		this.tipoarquivo = tipoarquivo;
+	public void setTipoarquivoproduto(Tipoarquivoproduto tipoarquivoproduto) {
+		this.tipoarquivoproduto = tipoarquivoproduto;
 	}
 
 

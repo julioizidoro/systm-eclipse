@@ -1649,7 +1649,7 @@ public class CadCursoMB implements Serializable {
 					acomodacaocurso.setAcomodacao(acomodacao);
 					acomodacaoCursoFacade.salvar(acomodacaocurso);
 				}
-				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA") || venda.getSituacao().equalsIgnoreCase("ANDAMENTO"))  {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 						if (enviarFicha) {
