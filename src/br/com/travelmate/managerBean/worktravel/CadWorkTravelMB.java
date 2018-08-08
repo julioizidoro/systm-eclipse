@@ -1190,7 +1190,7 @@ public class CadWorkTravelMB implements Serializable {
 					cadWorkTravelBean.verificarDadosAlterado(work, workAlterado, fornecedorCidade, vendaAlterada,
 							valorVendaAlterar);
 				}
-				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					String titulo = "";
 					String operacao = "";
 					String imagemNotificacao = "";
