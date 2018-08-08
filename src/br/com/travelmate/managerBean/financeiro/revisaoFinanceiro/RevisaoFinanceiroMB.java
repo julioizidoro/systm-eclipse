@@ -13,10 +13,13 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.AcomodacaoCursoFacade;
+import br.com.travelmate.facade.AcomodacaoFacade;
 import br.com.travelmate.facade.LancamentoCartaoCreditoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-
+import br.com.travelmate.model.Acomodacao;
+import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Lancamentocartaocredito;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Seguroviagem;
@@ -367,7 +370,16 @@ public class RevisaoFinanceiroMB implements Serializable{
 			if (seguroviagem != null) {
 				if (seguroviagem.getIdvendacurso() > 0) {
 					revisar = false;
+					Vendas vendasProduto = vendasDao.consultarVendas(seguroviagem.getIdvendacurso());
+					Mensagem.lancarMensagemInfo("Seguro vinculado a " + vendasProduto.getProdutos().getDescricao(), "");
 				}
+			}
+		}else if(venda.getProdutos().getIdprodutos() == 24) {
+			AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
+			Acomodacaocurso acomodacaocurso = acomodacaoCursoFacade.consultar("SELECT a FROM Acomodacaocurso a WHERE a.acomodacao.vendas.idvendas=" + venda.getIdvendas());
+			if (acomodacaocurso != null && acomodacaocurso.getIdacomodacaocurso() != null) {
+				revisar = false;
+				Mensagem.lancarMensagemInfo("Acomodação vinculada ao curso", "");
 			}
 		}
 		if (revisar) {
@@ -378,7 +390,6 @@ public class RevisaoFinanceiroMB implements Serializable{
 			session.setAttribute("listaVendaPendente", listaVendaPendente);
 			return "cadRevisaoFinanceiro";
 		}
-		Mensagem.lancarMensagemInfo("", "");
 		return "";
 	}
 	

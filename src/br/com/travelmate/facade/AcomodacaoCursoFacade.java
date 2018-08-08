@@ -3,6 +3,8 @@ package br.com.travelmate.facade;
 import java.sql.SQLException;
 
 import br.com.travelmate.dao.AcomodacaoCursoDao;
+import br.com.travelmate.dao.AcomodacaoDao;
+import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Acomodacaocurso;
 
 public class AcomodacaoCursoFacade {
@@ -27,6 +29,18 @@ public class AcomodacaoCursoFacade {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	
+	public Acomodacaocurso consultar(String sql) {
+		acomodacaoCursoDao = new AcomodacaoCursoDao();
+		try {
+			return acomodacaoCursoDao.consultar(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 	}
 

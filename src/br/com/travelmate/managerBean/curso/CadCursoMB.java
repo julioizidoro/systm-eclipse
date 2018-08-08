@@ -58,6 +58,7 @@ import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
+import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
@@ -239,6 +240,7 @@ public class CadCursoMB implements Serializable {
 	private boolean btnPesquisar = true;
 	private boolean desabilitarIndependente;
 	private boolean lancadoAcomodacaoInd = false;
+	private int idVendaAcoIndependente;
 
 	@PostConstruct()
 	public void init() {
@@ -1639,7 +1641,13 @@ public class CadCursoMB implements Serializable {
 					vendaspacote = vendasPacoteFacade.salvar(vendaspacote);  
 				}
 				if (lancadoAcomodacaoInd) {
-					acomodacao.setVendas(salvarVendaAcomodacao());
+					Vendas vendasAcomodacao;
+					if (idVendaAcoIndependente > 0) {
+						vendasAcomodacao = vendasDao.consultarVendas(idVendaAcoIndependente);
+					}else {
+						vendasAcomodacao = salvarVendaAcomodacao();
+					}
+					acomodacao.setVendas(vendasAcomodacao);
 					acomodacao.setProdutos(venda.getProdutos());
 					AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
 					acomodacao = acomodacaoFacade.salvar(acomodacao);
@@ -1648,6 +1656,12 @@ public class CadCursoMB implements Serializable {
 					acomodacaocurso.setCurso(curso);
 					acomodacaocurso.setAcomodacao(acomodacao);
 					acomodacaoCursoFacade.salvar(acomodacaocurso);
+				}else {
+					if (idVendaAcoIndependente > 0) {
+						Vendas vendasAcomodacao = vendasDao.consultarVendas(idVendaAcoIndependente);
+						vendasAcomodacao.setSituacao("CANCELADA");
+						vendasDao.salvar(vendasAcomodacao);
+					}
 				}
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
@@ -4124,6 +4138,7 @@ public class CadCursoMB implements Serializable {
 			AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
 			AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
 			acomodacaoCursoFacade.excluir(curso.getAcomodacaocurso().getIdacomodacaocurso());
+			idVendaAcoIndependente = acomodacao.getVendas().getIdvendas();
 			curso.setAcomodacaocurso(null);
 			acomodacaoFacade.excluir(acomodacao.getIdacomodacao());
 			this.acomodacao = new Acomodacao();
@@ -5364,9 +5379,10 @@ public class CadCursoMB implements Serializable {
 		vendas.setDataVenda(new Date());
 		vendas.setCambio(cambio);
 		vendas.setCliente(cliente);
-		vendas.setValor(valorTotal);
+		vendas.setValor(acomodacao.getValormoedanacional());
 		vendas.setSituacao("PROCESSO");
-		vendas.setProdutos(venda.getProdutos());
+		ProdutoFacade produtoFacade = new ProdutoFacade();
+		vendas.setProdutos(produtoFacade.consultar(24));
 		vendas.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
 		vendas.setUsuario(usuarioLogadoMB.getUsuario());
 		vendas.setVendasMatriz("S");
@@ -5384,8 +5400,8 @@ public class CadCursoMB implements Serializable {
 		}  
 		vendas.setPontoextra(0);
 		vendas.setIdregravenda(0);
-		vendas.setSituacaogerencia("A");
-		vendas.setSituacaofinanceiro("N");
+		vendas.setSituacaogerencia(venda.getSituacaogerencia());
+		vendas.setSituacaofinanceiro(venda.getSituacaofinanceiro());
 		
 		vendas = vendasDao.salvar(vendas);
 		return vendas;

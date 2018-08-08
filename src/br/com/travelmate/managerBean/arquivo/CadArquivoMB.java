@@ -27,6 +27,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
@@ -51,6 +52,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.aupair.FinalizarMB;
+import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
@@ -605,7 +607,24 @@ public class CadArquivoMB implements Serializable {
 			
 			vendas.setSituacao("ANDAMENTO");
 			vendasDao.salvar(vendas);
-			if (idProduto == 1 || idProduto == 16) {
+			if (idProduto == 1) {
+				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
+					seguroviagem.getVendas().setSituacao("ANDAMENTO");
+					seguroviagem.getVendas().setSituacaogerencia("F");
+					vendasDao.salvar(seguroviagem.getVendas());
+				}
+				
+				AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
+				Acomodacaocurso acomodacaocurso = acomodacaoCursoFacade.consultar("SELECT a FROM Acomodacaocurso a WHERE a.curso.vendas.idvendas=" + vendas.getIdvendas());
+				if (acomodacaocurso != null && acomodacaocurso.getIdacomodacaocurso() != null) {
+					Vendas vendasAcomodacao = acomodacaocurso.getAcomodacao().getVendas();
+					vendasAcomodacao.setSituacao("ANDAMENTO");
+					vendasAcomodacao.setSituacaogerencia("F");
+					vendasDao.salvar(vendasAcomodacao);
+				}
+			}else if (idProduto == 16) {
 				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
 				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {

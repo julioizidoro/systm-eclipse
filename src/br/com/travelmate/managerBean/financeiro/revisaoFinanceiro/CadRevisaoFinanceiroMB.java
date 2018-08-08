@@ -20,6 +20,7 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.BolinhasBean;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.BancoFacade;
@@ -42,6 +43,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
+import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
@@ -519,8 +521,10 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		
 		if (validarLiberacao()) {
 			Vendas vendaSeguro = null;
+			Vendas vendasAcomodacao = null;
 			if (venda.getProdutos().getIdprodutos()==1) {
 				vendaSeguro = getVendaSeguro(venda.getIdvendas());
+				vendasAcomodacao = buscarVendaAcomodacao();
 			}
 			
 			if (venda.getSituacaofinanceiro().equalsIgnoreCase("N")) {			
@@ -543,6 +547,12 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					vendaSeguro.setSituacao("FINALIZADA");
 					vendaSeguro.setDataprocesso(new Date());
 					vendasDao.salvar(vendaSeguro);
+				}
+				
+				if (vendasAcomodacao!=null) {
+					vendasAcomodacao.setSituacaofinanceiro("L");
+					vendasAcomodacao.setSituacao("FINALIZADA");
+					vendasDao.salvar(vendasAcomodacao);
 				}
 				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
@@ -634,6 +644,12 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			return "consVendasRevisaoFinanceiro";
 		}
 		return "";
+	}
+	
+	public Vendas buscarVendaAcomodacao() {
+		AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
+		Acomodacaocurso acomodacaocurso = acomodacaoCursoFacade.consultar("SELECT a FROM Acomodacaocurso a WHERE a.curso.vendas.idvendas=" + venda.getIdvendas());
+		return acomodacaocurso.getAcomodacao().getVendas();
 	}
 	
 	
