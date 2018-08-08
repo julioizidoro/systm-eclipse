@@ -95,13 +95,25 @@
 					value="#{cadFornecedorCidadeIdiomaMB.listaFornecedorCidade}" />
 				<p:ajax event="change" />
 			</p:selectOneMenu> 
+			<p:outputLabel  />
+			<p:outputLabel  />
+			<p:outputLabel  />
+			<p:outputLabel/>
+			
 			<h:panelGroup>
+				<p:selectBooleanCheckbox id="acomodacaoindependente"  
+					value="#{cadFornecedorCidadeIdiomaMB.fornecedorCidadeIdioma.acomodacao}" style="background:white !important; color:white !important;"/> 
+				<h:outputText value="Acomodação da Escola"
+					style="margin-left:1%;font-size:12px;font-weight: bold;" /> 
+				
+			</h:panelGroup>
+			<h:panelGroup>
+				
 				<p:selectBooleanCheckbox id="acomodacaoindependente"  
 					value="#{cadFornecedorCidadeIdiomaMB.fornecedorCidadeIdioma.acomodacaoindependente}" style="background:white !important; color:white !important;"/> 
 				<h:outputText value="Acomodação Independente"
 					style="margin-left:1%;font-size:12px;font-weight: bold;" />  
 			</h:panelGroup>
-			<p:outputLabel  /><p:outputLabel  />
 			<p:commandButton id="bntSalvarFornecedor" value="Salvar" title="Incluir novo parceiro idioma."
 				icon="ui-icon-check" action="#{cadFornecedorCidadeIdiomaMB.salvar()}"
 				style="font-size:12px;margin-left:2%" update=":cadastroFornecedorIdioma:tabelaFornecedor, growl" />
