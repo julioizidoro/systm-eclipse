@@ -636,6 +636,19 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					}
 				}
 			}
+			
+			if (vendasAcomodacao != null && vendasAcomodacao.getIdvendas() != null) {
+				for (int i = 0; i < listaVendaNova.size(); i++) {
+					if (listaVendaNova.get(i).getIdvendas() == vendasAcomodacao.getIdvendas()) {
+						listaVendaNova.get(i).setSituacaofinanceiro("L");
+						listaVendaNova.get(i).setSituacao("FINALIZADA");
+						vendasDao.salvar(listaVendaNova.get(i));
+						gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
+						listaVendaNova.remove(i);
+						i = listaVendaNova.size() + 10;
+					}
+				}
+			}
 			gerarLogVenda("Liberada", "Venda liberada pelo financeiro");
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -649,7 +662,9 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	public Vendas buscarVendaAcomodacao() {
 		AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
 		Acomodacaocurso acomodacaocurso = acomodacaoCursoFacade.consultar("SELECT a FROM Acomodacaocurso a WHERE a.curso.vendas.idvendas=" + venda.getIdvendas());
-		return acomodacaocurso.getAcomodacao().getVendas();
+		if (acomodacaocurso != null && acomodacaocurso.getAcomodacao() != null) {
+			return acomodacaocurso.getAcomodacao().getVendas();
+		}else return null;
 	}
 	
 	
