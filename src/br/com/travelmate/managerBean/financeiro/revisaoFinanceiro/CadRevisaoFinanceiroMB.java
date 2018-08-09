@@ -639,7 +639,9 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 			
 			if (vendasAcomodacao != null && vendasAcomodacao.getIdvendas() != null) {
 				for (int i = 0; i < listaVendaNova.size(); i++) {
-					if (listaVendaNova.get(i).getIdvendas() == vendasAcomodacao.getIdvendas()) {
+					int idListaVenda = listaVendaNova.get(i).getIdvendas();
+					int idVendaAcomodacao = vendasAcomodacao.getIdvendas();
+					if (idListaVenda == idVendaAcomodacao) {
 						listaVendaNova.get(i).setSituacaofinanceiro("L");
 						listaVendaNova.get(i).setSituacao("FINALIZADA");
 						vendasDao.salvar(listaVendaNova.get(i));
