@@ -1608,4 +1608,12 @@ public class MenuMB implements Serializable {
 		return "relatorioVendasGerentes";
 	}
 	
+	
+	public boolean habilitarModeloContrato() {
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+			return true;
+		}
+		return false;
+	}
+	
 }
