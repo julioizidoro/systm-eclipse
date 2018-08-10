@@ -39,9 +39,9 @@ public class Arquivoslistamodelo implements Serializable{
     @JoinColumn(name = "tipoarquivoproduto_idtipoarquivoproduto", referencedColumnName = "idtipoarquivoproduto")
     @ManyToOne(optional = false)
     private Tipoarquivoproduto tipoarquivoproduto;
-    @JoinColumn(name = "fornecedorcidadeidioma_idfornecedorcidadeidioma", referencedColumnName = "idfornecedorcidadeidioma")
+    @JoinColumn(name = "fornecedorcidade_idfornecedorcidade", referencedColumnName = "idfornecedorcidade")
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
-    private Fornecedorcidadeidioma fornecedorcidadeidioma;
+    private Fornecedorcidade fornecedorcidade;
     
 
 	public Arquivoslistamodelo() {
@@ -89,13 +89,13 @@ public class Arquivoslistamodelo implements Serializable{
 	}
 
 
-	public Fornecedorcidadeidioma getFornecedorcidadeidioma() {
-		return fornecedorcidadeidioma;
+	public Fornecedorcidade getFornecedorcidade() {
+		return fornecedorcidade;
 	}
 
 
-	public void setFornecedorcidadeidioma(Fornecedorcidadeidioma fornecedorcidadeidioma) {
-		this.fornecedorcidadeidioma = fornecedorcidadeidioma;
+	public void setFornecedorcidade(Fornecedorcidade fornecedorcidade) {
+		this.fornecedorcidade = fornecedorcidade;
 	}
 
 

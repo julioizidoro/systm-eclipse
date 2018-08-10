@@ -740,7 +740,11 @@ public class AuPairMB implements Serializable {
 			session.setAttribute("vendas", aupair.getVendas());
 			voltar = "consultaAuPair";
 			session.setAttribute("voltar", voltar);
-			return "consArquivos";
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
+				return "consArquivos";
+			}else {
+				return "consControleArquivos";
+			}
 		}
 	}
 

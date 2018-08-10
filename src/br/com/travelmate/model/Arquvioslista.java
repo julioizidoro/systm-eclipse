@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "arquvioslista")
@@ -32,6 +33,10 @@ public class Arquvioslista implements Serializable{
 	    @JoinColumn(name = "arquivoslistamodelo_idarquivoslistamodelo", referencedColumnName = "idarquivoslistamodelo")
 	    @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
 	    private Arquivoslistamodelo arquivoslistamodelo;
+	    @Transient
+	    private String imgSituacao;
+	    @Transient
+	    private String corArquivo;
 
 	public Arquvioslista() {
 		// TODO Auto-generated constructor stub
@@ -59,6 +64,22 @@ public class Arquvioslista implements Serializable{
 
 	public void setArquivoslistamodelo(Arquivoslistamodelo arquivoslistamodelo) {
 		this.arquivoslistamodelo = arquivoslistamodelo;
+	}
+
+	public String getImgSituacao() {
+		return imgSituacao;
+	}
+
+	public void setImgSituacao(String imgSituacao) {
+		this.imgSituacao = imgSituacao;
+	}
+
+	public String getCorArquivo() {
+		return corArquivo;
+	}
+
+	public void setCorArquivo(String corArquivo) {
+		this.corArquivo = corArquivo;
 	}
 
 	@Override

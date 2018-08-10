@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"> 
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+        <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
+    </h:head> 
+ <h:body > 
+        <h:form id="idDialogAnexarArquivo" style="text-align:left;font-size:11px; margin-left: 1%; ">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+			<title  >Novo Arquivo</title>
+			<p:growl id="growl" showDetail="true" autoUpdate="true" closable="true" />
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+                <img src="../../resources/img/novoCarregando2.gif" />
+            </p:dialog> 
+			<h:panelGrid columns="1">
+				<p:outputLabel value="Tipo de arquivo" for="tipoArquivo" />
+				<p:selectOneMenu  id="tipoArquivo"  style="width: 350px;"  value="#{cadControleArquivosMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
+                             filter="true" filterMatchMode="contains" panelStyle="width:180px" >
+                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+                    <f:selectItems  value="#{cadControleArquivosMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
+                    <f:attribute name="listaTipoArquivoProduto" value="#{cadControleArquivosMB.listaTipoArquivo}"/>
+                    <p:ajax event="change" listener="#{cadControleArquivosMB.habilitarCambosBilhete()}" update="@form"/>
+                </p:selectOneMenu>
+                <p:outputLabel/>
+            	<p:outputLabel value="Observações" for="obs" class="fontebranca" /> 
+                <p:inputTextarea id="obs"  value="#{cadControleArquivosMB.arquivos.observacao}" rows="3" maxlength="100" style="width:407px;" />
+            </h:panelGrid>
+            <br />
+            <h:panelGroup id="camposBilhete" rendered="#{cadControleArquivosMB.camposbilhete}">
+	            <h:panelGrid columns="2" >
+	            	<p:outputLabel value="Data de Embarque"/>
+	            	<p:outputLabel value="Data Chegada no Brasil"/>
+	            	<p:calendar id="dataEmbarque" size="12" value="#{cadControleArquivosMB.dataembarque}"  locale="pt"
+						pattern="dd/MM/yyyy" mask="true" maxlength="15">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />  
+					</p:calendar>  
+	            	<p:calendar id="dataChegada" size="12" value="#{cadControleArquivosMB.datachegadabrasil}"  locale="pt"
+						pattern="dd/MM/yyyy" mask="true" maxlength="15" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />   
+					</p:calendar>  
+	            </h:panelGrid>
+	        </h:panelGroup> 
+            <br />
+            <h:panelGrid>
+				<p:fileUpload multiple="true"  label="Anexar" fileUploadListener="#{cadControleArquivosMB.fileUploadListener}" value="#{cadControleArquivosMB.file}"  mode="advanced" 
+                     update="growl" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
+                </p:fileUpload>
+			</h:panelGrid> 
+             <p:outputLabel value="#{finalizarMB.nome}"/>
+            <br /><br /><br /><br />
+             <h:panelGrid columns="2" style="margin-left:30%;">   
+				<p:commandButton id="btnConfirmar"  value="Confirmar" action="#{cadControleArquivosMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
+			    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadControleArquivosMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
+			 </h:panelGrid>  
+			 <br /><br /><br /><br />
+        </h:form>
+ </h:body>
+ 
+</html>

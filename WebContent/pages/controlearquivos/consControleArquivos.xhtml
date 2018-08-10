@@ -1,0 +1,463 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultaArquivos">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<legend id="iUsu2">
+					<b><p:outputLabel
+							value="#{controleArquivosMB.vendas.idvendas} - #{controleArquivosMB.vendas.cliente.nome}"
+							class="fontebranca" style="font-size:14px;" /></b>
+				</legend>
+				<br></br>
+				<h:panelGrid style="margin-left:3%" columns="4" width="97%;">
+					<p:outputLabel value="#{controleArquivosMB.titulo1}" class="fontebranca"
+						style="font-size:14px; color:#1F888A" />
+					<br></br>
+
+				</h:panelGrid>
+				<br />
+				<div class="row" style="margin-left:2%;">
+					<div class="col-md-4">
+						<p:dataScroller id="tabelaArquivos1"
+							value="#{controleArquivosMB.listaArquivos}" var="arquivos1"
+							chunkSize="10"
+							style="margin-left:2% ! important;width:95%;background:#f5f3e5;">
+							<p:outputPanel style="text-align: left;width:100%">
+								<br />
+								<h:panelGrid columns="1" style="width:100%;">
+									<h:panelGrid columns="3" style="width:34%;float: right;">
+										<p:commandLink id="btnUpload1" actionListener="#{controleArquivosMB.adicionarrUplaod(arquivos1.arquivos)}" update="@all"
+											title="Upload do arquivo" style="text-decoration: none">
+											<img src="../../resources/img/arquivosUpload.png"
+												style="width: 30px;" />
+											<p:ajax event="dialogReturn" listener="#{controleArquivosMB.retornoDialogArquivo}" update="@all"/>
+										</p:commandLink>
+										<p:commandLink id="btnSituacao1" actionListener="#{controleArquivosMB.mudarSituacao(arquivos1.arquivos)}"
+											style="text-decoration: none" update="@all">
+											<img src="#{arquivos1.imgSituacao}"
+												style="width: 30px;" />
+
+										</p:commandLink>
+										<p:commandLink id="btnCorrecao1" actionListener="#{controleArquivosMB.habilitarHistorico(arquivos1.arquivos)}"
+											 update="@form"
+											style="text-decoration: none">
+											<img src="../../resources/img/informacao.png"
+												style="width: 30px;" />
+
+										</p:commandLink>
+									</h:panelGrid>
+								</h:panelGrid>
+								<br />
+								<h:panelGrid columns="1" style="width:90%;margin-left:3%;">
+									<h:panelGrid columns="4" style="width:100%;">
+										<p:commandLink id="btnArquivo1" actionListener="#{controleArquivosMB.habilitarUplaod(arquivos1.arquivos)}"
+											 update="@all" value="#{arquivos1.arquivos.tipoarquivo.descricao}"
+											style="text-decoration: none;font-size:16px;#{arquivos1.corArquivo}">
+
+										</p:commandLink>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<h:panelGroup>
+											<hr />
+										</h:panelGroup>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel id="explicacao1"
+											value="#{arquivos1.arquivos.tipoarquivo.explicacao}"
+											style="font-size:12px;width:100%;color:#708090" />
+
+									</h:panelGrid>
+								</h:panelGrid>
+								<br></br>
+								<div class="line_1"></div>
+							</p:outputPanel>
+						</p:dataScroller>
+					</div> 
+						<h:panelGroup id="idPdf1" rendered="#{controleArquivosMB.panelPdf}">
+							<div class="col-md-4">  
+								<object type="application/pdf"
+									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo()}?pfdrid_c=true"
+									width="600px" height="515px" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup id="idHistorico" rendered="#{controleArquivosMB.panelHistorico}">
+							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
+								<br/>
+								<h:panelGroup>
+									<p:inputText id="iddescricao" value="#{controleArquivosMB.descricao}" style="margin-left:2%;width:58%;"/>
+									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico, iddescricao" action="#{controleArquivosMB.salvarCorrecao()}"/>
+								</h:panelGroup>
+								<br/><br/>
+									<p:dataTable id="tabelaHistorico" var="historico"
+										value="#{controleArquivosMB.listaHistorico}"
+										class="tabela" scrollable="true" scrollHeight="300"
+										>
+										<p:column headerText="Data" style="width:100px;">
+											<h:outputText value="#{historico.data}" >
+												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+											</h:outputText>
+										</p:column>
+										<p:column headerText="Hora" style="width:100px;">
+											<h:outputText value="#{historico.hora}" />
+										</p:column>
+										<p:column headerText="Descricao">
+											<h:outputText value="#{historico.descricao}" />
+										</p:column>
+										<p:column headerText="Usuario">
+											<h:outputText value="#{historico.usuario.nome}" />
+										</p:column>
+									</p:dataTable>
+									<br/>
+								</div>
+						</h:panelGroup>
+
+				</div>
+				
+				<br/><br/><br/>
+				<h:panelGrid style="margin-left:3%" columns="4" width="97%;">
+					<p:outputLabel value="#{controleArquivosMB.titulo2}" class="fontebranca"
+						style="font-size:14px; color:#1F888A" />
+					<br></br>
+
+				</h:panelGrid>
+				<br />
+				<div class="row" style="margin-left:2%;">
+					<div class="col-md-4">
+						<p:dataScroller id="tabelaArquivos2"
+							value="#{controleArquivosMB.listaArquivos2}" var="arquivos2"
+							chunkSize="10"
+							style="margin-left:2% ! important;width:95%;background:#f5f3e5;">
+							<p:outputPanel style="text-align: left;width:100%">
+								<br />
+								<h:panelGrid columns="1" style="width:100%;">
+									<h:panelGrid columns="3" style="width:34%;float: right;">
+										<p:commandLink id="btnUpload2" actionListener="#{controleArquivosMB.adicionarrUplaod(arquivos2.arquivos)}" update="@all"
+											title="Upload do arquivo" style="text-decoration: none">
+											<img src="../../resources/img/arquivosUpload.png"
+												style="width: 30px;" />
+											<p:ajax event="dialogReturn" listener="#{controleArquivosMB.retornoDialogArquivo2}" update="@all"/>
+										</p:commandLink>
+										<p:commandLink id="btnSituacao2" actionListener="#{controleArquivosMB.mudarSituacao2(arquivos2.arquivos)}"
+											style="text-decoration: none" update="@all">
+											<img src="#{arquivos2.imgSituacao}"
+												style="width: 30px;" />
+
+										</p:commandLink>
+										<p:commandLink id="btnCorrecao2" actionListener="#{controleArquivosMB.habilitarHistorico2(arquivos2.arquivos)}"
+											 update="@form"
+											style="text-decoration: none">
+											<img src="../../resources/img/informacao.png"
+												style="width: 30px;" />
+
+										</p:commandLink>
+									</h:panelGrid>
+								</h:panelGrid>
+								<br />
+								<h:panelGrid columns="1" style="width:90%;margin-left:3%;">
+									<h:panelGrid columns="4" style="width:100%;">
+										<p:commandLink id="btnArquivo2" actionListener="#{controleArquivosMB.habilitarUplaod2(arquivos2.arquivos)}"
+											 update="@all" value="#{arquivos2.arquivos.tipoarquivo.descricao}"
+											style="text-decoration: none;font-size:16px;#{arquivos2.corArquivo}">
+
+										</p:commandLink>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<h:panelGroup>
+											<hr />
+										</h:panelGroup>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel id="explicacao2"
+											value="#{arquivos2.arquivos.tipoarquivo.explicacao}"
+											style="font-size:12px;width:100%;color:#708090" />
+
+									</h:panelGrid>
+								</h:panelGrid>
+								<br></br>
+								<div class="line_1"></div>
+							</p:outputPanel>
+						</p:dataScroller>
+					</div> 
+						<h:panelGroup id="idPdf2" rendered="#{controleArquivosMB.panelPdf2}">
+							<div class="col-md-4">  
+								<object type="application/pdf"
+									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo2()}?pfdrid_c=true"
+									width="600px" height="515px" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup id="idHistorico2" rendered="#{controleArquivosMB.panelHistorico2}">
+							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
+								<br/>
+								<h:panelGroup>
+									<p:inputText id="iddescricao2" value="#{controleArquivosMB.descricao2}" style="margin-left:2%;width:58%;"/>
+									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico2, iddescricao2" action="#{controleArquivosMB.salvarCorrecao2()}"/>
+								</h:panelGroup>
+								<br/><br/>
+									<p:dataTable id="tabelaHistorico2" var="historico"
+										value="#{controleArquivosMB.listaHistorico2}"
+										class="tabela" scrollable="true" scrollHeight="300"
+										>
+										<p:column headerText="Data" style="width:100px;">
+											<h:outputText value="#{historico.data}" >
+												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+											</h:outputText>
+										</p:column>
+										<p:column headerText="Hora" style="width:100px;">
+											<h:outputText value="#{historico.hora}" />
+										</p:column>
+										<p:column headerText="Descricao">
+											<h:outputText value="#{historico.descricao}" />
+										</p:column>
+										<p:column headerText="Usuario">
+											<h:outputText value="#{historico.usuario.nome}" />
+										</p:column>
+									</p:dataTable>
+									<br/>
+								</div>
+						</h:panelGroup>
+
+				</div>
+				<br/><br/><br/>
+				<h:panelGrid style="margin-left:3%" columns="4" width="97%;">
+					<p:outputLabel value="#{controleArquivosMB.titulo3}" class="fontebranca"
+						style="font-size:14px; color:#1F888A" />
+					<br></br>
+
+				</h:panelGrid>
+				<br />
+				<div class="row" style="margin-left:2%;">
+					<div class="col-md-4">
+						<p:dataScroller id="tabelaArquivos3"
+							value="#{controleArquivosMB.listaArquivos3}" var="arquivos3"
+							chunkSize="10"
+							style="margin-left:2% ! important;width:95%;background:#f5f3e5;">
+							<p:outputPanel style="text-align: left;width:100%">
+								<br />
+								<h:panelGrid columns="1" style="width:100%;">
+									<h:panelGrid columns="3" style="width:34%;float: right;">
+										<p:commandLink id="btnUpload3" actionListener="#{controleArquivosMB.adicionarrUplaod(arquivos3.arquivos)}"
+											title="Upload do arquivo" style="text-decoration: none">
+											<img src="../../resources/img/arquivosUpload.png"
+												style="width: 30px;" />
+											<p:ajax event="dialogReturn" listener="#{controleArquivosMB.retornoDialogArquivo3}" update="@all"/>
+										</p:commandLink>
+										<p:commandLink id="btnSituacao3" actionListener="#{controleArquivosMB.mudarSituacao3(arquivos3.arquivos)}"
+											style="text-decoration: none" update="@all">
+											<img src="#{arquivos3.imgSituacao}"
+												style="width: 30px;" />
+
+										</p:commandLink>
+										<p:commandLink id="btnCorrecao3" actionListener="#{controleArquivosMB.habilitarHistorico3(arquivos3.arquivos)}"
+											 update="@form"
+											style="text-decoration: none">
+											<img src="../../resources/img/informacao.png"
+												style="width: 30px;" />
+
+										</p:commandLink>
+									</h:panelGrid>
+								</h:panelGrid>
+								<br />
+								<h:panelGrid columns="1" style="width:90%;margin-left:3%;">
+									<h:panelGrid columns="4" style="width:100%;">
+										<p:commandLink id="btnArquivo3" actionListener="#{controleArquivosMB.habilitarUplaod3(arquivos3.arquivos)}"
+											 update="@all" value="#{arquivos3.arquivos.tipoarquivo.descricao}"
+											style="text-decoration: none;font-size:16px;#{arquivos3.corArquivo}">
+
+										</p:commandLink>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<h:panelGroup>
+											<hr />
+										</h:panelGroup>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel id="explicacao3"
+											value="#{arquivos3.arquivos.tipoarquivo.explicacao}"
+											style="font-size:12px;width:100%;color:#708090" />
+
+									</h:panelGrid>
+								</h:panelGrid>
+								<br></br>
+								<div class="line_1"></div>
+							</p:outputPanel>
+						</p:dataScroller>
+					</div> 
+						<h:panelGroup id="idPdf3" rendered="#{controleArquivosMB.panelPdf3}">
+							<div class="col-md-4">  
+								<object type="application/pdf"
+									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo3()}?pfdrid_c=true"
+									width="600px" height="515px" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup id="idHistorico3" rendered="#{controleArquivosMB.panelHistorico3}">
+							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
+								<br/>
+								<h:panelGroup>
+									<p:inputText id="iddescricao3" value="#{controleArquivosMB.descricao3}" style="margin-left:2%;width:58%;"/>
+									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico3, iddescricao3" action="#{controleArquivosMB.salvarCorrecao3()}"/>
+								</h:panelGroup>
+								<br/><br/>
+									<p:dataTable id="tabelaHistorico3" var="historico"
+										value="#{controleArquivosMB.listaHistorico3}"
+										class="tabela" scrollable="true" scrollHeight="300"
+										>
+										<p:column headerText="Data" style="width:100px;">
+											<h:outputText value="#{historico.data}" >
+												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+											</h:outputText>
+										</p:column>
+										<p:column headerText="Hora" style="width:100px;">
+											<h:outputText value="#{historico.hora}" />
+										</p:column>
+										<p:column headerText="Descricao">
+											<h:outputText value="#{historico.descricao}" />
+										</p:column>
+										<p:column headerText="Usuario">
+											<h:outputText value="#{historico.usuario.nome}" />
+										</p:column>
+									</p:dataTable>
+									<br/>
+								</div>
+						</h:panelGroup>
+
+				</div>
+				<br/><br/><br/>
+				<h:panelGrid style="margin-left:3%" columns="4" width="8%;">
+					<p:outputLabel value="Outros" class="fontebranca"
+						style="font-size:14px; color:#1F888A" />
+					<p:commandLink id="btnAddArquivo"
+						actionListener="#{controleArquivosMB.adicionarOutrosArquivo()}"
+						style="text-decoration: none">
+						<img src="../../resources/img/iconeAdicionar.png"
+												style="width: 25px;" />
+						<p:ajax update="tabelaArquivos4" event="dialogReturn" listener="#{controleArquivosMB.retornoDialogOutrosArquivos}"/>
+
+					</p:commandLink>
+					<br></br>
+
+				</h:panelGrid>
+				<br />
+				<div class="row" style="margin-left:2%;">
+					<div class="col-md-4">
+						<p:dataScroller id="tabelaArquivos4"
+							value="#{controleArquivosMB.listaArquivos4}" var="arquivos4"
+							chunkSize="10"
+							style="margin-left:2% ! important;width:95%;background:#f5f3e5;">
+							<p:outputPanel style="text-align: left;width:100%">
+								<br />
+								<h:panelGrid columns="1" style="width:100%;">
+									<h:panelGrid columns="3" style="width:34%;float: right;">
+										<p:commandLink id="btnUpload4" actionListener="#{controleArquivosMB.adicionarrUplaod(arquivos4.arquivos)}" update="@all"
+											title="Upload do arquivo" style="text-decoration: none">
+											<img src="../../resources/img/arquivosUpload.png"
+												style="width: 30px;" />
+											<p:ajax event="dialogReturn" listener="#{controleArquivosMB.retornoDialogArquivo4}" update="@all"/>
+										</p:commandLink>
+										<p:commandLink id="btnSituacao4" actionListener="#{controleArquivosMB.mudarSituacao4(arquivos4.arquivos)}"
+											style="text-decoration: none" update="@all">
+											<img src="#{arquivos4.imgSituacao}"
+												style="width: 30px;" />
+										</p:commandLink>
+										<p:commandLink id="btnCorrecao4" actionListener="#{controleArquivosMB.habilitarHistorico4(arquivos4.arquivos)}"
+											 update="@form"
+											style="text-decoration: none">
+											<img src="../../resources/img/informacao.png"
+												style="width: 30px;" />
+
+										</p:commandLink>
+									</h:panelGrid>
+								</h:panelGrid>
+								<br />
+								<h:panelGrid columns="1" style="width:90%;margin-left:3%;">
+									<h:panelGrid columns="4" style="width:100%;">
+										<p:commandLink id="btnArquivo4" actionListener="#{controleArquivosMB.habilitarUplaod4(arquivos4.arquivos)}"
+											 update="@all" value="#{arquivos4.arquivos.tipoarquivo.descricao}"
+											style="text-decoration: none;font-size:16px;#{arquivos4.corArquivo}">
+
+										</p:commandLink>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<h:panelGroup>
+											<hr />
+										</h:panelGroup>
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<p:outputLabel id="explicacao4"
+											value="#{arquivos4.arquivos.tipoarquivo.explicacao}"
+											style="font-size:12px;width:100%;color:#708090" />
+
+									</h:panelGrid>
+								</h:panelGrid>
+								<br></br>
+								<div class="line_1"></div>
+							</p:outputPanel>
+						</p:dataScroller>
+					</div> 
+						<h:panelGroup id="idPdf4" rendered="#{controleArquivosMB.panelPdf4}">
+							<div class="col-md-4">  
+								<object type="application/pdf"
+									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo4()}?pfdrid_c=true"
+									width="600px" height="515px" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup id="idHistorico4" rendered="#{controleArquivosMB.panelHistorico4}">
+							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
+								<br/>
+								<h:panelGroup>
+									<p:inputText id="iddescricao4" value="#{controleArquivosMB.descricao4}" style="margin-left:2%;width:58%;"/>
+									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico4, iddescricao4" action="#{controleArquivosMB.salvarCorrecao4()}"/>
+								</h:panelGroup>
+								<br/><br/>
+									<p:dataTable id="tabelaHistorico4" var="historico"
+										value="#{controleArquivosMB.listaHistorico4}"
+										class="tabela" scrollable="true" scrollHeight="300"
+										>
+										<p:column headerText="Data" style="width:100px;">
+											<h:outputText value="#{historico.data}" >
+												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+											</h:outputText>
+										</p:column>
+										<p:column headerText="Hora" style="width:100px;">
+											<h:outputText value="#{historico.hora}" />
+										</p:column>
+										<p:column headerText="Descricao">
+											<h:outputText value="#{historico.descricao}" />
+										</p:column>
+										<p:column headerText="Usuario">
+											<h:outputText value="#{historico.usuario.nome}" />
+										</p:column>
+									</p:dataTable>
+									<br/>
+								</div>
+						</h:panelGroup>
+
+				</div>
+
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

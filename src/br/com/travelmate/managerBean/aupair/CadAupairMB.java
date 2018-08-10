@@ -26,11 +26,13 @@ import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
+import br.com.travelmate.dao.ArquivosListaDao;
 import br.com.travelmate.dao.ArquivosListaModeloDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -49,7 +51,9 @@ import br.com.travelmate.facade.ValorAupairFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Arquivoslistamodelo;
+import br.com.travelmate.model.Arquvioslista;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -98,6 +102,8 @@ public class CadAupairMB implements Serializable {
 	private VendasDao vendasDao;
 	@Inject
 	private ArquivosListaModeloDao arquivosListaModeloDao;
+	@Inject
+	private ArquivosListaDao arquivosListaDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1265,6 +1271,7 @@ public class CadAupairMB implements Serializable {
 					}
 					
 				}
+				salvarListaArquivos();
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
@@ -1318,8 +1325,25 @@ public class CadAupairMB implements Serializable {
 	}
 	
 	public void salvarListaArquivos() {
-		Fornecedorcidadeidioma fornecedorcidadeidioma = buscarFornCidadeIdioma();
-		List<Arquivoslistamodelo> listaArquivosModelo = buscarModeloLista(fornecedorcidadeidioma);
+		if (verificarListaArquivos()) {
+			List<Arquivoslistamodelo> listaArquivosModelo = buscarModeloLista();
+			for (int i = 0; i < listaArquivosModelo.size(); i++) {
+				ArquivosFacade arquivosFacade = new ArquivosFacade();
+				Arquivos arquivos = new Arquivos();
+				arquivos.setDataInclusao(new Date());
+				arquivos.setCliente(cliente);
+				arquivos.setVendas(venda);
+				arquivos.setUsuario(usuarioLogadoMB.getUsuario());
+				arquivos.setTipoarquivo(listaArquivosModelo.get(i).getTipoarquivoproduto().getTipoarquivo());
+				arquivos.setSe(false);
+				arquivos.setSitaucao(false);
+				arquivos = arquivosFacade.salvar(arquivos);
+				Arquvioslista arquvioslista = new Arquvioslista();
+				arquvioslista.setArquivos(arquivos);
+				arquvioslista.setArquivoslistamodelo(listaArquivosModelo.get(i));
+				arquivosListaDao.salvar(arquvioslista);
+			}
+		}
 	}
 	
 	public Fornecedorcidadeidioma buscarFornCidadeIdioma() {
@@ -1336,14 +1360,24 @@ public class CadAupairMB implements Serializable {
 		return fornecedorcidadeidioma;
 	}
 	
-	public List<Arquivoslistamodelo> buscarModeloLista(Fornecedorcidadeidioma fornecedorcidadeidioma) {
-		List<Arquivoslistamodelo> listaArquivosModelo = arquivosListaModeloDao.lista("SELECT a FROM Arquivoslistamodelo a WHERE a.tipoarquivoproduto.produtos="
-				+ venda.getProdutos().getIdprodutos() + " and fornecedorcidadeidioma.idfornecedorcidadeidioma=" + fornecedorcidadeidioma.getIdfornecedorcidadeidioma());
+	public List<Arquivoslistamodelo> buscarModeloLista() {
+		List<Arquivoslistamodelo> listaArquivosModelo = arquivosListaModeloDao.lista("SELECT a FROM Arquivoslistamodelo a WHERE a.tipoarquivoproduto.produtos.idprodutos="
+				+ venda.getProdutos().getIdprodutos() + " and a.fornecedorcidade.idfornecedorcidade=" + fornecedorCidade.getIdfornecedorcidade());
 		if (listaArquivosModelo == null) {
 			listaArquivosModelo = new ArrayList<Arquivoslistamodelo>();
 		}
 		return listaArquivosModelo;
 	}
+	
+	public boolean verificarListaArquivos() {
+		List<Arquvioslista> lista = arquivosListaDao.lista("SELECT a FROM Arquvioslista a WHERE a.arquivos.vendas.idvendas=" + venda.getIdvendas());
+		if (lista != null && lista.size() > 0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
 
 	public String validarDados() {
 		String msg = "";

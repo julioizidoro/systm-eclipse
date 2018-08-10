@@ -1,0 +1,832 @@
+package br.com.travelmate.managerBean.arquivo;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
+import br.com.travelmate.bean.ContasReceberBean;
+import br.com.travelmate.dao.ArquivosListaDao;
+import br.com.travelmate.dao.ArquivosListaModeloDao;
+import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.AcomodacaoCursoFacade;
+import br.com.travelmate.facade.ArquivosFacade;
+import br.com.travelmate.facade.AupairFacade;
+import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.DemipairFacade;
+import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.HighSchoolFacade;
+import br.com.travelmate.facade.InvoiceFacade;
+import br.com.travelmate.facade.ProgramasTeensFacede;
+import br.com.travelmate.facade.RegraVendaFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.TipoArquivoProdutoFacade;
+import br.com.travelmate.facade.TraineeFacade;
+import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
+import br.com.travelmate.facade.UsuarioFacade;
+import br.com.travelmate.facade.UsuarioPontosFacade;
+import br.com.travelmate.facade.VoluntariadoFacade;
+import br.com.travelmate.facade.WorkTravelFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.MateRunnersMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.aupair.FinalizarMB;
+import br.com.travelmate.model.Acomodacaocurso;
+import br.com.travelmate.model.Arquivos;
+import br.com.travelmate.model.Arquivoslistamodelo;
+import br.com.travelmate.model.Arquvioslista;
+import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Avisos;
+import br.com.travelmate.model.Avisousuario;
+import br.com.travelmate.model.Cliente;
+import br.com.travelmate.model.Controlecurso;
+import br.com.travelmate.model.Controlevoluntariado;
+import br.com.travelmate.model.Controlework;
+import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Demipair;
+import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Highschool;
+import br.com.travelmate.model.Invoice;
+import br.com.travelmate.model.Leadposvenda;
+import br.com.travelmate.model.Programasteens;
+import br.com.travelmate.model.Regravenda;
+import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Tipoarquivoproduto;
+import br.com.travelmate.model.Trainee;
+import br.com.travelmate.model.Usuario;
+import br.com.travelmate.model.Usuariodepartamentounidade;
+import br.com.travelmate.model.Usuariopontos;
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Voluntariado;
+import br.com.travelmate.model.Worktravel;
+import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.Ftp;
+import br.com.travelmate.util.Mensagem;
+
+
+@Named
+@ViewScoped
+public class CadOutrosArquivosMB implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private LeadPosVendaDao leadPosVendaDao;
+	@Inject
+	private VendasDao vendasDao;
+	@Inject
+	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private ArquivosListaDao arquivosListaDao;
+	@Inject
+	private MateRunnersMB metaRunnersMB;
+	private Arquivos arquivos;
+	private Tipoarquivoproduto tipoarquivo;
+	private List<Tipoarquivoproduto> listaTipoArquivo;
+	private Vendas vendas;
+	private String nomeArquivoFTP;
+	private UploadedFile file;
+	private FileUploadEvent ex;
+	private List<String> listaNomeArquivo;
+	private List<UploadedFile> listaFile;
+	private List<Arquivos> listaArquivos;
+	private boolean camposbilhete=false;
+	private Date dataembarque;
+	private Date datachegadabrasil;
+	private boolean arquivoEnviado = false;
+	private FinalizarMB finalizar;
+	private Cliente cliente;
+	private Arquivoslistamodelo arquivoslistamodelo;
+
+	@PostConstruct
+	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		vendas = (Vendas) session.getAttribute("vendas");
+		cliente = (Cliente) session.getAttribute("cliente");
+		arquivoslistamodelo = (Arquivoslistamodelo) session.getAttribute("arquivoslistamodelo");
+		session.removeAttribute("vendas");
+		session.removeAttribute("cliente");
+		session.removeAttribute("arquivoslistamodelo");
+		gerarListaTipoArquivo();
+		arquivos = new Arquivos();
+	}
+
+	public FileUploadEvent getEx() {
+		return ex;
+	}
+
+	public void setEx(FileUploadEvent ex) {
+		this.ex = ex;
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public String getNomeArquivoFTP() {
+		return nomeArquivoFTP;
+	}
+
+	public void setNomeArquivoFTP(String nomeArquivoFTP) {
+		this.nomeArquivoFTP = nomeArquivoFTP;
+	}
+
+	public AplicacaoMB getAplicacaoMB() {
+		return aplicacaoMB;
+	}
+
+	public void setAplicacaoMB(AplicacaoMB aplicacaoMB) {
+		this.aplicacaoMB = aplicacaoMB;
+	}
+
+	public Arquivos getArquivos() {
+		return arquivos;
+	}
+
+	public void setArquivos(Arquivos arquivos) {
+		this.arquivos = arquivos;
+	}
+
+	public Tipoarquivoproduto getTipoarquivo() {
+		return tipoarquivo;
+	}
+
+	public void setTipoarquivo(Tipoarquivoproduto tipoarquivo) {
+		this.tipoarquivo = tipoarquivo;
+	}
+
+	public List<Tipoarquivoproduto> getListaTipoArquivo() {
+		return listaTipoArquivo;
+	}
+
+	public void setListaTipoArquivo(List<Tipoarquivoproduto> listaTipoArquivo) {
+		this.listaTipoArquivo = listaTipoArquivo;
+	}
+
+	public Vendas getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(Vendas vendas) {
+		this.vendas = vendas;
+	}
+
+	public List<String> getListaNomeArquivo() {
+		return listaNomeArquivo;
+	}
+
+	public void setListaNomeArquivo(List<String> listaNomeArquivo) {
+		this.listaNomeArquivo = listaNomeArquivo;
+	}
+
+	public UsuarioLogadoMB getUsuarioLogadoMB() {
+		return usuarioLogadoMB;
+	}
+
+	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
+		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Arquivos> getListaArquivos() {
+		return listaArquivos;
+	}
+
+	public void setListaArquivos(List<Arquivos> listaArquivos) {
+		this.listaArquivos = listaArquivos;
+	}
+
+	public List<UploadedFile> getListaFile() {
+		return listaFile;
+	}
+
+	public void setListaFile(List<UploadedFile> listaFile) {
+		this.listaFile = listaFile;
+	}
+
+	public MateRunnersMB getMetaRunnersMB() {
+		return metaRunnersMB;
+	}
+
+	public void setMetaRunnersMB(MateRunnersMB metaRunnersMB) {
+		this.metaRunnersMB = metaRunnersMB;
+	}
+
+	public boolean isCamposbilhete() {
+		return camposbilhete;
+	}
+
+	public void setCamposbilhete(boolean camposbilhete) {
+		this.camposbilhete = camposbilhete;
+	}
+
+	public Date getDataembarque() {
+		return dataembarque;
+	}
+
+	public void setDataembarque(Date dataembarque) {
+		this.dataembarque = dataembarque;
+	}
+
+	public Date getDatachegadabrasil() {
+		return datachegadabrasil;
+	}
+
+	public void setDatachegadabrasil(Date datachegadabrasil) {
+		this.datachegadabrasil = datachegadabrasil;
+	}
+
+	public boolean isArquivoEnviado() {
+		return arquivoEnviado;
+	}
+
+	public void setArquivoEnviado(boolean arquivoEnviado) {
+		this.arquivoEnviado = arquivoEnviado;
+	}
+
+	public FinalizarMB getFinalizar() {
+		return finalizar;
+	}
+
+	public void setFinalizar(FinalizarMB finalizar) {
+		this.finalizar = finalizar;
+	}
+
+	public void gerarListaTipoArquivo() {
+		TipoArquivoProdutoFacade tipoArquivoFacade = new TipoArquivoProdutoFacade();
+		try {
+			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+				listaTipoArquivo = tipoArquivoFacade.listar("Select t from Tipoarquivoproduto t"
+						+ " where t.produtos.idprodutos="+vendas.getProdutos().getIdprodutos());
+			} else
+				listaTipoArquivo = tipoArquivoFacade
+						.listar("Select t from Tipoarquivoproduto t where t.tipoarquivo.unidade='Sim'"
+								+ " and t.produtos.idprodutos="+vendas.getProdutos().getIdprodutos()); 
+			if (listaTipoArquivo == null) {
+				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
+			}
+		} catch (SQLException e) {  
+			e.printStackTrace();
+		}
+	}
+
+	public String salvar() {
+		if (validacaoDados()) {
+				ArquivosFacade arquivosFacade = new ArquivosFacade();
+				arquivos.setTipoarquivo(tipoarquivo.getTipoarquivo());
+				arquivos.setUsuario(usuarioLogadoMB.getUsuario());
+				arquivos.setDataInclusao(new Date());
+				if (vendas.getProdutos().getIdprodutos()==22) {
+					arquivos.setCliente(cliente);
+				}else arquivos.setCliente(vendas.getCliente());
+				arquivos.setVendas(vendas);
+				arquivos.setNomesalvos("");
+				arquivos.setNomeArquivo("");
+				arquivos.setObservacao("");
+				arquivos.setSitaucao(false);
+				arquivos.setVendas(vendas);
+				arquivos = arquivosFacade.salvar(arquivos);
+				Arquvioslista arquvioslista = new Arquvioslista();
+				arquvioslista.setArquivos(arquivos);
+				arquvioslista.setArquivoslistamodelo(arquivoslistamodelo);
+				arquvioslista = arquivosListaDao.salvar(arquvioslista);
+			RequestContext.getCurrentInstance().closeDialog(arquvioslista);
+		}else {
+			TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
+			tipoarquivo = new Tipoarquivoproduto();
+			try {
+				tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
+
+	public String cancelar() {
+		// para preencher a combobox tipo arquivo para não de erro de null
+		TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
+		tipoarquivo = new Tipoarquivoproduto();
+		try {
+			tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("cliente", cliente);
+		RequestContext.getCurrentInstance().closeDialog(new Arquvioslista());
+		return "";
+	}
+
+	// Salvar Nome para o ftp
+	public String nomeArquivo() {
+		if (vendas.getProdutos().getIdprodutos()==22) {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" +cliente.getIdcliente() ;
+		}else {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" + vendas.getCliente().getIdcliente() ;
+		}
+		
+		return nomeArquivoFTP;
+	}
+
+	// Salvar nome do arquivo para tabela arquivos
+	public String nomeArquivoSalvo() {
+		if (vendas.getProdutos().getIdprodutos()==22) {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" + cliente.getIdcliente();
+		}else {
+			nomeArquivoFTP = vendas.getIdvendas() + "_" + vendas.getCliente().getIdcliente();
+		}
+		
+		return nomeArquivoFTP;
+	}
+
+	public void fileUploadListener(FileUploadEvent e) {
+		this.file = e.getFile();
+		salvarArquivoFTP();
+		if (arquivoEnviado) {
+			String nome = e.getFile().getFileName();
+			try {
+				nome = new String(nome.getBytes(Charset.defaultCharset()), "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			if (listaNomeArquivo == null) {
+				listaNomeArquivo = new ArrayList<String>();
+			}
+			listaNomeArquivo.add(nome);
+		}
+	}
+
+	public boolean salvarArquivoFTP() {
+		String msg = "";
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		Ftpdados dadosFTP = null;
+		try {
+			dadosFTP = ftpDadosFacade.getFTPDados();
+		} catch (SQLException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro", "");
+		}
+		if (dadosFTP == null) {
+			return false;
+		}
+		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
+		try {
+			if (!ftp.conectar()) {
+				mostrarMensagem(null, "Erro conectar FTP", "");
+				return false;
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
+		}    
+		try {
+			nomeArquivoFTP = nomeArquivoSalvo();
+			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/arquivos");
+			if (arquivoEnviado) {
+				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+			}else{
+				msg = " Erro no nome do arquivo";
+			}
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(msg, ""));
+			ftp.desconectar();
+			return true;
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
+		}
+		try {
+			ftp.desconectar();
+		} catch (IOException ex) {
+			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
+			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
+		}
+		return false;
+	}
+
+	public void mostrarMensagem(Exception ex, String erro, String titulo) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		erro = erro + " - " + ex;
+		context.addMessage(null, new FacesMessage(titulo, erro));
+	}
+
+	public void verificarDocumentosCursos() {
+		boolean ficha = false;
+		boolean contrato = false;
+		boolean rg = false;
+		boolean documentoComFoto = false;
+		for (int i = 0; i < listaArquivos.size(); i++) {
+			if (listaArquivos.get(i).getTipoarquivo().getIdtipoArquivo() == 2) {
+				ficha = true;
+			} else if (listaArquivos.get(i).getTipoarquivo().getIdtipoArquivo() == 3) {
+				contrato = true;
+			} else if (listaArquivos.get(i).getTipoarquivo().getIdtipoArquivo() == 13) {
+				rg = true;
+			} else if (listaArquivos.get(i).getTipoarquivo().getIdtipoArquivo() == 1) {
+				documentoComFoto = true;
+			}
+		}
+		if (((ficha) && (contrato) && (documentoComFoto)) || ((ficha) && (contrato) && (rg))) {
+			if (vendas.getSituacaofinanceiro().equalsIgnoreCase("L")){
+				vendas.setSituacao("FINALIZADA");
+				vendas.setDataprocesso(new Date());
+			}
+			int idProduto = vendas.getProdutos().getIdprodutos();
+			if (idProduto == 9) {
+				finalizarAupair();
+			}else if(idProduto == 13) {
+				finalizarTrainee();
+			}else if(idProduto == 10) {
+				finalizarWork();
+			}else if(idProduto == 16) {
+				finalizarVoluntariado();
+			}else if(idProduto == 20) {
+				finalizarDemiPair();
+			}else if(idProduto == 4) {
+				finalizarHighSchool();
+			}else if(idProduto == 5) {
+				finalizarTeens();
+			}else if(idProduto == 1) {
+				finalizarCurso();
+			}
+			vendas.setSituacaogerencia("F");
+			if (vendas.getPontoescola() == 0) {
+				if(vendas.getPonto()>0 && vendas.getIdregravenda()>0){
+					int numerodias = 0;
+					if (vendas.getDataprocesso() != null) {
+						numerodias = Formatacao.subtrairDatas(vendas.getDataVenda(), vendas.getDataprocesso());
+					}
+					RegraVendaFacade regraVendaFacade = new RegraVendaFacade();
+					Regravenda regravenda = regraVendaFacade.consultar("select r from Regravenda r where r.idregravenda="+vendas.getIdregravenda());
+					UsuarioPontosFacade usuarioPontosFacade = new UsuarioPontosFacade();
+					int ano = Formatacao.getAnoData(vendas.getDataVenda());
+					int mes = Formatacao.getMesData(vendas.getDataVenda()) + 1;
+					String sql = "SELECT u FROM Usuariopontos u where u.usuario.idusuario=" + vendas.getUsuario().getIdusuario() + " and u.mes="
+							+ mes + " and u.ano=" + ano;
+					Usuariopontos usuariopontos = usuarioPontosFacade.consultar(sql);
+					if(numerodias<aplicacaoMB.getParametrosprodutos().getRegracursofinalizar()){
+						vendas.setPontoextra(regravenda.getPontomais());
+						usuariopontos.setPontos(usuariopontos.getPontos()+regravenda.getPontomais());
+					}else if(numerodias>=aplicacaoMB.getParametrosprodutos().getRegracursofinalizar()){
+						vendas.setPontoextra(regravenda.getPontomenos());
+						usuariopontos.setPontos(usuariopontos.getPontos()-regravenda.getPontomenos());
+					}
+					usuariopontos = usuarioPontosFacade.salvar(usuariopontos);
+					metaRunnersMB.carregarListaRunners();
+				}
+			}
+			
+			vendas.setSituacao("ANDAMENTO");
+			vendasDao.salvar(vendas);
+			if (idProduto == 1) {
+				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
+					seguroviagem.getVendas().setSituacao("ANDAMENTO");
+					seguroviagem.getVendas().setSituacaogerencia("F");
+					vendasDao.salvar(seguroviagem.getVendas());
+				}
+				
+				AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
+				Acomodacaocurso acomodacaocurso = acomodacaoCursoFacade.consultar("SELECT a FROM Acomodacaocurso a WHERE a.curso.vendas.idvendas=" + vendas.getIdvendas());
+				if (acomodacaocurso != null && acomodacaocurso.getIdacomodacaocurso() != null) {
+					Vendas vendasAcomodacao = acomodacaocurso.getAcomodacao().getVendas();
+					vendasAcomodacao.setSituacao("ANDAMENTO");
+					vendasAcomodacao.setSituacaogerencia("F");
+					vendasDao.salvar(vendasAcomodacao);
+				}
+			}else if (idProduto == 16) {
+				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+				Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+				if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
+					seguroviagem.getVendas().setSituacao("ANDAMENTO");
+					seguroviagem.getVendas().setSituacaogerencia("F");
+					vendasDao.salvar(seguroviagem.getVendas());
+				}
+			}
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisos avisos = new Avisos();
+			int idprodutoCurso = aplicacaoMB.getParametrosprodutos().getCursos();
+			if (idprodutoCurso == vendas.getProdutos().getIdprodutos()) {
+				gerarNotificacaoUsuarioVinculado("Cursos");
+			}
+			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L")) && (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
+				avisosFacade = new AvisosFacade();
+				avisos = new Avisos();
+				avisos.setData(new Date());
+				avisos.setUsuario(usuarioLogadoMB.getUsuario());
+				avisos.setImagem("aviso");
+				avisos.setLiberar(true);
+				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+						+ vendas.getIdvendas() + " está finalizada.");
+				avisos.setIdunidade(0);
+				avisos = avisosFacade.salvar(avisos);
+				salvarAvisoUsuario(avisos);
+			}
+		}
+	}
+	
+	
+	public void finalizarAupair() {
+		AupairFacade aupairFacade = new AupairFacade();
+		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizar(aupair, vendasDao);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
+				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				aupair.getDataInicioPretendida01());
+	}
+	
+	
+	public void finalizarTrainee() {
+		TraineeFacade traineeFacade = new TraineeFacade();
+		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarTrainee(trainee);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(trainee.getVendas(),
+				trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, null);
+	}
+	
+	
+	public void finalizarWork() {
+		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
+		Worktravel worktravel = workTravelFacade.consultarWork(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarWork(worktravel);
+		if (Formatacao.validarDataVenda(worktravel.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(worktravel.getVendas(),
+					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					worktravel.getDataInicioPretendida01());
+		}
+	}
+	
+	public void finalizarVoluntariado() {
+		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+		Voluntariado voluntariado = voluntariadoFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarVoluntariado(voluntariado, vendasDao); 
+		if (Formatacao.validarDataVenda(voluntariado.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(voluntariado.getVendas(),
+					voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					voluntariado.getDataInicio());
+		}
+	}
+	
+	public void finalizarDemiPair() {
+		DemipairFacade demipairFacade = new DemipairFacade();
+		Demipair demipair = demipairFacade.consultar(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarDemipair(demipair);
+
+		if (Formatacao.validarDataVenda(demipair.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(demipair.getVendas(),
+					demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
+		}
+	}
+	
+	public void finalizarHighSchool() {
+		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
+		Highschool highschool = highSchoolFacade.consultarHighschool(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarHighSchool(highschool);
+		if (Formatacao.validarDataVenda(highschool.getVendas().getDataVenda())) {
+			ContasReceberBean contasReceberBean = new ContasReceberBean(highschool.getVendas(),
+					highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+					highschool.getValoreshighschool().getDatainicio());
+		}
+	}
+	
+	public void finalizarTeens() {
+		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
+		Programasteens programasteens = programasTeensFacede.find(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarTeens(programasteens);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(programasteens.getVendas(),
+				programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				programasteens.getDataInicioCurso());
+	}
+	
+	public void finalizarCurso() {
+		CursoFacade cursoFacade = new CursoFacade();
+		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
+		ContasReceberBean contasReceberBean = new ContasReceberBean(curso.getVendas(),
+				curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+				curso.getDataInicio());
+	}
+
+
+
+
+
+	public boolean validacaoDados() {
+		if (tipoarquivo == null || tipoarquivo.getTipoarquivo() == null) {
+			Mensagem.lancarMensagemInfo("Tipo de arquivo não foi selecionado", "");
+			return false;
+		}
+		return true;
+	}
+
+	public List<Avisousuario> salvarAvisoUsuario(Avisos aviso) {
+		List<Avisousuario> lista = new ArrayList<Avisousuario>();
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		String sql = "";
+		List<Usuario> listaUsuario = null;
+		
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2
+				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5
+				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4
+				|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 7) {
+			sql = "select u from Usuario u where u.situacao='Ativo' and u.unidadenegocio.idunidadeNegocio="
+					+ vendas.getUnidadenegocio().getIdunidadeNegocio() + " and u.vende=true or u.idusuario=1";
+			listaUsuario = usuarioFacade.listar(sql);
+			if (listaUsuario != null) {
+				AvisosFacade avisosFacade = new AvisosFacade();
+				for (int i = 0; i < listaUsuario.size(); i++) {
+					if (listaUsuario.get(i).getIdusuario() != 396) {
+						Avisousuario avisousuario = new Avisousuario();
+						avisousuario.setAvisos(aviso);
+						avisousuario.setUsuario(listaUsuario.get(i));
+						avisousuario.setVisto(false);
+						avisousuario = avisosFacade.salvar(avisousuario);
+						lista.add(avisousuario);
+					}
+				}
+			}
+		} else {
+			DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+			List<Departamento> departamento = departamentoFacade.listar(
+					"select d From Departamento d where d.usuario.idusuario=" + vendas.getProdutos().getIdgerente());
+			if (departamento != null && departamento.size() > 0) {
+				sql = "select u From Usuariodepartamentounidade u where u.unidadenegocio.idunidadeNegocio="
+						+ vendas.getUnidadenegocio().getIdunidadeNegocio() + " and u.departamento.iddepartamento="
+						+ departamento.get(0).getIddepartamento();
+				UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+				List<Usuariodepartamentounidade> listaNoficacao = usuarioDepartamentoUnidadeFacade.listar(sql);
+				if (listaNoficacao != null) {
+					AvisosFacade avisosFacade = new AvisosFacade();
+					for (int i = 0; i < listaNoficacao.size(); i++) {
+						if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396) {
+							Avisousuario avisousuario = new Avisousuario();
+							avisousuario.setAvisos(aviso);
+							avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
+							avisousuario.setVisto(false);
+							avisousuario = avisosFacade.salvar(avisousuario);
+							lista.add(avisousuario);
+						}
+					}
+				}
+			}
+		}
+		return lista;
+	}
+	
+	
+	public void gerarNotificacaoUsuarioVinculado(String programa){
+		if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null && usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size() > 0) {
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisos aviso = new Avisos();
+			aviso.setData(new Date());
+			aviso.setUsuario(usuarioLogadoMB.getUsuario());
+			aviso.setImagem("aviso");
+			aviso.setLiberar(true);
+			aviso.setTexto(programa + ": Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
+					+ vendas.getIdvendas() + " está completo.");
+			aviso.setIdunidade(0);
+			aviso = avisosFacade.salvar(aviso);
+			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+				Avisousuario avisousuario = new Avisousuario();
+				avisousuario.setAvisos(aviso);
+				avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
+				avisousuario.setVisto(false);
+				avisousuario = avisosFacade.salvar(avisousuario);
+			}
+		}
+	}
+	
+	public void habilitarCambosBilhete() {
+		if(tipoarquivo!=null && tipoarquivo.getIdtipoarquivoproduto()!=null &&
+				tipoarquivo.getTipoarquivo().getIdtipoArquivo()==4) {
+			camposbilhete=true;
+		}else camposbilhete=false;
+	}
+	
+	public void validarSeguroViagem() {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguroviagem = seguroViagemFacade.consultarSeguroCurso(vendas.getIdvendas());
+		boolean possuiSeguro = false;
+		if (seguroviagem == null) {
+			seguroviagem = seguroViagemFacade.consultar(vendas.getIdvendas());
+			if (seguroviagem == null) {
+				possuiSeguro = false;
+			} else if (seguroviagem.getPossuiSeguro().equalsIgnoreCase("Não")) {
+				possuiSeguro = false;
+			} else
+				possuiSeguro = true;
+		} else if (seguroviagem.getPossuiSeguro().equalsIgnoreCase("Não")) {
+			possuiSeguro = false;
+		} else possuiSeguro = true;
+		if (possuiSeguro && this.datachegadabrasil != null && this.dataembarque != null) {
+			if ((!seguroviagem.getDataInicio().after(this.dataembarque))
+					|| (!seguroviagem.getDataTermino().before(this.datachegadabrasil))) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("msgBilhete", "lancar");
+			} else {
+				seguroviagem.getControleseguro().setDataembarque(this.getDataembarque());
+				seguroViagemFacade.salvarControle(seguroviagem.getControleseguro());
+				if (seguroviagem.getControle().equalsIgnoreCase("Curso")) {
+					CursoFacade cursoFacade = new CursoFacade();
+					Controlecurso controle = cursoFacade.consultarControleCursos(vendas.getIdvendas());
+					if (controle != null) {
+						controle.setDatachegadabrasil(this.datachegadabrasil);
+						controle.setDataEmbarque(this.dataembarque);
+						cursoFacade.salvar(controle);
+					}
+				} else if (seguroviagem.getControle().equalsIgnoreCase("Voluntariado")) {
+					VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+					Controlevoluntariado controle = voluntariadoFacade.consultarControle(vendas.getIdvendas());
+					if (controle != null) {
+						controle.setDatachegadabrasil(this.datachegadabrasil);
+						controle.setDataembarque(this.dataembarque);
+						voluntariadoFacade.salvar(controle);
+					}
+				}
+				Leadposvenda leadposvenda = leadPosVendaDao.consultar("SELECT l FROM Leadposvenda l WHERE l.vendas.idvendas="+vendas.getIdvendas());
+				if(leadposvenda!=null) {
+					leadposvenda.setDataembarque(dataembarque);
+					leadposvenda.setDatachegada(datachegadabrasil);
+					leadposvenda = leadPosVendaDao.salvar(leadposvenda);
+				}
+			}
+		}
+
+	}
+	
+	public boolean validarBilheteAereo() {
+		for (int i = 0; i < listaArquivos.size(); i++) {
+			if (listaArquivos.get(i).getTipoarquivo().getIdtipoArquivo() == 4) {
+				return true;
+			} 
+		}
+		return false;
+	}
+	
+	
+	public List<Avisousuario> salvarAvisoUsuarioVinculado(Avisos aviso) {
+		List<Avisousuario> lista = new ArrayList<Avisousuario>();
+		for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
+			AvisosFacade avisosFacade = new AvisosFacade();
+			Avisousuario avisousuario = new Avisousuario();
+			avisousuario.setAvisos(aviso);
+			avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
+			avisousuario.setVisto(false);
+			avisousuario = avisosFacade.salvar(avisousuario);
+		}
+		return lista;
+	}
+
+}
