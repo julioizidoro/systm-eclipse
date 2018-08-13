@@ -17,7 +17,9 @@
 							value="#{controleArquivosMB.vendas.idvendas} - #{controleArquivosMB.vendas.cliente.nome}"
 							class="fontebranca" style="font-size:14px;" /></b>
 				</legend>
-				<br></br>
+				<br/>
+				<p:commandButton value="Voltar" icon="ui-icon-arrowreturn-1-w" action="#{controleArquivosMB.voltarTela()}"  style="font-size:12px;width:67px;margin-left: 3%;"/>
+				<br/><br/><br/>
 				<h:panelGrid style="margin-left:3%" columns="4" width="97%;">
 					<p:outputLabel value="#{controleArquivosMB.titulo1}" class="fontebranca"
 						style="font-size:14px; color:#1F888A" />
@@ -85,6 +87,9 @@
 						</p:dataScroller>
 					</div> 
 						<h:panelGroup id="idPdf1" rendered="#{controleArquivosMB.panelPdf}">
+							<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharPDF()}"  update="@all"
+								style="font-size:12px;width:67px;margin-left: 50%;"/>
+								<br/><br/>
 							<div class="col-md-4">  
 								<object type="application/pdf"
 									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo()}?pfdrid_c=true"
@@ -94,6 +99,10 @@
 						<h:panelGroup id="idHistorico" rendered="#{controleArquivosMB.panelHistorico}">
 							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
 								<br/>
+								<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharHistorico()}"  update="@form"
+									style="font-size:12px;width:67px;margin-left: 1%;float: right;"/>
+								<br/><br/><br/>
+								
 								<h:panelGroup>
 									<p:inputText id="iddescricao" value="#{controleArquivosMB.descricao}" style="margin-left:2%;width:58%;"/>
 									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico, iddescricao" action="#{controleArquivosMB.salvarCorrecao()}"/>
@@ -192,6 +201,8 @@
 						</p:dataScroller>
 					</div> 
 						<h:panelGroup id="idPdf2" rendered="#{controleArquivosMB.panelPdf2}">
+							<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharPDF2()}"  update="@all"
+								style="font-size:12px;width:67px;margin-left: 50%;"/>
 							<div class="col-md-4">  
 								<object type="application/pdf"
 									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo2()}?pfdrid_c=true"
@@ -201,6 +212,9 @@
 						<h:panelGroup id="idHistorico2" rendered="#{controleArquivosMB.panelHistorico2}">
 							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
 								<br/>
+								<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharHistorico2()}"  update="@form"
+									style="font-size:12px;width:67px;margin-left: 1%;float: right;"/>
+								<br/><br/><br/>
 								<h:panelGroup>
 									<p:inputText id="iddescricao2" value="#{controleArquivosMB.descricao2}" style="margin-left:2%;width:58%;"/>
 									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico2, iddescricao2" action="#{controleArquivosMB.salvarCorrecao2()}"/>
@@ -298,6 +312,8 @@
 						</p:dataScroller>
 					</div> 
 						<h:panelGroup id="idPdf3" rendered="#{controleArquivosMB.panelPdf3}">
+							<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharPDF3()}"  update="@all"
+								style="font-size:12px;width:67px;margin-left: 50%;"/>
 							<div class="col-md-4">  
 								<object type="application/pdf"
 									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo3()}?pfdrid_c=true"
@@ -307,6 +323,9 @@
 						<h:panelGroup id="idHistorico3" rendered="#{controleArquivosMB.panelHistorico3}">
 							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
 								<br/>
+								<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharHistorico3()}"  update="@form"
+									style="font-size:12px;width:67px;margin-left: 1%;float: right;"/>
+								<br/><br/><br/>
 								<h:panelGroup>
 									<p:inputText id="iddescricao3" value="#{controleArquivosMB.descricao3}" style="margin-left:2%;width:58%;"/>
 									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico3, iddescricao3" action="#{controleArquivosMB.salvarCorrecao3()}"/>
@@ -411,6 +430,8 @@
 						</p:dataScroller>
 					</div> 
 						<h:panelGroup id="idPdf4" rendered="#{controleArquivosMB.panelPdf4}">
+							<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharPDF4()}"  update="@all"
+								style="font-size:12px;width:67px;margin-left: 50%;"/>
 							<div class="col-md-4">  
 								<object type="application/pdf"
 									data="http://162.144.94.216:82/ftproot/systm/arquivos/#{controleArquivosMB.buscarNomeArquivo4()}?pfdrid_c=true"
@@ -420,6 +441,9 @@
 						<h:panelGroup id="idHistorico4" rendered="#{controleArquivosMB.panelHistorico4}">
 							<div class="col-md-7" style="border:1px solid;border-color:gray;border-radius:10px;">  
 								<br/>
+								<p:commandButton value="Fechar" icon="ui-icon-close" action="#{controleArquivosMB.fecharHistorico4()}"  update="@form"
+									style="font-size:12px;width:67px;margin-left: 1%;float: right;"/>
+								<br/><br/><br/>
 								<h:panelGroup>
 									<p:inputText id="iddescricao4" value="#{controleArquivosMB.descricao4}" style="margin-left:2%;width:58%;"/>
 									<p:commandButton style="font-size:12px;margin-left:2%;" value="Adicionar" icon="ui-icon-check" update="tabelaHistorico4, iddescricao4" action="#{controleArquivosMB.salvarCorrecao4()}"/>

@@ -19,20 +19,7 @@
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
                 <img src="../../resources/img/novoCarregando2.gif" />
             </p:dialog> 
-			<h:panelGrid columns="1">
-				<p:outputLabel value="Tipo de arquivo" for="tipoArquivo" />
-				<p:selectOneMenu  id="tipoArquivo"  style="width: 350px;"  value="#{cadControleArquivosMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
-                             filter="true" filterMatchMode="contains" panelStyle="width:180px" >
-                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
-                    <f:selectItems  value="#{cadControleArquivosMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
-                    <f:attribute name="listaTipoArquivoProduto" value="#{cadControleArquivosMB.listaTipoArquivo}"/>
-                    <p:ajax event="change" listener="#{cadControleArquivosMB.habilitarCambosBilhete()}" update="@form"/>
-                </p:selectOneMenu>
-                <p:outputLabel/>
-            	<p:outputLabel value="Observações" for="obs" class="fontebranca" /> 
-                <p:inputTextarea id="obs"  value="#{cadControleArquivosMB.arquivos.observacao}" rows="3" maxlength="100" style="width:407px;" />
-            </h:panelGrid>
-            <br />
+			
             <h:panelGroup id="camposBilhete" rendered="#{cadControleArquivosMB.camposbilhete}">
 	            <h:panelGrid columns="2" >
 	            	<p:outputLabel value="Data de Embarque"/>

@@ -468,7 +468,7 @@ public class ControleArquivosMB implements Serializable{
 
 	public void salvarCorrecao2() {
 		Arquivoshitorico arquivoshitorico = new Arquivoshitorico();
-		arquivoshitorico.setDescricao(descricao);
+		arquivoshitorico.setDescricao(descricao2);
 		arquivoshitorico.setData(new Date());
 		arquivoshitorico.setHora(Formatacao.foramtarHoraString());
 		arquivoshitorico.setUsuario(usuarioLogadoMB.getUsuario());
@@ -498,7 +498,7 @@ public class ControleArquivosMB implements Serializable{
 	
 	public void salvarCorrecao3() {
 		Arquivoshitorico arquivoshitorico = new Arquivoshitorico();
-		arquivoshitorico.setDescricao(descricao);
+		arquivoshitorico.setDescricao(descricao3);
 		arquivoshitorico.setData(new Date());
 		arquivoshitorico.setHora(Formatacao.foramtarHoraString());
 		arquivoshitorico.setUsuario(usuarioLogadoMB.getUsuario());
@@ -513,7 +513,7 @@ public class ControleArquivosMB implements Serializable{
 	
 	public void salvarCorrecao4() {
 		Arquivoshitorico arquivoshitorico = new Arquivoshitorico();
-		arquivoshitorico.setDescricao(descricao);
+		arquivoshitorico.setDescricao(descricao4);
 		arquivoshitorico.setData(new Date());
 		arquivoshitorico.setHora(Formatacao.foramtarHoraString());
 		arquivoshitorico.setUsuario(usuarioLogadoMB.getUsuario());
@@ -642,6 +642,42 @@ public class ControleArquivosMB implements Serializable{
 		panelPdf4 = false;
 		this.arquivos4 = arquivos;
 		gerarArquivoHistorico4();
+	}
+	
+	
+	public void fecharHistorico() {
+		panelHistorico = false;
+	}
+	
+	public void fecharPDF() {
+		panelPdf = false;
+	}
+	
+	
+	public void fecharHistorico2() {
+		panelHistorico2 = false;
+	}
+	
+	public void fecharPDF2() {
+		panelPdf2 = false;
+	}
+	
+	
+	public void fecharHistorico3() {
+		panelHistorico3 = false;
+	}
+	
+	public void fecharPDF3() {
+		panelPdf3 = false;
+	}
+	
+	
+	public void fecharHistorico4() {
+		panelHistorico4 = false;
+	}
+	
+	public void fecharPDF4() {
+		panelPdf4 = false;
 	}
 	
 	public void gerarListaAquivos() {
@@ -903,7 +939,7 @@ public class ControleArquivosMB implements Serializable{
 		session.setAttribute("vendas", vendas);
 		session.setAttribute("arquivoslistamodelo", listaArquivos4.get(0).getArquivoslistamodelo());
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 500);
+		options.put("contentWidth", 400);
 		RequestContext.getCurrentInstance().openDialog("cadOutrosArquivos", options, null);
 	}
 	
@@ -929,5 +965,11 @@ public class ControleArquivosMB implements Serializable{
 		options.put("contentWidth", 500);
 		RequestContext.getCurrentInstance().openDialog("cadControleArquivos", options, null);
 	}
+	
+	public String voltarTela() {
+		
+		return voltar;
+	}
+
 
 }

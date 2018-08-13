@@ -132,7 +132,7 @@ public class CadControleArquivosMB implements Serializable{
 		session.removeAttribute("cliente");
 		session.removeAttribute("listaArquivos");
 		session.removeAttribute("arquivos");
-		gerarListaTipoArquivo();
+		tipoarquivo = buscarTipoArquivo();
 		if (arquivos == null) {
 			arquivos = new Arquivos();
 			listaNomeArquivo = new ArrayList<String>();
@@ -1298,10 +1298,6 @@ public class CadControleArquivosMB implements Serializable{
 	}
 
 	public boolean validacaoDados() {
-		if (tipoarquivo == null || tipoarquivo.getTipoarquivo() == null) {
-			Mensagem.lancarMensagemInfo("Tipo de arquivo não foi selecionado", "");
-			return false;
-		}
 		if (listaNomeArquivo == null || listaNomeArquivo.isEmpty()) {
 			Mensagem.lancarMensagemInfo("Você esta tentando confirmar sem um upload de arquivo", "");
 			return false;
@@ -1487,5 +1483,21 @@ public class CadControleArquivosMB implements Serializable{
 			avisousuario = avisosFacade.salvar(avisousuario);
 		}
 		return lista;
+	}
+	
+	public Tipoarquivoproduto buscarTipoArquivo() {
+		List<Tipoarquivoproduto> lista = null;
+		TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
+		try {
+			lista = tipoArquivoProdutoFacade.listar("SELECT t FROM Tipoarquivoproduto t WHERE t.produtos.idprodutos=" 
+					+ arquivos.getVendas().getProdutos().getIdprodutos() + " and t.tipoarquivo.idtipoArquivo=" + arquivos.getTipoarquivo().getIdtipoArquivo());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (lista != null && lista.size() > 0) {
+			return lista.get(0);
+		}
+		return null;
 	}
 }

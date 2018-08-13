@@ -19,21 +19,22 @@
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
                 <img src="../../resources/img/novoCarregando2.gif" />
             </p:dialog> 
-			<h:panelGrid columns="2" style="width:100%;">
+			<h:panelGrid columns="1" style="width:100%;">
 				<p:outputLabel value="Tipo de arquivo" for="tipoArquivo" />
 				<p:outputLabel/>
-				<p:selectOneMenu  id="tipoArquivo"  style="width: 280px;"  value="#{cadOutrosArquivosMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
+				<p:selectOneMenu  id="tipoArquivo"  style="width: 300px;"  value="#{cadOutrosArquivosMB.tipoarquivo}" converter="TipoArquivoProdutoConverter"
                              filter="true" filterMatchMode="contains" panelStyle="width:180px" >
                     <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
                     <f:selectItems  value="#{cadOutrosArquivosMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.idtipoArquivo}-#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
                     <f:attribute name="listaTipoArquivoProduto" value="#{cadOutrosArquivosMB.listaTipoArquivo}"/>
                 </p:selectOneMenu>
-                <h:panelGrid columns="2" style="margin-left:2%;">   
+            </h:panelGrid>
+            <br /><br /><br /><br /><br /><br /> <br /> 
+                <h:panelGrid columns="2" style="margin-left:23%;">   
 					<p:commandButton id="btnConfirmar"  value="Confirmar" action="#{cadOutrosArquivosMB.salvar()}" icon="ui-icon-check" update="@form, growl" style="font-size:12px;"/>
 				    <p:commandButton id="btnCancelar" value="Cancelar" action="#{cadOutrosArquivosMB.cancelar()}" icon="ui-icon-closethick" style="font-size:12px;margin-left:2%"/>
 				 </h:panelGrid>  
-            </h:panelGrid>
-            <br /><br /><br /><br />
+            
         </h:form>
  </h:body>
  
