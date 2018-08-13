@@ -1206,8 +1206,16 @@ public class CadVoluntariadoMB implements Serializable {
 					voluntariado.setDataInicioSeguro(seguroViagem.getDataInicio());
 					voluntariado.setDataTerminoSeguro(seguroViagem.getDataTermino());
 					voluntariado.setSeguroViagem(seguroViagem.getPossuiSeguro());
-					voluntariado.setSeguradora(fornecedorSeguro.getFornecedor().getNome());
-					voluntariado.setPlanoSeguro(seguroViagem.getValoresseguro().getSeguroplanos().getNome());
+					if (fornecedorSeguro.getFornecedor() == null) {
+						voluntariado.setSeguradora("");
+					}else {
+						voluntariado.setSeguradora(fornecedorSeguro.getFornecedor().getNome());
+					}
+					if (seguroViagem.getValoresseguro().getSeguroplanos() == null) {
+						voluntariado.setPlanoSeguro("");
+					}else {
+						voluntariado.setPlanoSeguro(seguroViagem.getValoresseguro().getSeguroplanos().getNome());
+					}
 					voluntariado.setNumeroSemanasSeguro(seguroViagem.getNumeroSemanas());
 				}
 				voluntariado = cadVoluntariadoBean.salvarVoluntariado(voluntariado, vendaAlterada);
