@@ -56,7 +56,7 @@
 				<h:panelGroup><b>Nome:</b> #{fichaWorkTravelMB.worktravel.vendas.cliente.nome}</h:panelGroup>
 				<h:panelGroup>
 					<b>Data Nascimento:</b> <h:outputText
-						value="#{fichaWoirkTravelMB.worktravel.vendas.cliente.dataNascimento}">
+						value="#{fichaWorkTravelMB.worktravel.vendas.cliente.dataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
@@ -182,33 +182,35 @@
 
 		</h:panelGrid>
 		<br/>
-		<h:panelGroup style="color:green;"><b>PREFERÊNCIAS - TIPO DE TRABALHO </b></h:panelGroup>
-		<hr style="color:green;"/>
-		<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
-			<h:panelGrid style="width:100%;" columns="3">
-				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.camareira)}) - Camareira/Governança </h:panelGroup>
-				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.cozinha)}) - Cozinha </h:panelGroup>
-				<h:panelGroup/>
-				<h:panelGroup>
-					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.salvavidas)}) - Salva Vidas 
-				</h:panelGroup>
-				<h:panelGroup>   
-					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.recepcao)}) - Recepção 
-				</h:panelGroup>
-				<h:panelGroup>
-					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.garcon)}) - Garçon/Garçonete 
-				</h:panelGroup>
-				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.trabalhosexternos)}) - Trabalhos Externos </h:panelGroup>
-				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.lavadeira)}) - Lavanderia </h:panelGroup>
-				<h:panelGroup>
-					(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.indiferenteocupacao)}) - Indiferente 
-				</h:panelGroup>
-				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.outraocupacao)}) - Outra </h:panelGroup>
-				<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.especificarOutraOcupacao)}) - Faço parte do programa Independente </h:panelGroup>
-				
-			</h:panelGrid>   
-
-		</h:panelGrid>
+		<div style="page-break-after: always">
+			<h:panelGroup style="color:green;"><b>PREFERÊNCIAS - TIPO DE TRABALHO </b></h:panelGroup>
+			<hr style="color:green;"/>
+			<h:panelGrid style="border:2px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="3">
+					<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.camareira)}) - Camareira/Governança </h:panelGroup>
+					<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.cozinha)}) - Cozinha </h:panelGroup>
+					<h:panelGroup/>
+					<h:panelGroup>
+						(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.salvavidas)}) - Salva Vidas 
+					</h:panelGroup>
+					<h:panelGroup>   
+						(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.recepcao)}) - Recepção 
+					</h:panelGroup>
+					<h:panelGroup>
+						(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.garcon)}) - Garçon/Garçonete 
+					</h:panelGroup>
+					<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.trabalhosexternos)}) - Trabalhos Externos </h:panelGroup>
+					<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.lavadeira)}) - Lavanderia </h:panelGroup>
+					<h:panelGroup>
+						(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.indiferenteocupacao)}) - Indiferente 
+					</h:panelGroup>
+					<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.outraocupacao)}) - Outra </h:panelGroup>
+					<h:panelGroup>(#{fichaWorkTravelMB.retornarCondicao(fichaWorkTravelMB.worktravel.especificarOutraOcupacao)}) - Faço parte do programa Independente </h:panelGroup>
+					
+				</h:panelGrid>   
+	
+			</h:panelGrid>
+			</div>
 		<br/>
 		<h:panelGroup style="color:green;"><b>PREFERÊNCIAS - LOCAL DE TRABALHO </b></h:panelGroup>
 		<hr style="color:green;"/>
@@ -340,24 +342,24 @@
 			</h:panelGrid>   
 
 		</h:panelGrid>
-		<br />
-		<div align="left">
-			<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
-		</div>
-		<br/>
-		<h:panelGroup rendered="#{fichaWorkTravelMB.habilitarCartãoVtm}" style="margin-left: 0.3%;">CARTÃO VTM</h:panelGroup>
-		<hr style="color: green;"/>
-		<h:panelGrid rendered="#{fichaWorkTravelMB.habilitarCartãoVtm}" style="width:100%;" columns="3">
-					<h:panelGroup> (x) #{fichaWorkTravelMB.worktravel.cartaoVTM} 
-					</h:panelGroup>
-
-					<h:panelGroup>
-						<b>N° Cartão:</b> #{fichaWorkTravelMB.worktravel.numeroCartaoVTM} 
-					</h:panelGroup>
-					<h:panelGroup>
-						<b>Moeda:</b> #{fichaWorkTravelMB.worktravel.moedaCartaoVTM}
-					</h:panelGroup>
-		</h:panelGrid>   
+		<br /><br /><br /><br /><br />
+			<div align="left">
+				<img src="../../../resources/img/dadosPacoteFicha.PNG" width="40%" />
+			</div>
+			<br/>
+			<h:panelGroup rendered="#{fichaWorkTravelMB.habilitarCartãoVtm}" style="margin-left: 0.3%;">CARTÃO VTM</h:panelGroup>
+			<hr style="color: green;"/>
+			<h:panelGrid rendered="#{fichaWorkTravelMB.habilitarCartãoVtm}" style="width:100%;" columns="3">
+						<h:panelGroup> (x) #{fichaWorkTravelMB.worktravel.cartaoVTM} 
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							<b>N° Cartão:</b> #{fichaWorkTravelMB.worktravel.numeroCartaoVTM} 
+						</h:panelGroup>
+						<h:panelGroup>
+							<b>Moeda:</b> #{fichaWorkTravelMB.worktravel.moedaCartaoVTM}
+						</h:panelGroup>
+			</h:panelGrid>  
 		<br/>
 		<h:panelGroup style="margin-left: 0.3%;">PASSAGEM AÉREA QUANDO NÃO INCLUIDA NO PROGRAMA</h:panelGroup>
 		<hr style="color: green;"/>
@@ -503,33 +505,36 @@
 			<br/>
 		</ui:repeat>
 		<br /><br />
+		
+<div style="page-break-after: always"></div>
 		<div align="left">
 			<img src="../../../resources/img/assinaturaContrato.PNG" width="40%" />
 		</div>
 		<br/>
-		<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
-			<p>Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição. O saldo deverá ser quitado 
-			conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista. Não sendo cumprido o 
-			plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional 
-			organizadora   do   curso/programa/pacote   em   questão.   A   confirmação   final   do   curso/programa/pacote,   
-			acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da 
-			confirmação final do prestador final do serviço (instituição contratada) no exterior.
-			Em caso de cancelamento e reembolso:<br/>
-			• O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);<br/>
-			• Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso
-			  dos demais valores;<br/>
-			• A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituiçã
-			  do exterior;<br/>
-			• A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido
-			  de reembolso.<br/>
-			Esta é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o 
-			CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura 
-			de tal Contrato, e entrega ao mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não 
-			abordadas nesta Ficha de Inscrição.
-			Em  caso  de  dúvidas  solicite  o  CONTRATO  DE  PRESTAÇÃO  DE  SERVIÇOS  e  as  regras  específicas  
-			referentes ao programa de seu interesse.
-			Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
-		</h:panelGrid>
+		
+			<h:panelGrid style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+				<p>Do valor total acima,o percentual de 30% deve ser pago no momento da inscrição. O saldo deverá ser quitado 
+				conforme plano de pagamento estabelecido, exceto em casos de pagamento à vista. Não sendo cumprido o 
+				plano de pagamento acordado, o valor pode sofrer alterações conforme a política da instituição internacional 
+				organizadora   do   curso/programa/pacote   em   questão.   A   confirmação   final   do   curso/programa/pacote,   
+				acomodação e demais serviços solicitados, bem como datas definitivas, será feita mediante recebimento da 
+				confirmação final do prestador final do serviço (instituição contratada) no exterior.
+				Em caso de cancelamento e reembolso:<br/>
+				• O percentual de 30% do valor total não será reembolsado (ver “Contrato de Prestação de Serviços”);<br/>
+				• Serão observadas as normas da instituição contratada no exterior para definir viabilidade de reembolso
+				  dos demais valores;<br/>
+				• A Travelmate fará o reembolso ao estudante, caso exista, somente após recebê-lo da instituiçã
+				  do exterior;<br/>
+				• A Travelmate não se responsabiliza caso o/a participante não cumpra as regras referentes ao pedido
+				  de reembolso.<br/>
+				Esta é uma Ficha de Inscrição prévia, após envio desta para a Travelmate será enviado ao participante o 
+				CONTRATO DE PRESTAÇÃO DE SERVIÇOS específico do programa de interesse. Somente após assinatura 
+				de tal Contrato, e entrega ao mesmo à Travelmate, entrarão em vigor todas as demais regras do programa não 
+				abordadas nesta Ficha de Inscrição.
+				Em  caso  de  dúvidas  solicite  o  CONTRATO  DE  PRESTAÇÃO  DE  SERVIÇOS  e  as  regras  específicas  
+				referentes ao programa de seu interesse.
+				Li e estou de acordo com as condições estabelecidas nesta Ficha de Inscrição.</p>
+			</h:panelGrid>
 		<br/>
 		<h:panelGrid style="border: 1.5px solid;width:100%;border-color:#9C9C9C;" rendered="#{fichaWorkTravelMB.habilitarObservacao}">
 			<p style="margin:1%;">Observação: #{fichaWorkTravelMB.vendas.formapagamento.observacoes}</p>
