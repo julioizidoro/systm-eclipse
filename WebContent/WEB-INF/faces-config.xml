@@ -693,6 +693,14 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
+			<from-outcome>consControleArquivos</from-outcome>
+			<to-view-id>/pages/controlearquivos/consControleArquivos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
 			<from-outcome>valoresTrainee</from-outcome>
 			<to-view-id>/pages/valoresTrainee/valoresTrainee.xhtml</to-view-id>
 			<redirect />
