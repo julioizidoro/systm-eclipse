@@ -498,14 +498,14 @@ public class EmissaoCancelamentoMB implements Serializable {
 					cancelamento = cancelamentoFacade.salvar(cancelamento);
 					if (novoCancelamento) {
 						salvarCredito();
-					}
-					DashBoardBean dashBoardBean = new DashBoardBean();
-					dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
-					dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
-					if (cancelamento.getMultacliente()<=0) {
-						dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
-						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-						productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+						DashBoardBean dashBoardBean = new DashBoardBean();
+						dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+						dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+						if (cancelamento.getMultacliente()<=0) {
+							dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
+							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+							productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+						}
 					}
 					cancelarContasReceber();
 					vendas.setSituacao("CANCELADA");
@@ -524,7 +524,9 @@ public class EmissaoCancelamentoMB implements Serializable {
 					if (listaCancelamento != null && listaCancelamento.size() > 0) {
 						session.setAttribute("listaCancelamento", listaCancelamento);
 					}
-					emitirNotificacao();
+					if (novoCancelamento) {
+						emitirNotificacao();
+					}
 					Mensagem.lancarMensagemInfo("Confirmação", "Cancelamento salvo com sucesso");
 					return voltar;
 				} else {
