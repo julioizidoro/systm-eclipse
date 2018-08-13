@@ -154,7 +154,7 @@ public class CadAcomodacaoMB implements Serializable {
 		lead = (Lead) session.getAttribute("lead");
 		acomodacao = (Acomodacao) session.getAttribute("acomodacao");
 		carregarComboMoedas();
-		gerarListaCursos();
+		gerarListaProdutosOrcamento();
 		session.removeAttribute("cliente");
 		session.removeAttribute("lead");
 		session.removeAttribute("acomodacao");
@@ -1410,10 +1410,10 @@ public class CadAcomodacaoMB implements Serializable {
 		atualizarValoresProduto();
 	}
 
-	public void gerarListaCursos() {
+	public void gerarListaProdutosOrcamento() {
 		FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
-		String sql = "select f from Filtroorcamentoproduto f where f.produtos.idprodutos="
-				+ aplicacaoMB.getParametrosprodutos().getCursos()
+		String sql = "select f from Filtroorcamentoproduto f where f.produtos.idprodutos=24"
+				
 				+ " and f.listar='S' order by f.produtosorcamento.descricao";
 		listaProdutosOrcamento = filtroOrcamentoProdutoFacade.pesquisar(sql);
 		if (listaProdutosOrcamento == null) {
