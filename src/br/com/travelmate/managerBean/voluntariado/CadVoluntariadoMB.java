@@ -1746,6 +1746,7 @@ public class CadVoluntariadoMB implements Serializable {
 			seguroplanos = seguroViagem.getValoresseguro().getSeguroplanos();
 			listarValoresSeguro();
 			valorSeguroAntigo = seguroViagem.getValorSeguro();
+			segurocancelamento = seguroViagem.isSegurocancelamento();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");
