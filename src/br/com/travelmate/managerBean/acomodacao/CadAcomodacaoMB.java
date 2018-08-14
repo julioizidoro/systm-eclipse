@@ -144,6 +144,7 @@ public class CadAcomodacaoMB implements Serializable {
 	private float valorTotalAdicionais;
 	private float valorTotalAdicionaisRS;
 	private Cancelamento cancelamento;
+	private boolean novoLancamento = true;
 
 	@PostConstruct
 	public void init() {
@@ -164,6 +165,7 @@ public class CadAcomodacaoMB implements Serializable {
 			formaPagamento = new Formapagamento();
 			orcamento = new Orcamento();
 			orcamento.setOrcamentoprodutosorcamentoList(new ArrayList<Orcamentoprodutosorcamento>());
+			novoLancamento = true;
 		}else {
 			vendas = acomodacao.getVendas();
 			cambio = vendas.getCambio();
@@ -185,6 +187,7 @@ public class CadAcomodacaoMB implements Serializable {
 			cidade = vendas.getFornecedorcidade().getCidade();
 			acomodacao.setCambio(vendas.getCambio());   
 			calcularValorTotalOrcamento();
+			novoLancamento = false;
 		}
 	}
 
@@ -2752,6 +2755,11 @@ public class CadAcomodacaoMB implements Serializable {
 			formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
 			orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio, vendas, null);
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
+			if (novoLancamento) {
+				ContasReceberBean contasReceberBean = new ContasReceberBean(acomodacao.getVendas(),
+						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
+						acomodacao.getDatainicial());
+			}
 			return "consAcomodacao";
 		}
 		return "";
