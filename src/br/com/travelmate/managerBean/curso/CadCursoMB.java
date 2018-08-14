@@ -1825,6 +1825,11 @@ public class CadCursoMB implements Serializable {
 		if (saldoParcelar > 0) {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto;\r\n";
 		}
+		
+
+		if (saldoParcelar < 0.0f) {
+			msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+		}
 		if (seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")) {
 			if (seguroViagem.getNumeroSemanas() == 0) {
 				msg = msg + "Nº de semanas no seguro é obrigatório;\r\n";

@@ -1289,6 +1289,12 @@ public class CadWorkTravelMB implements Serializable {
 			if (saldoParcelar > 0.01f) {
 				msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 			}
+			
+
+			
+			if (saldoParcelar < 0.0f) {
+				msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+			}
 			if (work.getNomeContatoEmergencia() == null || work.getNomeContatoEmergencia().length() <= 0) {
 				msg = msg + "Nome do contato de emergência não informado\r\n";
 			}

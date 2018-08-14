@@ -1259,6 +1259,11 @@ public class CadDemiPairMB implements Serializable {
 		if (saldoParcelar > 0.1) {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 		}
+		
+
+		if (saldoParcelar < 0.0f) {
+			msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+		}
 		return msg;
 	}
 

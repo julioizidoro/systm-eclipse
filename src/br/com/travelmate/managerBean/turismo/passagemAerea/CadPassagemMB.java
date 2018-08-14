@@ -900,6 +900,10 @@ public class CadPassagemMB implements Serializable {
 		if (valorParcelar > 0) {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 		}
+		
+		if (valorParcelar < 0.0f) {
+			msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+		}
 		if (passagem.getComissaoloja()==null) {
 			msg= msg + "Comissão loja sem valor\r\n";
 		}

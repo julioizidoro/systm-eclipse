@@ -1466,6 +1466,11 @@ public class CadHighSchoolMB implements Serializable {
 			if (saldoParcelar > 0.01f) {
 				msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 			}
+			
+
+			if (saldoParcelar < 0.0f) {
+				msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+			}
 			if (highschool.getCpfmae() == null || highschool.getCpfmae().length() == 0) {
 				msg = msg + "CPF mãe não informado!";
 			}

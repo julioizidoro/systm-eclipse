@@ -1445,7 +1445,6 @@ public class CadHeInscricaoMB implements Serializable {
 						String titulo = "Ficha de Higher Education Alterada";
 						String operacao = "I";
 						String imagemNotificacao = "alterado";
-						if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, he.getDatainicio());
 							String vm = "Venda pela Matriz";
@@ -1471,7 +1470,6 @@ public class CadHeInscricaoMB implements Serializable {
 								}
 							}
 						}
-					}
 			}
 			Mensagem.lancarMensagemInfo("Ficha de Inscrição salva com sucesso!", "");
 			salvarOK = true;
