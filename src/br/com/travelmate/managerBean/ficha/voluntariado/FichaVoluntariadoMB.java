@@ -9,7 +9,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.model.Dadospais;
+import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.util.Formatacao;
@@ -37,6 +39,7 @@ public class FichaVoluntariadoMB implements Serializable{
 	private boolean habilitarSeguroObrigatorio = true;
 	private float totalPagamento = 0.0f;
 	private boolean habilitarObservacao = false;
+	private Seguroviagem seguroviagem;
 	
 
 	
@@ -53,6 +56,13 @@ public class FichaVoluntariadoMB implements Serializable{
 				habilitarCartãoVtm = true;
 			}else{
 				habilitarCartãoVtm = false;
+			}
+			SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+			seguroviagem = seguroViagemFacade.consultarSeguroCurso(voluntariado.getVendas().getIdvendas());
+			if (seguroviagem != null && seguroviagem.getIdseguroViagem() != null) {
+				habilitarSeguroViagem = true;
+			}else {
+				habilitarSeguroViagem = false;
 			}
 		}
 		dataHoje = new Date();
@@ -235,6 +245,30 @@ public class FichaVoluntariadoMB implements Serializable{
 
 	public void setHabilitarObservacao(boolean habilitarObservacao) {
 		this.habilitarObservacao = habilitarObservacao;
+	}
+	
+	
+	public Seguroviagem getSeguroviagem() {
+		return seguroviagem;
+	}
+
+
+
+	public void setSeguroviagem(Seguroviagem seguroviagem) {
+		this.seguroviagem = seguroviagem;
+	}
+
+
+
+	public String verificacaoSeguroCancelamento() {
+		if (seguroviagem != null) {
+			if (seguroviagem.isSegurocancelamento()) {
+				return "Sim";
+			}else {
+				return "Não";
+			}
+		}
+		return "";	
 	}
 
 }
