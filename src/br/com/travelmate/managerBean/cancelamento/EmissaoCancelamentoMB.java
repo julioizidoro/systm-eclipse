@@ -141,6 +141,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 			gerarListaCondicao();
 			calcularMultaFornecedorReais();
 			escolherReembolsoCredito();
+			condicaocancelamento = cancelamento.getCondicaocancelamento();
 		}
 		valorOriginalMulta = cancelamento.getMultacliente();
 	}
@@ -329,37 +330,8 @@ public class EmissaoCancelamentoMB implements Serializable {
 		if (listaCondicao == null) {
 			listaCondicao = new ArrayList<Condicaocancelamento>();
 		}
-		if (listaCondicao.size() == 1) {
-			cancelamento.setCondicaocancelamento(listaCondicao.get(0));
-			habilitarRegra = false;
-			habilitarCampoAlinhamento = true;
-			CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
-			cancelamento.setMultacliente(calcularMultaCancelamentoBean.calcularMulta(cancelamento));
-			if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 1
-					|| vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
-				cancelamento.setEstornoloja(0.0f);
-			} else {
-				cancelamento.setEstornoloja(calcularMultaCancelamentoBean.calcularEstornoFranquia(cancelamento));
-			}
-			cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
-		} else if (listaCondicao.size() == 2) {
-			if (listaCondicao.get(0).getDescricao().equalsIgnoreCase(" Sem condição")) {
-				cancelamento.setCondicaocancelamento(listaCondicao.get(1));
-				habilitarRegra = false;
-				habilitarCampoAlinhamento = true;
-				CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
-				cancelamento.setMultacliente(calcularMultaCancelamentoBean.calcularMulta(cancelamento));
-				if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 1
-						|| vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
-					cancelamento.setEstornoloja(0.0f);
-				} else {
-					cancelamento.setEstornoloja(calcularMultaCancelamentoBean.calcularEstornoFranquia(cancelamento));
-				}
-				if (cancelamento.getIdcancelamento() == null) {
-					gerarValoresRecebidos();
-				}
-				cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
-			} else {
+		if (novoCancelamento) {
+			if (listaCondicao.size() == 1) {
 				cancelamento.setCondicaocancelamento(listaCondicao.get(0));
 				habilitarRegra = false;
 				habilitarCampoAlinhamento = true;
@@ -371,10 +343,41 @@ public class EmissaoCancelamentoMB implements Serializable {
 				} else {
 					cancelamento.setEstornoloja(calcularMultaCancelamentoBean.calcularEstornoFranquia(cancelamento));
 				}
-				if (cancelamento.getIdcancelamento() != null) {
-					gerarValoresRecebidos();
-				}
 				cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
+			} else if (listaCondicao.size() == 2) {
+				if (listaCondicao.get(0).getDescricao().equalsIgnoreCase(" Sem condição")) {
+					cancelamento.setCondicaocancelamento(listaCondicao.get(1));
+					habilitarRegra = false;
+					habilitarCampoAlinhamento = true;
+					CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
+					cancelamento.setMultacliente(calcularMultaCancelamentoBean.calcularMulta(cancelamento));
+					if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 1
+							|| vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
+						cancelamento.setEstornoloja(0.0f);
+					} else {
+						cancelamento.setEstornoloja(calcularMultaCancelamentoBean.calcularEstornoFranquia(cancelamento));
+					}
+					if (cancelamento.getIdcancelamento() == null) {
+						gerarValoresRecebidos();
+					}
+					cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
+				} else {
+					cancelamento.setCondicaocancelamento(listaCondicao.get(0));
+					habilitarRegra = false;
+					habilitarCampoAlinhamento = true;
+					CalcularMultaCancelamentoBean calcularMultaCancelamentoBean = new CalcularMultaCancelamentoBean();
+					cancelamento.setMultacliente(calcularMultaCancelamentoBean.calcularMulta(cancelamento));
+					if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 1
+							|| vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
+						cancelamento.setEstornoloja(0.0f);
+					} else {
+						cancelamento.setEstornoloja(calcularMultaCancelamentoBean.calcularEstornoFranquia(cancelamento));
+					}
+					if (cancelamento.getIdcancelamento() != null) {
+						gerarValoresRecebidos();
+					}
+					cancelamento = calcularMultaCancelamentoBean.calcularTotais(cancelamento);
+				}
 			}
 		}
 	}
