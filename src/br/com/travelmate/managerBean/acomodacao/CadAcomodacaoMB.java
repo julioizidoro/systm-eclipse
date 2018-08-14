@@ -35,6 +35,7 @@ import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
+import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
@@ -827,8 +828,20 @@ public class CadAcomodacaoMB implements Serializable {
 
 		for (int i = 0; i < produtoFornecedorBean.getListaObrigaroerios().size(); i++) {
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-				orcamentoprodutosorcamento.setDescricao(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
-					.getProdutosorcamento().getDescricao());
+				if (produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
+						.getComplementoacomodacao() != null && 
+						!produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getProdutosuplemento()
+							.equalsIgnoreCase("valor")) {
+					orcamentoprodutosorcamento.setDescricao("Suplemento de Acomodação");
+				}else if(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
+							.getComplementocurso() != null && 
+							!produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getProdutosuplemento()
+								.equalsIgnoreCase("valor")) {
+					orcamentoprodutosorcamento.setDescricao("Suplemento de Curso");
+				}else {
+					orcamentoprodutosorcamento.setDescricao(produtoFornecedorBean.getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos()
+							.getProdutosorcamento().getDescricao());
+				}
 				orcamentoprodutosorcamento.setImportado(false);
 				orcamentoprodutosorcamento.setOrcamento(orcamento);
 				orcamentoprodutosorcamento.setObrigatorio(true); 
@@ -2743,6 +2756,11 @@ public class CadAcomodacaoMB implements Serializable {
 			msg = "Sim";
 		}
 		
+		if (valorParcelar < 0.0f) {
+			Mensagem.lancarMensagemInfo("Forma de pagamento maior que o valor da venda", "");
+			msg = "Sim";
+		}
+		
 		if (programas == null || programas.getIdprodutos() == null) {
 			Mensagem.lancarMensagemInfo("Informe o produto vinculado a está venda;", "");
 			msg = "Sim";
@@ -2788,7 +2806,9 @@ public class CadAcomodacaoMB implements Serializable {
 		vendas.setCliente(lead.getCliente());
 		vendas.setValor(valorTotal);
 		vendas.setSituacao("PROCESSO");
-		vendas.setProdutos(programas);
+		ProdutoFacade produtoFacade = new ProdutoFacade();
+		Produtos produtos = produtoFacade.consultar(24);
+		vendas.setProdutos(produtos);
 		vendas.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
 		vendas.setUsuario(usuarioLogadoMB.getUsuario());
 		vendas.setVendasMatriz("S");
