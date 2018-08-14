@@ -72,9 +72,18 @@ public class SelecionarAcomodacaoMB implements Serializable{
 		session.removeAttribute("cidade");
 		acomodacaoInd = (Acomodacao) session.getAttribute("acomodacaoInd");
 		session.removeAttribute("acomodacaoInd");
-		if (cidade.isAcomodacaoindepentende()) {
-			gerarListaAcomodacaoIndependente();
-		}
+		listaAcomodacoesIndependente1 = (List<ProdutosOrcamentoBean>) session.getAttribute("listaAcomodacoesIndependente1");
+		session.removeAttribute("listaAcomodacoesIndependente1");
+		listaAcomodacoesIndependente2 = (List<ProdutosOrcamentoBean>) session.getAttribute("listaAcomodacoesIndependente2");
+		session.removeAttribute("listaAcomodacoesIndependente1");
+		listaAcomodacoesIndependente3 = (List<ProdutosOrcamentoBean>) session.getAttribute("listaAcomodacoesIndependente3");
+		session.removeAttribute("listaAcomodacoesIndependente3");
+		nomeFornecedor1 = (String) session.getAttribute("nomeFornecedor1");
+		session.removeAttribute("nomeFornecedor1");
+		nomeFornecedor2 = (String) session.getAttribute("nomeFornecedor2");
+		session.removeAttribute("nomeFornecedor2");
+		nomeFornecedor3 = (String) session.getAttribute("nomeFornecedor3");
+		session.removeAttribute("nomeFornecedor3");
 	}
 
 	public List<ProdutosOrcamentoBean> getListaAcomodacoes() {
