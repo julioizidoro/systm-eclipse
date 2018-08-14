@@ -1747,6 +1747,7 @@ public class CadVoluntariadoMB implements Serializable {
 			listarValoresSeguro();
 			valorSeguroAntigo = seguroViagem.getValorSeguro();
 			segurocancelamento = seguroViagem.isSegurocancelamento();
+			verificarSeguroCancelamento();
 		} else {
 			seguroViagem = new Seguroviagem();
 			seguroViagem.setPossuiSeguro("Não");
@@ -1828,6 +1829,7 @@ public class CadVoluntariadoMB implements Serializable {
 			cambioAlterado = orcamento.getCambioAlterado();
 		}
 	}
+	
 
 	private void calcularImpostoRemessa() {
 		ProdutoRemessaFacade produtoRemessaFacade = new ProdutoRemessaFacade();
