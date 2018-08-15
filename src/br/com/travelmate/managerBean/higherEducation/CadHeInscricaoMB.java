@@ -1047,17 +1047,16 @@ public class CadHeInscricaoMB implements Serializable {
 	public void excluirProdutoOrcamento(String linha) {
 		int ilinha = Integer.parseInt(linha);
 		if (ilinha >= 0) {
-			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
-					.getIdprodutosOrcamento() != null) {
+			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getIdorcamentoProdutosOrcamento() != null) {
 
 				if (vendaAlterada != null) {
 					OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 					orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento.getOrcamentoprodutosorcamentoList()
 							.get(ilinha).getIdorcamentoProdutosOrcamento());
 				}
-				orcamento.getOrcamentoprodutosorcamentoList().remove(ilinha);
-				calcularValorTotalOrcamento();
 			}
+			orcamento.getOrcamentoprodutosorcamentoList().remove(ilinha);
+			calcularValorTotalOrcamento();
 		}
 	}
 
