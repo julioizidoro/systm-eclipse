@@ -1206,6 +1206,19 @@ public class CadPacoteAgenciaMB implements Serializable {
 			btnfinalizar = false;
 		}
 	}
+	
+	public String validarDados() {
+		String msg = "";
+		if (saldoParcelar > 0.0f) {
+			msg = msg + "Saldo a parcelar em aberto \n";
+		}
+		
+		if (saldoParcelar <0.0f) {
+			msg = msg + "Valor da forma de pagamento maior que o valor da venda";
+		}
+		
+		return msg;
+	}
 
 	// salvar
 	public String salvar() {
@@ -1216,7 +1229,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 				if (formaPagamento.getValorOrcamento() > 0) {
 					if (formaPagamento.getParcelamentopagamentoList() != null && formaPagamento.getParcelamentopagamentoList().size() > 0) {
 						if (listaTrecho != null && listaTrecho.size() > 0) {
-							if (saldoParcelar < 0.01f) {
+							String msg = validarDados();
+							if (msg == null || msg.length() == 0) {
 								PacotesFacade pacotesFacade = new PacotesFacade();
 								pacotes.setOperacao("agencia");
 								pacotes.setControle("Concluido");
@@ -1310,7 +1324,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 								}
 								return "consultapacote";
 							} else
-								Mensagem.lancarMensagemErro("Saldo a parcelar em aberto!", "");
+								Mensagem.lancarMensagemErro(msg, "");
 						}else Mensagem.lancarMensagemInfo("Adicione um Trecho", "");
 					}else Mensagem.lancarMensagemInfo("Informe as Formas de Pagamento", "");
 				} else

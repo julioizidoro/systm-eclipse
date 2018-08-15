@@ -1081,6 +1081,10 @@ public class CadHeFinalMB implements Serializable {
 		if (saldoParcelar > 0.01f) {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 		}
+		
+		if (saldoParcelar < 0.00f) {
+			msg = msg + "Valor da forma de pagamento maior que o valor da venda\r\n";
+		}
 		return msg;
 	}
 

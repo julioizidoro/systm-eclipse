@@ -659,12 +659,26 @@ public class CadVistosMB implements Serializable {
 		}
 		return "consVistos";
 	}
+	
+	public String validarDados() {
+		String msg = "";
+		if (valorParcelar > 0.0f) {
+			msg = msg + "Saldo a parcelar em aberto \n";
+		}
+		
+		if (valorParcelar <0.0f) {
+			msg = msg + "Valor da forma de pagamento maior que o valor da venda";
+		}
+		
+		return msg;
+	}
 
 	public String salvar() throws SQLException {
 		String titulo = "";
 		String operacao = "";
 		String imagemNotificacao = "";
-		if (valorParcelar <=0) {
+		String msg = validarDados();
+		if (msg == null || msg.length() == 0) {
 			if (vendas.getIdvendas() == null) {
 				novaFicha = true;
 				titulo = "Nova Ficha de Visto";
@@ -786,7 +800,7 @@ public class CadVistosMB implements Serializable {
 			}
 			return "consVistos";
 		}else {
-			Mensagem.lancarMensagemInfo("Saldo em Aberto na Forma de pagamento", "");
+			Mensagem.lancarMensagemInfo(msg, "");
 		}
 		return "";
 	}
