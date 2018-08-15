@@ -1364,6 +1364,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 			}
 			valorSaltoParcelar = totalPagar;
 			valorParcelar = valorSaltoParcelar;
+			calcularParcelamentoPagamento();
 		}
 	}
 

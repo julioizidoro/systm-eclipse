@@ -773,6 +773,7 @@ public class CadPassagemMB implements Serializable {
 		}
 		valorSaltoParcelar = totalPagar;
 		valorParcelar = valorSaltoParcelar;
+		calcularParcelamentoPagamento();
 	}
 
 	public void carregarCamposFormaPagamento() {

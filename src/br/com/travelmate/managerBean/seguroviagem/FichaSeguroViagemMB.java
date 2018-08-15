@@ -706,6 +706,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			}
 			valorSaltoParcelar = totalPagar;
 			valorParcelar = valorSaltoParcelar;
+			calcularParcelamentoPagamento();
 		}
 
 	}
