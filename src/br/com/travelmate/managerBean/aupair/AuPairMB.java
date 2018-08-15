@@ -718,7 +718,7 @@ public class AuPairMB implements Serializable {
 
 	public String documentacao(Aupair aupair) {
 		boolean validar = true;
-		if (aupair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (aupair.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = aupair.getVendas().getDatavalidade();

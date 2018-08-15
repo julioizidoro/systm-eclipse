@@ -779,7 +779,7 @@ public class TraineeMB implements Serializable {
 
 	public String documentacao(Trainee trainee) {
 		boolean validar = true;
-		if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (trainee.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 		String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 		Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 		Date dataValidade = trainee.getVendas().getDatavalidade();

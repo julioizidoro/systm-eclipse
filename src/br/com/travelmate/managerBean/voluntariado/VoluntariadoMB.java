@@ -801,7 +801,7 @@ public class VoluntariadoMB implements Serializable {
 
 	public String documentacao(Voluntariado voluntariado) {
 		boolean validar = true;
-		if (voluntariado.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (voluntariado.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = voluntariado.getVendas().getDatavalidade();

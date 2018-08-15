@@ -756,7 +756,7 @@ public class WorkTravelMB implements Serializable {
 
 	public String documentacao(Worktravel work) {
 		boolean validar = true;
-		if (work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = work.getVendas().getDatavalidade();

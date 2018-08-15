@@ -637,7 +637,7 @@ public class HighSchoolMB implements Serializable {
 
 	public String documentacao(Highschool highschool) {
 		boolean validar = true;
-		if (highschool.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (highschool.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = highschool.getVendas().getDatavalidade();

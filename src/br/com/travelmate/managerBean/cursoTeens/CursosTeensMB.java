@@ -717,7 +717,7 @@ public class CursosTeensMB implements Serializable {
 
 	public String documentacao(Programasteens programasteens) {
 		boolean validar = true;
-		if (programasteens.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (programasteens.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = programasteens.getVendas().getDatavalidade();

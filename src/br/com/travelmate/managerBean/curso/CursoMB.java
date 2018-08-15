@@ -27,8 +27,6 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import com.sun.java.swing.plaf.windows.resources.windows;
-import com.sun.java.swing.plaf.windows.resources.windows_de;
 
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
@@ -978,7 +976,7 @@ public class CursoMB implements Serializable {
 
 	public String documentacao(Curso curso) {
 		boolean validar = true;
-		if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+		if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = curso.getVendas().getDatavalidade();
