@@ -339,7 +339,7 @@
 					<subreportParameterExpression><![CDATA[$P{adicionais}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{lista})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"\\"+ "orcamentoPagina03.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"//"+ "orcamentoPagina03.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>
