@@ -343,7 +343,7 @@ public class RelatorioDashBoardMB implements Serializable{
 	public String pegarEndereco() {
 		String endereco = "http://";
 		endereco = endereco + ftpdados.getHost();
-		endereco = endereco + ":82/ftproot/systm/tmstar/TMS01.pdf";
+		endereco = endereco + ":82/systm/tmstar/TMS01.pdf";
 		return endereco;
 	}
 

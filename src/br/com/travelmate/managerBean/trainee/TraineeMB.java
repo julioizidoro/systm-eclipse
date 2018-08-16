@@ -980,7 +980,7 @@ public class TraineeMB implements Serializable {
 //			e.printStackTrace();
 //		}
 //		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + trainee.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + trainee.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 //					trainee.getVendas().getUsuario().getIdusuario() + trainee.getVendas().getIdvendas() + ".html");
 //		} catch (IOException e) {
 //			e.printStackTrace();

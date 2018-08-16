@@ -294,7 +294,7 @@ public class EnviarEmail {
 				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
 				+ "</head>\n" + "<body style=\"font-family: arial;width:70%;\">\n"  
 				+ " <div align=\"center\" style=\"width:100%;\">\n";
-		corpoEmail = corpoEmail + " <img src=\"http://"+ ftpDados.getHost() +":82/ftproot/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
+		corpoEmail = corpoEmail + " <img src=\"http://"+ ftpDados.getHost() +":82/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
 		corpoEmail = corpoEmail + " <br></br>\n";
 		if (listaDadosEscolas != null && listaDadosEscolas.size() > 0) {
 			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br>";
@@ -353,7 +353,7 @@ public class EnviarEmail {
 		for (int j = 0; j < listaDadosEscolas.size(); j++) {
 			corpoEmail = corpoEmail 
 					+ "<table><tr><td> <div style=\"width:90%;\" class=\"menu\">\n" + " <img src=\"http://" + ftpDados.getHost()
-					+ ":82/ftproot/systm//paisemail/" + listaDadosEscolas.get(j).getIdpais() + ".png"
+					+ ":82/systm//paisemail/" + listaDadosEscolas.get(j).getIdpais() + ".png"
 					+ "\" width=\"185\" style=\"float:right;\"/>\n" + " </div></td><td>"
 					+ " <div  class=\"menu\" style=\"width:100%;margin-left:4%;text-align:left;LINE-HEIGHT:8px;\">  \n"
 					+ " <p style=\"font-size:13px;\">Destino: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
@@ -363,17 +363,17 @@ public class EnviarEmail {
 					+ "</p>\n" + " <p style=\"font-size:13px;\">Duração do Curso: "
 					+ listaDadosEscolas.get(j).getDuracao() + " Semanas" + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Turno do Curso: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n"
-					+ " <a href=\"http://" + ftpDados.getHost() + ":82/ftproot/systm/orcamento/"
+					+ " <a href=\"http://" + ftpDados.getHost() + ":82/systm/orcamento/"
 					+ listaDadosEscolas.get(j).getNomeArquivo()
 					+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
-					+ " <img src=\"http://"+ ftpDados.getHost() +":82/ftproot/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
+					+ " <img src=\"http://"+ ftpDados.getHost() +":82/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
 		}
 	}
 
 	public void gerarCorpoOrcamentoComparativo() {
 		corpoEmail = corpoEmail + " 	</p>\n" + "	    <hr style=\"color:#A6CE39; \"/>\n" + "	<section>\n"
 				+ "	    <article>\n" + "	        <header>\n" + " <a href=\"http://" + ftpDados.getHost()
-				+ ":82/ftproot/systm/orcamento/" + nomeArquivo
+				+ ":82/systm/orcamento/" + nomeArquivo
 				+ "\" target=\"blanck\" style=\"font-size:16px;color:#4C816D;\">Clique para visualizar orçamentos.</a>\n"
 				+ "	        </header>\n" + "	        <hr style=\"color:#A6CE39;\"/>\n" + "	      </article>\n"
 				+ "	    </section>\n"
@@ -387,7 +387,7 @@ public class EnviarEmail {
 					+ "</strong>\n" + "             <strong style=\"font-size:12px;\">"
 					+ "	        	<label style=\"font-size:15px;\">Documento: "
 					+ listaArquivos.get(j).getTipoarquivo().getDescricao() + "</a><br/>\n"
-					+ "	        	<a href=\"http://" + ftpDados.getHost() + ":82/ftproot/systm/arquivos/"
+					+ "	        	<a href=\"http://" + ftpDados.getHost() + ":82/systm/arquivos/"
 					+ listaArquivos.get(j).getNomesalvos()
 					+ "\" target=\"blanck\" style=\"font-size:12px;color:#424242;\">Clique para ver o documento </a>\n"
 					+ "	        </header>\n" + "	        <hr style=\"color:#424242;\"/>\n";
@@ -399,7 +399,7 @@ public class EnviarEmail {
 				+ "</strong>\n" + "             <strong style=\"font-size:12px;\">"
 				+ "	        	<label style=\"font-size:15px;\">Comprovante: "
 				+ "</a><br/>\n"
-				+ "	        	<a href=\"http://" + ftpDados.getHost() + ":82/ftproot/systm/turismo/comprovantes/"
+				+ "	        	<a href=\"http://" + ftpDados.getHost() + ":82/systm/turismo/comprovantes/"
 				+ pacotesfornecedor.getNomeftp()
 				+ "\" target=\"blanck\" style=\"font-size:12px;color:#424242;\">Clique para abrir o documento.</a>\n"
 				+ "	        </header>\n" + "	        <hr style=\"color:#424242;\"/>\n"; 

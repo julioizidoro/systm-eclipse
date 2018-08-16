@@ -566,7 +566,7 @@ public class FichaFinalMB implements Serializable{
 //			e.printStackTrace();
 //		}
 //		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + listaHeBean.getHe().getVendas1().getUnidadenegocio().getIdunidadeNegocio() + 
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + listaHeBean.getHe().getVendas1().getUnidadenegocio().getIdunidadeNegocio() + 
 //					listaHeBean.getHe().getVendas1().getUsuario().getIdusuario() + listaHeBean.getHe().getVendas1().getIdvendas() + ".html");
 //		} catch (IOException e) {
 //			e.printStackTrace();

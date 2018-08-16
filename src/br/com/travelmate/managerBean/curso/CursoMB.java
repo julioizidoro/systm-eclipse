@@ -1239,7 +1239,7 @@ public class CursoMB implements Serializable {
 			e.printStackTrace();
 		}
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + curso.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + curso.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 					curso.getVendas().getUsuario().getIdusuario() + curso.getVendas().getIdvendas() + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();

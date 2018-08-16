@@ -5,18 +5,15 @@
  */
 package br.com.travelmate.dao;
 
-import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.connection.Transactional;
-import br.com.travelmate.model.Ocursoformapagamento;
-
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import br.com.travelmate.connection.Transactional;
+import br.com.travelmate.model.Ocursoformapagamento;
 
 /**
  *
@@ -36,7 +33,7 @@ public class OCursoFormaPagamentoDao implements Serializable{
     
 	@Transactional
     public void excluir(int idOcurso) {
-        Query q = manager.createNativeQuery("delete from Ocursoformapagamento  where ocurso_idocurso=" + idOcurso);
+        Query q = manager.createNativeQuery("delete from ocursoformapagamento  where ocurso_idocurso=" + idOcurso);
         q.executeUpdate();
      }
     

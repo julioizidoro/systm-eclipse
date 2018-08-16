@@ -976,7 +976,7 @@ public class AuPairMB implements Serializable {
 			e.printStackTrace();
 		}
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + aupair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + aupair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 					aupair.getVendas().getUsuario().getIdusuario() + aupair.getVendas().getIdvendas() + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();

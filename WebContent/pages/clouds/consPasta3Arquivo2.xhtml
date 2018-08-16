@@ -105,7 +105,7 @@
 					<h:dataTable id="idTabelaArquivoQuadro" styleClass="table-transparent"  value="#{pasta3Arquivo2MB.listaArquivoSub}" rendered="#{pasta3Arquivo2MB.tabelaArquivoQuadro}"
 						var="arquivo2Bean" style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:98%;" >
 						<h:column>
-							<a href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo2Bean.arquivo1.nomeftp}"  title="#{arquivo2Bean.arquivo1.nome}" name="#{arquivo2Bean.arquivo1.nome}" target="_blank" style="margin:20px;">
+							<a href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/cloud/departamentos/#{arquivo2Bean.arquivo1.nomeftp}"  title="#{arquivo2Bean.arquivo1.nome}" name="#{arquivo2Bean.arquivo1.nome}" target="_blank" style="margin:20px;">
 					        		<h:panelGroup rendered="#{pasta3Arquivo2MB.verificarArquivo1(arquivo2Bean)}">
 						        		<img src="#{pasta3Arquivo2MB.retornaIconeArquivo(arquivo2Bean.arquivo1.tipo)}" width="40" height="40" style="font-size:12px;">
 						        			
@@ -127,7 +127,7 @@
 						</h:column>  
 						
 						<h:column>
-							<a href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo2Bean.arquivo2.nomeftp}" title="#{arquivo2Bean.arquivo2.nome}" name="#{arquivo2Bean.arquivo2.nome}" target="_blank" style="margin:20px;">
+							<a href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/cloud/departamentos/#{arquivo2Bean.arquivo2.nomeftp}" title="#{arquivo2Bean.arquivo2.nome}" name="#{arquivo2Bean.arquivo2.nome}" target="_blank" style="margin:20px;">
 					        		<h:panelGroup rendered="#{pasta3Arquivo2MB.verificarArquivo2(arquivo2Bean)}">
 					        			<img src="#{pasta3Arquivo2MB.retornaIconeArquivo(arquivo2Bean.arquivo2.tipo)}" width="40" height="40" style="font-size:12px;">
 					        			
@@ -148,7 +148,7 @@
 					        </a>
 						</h:column>
 						<h:column>
-					        	<a href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo2Bean.arquivo3.nomeftp}" title="#{arquivo2Bean.arquivo3.nome}" name="#{arquivo2Bean.arquivo3.nome}" target="_blank" style="margin:20px;">
+					        	<a href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/cloud/departamentos/#{arquivo2Bean.arquivo3.nomeftp}" title="#{arquivo2Bean.arquivo3.nome}" name="#{arquivo2Bean.arquivo3.nome}" target="_blank" style="margin:20px;">
 					        		<h:panelGroup rendered="#{pasta3Arquivo2MB.verificarArquivo3(arquivo2Bean)}">
 					        			<img src="#{pasta3Arquivo2MB.retornaIconeArquivo(arquivo2Bean.arquivo3.tipo)}" width="40" height="40" style="font-size:12px;">
 					        			
@@ -184,7 +184,7 @@
 							style="font-size:12px; width:5%; text-align:left; color:white; border:none; #{pasta3Arquivo2MB.trocarCorLinhaTabela(arquivo)}"
 							styleClass="alinharCenter">
 							<a
-								href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+								href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
 								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 								<img src="#{pasta3Arquivo2MB.retornaIconeArquivo(arquivo.tipo)}"
 									width="30" height="30" style="font-size: 12px;"> </img>
@@ -193,7 +193,7 @@
 						<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
 							style="width:77%;font-size:12px; color:black; border:none;text-align:left; #{pasta3Arquivo2MB.trocarCorLinhaTabela(arquivo)}">
 							<a
-								href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+								href="http://#{pasta3Arquivo2MB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
 								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 								<h:outputText value="#{arquivo.nome}" style="color:black"/>
 							</a>

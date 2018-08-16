@@ -21,7 +21,7 @@ public class FormaPagamentoContrato {
 	
 	public String pegarFormaPagamento(){
 		String dados = "<div align=\"left\">"+
-				"<img src=\"http://systm.com.br:82/ftproot/systm/img/opcoesPagamento.PNG\" width=\"47%\" />"+
+				"<img src=\"http://systm.com.br:82/systm/img/opcoesPagamento.PNG\" width=\"47%\" />"+
 			"</div> <br/>";
 		 dados = dados + "<div style=\"border: 2px solid;border-color:#9C9C9C;width:100%;\">"+ 
 				"<div style=\"width:100%;background-color: #CFCFCF;\">"+
@@ -102,7 +102,7 @@ public class FormaPagamentoContrato {
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + Formatacao.getMes() + " " + Formatacao.getAnoData(dataHoje); 
 		dados = dados + "<div align=\"left\">"+
-				"<img src=\"http://systm.com.br:82/ftproot/systm/img/assinaturaContrato.PNG\" width=\"40%\" />"+
+				"<img src=\"http://systm.com.br:82/systm/img/assinaturaContrato.PNG\" width=\"40%\" />"+
 			"</div> <br/>";
 		dados = dados + "<div style=\"border: 2px solid;border-color:#9C9C9C;width:100%;\">"+ 
 				"<p style=\"margin:1%;\"> Sendo que o(a) PARTICIPANTE e seus representantes legais"+
