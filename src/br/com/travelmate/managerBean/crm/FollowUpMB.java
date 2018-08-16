@@ -202,6 +202,8 @@ public class FollowUpMB implements Serializable {
 		}
 		if (listaLead==null) {
 			pesquisarInicial();
+		}else if(listaLeadTotal != null) {
+			gerarBotoesLead();
 		}
 		
 		if (listaPosVenda==null) {
@@ -642,6 +644,8 @@ public class FollowUpMB implements Serializable {
 		sql = "";
 		this.funcao = funcao;
 		listaLead = new ArrayList<Lead>();  
+		String dataHoje = Formatacao.ConvercaoDataPadrao(new Date());
+		Date dHoje = Formatacao.ConvercaoStringData(dataHoje);
 		if (funcao.equalsIgnoreCase("novos")) {
 			imagemNovos = "novosClick";
 			imagemHoje = "hoje";
@@ -685,10 +689,12 @@ public class FollowUpMB implements Serializable {
 			mostrarPosVenda = false;
 			mostrarLeads = true;
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
-				if (listaLeadTotal.get(i).getDataultimocontato() != null
-						&& listaLeadTotal.get(i).getDataproximocontato()!=null
-						&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())) {
-					listaLead.add(listaLeadTotal.get(i));
+				if (listaLeadTotal.get(i).getDataproximocontato() != null) {
+					String dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
+					Date dProximo = Formatacao.ConvercaoStringData(dataProximo);
+					if (dProximo.before(dHoje)) {
+						listaLead.add(listaLeadTotal.get(i));
+					}
 				}
 			}
 		} else if (funcao.equalsIgnoreCase("prox")) {
@@ -708,10 +714,13 @@ public class FollowUpMB implements Serializable {
 			}
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
 				if (listaLeadTotal.get(i).getDataultimocontato() != null
-						&& listaLeadTotal.get(i).getDataproximocontato()!=null
-						&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
-						&& listaLeadTotal.get(i).getDataproximocontato().before(data)) {
-					listaLead.add(listaLeadTotal.get(i));
+						&& listaLeadTotal.get(i).getDataproximocontato()!=null) {
+					String dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
+					Date dProximo = Formatacao.ConvercaoStringData(dataProximo);
+					if (dProximo.after(dHoje)
+							&& dProximo.before(data)) {
+						listaLead.add(listaLeadTotal.get(i));
+					}
 				}
 			}
 		} else if (funcao.equalsIgnoreCase("todos")) {
@@ -851,6 +860,8 @@ public class FollowUpMB implements Serializable {
 		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
 			funcao = "todos";
 			sql = sql + " and l.situacao='" + situacao + "'";
+		}else {
+			sql = sql + " and l.situacao<='5'";
 		}
 		if (nomeCliente != null && nomeCliente.length() > 0) {
 			sql = sql + " and (l.cliente.nome like '" + nomeCliente + "%' or l.cliente.email like '" + nomeCliente
@@ -903,10 +914,8 @@ public class FollowUpMB implements Serializable {
 		sql = sql + " order by l.dataproximocontato";
 		if (outroParametro) {
 			gerarListaLead(sql);
+			todos = listaLeadTotal.size();
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
-				if (!listaLeadTotal.get(i).getSituacao().equals("0")) {
-					todos = todos + 1;
-				}
 				if (listaLeadTotal.get(i).getDataultimocontato() == null && listaLeadTotal.get(i).getSituacao() == 1) {
 					novos = novos + 1;
 				} else if ((listaLeadTotal.get(i).getDataultimocontato() != null)
@@ -966,9 +975,9 @@ public class FollowUpMB implements Serializable {
 							.equalsIgnoreCase(dataHoje))
 					&& (listaLeadTotal.get(i).getSituacao() <= 5)) {
 				hoje = hoje + 1;
-			} else if ( listaLeadTotal.get(i).getDataproximocontato() != null
+			} else if (listaLeadTotal.get(i).getDataproximocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato().before(new Date())
-					&& (listaLeadTotal.get(i).getSituacao() <=5)) {
+					) {
 				atrasados = atrasados + 1;
 			} else if (listaLeadTotal.get(i).getDataproximocontato() != null
 					&& listaLeadTotal.get(i).getDataproximocontato().after(new Date())
