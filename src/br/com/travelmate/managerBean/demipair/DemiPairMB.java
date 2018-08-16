@@ -959,7 +959,7 @@ public class DemiPairMB implements Serializable {
 			e.printStackTrace();
 		}
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + demipair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + demipair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 					demipair.getVendas().getUsuario().getIdusuario() + demipair.getVendas().getIdvendas() + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -23,11 +23,11 @@
 		<p:galleria value="#{topTmStarMB.listaTmStarBean}" var="tmstar"
 			panelWidth="520" panelHeight="313" showCaption="true"  transitionInterval="1400">    
 			<label> <a  
-					href="http://#{topTmStarMB.ftpdados.host}:82/ftproot/systm/tmstar/#{tmstar.pdf}"  
+					href="http://#{topTmStarMB.ftpdados.host}:82/systm/tmstar/#{tmstar.pdf}"  
 					target="_blank"
 					style="color: #1F8871; font-size: 19px; text-align: center;width:250px; border: none; text-decoration: underline;">#{tmstar.pais}</a></label>
 			<p:graphicImage
-				url="http://#{topTmStarMB.ftpdados.host}:82/ftproot/systm/tmstar/#{tmstar.imagem}"
+				url="http://#{topTmStarMB.ftpdados.host}:82/systm/tmstar/#{tmstar.imagem}"
 				title="#{tmstar.pais}" width="100%;">    
 			</p:graphicImage>
 		</p:galleria>

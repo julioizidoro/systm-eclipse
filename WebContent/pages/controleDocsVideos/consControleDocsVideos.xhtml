@@ -78,7 +78,7 @@
 										style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}"
 										styleClass="alinharCenter">
 										<a
-											href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+											href="http://#{controleDocsVideosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
 											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 											<img src="#{controleDocsVideosMB.retornaIconeDocumento(arquivo.nomeftp)}"
 												width="30" height="30" style="font-size: 12px;"> </img>
@@ -87,7 +87,7 @@
 									<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
 										style="font-size:12px;width:30%; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
 										<a
-											href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+											href="http://#{controleDocsVideosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
 											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 											<h:outputText value="#{arquivo.nome}" style="color:black"/>
 										</a>
@@ -95,7 +95,7 @@
 									<p:column headerText="Caminho" sortBy="#{arquivo.caminho}" 
 										style="font-size:12px;width:40%; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
 										<a
-											href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeftp}"
+											href="http://#{controleDocsVideosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
 											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 											<h:outputText value="#{arquivo.caminho}" style="color:black"/>
 										</a>
@@ -140,7 +140,7 @@
 											style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}"
 											styleClass="alinharCenter">
 											<a
-												href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
+												href="http://#{controleDocsVideosMB.ftpDados.host}:82/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
 												title="#{arquivoFornecedor.fornecedordocs.nome}" name="#{arquivoFornecedor.fornecedordocs.nome}" target="_blank">
 												<img src="#{controleDocsVideosMB.retornaIconeDocumento(arquivoFornecedor.fornecedordocs.nomeftp)}"
 													width="30" height="30" style="font-size: 12px;"> </img>
@@ -149,7 +149,7 @@
 										<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
 											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
 											<a
-												href="http://#{controleDocsVideosMB.ftpDados.host}:82/ftproot/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
+												href="http://#{controleDocsVideosMB.ftpDados.host}:82/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
 												title="#{arquivoFornecedor.fornecedordocs.nome}" name="#{arquivoFornecedor.fornecedordocs.nome}" target="_blank">
 												<h:outputText value="#{arquivoFornecedor.fornecedordocs.nome}" style="color:black"/>
 											</a>

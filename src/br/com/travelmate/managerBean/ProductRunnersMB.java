@@ -169,7 +169,7 @@ public class ProductRunnersMB implements Serializable{
 		List<Corridaprodutomes> listaCorridaMes = null;
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		int ano = Formatacao.getAnoData(new Date());
-		String sql = "SELECT c FROM Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + corrida.getProdutos().getIdprodutos()
+		String sql = "Select c From Corridaprodutomes c WHERE c.mes=" + mes + " and c.ano=" + ano + " and c.produtos.idprodutos=" + corrida.getProdutos().getIdprodutos()
 						+ " ORDER BY c.pontos DESC";
 		listaCorridaMes = corridaProdutoMesFacade.listar(sql);
 		if (listaCorridaMes == null) {

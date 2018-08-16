@@ -480,7 +480,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 			caminhoRelatorio = "/reports/orcamentopdf/orcamentoPagina02.jasper";
 		}
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//orcamentopdf//"));
+		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("/reports/orcamentopdf/"));
 		File f = new File(servletContext.getRealPath("/reports/orcamentopdf/mascote.png"));
 		BufferedImage mascote = null;
 		try {
@@ -789,7 +789,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		Ftpdados dadosFTP = null;
 		try {
 			dadosFTP = ftpDadosFacade.getFTPDados();
-			String text = dadosFTP.getHostlink() + ":82/ftproot/systm/orcamento/TM-" + ocurso.getIdocurso() + ".pdf";
+			String text = dadosFTP.getHostlink() + ":82/systm/orcamento/TM-" + ocurso.getIdocurso() + ".pdf";
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();

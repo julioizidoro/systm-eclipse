@@ -748,7 +748,7 @@ public class PacoteMB implements Serializable {
 //			e.printStackTrace();
 //		}
 //		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + pacotes.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + pacotes.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 //					pacotes.getVendas().getUsuario().getIdusuario() + pacotes.getVendas().getIdvendas() + ".html");
 //		} catch (IOException e) {
 //			e.printStackTrace();

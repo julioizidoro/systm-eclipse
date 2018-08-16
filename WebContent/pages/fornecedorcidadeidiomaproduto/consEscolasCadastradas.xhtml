@@ -38,7 +38,7 @@
 							var="departamento" itemLabel="#{departamento.nome}"
 							itemValue="#{departamento}" />   
 						<p:column style="width:10%">  
-			                <img src="http://#{consultaFornecedoresCadastradosMB.ftpdados.host}:82/ftproot/systm//cordepartamento/#{d.cor}" width="13"/>
+			                <img src="http://#{consultaFornecedoresCadastradosMB.ftpdados.host}:82/systm//cordepartamento/#{d.cor}" width="13"/>
 			            </p:column>  
 			            <p:column>   
 			                <h:outputText value="#{d.nome}" />
@@ -210,7 +210,7 @@
 								title="Documentação de Visto"
 								disabled="#{consultaFornecedoresCadastradosMB.habilitarDocumentosVisto(pais)}">
 								<a title="Abrir Documentação de Visto."
-									href="http://#{consultaFornecedoresCadastradosMB.ftpdados.host}:82/ftproot/systm/documentovisto/#{pais.pais.documentovisto}"
+									href="http://#{consultaFornecedoresCadastradosMB.ftpdados.host}:82/systm/documentovisto/#{pais.pais.documentovisto}"
 									target="_blank"
 									style="text-decoration: none; color: white; font-size: 18px;"
 									type="button"> <img

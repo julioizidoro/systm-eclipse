@@ -83,7 +83,7 @@ public class ConectionFactory {
 	public static Connection getConexao() {
 		Connection conexao = null;
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost:8081/systm", "root", "780920**");
+			conexao = DriverManager.getConnection("jdbc:mysql://tmmysql.cxjytqucztmb.us-east-1.rds.amazonaws.com:3306/systm", "master", "Travel2018#");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

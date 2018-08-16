@@ -68,7 +68,7 @@
 					style="font-size:12px; width:2%; text-align:left; color:white; border:none; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}"
 					styleClass="alinharCenter">
 					<a
-						href="http://#{listaArquivosVencidosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeFtp}"
+						href="http://#{listaArquivosVencidosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeFtp}"
 						title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 						<img src="#{listaArquivosVencidosMB.retornaIconeArquivo(arquivo.nomeFtp)}"
 							width="30" height="30" style="font-size: 12px;"> </img>
@@ -77,7 +77,7 @@
 				<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
 					style="width:14%; font-size:12px; color:black; border:none;text-align:left; #{listaArquivosVencidosMB.trocarCorLinhaTabela(arquivo)}">
 					<a
-						href="http://#{listaArquivosVencidosMB.ftpDados.host}:82/ftproot/cloud/departamentos/#{arquivo.nomeFtp}"
+						href="http://#{listaArquivosVencidosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeFtp}"
 						title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 						<h:outputText value="#{arquivo.nome}" style="color:black"/>
 					</a>

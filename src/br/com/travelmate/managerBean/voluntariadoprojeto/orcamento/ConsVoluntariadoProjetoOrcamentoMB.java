@@ -384,7 +384,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		Ftpdados dadosFTP = null; 
 		try {
 			dadosFTP = ftpDadosFacade.getFTPDados(); 
-			String text = dadosFTP.getHostlink() + ":82/ftproot/systm/orcamento/TM-" + "vol"+ orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado() + ".pdf"; 
+			String text = dadosFTP.getHostlink() + ":82/systm/orcamento/TM-" + "vol"+ orcamentoprojetovoluntariado.getIdorcamentoprojetovoluntariado() + ".pdf"; 
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();

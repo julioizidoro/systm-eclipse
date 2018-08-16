@@ -799,7 +799,7 @@ public class VistosMB implements Serializable {
 //			e.printStackTrace();
 //		}
 //		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + vistos.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + vistos.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 //					vistos.getVendas().getUsuario().getIdusuario() + vistos.getVendas().getIdvendas() + ".html");
 //		} catch (IOException e) {
 //			e.printStackTrace();

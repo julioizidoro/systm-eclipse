@@ -984,7 +984,7 @@ public class WorkTravelMB implements Serializable {
 			e.printStackTrace();
 		}
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + worktravel.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + worktravel.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 					worktravel.getVendas().getUsuario().getIdusuario() + worktravel.getVendas().getIdvendas() + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();

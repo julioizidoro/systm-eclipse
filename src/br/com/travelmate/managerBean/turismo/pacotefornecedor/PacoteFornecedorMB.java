@@ -365,7 +365,7 @@ public class PacoteFornecedorMB implements Serializable{
 		if(fornecedorpacotearquivopagamento!=null && fornecedorpacotearquivopagamento.getIdfornecedorpacotearquivopagamento()!=null) {
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 			try {
-				externalContext.redirect("http://"+ftpDados.getHost()+":82/ftproot/systm/turismo/comprovantes/"+fornecedorpacotearquivopagamento.getNomeftp());
+				externalContext.redirect("http://"+ftpDados.getHost()+":82/systm/turismo/comprovantes/"+fornecedorpacotearquivopagamento.getNomeftp());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -381,7 +381,7 @@ public class PacoteFornecedorMB implements Serializable{
 		if(fornecedorpacotearquivoinvoice!=null && fornecedorpacotearquivoinvoice.getIdfornecedorpacotearquivoinvoice()!=null) {
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 			try {
-				externalContext.redirect("http://"+ftpDados.getHost()+":82/ftproot/systm/turismo/invoice/"+fornecedorpacotearquivoinvoice.getNomeftp());
+				externalContext.redirect("http://"+ftpDados.getHost()+":82/systm/turismo/invoice/"+fornecedorpacotearquivoinvoice.getNomeftp());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

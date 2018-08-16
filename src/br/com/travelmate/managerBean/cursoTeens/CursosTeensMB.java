@@ -970,7 +970,7 @@ public class CursosTeensMB implements Serializable {
 			e.printStackTrace();
 		}
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/ftproot/systm/arquivos/Contrato" + programasteens.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
+			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + programasteens.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
 					programasteens.getVendas().getUsuario().getIdusuario() + programasteens.getVendas().getIdvendas() + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();

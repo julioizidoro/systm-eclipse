@@ -298,7 +298,7 @@ public class LerArquivoTxt {
 				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
 				+ "</head>\n" + "<body style=\"font-family: sans-serif;font-size: 13px;width:98%;\">\n"
 				+ "<div align=\"justify\" style=\"font-family: sans-serif; font-size: 15px; width: 100%;\"><br/>"
-				+ "<div align=\"left\">" + "<img src=\"http://systm.com.br:82/ftproot/systm/img/cabecalhoContrato.PNG\" width=\"100%\" />"
+				+ "<div align=\"left\">" + "<img src=\"http://systm.com.br:82/systm/img/cabecalhoContrato.PNG\" width=\"100%\" />"
 				+ "</div> <br/>"
 				+ " <p style=\"text-align:center;font-size:13px;margin-top:-69px;margin-left: 5%;\"> Unidade:" +  vendas.getUnidadenegocio().getNomerelatorio() + "</p> <br/>"
 				+ " <p style=\"text-align:center;font-size:13px;margin-top:-26px;margin-left: 5%;\"> Consultor:" + vendas.getUsuario().getNome() + "</p> <br/>"
