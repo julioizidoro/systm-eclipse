@@ -22,6 +22,8 @@ import br.com.travelmate.model.Regravenda;
 import br.com.travelmate.model.Usuariopontos;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -320,16 +322,41 @@ public class PacoteHotelMB implements Serializable{
     }
     
     public String salvarHotel(){
-        PacotesHotelFacade pacotehotelFacade = new PacotesHotelFacade();
-        pacotehotel.setFornecedorcidade(fornecedorcidade);
-        pacotehotel.setCambio(cambio);
-        pacotehotel.setValorcambio(valorCambio);
-        pacotehotel = pacotehotelFacade.salvar(pacotehotel);
-        fornecedorcidade = new Fornecedorcidade();
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
-        RequestContext.getCurrentInstance().closeDialog(pacotehotel);
+    	String msg = validarDados();
+    	if (msg == null || msg.length() == 0) {
+	        PacotesHotelFacade pacotehotelFacade = new PacotesHotelFacade();
+	        pacotehotel.setFornecedorcidade(fornecedorcidade);
+	        pacotehotel.setCambio(cambio);
+	        pacotehotel.setValorcambio(valorCambio);
+	        pacotehotel = pacotehotelFacade.salvar(pacotehotel);
+	        fornecedorcidade = new Fornecedorcidade();
+	        FacesContext context = FacesContext.getCurrentInstance();
+	        context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
+	        RequestContext.getCurrentInstance().closeDialog(pacotehotel);	
+		}else {
+			Mensagem.lancarMensagemInfo(msg, "");
+		}
         return "";
+    }
+    
+    public String validarDados() {
+    	String msg = "";
+    	if (cambio == null || cambio.getIdcambio() == null) {
+			msg = msg + "Informe o câmbio; \n";
+		}
+    	
+    	if (pais == null || pais.getIdpais() == null) {
+			msg = msg + "Informe o  pais; \n";
+		}
+    	
+    	if (cidade == null || cidade.getIdcidade() == null) {
+			msg = msg + "Informe a cidade; \n";
+		}
+    	
+    	if (fornecedorcidade == null || fornecedorcidade.getIdfornecedorcidade() == null) {
+			msg = msg + "Informe o parceiro; \n";
+		}
+    	return msg;
     }
     
     public String cancelar(){
