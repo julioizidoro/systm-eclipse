@@ -3,7 +3,6 @@ package br.com.travelmate.managerBean;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -350,6 +349,11 @@ public class DashBoardMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
 			return metaMes;
 		} else {
+			if (metamensal == null) {
+				return "0";
+			}else if(metamensal.getValormeta() == null) {
+				metamensal.setValormeta(0.0f);
+			}
 			metaMes = Formatacao.formatarFloatString(metamensal.getValormeta());
 			return metaMes;
 		}
@@ -360,6 +364,11 @@ public class DashBoardMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
 			return metaSemana;
 		} else {
+			if (metamensal == null) {
+				return "0";
+			}else if(metamensal.getValormetasemana() == null) {
+				metamensal.setValormetasemana(0.0f);
+			}
 			metaSemana = Formatacao.formatarFloatString(metamensal.getValormetasemana());
 			return metaSemana;
 		}
@@ -370,6 +379,11 @@ public class DashBoardMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
 			return metaAno;
 		} else {
+			if (metaAnual == null) {
+				return "0";
+			}else if(metaAnual.getPercentualalcancado() == null) {
+				metaAnual.setPercentualalcancado(0.0f);
+			}
 			metaAno = Formatacao.formatarFloatString(metaAnual.getPercentualalcancado());
 			return metaAno;
 		}
@@ -380,6 +394,11 @@ public class DashBoardMB implements Serializable {
 		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
 			return metaMes;
 		} else {
+			if (metamensal== null) {
+				return "0";
+			}else if(metamensal.getPercentualalcancado() == null) {
+				metamensal.setPercentualalcancado(0.0f);
+			}
 			metaMes = Formatacao.formatarFloatString(metamensal.getPercentualalcancado());
 			return metaMes;
 		}
@@ -478,7 +497,6 @@ public class DashBoardMB implements Serializable {
 		novos = 0;
 		atrasadas = 0;
 		hoje = 0;
-		Date data = new Date();
 		String sql = "select l from Lead l where l.situacao<=5 ";
 		if (!acessoResponsavelGerencial) {
 			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
