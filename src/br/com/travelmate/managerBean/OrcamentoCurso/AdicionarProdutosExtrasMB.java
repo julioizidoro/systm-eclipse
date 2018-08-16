@@ -129,10 +129,16 @@ public class AdicionarProdutosExtrasMB implements Serializable{
 	}
 	
 	public void calcularMoedaReal(){
+		if (produtosExtrasBean == null || produtosExtrasBean.getValorOrigianl() == null) {
+			produtosExtrasBean.setValorOrigianl(0.0f);
+		}
 		produtosExtrasBean.setValorOriginalRS(produtosExtrasBean.getValorOrigianl()*valorCambio);
 	}
 	
 	public void calcularMoedaEstrangeira(){
+		if (produtosExtrasBean.getValorOriginalRS() == null) {
+			produtosExtrasBean.setValorOriginalRS(0.0f);
+		}
 		produtosExtrasBean.setValorOrigianl(produtosExtrasBean.getValorOriginalRS()/valorCambio);
 	}
 	
