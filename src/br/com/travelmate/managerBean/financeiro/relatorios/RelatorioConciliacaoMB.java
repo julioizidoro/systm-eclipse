@@ -238,12 +238,21 @@ public class RelatorioConciliacaoMB implements Serializable{
     	List<ConciliacaoBean> listaConciliacao = new ArrayList<ConciliacaoBean>();
     	if (lista!=null){
     		saldoInicial = gerarSaldoInicial();
+    		if (saldoInicial == null) {
+				saldoInicial = 0.0f;
+			}
     		Float saldoAtual = saldoInicial;
     		for(int i=0;i<lista.size();i++){
     			ConciliacaoBean conciliacao = new ConciliacaoBean();
     			conciliacao.setDataCompensacao(lista.get(i).getDatacompensacao());
     			conciliacao.setDescricao(lista.get(i).getDescricao());
     			conciliacao.setPlanoContas(lista.get(i).getPlanoconta().getDescricao());
+    			if (lista.get(i).getValorentrada() == null) {
+					lista.get(i).setValorentrada(0.0f);
+				}
+    			if (lista.get(i).getValorsaida() == null) {
+					lista.get(i).setValorsaida(0.0f);
+				}
     			saldoAtual = saldoAtual  + lista.get(i).getValorentrada()  - lista.get(i).getValorsaida();
     			conciliacao.setSaldo(saldoAtual);
     			conciliacao.setValorEntrada(lista.get(i).getValorentrada());
