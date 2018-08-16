@@ -794,10 +794,12 @@ public class FaturaFranquiaMB implements Serializable {
 	public void retornoDialogNovo(SelectEvent event) {
 		if (event != null) {
 			Contaspagar contaspagar = (Contaspagar) event.getObject();
-			if (contaspagar.getValorentrada()>0){
-				fatura.setValorpago(fatura.getValorpago() + contaspagar.getValorentrada());
-			}else if (contaspagar.getValorsaida()>0){
-				fatura.setValorpago(fatura.getValorpago() + (contaspagar.getValorsaida()*-1));
+			if (contaspagar != null && contaspagar.getValorentrada() != null) {
+				if (contaspagar.getValorentrada()>0){
+					fatura.setValorpago(fatura.getValorpago() + contaspagar.getValorentrada());
+				}else if (contaspagar.getValorsaida()>0){
+					fatura.setValorpago(fatura.getValorpago() + (contaspagar.getValorsaida()*-1));
+				}
 			}
 			fatura.setSaldofinalanterior(fatura.getSaldodebito() + fatura.getValorpago());
 			fatura.setValorpagar(fatura.getSaldofinalanterior()+fatura.getSaldolancamentos());
