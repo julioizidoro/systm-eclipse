@@ -102,10 +102,11 @@
 										timeZone="America/Sao_Paulo" />            
 									<p:ajax event="blur" />
 								</p:calendar>
-							</h:panelGroup>             
+							</h:panelGroup>            
 							<p:commandButton value="Pesquisar" icon=" ui-icon-search " 
 								actionListener="#{followUpMB.filtrarPesquisa()}" id="btnConfirmarLead"
-								action="#{followUpMB.pesquisarPosVenda()}" update=":followUp:tabelaLeads, :followUp:panelBotoes, :followUp:panelTabelaLead, :followUp:btnNovos" />
+								action="#{followUpMB.pesquisarPosVenda()}" update=":followUp:panelPosLead, :followUp:tabelaLeads, :followUp:panelBotoes, :followUp:growl, :followUp:panelTabelaLead, :followUp:btnNovos
+								    		 "/>
 							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
 								action="#{followUpMB.limparPesquisa()}" update="@form" />
 						</h:panelGrid>

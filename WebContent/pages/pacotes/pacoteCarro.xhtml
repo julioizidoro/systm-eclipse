@@ -13,6 +13,7 @@
     </h:head>
     <h:body style="background:#DDDDE1;">
         <h:form id="cadastropacotecarro" style="text-align:left;font-size:11px;">
+        	<p:growl id="growl" showDetail="true" sticky="false" life="20000" />
             <title>Carro</title><br></br>
             
            	 	<h:panelGrid columns="4" width="100%" style="margin-left:3%;">
@@ -103,7 +104,7 @@
                             <p:inputText id="descritivo" value="#{pacoteCarroMB.pacotecarro.descritivo}" style="width:94%;margin-left: 3%" class="espacocampos2"/>
                             <br></br><br></br>
                             <p class="botaocadpacote"><br></br>
-                                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" action="#{pacoteCarroMB.salvarCarro()}" style="font-size:11px;"></p:commandButton>
+                                <p:commandButton class="imagemm" onclick="" icon="ui-icon-check" value="Confirmar" update=":cadastropacotecarro:growl" action="#{pacoteCarroMB.salvarCarro()}" style="font-size:11px;"></p:commandButton>
                                 <p:commandButton class="espacocampos" onclick="" icon="ui-icon-close" value="Cancelar" action="#{pacoteCarroMB.cancelar()}"></p:commandButton>
                                  <p:commandButton class="espacocampos" onclick="" icon="ui-icon-trash" value="Excluir" action="#{pacoteCarroMB.excluir()}"></p:commandButton>
                                 <br></br><br></br>

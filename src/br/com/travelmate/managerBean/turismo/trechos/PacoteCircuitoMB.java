@@ -180,14 +180,19 @@ public class PacoteCircuitoMB implements Serializable{
     }
     
     public String salvar(){
-        PacoteCircuitoFacade pacotecircuitoFacade = new PacoteCircuitoFacade();
-        circuito.setFornecedorcidade(fornecedorcidade);
-        circuito.setCambio(cambio);
-        circuito.setValorcambio(valorCambio);
-        circuito = pacotecircuitoFacade.salvar(circuito);
-        fornecedorcidade = new Fornecedorcidade();
-        Mensagem.lancarMensagemInfo("Salvo com Sucesso", "");
-        RequestContext.getCurrentInstance().closeDialog(circuito);
+    	String msg = validarDados();
+    	if (msg == null || msg.length() == 0) {
+	        PacoteCircuitoFacade pacotecircuitoFacade = new PacoteCircuitoFacade();
+	        circuito.setFornecedorcidade(fornecedorcidade);
+	        circuito.setCambio(cambio);
+	        circuito.setValorcambio(valorCambio);
+	        circuito = pacotecircuitoFacade.salvar(circuito);
+	        fornecedorcidade = new Fornecedorcidade();
+	        Mensagem.lancarMensagemInfo("Salvo com Sucesso", "");
+	        RequestContext.getCurrentInstance().closeDialog(circuito);
+		}else {
+			Mensagem.lancarMensagemInfo(msg, "");
+		}
         return "";
     }
     
@@ -225,5 +230,23 @@ public class PacoteCircuitoMB implements Serializable{
     public void carregarValorCambio(){
 		valorCambio = cambio.getValor();
 	}
+
+    
+    public String validarDados() {
+    	String msg = "";
+    	if (pais == null || pais.getIdpais() == null) {
+			msg = msg + "Informe o pais; \n";
+		}
+    	if (cidade == null || cidade.getIdcidade() == null) {
+			msg = msg + "Informe a cidade; \n";
+		}
+    	if (fornecedorcidade == null || fornecedorcidade.getIdfornecedorcidade() == null) {
+			msg = msg + "Informe o parceiro; \n";
+		}
+    	if (cambio == null || cambio.getIdcambio() == null) {
+			msg = msg + "Informe o câmbio; \n";
+		}
+    	return msg;
+    }
   
 }

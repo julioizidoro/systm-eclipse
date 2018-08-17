@@ -24,6 +24,7 @@ import br.com.travelmate.model.Pacotetrecho;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -202,14 +203,19 @@ public class PacoteCarroMB implements Serializable{
     }
     
     public String salvarCarro(){
-        PacotesCarroFacade pacotesCarroFacade = new PacotesCarroFacade();
-        pacotecarro.setFornecedorcidade(fornecedorcidade);
-        pacotecarro.setCambio(cambio);
-        pacotecarro.setValorcambio(valorCambio);
-        pacotecarro = pacotesCarroFacade.salvar(pacotecarro);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
-        RequestContext.getCurrentInstance().closeDialog(pacotecarro);
+    	String msg = validarDados();
+    	if (msg == null || msg.length() == 0) {
+	        PacotesCarroFacade pacotesCarroFacade = new PacotesCarroFacade();
+	        pacotecarro.setFornecedorcidade(fornecedorcidade);
+	        pacotecarro.setCambio(cambio);
+	        pacotecarro.setValorcambio(valorCambio);
+	        pacotecarro = pacotesCarroFacade.salvar(pacotecarro);
+	        FacesContext context = FacesContext.getCurrentInstance();
+	        context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
+	        RequestContext.getCurrentInstance().closeDialog(pacotecarro);	
+		}else {
+			Mensagem.lancarMensagemInfo(msg, "");
+		}
         return "";
     }
     
@@ -254,5 +260,20 @@ public class PacoteCarroMB implements Serializable{
     		habilitado = "true";
     	}
     	return habilitado;
+    }
+    
+    
+    public String validarDados() {
+    	String msg = "";
+    	if (pais == null || pais.getIdpais() == null) {
+			msg = msg + "Informe o pais; \n";
+		}
+    	if (cidade == null || cidade.getIdcidade() == null) {
+			msg = msg + "Informe a cidade; \n";
+		}
+    	if (fornecedorcidade == null || fornecedorcidade.getIdfornecedorcidade() == null) {
+			msg = msg + "Informe o parceiro; \n";
+		}
+    	return msg;
     }
 }

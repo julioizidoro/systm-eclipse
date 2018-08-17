@@ -18,6 +18,8 @@ import br.com.travelmate.model.Pacotetrecho;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -321,15 +323,34 @@ public class PacotePassagemMB implements Serializable{
         calcularValorTotal();
     }
     
+    public String validarDados() {
+    	String msg = "";
+    	if (pais == null || pais.getIdpais() == null) {
+			msg = msg + "Informe o pais; \n";
+		}
+    	if (cidade == null || cidade.getIdcidade() == null) {
+			msg = msg + "Informe a cidade; \n";
+		}
+    	if (fornecedorcidade == null || fornecedorcidade.getIdfornecedorcidade() == null) {
+			msg = msg + "Informe o parceiro; \n";
+		}
+    	return msg;
+    }
+    
     public String salvarPassagem(){
-        PacotesPassagemFacade pacotePassagemFacade = new PacotesPassagemFacade();
-        pacotepassagem.setFornecedorcidade(fornecedorcidade);
-        pacotepassagem = pacotePassagemFacade.salvar(pacotepassagem);
-        salvarPassageiro();
-        fornecedorcidade = new Fornecedorcidade();
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
-        RequestContext.getCurrentInstance().closeDialog(pacotepassagem);
+    	String msg = validarDados();
+    	if (msg == null || msg.length() == 0) {
+	        PacotesPassagemFacade pacotePassagemFacade = new PacotesPassagemFacade();
+	        pacotepassagem.setFornecedorcidade(fornecedorcidade);
+	        pacotepassagem = pacotePassagemFacade.salvar(pacotepassagem);
+	        salvarPassageiro();
+	        fornecedorcidade = new Fornecedorcidade();
+	        FacesContext context = FacesContext.getCurrentInstance();
+	        context.addMessage(null, new FacesMessage("Salvo com Sucesso", ""));
+	        RequestContext.getCurrentInstance().closeDialog(pacotepassagem);
+		}else {
+			Mensagem.lancarMensagemInfo(msg, "");
+		}
         return "";
     }
     
