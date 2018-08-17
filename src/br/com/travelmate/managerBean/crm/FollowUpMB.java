@@ -878,14 +878,14 @@ public class FollowUpMB implements Serializable {
 			sql = sql + " and l.situacao='" + situacao + "'";
 		}
 		if (dataProxInicio != null && dataProxFinal != null) {
-			sql = sql + " and l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
-					+ "l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
+			sql = sql + " and ((l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
+					+ "l.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "') or l.situacao=1) ";
 			outroParametro = true;
 		}
 
 		if (dataUltInicio != null && dataUltFinal != null) {
-			sql = sql + " and l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
+			sql = sql + " and ((l.dataultimocontato>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
+					+ "l.dataultimocontato<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "') or l.situacao=1)";
 			outroParametro = true;
 		}   
 		if (programas != null && programas.getIdprodutos() != null) {

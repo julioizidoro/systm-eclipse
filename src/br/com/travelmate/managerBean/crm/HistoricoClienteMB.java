@@ -99,7 +99,7 @@ public class HistoricoClienteMB implements Serializable {
 	private boolean habilitarDescricao = true;
 	private Produtos produto;
 	private List<Produtos> listaProduto;
-	
+	private String sql;
 	@Inject
 	private OCursoDao oCursoDao;
 
@@ -117,11 +117,13 @@ public class HistoricoClienteMB implements Serializable {
 			funcao = (String) session.getAttribute("funcao");
 			voltar = (String) session.getAttribute("voltar");
 			pesquisa = (PesquisaBean) session.getAttribute("pesquisa");
+			sql = (String) session.getAttribute("sql");
 			session.removeAttribute("pesquisa"); 
 			session.removeAttribute("voltar"); 
 			session.removeAttribute("funcao"); 
 			session.removeAttribute("listaLead"); 
 			session.removeAttribute("posicao");
+			session.removeAttribute("sql");
 			if (listaLead != null && listaLead.size() > 0) {
 				lead = listaLead.get(posicao);
 			}else{
@@ -327,6 +329,7 @@ public class HistoricoClienteMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("funcao", funcao); 
 		session.setAttribute("pesquisa", pesquisa);
+		session.setAttribute("sql", sql);
 		if(voltar!=null && voltar.length()>0) {
 			return voltar;
 		}
@@ -943,6 +946,7 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("listaLead", listaLead);
 		session.setAttribute("posicao", posicao-1);
 		session.setAttribute("funcao", funcao);
+		session.setAttribute("sql", sql);
 		return "historicoCliente";
 	}
 	
@@ -952,6 +956,7 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("listaLead", listaLead);
 		session.setAttribute("posicao", posicao+1);
 		session.setAttribute("funcao", funcao);
+		session.setAttribute("sql", sql);
 		return "historicoCliente";
 	}
 	
