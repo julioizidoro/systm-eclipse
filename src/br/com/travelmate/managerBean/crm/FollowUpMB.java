@@ -124,8 +124,6 @@ public class FollowUpMB implements Serializable {
 			if (funcao == null || funcao.length() == 0) {
 				funcao = "hoje";
 			}
-			this.listaLead = (List<Lead>) session.getAttribute("listalead");;
-			this.listaLeadTotal = (List<Lead>) session.getAttribute("listaleadtotal");
 			this.listaPosVenda = (List<Leadposvenda>) session.getAttribute("listaposvenda");
 			this.listaProdutos = (List<Produtos>) session.getAttribute("listaproduto");
 			this.listaPais = (List<Pais>) session.getAttribute("listapais");
@@ -134,14 +132,15 @@ public class FollowUpMB implements Serializable {
 			this.listaUnidade = (List<Unidadenegocio>) session.getAttribute("listaunidade");
 			this.listaProgramas = listaProdutos;
 			this.listaPaisConsulta = listaPais;
-			session.removeAttribute("listalead");
-			session.removeAttribute("listaleadtotal");
+			this.sql = (String) session.getAttribute("sql");
+			session.removeAttribute("sql");
 			session.removeAttribute("listaposvenda");
 			session.removeAttribute("listaproduto");
 			session.removeAttribute("listapais");
 			session.removeAttribute("listatipocontato");
 			session.removeAttribute("listausuario");
 			session.removeAttribute("unidade");
+			session.removeAttribute("listaLead");
 			
 			if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isGerencialcrm()) {
 				acessoResponsavelGerencial = true;
@@ -200,10 +199,10 @@ public class FollowUpMB implements Serializable {
 			listaPais = paisFacade.listar("");
 			listaPaisConsulta = listaPais;
 		}
-		if (listaLead==null) {
+		if (sql!=null) {
+			gerarListaLead();
+		}else {
 			pesquisarInicial();
-		}else if(listaLeadTotal != null) {
-			gerarBotoesLead();
 		}
 		
 		if (listaPosVenda==null) {
@@ -762,7 +761,7 @@ public class FollowUpMB implements Serializable {
 		}
 	}
 
-	public void gerarListaLead(String sql) {
+	public void gerarListaLead() {
 		listaLeadTotal = leadDao.lista(sql);
 		if(listaLeadTotal==null) {
 			listaLeadTotal = new ArrayList<Lead>();
@@ -797,8 +796,7 @@ public class FollowUpMB implements Serializable {
 		session.setAttribute("listaLead", listaLead);
 		session.setAttribute("posicao", posicao);
 		session.setAttribute("funcao", funcao);
-		session.setAttribute("listalead", this.listaLead);;
-		session.setAttribute("listaleadtotal", this.listaLeadTotal);
+		session.setAttribute("sql", sql);
 		session.setAttribute("listaposvenda", listaPosVenda);
 		session.setAttribute("listaproduto", listaProdutos);
 		session.setAttribute("listapais", listaPais);
@@ -811,8 +809,8 @@ public class FollowUpMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("lead", lead); 
-		session.setAttribute("listalead", this.listaLead);;
-		session.setAttribute("listaleadtotal", this.listaLeadTotal);
+		session.setAttribute("sql", sql);
+		session.setAttribute("listaLead", listaLead);
 		session.setAttribute("listaposvenda", listaPosVenda);
 		session.setAttribute("listaproduto", listaProdutos);
 		session.setAttribute("listapais", listaPais);
@@ -838,7 +836,7 @@ public class FollowUpMB implements Serializable {
 		sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		sql = sql + " and l.situacao<=5  and l.dataenvio is not null";
 		sql = sql + " order by l.dataproximocontato";
-		gerarListaLead(sql);
+		gerarListaLead();
 	}
 	
 	public void pesquisar() {
@@ -925,7 +923,7 @@ public class FollowUpMB implements Serializable {
 		
 		sql = sql + " order by l.dataproximocontato";
 		if (outroParametro) {
-			gerarListaLead(sql);
+			gerarListaLead();
 			novos = 0;
 			atrasados = 0;
 			hoje = 0;
@@ -1124,11 +1122,10 @@ public class FollowUpMB implements Serializable {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("historicoCliente.jsf");
 			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-			session.setAttribute("listalead", this.listaLead);;
-			session.setAttribute("listaleadtotal", this.listaLeadTotal);
 			session.setAttribute("listaposvenda", listaPosVenda);
 			session.setAttribute("listaproduto", listaProdutos);
 			session.setAttribute("listapais", listaPais);
+			session.setAttribute("sql", sql);
 			session.setAttribute("listatipocontato", listaTipoContato);
 			session.setAttribute("listausuario", listaUsuario);
 		} catch (IOException e) {

@@ -536,7 +536,7 @@ public class DashBoardMB implements Serializable {
 				hoje = hoje + 1;
 			} else if ((listaLead.get(i).getDataproximocontato() != null
 					&& dProximo.before(dHoje)
-					&& (listaLead.get(i).getSituacao() <=5)) || (listaLead.get(i).getSituacao() == 1 && data2.before(dHoje))) {
+					&& (listaLead.get(i).getSituacao() <=5)) || (listaLead.get(i).getSituacao() == 1 && !data2.before(dHoje))) {
 				atrasadas = atrasadas + 1;
 			}
 		}
