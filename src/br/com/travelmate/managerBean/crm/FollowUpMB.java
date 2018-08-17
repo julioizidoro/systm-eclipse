@@ -924,7 +924,9 @@ public class FollowUpMB implements Serializable {
 		sql = sql + " order by l.dataproximocontato";
 		if (outroParametro) {
 			gerarListaLead();
-			novos = 0;
+			
+//			gerarBotoesLead();
+			/*novos = 0;
 			atrasados = 0;
 			hoje = 0;
 			prox7 = 0;
@@ -973,8 +975,8 @@ public class FollowUpMB implements Serializable {
 						prox7 = prox7 + 1;
 					}
 				}
-			}
-			listaLead = listaLeadTotal;
+			}*/
+			
 			pesquisarPosVenda();
 		}else {
 			Mensagem.lancarMensagemInfo("PESQUISA", "Selecionar um campo de data");
