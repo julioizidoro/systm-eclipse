@@ -1209,11 +1209,11 @@ public class CadPacoteAgenciaMB implements Serializable {
 	
 	public String validarDados() {
 		String msg = "";
-		if (saldoParcelar > 0.0f) {
+		if (valorParcelar > 0.0f) {
 			msg = msg + "Saldo a parcelar em aberto \n";
 		}
 		
-		if (saldoParcelar <0.0f) {
+		if (valorParcelar <0.0f) {
 			msg = msg + "Valor da forma de pagamento maior que o valor da venda";
 		}
 		
