@@ -263,6 +263,11 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		Double saldo = 0.0;
 		Double valorEntrada = 0.0;
 		if (this.formaPagamento02.isSelecionado()) {
+			if (formaPagamento02.getPercentualEntrada()==null) {
+				formaPagamento02.setPercentualEntrada(30.0);
+			}else if (formaPagamento02.getPercentualEntrada()==0) {
+				formaPagamento02.setPercentualEntrada(30.0);
+			}
 			if (formaPagamento02.getPercentualEntrada() != null) {
 				valorEntrada = ocurso.getTotalmoedanacional() * (formaPagamento02.getPercentualEntrada() / 100);
 				saldo = 100 - formaPagamento02.getPercentualEntrada();
@@ -303,6 +308,11 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			valorSaldo = 0.0;
 			saldo = 0.0;
 			valorEntrada = 0.0;
+			if (formaPagamento03.getPercentualEntrada()==null) {
+				formaPagamento03.setPercentualEntrada(30.0);
+			}else if (formaPagamento03.getPercentualEntrada()==0) {
+				formaPagamento03.setPercentualEntrada(30.0);
+			}
 			if (formaPagamento03.getPercentualEntrada() != null) {
 				valorEntrada = ocurso.getTotalmoedanacional() * (formaPagamento03.getPercentualEntrada() / 100);
 				saldo = 100 - formaPagamento03.getPercentualEntrada();
@@ -347,6 +357,11 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			valorSaldo = 0.0;
 			saldo = 0.0;
 			valorEntrada = 0.0;
+			if (formaPagamento04.getPercentualEntrada()==null) {
+				formaPagamento04.setPercentualEntrada(30.0);
+			}else if (formaPagamento04.getPercentualEntrada()==0) {
+				formaPagamento04.setPercentualEntrada(30.0);
+			}
 			if (formaPagamento04.getPercentualEntrada() > 0) {
 				valorEntrada = ocurso.getTotalmoedanacional()
 						* (formaPagamento04.getPercentualEntrada().doubleValue() / 100);

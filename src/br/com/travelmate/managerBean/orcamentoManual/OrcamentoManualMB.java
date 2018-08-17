@@ -283,7 +283,7 @@ public class OrcamentoManualMB implements Serializable {
 			} else {
 				caminhoRelatorio = "/reports/orcamentovoluntariadopdf/orcamentoPagina02.jasper";
 			}
-			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//orcamentovoluntariadopdf//"));
+			parameters.put("SUBREPORT_DIR", servletContext.getRealPath("/reports/orcamentovoluntariadopdf/"));
 			File f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pagina01.png"));
 			BufferedImage pagina01 = null;
 			try {

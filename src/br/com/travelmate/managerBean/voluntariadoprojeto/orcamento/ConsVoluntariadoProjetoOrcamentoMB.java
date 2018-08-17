@@ -221,7 +221,8 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		String caminhoRelatorio = "/reports/orcamentovoluntariadopdf/orcamentoPagina01.jasper";
 		 
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//orcamentovoluntariadopdf//"));
+		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("/reports/orcamentovoluntariadopdf/"));
+
 		File f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/mascote.png"));
 		BufferedImage mascote = null;
 		try {
