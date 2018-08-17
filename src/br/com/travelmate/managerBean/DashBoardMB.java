@@ -497,7 +497,7 @@ public class DashBoardMB implements Serializable {
 		novos = 0;
 		atrasadas = 0;
 		hoje = 0;
-		String sql = "select l from Lead l where l.situacao<=5 ";
+		String sql = "select l from Lead l where l.situacao<=5 and l.dataenvio is not null";
 		if (!acessoResponsavelGerencial) {
 			sql = sql + " and l.unidadenegocio.idunidadeNegocio="
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
@@ -505,23 +505,38 @@ public class DashBoardMB implements Serializable {
 				sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 			}
 		}
-		sql = sql + " order by l.dataproximocontato";
 		List<Lead> listaLead = leadDao.lista(sql);
 		if (listaLead == null) {
 			listaLead = new ArrayList<Lead>();
 		}
-		String dataHoje = Formatacao.ConvercaoDataSql(new Date());
+		String dataHoje = Formatacao.ConvercaoDataPadrao(new Date());
+		Date dHoje = Formatacao.ConvercaoStringData(dataHoje);
 		for (int i = 0; i < listaLead.size(); i++) {
-			if (listaLead.get(i).getSituacao() == 1) {
+			String dataProximo = null;
+			Date dProximo = null;
+			if (listaLead.get(i).getDataproximocontato() != null) {
+				dataProximo = Formatacao.ConvercaoDataPadrao(listaLead.get(i).getDataproximocontato());
+				dProximo = Formatacao.ConvercaoStringData(dataProximo);
+			}
+			String dataRecebimento = Formatacao.ConvercaoDataPadrao(listaLead.get(i).getDataenvio());
+			Date dRecebimento = Formatacao.ConvercaoStringData(dataRecebimento);
+			Date data2 = null;
+			try {
+				data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			if (listaLead.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
 				novos = novos + 1;
 			} else if ((listaLead.get(i).getDataproximocontato()) != null
-					&& (Formatacao.ConvercaoDataSql(listaLead.get(i).getDataproximocontato())
-							.equalsIgnoreCase(dataHoje))
+					&& (dProximo.equals(dHoje))
 					&& (listaLead.get(i).getSituacao() <=5)) {
 				hoje = hoje + 1;
-			} else if ( listaLead.get(i).getDataproximocontato() != null
-					&& listaLead.get(i).getDataproximocontato().before(new Date())
-					&& (listaLead.get(i).getSituacao() <=5)) {
+			} else if ((listaLead.get(i).getDataproximocontato() != null
+					&& dProximo.before(dHoje)
+					&& (listaLead.get(i).getSituacao() <=5)) || (listaLead.get(i).getSituacao() == 1 && data2.before(dHoje))) {
 				atrasadas = atrasadas + 1;
 			}
 		}
