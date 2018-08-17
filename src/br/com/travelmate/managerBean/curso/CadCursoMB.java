@@ -3024,20 +3024,23 @@ public class CadCursoMB implements Serializable {
 	public void calcularValorSeguroPrivadoListaProdutos() {
 		int codSeguroPrivado = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
 		List<Orcamentoprodutosorcamento> listaSeguro = new ArrayList<Orcamentoprodutosorcamento>();
+		List<Orcamentoprodutosorcamento> listaOrcamento = new ArrayList<Orcamentoprodutosorcamento>();
 		for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
 			int codigoLista = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
 					.getIdprodutosOrcamento();
 			if (codSeguroPrivado == codigoLista) {
 				listaSeguro.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
+			}else{
+				listaOrcamento.add(orcamento.getOrcamentoprodutosorcamentoList().get(i));
 			}
 		}
 		for (int i = 0; i < listaSeguro.size(); i++) {
-			orcamento.getOrcamentoprodutosorcamentoList().remove(listaSeguro.get(i));
 			if (listaSeguro.get(i).getIdorcamentoProdutosOrcamento() != null) {
 				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 				orcamentoFacade.excluirOrcamentoProdutoOrcamento(listaSeguro.get(i).getIdorcamentoProdutosOrcamento());
 			}
 		}
+		orcamento.setOrcamentoprodutosorcamentoList(listaOrcamento);
 		float valorEstrangeira = 0.0f;
 		float valorReal = 0.0f;
 		Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
