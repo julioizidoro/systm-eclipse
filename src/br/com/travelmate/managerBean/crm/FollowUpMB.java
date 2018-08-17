@@ -656,7 +656,15 @@ public class FollowUpMB implements Serializable {
 			mostrarPosVenda = false;
 			mostrarLeads = true;
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
-				if (listaLeadTotal.get(i).getSituacao() == 1) {
+				String dataRecebimento = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataenvio());
+				Date dRecebimento = Formatacao.ConvercaoStringData(dataRecebimento);
+				Date data2 = null;
+				try {
+					data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
 					listaLead.add(listaLeadTotal.get(i));
 				}
 			}
@@ -688,12 +696,22 @@ public class FollowUpMB implements Serializable {
 			mostrarPosVenda = false;
 			mostrarLeads = true;
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				String dataRecebimento = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataenvio());
+				Date dRecebimento = Formatacao.ConvercaoStringData(dataRecebimento);
+				Date data2 = null;
+				try {
+					data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				if (listaLeadTotal.get(i).getDataproximocontato() != null && listaLeadTotal.get(i).getSituacao() <=5) {
 					String dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
 					Date dProximo = Formatacao.ConvercaoStringData(dataProximo);
 					if (dProximo.before(dHoje)) {
 						listaLead.add(listaLeadTotal.get(i));
 					}
+				}else if(listaLeadTotal.get(i).getSituacao() == 1 && data2.before(dHoje)){
+					listaLead.add(listaLeadTotal.get(i));
 				}
 			}
 		} else if (funcao.equalsIgnoreCase("prox")) {
@@ -818,7 +836,7 @@ public class FollowUpMB implements Serializable {
 	public void pesquisarInicial() {
 		sql = "select l from Lead l where l.unidadenegocio.idunidadeNegocio=" + usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		sql = sql + " and l.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
-		sql = sql + " and l.situacao<=5  and l.datarecebimento is not null";
+		sql = sql + " and l.situacao<=5  and l.dataenvio is not null";
 		sql = sql + " order by l.dataproximocontato";
 		gerarListaLead(sql);
 	}
@@ -835,7 +853,7 @@ public class FollowUpMB implements Serializable {
 		prox7 = 0;
 		todos = 0;
 		//sql = "select l from Lead l where l.dataenvio<='" + Formatacao.ConvercaoDataSql(data) + "'";
-		sql = "select l from Lead l where (l.cliente.nome like '%" + nomeCliente + "%' or l.cliente.email like '%"+nomeCliente+"%') and l.datarecebimento is not null"; 
+		sql = "select l from Lead l where (l.cliente.nome like '%" + nomeCliente + "%' or l.cliente.email like '%"+nomeCliente+"%') and l.dataenvio is not null"; 
 		boolean outroParametro = false;
 		if (nomeCliente.length()>0) {
 			outroParametro=true;
@@ -917,23 +935,31 @@ public class FollowUpMB implements Serializable {
 			Date dHoje = Formatacao.ConvercaoStringData(dataHoje);
 			todos = listaLeadTotal.size();
 			for (int i = 0; i < listaLeadTotal.size(); i++) {
+				String dataRecebimento = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataenvio());
+				Date dRecebimento = Formatacao.ConvercaoStringData(dataRecebimento);
+				Date data2 = null;
+				try {
+					data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				String dataProximo = null;
 				Date dProximo = null;
 				if (listaLeadTotal.get(i).getDataproximocontato() != null) {
 					dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
 					dProximo = Formatacao.ConvercaoStringData(dataProximo);
 				}
-				if (listaLeadTotal.get(i).getSituacao() == 1) {
+				if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
 					novos = novos + 1;
 				} else if ((dProximo != null)
 						&& (listaLeadTotal.get(i).getSituacao() != null && listaLeadTotal.get(i).getSituacao() <=5)
 						&& (dProximo.equals(dHoje))
 						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
 					hoje = hoje + 1;
-				} else if (dProximo != null
+				} else if ((dProximo != null
 						&& (listaLeadTotal.get(i).getSituacao() != null && listaLeadTotal.get(i).getSituacao() <=5)
 						&& dProximo.before(dHoje)
-						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
+						&& (listaLeadTotal.get(i).getSituacao() > 0)) || (listaLeadTotal.get(i).getSituacao() == 1 && data2.before(dHoje))) {
 					atrasados = atrasados + 1;
 				} else if (dProximo != null
 						&& (listaLeadTotal.get(i).getSituacao() != null) && listaLeadTotal.get(i).getSituacao() <=5
@@ -972,22 +998,30 @@ public class FollowUpMB implements Serializable {
 		String dataHoje = Formatacao.ConvercaoDataPadrao(new Date());
 		Date dHoje = Formatacao.ConvercaoStringData(dataHoje);
 		for (int i = 0; i < listaLeadTotal.size(); i++) {
+			String dataRecebimento = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataenvio());
+			Date dRecebimento = Formatacao.ConvercaoStringData(dataRecebimento);
 			String dataProximo = null;
 			Date dProximo = null;
 			if (listaLeadTotal.get(i).getDataproximocontato() != null) {
 				dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
 				dProximo = Formatacao.ConvercaoStringData(dataProximo);
 			}
-			if (listaLeadTotal.get(i).getSituacao() == 1) {
+			Date data2 = null;
+			try {
+				data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
 				novos = novos + 1;
 			} else if ((dProximo != null)
 					&& (dProximo
 							.equals(dHoje))
 					&& (listaLeadTotal.get(i).getSituacao() <= 5)) {
 				hoje = hoje + 1;
-			} else if (dProximo != null
+			} else if ((dProximo != null
 					&& dProximo.before(dHoje)
-					) {
+					) || (listaLeadTotal.get(i).getSituacao() == 1 && data2.before(dHoje))) {
 				atrasados = atrasados + 1;
 			} else if (dProximo != null
 					&& dProximo.after(dHoje)
