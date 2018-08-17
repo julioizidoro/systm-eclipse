@@ -75,7 +75,7 @@ public class Valoresseguro implements Serializable {
     private boolean segurocancelamento;
 
     public Valoresseguro() {
-    	setValorsegurocancelamento(0.0f);
+    	valorsegurocancelamento = 0.0f;
     }
 
     public Valoresseguro(Integer idvaloresseguro) {
