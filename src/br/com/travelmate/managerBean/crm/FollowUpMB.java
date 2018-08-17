@@ -1020,7 +1020,7 @@ public class FollowUpMB implements Serializable {
 					&& (listaLeadTotal.get(i).getSituacao() <= 5)) {
 				hoje = hoje + 1;
 			} else if ((dProximo != null
-					&& dProximo.before(dHoje)
+					&& dProximo.before(dHoje) && (listaLeadTotal.get(i).getSituacao() <= 5)
 					) || (listaLeadTotal.get(i).getSituacao() == 1 && data2.before(dHoje))) {
 				atrasados = atrasados + 1;
 			} else if (dProximo != null
