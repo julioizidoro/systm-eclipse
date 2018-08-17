@@ -823,8 +823,7 @@ public class CadHeFinalMB implements Serializable {
 		int ilinha = Integer.parseInt(linha);
 		if (ilinha >= 0) {
 			int tx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
-			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
-					.getIdprodutosOrcamento() != null) {
+			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getIdorcamentoProdutosOrcamento() != null) {
 				if (vendaAlterada != null) {
 					OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 					orcamentoFacade.excluirOrcamentoProdutoOrcamento(orcamento.getOrcamentoprodutosorcamentoList()
@@ -1041,7 +1040,7 @@ public class CadHeFinalMB implements Serializable {
 					return voltarControleVendas;
 				}
 			}
-			return "consquestionarioHe";
+			return "consHeFichaFinal";
 		}
 		return "";
 	}
