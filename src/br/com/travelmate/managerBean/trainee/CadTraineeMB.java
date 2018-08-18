@@ -1484,27 +1484,27 @@ public class CadTraineeMB implements Serializable {
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		fornecedorComissao = fornecedorComissaoCursoFacade.consultar(fornecedorCidade.getFornecedor().getIdfornecedor(),
 				fornecedorCidade.getCidade().getPais().getIdpais());
-		FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
-		this.formaPagamento = formaPagamentoFacade.consultar(venda.getIdvendas());
+		this.formaPagamento = venda.getFormapagamento();
 		if (formaPagamento != null) {
 			carregarCamposFormaPagamento();
 			listaParcelamentoPagamentoAntiga = new ArrayList<>();
-			for (int i = 0; i < formaPagamento.getParcelamentopagamentoList().size(); i++) {
-				Parcelamentopagamento parcelamentopagamento = new Parcelamentopagamento();
-				parcelamentopagamento
-						.setDiaVencimento(formaPagamento.getParcelamentopagamentoList().get(i).getDiaVencimento());
-				parcelamentopagamento
-						.setFormaPagamento(formaPagamento.getParcelamentopagamentoList().get(i).getFormaPagamento());
-				parcelamentopagamento
-						.setNumeroParcelas(formaPagamento.getParcelamentopagamentoList().get(i).getNumeroParcelas());
-				parcelamentopagamento
-						.setValorParcela(formaPagamento.getParcelamentopagamentoList().get(i).getValorParcela());
-				parcelamentopagamento.setValorParcelamento(
-						formaPagamento.getParcelamentopagamentoList().get(i).getValorParcelamento());
-				parcelamentopagamento.setTipoParcelmaneto(
-						formaPagamento.getParcelamentopagamentoList().get(i).getTipoParcelmaneto());
-				listaParcelamentoPagamentoAntiga.add(parcelamentopagamento);
-			}
+			listaParcelamentoPagamentoAntiga = formaPagamento.getParcelamentopagamentoList();
+//			for (int i = 0; i < formaPagamento.getParcelamentopagamentoList().size(); i++) {
+//				Parcelamentopagamento parcelamentopagamento = new Parcelamentopagamento();
+//				parcelamentopagamento
+//						.setDiaVencimento(formaPagamento.getParcelamentopagamentoList().get(i).getDiaVencimento());
+//				parcelamentopagamento
+//						.setFormaPagamento(formaPagamento.getParcelamentopagamentoList().get(i).getFormaPagamento());
+//				parcelamentopagamento
+//						.setNumeroParcelas(formaPagamento.getParcelamentopagamentoList().get(i).getNumeroParcelas());
+//				parcelamentopagamento
+//						.setValorParcela(formaPagamento.getParcelamentopagamentoList().get(i).getValorParcela());
+//				parcelamentopagamento.setValorParcelamento(
+//						formaPagamento.getParcelamentopagamentoList().get(i).getValorParcelamento());
+//				parcelamentopagamento.setTipoParcelmaneto(
+//						formaPagamento.getParcelamentopagamentoList().get(i).getTipoParcelmaneto());
+//				listaParcelamentoPagamentoAntiga.add(parcelamentopagamento);
+//			}
 		}
 		tipo = trainee.getTipotrainee();
 		if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
@@ -1514,23 +1514,22 @@ public class CadTraineeMB implements Serializable {
 			numeroSemanas = String.valueOf(produtosTrainee.getNumerosemanas());
 			liberarNuemroSemana();
 		}
-		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-		orcamento = orcamentoFacade.consultar(venda.getIdvendas());
+		orcamento = venda.getOrcamento();
 		if (orcamento != null) {
-			if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
-				for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
-					if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() < 0) {
-						orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaNacional(
-								orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() * -1);
-					}
-					if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
-						verificarProdutosExcluir(orcamento.getOrcamentoprodutosorcamentoList().get(i));
-					}
-				}
-			}
-			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
-				adicionarProdutosTrainee();
-			}
+//			if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
+//				for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+//					if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() < 0) {
+//						orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaNacional(
+//								orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() * -1);
+//					}
+//					if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+//						verificarProdutosExcluir(orcamento.getOrcamentoprodutosorcamentoList().get(i));
+//					}
+//				}
+//			}
+//			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+//				adicionarProdutosTrainee();
+//			}
 			dataCambio = orcamento.getCambio().getData();
 			cambio = orcamento.getCambio();
 			moeda = orcamento.getCambio().getMoedas();
