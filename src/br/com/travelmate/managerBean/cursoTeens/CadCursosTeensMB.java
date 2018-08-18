@@ -1474,8 +1474,8 @@ public class CadCursosTeensMB implements Serializable {
 			}
 			
 
-			if (saldoParcelar < 0.0f) {
-				msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+			if (saldoParcelar < -1f) {
+				msg = msg + "Saldo a parcelar negativo";
 			}
 			if (programasTeens.getCpfmae() == null || programasTeens.getCpfmae().length() == 0) {
 				msg = msg + "CPF mãe não informado!";

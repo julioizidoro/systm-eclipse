@@ -1134,8 +1134,8 @@ public class FichaSeguroViagemMB implements Serializable {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 		}
 		
-		if (saldoParcelar < 0.0f) {
-			msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+		if (saldoParcelar < -1f) {
+			msg = msg + "Saldo a parcelar negativo";
 		}
 		return msg;
 	}

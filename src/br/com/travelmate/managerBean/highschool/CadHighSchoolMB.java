@@ -1468,8 +1468,8 @@ public class CadHighSchoolMB implements Serializable {
 			}
 			
 
-			if (saldoParcelar < 0.0f) {
-				msg = msg + "Forma de pagamento com valor maior que o valor da venda";
+			if (saldoParcelar < -1f) {
+				msg = msg + "Saldo a parcelar negativo";
 			}
 			if (highschool.getCpfmae() == null || highschool.getCpfmae().length() == 0) {
 				msg = msg + "CPF mãe não informado!";
