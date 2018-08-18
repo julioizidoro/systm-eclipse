@@ -129,12 +129,29 @@ public class ControleVendasMB implements Serializable {
 	private Produtos programas;
 	private List<Produtos> listaProgramas;
 	private Questionariohe questionarioHe;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct   
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendas = (List<Vendas>) session.getAttribute("listaVendas");
+		session.removeAttribute("listaVendas");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Curso")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-				gerarListaVendas();
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+				if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+					gerarListaVendas();
+				}
 			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			gerarListaFornecedor();
@@ -571,6 +588,7 @@ public class ControleVendasMB implements Serializable {
 			listaVendas = new ArrayList<Vendas>();
 		}
 		numeroFichas = "" + String.valueOf(listaVendas.size());
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -593,6 +611,7 @@ public class ControleVendasMB implements Serializable {
 		fornecedor = null;
 		consultor = null;
 		programas = null;
+		pesquisar = "Nao";
 	}
 
 	public String visualizarContasReceber(Vendas venda) {
@@ -1088,46 +1107,37 @@ public class ControleVendasMB implements Serializable {
 		}
 		return "";
 	}
-
+	
 	public String documentacao(Vendas vendas) {
 		this.vendas = vendas;
-		if (vendas.getProdutos().getIdprodutos() != 2) {
-			if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
-				Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
-				return "";
-			} else {
-				FacesContext fc = FacesContext.getCurrentInstance();
-				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-				session.setAttribute("vendas", vendas);
-				if (vendas.getProdutos().getIdprodutos()==22) {
-					session.setAttribute("cliente", vendas.getCliente());
+		boolean validar = true;
+		if (vendas.getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
+			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
+			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
+			Date dataValidade = vendas.getDatavalidade();
+			if (dataValidade != null) {
+				if (!dataAtual.after(dataValidade)) {
+					validar = true;
+				} else {
+					validar = false;
 				}
-				voltar = "consControleVendas";
-				session.setAttribute("voltar", voltar);
-				return "consArquivos";
-			}
-		}else{
-			if (vendas.getSituacao().equalsIgnoreCase("Processo")) {
-				Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
-				return "";
-			} else {
-				FacesContext fc = FacesContext.getCurrentInstance();
-				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-				SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
-				Seguroviagem seguroviagem = seguroViagemFacade.consultar(vendas.getIdvendas());
-				if(seguroviagem.getControle().equalsIgnoreCase("Avulso")) {
-					session.setAttribute("vendas", vendas);
-				}else {
-					
-					Vendas vendasCurso = vendasDao.consultarVendas(seguroviagem.getIdvendacurso());
-					session.setAttribute("vendas", vendasCurso);
-				} 
-				voltar = "consControleVendas";
-				session.setAttribute("voltar", voltar);
-				return "consArquivos";
 			}
 		}
+		if (!validar) {
+			Mensagem.lancarMensagemInfo("Favor atualizar o câmbio desta ficha",
+					"está ficha ultrapassou os 3 dias de validade");
+			return "";
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("vendas", vendas);
+			voltar = "consControleVendas";
+			session.setAttribute("voltar", voltar);
+			return "consArquivos";
+		}
 	}
+
+	
 
 	public String informacoes(Vendas vendas) {
 		this.vendas = vendas;
@@ -1629,15 +1639,20 @@ public class ControleVendasMB implements Serializable {
 	
 	
 	public String ficha(Vendas vendas){
+		this.vendas = vendas;
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("listaVendas", listaVendas);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "ControleVendas");
+		session.setAttribute("chamadaTela", "ControleVendas");
 		if (vendas.getProdutos().getIdprodutos() == 1) {
 			buscarCurso();
 			session.setAttribute("curso", curso);
 			return "fichaCurso";
 		}else if(vendas.getProdutos().getIdprodutos() == 2) {
 			buscarSeguro();
-			session.setAttribute("seguroViagem", seguroViagem);
+			session.setAttribute("seguroviagem", seguroViagem);
 			return "fichasSeguroViagem";
 		}else if(vendas.getProdutos().getIdprodutos() == 3) {
 			buscarVistos();
@@ -1685,8 +1700,13 @@ public class ControleVendasMB implements Serializable {
 	
 	
 	public String contrato(Vendas vendas){
+		this.vendas = vendas;
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("listaVendas", listaVendas);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "ControleVendas");
+		session.setAttribute("chamadaTela", "ControleVendas");
 		if (vendas.getProdutos().getIdprodutos() == 1) {
 			buscarCurso();
 			session.setAttribute("curso", curso);
