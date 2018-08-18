@@ -15,6 +15,7 @@ import java.nio.charset.Charset;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.primefaces.model.UploadedFile;
 
@@ -32,6 +33,14 @@ public class Ftp {
    
     public Ftp(String host, String user, String password)  {
         ftpClient = new FTPClient();
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         this.host = host;
         this.user = user;
         this.password = password;
