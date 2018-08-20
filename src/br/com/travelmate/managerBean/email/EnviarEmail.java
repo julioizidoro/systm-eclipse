@@ -260,7 +260,7 @@ public class EnviarEmail {
 		} catch (EmailException ex) {
 			Logger.getLogger(EnviarEmail.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
+		email.setCharset("UTF-8");
 		email.setSubject(assunto);
 		try {
 			email.setHtmlMsg(corpoEmail);
@@ -289,8 +289,8 @@ public class EnviarEmail {
 
 	public void criarEmail() {
 		String br = "";
-		corpoEmail = "<html>\n" + "<head>\n"
-				+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
+		corpoEmail = "<?xml version=\'1.0\' encoding=\'UTF-8\' ?> \n <html>\n" + "<head>\n"
+				+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\" />\n"
 				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
 				+ "</head>\n" + "<body style=\"font-family: arial;width:70%;\">\n"  
 				+ " <div align=\"center\" style=\"width:100%;\">\n";
@@ -347,6 +347,7 @@ public class EnviarEmail {
 				+ "    	    	      </tr>\n" + "    	    	    </table></td>\n"
 				+ "    	    	    <td align=\"left\" valign=\"bottom\" style=\"padding-left:5px\">&nbsp;</td>\n"
 				+ "   	    	  </tr>\n" + "   	    	</table>\n" + "</body>\n" + "</html>";
+		System.out.println(corpoEmail);
 	}
 
 	public void gerarCorpoOrcamento() {
