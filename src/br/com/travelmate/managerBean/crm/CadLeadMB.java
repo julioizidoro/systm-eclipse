@@ -410,7 +410,7 @@ public class CadLeadMB implements Serializable {
 			lead.setDataenvio(new Date()); 
 			lead.setHoraenvio(Formatacao.foramtarHoraString()); 
 			lead.setNomeunidade(unidadenegocio.getNomerelatorio());
-			lead.setDataproximocontato(new Date()); 
+			lead.setDataproximocontato(null); 
 			lead.setPublicidade(publicidade);
 			MotivoCancelamentoFacade motivoCancelamentoFacade = new MotivoCancelamentoFacade();
 			Motivocancelamento motivo = motivoCancelamentoFacade.consultar("select m from Motivocancelamento m where m.idmotivocancelamento=1");
