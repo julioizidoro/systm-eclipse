@@ -640,7 +640,6 @@ public class FollowUpMB implements Serializable {
 	}
 
 	public void mudarCoresBotões(String funcao) {
-		sql = "";
 		this.funcao = funcao;
 		listaLead = new ArrayList<Lead>();  
 		String dataHoje = Formatacao.ConvercaoDataPadrao(new Date());
