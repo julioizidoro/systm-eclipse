@@ -444,7 +444,7 @@
 							<h:panelGroup rendered="#{historicoClienteMB.mostrarPosVenda}">
 								<h:panelGrid style="width:100%;" columns="9">  
 									<p:commandLink
-										action="#{historicoClienteMB.imprimirFicha(historicoClienteMB.lead.leadposvenda.vendas)}"
+										action="#{historicoClienteMB.ficha(historicoClienteMB.lead.leadposvenda.vendas)}"
 										title="IMPRESSÃO DA FICHA" ajax="false"
 										target="_blank">
 										<img src="../../resources/img/imprimiFicha.png" width="36" />
@@ -462,7 +462,7 @@
 										</h:panelGrid>
 									</p:commandLink> 
 									<p:commandLink 
-										action="#{historicoClienteMB.gerarRelatorioContrato(historicoClienteMB.lead.leadposvenda.vendas)}"
+										action="#{historicoClienteMB.contrato(historicoClienteMB.lead.leadposvenda.vendas)}"
 										title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 										<img src="../../resources/img/imprimiContrato.png" width="36" style="margin-left: 12%;"/>
 										<h:panelGrid columns="1" style="text-align:center;">

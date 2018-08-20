@@ -31,26 +31,49 @@ import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.ContasReceberFacade; 
+import br.com.travelmate.facade.AupairFacade;
+import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.HeFacade;
+import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade; 
-
+import br.com.travelmate.facade.OrcamentoCursoFacade;
+import br.com.travelmate.facade.ProgramasTeensFacede;
+import br.com.travelmate.facade.QuestionarioHeFacade;
+import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.TraineeFacade;
+import br.com.travelmate.facade.VistosFacade;
+import br.com.travelmate.facade.VoluntariadoFacade;
+import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoManualPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory; 
-import br.com.travelmate.model.Contasreceber; 
+import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
+import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.He;
+import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamentocurso;
 import br.com.travelmate.model.Produtos;
+import br.com.travelmate.model.Programasteens;
+import br.com.travelmate.model.Questionariohe;
+import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vistos;
+import br.com.travelmate.model.Voluntariado;
+import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -80,6 +103,8 @@ public class HistoricoClienteMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private OCursoDao oCursoDao;
 	private Lead lead;  
 	private List<Leadhistorico> listaHistorico;
 	private boolean mostrarHora;
@@ -100,8 +125,7 @@ public class HistoricoClienteMB implements Serializable {
 	private Produtos produto;
 	private List<Produtos> listaProduto;
 	private String sql;
-	@Inject
-	private OCursoDao oCursoDao;
+	private Vendas vendas;
 
 	@PostConstruct
 	public void init() {
@@ -1173,5 +1197,192 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("faseHe", "Final");
 		return "cadCliente";
 	} 
+	
+	
+	public String ficha(Vendas vendas){
+		this.vendas = vendas;
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("sql", sql);
+		if (vendas.getProdutos().getIdprodutos() == 1) {
+			Curso curso = buscarCurso();
+			session.setAttribute("curso", curso);
+			return "fichaCurso";
+		}else if(vendas.getProdutos().getIdprodutos() == 2) {
+			Seguroviagem seguroViagem = buscarSeguro();
+			session.setAttribute("seguroviagem", seguroViagem);
+			return "fichasSeguroViagem";
+		}else if(vendas.getProdutos().getIdprodutos() == 3) {
+			Vistos vistos = buscarVistos();
+			session.setAttribute("vistos", vistos);
+			return "fichasVistos";
+		}else if(vendas.getProdutos().getIdprodutos() == 4) {
+			Highschool highschool = buscarHighSchool();
+			session.setAttribute("highschool", highschool);
+			return "fichaHighSchool";
+		}else if(vendas.getProdutos().getIdprodutos() == 5) {
+			Programasteens programateens = buscarProgramasTeens();
+			session.setAttribute("programateens", programateens);
+			return "fichaCursosTeens";
+		}else if(vendas.getProdutos().getIdprodutos() == 9) {
+			Aupair aupair = buscarAuPair();
+			session.setAttribute("aupair", aupair);
+			return "fichaAuPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 10) {
+			Worktravel worktravel = buscarWorkTravel();
+			session.setAttribute("worktravel", worktravel);
+			return "fichaWorkTravel";
+		}else if(vendas.getProdutos().getIdprodutos() == 13) {
+			Trainee trainee = buscarTrainee();
+			session.setAttribute("trainee", trainee);
+			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+				return "fichaTraineeAus";
+			}else {
+				return "fichaTraineeEUA";
+			}
+		}else if(vendas.getProdutos().getIdprodutos() == 16) {
+			Voluntariado voluntariado = buscarVoluntariado();
+			session.setAttribute("voluntariado", voluntariado);
+			return "fichaVoluntariado";
+		}else if(vendas.getProdutos().getIdprodutos() == 20) {
+			Demipair demipair = buscarDemiPair();
+			session.setAttribute("demipair", demipair);
+			return "fichasDemiPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 22) {
+			He he = buscarHe();
+			session.setAttribute("he", he);
+			return "fichaHE";
+		}
+		return "";
+	}
+	
+	
+	public String contrato(Vendas vendas){
+		this.vendas = vendas;
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		session.setAttribute("sql", sql);
+		if (vendas.getProdutos().getIdprodutos() == 1) {
+			Curso curso = buscarCurso();
+			session.setAttribute("curso", curso);
+			return "contratoCurso";
+		}else if(vendas.getProdutos().getIdprodutos() == 3) {
+			Vistos vistos = buscarVistos();
+			session.setAttribute("vistos", vistos);
+			return "contratoVisto";
+		}else if(vendas.getProdutos().getIdprodutos() == 4) {
+			Highschool highschool = buscarHighSchool();
+			session.setAttribute("highschool", highschool);
+			return "contratoHighSchool";
+		}else if(vendas.getProdutos().getIdprodutos() == 5) {
+			Programasteens programateens = buscarProgramasTeens();
+			session.setAttribute("programateens", programateens);
+			return "contratoTeens";
+		}else if(vendas.getProdutos().getIdprodutos() == 9) {
+			Aupair aupair = buscarAuPair();
+			session.setAttribute("aupair", aupair);
+			return "contratoAuPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 10) {
+			Worktravel worktravel = buscarWorkTravel();
+			session.setAttribute("worktravel", worktravel);
+			return "contratoWorkTravelPremium";
+		}else if(vendas.getProdutos().getIdprodutos() == 13) {
+			Trainee trainee = buscarTrainee();
+			session.setAttribute("trainee", trainee);
+			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+				return "contratoTrainee";
+			}else {
+				return "contratoTrainee";
+			}
+		}else if(vendas.getProdutos().getIdprodutos() == 16) {
+			Voluntariado voluntariado = buscarVoluntariado();
+			session.setAttribute("voluntariado", voluntariado);
+			return "contratoVoluntariado";
+		}else if(vendas.getProdutos().getIdprodutos() == 20) {
+			Demipair demipair = buscarDemiPair();
+			session.setAttribute("demipair", demipair);
+			return "contratoDemiPair";
+		}else if(vendas.getProdutos().getIdprodutos() == 22) {
+			He he = buscarHe();
+			session.setAttribute("he", he);
+			return "contratoHE";
+		}
+		return "";
+	}
+	
+	
+	public Curso buscarCurso() {
+		CursoFacade cursoFacade = new CursoFacade();
+		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
+		return curso;
+	}
+
+	public Aupair buscarAuPair() {
+		AupairFacade aupairFacade = new AupairFacade();
+		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
+		return aupair;
+	}
+
+	public Highschool buscarHighSchool() {
+		HighSchoolFacade hiSchoolFacade = new HighSchoolFacade();
+		Highschool highschool = hiSchoolFacade.consultarHighschool(vendas.getIdvendas());
+		return highschool;
+	}
+
+	public Programasteens buscarProgramasTeens() {
+		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
+		Programasteens programateens = programasTeensFacede.find(vendas.getIdvendas());
+		return programateens;
+	}
+
+	public Trainee buscarTrainee() {
+		TraineeFacade traineeFacade = new TraineeFacade();
+		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
+		return trainee;
+	}
+
+	public Voluntariado buscarVoluntariado() {
+		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+		Voluntariado voluntariado = voluntariadoFacade.consultar(vendas.getIdvendas());
+		return voluntariado;
+	}
+
+	public Demipair buscarDemiPair() {
+		DemipairFacade demipairFacade = new DemipairFacade();
+		Demipair demipair = demipairFacade.consultar(vendas.getIdvendas());
+		return demipair;
+	}
+
+	public Worktravel buscarWorkTravel() {
+		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
+		Worktravel worktravel = workTravelFacade.consultarWork(vendas.getIdvendas());
+		return worktravel;
+	}
+
+	public He buscarHe() {
+		HeFacade heFacade = new HeFacade();
+		He he = heFacade.consultarVenda(vendas.getIdvendas());
+		return he;   
+	}    
+	
+	public Questionariohe buscarQuestionarioHe() {
+		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
+		Questionariohe questionarioHe = questionarioHeFacade.consultarVenda(vendas.getIdvendas());
+		return questionarioHe;
+	}
+
+	public Seguroviagem buscarSeguro() {
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Seguroviagem seguroViagem = seguroViagemFacade.consultar(vendas.getIdvendas());
+		return seguroViagem;
+	}
+	
+	public Vistos buscarVistos(){
+		VistosFacade vistosFacade = new VistosFacade();
+		Vistos vistos = vistosFacade.consultarVistos(vendas.getIdvendas());
+		return vistos;
+	}
 
 }
