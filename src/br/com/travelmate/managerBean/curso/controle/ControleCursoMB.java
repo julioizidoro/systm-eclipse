@@ -84,19 +84,51 @@ public class ControleCursoMB implements Serializable {
 	private List<Controlecurso> listaVendasCursoAndamento;
 	private List<Controlecurso> listaVendasCursoCancelada; 
 	private List<Controlecurso> listaVendasCursoFinanceiro;
+	private String pesquisar = "Nao";
+	private String nomePrograma;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		pesquisar = (String) session.getAttribute("pesquisar");
+		listaVendasCursoFinalizada = (List<Controlecurso>) session.getAttribute("listaVendasCursoFinalizada");
+		listaVendasCursoAndamento = (List<Controlecurso>) session.getAttribute("listaVendasCursoAndamento");
+		listaVendasCursoFinanceiro = (List<Controlecurso>) session.getAttribute("listaVendasCursoFinanceiro");
+		listaVendasCursoCancelada = (List<Controlecurso>) session.getAttribute("listaVendasCursoCancelada");
+		nomePrograma = (String) session.getAttribute("nomePrograma");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("listaVendasCursoFinalizada");
+		session.removeAttribute("listaVendasCursoAndamento");
+		session.removeAttribute("listaVendasCursoProcesso");
+		session.removeAttribute("listaVendasCursoFinanceiro");
+		session.removeAttribute("listaVendasCursoCancelada");
+		session.removeAttribute("pesquisar");
+		session.removeAttribute("nomePrograma");
+		session.removeAttribute("chamadaTela");
+		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
+			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Controlecurso")) {
+				pesquisar = "Sim";
+			}else {
+				pesquisar = "Não";
+			}
+		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			FacesContext fc = FacesContext.getCurrentInstance();
-	        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-	        listaControle =  (List<Controlecurso>) session.getAttribute("listaControle");
-	        session.removeAttribute("listaControle");
-	        if (listaControle==null){
-	        	listarControle(sql);
-	        }else{
-	        	gerarQuantidadesFichas();
-	        }
+			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+	        	listaControle =  (List<Controlecurso>) session.getAttribute("listaControle");
+		        session.removeAttribute("listaControle");
+		        if (listaControle==null){
+		        	listarControle(sql);
+		        }else{
+		        	gerarQuantidadesFichas();
+		        }
+			}else {
+				nFichasFinalizadas = listaVendasCursoFinalizada.size();
+				nFichasAndamento = listaVendasCursoAndamento.size();
+				nFichaCancelada = listaVendasCursoCancelada.size();
+				nFichaFinanceiro = listaVendasCursoFinanceiro.size();
+			}
 			gerarListaUnidadeNegocio();
 			controlecurso= new Controlecurso();
 		}
@@ -433,6 +465,7 @@ public class ControleCursoMB implements Serializable {
 		if (listaControle == null) {
 			listaControle = new ArrayList<Controlecurso>();
 		}
+		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -448,6 +481,7 @@ public class ControleCursoMB implements Serializable {
 		idvenda=null;
 		datainivenda = null;
 		datafimvenda = null;
+		pesquisar = "Nao";
 		listarControle(null);
 	}
 
@@ -797,6 +831,13 @@ public class ControleCursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
+		session.setAttribute("listaVendasCursoAndamento", listaVendasCursoAndamento);
+		session.setAttribute("listaVendasCursoCancelada", listaVendasCursoCancelada);
+		session.setAttribute("listaVendasCursoFinalizada", listaVendasCursoFinalizada);
+		session.setAttribute("listaVendasCursoFinanceiro", listaVendasCursoFinanceiro);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "ControleCurso");
+		session.setAttribute("chamadaTela", "ControleCurso");
 		return "fichaCurso";
 	}
 	
