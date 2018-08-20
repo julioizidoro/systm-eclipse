@@ -347,7 +347,6 @@ public class EnviarEmail {
 				+ "    	    	      </tr>\n" + "    	    	    </table></td>\n"
 				+ "    	    	    <td align=\"left\" valign=\"bottom\" style=\"padding-left:5px\">&nbsp;</td>\n"
 				+ "   	    	  </tr>\n" + "   	    	</table>\n" + "</body>\n" + "</html>";
-		System.out.println(corpoEmail);
 	}
 
 	public void gerarCorpoOrcamento() {
