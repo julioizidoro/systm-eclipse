@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Enrolment Form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="461"/>
+	<property name="ireport.y" value="302"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="logo" class="java.awt.Image"/>
 	<parameter name="logoescola" class="java.awt.Image"/>
@@ -315,7 +315,7 @@ where
 				<text><![CDATA[Date of birth :]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="80" y="100" width="57" height="15" uuid="b3f32ea7-5669-4d9e-94b3-0f05a1a878ef"/>
+				<reportElement x="80" y="100" width="69" height="15" uuid="b3f32ea7-5669-4d9e-94b3-0f05a1a878ef"/>
 				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
@@ -458,7 +458,7 @@ where
 				<text><![CDATA[Number of weeks:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="94" y="314" width="57" height="15" uuid="2502b8ad-5591-4555-9168-aafe4f31a392"/>
+				<reportElement x="94" y="314" width="69" height="15" uuid="2502b8ad-5591-4555-9168-aafe4f31a392"/>
 				<textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0;-###0" isBlankWhenNull="true">
@@ -466,11 +466,11 @@ where
 				<textFieldExpression><![CDATA[$F{numerosenamas}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="341" y="314" width="85" height="15" uuid="b54131f0-3d08-4e94-8dbe-dc3399cf16d7"/>
+				<reportElement x="320" y="314" width="85" height="15" uuid="b54131f0-3d08-4e94-8dbe-dc3399cf16d7"/>
 				<text><![CDATA[Course end date:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="425" y="314" width="57" height="15" uuid="292de969-420a-4b19-baa2-55c6a9531445"/>
+				<reportElement x="408" y="314" width="73" height="15" uuid="292de969-420a-4b19-baa2-55c6a9531445"/>
 				<textFieldExpression><![CDATA[$F{dataTermino}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -504,7 +504,7 @@ where
 				<text><![CDATA[Your Accommodation]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="74" y="500" width="57" height="15" uuid="0c9f8e6d-6ce1-40c4-bfd0-7129db4d5b3e">
+				<reportElement x="74" y="500" width="72" height="15" uuid="0c9f8e6d-6ce1-40c4-bfd0-7129db4d5b3e">
 					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{datachegada}]]></textFieldExpression>
@@ -516,7 +516,7 @@ where
 				<text><![CDATA[Departure Date: ]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="328" y="500" width="57" height="15" uuid="e68f8fb3-d0dd-4465-98be-ebc48883d844">
+				<reportElement x="328" y="500" width="71" height="15" uuid="e68f8fb3-d0dd-4465-98be-ebc48883d844">
 					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{dataSaida}]]></textFieldExpression>
@@ -636,7 +636,7 @@ where
 				<textFieldExpression><![CDATA[( $F{tipoDuracao}.equals( "Aulas por semana" ) ? "lessons" : "hours" )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="136" y="100" width="64" height="15" uuid="5e473608-5605-4433-8382-c857ca24c578"/>
+				<reportElement x="149" y="100" width="64" height="15" uuid="5e473608-5605-4433-8382-c857ca24c578"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -657,14 +657,14 @@ where
 				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="149" y="314" width="64" height="15" uuid="a01d42fd-57d3-4f44-9fed-82a09cc2ebf8"/>
+				<reportElement x="163" y="314" width="64" height="15" uuid="a01d42fd-57d3-4f44-9fed-82a09cc2ebf8"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="132" y="500" width="82" height="15" uuid="43e6919d-a865-42bd-94fb-18cda7c95c0b">
+				<reportElement x="146" y="500" width="82" height="15" uuid="43e6919d-a865-42bd-94fb-18cda7c95c0b">
 					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
 				</reportElement>
 				<textElement>
@@ -673,7 +673,7 @@ where
 				<textFieldExpression><![CDATA["(dd/MM/yyyy)"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="386" y="501" width="64" height="15" uuid="c33f8766-6213-4af7-bf6f-1acef88b0494">
+				<reportElement x="407" y="501" width="64" height="15" uuid="c33f8766-6213-4af7-bf6f-1acef88b0494">
 					<printWhenExpression><![CDATA[new Boolean($P{acomodacao}.intValue()!=0)]]></printWhenExpression>
 				</reportElement>
 				<textElement>
