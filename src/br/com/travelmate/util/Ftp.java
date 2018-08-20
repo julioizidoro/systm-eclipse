@@ -32,15 +32,7 @@ public class Ftp {
     
    
     public Ftp(String host, String user, String password)  {
-        ftpClient = new FTPClient();
-        ftpClient.setControlEncoding("UTF-8");
-        try {
-			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
-			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+    	ftpClient = new FTPClient();
         this.host = host;
         this.user = user;
         this.password = password;
@@ -55,6 +47,14 @@ public class Ftp {
     }
     
 	public String enviarArquivo(File file, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = new FileInputStream(file);
@@ -76,6 +76,14 @@ public class Ftp {
     
          
     public String enviarArquivo(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
@@ -90,6 +98,14 @@ public class Ftp {
     }
     
     public boolean enviarArquivoDOCS(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
@@ -105,6 +121,14 @@ public class Ftp {
     }
     
     public boolean enviarArquivoOrcamento(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
@@ -120,6 +144,14 @@ public class Ftp {
     
     
     public String enviarVideo(UploadedFile uploadedFile, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
@@ -146,6 +178,14 @@ public class Ftp {
     }
     
     public InputStream receberArquivo(String arquivoSalvar, String arquivoFTP, String pasta) throws IOException{
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         ftpClient.enterLocalPassiveMode();
@@ -161,6 +201,14 @@ public class Ftp {
     	String destino = request.getRealPath("");
     	destino = destino + "\\remessa\\" + file.getName();
     	File f = new File(destino);
+        ftpClient.setControlEncoding("UTF-8");
+        try {
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = new FileInputStream(f);
