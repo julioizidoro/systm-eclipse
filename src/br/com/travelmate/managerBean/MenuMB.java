@@ -129,7 +129,9 @@ public class MenuMB implements Serializable {
 
 	public String pacotesa() {
 		if(usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isPacote()) {
-			
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("chamadaTela", "Menu");
 			return "consultapacotesagencia";
 		}return "";
 	}
