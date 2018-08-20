@@ -662,7 +662,7 @@ public class FollowUpMB implements Serializable {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
+				if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje) && listaLeadTotal.get(i).getDataproximocontato() == null) {
 					listaLead.add(listaLeadTotal.get(i));
 				}
 			}
@@ -1011,7 +1011,7 @@ public class FollowUpMB implements Serializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
+			if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje) && listaLeadTotal.get(i).getDataproximocontato() == null) {
 				novos = novos + 1;
 			} else if ((dProximo != null)
 					&& (dProximo
