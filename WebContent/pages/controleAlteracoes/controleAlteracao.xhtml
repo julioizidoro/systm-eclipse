@@ -24,7 +24,7 @@
 								 />	
 							<p:inputText id="idVenda" value="#{controleAlteracoesMB.idVenda}" style="width:85px;" />
 							<p:inputText id="cliente" value="#{controleAlteracoesMB.nomeCliente}" style="width:280px;" />
-							<h:panelGroup>
+							<h:panelGrid columns="2" style="width:100%;">
 								<p:calendar id="dataIni" value="#{controleAlteracoesMB.dataInicio}" size="12"
 									 locale="pt" pattern="dd/MM/yyyy"
 									mask="true" maxlength="15">
@@ -39,7 +39,7 @@
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-							</h:panelGroup>
+							</h:panelGrid>
 						</h:panelGrid>
 						<br></br>
 						<h:panelGrid columns="4" style="margin-left:7.5%;width:83%;">
