@@ -54,7 +54,7 @@ public class GerarEmailComparativo {
 	public String gerarArquivo3() {
 		String retorno = "<?xml version='1.0' encoding='UTF-8' ?>\n" + "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" style=\"background: #ffffff;\">\n" + "<head>\n"
-				+ "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=ISO-8859-1\"/>\n"
+				+ "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n"
 				+ "<title>Relatório Comparativo</title>\n" + "<link\n"
 				+ "	href=\"http://systm.com.br:82/systm/elementosOrcamento/cssOrcamentoComparativo.css\"\n"
 				+ "	rel=\"stylesheet\" type=\"text/css\" media=\"print\" />\n" + "<link\n"
@@ -393,7 +393,7 @@ public class GerarEmailComparativo {
 	public String gerarArquivo2() {
 		String retorno = "<?xml version='1.0' encoding='UTF-8' ?>\n" + "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" style=\"background: #ffffff;\">\n" + "<head>\n"
-				+ "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=ISO-8859-1\"/>\n"
+				+ "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n"
 				+ "<title>Relatório Comparativo</title>\n" + "<link\n"
 				+ "	href=\"http://systm.com.br:82/systm/elementosOrcamento/cssOrcamentoComparativo.css\"\n"
 				+ "	rel=\"stylesheet\" type=\"text/css\" media=\"print\" />\n" + "<link\n"
