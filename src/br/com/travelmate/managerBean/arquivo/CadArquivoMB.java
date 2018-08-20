@@ -358,6 +358,9 @@ public class CadArquivoMB implements Serializable {
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
+							if (arquivos.getTipoarquivo().isPertencefinanceiro()) {
+								notificarFinanceiro(avisos);
+							}
 						}
 					}
 				} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
@@ -375,6 +378,9 @@ public class CadArquivoMB implements Serializable {
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuario(avisos);
+							if (arquivos.getTipoarquivo().isPertencefinanceiro()) {
+								notificarFinanceiro(avisos);
+							}
 						}
 				}
 				if(vendas.getUnidadenegocio().getIdunidadeNegocio() == 2){
@@ -393,6 +399,9 @@ public class CadArquivoMB implements Serializable {
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuarioVinculado(avisos);
+							if (arquivos.getTipoarquivo().isPertencefinanceiro()) {
+								notificarFinanceiro(avisos);
+							}
 						}
 					}
 				}
@@ -1485,5 +1494,31 @@ public class CadArquivoMB implements Serializable {
 			avisousuario = avisosFacade.salvar(avisousuario);
 		}
 		return lista;
+	}
+	
+	
+	public void notificarFinanceiro(Avisos aviso) {
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		List<Departamento> departamento = departamentoFacade.listar(
+				"select d From Departamento d where d.iddepartamento=3");
+		if (departamento != null && departamento.size() > 0) {
+			String sql = "select u From Usuariodepartamentounidade u where u.unidadenegocio.idunidadeNegocio="
+					+ vendas.getUnidadenegocio().getIdunidadeNegocio() + " and u.departamento.iddepartamento="
+					+ departamento.get(0).getIddepartamento();
+			UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
+			List<Usuariodepartamentounidade> listaNoficacao = usuarioDepartamentoUnidadeFacade.listar(sql);
+			if (listaNoficacao != null) {
+				AvisosFacade avisosFacade = new AvisosFacade();
+				for (int i = 0; i < listaNoficacao.size(); i++) {
+					if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396) {
+						Avisousuario avisousuario = new Avisousuario();
+						avisousuario.setAvisos(aviso);
+						avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
+						avisousuario.setVisto(false);
+						avisousuario = avisosFacade.salvar(avisousuario);
+					}
+				}
+			}
+		}
 	}
 }
