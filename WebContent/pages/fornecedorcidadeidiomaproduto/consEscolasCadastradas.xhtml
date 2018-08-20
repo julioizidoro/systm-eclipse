@@ -295,7 +295,7 @@
 						</p:column> 
 					</p:dataTable>
 					<p:dataTable id="idTabelaProdutos" var="produtos"
-						rendered="#{consultaFornecedoresCadastradosMB.mostrarProdutosFuncao()}"
+						
 						value="#{consultaFornecedoresCadastradosMB.listaTabelaProduto}"
 						scrollable="true" scrollHeight="230" selectionMode="single"
 						selection="#{consultaFornecedoresCadastradosMB.fornecedorcidadeidiomaproduto}"
@@ -316,21 +316,7 @@
 								update="consultaFornecedorCadastrado:painelDados, 
 								 consultaFornecedorCadastrado:growl" title="Grupo: #{produtos.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.descricao}" />   
 						</p:column>    
-					</p:dataTable>     
-					<p:dataTable id="idTabelaProdutosSemFuncao" var="produtos"
-						rendered="#{consultaFornecedoresCadastradosMB.mostrarProdutosSemFuncao()}"
-						value="#{consultaFornecedoresCadastradosMB.listaTabelaProduto}"
-						scrollable="true" scrollHeight="230" style="margin-bottom:20px;margin-top:11px;"
-						filteredValue="#{consultaFornecedoresCadastradosMB.filtroTabelaProduto}"> 
-						<p:column style="width:35px;text-align:center;">   
-			                <img src="#{consultaFornecedoresCadastradosMB.corProduto(produtos)}"
-			                	title="#{consultaFornecedoresCadastradosMB.titleProduto(produtos)}" width="13"/>
-			            </p:column>     
-						<p:column headerText="Produtos" style="width:150px;"  
-							styleClass="alinharCenter" filterStyle="width:95%;" filterBy="#{produtos.produtosorcamento.descricao}" filterMatchMode="contains">  
-							<p:outputLabel value="#{produtos.produtosorcamento.descricao}" title="Grupo: #{produtos.produtosorcamento.produtosorcamentogrupo.produtosorcamentoindice.descricao}" />   
-						</p:column> 
-					</p:dataTable>     
+					</p:dataTable>    
 					<p:outputLabel />
 					<p:outputLabel />
 					<p:outputLabel />
