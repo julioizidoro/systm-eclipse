@@ -111,52 +111,49 @@
 						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
 							<b>Dados do Aluno</b>
 						</legend>
-						<p:outputLabel value="Nível de Estudo" for="nivel"
-							style="margin-left:8%" />
-						<p:outputLabel value="Ocupação" for="ocupacao"
-							style="margin-left: 36.3%;" />
-						<br></br>
-						<p:inputText id="nivel"
-							style="width:33%;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
-							maxlength="100" value="#{cadTraineeMB.trainee.nivelEstudo}" />
-						<p:inputText id="ocupacao"
-							style="width:36%;-moz-border-radius: 5px;border-radius: 5px;margin-left:10%"
-							maxlength="100" value="#{cadTraineeMB.trainee.ocupacao}" />
-						<br></br>
-						<br></br>
-						<p:outputLabel value="Instituição onde estuda ou graduou"
-							for="instituicao" style="margin-left:8%" />
-						<p:outputLabel value="Curso" for="curso"
-							style="margin-left:27.5%;" />
-						<br></br>
-						<p:inputText id="instituicao"
-							style="width:40%;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
-							maxlength="100" value="#{cadTraineeMB.trainee.instituicaoEstuda}" />
-						<p:inputText id="curso"
-							style="width:36%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
-							maxlength="100" value="#{cadTraineeMB.trainee.cursoEstuda}" />
+						<h:panelGrid columns="2" style="width:79%;margin-left:8%;">
+							<p:outputLabel value="Nível de Estudo" for="nivel"
+								 />
+							<p:outputLabel value="Ocupação" for="ocupacao"
+								/>
+							<p:inputText id="nivel"
+								maxlength="100" value="#{cadTraineeMB.trainee.nivelEstudo}" style="width:85%;"/>
+							<p:inputText id="ocupacao"
+								maxlength="100" value="#{cadTraineeMB.trainee.ocupacao}" style="width:100%;"/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel/>
+							<p:outputLabel value="Instituição onde estuda ou graduou"
+								for="instituicao"  />
+							<p:outputLabel value="Curso" for="curso"
+								 />
+							<p:inputText id="instituicao"
+								maxlength="100" value="#{cadTraineeMB.trainee.instituicaoEstuda}" style="width:85%;"/>
+							<p:inputText id="curso"
+								maxlength="100" value="#{cadTraineeMB.trainee.cursoEstuda}" style="width:100%;"/>
+						</h:panelGrid>
 						<br></br>
 						<br></br>
-						<p:outputLabel value="Duração do curso" for="duracao"
-							style="margin-left:8%" />
-						<p:outputLabel value="Cursando atualmente qual período/ano"
-							for="periodoCurso" style="margin-left:10.5%;" />
-						<p:outputLabel
-							value="Forneça uma breve descrição sobre a sua área de estudos:"
-							for="breveDescricaoEstudos" style="margin-left:8%;" />
-						<br></br>
-						<p:inputText id="duracao"
-							style="width:15%;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
-							maxlength="100"
-							value="#{cadTraineeMB.trainee.duracaoCursoEstuda}" />
-						<p:inputText id="periodoCurso"
-							style="width:22%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
-							maxlength="100"
-							value="#{cadTraineeMB.trainee.periodoCursoEstuda}" />
-						<p:inputText id="breveDescricaoEstudos"
-							style="width:36%;-moz-border-radius: 5px;border-radius: 5px;margin-left:3%"
-							maxlength="100"
-							value="#{cadTraineeMB.trainee.descricaoAreaEstudo}" />
+						<h:panelGrid columns="3" style="width:91%;margin-left:8%;">
+							<p:outputLabel value="Duração do curso" for="duracao"
+								 />
+							<p:outputLabel value="Cursando atualmente qual período/ano"
+								for="periodoCurso" />
+							<p:outputLabel
+								value="Forneça uma breve descrição sobre a sua área de estudos:"
+								for="breveDescricaoEstudos"  />
+							
+							<p:inputText id="duracao"
+								maxlength="100" style="width:95%;"
+								value="#{cadTraineeMB.trainee.duracaoCursoEstuda}" />
+							<p:inputText id="periodoCurso"
+								maxlength="100" style="width:95%;"
+								value="#{cadTraineeMB.trainee.periodoCursoEstuda}" />
+							<p:inputText id="breveDescricaoEstudos"
+								maxlength="100" style="width:73%;"
+								value="#{cadTraineeMB.trainee.descricaoAreaEstudo}" />
+						</h:panelGrid>
 						<br></br>
 						<br></br>
 						<p:outputLabel value="Nivel de Inglês" style="margin-left:8%" />
