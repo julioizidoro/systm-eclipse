@@ -1411,7 +1411,7 @@ public class HistoricoClienteMB implements Serializable {
 	public boolean desabilitarContrato() {
 		boolean contrato = true;
 		if (lead.getLeadposvenda() != null) {
-			if (lead.getLeadposvenda().getVendas().getProdutos().getIdprodutos() != 7) {
+			if (lead.getLeadposvenda().getVendas().getProdutos().getIdprodutos() != 7 && lead.getLeadposvenda().getVendas().getProdutos().getIdprodutos() != 2) {
 				contrato = false;
 			}
 		}
