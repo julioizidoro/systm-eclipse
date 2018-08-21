@@ -313,22 +313,22 @@ public class ArquivoMB implements Serializable {
 				if (vendas.getProdutos().getIdprodutos()==22) {
 					listarArquivos = arquivosFacade
 							.listar("Select a from Arquivos a where a.cliente.idcliente="
-									+ cliente.getIdcliente() + " and a.tipoarquivo.unidade='Sim'");
+									+ cliente.getIdcliente() + " and a.tipoarquivo.unidade='Sim' order by a.tipoarquivo.descricao");
 					dadosCliente = cliente.getNome();
 				}else {
 					listarArquivos = arquivosFacade
 							.listar("Select a from Arquivos a where a.vendas.idvendas="
-									+ vendas.getIdvendas() + " and a.tipoarquivo.unidade='Sim'");
+									+ vendas.getIdvendas() + " and a.tipoarquivo.unidade='Sim' order by a.tipoarquivo.descricao");
 					dadosCliente = vendas.getIdvendas() + " - " + vendas.getCliente().getNome();
 				}
 			} else {
 				if (vendas.getProdutos().getIdprodutos()==22) {
 					listarArquivos = arquivosFacade
-							.listar("Select a from Arquivos a where a.cliente.idcliente=" + cliente.getIdcliente());
+							.listar("Select a from Arquivos a where a.cliente.idcliente=" + cliente.getIdcliente() + " order by a.tipoarquivo.descricao");
 					dadosCliente = cliente.getNome();
 				}else {
 					listarArquivos = arquivosFacade
-							.listar("Select a from Arquivos a where a.vendas.idvendas=" + vendas.getIdvendas());
+							.listar("Select a from Arquivos a where a.vendas.idvendas=" + vendas.getIdvendas() + " order by a.tipoarquivo.descricao");
 					dadosCliente = vendas.getIdvendas() + " - " + vendas.getCliente().getNome();
 				}
 				
