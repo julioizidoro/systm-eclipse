@@ -111,6 +111,7 @@ public class SalvarOrcamentoOcurso {
 			ocurso.setValorcambio(cursospacote.getValorcambio()); 
 			ocurso.setCambiocongelado(true);
 		}
+		ocurso.setVitrine(true);
 		ocurso.setCargahoraria(cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso()
 				.getCargahoraria() + " "
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso().getTipocargahoraria());

@@ -130,11 +130,14 @@ public class Ocurso implements Serializable {
 	private String nomecarimbo;
 	@Column(name = "cambiocongelado")
 	private boolean cambiocongelado;
+	@Column(name = "vitrine")
+	private boolean vitrine;
 	
 
 	public Ocurso() {
 		setOccliente(12);
 		setCambiocongelado(false);
+		vitrine = false;
 	}
 
 	public Ocurso(Integer idocurso) {
@@ -427,6 +430,14 @@ public class Ocurso implements Serializable {
 
 	public void setCambiocongelado(boolean cambiocongelado) {
 		this.cambiocongelado = cambiocongelado;
+	}
+
+	public boolean isVitrine() {
+		return vitrine;
+	}
+
+	public void setVitrine(boolean vitrine) {
+		this.vitrine = vitrine;
 	}
 
 	@Override
