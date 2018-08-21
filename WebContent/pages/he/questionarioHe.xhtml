@@ -89,7 +89,7 @@
 					<p:selectOneMenu id="testeOnline"
 						value="#{cadQuestionarioHeMB.questionarioHe.resultadotesteonline}"
 						style="width:280px;">
-						<f:selectItem itemLabel="Selecione" itemValue="sn" />
+						<f:selectItem itemLabel="Selecione" itemValue="" />
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 						<p:ajax event="change"
@@ -179,7 +179,7 @@
 								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
 							<p:ajax event="change"
 								listener="#{cadQuestionarioHeMB.verificarNivel()}"
-								update="panelInformacoesNivel, nivelInteresse3, cidade, nivelCertificado" />
+								update="panelCidadeCertificado, nivelInteresse3, cidade, nivelCertificado" />
 						</p:selectOneMenu>
 						<p:selectOneMenu id="pais2"
 							value="#{cadQuestionarioHeMB.questionarioHe.pais2}"
@@ -201,57 +201,60 @@
 					<p:inputText id="programa" style="width:85%;" maxlength="100"
 						value="#{cadQuestionarioHeMB.questionarioHe.programa}" />
 					<h:panelGroup>
-						<p:selectOneMenu id="nivelInteresse"
-							rendered="#{cadQuestionarioHeMB.habilitarNivel12}"
-							value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
-							style="width:170px;">
-							<f:selectItem itemLabel="Opção 1" itemValue="sn" />
-							<f:selectItem itemLabel="Certificado(1 ano)"
-								itemValue="Certificado(1 ano)" />
-							<f:selectItem itemLabel="Diploma(2 a 3 anos)"
-								itemValue="Diploma(2 a 3 anos)" />
-							<f:selectItem itemLabel="Bacharelado(4 anos)"
-								itemValue="Bacharelado(4 anos)" />
-							<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
-								itemValue="Pós-Graduação(1 a 2 anos)" />
-							<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
-								itemValue="Mestrado(1 a 2 anos)" />
-						</p:selectOneMenu>
-						<p:selectOneMenu id="nivelInteresse2"
-							rendered="#{cadQuestionarioHeMB.habilitarNivel12}"
-							value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse2}"
-							style="width:170px;margin-left:2%;">
-							<f:selectItem itemLabel="Opção 2" itemValue="sn" />
-							<f:selectItem itemLabel="Certificado(1 ano)"
-								itemValue="Certificado(1 ano)" />
-							<f:selectItem itemLabel="Diploma(2 a 3 anos)"
-								itemValue="Diploma(2 a 3 anos)" />
-							<f:selectItem itemLabel="Bacharelado(4 anos)"
-								itemValue="Bacharelado(4 anos)" />
-							<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
-								itemValue="Pós-Graduação(1 a 2 anos)" />
-							<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
-								itemValue="Mestrado(1 a 2 anos)" />
-						</p:selectOneMenu>
-						<p:selectOneMenu id="nivelInteresse3"
-							rendered="#{cadQuestionarioHeMB.habilitarNivel3}"
-							value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
-							style="width:170px;">
-							<f:selectItem itemLabel="Opção 2" itemValue="sn" />
-							<f:selectItem itemLabel="Licenciatura" itemValue="Licenciatura" />
-							<f:selectItem itemLabel="Mestrado" itemValue="Mestrado" />
-							<f:selectItem itemLabel="Pós-Graduação" itemValue="Pós-Graduação" />
-						</p:selectOneMenu>
-						<p:selectOneMenu id="cidade"
-							rendered="#{cadQuestionarioHeMB.habilitarNivel3}"
-							value="#{cadQuestionarioHeMB.questionarioHe.cidade}"
-							style="width:170px;margin-left:2%;">
-							<f:selectItem itemLabel="Cidade" itemValue="sn" />
-							<f:selectItem itemLabel="Lisboa" itemValue="Lisboa" />
-							<f:selectItem itemLabel="Porto" itemValue="Porto" />
-							<f:selectItem itemLabel="Aveiro" itemValue="Aveiro" />
-							<f:selectItem itemLabel="Outros" itemValue="Outros" />
-						</p:selectOneMenu>
+					
+						<h:panelGrid id="panelCidadeCertificado" style="width:62%;" columns="2">
+							<p:selectOneMenu id="nivelInteresse"
+								rendered="#{cadQuestionarioHeMB.habilitarNivel12}"
+								value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
+								style="width:170px;">
+								<f:selectItem itemLabel="Opção 1" itemValue="" />
+								<f:selectItem itemLabel="Certificado(1 ano)"
+									itemValue="Certificado(1 ano)" />
+								<f:selectItem itemLabel="Diploma(2 a 3 anos)"
+									itemValue="Diploma(2 a 3 anos)" />
+								<f:selectItem itemLabel="Bacharelado(4 anos)"
+									itemValue="Bacharelado(4 anos)" />
+								<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
+									itemValue="Pós-Graduação(1 a 2 anos)" />
+								<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
+									itemValue="Mestrado(1 a 2 anos)" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="nivelInteresse2"
+								rendered="#{cadQuestionarioHeMB.habilitarNivel12}"
+								value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse2}"
+								style="width:170px;margin-left:2%;">
+								<f:selectItem itemLabel="Opção 2" itemValue="" />
+								<f:selectItem itemLabel="Certificado(1 ano)"
+									itemValue="Certificado(1 ano)" />
+								<f:selectItem itemLabel="Diploma(2 a 3 anos)"
+									itemValue="Diploma(2 a 3 anos)" />
+								<f:selectItem itemLabel="Bacharelado(4 anos)"
+									itemValue="Bacharelado(4 anos)" />
+								<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
+									itemValue="Pós-Graduação(1 a 2 anos)" />
+								<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
+									itemValue="Mestrado(1 a 2 anos)" />
+							</p:selectOneMenu>
+								<p:selectOneMenu id="nivelInteresse3"
+									rendered="#{cadQuestionarioHeMB.habilitarNivel3}"
+									value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
+									style="width:170px;">
+									<f:selectItem itemLabel="Opção 1" itemValue="" />
+									<f:selectItem itemLabel="Licenciatura" itemValue="Licenciatura" />
+									<f:selectItem itemLabel="Mestrado" itemValue="Mestrado" />
+									<f:selectItem itemLabel="Pós-Graduação" itemValue="Pós-Graduação" />
+								</p:selectOneMenu>
+								<p:selectOneMenu id="cidade"
+									rendered="#{cadQuestionarioHeMB.habilitarNivel3}"
+									value="#{cadQuestionarioHeMB.questionarioHe.cidade}"
+									style="width:170px;margin-left:2%;">
+									<f:selectItem itemLabel="Cidade" itemValue="" />
+									<f:selectItem itemLabel="Lisboa" itemValue="Lisboa" />
+									<f:selectItem itemLabel="Porto" itemValue="Porto" />
+									<f:selectItem itemLabel="Aveiro" itemValue="Aveiro" />
+									<f:selectItem itemLabel="Outros" itemValue="Outros" />
+								</p:selectOneMenu>
+						</h:panelGrid>
 					</h:panelGroup>
 				</h:panelGrid>
 				<br />
@@ -271,7 +274,7 @@
 					<p:selectOneMenu id="trabalhar"
 						value="#{cadQuestionarioHeMB.questionarioHe.precisatrabalahar}"
 						style="width:280px;">
-						<f:selectItem itemLabel="Seleciona" itemValue="sn" noSelectionOption="true"/>
+						<f:selectItem itemLabel="Seleciona" itemValue="" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 					</p:selectOneMenu>
@@ -286,14 +289,14 @@
 					<p:selectOneMenu id="imigrar"
 						value="#{cadQuestionarioHeMB.questionarioHe.interesseemimigrar}"
 						style="width:280px;">
-						<f:selectItem itemLabel="Seleciona" itemValue="sn" noSelectionOption="true"/>
+						<f:selectItem itemLabel="Seleciona" itemValue="" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 					</p:selectOneMenu>
 					<p:selectOneMenu id="vistoTrabalho"
 						value="#{cadQuestionarioHeMB.questionarioHe.vistotrabalho}"
 						style="width:280px;">
-						<f:selectItem itemLabel="Seleciona" itemValue="sn" noSelectionOption="true"/>
+						<f:selectItem itemLabel="Seleciona" itemValue="" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Sim" itemValue="Sim" />
 						<f:selectItem itemLabel="Não" itemValue="Não" />
 					</p:selectOneMenu>
