@@ -46,7 +46,15 @@ public class FichaAuPairMB implements Serializable{
 		aupair = (Aupair) session.getAttribute("aupair");
 		if (aupair != null) {
 			vendas = aupair.getVendas();
-			valorTotalMoeda = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
+			float valorOrcamento = 0.0f;
+			float valorVendaCambio = 0.0f;
+			if (vendas.getFormapagamento() != null) {
+				valorOrcamento = vendas.getFormapagamento().getValorOrcamento();
+			}
+			if (vendas.getValorcambio() != null) {
+				valorVendaCambio = vendas.getValorcambio();
+			}
+			 valorTotalMoeda = valorOrcamento / valorVendaCambio;
 			if (aupair.getCartaoVTM() != null && aupair.getCartaoVTM().equalsIgnoreCase("Sim")) {
 				habilitarCartãoVtm = true;
 			}else{
@@ -77,9 +85,6 @@ public class FichaAuPairMB implements Serializable{
 		this.contrato = contrato;
 	}
 
-
-
-	
 
 
 

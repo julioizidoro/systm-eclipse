@@ -463,7 +463,7 @@
 									</p:commandLink> 
 									<p:commandLink 
 										action="#{historicoClienteMB.contrato(historicoClienteMB.lead.leadposvenda.vendas)}"
-										title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
+										title="IMPRIMIR O CONTRATO" ajax="false" target="_blank" disabled="#{historicoClienteMB.desabilitarContrato()}">
 										<img src="../../resources/img/imprimiContrato.png" width="36" style="margin-left: 12%;"/>
 										<h:panelGrid columns="1" style="text-align:center;">
 											<p:outputLabel value="CONTRATO" style="font-size:11px;"  />
