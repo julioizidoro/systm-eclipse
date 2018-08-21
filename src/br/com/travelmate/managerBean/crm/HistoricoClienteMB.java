@@ -40,6 +40,7 @@ import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.OrcamentoCursoFacade;
+import br.com.travelmate.facade.PacotesFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -53,6 +54,7 @@ import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoManualPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
+import br.com.travelmate.managerBean.turismo.PacoteAgenciaMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
@@ -65,6 +67,7 @@ import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Orcamentocurso;
+import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Questionariohe;
@@ -1253,8 +1256,16 @@ public class HistoricoClienteMB implements Serializable {
 			He he = buscarHe();
 			session.setAttribute("he", he);
 			return "fichaHE";
+		}else if(vendas.getProdutos().getIdprodutos() == 2) {
+			Seguroviagem seguroviagem = buscarSeguro();
+			session.setAttribute("seguroviagem", seguroviagem);
+			return "fichasSeguroViagem";
+		}else if(vendas.getProdutos().getIdprodutos() == 7) {
+			Pacotes pacotes = buscarPacote();
+			session.setAttribute("pacotes", pacotes);
+			return "fichasPacotes";
 		}
-		return "";
+		return "";	
 	}
 	
 	
@@ -1308,6 +1319,10 @@ public class HistoricoClienteMB implements Serializable {
 			He he = buscarHe();
 			session.setAttribute("he", he);
 			return "contratoHE";
+		}else if(vendas.getProdutos().getIdprodutos() == 7) {
+			Pacotes pacotes = buscarPacote();
+			session.setAttribute("pacotes", pacotes);
+			return "contratoPacotes";
 		}
 		return "";
 	}
@@ -1384,5 +1399,26 @@ public class HistoricoClienteMB implements Serializable {
 		Vistos vistos = vistosFacade.consultarVistos(vendas.getIdvendas());
 		return vistos;
 	}
+	
+	
+	public Pacotes buscarPacote(){
+		PacotesFacade pacotesFacade = new PacotesFacade();
+		Pacotes pacotes = pacotesFacade.consultar(vendas.getIdvendas());
+		return pacotes;
+	}
+	
+	
+	public boolean desabilitarContrato() {
+		boolean contrato = true;
+		if (lead.getLeadposvenda() != null) {
+			if (lead.getLeadposvenda().getVendas().getProdutos().getIdprodutos() != 7) {
+				contrato = false;
+			}
+		}
+		return contrato;
+	}
+	
+	
+	
 
 }

@@ -492,23 +492,25 @@ public class CadPassagemMB implements Serializable {
 	}
 
 	public String adicionarPassageiroBean() {
-		if (passagempassageiro.getNome().length() > 0 && passagempassageiro.getCategoria().length() > 0) {
-			if (passagempassageiro.getCategoria().equalsIgnoreCase("ADT")) {
-				passagempassageiro
-						.setValor(passagem.getAdttarifa() + passagem.getAdttaxas() + passagem.getAdttaxaemissao()); 
-			} else if (passagempassageiro.getCategoria().equalsIgnoreCase("CHD")) {
-				passagempassageiro
-						.setValor(passagem.getChdtarifa() + passagem.getChdtaxas() + passagem.getChdtaxaemissao()); 
+		if (passagempassageiro.getNome() != null && passagempassageiro.getCategoria() != null) {
+			if (passagempassageiro.getNome().length() > 0 && passagempassageiro.getCategoria().length() > 0) {
+				if (passagempassageiro.getCategoria().equalsIgnoreCase("ADT")) {
+					passagempassageiro
+							.setValor(passagem.getAdttarifa() + passagem.getAdttaxas() + passagem.getAdttaxaemissao()); 
+				} else if (passagempassageiro.getCategoria().equalsIgnoreCase("CHD")) {
+					passagempassageiro
+							.setValor(passagem.getChdtarifa() + passagem.getChdtaxas() + passagem.getChdtaxaemissao()); 
+				} else {
+					passagempassageiro
+							.setValor(passagem.getInftarifa() + passagem.getInftaxas() + passagem.getInftaxaemissao()); 
+				}
+				listaPassageiros.add(passagempassageiro); 
+				passagempassageiro = new Passagempassageiro();
+				calcularValorTotal();
 			} else {
-				passagempassageiro
-						.setValor(passagem.getInftarifa() + passagem.getInftaxas() + passagem.getInftaxaemissao()); 
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage("Atenção!", "Preencha todos os dados do cliente."));
 			}
-			listaPassageiros.add(passagempassageiro); 
-			passagempassageiro = new Passagempassageiro();
-			calcularValorTotal();
-		} else {
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage("Atenção!", "Preencha todos os dados do cliente."));
 		}
 		return "";
 	}

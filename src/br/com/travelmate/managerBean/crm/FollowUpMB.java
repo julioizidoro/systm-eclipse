@@ -979,6 +979,7 @@ public class FollowUpMB implements Serializable {
 			pesquisarPosVenda();
 		}else {
 			Mensagem.lancarMensagemInfo("PESQUISA", "Selecionar um campo de data");
+			sql = null;
 		}
 	}
 	
@@ -1170,7 +1171,7 @@ public class FollowUpMB implements Serializable {
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
-		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA' ";
+		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA' AND l.lead.produtos.idprodutos<>3 AND l.lead.produtos.idprodutos<>6 AND l.lead.produtos.idprodutos<>7 ";
 		sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 		sql = sql + " AND l.vendas.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		sql = sql + " AND (l.datachegada>='"+Formatacao.ConvercaoDataSql(data)+"'"
@@ -1184,7 +1185,7 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	public void pesquisarPosVenda() { 
-		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA'";
+		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA' AND l.lead.produtos.idprodutos<>3 AND l.lead.produtos.idprodutos<>6 AND l.lead.produtos.idprodutos<>7 ";
 		if(!acessoResponsavelGerencial) {
 			sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
 			if(!acessoResponsavelUnidade) {
