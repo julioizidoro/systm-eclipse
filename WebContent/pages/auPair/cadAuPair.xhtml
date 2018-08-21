@@ -89,6 +89,27 @@
 									minFractionDigits="2" />
 							</p:inputText>
 						</h:panelGrid>
+						<br/>		<br/>
+						<h:panelGrid columns="2" style="width:33%;margin-left:14%;">
+							<p:outputLabel value="Data de Início Pretendida"
+								for="datachegada" />
+							<p:outputLabel value="Data para embarque máx. pretendida"
+								for="datapartida" />
+
+							<p:calendar id="datachegada"
+								value="#{cadAupairMB.aupair.dataInicioPretendida01}" locale="pt"
+								size="25" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+							<p:calendar id="datapartida"
+								value="#{cadAupairMB.aupair.dataInicioPretendida02}" locale="pt"
+								size="33" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						<br/>
 						<br/><br/>
 						<h:panelGrid columns="1" style="margin-left:14%;"
 							columnClasses="tamanhoavisos,tamanho9">
@@ -238,23 +259,7 @@
 
 							<p:outputLabel />
 							<p:outputLabel />
-							<p:outputLabel value="Data de Início Pretendida entre"
-								for="datachegada" />
-							<p:outputLabel value="Data máxima para embarque pretendida"
-								for="datapartida" />
-
-							<p:calendar id="datachegada"
-								value="#{cadAupairMB.aupair.dataInicioPretendida01}" locale="pt"
-								size="25" pattern="dd/MM/yyyy" mask="true" maxlength="15">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
-							<p:calendar id="datapartida"
-								value="#{cadAupairMB.aupair.dataInicioPretendida02}" locale="pt"
-								size="33" pattern="dd/MM/yyyy" mask="true" maxlength="15">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-							</p:calendar>
+							
 						</h:panelGrid>
 						<br></br>
 						<br></br>

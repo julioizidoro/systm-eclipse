@@ -1107,7 +1107,11 @@ public class FollowUpMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Lead lead = (Lead) session.getAttribute("lead");
 		session.removeAttribute("lead");
+		if (lead == null) {
+			lead = (Lead) event.getObject();
+		}
 		if (lead != null) {
+			mudarCoresBotões("novos");
 			try {
 				session.setAttribute("posicao", listaLead.size());
 				listaLead.add(lead);

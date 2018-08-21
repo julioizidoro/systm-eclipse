@@ -373,9 +373,6 @@
 									<p:outputLabel value="NOVO LEAD" style="font-size:12px;" />
 								</h:panelGrid>
 								<p:ajax event="dialogReturn"
-									listener="#{followUpMB.mudarCoresBotões('hoje')}"
-									update="@form" />
-								<p:ajax event="dialogReturn"
 									listener="#{followUpMB.retornoNovaLead}"
 									update="@form" />
 							</p:commandLink>
