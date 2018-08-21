@@ -979,6 +979,7 @@ public class FollowUpMB implements Serializable {
 			pesquisarPosVenda();
 		}else {
 			Mensagem.lancarMensagemInfo("PESQUISA", "Selecionar um campo de data");
+			sql = null;
 		}
 	}
 	
