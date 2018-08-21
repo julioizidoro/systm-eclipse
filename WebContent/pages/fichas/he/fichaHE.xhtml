@@ -114,12 +114,7 @@
 				<h:panelGroup>
 					<b>Email: </b> #{fichaHEMB.vendas.cliente.email}
 				</h:panelGroup>
-				<h:panelGroup>
-					<b>Primeira Língua: </b> #{fichaHEMB.he.primeiralingua}
-				</h:panelGroup>
-				<h:panelGroup>
-					<b>Segunda Língua: </b> #{fichaHEMB.he.segundalingua}
-				</h:panelGroup>
+				
 			</h:panelGrid>   
 
 		</h:panelGrid>
@@ -185,67 +180,7 @@
 
 		</h:panelGrid>
 		<br/>
-		<h:panelGroup style="color:green;"><b> PROGRAMAS DE HIGHER EDUCATION / IDIOMA PARA FINS ACADÊMICOS (PATHWAY) </b></h:panelGroup>
-			<hr style="color:green;width:97%;float: left;"/>
-				<h:panelGrid
-					style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
-			<ui:repeat var="heparceiros"
-					value="#{fichaHEMB.listaHeParceiros}"
-					varStatus="statuss">
-			<br/>
-					<h:panelGrid style="width:100%;" columns="3">
-						<h:panelGroup>
-							<b>Parceiro: </b>  #{heparceiros.fornecedorcidade.fornecedor.nome}</h:panelGroup>
-						<h:panelGroup>
-							<b>Local: </b> #{heparceiros.fornecedorcidade.cidade.nome} , #{heparceiros.fornecedorcidade.cidade.pais.nome} </h:panelGroup>
-						<h:panelGroup>
-							
-						</h:panelGroup>
-						<h:panelGroup>
-							<b>Curso: </b> #{heparceiros.hecurso}</h:panelGroup>
-						<h:panelGroup>
-							<b>Código: </b> #{heparceiros.hecodigo}</h:panelGroup>
-						<h:panelGroup>
-							<b>Mês/Ano: </b> #{heparceiros.mesano}</h:panelGroup>
-							
-							<h:panelGroup/>
-							<h:panelGroup/>
-							<h:panelGroup/>
-							<h:panelGroup/>
-							<h:panelGroup/>
-							<h:panelGroup/>
-							<h:panelGroup rendered="#{heparceiros.pathway}">
-								<b>IDIOMA PARA FINS ACADÊMICOS (PATHWAY):</b>
-							</h:panelGroup>
-							<h:panelGroup/>
-							<h:panelGroup/>
-							
-								<h:panelGroup rendered="#{heparceiros.pathway}">
-									<b>Data Início: </b>
-									<h:outputText value="#{heparceiros.datainicio}">
-										<f:convertDateTime pattern="dd/MM/yyyy"
-											timeZone="America/Sao_Paulo" />
-									</h:outputText>
-								</h:panelGroup>
-								<h:panelGroup rendered="#{heparceiros.pathway}">
-									<b>Nº Semanas : </b> #{heparceiros.numerosemanas}
-								</h:panelGroup>
-								<h:panelGroup rendered="#{heparceiros.pathway}">
-									<b>Data Término: </b>
-									<h:outputText value="#{heparceiros.datatermino}">
-										<f:convertDateTime pattern="dd/MM/yyyy"
-											timeZone="America/Sao_Paulo" />
-									</h:outputText>
-								</h:panelGroup>
 		
-					
-					</h:panelGrid>
-					<br/>
-					<hr/>
-			</ui:repeat>
-		</h:panelGrid>
-
-		<br />
 		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
 		<hr style="color:green;width:97%;float: left;"/>
 		<br />
