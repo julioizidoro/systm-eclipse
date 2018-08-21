@@ -486,7 +486,13 @@ public class CadLeadMB implements Serializable {
 	public void validarEmail() {
 			if(Formatacao.validarEmail(email)){ 
 				ClienteFacade clienteFacade = new ClienteFacade();
-				Cliente c = clienteFacade.consultarEmail(email);
+				String sql = "select c from Cliente c where (c.email like '%" + email + "%')";
+				if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+					sql = sql + "  and c.unidadenegocio.idunidadeNegocio="
+							+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				}
+				sql = sql + " order by c.nome";
+				Cliente c = clienteFacade.consultarEmailSql(sql);
 				if(c!=null && c.getIdcliente()!=null){
 					selecionarCliente(c);
 					email = cliente.getEmail();
