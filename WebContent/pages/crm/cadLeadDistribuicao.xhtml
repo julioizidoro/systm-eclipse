@@ -94,7 +94,7 @@
 			<p:outputLabel value="Unidade" for="unidade" />
 
 			<p:inputText id="email" style="width:90%;"
-				value="#{cadLeadDistribuicaoMB.cliente.email}">
+				value="#{cadLeadDistribuicaoMB.email}">
 				<p:ajax event="blur" listener="#{cadLeadDistribuicaoMB.validarEmail()}"
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
 					update="nome, unidade, telefone, origem, :cadLead:growl, botaoConfirmar" />

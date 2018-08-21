@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.Email;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.LeadDao;
@@ -77,6 +78,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
     private boolean pesquisatelefone=false;
     private String telaRetorno;
     private boolean desabilitarConfirmar = false;
+    private String email;
 
 	@PostConstruct()
 	public void init() {
@@ -228,6 +230,14 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		this.desabilitarConfirmar = desabilitarConfirmar;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void buscarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
 		String sql = "select c from Cliente c where (c.nome like '%" + nomeCliente + "%' or c.email like '%"+nomeCliente+"%')";
@@ -271,23 +281,8 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		publicidade = cliente.getPublicidade(); 
 		String sql = "select l from Lead l where l.cliente.idcliente="+cliente.getIdcliente();
 		Lead lead = leadDao.consultar(sql);
+		email = cliente.getEmail();
 		if(lead!=null && lead.getUsuario().getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
-			Leadposvenda leadposvenda = leadPosVendaDao.consultar("SELECT l FROM Leadposvenda l WHERE l.lead.idlead=" + lead.getIdlead());
-			if (leadposvenda == null) {
-				this.lead.setJaecliente(true);
-				if (lead.getSituacao() != 6) {
-					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome() + " - " + lead.getUnidadenegocio().getNomerelatorio(); 
-					desabilitarConfirmar = true;
-				}else if(lead.getSituacao() == 6  && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==lead.getUnidadenegocio().getIdunidadeNegocio()){
-					this.lead.setJaecliente(false); 
-					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-					desabilitarConfirmar = false;
-				}else{
-					this.lead.setJaecliente(false); 
-					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-					desabilitarConfirmar = false;
-				}
-			}else{
 				this.lead.setJaecliente(false); 
 				if (lead.getSituacao() != 6 && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()!=lead.getUnidadenegocio().getIdunidadeNegocio()) {
 					this.lead.setJaecliente(true);
@@ -300,7 +295,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				}
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 				desabilitarConfirmar = false;
-			}  
 		}else{
 			this.lead.setJaecliente(false); 
 			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
@@ -415,18 +409,29 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	}
 	
 	public void validarEmail() {
-		if(Formatacao.validarEmail(cliente.getEmail())){ 
+		if(Formatacao.validarEmail(email)){ 
 			ClienteFacade clienteFacade = new ClienteFacade();
-			Cliente c = clienteFacade.consultarEmail(cliente.getEmail());
+			Cliente c = clienteFacade.consultarEmail(email);
 			if(c!=null && c.getIdcliente()!=null){
-				Mensagem.lancarMensagemInfo("Cliente já existente.", "");
 				selecionarCliente(c);
-				desabilitarConfirmar = true;
+				email = cliente.getEmail();
 			}else {
-				String email = cliente.getEmail();
 				cliente = new Cliente();
 				cliente.setEmail(email);
 				desabilitarConfirmar = false;
+				unidadenegocio = null;
+				publicidade = null;
+				lead.setPais(null);
+				cliente.setNome("");
+				cliente.setFoneCelular("");
+				lead.setNotas("");
+				lead.setJaecliente(false);
+				if(usuarioLogadoMB.getUsuario().isPertencematriz()){
+					desabilitarUnidade=false;
+				}else{
+					unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
+					desabilitarUnidade = true;
+				}
 			}
 		}
 }
