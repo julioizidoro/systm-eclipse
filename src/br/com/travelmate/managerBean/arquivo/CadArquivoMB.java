@@ -297,11 +297,11 @@ public class CadArquivoMB implements Serializable {
 		try {
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				listaTipoArquivo = tipoArquivoFacade.listar("Select t from Tipoarquivoproduto t"
-						+ " where t.produtos.idprodutos="+vendas.getProdutos().getIdprodutos());
+						+ " where t.produtos.idprodutos="+vendas.getProdutos().getIdprodutos() + " order by t.tipoarquivo.idtipoArquivo");
 			} else
 				listaTipoArquivo = tipoArquivoFacade
 						.listar("Select t from Tipoarquivoproduto t where t.tipoarquivo.unidade='Sim'"
-								+ " and t.produtos.idprodutos="+vendas.getProdutos().getIdprodutos()); 
+								+ " and t.produtos.idprodutos="+vendas.getProdutos().getIdprodutos() + " order by t.tipoarquivo.idtipoArquivo"); 
 			if (listaTipoArquivo == null) {
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
