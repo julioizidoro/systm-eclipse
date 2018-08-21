@@ -46,6 +46,18 @@ public class ClienteDao {
         return cliente;
     }
     
+    
+    public Cliente consultarEmailSql(String email) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getInstance();
+	    Query q = manager.createQuery(email);
+        Cliente cliente = null;
+        if (q.getResultList().size()>0){
+            cliente = (Cliente) q.getResultList().get(0);
+        } 
+        return cliente;
+    }
+    
     public Cliente consultarCpf(String cpf) throws SQLException{
     	EntityManager manager = ConectionFactory.getInstance();
 	    Query q = manager.createQuery("select c from Cliente c where c.cpf='" + cpf + "'" );

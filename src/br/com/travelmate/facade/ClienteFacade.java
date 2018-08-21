@@ -50,6 +50,16 @@ public class ClienteFacade {
         }
     }
     
+    public Cliente consultarEmailSql(String email) {
+        clienteDao = new ClienteDao();
+        try {
+            return clienteDao.consultarEmailSql(email);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     public Cliente consultarCpf(String cpf) {
     	clienteDao = new ClienteDao();
     	try {
