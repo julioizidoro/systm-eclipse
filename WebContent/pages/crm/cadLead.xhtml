@@ -94,10 +94,10 @@
 			<p:outputLabel value="Unidade" for="unidade" />
 
 			<p:inputText id="email" style="width:90%;"
-				value="#{cadLeadMB.cliente.email}">
+				value="#{cadLeadMB.email}">
 				<p:ajax event="blur" listener="#{cadLeadMB.validarEmail()}"
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-					update="nome, unidade, telefone, consultor, origem, :cadLead:growl, botaoConfirmar" />
+					update="@form" />
 			</p:inputText> 
 			<p:selectOneMenu id="unidade" value="#{cadLeadMB.unidadenegocio}"
 				disabled="#{cadLeadMB.desabilitarUnidade}" style="width:90%;"

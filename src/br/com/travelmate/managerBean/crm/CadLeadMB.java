@@ -85,6 +85,7 @@ public class CadLeadMB implements Serializable {
     private String telaRetorno;
     private boolean desabilitarConfirmar = false;
     private List<Pais> listaPais;
+    private String email;
 
 	@PostConstruct()
 	public void init() {
@@ -276,6 +277,14 @@ public class CadLeadMB implements Serializable {
 		this.desabilitarConfirmar = desabilitarConfirmar;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void buscarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
 		String sql = "select c from Cliente c where (c.nome like '%" + nomeCliente + "%' or c.email like '%"+nomeCliente+"%')";
@@ -451,7 +460,7 @@ public class CadLeadMB implements Serializable {
 	}
 	
 	public boolean validarDados(){
-		if(cliente==null || cliente.getNome()==null || cliente.getFoneCelular()==null || cliente.getEmail()==null){
+		if(cliente==null || cliente.getNome()==null || cliente.getFoneCelular()==null || email==null){
 			return false;
 		}
 		if(publicidade==null || publicidade.getIdpublicidade()==null){
@@ -469,7 +478,7 @@ public class CadLeadMB implements Serializable {
 		if (lead.getPais()==null){
 			return false;
 		}
-		if(!Formatacao.validarEmail(cliente.getEmail())){
+		if(!Formatacao.validarEmail(email)){
 			return false;
 		}
 		
@@ -494,17 +503,31 @@ public class CadLeadMB implements Serializable {
 	  
 	
 	public void validarEmail() {
-			if(Formatacao.validarEmail(cliente.getEmail())){ 
+			if(Formatacao.validarEmail(email)){ 
 				ClienteFacade clienteFacade = new ClienteFacade();
-				Cliente c = clienteFacade.consultarEmail(cliente.getEmail());
+				Cliente c = clienteFacade.consultarEmail(email);
 				if(c!=null && c.getIdcliente()!=null){
-					Mensagem.lancarMensagemInfo("Cliente já existente.", "");
 					selecionarCliente(c);
-					desabilitarConfirmar = true;
+					email = cliente.getEmail();
 				}else {
-					String email = cliente.getEmail();
 					cliente = new Cliente();
 					cliente.setEmail(email);
+					unidadenegocio = null;
+					consultor = null;
+					publicidade = null;
+					lead.setPais(null);
+					cliente.setNome("");
+					cliente.setFoneCelular("");
+					lead.setNotas("");
+					lead.setJaecliente(false);
+					if(usuarioLogadoMB.getUsuario().isPertencematriz()){
+						desabilitarUnidade=false;
+					}else{
+						desabilitarUnidade = true;
+						unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
+						gerarListaConsultor();
+						consultor = usuarioLogadoMB.getUsuario();
+					}
 					desabilitarConfirmar = false;
 				}
 			}
