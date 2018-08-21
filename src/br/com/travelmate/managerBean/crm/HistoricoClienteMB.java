@@ -1226,7 +1226,7 @@ public class HistoricoClienteMB implements Serializable {
 			return "fichaHighSchool";
 		}else if(vendas.getProdutos().getIdprodutos() == 5) {
 			Programasteens programateens = buscarProgramasTeens();
-			session.setAttribute("programateens", programateens);
+			session.setAttribute("programasteens", programateens);
 			return "fichaCursosTeens";
 		}else if(vendas.getProdutos().getIdprodutos() == 9) {
 			Aupair aupair = buscarAuPair();
@@ -1289,7 +1289,7 @@ public class HistoricoClienteMB implements Serializable {
 			return "contratoHighSchool";
 		}else if(vendas.getProdutos().getIdprodutos() == 5) {
 			Programasteens programateens = buscarProgramasTeens();
-			session.setAttribute("programateens", programateens);
+			session.setAttribute("programasteens", programateens);
 			return "contratoTeens";
 		}else if(vendas.getProdutos().getIdprodutos() == 9) {
 			Aupair aupair = buscarAuPair();
