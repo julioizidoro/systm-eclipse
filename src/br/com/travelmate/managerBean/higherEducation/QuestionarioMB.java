@@ -563,11 +563,6 @@ public class QuestionarioMB implements Serializable{
 		}
 		
 		
-		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
-			msg = msg + "Informe Tenho interesse em imigrar; \n \n";
-		}
-		
-		
 		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
 			msg = msg + "Informe a Observações e parecer do consultor; \n \n";
 		}
@@ -577,11 +572,11 @@ public class QuestionarioMB implements Serializable{
 		}
 		
 		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
-			msg = msg + "Informe 'Tenho interesse m Imigrar?'; \n \n";
+			msg = msg + "Informe 'Tenho interesse em imigrar'; \n \n";
 		}
 		
 		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
-			msg = msg + "Informe 'Tenho interesse em visto de trabalho após o curso?'; \n \n";
+			msg = msg + "Informe 'Tenho interesse em visto de trabalho após o curso'; \n \n";
 		}
 		return msg;
 	}
