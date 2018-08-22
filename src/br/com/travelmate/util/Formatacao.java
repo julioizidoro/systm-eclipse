@@ -1398,13 +1398,16 @@ public class Formatacao {
 		int diaSemana = Formatacao.diaSemana(new Date());
 		String sData = Formatacao.ConvercaoDataPadrao(dataVencimento);
 		dataVencimento = Formatacao.ConvercaoStringData(sData);
-		Date dataIdeal = new Date();
+		String dataIdealString = Formatacao.ConvercaoDataPadrao(new Date());
+		Date dataIdeal = Formatacao.ConvercaoStringData(dataIdealString);
+		String dataHojeString = Formatacao.ConvercaoDataPadrao(new Date());
+		Date datahoje = Formatacao.ConvercaoStringData(dataHojeString);
 		if (diaSemana==1){
-			dataIdeal = Formatacao.SomarDiasDatas(new Date(), 1);
+			dataIdeal = Formatacao.SomarDiasDatas(datahoje, 1);
 		}else if (diaSemana==7){
-			dataIdeal = Formatacao.SomarDiasDatas(new Date(), 2);
+			dataIdeal = Formatacao.SomarDiasDatas(datahoje, 2);
 		}else if (diaSemana==6){
-			dataIdeal = Formatacao.SomarDiasDatas(new Date(), 3);
+			dataIdeal = Formatacao.SomarDiasDatas(datahoje, 3);
 		}
 		if (dataVencimento.before(dataIdeal)){
 			return "Data primeiro vencimento tem que ser no próximo dia util \b\n";
