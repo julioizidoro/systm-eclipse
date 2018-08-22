@@ -801,6 +801,7 @@ public class FollowUpMB implements Serializable {
 		session.setAttribute("listapais", listaPais);
 		session.setAttribute("listatipocontato", listaTipoContato);
 		session.setAttribute("listausuario", listaUsuario);
+		session.setAttribute("voltar", "followUp");
 		return "historicoCliente";
 	}
 	
