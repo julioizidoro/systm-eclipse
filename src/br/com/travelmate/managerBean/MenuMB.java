@@ -764,7 +764,7 @@ public class MenuMB implements Serializable {
 	public String followUp() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("funcao", "hoje");
+		session.setAttribute("funcao", "todos");
 		return "followUp";
 	}
 

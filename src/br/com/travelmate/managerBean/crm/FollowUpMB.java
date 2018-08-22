@@ -122,7 +122,7 @@ public class FollowUpMB implements Serializable {
 			funcao = (String) session.getAttribute("funcao");
 			session.removeAttribute("funcao");
 			if (funcao == null || funcao.length() == 0) {
-				funcao = "hoje";
+				funcao = "todos";
 			}
 			this.listaPosVenda = (List<Leadposvenda>) session.getAttribute("listaposvenda");
 			this.listaProdutos = (List<Produtos>) session.getAttribute("listaproduto");
@@ -984,11 +984,7 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	public void gerarBotoesLead() {
-		imagemNovos = "novos";
-		imagemHoje = "hoje";
-		imagemAtrasados = "atrasados";
-		imagemProx = "prox";
-		imagemTodos = "todosClick";
+
 		novos = 0;
 		atrasados = 0;
 		hoje = 0;
@@ -1037,7 +1033,7 @@ public class FollowUpMB implements Serializable {
 				}
 			}
 		}
-		listaLead = listaLeadTotal;
+		mudarCoresBotões(funcao);
 	}
 
 	
@@ -1212,7 +1208,6 @@ public class FollowUpMB implements Serializable {
 					+ "l.lead.dataproximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
 		}
 		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
-			funcao = "todos";
 			sql = sql + " AND l.lead.situacao='" + situacao + "'";
 		}
 		if (tipocontato != null && tipocontato.getIdtipocontato() != null) {
