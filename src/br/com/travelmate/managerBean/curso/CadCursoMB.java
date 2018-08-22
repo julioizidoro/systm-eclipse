@@ -1421,7 +1421,7 @@ public class CadCursoMB implements Serializable {
 			float valorParcela = valorParcelar / numeroParcelas;
 			if (formaPagamentoString.equalsIgnoreCase("Boleto")) {
 				int numeroAdicionar = 0;
-				int diaSemana = Formatacao.diaSemana(dataPrimeiroPagamento);
+				int diaSemana = Formatacao.diaSemana(new Date());
 				String horaAtual = Formatacao.foramtarHoraString();
 				String horaMaxima = "16:00:00";
 				Time horatime = null;
@@ -1432,21 +1432,33 @@ public class CadCursoMB implements Serializable {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				if (horatime.after(horaMaxTime)) {
+				String dataString = Formatacao.ConvercaoDataPadrao(new Date());
+				Date dataHoje = Formatacao.ConvercaoStringData(dataString);
+				int numeroDias = Formatacao.subtrairDatas(dataHoje, dataPrimeiroPagamento);
+				if (diaSemana == 1 && numeroDias <=2) {
+					numeroAdicionar = 2;
+					horarioExcedido = true;
+				}else if(diaSemana == 7 && numeroDias <=3) {
+					numeroAdicionar = 3;
+					horarioExcedido = true;
+				}else if(horatime.after(horaMaxTime) && (diaSemana == 6 && numeroDias <=4)) {
+					numeroAdicionar = 4;
+					horarioExcedido = true;
+				}else if(horatime.after(horaMaxTime) && (diaSemana == 5 && numeroDias ==1)) {
 					numeroAdicionar = 1;
 					horarioExcedido = true;
 				}
-	
-				if (diaSemana == 1) {
-					numeroAdicionar = 2;
-					horarioExcedido = true;
-				}else if(diaSemana == 7) {
-					numeroAdicionar = 3;
-					horarioExcedido = true;
-				}else if(diaSemana == 6) {
-					numeroAdicionar = 4;
-					horarioExcedido = true;
-				}
+				
+//				if (diaSemana == 1) {
+//					numeroAdicionar = 2;
+//					horarioExcedido = true;
+//				}else if(diaSemana == 7) {
+//					numeroAdicionar = 3;
+//					horarioExcedido = true;
+//				}else if(diaSemana == 6) {
+//					numeroAdicionar = 4;
+//					horarioExcedido = true;
+//				}
 				if (horarioExcedido) {
 					try {
 						dataPrimeiroPagamento = Formatacao.SomarDiasDatas(dataPrimeiroPagamento, numeroAdicionar);

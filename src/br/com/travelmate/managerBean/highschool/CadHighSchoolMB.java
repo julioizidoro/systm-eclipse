@@ -657,19 +657,20 @@ public class CadHighSchoolMB implements Serializable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					if (horatime.after(horaMaxTime)) {
-						numeroAdicionar = 1;
-						horarioExcedido = true;
-					}
-		
-					if (diaSemana == 1) {
+					String dataString = Formatacao.ConvercaoDataPadrao(new Date());
+					Date dataHoje = Formatacao.ConvercaoStringData(dataString);
+					int numeroDias = Formatacao.subtrairDatas(dataHoje, parcelamentopagamento.getDiaVencimento());
+					if (diaSemana == 1 && numeroDias <=2) {
 						numeroAdicionar = 2;
 						horarioExcedido = true;
-					}else if(diaSemana == 7) {
+					}else if(diaSemana == 7 && numeroDias <=3) {
 						numeroAdicionar = 3;
 						horarioExcedido = true;
-					}else if(diaSemana == 6) {
+					}else if(horatime.after(horaMaxTime) && (diaSemana == 6 && numeroDias <=4)) {
 						numeroAdicionar = 4;
+						horarioExcedido = true;
+					}else if(horatime.after(horaMaxTime) && (diaSemana == 5 && numeroDias ==1)) {
+						numeroAdicionar = 1;
 						horarioExcedido = true;
 					}
 					if (horarioExcedido) {
