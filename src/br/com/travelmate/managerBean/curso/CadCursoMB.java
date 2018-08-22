@@ -1336,7 +1336,8 @@ public class CadCursoMB implements Serializable {
 		int tx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 		int seguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
 		if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
-				.getIdprodutosOrcamento() == tx) {
+				.getIdprodutosOrcamento() == tx && (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getDescricao().equalsIgnoreCase("Assessoria  TM")
+						|| orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getDescricao().equalsIgnoreCase("Assessoria  TM -  "))) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Taxa TM não pode ser Excluída.", ""));
 		} else if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
