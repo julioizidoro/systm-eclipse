@@ -115,20 +115,14 @@ public class ControleCursoMB implements Serializable {
 			}
 		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
-	        	listaControle =  (List<Controlecurso>) session.getAttribute("listaControle");
-		        session.removeAttribute("listaControle");
-		        if (listaControle==null){
-		        	listarControle(sql);
-		        }else{
-		        	gerarQuantidadesFichas();
-		        }
-			}else {
-				nFichasFinalizadas = listaVendasCursoFinalizada.size();
-				nFichasAndamento = listaVendasCursoAndamento.size();
-				nFichaCancelada = listaVendasCursoCancelada.size();
-				nFichaFinanceiro = listaVendasCursoFinanceiro.size();
-			}
+			listaControle =  (List<Controlecurso>) session.getAttribute("listaControle");
+	        session.removeAttribute("listaControle");
+			
+				 if (listaControle==null){
+			        	listarControle(sql);
+			        }else{
+			        	gerarQuantidadesFichas();
+			        }
 			gerarListaUnidadeNegocio();
 			controlecurso= new Controlecurso();
 		}
@@ -429,6 +423,9 @@ public class ControleCursoMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("controle", controle);
 			session.setAttribute("listaControle", listaControle);
+			session.setAttribute("pesquisar", pesquisar);
+			session.setAttribute("nomePrograma", "ControleCurso");
+			session.setAttribute("chamadaTela", "ControleCurso");
 			return "consultaInvoice";
 		}
 		return "";
@@ -518,6 +515,9 @@ public class ControleCursoMB implements Serializable {
 		session.setAttribute("voltar", voltar);
 		session.setAttribute("vendas", controle.getVendas());
 		session.setAttribute("listaControle", listaControle);
+		session.setAttribute("pesquisar", pesquisar);
+		session.setAttribute("nomePrograma", "ControleCurso");
+		session.setAttribute("chamadaTela", "ControleCurso");
 		return "consArquivos";
 	}
 
@@ -668,6 +668,9 @@ public class ControleCursoMB implements Serializable {
 			voltar = "controleCurso";
 			session.setAttribute("voltar", voltar);
 			session.setAttribute("listaControle", listaControle);
+			session.setAttribute("pesquisar", pesquisar);
+			session.setAttribute("nomePrograma", "ControleCurso");
+			session.setAttribute("chamadaTela", "ControleCurso");
 			return "consLogVenda";
 		}
 	}
@@ -831,10 +834,7 @@ public class ControleCursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
-		session.setAttribute("listaVendasCursoAndamento", listaVendasCursoAndamento);
-		session.setAttribute("listaVendasCursoCancelada", listaVendasCursoCancelada);
-		session.setAttribute("listaVendasCursoFinalizada", listaVendasCursoFinalizada);
-		session.setAttribute("listaVendasCursoFinanceiro", listaVendasCursoFinanceiro);
+		session.setAttribute("listaControle", listaControle);
 		session.setAttribute("pesquisar", pesquisar);
 		session.setAttribute("nomePrograma", "ControleCurso");
 		session.setAttribute("chamadaTela", "ControleCurso");
