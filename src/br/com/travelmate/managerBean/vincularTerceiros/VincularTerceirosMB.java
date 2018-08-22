@@ -158,11 +158,6 @@ public class VincularTerceirosMB implements Serializable{
         if ((dataInicial!=null) && (dataFinal!=null)){
             sql = sql + " and v.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicial) +
                     "' and v.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
-        }else {
-        	if (nomeCliente.length()<=0){
-        		String sData = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
-        		sql = sql + " and v.dataVenda>='"  + sData + "' ";
-        	}
         }
         if (idvenda>0){ 
         	sql = sql + " and v.idvendas=" + idvenda;   
