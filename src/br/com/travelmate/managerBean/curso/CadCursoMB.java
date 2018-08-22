@@ -3237,6 +3237,14 @@ public class CadCursoMB implements Serializable {
 									.getComplementoacomodacao();
 							acomodacao.setTipoacomodacao(
 									complementoacomodacao.getTipoacomodacao());
+							if (acomodacao.getTipoacomodacao().equalsIgnoreCase("Sem acomodação")) {
+								camposAcomodacaoCasaFamilia = "true";
+							} else {
+								camposAcomodacaoCasaFamilia = "true";
+							}
+							if (acomodacao.getTipoacomodacao().equalsIgnoreCase("Casa de família")) {
+								camposAcomodacaoCasaFamilia = "false";
+							}
 							acomodacao
 									.setNumerosemana(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
 							acomodacao.setTipoquarto(complementoacomodacao.getTipoquarto());
