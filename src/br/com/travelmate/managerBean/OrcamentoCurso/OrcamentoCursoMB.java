@@ -1005,6 +1005,13 @@ public class OrcamentoCursoMB implements Serializable {
 				List<Grupoobrigatorio> listaGrupoObrigatorio;
 				listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sqlObrigatorio);
 				if (listaGrupoObrigatorio != null && listaGrupoObrigatorio.size() > 0) {
+					String carta = "";
+					for (int i = 0; i < resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size(); i++) {
+						carta = resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).getValorcoprodutos().getCoprodutos().getDescricao();
+						if (carta.equalsIgnoreCase("Carta de Custódia")) {
+							i = 10000;
+						}
+					}
 					for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {
 						boolean calcular = true;
 						if (listaGrupoObrigatorio.get(i).isMenorobrigatorio()) {
@@ -1021,29 +1028,57 @@ public class OrcamentoCursoMB implements Serializable {
 									resultadoOrcamentoBean.getOcurso(), dataconsulta,
 									"Obrigatorio");
 							if (po != null) {
-								po.setTipoproduto("A");
-								resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
-								produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
-										resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+								if (carta != null && carta.length() > 0) {
+									if (!po.getValorcoprodutos().getCoprodutos().getDescricao().equalsIgnoreCase(carta)) {
+										po.setTipoproduto("A");
+										resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
+										produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
+												resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+									}
+								}else {
+									po.setTipoproduto("A");
+									resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
+									produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
+											resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+									
+								}
 							} else {
 								po = consultarValores("DM", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
 										resultadoOrcamentoBean.getOcurso(), new Date(),
 										"Obrigatorio");
 								if (po != null) {
-									po.setTipoproduto("A");
-									resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
-									produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
-											resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size()
-													- 1);
+									if (carta != null && carta.length() > 0) {
+										if (!po.getValorcoprodutos().getCoprodutos().getDescricao().equalsIgnoreCase(carta)) {
+											po.setTipoproduto("A");
+											resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
+											produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
+													resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+										}
+									}else {
+										po.setTipoproduto("A");
+										resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
+										produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
+												resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+										
+									}
 								} else {
 									po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
 											resultadoOrcamentoBean.getOcurso(), dataconsulta, "Obrigatorio");
 									if (po != null) {
-										po.setTipoproduto("A");
-										resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
-										produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
-												resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size()
-														- 1);
+										if (carta != null && carta.length() > 0) {
+											if (!po.getValorcoprodutos().getCoprodutos().getDescricao().equalsIgnoreCase(carta)) {
+												po.setTipoproduto("A");
+												resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
+												produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
+														resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+											}
+										}else {
+											po.setTipoproduto("A");
+											resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().add(po);
+											produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(
+													resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size() - 1);
+											
+										}
 									} else {
 										produtosOrcamentoBean.setLinhaObrigatorioAcomodacao(-1);
 									}
