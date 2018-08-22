@@ -486,7 +486,7 @@ public class ControleSeguroMB implements Serializable {
 		Date data = null; 
 		Date dataemissao = null;
 		try {
-			data = Formatacao.SomarDiasDatas(new Date(), 10);
+			data = Formatacao.SomarDiasDatas(new Date(), 20);
 			dataemissao = Formatacao.SomarDiasDatas(new Date(), 3);
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -525,7 +525,7 @@ public class ControleSeguroMB implements Serializable {
 						nFichaSeguroCancelamento = nFichaSeguroCancelamento + 1;
 						listaVendasSeguroCancelamento.add(listaControleSeguro.get(i));
 					}else if (listaControleSeguro.get(i).getSeguroviagem().isSegurocancelamento() 
-							&& dataemissao.before(dataemissao)) {
+							&& listaControleSeguro.get(i).getDataemissao().before(dataemissao)) {
 						nFichaSeguroCancelamento = nFichaSeguroCancelamento + 1;
 						listaVendasSeguroCancelamento.add(listaControleSeguro.get(i));
 					}else if (listaControleSeguro.get(i).getSeguroviagem().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
