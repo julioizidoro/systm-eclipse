@@ -85,6 +85,12 @@
                     <p:column style="width:30px" >
 							<p:rowEditor title="Editar" rendered="#{visualizarContasCobrancaMB.habilitarEdicao(contasreceber)}"/>   
 						</p:column> 
+					<p:column style="width:40px" >
+							<p:commandLink id="btnHistorico" title="Visualizar Histórico do Cliente" rendered="#{visualizarContasCobrancaMB.habilitarEdicao(contasreceber)}"
+								action="#{visualizarContasCobrancaMB.salvarCobranca(contasreceber)}" update="@all">
+								<img src="../../resources/img/confirmarBola.png" width="20" />
+							</p:commandLink>
+						</p:column> 
                 </p:dataTable>
                  <br></br> 
                  

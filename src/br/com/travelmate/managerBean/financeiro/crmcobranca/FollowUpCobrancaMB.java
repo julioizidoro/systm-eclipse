@@ -71,17 +71,7 @@ public class FollowUpCobrancaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
-		listaCrmCobrancaNovos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaNovos");
-		listaCrmCobrancaAtrasado = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaAtrasado");
-		listaCrmCobrancaHoje = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaHoje");
-		listaCrmCobrancaProx7 = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaProx7");
-		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
 		session.removeAttribute("listaCrmCobranca");
-		session.removeAttribute("listaCrmCobrancaNovos");
-		session.removeAttribute("listaCrmCobrancaAtrasado");
-		session.removeAttribute("listaCrmCobrancaHoje");
-		session.removeAttribute("listaCrmCobrancaProx7");
-		session.removeAttribute("listaCrmCobrancaTodos");
 		if (!aplicacaoMB.isLeituraCobranca()) {
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.gerarListaInadiplentes();
@@ -396,11 +386,6 @@ public class FollowUpCobrancaMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobranca", crmcobranca);
 		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
-		session.setAttribute("listaCrmCobrancaAtrasado", listaCrmCobrancaAtrasado);
-		session.setAttribute("listaCrmCobrancaHoje", listaCrmCobrancaHoje);
-		session.setAttribute("listaCrmCobrancaNovos", listaCrmCobrancaNovos);
-		session.setAttribute("listaCrmCobrancaProx7", listaCrmCobrancaProx7);
-		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
 		session.setAttribute("voltarPagina", "followupCobranca");
 		return "historicoCobrancaCliente";
 	}
@@ -679,19 +664,23 @@ public class FollowUpCobrancaMB implements Serializable{
 		for (int i = 0; i < listaCrmCobranca.size(); i++) {
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
+				listaCrmCobrancaTodos.add(listaCrmCobranca.get(i));
 			}
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")
 					&& listaCrmCobranca.get(i).getProximocontato() == null) {
 				novos = novos + 1;
+				listaCrmCobrancaNovos.add(listaCrmCobranca.get(i));
 			} else if ((listaCrmCobranca.get(i).getProximocontato()) != null
 					&& (Formatacao.ConvercaoDataSql(listaCrmCobranca.get(i).getProximocontato())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(new Date())))
 					&& (!listaCrmCobranca.get(i).getSituacao().equals("0"))) {
 				hoje = hoje + 1;
+				listaCrmCobrancaHoje.add(listaCrmCobranca.get(i));
 			} else if (listaCrmCobranca.get(i).getProximocontato() != null
 					&& listaCrmCobranca.get(i).getProximocontato().before(new Date())
 					&& !listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				atrasados = atrasados + 1;
+				listaCrmCobrancaAtrasado.add(listaCrmCobranca.get(i));
 			} else if (listaCrmCobranca.get(i).getProximocontato() != null
 					&& listaCrmCobranca.get(i).getProximocontato().after(new Date())
 					&& !listaCrmCobranca.get(i).getSituacao().equals("0")) {
@@ -703,6 +692,7 @@ public class FollowUpCobrancaMB implements Serializable{
 				}
 				if (listaCrmCobranca.get(i).getProximocontato().before(data7)) {
 					prox7 = prox7 + 1;
+					listaCrmCobrancaProx7.add(listaCrmCobranca.get(i));
 				}
 			}
 		}

@@ -471,11 +471,6 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
-		session.setAttribute("listaCrmCobrancaAtrasado", listaCrmCobrancaAtrasado);
-		session.setAttribute("listaCrmCobrancaHoje", listaCrmCobrancaHoje);
-		session.setAttribute("listaCrmCobrancaNovos", listaCrmCobrancaNovos);
-		session.setAttribute("listaCrmCobrancaProx7", listaCrmCobrancaProx7);
-		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
 		return voltarPagina;
 	}
 	
@@ -497,7 +492,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("venda", venda);
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 750);
+		options.put("contentWidth", 950);
 		options.put("closable", false);
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceberCobranca", options, null);
 		return "";

@@ -185,4 +185,11 @@ public class VisualizarContasCobrancaMB implements Serializable{
 	public void fechar(){
 		RequestContext.getCurrentInstance().closeDialog(null);
 	}
+	
+	
+	public void salvarCobranca(Contasreceber contasreceber) {
+		CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+		crmCobrancaBean.baixar(contasreceber, usuarioLogadoMB.getUsuario());
+		carregarContasReceber();
+	}
 }
