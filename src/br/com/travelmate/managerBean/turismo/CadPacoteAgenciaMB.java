@@ -23,6 +23,7 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.FinalizarPacoteOperadora;
 import br.com.travelmate.bean.GerarPacotesFornecedorBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
@@ -1416,43 +1417,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 					}
 				}
 				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-					boolean horarioExcedido = false;
-					int numeroAdicionar = 0;
-					int diaSemana = Formatacao.diaSemana(parcelamento.getDiaVencimento());
-					String horaAtual = Formatacao.foramtarHoraString();
-					String horaMaxima = "16:00:00";
-					Time horatime = null;
-					Time horaMaxTime = null;
-					try {
-						horatime = Formatacao.converterStringHora(horaAtual);
-						horaMaxTime = Formatacao.converterStringHora(horaMaxima);
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if (horatime.after(horaMaxTime)) {
-						numeroAdicionar = 1;
-						horarioExcedido = true;
-					}
-		
-					if (diaSemana == 1) {
-						numeroAdicionar = 2;
-						horarioExcedido = true;
-					}else if(diaSemana == 7) {
-						numeroAdicionar = 3;
-						horarioExcedido = true;
-					}else if(diaSemana == 6) {
-						numeroAdicionar = 4;
-						horarioExcedido = true;
-					}
-					if (horarioExcedido) {
-						try {
-							parcelamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamento.getDiaVencimento(), numeroAdicionar));
-							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamento.getDiaVencimento());
+					parcelamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 				calcularParcelamentoPagamento();

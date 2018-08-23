@@ -24,6 +24,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.dao.LeadDao;
@@ -753,44 +754,8 @@ public class CadTraineeMB implements Serializable {
 					}
 				}
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-					boolean horarioExcedido = false;
-					int numeroAdicionar = 0;
-					int diaSemana = Formatacao.diaSemana(parcelamentopagamento.getDiaVencimento());
-					String horaAtual = Formatacao.foramtarHoraString();
-					String horaMaxima = "16:00:00";
-					Time horatime = null;
-					Time horaMaxTime = null;
-					try {
-						horatime = Formatacao.converterStringHora(horaAtual);
-						horaMaxTime = Formatacao.converterStringHora(horaMaxima);
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					String dataString = Formatacao.ConvercaoDataPadrao(new Date());
-					Date dataHoje = Formatacao.ConvercaoStringData(dataString);
-					int numeroDias = Formatacao.subtrairDatas(dataHoje, parcelamentopagamento.getDiaVencimento());
-					if (diaSemana == 1 && numeroDias <=2) {
-						numeroAdicionar = 2;
-						horarioExcedido = true;
-					}else if(diaSemana == 7 && numeroDias <=3) {
-						numeroAdicionar = 3;
-						horarioExcedido = true;
-					}else if(horatime.after(horaMaxTime) && (diaSemana == 6 && numeroDias <=4)) {
-						numeroAdicionar = 4;
-						horarioExcedido = true;
-					}else if(horatime.after(horaMaxTime) && (diaSemana == 5 && numeroDias ==1)) {
-						numeroAdicionar = 1;
-						horarioExcedido = true;
-					}
-					if (horarioExcedido) {
-						try {
-							parcelamentopagamento.setDiaVencimento(Formatacao.SomarDiasDatas(parcelamentopagamento.getDiaVencimento(), numeroAdicionar));
-							Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
+					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
 				parcelamentopagamento = new Parcelamentopagamento();
