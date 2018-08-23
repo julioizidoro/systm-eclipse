@@ -103,8 +103,12 @@ public class DataVencimentoBean {
 				numeroAdicionar = 1;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			}else if (numeroDias == 0) {
+			}else if (horatime.after(horaMaxTime) && numeroDias == 0) {
 				numeroAdicionar = 2;
+				horarioExcedido = true;
+				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
+			}else if (numeroDias == 0) {
+				numeroAdicionar = 1;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
 			}
