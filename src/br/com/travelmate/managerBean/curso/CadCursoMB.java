@@ -28,6 +28,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.RegraVistoBean;
@@ -1413,60 +1414,14 @@ public class CadCursoMB implements Serializable {
 	}
 
 	public void adicionarFormaPagamento() {
-		boolean horarioExcedido = false;
 		gerarListaParcelamentoOriginal();
 		String msg = validarFormaPagamento();
 		if (msg.length() < 5) {
 			int numeroParcelas = Integer.parseInt(this.numeroParcelas);
 			float valorParcela = valorParcelar / numeroParcelas;
 			if (formaPagamentoString.equalsIgnoreCase("Boleto")) {
-				int numeroAdicionar = 0;
-				int diaSemana = Formatacao.diaSemana(new Date());
-				String horaAtual = Formatacao.foramtarHoraString();
-				String horaMaxima = "16:00:00";
-				Time horatime = null;
-				Time horaMaxTime = null;
-				try {
-					horatime = Formatacao.converterStringHora(horaAtual);
-					horaMaxTime = Formatacao.converterStringHora(horaMaxima);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				String dataString = Formatacao.ConvercaoDataPadrao(new Date());
-				Date dataHoje = Formatacao.ConvercaoStringData(dataString);
-				int numeroDias = Formatacao.subtrairDatas(dataHoje, dataPrimeiroPagamento);
-				if (diaSemana == 1 && numeroDias <=2) {
-					numeroAdicionar = 2;
-					horarioExcedido = true;
-				}else if(diaSemana == 7 && numeroDias <=3) {
-					numeroAdicionar = 3;
-					horarioExcedido = true;
-				}else if(horatime.after(horaMaxTime) && (diaSemana == 6 && numeroDias <=4)) {
-					numeroAdicionar = 4;
-					horarioExcedido = true;
-				}else if(horatime.after(horaMaxTime) && (diaSemana == 5 && numeroDias ==1)) {
-					numeroAdicionar = 1;
-					horarioExcedido = true;
-				}
-				
-//				if (diaSemana == 1) {
-//					numeroAdicionar = 2;
-//					horarioExcedido = true;
-//				}else if(diaSemana == 7) {
-//					numeroAdicionar = 3;
-//					horarioExcedido = true;
-//				}else if(diaSemana == 6) {
-//					numeroAdicionar = 4;
-//					horarioExcedido = true;
-//				}
-				if (horarioExcedido) {
-					try {
-						dataPrimeiroPagamento = Formatacao.SomarDiasDatas(dataPrimeiroPagamento, numeroAdicionar);
-						Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
+				DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(dataPrimeiroPagamento);
+				dataPrimeiroPagamento = dataVencimentoBean.validarDataVencimento();
 			}
 			Parcelamentopagamento parcelamento = new Parcelamentopagamento();
 			parcelamento.setDiaVencimento(dataPrimeiroPagamento);
@@ -1523,14 +1478,6 @@ public class CadCursoMB implements Serializable {
 		}
 		if (dataPrimeiroPagamento == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
-		}else {
-			if (formaPagamentoString.equalsIgnoreCase("Boleto")){
-				try {
-					msg = msg + Formatacao.validarDataBoleto(dataPrimeiroPagamento);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
 		}
 		if (formaPagamentoString.equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";
