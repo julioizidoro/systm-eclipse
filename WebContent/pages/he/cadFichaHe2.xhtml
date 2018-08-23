@@ -174,7 +174,7 @@
 							columnClasses="tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Você possui algum exame de proficiência?" />
-							<p:outputLabel value="Pretende cursar um programa de Pathway?" />
+							<p:outputLabel value="" />
 
 							<p:selectOneMenu id="proeficiencia"
 								value="#{cadHeFinalMB.he.possuiexame}" style="width:280px;">
@@ -182,14 +182,9 @@
 								<f:selectItem itemLabel="Sim" itemValue="Sim" />
 								<p:ajax event="change" update="nomeexame, notaexame, dataexame" />
 							</p:selectOneMenu>
-							<p:selectOneMenu id="programaPathway"
-								value="#{cadHeFinalMB.he.cursarparhaway}"
-								style="width:280px;">
-								<f:selectItem itemLabel="Não" itemValue="Não" />
-								<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							</p:selectOneMenu>
+							<p:outputLabel value="" />
 
-							<p:outputLabel />
+							<p:outputLabel /> 
 							<p:outputLabel />
 
 							<p:outputLabel value="Nome do exame" />
