@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.arquivo;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,10 +21,12 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.dao.ArquivosHistoricoDao;
 import br.com.travelmate.dao.ArquivosListaDao;
 import br.com.travelmate.facade.ArquivosFacade;
+import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Arquivoshitorico;
 import br.com.travelmate.model.Arquvioslista;
+import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
@@ -73,6 +76,7 @@ public class ControleArquivosMB implements Serializable{
 	private String descricao2;
 	private String descricao3;
 	private String descricao4;
+	private Ftpdados ftpdados;
 	
 	
 	
@@ -88,6 +92,13 @@ public class ControleArquivosMB implements Serializable{
 		gerarListaAquivos2();
 		gerarListaAquivos3();
 		gerarListaAquivos4();
+		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
+		try {
+			ftpdados = ftpDadosFacade.getFTPDados();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -462,6 +473,18 @@ public class ControleArquivosMB implements Serializable{
 
 	public void setDescricao4(String descricao4) {
 		this.descricao4 = descricao4;
+	}
+
+
+
+	public Ftpdados getFtpdados() {
+		return ftpdados;
+	}
+
+
+
+	public void setFtpdados(Ftpdados ftpdados) {
+		this.ftpdados = ftpdados;
 	}
 
 
