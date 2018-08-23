@@ -181,6 +181,62 @@
 		</h:panelGrid>
 		<br/>
 		
+		<div style="page-break-after: always"></div>
+		<h:panelGroup style="color:green;"><b> PROGRAMAS DE HIGHER EDUCATION / IDIOMA PARA FINS ACADÊMICOS (PATHWAY) </b></h:panelGroup>
+			<hr style="color:green;width:97%;float: left;"/>
+				<h:panelGrid
+					style="border:1.5px solid;width:97%;border-color:#9C9C9C;">
+			<br/>
+					<h:panelGrid style="width:100%;" columns="3">
+						<h:panelGroup>
+							<b>Parceiro: </b>  #{fichaHEMB.he.vendas.fornecedorcidade.fornecedor.nome}</h:panelGroup>
+						<h:panelGroup>
+							<b>Local: </b> #{fichaHEMB.he.vendas.fornecedorcidade.cidade.nome} , #{fichaHEMB.he.vendas.fornecedorcidade.cidade.pais.nome} </h:panelGroup>
+						<h:panelGroup>
+							
+						</h:panelGroup>
+						<h:panelGroup>
+							<b>Curso: </b> #{fichaHEMB.he.curso1}</h:panelGroup>
+						<h:panelGroup>
+							<b>Código: </b> #{fichaHEMB.he.codigo1}</h:panelGroup>
+						<h:panelGroup>
+							<b>Mês/Ano: </b> #{fichaHEMB.he.mesano1}</h:panelGroup>
+							
+							<h:panelGroup/>
+							<h:panelGroup/>
+							<h:panelGroup/>
+							<h:panelGroup/>
+							<h:panelGroup/>
+							<h:panelGroup/>
+							<h:panelGroup>
+								<b>IDIOMA PARA FINS ACADÊMICOS (PATHWAY):</b>
+							</h:panelGroup>
+							<h:panelGroup/>
+							<h:panelGroup/>
+							
+								<h:panelGroup>
+									<b>Data Início: </b>
+									<h:outputText value="#{fichaHEMB.he.datainicio}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</h:panelGroup>
+								<h:panelGroup >
+									<b>Nº Semanas : </b> #{fichaHEMB.he.numerosemanas}
+								</h:panelGroup>
+								<h:panelGroup >
+									<b>Data Término: </b>
+									<h:outputText value="#{fichaHEMB.he.datatermino}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</h:panelGroup>
+		
+					
+					</h:panelGrid>
+					<br/>
+		</h:panelGrid>
+		<br/>
 		<h:panelGroup style="color:green;"><b>ACOMODAÇÃO</b></h:panelGroup>
 		<hr style="color:green;width:97%;float: left;"/>
 		<br />

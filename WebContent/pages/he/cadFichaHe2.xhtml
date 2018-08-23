@@ -87,6 +87,72 @@
 							
 							
 						</h:panelGrid>
+						<br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
+							style="width:80%;margin-left:8%;">
+							<p:outputLabel value="Curso" />
+							<h:panelGroup>
+								<p:outputLabel value="Código" />
+								<p:outputLabel value="Mês/Ano" style="margin-left: 35%;" />
+							</h:panelGroup>
+
+							<p:inputText id="curso1" style="width:85%;"
+								value="#{cadHeFinalMB.he.curso1}"
+								 />
+							<h:panelGroup>
+								<p:inputText id="codigo1" style="width:40%;"
+									value="#{cadHeFinalMB.he.codigo1}"
+									 />
+								<p:inputMask mask="99/9999" id="mesano1"
+									style="width:40%;margin-left:4%;"
+									value="#{cadHeFinalMB.he.mesano1}"
+									 />
+							</h:panelGroup>
+							
+							<p:outputLabel />
+						</h:panelGrid>
+						<br /><br />
+						<h:panelGrid columns="2"
+							columnClasses="tamanhoavisos2, tamanhoavisos2"
+							style="width:64%;margin-left:8%;"> 
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{cadHeFinalMB.camposPathway}">
+									<p:ajax event="change" update="datainicio, nsemanas, datatermino" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
+							</h:panelGroup>
+						</h:panelGrid>  
+						<br/>
+						<h:panelGrid columns="3"
+							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"  
+							style="width:37.5%;margin-left:8%;">
+
+							<p:outputLabel value="Data Início" for="datainicio" />
+							<p:outputLabel value="Nº Semanas" for="nsemanas" />
+							<p:outputLabel value="Data Término" for="datatermino" />
+
+							<p:calendar id="datainicio" disabled="#{cadHeFinalMB.habilitarCamposPathway()}"
+								value="#{cadHeFinalMB.he.datainicio}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+							<p:inputText id="nsemanas" style="width:60%;" maxlength="100"
+								value="#{cadHeFinalMB.he.numerosemanas}" disabled="#{cadHeFinalMB.habilitarCamposPathway()}">
+								<p:ajax event="blur"
+									listener="#{cadHeFinalMB.calcularDataTermino1()}"
+									update="datatermino" />
+							</p:inputText>
+							<p:calendar id="datatermino" disabled="#{cadHeFinalMB.habilitarCamposPathway()}"
+								value="#{cadHeFinalMB.he.datatermino}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
 						<legend id="iUsu3" style="margin-left:8%;width:80%;">
 								<b style="color: #458871;">Informações Academicas</b>
 							</legend>

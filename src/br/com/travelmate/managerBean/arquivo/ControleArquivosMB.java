@@ -683,7 +683,7 @@ public class ControleArquivosMB implements Serializable{
 	public void gerarListaAquivos() {
 		String sql = "SELECT a FROM Arquvioslista a WHERE a.arquivos.vendas.idvendas=" + vendas.getIdvendas() 
 		+ " and a.arquivoslistamodelo.tipoarquivoproduto.produtos.idprodutos="+ vendas.getProdutos().getIdprodutos() 
-		+" and a.arquivoslistamodelo.classe='Documentos para Inscrição' order by a.arquivoslistamodelo.ordem";
+		+" and a.arquivoslistamodelo.classe='Documentos de Inscrição' order by a.arquivoslistamodelo.ordem";
 		listaArquivos = arquivosListaDao.lista(sql);
 		if (listaArquivos == null) {
 			listaArquivos = new ArrayList<Arquvioslista>();

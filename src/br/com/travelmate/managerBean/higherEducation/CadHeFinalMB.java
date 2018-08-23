@@ -120,6 +120,7 @@ public class CadHeFinalMB implements Serializable {
 	private Cidade cidade;
 	private List<Fornecedorcidade> listaFornecedorCidade;
 	private Cliente cliente;
+	private boolean camposPathway;
 
 	@PostConstruct
 	public void init() {
@@ -417,6 +418,14 @@ public class CadHeFinalMB implements Serializable {
 		this.cliente = cliente;
 	}
 
+	public boolean isCamposPathway() {
+		return camposPathway;
+	}
+
+	public void setCamposPathway(boolean camposPathway) {
+		this.camposPathway = camposPathway;
+	}
+
 	public void excluirFormaPagamento(String ilinha) {
 		gerarListaParcelamentoOriginal();
 		int linha = Integer.parseInt(ilinha);
@@ -554,6 +563,9 @@ public class CadHeFinalMB implements Serializable {
 			calcularValorTotalOrcamento();
 		}else{
 			selecionarCambio();
+		}
+		if(he.getDatainicio()!=null){
+			camposPathway=true;
 		}
 		consultaCambio = true;
 		parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
@@ -1309,5 +1321,33 @@ public class CadHeFinalMB implements Serializable {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	public boolean habilitarCamposPathway(){
+		if(camposPathway){
+			return false;
+		}
+		return true;
+	}
+	
+	public void calcularDataTermino1() {
+		if ((he.getDatainicio() != null) && (he.getNumerosemanas() != null)) {
+			if (he.getNumerosemanas() > 0) {
+				Date data = Formatacao.calcularDataFinal(he.getDatainicio(), he.getNumerosemanas());
+				int diaSemana = Formatacao.diaSemana(data);
+				try {
+					if (diaSemana == 1) {
+						data = Formatacao.SomarDiasDatas(data, -2);
+					} else if (diaSemana == 7) {
+						data = Formatacao.SomarDiasDatas(data, -1);
+					}
+				} catch (Exception ex) {
+					Logger.getLogger(br.com.travelmate.managerBean.OrcamentoCurso.FiltrarEscolaMB.class.getName())
+							.log(Level.SEVERE, null, ex);
+				}
+				he.setDatatermino(data);
+			}
+		}
 	}
 }
