@@ -185,14 +185,14 @@
 						<b>Disponibilidade para viagem ?</b>
 					</legend>
 					<br></br>
-					<p:outputLabel value="Data inicio pretendida"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
-					<p:outputLabel value="Data de volta pretendida "
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 5.9%" />
-					<p:outputLabel value="Inicio previsto para (mes/ano)"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 6%" />
-					<br />
-					<h:panelGrid style="margin-left:11.5%;" columns="3">
+					<br />   
+					<h:panelGrid style="margin-left:11.5%;width:55%;" columns="3">
+						<p:outputLabel value="Data inicio pretendida"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Data de volta pretendida "
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Inicio previsto para (mes/ano)"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
 						<p:calendar id="datainicioviagem"
 							value="#{cadWorkTravelMB.work.dataInicioPretendida01}" size="20"
 							locale="pt" pattern="dd/MM/yyyy" mask="true">
@@ -203,14 +203,14 @@
 						</p:calendar>
 						<p:calendar id="datavoltaviagem"
 							value="#{cadWorkTravelMB.work.dataTerminoPretendida01}" size="20"
-							style="margin-left:31.8%;" locale="pt" pattern="dd/MM/yyyy"  mask="true">
+							 locale="pt" pattern="dd/MM/yyyy"  mask="true">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:ajax event="change" />
 							<p:ajax event="dateSelect" />
 						</p:calendar>
 						<p:inputMask value="#{cadWorkTravelMB.work.inicioPrevisto}"
-							size="8" style="margin-left:67%;" mask="99/9999" />
+							size="8"  mask="99/9999" />
 					</h:panelGrid>
 					<br></br>
 					<br></br>
@@ -219,13 +219,12 @@
 
 				<p:tab title="Contato" class="tab" titleStyle="font-size: 11px">
 					<br></br>
-
 					<p:outputLabel value="Nome do País"
 						style="margin-left:11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
 					<p:outputLabel value="Motivo estadia"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:15%" />
+						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:16.2%" />
 					<p:outputLabel value="Periodo"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:14.8%" />
+						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:16%" />
 					<br></br>
 					<p:inputText id="nomePais1"
 						value="#{cadWorkTravelMB.work.nomePais01}"
@@ -323,44 +322,41 @@
 					<br />
 					<br />
 
-					<p:outputLabel value="Quando" for="quando"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
-					<p:outputLabel value="Número do Social Security" for="nsecurity"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 50.6%" />
-					<br />
-					<h:panelGrid style="margin-left:11.6%;">
+					<h:panelGrid style="margin-left:11.6%;width:37%;" columns="2">
+						<p:outputLabel value="Quando" for="quando"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Número do Social Security" for="nsecurity"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
 						<p:inputText id="quando"
 							value="#{cadWorkTravelMB.work.quantoVistoj1}" size="35"
 							disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
-					</h:panelGrid>
-					<h:panelGrid style="margin-left:65.8%; margin-top:-2.2%;">
 						<p:inputText id="nsecurity"
 							value="#{cadWorkTravelMB.work.numeroSocialSecurity}" size="35"
 							disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
 					</h:panelGrid>
 					<br />
 					<br />
-
-					<p:outputLabel value="Tipo Programa EUA" for="tipoprograma"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
-					<p:outputLabel value="Sponsor EUA ou agência no Brasil"
-						for="sponsorAgencia"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 21.5%" />
-					<p:outputLabel value="Posição exercida" for="posicaoExercida"
-						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 10.6%" />
+					<h:panelGrid columns="3" style="width:58%;margin-left: 11.6%">
+						<p:outputLabel value="Tipo Programa EUA" for="tipoprograma"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Sponsor EUA ou agência no Brasil"
+							for="sponsorAgencia"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						<p:outputLabel value="Posição exercida" for="posicaoExercida"
+							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+						
+						<p:inputText id="tipoprograma"
+							value="#{cadWorkTravelMB.work.tipoProgramaEua}" size="30"
+							disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
+						<p:inputText id="sponsorAgencia"
+							value="#{cadWorkTravelMB.work.agenciaBrasil}" size="30"
+							disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
+						<p:inputText id="posicaoExercida"
+							value="#{cadWorkTravelMB.work.posicaoExcercida}" size="35"
+							disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
+					</h:panelGrid>
+					
 					<br />
-					<p:inputText id="tipoprograma"
-						value="#{cadWorkTravelMB.work.tipoProgramaEua}" size="30"
-						style="margin-left:11.8%"
-						disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
-					<p:inputText id="sponsorAgencia"
-						value="#{cadWorkTravelMB.work.agenciaBrasil}" size="30"
-						style=";margin-left:13.7%"
-						disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
-					<p:inputText id="posicaoExercida"
-						value="#{cadWorkTravelMB.work.posicaoExcercida}" size="35"
-						style="margin-left:8.5%"
-						disabled="#{cadWorkTravelMB.camposTrabalhoJ1}" />
 
 					<br></br>
 					<br></br>
