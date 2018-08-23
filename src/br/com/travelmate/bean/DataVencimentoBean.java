@@ -47,8 +47,12 @@ public class DataVencimentoBean {
 				numeroAdicionar = 3;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			}else if (numeroDias == 0 && diaSemana == 5) {
+			}else if (horatime.after(horaMaxTime) && numeroDias == 0 && diaSemana == 5) {
 				numeroAdicionar = 4;
+				horarioExcedido = true;
+				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
+			}else if (numeroDias == 0 && diaSemana == 5) {
+				numeroAdicionar = 1;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
 			} else if (horatime.after(horaMaxTime) && numeroDias == 0 && diaSemana == 7) {
