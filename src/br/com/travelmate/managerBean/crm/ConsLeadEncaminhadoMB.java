@@ -58,18 +58,21 @@ public class ConsLeadEncaminhadoMB implements Serializable {
 					&& usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {  
 				habilitarComboUnidade = false; 
 			}   
-			if(habilitarComboUnidade) {
-				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio(); 
-				gerarListaConsultor();
-			}
 			if(pesquisa!=null){
-				dataEnvioInicio = pesquisa.getDataProxFinal();
-				dataEnvioFinal = pesquisa.getDataProxInicio(); 
+				dataEnvioInicio = pesquisa.getDataProxInicio();
+				dataEnvioFinal = pesquisa.getDataProxFinal(); 
 				unidadenegocio = pesquisa.getUnidadenegocio(); 
+				if (unidadenegocio != null) {
+					gerarListaConsultor();
+				}
 				usuarioDe = pesquisa.getUsuario(); 
 				usuarioPara = pesquisa.getUsuarioPara();
 				pesquisar();  
 			}  
+			if(habilitarComboUnidade) {
+				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio(); 
+				gerarListaConsultor();
+			}
 			if(sql!=null && sql.length()>0){
 				gerarListaLead(sql);
 			}
