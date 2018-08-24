@@ -1603,7 +1603,7 @@ public class MenuMB implements Serializable {
 	}
 	
 	public boolean verificarAcomodacao() {
-		if (usuarioLogadoMB == null) {
+		if (usuarioLogadoMB == null || usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getUnidadenegocio() == null) {
 			return false;
 		}
 		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() <= 2) {

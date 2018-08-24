@@ -301,7 +301,7 @@ public class FiltrarEscolaMB implements Serializable {
 
 	public void gerarListaFornecedorCidade() {
 		String sql = null;
-		if (filtrarEscolaBean.getCidade() != null && filtrarEscolaBean.getIdioma() != null) {
+		if (filtrarEscolaBean.getCidade() != null && filtrarEscolaBean.getIdioma() != null && lead != null) {
 			sql = "select f from Fornecedorcidadeidioma f where f.fornecedorcidade.cidade.idcidade="
 					+ filtrarEscolaBean.getCidade().getCidade().getIdcidade() + " and f.idioma.ididioma ="
 					+ filtrarEscolaBean.getIdioma().getIdidioma()
