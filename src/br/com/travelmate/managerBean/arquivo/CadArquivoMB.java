@@ -399,7 +399,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setIdunidade(0);
 							avisos = avisosFacade.salvar(avisos);
 							salvarAvisoUsuarioVinculado(avisos);
-							if (arquivos.getTipoarquivo().isPertencefinanceiro()) {
+							if (arquivos.getTipoarquivo().isPertencefinanceiro() && !vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
 								notificarFinanceiro(avisos);
 							}
 						}
