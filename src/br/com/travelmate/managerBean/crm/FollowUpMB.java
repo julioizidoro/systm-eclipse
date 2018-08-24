@@ -855,8 +855,6 @@ public class FollowUpMB implements Serializable {
 		boolean outroParametro = false;
 		if (nomeCliente.length()>0) {
 			outroParametro=true;
-		}else {
-			sql = sql + " and l.situacao<=5";
 		}
 		if (acessoResponsavelGerencial) {
 			if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
@@ -876,6 +874,8 @@ public class FollowUpMB implements Serializable {
 		if (situacao != null && situacao.length() > 0 && !situacao.equals("0")) {
 			funcao = "todos";
 			sql = sql + " and l.situacao='" + situacao + "'";
+		}else if(nomeCliente.length() == 0){
+			sql = sql + " and l.situacao<=5";
 		}
 		if (dataProxInicio != null && dataProxFinal != null) {
 			sql = sql + " and ((l.dataproximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
