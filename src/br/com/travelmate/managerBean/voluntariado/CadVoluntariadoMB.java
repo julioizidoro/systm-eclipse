@@ -2007,9 +2007,9 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void habilitarPassagem() {
 		if (voluntariado.getPassagemAerea().equalsIgnoreCase("Através da TravelMate")) {
-			camposVisto = "false";
+			camposPassagem = "false";
 		} else
-			camposVisto = "true";
+			camposPassagem = "true";
 	}
 
 	public void gerarListaTipoParcelamento() {
