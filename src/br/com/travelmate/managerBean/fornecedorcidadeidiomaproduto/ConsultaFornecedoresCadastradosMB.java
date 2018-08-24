@@ -362,10 +362,12 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	public void gerarListaProdutosOrcamentoIndice() {
 		ProdutoOrcamentoIndiceFacade produtoOrcamentoIndiceFacade = new ProdutoOrcamentoIndiceFacade();
-		listaProdutosOrcamentoIndice = produtoOrcamentoIndiceFacade
-				.listar("select p from Produtosorcamentoindice p where p.departamentoproduto.departamento.iddepartamento=" + departamento.getIddepartamento() + " order by p.descricao");
-		if (listaProdutosOrcamentoIndice == null) {
-			listaProdutosOrcamentoIndice = new ArrayList<Produtosorcamentoindice>();
+		if (departamento != null) {
+			listaProdutosOrcamentoIndice = produtoOrcamentoIndiceFacade
+					.listar("select p from Produtosorcamentoindice p where p.departamentoproduto.departamento.iddepartamento=" + departamento.getIddepartamento() + " order by p.descricao");
+			if (listaProdutosOrcamentoIndice == null) {
+				listaProdutosOrcamentoIndice = new ArrayList<Produtosorcamentoindice>();
+			}
 		}
 	} 
 	

@@ -404,9 +404,11 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public void gerarListaHistorico() {
-		String sql = "select l from Leadhistorico l where l.cliente.idcliente=" + lead.getCliente().getIdcliente()
-				+ " order by l.idleadhistorico DESC";
-		listaHistorico = leadHistoricoDao.lista(sql);
+		if (lead != null) {
+			String sql = "select l from Leadhistorico l where l.cliente.idcliente=" + lead.getCliente().getIdcliente()
+					+ " order by l.idleadhistorico DESC";
+			listaHistorico = leadHistoricoDao.lista(sql);
+		}
 	}
 
 	public String visualizarVendas() {

@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.curso;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -283,11 +281,13 @@ public class CadCursoMB implements Serializable {
 				acomodacao = new Acomodacao();
 				cliente = lead.getCliente();
 			} else {
-				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1
-						|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
-					editarEscola = "false";
-				} else {
-					editarEscola = "true";
+				if (usuarioLogadoMB != null && usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getDepartamento() != null) {
+					if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1
+							|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
+						editarEscola = "false";
+					} else {
+						editarEscola = "true";
+					}
 				}
 				iniciarAlteracaoCurso();
 				controlealteracoes.setVendas(venda);

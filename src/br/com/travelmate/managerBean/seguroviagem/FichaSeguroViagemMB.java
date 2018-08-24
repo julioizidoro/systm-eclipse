@@ -597,20 +597,20 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void calcularDataTermino() {
 		if (cliente != null) {
-			if (seguroplanos.getIdademinima() > 0 || seguroplanos.getIdademaxima() > 0) {
+			if ((seguroplanos.getIdademinima() > 0 || seguroplanos.getIdademaxima() > 0)) {
 				int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
 				if ((idadeCliente < seguroplanos.getIdademinima()) || (idadeCliente>= seguroplanos.getIdademaxima()) ) {
 						Mensagem.lancarMensagemInfo("Atenção",
 								"emissão não permitida para cliente com " + idadeCliente + " anos");
 				} else {
-					if (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima()) {
-						Mensagem.lancarMensagemInfo("Atenção",
-								"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
-					}
+						if (seguro.getNumeroSemanas() != null && (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima())) {
+							Mensagem.lancarMensagemInfo("Atenção",
+									"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
+						}
 					dataTermino();
 				}
 			}else{
-				if (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima()) {
+				if (seguro.getNumeroSemanas() != null && (seguro.getNumeroSemanas()< seguroplanos.getDiasemissaominima())) {
 					Mensagem.lancarMensagemInfo("Atenção",
 							"Mínimo e dias para emissão : " + seguroplanos.getDiasemissaominima() + " dias");
 				}else{
@@ -622,7 +622,7 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void dataTermino() {
 		seguro.setValoresseguro(valoresseguro);
-		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() > 0)) {
+		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() != null && seguro.getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					valoresseguro.getMoedas().getIdmoedas());
@@ -644,7 +644,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	}
 
 	public void dataTermino70Anos() {
-		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() > 0)) {
+		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() != null && seguro.getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					valoresseguro.getMoedas().getIdmoedas());

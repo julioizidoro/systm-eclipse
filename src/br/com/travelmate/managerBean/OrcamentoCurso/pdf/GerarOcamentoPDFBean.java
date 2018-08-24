@@ -277,14 +277,14 @@ public class GerarOcamentoPDFBean {
 				+ ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getNome());
 		o.setInstituicao(ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome() + " "
 				+ ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getNome());
-		if (produtoCurso.getValorcoprodutos().getCoprodutos().isPacote()) {
+		if (produtoCurso != null && produtoCurso.getValorcoprodutos().getCoprodutos().isPacote()) {
 			o.setTipCurso("Pacote " + ocurso.getProdutosorcamento().getDescricao());
 			if (produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso() != null) {
 				o.setTipCurso(o.getTipCurso() + " - " + produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso().getDescricao());
 			}
 		} else {
 			o.setTipCurso(ocurso.getProdutosorcamento().getDescricao());
-			if (produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso() != null) {
+			if (produtoCurso != null && produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso() != null) {
 				o.setTipCurso(o.getTipCurso() + " - " + produtoCurso.getValorcoprodutos().getCoprodutos().getComplementocurso().getDescricao());
 			}
 		}
