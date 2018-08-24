@@ -115,46 +115,19 @@ public class CursoMB implements Serializable {
 	private List<Curso> listaVendasCursoProcesso;
 	private List<Curso> listaVendasCursoFinanceiro;
 	private boolean segurocancelamento = false;
-	private String pesquisar = "Nao";
-	private String nomePrograma;
 	private String chamadaTela = "";
 
 	@PostConstruct()
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		pesquisar = (String) session.getAttribute("pesquisar");
-		listaVendasCursoFinalizada = (List<Curso>) session.getAttribute("listaVendasCursoFinalizada");
-		listaVendasCursoAndamento = (List<Curso>) session.getAttribute("listaVendasCursoAndamento");
-		listaVendasCursoProcesso = (List<Curso>) session.getAttribute("listaVendasCursoProcesso");
-		listaVendasCursoFinanceiro = (List<Curso>) session.getAttribute("listaVendasCursoFinanceiro");
-		listaVendasCursoCancelada = (List<Curso>) session.getAttribute("listaVendasCursoCancelada");
-		nomePrograma = (String) session.getAttribute("nomePrograma");
-		chamadaTela = (String) session.getAttribute("chamadaTela");
-		session.removeAttribute("listaVendasCursoFinalizada");
-		session.removeAttribute("listaVendasCursoAndamento");
-		session.removeAttribute("listaVendasCursoProcesso");
-		session.removeAttribute("listaVendasCursoFinanceiro");
-		session.removeAttribute("listaVendasCursoCancelada");
-		session.removeAttribute("pesquisar");
-		session.removeAttribute("nomePrograma");
-		session.removeAttribute("chamadaTela");
-		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
-			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Curso")) {
-				pesquisar = "Sim";
-			}else {
-				pesquisar = "Não";
-			}
-		}
+		listaVendasCurso = (List<Curso>) session.getAttribute("listaVendasCurso");
+		session.removeAttribute("listaVendasCurso");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaVendasCurso == null || listaVendasCurso.size() == 0) {
 				carregarListaVendasCursos();
 			}else {
-				nFichasFinalizadas = listaVendasCursoFinalizada.size();
-				nFichasAndamento = listaVendasCursoAndamento.size();
-				nFichaCancelada = listaVendasCursoCancelada.size();
-				nFichasProcesso = listaVendasCursoProcesso.size();
-				nFichaFinanceiro = listaVendasCursoFinanceiro.size();
+				gerarQuantidadesFichas();
 			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			gerarListaFornecedor();
@@ -450,14 +423,6 @@ public class CursoMB implements Serializable {
 		this.listaVendasCursoFinanceiro = listaVendasCursoFinanceiro;
 	}
 
-	public String getPesquisar() {
-		return pesquisar;
-	}
-
-	public void setPesquisar(String pesquisar) {
-		this.pesquisar = pesquisar;
-	}
-
 	public void carregarListaVendasCursos() {
 		if (usuarioLogadoMB.getUsuario() != null || usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			String dataConsulta = Formatacao.SubtarirDatas(new Date(), 30, "yyyy-MM-dd");
@@ -501,19 +466,6 @@ public class CursoMB implements Serializable {
 			context.addMessage(null, new FacesMessage("Cambio do dia ainda não liberado", ""));
 		}
 		return "";
-	}
-
-	public void numerosCursos() {
-		if (listaVendasCurso != null) {
-			int numeroSemanas = 0;
-			for (int i = 0; listaVendasCurso.size() > i; i++) {
-				CursoFacade cursoFacade = new CursoFacade();
-				Curso curso = new Curso();
-				curso = cursoFacade.consultarCursos(listaVendasCurso.get(i).getVendas().getIdvendas());
-				numeroSemanas = numeroSemanas + curso.getNumeroSenamas();
-			}
-			numerosCurso = "No. Semanas Vendidas = " + numeroSemanas;
-		}
 	}
 
 	public String enviarEmail(Curso curso) {
@@ -605,7 +557,6 @@ public class CursoMB implements Serializable {
 			listaVendasCurso = new ArrayList<Curso>();
 		}
 		numeroFichas = "" + String.valueOf(listaVendasCurso.size());
-		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -617,7 +568,6 @@ public class CursoMB implements Serializable {
 		nome = "";
 		idVenda = 0;
 		fornecedor = null;
-		pesquisar = "Nao";
 		carregarListaVendasCursos();
 	}
 
@@ -626,90 +576,90 @@ public class CursoMB implements Serializable {
 		return obsTM;
 	}
 
-	public void imprimirFicha(Curso curso) {
-		this.curso = curso;
-		try {
-			gerarRelatorioFicha();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void imprimirFicha(Curso curso) {
+//		this.curso = curso;
+//		try {
+//			gerarRelatorioFicha();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
-	public String gerarRelatorioFicha() throws IOException {
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-				.getContext();
-		String caminhoRelatorio;
-		if (curso.getHabilitarSegundoCurso().equalsIgnoreCase("N")) {
-			if (curso.isDadospais()) {
-				caminhoRelatorio = "/reports/curso/FichaCursoDadosPaisPagina01.jasper";
-			} else {
-				caminhoRelatorio = "/reports/curso/FichaCursoPagina01.jasper";
-			}
-		} else {
-			if (curso.isDadospais()) {
-				caminhoRelatorio = "/reports/curso/FichaCurso2Pagina01.jasper";
-			} else {
-				caminhoRelatorio = "/reports/curso/FichaCurso2Pagina01.jasper";
-			}
-		}
-		Map parameters = new HashMap();
-		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
-		parameters.put("idvendas", curso.getVendas().getIdvendas());
-		parameters.put("sqlpagina2", gerarSqlSeguroViagems());
-		if (segurocancelamento) {
-			parameters.put("segurocancelamento", "Sim");
-		}else {
-			parameters.put("segurocancelamento", "Não");
-		}
-		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
-		BufferedImage logo = ImageIO.read(f);
-		parameters.put("logo", logo);
-		GerarRelatorio gerarRelatorio = new GerarRelatorio();
-		try {
-			try {
-				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
-						"fichaCurso-" + curso.getIdcursos() + ".pdf", null);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} catch (JRException ex1) {
-			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);
-		} catch (IOException ex) {
-			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return "";
-	}
+//	public String gerarRelatorioFicha() throws IOException {
+//		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+//				.getContext();
+//		String caminhoRelatorio;
+//		if (curso.getHabilitarSegundoCurso().equalsIgnoreCase("N")) {
+//			if (curso.isDadospais()) {
+//				caminhoRelatorio = "/reports/curso/FichaCursoDadosPaisPagina01.jasper";
+//			} else {
+//				caminhoRelatorio = "/reports/curso/FichaCursoPagina01.jasper";
+//			}
+//		} else {
+//			if (curso.isDadospais()) {
+//				caminhoRelatorio = "/reports/curso/FichaCurso2Pagina01.jasper";
+//			} else {
+//				caminhoRelatorio = "/reports/curso/FichaCurso2Pagina01.jasper";
+//			}
+//		}
+//		Map parameters = new HashMap();
+//		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
+//		parameters.put("idvendas", curso.getVendas().getIdvendas());
+//		parameters.put("sqlpagina2", gerarSqlSeguroViagems());
+//		if (segurocancelamento) {
+//			parameters.put("segurocancelamento", "Sim");
+//		}else {
+//			parameters.put("segurocancelamento", "Não");
+//		}
+//		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
+//		BufferedImage logo = ImageIO.read(f);
+//		parameters.put("logo", logo);
+//		GerarRelatorio gerarRelatorio = new GerarRelatorio();
+//		try {
+//			try {
+//				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
+//						"fichaCurso-" + curso.getIdcursos() + ".pdf", null);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		} catch (JRException ex1) {
+//			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);
+//		} catch (IOException ex) {
+//			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//		return "";
+//	}
 
 	public void dialogTipoRelatorio(Curso curso) {
 		this.curso = curso;
 	}
 
-	public String gerarRelatorioContratoCurso(Curso curso) throws SQLException, IOException {
-		this.curso = curso;
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-				.getContext();
-		String caminhoRelatorio;
-		if (curso.getHabilitarSegundoCurso().equalsIgnoreCase("N")) {
-			caminhoRelatorio = ("/reports/curso/contratoCursoPagina01.jasper");
-		} else
-			caminhoRelatorio = ("/reports/curso/contratoCurso2Pagina01.jasper");
-		Map parameters = new HashMap();
-		parameters.put("idvendas", curso.getVendas().getIdvendas());
-		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
-		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
-		BufferedImage logo = ImageIO.read(f);
-		parameters.put("logo", logo);
-		GerarRelatorio gerarRelatorioContrato = new GerarRelatorio();
-		try {
-			gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
-					"contratoCurso-" + curso.getVendas().getIdvendas() + ".pdf", null);
-		} catch (JRException ex1) {
-			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);
-		} catch (IOException ex) {
-			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return "";
-	}
+//	public String gerarRelatorioContratoCurso(Curso curso) throws SQLException, IOException {
+//		this.curso = curso;
+//		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+//				.getContext();
+//		String caminhoRelatorio;
+//		if (curso.getHabilitarSegundoCurso().equalsIgnoreCase("N")) {
+//			caminhoRelatorio = ("/reports/curso/contratoCursoPagina01.jasper");
+//		} else
+//			caminhoRelatorio = ("/reports/curso/contratoCurso2Pagina01.jasper");
+//		Map parameters = new HashMap();
+//		parameters.put("idvendas", curso.getVendas().getIdvendas());
+//		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
+//		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
+//		BufferedImage logo = ImageIO.read(f);
+//		parameters.put("logo", logo);
+//		GerarRelatorio gerarRelatorioContrato = new GerarRelatorio();
+//		try {
+//			gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
+//					"contratoCurso-" + curso.getVendas().getIdvendas() + ".pdf", null);
+//		} catch (JRException ex1) {
+//			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);
+//		} catch (IOException ex) {
+//			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//		return "";
+//	}
 
 	public String gerarRelatorioTermoVisto(Curso curso) throws SQLException, IOException {
 		this.curso = curso;
@@ -1001,38 +951,6 @@ public class CursoMB implements Serializable {
 			return "consArquivos";
 		}
 	}
-	
-//	public String documentacao(Curso curso) {
-//		if (curso.getVendas().getSituacao().equalsIgnoreCase("Processo")) {
-//			Mensagem.lancarMensagemInfo("Atenção", "Ficha ainda não enviada para gerência");
-//			return "";
-//		} else {
-//			FacesContext fc = FacesContext.getCurrentInstance();
-//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("vendas", curso.getVendas());
-//			voltar = "consultafichacurso";
-//			session.setAttribute("voltar", voltar);
-//			return "consArquivo";
-//		}
-//	}
-
-//	public String cancelarVenda(Curso curso) {
-//		if (curso.getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-//				|| curso.getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-//			Map<String, Object> options = new HashMap<String, Object>();
-//			options.put("contentWidth", 400);
-//			FacesContext fc = FacesContext.getCurrentInstance();
-//			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//			session.setAttribute("venda", curso.getVendas());
-//			RequestContext.getCurrentInstance().openDialog("cancelarVenda", options, null);
-//		} else if (curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
-//			
-//			curso.getVendas().setSituacao("CANCELADA");
-//			vendasDao.salvar(curso.getVendas());
-//			carregarListaVendasCursos();
-//		}
-//		return "";
-//	}
 
 	public String visualizarContasReceber(Vendas venda) {
 		if ((venda.getOrcamento() != null)) {
@@ -1229,37 +1147,13 @@ public class CursoMB implements Serializable {
 		return "";
 	}    
 	
-	public String contrato(Curso curso){
-		this.curso = curso;
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(curso.getVendas(), "Curso");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + curso.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					curso.getVendas().getUsuario().getIdusuario() + curso.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
 	
 	
 	public String fichaCurso(Curso curso){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
-		session.setAttribute("listaVendasCursoAndamento", listaVendasCursoAndamento);
-		session.setAttribute("listaVendasCursoCancelada", listaVendasCursoCancelada);
-		session.setAttribute("listaVendasCursoFinalizada", listaVendasCursoFinalizada);
-		session.setAttribute("listaVendasCursoFinanceiro", listaVendasCursoFinanceiro);
-		session.setAttribute("listaVendasCursoProcesso", listaVendasCursoProcesso);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Curso");
-		session.setAttribute("chamadaTela", "Curso");
+		session.setAttribute("listaVendasCurso", listaVendasCurso);
 		return "fichaCurso";
 	}
 	
@@ -1305,14 +1199,7 @@ public class CursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
-		session.setAttribute("listaVendasCursoAndamento", listaVendasCursoAndamento);
-		session.setAttribute("listaVendasCursoCancelada", listaVendasCursoCancelada);
-		session.setAttribute("listaVendasCursoFinalizada", listaVendasCursoFinalizada);
-		session.setAttribute("listaVendasCursoFinanceiro", listaVendasCursoFinanceiro);
-		session.setAttribute("listaVendasCursoProcesso", listaVendasCursoProcesso);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Curso");
-		session.setAttribute("chamadaTela", "Curso");
+		session.setAttribute("listaVendasCurso", listaVendasCurso);
 		return "contratoCurso";
 	}
 	

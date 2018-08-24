@@ -292,7 +292,7 @@ public class FiltrarEscolaMB implements Serializable {
 			}
 		}
 
-		if (filtrarEscolaBean.getOcurso().getNumerosemanas() == 0) {
+		if (filtrarEscolaBean.getOcurso().getNumerosemanas() == null || filtrarEscolaBean.getOcurso().getNumerosemanas() == 0) {
 			mensagem = mensagem + "Número de semanas não informado";
 		}
 		

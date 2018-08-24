@@ -985,7 +985,6 @@ public class FollowUpMB implements Serializable {
 	}
 	
 	public void gerarBotoesLead() {
-
 		novos = 0;
 		atrasados = 0;
 		hoje = 0;

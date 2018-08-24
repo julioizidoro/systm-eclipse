@@ -581,7 +581,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 				orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto()
 					.getFornecedorcidade().getCidade().getPais().getIdpais());
 		int idMoeda = orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto()
-				.getFornecedorcidade().getCidade().getPais().getMoedas().getIdmoedas();
+				.getFornecedorcidade().getCidade().getPais().getMoedasVolutariado().getIdmoedas();
 		if (fornecedorPais != null) {
 			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
 		}
