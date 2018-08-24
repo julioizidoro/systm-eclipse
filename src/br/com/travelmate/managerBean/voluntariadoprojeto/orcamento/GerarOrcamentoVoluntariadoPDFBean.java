@@ -35,11 +35,11 @@ public class GerarOrcamentoVoluntariadoPDFBean {
 	public GerarOrcamentoVoluntariadoPDFBean(Orcamentoprojetovoluntariado orcamentoprojetovoluntariado) {
 		this.orcamentoprojetovoluntariado = orcamentoprojetovoluntariado;
 		if (orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto().getFornecedorcidade()
-				.getCidade().getPais().getMoedas().getSigla().equalsIgnoreCase("OUTRAS")) {
+				.getCidade().getPais().getMoedasVolutariado().getSigla().equalsIgnoreCase("OUTRAS")) {
 			moeda = "$";
 		} else {
 			moeda = orcamentoprojetovoluntariado.getVoluntariadoprojetovalor().getVoluntariadoprojeto()
-					.getFornecedorcidade().getCidade().getPais().getMoedas().getSigla();
+					.getFornecedorcidade().getCidade().getPais().getMoedasVolutariado().getSigla();
 		}
 		lista = new ArrayList<OrcamentoPDFBean>();
 		composicao = "Curso";
