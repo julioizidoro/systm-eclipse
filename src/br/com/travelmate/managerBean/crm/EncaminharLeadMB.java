@@ -242,7 +242,8 @@ public class EncaminharLeadMB implements Serializable {
 					listaUsuario = usuarioFacade.listar("SELECT u FROM Usuario u WHERE u.unidadenegocio.idunidadeNegocio=2 and u.situacao='Ativo'");
 				}else {
 					if (responsavel && (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() == 1 ||  usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() == 18)
-							&& (lead.getUnidadenegocio().getIdunidadeNegocio() == 1 || lead.getUnidadenegocio().getIdunidadeNegocio()==18)) {
+							&& (lead.getUnidadenegocio().getIdunidadeNegocio() == 1 || lead.getUnidadenegocio().getIdunidadeNegocio()==18)
+							&& (unidadenegocio.getIdunidadeNegocio() == 1 || unidadenegocio.getIdunidadeNegocio()==18)) {
 						listaUsuario = usuarioFacade.listar("SELECT u FROM Usuario u WHERE u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() +" and u.situacao='Ativo'");
 						desabilitarUsuario = false;
 					}else {
