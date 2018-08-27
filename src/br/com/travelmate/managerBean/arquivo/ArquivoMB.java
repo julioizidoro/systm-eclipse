@@ -99,7 +99,7 @@ public class ArquivoMB implements Serializable {
 			vendas = (Vendas) session.getAttribute("vendas");
 			voltar = (String) session.getAttribute("voltar");
 			cliente = (Cliente) session.getAttribute("cliente");
-			if (vendas.getProdutos().getIdprodutos() == 22) {
+			if (vendas != null && vendas.getProdutos().getIdprodutos() == 22) {
 				listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
 				listaQuestionario = (List<Questionariohe>) session.getAttribute("listaQuestionario");
 				session.removeAttribute("listaHe");
