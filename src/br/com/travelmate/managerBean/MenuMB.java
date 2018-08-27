@@ -1618,8 +1618,10 @@ public class MenuMB implements Serializable {
 	
 	
 	public boolean habilitarModeloContrato() {
-		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
-			return true;
+		if (usuarioLogadoMB != null && usuarioLogadoMB.getUsuario() != null) {
+			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
+				return true;
+			}
 		}
 		return false;
 	}
