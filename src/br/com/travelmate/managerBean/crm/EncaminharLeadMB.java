@@ -221,8 +221,13 @@ public class EncaminharLeadMB implements Serializable {
 	}
 	
 	public void gerarListaUsuario(){
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		if(unidadenegocio!=null){
 			List<Leadresponsavel> listaResponsavel = retornarResponsavelUnidade();
+			boolean responsavel = false;
+			if (listaResponsavel != null && listaResponsavel.size() > 0) {
+				responsavel = true;
+			}
 			if(lead.getUnidadenegocio().getIdunidadeNegocio()==6 
 					&& unidadenegocio.getIdunidadeNegocio()!=1
 					&& unidadenegocio.getIdunidadeNegocio()!=2
@@ -234,21 +239,26 @@ public class EncaminharLeadMB implements Serializable {
 			}else if(lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
 				listaUsuario = new ArrayList<Usuario>();
 				if (lead.getUnidadenegocio().getIdunidadeNegocio() == 6 && unidadenegocio.getIdunidadeNegocio() ==2) {
-					UsuarioFacade usuarioFacade = new UsuarioFacade();
 					listaUsuario = usuarioFacade.listar("SELECT u FROM Usuario u WHERE u.unidadenegocio.idunidadeNegocio=2 and u.situacao='Ativo'");
 				}else {
-					for (int i = 0; i < listaResponsavel.size(); i++) {
-						listaUsuario.add(listaResponsavel.get(i).getUsuario());
-					} 
+					if (responsavel && (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() == 1 ||  usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio() == 18)
+							&& (lead.getUnidadenegocio().getIdunidadeNegocio() == 1 || lead.getUnidadenegocio().getIdunidadeNegocio()==18)) {
+						listaUsuario = usuarioFacade.listar("SELECT u FROM Usuario u WHERE u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() +" and u.situacao='Ativo'");
+						desabilitarUsuario = false;
+					}else {
+						for (int i = 0; i < listaResponsavel.size(); i++) {
+							listaUsuario.add(listaResponsavel.get(i).getUsuario());
+						} 
+						if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==1 || usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==2) {
+							desabilitarUsuario = false;
+						}else desabilitarUsuario = true;
+					}
 					if (listaUsuario != null && listaUsuario.size() > 0) {
 						lead.setUsuario(listaUsuario.get(0));
 						usuario = listaUsuario.get(0);
 					}
 				}
-				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==1 || usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()==2) {
-
-					desabilitarUsuario = false;
-				}else desabilitarUsuario = true;
+				
 			}else {
 				listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'"
 					+ " and u.unidadenegocio.idunidadeNegocio="+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");

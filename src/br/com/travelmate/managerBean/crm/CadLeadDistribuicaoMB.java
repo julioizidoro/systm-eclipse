@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.mail.Email;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.LeadDao;
@@ -28,24 +27,18 @@ import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
-import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Motivocancelamento;
-import br.com.travelmate.model.Paisproduto;
-import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Publicidade;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 
