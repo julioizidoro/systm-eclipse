@@ -88,7 +88,7 @@ public class EditarCambioMB implements Serializable{
 	}
 
 	public String cancelar(){
-		RequestContext.getCurrentInstance().closeDialog(null);
+		RequestContext.getCurrentInstance().closeDialog(0.0f);
 		return "";
     }
 }
