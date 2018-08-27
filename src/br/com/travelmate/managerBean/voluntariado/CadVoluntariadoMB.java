@@ -2092,7 +2092,7 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void selecionarCambio() {
 		if (pais != null && pais.getIdpais() != null) {
-			moeda = pais.getMoedas();
+			moeda = pais.getMoedasVolutariado();
 			consultarCambio();
 		}
 		int idTaxaTm = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
