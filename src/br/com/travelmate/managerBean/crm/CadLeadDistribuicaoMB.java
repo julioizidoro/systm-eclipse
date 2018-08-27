@@ -382,6 +382,10 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			return false;
 		}
 		
+		if (publicidade == null || publicidade.getIdpublicidade() == null) {
+			return false;
+		}
+		
 		if(cliente.getFoneCelular().length()>0){
 			for (int i = 0; i < cliente.getFoneCelular().length(); i++) {
 				if(i==4){ 
