@@ -661,6 +661,9 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	public void gerarNumerosCrmCobranca(){
 		listaCrmCobranca = listaCrmCobrancaTodos;
+		if (listaCrmCobranca == null) {
+			listaCrmCobranca = new ArrayList<Crmcobranca>();
+		}
 		for (int i = 0; i < listaCrmCobranca.size(); i++) {
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
