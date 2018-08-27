@@ -1239,7 +1239,7 @@ public class CadAupairMB implements Serializable {
 				}
 				
 				//salvarListaArquivos();
-				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA") || venda.getSituacao().equalsIgnoreCase("ANDAMENTO"))  {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 						if (enviarFicha) {

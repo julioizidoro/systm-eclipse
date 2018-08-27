@@ -1299,7 +1299,7 @@ public class CadTraineeMB implements Serializable {
 			Date data = Formatacao.calcularPrevisaoPagamentoFornecedor(new Date(), venda.getProdutos().getIdprodutos(),
 					aplicacaoMB.getParametrosprodutos().getWork());
 			cliente = cadTraineeBean.salvarCliente(cliente, Formatacao.ConvercaoDataPadrao(data), null, null);
-			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA"))  {
+			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")  || venda.getSituacao().equalsIgnoreCase("ANDAMENTO"))  {
 				int mes = Formatacao.getMesData(new Date()) + 1;
 				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 				if (enviarFicha) {
