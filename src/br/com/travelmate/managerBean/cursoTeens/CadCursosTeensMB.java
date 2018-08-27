@@ -757,6 +757,7 @@ public class CadCursosTeensMB implements Serializable {
 	public void retornoDialogEditarCambio(SelectEvent event) {
 		float valorCambio = (float) event.getObject();
 		orcamento.setValorCambio(valorCambio);
+		venda.setValorcambio(valorCambio);
 		atualizarValoresProduto();
 	}
 

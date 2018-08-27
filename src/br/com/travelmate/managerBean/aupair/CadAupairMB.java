@@ -817,6 +817,7 @@ public class CadAupairMB implements Serializable {
 	public void retornoDialogEditarCambio(SelectEvent event) {
 		float valorCambio = (float) event.getObject();
 		orcamento.setValorCambio(valorCambio);
+		venda.setValorcambio(valorCambio);
 		atualizarValoresProduto();
 	}
 
@@ -1198,6 +1199,9 @@ public class CadAupairMB implements Serializable {
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getAupair());
+				if (venda.getValorcambio() != null) {
+					orcamento.setValorCambio(venda.getValorcambio());
+				}
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 						lead, null, null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
