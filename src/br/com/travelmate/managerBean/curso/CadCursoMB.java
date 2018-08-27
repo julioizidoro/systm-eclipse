@@ -4007,7 +4007,7 @@ public class CadCursoMB implements Serializable {
 					for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {
 						boolean calcular = true;
 						if (listaGrupoObrigatorio.get(i).isMenorobrigatorio()) {
-							int idadeCliente = Formatacao.calcularIdade(lead.getCliente().getDataNascimento());
+							int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
 							if (idadeCliente < produtosOrcamentoBean.getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()
 									.getIdfornecedorcidadeidioma()) {
 								calcular = true;
