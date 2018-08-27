@@ -681,24 +681,26 @@ public class OrcamentoCursoMB implements Serializable {
 	} 
 
 	public void calcularDataTermino() {
-		seguroviagem.setValoresseguro(valorSeguro);
-		if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			cambioSeguro = cambioFacade.consultarCambioMoeda(
-					Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
-					valorSeguro.getMoedas().getIdmoedas());
-			if (cambioSeguro != null) {
-				if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
-					seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
-							seguroviagem.getNumeroSemanas()));
-				} else if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("diaria")) {
-					seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
-							seguroviagem.getNumeroSemanas()));
+		if (valorSeguro != null) {
+			seguroviagem.setValoresseguro(valorSeguro);
+			if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioSeguro = cambioFacade.consultarCambioMoeda(
+						Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
+						valorSeguro.getMoedas().getIdmoedas());
+				if (cambioSeguro != null) {
+					if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
+						seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
+								seguroviagem.getNumeroSemanas()));
+					} else if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("diaria")) {
+						seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
+								seguroviagem.getNumeroSemanas()));
+					}
+					float valornacional = seguroviagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();
+					seguroviagem.setValorSeguro(valornacional * seguroviagem.getNumeroSemanas());
+					calcularTotais();
+					valorSeguroMoedaEstrangeira();
 				}
-				float valornacional = seguroviagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();
-				seguroviagem.setValorSeguro(valornacional * seguroviagem.getNumeroSemanas());
-				calcularTotais();
-				valorSeguroMoedaEstrangeira();
 			}
 		}
 	}
@@ -2924,11 +2926,13 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void retornoDialogoProdutosExtra(SelectEvent event) {
 		ProdutosExtrasBean feb = (ProdutosExtrasBean) event.getObject();
-		feb.setValorOrigianlString(resultadoOrcamentoBean.getCambio().getMoedas().getSigla() + " "
-				+ Formatacao.formatarFloatString(feb.getValorOrigianl()));
-		feb.setValorOriginalRSString("R$ " + Formatacao.formatarFloatString(feb.getValorOriginalRS()));
-		resultadoOrcamentoBean.getListaOutrosProdutos().add(feb);
-		calcularTotais();
+		if (feb != null) {
+			feb.setValorOrigianlString(resultadoOrcamentoBean.getCambio().getMoedas().getSigla() + " "
+					+ Formatacao.formatarFloatString(feb.getValorOrigianl()));
+			feb.setValorOriginalRSString("R$ " + Formatacao.formatarFloatString(feb.getValorOriginalRS()));
+			resultadoOrcamentoBean.getListaOutrosProdutos().add(feb);
+			calcularTotais();
+		}
 	}
 
 	public void excluirProdutoExtra(ProdutosExtrasBean produtosExtrasBean) { 
