@@ -691,7 +691,19 @@
 		<hr style="margin: 1%;" />
 		<br />
 		<h:panelGrid style="width:100%;margin:1%;" columns="1">
-				<h:panelGroup>Moeda: #{fichaWorkTravelMB.vendas.cambio.moedas.sigla} | #{fichaWorkTravelMB.vendas.valorcambio} | Valor Juros: R$ #{fichaWorkTravelMB.vendas.formapagamento.valorJuros} | Valor Final: R$ #{fichaWorkTravelMB.vendas.formapagamento.valorTotal}</h:panelGroup>
+				<h:panelGroup>Moeda: #{fichaWorkTravelMB.vendas.cambio.moedas.sigla} | 
+				 <h:outputText value="#{fichaWorkTravelMB.vendas.valorcambio}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
+						</h:outputText>
+				 | Valor Juros: R$ 
+				 <h:outputText value="#{fichaWorkTravelMB.vendas.formapagamento.valorJuros}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />  
+						</h:outputText>
+				 | Valor Final: R$ 
+				 <h:outputText value="#{fichaWorkTravelMB.vendas.formapagamento.valorTotal}">
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />  
+						</h:outputText>
+				 </h:panelGroup>
 			
 		</h:panelGrid>
 		<br />
