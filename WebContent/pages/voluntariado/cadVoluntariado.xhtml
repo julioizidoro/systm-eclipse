@@ -64,7 +64,7 @@
 								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
 							<f:attribute name="listaPaisFornecedor"
 								value="#{cadVoluntariadoMB.listaPais}" />  
-							<p:ajax event="change" update="cidade, idvalorcambio, moeda, tabelaprodutos" listener="#{cadVoluntariadoMB.selecionarCambio()}"/>
+							<p:ajax event="change" update="cidade, idvalorcambio, moeda, tabelaprodutos, campomoedaestrangeira" listener="#{cadVoluntariadoMB.selecionarCambio()}"/>
 						</p:selectOneMenu>
 						<p:selectOneMenu id="cidade" value="#{cadVoluntariadoMB.cidade}"
 							style="width:18%;-webkit-border-radius: 1px;-moz-border-radius: 5px;border-radius: 5px;margin-left:4%"
