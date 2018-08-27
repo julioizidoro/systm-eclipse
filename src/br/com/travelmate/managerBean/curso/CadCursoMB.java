@@ -1583,7 +1583,7 @@ public class CadCursoMB implements Serializable {
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
 
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente, totalPagar, produto,
-						fornecedorCidade, cambio, valorCambio, lead, curso.getDataInicio(), curso.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
+						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				CadCursoBean cadCursoBean = new CadCursoBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 				if (enviarFicha && !novaFicha) {
 					cadCursoBean.SalvarAlteracaoFinanceiro(listaParcelamentoPagamentoAntiga, listaParcelamentoPagamentoOriginal, venda.getUsuario());
@@ -3043,6 +3043,7 @@ public class CadCursoMB implements Serializable {
 		this.valorCambio = (float) event.getObject();
 		cambio.setValor(valorCambio);
 		venda.setValorcambio(valorCambio);
+		orcamento.setValorCambio(valorCambio);
 		atualizarValoresProduto();
 	}
 
