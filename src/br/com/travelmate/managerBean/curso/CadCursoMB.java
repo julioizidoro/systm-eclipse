@@ -2919,12 +2919,12 @@ public class CadCursoMB implements Serializable {
 					atualizarValoresProduto();
 				}
 			} else {
-				valorCambio = orcamento.getValorCambio();
+				valorCambio = venda.getValorcambio();
 				cambio.setValor(valorCambio);
 				cambioAlterado = orcamento.getCambioAlterado();
 			}
 		} else {
-			valorCambio = orcamento.getValorCambio();
+			valorCambio = venda.getValorcambio();
 			cambio.setValor(valorCambio);
 			cambioAlterado = orcamento.getCambioAlterado();
 		}
@@ -3736,8 +3736,10 @@ public class CadCursoMB implements Serializable {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
 			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
-			valorCambio = cambio.getValor();
-			orcamento.setValorCambio(cambio.getValor());
+			if (venda.getIdvendas() != null) {
+				valorCambio = cambio.getValor();
+				orcamento.setValorCambio(cambio.getValor());
+			}
 		}
 	}
 
