@@ -1,5 +1,6 @@
 package br.com.travelmate.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Orcamento;
+import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Usuario;
@@ -152,8 +154,10 @@ public class ProgramasBean {
 	}
 	
 	public Orcamento salvarOrcamento(Orcamento orcamento, Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado) {
+		boolean novoOrcamento = false;
 		if (orcamento == null) {
 			orcamento = new Orcamento();
+			novoOrcamento = true;
 		}
 		orcamento.setDataCambio(cambio.getData());
 		orcamento.setValorCambio(valorCambio);
@@ -163,17 +167,22 @@ public class ProgramasBean {
 		orcamento.setCambioAlterado(cambioAlterado);
 		orcamento.setCambio(cambio);
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-		salvarOrcamentoProdutoOrcamento(orcamento);
+		List<Orcamentoprodutosorcamento> listaOProdutoOrcamento = new ArrayList<Orcamentoprodutosorcamento>();
+		listaOProdutoOrcamento = orcamento.getOrcamentoprodutosorcamentoList();
+		orcamento.setOrcamentoprodutosorcamentoList(null);
 		orcamento = orcamentoFacade.salvar(orcamento);
+		salvarOrcamentoProdutoOrcamento(orcamento, listaOProdutoOrcamento);
 		return orcamento;
 	}
 	
-	public void salvarOrcamentoProdutoOrcamento(Orcamento orcamento) {
-		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
+	public void salvarOrcamentoProdutoOrcamento(Orcamento orcamento, List<Orcamentoprodutosorcamento> listaOProdutoOrcamento) {
+		if (listaOProdutoOrcamento != null) {
 			OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-			for (int i = 0; orcamento.getOrcamentoprodutosorcamentoList().size() > i; i++) {
-				orcamento.getOrcamentoprodutosorcamentoList().get(i).setOrcamento(orcamento);
+			for (int i = 0; listaOProdutoOrcamento.size() > i; i++) {
+				listaOProdutoOrcamento.get(i).setOrcamento(orcamento);
+				orcamentoFacade.salvar(listaOProdutoOrcamento.get(i));
 			}
+			
 		}
 	}
 	
