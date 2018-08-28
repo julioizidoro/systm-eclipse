@@ -45,6 +45,8 @@ public class Fornecedor implements Serializable {
     private int anotarifario;
     @Column(name = "anotarifariocurso")
     private int anotarifariocurso;
+    @Column(name = "tarifarioatualizado")
+    private boolean tarifarioatualizado;
     @Transient
     private boolean selecionado;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "fornecedor")
@@ -132,6 +134,14 @@ public class Fornecedor implements Serializable {
 
 	public void setFornecedorfinanceiro(Fornecedorfinanceiro fornecedorfinanceiro) {
 		this.fornecedorfinanceiro = fornecedorfinanceiro;
+	}
+
+	public boolean isTarifarioatualizado() {
+		return tarifarioatualizado;
+	}
+
+	public void setTarifarioatualizado(boolean tarifarioatualizado) {
+		this.tarifarioatualizado = tarifarioatualizado;
 	}
 
 	@Override

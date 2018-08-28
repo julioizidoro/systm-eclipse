@@ -10,6 +10,7 @@
 		<h:form id="filtrarOrcamentoCurso">
 			<div id="centro" style="margin-left: 2%; width: 96%;">
 				<br></br>
+				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 				<p:commandButton id="bntvoltar" style="font-size:12px;"
 					value="Voltar" action="#{listaEscolasMB.voltar()}"
 					icon="ui-icon-arrowreturnthick-1-w" />
@@ -18,14 +19,16 @@
 					var="listaEscolas" chunkSize="4"
 					style="background:#fff;margin-left:2%;width:96% !important;">
 					<f:facet name="header">
-                            Resultados  
+                            Resultados    
                         </f:facet>
 
 					<f:facet name="loader">
 						<p:commandButton type="button" value="Mais"
 							icon="ui-icon-circle-triangle-s" />
 					</f:facet>
-
+					<p:outputLabel value="">
+						
+					</p:outputLabel>
 					<h:panelGrid columns="2" style="background:#fff"
 						columnClasses="colunatipovenda, tamanhoavisos">
 						<h:panelGroup style="text-align:center;">

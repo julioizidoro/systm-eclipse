@@ -26,6 +26,7 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Coprodutos;
+import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Fornecedorcidadeidiomaproduto;
 import br.com.travelmate.model.Fornecedorcidadeidiomaprodutodata;
@@ -96,6 +97,7 @@ public class FiltrarEscolaMB implements Serializable {
 	private Lead lead;
 	private String funcao;
 	private boolean habilitarUpload = true;
+	private List<Fornecedor> listaFornecedorAtualizando;
 	
 	@Inject
 	private OcursoFeriadoDao ocursoFeriadoDao;
@@ -366,6 +368,7 @@ public class FiltrarEscolaMB implements Serializable {
 			if (filtrarEscolaBean.getListaFornecedorCidadeIdioma() != null) {
 				if (filtrarEscolaBean.getListaFornecedorCidadeIdioma().size() > 0) {
 					filtrarEscolaBean.setListaFornecedorProdutosBean(new ArrayList<FornecedorProdutosBean>());
+					listaFornecedorAtualizando = new ArrayList<Fornecedor>();
 					for (int i = 0; i < filtrarEscolaBean.getListaFornecedorCidadeIdioma().size(); i++) {
 						listarCoProdutoFornecedor(filtrarEscolaBean.getListaFornecedorCidadeIdioma().get(i));
 					}
@@ -384,12 +387,30 @@ public class FiltrarEscolaMB implements Serializable {
 							FacesContext fc = FacesContext.getCurrentInstance();
 							HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 							session.setAttribute("filtrarEscolaBean", filtrarEscolaBean);
+							session.setAttribute("listaFornecedorAtualizando", listaFornecedorAtualizando);	
 							return "resultadoFiltroOrcamento";
 						}
 					} else {
-						FacesMessage mensagemAtencao = new FacesMessage(
-								"Nenhum fornecedor encontrado com os dados pesquisados.", ""); 
-						FacesContext.getCurrentInstance().addMessage("Atenção", mensagemAtencao);
+						if (filtrarEscolaBean.getFornecedorcidadeidioma() != null && filtrarEscolaBean.getFornecedorcidadeidioma().getFornecedorcidade() != null
+								&& filtrarEscolaBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor() != null) {
+							if (filtrarEscolaBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().isTarifarioatualizado()) {
+								
+								Mensagem.lancarMensagemInfo("Nenhum fornecedor encontrado com os dados pesquisados.", "");
+							}else {
+								Mensagem.lancarMensagemInfo("Tarifário da "+ filtrarEscolaBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome() +" em atualização.", "");
+							}
+						}else {
+							if (listaFornecedorAtualizando == null) {
+								listaFornecedorAtualizando = new ArrayList<Fornecedor>();
+							}
+							for (int i = 0; i < listaFornecedorAtualizando.size(); i++) {
+								if (listaFornecedorAtualizando.get(i).isTarifarioatualizado()) {
+									Mensagem.lancarMensagemInfo("Nenhum  dados pesquisados encontrado no parceiro " + listaFornecedorAtualizando.get(i).getNome(), "");
+								}else {
+									Mensagem.lancarMensagemInfo("Tarifário da "+ listaFornecedorAtualizando.get(i).getNome() +" em atualização.", "");
+								}
+							}
+						}
 						filtrarEscolaBean.setFornecedorcidadeidioma(null);
 						gerarListaFornecedorCidade();
 						return null;
@@ -488,6 +509,11 @@ public class FiltrarEscolaMB implements Serializable {
 				fpb.getListaProdutoFornecedor().add(produtoFornecedor);
 			}
 			filtrarEscolaBean.getListaFornecedorProdutosBean().add(fpb);
+		}else {
+			if (listaFornecedorAtualizando == null) {
+				listaFornecedorAtualizando = new ArrayList<Fornecedor>();
+			}
+			listaFornecedorAtualizando.add(fornecedorCidadeIdioma.getFornecedorcidade().getFornecedor());
 		}
 		for (int i = 0; i < filtrarEscolaBean.getListaFornecedorProdutosBean().size(); i++) {
 			for (int j = 0; j < filtrarEscolaBean.getListaFornecedorProdutosBean().get(i).getListaProdutoFornecedor().size(); j++) {

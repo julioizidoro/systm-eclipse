@@ -13,6 +13,7 @@ import br.com.travelmate.facade.PromocaoTaxaCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Filtroorcamentoproduto;
+import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorferias;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Parametrosprodutos;
@@ -69,6 +70,7 @@ public class ListaEscolasMB implements Serializable {
 				FiltrarEscolaBean.getListaFornecedorProdutosBean().remove(i);
 			}
 		}
+		
 	}
 
 	public FiltrarEscolaBean getFiltrarEscolaBean() {
@@ -930,6 +932,10 @@ public class ListaEscolasMB implements Serializable {
 			}
 		}
 		return "";
+	}
+	
+	public void executar() {
+		
 	}
 
 }

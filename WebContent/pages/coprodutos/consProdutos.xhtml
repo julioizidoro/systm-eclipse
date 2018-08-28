@@ -83,7 +83,7 @@
 						<f:attribute name="listaFornecedorCidadeIdioma"
 							value="#{coProdutosMB.listaFornecedorIdioma}" />
 						<p:ajax event="change"
-							update="tabelaprodutos, bntAddProduto, bntAddAcomodacao, habilitarsegundocurso,ano, moeda, btnEditarValor"
+							update="tabelaprodutos, bntAddProduto, bntAddAcomodacao, habilitarsegundocurso,ano, moeda, btnEditarValor, habilitaratualizando"
 							listener="#{coProdutosMB.listarCoProdutos()}" />
 					</p:selectOneMenu>
 					<p:commandLink action="#{coProdutosMB.adicionarFornecedorIdioma()}"
@@ -173,6 +173,18 @@
 				</p:selectBooleanCheckbox>
 				<p:outputLabel value="Escola Finalizada"
 					style="margin-left:1%;font-size:13px" />
+					<br/><br/>
+				<h:panelGrid columns="2" style="width:15%;float:right;margin-right: 4.2%;">
+					<p:selectBooleanCheckbox id="habilitaratualizando"
+						value="#{coProdutosMB.fornecedorCidadeIdioma.fornecedorcidade.fornecedor.tarifarioatualizado}"
+						disabled="#{coProdutosMB.habilitarBotoes}" class="espacopreto"
+						style="margin-left:3%">
+						<p:ajax event="change"
+							listener="#{coProdutosMB.habilitarFornecedorOrcamento()}" />
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Tarifário Atualizado"
+						style="margin-left:1%;font-size:13px" />
+				</h:panelGrid>
 				<br></br><br></br>
 				
 				<p:outputLabel id="produto" value="Produtos" style="margin-left:3%;"/><br/>
