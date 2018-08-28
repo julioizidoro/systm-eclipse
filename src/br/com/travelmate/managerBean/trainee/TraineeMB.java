@@ -969,24 +969,7 @@ public class TraineeMB implements Serializable {
 		return "followUp";
 	}
 	
-	
-//	public String contrato(Trainee trainee){
-//		this.trainee = trainee;
-//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(trainee.getVendas(), "Trainee");
-//		try {
-//			String texto = lerArquivoTxt.ler();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + trainee.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-//					trainee.getVendas().getUsuario().getIdusuario() + trainee.getVendas().getIdvendas() + ".html");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
+
 	
 	
 	public void verificarIdCredito(Trainee trainee) {

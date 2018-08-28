@@ -104,7 +104,7 @@
 					<h:dataTable id="tabelaArquivo" styleClass="table-transparent"  value="#{pastas2Arquivo1MB.listaArquivoBean}" rendered="#{pastas2Arquivo1MB.tabelaArquivoQuadro}"
 						var="arquivo1Bean" style="color:black;background:transparent !important;border-color:white !important;border:none !important; width:90%;" >
 						<h:column>
-							<a href="http://#{pastas2Arquivo1MB.ftpDados.host}:82/cloud/departamentos/#{arquivo1Bean.arquivo1.nomeftp}"  title="#{arquivo1Bean.arquivo1.nome}" name="#{arquivo1Bean.arquivo1.nome}" target="_blank" style="margin:20px;">
+							<a href="#{pastas2Arquivo1MB.urlArquivo}/#{arquivo1Bean.arquivo1.nomeftp}"  title="#{arquivo1Bean.arquivo1.nome}" name="#{arquivo1Bean.arquivo1.nome}" target="_blank" style="margin:20px;">
 					        		<h:panelGroup rendered="#{pastas2Arquivo1MB.verificarArquivo1(arquivo1Bean)}">
 					        			<img  src="#{pastas2Arquivo1MB.retornaIconeArquivo(arquivo1Bean.arquivo1.tipo)}" width="40" height="40" style="font-size:12px;">
 					        			
@@ -125,7 +125,7 @@
 					       	</a>
 						</h:column>
 						<h:column>
-							<a href="http://#{pastas2Arquivo1MB.ftpDados.host}:82/cloud/departamentos/#{arquivo1Bean.arquivo2.nomeftp}" title="#{arquivo1Bean.arquivo2.nome}" name="#{arquivo1Bean.arquivo2.nome}" target="_blank" style="margin:20px;">
+							<a href="#{pastas2Arquivo1MB.urlArquivo}/#{arquivo1Bean.arquivo2.nomeftp}" title="#{arquivo1Bean.arquivo2.nome}" name="#{arquivo1Bean.arquivo2.nome}" target="_blank" style="margin:20px;">
 					        		<h:panelGroup rendered="#{pastas2Arquivo1MB.verificarArquivo2(arquivo1Bean)}">
 					        			<img src="#{pastas2Arquivo1MB.retornaIconeArquivo(arquivo1Bean.arquivo2.tipo)}" width="40" height="40" style="font-size:12px;">
 					        			
@@ -146,7 +146,7 @@
 					        </a>
 						</h:column>
 						<h:column>
-					        	<a href="http://#{pastas2Arquivo1MB.ftpDados.host}:82/cloud/departamentos/#{arquivo1Bean.arquivo3.nomeftp}" title="#{arquivo1Bean.arquivo3.nome}" name="#{arquivo1Bean.arquivo3.nome}" target="_blank" style="margin:20px;">
+					        	<a href="#{pastas2Arquivo1MB.urlArquivo}/#{arquivo1Bean.arquivo3.nomeftp}" title="#{arquivo1Bean.arquivo3.nome}" name="#{arquivo1Bean.arquivo3.nome}" target="_blank" style="margin:20px;">
 					        		<h:panelGroup rendered="#{pastas2Arquivo1MB.verificarArquivo3(arquivo1Bean)}">
 					        			<img src="#{pastas2Arquivo1MB.retornaIconeArquivo(arquivo1Bean.arquivo3.tipo)}" width="40" height="40" style="font-size:12px;">
 					        			
@@ -181,7 +181,7 @@
 							style="font-size:12px; width:5%; text-align:left; color:white; border:none; #{pastas2Arquivo1MB.trocarCorLinhaTabela(arquivo)}"
 							styleClass="alinharCenter">
 							<a
-								href="http://#{pastas2Arquivo1MB.ftpDados.host}:82\/cloud/departamentos/#{arquivo.nomeftp}"
+								href="#{pastas2Arquivo1MB.urlArquivo}/#{arquivo.nomeftp}"
 								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 								<img src="#{pastas2Arquivo1MB.retornaIconeArquivo(arquivo.tipo)}"
 									width="30" height="30" style="font-size: 12px;"> </img>
@@ -190,7 +190,7 @@
 						<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
 							style="width:67%;font-size:12px; color:black; border:none;text-align:left; #{pastas2Arquivo1MB.trocarCorLinhaTabela(arquivo)}">
 							<a
-								href="http://#{pastas2Arquivo1MB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
+								href="#{pastas2Arquivo1MB.urlArquivo}/#{arquivo.nomeftp}"
 								title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 								<h:outputText value="#{arquivo.nome}" style="color:black"/>
 							</a>

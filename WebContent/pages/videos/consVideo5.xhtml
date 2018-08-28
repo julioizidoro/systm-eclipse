@@ -38,7 +38,7 @@
 							<p:column headerText="Nome" sortBy="#{video5.nome}" 
 								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
 								<a
-									href="http://#{videos5MB.ftpDados.host}:82/videos/#{video5.host}"
+									href="#{videos5MB.urlArquivo}/#{video5.host}"
 									title="#{video5.nome}" name="#{video5.nome}" target="_blank">
 									<h:outputText value="#{video5.nome}" style="color:black"/>
 								</a>

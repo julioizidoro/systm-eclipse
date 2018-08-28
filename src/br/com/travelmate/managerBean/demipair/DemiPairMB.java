@@ -949,23 +949,7 @@ public class DemiPairMB implements Serializable {
 		return "";
 	}   
 	
-	public String contrato(Demipair demipair){
-		this.demipair = demipair;
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(demipair.getVendas(), "DemiPair");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + demipair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					demipair.getVendas().getUsuario().getIdusuario() + demipair.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+	
 	
 	
 	public String fichaDemiPair(Demipair demipair){

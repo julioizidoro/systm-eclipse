@@ -43,6 +43,8 @@ public class Ftpdados implements Serializable {
     private String hostupload;
     @Column(name = "hostlink")
     private String hostlink;
+    @Column(name = "protocolo")
+    private String protocolo;
 
     public Ftpdados() {
     }
@@ -107,6 +109,14 @@ public class Ftpdados implements Serializable {
 
 	public void setHostlink(String hostlink) {
 		this.hostlink = hostlink;
+	}
+
+	public String getProtocolo() {
+		return protocolo;
+	}
+
+	public void setProtocolo(String protocolo) {
+		this.protocolo = protocolo;
 	}
 
 	@Override

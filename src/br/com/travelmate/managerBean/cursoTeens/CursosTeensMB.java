@@ -960,23 +960,7 @@ public class CursosTeensMB implements Serializable {
 		return "followUp";
 	}
 	
-	public String contrato(Programasteens programasteens){
-		this.programasteens = programasteens;
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(programasteens.getVendas(), "Teens");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + programasteens.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					programasteens.getVendas().getUsuario().getIdusuario() + programasteens.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+	
 	
 	
 	public String fichaCursosTeens(Programasteens programasteens){

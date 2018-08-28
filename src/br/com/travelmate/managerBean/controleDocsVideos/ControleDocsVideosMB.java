@@ -67,6 +67,7 @@ public class ControleDocsVideosMB implements Serializable{
 	private boolean todosdocumentosfornecedor;
 	private Date datainicio;
 	private Date dataTermino;
+	private String urlArquivo = "";
 	
 	
 	
@@ -278,6 +279,18 @@ public class ControleDocsVideosMB implements Serializable{
 
 
 
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
+	}
+
+
+
 	public void gerarListaArquivo1(){
 		Arquivo1Facade arquivo1Facade = new Arquivo1Facade();
 		if (datainicio != null && dataTermino != null) {
@@ -466,6 +479,9 @@ public class ControleDocsVideosMB implements Serializable{
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		if (ftpDados != null) {
+			urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/cloud/departamentos";
 		}
 	}
 	

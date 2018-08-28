@@ -77,6 +77,7 @@ public class ControleArquivosMB implements Serializable{
 	private String descricao3;
 	private String descricao4;
 	private Ftpdados ftpdados;
+	private String urlArquivo = "";
 	
 	
 	
@@ -98,6 +99,9 @@ public class ControleArquivosMB implements Serializable{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if (ftpdados != null) {
+			urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":82/systm/arquivos/";
 		}
 		
 	}
@@ -485,6 +489,18 @@ public class ControleArquivosMB implements Serializable{
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 

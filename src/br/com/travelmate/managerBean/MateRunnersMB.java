@@ -338,7 +338,7 @@ public class MateRunnersMB implements Serializable {
 	}
 
 	public String pegarEndereco() {
-		String endereco = "http://";
+		String endereco = ftpdados.getProtocolo() + "://";
 		endereco = endereco + ftpdados.getHost();
 		endereco = endereco + ":82/systm/tmstar/TMS01.pdf";
 		return endereco;

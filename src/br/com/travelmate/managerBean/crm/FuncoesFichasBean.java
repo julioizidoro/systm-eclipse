@@ -14,7 +14,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.AupairFacade;
@@ -33,6 +35,7 @@ import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.aupair.FinalizarMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
@@ -246,7 +249,80 @@ public class FuncoesFichasBean {
 		}
 		return "";
 	}
-
+	
+	public String  procurarPrograma() {
+		String retorno = "";
+		int idProduto = vendas.getProdutos().getIdprodutos();
+		if (idProduto == 9) {
+			finalizarAupair();
+		}else if(idProduto == 13) {
+			finalizarTrainee();
+		}else if(idProduto == 10) {
+			finalizarWork();
+		}else if(idProduto == 16) {
+			finalizarVoluntariado();
+		}else if(idProduto == 20) {
+			finalizarDemiPair();
+		}else if(idProduto == 4) {
+			finalizarHighSchool();
+		}else if(idProduto == 5) {
+			finalizarTeens();
+		}else if(idProduto == 1) {
+			finalizarCurso();
+			retorno = fichaCurso();
+		}
+		return retorno;
+	}
+	
+	
+	public void finalizarAupair() {
+		AupairFacade aupairFacade = new AupairFacade();
+		aupair = aupairFacade.consultar(vendas.getIdvendas());
+	}
+	
+	
+	public void finalizarTrainee() {
+		TraineeFacade traineeFacade = new TraineeFacade();
+		trainee = traineeFacade.consultar(vendas.getIdvendas());
+	}
+	
+	
+	public void finalizarWork() {
+		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
+		worktravel = workTravelFacade.consultarWork(vendas.getIdvendas());
+	}
+	
+	public void finalizarVoluntariado() {
+		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
+		voluntariado = voluntariadoFacade.consultar(vendas.getIdvendas());
+	}
+	
+	public void finalizarDemiPair() {
+		DemipairFacade demipairFacade = new DemipairFacade();
+		demipair = demipairFacade.consultar(vendas.getIdvendas());
+	}
+	
+	public void finalizarHighSchool() {
+		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
+		highschool = highSchoolFacade.consultarHighschool(vendas.getIdvendas());
+	}
+	
+	public void finalizarTeens() {
+		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
+		programateens = programasTeensFacede.find(vendas.getIdvendas());
+	}
+	
+	public void finalizarCurso() {
+		CursoFacade cursoFacade = new CursoFacade();
+		curso = cursoFacade.consultarCursos(vendas.getIdvendas());
+	}
+	
+	public String fichaCurso(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("curso", curso);
+		return "fichaCurso";
+	}
 	public String gerarRelatorioFicha() throws IOException {
 		Map parameters = new HashMap();
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()

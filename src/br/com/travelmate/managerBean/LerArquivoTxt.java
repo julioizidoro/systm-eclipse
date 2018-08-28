@@ -293,16 +293,7 @@ public class LerArquivoTxt {
 		BufferedReader leitor = new BufferedReader(
 				   new InputStreamReader(arquivoFileInput, "ISO-8859-1"));
 		String linha = leitor.readLine();
-		contrato = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:h=\"http://xmlns.jcp.org/jsf/html\" xml:lang=\"pt-br\" lang=\"pt-br\">\n"
-				+ "<head>\n" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\" />\n"
-				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
-				+ "</head>\n" + "<body style=\"font-family: sans-serif;font-size: 13px;width:98%;\">\n"
-				+ "<div align=\"justify\" style=\"font-family: sans-serif; font-size: 15px; width: 100%;\"><br/>"
-				+ "<div align=\"left\">" + "<img src=\"http://systm.com.br:82/systm/img/cabecalhoContrato.PNG\" width=\"100%\" />"
-				+ "</div> <br/>"
-				+ " <p style=\"text-align:center;font-size:13px;margin-top:-69px;margin-left: 5%;\"> Unidade:" +  vendas.getUnidadenegocio().getNomerelatorio() + "</p> <br/>"
-				+ " <p style=\"text-align:center;font-size:13px;margin-top:-26px;margin-left: 5%;\"> Consultor:" + vendas.getUsuario().getNome() + "</p> <br/>"
-				+ " <p style=\"text-align:center;font-size:13px;margin-top:-26px;margin-left: 5%;\">" + vendas.getUsuario().getEmail() + "</p> <br/><br/><br/>";
+		
 		ContratoBean contratoBean = new ContratoBean(vendas);
 		contrato = contrato + contratoBean.pegarCaminho();
 		if (vendas.getProdutos().getIdprodutos() == 1) {
@@ -351,7 +342,7 @@ public class LerArquivoTxt {
 			linha = leitor.readLine();
 		}
 		FormaPagamentoContrato formaPagamentoContrato = new FormaPagamentoContrato(vendas);
-		contrato = contrato + formaPagamentoContrato.pegarFormaPagamento();
+		
 		contrato = contrato + "</div></body></html>";
 		arquivocontrato.write(contrato);
 		arquivocontrato.close();

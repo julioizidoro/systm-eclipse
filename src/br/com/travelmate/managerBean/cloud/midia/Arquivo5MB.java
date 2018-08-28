@@ -86,6 +86,7 @@ public class Arquivo5MB implements Serializable {
 	private String tipoArquivo;
 	private String nomeArquivo;
 	private ArquivoBean arquivosBean;
+	private String urlArquivo = "";
 
 	@PostConstruct
 	public void init() {
@@ -119,6 +120,9 @@ public class Arquivo5MB implements Serializable {
 				e.printStackTrace();
 			}
 
+			if (ftpDados != null) {
+				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":82/cloud/departamentos/";
+			}
 			// Verificar se contém arquivos na tela
 			semConteudo();
 			verificarExibicao();
@@ -447,6 +451,14 @@ public class Arquivo5MB implements Serializable {
 
 	public void setNomeArquivo(String nomeArquivo) {
 		this.nomeArquivo = nomeArquivo;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public String voltarConsPasta1() {

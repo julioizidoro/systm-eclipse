@@ -76,7 +76,7 @@
 							<p:column headerText="Nome" sortBy="#{video4.nome}" 
 								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
 								<a
-									href="http://#{pastas5Videos4MB.ftpDados.host}:82/videos/#{video4.host}"
+									href="#{pastas5Videos4MB.urlArquivo}/#{video4.host}"
 									title="#{video4.nome}" name="#{video4.nome}" target="_blank">
 									<h:outputText value="#{video4.nome}" style="color:black"/>
 								</a>
@@ -84,7 +84,7 @@
 							<p:column headerText="Descrição" sortBy="#{video4.descricao}" 
 								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
 								<a
-									href="http://#{pastas5Videos4MB.ftpDados.host}:82/videos/#{video4.host}"
+									href="#{pastas5Videos4MB.urlArquivo}/#{video4.host}"
 									title="#{video4.descricao}" name="#{video4.descricao}" target="_blank">
 									<h:outputText value="#{video4.descricao}" style="color:black"/>
 								</a>
@@ -92,10 +92,10 @@
 							<p:column headerText="Link" sortBy="#{video4.host}" 
 								style="width:10%; background:white; font-size:11px; color:black; border:none; text-align:left;">
 								<a
-									href="http://#{pastas5Videos4MB.ftpDados.host}:82/videos/#{video4.host}"
+									href="#{pastas5Videos4MB.urlArquivo}/#{video4.host}"
 									title="#{video4.host}" name="#{video4.host}" target="_blank">
 									<h:outputText value="#{video4.host}" style="color:black"/>
-								</a>
+								</a> 
 							</p:column> 
 							<p:column headerText=""
 								style="width:10%; background:white; font-size:11px; color:black; border:none;"

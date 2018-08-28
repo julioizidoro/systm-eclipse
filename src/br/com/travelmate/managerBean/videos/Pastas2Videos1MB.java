@@ -79,6 +79,7 @@ public class Pastas2Videos1MB implements Serializable{
 	private Video1Bean video1Bean;
 	private List<Video1Bean> listaVideo1Bean;
 	private ArquivoBean arquivoBean; 
+	private String urlArquivo = "";
 	
 	
 	@PostConstruct
@@ -104,6 +105,9 @@ public class Pastas2Videos1MB implements Serializable{
 					} catch (SQLException e) {
 						e.printStackTrace();
 					} 
+					if (ftpDados != null) {
+						urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/videos";
+					}
 					// Verificar se existe pastas ou arquivos na tela
 					semConteudo();
 					verificarExibicao();
@@ -426,6 +430,26 @@ public class Pastas2Videos1MB implements Serializable{
 
 	public void setListaVideo1Bean(List<Video1Bean> listaVideo1Bean) {
 		this.listaVideo1Bean = listaVideo1Bean;
+	}
+
+
+
+
+
+
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+
+
+
+
+
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 

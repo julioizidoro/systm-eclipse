@@ -84,6 +84,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 	private String tipoArquivo;
 	private String nomeArquivo;
 	private ArquivoBean arquivoBean;
+	private String urlArquivo = "";
 
 	@PostConstruct
 	public void init() {
@@ -106,7 +107,10 @@ public class Pastas2Arquivo1MB implements Serializable {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-	
+
+					if (ftpDados != null) {
+						urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/cloud/departamentos";
+					}
 					// Verificar se existe pastas ou arquivos na tela
 					semConteudo();
 					verificarExibicao();
@@ -346,6 +350,14 @@ public class Pastas2Arquivo1MB implements Serializable {
 
 	public void setArquivoBean(ArquivoBean arquivoBean) {
 		this.arquivoBean = arquivoBean;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void gerarCloudFiles() {

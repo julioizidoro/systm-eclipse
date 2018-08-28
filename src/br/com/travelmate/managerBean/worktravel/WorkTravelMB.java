@@ -974,23 +974,7 @@ public class WorkTravelMB implements Serializable {
 		return "";
 	}  
 	
-	
-	public String contrato(Worktravel worktravel){
-		this.work = worktravel;
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(worktravel.getVendas(), "WorkTravel");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + worktravel.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					worktravel.getVendas().getUsuario().getIdusuario() + worktravel.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+
 	
 	public String fichaWorkTravel(Worktravel worktravel){
 		FacesContext fc = FacesContext.getCurrentInstance();

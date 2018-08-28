@@ -89,6 +89,7 @@ public class Pasta4Arquivo3MB implements Serializable {
 	private String tipoArquivo;
 	private String nomeArquivo;
 	private ArquivoBean arquivosBean;
+	private String urlArquivo = "";
 
 
 	@PostConstruct
@@ -120,7 +121,10 @@ public class Pasta4Arquivo3MB implements Serializable {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-	 
+
+			if (ftpDados != null) {
+				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/cloud/departamentos";
+			}
 			// Verificar se contém arquivos na tela
 			semConteudo();
 			verificarExibicao();
@@ -438,6 +442,14 @@ public class Pasta4Arquivo3MB implements Serializable {
 
 	public void setNomeArquivo(String nomeArquivo) {
 		this.nomeArquivo = nomeArquivo;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public String voltarConsPasta1() {

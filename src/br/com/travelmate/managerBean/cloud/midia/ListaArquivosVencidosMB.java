@@ -87,6 +87,7 @@ public class ListaArquivosVencidosMB implements Serializable{
 	private boolean habilitarVoltaPasta4 = false;
 	private boolean habilitarVoltaPasta5 = false;
 	private boolean habilitarVoltaDepartamento = false;
+	private String urlArquivo = "";
 	
 	
 	
@@ -133,6 +134,9 @@ public class ListaArquivosVencidosMB implements Serializable{
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		if (ftpDados != null) {
+			urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/cloud/departamentos";
 		}
 		verificacaoNiveisPastas();
 	}
@@ -469,6 +473,18 @@ public class ListaArquivosVencidosMB implements Serializable{
 
 	public void setHabilitarVoltaDepartamento(boolean habilitarVoltaDepartamento) {
 		this.habilitarVoltaDepartamento = habilitarVoltaDepartamento;
+	}
+
+
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 

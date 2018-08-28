@@ -89,6 +89,7 @@ public class ArquivoMB implements Serializable {
 	private Cliente cliente;
 	private String dadosCliente;
 	private List<Questionariohe> listaQuestionario;
+	private String urlArquivo;
 
 	@PostConstruct
 	public void init() {
@@ -115,6 +116,9 @@ public class ArquivoMB implements Serializable {
 					ftpdados = ftpDadosFacade.getFTPDados();
 				} catch (SQLException e) {
 					e.printStackTrace();
+				}
+				if (ftpdados != null) {
+					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":82/systm/arquivos";
 				}
 				if (vendas.getArquivoskitviagem()==null){
 					Arquivoskitviagem kitViagem = new Arquivoskitviagem();
@@ -304,6 +308,14 @@ public class ArquivoMB implements Serializable {
 
 	public void setDadosCliente(String dadosCliente) {
 		this.dadosCliente = dadosCliente;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void gerarListaArquivos() {

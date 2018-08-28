@@ -790,20 +790,5 @@ public class VistosMB implements Serializable {
 		return "contratoVisto";
 	}
 	
-//	public String contrato(Vistos vistos){
-//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(vistos.getVendas(), "vistos");
-//		try {
-//			String texto = lerArquivoTxt.ler();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + vistos.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-//					vistos.getVendas().getUsuario().getIdusuario() + vistos.getVendas().getIdvendas() + ".html");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
+
 }

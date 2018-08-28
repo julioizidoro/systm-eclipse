@@ -738,23 +738,7 @@ public class PacoteMB implements Serializable {
 	}
 	
 	
-//	public String contrato(Pacotes pacotes){
-//		this.pacotes = pacotes;
-//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(pacotes.getVendas(), "Pacotes");
-//		try {
-//			String texto = lerArquivoTxt.ler();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + pacotes.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-//					pacotes.getVendas().getUsuario().getIdusuario() + pacotes.getVendas().getIdvendas() + ".html");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
+
 	
 	
 	public String fichaPacotes(Pacotes pacotes){

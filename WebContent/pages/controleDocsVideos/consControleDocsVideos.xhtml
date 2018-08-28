@@ -78,7 +78,7 @@
 										style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}"
 										styleClass="alinharCenter">
 										<a
-											href="http://#{controleDocsVideosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
+											href="#{controleDocsVideosMB.urlArquivo}/#{arquivo.nomeftp}"
 											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 											<img src="#{controleDocsVideosMB.retornaIconeDocumento(arquivo.nomeftp)}"
 												width="30" height="30" style="font-size: 12px;"> </img>
@@ -87,7 +87,7 @@
 									<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
 										style="font-size:12px;width:30%; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
 										<a
-											href="http://#{controleDocsVideosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
+											href="#{controleDocsVideosMB.urlArquivo}/#{arquivo.nomeftp}"
 											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 											<h:outputText value="#{arquivo.nome}" style="color:black"/>
 										</a>
@@ -95,7 +95,7 @@
 									<p:column headerText="Caminho" sortBy="#{arquivo.caminho}" 
 										style="font-size:12px;width:40%; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabela(arquivo)}">
 										<a
-											href="http://#{controleDocsVideosMB.ftpDados.host}:82/cloud/departamentos/#{arquivo.nomeftp}"
+											href="#{controleDocsVideosMB.urlArquivo}/#{arquivo.nomeftp}"
 											title="#{arquivo.nome}" name="#{arquivo.nome}" target="_blank">
 											<h:outputText value="#{arquivo.caminho}" style="color:black"/>
 										</a>

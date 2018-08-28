@@ -966,24 +966,6 @@ public class AuPairMB implements Serializable {
 	}    
 	
 	
-	public String contrato(Aupair aupair){
-		this.aupair = aupair;
-		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(aupair.getVendas(), "AuPair");
-		try {
-			String texto = lerArquivoTxt.ler();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + aupair.getVendas().getUnidadenegocio().getIdunidadeNegocio() + 
-					aupair.getVendas().getUsuario().getIdusuario() + aupair.getVendas().getIdvendas() + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-	
 	
 	public String fichaAupair(Aupair aupair){
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -551,22 +551,7 @@ public class FormAssessoriaMB implements Serializable{
 		return "contratoHE";
 	}
 	
-//	public String contrato(ListaHeBean listaHeBean){
-//		LerArquivoTxt lerArquivoTxt = new LerArquivoTxt(listaHeBean.getHe().getVendas1(), "HE");
-//		try {
-//			String texto = lerArquivoTxt.ler();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("http://systm.com.br:82/systm/arquivos/Contrato" + listaHeBean.getHe().getVendas1().getUnidadenegocio().getIdunidadeNegocio() + 
-//					listaHeBean.getHe().getVendas1().getUsuario().getIdusuario() + listaHeBean.getHe().getVendas1().getIdvendas() + ".html");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
+
 	
 	public String documentacao(He he) { 
 		FacesContext fc = FacesContext.getCurrentInstance();

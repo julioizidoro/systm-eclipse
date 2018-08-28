@@ -2515,14 +2515,6 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>contrato</from-outcome>
-			<to-view-id>//http://systm.com.br:82/systm/arquivos/Contrato.html</to-view-id>
-			<redirect />
-		</navigation-case>     
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
 			<from-outcome>fichaCurso</from-outcome>
 			<to-view-id>/pages/fichas/cursos/fichaCurso.xhtml</to-view-id>
 			<redirect />
