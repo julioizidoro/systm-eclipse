@@ -100,11 +100,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private String nota = "";
 	private boolean desabilitarCampos = false;
 	private boolean habilitarPrioridade = true;
-	private List<Crmcobranca> listaCrmCobrancaNovos;
-	private List<Crmcobranca> listaCrmCobrancaAtrasado;
-	private List<Crmcobranca> listaCrmCobrancaHoje;
-	private List<Crmcobranca> listaCrmCobrancaProx7;
 	private List<Crmcobranca> listaCrmCobrancaTodos;
+	private String funcao;
 	
 	
 	@PostConstruct
@@ -112,23 +109,16 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		crmcobranca = (Crmcobranca) session.getAttribute("crmcobranca");
-		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
 		venda = (Vendas) session.getAttribute("venda");
 		voltarPagina = (String) session.getAttribute("voltarPagina");
-		listaCrmCobrancaNovos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaNovos");
-		listaCrmCobrancaAtrasado = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaAtrasado");
-		listaCrmCobrancaHoje = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaHoje");
-		listaCrmCobrancaProx7 = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaProx7");
 		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
-		session.removeAttribute("listaCrmCobrancaNovos");
-		session.removeAttribute("listaCrmCobrancaAtrasado");
-		session.removeAttribute("listaCrmCobrancaHoje");
-		session.removeAttribute("listaCrmCobrancaProx7");
+		funcao = (String) session.getAttribute("funcao");
 		session.removeAttribute("listaCrmCobrancaTodos");
 		session.removeAttribute("voltarPagina");
 		session.removeAttribute("listaCrmCobranca");
 		session.removeAttribute("crmcobranca");
 		session.removeAttribute("vendas");
+		session.removeAttribute("funcao");
 		if (crmcobranca != null && venda == null) {
 			venda = crmcobranca.getVendas();
 			nota = crmcobranca.getNota();
@@ -399,46 +389,6 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	}
 
 
-	public List<Crmcobranca> getListaCrmCobrancaNovos() {
-		return listaCrmCobrancaNovos;
-	}
-
-
-	public void setListaCrmCobrancaNovos(List<Crmcobranca> listaCrmCobrancaNovos) {
-		this.listaCrmCobrancaNovos = listaCrmCobrancaNovos;
-	}
-
-
-	public List<Crmcobranca> getListaCrmCobrancaAtrasado() {
-		return listaCrmCobrancaAtrasado;
-	}
-
-
-	public void setListaCrmCobrancaAtrasado(List<Crmcobranca> listaCrmCobrancaAtrasado) {
-		this.listaCrmCobrancaAtrasado = listaCrmCobrancaAtrasado;
-	}
-
-
-	public List<Crmcobranca> getListaCrmCobrancaHoje() {
-		return listaCrmCobrancaHoje;
-	}
-
-
-	public void setListaCrmCobrancaHoje(List<Crmcobranca> listaCrmCobrancaHoje) {
-		this.listaCrmCobrancaHoje = listaCrmCobrancaHoje;
-	}
-
-
-	public List<Crmcobranca> getListaCrmCobrancaProx7() {
-		return listaCrmCobrancaProx7;
-	}
-
-
-	public void setListaCrmCobrancaProx7(List<Crmcobranca> listaCrmCobrancaProx7) {
-		this.listaCrmCobrancaProx7 = listaCrmCobrancaProx7;
-	}
-
-
 	public List<Crmcobranca> getListaCrmCobrancaTodos() {
 		return listaCrmCobrancaTodos;
 	}
@@ -470,7 +420,8 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	public String voltar(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
+		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
+		session.setAttribute("funcao", funcao);
 		return voltarPagina;
 	}
 	

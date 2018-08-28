@@ -70,8 +70,10 @@ public class FollowUpCobrancaMB implements Serializable{
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		listaCrmCobranca = (List<Crmcobranca>) session.getAttribute("listaCrmCobranca");
-		session.removeAttribute("listaCrmCobranca");
+		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
+		funcao = (String) session.getAttribute("funcao");
+		session.removeAttribute("listaCrmCobrancaTodos");
+		session.removeAttribute("funcao");
 		if (!aplicacaoMB.isLeituraCobranca()) {
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.gerarListaInadiplentes();
@@ -86,11 +88,10 @@ public class FollowUpCobrancaMB implements Serializable{
 		}
 		if (listaCrmCobranca == null || listaCrmCobranca.size() == 0) {
 			pesquisar();
-			mudarCoresBotoes(funcao);
 		}else{
 			gerarNumerosCrmCobranca();
 		}
-
+		mudarCoresBotoes(funcao);
 	}
 
 
@@ -385,14 +386,14 @@ public class FollowUpCobrancaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobranca", crmcobranca);
-		session.setAttribute("listaCrmCobranca", listaCrmCobranca);
+		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
 		session.setAttribute("voltarPagina", "followupCobranca");
+		session.setAttribute("funcao", funcao);
 		return "historicoCobrancaCliente";
 	}
 	
 	
 	public void mudarCoresBotoes(String funcao) {
-		sql = "";
 		this.funcao = funcao;
 		if (funcao.equalsIgnoreCase("novos")) {
 			imagemNovos = "novosClick";
@@ -400,7 +401,6 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			//sql = "select l from Crmcobranca l where l.proximocontato is null and l.datafinalizada is null ";
 			listaCrmCobranca = listaCrmCobrancaNovos;
 		} else if (funcao.equalsIgnoreCase("hoje")) {
 			imagemNovos = "novos";
@@ -408,7 +408,6 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			//sql = "select l from Crmcobranca l where l.proximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
 			listaCrmCobranca = listaCrmCobrancaHoje;
 		} else if (funcao.equalsIgnoreCase("atrasados")) {
 			imagemNovos = "novos";
@@ -416,8 +415,6 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemAtrasados = "atrasadoClick";
 			imagemProx = "prox";
 			imagemTodos = "todos";
-			Date data = new Date();
-			//sql = "select l from Crmcobranca l where l.proximocontato < '" + Formatacao.ConvercaoDataSql(data) + "'";
 			listaCrmCobranca = listaCrmCobrancaAtrasado;
 		} else if (funcao.equalsIgnoreCase("prox")) {
 			imagemNovos = "novos";
@@ -425,14 +422,6 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemAtrasados = "atrasados";
 			imagemProx = "proxClick";
 			imagemTodos = "todos";
-			Date data;
-			try {
-				data = Formatacao.SomarDiasDatas(new Date(), 7);
-			} catch (Exception e) {
-				data = null;
-			}
-			//sql = "select l from Crmcobranca l where  l.proximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-				//	+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data) + "'";
 			listaCrmCobranca = listaCrmCobrancaProx7;
 		} else if (funcao.equalsIgnoreCase("todos")) {
 			imagemNovos = "novos";
@@ -440,51 +429,8 @@ public class FollowUpCobrancaMB implements Serializable{
 			imagemAtrasados = "atrasados";
 			imagemProx = "prox";
 			imagemTodos = "todosClick";
-			//sql = "select l from Crmcobranca l where (l.nota like '%%' or l.nota is null) ";
 			listaCrmCobranca = listaCrmCobrancaTodos;
 		}
-//		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
-//			sql = sql + " and l.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-//		}
-//		if (usuario != null && usuario.getIdusuario() != null) {
-//				sql = sql + " and l.vendas.usuario.idusuario=" + usuario.getIdusuario();
-//		} 
-//		if (nomeCliente != null && nomeCliente.length() > 0) {
-//			sql = sql + " and l.vendas.cliente.nome like '" + nomeCliente + "%'";
-//		}
-//
-//		if (dataProxInicio != null && dataProxFinal != null) {
-//			sql = sql + " and l.proximocontato>='" + Formatacao.ConvercaoDataSql(dataProxInicio) + "' and "
-//					+ "l.proximocontato<='" + Formatacao.ConvercaoDataSql(dataProxFinal) + "'";
-//		}
-//
-//		if (dataUltInicio != null && dataUltFinal != null) {
-//			sql = sql + " and l.vendas.vendascomissao.datainicioprograma>='" + Formatacao.ConvercaoDataSql(dataUltInicio) + "' and "
-//					+ "l.vendas.vendascomissao.datainicioprograma<='" + Formatacao.ConvercaoDataSql(dataUltFinal) + "'";
-//		}
-//		if (programas != null && programas.getIdprodutos() != null) {
-//			sql = sql + " and l.vendas.produtos.idprodutos=" + programas.getIdprodutos();
-//		}
-//		if (status != null && status.length()>0 && !status.equalsIgnoreCase("0")) {
-//			if(status.equalsIgnoreCase("Novos")){
-//				sql = sql + " and l.proximocontato is null and l.datafinalizada is null";
-//			}else if(status.equalsIgnoreCase("Atrasados")){ 
-//				sql = sql + " and l.proximocontato<'" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-//			}else if(status.equalsIgnoreCase("Hoje")){ 
-//				sql = sql + " and l.proximocontato='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
-//			}else if(status.equalsIgnoreCase("Prox. 7 Dias")){ 
-//				Date data7;
-//				try {
-//					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
-//				} catch (Exception e) {
-//					data7 = null;
-//				}
-//			//	sql = sql + " and l.proximocontato>'" + Formatacao.ConvercaoDataSql(new Date())
-//			//			+ "' and l.proximocontato<'" + Formatacao.ConvercaoDataSql(data7) + "'";
-//			}  
-//		}
-		//sql = sql + " order by l.proximocontato";
-		//gerarListaCrmCobranca();
 	}
 	
 	
@@ -660,10 +606,19 @@ public class FollowUpCobrancaMB implements Serializable{
 	
 	
 	public void gerarNumerosCrmCobranca(){
-		listaCrmCobranca = listaCrmCobrancaTodos;
+		//listaCrmCobranca = listaCrmCobrancaTodos;
 		if (listaCrmCobranca == null) {
 			listaCrmCobranca = new ArrayList<Crmcobranca>();
 		}
+		listaCrmCobrancaAtrasado = new ArrayList<Crmcobranca>();
+		listaCrmCobrancaHoje = new ArrayList<Crmcobranca>();
+		listaCrmCobrancaNovos = new ArrayList<Crmcobranca>();
+		listaCrmCobrancaProx7 = new ArrayList<Crmcobranca>();
+		listaCrmCobrancaTodos = new ArrayList<Crmcobranca>();
+		todos = 0;
+		novos = 0;
+		atrasados = 0;
+		prox7 = 0;
 		for (int i = 0; i < listaCrmCobranca.size(); i++) {
 			if (!listaCrmCobranca.get(i).getSituacao().equals("0")) {
 				todos = todos + 1;
