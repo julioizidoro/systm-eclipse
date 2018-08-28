@@ -3750,6 +3750,7 @@ public class CadCursoMB implements Serializable {
 			moeda = pais.getMoedas();
 			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
 			valorCambio = cambio.getValor();
+			venda.setValorcambio(valorCambio);
 			if (venda.getIdvendas() != null) {
 				orcamento.setValorCambio(cambio.getValor());
 			}
