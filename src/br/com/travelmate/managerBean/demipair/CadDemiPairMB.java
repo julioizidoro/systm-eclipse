@@ -1307,8 +1307,11 @@ public class CadDemiPairMB implements Serializable {
 	public void carregarCambio() {
 		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(venda.getDataVenda(), new Date());
-			if (dias > 3) {
+			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+			String dataValidadeString = Formatacao.ConvercaoDataPadrao(venda.getDatavalidade());
+			Date dataValidade = Formatacao.ConvercaoStringData(dataValidadeString);
+			if (dataValidade.before(dataAtual)) {
 				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
 				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
 					int idUltimaMoeda = aplicacaoMB.getListaCambio().get(i).getMoedas().getIdmoedas();
