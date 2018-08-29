@@ -573,18 +573,7 @@ public class HighSchoolMB implements Serializable {
 			highschool.setHabilitarImagemFranquia(true);
 			highschool.setImagem("../../resources/img/fichaCancelada.png");
 			highschool.setTituloFicha("FICHA CANCELADA");
-		} else if ((highschool.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (highschool.getVendas().isRestricaoparcelamento())) {
-			if (usuarioLogadoMB.isFinanceiro()) {
-				highschool.setHabilitarImagemGerencial(true);
-				highschool.setHabilitarImagemFranquia(false);
-			} else {
-				highschool.setHabilitarImagemGerencial(false);
-				highschool.setHabilitarImagemFranquia(true);
-			}
-			highschool.setImagem("../../resources/img/ficharestricao.png");
-			highschool.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
-		} else {
+		}  else {
 			highschool.setHabilitarImagemGerencial(false);
 			highschool.setHabilitarImagemFranquia(true);
 			highschool.setImagem("../../resources/img/processoFicha.png");
