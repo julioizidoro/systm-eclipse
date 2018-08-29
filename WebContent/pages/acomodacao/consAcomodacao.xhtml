@@ -121,7 +121,7 @@
 								<h:outputText value="#{processo.vendas.usuario.nome}" />
 							</p:column>
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink action="#{acomodacaoMB.editar(processo)}"
+								<p:commandLink action="#{acomodacaoMB.editar(processo)}" disabled="#{acomodacaoMB.retornarAcomodacao(processo)}"
 									style="text-decoration: none">
 									<img src="../../resources/img/editaricon.png" style="width:30px;"/>
 								</p:commandLink>
@@ -279,7 +279,7 @@
 								<h:outputText value="#{financeiro.vendas.usuario.nome}" />
 							</p:column>
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink action="#{acomodacaoMB.editar(financeiro)}"
+								<p:commandLink action="#{acomodacaoMB.editar(financeiro)}" disabled="#{acomodacaoMB.retornarAcomodacao(financeiro)}"
 									style="text-decoration: none">
 									<img src="../../resources/img/editaricon.png" style="width:30px;"/>
 								</p:commandLink>
@@ -435,7 +435,7 @@
 								<h:outputText value="#{finalizado.vendas.usuario.nome}" />
 							</p:column>
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink action="#{acomodacaoMB.editar(finalizado)}"
+								<p:commandLink action="#{acomodacaoMB.editar(finalizado)}" disabled="#{acomodacaoMB.retornarAcomodacao(finalizado)}"
 									style="text-decoration: none">
 									<img src="../../resources/img/editaricon.png" style="width:30px;"/>
 								</p:commandLink>
@@ -689,7 +689,7 @@
 								<h:outputText value="#{acomodacao.vendas.usuario.nome}" />
 							</p:column>
 							<p:column style="text-align:center;width:40px;">
-								<p:commandLink action="#{acomodacaoMB.editar(acomodacao)}"
+								<p:commandLink action="#{acomodacaoMB.editar(acomodacao)}" disabled="#{acomodacaoMB.retornarAcomodacao(acomodacao)}"
 									style="text-decoration: none">
 									<img src="../../resources/img/editaricon.png" style="width: 30px;"/>
 								</p:commandLink>

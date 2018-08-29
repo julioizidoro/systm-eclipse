@@ -21,6 +21,7 @@ import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.AcomodacaoFacade;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -28,6 +29,7 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Acomodacao;
+import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Credito;
@@ -598,6 +600,16 @@ public class AcomodacaoMB implements Serializable{
 		} else {
 			return "../../resources/img/processoFicha.png";
 		}
+	}
+	
+	
+	public boolean retornarAcomodacao(Acomodacao acomodacao) {
+		AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
+		Acomodacaocurso acomodacaocurso = acomodacaoCursoFacade.consultar("SELECT a FROM Acomodacaocurso a WHERE a.acomodacao.idacomodacao=" + acomodacao.getIdacomodacao());
+		if (acomodacaocurso == null || acomodacaocurso.getIdacomodacaocurso() == null) {
+			return false;
+		}
+		return true;
 	}
 
 }
