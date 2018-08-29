@@ -8,6 +8,7 @@
 <ui:composition template="/pages/templates/default.xhtml">
 	<ui:define name="corpo">
 		<h:form id="cadDemipair" style="font-size: 10.3px;">
+			
 			<div id="centro">
 				<br></br>
 				<p:dialog visible="#{cadDemiPairMB.habilitarAvisoCambio}"
@@ -616,7 +617,7 @@
 
 							<p:calendar id="primeirovencimento"
 								value="#{cadDemiPairMB.parcelamentopagamento.diaVencimento}"
-								size="20" pattern="dd/MM/yyyy" mask="true">
+								locale="pt" size="20" pattern="dd/MM/yyyy" mask="true">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</p:calendar> 
