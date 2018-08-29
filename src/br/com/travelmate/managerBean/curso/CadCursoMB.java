@@ -2915,8 +2915,12 @@ public class CadCursoMB implements Serializable {
 
 	public void carregarCambio() {
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
-			if (dias > 3) {
+			//int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
+			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+			String dataValidadeString = Formatacao.ConvercaoDataPadrao(venda.getDatavalidade());
+			Date dataValidade = Formatacao.ConvercaoStringData(dataValidadeString);
+			if (dataValidade.before(dataAtual)) {
 				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
 				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
 					int idUltimaMoeda = aplicacaoMB.getListaCambio().get(i).getMoedas().getIdmoedas();
