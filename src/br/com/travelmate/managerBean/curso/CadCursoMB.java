@@ -1590,7 +1590,9 @@ public class CadCursoMB implements Serializable {
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getCursos());
-
+				if (orcamento.getValorCambio() == null) {
+					orcamento.setValorCambio(valorCambio);
+				}
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente, totalPagar, produto,
 						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				CadCursoBean cadCursoBean = new CadCursoBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
@@ -3763,7 +3765,7 @@ public class CadCursoMB implements Serializable {
 	}
 
 	public String calcularComissaoFranquia() {
-		Vendascomissao vendascomissao = new Vendascomissao();
+		Vendascomissao vendascomissao = new Vendascomissao();   
 		if (venda.getIdvendas() == null) {
 			venda.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
 			venda.setValor(valorTotal);
