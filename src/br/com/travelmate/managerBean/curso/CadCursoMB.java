@@ -3154,6 +3154,7 @@ public class CadCursoMB implements Serializable {
 		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 				ocurso.getCambio().getMoedas().getIdmoedas());
 		orcamento.setValorCambio(cambio.getValor());
+		venda.setValorcambio(cambio.getValor());
 		orcamento.setOrcamentoprodutosorcamentoList(new ArrayList<Orcamentoprodutosorcamento>());
 		if (ocurso.getOcrusoprodutosList() != null) {
 			//int idtxTM = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
