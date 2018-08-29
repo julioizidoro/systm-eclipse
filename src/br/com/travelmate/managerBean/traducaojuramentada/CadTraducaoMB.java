@@ -19,6 +19,7 @@ import org.primefaces.event.SelectEvent;
  
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoTraducaoBean;
@@ -504,6 +505,10 @@ public class CadTraducaoMB implements Serializable {
 					parcelamentopagamento.setFormapagamento(formaPagamento);
 				}
 				parcelamentopagamento.setValorParcelamento(parcelamentopagamento.getValorParcelamento());
+				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
+					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
+				}
 				if (venda.getIdvendas() != null) {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
@@ -534,11 +539,20 @@ public class CadTraducaoMB implements Serializable {
 				}
 			}
 		}
-		if (parcelamentopagamento.getDiaVencimento() == null) {
-			msg = msg + "Data do 1º Vencimento Obrigatorio";
-		}
+		
 		if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";
+		}
+		if (parcelamentopagamento.getDiaVencimento() == null) {
+			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+				String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+				Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+				if (parcelamentopagamento.getDiaVencimento().before(dataAtual)) {
+					msg = msg + "Data deve ser num próximo dia util";
+				}
+			}
 		}
 		if (parcelamentopagamento.getValorParcela() <= 0) {
 			msg = msg + "Valor da parcela não pode ser 0";

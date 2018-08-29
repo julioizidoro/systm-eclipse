@@ -25,6 +25,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.ContasReceberBean;
+import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoFacade;
@@ -1208,53 +1209,18 @@ public class CadAcomodacaoMB implements Serializable {
 	}
 
 	public void adicionarFormaPagamento() {
-		boolean horarioExcedido = false;
 		gerarListaParcelamentoOriginal();
 		String msg = validarFormaPagamento();
 		if (msg.length() < 5) {
 			int numeroParcelas = Integer.parseInt(this.numeroParcelas);
 			float valorParcela = valorParcelar / numeroParcelas;
 			if (formaPagamentoString.equalsIgnoreCase("Boleto")) {
-				int numeroAdicionar = 0;
-				int diaSemana = Formatacao.diaSemana(dataPrimeiroPagamento);
-				String horaAtual = Formatacao.foramtarHoraString();
-				String horaMaxima = "16:00:00";
-				Time horatime = null;
-				Time horaMaxTime = null;
-				try {
-					horatime = Formatacao.converterStringHora(horaAtual);
-					horaMaxTime = Formatacao.converterStringHora(horaMaxima);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				if (horatime.after(horaMaxTime)) {
-					numeroAdicionar = 1;
-					horarioExcedido = true;
-				}
-
-				if (diaSemana == 1) {
-					numeroAdicionar = 2;
-					horarioExcedido = true;
-				} else if (diaSemana == 7) {
-					numeroAdicionar = 3;
-					horarioExcedido = true;
-				} else if (diaSemana == 6) {
-					numeroAdicionar = 4;
-					horarioExcedido = true;
-				}
-				if (horarioExcedido) {
-					try {
-						dataPrimeiroPagamento = Formatacao.SomarDiasDatas(dataPrimeiroPagamento, numeroAdicionar);
-						Mensagem.lancarMensagemInfo("Primeira parcela efetuada para o próximo dia útil", "");
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
+				DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(dataPrimeiroPagamento);
+				dataPrimeiroPagamento = dataVencimentoBean.validarDataVencimento();
 			}
 			Parcelamentopagamento parcelamento = new Parcelamentopagamento();
 			parcelamento.setDiaVencimento(dataPrimeiroPagamento);
 			parcelamento.setFormaPagamento(formaPagamentoString);
-
 			parcelamento.setNumeroParcelas(numeroParcelas);
 			parcelamento.setTipoParcelmaneto(tipoParcelamento);
 			parcelamento.setValorParcela(valorParcela);
@@ -1309,10 +1275,10 @@ public class CadAcomodacaoMB implements Serializable {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
 		} else {
 			if (formaPagamentoString.equalsIgnoreCase("Boleto")) {
-				try {
-					msg = msg + Formatacao.validarDataBoleto(dataPrimeiroPagamento);
-				} catch (Exception e) {
-					e.printStackTrace();
+				String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+				Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+				if (dataPrimeiroPagamento.before(dataAtual)) {
+					msg = msg + "Data deve ser num próximo dia util";
 				}
 			}
 		}
