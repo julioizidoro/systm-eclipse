@@ -2935,6 +2935,9 @@ public class CadCursoMB implements Serializable {
 					habilitarAvisoCambio = true;
 					valorCambio = cambio.getValor();
 					cambioAlterado = "Não";
+					dataCambio = cambio.getData();
+					orcamento.setValorCambio(cambio.getValor());
+					moeda = cambio.getMoedas();
 					atualizarValoresProduto();
 				}
 			} else {
