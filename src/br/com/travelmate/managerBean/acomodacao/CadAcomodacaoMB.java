@@ -180,7 +180,7 @@ public class CadAcomodacaoMB implements Serializable {
 		}else {
 			vendas = acomodacao.getVendas();
 			cambio = vendas.getCambio();
-			valorCambio = cambio.getValor();
+			valorCambio = vendas.getValorcambio();
 			programas = vendas.getProdutos();
 			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 			listaPais = paisProdutoFacade.listar(programas.getIdprodutos());
@@ -1405,6 +1405,8 @@ public class CadAcomodacaoMB implements Serializable {
 	public void retornoDialogEditarCambio(SelectEvent event) {
 		this.valorCambio = (float) event.getObject();
 		cambio.setValor(valorCambio);
+		vendas.setValorcambio(valorCambio);
+		orcamento.setValorCambio(valorCambio);
 		atualizarValoresProduto();
 	}
 

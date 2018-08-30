@@ -872,6 +872,7 @@ public class CadTraineeMB implements Serializable {
 		float valorCambio = (float) event.getObject();
 		orcamento.setValorCambio(valorCambio);
 		venda.setValorcambio(valorCambio);
+		atualizarValoresProduto();
 	}
 
 	public void carregarComboMoedas() {
