@@ -1405,7 +1405,9 @@ public class MenuMB implements Serializable {
 	}
 
 	public String followUpCobranca() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "followupCobranca";
 	}
  

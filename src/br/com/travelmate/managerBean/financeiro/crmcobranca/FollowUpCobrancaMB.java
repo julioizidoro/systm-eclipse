@@ -64,6 +64,7 @@ public class FollowUpCobrancaMB implements Serializable{
 	private List<Crmcobranca> listaCrmCobrancaHoje;
 	private List<Crmcobranca> listaCrmCobrancaProx7;
 	private List<Crmcobranca> listaCrmCobrancaTodos;
+	private String chamaraTela = "";
 	
 	
 	@PostConstruct
@@ -73,9 +74,11 @@ public class FollowUpCobrancaMB implements Serializable{
 		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
 		sql = (String) session.getAttribute("sql");
 		funcao = (String) session.getAttribute("funcao");
+		chamaraTela = (String) session.getAttribute("chamadaTela");
 		session.removeAttribute("listaCrmCobrancaTodos");
 		session.removeAttribute("funcao");
 		session.removeAttribute("sql");
+		session.removeAttribute("chamadaTela");
 		if (!aplicacaoMB.isLeituraCobranca()) {
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.gerarListaInadiplentes();
@@ -85,10 +88,10 @@ public class FollowUpCobrancaMB implements Serializable{
 		listaUnidade = GerarListas.listarUnidade();
 		listaUsuario = GerarListas.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo'");
 		listaProgramas = GerarListas.listarProdutos("Select p From Produtos p");
-		if (funcao == null || funcao.length() == 0) {
+		if (funcao == null || funcao.length() == 0 || (chamaraTela != null && chamaraTela.equalsIgnoreCase("Menu"))) {
 			funcao = "hoje";
 		}
-		if (sql == null || sql.length() == 0) {
+		if (sql == null || sql.length() == 0 || (chamaraTela != null && chamaraTela.equalsIgnoreCase("Menu"))) {
 			pesquisar();
 		}else{
 			gerarListaCrmCobranca();

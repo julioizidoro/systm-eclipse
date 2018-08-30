@@ -894,5 +894,65 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		return venda.getCliente().getFoneResidencial();
 	}
 	
+	
+	public String ficha(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("crmcobranca", crmcobranca);
+		session.setAttribute("sql", sql);
+		session.setAttribute("voltarPagina", "followupCobranca");
+		session.setAttribute("funcao", funcao);
+		if (venda.getProdutos().getIdprodutos() == 1) {
+			buscarCurso();
+			session.setAttribute("curso", curso);
+			return "fichaCurso";
+		}else if(venda.getProdutos().getIdprodutos() == 2) {
+			buscarSeguro();
+			session.setAttribute("seguroviagem", seguroViagem);
+			return "fichasSeguroViagem";
+		}else if(venda.getProdutos().getIdprodutos() == 3) {
+			buscarVistos();
+			session.setAttribute("vistos", vistos);
+			return "fichasVistos";
+		}else if(venda.getProdutos().getIdprodutos() == 4) {
+			buscarHighSchool();
+			session.setAttribute("highschool", highschool);
+			return "fichaHighSchool";
+		}else if(venda.getProdutos().getIdprodutos() == 5) {
+			buscarProgramasTeens();
+			session.setAttribute("programateens", programateens);
+			return "fichaCursosTeens";
+		}else if(venda.getProdutos().getIdprodutos() == 9) {
+			buscarAuPair();
+			session.setAttribute("aupair", aupair);
+			return "fichaAuPair";
+		}else if(venda.getProdutos().getIdprodutos() == 10) {
+			buscarWorkTravel();
+			session.setAttribute("worktravel", worktravel);
+			return "fichaWorkTravel";
+		}else if(venda.getProdutos().getIdprodutos() == 13) {
+			buscarTrainee();
+			session.setAttribute("trainee", trainee);
+			if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
+				return "fichaTraineeAus";
+			}else {
+				return "fichaTraineeEUA";
+			}
+		}else if(venda.getProdutos().getIdprodutos() == 16) {
+			buscarVoluntariado();
+			session.setAttribute("voluntariado", voluntariado);
+			return "fichaVoluntariado";
+		}else if(venda.getProdutos().getIdprodutos() == 20) {
+			buscarDemiPair();
+			session.setAttribute("demipair", demipair);
+			return "fichasDemiPair";
+		}else if(venda.getProdutos().getIdprodutos() == 22) {
+			buscarHe();
+			session.setAttribute("he", he);
+			return "fichaHE";
+		}
+		return "";
+	}
+	
 
 }
