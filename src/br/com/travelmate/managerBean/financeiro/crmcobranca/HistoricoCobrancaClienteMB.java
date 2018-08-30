@@ -829,7 +829,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 			iconeFicha = "finalizadoFicha.png";
 		}else if (venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-			iconeFicha = "amarelaFicha.png";
+			iconeFicha = "ficharestricao.png";
 		}else if(venda.getSituacao().equalsIgnoreCase("PROCESSO")){
 			iconeFicha = "processoFicha.png";
 		}else{
