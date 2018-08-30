@@ -33,6 +33,8 @@ import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade; 
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
+import br.com.travelmate.facade.PacotesFacade;
+import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -51,6 +53,8 @@ import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Highschool; 
 import br.com.travelmate.model.Motivocancelamento;
+import br.com.travelmate.model.Pacotes;
+import br.com.travelmate.model.Passagemaerea;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Seguroviagem;
@@ -103,6 +107,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private List<Crmcobranca> listaCrmCobrancaTodos;
 	private String funcao;
 	private String sql;
+	private Pacotes pacotes;
 	
 	
 	@PostConstruct
@@ -396,6 +401,16 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 
 	public void setListaCrmCobrancaTodos(List<Crmcobranca> listaCrmCobrancaTodos) {
 		this.listaCrmCobrancaTodos = listaCrmCobrancaTodos;
+	}
+
+
+	public Pacotes getPacotes() {
+		return pacotes;
+	}
+
+
+	public void setPacotes(Pacotes pacotes) {
+		this.pacotes = pacotes;
 	}
 
 
@@ -709,6 +724,12 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		vistos = vistosFacade.consultarVistos(venda.getIdvendas());
 		return vistos;
 	}
+	
+	public Pacotes buscarPacotes() {
+		PacotesFacade pacotesFacade = new PacotesFacade();
+		pacotes = pacotesFacade.consultar(venda.getIdvendas());
+		return pacotes;
+	}
 
 	public String gerarSqlSeguroViagems() {
 		SeguroViagemFacade seguroViagemController = new SeguroViagemFacade();
@@ -920,7 +941,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 			return "fichaHighSchool";
 		}else if(venda.getProdutos().getIdprodutos() == 5) {
 			buscarProgramasTeens();
-			session.setAttribute("programateens", programateens);
+			session.setAttribute("programasteens", programateens);
 			return "fichaCursosTeens";
 		}else if(venda.getProdutos().getIdprodutos() == 9) {
 			buscarAuPair();
@@ -950,6 +971,10 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 			buscarHe();
 			session.setAttribute("he", he);
 			return "fichaHE";
+		}else if(venda.getProdutos().getIdprodutos() == 7) {
+			buscarPacotes();
+			session.setAttribute("pacotes", pacotes);
+			return "fichasPacotes";
 		}
 		return "";
 	}
