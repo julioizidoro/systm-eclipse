@@ -681,9 +681,15 @@
 					<td><h:panelGroup style="margin-left:2%;">VALOR TOTAL</h:panelGroup>
 					</td>
 					<td style="float: right; width: 40%;"><h:panelGroup>
-									#{fichaWorkTravelMB.vendas.cambio.moedas.sigla}: #{fichaWorkTravelMB.totalPagamento}
+									#{fichaWorkTravelMB.vendas.cambio.moedas.sigla}: 
+									<h:outputText value="#{fichaWorkTravelMB.totalPagamento}">
+										<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
+									</h:outputText>
 								</h:panelGroup> <h:panelGroup style="margin-left:20%;">
-									R$:  #{fichaWorkTravelMB.vendas.formapagamento.valorOrcamento} 
+									R$: 
+										<h:outputText value="#{fichaWorkTravelMB.vendas.formapagamento.valorOrcamento}">
+											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
+										</h:outputText>
 								</h:panelGroup></td>
 				</tr>
 			</table>
