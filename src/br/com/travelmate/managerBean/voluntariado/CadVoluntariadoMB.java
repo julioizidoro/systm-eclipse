@@ -1793,6 +1793,9 @@ public class CadVoluntariadoMB implements Serializable {
 					habilitarAvisoCambio = true;
 					orcamento.setValorCambio(cambio.getValor());
 					cambioAlterado = "Não";
+					dataCambio = cambio.getData();
+					moeda = cambio.getMoedas();
+					venda.setValorcambio(cambio.getValor());
 					atualizarValoresProduto();
 				}
 			} else {
