@@ -67,6 +67,23 @@ public class Cursopacoteformapagamento implements Serializable {
     private Cursospacote cursospacote;
 
     public Cursopacoteformapagamento() {
+        entradaboleto = 0.0f;
+        valorentradaboleto = 0.0f;
+        saldoboleto = 0.0f;
+        valorsaldoboleto = 0.0f;
+        valorparcelaboleto = 0.0f;
+        entradacartao = 0.0f;
+        valorentradacartao = 0.0f;
+        saldocartao = 0.0f;
+        valorsaldocartao = 0.0f;
+        valorparcelacartao = 0.0f;
+        entradafinanciamento = 0.0f;
+        valorentradafinanciamento = 0.0f;
+        nparcelasfinanciamento = 0.0f;
+        saldofinanciamento = 0.0f;
+        valorsaldofinanciamento = 0.0f;
+        valorparcelafinanciamento = 0.0f;
+    	
     }
 
     public Cursopacoteformapagamento(Integer idcursopacoteformapagamento) {

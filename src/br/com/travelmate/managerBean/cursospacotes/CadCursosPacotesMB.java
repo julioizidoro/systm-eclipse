@@ -276,6 +276,11 @@ public class CadCursosPacotesMB implements Serializable {
 		Double valorSaldo = 0.0;
 		Double saldo = 0.0;
 		Double valorEntrada = 0.0;
+		if (cursospacote.getValormoedaestrangeira() >0) {
+			cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+		}else if(cursospacote.getValortotalpacote() > 0) {
+			cursospacote.setValoravista(cursospacote.getValortotalpacote());
+		}
 		if (formapagamento.getEntradaboleto() != null) {
 			if (formapagamento.getEntradaboleto()!=null) {
 				valorEntrada = (double) (cursospacote.getValoravista() * (formapagamento.getEntradaboleto() / 100));
@@ -308,6 +313,11 @@ public class CadCursosPacotesMB implements Serializable {
 			Double valorSaldo = 0.0;
 			Double saldo = 0.0;
 			Double valorEntrada = 0.0;
+			if (cursospacote.getValormoedaestrangeira() >0) {
+				cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+			}else if(cursospacote.getValortotalpacote() > 0) {
+				cursospacote.setValoravista(cursospacote.getValortotalpacote());
+			}
 			if (formapagamento.getEntradacartao()!=null) {
 				valorEntrada = (double) (cursospacote.getValoravista() * (formapagamento.getEntradacartao() / 100));
 				saldo = (double) (100 - formapagamento.getEntradacartao());
@@ -343,6 +353,11 @@ public class CadCursosPacotesMB implements Serializable {
 		Double valorSaldo = 0.0;
 		Double saldo = 0.0;
 		Double valorEntrada = 0.0;
+		if (cursospacote.getValormoedaestrangeira() >0) {
+			cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+		}else if(cursospacote.getValortotalpacote() > 0) {
+			cursospacote.setValoravista(cursospacote.getValortotalpacote());
+		}
 		if (formapagamento.getEntradafinanciamento()!=null) {
 			valorEntrada = cursospacote.getValoravista()
 					* (formapagamento.getEntradafinanciamento().doubleValue() / 100);
@@ -379,6 +394,11 @@ public class CadCursosPacotesMB implements Serializable {
 		Double valorSaldo = 0.0;
 		Double saldo = 0.0;
 		Double valorEntrada = 0.0;
+		if (cursospacote.getValormoedaestrangeira() >0) {
+			cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+		}else if(cursospacote.getValortotalpacote() > 0) {
+			cursospacote.setValoravista(cursospacote.getValortotalpacote());
+		}
 		if (formapagamento.getValorentradaboleto() > 0) {
 			valorEntrada = formapagamento.getValorentradaboleto().doubleValue();
 			float percentualentrada = (formapagamento.getValorentradaboleto() / cursospacote.getValoravista()) * 100;
@@ -410,6 +430,11 @@ public class CadCursosPacotesMB implements Serializable {
 		Double valorSaldo = 0.0;
 		Double saldo = 0.0;
 		Double valorEntrada = 0.0;
+		if (cursospacote.getValormoedaestrangeira() >0) {
+			cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+		}else if(cursospacote.getValortotalpacote() > 0) {
+			cursospacote.setValoravista(cursospacote.getValortotalpacote());
+		}
 		if (formapagamento.getValorentradafinanciamento() > 0) {
 			valorEntrada = formapagamento.getValorentradafinanciamento().doubleValue();
 			float percentualentrada = (formapagamento.getValorentradafinanciamento() / cursospacote.getValoravista()) * 100; 
@@ -445,6 +470,11 @@ public class CadCursosPacotesMB implements Serializable {
 		Double valorSaldo = 0.0; 
 		Double saldo = 0.0;
 		Double valorEntrada = 0.0;
+		if (cursospacote.getValormoedaestrangeira() >0) {
+			cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+		}else if(cursospacote.getValortotalpacote() > 0) {
+			cursospacote.setValoravista(cursospacote.getValortotalpacote());
+		}
 		if (formapagamento.getValorentradafinanciamento() > 0) {
 			valorEntrada = formapagamento.getValorentradafinanciamento().doubleValue();
 			float percentualentrada = (formapagamento.getValorentradafinanciamento() / cursospacote.getValoravista()) * 100; 
