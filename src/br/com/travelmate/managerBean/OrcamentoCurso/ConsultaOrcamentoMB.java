@@ -785,19 +785,12 @@ public class ConsultaOrcamentoMB implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-			String text = dadosFTP.getHostlink() + ":82/systm/orcamento/TM-" + ocurso.getIdocurso() + ".pdf";
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 400);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("texto", text);
-			RequestContext.getCurrentInstance().openDialog("linkorcamento", options, null);
-		} catch (SQLException ex) {
-			Logger.getLogger(ConsultaOrcamentoMB.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		String text = "orcamentos.systm.com.br/TM-" + ocurso.getIdocurso() + ".pdf";
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 400);
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("texto", text);
+		RequestContext.getCurrentInstance().openDialog("linkorcamento", options, null);
 	}
 }

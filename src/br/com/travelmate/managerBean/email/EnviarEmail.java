@@ -365,7 +365,7 @@ public class EnviarEmail {
 					+ "</p>\n" + " <p style=\"font-size:13px;\">Duração do Curso: "
 					+ listaDadosEscolas.get(j).getDuracao() + " Semanas" + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Turno do Curso: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n"
-					+ " <a href=\"" + urlArquivo + ":82/systm/orcamento/"
+					+ " <a href=\\http://orcamentos.systm.com.br/"
 					+ listaDadosEscolas.get(j).getNomeArquivo()
 					+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
 					+ " <img src=\""+ ftpDados.getProtocolo() +":82/systm/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";

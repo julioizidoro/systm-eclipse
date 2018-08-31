@@ -48,6 +48,7 @@ import br.com.travelmate.model.Banco;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarRelatorio;
+import br.com.travelmate.util.UploadAWSS3;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -65,7 +66,7 @@ public class BoletoMB implements Serializable {
 	private List<Contasreceber> listarSelecionados;
 	private String nomearquivo;
 	private String nomeFTP;
-	private StreamedContent file;
+	private File file;
 	private Ftp ftp;
 	private Ftpdados ftpdados;
 	private boolean enviarRemessa = true;
@@ -142,16 +143,7 @@ public class BoletoMB implements Serializable {
 		this.nomeFTP = nomeFTP;
 	}
 
-	public StreamedContent getFile() {
-		return file;
-	}
-
-	public void setFile(StreamedContent file) {
-		this.file = file;
-	}
 	
-	
-
 	public boolean isEnviarRemessa() {
 		return enviarRemessa;
 	}
@@ -192,9 +184,15 @@ public class BoletoMB implements Serializable {
 						nomearquivo, nomeFTP, unidade, bancoFranquia);
 				FacesMessage msg = new FacesMessage("Enviado! ", "Disponivel para download, aperte novamente");
 				FacesContext.getCurrentInstance().addMessage(null, msg); 
-				InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("\\remessa\\" + nomearquivo);
-				file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo);
-				nomeBotao = "Download";   
+				FacesContext facesContext = FacesContext.getCurrentInstance();  
+		        ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
+				//InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/remessa/" + nomearquivo);
+				nomearquivo = servletContext.getRealPath("/remessa/"+nomearquivo);
+				file = new File(nomearquivo);
+				//file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo, "UTF-8");
+				nomeBotao = "Download";  
+				UploadAWSS3 s3 = new UploadAWSS3("remessa");
+				s3.uploadFile(file);
 			} else {
 				FacesMessage msg = new FacesMessage("Erro! ", "Nenhuma Conta Selecionada");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -213,8 +211,13 @@ public class BoletoMB implements Serializable {
 			}
 			
 		}else{
-			InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("\\remessa\\" + nomearquivo);
-			file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo);
+			try {
+				String url = "orcamento.systm.com.br/" + this.file.getName();
+				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 			
 		

@@ -27,6 +27,9 @@ import javax.sql.DataSource;
 
 import org.primefaces.context.RequestContext;
 
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.sun.org.apache.xerces.internal.impl.dv.dtd.NMTOKENDatatypeValidator;
+
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.model.Ftpdados;
@@ -68,20 +71,15 @@ public class GerarRelatorio {
     	FacesContext facesContext = FacesContext.getCurrentInstance();  
         ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
         String nomeFtp = nomeArquivo;
-        nomeArquivo = servletContext.getRealPath("/orcamento/" + nomeArquivo);
+        nomeArquivo = servletContext.getRealPath("/orcamento/"+nomeArquivo);
         InputStream reportStream = facesContext.getExternalContext()  
                 .getResourceAsStream(caminhoRelatorio);  
         File file = new File(nomeArquivo);
         file.createNewFile();
         FileOutputStream outputStream = new FileOutputStream(file);
         JasperRunManager.runReportToPdfStream(reportStream, outputStream, parameters, jrds);
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		dadosFTP = ftpDadosFacade.getFTPDados();
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		ftp.conectar();
-		ftp.enviarArquivo(file, nomeFtp, "/systm/orcamento/");
-		ftp.desconectar();
+        UploadAWSS3 s3 = new UploadAWSS3("orcamento");
+        s3.uploadFile(file);
     }
     
     public void gerarRelatorioSqlPDF(String caminhoRelatorio, Map<String, Object> parameters, String nomeArquivo, String subDir) throws JRException, IOException, SQLException{

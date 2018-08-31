@@ -86,7 +86,7 @@ public class GerarArquivoRemessaItau {
         }
         if (this.listaContas!=null){  
             try {
-            	pasta = pasta + "\\remessa\\" + nomeArquivo;
+            	pasta = pasta + "/remessa/" + nomeArquivo;
             	File arquivo = new File(pasta);
                 remessa = new FileWriter(arquivo);
                 try { 
@@ -196,7 +196,7 @@ public class GerarArquivoRemessaItau {
         }
     }
     
-    public void enviarArquivoFTP(){
+    /*public void enviarArquivoFTP(){
     	FacesContext facesContext = FacesContext.getCurrentInstance(); 
     	ServletContext request = (ServletContext) facesContext.getExternalContext().getContext();
     	String pasta = request.getRealPath("");
@@ -213,7 +213,7 @@ public class GerarArquivoRemessaItau {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-	}
+	}*/
     
     
 }

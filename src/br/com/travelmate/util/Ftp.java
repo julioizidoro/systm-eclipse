@@ -33,15 +33,18 @@ public class Ftp {
    
     public Ftp(String host, String user, String password)  {
     	ftpClient = new FTPClient();
-        this.host = host;
+    	
+        //this.host = "tmftp.systm.com.br";
+    	this.host=host;
         this.user = user;
         this.password = password;
     }
 
     public boolean conectar() throws IOException{
-        ftpClient.connect(host);
+    	ftpClient.connect(host);
         ftpClient.login(user, password);
         if (ftpClient.isConnected()){
+        	ftpClient.setControlKeepAliveTimeout(300);
             return true;
         }else return false;
     }
@@ -55,11 +58,10 @@ public class Ftp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		ftpClient.changeWorkingDirectory(pasta);
-        ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
-        FileInputStream arqEnviar = new FileInputStream(file);
+        ftpClient.changeWorkingDirectory(pasta);
+        FileInputStream arqEnviar = new FileInputStream(file.getAbsolutePath());
         arquivoFTP = new String(arquivoFTP.getBytes("ISO-8859-1"), "UTF-8");
-        //arquivoFTP =  String.format("mov", file);
+        
         if (ftpClient.storeFile(arquivoFTP, arqEnviar)) {
         	arqEnviar.close();
             return "Arquivo Salvo com Sucesso";
@@ -80,12 +82,12 @@ public class Ftp {
         try {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+			ftpClient.enterLocalPassiveMode();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
-        ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
         arquivoFTP = new String(arquivoFTP.getBytes("ISO-8859-1"), "UTF-8");
         if (ftpClient.storeFile(arquivoFTP, arqEnviar)) {
