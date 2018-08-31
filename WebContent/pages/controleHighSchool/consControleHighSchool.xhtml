@@ -148,13 +148,13 @@
 									<h:outputText value="#{controleFinanceiro.vendas.idvendas}" />
 								</p:column>
 								<p:column headerText="Data Ins." style="text-align:left;"
-									width="52">
+									width="70">
 									<h:outputText value="#{controleFinanceiro.vendas.dataVenda}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
 									</h:outputText>
 								</p:column>
-								<p:column headerText="Nome" width="180">
+								<p:column headerText="Nome" width="160">
 									<p:commandLink
 										value="#{controleFinanceiro.vendas.cliente.nome}"
 										action="#{controleHighSchoolMB.atualizarInformacoes(controleFinanceiro)}"
@@ -443,7 +443,7 @@
 									<p:commandLink
 										action="#{controleHighSchoolMB.documentacao(controleFinanceiro)}"
 										title="Arquivos">
-										<img src="../../resources/img/boletoFicha.png" width="25" />
+										<img src="../../resources/img/boletoFicha.png" width="22" />
 									</p:commandLink>
 								</p:column>
 							</p:dataTable>
@@ -471,13 +471,13 @@
 									<h:outputText value="#{controleAndamento.vendas.idvendas}" />
 								</p:column>
 								<p:column headerText="Data Ins." style="text-align:left;"
-									width="52">
+									width="70">
 									<h:outputText value="#{controleAndamento.vendas.dataVenda}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
 									</h:outputText>
 								</p:column>
-								<p:column headerText="Nome" width="180">
+								<p:column headerText="Nome" width="160">
 									<p:commandLink value="#{controleAndamento.vendas.cliente.nome}"
 										action="#{controleHighSchoolMB.atualizarInformacoes(controleAndamento)}"
 										title="Atualizar informações"
@@ -764,7 +764,7 @@
 									<p:commandLink
 										action="#{controleHighSchoolMB.documentacao(controleAndamento)}"
 										title="Arquivos">
-										<img src="../../resources/img/boletoFicha.png" width="25" />
+										<img src="../../resources/img/boletoFicha.png" width="22" />
 									</p:commandLink>
 								</p:column>
 							</p:dataTable>
@@ -782,16 +782,16 @@
 											width="25" />                   
 									</p:commandLink>                
 								</p:column>            
-								<p:column headerText="ID" width="32" style="text-align:left;">       
+								<p:column headerText="ID" width="42" style="text-align:left;">       
 									<h:outputText value="#{controleFinalizado.vendas.idvendas}" />   
 								</p:column>    
-								<p:column headerText="Data Ins." style="text-align:left;" width="52">
+								<p:column headerText="Data Ins." style="text-align:left;" width="70">
 									<h:outputText value="#{controleFinalizado.vendas.dataVenda}">          
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
 									</h:outputText>
 								</p:column>   
-								<p:column headerText="Nome" width="180">
+								<p:column headerText="Nome" width="150">
 									<p:commandLink value="#{controleFinalizado.vendas.cliente.nome}"
 										action="#{controleHighSchoolMB.atualizarInformacoes(controleFinalizado)}"
 										title="Atualizar informações" style="text-decoration: underline"> 
@@ -990,7 +990,7 @@
 								<p:column headerText="Arquivos" style="text-align:center" width="70">    
 									<p:commandLink
 										action="#{controleHighSchoolMB.documentacao(controleFinalizado)}" title="Arquivos">  
-										<img src="../../resources/img/boletoFicha.png" width="25"/>
+										<img src="../../resources/img/boletoFicha.png" width="22"/>
 									</p:commandLink>
 								</p:column>  
 							</p:dataTable>        
@@ -1011,13 +1011,13 @@
 								<p:column headerText="ID" width="32" style="text-align:left;">       
 									<h:outputText value="#{controleCancelada.vendas.idvendas}" />   
 								</p:column>    
-								<p:column headerText="Data Ins." style="text-align:left;" width="52">
+								<p:column headerText="Data Ins." style="text-align:left;" width="70">
 									<h:outputText value="#{controleCancelada.vendas.dataVenda}">          
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
 									</h:outputText>
 								</p:column>   
-								<p:column headerText="Nome" width="180">
+								<p:column headerText="Nome" width="160">
 									<p:commandLink value="#{controleCancelada.vendas.cliente.nome}"
 										action="#{controleHighSchoolMB.atualizarInformacoes(controleCancelada)}"
 										title="Atualizar informações" style="text-decoration: underline"> 
@@ -1216,7 +1216,7 @@
 								<p:column headerText="Arquivos" style="text-align:center" width="70">    
 									<p:commandLink
 										action="#{controleHighSchoolMB.documentacao(controleCancelada)}" title="Arquivos">  
-										<img src="../../resources/img/boletoFicha.png" width="25"/>
+										<img src="../../resources/img/boletoFicha.png" width="22"/>
 									</p:commandLink>
 								</p:column>  
 							</p:dataTable>  
@@ -1242,13 +1242,13 @@
 									<h:outputText value="#{controle.vendas.idvendas}" />
 								</p:column>
 								<p:column headerText="Data Ins." style="text-align:left;"
-									width="52">
+									width="70">
 									<h:outputText value="#{controle.vendas.dataVenda}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
 									</h:outputText>
 								</p:column>
-								<p:column headerText="Nome" width="180">
+								<p:column headerText="Nome" width="160">
 									<p:commandLink value="#{controle.vendas.cliente.nome}"
 										action="#{controleHighSchoolMB.atualizarInformacoes(controle)}"
 										title="Atualizar informações"
@@ -1528,7 +1528,7 @@
 									<p:commandLink
 										action="#{controleHighSchoolMB.documentacao(controle)}"
 										title="Arquivos">
-										<img src="../../resources/img/boletoFicha.png" width="25" />
+										<img src="../../resources/img/boletoFicha.png" width="22" />
 									</p:commandLink>
 								</p:column>
 							</p:dataTable>
