@@ -39,7 +39,7 @@ public class UploadAWSS3 {
 		}else if (tipo.equalsIgnoreCase("imagens")) {
 			
 		}else if (tipo.equalsIgnoreCase("remessa")) {
-			
+			bucket = "remessa.systm.com.br";
 		}
 	}
 

@@ -9,5 +9,10 @@
       <Resource name="jdbc/systmDB" auth="Container"
 		factory="org.apache.naming.factory.BeanFactory" type="com.mchange.v2.c3p0.ComboPooledDataSource"
 		driverClass="com.mysql.jdbc.Driver" jdbcUrl="jdbc:mysql://tmmysql.cxjytqucztmb.us-east-1.rds.amazonaws.com:3306/systm"
-		user="master" password="Travel2018#" minPoolSize="100" maxPoolSize="100" />
+		user="master" password="Travel2018#" minPoolSize="25" maxPoolSize="25" />
+		
+	<!-- 	<Resource name="jdbc/systmDB" auth="Container"
+		factory="org.apache.naming.factory.BeanFactory" type="com.mchange.v2.c3p0.ComboPooledDataSource"
+		driverClass="com.mysql.jdbc.Driver" jdbcUrl="jdbc:mysql://localhost:3306/systm"
+		user="root" password="simples" minPoolSize="25" maxPoolSize="25" /> -->
 </Context>
