@@ -78,7 +78,8 @@ public class GerarRelatorio {
         file.createNewFile();
         FileOutputStream outputStream = new FileOutputStream(file);
         JasperRunManager.runReportToPdfStream(reportStream, outputStream, parameters, jrds);
-        UploadAWSS3 s3 = new UploadAWSS3("orcamento");
+        String caminho =  servletContext.getRealPath("/resources/aws.properties");
+        UploadAWSS3 s3 = new UploadAWSS3("orcamento", caminho);
         s3.uploadFile(file);
     }
     

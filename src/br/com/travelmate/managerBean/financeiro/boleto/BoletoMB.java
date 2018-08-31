@@ -24,10 +24,7 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 import br.com.travelmate.bean.GerarArquivoRemessaItau;
 import br.com.travelmate.bean.RelatorioErroBean;
@@ -39,12 +36,12 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
+import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Remessaarquivo;
 import br.com.travelmate.model.Remessacontas;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Banco;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarRelatorio;
@@ -197,7 +194,8 @@ public class BoletoMB implements Serializable {
 				}
 				//file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo, "UTF-8");
 				nomeBotao = "Download";  
-				UploadAWSS3 s3 = new UploadAWSS3("remessa");
+				String caminho = nomearquivo = servletContext.getRealPath("/resources/aws.properties");
+				UploadAWSS3 s3 = new UploadAWSS3("remessa", caminho);
 				s3.uploadFile(file);
 			} else {
 				FacesMessage msg = new FacesMessage("Erro! ", "Nenhuma Conta Selecionada");

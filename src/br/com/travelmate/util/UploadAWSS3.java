@@ -19,27 +19,28 @@ import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
 
+
+
+
+
 public class UploadAWSS3 {
 	
 	private String bucket;
-	private String clientRegion;
-	private String accesskey;
-	private String secretaccesskey;
+	private AWSPropertie awsPropertie;
 	
-	public UploadAWSS3(String tipo) {
-		this.clientRegion="us-east-1";
-		accesskey = "AKIAIMOELM7MJGHUZRAQ";
-		secretaccesskey = "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";
+	public UploadAWSS3(String tipo, String caminho) {
+		awsPropertie = new AWSPropertie();
+		awsPropertie.carregarInformacoes(caminho);
 		if (tipo.equalsIgnoreCase("orcamento")) {
-				bucket = "orcamentos.systm.com.br";
+				bucket = awsPropertie.getBucketOrcamento();
 		}else if (tipo.equalsIgnoreCase("arquivos")){
-			bucket = "arquivos.systm.com.br";
+			bucket = awsPropertie.getBucketArquivo();
 		}else if (tipo.equalsIgnoreCase("docs")) {
-			
+			bucket = awsPropertie.getBucketDocs();
 		}else if (tipo.equalsIgnoreCase("imagens")) {
-			
+			bucket = awsPropertie.getBucketImagem();
 		}else if (tipo.equalsIgnoreCase("remessa")) {
-			bucket = "remessa.systm.com.br";
+			bucket = awsPropertie.getBucketRemessa();
 		}
 	}
 
@@ -60,9 +61,9 @@ public class UploadAWSS3 {
 
 	        try {
 	        	
-	        	BasicAWSCredentials awsCreds = new BasicAWSCredentials(accesskey, secretaccesskey);
+	        	BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsPropertie.getAccesskey(), awsPropertie.getSecretaccesskey());
 	        	AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-	        			 				.withRegion(clientRegion)
+	        			 				.withRegion(awsPropertie.getClientRegion())
 	        	                       .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
 	        	                       .build();
 	            TransferManager tm = TransferManagerBuilder.standard()
@@ -93,9 +94,9 @@ public class UploadAWSS3 {
 	List<S3ObjectSummary> lista = new ArrayList<S3ObjectSummary>();
     
     try {    
-    	BasicAWSCredentials awsCreds = new BasicAWSCredentials(accesskey, secretaccesskey);
+    	BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsPropertie.getAccesskey(), awsPropertie.getSecretaccesskey());
     	AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-    			 				.withRegion(clientRegion)
+    			 				.withRegion(awsPropertie.getClientRegion())
     	                       .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
     	                       .build();
 
@@ -124,9 +125,9 @@ public class UploadAWSS3 {
 	public boolean delete(S3ObjectSummary objectSummary) {
 		if (objectSummary!=null) {
 			try {
-				BasicAWSCredentials awsCreds = new BasicAWSCredentials(accesskey, secretaccesskey);
+				BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsPropertie.getAccesskey(), awsPropertie.getSecretaccesskey());
 	        	AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-	        			 				.withRegion(clientRegion)
+	        			 				.withRegion(awsPropertie.getClientRegion())
 	        	                       .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
 	        	                       .build();
 
