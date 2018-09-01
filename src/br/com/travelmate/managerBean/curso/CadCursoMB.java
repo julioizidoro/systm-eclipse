@@ -1479,6 +1479,14 @@ public class CadCursoMB implements Serializable {
 		}
 		if (dataPrimeiroPagamento == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
+		}else {
+			if (formaPagamentoString.equalsIgnoreCase("Boleto")) {
+				String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+				Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+				if (dataPrimeiroPagamento.before(dataAtual)) {
+					msg = msg + "Data deve ser num próximo dia util";
+				}
+			}
 		}
 		if (formaPagamentoString.equalsIgnoreCase("sn")) {
 			msg = msg + "Forma de pagamento não selecionada";
@@ -3741,8 +3749,8 @@ public class CadCursoMB implements Serializable {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
 			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			valorCambio = cambio.getValor();
 			if (venda.getIdvendas() != null) {
-				valorCambio = cambio.getValor();
 				orcamento.setValorCambio(cambio.getValor());
 			}
 		}

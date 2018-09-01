@@ -671,11 +671,11 @@ public class CadCursosTeensMB implements Serializable {
 		if (parcelamentopagamento.getDiaVencimento() == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
 		}else {
-			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")){
-				try {
-					msg = msg + Formatacao.validarDataBoleto(parcelamentopagamento.getDiaVencimento());
-				} catch (Exception e) {
-					e.printStackTrace();
+			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+				String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+				Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+				if (parcelamentopagamento.getDiaVencimento().before(dataAtual)) {
+					msg = msg + "Data deve ser num próximo dia util";
 				}
 			}
 		}

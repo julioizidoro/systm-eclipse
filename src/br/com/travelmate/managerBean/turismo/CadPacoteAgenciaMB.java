@@ -1453,11 +1453,11 @@ public class CadPacoteAgenciaMB implements Serializable {
 		if (dataPrimeiroPagamento == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatorio";
 		}else {
-			if (formaPagamentoString.equalsIgnoreCase("Boleto")){
-				try {
-					msg = msg + Formatacao.validarDataBoleto(dataPrimeiroPagamento);
-				} catch (Exception e) {
-					e.printStackTrace();
+			if (formaPagamentoString.equalsIgnoreCase("Boleto")) {
+				String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+				Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+				if (dataPrimeiroPagamento.before(dataAtual)) {
+					msg = msg + "Data deve ser num próximo dia util";
 				}
 			}
 		}
