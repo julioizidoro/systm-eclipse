@@ -71,9 +71,11 @@ public class FollowUpCobrancaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
+		sql = (String) session.getAttribute("sql");
 		funcao = (String) session.getAttribute("funcao");
 		session.removeAttribute("listaCrmCobrancaTodos");
 		session.removeAttribute("funcao");
+		session.removeAttribute("sql");
 		if (!aplicacaoMB.isLeituraCobranca()) {
 			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 			crmCobrancaBean.gerarListaInadiplentes();
@@ -86,9 +88,10 @@ public class FollowUpCobrancaMB implements Serializable{
 		if (funcao == null || funcao.length() == 0) {
 			funcao = "hoje";
 		}
-		if (listaCrmCobranca == null || listaCrmCobranca.size() == 0) {
+		if (sql == null || sql.length() == 0) {
 			pesquisar();
 		}else{
+			gerarListaCrmCobranca();
 			gerarNumerosCrmCobranca();
 		}
 		mudarCoresBotoes(funcao);
@@ -386,7 +389,7 @@ public class FollowUpCobrancaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobranca", crmcobranca);
-		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
+		session.setAttribute("sql", sql);
 		session.setAttribute("voltarPagina", "followupCobranca");
 		session.setAttribute("funcao", funcao);
 		return "historicoCobrancaCliente";

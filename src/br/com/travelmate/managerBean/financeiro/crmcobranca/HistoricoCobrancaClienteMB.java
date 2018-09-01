@@ -102,6 +102,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	private boolean habilitarPrioridade = true;
 	private List<Crmcobranca> listaCrmCobrancaTodos;
 	private String funcao;
+	private String sql;
 	
 	
 	@PostConstruct
@@ -111,11 +112,10 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		crmcobranca = (Crmcobranca) session.getAttribute("crmcobranca");
 		venda = (Vendas) session.getAttribute("venda");
 		voltarPagina = (String) session.getAttribute("voltarPagina");
-		listaCrmCobrancaTodos = (List<Crmcobranca>) session.getAttribute("listaCrmCobrancaTodos");
+		sql = (String) session.getAttribute("sql");
 		funcao = (String) session.getAttribute("funcao");
-		session.removeAttribute("listaCrmCobrancaTodos");
+		session.removeAttribute("sql");
 		session.removeAttribute("voltarPagina");
-		session.removeAttribute("listaCrmCobranca");
 		session.removeAttribute("crmcobranca");
 		session.removeAttribute("vendas");
 		session.removeAttribute("funcao");
@@ -420,7 +420,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	public String voltar(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("listaCrmCobrancaTodos", listaCrmCobrancaTodos);
+		session.setAttribute("sql", sql);
 		session.setAttribute("funcao", funcao);
 		return voltarPagina;
 	}
