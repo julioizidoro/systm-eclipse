@@ -55,11 +55,11 @@ public class DataVencimentoBean {
 				numeroAdicionar = 1;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			} else if (horatime.after(horaMaxTime) && numeroDias == 0 && diaSemana == 7) {
+			} else if (numeroDias == 0 && diaSemana == 7) {
 				numeroAdicionar = 3;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			} else if (horatime.after(horaMaxTime) && numeroDias == 0 && diaSemana == 1) {
+			} else if (numeroDias == 0 && diaSemana == 1) {
 				numeroAdicionar = 2;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
@@ -71,11 +71,11 @@ public class DataVencimentoBean {
 				numeroAdicionar = 3;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			} else if (horatime.after(horaMaxTime) && numeroDias == 1 && diaSemana == 7) {
+			} else if (numeroDias == 1 && diaSemana == 7) {
 				numeroAdicionar = 2;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			} else if (horatime.after(horaMaxTime) && numeroDias == 1 && diaSemana == 1) {
+			} else if (numeroDias == 1 && diaSemana == 1) {
 				numeroAdicionar = 1;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
@@ -87,7 +87,7 @@ public class DataVencimentoBean {
 				numeroAdicionar = 2;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
-			} else if (horatime.after(horaMaxTime) && numeroDias == 2 && diaSemana == 7) {
+			} else if (numeroDias == 2 && diaSemana == 7) {
 				numeroAdicionar = 1;
 				horarioExcedido = true;
 				dataPagamento = Formatacao.SomarDiasDatas(dataPagamento, numeroAdicionar);
