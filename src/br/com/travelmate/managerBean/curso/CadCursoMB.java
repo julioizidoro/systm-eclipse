@@ -306,6 +306,7 @@ public class CadCursoMB implements Serializable {
 					listaAcomodacao.add(acomodacao);
 					btnPesquisar = true;
 					lancadoAcomodacaoInd = true;
+					idVendaAcoIndependente = acomodacao.getVendas().getIdvendas();
 				}else {
 					acomodacao = new Acomodacao();
 				}
@@ -1618,9 +1619,13 @@ public class CadCursoMB implements Serializable {
 					}
 					acomodacao.setVendas(vendasAcomodacao);
 					acomodacao.setProdutos(venda.getProdutos());
+					
 					AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
 					acomodacao = acomodacaoFacade.salvar(acomodacao);
 					Acomodacaocurso acomodacaocurso = new Acomodacaocurso();
+					if (curso.getAcomodacaocurso() != null) {
+						acomodacaocurso = curso.getAcomodacaocurso();
+					}
 					AcomodacaoCursoFacade acomodacaoCursoFacade = new AcomodacaoCursoFacade();
 					acomodacaocurso.setCurso(curso);
 					acomodacaocurso.setAcomodacao(acomodacao);
