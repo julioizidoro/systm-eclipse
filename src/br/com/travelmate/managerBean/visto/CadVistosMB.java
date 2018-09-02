@@ -451,16 +451,16 @@ public class CadVistosMB implements Serializable {
 			if (formaPagamento != null) {
 				parcelamento.setFormapagamento(formaPagamento);
 			}
+			if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+				DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamento.getDiaVencimento());
+				parcelamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
+			}
 			if (vendas.getIdvendas() != null) {
 				if (!vendas.getSituacao().equalsIgnoreCase("PROCESSO") && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
 					ContasReceberBean contasReceberBean = new ContasReceberBean();
 					parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento,
 							formaPagamento.getParcelamentopagamentoList().size(), vendas, usuarioLogadoMB, vistos.getDataembarque());
 				}
-			}
-			if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-				DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamento.getDiaVencimento());
-				parcelamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 			}
 			formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 			calcularParcelamentoPagamento();

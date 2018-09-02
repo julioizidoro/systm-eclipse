@@ -1410,15 +1410,16 @@ public class CadPacoteAgenciaMB implements Serializable {
 				if (formaPagamento != null) {
 					parcelamento.setFormapagamento(formaPagamento);
 				}
+
+				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamento.getDiaVencimento());
+					parcelamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
+				}
 				if (vendass.getIdvendas() != null){
 					if (!vendass.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamento = contasReceberBean.gerarParcelasIndividuais(parcelamento, formaPagamento.getParcelamentopagamentoList().size(), vendass, usuarioLogadoMB, pacotes.getDatainicio());
 					}
-				}
-				if (parcelamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamento.getDiaVencimento());
-					parcelamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamento);
 				calcularParcelamentoPagamento();

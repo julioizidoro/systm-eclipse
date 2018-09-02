@@ -596,6 +596,10 @@ public class CadDemiPairMB implements Serializable {
 					parcelamentopagamento.setFormapagamento(formaPagamento);
 				}
 				parcelamentopagamento.setValorParcelamento(parcelamentopagamento.getValorParcelamento());
+				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
+					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
+				}
 				if (venda.getIdvendas() != null) {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
@@ -614,10 +618,6 @@ public class CadDemiPairMB implements Serializable {
 				if (parcelamentopagamento.isVerificarParcelamento()) {
 					Mensagem.lancarMensagemWarn("Data Vencimento", "Data da ultima parcela dos "
 							+ parcelamentopagamento.getFormaPagamento() + " é maior que data início do programa.");
-				}
-				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
-					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 				}
 				parcelamentopagamento = new Parcelamentopagamento();
 				calcularParcelamentoPagamento();

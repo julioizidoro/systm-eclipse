@@ -894,15 +894,15 @@ public class CadHeFinalMB implements Serializable {
 					parcelamentopagamento.setFormapagamento(formaPagamento);
 				}
 				parcelamentopagamento.setValorParcelamento(parcelamentopagamento.getValorParcelamento());
+				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
+					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
+				}
 				if (venda.getIdvendas()!=null){
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento, formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, he.getDatainicio());
 					}
-				}
-				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
-					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
 				parcelamentopagamento = new Parcelamentopagamento();
