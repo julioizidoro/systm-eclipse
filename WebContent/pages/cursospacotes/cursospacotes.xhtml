@@ -140,7 +140,10 @@
 							title="#{cursosPacotesMB.retornarTitleAcomodação(pacotes)}"/>   
 					</p:column>    
 					<p:column headerText="Total" style="width:85px;text-align:right;">
-						<h:outputText value="#{pacotes.valortotalpacote}"/>  
+						<h:outputText value="#{pacotes.valortotalpacote}">
+							<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+						</h:outputText>  
 					</p:column>    
 					<p:column headerText="Editar" style="width:65px;text-align:center;">  
 						<p:commandLink action="#{cursosPacotesMB.editar(pacotes)}" title="Editar" style="text-decoration:none;">

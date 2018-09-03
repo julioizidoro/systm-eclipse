@@ -60,7 +60,13 @@ public class ControleVoluntariadoMB implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-		listarControle();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaControle =  (List<Controlevoluntariado>) session.getAttribute("listaControle");
+		session.removeAttribute("listaControle");
+		if (listaControle == null || listaControle.size() == 0) {
+			listarControle();
+		}
 		gerarListaUnidadeNegocio();
 	}
 	
@@ -304,6 +310,7 @@ public class ControleVoluntariadoMB implements Serializable{
         session.setAttribute("vendas", controlevoluntariado.getVendas());
         voltar = "controleVoluntariado";
         session.setAttribute("voltar", voltar);
+        session.setAttribute("listaControle", listaControle);
 		return "consArquivos";
     }
 	

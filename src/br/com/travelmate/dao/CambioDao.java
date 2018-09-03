@@ -8,6 +8,8 @@ package br.com.travelmate.dao;
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Moedas;
+import br.com.travelmate.model.Pais;
+
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -95,6 +97,16 @@ public class CambioDao {
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Cambio c where c.data='" + data + "'");
+        List<Cambio> lista = q.getResultList();
+        manager.close();
+        return lista;
+    }
+    
+    
+    public List<Cambio> listarCambioPais(String data, Pais pais) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery("select c from Cambio c where c.data='" + data + "' and c.pais.idpais=" + pais.getIdpais());
         List<Cambio> lista = q.getResultList();
         manager.close();
         return lista;

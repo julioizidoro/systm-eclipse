@@ -41,6 +41,9 @@ public class Cambio implements Serializable {
     @JoinColumn(name = "moedas_idmoedas", referencedColumnName = "idmoedas")
     @ManyToOne(optional = false)
     private Moedas moedas;
+    @JoinColumn(name = "pais_idpais", referencedColumnName = "idpais")
+    @ManyToOne(optional = false)
+    private Pais pais;
 
     public Cambio() {
     }
@@ -81,7 +84,15 @@ public class Cambio implements Serializable {
         this.moedas = moedas;
     }
 
-    @Override
+    public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idcambio != null ? idcambio.hashCode() : 0);

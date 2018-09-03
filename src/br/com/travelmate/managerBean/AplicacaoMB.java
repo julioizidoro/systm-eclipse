@@ -35,6 +35,8 @@ public class AplicacaoMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
 	private VendasDao vendasDao;
 	private String mascara8;
 	private String mascara9;
@@ -214,7 +216,7 @@ public class AplicacaoMB implements Serializable {
 		String data = null;
 		data = Formatacao.ConvercaoDataSql(datacambiohoje);
 		CambioFacade cambioFacade = new CambioFacade();
-		listaCambio = cambioFacade.listar(data);
+		listaCambio = cambioFacade.listarCambioPais(data, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		int contador = 0;
 		if ((listaCambio != null) && (listaCambio.size() == 0)) {
 			listaCambio = null;

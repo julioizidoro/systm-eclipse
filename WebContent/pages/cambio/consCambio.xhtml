@@ -9,22 +9,47 @@
 		<h:form id="consCambio">
 			<div id="centro">
 				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-				<p:outputLabel value="Data" for="data"  
-					style="font-size: 13px ;margin-left:27.5%;" />   
-				<br></br>
-				<p:calendar id="data" value="#{cambioMB.data}" size="12"
-					style="margin-left:27.5% !important" locale="pt" pattern="dd/MM/yyyy"
-					mask="true" maxlength="15">
-					<f:convertDateTime pattern="dd/MM/yyyy" 
-						timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" /> 
-				</p:calendar>
-				<p:commandButton value="Pesquisar" style="margin-left:2%;font-size:12px;"
-					icon=" ui-icon-search " update="consCambio:tabelaCambio"
-					action="#{cambioMB.pesquisar()}">
-					<p:ajax event="dialogReturn" update="consCambio:tabelaCambio"
-						listener="#{cambioMB.retornoDialogGerarCambio}" />
-				</p:commandButton><br/> 
+				<p:dialog visible="#{cambioMB.habilitarAvisos}" header="ATENÇÃO" id="panelAviso">
+					<div align="center" style="background:#DDDDE1;">
+			            <p:outputLabel value="Câmbio do dia zerado." style="font-weight:bold;font-size: 14px;"/>  
+			            <br/>
+			            <p:outputLabel value="Deseja Incluir Valores?" style="font-weight:bold;font-size: 18px;"/> 
+			            <br/><br/>   
+			            <p:commandButton id="btnconfirmar" value="Confirmar" icon="ui-icon-check" update="panelAviso" action="#{cambioMB.gerarcambiodia('Sim')}"/>
+			            <p:commandButton id="btncancelar"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" action="#{cambioMB.gerarcambiodia('Não')}"/>
+			            <br/>
+			            <br/>
+		            </div>
+				</p:dialog>
+				<h:panelGrid style="width:33%;margin-left:27.5%;" columns="3">
+					<p:outputLabel value="Data" for="data" style="font-size: 13px;" />
+					<p:outputLabel value="Pais" for="data" style="font-size: 13px;" />
+					<p:outputLabel />
+					<p:calendar id="data" value="#{cambioMB.data}" size="12"
+						locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:selectOneMenu id="pais" value="#{cambioMB.pais}"
+						style="width:200px;" converter="PaisConverterS" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{cambioMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+						<f:attribute name="listaPais"
+							value="#{cambioMB.listaPais}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+					<p:commandButton value="Pesquisar"
+						style="margin-left:2%;font-size:12px;" icon=" ui-icon-search "
+						update="consCambio:tabelaCambio" action="#{cambioMB.pesquisar()}">
+						<p:ajax event="dialogReturn" update="consCambio:tabelaCambio, consCambio:growl"
+							listener="#{cambioMB.retornoDialogGerarCambio}" />
+					</p:commandButton>
+				</h:panelGrid>
+				<br/> 
 				<legend id="iUsu2">  
 					<b  style="font-size:18px;">Consulta de Câmbio</b>  
 				</legend>   
@@ -35,16 +60,16 @@
 						value="#{cambioMB.listaCambio}"  editable="true" 
 						editMode="cell" rowIndexVar="rowIx" scrollable="true" 
 						scrollHeight="300" style="width:46%;"> 
-						<p:column headerText="Data" style="text-align:left;"> 
+						<p:column headerText="Data" style="text-align:left;width:100px;"> 
 							<h:outputText value="#{cambio.data}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>
-						<p:column headerText="Moeda" style="text-align:left;">
+						<p:column headerText="Moeda" style="text-align:left;width:100px;">
 							<h:outputText value="#{cambio.moedas.sigla}" /> 
 						</p:column>
-						<p:column headerText="Valor" style="text-align: right;width:100px;">
+						<p:column headerText="Valor" style="text-align: right;width:80px;">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{cambio.valor}" 
@@ -60,6 +85,28 @@
 											minFractionDigits="2" />
 										<p:ajax event="blur" update="tabelaCambio" listener="#{cambioMB.editarCambio(cambio)}"/> 
 									</p:inputText>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Pais" style="text-align: left;width:150px;">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{cambio.pais.nome}" 
+										style="text-align:right">
+									</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:selectOneMenu id="pais" value="#{cambio.pais}"
+										style="width:200px;" converter="PaisConverterS" filter="true"
+										filterMatchMode="startsWith" panelStyle="width:200px">
+										<f:selectItem itemLabel="País" itemValue="0"
+											noSelectionOption="true" />
+										<f:selectItems id="idpais" value="#{cambioMB.listaPaisTabela}"
+											var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+										<f:attribute name="listaPais"
+											value="#{cambioMB.listaPaisTabela}" />
+										<p:ajax event="change" update="tabelaCambio" listener="#{cambioMB.editarCambio(cambio)}"/> 
+									</p:selectOneMenu>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>

@@ -168,11 +168,22 @@
 						columnClasses="tamanho6, tamanho6, tamanho6, tamanho6"
 						style="width:67%;">
 						<p:outputLabel value="Sigla Unidade" />
+						<p:outputLabel value="Pais"/>  
 						<p:outputLabel value="Categoria"/>  
-						<p:outputLabel value="Servidor"/>
 						<p:outputLabel/>
 						<p:inputText id="sigla" style="width:55%;"
-							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />    
+							value="#{cadUnidadeNegocioMB.unidadenegocio.sigla}" />   
+						<p:selectOneMenu id="pais" value="#{cadUnidadeNegocioMB.pais}"
+							style="width:200px;" converter="PaisConverterS" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{cadUnidadeNegocioMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+							<f:attribute name="listaPais"
+								value="#{cadUnidadeNegocioMB.listaPais}" />
+							<p:ajax event="change" />
+						</p:selectOneMenu> 
 						<p:selectOneMenu id="categoria"  value="#{cadUnidadeNegocioMB.unidadenegocio.categoria}" filter="true" filterMatchMode="startsWith" panelStyle="width:180px">
 							<f:selectItem itemLabel="Selecione" itemValue="sn"
 								noSelectionOption="true" />
@@ -180,11 +191,7 @@
 							<f:selectItem itemLabel="Silver" itemValue="Silver" />
 							<f:selectItem itemLabel="Bronze" itemValue="Bronze" />
 						</p:selectOneMenu> 
-						<p:inputText readonly="#{cadUnidadeNegocioMB.somenteLeitura}" id="servidor" style="width:50%;text-align: right;" 
-							value="#{cadUnidadeNegocioMB.unidadenegocio.servidor}" maxlength="10" >
-							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-						</p:inputText>
-						<p:outputLabel/> 
+						<p:outputLabel/> <p:outputLabel /><p:outputLabel /><p:outputLabel /><p:outputLabel />
 						<h:panelGroup> 
 							<p:selectBooleanCheckbox id="parcelamentoLoja" disabled="#{cadUnidadeNegocioMB.somenteLeitura}"
 								value="#{cadUnidadeNegocioMB.unidadenegocio.parcelamentojoja}"/> 

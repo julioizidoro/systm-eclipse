@@ -67,7 +67,16 @@ public class ControleCursosTeensMB implements Serializable{
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			listarControle();
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			listaControle = (List<Controleprogramasteen>) session.getAttribute("listaControle");
+			session.removeAttribute("listaControle");
+			if (listaControle == null || listaControle.size() == 0) {
+				listarControle();
+			}else {
+				numeroFichas =  "" + String.valueOf(listaControle.size());
+				gerarQuantidadesFichas();
+			}
 			gerarListaUnidadeNegocio();
 		}
 	}
@@ -393,6 +402,7 @@ public class ControleCursosTeensMB implements Serializable{
 		session.setAttribute("vendas", controle.getVendas());
 		voltar = "controleTeens";
 		session.setAttribute("voltar", voltar);
+		session.setAttribute("listaControle", listaControle);
 		return "consArquivos";
 	}
 	

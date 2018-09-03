@@ -65,6 +65,8 @@ public class Pais implements Serializable {
     private List<Cidade> cidadeList;
     @Column(name = "modelo")
     private int modelo;
+    @Column(name = "possuifranquia")
+    private boolean possuifranquia;
     
     public Pais() {
     }
@@ -155,6 +157,14 @@ public class Pais implements Serializable {
 
 	public void setPaisprodutoList(List<Paisproduto> paisprodutoList) {
 		this.paisprodutoList = paisprodutoList;
+	}
+
+	public boolean isPossuifranquia() {
+		return possuifranquia;
+	}
+
+	public void setPossuifranquia(boolean possuifranquia) {
+		this.possuifranquia = possuifranquia;
 	}
 
 	@Override

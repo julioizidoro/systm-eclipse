@@ -7,6 +7,8 @@ package br.com.travelmate.facade;
 import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Moedas;
+import br.com.travelmate.model.Pais;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -93,6 +95,16 @@ public class CambioFacade {
         cambioDao = new CambioDao();
         try {
             return cambioDao.listar(data);
+        } catch (SQLException ex) {
+            Logger.getLogger(CambioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public List<Cambio> listarCambioPais(String data, Pais pais) {
+        cambioDao = new CambioDao();
+        try {
+            return cambioDao.listarCambioPais(data, pais);
         } catch (SQLException ex) {
             Logger.getLogger(CambioFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
