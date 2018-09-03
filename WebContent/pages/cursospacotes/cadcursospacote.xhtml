@@ -222,12 +222,14 @@
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="descontotmreal1"
 							value="#{cadCursosPacotesMB.cursospacote.descontotmreal1}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="ano1"
 							value="#{cadCursosPacotesMB.cursospacote.ano1}"
@@ -237,12 +239,14 @@
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"   
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="descontotmreal2"  
 							value="#{cadCursosPacotesMB.cursospacote.descontotmreal2}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="ano2"
 							value="#{cadCursosPacotesMB.cursospacote.ano2}"
@@ -260,24 +264,28 @@
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText> 
 						<p:inputText id="cambio"
 							value="#{cadCursosPacotesMB.cursospacote.valorcambio}"
 							style="width:89%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="totalpacote"
 							value="#{cadCursosPacotesMB.cursospacote.valormoedaestrangeira}"
 							style="width:84%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="totalpacoteRS"
 							value="#{cadCursosPacotesMB.cursospacote.valortotalpacote}"
 							style="width:84%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 					</h:panelGrid>  
 					<br />
@@ -292,12 +300,14 @@
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="comissaoexpress"
 							value="#{cadCursosPacotesMB.cursospacote.comissaoexpress}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />  
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:inputText id="comissao"
 							value="#{cadCursosPacotesMB.cursospacote.comissao}"
@@ -468,6 +478,7 @@
 							style="margin-left:0.6%;text-align: right">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 					</p:fieldset>
 					<br></br>
@@ -483,6 +494,7 @@
 								style="margin-left:1%;text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
+								<p:ajax event="blur"/>
 								<p:ajax event="blur"
 									listener="#{cadCursosPacotesMB.calcularParcelamento3()}"
 									update="idparcelamentoemcartaocredito" />
@@ -494,6 +506,7 @@
 								style="margin-left:8%;margin-left:1%;text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
+								<p:ajax event="blur"/>
 								<p:ajax event="blur"
 									listener="#{cadCursosPacotesMB.calcularParcelamentoValorEntrada3()}"
 									update="idparcelamentoemcartaocredito" />
@@ -526,6 +539,7 @@
 							style="margin-left:0.3%;text-align: right">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 
 						<p:outputLabel value="Saldo R$:" style="margin-left:16.5%" />
@@ -534,6 +548,7 @@
 							style="margin-left:0.3%;text-align: right">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 
 						<p:outputLabel value="Valor da Parcela:" style="margin-left:15%" />
@@ -542,6 +557,7 @@
 							style="margin-left:0.3%;text-align: right">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 					</p:fieldset>
 					<br></br>
@@ -601,6 +617,7 @@
 							style="margin-left:0.3%;text-align: right">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 						<p:outputLabel value="Saldo R$:" style="margin-left:16.5%" />
 						<p:inputText id="idvalorsaldo4"
@@ -608,6 +625,7 @@
 							style="margin-left:0.3%;text-align: right">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 
 						<p:outputLabel value="Valor da Parcela:" style="margin-left:15%" />
@@ -616,6 +634,7 @@
 							style="margin-left:0.3%;text-align: right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
+								<p:ajax event="blur"/>
 						</p:inputText>
 					</p:fieldset>
 				</p:tab>

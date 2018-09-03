@@ -218,6 +218,11 @@ public class CadCursosPacotesMB implements Serializable {
 					cursospacote.setValorcoprodutos_curso(valorcoprodutos);
 				}
 			}
+			if (cursospacote.getValormoedaestrangeira() >0) {
+				cursospacote.setValoravista(cursospacote.getValormoedaestrangeira());
+			}else if(cursospacote.getValortotalpacote() > 0) {
+				cursospacote.setValoravista(cursospacote.getValortotalpacote());
+			}
 			cursospacote = cursosPacotesFacade.salvar(cursospacote);
 			formapagamento.setCursospacote(cursospacote);
 			CursosPacotesFormaPagamentoFacade pacotesFormaPagamentoFacade = new CursosPacotesFormaPagamentoFacade();
