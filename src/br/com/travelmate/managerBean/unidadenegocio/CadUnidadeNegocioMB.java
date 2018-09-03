@@ -16,12 +16,14 @@ import javax.servlet.http.HttpSession;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Unidadenegocio; 
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
@@ -47,6 +49,8 @@ public class CadUnidadeNegocioMB implements Serializable {
 	private Banco banco;
 	private boolean habilitarNovoCadastro = true;
 	private boolean habilitarEdicao = false;
+	private List<Pais> listaPais;
+	private Pais pais;
 
 	@PostConstruct
 	public void init() {
@@ -55,6 +59,7 @@ public class CadUnidadeNegocioMB implements Serializable {
 		unidadenegocio = (Unidadenegocio) session.getAttribute("unidadenegocio");
 		session.removeAttribute("unidadenegocio");
 		carregarBanco();
+		gerarListaPais();
 		if (unidadenegocio == null) {
 			digitosTelefone=false;
 			unidadenegocio = new Unidadenegocio();
@@ -72,6 +77,7 @@ public class CadUnidadeNegocioMB implements Serializable {
 				somenteLeitura = true;
 			}
 			banco = unidadenegocio.getBanco();
+			pais = unidadenegocio.getPais();
 		}
 	}
  
@@ -176,6 +182,26 @@ public class CadUnidadeNegocioMB implements Serializable {
 	}
 
 
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
+
+
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
+
+
+	public Pais getPais() {
+		return pais;
+	}
+
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+
 	public boolean validarDados() {
 		if (banco == null || banco.getIdbanco() == null) {
 			Mensagem.lancarMensagemInfo("Banco não selecionado.", "");
@@ -197,12 +223,16 @@ public class CadUnidadeNegocioMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Nome relatório não informado.", "");
 			return false;
 		}
+		if (pais == null || pais.getIdpais() == null) {
+			Mensagem.lancarMensagemInfo("Pais não selecionado", "");
+		}
 		return true;
 	}  
 
 	public String salvar() {
 		if (validarDados()) {
 			unidadenegocio.setBanco(banco);
+			unidadenegocio.setPais(pais);
 			UnidadeNegocioFacade unidadeNegocioFacade = new UnidadeNegocioFacade();
 			unidadenegocio.setSituacao(true); 
 			if(unidadenegocio.getIdunidadeNegocio()==null){
@@ -309,5 +339,14 @@ public class CadUnidadeNegocioMB implements Serializable {
 			metaFaturamentoMensalFacade.salvar(metasfaturamentomensal);
 		}
 		return "consUnidade";
+	}
+	
+	
+	public void gerarListaPais() {
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listar("");
+		if (listaPais == null) {
+			listaPais = new ArrayList<Pais>();
+		}
 	}
 }

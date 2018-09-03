@@ -147,7 +147,9 @@ public class paisMB implements Serializable {
 
 	public void retornoDialogNovoPais(SelectEvent event) {
 		Pais pais = (Pais) event.getObject();
-		listaPais.add(pais);
+		if (pais != null) {
+			listaPais.add(pais);
+		}
 	}
 
 	public void retornoDialogNovoCidade(SelectEvent event) {

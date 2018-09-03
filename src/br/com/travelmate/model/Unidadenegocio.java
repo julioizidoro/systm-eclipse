@@ -121,12 +121,13 @@ public class Unidadenegocio implements Serializable {
     private String tiponotificacao;
     @Column(name = "categoria")
     private String categoria;
-    @Column(name = "servidor")
-    private String servidor;
     @Column(name = "tmturcadastro")
     private boolean tmturcadastro;
     @Column(name = "tmturativo")
     private boolean tmturativo;
+    @JoinColumn(name = "pais_idpais", referencedColumnName = "idpais")
+    @ManyToOne(optional = false)
+    private Pais pais;
     @Transient
     private String iconeTmtur;
     @Transient
@@ -406,16 +407,6 @@ public class Unidadenegocio implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public String getServidor() {
-		return servidor;
-	}
-
-	public void setServidor(String servidor) {
-		this.servidor = servidor;
-	}
-	
-	
-
 	public boolean isTmturcadastro() {
 		return tmturcadastro;
 	}
@@ -446,6 +437,14 @@ public class Unidadenegocio implements Serializable {
 
 	public void setTituloTmtur(String tituloTmtur) {
 		this.tituloTmtur = tituloTmtur;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	@Override
