@@ -79,11 +79,22 @@ public class ControleSeguroMB implements Serializable {
 	private List<Controleseguro> listaVendasSeguroCancelamento;
 	private int numeroFichas;
 	private boolean pesquisa=false;
+	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
 		//salvarDataEmissão();
-		listarControle();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaControleSeguro = (List<Controleseguro>) session.getAttribute("listaControleSeguro");
+		session.removeAttribute("listaControleSeguro");
+		if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaControleSeguro == null || listaControleSeguro.size() == 0) {
+			listarControle();
+		}else {
+			numeroFichas = listaControleSeguro.size();
+			gerarQuantidadesFichas();
+			numeroDias();
+		}
 		gerarListaUnidadeNegocio();
 	}
 
@@ -631,6 +642,14 @@ public class ControleSeguroMB implements Serializable {
 				controleSeguroFacade.salvarControle(listaControleSeguro.get(i));
 			}
 		}
+	}
+	
+	public String fichaSeguroViagem(Seguroviagem seguroviagem){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("seguroviagem", seguroviagem);
+		session.setAttribute("listaControleSeguro", listaControleSeguro);
+		return "fichasSeguroViagem";
 	}
 	
 	public void imprimirFicha(Seguroviagem seguro) {

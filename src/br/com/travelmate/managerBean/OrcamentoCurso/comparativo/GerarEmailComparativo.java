@@ -52,15 +52,14 @@ public class GerarEmailComparativo {
 	}
 
 	public String gerarArquivo3() {
-		String retorno = "<?xml version='1.0' encoding='UTF-8' ?>\n" + "<!DOCTYPE html>\n"
+		String retorno = "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" style=\"background: #ffffff;\">\n" + "<head>\n"
 				+ "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n"
 				+ "<title>Relatório Comparativo</title>\n" + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/cssOrcamentoComparativo.css\"\n"
 				+ "	rel=\"stylesheet\" type=\"text/css\" media=\"print\" />\n" + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/cssOrcamentoComparativo.css\"\n"
-				+ "	rel=\"stylesheet\" type=\"text/css\" />\n" + "<link rel=\"SHORTCUT ICON\"\n"
-				+ "	href=\"http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png\" />\n" + "<link\n"
+				+ "	rel=\"stylesheet\" type=\"text/css\" />\n"  + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/bootstrap.min.css\"\n"
 				+ "	rel=\"stylesheet\" />\n" + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/bootstrap.min.css\"\n"
@@ -391,15 +390,14 @@ public class GerarEmailComparativo {
 	}
 
 	public String gerarArquivo2() {
-		String retorno = "<?xml version='1.0' encoding='UTF-8' ?>\n" + "<!DOCTYPE html>\n"
+		String retorno = "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" style=\"background: #ffffff;\">\n" + "<head>\n"
 				+ "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n"
 				+ "<title>Relatório Comparativo</title>\n" + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/cssOrcamentoComparativo.css\"\n"
 				+ "	rel=\"stylesheet\" type=\"text/css\" media=\"print\" />\n" + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/cssOrcamentoComparativo.css\"\n"
-				+ "	rel=\"stylesheet\" type=\"text/css\" />\n" + "<link rel=\"SHORTCUT ICON\"\n"
-				+ "	href=\"http://cdn8.staztic.com/app/a/6090/6090049/travelmate-9-l-280x280.png\" />\n" + "<link\n"
+				+ "	rel=\"stylesheet\" type=\"text/css\" />\n"  + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/bootstrap.min.css\"\n"
 				+ "	rel=\"stylesheet\" />\n" + "<link\n"
 				+ "	href=\"https://systm.com.br:82/systm/elementosOrcamento/bootstrap.min.css\"\n"

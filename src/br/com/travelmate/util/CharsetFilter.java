@@ -24,7 +24,7 @@ public class CharsetFilter implements Filter {
         this.encoding = config.getInitParameter("requestEncoding");
 
         if (this.encoding == null) {
-            this.encoding = "ISO-8859-1";
+            this.encoding = "UTF-8";
         }
     }
 
@@ -37,8 +37,8 @@ public class CharsetFilter implements Filter {
             request.setCharacterEncoding(this.encoding);
         }
 
-        response.setContentType("text/html; charset=ISO-8859-1");
-        response.setCharacterEncoding("ISO-8859-1");
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         chain.doFilter(request, response); 
     }

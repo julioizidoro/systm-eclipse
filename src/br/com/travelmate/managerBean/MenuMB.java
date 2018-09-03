@@ -397,42 +397,55 @@ public class MenuMB implements Serializable {
 	}
 
 	public String controleCurso() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleCurso";
 	}
 
 	public String controleCursosTeens() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleCursosTeens";
 	}
 
 	public String controleHighSchool() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleHighSchool";
 	}
 
 	public String controleAuPair() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleAupair";
 	}
 
 	public String controleTrainee() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleTrainee";
 	}
 
 	public String controleVoluntariado() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleVoluntariado";
 	}
 
 	public String controleWorkAndTravel() {
-		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
 		return "controleWorkAndTravel";
 	}
 
 	public String controleSeguroViagem() {
-		
 		return "controleSeguroViagem";
 	}
 

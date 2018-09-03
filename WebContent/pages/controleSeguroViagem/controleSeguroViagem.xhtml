@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -189,7 +188,7 @@
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(financeiro)}.png" width="24" />
 							</p:column>
 							<p:column headerText="Imp." style="width:45px;text-align:center;">
-								<p:commandLink action="#{controleSeguroMB.imprimirFicha(financeiro.seguroviagem)}"
+								<p:commandLink action="#{controleSeguroMB.fichaSeguroViagem(financeiro.seguroviagem)}"
 									title="Ficha"
 									ajax="false" target="_blank"               
 									style="width:25px;"> 
@@ -293,7 +292,7 @@
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(andamento)}.png" width="24" />
 							</p:column>
 							<p:column headerText="Imp." style="width:45px;text-align:center;">
-								<p:commandLink action="#{controleSeguroMB.imprimirFicha(andamento.seguroviagem)}"
+								<p:commandLink action="#{controleSeguroMB.fichaSeguroViagem(andamento.seguroviagem)}"
 									title="Ficha"
 									ajax="false" target="_blank"
 									style="width:25px;"> 
@@ -397,7 +396,7 @@
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(finalizado)}.png" width="24" />
 							</p:column>
 							<p:column headerText="Imp." style="width:45px;text-align:center;">
-								<p:commandLink action="#{controleSeguroMB.imprimirFicha(finalizado.seguroviagem)}"
+								<p:commandLink action="#{controleSeguroMB.fichaSeguroViagem(finalizado.seguroviagem)}"
 									title="Ficha"
 									ajax="false" target="_blank"
 									style="width:25px;"> 
@@ -501,7 +500,7 @@
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(cancelado)}.png" width="24" />
 							</p:column>  
 							<p:column headerText="Imp." style="width:45px;text-align:center;">
-								<p:commandLink action="#{controleSeguroMB.imprimirFicha(cancelado.seguroviagem)}"
+								<p:commandLink action="#{controleSeguroMB.fichaSeguroViagem(cancelado.seguroviagem)}"
 									title="Ficha"
 									ajax="false" target="_blank"
 									style="width:25px;"> 
@@ -605,7 +604,7 @@
 								<img src="../../resources/img/#{controleSeguroMB.possuiSeguro(seguroCancelamento)}.png" width="24" />
 							</p:column>  
 							<p:column headerText="Imp." style="width:45px;text-align:center;">
-								<p:commandLink action="#{controleSeguroMB.imprimirFicha(seguroCancelamento.seguroviagem)}"
+								<p:commandLink action="#{controleSeguroMB.fichaSeguroViagem(seguroCancelamento.seguroviagem)}"
 									title="Ficha"
 									ajax="false" target="_blank"
 									style="width:25px;"> 

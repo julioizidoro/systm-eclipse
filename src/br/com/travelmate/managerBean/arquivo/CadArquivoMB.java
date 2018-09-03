@@ -367,7 +367,7 @@ public class CadArquivoMB implements Serializable {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) { 
 							AvisosFacade avisosFacade = new AvisosFacade();
 							Avisos avisos = new Avisos();
-							avisos.setData(new Date());
+							avisos.setData(new Date()); 
 							avisos.setUsuario(usuarioLogadoMB.getUsuario());
 							avisos.setImagem("Upload");
 							avisos.setLiberar(true);
