@@ -145,6 +145,8 @@ public class Vendas implements Serializable {
 	@Column(name = "datavalidade")
 	@Temporal(TemporalType.DATE)
 	private Date datavalidade;
+	@Column(name = "valorpais")
+	private Float valorpais;
 
 	public Vendas() {
 		setStatuscobranca("p");
