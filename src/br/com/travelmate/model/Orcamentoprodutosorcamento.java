@@ -38,6 +38,8 @@ public class Orcamentoprodutosorcamento implements Serializable {
     private Float valorMoedaEstrangeira;
     @Column(name = "valorMoedaNacional")
     private Float valorMoedaNacional;
+    @Column(name = "valorbrasil")
+    private Float valorbrasil;
     @Size(max = 1)
     @Column(name = "tipo")
     private String tipo;
@@ -153,6 +155,14 @@ public class Orcamentoprodutosorcamento implements Serializable {
 
 	public void setObrigatorio(boolean obrigatorio) {
 		this.obrigatorio = obrigatorio;
+	}
+
+	public Float getValorbrasil() {
+		return valorbrasil;
+	}
+
+	public void setValorbrasil(Float valorbrasil) {
+		this.valorbrasil = valorbrasil;
 	}
 
 	@Override

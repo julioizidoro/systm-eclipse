@@ -50,6 +50,8 @@ public class Orcamento implements Serializable {
     private Float totalMoedaEstrangeira;
     @Column(name = "totalMoedaNacional")
     private Float totalMoedaNacional;
+    @Column(name = "valorbrasil")
+    private Float valorbrasil;
     @Column(name = "taxatm")
     private Float taxatm;
     @JoinColumn(name = "cambio_idcambio", referencedColumnName = "idcambio")
@@ -141,7 +143,15 @@ public class Orcamento implements Serializable {
         this.vendas = vendas;
     }
 
-    @Override
+    public Float getValorbrasil() {
+		return valorbrasil;
+	}
+
+	public void setValorbrasil(Float valorbrasil) {
+		this.valorbrasil = valorbrasil;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idorcamento != null ? idorcamento.hashCode() : 0);

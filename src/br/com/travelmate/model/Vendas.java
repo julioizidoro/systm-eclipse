@@ -517,6 +517,14 @@ public class Vendas implements Serializable {
 		this.datavalidade = datavalidade;
 	}
 
+	public Float getValorpais() {
+		return valorpais;
+	}
+
+	public void setValorpais(Float valorpais) {
+		this.valorpais = valorpais;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
