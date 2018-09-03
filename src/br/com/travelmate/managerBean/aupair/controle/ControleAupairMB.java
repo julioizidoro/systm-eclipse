@@ -78,7 +78,16 @@ public class ControleAupairMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			listarControle();
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			listaControle = (List<Controleaupair>) session.getAttribute("listaControle");
+			session.removeAttribute("listaControle");
+			if (listaControle == null || listaControle.size() == 0) {
+				listarControle();
+			}else {
+				numeroTodos = listaControle.size();
+				numerosStatus();
+			}
 			gerarListaUnidadeNegocio();
 		}
 	}
@@ -388,6 +397,14 @@ public class ControleAupairMB implements Serializable {
 		this.numeroTodos = numeroTodos;
 	}
 
+	public String getSql() {
+		return sql;
+	}
+
+	public void setSql(String sql) {
+		this.sql = sql;
+	}
+
 	public void listarControle() {
 		AupairFacade aupairFacade = new AupairFacade();   
 		String data = Formatacao.SubtarirDatas(new Date(), 182, "yyyy/MM/dd");
@@ -450,6 +467,7 @@ public class ControleAupairMB implements Serializable {
 		session.setAttribute("vendas", controle.getVendas());
 		voltar = "controleAupair"; 
 		session.setAttribute("voltar", voltar);
+		session.setAttribute("listaControle", listaControle);
 		return "consArquivos";
 	}
 	 

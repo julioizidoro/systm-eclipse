@@ -60,7 +60,13 @@ public class ControleTraineeMB implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-		listarControle();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaControle = (List<Controletrainee>) session.getAttribute("listaControle");
+		session.removeAttribute("listaControle");
+		if (listaControle == null || listaControle.size() == 0) {
+			listarControle();
+		}
 		gerarListaUnidadeNegocio();	
 	}
 	
@@ -292,8 +298,9 @@ public class ControleTraineeMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         session.setAttribute("vendas", controletrainee.getVendas());
-        voltar = "controleTeens";
+        voltar = "controleTrainee";
         session.setAttribute("voltar", voltar);
+        session.setAttribute("listaControle", listaControle);
 		return "consArquivos";
     }
 	

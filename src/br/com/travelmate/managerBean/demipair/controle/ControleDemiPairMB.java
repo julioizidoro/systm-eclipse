@@ -54,7 +54,13 @@ public class ControleDemiPairMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		listarControle();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		listaControle =  (List<Controledemipair>) session.getAttribute("listaControle");
+		session.removeAttribute("listaControle");
+		if (listaControle == null || listaControle.size() == 0) {
+			listarControle();
+		}
 		gerarListaUnidadeNegocio();
 	}
 
@@ -259,6 +265,7 @@ public class ControleDemiPairMB implements Serializable {
 		session.setAttribute("vendas", controle.getVendas());
 		voltar = "controleDemipair";
 		session.setAttribute("voltar", voltar);
+		session.setAttribute("listaControle", listaControle);
 		return "consArquivos";
 	}
 	
