@@ -1400,8 +1400,8 @@ public class CadHighSchoolMB implements Serializable {
 			if (valoreshighschool.getValorgross() > 0) {
 				CambioFacade cambioFacade = new CambioFacade();
 				Cambio cambioValor = new Cambio();
-				cambioValor = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						valoreshighschool.getMoedas().getIdmoedas());
+				cambioValor = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+						valoreshighschool.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				orcamentoprodutosorcamento
 						.setValorMoedaNacional(valoreshighschool.getValorgross() * cambioValor.getValor());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valoreshighschool.getValorgross());

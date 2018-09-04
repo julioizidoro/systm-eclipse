@@ -255,32 +255,46 @@ public class AplicacaoMB implements Serializable {
 			}
 			if(liberar){
 				datacambio = (Formatacao.ConvercaoDataPadrao(listaCambio.get(0).getData()));
-				for (int i = 0; i < listaCambio.size(); i++) {
-					if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("IATA") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						iata = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("USD") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						uds = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("EUR") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						eur = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("GBP") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						gbp = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("cad") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						cad = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("aud") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						aud = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("nzd") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						nzd = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("chf") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						chf = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("zar") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-						zar = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					}
-				} 
+//				for (int i = 0; i < listaCambio.size(); i++) {
+//					if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("IATA") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						iata = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("USD") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						uds = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("EUR") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						eur = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("GBP") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						gbp = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("cad") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						cad = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("aud") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						aud = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("nzd") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						nzd = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("chf") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						chf = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("zar") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
+//						zar = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
+//					}
+//				} 
 			}else{
 				Mensagem.lancarMensagemErro("Atenção!", "Moedas com valores zerados!");
 			}
 		}
 
+	}
+	
+	public String retornarCambio(String moeda) {
+		if (listaCambio != null) {
+			for (int i = 0; i < listaCambio.size(); i++) {
+				String moedacambio = listaCambio.get(i).getMoedas().getSigla();
+				int idPaisCambio = listaCambio.get(i).getPais().getIdpais();
+				int idPaisUnidade = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
+				if (moeda.equalsIgnoreCase(moedacambio) && (idPaisCambio == idPaisUnidade)) {
+					return Formatacao.formatarValorCambio(listaCambio.get(i).getValor());
+				}
+			}
+		}
+		return "0,0000";
 	}
 
 	public void pontuarRunners(Vendas venda, int numeroSemanas, String programa) {
