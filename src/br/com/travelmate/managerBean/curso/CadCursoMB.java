@@ -250,6 +250,7 @@ public class CadCursoMB implements Serializable {
 	private String nomeFornecedor1 = "";
 	private String nomeFornecedor2 = "";
 	private String nomeFornecedor3 = "";
+	private String moedaNacional = "";
 
 	@PostConstruct()
 	public void init() {
@@ -326,6 +327,7 @@ public class CadCursoMB implements Serializable {
 			digitosTelefoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 					usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 					curso.getFoneContatoEmergencia());
+			moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		}
 	}
 
@@ -1044,6 +1046,14 @@ public class CadCursoMB implements Serializable {
 
 	public void setDesabilitarIndependente(boolean desabilitarIndependente) {
 		this.desabilitarIndependente = desabilitarIndependente;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void carregarComboMoedas() {

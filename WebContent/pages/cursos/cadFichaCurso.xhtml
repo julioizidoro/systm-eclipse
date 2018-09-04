@@ -813,7 +813,7 @@
 																				value="Data Termino" />
 																			<p:outputLabel
 																				value="#{cadCursoMB.acomodacao.cambio.moedas.sigla}" />
-																			<p:outputLabel value="R$" style="margin-left:4%" />
+																			<p:outputLabel value="#{cadCursoMB.moedaNacional}" style="margin-left:4%" />
 																			<p:outputLabel/>
 																			<p:inputMask id="datainicio" readonly="true"
 																				value="#{cadCursoMB.acomodacao.datainicial}" size="11"
@@ -864,7 +864,7 @@
 																			<h:outputText
 																				value="#{cadCursoMB.acomodacao.cambio.moedas.sigla}"
 																				style="font-size:13px;" />
-																			<h:outputText value="R$"
+																			<h:outputText value="#{cadCursoMB.moedaNacional}"
 																				style="margin-left:4%;font-size:13px;" />
 																			<h:outputText id="valorOriginalAcomodacao"
 																				value="#{acomodacao.valorOrigianl}"
@@ -1403,7 +1403,7 @@
 							<p:outputLabel id="campomoedaestrangeira"
 								value="#{cadCursoMB.tituloMoedaEstrangeira()}" for="valor"/>
 							<p:outputLabel/>
-							<p:outputLabel value="Valor R$" for="valoreal" />
+							<p:outputLabel value="Valor #{cadCursoMB.moedaNacional}" for="valoreal" />
 							
 							<p:selectOneMenu id="produto"
 								value="#{cadCursoMB.produtosorcamento}"
@@ -1465,7 +1465,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Valor R$"
+							<p:column headerText="Valor #{cadCursoMB.moedaNacional}"
 								style="text-align:right;width:130px;">
 								<h:outputText value="#{produtoscurso.valorMoedaNacional}">
 									<f:convertNumber pattern="##,###,###,###.##"
